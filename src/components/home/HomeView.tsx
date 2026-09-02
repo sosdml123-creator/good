@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Star, Heart } from 'lucide-react';
 import { ProductCategory } from '../../types';
+import { getPopularProducts } from '../../utils/ranking';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -274,7 +275,7 @@ export const HomeView: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {products.slice(0, 5).map((p, i) => (
+          {getPopularProducts(products, 5).map((p, i) => (
             <div
               key={p.id}
               onClick={() => openProductDetail(p.id)}
@@ -314,49 +315,62 @@ export const HomeView: React.FC = () => {
           <button onClick={() => setActiveTab('category')} className="text-[13px] text-gray-400">더보기</button>
         </div>
 
-        <div className="space-y-4">
-          {reviews.slice(0, 2).map((r) => (
-            <div
-              key={r.id}
-              onClick={() => openProductDetail(r.productId)}
-              className="cursor-pointer space-y-2 pb-3 border-b border-gray-100 last:border-0"
-            >
-              <div className="flex items-center gap-2">
-                <img src={r.userAvatar} alt={r.userName} className="w-8 h-8 rounded-full object-cover" />
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[13px] font-semibold text-gray-900">{r.userName}</span>
-                    <span className="text-[10px] text-white bg-gray-400 px-1.5 py-0.2 rounded font-semibold">{r.userLevel}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
-                    <div className="flex items-center gap-0.5">
-                      <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                      <span className="font-semibold text-gray-700">{r.rating.toFixed(1)}</span>
+        {reviews.length > 0 ? (
+          <div className="space-y-4">
+            {reviews.slice(0, 2).map((r) => (
+              <div
+                key={r.id}
+                onClick={() => openProductDetail(r.productId)}
+                className="cursor-pointer space-y-2 pb-3 border-b border-gray-100 last:border-0"
+              >
+                <div className="flex items-center gap-2">
+                  <img src={r.userAvatar} alt={r.userName} className="w-8 h-8 rounded-full object-cover" />
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[13px] font-semibold text-gray-900">{r.userName}</span>
+                      <span className="text-[10px] text-white bg-gray-400 px-1.5 py-0.2 rounded font-semibold">{r.userLevel}</span>
                     </div>
-                    <span>· {r.createdAt}</span>
+                    <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
+                      <div className="flex items-center gap-0.5">
+                        <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                        <span className="font-semibold text-gray-700">{r.rating.toFixed(1)}</span>
+                      </div>
+                      <span>· {r.createdAt}</span>
+                    </div>
                   </div>
                 </div>
+
+                <span className="text-[11px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md inline-block">
+                  {r.productName}
+                </span>
+
+                <p className="text-[13px] text-gray-700 leading-relaxed">
+                  {r.content}
+                </p>
+
+                {r.images && r.images.length > 0 && (
+                  <img src={r.images[0]} alt="review" className="mt-2 w-full rounded-xl object-cover" style={{ height: '160px' }} />
+                )}
+
+                <div className="flex items-center gap-4 mt-2 text-[12px] text-gray-400">
+                  <span>♡ 도움돼요 {r.likes}</span>
+                  <span>💬 댓글 {r.commentsCount || 0}</span>
+                </div>
               </div>
-
-              <span className="text-[11px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md inline-block">
-                {r.productName}
-              </span>
-
-              <p className="text-[13px] text-gray-700 leading-relaxed">
-                {r.content}
-              </p>
-
-              {r.images && r.images.length > 0 && (
-                <img src={r.images[0]} alt="review" className="mt-2 w-full rounded-xl object-cover" style={{ height: '160px' }} />
-              )}
-
-              <div className="flex items-center gap-4 mt-2 text-[12px] text-gray-400">
-                <span>♡ 도움돼요 {r.likes}</span>
-                <span>💬 댓글 쓰기</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-6 text-gray-400 bg-gray-50 rounded-2xl p-4">
+            <p className="text-[13px] font-semibold text-gray-700">아직 등록된 후기가 없습니다 ✨</p>
+            <p className="text-[11px] text-gray-400 mt-1">맛있는 신상을 맛보고 첫 번째 솔직 후기를 남겨보세요!</p>
+            <button
+              onClick={() => setActiveTab('write')}
+              className="mt-3 px-4 py-1.5 bg-[#0066FF] text-white text-xs font-bold rounded-full shadow-xs hover:bg-blue-600 transition-colors"
+            >
+              리뷰 작성하러 가기
+            </button>
+          </div>
+        )}
       </div>
 
     </div>

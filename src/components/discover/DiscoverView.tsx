@@ -211,69 +211,77 @@ export const DiscoverView: React.FC = () => {
 
       {/* 3. Product & Item List */}
       <div className="bg-white divide-y divide-gray-100">
-        {filtered.map((p) => {
-          const isBookmarked = bookmarkedIds.includes(p.id);
+        {filtered.length > 0 ? (
+          filtered.map((p) => {
+            const isBookmarked = bookmarkedIds.includes(p.id);
 
-          return (
-            <div
-              key={p.id}
-              onClick={() => openProductDetail(p.id)}
-              className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:bg-gray-50 hover:bg-gray-50/60 transition-colors"
-            >
-              <div className="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-gray-100">
-                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                {p.discountRate && p.discountRate > 0 && (
-                  <span className="absolute top-1 left-1 text-[10px] font-bold bg-red-500 text-white px-1 py-0.2 rounded">
-                    {p.discountRate}%
-                  </span>
-                )}
-                {p.subCategory && (
-                  <span className="absolute bottom-1 left-1 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.2 rounded backdrop-blur-xs">
-                    {p.subCategory}
-                  </span>
-                )}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="text-[11px] text-gray-400">{p.brand}</div>
-                <div className="text-[13px] font-semibold text-gray-900 leading-snug truncate">
-                  {p.name}
-                </div>
-
-                {/* Rating & Fresh Metrics Preview */}
-                <div className="flex items-center gap-1.5 mt-1">
-                  <div className="flex items-center">
-                    <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                  </div>
-                  <span className="text-[11px] font-semibold text-gray-700">{p.overallRating.toFixed(1)}</span>
-                  <span className="text-[11px] text-gray-400">({p.ratingCount})</span>
-
-                  {p.freshMetrics && (
-                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded ml-1">
-                      당도 {p.freshMetrics.sweetness} / 신선 {p.freshMetrics.freshness}
+            return (
+              <div
+                key={p.id}
+                onClick={() => openProductDetail(p.id)}
+                className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:bg-gray-50 hover:bg-gray-50/60 transition-colors"
+              >
+                <div className="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-gray-100">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                  {p.discountRate && p.discountRate > 0 && (
+                    <span className="absolute top-1 left-1 text-[10px] font-bold bg-red-500 text-white px-1 py-0.2 rounded">
+                      {p.discountRate}%
+                    </span>
+                  )}
+                  {p.subCategory && (
+                    <span className="absolute bottom-1 left-1 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.2 rounded backdrop-blur-xs">
+                      {p.subCategory}
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  {p.discountRate && p.discountRate > 0 && (
-                    <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
-                  )}
-                  <span className="text-[13px] font-bold text-gray-900">
-                    {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
-                  </span>
-                </div>
-              </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[11px] text-gray-400">{p.brand}</div>
+                  <div className="text-[13px] font-semibold text-gray-900 leading-snug truncate">
+                    {p.name}
+                  </div>
 
-              <button
-                onClick={(e) => toggleBookmark(p.id, e)}
-                className="text-xl p-1 shrink-0 text-gray-300 hover:text-rose-500 transition-colors"
-              >
-                <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
-              </button>
-            </div>
-          );
-        })}
+                  {/* Rating & Fresh Metrics Preview */}
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <div className="flex items-center">
+                      <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                    </div>
+                    <span className="text-[11px] font-semibold text-gray-700">{p.overallRating.toFixed(1)}</span>
+                    <span className="text-[11px] text-gray-400">({p.ratingCount})</span>
+
+                    {p.freshMetrics && (
+                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded ml-1">
+                        당도 {p.freshMetrics.sweetness} / 신선 {p.freshMetrics.freshness}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    {p.discountRate && p.discountRate > 0 && (
+                      <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
+                    )}
+                    <span className="text-[13px] font-bold text-gray-900">
+                      {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={(e) => toggleBookmark(p.id, e)}
+                  className="text-xl p-1 shrink-0 text-gray-300 hover:text-rose-500 transition-colors"
+                >
+                  <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <div className="text-center py-16 px-4 space-y-2 text-gray-400">
+            <span className="text-3xl block">🍽️</span>
+            <p className="text-xs font-bold text-gray-700">해당 카테고리의 상품이 없습니다.</p>
+            <p className="text-[11px]">다른 카테고리나 하위 품목을 선택해보세요.</p>
+          </div>
+        )}
       </div>
 
     </div>

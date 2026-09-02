@@ -38,14 +38,23 @@ export const WriteReviewModal: React.FC = () => {
         { label: '재구매', left: '안살듯', right: '무조건' },
       ];
 
-  const handleSubmit = () => {
-    submitReview(
-      prod.id,
-      rating,
-      { taste: metric1, value: metric2, portion: metric3, repurchase: metric4 },
-      text || '정말 맛있고 품질이 뛰어납니다! 추천해요.'
-    );
-    showToast('리뷰 및 평가가 등록되었습니다! 50P가 적립됩니다 🎉');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await submitReview(
+        prod.id,
+        rating,
+        { taste: metric1, value: metric2, portion: metric3, repurchase: metric4 },
+        text || '정말 맛있고 품질이 뛰어납니다! 적극 추천해요.'
+      );
+    } catch (err) {
+      showToast('리뷰 등록 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

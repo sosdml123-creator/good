@@ -168,6 +168,15 @@ export interface ToastMessage {
   type?: 'success' | 'info' | 'error';
 }
 
+export interface UserProfile {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+  level: string;
+  points: number;
+  isAnonymous?: boolean;
+}
+
 export type ActiveTab = 
   | 'home' 
   | 'category' 
@@ -178,3 +187,4 @@ export type ActiveTab =
   | 'compare' 
   | 'alert_settings' 
   | 'search';
+
