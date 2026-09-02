@@ -204,7 +204,7 @@ export const ProductDetailModal: React.FC = () => {
         </div>
       )}
 
-      {/* 6. [외식 메뉴 특화: 지역별 인기 맛집 랭킹 & 인기 메뉴 변형] */}
+      {/* 6. [지역별 맛집 랭킹 & 인기 메뉴 변형] */}
       {selectedProduct.restaurantInfo && (
         <div className="bg-white px-4 py-4 mt-2 border-b border-gray-100">
           <div className="flex items-center justify-between mb-3">

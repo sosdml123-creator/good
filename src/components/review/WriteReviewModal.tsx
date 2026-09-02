@@ -15,7 +15,6 @@ export const WriteReviewModal: React.FC = () => {
   const prod = products.find(p => p.id === selectedProductId) || products[0];
 
   const isFresh = prod.itemType === 'fresh' || ['과일', '고기·수산', '식재료'].includes(prod.category);
-  const isRest = prod.itemType === 'restaurant' || prod.category === '외식';
 
   const labels = isFresh
     ? [
@@ -23,13 +22,6 @@ export const WriteReviewModal: React.FC = () => {
         { label: '신선도', left: '보통', right: '매우신선' },
         { label: '식감', left: '물러요', right: '아삭/쫀득' },
         { label: '가격만족도', left: '비쌈', right: '가성비최고' },
-      ]
-    : isRest
-    ? [
-        { label: '맛·음식품질', left: '별로', right: '인생맛집' },
-        { label: '양', left: '적음', right: '푸짐함' },
-        { label: '서비스·분위기', left: '아쉬움', right: '매우만족' },
-        { label: '재방문의사', left: '안갈듯', right: '무조건재방문' },
       ]
     : [
         { label: '맛', left: '별로', right: '최고' },
@@ -112,7 +104,7 @@ export const WriteReviewModal: React.FC = () => {
       {/* 4. Dynamic Detailed Sliders */}
       <div className="bg-white px-4 py-4 border-b border-gray-100 space-y-4">
         <div className="text-[14px] font-bold text-gray-900 mb-1">
-          {isFresh ? '🍎 신선식품 세부 평가' : isRest ? '🥢 외식 메뉴 세부 평가' : '세부 항목 평가'}
+          {isFresh ? '🍎 신선식품 세부 평가' : '세부 항목 평가'}
         </div>
         
         {/* Metric 1 */}
@@ -187,7 +179,7 @@ export const WriteReviewModal: React.FC = () => {
           rows={5}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder={isRest ? "방문하신 식당의 분위기나 음식 맛, 추천 팁을 남겨주세요!" : "당도, 식감, 신선도나 가성비에 대한 솔직한 후기를 남겨주세요 (최소 10자)"}
+          placeholder="당도, 식감, 신선도나 가성비에 대한 솔직한 후기를 남겨주세요 (최소 10자)"
           className="w-full bg-gray-50 rounded-xl p-3 text-[13px] text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed"
         />
         <div className="text-right text-[11px] text-gray-400 mt-1">{text.length}/500</div>

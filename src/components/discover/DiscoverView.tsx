@@ -64,7 +64,7 @@ export const DiscoverView: React.FC = () => {
             className="flex-1 flex items-center gap-2 bg-gray-100 rounded-full px-3.5 py-2 cursor-pointer"
           >
             <Search className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-400">품목, 브랜드, 외식 메뉴 검색</span>
+            <span className="text-sm text-gray-400">신상품, 먹거리, 브랜드 검색</span>
           </div>
 
           <button className="p-1 text-gray-700">
@@ -127,7 +127,7 @@ export const DiscoverView: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Highlight: 품목별 브랜드 랭킹 or 외식 메뉴 지역별 맛집 랭킹 (Featured Card) */}
+      {/* 2. Highlight: 품목별 브랜드 랭킹 (Featured Card) */}
       {featuredItem && featuredItem.brandRankings && (
         <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-amber-50/80 to-orange-50/40 rounded-2xl border border-amber-200/60 shadow-2xs">
           <div className="flex items-center justify-between mb-2">

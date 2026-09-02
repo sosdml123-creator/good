@@ -24,7 +24,7 @@ export const HomeView: React.FC = () => {
   const quickIcons = [
     { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
     { label: '과자·스낵', icon: '🍪', color: 'bg-orange-50 text-orange-500', cat: '과자' as ProductCategory },
-    { label: '외식맛집', icon: '🍜', color: 'bg-red-50 text-red-500', cat: '외식' as ProductCategory },
+    { label: '간편·밀키트', icon: '🍲', color: 'bg-red-50 text-red-500', cat: '간편식' as ProductCategory },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'my' },
   ];
@@ -37,7 +37,6 @@ export const HomeView: React.FC = () => {
     { label: '과일', icon: '🍑', cat: '과일' },
     { label: '식재료', icon: '🥚', cat: '식재료' },
     { label: '고기·수산', icon: '🥩', cat: '고기·수산' },
-    { label: '외식', icon: '🥢', cat: '외식' },
     { label: '기타', icon: '🍺', cat: '기타' },
   ];
 
@@ -62,7 +61,7 @@ export const HomeView: React.FC = () => {
             먹거리 전체 탐색 & 평가
           </span>
           <div className="text-white font-black text-xl mt-1.5 leading-tight">
-            신제품부터 산지직송 과일·외식까지<br />
+            신제품부터 산지직송 제철 먹거리까지<br />
             <span className="font-semibold text-base opacity-90">솔직한 먹거리 품목별 랭킹</span>
           </div>
           <button
@@ -245,7 +244,7 @@ export const HomeView: React.FC = () => {
           >
             <img src={products.find(p=>p.id==='rest-01')?.image || products[2].image} alt="B" className="w-full aspect-square object-cover" />
             <div className="p-2.5">
-              <div className="text-[11px] text-gray-400">외식 랭킹 1위</div>
+              <div className="text-[11px] text-gray-400">밀키트 랭킹 1위</div>
               <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">전통 평양냉면</div>
               <div className="mt-1.5 flex items-center gap-1">
                 <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">

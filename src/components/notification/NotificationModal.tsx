@@ -15,7 +15,6 @@ export const NotificationModal: React.FC = () => {
     { id: '과일', label: '과일', icon: '🍑' },
     { id: '식재료', label: '식재료', icon: '🥚' },
     { id: '고기·수산', label: '고기·수산', icon: '🥩' },
-    { id: '외식', label: '외식', icon: '🍜' },
     { id: '기타', label: '기타', icon: '🍺' },
   ];
 

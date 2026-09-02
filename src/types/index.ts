@@ -8,7 +8,6 @@ export type ProductCategory =
   | '과일'
   | '식재료'
   | '고기·수산'
-  | '외식'
   | '기타';
 
 export interface DetailedRating {

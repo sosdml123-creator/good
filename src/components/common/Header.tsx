@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
         >
           <Search className="w-4 h-4 text-gray-400 shrink-0" />
           <span className="text-xs text-gray-400 font-medium truncate">
-            음식·식재료, 브랜드, 외식 맛집 검색
+            신상품, 먹거리, 브랜드 검색
           </span>
         </button>
 
