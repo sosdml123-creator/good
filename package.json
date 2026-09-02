@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
     "@supabase/supabase-js": "^2.112.4",
     "canvas-confetti": "^1.9.2",
     "clsx": "^2.1.0",
