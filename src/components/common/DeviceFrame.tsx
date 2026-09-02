@@ -34,7 +34,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({ children }) => {
         </div>
 
         {/* Viewport Content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-white">
+        <div className="flex-1 min-h-0 relative flex flex-col bg-white overflow-hidden">
           {children}
         </div>
 

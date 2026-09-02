@@ -18,7 +18,7 @@ export const CompareModal: React.FC = () => {
   const p2 = showList[1] || showList[0];
 
   return (
-    <div className="bg-white min-h-screen pb-28">
+    <div className="bg-white min-h-full pb-12">
       
       {/* 1. Exact Screen 6 Top Bar */}
       <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between z-30 shadow-2xs">

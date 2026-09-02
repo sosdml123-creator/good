@@ -41,7 +41,7 @@ export const SearchModal: React.FC = () => {
     : [];
 
   return (
-    <div className="bg-white min-h-screen flex flex-col pb-24">
+    <div className="bg-white min-h-full flex flex-col pb-12">
       {/* 1. Top Search Header */}
       <div className="sticky top-0 bg-white border-b border-gray-100 px-3 py-2.5 flex items-center gap-2 z-30">
         <button

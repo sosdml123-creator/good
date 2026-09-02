@@ -21,7 +21,8 @@ export const App: React.FC = () => {
     <DeviceFrame>
       <ToastContainer />
 
-      <main className="flex-1 bg-[#F8F9FA] flex flex-col min-h-screen">
+      {/* Scrollable Main Content Area */}
+      <main className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
         {/* Dynamic Route/Tab Display */}
         {activeTab === 'home' && (
           <>
@@ -39,7 +40,7 @@ export const App: React.FC = () => {
         {activeTab === 'search' && <SearchModal />}
       </main>
 
-      {/* Fixed Bottom Navigation */}
+      {/* Fixed Bottom Navigation (Always pinned to bottom) */}
       <BottomNav />
     </DeviceFrame>
   );

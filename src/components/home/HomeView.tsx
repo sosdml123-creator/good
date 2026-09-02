@@ -22,28 +22,23 @@ export const HomeView: React.FC = () => {
   const percentB = 100 - percentA;
 
   const quickIcons = [
-    { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '전체' as ProductCategory },
-    { label: '제철과일', icon: '🍑', color: 'bg-orange-50 text-orange-500', cat: '과일' as ProductCategory },
-    { label: '외식맛집', icon: '🍜', color: 'bg-red-50 text-red-500', cat: '외식 메뉴' as ProductCategory },
+    { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
+    { label: '과자·스낵', icon: '🍪', color: 'bg-orange-50 text-orange-500', cat: '과자' as ProductCategory },
+    { label: '외식맛집', icon: '🍜', color: 'bg-red-50 text-red-500', cat: '외식' as ProductCategory },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'my' },
   ];
 
   const categoryIcons: { label: string; icon: string; cat: ProductCategory }[] = [
-    { label: '과일', icon: '🍑', cat: '과일' },
-    { label: '채소', icon: '🥗', cat: '채소' },
-    { label: '육류', icon: '🥩', cat: '육류' },
-    { label: '수산물', icon: '🐟', cat: '수산물' },
-    { label: '식재료', icon: '🥚', cat: '식재료' },
-    { label: '베이커리', icon: '🥐', cat: '빵/베이커리' },
-    { label: '디저트', icon: '🍰', cat: '디저트' },
-    { label: '냉동식품', icon: '🥟', cat: '냉동식품' },
-    { label: '밀키트', icon: '🍲', cat: '밀키트' },
-    { label: '즉석식품', icon: '🍚', cat: '즉석식품' },
-    { label: '외식메뉴', icon: '🥢', cat: '외식 메뉴' },
     { label: '과자', icon: '🍪', cat: '과자' },
     { label: '음료', icon: '🥤', cat: '음료' },
-    { label: '라면', icon: '🍜', cat: '라면' },
+    { label: '빵·디저트', icon: '🥐', cat: '빵·디저트' },
+    { label: '간편식', icon: '🍲', cat: '간편식' },
+    { label: '과일', icon: '🍑', cat: '과일' },
+    { label: '식재료', icon: '🥚', cat: '식재료' },
+    { label: '고기·수산', icon: '🥩', cat: '고기·수산' },
+    { label: '외식', icon: '🥢', cat: '외식' },
+    { label: '기타', icon: '🍺', cat: '기타' },
   ];
 
   const handleCategoryClick = (cat: ProductCategory) => {
@@ -52,7 +47,7 @@ export const HomeView: React.FC = () => {
   };
 
   return (
-    <div className="pb-28 bg-[#F5F5F5] min-h-screen">
+    <div className="pb-12 bg-[#F5F5F5] min-h-full">
       
       {/* 1. Main Banner */}
       <div className="relative bg-gray-900 overflow-hidden" style={{ height: '220px' }}>

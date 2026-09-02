@@ -44,7 +44,7 @@ export const ProductDetailModal: React.FC = () => {
       ];
 
   return (
-    <div className="bg-[#F5F5F5] min-h-screen pb-28">
+    <div className="bg-[#F5F5F5] min-h-full pb-12">
       
       {/* 1. Header */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">

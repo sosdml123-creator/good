@@ -7,19 +7,20 @@ export const NotificationModal: React.FC = () => {
 
   const categories = [
     { id: '전체', label: '전체', icon: '🎯' },
+    { id: '신제품', label: '신제품', icon: '⚡' },
     { id: '과자', label: '과자', icon: '🍿' },
     { id: '음료', label: '음료', icon: '🥤' },
-    { id: '라면', label: '라면', icon: '🍜' },
-    { id: '아이스크림', label: '아이스크림', icon: '🍦' },
-    { id: '편의점', label: '편의점', icon: '🏪' },
-    { id: '초콜릿', label: '초콜릿', icon: '🍫' },
-    { id: '빵/디저트', label: '빵/디저트', icon: '🥐' },
-    { id: '냉동식품', label: '냉동식품', icon: '🥟' },
+    { id: '빵·디저트', label: '빵·디저트', icon: '🥐' },
+    { id: '간편식', label: '간편식', icon: '🍲' },
+    { id: '과일', label: '과일', icon: '🍑' },
+    { id: '식재료', label: '식재료', icon: '🥚' },
+    { id: '고기·수산', label: '고기·수산', icon: '🥩' },
+    { id: '외식', label: '외식', icon: '🍜' },
     { id: '기타', label: '기타', icon: '🍺' },
   ];
 
   return (
-    <div className="bg-white min-h-screen pb-28">
+    <div className="bg-white min-h-full pb-12">
       
       {/* 1. Exact Screen 8 Top Bar */}
       <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between z-30 shadow-2xs">

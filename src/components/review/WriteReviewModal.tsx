@@ -14,8 +14,8 @@ export const WriteReviewModal: React.FC = () => {
 
   const prod = products.find(p => p.id === selectedProductId) || products[0];
 
-  const isFresh = prod.itemType === 'fresh' || ['과일', '채소', '육류', '수산물', '식재료'].includes(prod.category);
-  const isRest = prod.itemType === 'restaurant' || prod.category === '외식 메뉴';
+  const isFresh = prod.itemType === 'fresh' || ['과일', '고기·수산', '식재료'].includes(prod.category);
+  const isRest = prod.itemType === 'restaurant' || prod.category === '외식';
 
   const labels = isFresh
     ? [
@@ -58,7 +58,7 @@ export const WriteReviewModal: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen pb-28">
+    <div className="bg-white min-h-full pb-12">
       
       {/* 1. Header */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">

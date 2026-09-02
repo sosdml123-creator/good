@@ -31,7 +31,14 @@ export const DiscoverView: React.FC = () => {
     }
     // 2. SubCategory check
     if (selectedSubCategory !== '전체') {
-      if (p.subCategory !== selectedSubCategory) return false;
+      if (selectedCategory === '신제품') {
+        if (p.category !== selectedSubCategory && p.subCategory !== selectedSubCategory) return false;
+      } else {
+        const matchesSub = p.subCategory === selectedSubCategory;
+        const matchesName = p.name.toLowerCase().includes(selectedSubCategory.toLowerCase());
+        const matchesDesc = p.description?.toLowerCase().includes(selectedSubCategory.toLowerCase());
+        if (!matchesSub && !matchesName && !matchesDesc) return false;
+      }
     }
     return true;
   });
@@ -40,7 +47,7 @@ export const DiscoverView: React.FC = () => {
   const featuredItem = filtered.find(p => (p.brandRankings && p.brandRankings.length > 0) || (p.restaurantInfo && p.restaurantInfo.regionRankings));
 
   return (
-    <div className="pb-28 bg-white min-h-screen">
+    <div className="pb-12 bg-white min-h-full">
       
       {/* 1. Header with Search Bar */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">

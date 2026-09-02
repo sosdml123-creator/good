@@ -1,13 +1,13 @@
 import { Product, ProductCategory } from '../types';
 
 export const INITIAL_PRODUCTS: Product[] = [
-  // 1. 기존 신제품 & 과자
+  // 1. [과자] 신제품 & 스낵
   {
     id: 'prod-01',
     name: '꼬북칩 초코츄러스맛 더블크런치',
     brand: '오리온',
     category: '과자',
-    subCategory: '스낵/칩',
+    subCategory: '스낵',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
     releaseDate: '2026.09.02 출시',
@@ -29,8 +29,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-02',
     name: '연세우유 피스타치오 생크림빵',
     brand: '연세우유 (CU단독)',
-    category: '편의점',
-    subCategory: '디저트빵',
+    category: '빵·디저트',
+    subCategory: '식빵',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80',
     releaseDate: '2026.09.02 출시',
@@ -53,7 +53,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: '포카칩 먹태청양마요맛 에디션',
     brand: '오리온',
     category: '과자',
-    subCategory: '스낵/칩',
+    subCategory: '스낵',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1566478989037-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
     releaseDate: '2026.09.01 출시',
@@ -65,6 +65,52 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.7, value: 4.1, portion: 3.9, repurchase: 4.5 },
     description: '100% 생감자칩의 바삭함에 고소한 먹태 분말과 매콤달콤 청양마요 시즈닝의 밸런스.',
     bestQuotes: ['알싸한 청양마요가 맥주 안주로 딱!', '바삭하고 짭조름해서 최고예요'],
+  },
+  // [음료] 신제품
+  {
+    id: 'drink-01',
+    name: '코카콜라 제로 레몬맛 신상캔',
+    brand: '코카콜라',
+    category: '음료',
+    subCategory: '탄산',
+    itemType: 'packaged',
+    image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=600&auto=format&fit=crop&q=80',
+    releaseDate: '2026.09.02 출시',
+    price: 2000,
+    discountRate: 10,
+    overallRating: 4.8,
+    ratingCount: 620,
+    stores: ['CU', 'GS25', '세븐일레븐'],
+    repurchasePercent: 95,
+    calories: 0,
+    volume: '355ml',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.6, repurchase: 4.8 },
+    description: '짜릿한 코카콜라 제로의 탄산감에 상큼한 천연 레몬 과즙향이 더해져 청량감이 배가되었습니다.',
+    bestQuotes: ['레몬향이 인위적이지 않고 상큼해요 🍋', '제로 탄산 중에 제일 맛있음'],
+  },
+  {
+    id: 'drink-02',
+    name: '스타벅스 시그니처 바닐라 빈 라떼 RTD',
+    brand: '동서식품 / 스타벅스',
+    category: '음료',
+    subCategory: '커피',
+    itemType: 'packaged',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&auto=format&fit=crop&q=80',
+    releaseDate: '2026.09.01 출시',
+    price: 3200,
+    discountRate: 0,
+    overallRating: 4.7,
+    ratingCount: 450,
+    stores: ['CU', 'GS25', '대형마트'],
+    repurchasePercent: 92,
+    calories: 195,
+    volume: '270ml',
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.2, portion: 4.5, repurchase: 4.7 },
+    description: '마다가스카르산 바닐라빈 추출액과 진한 에스프레소, 신선한 우유가 어우러진 프리미엄 컵커피입니다.',
+    bestQuotes: ['카페에서 사먹는 바닐라 라떼 맛 그대로예요 ☕', '당도가 딱 적당합니다'],
   },
 
   // 2. [과일] 품목 & 브랜드 랭킹 데이터
@@ -126,40 +172,35 @@ export const INITIAL_PRODUCTS: Product[] = [
     stores: ['쿠팡프레시', '대형마트'],
   },
 
-  // 3. [채소]
+  // 3. [과일] & [식재료]
   {
-    id: 'veg-01',
-    name: '스테비아 고당도 대추방울토마토 토망고',
-    brand: '샤인마토',
-    category: '채소',
-    subCategory: '토마토',
+    id: 'fruit-03',
+    name: '청송 꿀사과 고당도 사과 (부사)',
+    brand: '청송 로컬농협',
+    category: '과일',
+    subCategory: '사과',
     itemType: 'fresh',
-    image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600&auto=format&fit=crop&q=80',
-    releaseDate: '항시신선',
-    price: 7900,
+    image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600&auto=format&fit=crop&q=80',
+    releaseDate: '산지직송 제철',
+    price: 18900,
     discountRate: 10,
-    overallRating: 4.9,
-    ratingCount: 1120,
-    volume: '500g 1팩',
-    repurchasePercent: 98,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.6, portion: 4.5, repurchase: 4.9 },
-    freshMetrics: { sweetness: 5.0, freshness: 4.8, texture: 4.8, value: 4.6 },
-    description: '천연 스테비아 농법으로 설탕을 뿌린 듯 달콤하고 탱글탱글 씹히는 다이어트 필수 채소입니다.',
-    bestQuotes: ['과자 대신 간식으로 먹는데 너무 달콤해요 🍅', '신맛 전혀 없고 달달 그 자체'],
-    brandRankings: [
-      { rank: 1, name: '토망고 스테비아 토마토', brand: '샤인마토', rating: 4.9, ratingCount: 1120, price: 7900, tag: '달콤 1위' },
-      { rank: 2, name: '대저 짭짤이 토마토', brand: '부산 강서농협', rating: 4.7, ratingCount: 780, price: 9900, tag: '단짠 풍미' },
-    ],
+    overallRating: 4.8,
+    ratingCount: 740,
+    volume: '2kg (6~8과)',
+    repurchasePercent: 95,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.6, repurchase: 4.8 },
+    freshMetrics: { sweetness: 4.9, freshness: 4.9, texture: 4.9, value: 4.5 },
+    description: '청송의 맑은 공기와 풍부한 일조량으로 꿀이 가득 찬 아삭한 프리미엄 꿀사과입니다.',
+    bestQuotes: ['아삭아삭하고 꿀이 꽉 차있어요 🍎', '선물용으로 강력 추천합니다'],
     stores: ['마켓컬리', '쿠팡프레시', '대형마트'],
   },
 
-  // 4. [육류]
+  // 4. [고기·수산]
   {
     id: 'meat-01',
     name: '횡성한우 1++ No.9 웻에이징 숙성 꽃등심',
     brand: '횡성한우 명품관',
-    category: '육류',
+    category: '고기·수산',
     subCategory: '소고기',
     itemType: 'fresh',
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
@@ -184,7 +225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'meat-02',
     name: '제주 흑돼지 칼집 칼집 오겹살',
     brand: '제주 로컬포크',
-    category: '육류',
+    category: '고기·수산',
     subCategory: '돼지고기',
     itemType: 'fresh',
     image: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=600&auto=format&fit=crop&q=80',
@@ -201,13 +242,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     bestQuotes: ['쫀득쫀득한 껍데기 식감이 예술이에요', '멜젓 찍어먹으면 천국'],
     stores: ['쿠팡프레시', '대형마트'],
   },
-
-  // 5. [수산물]
   {
     id: 'seafood-01',
     name: '노르웨이 항공직송 슈페리어급 생연어회',
     brand: '노르웨이 오슬로 씨푸드',
-    category: '수산물',
+    category: '고기·수산',
     subCategory: '연어',
     itemType: 'fresh',
     image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&auto=format&fit=crop&q=80',
@@ -230,7 +269,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stores: ['마켓컬리', '쿠팡프레시'],
   },
 
-  // 6. [식재료]
+  // 5. [식재료]
   {
     id: 'ing-01',
     name: '동물복지 유정란 1+등급 자연방사란',
@@ -253,12 +292,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     stores: ['마켓컬리', '쿠팡프레시', '대형마트'],
   },
 
-  // 7. [빵/베이커리]
+  // 6. [빵·디저트]
   {
     id: 'bakery-01',
     name: '프랑스 고메버터 퐁당 소금빵 (시오빵)',
     brand: '성심당 스타일 베이커리',
-    category: '빵/베이커리',
+    category: '빵·디저트',
     subCategory: '소금빵',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&auto=format&fit=crop&q=80',
@@ -274,13 +313,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     bestQuotes: ['에어프라이어 180도 3분 돌리면 갓 구운 빵집 냄새 솔솔 🥐', '버터홀이 큼직해서 버터향 폭발'],
     stores: ['마켓컬리', '대형마트'],
   },
-
-  // 8. [디저트]
   {
     id: 'dessert-01',
     name: '순우유 100% 생딸기 폭탄 듬뿍 케이크',
     brand: '키친205 스타일',
-    category: '디저트',
+    category: '빵·디저트',
     subCategory: '케이크',
     itemType: 'fresh',
     image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
@@ -297,12 +334,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     stores: ['마켓컬리', '대형마트'],
   },
 
-  // 9. [냉동식품]
+  // 7. [간편식]
   {
     id: 'frozen-01',
     name: '비비고 꽉찬 통새우 왕교자 만두',
     brand: 'CJ제일제당',
-    category: '냉동식품',
+    category: '간편식',
     subCategory: '만두',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=600&auto=format&fit=crop&q=80',
@@ -318,14 +355,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     bestQuotes: ['찜기로 쪄먹어도 군만두로 구워도 최고 🥟', '비비고 만두 중 새우만두가 1등입니다'],
     stores: ['CU', 'GS25', '대형마트', '쿠팡프레시'],
   },
-
-  // 10. [밀키트]
   {
     id: 'mealkit-01',
     name: '의정부식 햄폭탄 우삼겹 부대찌개 밀키트',
     brand: '프레시지',
-    category: '밀키트',
-    subCategory: '부대찌개',
+    category: '간편식',
+    subCategory: '밀키트',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?w=600&auto=format&fit=crop&q=80',
     releaseDate: '인기밀키트',
@@ -340,13 +375,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     bestQuotes: ['햄 양이 식당보다 많아요! 라면사리 넣어 든든하게 먹었습니다 🍲', '캠핑장 필수 밀키트'],
     stores: ['마켓컬리', '쿠팡프레시', '대형마트'],
   },
-
-  // 11. [즉석식품]
   {
     id: 'instant-01',
     name: '햇반 솥반 전복내장 영양밥',
     brand: 'CJ제일제당',
-    category: '즉석식품',
+    category: '간편식',
     subCategory: '즉석밥',
     itemType: 'packaged',
     image: 'https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=600&auto=format&fit=crop&q=80',
@@ -363,12 +396,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
   },
 
-  // 12. [외식 메뉴] (Restaurant Menu Evaluation & Region Rankings)
+  // 8. [외식]
   {
     id: 'rest-01',
     name: '정통 맷돌 평양냉면 & 비빔냉면',
     brand: '외식 메뉴 탐색',
-    category: '외식 메뉴',
+    category: '외식',
     subCategory: '냉면',
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80',
@@ -400,7 +433,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'rest-02',
     name: '짚불 볏짚 초벌 숙성 삼겹살',
     brand: '외식 메뉴 탐색',
-    category: '외식 메뉴',
+    category: '외식',
     subCategory: '삼겹살',
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
@@ -421,41 +454,73 @@ export const INITIAL_PRODUCTS: Product[] = [
       ],
     },
     stores: ['서울 중구', '서울 용산구', '부산 부산진구'],
+  },
+  {
+    id: 'rest-03',
+    name: '황금올리브 크리스피 후라이드 치킨',
+    brand: 'BBQ 치킨',
+    category: '외식',
+    subCategory: '치킨',
+    itemType: 'restaurant',
+    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600&auto=format&fit=crop&q=80',
+    releaseDate: '국민 야식 메뉴',
+    price: 23000,
+    overallRating: 4.9,
+    ratingCount: 3120,
+    repurchasePercent: 97,
+    isHot: true,
+    detailedRating: { taste: 5.0, value: 4.3, portion: 4.7, repurchase: 4.9 },
+    description: '스페인산 엑스트라 버진 올리브유로 튀겨내어 바삭하고 고소한 육즙이 살아있는 국민 치킨입니다.',
+    bestQuotes: ['치킨계의 절대강자! 겉바속촉의 정석 🍗', '맥주 안주로 최고입니다'],
+    stores: ['전국 배달/포장 가능'],
+  },
+
+  // 9. [기타]
+  {
+    id: 'etc-01',
+    name: '아사히 수퍼드라이 생맥주캔 340ml',
+    brand: '아사히',
+    category: '기타',
+    subCategory: '주류',
+    itemType: 'packaged',
+    image: 'https://images.unsplash.com/photo-1608270546103-975c77da9142?w=600&auto=format&fit=crop&q=80',
+    releaseDate: '인기 수입 주류',
+    price: 4500,
+    overallRating: 4.8,
+    ratingCount: 1520,
+    repurchasePercent: 96,
+    isHot: true,
+    detailedRating: { taste: 4.9, value: 4.4, portion: 4.5, repurchase: 4.8 },
+    description: '캔을 따면 부드러운 생맥주 거품이 풍성하게 올라오는 혁신적인 홈펍 캔맥주입니다.',
+    bestQuotes: ['캔 따는 순간 크리미한 거품이 퐁퐁 🍺', '이자카야 생맥주 맛 그대로!'],
+    stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
   }
 ];
 
 export const CATEGORIES: ProductCategory[] = [
   '전체',
   '신제품',
-  '과일',
-  '채소',
-  '육류',
-  '수산물',
-  '식재료',
-  '빵/베이커리',
-  '디저트',
-  '냉동식품',
-  '밀키트',
-  '즉석식품',
-  '외식 메뉴',
   '과자',
   '음료',
-  '라면',
-  '아이스크림',
-  '편의점',
-  '주류'
+  '빵·디저트',
+  '간편식',
+  '과일',
+  '식재료',
+  '고기·수산',
+  '외식',
+  '기타'
 ];
 
 export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
-  '과일': ['전체', '복숭아', '수박', '딸기', '사과', '샤인머스캣'],
-  '채소': ['전체', '토마토', '상추', '양파', '감자', '아보카도'],
-  '육류': ['전체', '소고기', '돼지고기', '닭고기', '양갈비'],
-  '수산물': ['전체', '연어', '광어', '오징어', '새우'],
-  '식재료': ['전체', '계란', '두부', '치즈', '소스'],
-  '빵/베이커리': ['전체', '소금빵', '식빵', '크루아상', '베이글'],
-  '디저트': ['전체', '케이크', '아이스크림', '마카롱', '푸딩'],
-  '냉동식품': ['전체', '만두', '피자', '볶음밥', '핫도그'],
-  '밀키트': ['전체', '부대찌개', '마라탕', '파스타', '떡볶이'],
-  '즉석식품': ['전체', '즉석밥', '컵밥', '국/탕', '죽'],
-  '외식 메뉴': ['전체', '냉면', '삼겹살', '치킨', '피자', '짜장면'],
+  '전체': [],
+  '신제품': ['전체', '과자', '음료', '빵·디저트', '간편식', '외식', '기타'],
+  '과자': ['전체', '스낵', '쿠키', '초콜릿', '젤리', '사탕', '팝콘', '견과류'],
+  '음료': ['전체', '커피', '탄산', '차', '에너지', '이온음료', '주스', '생수'],
+  '빵·디저트': ['전체', '식빵', '소금빵', '크루아상', '케이크', '아이스크림', '푸딩', '떡'],
+  '간편식': ['전체', '냉동식품', '밀키트', '즉석식품', '즉석밥', '컵밥', '만두', '피자', '국·탕'],
+  '과일': ['전체', '사과', '딸기', '복숭아', '수박', '포도', '귤', '바나나'],
+  '식재료': ['전체', '계란', '두부', '치즈', '소스', '조미료', '면', '통조림'],
+  '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '연어', '광어', '오징어', '새우'],
+  '외식': ['전체', '냉면', '치킨', '피자', '삼겹살', '햄버거', '짜장면', '초밥', '국밥'],
+  '기타': ['전체', '주류', '건강기능식품', '비건', '기타']
 };

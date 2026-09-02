@@ -15,8 +15,8 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed sm:absolute bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 pb-safe shadow-sm select-none">
-      <div className="max-w-md mx-auto px-2 py-1.5 flex items-center justify-around">
+    <nav className="w-full shrink-0 z-40 bg-white border-t border-gray-200 select-none pb-1">
+      <div className="w-full px-2 py-1.5 flex items-center justify-around">
         {navItems.map((item) => {
           if (item.isAction) {
             return (
@@ -58,6 +58,8 @@ export const BottomNav: React.FC = () => {
           );
         })}
       </div>
+      {/* iOS Home Indicator */}
+      <div className="w-28 h-1 bg-gray-300 rounded-full mx-auto mt-0.5 mb-1 hidden sm:block"></div>
     </nav>
   );
 };
