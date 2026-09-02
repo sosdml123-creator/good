@@ -61,12 +61,13 @@ jobs:
 
           # 3. Install provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
-
+          
           # 4. Extract Profile Name & UUID
           PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print UUID" /dev/stdin <<< $(security cms -D -i $PP_PATH))
           PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print Name" /dev/stdin <<< $(security cms -D -i $PP_PATH))
           TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print TeamIdentifier:0" /dev/stdin <<< $(security cms -D -i $PP_PATH))
+          
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/${PROFILE_UUID}.mobileprovision
           
           echo "Profile UUID: $PROFILE_UUID"
           echo "Profile Name: $PROFILE_NAME"
@@ -77,6 +78,8 @@ jobs:
 
       - name: Generate ExportOptions.plist
         run: |
+          # ⚠️ 동적으로 GITHUB_ENV에 저장된 값은 ${{ env.X }} 표현식으로 읽히지 않음
+          # → 쉘 환경변수 ${TEAM_ID}, ${PROFILE_NAME} 으로 읽어야 함
           cat <<EOF > ios/App/ExportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -85,13 +88,13 @@ jobs:
               <key>method</key>
               <string>app-store</string>
               <key>teamID</key>
-              <string>${{ env.TEAM_ID }}</string>
+              <string>${TEAM_ID}</string>
               <key>signingStyle</key>
               <string>manual</string>
               <key>provisioningProfiles</key>
               <dict>
                   <key>com.sinsangpick.app</key>
-                  <string>${{ env.PROFILE_NAME }}</string>
+                  <string>${PROFILE_NAME}</string>
               </dict>
               <key>signingCertificate</key>
               <string>Apple Distribution</string>
@@ -100,45 +103,53 @@ jobs:
           </dict>
           </plist>
           EOF
+          echo "=== ExportOptions.plist 확인 ==="
           cat ios/App/ExportOptions.plist
 
       - name: Build Archive (xcodebuild)
         run: |
-          # Increment build number based on GitHub run number
           BUILD_NUMBER=${{ github.run_number }}
           cd ios/App
           xcrun agvtool new-version -all $BUILD_NUMBER || true
-          
+
+          # ⚠️ DEVELOPMENT_TEAM, PROVISIONING_PROFILE_SPECIFIER 는 쉘 변수로 참조
           xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
             -configuration Release \
             -destination 'generic/platform=iOS' \
             -archivePath ../../build/App.xcarchive \
-            DEVELOPMENT_TEAM="${{ env.TEAM_ID }}" \
+            CODE_SIGN_STYLE="Manual" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/app-signing.keychain-db"
+            OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/app-signing.keychain-db" \
+            -allowProvisioningUpdates
 
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
             -archivePath build/App.xcarchive \
             -exportOptionsPlist ios/App/ExportOptions.plist \
-            -exportPath build/ipa
+            -exportPath build/ipa \
+            -allowProvisioningUpdates
 
-      - name: Setup App Store Connect API Key & Upload
+      - name: Upload to App Store Connect
         env:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
-          # Create private keys folder
           mkdir -p ~/.appstoreconnect/private_keys
           echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8
 
-          # Upload IPA to TestFlight / App Store Connect
+          # IPA 파일 경로를 동적으로 탐색 (파일명이 달라져도 안전)
+          IPA_PATH=$(find build/ipa -name "*.ipa" | head -1)
+          echo "Uploading: $IPA_PATH"
+
           xcrun altool --upload-app \
             --type ios \
-            --file build/ipa/App.ipa \
+            --file "$IPA_PATH" \
             --apiKey "$APP_STORE_CONNECT_KEY_ID" \
-            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" \
+            --verbose
