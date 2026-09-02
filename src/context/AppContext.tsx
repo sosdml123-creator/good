@@ -9,9 +9,11 @@ import {
   ToastMessage,
   UserProfile,
   ReviewComment,
-  PostComment
+  PostComment,
+  BannerItem,
+  BattleConfig
 } from '../types';
-import { INITIAL_PRODUCTS } from '../data/mockProducts';
+import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG } from '../data/mockProducts';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import {
@@ -30,6 +32,8 @@ interface AppContextType {
   products: Product[];
   reviews: Review[];
   communityPosts: CommunityPost[];
+  banners: BannerItem[];
+  battleConfig: BattleConfig;
   activeTab: ActiveTab;
   previousTab: ActiveTab;
   selectedCategory: ProductCategory;
@@ -63,6 +67,25 @@ interface AppContextType {
   removeToast: (id: string) => void;
   updateUserNickname: (newName: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
+
+  // Admin Banner Actions
+  addBanner: (banner: Omit<BannerItem, 'id' | 'order'>) => void;
+  updateBanner: (id: string, updated: Partial<BannerItem>) => void;
+  deleteBanner: (id: string) => void;
+  toggleBannerActive: (id: string) => void;
+
+  // Admin Product Actions
+  addProduct: (product: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => void;
+  updateProduct: (id: string, updated: Partial<Product>) => void;
+  deleteProduct: (id: string) => void;
+  toggleProductToday: (id: string) => void;
+  toggleProductHot: (id: string) => void;
+
+  // Admin Battle Actions
+  updateBattleConfig: (config: Partial<BattleConfig>) => void;
+
+  // Admin Reset Action
+  resetAllDataToDefaults: () => void;
 
   // Interactions
   submitReview: (
@@ -185,9 +208,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
 
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
+  const [products, setProducts] = useState<Product[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_products');
+      return stored ? JSON.parse(stored) : INITIAL_PRODUCTS;
+    } catch {
+      return INITIAL_PRODUCTS;
+    }
+  });
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
   const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>(INITIAL_COMMUNITY_POSTS);
+
+  const [banners, setBanners] = useState<BannerItem[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_banners');
+      return stored ? JSON.parse(stored) : INITIAL_BANNERS;
+    } catch {
+      return INITIAL_BANNERS;
+    }
+  });
+
+  const [battleConfig, setBattleConfig] = useState<BattleConfig>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_battle_config');
+      return stored ? JSON.parse(stored) : INITIAL_BATTLE_CONFIG;
+    } catch {
+      return INITIAL_BATTLE_CONFIG;
+    }
+  });
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
     try {
@@ -222,7 +270,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const [comparedIds, setComparedIds] = useState<string[]>(['prod-01', 'prod-03']);
-  const [alertCategories, setAlertCategories] = useState<string[]>(['과자', '음료', '아이스크림', '편의점']);
+  const [alertCategories, setAlertCategories] = useState<string[]>(['과자', '음료', '빵·디저트', '간편식']);
   const [searchQuery, setSearchQuery] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[]>([
     '꼬북칩',
@@ -233,6 +281,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const isSeedingRef = useRef(false);
+
+  // Sync state to localStorage
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_products', JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_banners', JSON.stringify(banners));
+  }, [banners]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
+  }, [battleConfig]);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -897,12 +958,112 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // ================= ADMIN FUNCTIONS =================
+  // Add Banner
+  const addBanner = (bannerData: Omit<BannerItem, 'id' | 'order'>) => {
+    const newBanner: BannerItem = {
+      ...bannerData,
+      id: 'banner-' + Date.now(),
+      order: banners.length + 1,
+    };
+    setBanners(prev => [...prev, newBanner]);
+    showToast('🎉 새 배너가 성공적으로 등록되었습니다!', 'success');
+  };
+
+  // Update Banner
+  const updateBanner = (id: string, updated: Partial<BannerItem>) => {
+    setBanners(prev => prev.map(b => b.id === id ? { ...b, ...updated } : b));
+    showToast('배너 정보가 수정되었습니다.', 'success');
+  };
+
+  // Delete Banner
+  const deleteBanner = (id: string) => {
+    setBanners(prev => prev.filter(b => b.id !== id));
+    showToast('배너가 삭제되었습니다.', 'info');
+  };
+
+  // Toggle Banner Active
+  const toggleBannerActive = (id: string) => {
+    setBanners(prev => prev.map(b => b.id === id ? { ...b, isActive: !b.isActive } : b));
+  };
+
+  // Add Product
+  const addProduct = (productData: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => {
+    const newProduct: Product = {
+      id: 'prod-' + Date.now(),
+      name: productData.name,
+      brand: productData.brand,
+      category: productData.category,
+      subCategory: productData.subCategory,
+      itemType: productData.itemType || 'packaged',
+      image: productData.image || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
+      releaseDate: productData.releaseDate || new Date().toLocaleDateString('ko-KR') + ' 출시',
+      price: productData.price || 0,
+      discountRate: productData.discountRate || 0,
+      overallRating: 5.0,
+      ratingCount: 1,
+      detailedRating: { taste: 5, value: 5, portion: 5, repurchase: 5 },
+      description: productData.description || '',
+      stores: productData.stores || ['CU', 'GS25'],
+      repurchasePercent: 95,
+      calories: productData.calories,
+      volume: productData.volume,
+      isToday: productData.isToday ?? true,
+      isHot: productData.isHot ?? false,
+    };
+    setProducts(prev => [newProduct, ...prev]);
+    showToast(`📦 '${newProduct.name}' 상품이 등록되었습니다!`, 'success');
+  };
+
+  // Update Product
+  const updateProduct = (id: string, updated: Partial<Product>) => {
+    setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p));
+    showToast('상품 정보가 수정되었습니다.', 'success');
+  };
+
+  // Delete Product
+  const deleteProduct = (id: string) => {
+    setProducts(prev => prev.filter(p => p.id !== id));
+    showToast('상품이 삭제되었습니다.', 'info');
+  };
+
+  // Toggle Product Today
+  const toggleProductToday = (id: string) => {
+    setProducts(prev => prev.map(p => p.id === id ? { ...p, isToday: !p.isToday } : p));
+    showToast('오늘의 신상 상태가 변경되었습니다.', 'info');
+  };
+
+  // Toggle Product Hot
+  const toggleProductHot = (id: string) => {
+    setProducts(prev => prev.map(p => p.id === id ? { ...p, isHot: !p.isHot } : p));
+    showToast('인기 상품 상태가 변경되었습니다.', 'info');
+  };
+
+  // Update Battle Config
+  const updateBattleConfig = (config: Partial<BattleConfig>) => {
+    setBattleConfig(prev => ({ ...prev, ...config }));
+    showToast('🥊 신상 배틀 설정이 업데이트되었습니다!', 'success');
+  };
+
+  // Reset All to Defaults
+  const resetAllDataToDefaults = () => {
+    setProducts(INITIAL_PRODUCTS);
+    setBanners(INITIAL_BANNERS);
+    setBattleConfig(INITIAL_BATTLE_CONFIG);
+    localStorage.removeItem('sinsangpick_products');
+    localStorage.removeItem('sinsangpick_banners');
+    localStorage.removeItem('sinsangpick_battle_config');
+    showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
+  };
+
   return (
     <AppContext.Provider
       value={{
         products,
         reviews,
         communityPosts,
+        banners,
+        battleConfig,
         activeTab,
         previousTab,
         selectedCategory,
@@ -935,6 +1096,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         removeToast,
         updateUserNickname,
         loginWithGoogle,
+
+        // Admin Actions
+        addBanner,
+        updateBanner,
+        deleteBanner,
+        toggleBannerActive,
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        toggleProductToday,
+        toggleProductHot,
+        updateBattleConfig,
+        resetAllDataToDefaults,
 
         submitReview,
         toggleLikeReview,

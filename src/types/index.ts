@@ -166,6 +166,29 @@ export interface UserProfile {
   isAnonymous?: boolean;
 }
 
+export interface BannerItem {
+  id: string;
+  image: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  linkCategory?: ProductCategory;
+  linkProductId?: string;
+  isActive: boolean;
+  order: number;
+}
+
+export interface BattleConfig {
+  title: string;
+  subtitle: string;
+  productAId: string;
+  labelA: string;
+  productBId: string;
+  labelB: string;
+  percentA: number;
+}
+
 export type ActiveTab = 
   | 'home' 
   | 'category' 
@@ -175,5 +198,6 @@ export type ActiveTab =
   | 'detail' 
   | 'compare' 
   | 'alert_settings' 
-  | 'search';
+  | 'search'
+  | 'admin';
 

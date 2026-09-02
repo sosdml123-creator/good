@@ -1,4 +1,4 @@
-import { Product, ProductCategory } from '../types';
+import { Product, ProductCategory, BannerItem, BattleConfig } from '../types';
 
 export const INITIAL_PRODUCTS: Product[] = [
   // 1. [과자] 신제품 & 스낵
@@ -485,4 +485,50 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
   '식재료': ['전체', '계란', '두부', '치즈', '소스', '조미료', '면', '통조림'],
   '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '연어', '광어', '오징어', '새우'],
   '기타': ['전체', '주류', '건강기능식품', '비건', '기타']
+};
+
+export const INITIAL_BANNERS: BannerItem[] = [
+  {
+    id: 'banner-1',
+    image: 'https://images.unsplash.com/photo-1595158364153-23961fa633df?w=800&auto=format&fit=crop&q=80',
+    badge: '먹거리 전체 탐색 & 평가',
+    title: '신제품부터 산지직송 제철 먹거리까지',
+    subtitle: '솔직한 먹거리 품목별 랭킹',
+    buttonText: '인기 품목 둘러보기',
+    linkCategory: '과일',
+    isActive: true,
+    order: 1,
+  },
+  {
+    id: 'banner-2',
+    image: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=800&auto=format&fit=crop&q=80',
+    badge: '⚡ 오늘 출시 따끈한 신상',
+    title: '편의점 & 마트 신제품 솔직 후기',
+    subtitle: '먹어본 사람들의 진짜 별점',
+    buttonText: '오늘신상 보러가기',
+    linkCategory: '신제품',
+    isActive: true,
+    order: 2,
+  },
+  {
+    id: 'banner-3',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop&q=80',
+    badge: '🥐 디저트 & 베이커리 랭킹',
+    title: '요즘 핫한 소금빵 & 크림빵 성지',
+    subtitle: '실패 없는 인생 디저트 추천',
+    buttonText: '디저트 랭킹 보기',
+    linkCategory: '빵·디저트',
+    isActive: true,
+    order: 3,
+  }
+];
+
+export const INITIAL_BATTLE_CONFIG: BattleConfig = {
+  title: '🥊 신상 배틀 투표',
+  subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
+  productAId: 'fruit-01',
+  labelA: '제철과일 1위',
+  productBId: 'rest-01',
+  labelB: '밀키트 랭킹 1위',
+  percentA: 55,
 };

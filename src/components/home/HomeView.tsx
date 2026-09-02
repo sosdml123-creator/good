@@ -8,6 +8,8 @@ export const HomeView: React.FC = () => {
   const { 
     products, 
     reviews, 
+    banners,
+    battleConfig,
     setActiveTab, 
     setSelectedCategory, 
     openProductDetail, 
@@ -16,9 +18,23 @@ export const HomeView: React.FC = () => {
     showToast 
   } = useApp();
 
+  const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(null);
 
-  const percentA = battleChoice === 'A' ? 62 : battleChoice === 'B' ? 48 : 55;
+  const activeBanners = banners.filter(b => b.isActive);
+  const currentBanner = activeBanners[currentBannerIdx] || activeBanners[0] || {
+    id: 'default',
+    image: 'https://images.unsplash.com/photo-1595158364153-23961fa633df?w=600&auto=format&fit=crop&q=80',
+    badge: '먹거리 전체 탐색 & 평가',
+    title: '신제품부터 산지직송 제철 먹거리까지',
+    subtitle: '솔직한 먹거리 품목별 랭킹',
+    buttonText: '인기 품목 둘러보기',
+    linkCategory: '과일' as ProductCategory,
+    isActive: true,
+    order: 1,
+  };
+
+  const percentA = battleChoice === 'A' ? 62 : battleChoice === 'B' ? 48 : (battleConfig.percentA || 55);
   const percentB = 100 - percentA;
 
   const quickIcons = [
@@ -45,38 +61,58 @@ export const HomeView: React.FC = () => {
     setActiveTab('category');
   };
 
+  const handleBannerButtonClick = () => {
+    if (currentBanner.linkCategory) {
+      setSelectedCategory(currentBanner.linkCategory);
+      setActiveTab('category');
+    } else if (currentBanner.linkProductId) {
+      openProductDetail(currentBanner.linkProductId);
+    } else {
+      setSelectedCategory('전체');
+      setActiveTab('category');
+    }
+  };
+
   return (
     <div className="pb-12 bg-[#F5F5F5] min-h-full">
       
-      {/* 1. Main Banner */}
+      {/* 1. Main Banner (Dynamic from Admin) */}
       <div className="relative bg-gray-900 overflow-hidden" style={{ height: '220px' }}>
         <img
-          src="https://images.unsplash.com/photo-1595158364153-23961fa633df?w=600&auto=format&fit=crop&q=80"
-          alt="Main Banner"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          src={currentBanner.image}
+          alt={currentBanner.title}
+          className="absolute inset-0 w-full h-full object-cover opacity-60 transition-all duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <span className="text-xs font-bold text-white bg-[#0066FF] px-2 py-0.5 rounded">
-            먹거리 전체 탐색 & 평가
+          <span className="text-xs font-bold text-white bg-[#0066FF] px-2 py-0.5 rounded shadow-xs">
+            {currentBanner.badge}
           </span>
           <div className="text-white font-black text-xl mt-1.5 leading-tight">
-            신제품부터 산지직송 제철 먹거리까지<br />
-            <span className="font-semibold text-base opacity-90">솔직한 먹거리 품목별 랭킹</span>
+            {currentBanner.title}<br />
+            <span className="font-semibold text-base opacity-90">{currentBanner.subtitle}</span>
           </div>
           <button
-            onClick={() => { setSelectedCategory('과일'); setActiveTab('category'); }}
+            onClick={handleBannerButtonClick}
             className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors"
           >
-            인기 품목 둘러보기
+            {currentBanner.buttonText || '자세히 보기'}
           </button>
         </div>
         {/* Dots */}
-        <div className="absolute bottom-3 right-4 flex gap-1">
-          <span className="w-4 h-1 bg-white rounded-full"></span>
-          <span className="w-1 h-1 bg-white/50 rounded-full"></span>
-          <span className="w-1 h-1 bg-white/50 rounded-full"></span>
-        </div>
+        {activeBanners.length > 1 && (
+          <div className="absolute bottom-3 right-4 flex gap-1 z-10">
+            {activeBanners.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentBannerIdx(i)}
+                className={`h-1 rounded-full transition-all ${
+                  i === currentBannerIdx ? 'w-4 bg-white' : 'w-1 bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 2. Quick Icon Menus */}
@@ -191,11 +227,11 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 5. Section: 신상 배틀 VS */}
+      {/* 5. Section: 신상 배틀 VS (Dynamic from Admin) */}
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-[15px] font-bold text-gray-900">이번 주 맛대맛 배틀</span>
+            <span className="text-[15px] font-bold text-gray-900">{battleConfig.title}</span>
             <span className="text-[11px] font-bold text-white bg-[#0066FF] px-2 py-0.5 rounded-full">VS</span>
           </div>
           <button
@@ -206,55 +242,66 @@ export const HomeView: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Fighter A: 햇사레 복숭아 */}
-          <div
-            onClick={() => {
-              setBattleChoice('A');
-              showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
-            }}
-            className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-              battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20' : 'border-gray-200'
-            }`}
-          >
-            <img src={products.find(p=>p.id==='fruit-01')?.image || products[0].image} alt="A" className="w-full aspect-square object-cover" />
-            <div className="p-2.5">
-              <div className="text-[11px] text-gray-400">제철과일 1위</div>
-              <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">햇사레 고당도 복숭아</div>
-              <div className="mt-1.5 flex items-center gap-1">
-                <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-[#0066FF] h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
+        {battleConfig.subtitle && (
+          <p className="text-[12px] text-gray-500 -mt-1.5 mb-3">{battleConfig.subtitle}</p>
+        )}
+
+        {(() => {
+          const prodA = products.find(p => p.id === battleConfig.productAId) || products[0];
+          const prodB = products.find(p => p.id === battleConfig.productBId) || products[1] || products[0];
+
+          return (
+            <div className="flex items-center gap-3">
+              {/* Fighter A */}
+              <div
+                onClick={() => {
+                  setBattleChoice('A');
+                  showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
+                }}
+                className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
+                  battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20' : 'border-gray-200'
+                }`}
+              >
+                <img src={prodA.image} alt={prodA.name} className="w-full aspect-square object-cover" />
+                <div className="p-2.5">
+                  <div className="text-[11px] text-[#0066FF] font-bold">{battleConfig.labelA || `${prodA.category} 1위`}</div>
+                  <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
+                  <div className="mt-1.5 flex items-center gap-1">
+                    <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-[#0066FF] h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
+                    </div>
+                    <span className="text-[11px] font-bold text-[#0066FF]">{percentA}%</span>
+                  </div>
                 </div>
-                <span className="text-[11px] font-bold text-[#0066FF]">{percentA}%</span>
+              </div>
+
+              <div className="text-gray-300 font-black text-xl">VS</div>
+
+              {/* Fighter B */}
+              <div
+                onClick={() => {
+                  setBattleChoice('B');
+                  showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
+                }}
+                className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
+                  battleChoice === 'B' ? 'border-orange-500 bg-orange-50/20' : 'border-gray-200'
+                }`}
+              >
+                <img src={prodB.image} alt={prodB.name} className="w-full aspect-square object-cover" />
+                <div className="p-2.5">
+                  <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category} 1위`}</div>
+                  <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
+                  <div className="mt-1.5 flex items-center gap-1">
+                    <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-orange-400 h-full rounded-full transition-all" style={{ width: `${percentB}%` }}></div>
+                    </div>
+                    <span className="text-[11px] font-bold text-orange-400">{percentB}%</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="text-gray-300 font-black text-xl">VS</div>
-
-          {/* Fighter B: 평양냉면 */}
-          <div
-            onClick={() => {
-              setBattleChoice('B');
-              showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
-            }}
-            className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-              battleChoice === 'B' ? 'border-[#0066FF] bg-blue-50/20' : 'border-gray-200'
-            }`}
-          >
-            <img src={products.find(p=>p.id==='rest-01')?.image || products[2].image} alt="B" className="w-full aspect-square object-cover" />
-            <div className="p-2.5">
-              <div className="text-[11px] text-gray-400">밀키트 랭킹 1위</div>
-              <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">전통 평양냉면</div>
-              <div className="mt-1.5 flex items-center gap-1">
-                <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-orange-400 h-full rounded-full transition-all" style={{ width: `${percentB}%` }}></div>
-                </div>
-                <span className="text-[11px] font-bold text-orange-400">{percentB}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          );
+        })()}
 
         <p className="text-center text-[12px] text-gray-400 mt-2.5">
           {battleChoice ? '투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉' : '눌러서 투표해보세요'}

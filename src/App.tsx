@@ -12,6 +12,7 @@ import { CompareModal } from './components/compare/CompareModal';
 import { NotificationModal } from './components/notification/NotificationModal';
 import { ProductDetailModal } from './components/detail/ProductDetailModal';
 import { SearchModal } from './components/search/SearchModal';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 import { ToastContainer } from './components/common/Toast';
 
 export const App: React.FC = () => {
@@ -38,6 +39,7 @@ export const App: React.FC = () => {
         {activeTab === 'compare' && <CompareModal />}
         {activeTab === 'alert_settings' && <NotificationModal />}
         {activeTab === 'search' && <SearchModal />}
+        {activeTab === 'admin' && <AdminDashboard />}
       </main>
 
       {/* Fixed Bottom Navigation (Always pinned to bottom) */}

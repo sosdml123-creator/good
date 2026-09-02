@@ -33,6 +33,7 @@ export const MyPageView: React.FC = () => {
     { label: '비교함', sub: `${comparedIds.length}개`, action: () => setActiveTab('compare') },
     { label: '출시알림 설정', sub: '', action: () => setActiveTab('alert_settings') },
     { label: '포인트', sub: `${userPoints.toLocaleString()}P`, hi: true },
+    { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },
     { label: '설정', sub: '', action: () => setActiveTab('alert_settings') },
   ];
 
