@@ -1,18 +1,13 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Share2 } from 'lucide-react';
-import { CATEGORIES } from '../../data/mockProducts';
+import { Search, Bell, Settings } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { 
-    selectedCategory, 
-    setSelectedCategory, 
-    setActiveTab 
-  } = useApp();
+  const { setActiveTab } = useApp();
 
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
-      {/* 1. Top Search Bar & Icons */}
+      {/* 1. Top Search Bar & Action Icons */}
       <div className="flex items-center gap-2 px-4 py-2.5">
         <button
           onClick={() => setActiveTab('search')}
@@ -34,38 +29,14 @@ export const Header: React.FC = () => {
         </button>
 
         <button
-          onClick={() => setActiveTab('category')}
+          onClick={() => setActiveTab('admin')}
           className="p-2 text-gray-700 hover:text-[#0066FF] transition-colors"
-          title="전체 카테고리 보기"
+          title="서비스 관리자 (Admin)"
         >
-          <Share2 className="w-5 h-5 stroke-[2]" />
+          <Settings className="w-5 h-5 stroke-[2]" />
         </button>
-      </div>
-
-      {/* 2. Horizontal Category Tabs (All 11+ Categories) */}
-      <div className="flex overflow-x-auto no-scrollbar border-t border-gray-100 px-1">
-        {CATEGORIES.map((c) => {
-          const isActive = selectedCategory === c;
-          return (
-            <button
-              key={c}
-              onClick={() => {
-                setSelectedCategory(c);
-                if (c !== '전체') {
-                  setActiveTab('category');
-                }
-              }}
-              className={`shrink-0 px-3.5 py-2.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
-                isActive
-                  ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
-            >
-              {c}
-            </button>
-          );
-        })}
       </div>
     </header>
   );
 };
+
