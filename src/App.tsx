@@ -28,30 +28,32 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="h-[100dvh] w-full flex flex-col bg-[#F8F9FA] overflow-hidden">
-      <ToastContainer />
+    <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
+      <div className="w-full max-w-[430px] h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-sm">
+        <ToastContainer />
 
-      {/* Scrollable Main Content Area */}
-      <main className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
-        {/* Dynamic Route/Tab Display */}
-        {activeTab === 'home' && (
-          <>
-            <Header />
-            <HomeView />
-          </>
-        )}
-        {activeTab === 'category' && <DiscoverView />}
-        {activeTab === 'write' && <WriteReviewModal />}
-        {activeTab === 'community' && <CommunityView />}
-        {activeTab === 'my' && <MyPageView />}
-        {activeTab === 'detail' && <ProductDetailModal />}
-        {activeTab === 'compare' && <CompareModal />}
-        {activeTab === 'alert_settings' && <NotificationModal />}
-        {activeTab === 'search' && <SearchModal />}
-      </main>
+        {/* Scrollable Main Content Area */}
+        <main className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
+          {/* Dynamic Route/Tab Display */}
+          {activeTab === 'home' && (
+            <>
+              <Header />
+              <HomeView />
+            </>
+          )}
+          {activeTab === 'category' && <DiscoverView />}
+          {activeTab === 'write' && <WriteReviewModal />}
+          {activeTab === 'community' && <CommunityView />}
+          {activeTab === 'my' && <MyPageView />}
+          {activeTab === 'detail' && <ProductDetailModal />}
+          {activeTab === 'compare' && <CompareModal />}
+          {activeTab === 'alert_settings' && <NotificationModal />}
+          {activeTab === 'search' && <SearchModal />}
+        </main>
 
-      {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
-      <BottomNav />
+        {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
+        <BottomNav />
+      </div>
     </div>
   );
 };
