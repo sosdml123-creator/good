@@ -23,12 +23,26 @@ import {
   RefreshCw, 
   Smartphone, 
   Download, 
-  ChevronRight
+  ChevronRight,
+  Sun,
+  Moon,
+  MessageSquare,
+  TrendingUp,
+  ThumbsUp,
+  Award
 } from 'lucide-react';
 import { ProductCategory, BannerItem, Product, PendingProduct } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 
-type AdminTab = 'overview' | 'approval' | 'products' | 'banners' | 'battle' | 'data';
+export type AdminTab = 
+  | 'overview' 
+  | 'approval' 
+  | 'products' 
+  | 'reviews' 
+  | 'analytics' 
+  | 'banners' 
+  | 'battle' 
+  | 'data';
 
 export const AdminDashboard: React.FC = () => {
   const { 
@@ -61,8 +75,13 @@ export const AdminDashboard: React.FC = () => {
     approveAllPending,
     rejectPendingProduct,
     updatePendingProduct,
-    clearAllPendingProducts
+    clearAllPendingProducts,
+    deleteReview,
+    deleteCommunityPost,
   } = useApp();
+
+  // Theme mode: Default to 'light' for high readability, with quick toggle to 'dark'
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
 
   // Desktop active tab
   const [activeAdminTab, setActiveAdminTab] = useState<AdminTab>('overview');
@@ -82,6 +101,16 @@ export const AdminDashboard: React.FC = () => {
   const [productFilterBadge, setProductFilterBadge] = useState<'all' | 'today' | 'hot'>('all');
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
+
+  // Bulk operation states in Products Tab
+  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
+
+  // Reviews & Community tab states
+  const [moderationSubTab, setModerationSubTab] = useState<'reviews' | 'community'>('reviews');
+  const [reviewSearchQuery, setReviewSearchQuery] = useState('');
+  const [communitySearchQuery, setCommunitySearchQuery] = useState('');
+
+  // Product Form state
   const [productForm, setProductForm] = useState<{
     name: string;
     brand: string;
@@ -108,7 +137,7 @@ export const AdminDashboard: React.FC = () => {
     subCategory: '',
     price: 2000,
     discountRate: 0,
-    releaseDate: '2026.09 출시',
+    releaseDate: `${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')} 출시`,
     image: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
     description: '',
     calories: 350,
@@ -122,27 +151,18 @@ export const AdminDashboard: React.FC = () => {
     manufacturer: ''
   });
 
-  // Banners tab states
+  // Banner modal states
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [editingBannerId, setEditingBannerId] = useState<string | null>(null);
-  const [bannerForm, setBannerForm] = useState<{
-    image: string;
-    badge: string;
-    title: string;
-    subtitle: string;
-    buttonText: string;
-    linkCategory: ProductCategory;
-    isActive: boolean;
-  }>({
-    image: 'https://images.unsplash.com/photo-1595158364153-23961fa633df?w=800&auto=format&fit=crop&q=80',
-    badge: '먹거리 전체 탐색 & 평가',
-    title: '신제품부터 산지직송 제철 먹거리까지',
-    subtitle: '솔직한 먹거리 품목별 랭킹',
-    buttonText: '인기 품목 둘러보기',
-    linkCategory: '과일',
+  const [bannerForm, setBannerForm] = useState<Omit<BannerItem, 'id' | 'order'>>({
+    image: '',
+    badge: 'NEW ARRIVAL',
+    title: '',
+    subtitle: '',
+    buttonText: '바로가기',
+    linkCategory: '신제품',
     isActive: true,
   });
-
   // Battle tab states
   const [battleTitle, setBattleTitle] = useState(battleConfig.title);
   const [battleSubtitle, setBattleSubtitle] = useState(battleConfig.subtitle);
@@ -159,6 +179,9 @@ export const AdminDashboard: React.FC = () => {
   const todayProductsCount = products.filter(p => p.isToday).length;
   const hotProductsCount = products.filter(p => p.isHot).length;
   const activeBannersCount = banners.filter(b => b.isActive).length;
+  const avgReviewRating = reviews.length > 0 
+    ? (reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length).toFixed(1)
+    : '0.0';
 
   // Filtered pending products
   const filteredPendingProducts = pendingProducts.filter(item => {
@@ -184,6 +207,28 @@ export const AdminDashboard: React.FC = () => {
     return true;
   });
 
+  // Filtered reviews
+  const filteredReviews = reviews.filter(r => {
+    if (!reviewSearchQuery.trim()) return true;
+    const q = reviewSearchQuery.toLowerCase();
+    return (
+      r.productName?.toLowerCase().includes(q) ||
+      r.content?.toLowerCase().includes(q) ||
+      r.userName?.toLowerCase().includes(q)
+    );
+  });
+
+  // Filtered community posts
+  const filteredCommunityPosts = communityPosts.filter(p => {
+    if (!communitySearchQuery.trim()) return true;
+    const q = communitySearchQuery.toLowerCase();
+    return (
+      p.title?.toLowerCase().includes(q) ||
+      p.content?.toLowerCase().includes(q) ||
+      p.author?.toLowerCase().includes(q)
+    );
+  });
+
   // Pending selection helpers
   const toggleSelectAllPending = () => {
     if (selectedPendingIds.length === filteredPendingProducts.length) {
@@ -201,9 +246,10 @@ export const AdminDashboard: React.FC = () => {
 
   const handleBulkApproveSelected = () => {
     if (selectedPendingIds.length === 0) return;
+    const count = selectedPendingIds.length;
     selectedPendingIds.forEach(id => approvePendingProduct(id));
     setSelectedPendingIds([]);
-    showToast(`${selectedPendingIds.length}개 상품이 승인 등록되었습니다!`, 'success');
+    showToast(`${count}개 상품이 승인 등록되었습니다!`, 'success');
   };
 
   const handleSearchCollect = async () => {
@@ -218,6 +264,67 @@ export const AdminDashboard: React.FC = () => {
   const openEditPending = (item: PendingProduct) => {
     setEditingPendingItem(item);
     setIsEditingPendingModalOpen(true);
+  };
+
+  // Product selection (Bulk operations) helpers
+  const toggleSelectAllProducts = () => {
+    if (selectedProductIds.length === filteredAdminProducts.length && filteredAdminProducts.length > 0) {
+      setSelectedProductIds([]);
+    } else {
+      setSelectedProductIds(filteredAdminProducts.map(p => p.id));
+    }
+  };
+
+  const toggleProductSelect = (id: string) => {
+    setSelectedProductIds(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  // Bulk Product Actions
+  const handleBulkSetToday = (isToday: boolean) => {
+    if (selectedProductIds.length === 0) return;
+    selectedProductIds.forEach(id => {
+      const prod = products.find(p => p.id === id);
+      if (prod && prod.isToday !== isToday) {
+        toggleProductToday(id);
+      }
+    });
+    showToast(`선택한 ${selectedProductIds.length}개 상품의 오늘신상 설정을 변경했습니다.`, 'success');
+  };
+
+  const handleBulkSetHot = (isHot: boolean) => {
+    if (selectedProductIds.length === 0) return;
+    selectedProductIds.forEach(id => {
+      const prod = products.find(p => p.id === id);
+      if (prod && prod.isHot !== isHot) {
+        toggleProductHot(id);
+      }
+    });
+    showToast(`선택한 ${selectedProductIds.length}개 상품의 인기HOT 설정을 변경했습니다.`, 'success');
+  };
+
+  const handleBulkDeleteProducts = () => {
+    if (selectedProductIds.length === 0) return;
+    if (confirm(`선택한 ${selectedProductIds.length}개의 상품을 정말 삭제하시겠습니까?`)) {
+      selectedProductIds.forEach(id => deleteProduct(id));
+      setSelectedProductIds([]);
+      showToast('선택한 상품이 모두 삭제되었습니다.', 'info');
+    }
+  };
+
+  // Export selected products
+  const handleExportSelectedProducts = () => {
+    if (selectedProductIds.length === 0) return;
+    const exportItems = products.filter(p => selectedProductIds.includes(p.id));
+    const blob = new Blob([JSON.stringify(exportItems, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sinsangpick_products_selected_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`${exportItems.length}개 상품 데이터가 다운로드되었습니다.`, 'success');
   };
 
   // Product modal helpers
@@ -300,11 +407,12 @@ export const AdminDashboard: React.FC = () => {
 
     if (editingProductId) {
       updateProduct(editingProductId, payload);
-      showToast('상품 정보가 성공적으로 수정되었습니다.', 'success');
+      showToast('상품 정보가 수정되었습니다.', 'success');
     } else {
       addProduct(payload);
-      showToast('새 상품이 성공적으로 등록되었습니다.', 'success');
+      showToast('신규 상품이 등록되었습니다.', 'success');
     }
+
     setIsProductModalOpen(false);
   };
 
@@ -312,11 +420,11 @@ export const AdminDashboard: React.FC = () => {
   const handleOpenNewBanner = () => {
     setEditingBannerId(null);
     setBannerForm({
-      image: 'https://images.unsplash.com/photo-1595158364153-23961fa633df?w=800&auto=format&fit=crop&q=80',
-      badge: '⚡ 신상 기획전',
-      title: '이번 주 신제품 모아보기',
-      subtitle: '새로나온 핫아이템 총집합',
-      buttonText: '바로가기',
+      image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&auto=format&fit=crop&q=80',
+      badge: 'NEW ARRIVAL',
+      title: '',
+      subtitle: '',
+      buttonText: '신상 보러가기',
       linkCategory: '신제품',
       isActive: true,
     });
@@ -372,6 +480,8 @@ export const AdminDashboard: React.FC = () => {
       exportDate: new Date().toISOString(),
       productsCount: products.length,
       bannersCount: banners.length,
+      reviewsCount: reviews.length,
+      communityCount: communityPosts.length,
       products,
       banners,
       battleConfig
@@ -390,58 +500,71 @@ export const AdminDashboard: React.FC = () => {
   const prodA = products.find(p => p.id === battleProductAId) || products[0];
   const prodB = products.find(p => p.id === battleProductBId) || products[1] || products[0];
 
+  // Helper theme classes
+  const isDark = themeMode === 'dark';
+  const mainBg = isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800';
+  const sidebarBg = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200';
+  const headerBg = isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white/90 border-slate-200';
+  const cardBg = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-xs';
+  const subCardBg = isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-slate-50/80 border-slate-200/70';
+  const inputBg = isDark ? 'bg-slate-950 border-slate-700 text-white placeholder:text-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white';
+  const tableHeaderBg = isDark ? 'bg-slate-950/80 text-slate-400 border-slate-800' : 'bg-slate-100/70 text-slate-600 border-slate-200';
+  const tableRowHover = isDark ? 'hover:bg-slate-800/40 divide-slate-800/60' : 'hover:bg-slate-50/80 divide-slate-100';
+
   return (
-    <div className="flex h-screen w-full bg-slate-950 text-slate-100 antialiased overflow-hidden font-sans">
+    <div className={`flex h-screen w-full antialiased overflow-hidden font-sans transition-colors duration-200 ${mainBg}`}>
       
       {/* ================= DESKTOP LEFT SIDEBAR ================= */}
-      <aside className="w-64 bg-slate-900/95 border-r border-slate-800 flex flex-col justify-between shrink-0 select-none z-20">
+      <aside className={`w-64 border-r flex flex-col justify-between shrink-0 select-none z-20 transition-colors ${sidebarBg}`}>
         
-        {/* Top Branding */}
+        {/* Top Branding & Nav */}
         <div>
-          <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+          <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 ring-1 ring-white/20">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-md shadow-indigo-500/20 ring-1 ring-white/20">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="font-black text-sm tracking-tight text-white flex items-center gap-1.5">
-                  신상픽 <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 uppercase font-mono">PC SaaS</span>
+                <h1 className={`font-black text-sm tracking-tight flex items-center gap-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  신상픽 <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 uppercase font-mono font-bold">Admin Pro</span>
                 </h1>
-                <p className="text-[11px] text-slate-400">통합 관리자 콘솔</p>
+                <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>통합 관리자 콘솔</p>
               </div>
             </div>
           </div>
 
           {/* Database Connection Status Card */}
-          <div className="px-4 py-3 border-b border-slate-800/80 bg-slate-900/50">
+          <div className={`px-4 py-3 border-b ${isDark ? 'border-slate-800/80 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-amber-400 shadow-[0_0_8px_#fbbf24]'}`} />
-                <span className="text-xs font-semibold text-slate-300">
-                  {isSupabaseConnected ? 'Supabase 실시간 동기화' : '로컬 브라우저 저장소'}
+                <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-amber-500 shadow-[0_0_8px_#f59e0b]'}`} />
+                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                  {isSupabaseConnected ? 'Supabase 실시간 클라우드' : '로컬 스토리지 모드'}
                 </span>
               </div>
-              <span className="text-[10px] text-slate-500 font-mono">v2.4 Pro</span>
+              <span className="text-[10px] text-slate-400 font-mono">v2.5</span>
             </div>
           </div>
 
           {/* Main Navigation Tabs */}
-          <nav className="p-3 space-y-1">
+          <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-250px)]">
             
             {/* 1. Overview */}
             <button
               onClick={() => setActiveAdminTab('overview')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'overview'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <BarChart3 className="w-4 h-4" />
                 <span>대시보드 개요</span>
               </div>
-              <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeAdminTab === 'overview' ? 'rotate-90 text-white' : 'text-slate-600'}`} />
+              <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeAdminTab === 'overview' ? 'rotate-90 text-white' : 'text-slate-400'}`} />
             </button>
 
             {/* 2. Approval / Crawler Inbox */}
@@ -449,12 +572,14 @@ export const AdminDashboard: React.FC = () => {
               onClick={() => setActiveAdminTab('approval')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'approval'
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md shadow-amber-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-amber-500 text-white shadow-md shadow-amber-500/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-amber-400" />
+                <Sparkles className="w-4 h-4 text-amber-500" />
                 <span>신제품 수집·승인</span>
               </div>
               {pendingCount > 0 ? (
@@ -462,7 +587,7 @@ export const AdminDashboard: React.FC = () => {
                   {pendingCount}
                 </span>
               ) : (
-                <span className="text-[10px] text-slate-600">0</span>
+                <span className="text-[10px] text-slate-400 font-mono">0</span>
               )}
             </button>
 
@@ -471,89 +596,142 @@ export const AdminDashboard: React.FC = () => {
               onClick={() => setActiveAdminTab('products')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'products'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <Package className="w-4 h-4" />
                 <span>상품 및 신상 관리</span>
               </div>
-              <span className="px-2 py-0.5 rounded-md text-[10px] bg-slate-800 text-slate-300 font-mono">
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
                 {products.length}
               </span>
             </button>
 
-            {/* 4. Banners */}
+            {/* 4. Reviews & Community Moderation (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('reviews')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'reviews'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <MessageSquare className="w-4 h-4 text-emerald-500" />
+                <span>리뷰·커뮤니티 관리</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {reviews.length + communityPosts.length}
+              </span>
+            </button>
+
+            {/* 5. Analytics & Trends (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('analytics')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'analytics'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <TrendingUp className="w-4 h-4 text-blue-500" />
+                <span>트렌드·통계 분석</span>
+              </div>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 font-bold">HOT</span>
+            </button>
+
+            {/* 6. Banners */}
             <button
               onClick={() => setActiveAdminTab('banners')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'banners'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <Layers className="w-4 h-4" />
                 <span>홈 배너 관리</span>
               </div>
-              <span className="px-2 py-0.5 rounded-md text-[10px] bg-slate-800 text-slate-300 font-mono">
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
                 {banners.length}
               </span>
             </button>
 
-            {/* 5. Battle Matchup */}
+            {/* 7. Battle Matchup */}
             <button
               onClick={() => setActiveAdminTab('battle')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'battle'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <Swords className="w-4 h-4 text-rose-400" />
+                <Swords className="w-4 h-4 text-rose-500" />
                 <span>신상 배틀 설정</span>
               </div>
             </button>
 
-            {/* 6. Data & Settings */}
+            {/* 8. Data & Settings */}
             <button
               onClick={() => setActiveAdminTab('data')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 activeAdminTab === 'data'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <Database className="w-4 h-4 text-emerald-400" />
-                <span>데이터 & 동기화</span>
+                <Database className="w-4 h-4 text-emerald-500" />
+                <span>데이터 & 백업</span>
               </div>
             </button>
 
           </nav>
         </div>
 
-        {/* Sidebar Bottom: Return to Mobile Service & Profile */}
-        <div className="p-4 border-t border-slate-800 space-y-3 bg-slate-900/70">
+        {/* Sidebar Bottom: Return to Mobile Service & Theme Switcher */}
+        <div className={`p-4 border-t space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200 bg-slate-50/70'}`}>
+          
           {/* Direct Switcher back to User Mobile App View */}
           <button
             onClick={() => setActiveTab('home')}
-            className="w-full py-2.5 px-3 bg-gradient-to-r from-indigo-500/20 to-blue-500/20 hover:from-indigo-500/30 hover:to-blue-500/30 text-indigo-300 border border-indigo-500/40 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-indigo-500/10 active:scale-98"
+            className={`w-full py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all active:scale-98 ${
+              isDark 
+                ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30' 
+                : 'bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100'
+            }`}
           >
-            <Smartphone className="w-4 h-4 text-indigo-400" />
-            <span>📱 모바일 앱 화면으로 전환</span>
+            <Smartphone className="w-4 h-4 text-indigo-500" />
+            <span>📱 모바일 앱 화면으로 이동</span>
           </button>
 
           {/* Admin User Info */}
-          <div className="flex items-center gap-2.5 px-1">
-            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-black text-xs text-indigo-400">
-              AD
-            </div>
-            <div className="truncate">
-              <p className="text-xs font-bold text-white truncate">최고관리자 (Admin)</p>
-              <p className="text-[10px] text-slate-500 truncate">master@sinsangpick.com</p>
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-2.5 truncate">
+              <div className={`w-8 h-8 rounded-full border flex items-center justify-center font-black text-xs ${isDark ? 'bg-slate-800 border-slate-700 text-indigo-400' : 'bg-indigo-100 border-indigo-200 text-indigo-600'}`}>
+                AD
+              </div>
+              <div className="truncate">
+                <p className={`text-xs font-bold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>신상픽 최고관리자</p>
+                <p className="text-[10px] text-slate-400 truncate">master@sinsangpick.com</p>
+              </div>
             </div>
           </div>
         </div>
@@ -561,51 +739,71 @@ export const AdminDashboard: React.FC = () => {
       </aside>
 
       {/* ================= DESKTOP MAIN CONTENT AREA ================= */}
-      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-950">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         
         {/* Desktop Sticky Header Bar */}
-        <header className="h-16 px-8 border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md flex items-center justify-between shrink-0 z-10">
+        <header className={`h-16 px-8 border-b backdrop-blur-md flex items-center justify-between shrink-0 z-10 transition-colors ${headerBg}`}>
           
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-400">신상픽 관리자</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-            <span className="font-bold text-white">
-              {activeAdminTab === 'overview' && '📊 대시보드 개요 및 핵심 지표'}
+            <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>신상픽 관리자 콘솔</span>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+            <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              {activeAdminTab === 'overview' && '📊 대시보드 개요 및 실시간 종합 지표'}
               {activeAdminTab === 'approval' && '⚡ 신제품 자동 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'products' && '📦 상품 및 신제품 전체 데이터베이스'}
+              {activeAdminTab === 'reviews' && '💬 사용자 리뷰 및 커뮤니티 피드 모더레이션'}
+              {activeAdminTab === 'analytics' && '📈 신상 검색 트렌드 및 카테고리 분석'}
               {activeAdminTab === 'banners' && '🖼️ 모바일 메인 홈 배너 관리'}
               {activeAdminTab === 'battle' && '🥊 신상 배틀 실시간 맞대결 설정'}
               {activeAdminTab === 'data' && '💾 데이터 백업 및 데이터베이스 설정'}
             </span>
           </div>
 
-          {/* Quick Metrics Bar & Top Actions */}
-          <div className="flex items-center gap-4">
+          {/* Quick Metrics Bar, Theme Switcher & Actions */}
+          <div className="flex items-center gap-3">
             
             {/* Live Stats Chips */}
-            <div className="hidden lg:flex items-center gap-2 text-xs">
-              <span className="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">
-                총 상품 <strong className="text-white font-mono">{products.length}</strong>
+            <div className="hidden xl:flex items-center gap-2 text-xs">
+              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-slate-800/80 border-slate-700/60 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'}`}>
+                총 상품 <strong className={`font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</strong>
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-indigo-950/60 border border-indigo-800/50 text-indigo-300">
-                오늘신상 <strong className="text-indigo-200 font-mono">{todayProductsCount}</strong>
+              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-indigo-950/60 border-indigo-800/50 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-700'}`}>
+                오늘신상 <strong className="font-mono">{todayProductsCount}</strong>
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-orange-950/60 border border-orange-800/50 text-orange-300">
-                인기HOT <strong className="text-orange-200 font-mono">{hotProductsCount}</strong>
+              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-orange-950/60 border-orange-800/50 text-orange-300' : 'bg-orange-50 border-orange-200 text-orange-700'}`}>
+                인기HOT <strong className="font-mono">{hotProductsCount}</strong>
               </span>
               {pendingCount > 0 && (
-                <span className="px-2.5 py-1 rounded-lg bg-rose-950/60 border border-rose-800/60 text-rose-300 animate-pulse font-bold">
-                  승인대기 <strong className="text-rose-200 font-mono">{pendingCount}</strong>
+                <span className="px-2.5 py-1 rounded-lg bg-rose-500 text-white animate-pulse font-bold">
+                  승인대기 <strong className="font-mono">{pendingCount}</strong>
                 </span>
               )}
             </div>
+
+            {/* ☀️ / 🌙 THEME TOGGLE BUTTON */}
+            <button
+              onClick={() => {
+                const nextMode = isDark ? 'light' : 'dark';
+                setThemeMode(nextMode);
+                showToast(nextMode === 'light' ? '☀️ 밝고 보기 편한 라이트 모드로 전환되었습니다.' : '🌙 다크 모드로 전환되었습니다.', 'info');
+              }}
+              className={`p-2 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all ${
+                isDark 
+                  ? 'bg-slate-800 border-slate-700 text-amber-300 hover:bg-slate-700' 
+                  : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+              }`}
+              title="테마 모드 전환 (라이트/다크)"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+              <span className="hidden sm:inline">{isDark ? '라이트 모드' : '다크 모드'}</span>
+            </button>
 
             {/* Quick Action Button */}
             {activeAdminTab === 'products' ? (
               <button
                 onClick={handleOpenNewProduct}
-                className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
+                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>상품 직접 등록</span>
@@ -613,7 +811,7 @@ export const AdminDashboard: React.FC = () => {
             ) : activeAdminTab === 'banners' ? (
               <button
                 onClick={handleOpenNewBanner}
-                className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
+                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>새 배너 추가</span>
@@ -621,9 +819,11 @@ export const AdminDashboard: React.FC = () => {
             ) : (
               <button
                 onClick={() => setActiveTab('home')}
-                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition-all"
+                className={`px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
+                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200 shadow-xs'
+                }`}
               >
-                <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
+                <Smartphone className="w-3.5 h-3.5 text-indigo-500" />
                 <span>앱 화면 미리보기</span>
               </button>
             )}
@@ -640,85 +840,105 @@ export const AdminDashboard: React.FC = () => {
           {activeAdminTab === 'overview' && (
             <div className="space-y-8">
               
-              {/* 1. 4-Column Large KPI Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+              {/* 1. 5-Column Large KPI Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                 
                 {/* Total Products */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-xl relative overflow-hidden group hover:border-slate-700 transition-colors">
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
-                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20">
+                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center border border-blue-500/20">
                       <Package className="w-5 h-5" />
                     </div>
                   </div>
                   <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-white font-mono">{products.length}</span>
+                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</span>
                     <span className="text-xs text-slate-400">개 등록됨</span>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                    <span>편의점·식품사 통합 카탈로그</span>
-                    <button onClick={() => setActiveAdminTab('products')} className="text-blue-400 hover:underline flex items-center gap-0.5">
+                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>식품사 통합 카탈로그</span>
+                    <button onClick={() => setActiveAdminTab('products')} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
                       관리하기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Today's New Products */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-indigo-950/40 to-slate-900/60 border border-indigo-800/40 shadow-xl relative overflow-hidden group hover:border-indigo-700 transition-colors">
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider">오늘의 출시 신상</span>
-                    <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider">오늘의 출시 신상</span>
+                    <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center border border-indigo-500/20">
                       <Zap className="w-5 h-5" />
                     </div>
                   </div>
                   <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-indigo-200 font-mono">{todayProductsCount}</span>
-                    <span className="text-xs text-indigo-300">개 활성 노출 중</span>
+                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>{todayProductsCount}</span>
+                    <span className="text-xs text-indigo-500">개 활성 노출 중</span>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-indigo-900/40 flex items-center justify-between text-xs text-indigo-300">
-                    <span>홈 화면 상단 & 신제품 탭 노출</span>
-                    <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-400 hover:underline flex items-center gap-0.5">
+                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>홈 화면 메인 피드</span>
+                    <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Hot Products */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-orange-950/40 to-slate-900/60 border border-orange-800/40 shadow-xl relative overflow-hidden group hover:border-orange-700 transition-colors">
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-orange-300 uppercase tracking-wider">인기 HOT 급상승</span>
-                    <div className="w-9 h-9 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20">
+                    <span className="text-xs font-bold text-orange-500 uppercase tracking-wider">인기 HOT 급상승</span>
+                    <div className="w-9 h-9 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center border border-orange-500/20">
                       <Flame className="w-5 h-5" />
                     </div>
                   </div>
                   <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-orange-200 font-mono">{hotProductsCount}</span>
-                    <span className="text-xs text-orange-300">개 상품</span>
+                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-orange-200' : 'text-orange-600'}`}>{hotProductsCount}</span>
+                    <span className="text-xs text-orange-500">개 상품</span>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-orange-900/40 flex items-center justify-between text-xs text-orange-300">
+                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>리뷰·평점 우수 먹거리</span>
-                    <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-orange-400 hover:underline flex items-center gap-0.5">
+                    <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-orange-600 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
-                {/* Pending Approval */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/40 to-slate-900/60 border border-amber-800/40 shadow-xl relative overflow-hidden group hover:border-amber-700 transition-colors">
+                {/* Reviews & Satisfaction */}
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-300 uppercase tracking-wider">신제품 승인 대기함</span>
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
+                    <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider">누적 사용자 리뷰</span>
+                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                      <MessageSquare className="w-5 h-5" />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-emerald-200' : 'text-emerald-600'}`}>{reviews.length}</span>
+                    <span className="text-xs text-emerald-600 font-semibold">★ {avgReviewRating}</span>
+                  </div>
+                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>커뮤니티 글 {communityPosts.length}건</span>
+                    <button onClick={() => setActiveAdminTab('reviews')} className="text-emerald-600 hover:underline flex items-center gap-0.5 font-semibold">
+                      검토하기 <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Pending Approval */}
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">신제품 수집 대기</span>
+                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
                       <Sparkles className="w-5 h-5" />
                     </div>
                   </div>
                   <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-amber-200 font-mono">{pendingCount}</span>
-                    <span className="text-xs text-amber-300">개 검토 필요</span>
+                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-amber-200' : 'text-amber-600'}`}>{pendingCount}</span>
+                    <span className="text-xs text-amber-500 font-semibold">개 검토 필요</span>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-amber-900/40 flex items-center justify-between text-xs text-amber-300">
-                    <span>자동 크롤러 수집 데이터</span>
-                    <button onClick={() => setActiveAdminTab('approval')} className="text-amber-400 hover:underline flex items-center gap-0.5 font-bold">
-                      검토·승인하기 <ChevronRight className="w-3 h-3" />
+                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>자동 크롤러 수집함</span>
+                    <button onClick={() => setActiveAdminTab('approval')} className="text-amber-600 hover:underline flex items-center gap-0.5 font-bold">
+                      승인하기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -729,84 +949,77 @@ export const AdminDashboard: React.FC = () => {
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 
                 {/* Battle Matchup Status Card */}
-                <div className="xl:col-span-2 p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+                <div className={`xl:col-span-2 p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500">
                         <Swords className="w-4 h-4" />
                       </div>
                       <div>
-                        <h2 className="text-sm font-black text-white">{battleConfig.title}</h2>
+                        <h2 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{battleConfig.title}</h2>
                         <p className="text-xs text-slate-400">{battleConfig.subtitle}</p>
                       </div>
                     </div>
                     <button
                       onClick={() => setActiveAdminTab('battle')}
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 border border-slate-700 flex items-center gap-1"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold border flex items-center gap-1 transition-colors ${
+                        isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                      }`}
                     >
                       배틀 매치업 수정 <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  {/* Arena Preview */}
-                  <div className="grid grid-cols-2 gap-4 pt-2">
-                    {/* Contender A */}
-                    <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center gap-3">
-                      <img src={prodA?.image} alt={prodA?.name} className="w-14 h-14 object-cover rounded-lg shrink-0 border border-slate-700" />
-                      <div className="min-w-0">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                          {battleConfig.labelA}
-                        </span>
-                        <h4 className="text-xs font-bold text-white truncate mt-1">{prodA?.name}</h4>
-                        <p className="text-[11px] text-slate-400 font-mono mt-0.5">{battleConfig.percentA}% 득표율</p>
+                  {/* VS Preview Mini */}
+                  <div className={`p-4 rounded-xl border flex items-center justify-between gap-4 ${subCardBg}`}>
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <img src={prodA?.image} alt={prodA?.name} className="w-12 h-12 object-cover rounded-xl border border-blue-500/30 shrink-0" />
+                      <div className="truncate">
+                        <span className="text-[10px] font-bold text-blue-600 bg-blue-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelA}</span>
+                        <p className={`text-xs font-bold truncate mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodA?.name}</p>
+                        <p className="text-xs font-mono font-bold text-blue-600">{battlePercentA}%</p>
                       </div>
                     </div>
 
-                    {/* Contender B */}
-                    <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center gap-3">
-                      <img src={prodB?.image} alt={prodB?.name} className="w-14 h-14 object-cover rounded-lg shrink-0 border border-slate-700" />
-                      <div className="min-w-0">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                          {battleConfig.labelB}
-                        </span>
-                        <h4 className="text-xs font-bold text-white truncate mt-1">{prodB?.name}</h4>
-                        <p className="text-[11px] text-slate-400 font-mono mt-0.5">{100 - battleConfig.percentA}% 득표율</p>
-                      </div>
+                    <div className="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-md">
+                      VS
                     </div>
-                  </div>
 
-                  {/* Gauge Bar */}
-                  <div className="pt-2">
-                    <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden flex">
-                      <div className="bg-gradient-to-r from-blue-600 to-indigo-500 h-full transition-all" style={{ width: `${battleConfig.percentA}%` }} />
-                      <div className="bg-gradient-to-r from-rose-500 to-amber-500 h-full transition-all" style={{ width: `${100 - battleConfig.percentA}%` }} />
+                    <div className="flex items-center justify-end gap-3 flex-1 min-w-0 text-right">
+                      <div className="truncate">
+                        <span className="text-[10px] font-bold text-rose-600 bg-rose-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelB}</span>
+                        <p className={`text-xs font-bold truncate mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodB?.name}</p>
+                        <p className="text-xs font-mono font-bold text-rose-600">{100 - battlePercentA}%</p>
+                      </div>
+                      <img src={prodB?.image} alt={prodB?.name} className="w-12 h-12 object-cover rounded-xl border border-rose-500/30 shrink-0" />
                     </div>
                   </div>
                 </div>
 
-                {/* Banner & Sync Quick Card */}
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col justify-between space-y-4">
+                {/* Quick Banner Status Card */}
+                <div className={`p-6 rounded-2xl border shadow-sm flex flex-col justify-between space-y-4 ${cardBg}`}>
                   <div>
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-black text-white flex items-center gap-2">
-                        <Layers className="w-4 h-4 text-blue-400" />
-                        <span>메인 홈 배너 현황</span>
-                      </h3>
-                      <span className="text-xs text-slate-400">{activeBannersCount}개 활성 중</span>
+                      <div className="flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-indigo-500" />
+                        <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>활성 프로모션 배너</h3>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600">
+                        {activeBannersCount}개 노출중
+                      </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-1">모바일 첫 화면 상단 캐러셀에 실시간 노출되는 프로모션 배너입니다.</p>
 
                     <div className="mt-4 space-y-2">
                       {banners.slice(0, 3).map((b, idx) => (
-                        <div key={b.id} className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between text-xs">
+                        <div key={b.id} className={`p-2.5 rounded-xl border flex items-center justify-between text-xs ${subCardBg}`}>
                           <div className="flex items-center gap-2 truncate">
-                            <span className="w-5 h-5 rounded bg-slate-800 flex items-center justify-center font-mono font-bold text-[10px] text-slate-400">
+                            <span className="w-5 h-5 rounded bg-slate-200/60 dark:bg-slate-800 flex items-center justify-center font-mono font-bold text-[10px] text-slate-500">
                               {idx + 1}
                             </span>
-                            <span className="font-semibold text-slate-200 truncate">{b.title}</span>
+                            <span className={`font-semibold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{b.title}</span>
                           </div>
-                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${b.isActive ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-500'}`}>
-                            {b.isActive ? '노출중' : '비활성'}
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${b.isActive ? 'bg-emerald-500/10 text-emerald-600' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'}`}>
+                            {b.isActive ? '노출중' : '숨김'}
                           </span>
                         </div>
                       ))}
@@ -815,35 +1028,37 @@ export const AdminDashboard: React.FC = () => {
 
                   <button
                     onClick={() => setActiveAdminTab('banners')}
-                    className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all border border-slate-700"
+                    className={`w-full py-2.5 rounded-xl text-xs font-bold transition-all border ${
+                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                    }`}
                   >
-                    배너 전체 관리 ({banners.length})
+                    배너 관리로 이동 ({banners.length})
                   </button>
                 </div>
 
               </div>
 
               {/* 3. Recent Products Snapshot Table */}
-              <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-black text-white flex items-center gap-2">
-                      <Package className="w-4 h-4 text-indigo-400" />
+                    <h3 className={`text-sm font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      <Package className="w-4 h-4 text-indigo-500" />
                       <span>최근 등록된 신상품 요약</span>
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">새로 입고되었거나 관리자가 추가한 최신 먹거리 목록입니다.</p>
+                    <p className="text-xs text-slate-400 mt-0.5">새로 입고되었거나 관리자가 승인한 최신 먹거리 목록입니다.</p>
                   </div>
                   <button
                     onClick={() => setActiveAdminTab('products')}
-                    className="text-xs font-bold text-blue-400 hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
                   >
                     전체 {products.length}개 상품 관리로 이동 <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs text-slate-300">
-                    <thead className="bg-slate-950/60 text-slate-400 uppercase font-bold text-[11px] border-b border-slate-800">
+                  <table className="w-full text-left text-xs">
+                    <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
                       <tr>
                         <th className="py-3 px-4">상품명 / 브랜드</th>
                         <th className="py-3 px-4">카테고리</th>
@@ -854,24 +1069,24 @@ export const AdminDashboard: React.FC = () => {
                         <th className="py-3 px-4 text-right">관리</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className={`divide-y ${tableRowHover}`}>
                       {products.slice(0, 5).map(prod => (
-                        <tr key={prod.id} className="hover:bg-slate-800/40 transition-colors">
+                        <tr key={prod.id} className="transition-colors">
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-3">
-                              <img src={prod.image} alt={prod.name} className="w-10 h-10 object-cover rounded-lg border border-slate-800 shrink-0" />
+                              <img src={prod.image} alt={prod.name} className="w-10 h-10 object-cover rounded-lg border border-slate-200 dark:border-slate-800 shrink-0" />
                               <div>
-                                <p className="font-bold text-white text-xs">{prod.name}</p>
+                                <p className={`font-bold text-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
                                 <p className="text-[11px] text-slate-400">{prod.brand}</p>
                               </div>
                             </div>
                           </td>
                           <td className="py-3 px-4">
-                            <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-semibold">
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
                               {prod.category}
                             </span>
                           </td>
-                          <td className="py-3 px-4 font-mono font-bold text-white">
+                          <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                             {prod.price.toLocaleString()}원
                           </td>
                           <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
@@ -881,7 +1096,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               onClick={() => toggleProductToday(prod.id)}
                               className={`px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all ${
-                                prod.isToday ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-500 hover:text-slate-300'
+                                prod.isToday ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
                               }`}
                             >
                               <Zap className="w-3 h-3" />
@@ -892,7 +1107,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               onClick={() => toggleProductHot(prod.id)}
                               className={`px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all ${
-                                prod.isHot ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-500 hover:text-slate-300'
+                                prod.isHot ? 'bg-orange-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
                               }`}
                             >
                               <Flame className="w-3 h-3" />
@@ -902,7 +1117,9 @@ export const AdminDashboard: React.FC = () => {
                           <td className="py-3 px-4 text-right">
                             <button
                               onClick={() => { handleOpenEditProduct(prod); setActiveAdminTab('products'); }}
-                              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] font-bold transition-all"
+                              className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border ${
+                                isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                              }`}
                             >
                               수정
                             </button>
@@ -924,21 +1141,21 @@ export const AdminDashboard: React.FC = () => {
             <div className="space-y-6">
               
               {/* Header & Crawler Controller Banner */}
-              <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/60 border border-slate-800 shadow-xl space-y-4">
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                        <Bot className="w-3.5 h-3.5 text-amber-400" />
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center gap-1">
+                        <Bot className="w-3.5 h-3.5" />
                         <span>AI 신제품 자동 수집 파이프라인</span>
                       </span>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 flex items-center gap-1">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] flex items-center gap-1 ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
                         <Clock className="w-3 h-3" />
                         <span>마지막 수집: {lastCrawledDate || '금일 미수집'}</span>
                       </span>
                     </div>
-                    <h2 className="text-base font-black text-white">편의점 4사 및 주요 식품사 실시간 신제품 승인함</h2>
-                    <p className="text-xs text-slate-400">
+                    <h2 className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>편의점 4사 및 주요 식품사 실시간 신제품 승인함</h2>
+                    <p className="text-xs text-slate-500">
                       CU, GS25, 세븐일레븐, 이마트24, 농심, 오리온 등에서 출시된 신제품을 수집하여 검토 후 승인 시 즉시 사용자 앱에 반영됩니다.
                     </p>
                   </div>
@@ -948,7 +1165,7 @@ export const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => runDailyCrawler(true)}
                       disabled={isCrawling}
-                      className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-black shadow-lg shadow-amber-500/20 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                      className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-black shadow-md flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
                     >
                       {isCrawling ? (
                         <>
@@ -968,19 +1185,21 @@ export const AdminDashboard: React.FC = () => {
                         <button
                           onClick={handleBulkApproveSelected}
                           disabled={selectedPendingIds.length === 0}
-                          className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md transition-all active:scale-95 disabled:opacity-40"
+                          className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40"
                         >
                           선택 {selectedPendingIds.length}개 일괄 승인
                         </button>
                         <button
                           onClick={approveAllPending}
-                          className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md transition-all active:scale-95"
+                          className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95"
                         >
                           전체 일괄 승인
                         </button>
                         <button
                           onClick={clearAllPendingProducts}
-                          className="px-3 py-2.5 bg-slate-800 hover:bg-rose-950/60 hover:text-rose-300 text-slate-400 rounded-xl text-xs font-semibold border border-slate-700 transition-all"
+                          className={`px-3 py-2.5 rounded-xl text-xs font-semibold border transition-all ${
+                            isDark ? 'bg-slate-800 hover:bg-rose-950/60 text-slate-400 hover:text-rose-300 border-slate-700' : 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200'
+                          }`}
                         >
                           대기함 비우기
                         </button>
@@ -990,30 +1209,32 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Keyword Search Crawler Bar */}
-                <div className="pt-2 border-t border-slate-800 flex flex-wrap items-center gap-2">
+                <div className={`pt-3 border-t flex flex-wrap items-center gap-2 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
                   <div className="relative flex-1 min-w-[280px]">
-                    <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={crawlerSearchQuery}
                       onChange={e => setCrawlerSearchQuery(e.target.value)}
                       onKeyDown={e => e.key === 'Enter' && handleSearchCollect()}
                       placeholder="특정 상품명이나 브랜드 검색 수집 (예: 꼬북칩, 제로밀크티, 찰떡아이스)"
-                      className="w-full pl-9 pr-3 py-2 bg-slate-950/80 border border-slate-700 rounded-xl text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-400"
+                      className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 border ${inputBg}`}
                     />
                   </div>
                   <button
                     onClick={handleSearchCollect}
-                    className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all"
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all border ${
+                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                    }`}
                   >
-                    <Search className="w-3.5 h-3.5 text-amber-400" />
+                    <Search className="w-3.5 h-3.5 text-amber-500" />
                     <span>키워드 맞춤 수집</span>
                   </button>
                 </div>
               </div>
 
               {/* Filters & Count Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+              <div className={`flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl border ${subCardBg}`}>
                 {/* Category Pills */}
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
                   {(['전체', '과자', '음료', '빵·디저트', '간편식', '기타'] as const).map(cat => (
@@ -1022,8 +1243,10 @@ export const AdminDashboard: React.FC = () => {
                       onClick={() => setPendingCategoryFilter(cat)}
                       className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
                         pendingCategoryFilter === cat
-                          ? 'bg-amber-500 text-white shadow-sm'
-                          : 'bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                          ? 'bg-amber-500 text-white shadow-xs'
+                          : isDark 
+                            ? 'bg-slate-800 text-slate-400 hover:text-slate-200' 
+                            : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
                       }`}
                     >
                       {cat}
@@ -1032,8 +1255,8 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Source Filter Pills */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <span className="font-semibold text-slate-500">출처:</span>
+                <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                  <span className="font-semibold">출처:</span>
                   {(['전체', 'CU', 'GS25', '세븐일레븐', '이마트24'] as const).map(src => (
                     <button
                       key={src}
@@ -1041,7 +1264,7 @@ export const AdminDashboard: React.FC = () => {
                       className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
                         pendingSourceFilter === src
                           ? 'bg-slate-700 text-white font-bold'
-                          : 'text-slate-400 hover:text-slate-200'
+                          : 'text-slate-400 hover:text-slate-600'
                       }`}
                     >
                       {src}
@@ -1052,35 +1275,35 @@ export const AdminDashboard: React.FC = () => {
 
               {/* Pending Products Desktop Table */}
               {filteredPendingProducts.length === 0 ? (
-                <div className="p-12 rounded-2xl bg-slate-900/40 border border-dashed border-slate-800 text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                <div className={`p-12 rounded-2xl border border-dashed text-center space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/40' : 'border-slate-200 bg-white'}`}>
+                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="text-sm font-bold text-white">승인 대기 중인 신제품이 없습니다</h3>
-                  <p className="text-xs text-slate-400 max-w-md mx-auto">
-                    위의 <strong className="text-amber-400">[오늘 신제품 즉시 수집]</strong> 버튼을 누르시면 편의점 및 식품사의 따끈따끈한 신제품을 자동으로 가져옵니다.
+                  <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>승인 대기 중인 신제품이 없습니다</h3>
+                  <p className="text-xs text-slate-500 max-w-md mx-auto">
+                    위의 <strong className="text-amber-600 font-bold">[오늘 신제품 즉시 수집]</strong> 버튼을 누르시면 편의점 및 식품사의 따끈따끈한 신제품을 자동으로 가져옵니다.
                   </p>
                 </div>
               ) : (
-                <div className="rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden">
-                  <div className="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
+                  <div className={`p-4 border-b flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
                         checked={selectedPendingIds.length === filteredPendingProducts.length && filteredPendingProducts.length > 0}
                         onChange={toggleSelectAllPending}
-                        className="rounded border-slate-700 bg-slate-800 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                        className="rounded border-slate-300 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
                       />
-                      <span className="font-semibold text-slate-300">
+                      <span className={`font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                         전체 선택 ({selectedPendingIds.length}/{filteredPendingProducts.length}개)
                       </span>
                     </div>
-                    <span>※ 승인된 상품은 즉시 메인 홈 및 신제품 피드에 등록됩니다.</span>
+                    <span>※ 승인된 상품은 즉시 메인 홈 및 신제품 피드에 정식 등록됩니다.</span>
                   </div>
 
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs text-slate-300">
-                      <thead className="bg-slate-950/80 text-slate-400 uppercase font-bold text-[11px] border-b border-slate-800">
+                    <table className="w-full text-left text-xs">
+                      <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
                         <tr>
                           <th className="py-3 px-4 w-12 text-center">선택</th>
                           <th className="py-3 px-4">신제품 / 브랜드</th>
@@ -1092,24 +1315,24 @@ export const AdminDashboard: React.FC = () => {
                           <th className="py-3 px-4 text-right">작업</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60">
+                      <tbody className={`divide-y ${tableRowHover}`}>
                         {filteredPendingProducts.map(item => {
                           const isSelected = selectedPendingIds.includes(item.id);
                           return (
-                            <tr key={item.id} className={`hover:bg-slate-800/40 transition-colors ${isSelected ? 'bg-amber-950/20' : ''}`}>
+                            <tr key={item.id} className={`transition-colors ${isSelected ? (isDark ? 'bg-amber-950/20' : 'bg-amber-50/60') : ''}`}>
                               <td className="py-3 px-4 text-center">
                                 <input
                                   type="checkbox"
                                   checked={isSelected}
                                   onChange={() => togglePendingSelect(item.id)}
-                                  className="rounded border-slate-700 bg-slate-800 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                                  className="rounded border-slate-300 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
                                 />
                               </td>
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-3">
                                   <div
                                     onClick={() => setPreviewImageModalUrl(item.image)}
-                                    className="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 overflow-hidden shrink-0 cursor-pointer relative group"
+                                    className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0 cursor-pointer relative group"
                                   >
                                     <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
@@ -1117,34 +1340,34 @@ export const AdminDashboard: React.FC = () => {
                                     </div>
                                   </div>
                                   <div className="min-w-0">
-                                    <p className="font-bold text-white text-xs truncate max-w-xs">{item.name}</p>
+                                    <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.name}</p>
                                     <p className="text-[11px] text-slate-400">{item.brand} · {item.releaseDate}</p>
                                   </div>
                                 </div>
                               </td>
                               <td className="py-3 px-4">
-                                <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-semibold">
+                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
                                   {item.category}
                                 </span>
                               </td>
-                              <td className="py-3 px-4 font-mono font-bold text-white">
+                              <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                                 {item.price > 0 ? `${item.price.toLocaleString()}원` : '가격정보없음'}
                               </td>
                               <td className="py-3 px-4">
                                 <div className="flex flex-wrap gap-1">
                                   {item.stores.map(st => (
-                                    <span key={st} className="px-1.5 py-0.2 rounded bg-slate-800 text-[10px] font-semibold text-slate-300 border border-slate-700">
+                                    <span key={st} className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
                                       {st}
                                     </span>
                                   ))}
                                 </div>
                               </td>
-                              <td className="py-3 px-4 text-slate-400 text-[11px]">
-                                <span className="px-2 py-0.5 rounded bg-indigo-950/60 text-indigo-300 border border-indigo-900/50 text-[10px] font-bold">
+                              <td className="py-3 px-4">
+                                <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 text-[10px] font-bold">
                                   {item.sourceName}
                                 </span>
                               </td>
-                              <td className="py-3 px-4 text-slate-500 font-mono text-[10px]">
+                              <td className="py-3 px-4 text-slate-400 font-mono text-[10px]">
                                 {isNaN(new Date(item.crawledAt).getTime()) ? item.crawledAt : new Date(item.crawledAt).toLocaleDateString()}
                               </td>
                               <td className="py-3 px-4 text-right">
@@ -1158,13 +1381,15 @@ export const AdminDashboard: React.FC = () => {
                                   </button>
                                   <button
                                     onClick={() => openEditPending(item)}
-                                    className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] font-bold transition-all border border-slate-700"
+                                    className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border ${
+                                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                                    }`}
                                   >
                                     수정
                                   </button>
                                   <button
                                     onClick={() => rejectPendingProduct(item.id)}
-                                    className="p-1 hover:bg-rose-950/60 text-slate-500 hover:text-rose-400 rounded transition-all"
+                                    className="p-1 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded transition-all"
                                     title="거절"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
@@ -1184,38 +1409,40 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 3: PRODUCTS (상품 및 신제품 관리)
+              TAB 3: PRODUCTS (상품 및 신제품 관리 + 대량 일괄 작업)
              ======================================================== */}
           {activeAdminTab === 'products' && (
             <div className="space-y-6">
               
               {/* Product Toolbar */}
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+              <div className={`flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl border shadow-sm ${cardBg}`}>
                 
                 {/* Search & Badge filter */}
                 <div className="flex flex-wrap items-center gap-2.5 flex-1">
                   <div className="relative min-w-[260px] flex-1 max-w-md">
-                    <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={productSearch}
                       onChange={e => setProductSearch(e.target.value)}
                       placeholder="상품명, 브랜드명 검색..."
-                      className="w-full pl-9 pr-3 py-2 bg-slate-950/80 border border-slate-700 rounded-xl text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
+                      className={`w-full pl-9 pr-8 py-2 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 border ${inputBg}`}
                     />
                     {productSearch && (
-                      <button onClick={() => setProductSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+                      <button onClick={() => setProductSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                         <X className="w-3.5 h-3.5" />
                       </button>
                     )}
                   </div>
 
                   {/* Badge Filter Pills */}
-                  <div className="flex items-center gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs">
+                  <div className={`flex items-center gap-1 p-1 rounded-xl border text-xs ${subCardBg}`}>
                     <button
                       onClick={() => setProductFilterBadge('all')}
                       className={`px-3 py-1 rounded-lg font-bold transition-all ${
-                        productFilterBadge === 'all' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white'
+                        productFilterBadge === 'all' 
+                          ? (isDark ? 'bg-slate-800 text-white' : 'bg-white text-slate-900 shadow-xs') 
+                          : 'text-slate-500 hover:text-slate-900'
                       }`}
                     >
                       전체 ({products.length})
@@ -1223,7 +1450,7 @@ export const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => setProductFilterBadge('today')}
                       className={`px-3 py-1 rounded-lg font-bold transition-all flex items-center gap-1 ${
-                        productFilterBadge === 'today' ? 'bg-indigo-600 text-white' : 'text-indigo-400 hover:text-white'
+                        productFilterBadge === 'today' ? 'bg-indigo-600 text-white' : 'text-indigo-600 hover:text-indigo-700'
                       }`}
                     >
                       <Zap className="w-3 h-3" />
@@ -1232,7 +1459,7 @@ export const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => setProductFilterBadge('hot')}
                       className={`px-3 py-1 rounded-lg font-bold transition-all flex items-center gap-1 ${
-                        productFilterBadge === 'hot' ? 'bg-orange-600 text-white' : 'text-orange-400 hover:text-white'
+                        productFilterBadge === 'hot' ? 'bg-orange-600 text-white' : 'text-orange-600 hover:text-orange-700'
                       }`}
                     >
                       <Flame className="w-3 h-3" />
@@ -1243,11 +1470,13 @@ export const AdminDashboard: React.FC = () => {
 
                 {/* Right: View Mode & Add Button */}
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs">
+                  <div className={`flex items-center p-1 rounded-xl border text-xs ${subCardBg}`}>
                     <button
                       onClick={() => setProductViewMode('table')}
                       className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-                        productViewMode === 'table' ? 'bg-slate-800 text-white' : 'text-slate-400'
+                        productViewMode === 'table' 
+                          ? (isDark ? 'bg-slate-800 text-white' : 'bg-white text-slate-900 shadow-xs') 
+                          : 'text-slate-400'
                       }`}
                     >
                       테이블형
@@ -1255,7 +1484,9 @@ export const AdminDashboard: React.FC = () => {
                     <button
                       onClick={() => setProductViewMode('grid')}
                       className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-                        productViewMode === 'grid' ? 'bg-slate-800 text-white' : 'text-slate-400'
+                        productViewMode === 'grid' 
+                          ? (isDark ? 'bg-slate-800 text-white' : 'bg-white text-slate-900 shadow-xs') 
+                          : 'text-slate-400'
                       }`}
                     >
                       카드 그리드형
@@ -1264,7 +1495,7 @@ export const AdminDashboard: React.FC = () => {
 
                   <button
                     onClick={handleOpenNewProduct}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-lg shadow-blue-600/20 transition-all active:scale-95"
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all active:scale-95"
                   >
                     <Plus className="w-4 h-4" />
                     <span>신규 상품 등록</span>
@@ -1281,8 +1512,10 @@ export const AdminDashboard: React.FC = () => {
                     onClick={() => setProductCategoryFilter(cat)}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                       productCategoryFilter === cat
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                        : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800'
+                        ? 'bg-indigo-600 text-white shadow-sm'
+                        : isDark
+                          ? 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
+                          : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-xs'
                     }`}
                   >
                     {cat}
@@ -1290,13 +1523,85 @@ export const AdminDashboard: React.FC = () => {
                 ))}
               </div>
 
+              {/* BULK OPERATION TOOLBAR (다중 선택 일괄 작업 바) */}
+              {selectedProductIds.length > 0 && (
+                <div className="p-3.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/60 flex flex-wrap items-center justify-between gap-3 animate-in fade-in">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">
+                      {selectedProductIds.length}
+                    </span>
+                    <span className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
+                      개 상품이 선택되었습니다
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 text-xs">
+                    <button
+                      onClick={() => handleBulkSetToday(true)}
+                      className="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
+                    >
+                      <Zap className="w-3 h-3" />
+                      <span>일괄 오늘신상 ON</span>
+                    </button>
+                    <button
+                      onClick={() => handleBulkSetToday(false)}
+                      className="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 rounded-lg font-bold"
+                    >
+                      오늘신상 OFF
+                    </button>
+                    <button
+                      onClick={() => handleBulkSetHot(true)}
+                      className="px-2.5 py-1.5 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
+                    >
+                      <Flame className="w-3 h-3" />
+                      <span>일괄 인기HOT ON</span>
+                    </button>
+                    <button
+                      onClick={() => handleBulkSetHot(false)}
+                      className="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 rounded-lg font-bold"
+                    >
+                      인기HOT OFF
+                    </button>
+                    <button
+                      onClick={handleExportSelectedProducts}
+                      className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
+                    >
+                      <Download className="w-3 h-3" />
+                      <span>선택 백업 JSON</span>
+                    </button>
+                    <button
+                      onClick={handleBulkDeleteProducts}
+                      className="px-2.5 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>선택 일괄 삭제</span>
+                    </button>
+                    <button
+                      onClick={() => setSelectedProductIds([])}
+                      className="p-1.5 text-slate-400 hover:text-slate-600"
+                      title="선택 취소"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Products Table View */}
               {productViewMode === 'table' ? (
-                <div className="rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden">
+                <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs text-slate-300">
-                      <thead className="bg-slate-950/80 text-slate-400 uppercase font-bold text-[11px] border-b border-slate-800">
+                    <table className="w-full text-left text-xs">
+                      <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
                         <tr>
+                          <th className="py-3 px-4 w-12 text-center">
+                            <input
+                              type="checkbox"
+                              checked={selectedProductIds.length === filteredAdminProducts.length && filteredAdminProducts.length > 0}
+                              onChange={toggleSelectAllProducts}
+                              className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4 cursor-pointer"
+                            />
+                          </th>
                           <th className="py-3 px-4">상품 / 브랜드</th>
                           <th className="py-3 px-4">카테고리</th>
                           <th className="py-3 px-4">가격 (할인율)</th>
@@ -1307,158 +1612,151 @@ export const AdminDashboard: React.FC = () => {
                           <th className="py-3 px-4 text-right">관리</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60">
-                        {filteredAdminProducts.map(prod => (
-                          <tr key={prod.id} className="hover:bg-slate-800/40 transition-colors">
-                            <td className="py-3 px-4">
-                              <div className="flex items-center gap-3">
-                                <div
-                                  onClick={() => setPreviewImageModalUrl(prod.image)}
-                                  className="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 overflow-hidden shrink-0 cursor-pointer relative group"
-                                >
-                                  <img src={prod.image} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                    <Eye className="w-3.5 h-3.5 text-white" />
+                      <tbody className={`divide-y ${tableRowHover}`}>
+                        {filteredAdminProducts.map(prod => {
+                          const isSelected = selectedProductIds.includes(prod.id);
+                          return (
+                            <tr key={prod.id} className={`transition-colors ${isSelected ? (isDark ? 'bg-indigo-950/20' : 'bg-indigo-50/60') : ''}`}>
+                              <td className="py-3 px-4 text-center">
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => toggleProductSelect(prod.id)}
+                                  className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4 cursor-pointer"
+                                />
+                              </td>
+                              <td className="py-3 px-4">
+                                <div className="flex items-center gap-3">
+                                  <div
+                                    onClick={() => setPreviewImageModalUrl(prod.image)}
+                                    className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0 cursor-pointer relative group"
+                                  >
+                                    <img src={prod.image} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                      <Eye className="w-3.5 h-3.5 text-white" />
+                                    </div>
+                                  </div>
+                                  <div className="min-w-0">
+                                    <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
+                                    <p className="text-[11px] text-slate-400">{prod.brand} · {prod.releaseDate}</p>
                                   </div>
                                 </div>
-                                <div className="min-w-0">
-                                  <p className="font-bold text-white text-xs truncate max-w-xs">{prod.name}</p>
-                                  <p className="text-[11px] text-slate-400">{prod.brand} · {prod.releaseDate}</p>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                                  {prod.category} {prod.subCategory && `> ${prod.subCategory}`}
+                                </span>
+                              </td>
+                              <td className={`py-3 px-4 font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                <span className="font-bold">{prod.price.toLocaleString()}원</span>
+                                {prod.discountRate && prod.discountRate > 0 ? (
+                                  <span className="text-[10px] text-rose-500 ml-1 font-bold">(-{prod.discountRate}%)</span>
+                                ) : null}
+                              </td>
+                              <td className="py-3 px-4">
+                                <div className="flex items-center gap-1 text-[11px]">
+                                  <span className="text-amber-500 font-bold">★ {prod.overallRating || 0}</span>
+                                  <span className="text-slate-400">({prod.ratingCount || 0})</span>
                                 </div>
-                              </div>
-                            </td>
-                            <td className="py-3 px-4">
-                              <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-semibold">
-                                {prod.category} {prod.subCategory && `> ${prod.subCategory}`}
-                              </span>
-                            </td>
-                            <td className="py-3 px-4 font-mono">
-                              <span className="font-bold text-white">{prod.price.toLocaleString()}원</span>
-                              {prod.discountRate && prod.discountRate > 0 ? (
-                                <span className="text-[10px] text-rose-400 ml-1 font-bold">(-{prod.discountRate}%)</span>
-                              ) : null}
-                            </td>
-                            <td className="py-3 px-4">
-                              <div className="flex items-center gap-1 text-[11px]">
-                                <span className="text-amber-400 font-bold">★ {prod.overallRating || 0}</span>
-                                <span className="text-slate-500">({prod.ratingCount || 0})</span>
-                              </div>
-                            </td>
-                            <td className="py-3 px-4">
-                              <button
-                                onClick={() => toggleProductToday(prod.id)}
-                                className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
-                                  prod.isToday
-                                    ? 'bg-indigo-600 text-white shadow-sm'
-                                    : 'bg-slate-800 text-slate-500 hover:text-slate-300'
-                                }`}
-                              >
-                                <Zap className="w-3 h-3" />
-                                <span>{prod.isToday ? '오늘신상 ON' : 'OFF'}</span>
-                              </button>
-                            </td>
-                            <td className="py-3 px-4">
-                              <button
-                                onClick={() => toggleProductHot(prod.id)}
-                                className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
-                                  prod.isHot
-                                    ? 'bg-orange-600 text-white shadow-sm'
-                                    : 'bg-slate-800 text-slate-500 hover:text-slate-300'
-                                }`}
-                              >
-                                <Flame className="w-3 h-3" />
-                                <span>{prod.isHot ? '인기HOT ON' : 'OFF'}</span>
-                              </button>
-                            </td>
-                            <td className="py-3 px-4">
-                              <div className="flex flex-wrap gap-1 max-w-[140px]">
-                                {prod.stores?.map(st => (
-                                  <span key={st} className="px-1.5 py-0.2 rounded bg-slate-800 text-[10px] font-semibold text-slate-300 border border-slate-700">
-                                    {st}
-                                  </span>
-                                ))}
-                              </div>
-                            </td>
-                            <td className="py-3 px-4 text-right">
-                              <div className="flex items-center justify-end gap-1.5">
+                              </td>
+                              <td className="py-3 px-4">
                                 <button
-                                  onClick={() => handleOpenEditProduct(prod)}
-                                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] font-bold transition-all border border-slate-700 flex items-center gap-1"
+                                  onClick={() => toggleProductToday(prod.id)}
+                                  className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
+                                    prod.isToday
+                                      ? 'bg-indigo-600 text-white shadow-xs'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
+                                  }`}
                                 >
-                                  <Edit3 className="w-3 h-3 text-blue-400" />
-                                  <span>수정</span>
+                                  <Zap className="w-3 h-3" />
+                                  <span>{prod.isToday ? '오늘신상 ON' : 'OFF'}</span>
                                 </button>
+                              </td>
+                              <td className="py-3 px-4">
                                 <button
-                                  onClick={() => {
-                                    if (confirm(`'${prod.name}' 상품을 정말 삭제하시겠습니까?`)) {
-                                      deleteProduct(prod.id);
-                                    }
-                                  }}
-                                  className="p-1 hover:bg-rose-950/60 text-slate-500 hover:text-rose-400 rounded transition-all"
-                                  title="삭제"
+                                  onClick={() => toggleProductHot(prod.id)}
+                                  className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
+                                    prod.isHot
+                                      ? 'bg-orange-600 text-white shadow-xs'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
+                                  }`}
                                 >
-                                  <Trash2 className="w-3.5 h-3.5" />
+                                  <Flame className="w-3 h-3" />
+                                  <span>{prod.isHot ? '인기HOT ON' : 'OFF'}</span>
                                 </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                              </td>
+                              <td className="py-3 px-4">
+                                <div className="flex flex-wrap gap-1 max-w-[140px]">
+                                  {prod.stores?.map(st => (
+                                    <span key={st} className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                                      {st}
+                                    </span>
+                                  ))}
+                                </div>
+                              </td>
+                              <td className="py-3 px-4 text-right">
+                                <div className="flex items-center justify-end gap-1.5">
+                                  <button
+                                    onClick={() => handleOpenEditProduct(prod)}
+                                    className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
+                                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                                    }`}
+                                  >
+                                    <Edit3 className="w-3 h-3 text-indigo-500" />
+                                    <span>수정</span>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      if (confirm(`'${prod.name}' 상품을 정말 삭제하시겠습니까?`)) {
+                                        deleteProduct(prod.id);
+                                      }
+                                    }}
+                                    className="p-1 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded transition-all"
+                                    title="삭제"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
                 </div>
               ) : (
-                /* Grid View */
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                /* Card Grid View */
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                   {filteredAdminProducts.map(prod => (
-                    <div key={prod.id} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-3 flex flex-col justify-between">
-                      <div className="space-y-2.5">
-                        <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 border border-slate-800">
-                          <img src={prod.image} alt={prod.name} className="w-full h-full object-cover" />
+                    <div key={prod.id} className={`p-4 rounded-2xl border shadow-sm flex flex-col justify-between space-y-3 group ${cardBg}`}>
+                      <div>
+                        <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-3">
+                          <img src={prod.image} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                           <div className="absolute top-2 left-2 flex gap-1">
-                            {prod.isToday && (
-                              <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-indigo-600 text-white shadow-xs">
-                                ⚡ 오늘신상
-                              </span>
-                            )}
-                            {prod.isHot && (
-                              <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-orange-600 text-white shadow-xs">
-                                🔥 인기HOT
-                              </span>
-                            )}
+                            {prod.isToday && <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-indigo-600 text-white shadow-xs">오늘신상</span>}
+                            {prod.isHot && <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-orange-600 text-white shadow-xs">HOT</span>}
                           </div>
                         </div>
+
                         <div>
-                          <span className="text-[10px] text-indigo-400 font-semibold">{prod.brand}</span>
-                          <h4 className="text-xs font-bold text-white truncate">{prod.name}</h4>
-                          <p className="text-xs font-mono font-bold text-slate-300 mt-1">{prod.price.toLocaleString()}원</p>
+                          <span className="text-[10px] font-semibold text-indigo-600">{prod.brand}</span>
+                          <h4 className={`text-xs font-bold truncate mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</h4>
+                          <p className="text-xs font-mono font-bold mt-1">
+                            {prod.price.toLocaleString()}원
+                            {prod.discountRate ? <span className="text-rose-500 ml-1">(-{prod.discountRate}%)</span> : null}
+                          </p>
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => toggleProductToday(prod.id)}
-                            className={`p-1.5 rounded-lg text-xs font-bold ${prod.isToday ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-500'}`}
-                            title="오늘신상 토글"
-                          >
-                            <Zap className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => toggleProductHot(prod.id)}
-                            className={`p-1.5 rounded-lg text-xs font-bold ${prod.isHot ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-500'}`}
-                            title="인기HOT 토글"
-                          >
-                            <Flame className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-
+                      <div className={`pt-3 border-t flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
+                        <span className="text-[10px] text-amber-500 font-bold">★ {prod.overallRating}</span>
                         <div className="flex items-center gap-1">
                           <button
                             onClick={() => handleOpenEditProduct(prod)}
-                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs font-bold transition-all border border-slate-700"
+                            className={`p-1.5 rounded-lg border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-700 border-slate-200'}`}
                           >
-                            수정
+                            <Edit3 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => {
@@ -1466,7 +1764,7 @@ export const AdminDashboard: React.FC = () => {
                                 deleteProduct(prod.id);
                               }
                             }}
-                            className="p-1 hover:bg-rose-950/60 text-slate-500 hover:text-rose-400 rounded transition-all"
+                            className="p-1.5 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -1481,24 +1779,373 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 4: BANNERS (홈 배너 관리)
+              TAB 4: REVIEWS & COMMUNITY (리뷰 및 커뮤니티 모더레이션 NEW)
+             ======================================================== */}
+          {activeAdminTab === 'reviews' && (
+            <div className="space-y-6">
+              
+              {/* Header Card */}
+              <div className={`p-6 rounded-2xl border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 ${cardBg}`}>
+                <div>
+                  <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    <MessageSquare className="w-5 h-5 text-emerald-500" />
+                    <span>사용자 리뷰 및 커뮤니티 피드 모더레이션</span>
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    신제품을 맛본 소비자들의 실측 후기 및 커뮤니티 글을 모니터링하고 부적절한 게시물을 신속히 관리합니다.
+                  </p>
+                </div>
+
+                {/* Sub Tab Switcher */}
+                <div className={`flex items-center p-1 rounded-xl border text-xs ${subCardBg}`}>
+                  <button
+                    onClick={() => setModerationSubTab('reviews')}
+                    className={`px-3.5 py-1.5 rounded-lg font-bold transition-all ${
+                      moderationSubTab === 'reviews'
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-slate-500 hover:text-slate-900'
+                    }`}
+                  >
+                    ⭐ 제품 리뷰 ({reviews.length})
+                  </button>
+                  <button
+                    onClick={() => setModerationSubTab('community')}
+                    className={`px-3.5 py-1.5 rounded-lg font-bold transition-all ${
+                      moderationSubTab === 'community'
+                        ? 'bg-indigo-600 text-white shadow-xs'
+                        : 'text-slate-500 hover:text-slate-900'
+                    }`}
+                  >
+                    📝 커뮤니티 글 ({communityPosts.length})
+                  </button>
+                </div>
+              </div>
+
+              {/* 1. SubTab: REVIEWS MODERATION */}
+              {moderationSubTab === 'reviews' && (
+                <div className="space-y-4">
+                  
+                  {/* Review Search Toolbar */}
+                  <div className={`p-4 rounded-xl border flex items-center gap-3 ${subCardBg}`}>
+                    <div className="relative flex-1 max-w-md">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={reviewSearchQuery}
+                        onChange={e => setReviewSearchQuery(e.target.value)}
+                        placeholder="리뷰 내용, 상품명, 작성자 닉네임 검색..."
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none border ${inputBg}`}
+                      />
+                    </div>
+                    <span className="text-xs text-slate-400">
+                      총 {filteredReviews.length}건 검색됨
+                    </span>
+                  </div>
+
+                  {/* Reviews List */}
+                  {filteredReviews.length === 0 ? (
+                    <div className={`p-12 rounded-2xl border text-center text-xs text-slate-400 ${cardBg}`}>
+                      조건에 맞는 리뷰가 없습니다.
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {filteredReviews.map(r => (
+                        <div key={r.id} className={`p-5 rounded-2xl border shadow-sm flex flex-col justify-between space-y-3 ${cardBg}`}>
+                          <div>
+                            {/* Product Info & Rating */}
+                            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                              <div className="flex items-center gap-2 truncate">
+                                {r.productImage && (
+                                  <img src={r.productImage} alt={r.productName} className="w-9 h-9 object-cover rounded-lg border border-slate-200 dark:border-slate-700 shrink-0" />
+                                )}
+                                <div className="truncate">
+                                  <p className={`text-xs font-bold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>{r.productName}</p>
+                                  <p className="text-[10px] text-slate-400">{r.createdAt || '최근 작성'}</p>
+                                </div>
+                              </div>
+                              <span className="px-2 py-0.5 rounded-full text-xs font-black bg-amber-500/10 text-amber-600">
+                                ★ {r.rating}
+                              </span>
+                            </div>
+
+                            {/* Author & Review Content */}
+                            <div className="pt-3 space-y-2">
+                              <div className="flex items-center gap-2">
+                                <img src={r.userAvatar} alt={r.userName} className="w-5 h-5 rounded-full object-cover" />
+                                <span className="text-xs font-bold">{r.userName}</span>
+                                <span className="text-[10px] text-indigo-500 font-semibold">{r.userLevel}</span>
+                              </div>
+                              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                                {r.content}
+                              </p>
+                              {r.images && r.images.length > 0 && (
+                                <div className="flex gap-2 pt-1">
+                                  {r.images.map((img, idx) => (
+                                    <img
+                                      key={idx}
+                                      src={img}
+                                      alt="리뷰사진"
+                                      onClick={() => setPreviewImageModalUrl(img)}
+                                      className="w-16 h-16 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition-opacity"
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Footer Actions */}
+                          <div className={`pt-3 border-t flex items-center justify-between text-xs text-slate-400 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
+                            <div className="flex items-center gap-3">
+                              <span className="flex items-center gap-1"><ThumbsUp className="w-3 h-3" /> {r.likes || 0}</span>
+                              <span className="flex items-center gap-1"><MessageSquare className="w-3 h-3" /> {r.commentsCount || 0}</span>
+                            </div>
+                            <button
+                              onClick={() => {
+                                if (confirm(`'${r.userName}'님의 리뷰를 삭제하시겠습니까?`)) {
+                                  deleteReview(r.id);
+                                }
+                              }}
+                              className="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg font-bold flex items-center gap-1 transition-colors"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                              <span>삭제</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* 2. SubTab: COMMUNITY MODERATION */}
+              {moderationSubTab === 'community' && (
+                <div className="space-y-4">
+                  
+                  {/* Community Search Toolbar */}
+                  <div className={`p-4 rounded-xl border flex items-center gap-3 ${subCardBg}`}>
+                    <div className="relative flex-1 max-w-md">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={communitySearchQuery}
+                        onChange={e => setCommunitySearchQuery(e.target.value)}
+                        placeholder="게시글 제목, 내용, 작성자 검색..."
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none border ${inputBg}`}
+                      />
+                    </div>
+                    <span className="text-xs text-slate-400">
+                      총 {filteredCommunityPosts.length}건 검색됨
+                    </span>
+                  </div>
+
+                  {/* Community Posts Table */}
+                  <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
+                          <tr>
+                            <th className="py-3 px-4">분류</th>
+                            <th className="py-3 px-4">제목 및 본문 요약</th>
+                            <th className="py-3 px-4">작성자</th>
+                            <th className="py-3 px-4">좋아요 / 댓글</th>
+                            <th className="py-3 px-4">작성 일시</th>
+                            <th className="py-3 px-4 text-right">관리</th>
+                          </tr>
+                        </thead>
+                        <tbody className={`divide-y ${tableRowHover}`}>
+                          {filteredCommunityPosts.map(post => (
+                            <tr key={post.id} className="transition-colors">
+                              <td className="py-3 px-4">
+                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                  post.category === '인기글' ? 'bg-orange-500/10 text-orange-600' :
+                                  post.category === '질문/답변' ? 'bg-blue-500/10 text-blue-600' :
+                                  post.category === '이벤트' ? 'bg-purple-500/10 text-purple-600' :
+                                  'bg-slate-100 text-slate-700'
+                                }`}>
+                                  {post.category}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 max-w-md">
+                                <p className={`font-bold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>{post.title}</p>
+                                <p className="text-[11px] text-slate-400 truncate mt-0.5">{post.content}</p>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className="font-semibold">{post.author}</span>
+                              </td>
+                              <td className="py-3 px-4 text-slate-500 font-mono">
+                                👍 {post.likes || 0} · 💬 {post.commentsCount || 0}
+                              </td>
+                              <td className="py-3 px-4 text-slate-400 text-[11px]">
+                                {post.createdAt}
+                              </td>
+                              <td className="py-3 px-4 text-right">
+                                <button
+                                  onClick={() => {
+                                    if (confirm(`'${post.title}' 게시글을 삭제하시겠습니까?`)) {
+                                      deleteCommunityPost(post.id);
+                                    }
+                                  }}
+                                  className="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg font-bold flex items-center gap-1 transition-colors ml-auto"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                  <span>삭제</span>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+          )}
+
+          {/* ========================================================
+              TAB 5: ANALYTICS & TRENDS (트렌드 & 통계 분석 NEW)
+             ======================================================== */}
+          {activeAdminTab === 'analytics' && (
+            <div className="space-y-6">
+              
+              <div className={`p-6 rounded-2xl border shadow-sm ${cardBg}`}>
+                <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                  <span>신제품 카테고리 분포 및 검색 트렌드 빅데이터</span>
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">
+                  소비자들의 관심사와 편의점 4사 신상품 출시 트렌드를 데이터 기반으로 분석합니다.
+                </p>
+              </div>
+
+              {/* 2-Column: Left Category Share & Right Convenience Store Share */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                {/* Category Share Distribution */}
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                  <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>카테고리별 상품 등록 비중</h3>
+                  
+                  <div className="space-y-3">
+                    {(['과자', '음료', '빵·디저트', '간편식', '신제품', '기타'] as ProductCategory[]).map(cat => {
+                      const count = products.filter(p => p.category === cat).length;
+                      const percent = products.length > 0 ? Math.round((count / products.length) * 100) : 0;
+                      return (
+                        <div key={cat} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold">{cat}</span>
+                            <span className="text-slate-500 font-mono">{count}개 ({percent}%)</span>
+                          </div>
+                          <div className="w-full h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-500"
+                              style={{ width: `${percent}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Convenience Store Distribution */}
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                  <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>편의점 4사별 신상품 입고 현황</h3>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { name: 'CU', color: 'bg-purple-500', count: products.filter(p => p.stores?.includes('CU')).length },
+                      { name: 'GS25', color: 'bg-blue-500', count: products.filter(p => p.stores?.includes('GS25')).length },
+                      { name: '세븐일레븐', color: 'bg-emerald-500', count: products.filter(p => p.stores?.includes('세븐일레븐')).length },
+                      { name: '이마트24', color: 'bg-amber-500', count: products.filter(p => p.stores?.includes('이마트24')).length },
+                    ].map(st => (
+                      <div key={st.name} className={`p-4 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                        <div>
+                          <span className="text-xs font-bold text-slate-500">{st.name} 입고</span>
+                          <p className={`text-xl font-black font-mono mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{st.count}건</p>
+                        </div>
+                        <div className={`w-3 h-3 rounded-full ${st.color}`} />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Hot Search Trend Keywords */}
+                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <h4 className="text-xs font-bold text-slate-500 mb-2">실시간 인기 급상승 검색 키워드 TOP 10</h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        '#1 꼬북칩', '#2 두바이초콜릿', '#3 제로밀크티', '#4 딸기모찌',
+                        '#5 먹태깡', '#6 생레몬하이볼', '#7 연세우유크림빵', '#8 불닭볶음면',
+                        '#9 찰떡아이스', '#10 포켓몬빵'
+                      ].map((tag, idx) => (
+                        <span key={tag} className={`px-2.5 py-1 rounded-lg text-xs font-bold ${
+                          idx < 3 
+                            ? 'bg-indigo-500/10 text-indigo-600 border border-indigo-500/20' 
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                        }`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Top Rated Hall of Fame Products */}
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-amber-500" />
+                  <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>소비자 평점 최고 인기 신상 명예의 전당 (TOP 5)</h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {[...products]
+                    .sort((a, b) => (b.overallRating || 0) - (a.overallRating || 0))
+                    .slice(0, 5)
+                    .map((prod, idx) => (
+                      <div key={prod.id} className={`p-3.5 rounded-xl border flex flex-col items-center text-center space-y-2 relative ${subCardBg}`}>
+                        <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-amber-500 text-white font-black text-xs flex items-center justify-center shadow-xs">
+                          {idx + 1}
+                        </div>
+                        <img src={prod.image} alt={prod.name} className="w-20 h-20 object-cover rounded-xl border border-slate-200 dark:border-slate-700" />
+                        <div>
+                          <p className="text-[10px] text-slate-400">{prod.brand}</p>
+                          <p className={`text-xs font-bold truncate max-w-[140px] mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
+                          <p className="text-xs font-bold text-amber-500 mt-1">★ {prod.overallRating || 0} <span className="text-[10px] text-slate-400">({prod.ratingCount}개)</span></p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================
+              TAB 6: BANNERS (홈 배너 관리)
              ======================================================== */}
           {activeAdminTab === 'banners' && (
             <div className="space-y-6">
               
-              <div className="flex items-center justify-between p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+              <div className={`p-6 rounded-2xl border shadow-sm flex items-center justify-between ${cardBg}`}>
                 <div>
-                  <h2 className="text-base font-black text-white flex items-center gap-2">
-                    <Layers className="w-5 h-5 text-blue-400" />
-                    <span>모바일 메인 홈 배너 관리 ({banners.length}개)</span>
+                  <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    <Layers className="w-5 h-5 text-indigo-500" />
+                    <span>모바일 메인 홈 프로모션 배너 관리</span>
                   </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    사용자가 앱을 열었을 때 가장 먼저 마주치는 캐러셀 배너입니다. 이미지와 타이틀, 클릭 시 이동할 카테고리를 설정할 수 있습니다.
+                  <p className="text-xs text-slate-500 mt-1">
+                    사용자 앱 홈 화면 최상단에 회전 노출되는 대형 비주얼 배너를 등록하고 순서를 변경할 수 있습니다.
                   </p>
                 </div>
+
                 <button
                   onClick={handleOpenNewBanner}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-lg shadow-blue-600/20 transition-all active:scale-95"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all active:scale-95"
                 >
                   <Plus className="w-4 h-4" />
                   <span>새 배너 추가</span>
@@ -1508,11 +2155,11 @@ export const AdminDashboard: React.FC = () => {
               {/* 3-Column Wide Desktop Banner Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {banners.map((banner, index) => (
-                  <div key={banner.id} className="rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between">
+                  <div key={banner.id} className={`rounded-2xl border shadow-sm overflow-hidden flex flex-col justify-between ${cardBg}`}>
                     
                     {/* Banner Live Card Look */}
                     <div>
-                      <div className="relative aspect-[16/9] w-full bg-slate-950 overflow-hidden">
+                      <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
                         <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex flex-col justify-between">
                           <div className="flex items-center justify-between">
@@ -1526,7 +2173,7 @@ export const AdminDashboard: React.FC = () => {
                           <div>
                             <h3 className="text-sm font-black text-white leading-tight">{banner.title}</h3>
                             <p className="text-xs text-slate-300 mt-0.5">{banner.subtitle}</p>
-                            <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-blue-600 text-white text-[10px] font-bold">
+                            <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-bold">
                               {banner.buttonText} →
                             </span>
                           </div>
@@ -1537,7 +2184,7 @@ export const AdminDashboard: React.FC = () => {
                       <div className="p-4 space-y-2">
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-slate-400">연결 카테고리</span>
-                          <span className="font-bold text-white px-2 py-0.5 rounded bg-slate-800">
+                          <span className={`font-bold px-2 py-0.5 rounded ${isDark ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-800'}`}>
                             {banner.linkCategory || '미설정'}
                           </span>
                         </div>
@@ -1547,8 +2194,8 @@ export const AdminDashboard: React.FC = () => {
                             onClick={() => toggleBannerActive(banner.id)}
                             className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                               banner.isActive
-                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                                : 'bg-slate-800 text-slate-500'
+                                ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
                             }`}
                           >
                             {banner.isActive ? '● 실시간 노출 중' : '비활성 (숨김)'}
@@ -1558,12 +2205,14 @@ export const AdminDashboard: React.FC = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="p-4 pt-0 border-t border-slate-800/80 flex items-center justify-between">
+                    <div className={`p-4 pt-0 border-t flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
                       <button
                         onClick={() => handleOpenEditBanner(banner)}
-                        className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all border border-slate-700"
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all border ${
+                          isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                        }`}
                       >
-                        <Edit3 className="w-3.5 h-3.5 text-blue-400" />
+                        <Edit3 className="w-3.5 h-3.5 text-indigo-500" />
                         <span>수정</span>
                       </button>
                       <button
@@ -1572,7 +2221,7 @@ export const AdminDashboard: React.FC = () => {
                             deleteBanner(banner.id);
                           }
                         }}
-                        className="p-1.5 hover:bg-rose-950/60 text-slate-500 hover:text-rose-400 rounded-lg transition-all"
+                        className="p-1.5 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded-lg transition-all"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -1586,17 +2235,17 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 5: BATTLE (신상 배틀 설정)
+              TAB 7: BATTLE (신상 배틀 설정)
              ======================================================== */}
           {activeAdminTab === 'battle' && (
             <div className="space-y-6">
               
-              <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-                <h2 className="text-base font-black text-white flex items-center gap-2">
-                  <Swords className="w-5 h-5 text-rose-400" />
+              <div className={`p-6 rounded-2xl border shadow-sm ${cardBg}`}>
+                <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  <Swords className="w-5 h-5 text-rose-500" />
                   <span>신상 배틀 실시간 맞대결 설정</span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   모바일 홈 화면 하단에 노출되는 대형 투표 위젯입니다. 두 개의 라이벌 신제품을 골라 실시간 투표를 유도할 수 있습니다.
                 </p>
               </div>
@@ -1605,46 +2254,46 @@ export const AdminDashboard: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
                 {/* Left: Settings Form */}
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-5">
-                  <h3 className="text-sm font-black text-white">매치업 정보 입력</h3>
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-5 ${cardBg}`}>
+                  <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>매치업 정보 입력</h3>
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-1">배틀 메인 타이틀</label>
+                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">배틀 메인 타이틀</label>
                       <input
                         type="text"
                         value={battleTitle}
                         onChange={e => setBattleTitle(e.target.value)}
-                        className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-rose-500"
+                        className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-rose-500 ${inputBg}`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-1">배틀 서브 설명</label>
+                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">배틀 서브 설명</label>
                       <input
                         type="text"
                         value={battleSubtitle}
                         onChange={e => setBattleSubtitle(e.target.value)}
-                        className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-rose-500"
+                        className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-rose-500 ${inputBg}`}
                       />
                     </div>
 
                     {/* Fighter A */}
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                    <div className={`p-4 rounded-xl border space-y-3 ${subCardBg}`}>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-black text-blue-400">🥊 파이터 A (좌측)</span>
+                        <span className="text-xs font-black text-blue-600">🥊 파이터 A (좌측)</span>
                         <input
                           type="text"
                           value={battleLabelA}
                           onChange={e => setBattleLabelA(e.target.value)}
                           placeholder="라벨 (예: 스낵 신상 1위)"
-                          className="px-2 py-1 bg-slate-900 border border-slate-700 rounded text-xs text-white w-40 text-right"
+                          className={`px-2 py-1 rounded text-xs w-40 text-right border ${inputBg}`}
                         />
                       </div>
                       <select
                         value={battleProductAId}
                         onChange={e => setBattleProductAId(e.target.value)}
-                        className="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                        className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                       >
                         {products.map(p => (
                           <option key={p.id} value={p.id}>[{p.brand}] {p.name}</option>
@@ -1653,21 +2302,21 @@ export const AdminDashboard: React.FC = () => {
                     </div>
 
                     {/* Fighter B */}
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                    <div className={`p-4 rounded-xl border space-y-3 ${subCardBg}`}>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-black text-rose-400">🥊 파이터 B (우측)</span>
+                        <span className="text-xs font-black text-rose-600">🥊 파이터 B (우측)</span>
                         <input
                           type="text"
                           value={battleLabelB}
                           onChange={e => setBattleLabelB(e.target.value)}
                           placeholder="라벨 (예: 디저트 신상 1위)"
-                          className="px-2 py-1 bg-slate-900 border border-slate-700 rounded text-xs text-white w-40 text-right"
+                          className={`px-2 py-1 rounded text-xs w-40 text-right border ${inputBg}`}
                         />
                       </div>
                       <select
                         value={battleProductBId}
                         onChange={e => setBattleProductBId(e.target.value)}
-                        className="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white"
+                        className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                       >
                         {products.map(p => (
                           <option key={p.id} value={p.id}>[{p.brand}] {p.name}</option>
@@ -1677,9 +2326,9 @@ export const AdminDashboard: React.FC = () => {
 
                     {/* Vote Percent Slider */}
                     <div>
-                      <div className="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
-                        <span>A 파이터 기준 득표율 설정: <strong className="text-blue-400">{battlePercentA}%</strong></span>
-                        <span>B 파이터: <strong className="text-rose-400">{100 - battlePercentA}%</strong></span>
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
+                        <span>A 파이터 기준 득표율 설정: <strong className="text-blue-600">{battlePercentA}%</strong></span>
+                        <span>B 파이터: <strong className="text-rose-600">{100 - battlePercentA}%</strong></span>
                       </div>
                       <input
                         type="range"
@@ -1687,13 +2336,13 @@ export const AdminDashboard: React.FC = () => {
                         max="99"
                         value={battlePercentA}
                         onChange={e => setBattlePercentA(Number(e.target.value))}
-                        className="w-full accent-blue-500 cursor-pointer"
+                        className="w-full accent-indigo-600 cursor-pointer"
                       />
                     </div>
 
                     <button
                       onClick={handleSaveBattle}
-                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 text-white rounded-xl text-xs font-black shadow-lg transition-all active:scale-98"
+                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 text-white rounded-xl text-xs font-black shadow-md transition-all active:scale-98"
                     >
                       배틀 매치업 즉시 저장 & 반영
                     </button>
@@ -1701,57 +2350,57 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Right: Live Battle Showdown Arena Preview */}
-                <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-800 shadow-xl space-y-6">
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-6 ${cardBg}`}>
                   <div>
-                    <span className="text-[10px] font-black uppercase text-indigo-400 tracking-wider">실시간 모바일 렌더링 미리보기</span>
-                    <h3 className="text-lg font-black text-white mt-1">{battleTitle}</h3>
+                    <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">실시간 모바일 렌더링 미리보기</span>
+                    <h3 className={`text-lg font-black mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{battleTitle}</h3>
                     <p className="text-xs text-slate-400">{battleSubtitle}</p>
                   </div>
 
                   {/* VS Arena Box */}
-                  <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800/80 relative">
+                  <div className={`p-5 rounded-2xl border relative ${subCardBg}`}>
                     <div className="grid grid-cols-2 gap-4">
                       
                       {/* Left Product A */}
                       <div className="flex flex-col items-center text-center space-y-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-500/10 text-blue-600 border border-blue-500/20">
                           {battleLabelA || 'A 파이터'}
                         </span>
-                        <div className="w-24 h-24 rounded-2xl overflow-hidden bg-slate-900 border-2 border-blue-500/40 shadow-lg">
+                        <div className="w-24 h-24 rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border-2 border-blue-500/40 shadow-sm">
                           <img src={prodA?.image} alt={prodA?.name} className="w-full h-full object-cover" />
                         </div>
                         <div>
                           <p className="text-[11px] text-slate-400">{prodA?.brand}</p>
-                          <p className="text-xs font-black text-white line-clamp-1">{prodA?.name}</p>
-                          <p className="text-sm font-mono font-black text-blue-400 mt-1">{battlePercentA}%</p>
+                          <p className={`text-xs font-black line-clamp-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodA?.name}</p>
+                          <p className="text-sm font-mono font-black text-blue-600 mt-1">{battlePercentA}%</p>
                         </div>
                       </div>
 
                       {/* Right Product B */}
                       <div className="flex flex-col items-center text-center space-y-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/10 text-rose-600 border border-rose-500/20">
                           {battleLabelB || 'B 파이터'}
                         </span>
-                        <div className="w-24 h-24 rounded-2xl overflow-hidden bg-slate-900 border-2 border-rose-500/40 shadow-lg">
+                        <div className="w-24 h-24 rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border-2 border-rose-500/40 shadow-sm">
                           <img src={prodB?.image} alt={prodB?.name} className="w-full h-full object-cover" />
                         </div>
                         <div>
                           <p className="text-[11px] text-slate-400">{prodB?.brand}</p>
-                          <p className="text-xs font-black text-white line-clamp-1">{prodB?.name}</p>
-                          <p className="text-sm font-mono font-black text-rose-400 mt-1">{100 - battlePercentA}%</p>
+                          <p className={`text-xs font-black line-clamp-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodB?.name}</p>
+                          <p className="text-sm font-mono font-black text-rose-600 mt-1">{100 - battlePercentA}%</p>
                         </div>
                       </div>
 
                     </div>
 
                     {/* VS Badge Center */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900 border-2 border-slate-700 shadow-xl flex items-center justify-center font-black text-xs text-amber-400">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900 text-amber-400 border-2 border-white shadow-md flex items-center justify-center font-black text-xs">
                       VS
                     </div>
 
                     {/* Progress Bar */}
                     <div className="mt-5">
-                      <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden flex">
+                      <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex">
                         <div className="bg-gradient-to-r from-blue-600 to-indigo-500 h-full" style={{ width: `${battlePercentA}%` }} />
                         <div className="bg-gradient-to-r from-rose-500 to-amber-500 h-full" style={{ width: `${100 - battlePercentA}%` }} />
                       </div>
@@ -1766,17 +2415,17 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 6: DATA & SETTINGS (데이터 백업 & 동기화)
+              TAB 8: DATA & SETTINGS (데이터 백업 & 동기화)
              ======================================================== */}
           {activeAdminTab === 'data' && (
             <div className="space-y-6">
               
-              <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-                <h2 className="text-base font-black text-white flex items-center gap-2">
-                  <Database className="w-5 h-5 text-emerald-400" />
+              <div className={`p-6 rounded-2xl border shadow-sm ${cardBg}`}>
+                <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  <Database className="w-5 h-5 text-emerald-500" />
                   <span>데이터베이스 상태 및 백업 복구</span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   데이터 백업(JSON 다운로드) 및 로컬 스토리지 / Supabase 동기화 상태를 진단합니다.
                 </p>
               </div>
@@ -1784,45 +2433,45 @@ export const AdminDashboard: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
                 {/* Diagnostics Card */}
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
-                  <h3 className="text-sm font-black text-white">데이터베이스 동기화 진단</h3>
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                  <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>데이터베이스 동기화 진단</h3>
 
                   <div className="space-y-3 text-xs">
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                      <span className="text-slate-400">현재 클라우드 DB 상태</span>
-                      <span className={`font-bold flex items-center gap-1.5 ${isSupabaseConnected ? 'text-emerald-400' : 'text-amber-400'}`}>
-                        <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                    <div className={`p-3 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                      <span className="text-slate-500">현재 클라우드 DB 상태</span>
+                      <span className={`font-bold flex items-center gap-1.5 ${isSupabaseConnected ? 'text-emerald-600' : 'text-amber-600'}`}>
+                        <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                         {isSupabaseConnected ? 'Supabase 정상 연결됨' : '로컬 스토리지 모드 동작중'}
                       </span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                      <span className="text-slate-400">등록된 먹거리 상품 수</span>
-                      <span className="font-mono font-bold text-white">{products.length}건</span>
+                    <div className={`p-3 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                      <span className="text-slate-500">등록된 먹거리 상품 수</span>
+                      <span className={`font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}건</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                      <span className="text-slate-400">등록된 유저 리뷰 수</span>
-                      <span className="font-mono font-bold text-white">{reviews.length}건</span>
+                    <div className={`p-3 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                      <span className="text-slate-500">등록된 유저 리뷰 수</span>
+                      <span className={`font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{reviews.length}건</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                      <span className="text-slate-400">커뮤니티 게시글 수</span>
-                      <span className="font-mono font-bold text-white">{communityPosts.length}건</span>
+                    <div className={`p-3 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                      <span className="text-slate-500">커뮤니티 게시글 수</span>
+                      <span className={`font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{communityPosts.length}건</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                      <span className="text-slate-400">승인 대기 신제품 수</span>
-                      <span className="font-mono font-bold text-amber-400">{pendingCount}건</span>
+                    <div className={`p-3 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                      <span className="text-slate-500">승인 대기 신제품 수</span>
+                      <span className="font-mono font-bold text-amber-600">{pendingCount}건</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Backup & Reset Actions */}
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4 flex flex-col justify-between">
+                <div className={`p-6 rounded-2xl border shadow-sm space-y-4 flex flex-col justify-between ${cardBg}`}>
                   <div>
-                    <h3 className="text-sm font-black text-white">데이터 백업 및 초기화 도구</h3>
-                    <p className="text-xs text-slate-400 mt-1">
+                    <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>데이터 백업 및 초기화 도구</h3>
+                    <p className="text-xs text-slate-500 mt-1">
                       현재 등록된 모든 상품, 배너, 배틀 설정 데이터를 JSON 형태로 안전하게 백업하거나, 시스템 기본 초기 데이터로 되돌릴 수 있습니다.
                     </p>
                   </div>
@@ -1830,9 +2479,11 @@ export const AdminDashboard: React.FC = () => {
                   <div className="space-y-3">
                     <button
                       onClick={handleExportData}
-                      className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-xl text-xs font-bold border border-slate-700 flex items-center justify-center gap-2 transition-all"
+                      className={`w-full py-3 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 transition-all ${
+                        isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-100 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200'
+                      }`}
                     >
-                      <Download className="w-4 h-4 text-emerald-400" />
+                      <Download className="w-4 h-4 text-emerald-600" />
                       <span>전체 데이터 JSON 파일로 백업 다운로드</span>
                     </button>
 
@@ -1842,9 +2493,9 @@ export const AdminDashboard: React.FC = () => {
                           resetAllDataToDefaults();
                         }
                       }}
-                      className="w-full py-3 bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/60 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
+                      className="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
                     >
-                      <RotateCcw className="w-4 h-4 text-rose-400" />
+                      <RotateCcw className="w-4 h-4 text-rose-500" />
                       <span>시스템 초기 기본 데이터로 전체 리셋</span>
                     </button>
                   </div>
@@ -1863,17 +2514,17 @@ export const AdminDashboard: React.FC = () => {
           MODAL: PRODUCT CREATE & EDIT (2-Column Desktop Modal)
          ======================================================== */}
       {isProductModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
+          <div className={`rounded-3xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border ${cardBg}`}>
             
             {/* Modal Header */}
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between shrink-0 bg-slate-900/80">
+            <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-100 bg-white'}`}>
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
                   <Package className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-white">
+                  <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     {editingProductId ? '상품 정보 수정' : '새 신제품 직접 등록'}
                   </h3>
                   <p className="text-xs text-slate-400">필수 정보와 편의점 판매처, 영양정보를 입력해주세요.</p>
@@ -1881,7 +2532,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsProductModalOpen(false)}
-                className="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${isDark ? 'bg-slate-800 text-slate-400 hover:text-white' : 'bg-slate-100 text-slate-500 hover:text-slate-800'}`}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1895,35 +2546,35 @@ export const AdminDashboard: React.FC = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">상품명 *</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">상품명 *</label>
                     <input
                       type="text"
                       value={productForm.name}
                       onChange={e => setProductForm({ ...productForm, name: e.target.value })}
                       placeholder="예: 꼬북칩 초코츄러스맛"
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500"
+                      className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-indigo-500 ${inputBg}`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">제조사 / 브랜드 *</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드 *</label>
                     <input
                       type="text"
                       value={productForm.brand}
                       onChange={e => setProductForm({ ...productForm, brand: e.target.value })}
                       placeholder="예: 오리온, 농심, 삼양"
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500"
+                      className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-indigo-500 ${inputBg}`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">카테고리</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">카테고리</label>
                     <select
                       value={productForm.category}
                       onChange={e => setProductForm({ ...productForm, category: e.target.value as ProductCategory })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                      className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     >
                       {CATEGORIES.filter(c => c !== '전체').map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -1932,100 +2583,100 @@ export const AdminDashboard: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">세부 카테고리</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">세부 카테고리</label>
                     <input
                       type="text"
                       value={productForm.subCategory}
                       onChange={e => setProductForm({ ...productForm, subCategory: e.target.value })}
                       placeholder="예: 스낵, 초콜릿, 탄산"
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                      className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">출시일 문구</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">출시일 문구</label>
                     <input
                       type="text"
                       value={productForm.releaseDate}
                       onChange={e => setProductForm({ ...productForm, releaseDate: e.target.value })}
                       placeholder="2026.09 출시"
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                      className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">정상 판매가 (원) *</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">정상 판매가 (원) *</label>
                     <input
                       type="number"
                       value={productForm.price}
                       onChange={e => setProductForm({ ...productForm, price: Number(e.target.value) })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                      className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">할인율 (%)</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">할인율 (%)</label>
                     <input
                       type="number"
                       value={productForm.discountRate}
                       onChange={e => setProductForm({ ...productForm, discountRate: Number(e.target.value) })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                      className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">용량 / 칼로리</label>
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">용량 / 칼로리</label>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         value={productForm.volume}
                         onChange={e => setProductForm({ ...productForm, volume: e.target.value })}
                         placeholder="80g"
-                        className="w-1/2 p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                        className={`w-1/2 p-2.5 rounded-xl text-xs border ${inputBg}`}
                       />
                       <input
                         type="number"
                         value={productForm.calories}
                         onChange={e => setProductForm({ ...productForm, calories: Number(e.target.value) })}
                         placeholder="kcal"
-                        className="w-1/2 p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                        className={`w-1/2 p-2.5 rounded-xl text-xs border ${inputBg}`}
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">상품 대표 이미지 URL *</label>
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">상품 대표 이미지 URL *</label>
                   <input
                     type="text"
                     value={productForm.image}
                     onChange={e => setProductForm({ ...productForm, image: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white font-mono"
+                    className={`w-full p-2.5 rounded-xl text-xs border font-mono ${inputBg}`}
                   />
                 </div>
 
                 {/* Badges Toggle Switches */}
-                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-300">특수 노출 뱃지 설정</span>
+                <div className={`p-3.5 rounded-xl border flex items-center justify-between ${subCardBg}`}>
+                  <span className="text-xs font-bold text-slate-600 dark:text-slate-300">특수 노출 뱃지 설정</span>
                   <div className="flex items-center gap-4">
-                    <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-indigo-300">
+                    <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-indigo-600">
                       <input
                         type="checkbox"
                         checked={productForm.isToday}
                         onChange={e => setProductForm({ ...productForm, isToday: e.target.checked })}
-                        className="rounded border-slate-700 bg-slate-800 text-indigo-600 focus:ring-0 w-4 h-4"
+                        className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4"
                       />
                       <span>⚡ 오늘신상 뱃지 부여</span>
                     </label>
 
-                    <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-orange-300">
+                    <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-orange-600">
                       <input
                         type="checkbox"
                         checked={productForm.isHot}
                         onChange={e => setProductForm({ ...productForm, isHot: e.target.checked })}
-                        className="rounded border-slate-700 bg-slate-800 text-orange-600 focus:ring-0 w-4 h-4"
+                        className="rounded border-slate-300 text-orange-600 focus:ring-0 w-4 h-4"
                       />
                       <span>🔥 인기HOT 뱃지 부여</span>
                     </label>
@@ -2034,7 +2685,7 @@ export const AdminDashboard: React.FC = () => {
 
                 {/* Store checkboxes */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">판매처 편의점 및 유통처</label>
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">판매처 편의점 및 유통처</label>
                   <div className="flex flex-wrap gap-2">
                     {['CU', 'GS25', '세븐일레븐', '이마트24', '대형마트', '온라인'].map(store => {
                       const isChecked = productForm.stores.includes(store);
@@ -2052,8 +2703,8 @@ export const AdminDashboard: React.FC = () => {
                           }}
                           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                             isChecked
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-slate-950 border border-slate-700 text-slate-400 hover:text-white'
+                              ? 'bg-indigo-600 text-white'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
                           }`}
                         >
                           {store}
@@ -2064,13 +2715,13 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">상품 소개 및 특징 설명</label>
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">상품 소개 및 특징 설명</label>
                   <textarea
                     rows={2}
                     value={productForm.description}
                     onChange={e => setProductForm({ ...productForm, description: e.target.value })}
                     placeholder="신제품의 식감, 맛의 특징, 주요 타깃 설명"
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white"
+                    className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                   />
                 </div>
 
@@ -2078,13 +2729,13 @@ export const AdminDashboard: React.FC = () => {
 
               {/* Right 1 Col: Live Realtime Mobile Card Preview */}
               <div className="space-y-3">
-                <span className="text-xs font-black text-slate-400 flex items-center gap-1">
-                  <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
+                <span className="text-xs font-black text-slate-500 flex items-center gap-1">
+                  <Smartphone className="w-3.5 h-3.5 text-indigo-500" />
                   <span>실시간 모바일 카드 미리보기</span>
                 </span>
 
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl space-y-3">
-                  <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
+                <div className={`p-4 rounded-2xl border shadow-sm space-y-3 ${subCardBg}`}>
+                  <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                     <img src={productForm.image} alt="미리보기" className="w-full h-full object-cover" />
                     <div className="absolute top-2 left-2 flex gap-1">
                       {productForm.isToday && (
@@ -2101,19 +2752,19 @@ export const AdminDashboard: React.FC = () => {
                   </div>
 
                   <div>
-                    <span className="text-[10px] text-indigo-400 font-semibold">{productForm.brand || '브랜드명'}</span>
-                    <h4 className="text-xs font-bold text-white line-clamp-1">{productForm.name || '상품명 미리보기'}</h4>
-                    <p className="text-xs text-slate-400 font-mono mt-0.5">
-                      <strong className="text-white font-bold">{productForm.price.toLocaleString()}원</strong>
+                    <span className="text-[10px] text-indigo-600 font-semibold">{productForm.brand || '브랜드명'}</span>
+                    <h4 className={`text-xs font-bold line-clamp-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{productForm.name || '상품명 미리보기'}</h4>
+                    <p className="text-xs font-mono mt-0.5">
+                      <strong className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{productForm.price.toLocaleString()}원</strong>
                       {productForm.discountRate > 0 && (
-                        <span className="text-rose-400 ml-1 font-bold">(-{productForm.discountRate}%)</span>
+                        <span className="text-rose-500 ml-1 font-bold">(-{productForm.discountRate}%)</span>
                       )}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800 flex flex-wrap gap-1">
+                  <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-1">
                     {productForm.stores.map(st => (
-                      <span key={st} className="px-1.5 py-0.2 rounded bg-slate-800 text-[9px] text-slate-300">
+                      <span key={st} className="px-1.5 py-0.2 rounded bg-slate-200 dark:bg-slate-800 text-[9px] text-slate-600 dark:text-slate-300">
                         {st}
                       </span>
                     ))}
@@ -2124,16 +2775,16 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 border-t border-slate-800 flex items-center justify-end gap-2 shrink-0 bg-slate-900/80">
+            <div className={`p-4 border-t flex items-center justify-end gap-2 shrink-0 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-100 bg-white'}`}>
               <button
                 onClick={() => setIsProductModalOpen(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold"
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
               >
                 취소
               </button>
               <button
                 onClick={handleSaveProduct}
-                className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black shadow-lg shadow-blue-600/20"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-600/20"
               >
                 {editingProductId ? '수정사항 저장' : '새 상품 등록 완료'}
               </button>
@@ -2147,20 +2798,20 @@ export const AdminDashboard: React.FC = () => {
           MODAL: EDIT PENDING PRODUCT MODAL
          ======================================================== */}
       {isEditingPendingModalOpen && editingPendingItem && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
+          <div className={`rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border ${cardBg}`}>
             
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center">
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-white">수집된 신제품 정보 수정 후 승인</h3>
-                  <p className="text-xs text-slate-400">수정 후 승인하면 정식 상품으로 즉시 업로드됩니다.</p>
+                  <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>수집된 신제품 정보 수정 후 승인</h3>
+                  <p className="text-xs text-slate-400">수정 후 승인하면 정식 상품으로 즉시 등록됩니다.</p>
                 </div>
               </div>
-              <button onClick={() => setIsEditingPendingModalOpen(false)} className="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+              <button onClick={() => setIsEditingPendingModalOpen(false)} className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -2168,32 +2819,32 @@ export const AdminDashboard: React.FC = () => {
             <div className="p-6 overflow-y-auto space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">상품명</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품명</label>
                   <input
                     type="text"
                     value={editingPendingItem.name}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, name: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">제조사 / 브랜드</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드</label>
                   <input
                     type="text"
                     value={editingPendingItem.brand}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, brand: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">카테고리</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">카테고리</label>
                   <select
                     value={editingPendingItem.category}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, category: e.target.value as ProductCategory })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   >
                     {CATEGORIES.filter(c => c !== '전체').map(c => (
                       <option key={c} value={c}>{c}</option>
@@ -2201,50 +2852,50 @@ export const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">가격 (원)</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">가격 (원)</label>
                   <input
                     type="number"
                     value={editingPendingItem.price}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, price: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">출시일</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">출시일</label>
                   <input
                     type="text"
                     value={editingPendingItem.releaseDate}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, releaseDate: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">이미지 URL</label>
+                <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">이미지 URL</label>
                 <input
                   type="text"
                   value={editingPendingItem.image}
                   onChange={e => setEditingPendingItem({ ...editingPendingItem, image: e.target.value })}
-                  className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono"
+                  className={`w-full p-2.5 rounded-xl border font-mono ${inputBg}`}
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">상품 설명</label>
+                <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품 설명</label>
                 <textarea
                   rows={2}
                   value={editingPendingItem.description}
                   onChange={e => setEditingPendingItem({ ...editingPendingItem, description: e.target.value })}
-                  className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                  className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                 />
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-800 flex items-center justify-end gap-2">
+            <div className={`p-4 border-t flex items-center justify-end gap-2 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <button
                 onClick={() => setIsEditingPendingModalOpen(false)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold"
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
               >
                 취소
               </button>
@@ -2255,7 +2906,7 @@ export const AdminDashboard: React.FC = () => {
                   setIsEditingPendingModalOpen(false);
                   showToast(`'${editingPendingItem.name}' 상품이 승인되었습니다.`, 'success');
                 }}
-                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-md"
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-sm"
               >
                 수정 완료 및 즉시 승인
               </button>
@@ -2269,22 +2920,22 @@ export const AdminDashboard: React.FC = () => {
           MODAL: BANNER CREATE & EDIT
          ======================================================== */}
       {isBannerModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
+          <div className={`rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border ${cardBg}`}>
             
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
                   <Layers className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-white">
+                  <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     {editingBannerId ? '홈 배너 수정' : '새 홈 배너 추가'}
                   </h3>
                   <p className="text-xs text-slate-400">모바일 홈 화면 상단 캐러셀에 표시될 배너 콘텐츠입니다.</p>
                 </div>
               </div>
-              <button onClick={() => setIsBannerModalOpen(false)} className="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+              <button onClick={() => setIsBannerModalOpen(false)} className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -2294,54 +2945,54 @@ export const AdminDashboard: React.FC = () => {
               {/* Left Form */}
               <div className="space-y-4 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">배너 메인 제목 *</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 메인 제목 *</label>
                   <input
                     type="text"
                     value={bannerForm.title}
                     onChange={e => setBannerForm({ ...bannerForm, title: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">서브 설명 문구</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">서브 설명 문구</label>
                   <input
                     type="text"
                     value={bannerForm.subtitle}
                     onChange={e => setBannerForm({ ...bannerForm, subtitle: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-bold text-slate-300 mb-1">상단 뱃지 텍스트</label>
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상단 뱃지 텍스트</label>
                     <input
                       type="text"
                       value={bannerForm.badge}
                       onChange={e => setBannerForm({ ...bannerForm, badge: e.target.value })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                     />
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-300 mb-1">버튼 문구</label>
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">버튼 문구</label>
                     <input
                       type="text"
                       value={bannerForm.buttonText}
                       onChange={e => setBannerForm({ ...bannerForm, buttonText: e.target.value })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-bold text-slate-300 mb-1">클릭 시 이동 카테고리</label>
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">클릭 시 이동 카테고리</label>
                     <select
                       value={bannerForm.linkCategory}
                       onChange={e => setBannerForm({ ...bannerForm, linkCategory: e.target.value as ProductCategory })}
-                      className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white"
+                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                     >
                       {CATEGORIES.map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -2350,12 +3001,12 @@ export const AdminDashboard: React.FC = () => {
                   </div>
 
                   <div className="flex items-center pt-5">
-                    <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-300">
+                    <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-700 dark:text-slate-300">
                       <input
                         type="checkbox"
                         checked={bannerForm.isActive}
                         onChange={e => setBannerForm({ ...bannerForm, isActive: e.target.checked })}
-                        className="rounded border-slate-700 bg-slate-800 text-blue-600 focus:ring-0 w-4 h-4"
+                        className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4"
                       />
                       <span>배너 실시간 활성화 노출</span>
                     </label>
@@ -2363,20 +3014,20 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">배너 배경 이미지 URL *</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 배경 이미지 URL *</label>
                   <input
                     type="text"
                     value={bannerForm.image}
                     onChange={e => setBannerForm({ ...bannerForm, image: e.target.value })}
-                    className="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono"
+                    className={`w-full p-2.5 rounded-xl border font-mono ${inputBg}`}
                   />
                 </div>
               </div>
 
               {/* Right: Live Banner Preview */}
               <div className="space-y-2">
-                <span className="text-xs font-black text-slate-400">모바일 홈 캐러셀 미리보기</span>
-                <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl">
+                <span className="text-xs font-black text-slate-500">모바일 홈 캐러셀 미리보기</span>
+                <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <img src={bannerForm.image} alt="배너 미리보기" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-between">
                     <div>
@@ -2387,7 +3038,7 @@ export const AdminDashboard: React.FC = () => {
                     <div>
                       <h3 className="text-base font-black text-white leading-tight">{bannerForm.title || '배너 제목'}</h3>
                       <p className="text-xs text-slate-300 mt-1">{bannerForm.subtitle || '서브 설명'}</p>
-                      <span className="inline-block mt-3 px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-[11px] font-bold shadow-md">
+                      <span className="inline-block mt-3 px-3.5 py-1.5 rounded-lg bg-indigo-600 text-white text-[11px] font-bold shadow-xs">
                         {bannerForm.buttonText || '바로가기'} →
                       </span>
                     </div>
@@ -2397,16 +3048,16 @@ export const AdminDashboard: React.FC = () => {
 
             </div>
 
-            <div className="p-4 border-t border-slate-800 flex items-center justify-end gap-2">
+            <div className={`p-4 border-t flex items-center justify-end gap-2 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <button
                 onClick={() => setIsBannerModalOpen(false)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold"
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
               >
                 취소
               </button>
               <button
                 onClick={handleSaveBanner}
-                className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black shadow-md"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-sm"
               >
                 {editingBannerId ? '수정 완료' : '새 배너 등록'}
               </button>
@@ -2422,9 +3073,9 @@ export const AdminDashboard: React.FC = () => {
       {previewImageModalUrl && (
         <div 
           onClick={() => setPreviewImageModalUrl(null)}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6 cursor-pointer animate-in fade-in"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 cursor-pointer animate-in fade-in"
         >
-          <div className="relative max-w-2xl max-h-[85vh] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+          <div className="relative max-w-2xl max-h-[85vh] rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl">
             <img src={previewImageModalUrl} alt="고화질 원본" className="w-full h-full object-contain" />
             <button
               onClick={() => setPreviewImageModalUrl(null)}

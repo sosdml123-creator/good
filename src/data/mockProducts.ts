@@ -1,4 +1,4 @@
-import { Product, ProductCategory, BannerItem, BattleConfig } from '../types';
+import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification } from '../types';
 
 export const INITIAL_PRODUCTS: Product[] = [
   // 1. [과자] 신제품 & 스낵 & 디저트스낵
@@ -15,6 +15,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 15,
     overallRating: 4.8,
     ratingCount: 542,
+    searchInfluxCount: 46200,
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
     repurchasePercent: 96,
     calories: 432,
@@ -66,6 +67,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 1700,
     overallRating: 4.8,
     ratingCount: 1850,
+    searchInfluxCount: 19500,
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
     repurchasePercent: 96,
     calories: 410,
@@ -109,6 +111,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 0,
     overallRating: 4.9,
     ratingCount: 830,
+    searchInfluxCount: 58400,
     stores: ['CU'],
     repurchasePercent: 98,
     calories: 380,
@@ -153,6 +156,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 20,
     overallRating: 4.6,
     ratingCount: 388,
+    searchInfluxCount: 30100,
     stores: ['CU', 'GS25', '세븐일레븐'],
     isHot: true,
     detailedRating: { taste: 4.7, value: 4.1, portion: 3.9, repurchase: 4.5 },
@@ -316,6 +320,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 10,
     overallRating: 4.8,
     ratingCount: 620,
+    searchInfluxCount: 37500,
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
     repurchasePercent: 95,
     calories: 0,
@@ -622,6 +627,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 0,
     overallRating: 4.9,
     ratingCount: 620,
+    searchInfluxCount: 41800,
     volume: '1호 (15cm, 650g)',
     repurchasePercent: 96,
     detailedRating: { taste: 5.0, value: 4.3, portion: 4.8, repurchase: 4.8 },
@@ -664,6 +670,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 0,
     overallRating: 4.7,
     ratingCount: 480,
+    searchInfluxCount: 31200,
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
     isToday: true,
     isHot: true,
@@ -713,6 +720,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 20,
     overallRating: 4.8,
     ratingCount: 1420,
+    searchInfluxCount: 25400,
     volume: '315g x 2봉',
     repurchasePercent: 95,
     detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
@@ -754,6 +762,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 1800,
     overallRating: 4.7,
     ratingCount: 2150,
+    searchInfluxCount: 17800,
     stores: ['CU', 'GS25', '세븐일레븐', '대형마트'],
     repurchasePercent: 95,
     calories: 515,
@@ -962,6 +971,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 15,
     overallRating: 4.8,
     ratingCount: 890,
+    searchInfluxCount: 33200,
     volume: '2kg (6~8과)',
     repurchasePercent: 96,
     detailedRating: { taste: 4.9, value: 4.4, portion: 4.6, repurchase: 4.8 },
@@ -1081,6 +1091,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 10,
     overallRating: 4.7,
     ratingCount: 650,
+    searchInfluxCount: 22800,
     volume: '7kg 이상 (특)',
     repurchasePercent: 94,
     detailedRating: { taste: 4.8, value: 4.5, portion: 4.9, repurchase: 4.7 },
@@ -1577,6 +1588,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     discountRate: 10,
     overallRating: 4.9,
     ratingCount: 1240,
+    searchInfluxCount: 27800,
     volume: '1kg (30~35미 대과)',
     repurchasePercent: 98,
     detailedRating: { taste: 5.0, value: 4.6, portion: 4.8, repurchase: 4.9 },
@@ -2184,3 +2196,124 @@ export const INITIAL_BATTLE_CONFIG: BattleConfig = {
   labelB: '디저트 신상 1위',
   percentA: 52,
 };
+
+export const INITIAL_EVENTS: PromotionEvent[] = [
+  {
+    id: 'event-01',
+    title: '꼬북칩 초코츄러스맛 더블크런치 100인 무료 체험단 모집',
+    subtitle: '벨기에산 리얼 초콜릿의 극강 바삭함! 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
+    badge: '체험단 100명',
+    category: '체험단',
+    bannerImage: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=800&auto=format&fit=crop&q=80',
+    startDate: '2026.09.01',
+    endDate: '2026.09.15',
+    dDay: 'D-5',
+    status: 'ongoing',
+    description: `[신상픽 단독 사전 체험단 오픈!]
+오리온의 역대급 역작, '꼬북칩 초코츄러스맛 더블크런치'를 전국 편의점 입고 전 가장 먼저 만나보세요!
+
+■ 참가 혜택
+- 꼬북칩 초코츄러스맛 더블크런치 80g 정품 1박스(12봉) 무료 배송
+- 우수 리뷰어 10인에게 신세계 상품권 3만원권 추가 증정!
+
+■ 신청 방법
+1. 아래 '무료 체험단 신청하기' 버튼 클릭
+2. 기대평과 SNS 또는 블로그 링크를 간단히 작성
+3. 당첨자 발표 후 발송되는 제품을 맛있게 먹고 신상픽에 별점 리뷰 등록!
+
+■ 당첨 인원: 총 100명
+■ 당첨자 발표: 2026년 9월 16일 (앱 푸시 개별 알림)`,
+    reward: '꼬북칩 더블크런치 정품 1박스 (총 100명)',
+    targetProductId: 'prod-01',
+    actionButtonText: '무료 체험단 즉시 신청하기',
+    participantsCount: 382,
+    isParticipated: false,
+    createdAt: '2026-09-01T10:00:00Z',
+  },
+  {
+    id: 'event-02',
+    title: 'CU × 신상픽 단독! 9월 갓출시 신상 1+1 릴레이 쿠폰팩',
+    subtitle: 'CU 편의점 인기 신제품 음료 & 스낵 1+1 교환권 선착순 3,000명 발급',
+    badge: '1+1 특가',
+    category: '할인특가',
+    bannerImage: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop&q=80',
+    startDate: '2026.09.03',
+    endDate: '2026.09.20',
+    dDay: 'D-10',
+    status: 'ongoing',
+    description: `CU 편의점에서 지금 가장 핫한 신상 음료와 디저트를 1+1 혜택으로 즐기세요!
+포켓CU 앱 연동 바코드로 전국 매장에서 즉시 사용 가능합니다.
+
+■ 쿠폰 혜택
+- 이달의 신상 음료 1+1 교환 바코드
+- 편의점 디저트 1,000원 할인권 동시 지급
+
+■ 쿠폰 사용 안내
+- 전국 CU 매장에서 결제 시 바코드 제시
+- 1인 1회 한정 다운로드 가능`,
+    reward: '전국 CU 사용 가능 1+1 쿠폰 바코드',
+    actionButtonText: '1+1 모바일 쿠폰 즉시 받기',
+    participantsCount: 1520,
+    isParticipated: false,
+    createdAt: '2026-09-03T09:00:00Z',
+  },
+  {
+    id: 'event-03',
+    title: '오리지널 두바이 초콜릿 정식 수입 기념 타임어택 & 50% 페이백',
+    subtitle: '카다이프와 피스타치오 스프레드가 꽉 찬 오리지널 두바이 초콜릿을 반값 혜택으로!',
+    badge: '선착순 타임딜',
+    category: '프로모션',
+    bannerImage: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=800&auto=format&fit=crop&q=80',
+    startDate: '2026.09.05',
+    endDate: '2026.09.12',
+    dDay: '오늘마감',
+    status: 'ongoing',
+    description: `화제의 오리지널 두바이 초콜릿이 드디어 정규 물량으로 입고되었습니다!
+신상픽 회원 한정 50% 페이백 타임어택 이벤트를 지금 바로 만나보세요.
+
+■ 타임어택 혜택
+- 구매 인증 시 구매 금액의 50%를 신상픽 포인트로 전액 페이백
+- 첫 구매 회원 무료 배송 쿠폰 지급`,
+    reward: '구매 금액 50% 신상픽 포인트 페이백',
+    targetProductId: 'prod-03',
+    actionButtonText: '50% 페이백 타임어택 참여',
+    participantsCount: 894,
+    isParticipated: false,
+    createdAt: '2026-09-05T08:00:00Z',
+  },
+];
+
+export const INITIAL_NOTIFICATIONS: AppNotification[] = [
+  {
+    id: 'notif-01',
+    title: '🎁 [체험단] 꼬북칩 신상 100명 무료 체험단 오픈!',
+    body: '벨기에 초콜릿 듬뿍! 꼬북칩 초코츄러스맛 더블크런치를 무료로 먼저 맛보세요.',
+    type: 'event',
+    targetId: 'event-01',
+    imageUrl: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=200&auto=format&fit=crop&q=80',
+    timestamp: '10분 전',
+    isRead: false,
+    badge: '이벤트',
+  },
+  {
+    id: 'notif-02',
+    title: '⚡ [특가] CU 편의점 신상 1+1 쿠폰 선착순 배포',
+    body: '지금 다운로드하면 전국 CU 매장에서 1+1으로 즐길 수 있는 쿠폰을 드려요.',
+    type: 'event',
+    targetId: 'event-02',
+    imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200&auto=format&fit=crop&q=80',
+    timestamp: '2시간 전',
+    isRead: false,
+    badge: '1+1 특가',
+  },
+  {
+    id: 'notif-03',
+    title: '🍫 두바이 초콜릿 정식 수입 물량 입고 완료!',
+    body: '피스타치오 카다이프 가득! 가까운 CU/GS25 재고를 지금 실시간으로 확인해보세요.',
+    type: 'product',
+    targetId: 'prod-03',
+    timestamp: '어제',
+    isRead: true,
+    badge: '입고알림',
+  },
+];

@@ -11,7 +11,8 @@ export const SearchModal: React.FC = () => {
     recentSearches, 
     addRecentSearch, 
     removeRecentSearch, 
-    clearRecentSearches 
+    clearRecentSearches,
+    recordSearchInflux
   } = useApp();
 
   const [inputQuery, setInputQuery] = useState('');
@@ -143,6 +144,7 @@ export const SearchModal: React.FC = () => {
                         key={p.id}
                         onClick={() => {
                           addRecentSearch(inputQuery);
+                          recordSearchInflux(p.id);
                           openProductDetail(p.id);
                         }}
                         className="py-3 px-2 rounded-xl flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors"
@@ -237,6 +239,7 @@ export const SearchModal: React.FC = () => {
                         key={p.id}
                         onClick={() => {
                           addRecentSearch(inputQuery);
+                          recordSearchInflux(p.id);
                           openProductDetail(p.id);
                         }}
                         className="py-3 px-2 rounded-xl flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors"

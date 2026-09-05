@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { Search, Bell, Settings } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { setActiveTab } = useApp();
+  const { setActiveTab, unreadNotificationCount } = useApp();
 
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
@@ -22,10 +22,12 @@ export const Header: React.FC = () => {
         <button
           onClick={() => setActiveTab('alert_settings')}
           className="relative p-2 text-gray-700 hover:text-[#0066FF] transition-colors"
-          title="출시 알림"
+          title="알림 센터"
         >
           <Bell className="w-5 h-5 stroke-[2]" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+          {unreadNotificationCount > 0 && (
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+          )}
         </button>
 
         <button

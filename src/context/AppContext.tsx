@@ -12,9 +12,11 @@ import {
   PostComment,
   BannerItem,
   BattleConfig,
-  PendingProduct
+  PendingProduct,
+  PromotionEvent,
+  AppNotification
 } from '../types';
-import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG } from '../data/mockProducts';
+import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import {
@@ -39,6 +41,7 @@ import {
   DBReviewComment,
   DBPostComment
 } from '../services/supabase';
+import { getSearchInfluxCount } from '../utils/ranking';
 
 interface AppContextType {
   products: Product[];
@@ -46,6 +49,12 @@ interface AppContextType {
   communityPosts: CommunityPost[];
   banners: BannerItem[];
   battleConfig: BattleConfig;
+  events: PromotionEvent[];
+  selectedEventId: string;
+  selectedEvent: PromotionEvent;
+  notifications: AppNotification[];
+  unreadNotificationCount: number;
+  incomingPush: AppNotification | null;
   activeTab: ActiveTab;
   previousTab: ActiveTab;
   selectedCategory: ProductCategory;
@@ -66,6 +75,7 @@ interface AppContextType {
   goBack: () => void;
   setSelectedCategory: (cat: ProductCategory) => void;
   openProductDetail: (productId: string) => void;
+  openEventDetail: (eventId: string) => void;
   toggleBookmark: (productId: string, e?: React.MouseEvent) => void;
   toggleCompare: (productId: string, e?: React.MouseEvent) => void;
   removeFromCompare: (productId: string) => void;
@@ -75,6 +85,7 @@ interface AppContextType {
   addRecentSearch: (keyword: string) => void;
   removeRecentSearch: (keyword: string) => void;
   clearRecentSearches: () => void;
+  recordSearchInflux: (productId: string) => void;
   showToast: (msg: string, type?: 'success' | 'info' | 'error') => void;
   removeToast: (id: string) => void;
   updateUserNickname: (newName: string) => Promise<void>;
@@ -82,6 +93,16 @@ interface AppContextType {
   loginWithGoogle: () => Promise<void>;
   loginWithKakao: () => Promise<void>;
   logout: () => Promise<void>;
+
+  // Events & Push Notifications Actions
+  addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
+  updateEvent: (id: string, updated: Partial<PromotionEvent>) => void;
+  deleteEvent: (id: string) => void;
+  participateInEvent: (eventId: string) => void;
+  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string }) => void;
+  dismissIncomingPush: () => void;
+  markNotificationAsRead: (id: string) => void;
+  clearAllNotifications: () => void;
 
   // Admin Banner Actions
   addBanner: (banner: Omit<BannerItem, 'id' | 'order'>) => void;
@@ -135,6 +156,10 @@ interface AppContextType {
   ) => Promise<void>;
   toggleLikePost: (postId: string) => Promise<void>;
   addPostComment: (postId: string, text: string) => Promise<void>;
+
+  // Admin Moderation Actions
+  deleteReview: (reviewId: string) => Promise<void>;
+  deleteCommunityPost: (postId: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -202,6 +227,7 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => ({
   shelfLife: dbP.shelf_life,
   precautions: dbP.precautions,
   storeStocks: dbP.store_stocks,
+  searchInfluxCount: (dbP as any).search_influx_count || undefined,
 });
 
 const mapDBReviewToReview = (dbR: DBReview, isLiked: boolean, comments: ReviewComment[]): Review => ({
@@ -241,7 +267,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v4_20260905_rich_product_info_and_stores';
+const DATA_VERSION = 'v5_20260905_search_influx_ranking';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -307,6 +333,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('전체');
   const [selectedProductId, setSelectedProductId] = useState<string>('prod-01');
 
+  const [events, setEvents] = useState<PromotionEvent[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_events');
+      return stored ? JSON.parse(stored) : INITIAL_EVENTS;
+    } catch {
+      return INITIAL_EVENTS;
+    }
+  });
+  const [selectedEventId, setSelectedEventId] = useState<string>('event-01');
+
+  const [notifications, setNotifications] = useState<AppNotification[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_notifications');
+      return stored ? JSON.parse(stored) : INITIAL_NOTIFICATIONS;
+    } catch {
+      return INITIAL_NOTIFICATIONS;
+    }
+  });
+  const [incomingPush, setIncomingPush] = useState<AppNotification | null>(null);
+
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_bookmarks');
@@ -360,6 +406,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
   }, [battleConfig]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_events', JSON.stringify(events));
+  }, [events]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_notifications', JSON.stringify(notifications));
+  }, [notifications]);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -662,6 +716,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [likedPostIds]);
 
   const selectedProduct = products.find(p => p.id === selectedProductId) || products[0] || INITIAL_PRODUCTS[0];
+  const selectedEvent = events.find(e => e.id === selectedEventId) || events[0] || INITIAL_EVENTS[0];
+  const unreadNotificationCount = notifications.filter(n => !n.isRead).length;
 
   const setActiveTab = (tab: ActiveTab) => {
     setPreviousTab(activeTab);
@@ -670,7 +726,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const goBack = () => {
-    if (activeTab === 'detail' || activeTab === 'search' || activeTab === 'alert_settings' || activeTab === 'compare' || activeTab === 'write') {
+    if (
+      activeTab === 'detail' || 
+      activeTab === 'event_detail' || 
+      activeTab === 'search' || 
+      activeTab === 'alert_settings' || 
+      activeTab === 'compare' || 
+      activeTab === 'write'
+    ) {
       setActiveTabState(previousTab === activeTab ? 'home' : previousTab);
     } else {
       setActiveTabState('home');
@@ -681,6 +744,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSelectedProductId(productId);
     setPreviousTab(activeTab);
     setActiveTabState('detail');
+  };
+
+  const openEventDetail = (eventId: string) => {
+    setSelectedEventId(eventId);
+    setPreviousTab(activeTab);
+    setActiveTabState('event_detail');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const showToast = (message: string, type: 'success' | 'info' | 'error' = 'success') => {
@@ -756,6 +826,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const clearRecentSearches = () => {
     setRecentSearches([]);
     showToast('최근 검색어가 삭제되었습니다.', 'info');
+  };
+
+  const recordSearchInflux = (productId: string) => {
+    setProducts(prev => {
+      const next = prev.map(p => {
+        if (p.id === productId) {
+          const current = p.searchInfluxCount ?? getSearchInfluxCount(p);
+          return { ...p, searchInfluxCount: current + 1 };
+        }
+        return p;
+      });
+      try {
+        localStorage.setItem('sinsangpick_products', JSON.stringify(next));
+      } catch (err) {
+        // ignore quota error
+      }
+      return next;
+    });
   };
 
   const updateUserNickname = async (newName: string) => {
@@ -1189,6 +1277,144 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // ================= ADMIN MODERATION FUNCTIONS =================
+  // Delete Review
+  const deleteReview = async (reviewId: string) => {
+    setReviews(prev => prev.filter(r => r.id !== reviewId));
+    showToast('리뷰가 정상적으로 삭제되었습니다.', 'info');
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase.from('reviews').delete().eq('id', reviewId);
+      } catch (err) {
+        console.error('[Supabase] Delete review error:', err);
+      }
+    }
+  };
+
+  // Delete Community Post
+  const deleteCommunityPost = async (postId: string) => {
+    setCommunityPosts(prev => prev.filter(p => p.id !== postId));
+    showToast('커뮤니티 게시글이 삭제되었습니다.', 'info');
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase.from('community_posts').delete().eq('id', postId);
+      } catch (err) {
+        console.error('[Supabase] Delete post error:', err);
+      }
+    }
+  };
+
+  // ================= EVENTS & PUSH NOTIFICATIONS =================
+  // Add Event
+  const addEvent = (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => {
+    const newEvent: PromotionEvent = {
+      ...eventData,
+      id: 'event-' + Date.now(),
+      participantsCount: 0,
+      isParticipated: false,
+      createdAt: new Date().toISOString(),
+    };
+    setEvents(prev => [newEvent, ...prev]);
+    showToast(`🎉 '${newEvent.title}' 이벤트가 성공적으로 등록되었습니다!`, 'success');
+  };
+
+  // Update Event
+  const updateEvent = (id: string, updated: Partial<PromotionEvent>) => {
+    setEvents(prev => prev.map(e => e.id === id ? { ...e, ...updated } : e));
+    showToast('이벤트 정보가 수정되었습니다.', 'success');
+  };
+
+  // Delete Event
+  const deleteEvent = (id: string) => {
+    setEvents(prev => prev.filter(e => e.id !== id));
+    showToast('이벤트가 삭제되었습니다.', 'info');
+  };
+
+  // Participate in Event
+  const participateInEvent = (eventId: string) => {
+    setEvents(prev => prev.map(e => {
+      if (e.id === eventId) {
+        return {
+          ...e,
+          isParticipated: true,
+          participantsCount: (e.participantsCount || 0) + 1,
+        };
+      }
+      return e;
+    }));
+    const nextPoints = currentUser.points + 50;
+    setCurrentUser(prev => ({
+      ...prev,
+      points: nextPoints,
+      level: calculateLevel(nextPoints),
+    }));
+    showToast('🎁 이벤트 신청이 완료되었습니다! (+50P 적립)', 'success');
+  };
+
+  // Send Push Notification
+  const sendPushNotification = (notif: {
+    title: string;
+    body: string;
+    type: 'event' | 'product' | 'notice';
+    targetId: string;
+    imageUrl?: string;
+    badge?: string;
+  }) => {
+    const newNotif: AppNotification = {
+      id: 'notif-' + Date.now(),
+      title: notif.title,
+      body: notif.body,
+      type: notif.type,
+      targetId: notif.targetId,
+      imageUrl: notif.imageUrl,
+      timestamp: '방금 전',
+      isRead: false,
+      badge: notif.badge || (notif.type === 'event' ? '이벤트' : '알림'),
+    };
+
+    setNotifications(prev => [newNotif, ...prev]);
+    setIncomingPush(newNotif);
+
+    // Native Browser Notification Trigger if supported & granted
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'granted') {
+        try {
+          const sysNotif = new Notification(newNotif.title, {
+            body: newNotif.body,
+            icon: newNotif.imageUrl || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=128&auto=format&fit=crop&q=80',
+          });
+          sysNotif.onclick = () => {
+            window.focus();
+            if (newNotif.type === 'event') {
+              openEventDetail(newNotif.targetId);
+            } else if (newNotif.type === 'product') {
+              openProductDetail(newNotif.targetId);
+            }
+          };
+        } catch (e) {
+          console.warn('[Push Notification] System dispatch warning:', e);
+        }
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission();
+      }
+    }
+
+    showToast(`📢 전체 회원 대상 앱 푸시 알림이 발송되었습니다!`, 'success');
+  };
+
+  const dismissIncomingPush = () => {
+    setIncomingPush(null);
+  };
+
+  const markNotificationAsRead = (id: string) => {
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+  };
+
+  const clearAllNotifications = () => {
+    setNotifications([]);
+    showToast('알림 내역이 모두 삭제되었습니다.', 'info');
+  };
+
   // ================= ADMIN FUNCTIONS =================
   // Add Banner
   const addBanner = (bannerData: Omit<BannerItem, 'id' | 'order'>) => {
@@ -1506,10 +1732,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProducts(INITIAL_PRODUCTS);
     setBanners(INITIAL_BANNERS);
     setBattleConfig(INITIAL_BATTLE_CONFIG);
+    setEvents(INITIAL_EVENTS);
+    setNotifications(INITIAL_NOTIFICATIONS);
     setPendingProducts([]);
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
+    localStorage.removeItem('sinsangpick_events');
+    localStorage.removeItem('sinsangpick_notifications');
     localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
     localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
     showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
@@ -1523,6 +1753,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         communityPosts,
         banners,
         battleConfig,
+        events,
+        selectedEventId,
+        selectedEvent,
+        notifications,
+        unreadNotificationCount,
+        incomingPush,
         activeTab,
         previousTab,
         selectedCategory,
@@ -1542,6 +1778,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         goBack,
         setSelectedCategory,
         openProductDetail,
+        openEventDetail,
         toggleBookmark,
         toggleCompare,
         removeFromCompare,
@@ -1551,6 +1788,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addRecentSearch,
         removeRecentSearch,
         clearRecentSearches,
+        recordSearchInflux,
         showToast,
         removeToast,
         updateUserNickname,
@@ -1558,6 +1796,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         loginWithGoogle,
         loginWithKakao,
         logout,
+
+        // Events & Push Notifications
+        addEvent,
+        updateEvent,
+        deleteEvent,
+        participateInEvent,
+        sendPushNotification,
+        dismissIncomingPush,
+        markNotificationAsRead,
+        clearAllNotifications,
 
         // Admin Actions
         addBanner,
@@ -1591,6 +1839,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addCommunityPost,
         toggleLikePost,
         addPostComment,
+        deleteReview,
+        deleteCommunityPost,
       }}
     >
       {children}

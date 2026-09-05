@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, Sparkles, ChevronRight } from 'lucide-react';
+import { Star, Heart, Sparkles, ChevronRight, Search, Flame } from 'lucide-react';
 import { ProductCategory, Product } from '../../types';
-import { getPopularProducts } from '../../utils/ranking';
+import { 
+  getPopularProducts, 
+  getSearchTrendingProducts, 
+  getSearchInfluxCount, 
+  formatSearchCount 
+} from '../../utils/ranking';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -10,9 +15,11 @@ export const HomeView: React.FC = () => {
     reviews, 
     banners,
     battleConfig,
+    events,
     setActiveTab, 
     setSelectedCategory, 
     openProductDetail, 
+    openEventDetail,
     toggleBookmark, 
     bookmarkedIds,
     showToast 
@@ -149,8 +156,11 @@ export const HomeView: React.FC = () => {
                 if (m.action === 'compare') {
                   setActiveTab('compare');
                 } else if (m.action === 'event') {
-                  setActiveTab('community');
-                  showToast('🎁 신상 무료 체험단 모집 & 이벤트에 참여해보세요!');
+                  if (events.length > 0) {
+                    openEventDetail(events[0].id);
+                  } else {
+                    setActiveTab('alert_settings');
+                  }
                 } else if (m.action === 'my') {
                   setActiveTab('my');
                 } else {
@@ -339,10 +349,16 @@ export const HomeView: React.FC = () => {
         )}
       </div>
 
-      {/* 5. Section: 요즘 주목받는 먹거리 (가로 스크롤 카드) */}
+      {/* 5. Section: 요즘 주목받는 먹거리 (검색 유입 순위 랭킹) */}
       <div className="bg-white mt-2 py-4 border-b border-gray-100">
-        <div className="flex items-center justify-between px-4 mb-3">
-          <span className="text-[15px] font-bold text-gray-900">요즘 주목받는 먹거리</span>
+        <div className="flex items-center justify-between px-4 mb-1">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[15px] font-bold text-gray-900">요즘 주목받는 먹거리</span>
+            <span className="text-[10px] font-black bg-gradient-to-r from-red-500 to-amber-500 text-white px-2 py-0.5 rounded-full flex items-center gap-0.5 shadow-xs">
+              <Flame className="w-3 h-3 fill-current" />
+              검색 유입 랭킹
+            </span>
+          </div>
           <button
             onClick={() => setActiveTab('category')}
             className="text-[13px] text-gray-400 font-medium hover:text-gray-700"
@@ -351,9 +367,16 @@ export const HomeView: React.FC = () => {
           </button>
         </div>
 
+        <p className="px-4 text-[11px] text-gray-400 mb-3 flex items-center gap-1">
+          <Search className="w-3 h-3 text-[#0066FF] shrink-0" />
+          사람들이 검색창에서 가장 많이 찾아보고 들어온 인기 순위예요
+        </p>
+
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
-          {products.map((p) => {
+          {getSearchTrendingProducts(products, 12).map((p, index) => {
             const isBookmarked = bookmarkedIds.includes(p.id);
+            const rank = index + 1;
+            const searchInflux = getSearchInfluxCount(p);
 
             return (
               <div
@@ -363,30 +386,61 @@ export const HomeView: React.FC = () => {
               >
                 <div className="relative rounded-xl overflow-hidden bg-gray-100" style={{ height: '130px' }}>
                   <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  
+                  {/* Rank Badge */}
+                  <div className="absolute top-1.5 left-1.5">
+                    {rank === 1 && (
+                      <span className="text-[10px] font-black bg-gradient-to-r from-amber-500 to-rose-500 text-white px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
+                        🥇 1위
+                      </span>
+                    )}
+                    {rank === 2 && (
+                      <span className="text-[10px] font-black bg-slate-800 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                        🥈 2위
+                      </span>
+                    )}
+                    {rank === 3 && (
+                      <span className="text-[10px] font-black bg-amber-700 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                        🥉 3위
+                      </span>
+                    )}
+                    {rank > 3 && (
+                      <span className="text-[10px] font-black bg-black/65 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                        {rank}위
+                      </span>
+                    )}
+                  </div>
+
                   {p.discountRate && p.discountRate > 0 && (
-                    <span className="absolute top-1.5 left-1.5 text-[11px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-md">
+                    <span className="absolute bottom-1.5 right-1.5 text-[10px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                       {p.discountRate}%
                     </span>
                   )}
                   {p.subCategory && (
-                    <span className="absolute bottom-1.5 left-1.5 text-[10px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                    <span className="absolute bottom-1.5 left-1.5 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
                       {p.subCategory}
                     </span>
                   )}
                   <button
                     onClick={(e) => toggleBookmark(p.id, e)}
-                    className="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center shadow-xs text-sm"
+                    className="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center shadow-xs text-sm active:scale-90 transition-transform"
                   >
-                    {isBookmarked ? '♥' : '♡'}
+                    <Heart className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
                   </button>
                 </div>
 
                 <div className="mt-2">
-                  <div className="text-[11px] text-gray-400 font-medium">{p.brand}</div>
-                  <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2">
+                  <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
+                  <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-[#0066FF] transition-colors">
                     {p.name}
                   </div>
-                  
+
+                  {/* Search Influx Volume Tag */}
+                  <div className="flex items-center gap-1 mt-1 text-[10px] text-[#0066FF] font-bold bg-blue-50/90 px-1.5 py-0.5 rounded w-fit">
+                    <Search className="w-2.5 h-2.5 stroke-[2.5]" />
+                    <span>검색 유입 {formatSearchCount(searchInflux)}</span>
+                  </div>
+
                   {/* Yellow Star Rating */}
                   <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
                     <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
@@ -406,6 +460,72 @@ export const HomeView: React.FC = () => {
           })}
         </div>
       </div>
+
+      {/* 5.5 Section: 실시간 핫 이벤트 & 프로모션 */}
+      {events.length > 0 && (
+        <div className="mt-2 bg-white py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between px-4 mb-3">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[15px] font-black text-gray-900">🎁 진행 중인 핫 이벤트 & 체험단</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+            </div>
+            <span className="text-[11px] text-[#0066FF] font-bold">
+              {events.length}개 진행중
+            </span>
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
+            {events.map((ev) => (
+              <div
+                key={ev.id}
+                onClick={() => openEventDetail(ev.id)}
+                className="shrink-0 w-[240px] bg-gradient-to-b from-gray-50 to-white rounded-2xl overflow-hidden border border-gray-200/80 cursor-pointer group shadow-2xs hover:shadow-xs transition-all flex flex-col"
+              >
+                <div className="relative aspect-16/9 bg-gray-900 overflow-hidden">
+                  <img
+                    src={ev.bannerImage}
+                    alt={ev.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                  
+                  <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-[#0066FF] px-2 py-0.5 rounded-full shadow-xs">
+                    {ev.badge}
+                  </span>
+
+                  <span className="absolute top-2 right-2 text-[10px] font-bold text-amber-300 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-amber-400/40">
+                    {ev.dDay}
+                  </span>
+
+                  <div className="absolute bottom-1.5 left-2 right-2 text-[10px] text-white/90 font-medium truncate">
+                    {ev.startDate} ~ {ev.endDate}
+                  </div>
+                </div>
+
+                <div className="p-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-900 line-clamp-1 leading-snug">
+                      {ev.title}
+                    </h4>
+                    <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5">
+                      {ev.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+                      {ev.reward.length > 14 ? ev.reward.slice(0, 14) + '...' : ev.reward}
+                    </span>
+                    <span className="text-[10px] text-gray-400 font-medium">
+                      {ev.participantsCount}명 참여
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 6. Section: 신상 배틀 VS (Dynamic from Admin) */}
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">

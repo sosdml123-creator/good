@@ -145,6 +145,7 @@ export interface Product {
   shelfLife?: string;         // 유통/소비기한
   precautions?: string;       // 섭취 시 주의사항
   produceDetails?: ProduceNutritionDetail; // 자연 원물(과일, 채소, 생물 수산물) 영양 성분 & 특성 상세
+  searchInfluxCount?: number; // 검색 유입수 (검색 후 상세 방문 및 유입 클릭 수)
 }
 
 export interface ReviewComment {
@@ -252,7 +253,41 @@ export type ActiveTab =
   | 'compare' 
   | 'alert_settings' 
   | 'search'
-  | 'admin';
+  | 'admin'
+  | 'event_detail';
+
+export interface PromotionEvent {
+  id: string;
+  title: string;
+  subtitle: string;
+  badge: string; // e.g. '체험단 100명', '1+1 특가', '선착순 증정', '타임딜', '포인트 2배'
+  category: '체험단' | '프로모션' | '할인특가' | '이벤트';
+  bannerImage: string;
+  startDate: string;
+  endDate: string;
+  dDay: string; // e.g. 'D-5', '오늘마감', '상시'
+  status: 'ongoing' | 'ended' | 'upcoming';
+  description: string;
+  reward: string; // e.g. '꼬북칩 신제품 정품 1박스 (100명)'
+  targetProductId?: string; // 연관 상품 ID
+  externalLink?: string;
+  actionButtonText: string; // e.g. '무료 체험단 신청하기', '쿠폰 즉시 받기'
+  participantsCount: number;
+  isParticipated?: boolean;
+  createdAt: string;
+}
+
+export interface AppNotification {
+  id: string;
+  title: string;
+  body: string;
+  type: 'event' | 'product' | 'notice';
+  targetId: string; // eventId or productId
+  imageUrl?: string;
+  timestamp: string;
+  isRead: boolean;
+  badge?: string;
+}
 
 export interface PendingProduct {
   id: string;
