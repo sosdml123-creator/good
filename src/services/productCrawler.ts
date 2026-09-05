@@ -1,4 +1,5 @@
-import { PendingProduct, ProductCategory } from '../types';
+import { PendingProduct } from '../types';
+import { searchRealNewProducts, fetchDailyRealNewProducts } from './naverApi';
 
 /**
  * 대한민국 편의점(CU, GS25, 세븐일레븐, 이마트24) 및 대형 식품 제조사의
@@ -600,14 +601,25 @@ export const REAL_NEW_PRODUCTS_DATABASE: Omit<PendingProduct, 'id' | 'crawledAt'
 
 /**
  * 오늘 날짜 기준 새로운 신제품 일일 자동 수집 함수
- * (날짜별로 새로운 실제 신상품 3~5개를 선별하여 반환)
+ * 1. 네이버 공식 뉴스(보도자료) + 실물 패키지 고화질 이미지 + 블로그 후기 실시간 연동
+ * 2. 네트워크 오류 또는 응답 부재 시 내부 검증 DB로 안전 폴백
  */
 export const fetchDailyNewProducts = async (
   requestedDate?: string
 ): Promise<PendingProduct[]> => {
   const dateStr = requestedDate || new Date().toISOString().split('T')[0];
-  
-  // 간단한 날짜 해시 알고리즘을 사용해 매일 다른 신제품 묶음 선택
+
+  // 1. 네이버 공식 API 실시간 수집 시도
+  try {
+    const realProducts = await fetchDailyRealNewProducts();
+    if (realProducts && realProducts.length > 0) {
+      return realProducts;
+    }
+  } catch (err) {
+    console.warn('네이버 실시간 신제품 수집 실패, 내부 DB 폴백 사용:', err);
+  }
+
+  // 2. 내부 데이터베이스 기반 안전 폴백
   let hash = 0;
   for (let i = 0; i < dateStr.length; i++) {
     hash = (hash << 5) - hash + dateStr.charCodeAt(i);
@@ -615,9 +627,8 @@ export const fetchDailyNewProducts = async (
   }
   const positiveHash = Math.abs(hash);
   
-  // 전체 데이터베이스에서 오늘의 추천 신상품 4~6개 선출
   const totalItems = REAL_NEW_PRODUCTS_DATABASE.length;
-  const countToPick = 4 + (positiveHash % 3); // 4~6개
+  const countToPick = 4 + (positiveHash % 3);
   const startIndex = positiveHash % totalItems;
   
   const pickedItems: PendingProduct[] = [];
@@ -633,31 +644,41 @@ export const fetchDailyNewProducts = async (
     });
   }
 
-  // 약간의 비동기 네트워크 지연 시뮬레이션
-  await new Promise(res => setTimeout(res, 600));
-
   return pickedItems;
 };
 
 /**
  * 실시간 검색 및 크롤링 (키워드/편의점명/제조사 검색)
- * 외부 웹 검색 및 로컬 실제 신제품 DB를 지능적으로 매칭
+ * 1. 네이버 공식 뉴스 + 실물 패키지 컷 + 소비자 리뷰 실시간 검색
+ * 2. 매칭 결과가 없을 경우 내부 DB 검색 폴백
  */
 export const searchAndCrawlNewProducts = async (query: string): Promise<PendingProduct[]> => {
-  const cleanQ = query.trim().toLowerCase();
-  const dateStr = new Date().toISOString().split('T')[0];
-  const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
+  const cleanQ = query.trim();
+  if (!cleanQ) return [];
 
-  // 1. 실제 신제품 DB에서 매칭되는 항목 찾기
+  // 1. 네이버 공식 API 실시간 검색 수집
+  try {
+    const realResults = await searchRealNewProducts(cleanQ);
+    if (realResults && realResults.length > 0) {
+      return realResults;
+    }
+  } catch (err) {
+    console.warn('네이버 실시간 검색 수집 실패, 내부 DB 폴백 사용:', err);
+  }
+
+  // 2. 내부 실제 신제품 DB에서 매칭되는 항목 찾기 (폴백)
+  const lowerQ = cleanQ.toLowerCase();
   const matchedFromDB = REAL_NEW_PRODUCTS_DATABASE.filter(item => 
-    item.name.toLowerCase().includes(cleanQ) ||
-    item.brand.toLowerCase().includes(cleanQ) ||
-    item.category.toLowerCase().includes(cleanQ) ||
-    item.stores.some(s => s.toLowerCase().includes(cleanQ)) ||
-    (item.subCategory && item.subCategory.toLowerCase().includes(cleanQ)) ||
-    (item.description && item.description.toLowerCase().includes(cleanQ))
+    item.name.toLowerCase().includes(lowerQ) ||
+    item.brand.toLowerCase().includes(lowerQ) ||
+    item.category.toLowerCase().includes(lowerQ) ||
+    item.stores.some(s => s.toLowerCase().includes(lowerQ)) ||
+    (item.subCategory && item.subCategory.toLowerCase().includes(lowerQ)) ||
+    (item.description && item.description.toLowerCase().includes(lowerQ))
   );
 
+  const dateStr = new Date().toISOString().split('T')[0];
+  const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
   const results: PendingProduct[] = [];
 
   matchedFromDB.forEach((item, idx) => {
@@ -668,61 +689,6 @@ export const searchAndCrawlNewProducts = async (query: string): Promise<PendingP
       status: 'pending',
     });
   });
-
-  // 2. 만약 매칭 결과가 적을 경우, 실시간 온디맨드 크롤링 가상 추출 (실제 카테고리 기반 실제 고화질 이미지 배정)
-  if (results.length === 0) {
-    // 키워드를 분석하여 실물 이미지와 실제 스펙 생성
-    const isBeverage = cleanQ.includes('음료') || cleanQ.includes('커피') || cleanQ.includes('라떼') || cleanQ.includes('탄산') || cleanQ.includes('차') || cleanQ.includes('맥주');
-    const isBakery = cleanQ.includes('빵') || cleanQ.includes('케이크') || cleanQ.includes('쿠키') || cleanQ.includes('디저트');
-    const isMeal = cleanQ.includes('라면') || cleanQ.includes('도시락') || cleanQ.includes('김밥') || cleanQ.includes('만두') || cleanQ.includes('간편식');
-    
-    let category: ProductCategory = '간편식';
-    let defaultImage = 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&auto=format&fit=crop&q=80';
-    let brand = '편의점 신상';
-
-    if (isBeverage) {
-      category = '음료';
-      defaultImage = 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=800&auto=format&fit=crop&q=80';
-    } else if (isBakery) {
-      category = '빵·디저트';
-      defaultImage = 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80';
-    } else if (isMeal) {
-      category = '간편식';
-      defaultImage = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
-    } else {
-      category = '과자';
-      defaultImage = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop&q=80';
-    }
-
-    if (cleanQ.includes('cu') || cleanQ.includes('씨유')) brand = 'CU단독';
-    else if (cleanQ.includes('gs') || cleanQ.includes('지에스')) brand = 'GS25단독';
-    else if (cleanQ.includes('세븐')) brand = '세븐일레븐';
-    else if (cleanQ.includes('농심')) brand = '농심';
-    else if (cleanQ.includes('오리온')) brand = '오리온';
-
-    results.push({
-      id: `pending-crawl-${Date.now()}-1`,
-      name: `${query} 프리미엄 신제품`,
-      brand,
-      category,
-      subCategory: '실시간 크롤링 수집',
-      itemType: 'packaged',
-      image: defaultImage,
-      price: 2500,
-      releaseDate: `${dateStr} 실시간 포착`,
-      stores: ['CU', 'GS25', '세븐일레븐'],
-      description: `온라인 식품 피드 및 편의점 입고 정보에서 실시간으로 수집된 '${query}' 관련 최신 출시 상품입니다.`,
-      sourceName: '실시간 편의점/포털 웹 스크래핑',
-      crawledAt: `${dateStr} ${nowTime}`,
-      status: 'pending',
-      calories: 350,
-      volume: '1팩',
-      bestQuotes: ['새로 나왔는데 기대 이상이에요!', '편의점에 벌써 깔렸네요', '패키지가 예뻐서 바로 집음']
-    });
-  }
-
-  // 약간의 네트워크 지연
-  await new Promise(res => setTimeout(res, 500));
 
   return results;
 };

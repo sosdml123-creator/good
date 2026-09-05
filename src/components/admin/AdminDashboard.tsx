@@ -1145,7 +1145,7 @@ export const AdminDashboard: React.FC = () => {
                                 </span>
                               </td>
                               <td className="py-3 px-4 text-slate-500 font-mono text-[10px]">
-                                {new Date(item.crawledAt).toLocaleDateString()}
+                                {isNaN(new Date(item.crawledAt).getTime()) ? item.crawledAt : new Date(item.crawledAt).toLocaleDateString()}
                               </td>
                               <td className="py-3 px-4 text-right">
                                 <div className="flex items-center justify-end gap-1.5">
