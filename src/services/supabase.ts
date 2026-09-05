@@ -58,6 +58,15 @@ export interface DBProduct {
   volume?: string;
   is_today?: boolean;
   is_hot?: boolean;
+  nutrition?: any;
+  ingredients?: string;
+  allergens?: string[];
+  origin?: string;
+  manufacturer?: string;
+  storage_method?: string;
+  shelf_life?: string;
+  precautions?: string;
+  store_stocks?: any;
   created_at?: string;
 }
 
@@ -156,3 +165,41 @@ export const signInWithGoogle = async () => {
   });
   if (error) throw error;
 };
+
+/**
+ * Apple OAuth sign-in helper (아이폰 / Apple 계정 로그인)
+ */
+export const signInWithApple = async () => {
+  if (!supabase) return;
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'apple',
+    options: {
+      redirectTo: window.location.origin,
+    },
+  });
+  if (error) throw error;
+};
+
+/**
+ * Kakao OAuth sign-in helper
+ */
+export const signInWithKakao = async () => {
+  if (!supabase) return;
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'kakao',
+    options: {
+      redirectTo: window.location.origin,
+    },
+  });
+  if (error) throw error;
+};
+
+/**
+ * Sign out helper
+ */
+export const signOutSupabase = async () => {
+  if (!supabase) return;
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+};
+

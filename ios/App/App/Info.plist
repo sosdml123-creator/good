@@ -47,5 +47,17 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.sinsangpick.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sinsangpick</string>
+				<string>com.sinsangpick.app</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

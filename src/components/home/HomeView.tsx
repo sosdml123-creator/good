@@ -42,7 +42,7 @@ export const HomeView: React.FC = () => {
     { label: '과자·스낵', icon: '🍪', color: 'bg-orange-50 text-orange-500', cat: '과자' as ProductCategory },
     { label: '간편·밀키트', icon: '🍲', color: 'bg-red-50 text-red-500', cat: '간편식' as ProductCategory },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
-    { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'my' },
+    { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'event' },
   ];
 
   const categoryIcons: { label: string; icon: string; cat: ProductCategory }[] = [
@@ -122,9 +122,16 @@ export const HomeView: React.FC = () => {
             <button
               key={m.label}
               onClick={() => {
-                if (m.action === 'compare') setActiveTab('compare');
-                else if (m.action === 'my') setActiveTab('my');
-                else handleCategoryClick(m.cat || '전체');
+                if (m.action === 'compare') {
+                  setActiveTab('compare');
+                } else if (m.action === 'event') {
+                  setActiveTab('community');
+                  showToast('🎁 신상 무료 체험단 모집 & 이벤트에 참여해보세요!');
+                } else if (m.action === 'my') {
+                  setActiveTab('my');
+                } else {
+                  handleCategoryClick(m.cat || '전체');
+                }
               }}
               className="flex flex-col items-center gap-1.5 group focus:outline-none"
             >

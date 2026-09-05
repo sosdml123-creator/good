@@ -43,8 +43,15 @@ export const DiscoverView: React.FC = () => {
     return true;
   });
 
-  // Find a product that has brand rankings or restaurant rankings for the current view
-  const featuredItem = filtered.find(p => (p.brandRankings && p.brandRankings.length > 0) || (p.restaurantInfo && p.restaurantInfo.regionRankings));
+  // Find a product that has brand rankings or restaurant rankings matching the selected category
+  const featuredItem = selectedCategory === '신제품'
+    ? null
+    : filtered.find(p => p.brandRankings && p.brandRankings.length > 0 && (selectedCategory === '전체' || p.category === selectedCategory));
+
+  // Top new items for 신제품 tab highlight
+  const topNewProducts = selectedCategory === '신제품'
+    ? [...filtered].sort((a, b) => b.overallRating - a.overallRating).slice(0, 3)
+    : [];
 
   return (
     <div className="pb-12 bg-white min-h-full">
@@ -127,14 +134,64 @@ export const DiscoverView: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Highlight: 품목별 브랜드 랭킹 (Featured Card) */}
+      {/* 2. Highlight for 신제품: 오늘 & 이 주의 핫 신상품 TOP 3 */}
+      {selectedCategory === '신제품' && topNewProducts.length > 0 && (
+        <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-blue-50/90 to-indigo-50/40 rounded-2xl border border-blue-200/70 shadow-2xs">
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-[#0066FF]" />
+              <span className="text-xs font-bold text-gray-900">
+                🔥 실시간 화제의 신제품 만족도 TOP 랭킹
+              </span>
+            </div>
+            <span className="text-[10px] text-[#0066FF] font-bold bg-blue-100 px-1.5 py-0.5 rounded">실시간 집계</span>
+          </div>
+
+          <div className="space-y-1.5">
+            {topNewProducts.map((p, idx) => (
+              <div
+                key={p.id}
+                onClick={() => openProductDetail(p.id)}
+                className="bg-white p-2 rounded-xl border border-blue-100 flex items-center justify-between cursor-pointer hover:bg-blue-50/40 transition-colors shadow-2xs"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className={`w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center shrink-0 ${
+                    idx === 0 ? 'bg-[#0066FF] text-white' : idx === 1 ? 'bg-indigo-400 text-white' : 'bg-gray-400 text-white'
+                  }`}>
+                    {idx + 1}
+                  </span>
+                  <img src={p.image} alt={p.name} className="w-9 h-9 rounded-lg object-cover bg-gray-100 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-gray-900 truncate">{p.name}</div>
+                    <div className="text-[10px] text-gray-400">{p.brand} {p.subCategory ? `· ${p.subCategory}` : ''}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                  {p.isToday && (
+                    <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">
+                      오늘신상
+                    </span>
+                  )}
+                  <div className="flex items-center gap-0.5 text-xs font-bold text-gray-800">
+                    <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                    <span>{p.overallRating.toFixed(1)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 2-2. Highlight: 품목별 브랜드 랭킹 (Featured Card for specific category) */}
       {featuredItem && featuredItem.brandRankings && (
         <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-amber-50/80 to-orange-50/40 rounded-2xl border border-amber-200/60 shadow-2xs">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-500" />
               <span className="text-xs font-bold text-gray-900">
-                {featuredItem.subCategory || featuredItem.category} 브랜드별 소비자 평가 랭킹
+                {selectedCategory === '전체' ? `${featuredItem.subCategory || featuredItem.category}` : `${selectedCategory}`} 브랜드별 소비자 평가 랭킹
               </span>
             </div>
             <span className="text-[10px] text-amber-700 font-bold bg-amber-100 px-1.5 py-0.5 rounded">실시간 집계</span>

@@ -21,6 +21,9 @@ import {
   isSupabaseConfigured,
   ensureSupabaseAuth,
   signInWithGoogle as supabaseSignInWithGoogle,
+  signInWithApple as supabaseSignInWithApple,
+  signInWithKakao as supabaseSignInWithKakao,
+  signOutSupabase,
   DBProduct,
   DBReview,
   DBCommunityPost,
@@ -66,7 +69,10 @@ interface AppContextType {
   showToast: (msg: string, type?: 'success' | 'info' | 'error') => void;
   removeToast: (id: string) => void;
   updateUserNickname: (newName: string) => Promise<void>;
+  loginWithApple: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
+  loginWithKakao: () => Promise<void>;
+  logout: () => Promise<void>;
 
   // Admin Banner Actions
   addBanner: (banner: Omit<BannerItem, 'id' | 'order'>) => void;
@@ -165,6 +171,15 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => ({
   volume: dbP.volume,
   isToday: dbP.is_today,
   isHot: dbP.is_hot,
+  nutrition: dbP.nutrition,
+  ingredients: dbP.ingredients,
+  allergens: dbP.allergens,
+  origin: dbP.origin,
+  manufacturer: dbP.manufacturer,
+  storageMethod: dbP.storage_method,
+  shelfLife: dbP.shelf_life,
+  precautions: dbP.precautions,
+  storeStocks: dbP.store_stocks,
 });
 
 const mapDBReviewToReview = (dbR: DBReview, isLiked: boolean, comments: ReviewComment[]): Review => ({
@@ -204,12 +219,22 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
+const DATA_VERSION = 'v4_20260905_rich_product_info_and_stores';
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
 
   const [products, setProducts] = useState<Product[]>(() => {
     try {
+      const currentVer = localStorage.getItem('sinsangpick_data_version');
+      if (currentVer !== DATA_VERSION) {
+        localStorage.setItem('sinsangpick_data_version', DATA_VERSION);
+        localStorage.setItem('sinsangpick_products', JSON.stringify(INITIAL_PRODUCTS));
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(INITIAL_BANNERS));
+        localStorage.setItem('sinsangpick_battle_config', JSON.stringify(INITIAL_BATTLE_CONFIG));
+        return INITIAL_PRODUCTS;
+      }
       const stored = localStorage.getItem('sinsangpick_products');
       return stored ? JSON.parse(stored) : INITIAL_PRODUCTS;
     } catch {
@@ -360,7 +385,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setProducts(INITIAL_PRODUCTS);
         }
       } else {
-        setProducts(dbProducts.map(mapDBProductToProduct));
+        setProducts(dbProducts.map(dbP => {
+          const mapped = mapDBProductToProduct(dbP);
+          const initial = INITIAL_PRODUCTS.find(ip => ip.id === mapped.id);
+          if (initial) {
+            return {
+              ...initial,
+              ...mapped,
+              nutrition: mapped.nutrition || initial.nutrition,
+              ingredients: mapped.ingredients || initial.ingredients,
+              allergens: mapped.allergens || initial.allergens,
+              origin: mapped.origin || initial.origin,
+              manufacturer: mapped.manufacturer || initial.manufacturer,
+              storageMethod: mapped.storageMethod || initial.storageMethod,
+              shelfLife: mapped.shelfLife || initial.shelfLife,
+              precautions: mapped.precautions || initial.precautions,
+              storeStocks: mapped.storeStocks && mapped.storeStocks.length > 0 ? mapped.storeStocks : initial.storeStocks,
+            };
+          }
+          return mapped;
+        }));
       }
 
       // 2. Fetch User Likes
@@ -491,13 +535,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         .on('postgres_changes', { event: '*', schema: 'public', table: 'review_comments' }, () => {
           loadSupabaseData(uid);
         })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'post_comments' }, () => {
-          loadSupabaseData(uid);
-        })
-        .subscribe();
+      // 6. Listen for Auth State Changes (Apple / Google / Kakao OAuth redirect)
+      const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (_event, session) => {
+        if (session?.user && isMounted) {
+          const u = session.user;
+          const providerName = (u.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
+          const displayName = u.user_metadata?.full_name || u.user_metadata?.name || (u.email ? u.email.split('@')[0] : '신상러버');
+          const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+          
+          setCurrentUser(prev => ({
+            ...prev,
+            uid: u.id,
+            displayName: prev.displayName && !prev.displayName.startsWith('신상러버_') ? prev.displayName : displayName,
+            photoURL: photoURL || prev.photoURL,
+            isAnonymous: u.is_anonymous || false,
+            email: u.email,
+            provider: providerName,
+          }));
+
+          try {
+            await client.from('profiles').upsert({
+              id: u.id,
+              display_name: displayName,
+              avatar_url: photoURL,
+            }, { onConflict: 'id' });
+          } catch (e) {
+            console.warn('[Supabase Profile Upsert Error]', e);
+          }
+
+          loadSupabaseData(u.id);
+        }
+      });
 
       return () => {
         client.removeChannel(channel);
+        authSub.unsubscribe();
       };
     };
 
@@ -638,11 +710,104 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('닉네임이 성공적으로 변경되었습니다.', 'success');
   };
 
+  const loginWithApple = async () => {
+    try {
+      if (!supabase || !isSupabaseConfigured) {
+        const demoUid = 'apple_' + Math.random().toString(36).substring(2, 9);
+        const demoUser: UserProfile = {
+          uid: demoUid,
+          displayName: 'Apple 사용자',
+          photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+          level: 'Lv.2',
+          points: 250,
+          isAnonymous: false,
+          provider: 'apple',
+          email: 'user@icloud.com',
+        };
+        setCurrentUser(demoUser);
+        localStorage.setItem('sinsangpick_uid', demoUid);
+        localStorage.setItem('sinsangpick_name', demoUser.displayName);
+        localStorage.setItem('sinsangpick_points', '250');
+        showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
+        return;
+      }
+      await supabaseSignInWithApple();
+    } catch (err) {
+      console.error('Apple login error:', err);
+      showToast('Apple 로그인 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
   const loginWithGoogle = async () => {
     try {
+      if (!supabase || !isSupabaseConfigured) {
+        const demoUid = 'google_' + Math.random().toString(36).substring(2, 9);
+        const demoUser: UserProfile = {
+          uid: demoUid,
+          displayName: 'Google 사용자',
+          photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+          level: 'Lv.2',
+          points: 250,
+          isAnonymous: false,
+          provider: 'google',
+          email: 'user@gmail.com',
+        };
+        setCurrentUser(demoUser);
+        localStorage.setItem('sinsangpick_uid', demoUid);
+        localStorage.setItem('sinsangpick_name', demoUser.displayName);
+        localStorage.setItem('sinsangpick_points', '250');
+        showToast('🌐 Google 계정으로 로그인되었습니다!', 'success');
+        return;
+      }
       await supabaseSignInWithGoogle();
     } catch (err) {
+      console.error('Google login error:', err);
       showToast('로그인 처리 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
+  const loginWithKakao = async () => {
+    try {
+      if (!supabase || !isSupabaseConfigured) {
+        const demoUid = 'kakao_' + Math.random().toString(36).substring(2, 9);
+        const demoUser: UserProfile = {
+          uid: demoUid,
+          displayName: '카카오 사용자',
+          photoURL: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
+          level: 'Lv.2',
+          points: 250,
+          isAnonymous: false,
+          provider: 'kakao',
+          email: 'user@kakao.com',
+        };
+        setCurrentUser(demoUser);
+        localStorage.setItem('sinsangpick_uid', demoUid);
+        localStorage.setItem('sinsangpick_name', demoUser.displayName);
+        localStorage.setItem('sinsangpick_points', '250');
+        showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
+        return;
+      }
+      await supabaseSignInWithKakao();
+    } catch (err) {
+      console.error('Kakao login error:', err);
+      showToast('카카오 로그인 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
+  const logout = async () => {
+    try {
+      if (supabase && isSupabaseConfigured) {
+        await signOutSupabase();
+      }
+      localStorage.removeItem('sinsangpick_uid');
+      localStorage.removeItem('sinsangpick_name');
+      localStorage.removeItem('sinsangpick_points');
+      const initialUser = createInitialUser();
+      setCurrentUser(initialUser);
+      showToast('로그아웃 되었습니다.', 'info');
+    } catch (err) {
+      console.error('Logout error:', err);
+      showToast('로그아웃 중 오류가 발생했습니다.', 'error');
     }
   };
 
@@ -1095,7 +1260,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         showToast,
         removeToast,
         updateUserNickname,
+        loginWithApple,
         loginWithGoogle,
+        loginWithKakao,
+        logout,
 
         // Admin Actions
         addBanner,

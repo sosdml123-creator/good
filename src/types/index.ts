@@ -54,19 +54,50 @@ export interface RestaurantInfo {
   regionRankings?: RegionRankingItem[];
 }
 
-export interface StoreStock {
-  store: 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '대형마트' | '마켓컬리' | '쿠팡프레시';
-  status: '입고완료' | '품절임박' | '예약가능' | '행사진행';
-  price: number;
-  eventBadge?: string;
+export interface NutritionInfo {
+  calories?: number;
+  sodium?: string;        // e.g. "280mg (14%)"
+  carbs?: string;         // e.g. "48g (15%)"
+  sugar?: string;         // e.g. "18g (18%)"
+  fat?: string;           // e.g. "22g (41%)"
+  transFat?: string;      // e.g. "0g"
+  satFat?: string;        // e.g. "10g (67%)"
+  cholesterol?: string;   // e.g. "5mg (2%)"
+  protein?: string;       // e.g. "5g (9%)"
 }
+
+export interface StoreStockItem {
+  store: 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '대형마트' | '마켓컬리' | '쿠팡프레시' | string;
+  status: '입고완료' | '품절임박' | '예약가능' | '행사진행' | '일시품절';
+  stockCount: number;
+  price: number;
+  discountPrice?: number;
+  eventBadge?: string;    // '1+1', '2+1', '샛별배송', '새벽도착', '특가할인'
+  appLink?: string;       // Direct official app/web link
+  deliveryTime?: string;  // '매장 즉시 픽업', '새벽 7시 전 도착'
+}
+
+export interface NearbyStore {
+  id: string;
+  brand: 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '대형마트';
+  name: string;          // e.g. "CU 역삼타워점"
+  distance: string;      // e.g. "150m"
+  address: string;       // e.g. "서울 강남구 테헤란로 152"
+  phone: string;         // e.g. "02-555-1234"
+  stockCount: number;    // e.g. 7
+  stockStatus: '여유' | '품절임박' | '일시품절' | '예약가능';
+  badge?: string;        // '1+1 행사'
+  isOpen24h: boolean;
+}
+
+export type StoreStock = StoreStockItem;
 
 export interface Product {
   id: string;
   name: string;
   brand: string;
   category: ProductCategory;
-  subCategory?: string; // e.g. '복숭아', '토마토', '한우 소고기', '생연어', '냉면', '삼겹살' 등
+  subCategory?: string; // e.g. '스낵', '초콜릿', '복숭아', '소고기' 등
   itemType?: 'packaged' | 'fresh' | 'restaurant';
   image: string;
   releaseDate: string;
@@ -83,17 +114,18 @@ export interface Product {
   calories?: number;
   volume?: string;
   stores?: string[];
-  storeStocks?: StoreStock[];
+  storeStocks?: StoreStockItem[];
   repurchasePercent?: number;
   isToday?: boolean;
   isHot?: boolean;
-  nutrition?: {
-    sodium: string;
-    carbs: string;
-    sugar: string;
-    fat: string;
-    protein: string;
-  };
+  nutrition?: NutritionInfo;
+  ingredients?: string;       // 원재료명 및 함량
+  allergens?: string[];       // 알레르기 유발물질 e.g. ['밀', '대두', '우유']
+  origin?: string;            // 원산지 / 생산지
+  manufacturer?: string;      // 제조원 / 유통판매원
+  storageMethod?: string;     // 보관방법
+  shelfLife?: string;         // 유통/소비기한
+  precautions?: string;       // 섭취 시 주의사항
 }
 
 export interface ReviewComment {
@@ -164,6 +196,8 @@ export interface UserProfile {
   level: string;
   points: number;
   isAnonymous?: boolean;
+  email?: string;
+  provider?: 'apple' | 'google' | 'kakao' | 'anonymous';
 }
 
 export interface BannerItem {
