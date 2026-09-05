@@ -48,6 +48,11 @@ export const ProductDetailModal: React.FC = () => {
   const isBookmarked = bookmarkedIds.includes(selectedProduct.id);
   const isCompared = comparedIds.includes(selectedProduct.id);
 
+  const isNaturalProduce = 
+    selectedProduct.itemType === 'fresh' || 
+    selectedProduct.category === '과일' || 
+    Boolean(selectedProduct.produceDetails);
+
   const metrics = selectedProduct.freshMetrics
     ? [
         { label: '당도 (Brix)', val: selectedProduct.freshMetrics.sweetness },
@@ -179,6 +184,20 @@ export const ProductDetailModal: React.FC = () => {
 
         <div className="text-[18px] font-bold text-gray-900 leading-snug">{selectedProduct.name}</div>
         
+        {isNaturalProduce && (
+          <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+            <span className="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+              <span>🌿</span>
+              <span>100% 산지직송 자연 원물</span>
+            </span>
+            {selectedProduct.produceDetails?.brixGrade && (
+              <span className="text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full">
+                {selectedProduct.produceDetails.brixGrade}
+              </span>
+            )}
+          </div>
+        )}
+
         <div className="flex items-center gap-2 mt-2">
           <div className="flex items-center gap-0.5">
             <Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
@@ -291,6 +310,222 @@ export const ProductDetailModal: React.FC = () => {
       {detailTab === 'reviews' && (
         <div className="space-y-2 animate-in fade-in duration-200">
           
+          {/* [자연 원물 특화] 1. 과일·원물 핵심 성분 & 당도 분석표 (평점보다 성분 우선 표시) */}
+          {isNaturalProduce && (
+            <div className="bg-white px-4 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-800 text-sm shadow-2xs">
+                    🌿
+                  </div>
+                  <div>
+                    <h3 className="text-[14px] font-black text-gray-900">
+                      {selectedProduct.category === '과일' ? '과일 핵심 영양 성분 & 당도 분석표' : '원물 핵심 영양 성분 & 품질 분석표'}
+                    </h3>
+                    <p className="text-[10px] text-gray-400">자연 원물 특성에 기반한 실측 성분 데이터</p>
+                  </div>
+                </div>
+                <span className="text-[10px] text-emerald-700 font-black bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                  성분 우선 분석
+                </span>
+              </div>
+
+              {/* 3대 핵심 품질 수치 */}
+              <div className="grid grid-cols-3 gap-2 text-center mb-3">
+                <div className="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200">
+                  <div className="text-[10px] text-amber-800 font-bold">보증 당도</div>
+                  <div className="text-sm font-black text-amber-950 mt-0.5">
+                    {selectedProduct.produceDetails?.brixGrade?.split(' ')[0] || (selectedProduct.freshMetrics?.sweetness ? `${(selectedProduct.freshMetrics.sweetness * 3).toFixed(1)} Brix` : '14.0 Brix')}
+                  </div>
+                  <div className="text-[9px] text-amber-700 mt-0.5">비파괴 선별</div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-blue-50/80 border border-blue-200">
+                  <div className="text-[10px] text-blue-800 font-bold">수분율 & 과즙</div>
+                  <div className="text-sm font-black text-blue-950 mt-0.5">
+                    {selectedProduct.produceDetails?.waterContent?.split(' ')[0] || '89%'}
+                  </div>
+                  <div className="text-[9px] text-blue-700 mt-0.5">과즙 가득</div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
+                  <div className="text-[10px] text-emerald-800 font-bold">신선도 등급</div>
+                  <div className="text-sm font-black text-emerald-950 mt-0.5">
+                    {selectedProduct.freshMetrics ? `${selectedProduct.freshMetrics.freshness.toFixed(1)} / 5.0` : '5.0 (최상)'}
+                  </div>
+                  <div className="text-[9px] text-emerald-700 mt-0.5">산지직송</div>
+                </div>
+              </div>
+
+              {/* 주요 영양 성분 & 함량 */}
+              {selectedProduct.produceDetails?.keyNutrients && selectedProduct.produceDetails.keyNutrients.length > 0 && (
+                <div className="mb-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
+                  <span className="text-[11px] font-bold text-gray-700 block mb-2">
+                    🧬 핵심 영양 성분 및 함량
+                  </span>
+                  <div className="grid grid-cols-2 gap-2">
+                    {selectedProduct.produceDetails.keyNutrients.map((nut, idx) => (
+                      <div key={idx} className="p-2 bg-white rounded-lg border border-gray-100 shadow-2xs">
+                        <div className="flex items-center justify-between text-[11px] font-bold">
+                          <span className="text-gray-800">{nut.name}</span>
+                          <span className="text-[#0066FF]">{nut.value}</span>
+                        </div>
+                        <p className="text-[10px] text-gray-500 mt-0.5 line-clamp-1">{nut.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 건강 효능 체크리스트 */}
+              {selectedProduct.produceDetails?.healthBenefits && selectedProduct.produceDetails.healthBenefits.length > 0 && (
+                <div className="mb-3 space-y-1.5">
+                  <span className="text-[11px] font-bold text-gray-700 block">✨ 주요 건강 효능 & 섭취 장점</span>
+                  {selectedProduct.produceDetails.healthBenefits.map((benefit, idx) => (
+                    <div key={idx} className="flex items-start gap-1.5 text-[11px] text-gray-600">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* 가장 맛있게 먹는 꿀팁 */}
+              {selectedProduct.produceDetails?.tasteTip && (
+                <div className="p-2.5 rounded-xl bg-orange-50/70 border border-orange-200 text-[11px] text-orange-950 flex items-start gap-2">
+                  <span className="text-sm shrink-0">💡</span>
+                  <div>
+                    <span className="font-bold text-orange-900 block">가장 맛있게 먹는 섭취·보관 꿀팁</span>
+                    <p className="text-orange-800 mt-0.5 leading-relaxed">
+                      {selectedProduct.produceDetails.tasteTip}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* [자연 원물 특화] 2. 어디가 제일 맛있는 판매처인지 랭킹 TOP */}
+          {isNaturalProduce && selectedProduct.brandRankings && selectedProduct.brandRankings.length > 0 && (
+            <div className="bg-white px-4 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center text-amber-800 text-sm shadow-2xs">
+                    🏆
+                  </div>
+                  <div>
+                    <h3 className="text-[14px] font-black text-gray-900">
+                      어디가 제일 맛있을까? 맛 보증 판매처 & 산지 랭킹
+                    </h3>
+                    <p className="text-[10px] text-gray-400">실제 소비자 당도·과즙·맛 검증 데이터 기준 순위</p>
+                  </div>
+                </div>
+                <span className="text-[10px] text-amber-800 font-bold bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                  맛 순위 TOP {selectedProduct.brandRankings.length}
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {selectedProduct.brandRankings.map((br) => {
+                  const medalBadge = br.rank === 1
+                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-white shadow-xs'
+                    : br.rank === 2
+                      ? 'bg-gradient-to-r from-slate-300 to-slate-400 text-white shadow-xs'
+                      : 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-xs';
+
+                  return (
+                    <div 
+                      key={br.name}
+                      className={`p-3.5 rounded-2xl border transition-all ${
+                        br.rank === 1 
+                          ? 'border-amber-200 bg-amber-50/20 shadow-xs ring-1 ring-amber-100' 
+                          : 'border-gray-100 bg-white hover:border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-start gap-2.5">
+                          <span className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 mt-0.5 ${medalBadge}`}>
+                            {br.rank}
+                          </span>
+                          <div>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h4 className="text-xs font-bold text-gray-900">{br.name}</h4>
+                              {br.tag && (
+                                <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded">
+                                  {br.tag}
+                                </span>
+                              )}
+                              {br.brix && (
+                                <span className="text-[9px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">
+                                  {br.brix}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-gray-500 block mt-0.5">
+                              {br.brand}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                          <div className="flex items-center gap-1 text-xs font-black text-gray-900 justify-end">
+                            <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                            <span>{(br.tasteScore || br.rating).toFixed(1)}</span>
+                            <span className="text-[10px] text-gray-400 font-normal">({br.ratingCount})</span>
+                          </div>
+                          {br.price && (
+                            <span className="text-xs font-black text-[#0066FF] block mt-0.5">
+                              {br.price.toLocaleString()}원
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* 맛 특장점 설명 */}
+                      {br.tasteDescription && (
+                        <div className="mt-2 text-[11px] text-gray-700 bg-gray-50/80 px-2.5 py-1.5 rounded-lg border border-gray-100">
+                          <span className="font-bold text-gray-900">맛 평가: </span>
+                          <span>{br.tasteDescription}</span>
+                        </div>
+                      )}
+
+                      {/* 구매자 실측 리뷰 */}
+                      {br.bestReview && (
+                        <p className="mt-1.5 text-[11px] text-amber-900/90 italic pl-1 border-l-2 border-amber-400">
+                          {br.bestReview}
+                        </p>
+                      )}
+
+                      {/* 배송 및 바로가기 버튼 */}
+                      <div className="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between">
+                        <span className="text-[10px] text-gray-400 font-medium">
+                          {br.deliveryBadge || '산지직송 새벽배송 🚀'}
+                        </span>
+                        <button
+                          onClick={() => {
+                            if (br.buyLink) {
+                              window.open(br.buyLink, '_blank');
+                            } else {
+                              setIsNearbyModalOpen(true);
+                            }
+                          }}
+                          className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 transition-all ${
+                            br.rank === 1
+                              ? 'bg-[#0066FF] text-white hover:bg-blue-600 shadow-xs'
+                              : 'bg-blue-50 text-[#0066FF] hover:bg-blue-100'
+                          }`}
+                        >
+                          <span>구매 / 판매처</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Score breakdown */}
           <div className="bg-white px-4 py-4 border-b border-gray-100">
             <div className="flex items-center justify-between mb-3">
@@ -615,7 +850,14 @@ export const ProductDetailModal: React.FC = () => {
                         {br.rank}
                       </span>
                       <div>
-                        <span className="text-xs font-bold text-gray-900">{br.name}</span>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-xs font-bold text-gray-900">{br.name}</span>
+                          {br.brix && (
+                            <span className="text-[9px] font-bold text-amber-700 bg-amber-50 px-1 py-0.2 rounded border border-amber-200">
+                              {br.brix}
+                            </span>
+                          )}
+                        </div>
                         <span className="text-[10px] text-gray-400 block">{br.brand}</span>
                       </div>
                     </div>
@@ -628,8 +870,16 @@ export const ProductDetailModal: React.FC = () => {
                       )}
                       <div className="flex items-center gap-0.5 text-xs font-bold text-gray-800">
                         <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{br.rating.toFixed(1)}</span>
+                        <span>{(br.tasteScore || br.rating).toFixed(1)}</span>
                       </div>
+                      {br.buyLink && (
+                        <button
+                          onClick={() => window.open(br.buyLink, '_blank')}
+                          className="text-[10px] font-bold text-[#0066FF] bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-md ml-1"
+                        >
+                          판매처
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}

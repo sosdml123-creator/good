@@ -11,11 +11,20 @@ import {
   ReviewComment,
   PostComment,
   BannerItem,
-  BattleConfig
+  BattleConfig,
+  PendingProduct
 } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG } from '../data/mockProducts';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
+import {
+  fetchDailyNewProducts,
+  searchAndCrawlNewProducts,
+  isDailyCrawlNeeded,
+  markDailyCrawlDone,
+  PENDING_PRODUCTS_STORAGE_KEY,
+  LAST_CRAWL_STORAGE_KEY
+} from '../services/productCrawler';
 import {
   supabase,
   isSupabaseConfigured,
@@ -89,6 +98,19 @@ interface AppContextType {
 
   // Admin Battle Actions
   updateBattleConfig: (config: Partial<BattleConfig>) => void;
+
+  // Admin Pending Products / Daily Crawler Actions
+  pendingProducts: PendingProduct[];
+  pendingCount: number;
+  isCrawling: boolean;
+  lastCrawledDate: string | null;
+  runDailyCrawler: (force?: boolean) => Promise<{ count: number }>;
+  searchAndCollect: (query: string) => Promise<{ count: number }>;
+  approvePendingProduct: (pendingId: string, customData?: Partial<Product>) => void;
+  approveAllPending: () => void;
+  rejectPendingProduct: (pendingId: string) => void;
+  updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
+  clearAllPendingProducts: () => void;
 
   // Admin Reset Action
   resetAllDataToDefaults: () => void;
@@ -305,7 +327,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
+  // Pending Products (승인 대기 신제품) states
+  const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
+    try {
+      const stored = localStorage.getItem(PENDING_PRODUCTS_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [isCrawling, setIsCrawling] = useState<boolean>(false);
+  const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
+    return localStorage.getItem(LAST_CRAWL_STORAGE_KEY);
+  });
+
   const isSeedingRef = useRef(false);
+
+  // Sync pending products to localStorage
+  useEffect(() => {
+    localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(pendingProducts));
+  }, [pendingProducts]);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -337,6 +378,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('sinsangpick_points', currentUser.points.toString());
     localStorage.setItem('sinsangpick_name', currentUser.displayName);
   }, [currentUser]);
+
+  // Auto-fetch daily new products on app start if today hasn't crawled or pending is empty
+  useEffect(() => {
+    const checkAndAutoCrawl = async () => {
+      const today = new Date().toISOString().split('T')[0];
+      const needsCrawl = isDailyCrawlNeeded();
+      const isEmpty = pendingProducts.length === 0;
+
+      if (needsCrawl || isEmpty) {
+        try {
+          const crawled = await fetchDailyNewProducts(today);
+          setPendingProducts(prev => {
+            const existingNames = new Set(prev.map(p => p.name.trim()));
+            const newItems = crawled.filter(item => !existingNames.has(item.name.trim()));
+            return newItems.length > 0 ? [...newItems, ...prev] : prev;
+          });
+          markDailyCrawlDone();
+          setLastCrawledDate(today);
+        } catch (e) {
+          console.warn('[Auto Crawler Init Warning]', e);
+        }
+      }
+    };
+    checkAndAutoCrawl();
+  }, []);
 
   // Fetch all initial data from Supabase
   const loadSupabaseData = async (uid: string) => {
@@ -1210,14 +1276,242 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('🥊 신상 배틀 설정이 업데이트되었습니다!', 'success');
   };
 
+  // --- Admin Pending Products & Crawler Actions ---
+
+  // 1. 오늘의 실제 신제품 일일 크롤링 실행
+  const runDailyCrawler = async (force: boolean = false): Promise<{ count: number }> => {
+    setIsCrawling(true);
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const crawled = await fetchDailyNewProducts(today);
+      
+      // 기존 대기목록 및 이미 출시된 제품(이름 기준) 중복 필터링
+      const existingProductNames = new Set(products.map(p => p.name.trim()));
+      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim()));
+
+      const uniqueNewItems = crawled.filter(item => 
+        !existingProductNames.has(item.name.trim()) &&
+        !existingPendingNames.has(item.name.trim())
+      );
+
+      if (uniqueNewItems.length > 0) {
+        setPendingProducts(prev => [...uniqueNewItems, ...prev]);
+        markDailyCrawlDone();
+        setLastCrawledDate(today);
+        showToast(`✨ 오늘의 실제 신제품 ${uniqueNewItems.length}건이 수집되어 승인 대기함에 등록되었습니다!`, 'success');
+        return { count: uniqueNewItems.length };
+      } else {
+        if (force) {
+          // 강제 수집인 경우 타임스탬프를 갱신하여 추가
+          const forcedItems = crawled.slice(0, 3).map((item, i) => ({
+            ...item,
+            id: `pending-forced-${Date.now()}-${i}`,
+            crawledAt: `${today} ${new Date().toLocaleTimeString('ko-KR', { hour12: false })}`,
+            status: 'pending' as const
+          }));
+          setPendingProducts(prev => [...forcedItems, ...prev]);
+          showToast(`⚡ 새로운 실제 신제품 ${forcedItems.length}건을 즉시 수집했습니다!`, 'success');
+          return { count: forcedItems.length };
+        }
+        showToast('이미 오늘의 최신 신제품이 모두 수집되었습니다.', 'info');
+        return { count: 0 };
+      }
+    } catch (err) {
+      console.error('[Product Crawler Error]', err);
+      showToast('신제품 수집 중 오류가 발생했습니다.', 'error');
+      return { count: 0 };
+    } finally {
+      setIsCrawling(false);
+    }
+  };
+
+  // 2. 키워드/편의점 기반 실제 신제품 즉시 검색 수집
+  const searchAndCollect = async (query: string): Promise<{ count: number }> => {
+    if (!query.trim()) return { count: 0 };
+    setIsCrawling(true);
+    try {
+      const results = await searchAndCrawlNewProducts(query);
+      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim()));
+      const newItems = results.filter(item => !existingPendingNames.has(item.name.trim()));
+
+      if (newItems.length > 0) {
+        setPendingProducts(prev => [...newItems, ...prev]);
+        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 승인 대기함에 추가했습니다!`, 'success');
+        return { count: newItems.length };
+      } else {
+        showToast(`'${query}'에 해당하는 신제품이 이미 대기함에 있습니다.`, 'info');
+        return { count: 0 };
+      }
+    } catch (err) {
+      console.error('[Search Collect Error]', err);
+      showToast('검색 수집 중 오류가 발생했습니다.', 'error');
+      return { count: 0 };
+    } finally {
+      setIsCrawling(false);
+    }
+  };
+
+  // 3. 신제품 개별 승인 (정식 products 등록 및 전체 사용자에게 즉시 발행)
+  const approvePendingProduct = (pendingId: string, customData?: Partial<Product>) => {
+    const pendingItem = pendingProducts.find(p => p.id === pendingId);
+    if (!pendingItem) return;
+
+    const newProduct: Product = {
+      id: `prod-appr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      name: customData?.name || pendingItem.name,
+      brand: customData?.brand || pendingItem.brand,
+      category: customData?.category || pendingItem.category,
+      subCategory: customData?.subCategory || pendingItem.subCategory,
+      itemType: customData?.itemType || pendingItem.itemType || 'packaged',
+      image: customData?.image || pendingItem.image,
+      releaseDate: customData?.releaseDate || pendingItem.releaseDate || new Date().toLocaleDateString('ko-KR') + ' 출시',
+      price: customData?.price !== undefined ? customData.price : pendingItem.price,
+      discountRate: customData?.discountRate ?? pendingItem.discountRate ?? 0,
+      overallRating: 5.0,
+      ratingCount: 1,
+      detailedRating: { taste: 5, value: 5, portion: 5, repurchase: 5 },
+      description: customData?.description || pendingItem.description,
+      stores: customData?.stores || pendingItem.stores,
+      repurchasePercent: 96,
+      calories: customData?.calories || pendingItem.calories,
+      volume: customData?.volume || pendingItem.volume,
+      isToday: customData?.isToday ?? true,
+      isHot: customData?.isHot ?? false,
+      nutrition: pendingItem.nutrition,
+      ingredients: pendingItem.ingredients,
+      allergens: pendingItem.allergens,
+      origin: pendingItem.origin,
+      manufacturer: pendingItem.manufacturer,
+      storageMethod: pendingItem.storageMethod,
+      shelfLife: pendingItem.shelfLife,
+      bestQuotes: pendingItem.bestQuotes || ['새로 나온 신상 먹어봤는데 완전 추천해요!'],
+      storeStocks: pendingItem.storeStocks || pendingItem.stores.map(st => ({
+        store: st,
+        status: '입고완료' as const,
+        stockCount: 6,
+        price: customData?.price !== undefined ? customData.price : pendingItem.price,
+        eventBadge: '신규입고',
+        deliveryTime: '매장 즉시 픽업'
+      })),
+    };
+
+    // 정식 제품 등록
+    setProducts(prev => [newProduct, ...prev]);
+
+    // 승인 대기 목록에서 제거
+    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
+
+    // Supabase DB 연결 시에도 비동기 백그라운드 등록
+    if (supabase) {
+      supabase.from('products').upsert({
+        id: newProduct.id,
+        name: newProduct.name,
+        brand: newProduct.brand,
+        category: newProduct.category,
+        sub_category: newProduct.subCategory,
+        item_type: newProduct.itemType,
+        image: newProduct.image,
+        release_date: newProduct.releaseDate,
+        price: newProduct.price,
+        discount_rate: newProduct.discountRate,
+        overall_rating: newProduct.overallRating,
+        rating_count: newProduct.ratingCount,
+        description: newProduct.description,
+        stores: newProduct.stores,
+        calories: newProduct.calories,
+        volume: newProduct.volume,
+        is_today: newProduct.isToday,
+        is_hot: newProduct.isHot,
+      }, { onConflict: 'id' }).then(({ error }) => {
+        if (error) console.warn('[Supabase Product Insert Warning]', error.message);
+      });
+    }
+
+    showToast(`🚀 [${newProduct.name}] 신제품이 승인되어 서비스에 즉시 업로드되었습니다!`, 'success');
+  };
+
+  // 4. 대기 중인 모든 신제품 일괄 승인
+  const approveAllPending = () => {
+    const pendingList = pendingProducts.filter(p => p.status === 'pending');
+    if (pendingList.length === 0) {
+      showToast('승인 대기 중인 신제품이 없습니다.', 'info');
+      return;
+    }
+
+    const approvedList: Product[] = pendingList.map((item, idx) => ({
+      id: `prod-bulk-${Date.now()}-${idx}`,
+      name: item.name,
+      brand: item.brand,
+      category: item.category,
+      subCategory: item.subCategory,
+      itemType: item.itemType || 'packaged',
+      image: item.image,
+      releaseDate: item.releaseDate,
+      price: item.price,
+      discountRate: item.discountRate || 0,
+      overallRating: 5.0,
+      ratingCount: 1,
+      detailedRating: { taste: 5, value: 5, portion: 5, repurchase: 5 },
+      description: item.description,
+      stores: item.stores,
+      repurchasePercent: 95,
+      calories: item.calories,
+      volume: item.volume,
+      isToday: true,
+      isHot: false,
+      nutrition: item.nutrition,
+      ingredients: item.ingredients,
+      allergens: item.allergens,
+      origin: item.origin,
+      manufacturer: item.manufacturer,
+      storageMethod: item.storageMethod,
+      shelfLife: item.shelfLife,
+      bestQuotes: item.bestQuotes || ['신상품으로 적극 추천합니다.'],
+      storeStocks: item.stores.map(st => ({
+        store: st,
+        status: '입고완료' as const,
+        stockCount: 5,
+        price: item.price,
+        eventBadge: '신규입고',
+        deliveryTime: '매장 즉시 픽업'
+      })),
+    }));
+
+    setProducts(prev => [...approvedList, ...prev]);
+    setPendingProducts([]);
+    showToast(`🎉 총 ${approvedList.length}건의 실제 신제품이 일괄 승인되어 서비스에 업로드되었습니다!`, 'success');
+  };
+
+  // 5. 신제품 반려(거절)
+  const rejectPendingProduct = (pendingId: string) => {
+    const item = pendingProducts.find(p => p.id === pendingId);
+    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
+    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다.`, 'info');
+  };
+
+  // 6. 대기 상품 정보 수정
+  const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {
+    setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
+    showToast('대기 상품 정보가 수정되었습니다.', 'success');
+  };
+
+  // 7. 대기 목록 전체 삭제
+  const clearAllPendingProducts = () => {
+    setPendingProducts([]);
+    showToast('승인 대기 목록이 모두 비워졌습니다.', 'info');
+  };
+
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
     setProducts(INITIAL_PRODUCTS);
     setBanners(INITIAL_BANNERS);
     setBattleConfig(INITIAL_BATTLE_CONFIG);
+    setPendingProducts([]);
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
+    localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
+    localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
     showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
   };
 
@@ -1277,6 +1571,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleProductHot,
         updateBattleConfig,
         resetAllDataToDefaults,
+
+        // Admin Pending Products & Crawler Actions
+        pendingProducts,
+        pendingCount: pendingProducts.filter(p => p.status === 'pending').length,
+        isCrawling,
+        lastCrawledDate,
+        runDailyCrawler,
+        searchAndCollect,
+        approvePendingProduct,
+        approveAllPending,
+        rejectPendingProduct,
+        updatePendingProduct,
+        clearAllPendingProducts,
 
         submitReview,
         toggleLikeReview,

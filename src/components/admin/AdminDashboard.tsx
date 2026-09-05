@@ -232,6 +232,25 @@ export const AdminDashboard: React.FC = () => {
       {/* 2. Admin Tab Navigation */}
       <div className="bg-white border-b border-gray-200 px-2 flex overflow-x-auto no-scrollbar shadow-2xs">
         <button
+          onClick={() => setActiveAdminTab('approval')}
+          className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-bold border-b-2 whitespace-nowrap transition-colors ${
+            activeAdminTab === 'approval'
+              ? 'border-amber-500 text-amber-600 bg-amber-50/50'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
+          }`}
+        >
+          <Sparkles className="w-4 h-4 text-amber-500" />
+          <span>신제품 수집·승인</span>
+          {pendingCount > 0 ? (
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-rose-500 text-white shadow-xs animate-pulse">
+              {pendingCount}
+            </span>
+          ) : (
+            <span className="text-[10px] text-gray-400">0</span>
+          )}
+        </button>
+
+        <button
           onClick={() => setActiveAdminTab('banners')}
           className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-bold border-b-2 whitespace-nowrap transition-colors ${
             activeAdminTab === 'banners'
@@ -279,6 +298,325 @@ export const AdminDashboard: React.FC = () => {
           <span>데이터 설정</span>
         </button>
       </div>
+
+      {/* ================= TAB 0: APPROVAL (신제품 일일 수집 & 승인) ================= */}
+      {activeAdminTab === 'approval' && (
+        <div className="p-4 space-y-4">
+          
+          {/* 1. Header & Live Controller */}
+          <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-indigo-950 p-4 rounded-2xl text-white shadow-md border border-slate-700/60 relative overflow-hidden">
+            <div className="relative z-10 space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-2.5 py-0.5 text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-400" />
+                  <span>AI 신제품 자동 수집 파이프라인</span>
+                </span>
+                <span className="px-2 py-0.5 text-[10px] font-semibold bg-slate-800 text-slate-300 rounded-full flex items-center gap-1">
+                  <Clock className="w-2.5 h-2.5 text-slate-400" />
+                  <span>마지막 수집: {lastCrawledDate || '오늘 미수집'}</span>
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-base font-black text-white">매일 수집된 실제 신제품 검토 및 승인</h2>
+                <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">
+                  편의점(CU, GS25, 세븐일레븐, 이마트24) 및 대형 식품사에서 출시된 <strong className="text-amber-300 font-bold">진짜 실물 신제품과 고화질 사진</strong>을 가져옵니다. 승인(Approve)해야 전체 사용자에게 업로드됩니다.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  onClick={() => runDailyCrawler(true)}
+                  disabled={isCrawling}
+                  className="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-98 disabled:opacity-50"
+                >
+                  {isCrawling ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>신제품 수집 중...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-3.5 h-3.5 fill-white" />
+                      <span>오늘의 실제 신제품 수집하기</span>
+                    </>
+                  )}
+                </button>
+
+                {pendingCount > 0 && (
+                  <>
+                    <button
+                      onClick={approveAllPending}
+                      className="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-98"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>전체 일괄 승인 ({pendingCount})</span>
+                    </button>
+
+                    {selectedPendingIds.length > 0 && (
+                      <button
+                        onClick={handleBulkApproveSelected}
+                        className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-98"
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                        <span>선택 {selectedPendingIds.length}개 승인</span>
+                      </button>
+                    )}
+
+                    <button
+                      onClick={clearAllPendingProducts}
+                      className="px-2.5 py-2 bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 border border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>비우기</span>
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 2. On-Demand Keyword Web Crawler Bar */}
+          <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+                <Bot className="w-3.5 h-3.5 text-amber-500" />
+                <span>키워드·편의점 신제품 즉시 수집기</span>
+              </span>
+              <span className="text-[10px] text-gray-500">실시간 웹 검색/크롤링</span>
+            </div>
+
+            <form onSubmit={handleSearchCollect} className="flex gap-1.5">
+              <div className="relative flex-1">
+                <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={crawlerSearchQuery}
+                  onChange={(e) => setCrawlerSearchQuery(e.target.value)}
+                  placeholder="예: CU 신상, GS25 혜자, 농심 툼바, 연세우유, 비쵸비"
+                  className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-800 placeholder-gray-400 outline-none focus:border-amber-500 focus:bg-white"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isCrawling || !crawlerSearchQuery.trim()}
+                className="px-3.5 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-xs font-bold transition-all disabled:opacity-40 whitespace-nowrap"
+              >
+                <span>수집 실행</span>
+              </button>
+            </form>
+
+            {/* Quick preset tags */}
+            <div className="flex flex-wrap items-center gap-1 pt-0.5">
+              <span className="text-[10px] font-bold text-gray-400 mr-0.5">추천:</span>
+              {[
+                { label: '🏪 CU 단독 신상', q: 'CU' },
+                { label: '🏪 GS25 신상품', q: 'GS25' },
+                { label: '🏪 세븐일레븐 맛장우', q: '세븐일레븐' },
+                { label: '🍜 농심 신라면 툼바', q: '농심 신라면 툼바' },
+                { label: '🥖 연세우유 생크림빵', q: '연세우유' },
+                { label: '🍪 오리온 비쵸비 딸기', q: '오리온 비쵸비' },
+                { label: '🍺 테라 라이트', q: '하이트진로' }
+              ].map(tag => (
+                <button
+                  key={tag.label}
+                  type="button"
+                  onClick={() => searchAndCollect(tag.q)}
+                  className="px-2 py-0.5 bg-gray-100 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-gray-200 text-gray-600 rounded-md text-[10px] font-semibold transition-all"
+                >
+                  {tag.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 3. Filter Bar */}
+          <div className="bg-white p-3 rounded-2xl border border-gray-200 shadow-2xs space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex flex-wrap items-center gap-1">
+                <span className="text-[11px] font-bold text-gray-400 mr-1">분류:</span>
+                {(['전체', '과자', '음료', '빵·디저트', '간편식'] as (ProductCategory | '전체')[]).map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setPendingCategoryFilter(cat)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                      pendingCategoryFilter === cat
+                        ? 'bg-gray-900 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              {filteredPendingProducts.length > 0 && (
+                <button
+                  onClick={toggleSelectAllPending}
+                  className="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-[11px] font-bold transition-all border border-gray-200 whitespace-nowrap"
+                >
+                  {selectedPendingIds.length === filteredPendingProducts.length
+                    ? '전체 해제'
+                    : '전체 선택'}
+                </button>
+              )}
+            </div>
+
+            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+              <span>대기 중인 신상품 <strong>{filteredPendingProducts.length}</strong>개</span>
+              <span className="text-[10px] text-amber-600 font-bold">* [승인] 시 사용자 앱에 즉시 공개</span>
+            </div>
+          </div>
+
+          {/* 4. Pending Cards List */}
+          {filteredPendingProducts.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-dashed border-gray-300 p-8 text-center space-y-3 shadow-2xs">
+              <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mx-auto">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xs font-black text-gray-900">승인 대기 중인 신제품이 없습니다</h3>
+                <p className="text-[11px] text-gray-500 mt-0.5">
+                  오늘자 크롤링을 실행하여 실제 신제품들을 가져오세요.
+                </p>
+              </div>
+              <button
+                onClick={() => runDailyCrawler(true)}
+                disabled={isCrawling}
+                className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl text-xs font-black shadow-sm inline-flex items-center gap-1 active:scale-98"
+              >
+                <Zap className="w-3 h-3 fill-white" />
+                <span>지금 오늘의 신제품 수집하기</span>
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filteredPendingProducts.map(item => {
+                const isSelected = selectedPendingIds.includes(item.id);
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`bg-white rounded-2xl border transition-all overflow-hidden shadow-2xs ${
+                      isSelected
+                        ? 'border-amber-500 ring-2 ring-amber-500/20'
+                        : 'border-gray-200'
+                    }`}
+                  >
+                    <div className="p-3.5 flex gap-3">
+                      {/* Image */}
+                      <div className="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-gray-100 relative border border-gray-200 group">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setPreviewImageModalUrl(item.image)}
+                          className="absolute bottom-1 right-1 p-1 bg-black/60 text-white rounded text-[9px] font-bold flex items-center gap-0.5"
+                          title="실제 사진 확대"
+                        >
+                          <Camera className="w-2.5 h-2.5" />
+                        </button>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-gray-900 text-white">
+                              {item.category}
+                            </span>
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500 text-white flex items-center gap-0.5">
+                              <Sparkles className="w-2 h-2" />
+                              실물사진
+                            </span>
+                            <span className="text-[10px] text-blue-600 font-bold">{item.brand}</span>
+                          </div>
+                          <span className="text-[9px] text-gray-400 font-medium">{item.sourceName || '공식'}</span>
+                        </div>
+
+                        <h4 className="font-extrabold text-gray-900 text-xs truncate" title={item.name}>
+                          {item.name}
+                        </h4>
+
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-xs font-black text-gray-900">
+                            {item.price.toLocaleString()}원
+                          </span>
+                          {item.calories && (
+                            <span className="text-[10px] text-gray-400">
+                              {item.calories}kcal {item.volume && `(${item.volume})`}
+                            </span>
+                          )}
+                          <span className="text-[10px] text-gray-400 font-medium">· {item.releaseDate}</span>
+                        </div>
+
+                        <p className="text-[11px] text-gray-500 line-clamp-1 leading-snug">
+                          {item.description}
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-1 pt-0.5">
+                          {item.stores.map(st => (
+                            <span key={st} className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-gray-100 text-gray-600">
+                              🏪 {st}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Actions */}
+                    <div className="px-3.5 py-2.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-2">
+                      <label className="flex items-center gap-1.5 text-xs font-bold text-gray-600 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => togglePendingSelect(item.id)}
+                          className="rounded text-amber-500 focus:ring-amber-400 w-3.5 h-3.5"
+                        />
+                        <span className="text-[11px]">선택</span>
+                      </label>
+
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => openEditPending(item)}
+                          className="px-2.5 py-1.5 bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors"
+                          title="수정 후 승인"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                          <span>수정</span>
+                        </button>
+
+                        <button
+                          onClick={() => rejectPendingProduct(item.id)}
+                          className="p-1.5 bg-white hover:bg-rose-50 text-gray-400 hover:text-rose-600 border border-gray-200 rounded-lg text-xs transition-colors"
+                          title="반려"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          onClick={() => approvePendingProduct(item.id)}
+                          className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-black shadow-xs flex items-center gap-1 transition-all active:scale-95"
+                          title="승인 및 즉시 업로드"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>승인 및 업로드</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+        </div>
+      )}
 
       {/* ================= TAB 1: BANNERS ================= */}
       {activeAdminTab === 'banners' && (

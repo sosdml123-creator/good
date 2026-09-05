@@ -1,6 +1,5 @@
 import React from 'react';
 import { useApp } from './context/AppContext';
-import { DeviceFrame } from './components/common/DeviceFrame';
 import { Header } from './components/common/Header';
 import { BottomNav } from './components/common/BottomNav';
 import { HomeView } from './components/home/HomeView';
@@ -18,8 +17,18 @@ import { ToastContainer } from './components/common/Toast';
 export const App: React.FC = () => {
   const { activeTab } = useApp();
 
+  // PC Admin Dashboard Layout (Full Desktop View without mobile BottomNav)
+  if (activeTab === 'admin') {
+    return (
+      <div className="h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden antialiased">
+        <ToastContainer />
+        <AdminDashboard />
+      </div>
+    );
+  }
+
   return (
-    <DeviceFrame>
+    <div className="h-[100dvh] w-full flex flex-col bg-[#F8F9FA] overflow-hidden">
       <ToastContainer />
 
       {/* Scrollable Main Content Area */}
@@ -39,12 +48,11 @@ export const App: React.FC = () => {
         {activeTab === 'compare' && <CompareModal />}
         {activeTab === 'alert_settings' && <NotificationModal />}
         {activeTab === 'search' && <SearchModal />}
-        {activeTab === 'admin' && <AdminDashboard />}
       </main>
 
-      {/* Fixed Bottom Navigation (Always pinned to bottom) */}
+      {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
       <BottomNav />
-    </DeviceFrame>
+    </div>
   );
 };
 

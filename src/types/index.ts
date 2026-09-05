@@ -33,6 +33,24 @@ export interface BrandRankingItem {
   price?: number;
   tag?: string;
   image?: string;
+  tasteScore?: number;        // 맛/당도 평점 (e.g. 4.9)
+  brix?: string;              // 당도 (e.g. "14.2 Brix")
+  tasteDescription?: string;  // 맛 특장점 (e.g. "과즙이 가장 풍부하고 꿀당도가 일정함")
+  bestReview?: string;        // 소비자 실측 맛 후기
+  buyLink?: string;           // 바로가기 / 구매 링크
+  deliveryBadge?: string;     // 배송 배지 (e.g. "새벽도착 🚀")
+}
+
+export interface ProduceNutritionDetail {
+  brixGrade?: string;          // 당도 등급 (e.g. "13.5 ~ 15 Brix 특당도 선별")
+  waterContent?: string;       // 수분율 (e.g. "89%")
+  keyNutrients: { name: string; value: string; desc: string }[]; // 주요 영양소 (e.g. 비타민 C, 펙틴)
+  healthBenefits: string[];    // 건강 효능 (e.g. 피로 회복, 노폐물 배출)
+  seasonalPeak?: string;       // 제철 시기 (e.g. "7월 ~ 8월 제철")
+  tasteTip?: string;           // 가장 맛있게 먹는 법 / 보관 팁
+  sweetnessScore?: number;     // 당도 지수 (5점 만점)
+  juicinessScore?: number;     // 과즙/수분 지수 (5점 만점)
+  textureScore?: number;       // 식감 지수 (5점 만점)
 }
 
 export interface RegionRankingItem {
@@ -126,6 +144,7 @@ export interface Product {
   storageMethod?: string;     // 보관방법
   shelfLife?: string;         // 유통/소비기한
   precautions?: string;       // 섭취 시 주의사항
+  produceDetails?: ProduceNutritionDetail; // 자연 원물(과일, 채소, 생물 수산물) 영양 성분 & 특성 상세
 }
 
 export interface ReviewComment {
@@ -234,4 +253,35 @@ export type ActiveTab =
   | 'alert_settings' 
   | 'search'
   | 'admin';
+
+export interface PendingProduct {
+  id: string;
+  name: string;
+  brand: string;
+  category: ProductCategory;
+  subCategory?: string;
+  itemType?: 'packaged' | 'fresh' | 'restaurant';
+  image: string;
+  price: number;
+  discountRate?: number;
+  releaseDate: string;
+  stores: string[];
+  description: string;
+  sourceName: string;
+  sourceUrl?: string;
+  crawledAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+  calories?: number;
+  volume?: string;
+  ingredients?: string;
+  allergens?: string[];
+  origin?: string;
+  manufacturer?: string;
+  storageMethod?: string;
+  shelfLife?: string;
+  nutrition?: NutritionInfo;
+  storeStocks?: StoreStockItem[];
+  bestQuotes?: string[];
+  reviewedAt?: string;
+}
 

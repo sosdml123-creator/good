@@ -369,3 +369,38 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.community_posts;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.post_likes;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.review_comments;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.post_comments;
+
+-- =========================================================
+-- 9. Pending Products Table (신제품 수집 & 승인 대기 테이블)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS public.pending_products (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    brand TEXT NOT NULL,
+    category TEXT NOT NULL,
+    sub_category TEXT,
+    item_type TEXT DEFAULT 'packaged',
+    image TEXT NOT NULL,
+    release_date TEXT,
+    price INT NOT NULL DEFAULT 0,
+    discount_rate INT DEFAULT 0,
+    stores TEXT[],
+    description TEXT,
+    source_name TEXT,
+    source_url TEXT,
+    crawled_at TIMESTAMPTZ DEFAULT NOW(),
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+    calories INT,
+    volume TEXT,
+    nutrition JSONB,
+    ingredients TEXT,
+    allergens TEXT[],
+    best_quotes TEXT[],
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.pending_products ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Pending products are viewable by everyone" ON public.pending_products FOR SELECT USING (true);
+CREATE POLICY "Anyone can manage pending products in admin" ON public.pending_products FOR ALL USING (true);
+
+ALTER PUBLICATION supabase_realtime ADD TABLE public.pending_products;

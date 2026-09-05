@@ -24,7 +24,8 @@ export const DiscoverView: React.FC = () => {
     // 1. Category check
     if (selectedCategory !== '전체') {
       if (selectedCategory === '신제품') {
-        if (!p.isToday && !p.isHot) return false;
+        const isNew = p.isToday || p.isHot || p.category === '신제품' || Boolean(p.releaseDate && (p.releaseDate.includes('출시') || p.releaseDate.includes('신상') || p.releaseDate.includes('2026') || p.releaseDate.includes('2025')));
+        if (!isNew) return false;
       } else if (p.category !== selectedCategory) {
         return false;
       }

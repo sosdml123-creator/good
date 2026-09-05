@@ -58,8 +58,6 @@ export const BottomNav: React.FC = () => {
           );
         })}
       </div>
-      {/* iOS Home Indicator */}
-      <div className="w-28 h-1 bg-gray-300 rounded-full mx-auto mt-0.5 mb-1 hidden sm:block"></div>
     </nav>
   );
 };

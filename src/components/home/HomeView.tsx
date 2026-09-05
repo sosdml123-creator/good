@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart } from 'lucide-react';
-import { ProductCategory } from '../../types';
+import { Star, Heart, Sparkles, ChevronRight } from 'lucide-react';
+import { ProductCategory, Product } from '../../types';
 import { getPopularProducts } from '../../utils/ranking';
 
 export const HomeView: React.FC = () => {
@@ -20,6 +20,30 @@ export const HomeView: React.FC = () => {
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(null);
+  const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
+
+  const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '기타'];
+
+  const isProductNew = (p: Product) =>
+    Boolean(
+      p.isToday ||
+      p.isHot ||
+      p.category === '신제품' ||
+      (p.releaseDate && (p.releaseDate.includes('출시') || p.releaseDate.includes('신상') || p.releaseDate.includes('2026') || p.releaseDate.includes('2025')))
+    );
+
+  const allNewProducts = products.filter(isProductNew);
+  const baseNewProducts = allNewProducts.length > 0 ? allNewProducts : products.slice(0, 10);
+
+  const displayedNewProducts = baseNewProducts.filter((p) => {
+    if (newProductCategoryFilter === '전체') return true;
+    if (newProductCategoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
+    if (newProductCategoryFilter === '음료') return p.category === '음료';
+    if (newProductCategoryFilter === '빵·디저트') return p.category === '빵·디저트';
+    if (newProductCategoryFilter === '간편식') return p.category === '간편식';
+    if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식'].includes(p.category);
+    return p.category === newProductCategoryFilter;
+  });
 
   const activeBanners = banners.filter(b => b.isActive);
   const currentBanner = activeBanners[currentBannerIdx] || activeBanners[0] || {
@@ -166,7 +190,156 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. Section: 요즘 주목받는 먹거리 (가로 스크롤 카드) */}
+      {/* 4. Section: ⚡ 따끈따끈 새로 나온 신제품 구좌 */}
+      <div className="bg-white mt-2 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 mb-2.5">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-extrabold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                <Sparkles className="w-3 h-3" /> NEW 신상
+              </span>
+              <span className="text-[11px] text-gray-400 font-medium">편의점·마트 실시간 입고</span>
+            </div>
+            <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
+              ⚡ 따끈따끈 새로 나온 신제품
+            </h3>
+          </div>
+          <button
+            onClick={() => {
+              setSelectedCategory('신제품');
+              setActiveTab('category');
+            }}
+            className="text-[12px] text-gray-400 font-medium hover:text-[#0066FF] flex items-center gap-0.5 transition-colors"
+          >
+            <span>전체보기</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Subcategory Filter Pills */}
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4 mb-3.5">
+          {newProductFilterCategories.map((cat) => {
+            const isSelected = newProductCategoryFilter === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setNewProductCategoryFilter(cat)}
+                className={`shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
+                  isSelected
+                    ? 'bg-[#0066FF] text-white shadow-xs'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Horizontal Scroll Cards */}
+        {displayedNewProducts.length > 0 ? (
+          <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
+            {displayedNewProducts.map((p) => {
+              const isBookmarked = bookmarkedIds.includes(p.id);
+
+              return (
+                <div
+                  key={p.id}
+                  onClick={() => openProductDetail(p.id)}
+                  className="shrink-0 w-[138px] cursor-pointer group"
+                >
+                  <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-square shadow-2xs">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+
+                    {/* Badges */}
+                    <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
+                      {p.isToday ? (
+                        <span className="text-[10px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          ⚡ 오늘신상
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-black bg-[#0066FF] text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          NEW
+                        </span>
+                      )}
+                      {p.discountRate && p.discountRate > 0 && (
+                        <span className="text-[10px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          {p.discountRate}%
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Store or SubCategory Pill */}
+                    <div className="absolute bottom-1.5 left-1.5 flex gap-1">
+                      {p.stores && p.stores.length > 0 ? (
+                        <span className="text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded backdrop-blur-xs">
+                          {p.stores[0]}
+                        </span>
+                      ) : p.subCategory ? (
+                        <span className="text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded backdrop-blur-xs">
+                          {p.subCategory}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {/* Bookmark Button */}
+                    <button
+                      onClick={(e) => toggleBookmark(p.id, e)}
+                      className="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center shadow-xs transition-transform active:scale-90"
+                    >
+                      <Heart
+                        className={`w-3.5 h-3.5 ${
+                          isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* Product Details */}
+                  <div className="mt-2">
+                    <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
+                    <div className="text-[12px] font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-[#0066FF] transition-colors">
+                      {p.name}
+                    </div>
+
+                    {/* Star Rating */}
+                    <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
+                      <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                      <span>{p.overallRating.toFixed(1)}</span>
+                      <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
+                    </div>
+
+                    {/* Price & Discount */}
+                    <div className="flex items-center gap-1 mt-0.5">
+                      {p.discountRate && p.discountRate > 0 && (
+                        <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
+                      )}
+                      <span className="text-[13px] font-black text-gray-900">{p.price.toLocaleString()}원</span>
+                    </div>
+
+                    {/* Release Date info tag */}
+                    {p.releaseDate && (
+                      <div className="text-[10px] text-[#0066FF] font-medium mt-1 bg-blue-50/80 px-1.5 py-0.5 rounded w-fit">
+                        {p.releaseDate}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="py-8 text-center text-gray-400 text-xs bg-gray-50/50 mx-4 rounded-xl">
+            선택하신 카테고리의 새로운 신상품을 준비 중입니다 ✨
+          </div>
+        )}
+      </div>
+
+      {/* 5. Section: 요즘 주목받는 먹거리 (가로 스크롤 카드) */}
       <div className="bg-white mt-2 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between px-4 mb-3">
           <span className="text-[15px] font-bold text-gray-900">요즘 주목받는 먹거리</span>
@@ -234,7 +407,7 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 5. Section: 신상 배틀 VS (Dynamic from Admin) */}
+      {/* 6. Section: 신상 배틀 VS (Dynamic from Admin) */}
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -315,7 +488,7 @@ export const HomeView: React.FC = () => {
         </p>
       </div>
 
-      {/* 6. Section: 🔥 실시간 품목별 인기 랭킹 */}
+      {/* 7. Section: 🔥 실시간 품목별 인기 랭킹 */}
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[15px] font-bold text-gray-900">🔥 실시간 인기 품목 랭킹</span>
@@ -356,7 +529,7 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 7. Section: 이번 주 인기 리뷰 */}
+      {/* 8. Section: 이번 주 인기 리뷰 */}
       <div className="mt-2 bg-white py-4 px-4">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[15px] font-bold text-gray-900">이번 주 실시간 솔직 후기</span>
