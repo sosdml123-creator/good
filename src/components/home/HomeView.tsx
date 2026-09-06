@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, Sparkles, ChevronRight, Search, Flame } from 'lucide-react';
-import { ProductCategory, Product } from '../../types';
+import { Star, Heart, Sparkles, ChevronRight, ChevronLeft, Search, Flame } from 'lucide-react';
+import { ProductCategory, Product, BannerItem } from '../../types';
 import { 
   getPopularProducts, 
   getSearchTrendingProducts, 
@@ -29,6 +29,14 @@ export const HomeView: React.FC = () => {
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(null);
   const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
+  const [isPaused, setIsPaused] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const dragStartX = useRef<number | null>(null);
+  const dragStartY = useRef<number | null>(null);
+  const isHorizontalSwipe = useRef<boolean | null>(null);
+  const hasMovedSignificantly = useRef(false);
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '기타'];
 
@@ -54,7 +62,7 @@ export const HomeView: React.FC = () => {
   });
 
   const activeBanners = banners.filter(b => b.isActive);
-  const currentBanner = activeBanners[currentBannerIdx] || activeBanners[0] || {
+  const displayBanners = activeBanners.length > 0 ? activeBanners : [{
     id: 'default',
     image: ILLUSTRATION_FRUIT_BANNER,
     badge: '먹거리 전체 탐색 & 평가',
@@ -64,6 +72,131 @@ export const HomeView: React.FC = () => {
     linkCategory: '과일' as ProductCategory,
     isActive: true,
     order: 1,
+  }];
+  const totalBanners = displayBanners.length;
+
+  // Safe current index clamp
+  useEffect(() => {
+    if (currentBannerIdx >= totalBanners) {
+      setCurrentBannerIdx(0);
+    }
+  }, [totalBanners, currentBannerIdx]);
+
+  const handlePrevBanner = useCallback(() => {
+    setCurrentBannerIdx(prev => (prev - 1 + totalBanners) % totalBanners);
+  }, [totalBanners]);
+
+  const handleNextBanner = useCallback(() => {
+    setCurrentBannerIdx(prev => (prev + 1) % totalBanners);
+  }, [totalBanners]);
+
+  // Auto-play timer (rolls every 4 seconds)
+  useEffect(() => {
+    if (totalBanners <= 1 || isPaused || isDragging) return;
+
+    const timer = setInterval(() => {
+      setCurrentBannerIdx(prev => (prev + 1) % totalBanners);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [totalBanners, isPaused, isDragging, currentBannerIdx]);
+
+  // Touch Handlers for Mobile Swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    dragStartX.current = e.touches[0].clientX;
+    dragStartY.current = e.touches[0].clientY;
+    isHorizontalSwipe.current = null;
+    hasMovedSignificantly.current = false;
+    setIsDragging(true);
+    setIsPaused(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (dragStartX.current === null || dragStartY.current === null) return;
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = currentX - dragStartX.current;
+    const deltaY = currentY - dragStartY.current;
+
+    // Check if horizontal swipe vs vertical scroll
+    if (isHorizontalSwipe.current === null) {
+      if (Math.abs(deltaX) > 7 || Math.abs(deltaY) > 7) {
+        isHorizontalSwipe.current = Math.abs(deltaX) >= Math.abs(deltaY);
+      }
+    }
+
+    if (isHorizontalSwipe.current && totalBanners > 1) {
+      setDragOffset(deltaX);
+      if (Math.abs(deltaX) > 10) {
+        hasMovedSignificantly.current = true;
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (totalBanners > 1 && isHorizontalSwipe.current) {
+      if (dragOffset < -45) {
+        handleNextBanner();
+      } else if (dragOffset > 45) {
+        handlePrevBanner();
+      }
+    }
+    setDragOffset(0);
+    setIsDragging(false);
+    dragStartX.current = null;
+    dragStartY.current = null;
+    isHorizontalSwipe.current = null;
+    setTimeout(() => {
+      hasMovedSignificantly.current = false;
+      setIsPaused(false);
+    }, 150);
+  };
+
+  // Mouse Handlers for Desktop Drag
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    dragStartX.current = e.clientX;
+    dragStartY.current = e.clientY;
+    hasMovedSignificantly.current = false;
+    setIsDragging(true);
+    setIsPaused(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (dragStartX.current === null || !isDragging) return;
+    const deltaX = e.clientX - dragStartX.current;
+    if (totalBanners > 1) {
+      setDragOffset(deltaX);
+      if (Math.abs(deltaX) > 10) {
+        hasMovedSignificantly.current = true;
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    if (totalBanners > 1) {
+      if (dragOffset < -45) {
+        handleNextBanner();
+      } else if (dragOffset > 45) {
+        handlePrevBanner();
+      }
+    }
+    setDragOffset(0);
+    setIsDragging(false);
+    dragStartX.current = null;
+    dragStartY.current = null;
+    setTimeout(() => {
+      hasMovedSignificantly.current = false;
+      setIsPaused(false);
+    }, 150);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      handleMouseUp();
+    }
+    setIsPaused(false);
   };
 
   const percentA = battleChoice === 'A' ? 62 : battleChoice === 'B' ? 48 : (battleConfig.percentA || 55);
@@ -93,30 +226,33 @@ export const HomeView: React.FC = () => {
     setActiveTab('category');
   };
 
-  const handleBannerClick = () => {
+  const handleBannerClick = (banner?: BannerItem) => {
+    const target = banner || displayBanners[currentBannerIdx] || displayBanners[0];
+    if (!target) return;
+
     // 1. 외부 URL 웹링크
-    if (currentBanner.linkUrl && currentBanner.linkUrl.trim()) {
-      const rawUrl = currentBanner.linkUrl.trim();
+    if (target.linkUrl && target.linkUrl.trim()) {
+      const rawUrl = target.linkUrl.trim();
       const targetUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
       return;
     }
 
     // 2. 이벤트 연결
-    if (currentBanner.linkEventId) {
-      openEventDetail(currentBanner.linkEventId);
+    if (target.linkEventId) {
+      openEventDetail(target.linkEventId);
       return;
     }
 
     // 3. 상품 연결
-    if (currentBanner.linkProductId) {
-      openProductDetail(currentBanner.linkProductId);
+    if (target.linkProductId) {
+      openProductDetail(target.linkProductId);
       return;
     }
 
     // 4. 카테고리 이동
-    if (currentBanner.linkCategory) {
-      setSelectedCategory(currentBanner.linkCategory);
+    if (target.linkCategory) {
+      setSelectedCategory(target.linkCategory);
       setActiveTab('category');
       return;
     }
@@ -129,49 +265,121 @@ export const HomeView: React.FC = () => {
   return (
     <div className="pb-12 bg-[#F5F5F5] min-h-full">
       
-      {/* 1. Main Banner (Dynamic from Admin) */}
+      {/* 1. Main Banner (Dynamic from Admin + Auto-rolling + Touch/Mouse Swiping) */}
       <div 
-        onClick={handleBannerClick}
-        className="relative bg-gray-900 overflow-hidden cursor-pointer select-none group" 
+        className="relative bg-gray-900 overflow-hidden select-none touch-pan-y" 
         style={{ height: '220px' }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
       >
-        <img
-          src={currentBanner.image}
-          alt={currentBanner.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="text-white font-black text-xl leading-tight">
-            {currentBanner.title}<br />
-            <span className="font-semibold text-base opacity-90">{currentBanner.subtitle}</span>
-          </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleBannerClick();
-            }}
-            className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1"
-          >
-            <span>{currentBanner.buttonText || '자세히 보기'}</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-        {/* Dots */}
-        {activeBanners.length > 1 && (
-          <div className="absolute bottom-3 right-4 flex gap-1 z-10">
-            {activeBanners.map((_, i) => (
-              <button
-                key={i}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCurrentBannerIdx(i);
-                }}
-                className={`h-1 rounded-full transition-all ${
-                  i === currentBannerIdx ? 'w-4 bg-white' : 'w-1 bg-white/50'
-                }`}
+        <div 
+          className="flex h-full w-full will-change-transform"
+          style={{
+            transform: `translateX(calc(-${currentBannerIdx * 100}% + ${dragOffset}px))`,
+            transition: isDragging ? 'none' : 'transform 450ms cubic-bezier(0.25, 1, 0.5, 1)',
+          }}
+        >
+          {displayBanners.map((banner, idx) => (
+            <div
+              key={banner.id || idx}
+              onClick={() => {
+                if (!hasMovedSignificantly.current) {
+                  handleBannerClick(banner);
+                }
+              }}
+              className="w-full shrink-0 h-full relative cursor-pointer group select-none"
+            >
+              <img
+                src={banner.image}
+                alt={banner.title}
+                draggable={false}
+                className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
               />
-            ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-none">
+                {banner.badge && (
+                  <div className="inline-block text-[11px] font-bold text-amber-300 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full mb-1.5 border border-amber-300/30">
+                    {banner.badge}
+                  </div>
+                )}
+                <div className="text-white font-black text-xl leading-tight drop-shadow-sm">
+                  {banner.title}<br />
+                  <span className="font-medium text-base text-gray-200">{banner.subtitle}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!hasMovedSignificantly.current) {
+                      handleBannerClick(banner);
+                    }
+                  }}
+                  className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1 pointer-events-auto"
+                >
+                  <span>{banner.buttonText || '자세히 보기'}</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Left & Right Arrow Navigation (인간이 직접 넘길 수 있는 버튼) */}
+        {totalBanners > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevBanner();
+              }}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/65 text-white flex items-center justify-center backdrop-blur-xs transition-all opacity-80 hover:opacity-100 z-20 shadow-md active:scale-90"
+              aria-label="이전 배너"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextBanner();
+              }}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/65 text-white flex items-center justify-center backdrop-blur-xs transition-all opacity-80 hover:opacity-100 z-20 shadow-md active:scale-90"
+              aria-label="다음 배너"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </>
+        )}
+
+        {/* Page Counter & Dots Pagination */}
+        {totalBanners > 1 && (
+          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 z-20">
+            <div className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold tracking-wider">
+              {currentBannerIdx + 1} / {totalBanners}
+            </div>
+            <div className="flex gap-1 items-center bg-black/40 backdrop-blur-xs px-1.5 py-1 rounded-full">
+              {displayBanners.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentBannerIdx(i);
+                  }}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentBannerIdx ? 'w-3.5 bg-amber-400' : 'w-1.5 bg-white/40 hover:bg-white/80'
+                  }`}
+                  aria-label={`배너 ${i + 1}번으로 이동`}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
