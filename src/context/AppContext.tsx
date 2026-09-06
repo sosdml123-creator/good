@@ -222,9 +222,9 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => {
     itemType: dbP.item_type,
     image,
     releaseDate: dbP.release_date || '',
-  price: dbP.price,
-  discountRate: dbP.discount_rate,
-  overallRating: Number(dbP.overall_rating) || 0,
+    price: dbP.price,
+    discountRate: undefined,
+    overallRating: Number(dbP.overall_rating) || 0,
   ratingCount: dbP.rating_count || 0,
   detailedRating: dbP.detailed_rating || { taste: 5, value: 5, portion: 5, repurchase: 5 },
   freshMetrics: dbP.fresh_metrics,
@@ -289,7 +289,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v9_20260906_orion_official_catalog';
+const DATA_VERSION = 'v10_20260906_remove_discounts';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -532,6 +532,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             return {
               ...initial,
               ...mapped,
+              discountRate: undefined,
               image: isAgriMarineProduct(initial) ? initial.image : (mapped.image && !mapped.image.includes('unsplash') ? mapped.image : initial.image),
               nutrition: mapped.nutrition || initial.nutrition,
               ingredients: mapped.ingredients || initial.ingredients,

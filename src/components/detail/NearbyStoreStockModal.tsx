@@ -70,7 +70,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
       phone: '02-539-1120',
       stockCount: 4,
       stockStatus: '여유',
-      badge: '단독할인',
+      badge: '재고여유',
       isOpen24h: false,
     },
     {
@@ -94,7 +94,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
       phone: '02-6900-1234',
       stockCount: 28,
       stockStatus: '여유',
-      badge: '대용량 묶음할인',
+      badge: '인기매장',
       isOpen24h: false,
     },
   ];

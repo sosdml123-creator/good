@@ -514,11 +514,6 @@ export const HomeView: React.FC = () => {
                           NEW
                         </span>
                       )}
-                      {p.discountRate && p.discountRate > 0 && (
-                        <span className="text-[10px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                          {p.discountRate}%
-                        </span>
-                      )}
                     </div>
 
                     {/* Store or SubCategory Pill */}
@@ -561,11 +556,8 @@ export const HomeView: React.FC = () => {
                       <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
                     </div>
 
-                    {/* Price & Discount */}
+                    {/* Price */}
                     <div className="flex items-center gap-1 mt-0.5">
-                      {p.discountRate && p.discountRate > 0 && (
-                        <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
-                      )}
                       <span className="text-[13px] font-black text-gray-900">{p.price.toLocaleString()}원</span>
                     </div>
 
@@ -649,11 +641,6 @@ export const HomeView: React.FC = () => {
                     )}
                   </div>
 
-                  {p.discountRate && p.discountRate > 0 && (
-                    <span className="absolute bottom-1.5 right-1.5 text-[10px] font-bold bg-red-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                      {p.discountRate}%
-                    </span>
-                  )}
                   {p.subCategory && (
                     <span className="absolute bottom-1.5 left-1.5 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
                       {p.subCategory}
@@ -687,9 +674,6 @@ export const HomeView: React.FC = () => {
                   </div>
 
                   <div className="flex items-center gap-1 mt-0.5">
-                    {p.discountRate && p.discountRate > 0 && (
-                      <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
-                    )}
                     <span className="text-[13px] font-bold text-gray-900">{p.price.toLocaleString()}원</span>
                   </div>
                 </div>

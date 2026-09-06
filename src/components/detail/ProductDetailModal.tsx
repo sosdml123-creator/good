@@ -219,9 +219,6 @@ export const ProductDetailModal: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2 mt-2">
-          {selectedProduct.discountRate && selectedProduct.discountRate > 0 && (
-            <span className="text-[16px] font-black text-red-500">{selectedProduct.discountRate}%</span>
-          )}
           <span className="text-[20px] font-black text-gray-900">
             {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{selectedProduct.price.toLocaleString()}원
           </span>

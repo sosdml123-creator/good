@@ -275,11 +275,6 @@ export const DiscoverView: React.FC = () => {
                     {item.reviewRank}
                   </span>
 
-                  {p.discountRate && p.discountRate > 0 && (
-                    <span className="absolute bottom-1 right-1 text-[10px] font-bold bg-red-500 text-white px-1 py-0.2 rounded">
-                      {p.discountRate}%
-                    </span>
-                  )}
                   {p.subCategory && (
                     <span className="absolute bottom-1 left-1 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.2 rounded backdrop-blur-xs">
                       {p.subCategory}
@@ -341,9 +336,6 @@ export const DiscoverView: React.FC = () => {
 
                   {/* Price */}
                   <div className="flex items-center gap-1.5 mt-1">
-                    {p.discountRate && p.discountRate > 0 && (
-                      <span className="text-[12px] font-bold text-red-500">{p.discountRate}%</span>
-                    )}
                     <span className="text-[13px] font-bold text-gray-900">
                       {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
                     </span>
