@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   ChevronLeft, 
@@ -12,7 +12,8 @@ import {
   ChevronRight,
   Store
 } from 'lucide-react';
-import { getAggregatedBrands, POPULAR_BRANDS, ProcessedBrand } from '../../utils/brandData';
+import { getAggregatedBrands, getBrandLogo, POPULAR_BRANDS, ProcessedBrand } from '../../utils/brandData';
+import { Product } from '../../types';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
 
@@ -38,7 +39,8 @@ export const BrandView: React.FC = () => {
     goBack,
   } = useApp();
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [directorySearchQuery, setDirectorySearchQuery] = useState('');
+  const [brandItemSearchQuery, setBrandItemSearchQuery] = useState('');
   const [selectedCategoryTab, setSelectedCategoryTab] = useState('전체');
   const [selectedSubCategory, setSelectedSubCategory] = useState('전체');
   const [sortBy, setSortBy] = useState<SortOption>('popular');
@@ -50,29 +52,33 @@ export const BrandView: React.FC = () => {
   // Current active brand profile if in detail mode
   const currentBrand = useMemo(() => {
     if (!selectedBrand) return null;
-    return allBrands.find(b => b.name.toLowerCase() === selectedBrand.toLowerCase()) || ({
+    const found = allBrands.find(b => b.name.toLowerCase() === selectedBrand.toLowerCase());
+    if (found) return found;
+
+    const brandProducts = products.filter(p => p.brand === selectedBrand);
+    return {
       name: selectedBrand,
-      logo: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80',
-      bannerImage: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000&auto=format&fit=crop&q=80',
-      category: '브랜드관',
+      logo: getBrandLogo(selectedBrand),
+      bannerImage: brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000&auto=format&fit=crop&q=80',
+      category: brandProducts[0]?.category || '브랜드관',
       slogan: `${selectedBrand} 공식 브랜드관`,
       description: `${selectedBrand}에서 판매 중인 대표 메뉴와 신제품을 한 곳에서 모아보세요.`,
       badge: '공식 브랜드',
       isPopular: false,
-      productCount: products.filter(p => p.brand === selectedBrand).length,
+      productCount: brandProducts.length,
       avgRating: 4.8,
       totalReviews: 120,
-      products: products.filter(p => p.brand === selectedBrand)
-    } as ProcessedBrand);
+      products: brandProducts
+    } as ProcessedBrand;
   }, [selectedBrand, allBrands, products]);
 
   // Filtered brands in Directory mode
   const filteredBrands = useMemo(() => {
     return allBrands.filter(brand => {
-      const matchSearch = searchQuery.trim() === '' || 
-        brand.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (brand.engName && brand.engName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        brand.category.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchSearch = directorySearchQuery.trim() === '' || 
+        brand.name.toLowerCase().includes(directorySearchQuery.toLowerCase()) ||
+        (brand.engName && brand.engName.toLowerCase().includes(directorySearchQuery.toLowerCase())) ||
+        brand.category.toLowerCase().includes(directorySearchQuery.toLowerCase());
 
       const matchCategory = selectedCategoryTab === '전체' || 
         brand.category.includes(selectedCategoryTab) ||
@@ -84,7 +90,7 @@ export const BrandView: React.FC = () => {
 
       return matchSearch && matchCategory;
     });
-  }, [allBrands, searchQuery, selectedCategoryTab]);
+  }, [allBrands, directorySearchQuery, selectedCategoryTab]);
 
   // Brand subcategories (e.g. 버거, 치킨, 사이드, 음료 등)
   const brandSubCategories = useMemo(() => {
@@ -100,6 +106,16 @@ export const BrandView: React.FC = () => {
   const displayedBrandProducts = useMemo(() => {
     if (!currentBrand) return [];
     let list = [...currentBrand.products];
+
+    // In-brand search query filter
+    if (brandItemSearchQuery.trim() !== '') {
+      const q = brandItemSearchQuery.trim().toLowerCase();
+      list = list.filter(p => 
+        p.name.toLowerCase().includes(q) ||
+        (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
+        (p.description && p.description.toLowerCase().includes(q))
+      );
+    }
 
     if (selectedSubCategory !== '전체') {
       list = list.filter(p => p.subCategory === selectedSubCategory);
@@ -119,7 +135,31 @@ export const BrandView: React.FC = () => {
       default:
         return list;
     }
-  }, [currentBrand, selectedSubCategory, sortBy]);
+  }, [currentBrand, selectedSubCategory, brandItemSearchQuery, sortBy]);
+
+  // Group products by subCategory for category-divided view
+  const categorizedProducts = useMemo(() => {
+    if (!currentBrand || selectedSubCategory !== '전체' || brandItemSearchQuery.trim() !== '') {
+      return null;
+    }
+
+    const groups: { categoryName: string; items: Product[] }[] = [];
+    const map = new Map<string, Product[]>();
+
+    displayedBrandProducts.forEach(p => {
+      const catKey = p.subCategory || p.category || '기타 메뉴';
+      if (!map.has(catKey)) {
+        map.set(catKey, []);
+      }
+      map.get(catKey)!.push(p);
+    });
+
+    map.forEach((items, categoryName) => {
+      groups.push({ categoryName, items });
+    });
+
+    return groups.length > 1 ? groups : null;
+  }, [currentBrand, selectedSubCategory, brandItemSearchQuery, displayedBrandProducts]);
 
   // Related brands when in Detail mode
   const relatedBrands = useMemo(() => {
@@ -129,13 +169,85 @@ export const BrandView: React.FC = () => {
       .slice(0, 5);
   }, [allBrands, currentBrand]);
 
+  // Helper for rendering product card
+  const renderProductCard = (p: Product) => {
+    const isBookmarked = bookmarkedIds.includes(p.id);
+    return (
+      <div
+        key={p.id}
+        onClick={() => openProductDetail(p.id)}
+        className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-2xs hover:shadow-md transition-all flex flex-col group cursor-pointer active:scale-[0.98]"
+      >
+        {/* Thumbnail & Badges */}
+        <div className="relative aspect-square bg-gray-50 overflow-hidden">
+          <img
+            src={p.image}
+            alt={p.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+          
+          {p.isToday && (
+            <span className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-2xs">
+              NEW
+            </span>
+          )}
+
+          {p.isHot && !p.isToday && (
+            <span className="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-2xs flex items-center gap-0.5">
+              <Flame className="w-2.5 h-2.5" /> HOT
+            </span>
+          )}
+
+          {/* Bookmark Heart Button */}
+          <button
+            onClick={(e) => toggleBookmark(p.id, e)}
+            className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-xs flex items-center justify-center text-gray-400 hover:text-rose-500 transition-colors shadow-2xs"
+          >
+            <Heart
+              className={`w-4 h-4 ${
+                isBookmarked ? 'fill-rose-500 text-rose-500' : 'stroke-[2]'
+              }`}
+            />
+          </button>
+
+          {p.subCategory && (
+            <span className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+              {p.subCategory}
+            </span>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
+          <div className="space-y-1">
+            <div className="text-[10px] text-gray-400 font-semibold">{p.brand}</div>
+            <h3 className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-[#0066FF] transition-colors">
+              {p.name}
+            </h3>
+          </div>
+
+          <div className="pt-1 border-t border-gray-50 flex items-center justify-between">
+            <div className="text-xs font-black text-gray-900">
+              {p.price.toLocaleString()}원
+            </div>
+            <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
+              <Star className="w-3 h-3 fill-amber-400 stroke-none" />
+              <span>{p.overallRating?.toFixed(1) || '4.8'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // =========================================================================
   // VIEW 1: BRAND DETAIL SHOWCASE (특정 브랜드 제품 모아보기)
   // =========================================================================
   if (selectedBrand && currentBrand) {
     return (
       <div className="pb-16 bg-[#F8F9FA] min-h-full">
-        {/* 1. Header */}
+        {/* 1. Sticky Header */}
         <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">
           <button
             onClick={goBack}
@@ -145,12 +257,23 @@ export const BrandView: React.FC = () => {
             <span>브랜드 목록</span>
           </button>
 
-          <span className="text-sm font-bold text-gray-900 truncate max-w-[180px]">
-            {currentBrand.name} 브랜드관
-          </span>
+          <div className="flex items-center gap-1.5 truncate max-w-[180px]">
+            <img 
+              src={currentBrand.logo} 
+              alt={currentBrand.name} 
+              className="w-5 h-5 rounded-md object-contain bg-white border border-gray-200 shrink-0 p-0.5" 
+            />
+            <span className="text-sm font-bold text-gray-900 truncate">
+              {currentBrand.name} 브랜드관
+            </span>
+          </div>
 
           <button
-            onClick={() => setSelectedBrand(null)}
+            onClick={() => {
+              setSelectedBrand(null);
+              setBrandItemSearchQuery('');
+              setSelectedSubCategory('전체');
+            }}
             className="text-xs text-[#0066FF] font-semibold hover:underline"
           >
             전체 브랜드
@@ -171,11 +294,12 @@ export const BrandView: React.FC = () => {
           <div className="px-4 pb-5 -mt-12 relative z-10">
             <div className="flex items-end justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-20 h-20 rounded-2xl bg-white p-1.5 shadow-lg shrink-0 border-2 border-white/80 overflow-hidden flex items-center justify-center">
+                {/* Clean Brand Logo Container */}
+                <div className="w-20 h-20 rounded-2xl bg-white p-2 shadow-lg shrink-0 border-2 border-white overflow-hidden flex items-center justify-center">
                   <img
                     src={currentBrand.logo}
                     alt={currentBrand.name}
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="space-y-0.5">
@@ -240,27 +364,56 @@ export const BrandView: React.FC = () => {
           </div>
         </div>
 
-        {/* 3. Product SubCategory Scroll & Filter */}
-        <div className="sticky top-[45px] z-20 bg-white border-b border-gray-100 shadow-2xs">
-          <div className="flex items-center justify-between px-4 py-2">
-            <div className="flex gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-              {brandSubCategories.map(subCat => (
-                <button
-                  key={subCat}
-                  onClick={() => setSelectedSubCategory(subCat)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                    selectedSubCategory === subCat
-                      ? 'bg-[#0066FF] text-white shadow-xs'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  {subCat}
-                </button>
-              ))}
+        {/* 3. In-Brand Menu Search Bar & Category Tabs */}
+        <div className="sticky top-[45px] z-20 bg-white border-b border-gray-100 shadow-2xs space-y-2 py-2 px-4">
+          {/* Menu Search Box inside Brand */}
+          <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-1.5">
+            <Search className="w-3.5 h-3.5 text-gray-400" />
+            <input
+              type="text"
+              value={brandItemSearchQuery}
+              onChange={(e) => setBrandItemSearchQuery(e.target.value)}
+              placeholder={`${currentBrand.name} 메뉴 검색 (예: 빅맥, 와퍼, 감자튀김...)...`}
+              className="bg-transparent text-xs text-gray-800 placeholder-gray-400 outline-none w-full font-medium"
+            />
+            {brandItemSearchQuery && (
+              <button 
+                onClick={() => setBrandItemSearchQuery('')} 
+                className="text-xs text-gray-400 hover:text-gray-600 bg-gray-200 rounded-full w-4 h-4 flex items-center justify-center"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {/* SubCategory Horizontal Scroll Tabs & Sort */}
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1.5 overflow-x-auto no-scrollbar py-0.5 flex-1 mr-2">
+              {brandSubCategories.map(subCat => {
+                const count = subCat === '전체' 
+                  ? currentBrand.products.length 
+                  : currentBrand.products.filter(p => p.subCategory === subCat).length;
+                return (
+                  <button
+                    key={subCat}
+                    onClick={() => setSelectedSubCategory(subCat)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                      selectedSubCategory === subCat
+                        ? 'bg-[#0066FF] text-white shadow-xs'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    <span>{subCat}</span>
+                    <span className={`text-[10px] ${selectedSubCategory === subCat ? 'text-blue-100' : 'text-gray-400'}`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Sort Menu Button */}
-            <div className="relative shrink-0 ml-2">
+            <div className="relative shrink-0">
               <button
                 onClick={() => setIsSortOpen(!isSortOpen)}
                 className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 px-2.5 py-1.5 rounded-full hover:bg-gray-100"
@@ -291,94 +444,53 @@ export const BrandView: React.FC = () => {
           </div>
         </div>
 
-        {/* 4. Brand Products Grid */}
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              <span>{currentBrand.name} 전 제품</span>
-              <span className="text-[#0066FF] font-mono">({displayedBrandProducts.length})</span>
-            </h2>
-            <span className="text-[11px] text-gray-400">클릭 시 상세정보 확인</span>
-          </div>
-
+        {/* 4. Brand Products Grid (Categorized Sections or Filtered Grid) */}
+        <div className="p-4 space-y-6">
           {displayedBrandProducts.length === 0 ? (
             <div className="bg-white rounded-2xl p-8 text-center border border-gray-100 space-y-2">
               <Store className="w-10 h-10 text-gray-300 mx-auto" />
-              <p className="text-sm font-bold text-gray-700">해당 분류의 제품이 없습니다.</p>
-              <p className="text-xs text-gray-400">다른 분류를 선택해보세요.</p>
+              <p className="text-sm font-bold text-gray-700">검색 조건에 맞는 메뉴가 없습니다.</p>
+              <p className="text-xs text-gray-400">다른 검색어나 카테고리를 선택해보세요.</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {displayedBrandProducts.map((p) => {
-                const isBookmarked = bookmarkedIds.includes(p.id);
-                return (
-                  <div
-                    key={p.id}
-                    onClick={() => openProductDetail(p.id)}
-                    className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-2xs hover:shadow-md transition-all flex flex-col group cursor-pointer active:scale-[0.98]"
+          ) : categorizedProducts ? (
+            /* Category-Divided Sections View */
+            categorizedProducts.map((group) => (
+              <div key={group.categoryName} className="space-y-3">
+                <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+                  <h3 className="text-sm font-black text-gray-900 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#0066FF]" />
+                    <span>{group.categoryName}</span>
+                    <span className="text-xs text-[#0066FF] font-bold bg-blue-50 px-2 py-0.5 rounded-full">
+                      {group.items.length}
+                    </span>
+                  </h3>
+                  <button
+                    onClick={() => setSelectedSubCategory(group.categoryName)}
+                    className="text-xs text-gray-400 hover:text-[#0066FF] font-medium"
                   >
-                    {/* Thumbnail & Badges */}
-                    <div className="relative aspect-square bg-gray-50 overflow-hidden">
-                      <img
-                        src={p.image}
-                        alt={p.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                      
-                      {p.isToday && (
-                        <span className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-2xs">
-                          NEW
-                        </span>
-                      )}
+                    이 카테고리만 보기 →
+                  </button>
+                </div>
 
-                      {p.isHot && !p.isToday && (
-                        <span className="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-2xs flex items-center gap-0.5">
-                          <Flame className="w-2.5 h-2.5" /> HOT
-                        </span>
-                      )}
+                <div className="grid grid-cols-2 gap-3">
+                  {group.items.map(p => renderProductCard(p))}
+                </div>
+              </div>
+            ))
+          ) : (
+            /* Flat Grid View (when filtered by subcategory or search query) */
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+                  <span>{selectedSubCategory !== '전체' ? `${selectedSubCategory} 메뉴` : `${currentBrand.name} 검색 결과`}</span>
+                  <span className="text-[#0066FF] font-mono">({displayedBrandProducts.length})</span>
+                </h2>
+                <span className="text-[11px] text-gray-400">클릭 시 상세정보 확인</span>
+              </div>
 
-                      {/* Bookmark Heart Button */}
-                      <button
-                        onClick={(e) => toggleBookmark(p.id, e)}
-                        className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-xs flex items-center justify-center text-gray-400 hover:text-rose-500 transition-colors shadow-2xs"
-                      >
-                        <Heart
-                          className={`w-4 h-4 ${
-                            isBookmarked ? 'fill-rose-500 text-rose-500' : 'stroke-[2]'
-                          }`}
-                        />
-                      </button>
-
-                      {p.subCategory && (
-                        <span className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
-                          {p.subCategory}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
-                      <div className="space-y-1">
-                        <div className="text-[10px] text-gray-400 font-semibold">{p.brand}</div>
-                        <h3 className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-[#0066FF] transition-colors">
-                          {p.name}
-                        </h3>
-                      </div>
-
-                      <div className="pt-1 border-t border-gray-50 flex items-center justify-between">
-                        <div className="text-xs font-black text-gray-900">
-                          {p.price.toLocaleString()}원
-                        </div>
-                        <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
-                          <Star className="w-3 h-3 fill-amber-400 stroke-none" />
-                          <span>{p.overallRating?.toFixed(1) || '4.8'}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              <div className="grid grid-cols-2 gap-3">
+                {displayedBrandProducts.map(p => renderProductCard(p))}
+              </div>
             </div>
           )}
         </div>
@@ -395,11 +507,15 @@ export const BrandView: React.FC = () => {
               {relatedBrands.map((b) => (
                 <div
                   key={b.name}
-                  onClick={() => openBrandDetail(b.name)}
-                  className="w-32 shrink-0 bg-white rounded-2xl p-3 border border-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer text-center group"
+                  onClick={() => {
+                    setSelectedSubCategory('전체');
+                    setBrandItemSearchQuery('');
+                    openBrandDetail(b.name);
+                  }}
+                  className="w-32 shrink-0 bg-white rounded-2xl p-3 border border-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer text-center group active:scale-95"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gray-50 p-1 mx-auto mb-2 overflow-hidden border border-gray-100 flex items-center justify-center">
-                    <img src={b.logo} alt={b.name} className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" />
+                  <div className="w-12 h-12 rounded-xl bg-white p-1.5 mx-auto mb-2 overflow-hidden border border-gray-100 flex items-center justify-center shadow-2xs">
+                    <img src={b.logo} alt={b.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform" />
                   </div>
                   <div className="text-xs font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors">
                     {b.name}
@@ -435,13 +551,13 @@ export const BrandView: React.FC = () => {
             <Search className="w-4 h-4 text-gray-400" />
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={directorySearchQuery}
+              onChange={(e) => setDirectorySearchQuery(e.target.value)}
               placeholder="브랜드명 검색 (맥도날드, 버거킹, 스타벅스...)"
               className="bg-transparent text-xs text-gray-800 placeholder-gray-400 outline-none w-full font-medium"
             />
-            {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="text-xs text-gray-400 hover:text-gray-600">
+            {directorySearchQuery && (
+              <button onClick={() => setDirectorySearchQuery('')} className="text-xs text-gray-400 hover:text-gray-600">
                 ✕
               </button>
             )}

@@ -1,11 +1,49 @@
 ﻿import { BrandInfo, Product } from '../types';
 
+export const BRAND_LOGOS_MAP: Record<string, string> = {
+  '맥도날드': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/320px-McDonald%27s_Golden_Arches.svg.png',
+  '버거킹': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Burger_King_logo_%281999%29.svg/320px-Burger_King_logo_%281999%29.svg.png',
+  '맘스터치': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mom%27s_Touch_logo.png/320px-Mom%27s_Touch_logo.png',
+  '롯데리아': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Lotteria_Logo.svg/320px-Lotteria_Logo.svg.png',
+  '스타벅스': 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/320px-Starbucks_Corporation_Logo_2011.svg.png',
+  '메가MGC커피': 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
+  '메가커피': 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
+  '매머드커피': 'https://mmthcoffee.com/files/menu/564a4c4ac238359924a304a25e902e29.png',
+  '매머드': 'https://mmthcoffee.com/files/menu/564a4c4ac238359924a304a25e902e29.png',
+  '빽다방': 'https://paikdabang.com/wp-content/themes/paikdabang/assets/images/logo.png',
+  '오리온': 'https://www.orionworld.com/upload/goods/00086d1e89648f5fcf72cdb3a40847cb.png',
+  '농심': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Nongshim_Logo.svg/320px-Nongshim_Logo.svg.png',
+  '연세유업': 'https://cdn.iconsumer.or.kr/news/thumbnail/202510/28274_38223_816_v150.jpg',
+  '롯데웰푸드': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lotte_Logo.svg/320px-Lotte_Logo.svg.png',
+  '롯데': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lotte_Logo.svg/320px-Lotte_Logo.svg.png',
+  '해태제과': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Haitai_Confectionery_%26_Foods_Logo.svg/320px-Haitai_Confectionery_%26_Foods_Logo.svg.png',
+  '해태': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Haitai_Confectionery_%26_Foods_Logo.svg/320px-Haitai_Confectionery_%26_Foods_Logo.svg.png',
+  '삼양식품': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samyang_Foods_logo.svg/320px-Samyang_Foods_logo.svg.png',
+  '삼양': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samyang_Foods_logo.svg/320px-Samyang_Foods_logo.svg.png',
+  '오뚜기': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Ottogi_Logo.svg/320px-Ottogi_Logo.svg.png',
+  'CJ제일제당': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80',
+  '빙그레': 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=200&auto=format&fit=crop&q=80',
+  '코카콜라': 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=200&auto=format&fit=crop&q=80'
+};
+
+export const getBrandLogo = (brandName: string, fallbackImage?: string): string => {
+  const norm = brandName.trim();
+  if (BRAND_LOGOS_MAP[norm]) return BRAND_LOGOS_MAP[norm];
+  
+  for (const [key, url] of Object.entries(BRAND_LOGOS_MAP)) {
+    if (norm.includes(key) || key.includes(norm)) {
+      return url;
+    }
+  }
+  return fallbackImage || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80';
+};
+
 export const POPULAR_BRANDS: BrandInfo[] = [
   {
     id: 'mcdonalds',
     name: '맥도날드',
     engName: "McDonald's",
-    logo: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['맥도날드'],
     bannerImage: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1000&auto=format&fit=crop&q=80',
     category: '패스트푸드',
     slogan: "I'm lovin' it! 전 세계가 사랑하는 버거와 감자튀김",
@@ -18,7 +56,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'burgerking',
     name: '버거킹',
     engName: 'Burger King',
-    logo: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['버거킹'],
     bannerImage: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=1000&auto=format&fit=crop&q=80',
     category: '패스트푸드',
     slogan: 'TASTE IS KING! 직화로 구워 불맛 가득한 와퍼',
@@ -31,7 +69,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'momstouch',
     name: '맘스터치',
     engName: "Mom's Touch",
-    logo: 'https://images.unsplash.com/photo-1619881590738-a111d176d906?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['맘스터치'],
     bannerImage: 'https://images.unsplash.com/photo-1619881590738-a111d176d906?w=1000&auto=format&fit=crop&q=80',
     category: '패스트푸드',
     slogan: '빠르게보다 ALL 바르게! 두툼한 통다리살 치킨버거',
@@ -44,7 +82,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'lotteria',
     name: '롯데리아',
     engName: 'Lotteria',
-    logo: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['롯데리아'],
     bannerImage: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=1000&auto=format&fit=crop&q=80',
     category: '패스트푸드',
     slogan: '맛있는 즐거움! 대한민국 최초의 K-버거',
@@ -57,7 +95,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'starbucks',
     name: '스타벅스',
     engName: 'Starbucks',
-    logo: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['스타벅스'],
     bannerImage: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1000&auto=format&fit=crop&q=80',
     category: '커피·음료',
     slogan: 'Inspiring and nurturing the human spirit',
@@ -70,7 +108,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'megacoffee',
     name: '메가MGC커피',
     engName: 'Mega Coffee',
-    logo: 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
+    logo: BRAND_LOGOS_MAP['메가MGC커피'],
     bannerImage: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=1000&auto=format&fit=crop&q=80',
     category: '커피·음료',
     slogan: '가성비와 트렌디한 메뉴의 만남, 즐거움이 가득한 메가',
@@ -83,7 +121,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'orion',
     name: '오리온',
     engName: 'Orion',
-    logo: 'https://www.orionworld.com/upload/goods/00086d1e89648f5fcf72cdb3a40847cb.png',
+    logo: BRAND_LOGOS_MAP['오리온'],
     bannerImage: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=1000&auto=format&fit=crop&q=80',
     category: '과자·스낵',
     slogan: '정(情)을 나누는 국민 스낵 & 파이 명가',
@@ -96,7 +134,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'nongshim',
     name: '농심',
     engName: 'Nongshim',
-    logo: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['농심'],
     bannerImage: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1000&auto=format&fit=crop&q=80',
     category: '라면·간편식',
     slogan: '인생을 맛있게! 농심',
@@ -109,7 +147,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'yonsei',
     name: '연세유업',
     engName: 'Yonsei Dairy',
-    logo: 'https://cdn.iconsumer.or.kr/news/thumbnail/202510/28274_38223_816_v150.jpg',
+    logo: BRAND_LOGOS_MAP['연세유업'],
     bannerImage: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1000&auto=format&fit=crop&q=80',
     category: '베이커리·디저트',
     slogan: '생크림 가득 프리미엄 디저트의 기준',
@@ -122,7 +160,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'lottewellfood',
     name: '롯데웰푸드',
     engName: 'Lotte Wellfood',
-    logo: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['롯데웰푸드'],
     bannerImage: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=1000&auto=format&fit=crop&q=80',
     category: '과자·스낵',
     slogan: '달콤한 순간을 선물하는 종합 제과 브랜드',
@@ -135,7 +173,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     id: 'haitai',
     name: '해태제과',
     engName: 'Haitai',
-    logo: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=200&auto=format&fit=crop&q=80',
+    logo: BRAND_LOGOS_MAP['해태제과'],
     bannerImage: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=1000&auto=format&fit=crop&q=80',
     category: '과자·스낵',
     slogan: '맛있는 과자, 행복한 미소',
@@ -196,14 +234,14 @@ export const getAggregatedBrands = (products: Product[]): ProcessedBrand[] => {
     // Derive category
     const mainCategory = brandProducts[0]?.category || '기타';
 
-    // Default logo/banner
-    const defaultLogo = brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80';
+    // Logo resolution
+    const brandLogo = knownMeta?.logo || getBrandLogo(brandName, brandProducts[0]?.image);
     const defaultBanner = brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
 
     result.push({
       name: brandName,
       engName: knownMeta?.engName,
-      logo: knownMeta?.logo || defaultLogo,
+      logo: brandLogo,
       bannerImage: knownMeta?.bannerImage || defaultBanner,
       category: knownMeta?.category || mainCategory,
       slogan: knownMeta?.slogan || `${brandName}의 공식 인기 메뉴 및 신제품 라인업`,
