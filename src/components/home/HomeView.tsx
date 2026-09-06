@@ -646,7 +646,7 @@ export const HomeView: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {getPopularProducts(products, 5).map((p, i) => (
+          {getPopularProducts(products, 5, reviews).map((p, i) => (
             <div
               key={p.id}
               onClick={() => openProductDetail(p.id)}

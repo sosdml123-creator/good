@@ -251,7 +251,6 @@ export const DiscoverView: React.FC = () => {
           rankedItems.map((item) => {
             const p = item.product;
             const isBookmarked = bookmarkedIds.includes(p.id);
-            const isTopRank = item.reviewRank <= 3;
 
             return (
               <div

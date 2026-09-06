@@ -37,26 +37,40 @@ export const getHoursSinceCreated = (createdAt?: string | number): number => {
 
 /**
  * Calculates a product's real-time popularity score based on:
- * - Overall Rating (weight 20)
- * - Rating Count / Reviews (weight 5)
+ * - Overall Rating / Posted Reviews (weight 20)
+ * - Rating Count / Posted Reviews (weight 5)
  * - Repurchase Percent (weight 0.3)
  * - Badges: isToday (+35), isHot (+25)
  */
-export const calculateProductPopularity = (product: Product): number => {
-  const ratingScore = (product.overallRating || 0) * 20;
-  const countScore = (product.ratingCount || 0) * 5;
+export const calculateProductPopularity = (product: Product, reviews?: Review[]): number => {
+  let effectiveRating = product.overallRating || 0;
+  let postedBonus = 0;
+  let totalCount = product.ratingCount || 0;
+
+  if (reviews && reviews.length > 0) {
+    const posted = reviews.filter((r) => r.productId === product.id);
+    if (posted.length > 0) {
+      const sumRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
+      effectiveRating = (product.overallRating * 5 + sumRating) / (5 + posted.length);
+      postedBonus = posted.length * 8;
+      totalCount += posted.length;
+    }
+  }
+
+  const ratingScore = effectiveRating * 20;
+  const countScore = (totalCount || 0) * 5;
   const repurchaseScore = (product.repurchasePercent || 0) * 0.3;
   const hotBonus = (product.isHot ? 25 : 0) + (product.isToday ? 35 : 0);
 
-  return ratingScore + countScore + repurchaseScore + hotBonus;
+  return ratingScore + countScore + repurchaseScore + hotBonus + postedBonus;
 };
 
 /**
  * Returns products sorted by real-time popularity ranking.
  */
-export const getPopularProducts = (products: Product[], limit?: number): Product[] => {
+export const getPopularProducts = (products: Product[], limit?: number, reviews?: Review[]): Product[] => {
   const sorted = [...products].sort((a, b) => {
-    return calculateProductPopularity(b) - calculateProductPopularity(a);
+    return calculateProductPopularity(b, reviews) - calculateProductPopularity(a, reviews);
   });
   return limit ? sorted.slice(0, limit) : sorted;
 };
