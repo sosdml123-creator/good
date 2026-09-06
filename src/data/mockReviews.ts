@@ -85,8 +85,8 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 4. [과자] 두바이 스타일 피스타치오 카다이프 초콜릿
   {
-    id: 'rev-prod-02-1',
-    productId: 'prod-02',
+    id: 'rev-snack-19-1',
+    productId: 'snack-19',
     productName: '두바이 스타일 피스타치오 카다이프 초콜릿',
     productImage: 'https://images.unsplash.com/photo-1548741487-18d16a1a0983?w=600&auto=format&fit=crop&q=80',
     userName: '디저트탐험가🍫',
@@ -103,8 +103,8 @@ export const INITIAL_REVIEWS: Review[] = [
     tags: ['#품절대란', '#카다이프바삭', '#피스타치오진함'],
   },
   {
-    id: 'rev-prod-02-2',
-    productId: 'prod-02',
+    id: 'rev-snack-19-2',
+    productId: 'snack-19',
     productName: '두바이 스타일 피스타치오 카다이프 초콜릿',
     productImage: 'https://images.unsplash.com/photo-1548741487-18d16a1a0983?w=600&auto=format&fit=crop&q=80',
     userName: '초코덕후',
@@ -123,8 +123,8 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 5. [과자] 꼬북칩 초코츄러스맛
   {
-    id: 'rev-prod-01-1',
-    productId: 'prod-01',
+    id: 'rev-snack-01-1',
+    productId: 'snack-01',
     productName: '꼬북칩 초코츄러스맛 더블크런치',
     productImage: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
     userName: '스낵러버🍿',
@@ -143,8 +143,8 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 6. [음료] 아사히 수퍼드라이 생맥주캔
   {
-    id: 'rev-drink-01-1',
-    productId: 'drink-01',
+    id: 'rev-drink-14-1',
+    productId: 'drink-14',
     productName: '아사히 수퍼드라이 생맥주캔',
     productImage: 'https://images.unsplash.com/photo-1608270129572-773d5e0a6d71?w=600&auto=format&fit=crop&q=80',
     userName: '홈술마스터🍺',
@@ -163,9 +163,9 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 7. [빵·디저트] 요아정 요거트 아이스크림
   {
-    id: 'rev-dessert-01-1',
-    productId: 'dessert-01',
-    productName: '요아정 요거트 아이스크림 벌집꿀세트',
+    id: 'rev-bakery-01-1',
+    productId: 'bakery-01',
+    productName: '연세우유 밤티라미수 생크림빵',
     productImage: 'https://images.unsplash.com/photo-1488900128323-21503983a07e?w=600&auto=format&fit=crop&q=80',
     userName: '디저트요정🧚',
     userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
@@ -183,9 +183,9 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 8. [고기·수산] 자연산 독도 꽃새우
   {
-    id: 'rev-seafood-01-1',
-    productId: 'seafood-shrimp-01',
-    productName: '산지직송 자연산 독도 꽃새우 (활어급 급랭)',
+    id: 'rev-seafood-02-1',
+    productId: 'seafood-02',
+    productName: '서해안 안면도 활 흰다리새우 (생물 왕대하)',
     productImage: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&auto=format&fit=crop&q=80',
     userName: '바다의맛🦐',
     userAvatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=80',
@@ -205,7 +205,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 9. [고기·수산] 횡성한우 1++ 꽃등심
   {
     id: 'rev-meat-01-1',
-    productId: 'meat-beef-01',
+    productId: 'meat-01',
     productName: '횡성한우 1++ No.9 마블링 꽃등심',
     productImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
     userName: '미식고기연구가🥩',
@@ -225,9 +225,9 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 10. [간편식] 점보도시락 8인분
   {
-    id: 'rev-frozen-01-1',
-    productId: 'frozen-01',
-    productName: '점보도시락 8인분 초대형 컵라면',
+    id: 'rev-meal-06-1',
+    productId: 'meal-06',
+    productName: 'CJ 비비고 통새우 만두',
     productImage: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=600&auto=format&fit=crop&q=80',
     userName: '파티캠퍼⛺',
     userAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
@@ -245,9 +245,9 @@ export const INITIAL_REVIEWS: Review[] = [
 
   // 11. [식재료] 동물복지 유정란
   {
-    id: 'rev-fresh-egg-01-1',
-    productId: 'fresh-egg-01',
-    productName: '1번 난각 동물복지 방사 유정란 (15구)',
+    id: 'rev-ing-01-1',
+    productId: 'ing-01',
+    productName: '동물복지 유정란 1+등급 자연방사란',
     productImage: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&auto=format&fit=crop&q=80',
     userName: '건강식단맘🍳',
     userAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',

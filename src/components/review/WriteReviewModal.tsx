@@ -5,7 +5,7 @@ import { ChevronLeft, Camera, Star, X, Check, Search } from 'lucide-react';
 export const WriteReviewModal: React.FC = () => {
   const { products, selectedProductId, submitReview, goBack, showToast } = useApp();
 
-  const [currentProductId, setCurrentProductId] = useState<string>(selectedProductId || products[0]?.id || 'prod-01');
+  const [currentProductId, setCurrentProductId] = useState<string>(selectedProductId || products[0]?.id || 'snack-01');
   const [isChangingProduct, setIsChangingProduct] = useState(false);
   const [searchProductQuery, setSearchProductQuery] = useState('');
 

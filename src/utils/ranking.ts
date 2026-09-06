@@ -80,18 +80,24 @@ export const getPopularProducts = (products: Product[], limit?: number, reviews?
  * Guarantees that search popularity reflects actual consumer search trends even across devices.
  */
 const BASELINE_SEARCH_INFLUX_MAP: Record<string, number> = {
-  'prod-02': 58400, // 두바이 스타일 피스타치오 초콜릿 (검색 1위)
-  'prod-01': 46200, // 꼬북칩 초코츄러스 (검색 2위)
-  'dessert-01': 41800, // 요아정 요거트 아이스크림 (검색 3위)
-  'drink-01': 37500, // 아사히 수퍼드라이 생맥주캔 (검색 4위)
-  'fruit-01': 33200, // 영덕 햇 딱딱이 백도 복숭아 (검색 5위)
-  'prod-03': 30100, // 먹태깡 청양마요맛 (검색 6위)
-  'seafood-shrimp-01': 27800, // 산지직송 자연산 독도 꽃새우 (검색 7위)
-  'frozen-01': 25400, // 점보도시락 8인분 (검색 8위)
-  'fruit-02': 22800, // 고창 명품 흑수박 (검색 9위)
-  'snack-shrimp-01': 19500, // 농심 쌀새우깡 (검색 10위)
-  'ramen-shrimp-01': 17800, // 새우탕 큰사발면 (검색 11위)
-  'bakery-01': 16500, // 연세우유 생크림빵 (검색 12위)
+  'snack-19': 58400, // 두바이 스타일 피스타치오 초콜릿 (검색 1위)
+  'snack-01': 46200, // 꼬북칩 초코츄러스 (검색 2위)
+  'meal-01': 43500,  // 농심 신라면 툼바 (검색 3위)
+  'bakery-01': 41800, // 연세우유 밤티라미수 (검색 4위)
+  'drink-01': 37500, // 하이트진로 테라 라이트 (검색 5위)
+  'drink-14': 37000, // 아사히 수퍼드라이 생맥주캔
+  'fruit-01': 33200, // 햇사레 복숭아
+  'snack-09': 30100, // 농심 먹태깡 청양마요
+  'snack-02': 29500, // 농심 쌀새우깡
+  'meal-05': 27500,  // 오뚜기 마열라면
+  'meal-06': 25400,  // CJ 비비고 통새우 만두
+  'fruit-02': 22800, // 고창 꿀수박
+  'bakery-04': 21000, // 연세우유 생크림빵
+  // Legacy ID compatibility
+  'prod-02': 58400,
+  'prod-01': 46200,
+  'dessert-01': 41800,
+  'prod-03': 30100,
 };
 
 /**

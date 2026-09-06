@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   Product, 
   Review, 
@@ -289,7 +289,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v7_20260906_review_rankings_and_produce_specs';
+const DATA_VERSION = 'v8_20260906_100_real_products';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -365,7 +365,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeTab, setActiveTabState] = useState<ActiveTab>('home');
   const [previousTab, setPreviousTab] = useState<ActiveTab>('home');
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('전체');
-  const [selectedProductId, setSelectedProductId] = useState<string>('prod-01');
+  const [selectedProductId, setSelectedProductId] = useState<string>('snack-01');
 
   const [events, setEvents] = useState<PromotionEvent[]>(() => {
     try {
@@ -390,13 +390,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_bookmarks');
-      return stored ? JSON.parse(stored) : ['prod-01', 'prod-02', 'fruit-01'];
+      return stored ? JSON.parse(stored) : ['snack-01', 'meal-01', 'fruit-01'];
     } catch {
-      return ['prod-01', 'prod-02', 'fruit-01'];
+      return ['snack-01', 'meal-01', 'fruit-01'];
     }
   });
 
-  const [comparedIds, setComparedIds] = useState<string[]>(['prod-01', 'prod-03']);
+  const [comparedIds, setComparedIds] = useState<string[]>(['snack-01', 'snack-03']);
   const [alertCategories, setAlertCategories] = useState<string[]>(['과자', '음료', '빵·디저트', '간편식']);
   const [searchQuery, setSearchQuery] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[]>([
@@ -428,8 +428,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
     return localStorage.getItem(LAST_CRAWL_STORAGE_KEY);
   });
-
-  const isSeedingRef = useRef(false);
 
   // Sync pending products to localStorage
   useEffect(() => {
@@ -518,47 +516,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (prodErr) throw prodErr;
 
       if (!dbProducts || dbProducts.length === 0) {
-        if (!isSeedingRef.current) {
-          isSeedingRef.current = true;
-          console.log('[Supabase] Products table is empty. Auto-seeding initial catalog...');
-          const formattedProducts = INITIAL_PRODUCTS.map(p => ({
-            id: p.id,
-            name: p.name,
-            brand: p.brand,
-            category: p.category,
-            sub_category: p.subCategory,
-            item_type: p.itemType || 'packaged',
-            image: p.image,
-            release_date: p.releaseDate,
-            price: p.price,
-            discount_rate: p.discountRate || 0,
-            overall_rating: p.overallRating,
-            rating_count: p.ratingCount,
-            detailed_rating: p.detailedRating,
-            fresh_metrics: p.freshMetrics,
-            brand_rankings: p.brandRankings,
-            restaurant_info: p.restaurantInfo,
-            description: p.description,
-            best_quotes: p.bestQuotes,
-            stores: p.stores,
-            repurchase_percent: p.repurchasePercent || 95,
-            calories: p.calories,
-            volume: p.volume,
-            is_today: p.isToday || false,
-            is_hot: p.isHot || false,
-          }));
-          await supabase.from('products').upsert(formattedProducts);
-          setProducts(INITIAL_PRODUCTS);
-        }
+        setProducts(INITIAL_PRODUCTS);
       } else {
-        setProducts(dbProducts.map(dbP => {
-          const mapped = mapDBProductToProduct(dbP);
-          const initial = INITIAL_PRODUCTS.find(ip => ip.id === mapped.id);
-          if (initial) {
+        // Create lookup map of DB products
+        const dbProductMap = new Map<string, DBProduct>();
+        dbProducts.forEach(p => {
+          if (p.id) dbProductMap.set(p.id, p);
+        });
+
+        // Always preserve all 100 INITIAL_PRODUCTS, merging DB fields where applicable
+        const mergedInitial = INITIAL_PRODUCTS.map(initial => {
+          const dbP = dbProductMap.get(initial.id);
+          if (dbP) {
+            const mapped = mapDBProductToProduct(dbP);
             return {
               ...initial,
               ...mapped,
-              image: isAgriMarineProduct(initial) ? initial.image : (mapped.image || initial.image),
+              image: isAgriMarineProduct(initial) ? initial.image : (mapped.image && !mapped.image.includes('unsplash') ? mapped.image : initial.image),
               nutrition: mapped.nutrition || initial.nutrition,
               ingredients: mapped.ingredients || initial.ingredients,
               allergens: mapped.allergens || initial.allergens,
@@ -570,8 +544,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               storeStocks: mapped.storeStocks && mapped.storeStocks.length > 0 ? mapped.storeStocks : initial.storeStocks,
             };
           }
-          return mapped;
-        }));
+          return initial;
+        });
+
+        // Also append any extra custom products from Supabase that are not in INITIAL_PRODUCTS
+        const initialIdSet = new Set(INITIAL_PRODUCTS.map(p => p.id));
+        const extraDbProducts = dbProducts
+          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id))
+          .map(dbP => mapDBProductToProduct(dbP));
+
+        setProducts([...mergedInitial, ...extraDbProducts]);
       }
 
       // 2. Fetch User Likes

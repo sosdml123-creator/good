@@ -7,7 +7,7 @@ interface ReviewListProps {
 }
 
 export const ReviewList: React.FC<ReviewListProps> = ({
-  productId = 'prod-01',
+  productId = 'snack-01',
 }) => {
   const { reviews, toggleLikeReview, addReviewComment, setActiveTab } = useApp();
   const [sortTab, setSortTab] = useState('최신순');
