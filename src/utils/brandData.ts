@@ -402,6 +402,97 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     officialUrl: 'https://www.maeil.com',
     badge: '건강 유제품 명가',
     isPopular: true
+  },
+  {
+    id: 'parisbaguette',
+    name: '파리바게뜨',
+    engName: 'Paris Baguette',
+    logo: BRAND_LOGOS_MAP['파리바게뜨'],
+    bannerImage: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '매일 아침 구워내는 신선하고 따뜻한 빵의 즐거움',
+    description: '대한민국 No.1 베이커리. 그대로토스트, 실키롤케익, 인생크림빵부터 시즌 한정 케이크까지!',
+    officialUrl: 'https://www.paris.co.kr',
+    badge: '국민 1위 베이커리',
+    isPopular: true
+  },
+  {
+    id: 'touslesjours',
+    name: '뚜레쥬르',
+    engName: 'Tous Les Jours',
+    logo: BRAND_LOGOS_MAP['뚜레쥬르'],
+    bannerImage: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '매일매일 신선하게, 건강하고 맛있는 프리미엄 베이커리',
+    description: '자연에서 온 좋은 재료로 정성을 다해 구워내는 순진우유롤, 치즈방앗간, 진한 초코 케이크의 명가.',
+    officialUrl: 'https://www.tlj.co.kr',
+    badge: '프리미엄 데일리 베이커리',
+    isPopular: true
+  },
+  {
+    id: 'sungsimdang',
+    name: '성심당',
+    engName: 'Sungsimdang',
+    logo: BRAND_LOGOS_MAP['성심당'],
+    bannerImage: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '모든 이가 다 좋게 여기는 일을 하십시오 (Since 1956)',
+    description: '전국 빵지순례 1위 성지! 바삭한 튀김소보로, 향긋한 판타롱부추빵, 명란바게트, 생딸기 가득 딸기시루까지.',
+    officialUrl: 'https://www.sungsimdang.co.kr',
+    badge: '전국 빵지순례 1위 성지',
+    isPopular: true
+  },
+  {
+    id: 'londonbagel',
+    name: '런던베이글뮤지엄',
+    engName: 'London Bagel Museum',
+    logo: BRAND_LOGOS_MAP['런던베이글뮤지엄'],
+    bannerImage: 'https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '세상에서 가장 따뜻하고 쫄깃한 브리티시 베이글',
+    description: '대한민국 베이글 열풍의 주역. 쪽파 프레첼 베이글, 포테이토 치즈, 브릭레인 샌드위치 등 오픈런 명소.',
+    officialUrl: 'https://www.instagram.com/london.bagel.museum',
+    badge: '줄서서 먹는 베이글 성지',
+    isPopular: true
+  },
+  {
+    id: 'knotted',
+    name: '노티드',
+    engName: 'Knotted',
+    logo: BRAND_LOGOS_MAP['노티드'],
+    bannerImage: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '기분 좋은 달콤함과 스마일이 가득한 프리미엄 디저트',
+    description: '입안 가득 차오르는 부드러운 우유 생크림 도넛, 클래식 바닐라, 얼그레이 크림 도넛의 신드롬.',
+    officialUrl: 'https://knotted-donut.com',
+    badge: '크림도넛 트렌드 리더',
+    isPopular: true
+  },
+  {
+    id: 'samsong',
+    name: '삼송빵집',
+    engName: 'Samsong Bakery',
+    logo: BRAND_LOGOS_MAP['삼송빵집'],
+    bannerImage: 'https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '달콤톡톡 중독적인 대구 명물 원조 마약옥수수빵 (Since 1957)',
+    description: '3대를 이어온 전통의 맛! 톡톡 터지는 통옥수수와 부드러운 특제 소스의 통옥수수빵과 오븐에 구운 수제 고로케.',
+    officialUrl: 'http://www.samsongbread.com',
+    badge: '3대 전통 원조 마약빵',
+    isPopular: true
+  },
+  {
+    id: 'taegeukdang',
+    name: '태극당',
+    engName: 'Taegeukdang',
+    logo: BRAND_LOGOS_MAP['태극당'],
+    bannerImage: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '서울에서 가장 오래된 빵집 (Since 1946)',
+    description: '바삭하고 쫀득한 수제 모나카 아이스크림, 묵직하고 신선한 옛날 야채 사라다빵, 70년 전통 단팥빵.',
+    officialUrl: 'https://taegeukdang.com',
+    badge: '서울 최고(最古) 빵집 명가',
+    isPopular: true
   }
 ];
 

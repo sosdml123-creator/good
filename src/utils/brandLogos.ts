@@ -460,6 +460,112 @@ export const BRAND_SVG_LOGOS: Record<string, string> = {
     </svg>
   `),
 
+  // 37. 파리바게뜨 (Paris Baguette)
+  '파리바게뜨': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#002B7F"/>
+      <!-- 에펠탑 아이콘 -->
+      <path d="M60 22l-1 5h2zM58 27l-3 18h10l-3-18zM53 47l-6 26h4l2-8h14l2 8h4l-6-26zM54 62h12l-1-4h-10z" fill="#D4AF37"/>
+      <path d="M52 73c0-4 3.5-7 8-7s8 3 8 7" fill="none" stroke="#D4AF37" stroke-width="2"/>
+      <rect x="42" y="73" width="36" height="3" rx="1.5" fill="#D4AF37"/>
+      <!-- 파리바게뜨 타이포 -->
+      <text x="60" y="89" fill="#FFFFFF" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">PARIS BAGUETTE</text>
+      <text x="60" y="102" fill="#D4AF37" font-size="11" font-family="'Noto Sans KR', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">파리바게뜨</text>
+    </svg>
+  `),
+
+  // 38. 뚜레쥬르 (Tous Les Jours)
+  '뚜레쥬르': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#17402F"/>
+      <circle cx="60" cy="46" r="23" fill="#102C20" stroke="#D4AF37" stroke-width="1.5"/>
+      <!-- 밀 이삭 & 나뭇잎 심볼 -->
+      <path d="M60 28v28M54 36c4-2 6 2 6 2s2-4 6-2M52 44c5-2 8 2 8 2s3-4 8-2M53 51c4-2 7 2 7 2s3-4 7-2" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <!-- 뚜레쥬르 타이포 -->
+      <text x="60" y="87" fill="#FFF8F0" font-size="11" font-family="'Georgia', serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">TOUS les JOURS</text>
+      <text x="60" y="102" fill="#D4AF37" font-size="11" font-family="'Noto Sans KR', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">뚜레쥬르</text>
+    </svg>
+  `),
+
+  // 39. 성심당 (Sungsimdang)
+  '성심당': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#5C3A21"/>
+      <circle cx="60" cy="48" r="25" fill="#472A15" stroke="#FFF0DC" stroke-width="2"/>
+      <!-- 빵 모티브 심볼 -->
+      <path d="M44 50c0-9 7.2-16 16-16s16 7 16 16c0 6-7 11-16 11s-16-5-16-11z" fill="#D4AF37"/>
+      <path d="M48 45q12-6 24 0M50 51q10-4 20 0" stroke="#5C3A21" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <!-- 성심당 한자 & 한글 -->
+      <text x="60" y="44" fill="#FFFFFF" font-size="9" font-family="'Batang', serif" font-weight="900" text-anchor="middle">聖心堂</text>
+      <text x="60" y="88" fill="#FFF0DC" font-size="15" font-family="'Batang', serif" font-weight="900" text-anchor="middle" letter-spacing="2">성심당</text>
+      <text x="60" y="103" fill="#D4AF37" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">SINCE 1956</text>
+    </svg>
+  `),
+
+  // 40. 삼송빵집 (Samsong Bakery)
+  '삼송빵집': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#F2A900"/>
+      <!-- 옥수수빵 일러스트 심볼 -->
+      <circle cx="60" cy="46" r="22" fill="#FFE58F" stroke="#4A2600" stroke-width="2"/>
+      <ellipse cx="60" cy="46" rx="14" ry="17" fill="#F59E0B"/>
+      <path d="M53 38q7 3 14 0M50 46q10 4 20 0M52 54q8 3 16 0" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+      <!-- 타이포 -->
+      <text x="60" y="88" fill="#4A2600" font-size="15" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">삼송빵집</text>
+      <text x="60" y="103" fill="#6B3500" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">SAMSONG 1957</text>
+    </svg>
+  `),
+
+  // 41. 태극당 (Taegeukdang)
+  '태극당': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#8B1E1E"/>
+      <circle cx="60" cy="46" r="23" fill="#6B1313" stroke="#FDFBF7" stroke-width="2"/>
+      <!-- 태극 문양 & 국화 심볼 -->
+      <circle cx="60" cy="46" r="14" fill="#C53030"/>
+      <path d="M60 32a14 14 0 0 1 0 28 7 7 0 0 1 0-14 7 7 0 0 0 0-14z" fill="#1A365D"/>
+      <circle cx="60" cy="39" r="2.5" fill="#C53030"/>
+      <circle cx="60" cy="53" r="2.5" fill="#1A365D"/>
+      <!-- 타이포 -->
+      <text x="60" y="87" fill="#FDFBF7" font-size="15" font-family="'Batang', serif" font-weight="900" text-anchor="middle" letter-spacing="2">태극당</text>
+      <text x="60" y="102" fill="#E2C17C" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">SINCE 1946</text>
+    </svg>
+  `),
+
+  // 42. 런던베이글뮤지엄 (London Bagel Museum)
+  '런던베이글뮤지엄': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#2C2A29"/>
+      <circle cx="60" cy="46" r="23" fill="#1F1D1C" stroke="#D1A763" stroke-width="1.5"/>
+      <!-- 베이글 링 심볼 & 왕관 -->
+      <path d="M52 33l2 4 6-2 6 2 2-4 3 6H49z" fill="#D1A763"/>
+      <circle cx="60" cy="49" r="12" fill="none" stroke="#D1A763" stroke-width="5"/>
+      <circle cx="60" cy="49" r="6" fill="#2C2A29"/>
+      <!-- 타이포 -->
+      <text x="60" y="85" fill="#FFFFFF" font-size="10" font-family="'Georgia', serif" font-weight="900" text-anchor="middle" letter-spacing="1">LONDON BAGEL</text>
+      <text x="60" y="97" fill="#D1A763" font-size="9" font-family="'Georgia', serif" font-weight="800" text-anchor="middle" letter-spacing="2">MUSEUM</text>
+      <text x="60" y="108" fill="#A89F91" font-size="8" font-family="'Noto Sans KR', sans-serif" font-weight="700" text-anchor="middle">런던베이글</text>
+    </svg>
+  `),
+
+  // 43. 노티드 (Knotted)
+  '노티드': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFF0F3" stroke="#FF8BA7" stroke-width="3"/>
+      <!-- 스마일 아이콘 -->
+      <circle cx="60" cy="46" r="22" fill="#FFD23F"/>
+      <!-- 눈 -->
+      <ellipse cx="52" cy="42" rx="2.5" ry="3.5" fill="#2B2D42"/>
+      <ellipse cx="68" cy="42" rx="2.5" ry="3.5" fill="#2B2D42"/>
+      <!-- 입 & 메롱 혀 -->
+      <path d="M50 49q10 12 20 0" stroke="#2B2D42" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M60 55c0 4 3 7 6 7s6-3 6-7z" fill="#FF5964"/>
+      <!-- 타이포 -->
+      <text x="60" y="89" fill="#2B2D42" font-size="17" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">Knotted</text>
+      <text x="60" y="104" fill="#FF5964" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="2">DONUT</text>
+    </svg>
+  `),
+
   // 36. DEFAULT (공식 브랜드 기본 엠블럼)
   'DEFAULT': svgToUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
@@ -505,6 +611,24 @@ export const BRAND_ALIASES: Record<string, string> = {
   'CJ 비비고': '비비고',
   'CJ제일제당 비비고': '비비고',
   'bibigo': '비비고',
+  '파리바게트': '파리바게뜨',
+  '파바': '파리바게뜨',
+  '파리크라상': '파리바게뜨',
+  'parisbaguette': '파리바게뜨',
+  '뚜쥬': '뚜레쥬르',
+  '뚜레주르': '뚜레쥬르',
+  'touslesjours': '뚜레쥬르',
+  '대전성심당': '성심당',
+  '성심당몰': '성심당',
+  '런던베이글': '런던베이글뮤지엄',
+  '런베뮤': '런던베이글뮤지엄',
+  'londonbagel': '런던베이글뮤지엄',
+  '카페노티드': '노티드',
+  '노티드도넛': '노티드',
+  'knotted': '노티드',
+  '대구삼송빵집': '삼송빵집',
+  '마약옥수수빵': '삼송빵집',
+  '장충동태극당': '태극당',
 };
 
 /**
@@ -526,6 +650,13 @@ export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; bord
   '투썸플레이스': { bg: '#1C1C1C', text: '#A6192E', border: '#333333' },
   '폴바셋': { bg: '#1E1E1E', text: '#C5A059', border: '#3A3A3A' },
   '더벤티': { bg: '#4B1E78', text: '#FFD200', border: '#361259' },
+  '파리바게뜨': { bg: '#002B7F', text: '#FFFFFF', border: '#001D59' },
+  '뚜레쥬르': { bg: '#17402F', text: '#D4AF37', border: '#0E281D' },
+  '성심당': { bg: '#5C3A21', text: '#FFF8F0', border: '#3E2614' },
+  '삼송빵집': { bg: '#F2A900', text: '#4A2600', border: '#D49200' },
+  '태극당': { bg: '#8B1E1E', text: '#FDFBF7', border: '#631414' },
+  '런던베이글뮤지엄': { bg: '#2C2A29', text: '#D1A763', border: '#1A1918' },
+  '노티드': { bg: '#FFF0F3', text: '#FF5964', border: '#FF8BA7' },
   '농심': { bg: '#E60012', text: '#FFFFFF', border: '#C4000F' },
   '오리온': { bg: '#E50012', text: '#FFFFFF', border: '#C2000F' },
   '삼양식품': { bg: '#FF6600', text: '#FFFFFF', border: '#D95700' },
