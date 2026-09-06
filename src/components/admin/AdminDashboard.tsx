@@ -74,6 +74,10 @@ export const AdminDashboard: React.FC = () => {
     approvePendingProduct,
     approveAllPending,
     rejectPendingProduct,
+    rejectAllPending,
+    revokeApprovedProduct,
+    revokeAllApprovedProducts,
+    removeDuplicatePending,
     updatePendingProduct,
     clearAllPendingProducts,
     deleteReview,
@@ -251,6 +255,29 @@ export const AdminDashboard: React.FC = () => {
     selectedPendingIds.forEach(id => approvePendingProduct(id));
     setSelectedPendingIds([]);
     showToast(`${count}개 상품이 승인 등록되었습니다!`, 'success');
+  };
+
+  const handleBulkRejectSelected = () => {
+    if (selectedPendingIds.length === 0) return;
+    const count = selectedPendingIds.length;
+    selectedPendingIds.forEach(id => rejectPendingProduct(id));
+    setSelectedPendingIds([]);
+    showToast(`${count}개 대기 상품이 승인 취소(반려)되었습니다.`, 'info');
+  };
+
+  const handleBulkRevokeSelectedProducts = () => {
+    if (selectedProductIds.length === 0) return;
+    const count = selectedProductIds.length;
+    if (confirm(`선택한 ${count}개 상품의 승인을 취소하고 대기함으로 되돌리시겠습니까?`)) {
+      revokeAllApprovedProducts(selectedProductIds);
+      setSelectedProductIds([]);
+    }
+  };
+
+  // Helper to check if a pending product is a duplicate of an existing approved product
+  const isDuplicateItem = (name: string): boolean => {
+    const cleanName = name.replace(/\s+/g, '').toLowerCase();
+    return products.some(p => p.name.replace(/\s+/g, '').toLowerCase() === cleanName);
   };
 
   const handleSearchCollect = async () => {
@@ -1186,15 +1213,41 @@ export const AdminDashboard: React.FC = () => {
                         <button
                           onClick={handleBulkApproveSelected}
                           disabled={selectedPendingIds.length === 0}
-                          className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40"
+                          className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40 flex items-center gap-1"
                         >
-                          선택 {selectedPendingIds.length}개 일괄 승인
+                          <Check className="w-3.5 h-3.5" />
+                          <span>선택 {selectedPendingIds.length}개 일괄 승인</span>
                         </button>
                         <button
                           onClick={approveAllPending}
-                          className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95"
+                          className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 flex items-center gap-1"
                         >
-                          전체 일괄 승인
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>전체 일괄 승인</span>
+                        </button>
+                        <button
+                          onClick={handleBulkRejectSelected}
+                          disabled={selectedPendingIds.length === 0}
+                          className="px-3 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40 flex items-center gap-1"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                          <span>선택 일괄 승인 취소</span>
+                        </button>
+                        <button
+                          onClick={rejectAllPending}
+                          className="px-3 py-2.5 bg-rose-700 hover:bg-rose-600 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 flex items-center gap-1"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>전체 일괄 승인 취소</span>
+                        </button>
+                        <button
+                          onClick={removeDuplicatePending}
+                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 ${
+                            isDark ? 'bg-slate-800 hover:bg-amber-950/60 text-amber-300 border-slate-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700 border-amber-200'
+                          }`}
+                          title="이미 등록된 상품 및 중복 수집된 항목 자동 정리"
+                        >
+                          <span>⚠️ 중복 항목 자동 정리</span>
                         </button>
                         <button
                           onClick={clearAllPendingProducts}
@@ -1206,6 +1259,22 @@ export const AdminDashboard: React.FC = () => {
                         </button>
                       </>
                     )}
+
+                    {/* 최근 승인된 상품 대기함으로 복원 (승인 취소) */}
+                    <button
+                      onClick={() => {
+                        if (confirm('최근 승인된 상품들을 다시 승인 대기함으로 되돌리시겠습니까?')) {
+                          revokeAllApprovedProducts();
+                        }
+                      }}
+                      className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 ${
+                        isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-slate-700' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
+                      }`}
+                      title="최근 승인된 상품들을 대기함으로 다시 복원합니다"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>최근 승인 일괄 취소 (대기함 복원)</span>
+                    </button>
                   </div>
                 </div>
 
@@ -1319,8 +1388,9 @@ export const AdminDashboard: React.FC = () => {
                       <tbody className={`divide-y ${tableRowHover}`}>
                         {filteredPendingProducts.map(item => {
                           const isSelected = selectedPendingIds.includes(item.id);
+                          const isDupl = isDuplicateItem(item.name);
                           return (
-                            <tr key={item.id} className={`transition-colors ${isSelected ? (isDark ? 'bg-amber-950/20' : 'bg-amber-50/60') : ''}`}>
+                            <tr key={item.id} className={`transition-colors ${isDupl ? (isDark ? 'bg-amber-950/30' : 'bg-amber-50/80') : isSelected ? (isDark ? 'bg-indigo-950/20' : 'bg-indigo-50/60') : ''}`}>
                               <td className="py-3 px-4 text-center">
                                 <input
                                   type="checkbox"
@@ -1341,7 +1411,14 @@ export const AdminDashboard: React.FC = () => {
                                     </div>
                                   </div>
                                   <div className="min-w-0">
-                                    <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.name}</p>
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.name}</p>
+                                      {isDupl && (
+                                        <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-600 border border-amber-500/40 animate-pulse">
+                                          ⚠️ 이미 등록됨
+                                        </span>
+                                      )}
+                                    </div>
                                     <p className="text-[11px] text-slate-400">{item.brand} · {item.releaseDate}</p>
                                   </div>
                                 </div>
@@ -1390,10 +1467,11 @@ export const AdminDashboard: React.FC = () => {
                                   </button>
                                   <button
                                     onClick={() => rejectPendingProduct(item.id)}
-                                    className="p-1 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded transition-all"
-                                    title="거절"
+                                    className="px-2 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 rounded text-[11px] font-semibold border border-rose-200 dark:border-rose-900/60 transition-all flex items-center gap-0.5"
+                                    title="승인 취소 (반려)"
                                   >
-                                    <Trash2 className="w-3.5 h-3.5" />
+                                    <X className="w-3 h-3" />
+                                    <span>취소</span>
                                   </button>
                                 </div>
                               </td>
@@ -1564,6 +1642,14 @@ export const AdminDashboard: React.FC = () => {
                       인기HOT OFF
                     </button>
                     <button
+                      onClick={handleBulkRevokeSelectedProducts}
+                      className="px-2.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
+                      title="선택한 상품을 승인 취소하고 다시 승인 대기함으로 되돌립니다"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>선택 일괄 승인 취소 (대기함 복원)</span>
+                    </button>
+                    <button
                       onClick={handleExportSelectedProducts}
                       className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold shadow-xs flex items-center gap-1"
                     >
@@ -1708,6 +1794,20 @@ export const AdminDashboard: React.FC = () => {
                                   </button>
                                   <button
                                     onClick={() => {
+                                      if (confirm(`'${prod.name}' 상품의 승인을 취소하고 대기함으로 되돌리시겠습니까?`)) {
+                                        revokeApprovedProduct(prod.id);
+                                      }
+                                    }}
+                                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
+                                      isDark ? 'bg-slate-800 hover:bg-amber-950/50 text-amber-300 border-slate-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700 border-amber-200'
+                                    }`}
+                                    title="승인 취소 (대기함으로 복원)"
+                                  >
+                                    <RotateCcw className="w-3 h-3 text-amber-500" />
+                                    <span>승인 취소</span>
+                                  </button>
+                                  <button
+                                    onClick={() => {
                                       if (confirm(`'${prod.name}' 상품을 정말 삭제하시겠습니까?`)) {
                                         deleteProduct(prod.id);
                                       }
@@ -1756,8 +1856,20 @@ export const AdminDashboard: React.FC = () => {
                           <button
                             onClick={() => handleOpenEditProduct(prod)}
                             className={`p-1.5 rounded-lg border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-700 border-slate-200'}`}
+                            title="수정"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (confirm(`'${prod.name}' 상품의 승인을 취소하고 대기함으로 되돌리시겠습니까?`)) {
+                                revokeApprovedProduct(prod.id);
+                              }
+                            }}
+                            className={`p-1.5 rounded-lg border ${isDark ? 'bg-slate-800 text-amber-300 border-slate-700 hover:bg-amber-950/60' : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'}`}
+                            title="승인 취소 (대기함으로 복원)"
+                          >
+                            <RotateCcw className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => {
@@ -1766,6 +1878,7 @@ export const AdminDashboard: React.FC = () => {
                               }
                             }}
                             className="p-1.5 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600"
+                            title="삭제"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>

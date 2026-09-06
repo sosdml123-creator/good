@@ -130,6 +130,10 @@ interface AppContextType {
   approvePendingProduct: (pendingId: string, customData?: Partial<Product>) => void;
   approveAllPending: () => void;
   rejectPendingProduct: (pendingId: string) => void;
+  rejectAllPending: () => void;
+  revokeApprovedProduct: (productId: string) => void;
+  revokeAllApprovedProducts: (ids?: string[]) => void;
+  removeDuplicatePending: () => { removedCount: number };
   updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
   clearAllPendingProducts: () => void;
 
@@ -1715,6 +1719,155 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다.`, 'info');
   };
 
+  // 5-1. 대기 중인 모든 신제품 일괄 승인 취소 (일괄 반려)
+  const rejectAllPending = () => {
+    const count = pendingProducts.length;
+    if (count === 0) {
+      showToast('대기 중인 신제품이 없습니다.', 'info');
+      return;
+    }
+    setPendingProducts([]);
+    showToast(`총 ${count}건의 대기 상품이 일괄 승인 취소(반려)되었습니다.`, 'info');
+  };
+
+  // 5-2. 이미 승인된 개별 상품 승인 취소 (products에서 제거 후 pendingProducts 대기함으로 복원)
+  const revokeApprovedProduct = (productId: string) => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    // Remove from products
+    setProducts(prev => prev.filter(p => p.id !== productId));
+
+    // Restore to pendingProducts
+    const restoredPending: PendingProduct = {
+      id: `pending-revoked-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      name: product.name,
+      brand: product.brand,
+      category: product.category,
+      subCategory: product.subCategory,
+      itemType: product.itemType || 'packaged',
+      image: product.image,
+      price: product.price,
+      discountRate: product.discountRate || 0,
+      releaseDate: product.releaseDate,
+      stores: product.stores || ['CU', 'GS25'],
+      description: product.description || '',
+      sourceName: '승인 취소 상품 (관리자 복원)',
+      crawledAt: `${new Date().toISOString().split('T')[0]} ${new Date().toLocaleTimeString('ko-KR', { hour12: false })}`,
+      status: 'pending',
+      calories: product.calories,
+      volume: product.volume,
+      nutrition: product.nutrition,
+      ingredients: product.ingredients,
+      allergens: product.allergens,
+      origin: product.origin,
+      manufacturer: product.manufacturer,
+      storageMethod: product.storageMethod,
+      shelfLife: product.shelfLife,
+      bestQuotes: product.bestQuotes,
+      storeStocks: product.storeStocks,
+    };
+
+    setPendingProducts(prev => [restoredPending, ...prev]);
+
+    if (supabase) {
+      supabase.from('products').delete().eq('id', productId).then(({ error }) => {
+        if (error) console.warn('[Supabase Delete on Revoke Warning]', error.message);
+      });
+    }
+
+    showToast(`↩️ [${product.name}] 승인이 취소되어 다시 승인 대기함으로 이동되었습니다.`, 'info');
+  };
+
+  // 5-3. 승인된 상품들 일괄 승인 취소 (선택된 ID들 또는 최근 승인된 상품들 대기함으로 복원)
+  const revokeAllApprovedProducts = (ids?: string[]) => {
+    const targetIds = ids && ids.length > 0 
+      ? ids 
+      : products.slice(0, 10).map(p => p.id); // Default to latest 10 products
+
+    if (targetIds.length === 0) {
+      showToast('승인 취소할 상품이 없습니다.', 'info');
+      return;
+    }
+
+    const revokedProducts = products.filter(p => targetIds.includes(p.id));
+    setProducts(prev => prev.filter(p => !targetIds.includes(p.id)));
+
+    const dateStr = new Date().toISOString().split('T')[0];
+    const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
+
+    const restoredList: PendingProduct[] = revokedProducts.map((product, idx) => ({
+      id: `pending-bulk-revoked-${Date.now()}-${idx}`,
+      name: product.name,
+      brand: product.brand,
+      category: product.category,
+      subCategory: product.subCategory,
+      itemType: product.itemType || 'packaged',
+      image: product.image,
+      price: product.price,
+      discountRate: product.discountRate || 0,
+      releaseDate: product.releaseDate,
+      stores: product.stores || ['CU', 'GS25'],
+      description: product.description || '',
+      sourceName: '일괄 승인 취소 (관리자 복원)',
+      crawledAt: `${dateStr} ${nowTime}`,
+      status: 'pending',
+      calories: product.calories,
+      volume: product.volume,
+      nutrition: product.nutrition,
+      ingredients: product.ingredients,
+      allergens: product.allergens,
+      origin: product.origin,
+      manufacturer: product.manufacturer,
+      storageMethod: product.storageMethod,
+      shelfLife: product.shelfLife,
+      bestQuotes: product.bestQuotes,
+      storeStocks: product.storeStocks,
+    }));
+
+    setPendingProducts(prev => [...restoredList, ...prev]);
+
+    const client = supabase;
+    if (client) {
+      targetIds.forEach(id => {
+        client.from('products').delete().eq('id', id).then(({ error }) => {
+          if (error) console.warn('[Supabase Delete on Bulk Revoke Warning]', error.message);
+        });
+      });
+    }
+
+    showToast(`↩️ 총 ${revokedProducts.length}건의 상품이 일괄 승인 취소되어 대기함으로 복원되었습니다!`, 'success');
+  };
+
+  // 5-4. 대기 목록 내 중복 항목 및 기존 등록 상품과의 중복 자동 정리
+  const removeDuplicatePending = (): { removedCount: number } => {
+    const registeredNames = new Set(
+      products.map(p => p.name.replace(/\s+/g, '').toLowerCase())
+    );
+
+    const seenPending = new Set<string>();
+    const cleanedPending: PendingProduct[] = [];
+    let duplicateCount = 0;
+
+    for (const item of pendingProducts) {
+      const normName = item.name.replace(/\s+/g, '').toLowerCase();
+      if (registeredNames.has(normName) || seenPending.has(normName)) {
+        duplicateCount++;
+      } else {
+        seenPending.add(normName);
+        cleanedPending.push(item);
+      }
+    }
+
+    setPendingProducts(cleanedPending);
+    if (duplicateCount > 0) {
+      showToast(`🧹 중복 감지된 ${duplicateCount}개 신제품이 정리되었습니다.`, 'success');
+    } else {
+      showToast('중복된 신제품이 없습니다.', 'info');
+    }
+    return { removedCount: duplicateCount };
+  };
+
   // 6. 대기 상품 정보 수정
   const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {
     setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
@@ -1830,6 +1983,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         approvePendingProduct,
         approveAllPending,
         rejectPendingProduct,
+        rejectAllPending,
+        revokeApprovedProduct,
+        revokeAllApprovedProducts,
+        removeDuplicatePending,
         updatePendingProduct,
         clearAllPendingProducts,
 
