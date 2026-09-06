@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send } from 'lucide-react';
+import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles } from 'lucide-react';
 import { getPopularCommunityPosts, getPopularProducts } from '../../utils/ranking';
 import { CommunityPost } from '../../types';
 
@@ -8,6 +8,8 @@ export const CommunityView: React.FC = () => {
   const { 
     products, 
     communityPosts, 
+    events,
+    openEventDetail,
     openProductDetail, 
     setActiveTab,
     toggleLikePost,
@@ -131,6 +133,64 @@ export const CommunityView: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* 2.5 Active Events & Promotions (When 이벤트 tab is active) */}
+      {activeSubTab === '이벤트' && events.length > 0 && (
+        <div className="bg-[#F8F9FA] p-4 border-b border-gray-100 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-[#0066FF]" />
+              <span className="text-xs font-black text-gray-900">현재 모집 중인 체험단 & 프로모션</span>
+            </div>
+            <span className="text-[11px] text-[#0066FF] font-bold">{events.length}개 진행</span>
+          </div>
+
+          <div className="space-y-3">
+            {events.map((ev) => (
+              <div
+                key={ev.id}
+                onClick={() => openEventDetail(ev.id)}
+                className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+              >
+                <div className="relative aspect-16/8 bg-gray-900 overflow-hidden">
+                  <img
+                    src={ev.bannerImage}
+                    alt={ev.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                  
+                  <span className="absolute top-2.5 left-2.5 text-[10px] font-black text-white bg-[#0066FF] px-2.5 py-0.5 rounded-full shadow-xs">
+                    {ev.badge}
+                  </span>
+
+                  <span className="absolute top-2.5 right-2.5 text-[10px] font-bold text-amber-300 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-full">
+                    {ev.dDay}
+                  </span>
+
+                  <div className="absolute bottom-2 left-3 right-3 text-white text-xs font-black truncate">
+                    {ev.title}
+                  </div>
+                </div>
+
+                <div className="p-3 flex items-center justify-between">
+                  <div className="min-w-0 flex-1 pr-2">
+                    <p className="text-[11px] text-gray-600 line-clamp-1 font-medium">
+                      🎁 {ev.reward}
+                    </p>
+                    <span className="text-[10px] text-gray-400 mt-0.5 block">
+                      기간: {ev.startDate} ~ {ev.endDate}
+                    </span>
+                  </div>
+                  <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1.5 rounded-xl shrink-0">
+                    신청하기
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 3. Post list */}
       <div className="bg-white divide-y divide-gray-100">

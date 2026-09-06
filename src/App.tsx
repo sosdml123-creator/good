@@ -12,6 +12,8 @@ import { NotificationModal } from './components/notification/NotificationModal';
 import { ProductDetailModal } from './components/detail/ProductDetailModal';
 import { SearchModal } from './components/search/SearchModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
+import { EventDetailModal } from './components/event/EventDetailModal';
+import { PushBanner } from './components/common/PushBanner';
 import { ToastContainer } from './components/common/Toast';
 
 export const App: React.FC = () => {
@@ -22,6 +24,7 @@ export const App: React.FC = () => {
     return (
       <div className="h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden antialiased">
         <ToastContainer />
+        <PushBanner />
         <AdminDashboard />
       </div>
     );
@@ -31,6 +34,8 @@ export const App: React.FC = () => {
     <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
       <div className="w-full max-w-[430px] h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-sm">
         <ToastContainer />
+        {/* Floating Top In-App Push Notification Banner */}
+        <PushBanner />
 
         {/* Scrollable Main Content Area */}
         <main className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
@@ -46,6 +51,7 @@ export const App: React.FC = () => {
           {activeTab === 'community' && <CommunityView />}
           {activeTab === 'my' && <MyPageView />}
           {activeTab === 'detail' && <ProductDetailModal />}
+          {activeTab === 'event_detail' && <EventDetailModal />}
           {activeTab === 'compare' && <CompareModal />}
           {activeTab === 'alert_settings' && <NotificationModal />}
           {activeTab === 'search' && <SearchModal />}

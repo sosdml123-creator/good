@@ -163,6 +163,7 @@ export const AdminDashboard: React.FC = () => {
     linkCategory: '신제품',
     isActive: true,
   });
+
   // Battle tab states
   const [battleTitle, setBattleTitle] = useState(battleConfig.title);
   const [battleSubtitle, setBattleSubtitle] = useState(battleConfig.subtitle);
