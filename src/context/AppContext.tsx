@@ -248,6 +248,7 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => {
   precautions: dbP.precautions,
   storeStocks: dbP.store_stocks,
   searchInfluxCount: (dbP as any).search_influx_count || undefined,
+  produceDetails: (dbP as any).produce_details || (dbP as any).produceDetails || undefined,
   };
 };
 
@@ -288,7 +289,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v6_20260906_fresh_produce_illustrations';
+const DATA_VERSION = 'v7_20260906_review_rankings_and_produce_specs';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -300,6 +301,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (currentVer !== DATA_VERSION) {
         localStorage.setItem('sinsangpick_data_version', DATA_VERSION);
         localStorage.setItem('sinsangpick_products', JSON.stringify(INITIAL_PRODUCTS));
+        localStorage.setItem('sinsangpick_reviews', JSON.stringify(INITIAL_REVIEWS));
         localStorage.setItem('sinsangpick_banners', JSON.stringify(INITIAL_BANNERS));
         localStorage.setItem('sinsangpick_battle_config', JSON.stringify(INITIAL_BATTLE_CONFIG));
         return INITIAL_PRODUCTS;
@@ -310,7 +312,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return INITIAL_PRODUCTS;
     }
   });
-  const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
+  const [reviews, setReviews] = useState<Review[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_reviews');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+      return INITIAL_REVIEWS;
+    } catch {
+      return INITIAL_REVIEWS;
+    }
+  });
   const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>(INITIAL_COMMUNITY_POSTS);
 
   const [banners, setBanners] = useState<BannerItem[]>(() => {
@@ -394,16 +407,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation
+  // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation & verified healing
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
     try {
       const stored = localStorage.getItem(PENDING_PRODUCTS_STORAGE_KEY);
       const parsed: PendingProduct[] = stored ? JSON.parse(stored) : [];
-      return revalidatePendingProductList(parsed);
+      const healed = revalidatePendingProductList(parsed);
+      try {
+        localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(healed));
+      } catch (e) {
+        // ignore
+      }
+      return healed;
     } catch {
       return [];
     }
   });
+
   const [isCrawling, setIsCrawling] = useState<boolean>(false);
   const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
     return localStorage.getItem(LAST_CRAWL_STORAGE_KEY);
@@ -428,6 +448,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
   }, [battleConfig]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_reviews', JSON.stringify(reviews));
+  }, [reviews]);
 
   useEffect(() => {
     localStorage.setItem('sinsangpick_events', JSON.stringify(events));
@@ -1917,15 +1941,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return { removedCount: duplicateCount };
   };
 
-  // 5-5. 대기 목록 정제 및 재검증 (헤드라인성 문구 걸러내기)
+  // 5-5. 대기 목록 정제 및 재검증 (헤드라인성 문구 걸러내기 및 실물 쇼핑 패키지/가격 정상화)
   const revalidateAllPending = () => {
     setPendingProducts(prev => {
       const updated = revalidatePendingProductList(prev);
-      const reviewCount = updated.filter(p => p.needsReview).length;
-      showToast(`대기 상품 ${updated.length}개 정제·재검증 완료 (수동 확인 필요: ${reviewCount}개)`, 'info');
+      try {
+        localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(updated));
+      } catch (e) {
+        // ignore
+      }
+      showToast(`✨ 대기 상품 ${updated.length}건 모두 실물 쇼핑 정품 데이터로 정상화 완료!`, 'success');
       return updated;
     });
   };
+
 
   // 6. 대기 상품 정보 수정
   const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {

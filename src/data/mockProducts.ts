@@ -1026,7 +1026,12 @@ export const INITIAL_PRODUCTS: Product[] = [
       '복숭아 향이 온 방안에 가득 찹니다',
     ],
     produceDetails: {
+      sizeGrade: '개당 280g ~ 340g (대과·특과 엄선)',
+      averageSize: '직경 약 8.5~9.2cm / 평균 과중 310g',
       brixGrade: '13.5 ~ 15.0 Brix (초고당도 비파괴 선별)',
+      sugarAcidRatio: '산도 0.28% 미만 극상 황금 당산비',
+      freshnessGrade: '비파괴 근적외선(NIR) 당도 선별 1등급',
+      fleshYield: '가식부(과육) 비율 91% 이상 (작은 씨앗)',
       waterContent: '89% (풍부한 천연 과즙)',
       sweetnessScore: 4.9,
       juicinessScore: 5.0,
@@ -1135,7 +1140,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: '미네랄이 풍부한 황토에서 자라 속이 꽉 차고 아삭한 식감과 시원한 당도가 일품인 프리미엄 수박입니다.',
     bestQuotes: ['껍질 얇고 끝까지 달콤해요 🍉', '여름철 갈증 해소에 최고'],
     produceDetails: {
+      sizeGrade: '통당 7.5kg ~ 8.5kg (특대과 기준)',
+      averageSize: '직경 약 26~28cm / 평균 중량 7.8kg',
       brixGrade: '12.5 ~ 14.0 Brix (황토밭 명품 꿀당도)',
+      sugarAcidRatio: '산도 0.15% 미만 순수 고당도',
+      freshnessGrade: '산지 새벽 당일 수확 비파괴 선별 특품',
+      fleshYield: '가식부 과육 비율 93% 이상 (극박피 껍질)',
       waterContent: '92% (갈증 해소 천연 전해질)',
       sweetnessScore: 4.8,
       juicinessScore: 5.0,
@@ -1243,7 +1253,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: '청송의 맑은 공기와 풍부한 일조량으로 꿀이 가득 찬 아삭한 프리미엄 꿀사과입니다.',
     bestQuotes: ['아삭아삭하고 꿀이 꽉 차있어요 🍎', '선물용으로 강력 추천합니다'],
     produceDetails: {
+      sizeGrade: '개당 280g ~ 320g (특품 대과 14~16과)',
+      averageSize: '직경 약 8.0~8.5cm / 평균 과중 300g',
       brixGrade: '14.0 ~ 16.0 Brix (꿀심 박힌 고당도)',
+      sugarAcidRatio: '당산비 35:1 (새콤달콤 극상의 풍미)',
+      freshnessGrade: '청송 고랭지 청정 재배 광센서 비파괴 1등급',
+      fleshYield: '과육 비율 90% 이상 (치밀한 과육 조직)',
       waterContent: '86% (단단하고 옹골찬 과즙)',
       sweetnessScore: 4.9,
       juicinessScore: 4.8,
@@ -1351,7 +1366,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: '논산 청정 산지에서 새벽에 수확하여 당일 직송되는 새콤달콤 향긋한 설향 딸기입니다.',
     bestQuotes: ['딸기 향이 상자 뜯자마자 진동해요 🍓', '신선도 진짜 역대급'],
     produceDetails: {
+      sizeGrade: '개당 25g ~ 35g (대과·특과 선별 15~18구)',
+      averageSize: '전장 약 4.5~5.5cm / 개당 평균 28g',
       brixGrade: '12.0 ~ 13.5 Brix (설향 로얄과)',
+      sugarAcidRatio: '산도 0.6% / 부드럽고 상큼한 당산비',
+      freshnessGrade: '새벽 5시 수확 당일 특송 냉장 풀콜드체인',
+      fleshYield: '가식부 98% (부드럽고 옹골찬 생과육)',
       waterContent: '90% (부드럽고 촉촉한 과즙)',
       sweetnessScore: 5.0,
       juicinessScore: 4.9,
@@ -1458,6 +1478,30 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     description: '타이벡 농법으로 햇빛을 골고루 받아 껍질이 얇고 과즙이 풍부한 고당도 명품 감귤입니다.',
     bestQuotes: ['새콤함보다 달콤함이 훨씬 강해서 맛있어요 🍊', '온 가족 간식으로 최고'],
+    produceDetails: {
+      sizeGrade: '개당 65g ~ 80g (로얄 2S~M과 기준)',
+      averageSize: '직경 약 5.5~6.2cm / 평균 72g',
+      brixGrade: '12.5 ~ 14.5 Brix (타이벡 햇빛 반사 고당도)',
+      sugarAcidRatio: '산도 0.7% 이하 극상 황금 밸런스',
+      freshnessGrade: '제주 서귀포 산지 당일 비파괴 광센서 선별',
+      fleshYield: '극박피 껍질 / 과즙 비율 92% 이상',
+      waterContent: '88% (달콤하고 촉촉한 과즙)',
+      sweetnessScore: 4.8,
+      juicinessScore: 4.9,
+      textureScore: 4.7,
+      keyNutrients: [
+        { name: '비타민 C', value: '45mg (45%)', desc: '항산화 및 감기 예방 피로 회복' },
+        { name: '헤스페리딘 (비타민 P)', value: '풍부', desc: '혈관을 튼튼하게 하고 혈압 조절' },
+        { name: '구연산', value: '0.8%', desc: '에너지 대사 촉진 및 피로물질 분해' },
+      ],
+      healthBenefits: [
+        '타이벡 필름으로 지표면 반사광을 극대화하여 속까지 꽉 찬 천연 비타민 과즙',
+        '속껍질의 흰 부분(알베도)에 함유된 펙틴과 헤스페리딘이 모세혈관 강화',
+        '상큼달콤한 당산비로 나른한 일상에 활력 충전'
+      ],
+      seasonalPeak: '11월 ~ 2월 (겨울 제철 고당도 타이벡 귤)',
+      tasteTip: '수령 후 상온에서 1~2일 후숙하시면 산미가 빠지고 단맛이 훨씬 깊어집니다.'
+    },
   },
 
   // 6. [고기·수산] 신선 정육 & 수산
@@ -1502,6 +1546,29 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     description: '최고 등급 마블링의 육즙과 21일 저온 숙성으로 극대화된 부드러운 육질의 프리미엄 한우입니다.',
     bestQuotes: ['입안에 넣자마자 살살 녹아요 🥩', '기념일 홈파티에 완벽한 선택'],
+    produceDetails: {
+      sizeGrade: '두께 2.8cm ~ 3.2cm (스테이크 최적 규격)',
+      averageSize: '가로 18cm x 세로 12cm / 중량 300g 구이용',
+      brixGrade: '올레인산 52% 이상 (고소하고 달큰한 감칠맛)',
+      sugarAcidRatio: '저온 숙성 천연 감칠맛',
+      freshnessGrade: '1++(No.9) 최고 등급 축산물품질평가원 판정',
+      fleshYield: '로스율 0% 정선 완료 순수 살코기',
+      waterContent: '62% (풍부한 육즙 보유)',
+      sweetnessScore: 4.8,
+      juicinessScore: 5.0,
+      textureScore: 5.0,
+      keyNutrients: [
+        { name: '양질의 단백질', value: '54g (98%)', desc: '필수 아미노산 공급 및 근육 회복' },
+        { name: '철분 & 아연', value: '고함량', desc: '혈액 생성 및 면역 기능 유지' },
+        { name: '비타민 B12', value: '풍부', desc: '신경계 건강 및 빈혈 예방' }
+      ],
+      healthBenefits: [
+        '최고급 올레인산이 풍부하여 고소한 풍미와 혈관 건강 유지',
+        '체내 흡수율이 높은 헴철이 다량 함유되어 원기 회복에 탁월'
+      ],
+      seasonalPeak: '사계절 프리미엄 신선 숙성육',
+      tasteTip: '냉장고에서 꺼내 상온에 20분간 둔 뒤, 센 불로 달군 팬에 겉면을 1분씩 시어링하고 3분 레스팅하여 드시면 육즙 손실 없이 최고로 부드럽습니다.'
+    },
     brandRankings: [
       { rank: 1, name: '횡성한우 1++ 꽃등심', brand: '횡성축협', rating: 4.9, ratingCount: 520, price: 38900, tag: '명품 1위' },
       { rank: 2, name: '슈페리어 생연어회', brand: '노르웨이 씨푸드', rating: 4.9, ratingCount: 940, price: 21900, tag: '선도 1위' },
@@ -1638,7 +1705,12 @@ export const INITIAL_PRODUCTS: Product[] = [
       '새우 크기 균일하고 살이 꽉 차있어요'
     ],
     produceDetails: {
-      brixGrade: '천연 글리신·베타인 고감칠맛 (달큰한 단맛)',
+      sizeGrade: '마리당 35g ~ 45g (특대형 20~25미 내외)',
+      averageSize: '전장 약 17~20cm (머리부터 꼬리까지)',
+      brixGrade: '천연 글리신·베타인 고감칠맛 (달큰한 자연 단맛)',
+      sugarAcidRatio: '천연 아미노산 감칠맛 100%',
+      freshnessGrade: '새벽 산지 조업 산소포장 활어 배송',
+      fleshYield: '살코기 수율 88% 이상 (탱글탱글한 육질)',
       waterContent: '78% (탱글하고 탄력 넘치는 생물 육질)',
       sweetnessScore: 4.8,
       juicinessScore: 4.9,
@@ -1746,7 +1818,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: '청정 유네스코 생물권 보전지역 신안 갯벌에서 자라 살이 통통하고 은은한 단맛과 감칠맛이 일품인 명품 왕새우입니다.',
     bestQuotes: ['새우 대가리 버터구이까지 싹 비웠어요 🦐', '살이 꽉 차서 씹는 맛이 제대로입니다'],
     produceDetails: {
+      sizeGrade: '마리당 32g ~ 40g (대하 25~30미 규격)',
+      averageSize: '전장 약 16~18cm / 평균 중량 36g',
       brixGrade: '갯벌 미네랄 감칠맛 (쫀득한 단맛)',
+      sugarAcidRatio: '천연 타우린 감칠맛',
+      freshnessGrade: '신안 다도해 당일 조업 빙장 쿨링',
+      fleshYield: '살코기 수율 85% 이상',
       waterContent: '77%',
       sweetnessScore: 4.8,
       juicinessScore: 4.8,
@@ -1879,6 +1956,29 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     description: '깨끗한 자연 방사 농장에서 건강하게 자란 닭이 낳은 노른자가 봉긋하고 비리지 않은 특란입니다.',
     bestQuotes: ['노른자가 젓가락으로 집힐 정도로 탱글해요 🍳', '반숙 후라이 해먹으면 고소함 폭발'],
+    produceDetails: {
+      sizeGrade: '알당 55g ~ 64g (특란/대란 기준)',
+      averageSize: '난경 약 4.3cm / 난고 약 5.6cm',
+      brixGrade: '호우유닛(HU) 85 이상 (최상급 신선 난백)',
+      sugarAcidRatio: '잡내 없는 천연 고소한 풍미',
+      freshnessGrade: '난각번호 1번 (자유방사 동물복지 인증)',
+      fleshYield: '난황(노른자) 비중 33% 이상 (녹진한 농도)',
+      waterContent: '75% (신선하고 옹골찬 난백)',
+      sweetnessScore: 4.5,
+      juicinessScore: 4.8,
+      textureScore: 5.0,
+      keyNutrients: [
+        { name: '양질의 단백질', value: '6.4g / 개당', desc: '체내 흡수율 최고의 완전식품' },
+        { name: '루테인 & 레시틴', value: '풍부', desc: '시력 보호 및 뇌세포 활성화' },
+        { name: '비타민 D', value: '풍부', desc: '칼슘 흡수 및 뼈 건강 증진' }
+      ],
+      healthBenefits: [
+        '자유 방사 사육으로 스트레스 없이 낳아 노른자가 매우 탄력 있고 신선',
+        '레시틴 성분이 기억력 증진과 콜레스테롤 흡수 조절에 도움'
+      ],
+      seasonalPeak: '사계절 당일 산란 신선 출하',
+      tasteTip: '둥근 쪽(기실)을 위로 향하게 냉장 보관하시고, 반숙으로 조리했을 때 버터처럼 녹진한 고소함을 가장 잘 느낄 수 있습니다.'
+    },
     brandRankings: [
       { rank: 1, name: '자연애란 동물복지란', brand: '자연애란', rating: 4.8, ratingCount: 1350, price: 6900, tag: '신선 1위' },
       { rank: 2, name: '풀무원 국산콩 두부', brand: '풀무원', rating: 4.8, ratingCount: 920, price: 3400, tag: '고소함' },

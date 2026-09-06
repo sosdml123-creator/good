@@ -190,9 +190,16 @@ export const ProductDetailModal: React.FC = () => {
               <span>🌿</span>
               <span>100% 산지직송 자연 원물</span>
             </span>
+            {selectedProduct.produceDetails?.sizeGrade && (
+              <span className="text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                <span>📐</span>
+                <span>{selectedProduct.produceDetails.sizeGrade}</span>
+              </span>
+            )}
             {selectedProduct.produceDetails?.brixGrade && (
-              <span className="text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full">
-                {selectedProduct.produceDetails.brixGrade}
+              <span className="text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                <span>🍯</span>
+                <span>{selectedProduct.produceDetails.brixGrade}</span>
               </span>
             )}
           </div>
@@ -310,7 +317,7 @@ export const ProductDetailModal: React.FC = () => {
       {detailTab === 'reviews' && (
         <div className="space-y-2 animate-in fade-in duration-200">
           
-          {/* [자연 원물 특화] 1. 과일·원물 핵심 성분 & 당도 분석표 (평점보다 성분 우선 표시) */}
+          {/* [자연 원물 특화] 1. 농수산물 핵심 품위 스펙 & 사이즈·당도 분석표 */}
           {isNaturalProduce && (
             <div className="bg-white px-4 py-4 border-b border-gray-100">
               <div className="flex items-center justify-between mb-3">
@@ -320,24 +327,68 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-[14px] font-black text-gray-900">
-                      {selectedProduct.category === '과일' ? '과일 핵심 영양 성분 & 당도 분석표' : '원물 핵심 영양 성분 & 품질 분석표'}
+                      {selectedProduct.category === '과일' ? '과일 핵심 스펙 & 사이즈·당도 분석' : '농수산물 핵심 품위 & 사이즈·품질 분석'}
                     </h3>
-                    <p className="text-[10px] text-gray-400">자연 원물 특성에 기반한 실측 성분 데이터</p>
+                    <p className="text-[10px] text-gray-400">실측 데이터 기반 사이즈 평균, 당도, 선별 규격</p>
                   </div>
                 </div>
                 <span className="text-[10px] text-emerald-700 font-black bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
-                  성분 우선 분석
+                  품목 정보 검증
                 </span>
               </div>
 
-              {/* 3대 핵심 품질 수치 */}
+              {/* 📐 1. 사이즈 평균 및 선별 규격 카드 */}
+              <div className="p-3 rounded-xl bg-gradient-to-br from-blue-50/70 to-indigo-50/40 border border-blue-200/80 mb-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-blue-900">
+                    <span>📐</span>
+                    <span>사이즈 평균 & 선별 규격</span>
+                  </div>
+                  {selectedProduct.produceDetails?.seasonalPeak && (
+                    <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
+                      {selectedProduct.produceDetails.seasonalPeak.split(' ')[0]} 제철
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                    <span className="text-[10px] text-gray-400 block">평균 규격 / 크기</span>
+                    <span className="font-black text-gray-900 text-[12px] block mt-0.5">
+                      {selectedProduct.produceDetails?.averageSize || (selectedProduct.volume ? `평균 ${selectedProduct.volume}` : '실측 선별 규격')}
+                    </span>
+                  </div>
+                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                    <span className="text-[10px] text-gray-400 block">선별 등급</span>
+                    <span className="font-black text-[#0066FF] text-[12px] block mt-0.5">
+                      {selectedProduct.produceDetails?.sizeGrade || '특과·로얄과 선별'}
+                    </span>
+                  </div>
+                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                    <span className="text-[10px] text-gray-400 block">수율 / 가식부</span>
+                    <span className="font-bold text-gray-800 text-[11px] block mt-0.5">
+                      {selectedProduct.produceDetails?.fleshYield || '과육 비율 90% 이상'}
+                    </span>
+                  </div>
+                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                    <span className="text-[10px] text-gray-400 block">선별 및 유통 방식</span>
+                    <span className="font-bold text-gray-800 text-[11px] block mt-0.5 truncate">
+                      {selectedProduct.produceDetails?.freshnessGrade || '산지 비파괴 선별'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 🍯 2. 당도 & 수분율 & 신선도 핵심 지표 */}
               <div className="grid grid-cols-3 gap-2 text-center mb-3">
                 <div className="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200">
-                  <div className="text-[10px] text-amber-800 font-bold">보증 당도</div>
+                  <div className="text-[10px] text-amber-800 font-bold">보증 당도 (Brix)</div>
                   <div className="text-sm font-black text-amber-950 mt-0.5">
                     {selectedProduct.produceDetails?.brixGrade?.split(' ')[0] || (selectedProduct.freshMetrics?.sweetness ? `${(selectedProduct.freshMetrics.sweetness * 3).toFixed(1)} Brix` : '14.0 Brix')}
                   </div>
-                  <div className="text-[9px] text-amber-700 mt-0.5">비파괴 선별</div>
+                  <div className="text-[9px] text-amber-700 mt-0.5 truncate">
+                    {selectedProduct.produceDetails?.sugarAcidRatio?.split(' ')[0] || '비파괴 선별'}
+                  </div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-blue-50/80 border border-blue-200">
@@ -345,7 +396,7 @@ export const ProductDetailModal: React.FC = () => {
                   <div className="text-sm font-black text-blue-950 mt-0.5">
                     {selectedProduct.produceDetails?.waterContent?.split(' ')[0] || '89%'}
                   </div>
-                  <div className="text-[9px] text-blue-700 mt-0.5">과즙 가득</div>
+                  <div className="text-[9px] text-blue-700 mt-0.5">천연 과즙 가득</div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">

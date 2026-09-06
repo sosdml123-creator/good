@@ -1,4 +1,4 @@
-import { Product, CommunityPost } from '../types';
+import { Product, Review, CommunityPost, ProductCategory } from '../types';
 
 /**
  * Parses various createdAt formats (ISO date string, timestamp, or Korean relative time)
@@ -151,3 +151,171 @@ export const getPopularCommunityPosts = (posts: CommunityPost[], limit?: number)
   });
   return limit ? sorted.slice(0, limit) : sorted;
 };
+
+export interface ProductReviewEvaluation {
+  product: Product;
+  reviewScore: number;
+  reviewRank: number;
+  postedReviewCount: number;
+  totalReviewCount: number;
+  effectiveRating: number;
+  positiveRate: number;
+  topKeyword?: string;
+}
+
+/**
+ * Calculates review-based score and evaluation metrics for a product,
+ * taking into account posted reviews, ratings, engagement, and taste satisfaction.
+ */
+export const calculateProductReviewScore = (
+  product: Product,
+  reviews: Review[]
+): {
+  reviewScore: number;
+  postedReviewCount: number;
+  totalReviewCount: number;
+  effectiveRating: number;
+  positiveRate: number;
+  topKeyword?: string;
+} => {
+  const posted = reviews.filter((r) => r.productId === product.id);
+  const postedCount = posted.length;
+  const baseCount = product.ratingCount || 0;
+  const totalReviewCount = baseCount + postedCount;
+
+  let effectiveRating = product.overallRating || 4.5;
+  let positiveCount = 0;
+  let likesBonus = 0;
+
+  if (postedCount > 0) {
+    const sumPostedRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
+    // Bayesian blend: 5 prior units with product.overallRating
+    effectiveRating = Number(((product.overallRating * 5 + sumPostedRating) / (5 + postedCount)).toFixed(1));
+
+    posted.forEach((r) => {
+      if (r.rating >= 4) positiveCount++;
+      likesBonus += (r.likes || 0) * 0.5;
+      if (r.images && r.images.length > 0) likesBonus += 1.5; // Photo review bonus
+    });
+  }
+
+  const positiveRate = postedCount > 0 
+    ? Math.round((positiveCount / postedCount) * 100)
+    : Math.round(((product.overallRating || 4.5) / 5) * 100);
+
+  // Derive top keywords from reviews or product bestQuotes
+  let topKeyword: string | undefined = undefined;
+  if (postedCount > 0 && posted[0].tags && posted[0].tags.length > 0) {
+    topKeyword = posted[0].tags[0].replace('#', '');
+  } else if (product.bestQuotes && product.bestQuotes.length > 0) {
+    const quoteWords = product.bestQuotes[0].split(' ');
+    topKeyword = quoteWords.find(w => w.length >= 2 && !w.startsWith('#'))?.replace(/[^\wㄱ-ㅎ가-힣]/g, '');
+  }
+
+  // Score formulation:
+  // 1. Effective Rating weight: 25 pts (out of 125 for 5.0)
+  // 2. Review volume credibility (logarithmic to prevent sheer spam): up to 45 pts
+  // 3. Active posted reviews weight: 8 pts each + likes bonus
+  // 4. Taste/Fresh metrics: up to 15 pts
+  // 5. Repurchase intent: up to 10 pts
+  const ratingPart = effectiveRating * 25;
+  const volumePart = Math.min(45, Math.log10(totalReviewCount + 1) * 15);
+  const postedBonus = Math.min(40, postedCount * 8 + likesBonus);
+  
+  let metricPart = 0;
+  if (product.freshMetrics) {
+    metricPart = (product.freshMetrics.sweetness + product.freshMetrics.freshness) * 1.5;
+  } else if (product.detailedRating) {
+    metricPart = ((product.detailedRating.taste || 4.5) + (product.detailedRating.repurchase || 4.5)) * 1.5;
+  }
+
+  const repurchasePart = (product.repurchasePercent || 90) * 0.1;
+  const noveltyBonus = (product.isHot ? 10 : 0) + (product.isToday ? 15 : 0);
+
+  const reviewScore = Math.round(ratingPart + volumePart + postedBonus + metricPart + repurchasePart + noveltyBonus);
+
+  return {
+    reviewScore,
+    postedReviewCount: postedCount,
+    totalReviewCount,
+    effectiveRating,
+    positiveRate,
+    topKeyword,
+  };
+};
+
+/**
+ * Returns products in a category ranked and sorted by review evaluations.
+ */
+export const getCategoryReviewRankedProducts = (
+  products: Product[],
+  reviews: Review[],
+  category: ProductCategory,
+  subCategory: string = '전체',
+  sortBy: 'review_rank' | 'rating' | 'review_count' | 'newest' = 'review_rank'
+): ProductReviewEvaluation[] => {
+  // 1. Filter by category
+  const filtered = products.filter((p) => {
+    if (category !== '전체') {
+      if (category === '신제품') {
+        const isNew = p.isToday || p.isHot || p.category === '신제품' || Boolean(p.releaseDate && (p.releaseDate.includes('출시') || p.releaseDate.includes('신상') || p.releaseDate.includes('2026') || p.releaseDate.includes('2025')));
+        if (!isNew) return false;
+      } else if (p.category !== category) {
+        return false;
+      }
+    }
+
+    // SubCategory check
+    if (subCategory && subCategory !== '전체') {
+      if (category === '신제품') {
+        if (p.category !== subCategory && p.subCategory !== subCategory) return false;
+      } else {
+        const matchesSub = p.subCategory === subCategory;
+        const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());
+        const matchesDesc = p.description?.toLowerCase().includes(subCategory.toLowerCase());
+        if (!matchesSub && !matchesName && !matchesDesc) return false;
+      }
+    }
+    return true;
+  });
+
+  // 2. Calculate review evaluation for each product
+  const evaluated = filtered.map((p) => {
+    const metrics = calculateProductReviewScore(p, reviews);
+    return {
+      product: p,
+      ...metrics,
+      reviewRank: 0,
+    };
+  });
+
+  // 3. Sort by specified criteria
+  evaluated.sort((a, b) => {
+    if (sortBy === 'review_rank') {
+      return b.reviewScore - a.reviewScore;
+    }
+    if (sortBy === 'rating') {
+      if (b.effectiveRating !== a.effectiveRating) {
+        return b.effectiveRating - a.effectiveRating;
+      }
+      return b.reviewScore - a.reviewScore;
+    }
+    if (sortBy === 'review_count') {
+      return b.totalReviewCount - a.totalReviewCount;
+    }
+    if (sortBy === 'newest') {
+      const isNewA = a.product.isToday ? 2 : a.product.isHot ? 1 : 0;
+      const isNewB = b.product.isToday ? 2 : b.product.isHot ? 1 : 0;
+      if (isNewB !== isNewA) return isNewB - isNewA;
+      return (b.product.releaseDate || '').localeCompare(a.product.releaseDate || '');
+    }
+    return b.reviewScore - a.reviewScore;
+  });
+
+  // 4. Assign rank (1, 2, 3...)
+  return evaluated.map((item, index) => ({
+    ...item,
+    reviewRank: index + 1,
+  }));
+};
+

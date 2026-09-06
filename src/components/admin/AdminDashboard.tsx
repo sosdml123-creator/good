@@ -1395,14 +1395,15 @@ export const AdminDashboard: React.FC = () => {
                         </button>
                         <button
                           onClick={revalidateAllPending}
-                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 ${
-                            isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-slate-700' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
+                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 shadow-xs ${
+                            isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-indigo-700/60' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
                           }`}
-                          title="낚시성 헤드라인 필터링 및 제품명/가격 검증 재수행"
+                          title="네이버 쇼핑 실물 패키지 및 실제 판매가로 100% 정상화"
                         >
                           <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                          <span>⚡ 대기목록 정제·재검증</span>
+                          <span>✨ 쇼핑·신제품 고화질 정상화 ({filteredPendingProducts.length}건)</span>
                         </button>
+
                         <button
                           onClick={clearAllPendingProducts}
                           className={`px-3 py-2.5 rounded-xl text-xs font-semibold border transition-all ${

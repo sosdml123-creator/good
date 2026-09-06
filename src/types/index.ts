@@ -42,7 +42,12 @@ export interface BrandRankingItem {
 }
 
 export interface ProduceNutritionDetail {
+  sizeGrade?: string;          // 사이즈 선별 등급 (e.g. "개당 280g ~ 340g (대과·특과 선별)", "마리당 450~550g (특대)")
+  averageSize?: string;        // 사이즈 평균 규격/직경 (e.g. "직경 약 8.5~9.0cm / 평균 과중 320g", "전장 약 18~20cm")
   brixGrade?: string;          // 당도 등급 (e.g. "13.5 ~ 15 Brix 특당도 선별")
+  sugarAcidRatio?: string;     // 당산비 / 산도 (e.g. "산도 0.35% 미만 황금 당산비")
+  freshnessGrade?: string;     // 신선도 및 선별 기준 (e.g. "비파괴 광센서 당도선별 1등급", "당일 조업 해수 빙장 쿨링")
+  fleshYield?: string;         // 수율 및 과육 비율 (e.g. "과육 비율 92% 이상", "살코기 수율 85% 이상")
   waterContent?: string;       // 수분율 (e.g. "89%")
   keyNutrients: { name: string; value: string; desc: string }[]; // 주요 영양소 (e.g. 비타민 C, 펙틴)
   healthBenefits: string[];    // 건강 효능 (e.g. 피로 회복, 노폐물 배출)
