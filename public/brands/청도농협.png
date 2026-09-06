@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<meta http-equiv="content-language" content="ko">
+    <title>농협</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+    <script src="../js/jquery-1.12.4.min.js"></script>
+    <script src="../js/new_common.js"></script>
+    <script src="../js/libs.js"></script>
+    <script src="../js/jquery.fullpage.min.js"></script>  
+    <link rel="stylesheet" href="../css/jquery.fullpage.min.css">
+    <link rel="stylesheet" href="../css/new_main.css">
+    <script src="../js/new_main.js"></script> 
+    <style> 
+		.error { display: flex; justify-content: center; align-items: center; width: 100%; height: 80vh; }
+		.btn_area .btn { display: inline-block; min-width:160px; height:45px; line-height:45px; padding:0 14px; text-align:center; text-decoration: none; background:#2b2b2b; color:#fff; box-sizing:border-box;}
+		.error_section { padding-top: 65px; box-sizing:\ border-box; width:640px; height: 390px; background: url(/images/common/error_message.jpg) no-repeat center center/contain; text-align:center; }
+		.error_section h2 { visibility: hidden;margin-bottom:23px; font-size:38px; font-weight:600; color:#000; line-height:1em;}
+		.error_section p { visibility: hidden; font-size:16px; line-height:1.6em; color:#333;}
+		.error_section + .btn_area { display: flex; justify-content: center; width: 100%; margin-top:30px;}
+		
+		.chek_bg { min-height: 518px; margin-top: 150px; padding:110px 0 0; }
+        .check_cont { color:#000; font-size:26px; line-height:45px; font-weight:500; letter-spacing: -2px; }
+        .check_cont > strong { display:block; color:#000; font-size:32px; font-weight:500; }
+        .check_cont > strong > em {color: #f06b00; font-weight:600; }
+        .check_cont > p { padding-top:15px; color: #3651ab;  font-weight:600; letter-spacing: -1px;  }
+        .note { padding-top:70px; color: #919191; font-size:21px; font-weight:500; letter-spacing: -1px; }
+	</style>
+	<script type="text/javascript">
+		function fncGoAfterErrorPage(){
+		    history.back(-2);
+		}
+		
+		$(document).on('ready', function() {
+			
+			const now = new Date();
+			const nowYYYYMMDD = now.getFullYear() + ('0'+(now.getMonth()+1)).slice(-2) + ('0'+now.getDate()).slice(-2);
+			const nowHOurs = now.getHours();
+			
+			const chkDate = 20250225;
+			const chkStartTime = 20;
+			const chkEndTime = 21;
+			
+			if(nowYYYYMMDD == chkDate) {
+				if(chkStartTime<=nowHOurs && nowHOurs<chkEndTime) {
+					document.getElementById('chek').style.display = "block";
+					document.getElementById('wrap').style.display = "none";
+				}
+			}
+		})
+	</script>
+</head>
+<body>
+	<div id="wrap">
+        <!-- container -->
+        <div class="error">
+            <!-- content -->
+            <div class="content">
+                <div class="error_section" >
+                    <h2>요청하신 페이지를 찾을 수 없습니다.</h2>
+                    <p>이용에 불편을 드려 죄송합니다.</p>
+                </div>
+
+                <div class="btn_area">
+                    <a href="#LINK" onClick="fncGoAfterErrorPage();" class="btn">이전 페이지</a>
+                </div>
+            </div>
+            <!-- //content -->
+        </div>
+        <!-- //container -->
+    </div>
+    <div id="chek" class="main" style="display:none;" >
+        <header id="header" >
+            <div class="header_inner_center">
+                <h1><a href="/main/psniMain.do">NH농협</a></h1>               
+                <div class="header_quick_wrap">
+                    <div class="quick_link bank">
+                        <a href="https://banking.nonghyup.com/" title="NH농협은행_새창" target="_blank">NH BANK</a>
+                    </div>
+                    <div class="quick_link mall">
+                        <a href="http://www.nonghyupmall.com" title="농협몰_새창" target="_blank">농협몰</a>
+                    </div>
+                </div>
+                
+            </div>    
+        </header>
+        
+        <section  id="container">
+            <div class="contents_wrap txt_c" >
+                <div class="chek_bg">
+                    <div class="check_cont" >
+                        <img src="../images/error/chek_potal_n.png" alt="농협 점검 이미지">
+                   </div>                      
+                </div>              
+            </div>
+        </section>
+
+        <div class="section section05 fp-auto-height"  style="position: fixed; bottom:0; width:100%;">
+            <footer>
+                <div class="foot_top" style="height:0 !important;">
+                    
+                </div>
+                <div class="foot_down" style="padding:15px 0">
+                    <div class="nh_footer_logo">
+                        <img src="../images/common/logo_nh_main_wh.png" alt="NH농협 로고">
+                    </div>
+                    <address>
+                        04516 &#124; 서울시 중구 새문안로 16&nbsp;&nbsp;&nbsp;&nbsp;대표자 강호동&nbsp;&nbsp;&nbsp;&nbsp; 사업자등록번호 104-82-07072<br>
+                        전화번호안내 02-2080-5114&nbsp;&nbsp;&nbsp;&nbsp;금융문의 농협은행 1661-3000, 1522-3000&nbsp;&nbsp;&nbsp;&nbsp;농 · 축협 1661-2100, 1522-2100<br>
+                    <span class="foot_copy"> <em>&copy;</em> CopyRight 2021. NONGHYUP ALL Rights Reserved. </span>
+                    </address>
+                    <div class="sns_link_warp">
+                        
+                        <div class="mark"> 
+                            <a href="http://www.webwatch.or.kr/Situation/WA_Situation.html?MenuCD=110" target="_blank" title="국가 공인 인증기관 : 웹와치">
+                            <img src="../images/common/p_wa_main.png" alt="과학기술정보통신부 WA(WEB접근성) 품질인증 마크, 웹와치(WebWatch) 2024.8.6 ~ 2025.8.5">
+                            </a>
+                        </div>  
+                    </div>
+                </div>
+            </footer>           
+        </div>
+    </div>
+</body>
+</html>

@@ -1,7 +1,51 @@
 /**
- * Brand Logo Assets - Vector SVG Data URIs for 100% reliable offline/online rendering
- * Prevents 400 Bad Request / 403 Forbidden / 404 Not Found from external CDNs or Wikipedia
+ * Official Brand Logo Files - Saved in public/brands/ from official brand sites & media repositories
  */
+export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
+  '맥도날드': '/brands/맥도날드.svg',
+  '버거킹': '/brands/버거킹.svg',
+  '맘스터치': '/brands/맘스터치.png',
+  '롯데리아': '/brands/롯데리아.svg',
+  'KFC': '/brands/KFC.svg',
+  '스타벅스': '/brands/스타벅스.svg',
+  '메가MGC커피': '/brands/메가MGC커피.jpg',
+  '메가커피': '/brands/메가MGC커피.jpg',
+  '빽다방': '/brands/빽다방.png',
+  '매머드커피': '/brands/매머드커피.png',
+  '매머드': '/brands/매머드커피.png',
+  '컴포즈커피': '/brands/컴포즈커피.svg',
+  '컴포즈': '/brands/컴포즈커피.svg',
+  '이디야커피': '/brands/이디야커피.png',
+  '이디야': '/brands/이디야커피.png',
+  '투썸플레이스': '/brands/투썸플레이스.png',
+  '투썸': '/brands/투썸플레이스.png',
+  '오리온': '/brands/오리온.png',
+  '농심': '/brands/농심.svg',
+  '삼양식품': '/brands/삼양식품.svg',
+  '삼양': '/brands/삼양식품.svg',
+  '오뚜기': '/brands/오뚜기.png',
+  'CJ제일제당': '/brands/CJ제일제당.svg',
+  'CJ': '/brands/CJ제일제당.svg',
+  '빙그레': '/brands/빙그레.svg',
+  '코카콜라': '/brands/코카콜라.svg',
+  '하이트진로': '/brands/하이트진로.png',
+  '진로': '/brands/하이트진로.png',
+  '매일유업': '/brands/매일유업.png',
+  '연세유업': '/brands/연세유업.png',
+  '연세우유': '/brands/연세유업.png',
+  '롯데웰푸드': '/brands/롯데웰푸드.svg',
+  '롯데': '/brands/롯데웰푸드.svg',
+  '롯데제과': '/brands/롯데웰푸드.svg',
+  '해태제과': '/brands/해태제과.png',
+  '해태': '/brands/해태제과.png',
+  'GS25': '/brands/GS25.png',
+  'CU': '/brands/CU.png',
+  '세븐일레븐': '/brands/세븐일레븐.svg',
+  '이마트24': '/brands/이마트24.png',
+  '청도농협': '/brands/청도농협.png',
+  '농협': '/brands/청도농협.png',
+  '스타벅스 / 동서식품': '/brands/스타벅스.svg',
+};
 
 const svgToUri = (svg: string): string => {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;

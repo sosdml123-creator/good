@@ -1,29 +1,29 @@
 import { BrandInfo, Product } from '../types';
-import { BRAND_SVG_LOGOS, BRAND_ALIASES } from './brandLogos';
+import { OFFICIAL_BRAND_LOGOS, BRAND_SVG_LOGOS, BRAND_ALIASES } from './brandLogos';
 
 export const BRAND_LOGOS_MAP: Record<string, string> = {
   ...BRAND_SVG_LOGOS,
-  // Fallbacks or legacy URL maps
-  '메가MGC커피': BRAND_SVG_LOGOS['메가MGC커피'] || 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
-  '매머드커피': BRAND_SVG_LOGOS['매머드커피'] || 'https://mmthcoffee.com/files/menu/564a4c4ac238359924a304a25e902e29.png',
-  '빽다방': BRAND_SVG_LOGOS['빽다방'] || 'https://paikdabang.com/wp-content/themes/paikdabang/assets/images/logo.png',
-  '오리온': BRAND_SVG_LOGOS['오리온'] || 'https://www.orionworld.com/upload/goods/00086d1e89648f5fcf72cdb3a40847cb.png',
+  ...OFFICIAL_BRAND_LOGOS,
 };
 
 export const getBrandLogo = (brandName: string, fallbackImage?: string): string => {
   const norm = (brandName || '').trim();
   const alias = BRAND_ALIASES[norm] || norm;
 
-  // 1. Direct SVG Vector Logo match
-  if (BRAND_SVG_LOGOS[alias]) return BRAND_SVG_LOGOS[alias];
-  if (BRAND_SVG_LOGOS[norm]) return BRAND_SVG_LOGOS[norm];
+  // 1. Official saved brand logo file (from official brand sites / brand repositories)
+  if (OFFICIAL_BRAND_LOGOS[alias]) return OFFICIAL_BRAND_LOGOS[alias];
+  if (OFFICIAL_BRAND_LOGOS[norm]) return OFFICIAL_BRAND_LOGOS[norm];
 
   // 2. Direct Map match
   if (BRAND_LOGOS_MAP[alias]) return BRAND_LOGOS_MAP[alias];
   if (BRAND_LOGOS_MAP[norm]) return BRAND_LOGOS_MAP[norm];
+
+  // 3. Direct SVG Vector Logo match
+  if (BRAND_SVG_LOGOS[alias]) return BRAND_SVG_LOGOS[alias];
+  if (BRAND_SVG_LOGOS[norm]) return BRAND_SVG_LOGOS[norm];
   
-  // 3. Substring match
-  for (const [key, url] of Object.entries(BRAND_SVG_LOGOS)) {
+  // 4. Substring match
+  for (const [key, url] of Object.entries(OFFICIAL_BRAND_LOGOS)) {
     if (norm.includes(key) || key.includes(norm)) {
       return url;
     }

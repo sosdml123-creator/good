@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BRAND_SVG_LOGOS, BRAND_ALIASES, BRAND_THEME_COLORS } from '../../utils/brandLogos';
+import { OFFICIAL_BRAND_LOGOS, BRAND_SVG_LOGOS, BRAND_ALIASES, BRAND_THEME_COLORS } from '../../utils/brandLogos';
 
 interface BrandLogoProps {
   brandName: string;
@@ -40,11 +40,15 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   const raw = (brandName || '').trim();
   const normalized = BRAND_ALIASES[raw] || raw;
 
-  // Resolve SVG Logo first if no valid external logoUrl or if error occurred
+  // 1. Official brand logo file (saved from official sites/repositories into public/brands/)
+  const officialFile = OFFICIAL_BRAND_LOGOS[normalized] || OFFICIAL_BRAND_LOGOS[raw];
+
+  // 2. Vector SVG fallback
   const svgLogo = BRAND_SVG_LOGOS[normalized] || BRAND_SVG_LOGOS[raw];
   
-  // Choose source
-  const imageSrc = !hasError && logoUrl ? logoUrl : svgLogo;
+  // Choose source (official logo prioritized)
+  const primarySrc = officialFile || logoUrl || svgLogo;
+  const imageSrc = !hasError ? primarySrc : (officialFile !== primarySrc ? officialFile : svgLogo);
 
   const theme = BRAND_THEME_COLORS[normalized] || {
     bg: '#0066FF',
