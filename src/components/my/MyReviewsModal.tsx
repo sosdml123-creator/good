@@ -79,6 +79,34 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                   </span>
                 </div>
 
+                {/* Badges: Purchase Place, Verified, Repurchase */}
+                {(r.purchasePlace || r.repurchaseIntent || r.isReceiptVerified) && (
+                  <div className="flex flex-wrap items-center gap-1">
+                    {r.purchasePlace && (
+                      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                        🏪 {r.purchasePlace} {r.purchaseEvent ? `· ${r.purchaseEvent}` : ''}
+                      </span>
+                    )}
+                    {r.repurchaseIntent && (
+                      <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded">
+                        {r.repurchaseIntent}
+                      </span>
+                    )}
+                    {r.isReceiptVerified && (
+                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                        ✓ 내돈내산
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Headline */}
+                {r.headline && (
+                  <div className="text-xs font-black text-gray-900 leading-snug">
+                    "{r.headline}"
+                  </div>
+                )}
+
                 {/* Review Content */}
                 <p className="text-xs text-gray-700 leading-relaxed bg-white">
                   {r.content}

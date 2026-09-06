@@ -176,7 +176,7 @@ export const CompareModal: React.FC = () => {
 
     const newComment: BattleComment = {
       id: `b-cmt-${Date.now()}`,
-      userId: currentUser.id || 'user_me',
+      userId: currentUser.uid || 'user_me',
       userName: currentUser.displayName || '신상러버',
       userAvatar: currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
       userLevel: currentUser.level ? parseInt(currentUser.level.replace(/[^0-9]/g, '')) || 3 : 3,
@@ -218,7 +218,7 @@ export const CompareModal: React.FC = () => {
 
     const newReply: BattleCommentReply = {
       id: `b-rep-${Date.now()}`,
-      userId: currentUser.id || 'user_me',
+      userId: currentUser.uid || 'user_me',
       userName: currentUser.displayName || '신상러버',
       userAvatar: currentUser.photoURL,
       content: text,
@@ -717,7 +717,7 @@ export const CompareModal: React.FC = () => {
                   </div>
 
                   {/* 내 댓글인 경우 삭제 버튼 */}
-                  {comment.userId === (currentUser.id || 'user_me') && (
+                  {comment.userId === (currentUser.uid || 'user_me') && (
                     <button
                       onClick={() => handleDeleteComment(comment.id)}
                       className="text-gray-400 hover:text-rose-500 p-1"

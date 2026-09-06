@@ -83,12 +83,82 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 </div>
               </div>
 
-              <p className="text-[13px] text-gray-700 leading-relaxed">
+              {/* Badges: Purchase Place, Verified, Repurchase */}
+              <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                {r.purchasePlace && (
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                    🏪 {r.purchasePlace} {r.purchaseEvent ? `· ${r.purchaseEvent}` : ''}
+                  </span>
+                )}
+                {r.repurchaseIntent && (
+                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded">
+                    {r.repurchaseIntent}
+                  </span>
+                )}
+                {r.isReceiptVerified && (
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                    ✓ 내돈내산 인증
+                  </span>
+                )}
+              </div>
+
+              {/* Headline */}
+              {r.headline && (
+                <div className="text-[13px] font-black text-gray-900 mb-1 leading-snug">
+                  "{r.headline}"
+                </div>
+              )}
+
+              {/* Flavor Profile Tags */}
+              {r.flavorProfile && (r.flavorProfile.sweetness || r.flavorProfile.spiciness || r.flavorProfile.texture) && (
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {r.flavorProfile.sweetness && (
+                    <span className="text-[10px] font-semibold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                      단맛: {r.flavorProfile.sweetness}
+                    </span>
+                  )}
+                  {r.flavorProfile.spiciness && (
+                    <span className="text-[10px] font-semibold text-red-800 bg-red-50 px-1.5 py-0.5 rounded border border-red-200">
+                      매운맛: {r.flavorProfile.spiciness}
+                    </span>
+                  )}
+                  {r.flavorProfile.texture && (
+                    <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                      식감: {r.flavorProfile.texture}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <p className="text-[13px] text-gray-700 leading-relaxed whitespace-pre-line">
                 {r.content}
               </p>
 
+              {/* Target & Keywords Tags */}
+              {r.tags && r.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {r.tags.map((t, idx) => (
+                    <span key={idx} className="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Photos Gallery */}
               {r.images && r.images.length > 0 && (
-                <img src={r.images[0]} alt="review" className="mt-2 rounded-xl object-cover w-full" style={{ height: '160px' }} />
+                <div className="flex gap-2 mt-2.5 overflow-x-auto no-scrollbar">
+                  {r.images.map((imgSrc, imgIdx) => (
+                    <img 
+                      key={imgIdx} 
+                      src={imgSrc} 
+                      alt="review" 
+                      className={`rounded-xl object-cover border border-gray-100 ${
+                        r.images && r.images.length > 1 ? 'w-40 h-32 shrink-0' : 'w-full h-44'
+                      }`} 
+                    />
+                  ))}
+                </div>
               )}
 
               <div className="flex items-center gap-4 mt-2.5 text-[12px] text-gray-400">
