@@ -38,7 +38,7 @@ export const HomeView: React.FC = () => {
   const isHorizontalSwipe = useRef<boolean | null>(null);
   const hasMovedSignificantly = useRef(false);
 
-  const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '기타'];
+  const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
 
   const isProductNew = (p: Product) =>
     Boolean(
@@ -57,7 +57,8 @@ export const HomeView: React.FC = () => {
     if (newProductCategoryFilter === '음료') return p.category === '음료';
     if (newProductCategoryFilter === '빵·디저트') return p.category === '빵·디저트';
     if (newProductCategoryFilter === '간편식') return p.category === '간편식';
-    if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식'].includes(p.category);
+    if (newProductCategoryFilter === '패스트푸드') return p.category === '패스트푸드';
+    if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
     return p.category === newProductCategoryFilter;
   });
 
@@ -215,6 +216,7 @@ export const HomeView: React.FC = () => {
     { label: '음료', icon: '🥤', cat: '음료' },
     { label: '빵·디저트', icon: '🥐', cat: '빵·디저트' },
     { label: '간편식', icon: '🍲', cat: '간편식' },
+    { label: '패스트푸드', icon: '🍔', cat: '패스트푸드' },
     { label: '과일', icon: '🍑', cat: '과일' },
     { label: '식재료', icon: '🥚', cat: '식재료' },
     { label: '고기·수산', icon: '🥩', cat: '고기·수산' },

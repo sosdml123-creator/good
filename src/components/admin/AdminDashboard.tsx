@@ -2486,7 +2486,7 @@ export const AdminDashboard: React.FC = () => {
                   <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>카테고리별 상품 등록 비중</h3>
                   
                   <div className="space-y-3">
-                    {(['과자', '음료', '빵·디저트', '간편식', '신제품', '기타'] as ProductCategory[]).map(cat => {
+                    {(['과자', '음료', '빵·디저트', '간편식', '패스트푸드', '과일', '식재료', '고기·수산', '기타'] as ProductCategory[]).map(cat => {
                       const count = products.filter(p => p.category === cat).length;
                       const percent = products.length > 0 ? Math.round((count / products.length) * 100) : 0;
                       return (

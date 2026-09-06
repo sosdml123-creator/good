@@ -158,6 +158,13 @@ const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
     'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=800&auto=format&fit=crop&q=80', // 만두/딤섬
     'https://images.unsplash.com/photo-1552611052-33e04de081de?w=800&auto=format&fit=crop&q=80'  // 사발면
   ],
+  '패스트푸드': [
+    'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80', // 프리미엄 버거
+    'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80', // 치즈버거
+    'https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&auto=format&fit=crop&q=80', // 버거&감튀
+    'https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&auto=format&fit=crop&q=80', // 치킨너겟/윙
+    'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&auto=format&fit=crop&q=80'  // 감자튀김
+  ],
   '음료': [
     'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=800&auto=format&fit=crop&q=80', // 커피
     'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800&auto=format&fit=crop&q=80', // 탄산캔
@@ -259,8 +266,13 @@ export const verifyKeywordSimilarity = (
  */
 export const detectCategory = (text: string): ProductCategory => {
   const t = text.toLowerCase();
+  if (t.includes('맥도날드') || t.includes('버거킹') || t.includes('맘스터치') || t.includes('롯데리아') ||
+      t.includes('버거') || t.includes('와퍼') || t.includes('싸이버거') || t.includes('너겟') ||
+      t.includes('패스트푸드') || t.includes('감자튀김') || t.includes('치즈스틱') || t.includes('지파이')) {
+    return '패스트푸드';
+  }
   if (t.includes('라면') || t.includes('도시락') || t.includes('김밥') || t.includes('간편식') || 
-      t.includes('밀키트') || t.includes('덮밥') || t.includes('버거') || t.includes('피자') ||
+      t.includes('밀키트') || t.includes('덮밥') || t.includes('피자') ||
       t.includes('만두') || t.includes('볶음밥') || t.includes('햇반') || t.includes('안주') ||
       t.includes('삼각김밥') || t.includes('핫바') || t.includes('소시지') || t.includes('파스타')) {
     return '간편식';
