@@ -27,6 +27,7 @@ import {
   PENDING_PRODUCTS_STORAGE_KEY,
   LAST_CRAWL_STORAGE_KEY
 } from '../services/productCrawler';
+import { revalidatePendingProductList } from '../services/naverApi';
 import {
   supabase,
   isSupabaseConfigured,
@@ -135,6 +136,7 @@ interface AppContextType {
   revokeApprovedProduct: (productId: string) => void;
   revokeAllApprovedProducts: (ids?: string[]) => void;
   removeDuplicatePending: () => { removedCount: number };
+  revalidateAllPending: () => void;
   updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
   clearAllPendingProducts: () => void;
 
@@ -392,11 +394,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  // Pending Products (승인 대기 신제품) states
+  // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
     try {
       const stored = localStorage.getItem(PENDING_PRODUCTS_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
+      const parsed: PendingProduct[] = stored ? JSON.parse(stored) : [];
+      return revalidatePendingProductList(parsed);
     } catch {
       return [];
     }
@@ -1914,6 +1917,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return { removedCount: duplicateCount };
   };
 
+  // 5-5. 대기 목록 정제 및 재검증 (헤드라인성 문구 걸러내기)
+  const revalidateAllPending = () => {
+    setPendingProducts(prev => {
+      const updated = revalidatePendingProductList(prev);
+      const reviewCount = updated.filter(p => p.needsReview).length;
+      showToast(`대기 상품 ${updated.length}개 정제·재검증 완료 (수동 확인 필요: ${reviewCount}개)`, 'info');
+      return updated;
+    });
+  };
+
   // 6. 대기 상품 정보 수정
   const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {
     setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
@@ -2033,6 +2046,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         revokeApprovedProduct,
         revokeAllApprovedProducts,
         removeDuplicatePending,
+        revalidateAllPending,
         updatePendingProduct,
         clearAllPendingProducts,
 

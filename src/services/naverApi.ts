@@ -323,10 +323,75 @@ export const detectBrand = (text: string): string => {
   return '편의점 신상';
 };
 
+export interface ExtractedProductInfo {
+  name: string;
+  isValid: boolean;
+  reason?: string;
+}
+
+/**
+ * Checks if a candidate string is clickbait, sentence-structured, contains illegal punctuation, or is an invalid product name.
+ */
+export const isClickbaitOrInvalidName = (text: string): { isInvalid: boolean; reason?: string } => {
+  if (!text || typeof text !== 'string') {
+    return { isInvalid: true, reason: '빈 문자열' };
+  }
+  const clean = text.trim();
+  if (clean.length < 2) {
+    return { isInvalid: true, reason: '너무 짧음 (2자 미만)' };
+  }
+  if (clean.length > 28) {
+    return { isInvalid: true, reason: '너무 김 (28자 초과)' };
+  }
+
+  // 1. Check for illegal punctuation (questions, ellipsis, exclamation, quotes, etc.)
+  if (/[\?\!~\^…\*\/\@\#\$\%\<\>\{\}\[\]\|]/.test(clean)) {
+    return { isInvalid: true, reason: '물음표/느낌표/특수기호 포함' };
+  }
+  if (/\.{2,}/.test(clean)) {
+    return { isInvalid: true, reason: '말줄임표(...) 포함' };
+  }
+
+  // 2. Clickbait and journalistic noise words
+  const clickbaitRegex = /과연|정말|이것|어떨까|비결은|눈길|화제|열풍|충격|놀란|이유는|어쩌나|논란|어디|누구|어떤|왜|결국|대박|꿀팁|믿고|먹어보니|샀는데|뿌린다고|입힌|가고|왔다|알고보니|이\s*정도면|진짜|실화|역대급|무려|먹어봤더니|비상|어쩌다|어떻게|대체|무슨|비결|이유|모습|난리|대란|폭발|누가|맞아|모디슈머|주목|인기몰이|품절대란|깜짝|발칵/;
+  if (clickbaitRegex.test(clean)) {
+    return { isInvalid: true, reason: '낚시성/의문형/감성 문구 포함' };
+  }
+
+  // 3. Sentence verb endings (ending in 다, 까, 요, 죠, 네, 냐, 던, 라, 래, 자, 듯, 서, 며, 고, 게, 니, 지, 면)
+  // Allowed suffixes for legitimate food/drink products:
+  const allowedFoodSuffixes = /(?:소다|콜라|젤리|피자|요거트|파스타|만두|도넛|과자|초코|라떼|버거|치즈|쉐이크|스무디|티|차|주스|에이드|샌드|스낵|케이크|쿠키|라면|우유|치킨|도시락|핫도그|샐러드|빵|떡|면|밥|죽|구이|탕|찜|조림|포|칩|바|볼|콘|캔|팩|병|컵|정|환|세트|에디션|맛|버전|믹스|시리즈|크런치|크림|베리|딸기|사과|복숭아|수박|망고|초콜릿|바나나|멜론|소시지|소세지|버터|카레|짜장|마요|팝콘|젤라또|모나카|샌드위치|빙수|초코칩|와플|파이|타르트|푸딩|요구르트|카츠|카츠동|볶음밥|삼각김밥|김밥|유부초밥)$/;
+  
+  if (!allowedFoodSuffixes.test(clean)) {
+    if (/(?:다|까|요|죠|네|냐|던|라|래|자|듯|서|며|고|게|니|지|면)$/.test(clean)) {
+      return { isInvalid: true, reason: '문장형 서술어 종결' };
+    }
+  }
+
+  // 4. Trailing Korean particles (를, 을, 은, 는, 이, 가, 의, 에, 와, 과, 로, 으로)
+  if (/(?:를|을|은|는|이|가|의|에|와|과|로|으로)$/.test(clean)) {
+    return { isInvalid: true, reason: '조사로 끝남' };
+  }
+
+  // 5. Generic vague categories
+  const genericWords = ['K스낵', 'K푸드', '신제품', '신상품', '신메뉴', '편의점 신상', '디저트', '식품', '과자', '음료', '라면', '아이스크림', '안주', '신상', '먹거리'];
+  if (genericWords.includes(clean)) {
+    return { isInvalid: true, reason: '일반 카테고리 단어' };
+  }
+
+  return { isInvalid: false };
+};
+
 /**
  * Extract clean and accurate product name from news title & description
+ * Prioritizes launch patterns & quoted noun phrases.
+ * NEVER returns raw headline as fallback when pattern matching fails.
  */
-export const extractProductName = (rawTitle: string, rawDesc: string = '', detectedBrand: string = ''): string => {
+export const extractProductName = (
+  rawTitle: string, 
+  rawDesc: string = '', 
+  _detectedBrand: string = ''
+): ExtractedProductInfo => {
   let title = cleanHtml(rawTitle);
   const desc = cleanHtml(rawDesc);
 
@@ -338,63 +403,131 @@ export const extractProductName = (rawTitle: string, rawDesc: string = '', detec
                .replace(/\s+/g, ' ')
                .trim();
 
-  // 2. Extract from quotes: '신라면 툼바', "연세우유 밤티라미수 생크림빵", ‘통새우 만두’
-  const quoteMatches = title.match(/['‘"“]([^'’”"]{2,35})['’”"]/g);
-  if (quoteMatches && quoteMatches.length > 0) {
-    for (const q of quoteMatches) {
+  // 2. Priority a & b: Extract from Title Quotes: '신라면 툼바', "연세우유 밤티라미수", ‘비쵸비 딸기’
+  const titleQuotes = title.match(/['‘"“]([^'’”"]{2,30})['’”"]/g);
+  if (titleQuotes && titleQuotes.length > 0) {
+    for (const q of titleQuotes) {
       let clean = q.replace(/['‘"“”]/g, '').trim();
-      const invalidWords = [
-        '출시', '신제품', '신상', '이것', '인기', '화제', '대박', '단독', '한정', '오픈', 
-        '판매', '시작', '선봬', '공개', '선보여', '추천', '리뷰', '후기', '이벤트', '맛', 
-        '역대급', '매진', '품절', '대란', '할인', '행사'
-      ];
-      if (clean.length >= 2 && !invalidWords.includes(clean)) {
-        clean = clean.replace(/(를|을|은|는|이|가|와|과|도)$/, '').trim();
-        if (clean.length >= 2) {
-          return clean;
-        }
+      clean = clean.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+      const check = isClickbaitOrInvalidName(clean);
+      if (!check.isInvalid) {
+        return { name: clean, isValid: true };
       }
     }
   }
 
-  // 3. Match patterns like '... OOO 출시/선봬/선보여/론칭/출격'
-  const actionRegex = /([가-힣A-Za-z0-9\s·\-\+]{2,25})\s*(?:출시|선봬|공개|선보여|론칭|출격|출점|선보인다)/;
+  // 3. Priority a: Match patterns like '... OOO 출시/선봬/선보여/론칭/출격/내놓아'
+  const actionRegex = /([가-힣A-Za-z0-9\s·\-\+]{2,22})\s*(?:출시|선봬|공개|선보여|론칭|내놓아|출격|선보인다)/;
   const matchAction = title.match(actionRegex);
   if (matchAction) {
     let candidate = matchAction[1].trim();
     candidate = candidate.replace(/^[가-힣A-Za-z0-9]+\s*,\s*/, '').trim();
-    candidate = candidate.replace(/^(신제품|신상|가을 신메뉴|겨울 신메뉴|여름 신상|인기)\s+/, '').trim();
-    if (candidate.length >= 2 && !candidate.endsWith('점') && !candidate.endsWith('사') && !candidate.endsWith('일')) {
-      return candidate;
+    candidate = candidate.replace(/^(?:신제품|신상|가을 신메뉴|겨울 신메뉴|여름 신상|인기|단독)\s+/, '').trim();
+    candidate = candidate.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+    
+    const check = isClickbaitOrInvalidName(candidate);
+    if (!check.isInvalid && !candidate.endsWith('점') && !candidate.endsWith('사') && !candidate.endsWith('일')) {
+      return { name: candidate, isValid: true };
     }
   }
 
-  // 4. Description quote fallback
+  // 4. "신제품/신상품/신메뉴 OOO" Pattern in Title
+  const prefixRegex = /(?:신제품|신상품|신메뉴|신상)\s+['‘"“]?([가-힣A-Za-z0-9\s·\-\+]{2,22})['‘"”]?(?:\s|$|,)/;
+  const matchPrefix = title.match(prefixRegex);
+  if (matchPrefix) {
+    let candidate = matchPrefix[1].trim().replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+    const check = isClickbaitOrInvalidName(candidate);
+    if (!check.isInvalid) {
+      return { name: candidate, isValid: true };
+    }
+  }
+
+  // 5. Priority b: Check Quotes in Description
   if (desc) {
     const descQuotes = desc.match(/['‘"“]([^'’”"]{2,30})['’”"]/g);
     if (descQuotes && descQuotes.length > 0) {
       for (const q of descQuotes) {
-        let clean = q.replace(/['‘"“”]/g, '').trim();
-        const invalidWords = ['출시', '신제품', '신상', '이것', '인기', '화제', '단독', '한정'];
-        if (clean.length >= 2 && !invalidWords.includes(clean)) {
-          clean = clean.replace(/(를|을|은|는|이|가|와|과|도)$/, '').trim();
-          if (clean.length >= 2) return clean;
+        let clean = q.replace(/['‘"“”]/g, '').trim().replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+        const check = isClickbaitOrInvalidName(clean);
+        if (!check.isInvalid) {
+          return { name: clean, isValid: true };
         }
+      }
+    }
+
+    // 6. Launch pattern in Description
+    const descActionRegex = /([가-힣A-Za-z0-9\s·\-\+]{2,22})\s*(?:을|를)?\s*(?:출시|선봬|공개|선보여|론칭|내놓았다|선보였다)/;
+    const matchDescAction = desc.match(descActionRegex);
+    if (matchDescAction) {
+      let candidate = matchDescAction[1].trim();
+      candidate = candidate.replace(/^[가-힣A-Za-z0-9]+\s*,\s*/, '').trim();
+      candidate = candidate.replace(/^(?:신제품|신상|가을 신메뉴|겨울 신메뉴|여름 신상|인기|단독)\s+/, '').trim();
+      candidate = candidate.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+      const check = isClickbaitOrInvalidName(candidate);
+      if (!check.isInvalid) {
+        return { name: candidate, isValid: true };
       }
     }
   }
 
-  // 5. Clean Fallback: Strip common words from title
-  let fallback = title
-    .replace(/(출시|선봬|선보여|공개|론칭|인기|화제|대란|단독|한정|포토|사진)/g, '')
-    .replace(/[,\.\?!~]/g, '')
-    .trim();
+  // 7. STRICT FAILURE: Do NOT use raw headline as fallback
+  return {
+    name: '[제품명 확인 필요]',
+    isValid: false,
+    reason: '기사 헤드라인 내 정규 제품명 패턴 미발견 (수동 확인 필요)'
+  };
+};
 
-  if (fallback.length > 22) {
-    fallback = fallback.slice(0, 22).trim();
-  }
+/**
+ * Re-validates a list of pending products against strict product name and price rules
+ */
+export const revalidatePendingProductList = (items: PendingProduct[]): PendingProduct[] => {
+  return items.map(item => {
+    // If already marked as [제품명 확인 필요]
+    if (item.name.startsWith('[제품명 확인 필요]')) {
+      return {
+        ...item,
+        price: item.price > 0 ? item.price : 0,
+        needsReview: true,
+        reviewReason: item.reviewReason || '제품명 확인 필요 (수동 입력)'
+      };
+    }
 
-  return fallback || (detectedBrand ? `${detectedBrand} 신제품` : '편의점 신제품');
+    const check = isClickbaitOrInvalidName(item.name);
+    if (check.isInvalid) {
+      // Attempt re-extraction from description or original name
+      const reExtracted = extractProductName(item.name, item.description || '', item.brand || '');
+      if (reExtracted.isValid) {
+        return {
+          ...item,
+          name: reExtracted.name,
+          needsReview: item.price === 0 ? true : false,
+          reviewReason: item.price === 0 ? '가격 확인 불가 (직접 입력 필요)' : undefined
+        };
+      } else {
+        // Failed to extract clean name
+        const cleanPreview = item.name.replace(/[\?\!~\^…\*\/\@\#\$\%\<\>\{\}\[\]\|]/g, '').slice(0, 18).trim();
+        return {
+          ...item,
+          name: `[제품명 확인 필요] ${cleanPreview || (item.brand ? item.brand + ' 신제품' : '편의점 신제품')}`,
+          price: 0,
+          needsReview: true,
+          reviewReason: `제품명 추출 실패 (${check.reason || '헤드라인 문구 감지'})`
+        };
+      }
+    }
+
+    // Valid name but price is 0
+    if (item.price === 0) {
+      return {
+        ...item,
+        needsReview: true,
+        reviewReason: item.reviewReason || '가격 확인 불가 (직접 입력)'
+      };
+    }
+
+    return item;
+  });
 };
 
 /**
@@ -731,48 +864,56 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
     if (!isFood) continue;
 
     const brand = detectBrand(rawTitle + ' ' + rawDesc);
-    const productName = extractProductName(rawTitle, rawDesc, brand);
+    const extracted = extractProductName(rawTitle, rawDesc, brand);
 
-    if (!productName || productName.length < 2) continue;
-
-    // 2. [요구사항 2] 검색 키워드와의 유사도 검증
-    const similarity = verifyKeywordSimilarity(cleanQ, productName, brand);
-
-    // 중복 검사
-    const normalizedName = productName.replace(/\s+/g, '').toLowerCase();
-    if (seenNames.has(normalizedName)) continue;
-    seenNames.add(normalizedName);
-
-    const category = detectCategory(rawTitle + ' ' + rawDesc + ' ' + productName);
-    const stores = detectStores(rawTitle + ' ' + rawDesc);
-
-    // 3 & 4 & 5. [요구사항 3, 4, 5] 네이버 쇼핑 검색 API로 실제 최저가 및 1순위 대표 이미지 조회
-    const shoppingInfo = await fetchNaverShoppingInfo(brand, productName);
-
+    let productName = '';
     let finalPrice = 0;
     let finalImage = '';
     let needsReview = false;
     let reviewReason = '';
 
-    if (shoppingInfo.isFound && shoppingInfo.price > 0) {
-      finalPrice = shoppingInfo.price;
-      finalImage = shoppingInfo.image;
+    const category = detectCategory(rawTitle + ' ' + rawDesc + ' ' + (extracted.isValid ? extracted.name : ''));
+    const stores = detectStores(rawTitle + ' ' + rawDesc);
+    const categoryImages = HIGH_QUALITY_CATEGORY_IMAGES[category] || HIGH_QUALITY_CATEGORY_IMAGES['간편식'];
+
+    let sourceName = '네이버 공식 신제품 뉴스';
+
+    if (extracted.isValid) {
+      productName = extracted.name;
+
+      // 2. [요구사항 2] 검색 키워드와의 유사도 검증
+      const similarity = verifyKeywordSimilarity(cleanQ, productName, brand);
+      if (!similarity.isMatched) {
+        needsReview = true;
+        reviewReason = similarity.reason || '키워드 유사도 불일치';
+      }
+
+      // 3. [요구사항 3] 추출 성공 시에만 네이버 쇼핑 검색 API 호출
+      const shoppingInfo = await fetchNaverShoppingInfo(brand, productName);
+      if (shoppingInfo.isFound && shoppingInfo.price > 0) {
+        finalPrice = shoppingInfo.price;
+        finalImage = shoppingInfo.image;
+        sourceName = `네이버 쇼핑 (${shoppingInfo.mallName || '최저가 연동'})`;
+      } else {
+        // 쇼핑 검색 결과가 없는 경우: 임의 추정값을 넣지 않고 0원 및 가격 확인 불가 표시
+        finalPrice = 0;
+        needsReview = true;
+        reviewReason = reviewReason ? `${reviewReason} · 가격 확인 불가` : '가격 확인 불가 (네이버 쇼핑 미등록/신규 출시)';
+        finalImage = categoryImages[Math.floor(Math.random() * categoryImages.length)];
+      }
     } else {
-      // 쇼핑 검색 결과가 없는 경우: 임의 추정값을 넣지 않고 0원 및 가격 확인 불가 표시
+      // 3. [요구사항 3] 제품명 추출 실패 항목: 쇼핑 API 호출을 절대 하지 않고 즉시 검증 필요로 격리
+      productName = `[제품명 확인 필요] ${brand ? brand + ' 신제품' : '편의점 신제품'}`;
       finalPrice = 0;
       needsReview = true;
-      reviewReason = '가격 확인 불가 (네이버 쇼핑몰 미등록/신규 출시)';
-      
-      // Fallback Image
-      const categoryImages = HIGH_QUALITY_CATEGORY_IMAGES[category] || HIGH_QUALITY_CATEGORY_IMAGES['간편식'];
+      reviewReason = extracted.reason || '제품명 추출 실패 (헤드라인 낚시성 문구 또는 패턴 미일치)';
       finalImage = categoryImages[Math.floor(Math.random() * categoryImages.length)];
     }
 
-    // 키워드 유사도 불일치 시 검증 필요 표시
-    if (!similarity.isMatched) {
-      needsReview = true;
-      reviewReason = reviewReason ? `${reviewReason} · ${similarity.reason}` : (similarity.reason || '키워드 유사도 불일치');
-    }
+    // 중복 검사
+    const normalizedName = productName.replace(/\s+/g, '').toLowerCase();
+    if (seenNames.has(normalizedName)) continue;
+    seenNames.add(normalizedName);
 
     const refinedDescription = cleanProductDescription(rawDesc, productName, brand, category);
 
@@ -821,7 +962,7 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
       releaseDate: releaseDateStr,
       stores,
       description: refinedDescription,
-      sourceName: shoppingInfo.isFound ? `네이버 쇼핑 (${shoppingInfo.mallName || '최저가 연동'})` : '네이버 공식 신제품 뉴스',
+      sourceName,
       sourceUrl: item.originallink || item.link,
       crawledAt: `${dateStr} ${nowTime}`,
       status: 'pending',

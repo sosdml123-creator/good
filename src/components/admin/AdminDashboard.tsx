@@ -94,6 +94,7 @@ export const AdminDashboard: React.FC = () => {
     revokeApprovedProduct,
     revokeAllApprovedProducts,
     removeDuplicatePending,
+    revalidateAllPending,
     updatePendingProduct,
     clearAllPendingProducts,
     deleteReview,
@@ -1391,6 +1392,16 @@ export const AdminDashboard: React.FC = () => {
                           title="이미 등록된 상품 및 중복 수집된 항목 자동 정리"
                         >
                           <span>⚠️ 중복 항목 자동 정리</span>
+                        </button>
+                        <button
+                          onClick={revalidateAllPending}
+                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 ${
+                            isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-slate-700' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
+                          }`}
+                          title="낚시성 헤드라인 필터링 및 제품명/가격 검증 재수행"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+                          <span>⚡ 대기목록 정제·재검증</span>
                         </button>
                         <button
                           onClick={clearAllPendingProducts}
