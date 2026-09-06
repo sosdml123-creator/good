@@ -220,13 +220,18 @@ export interface UserProfile {
   provider?: 'apple' | 'google' | 'kakao' | 'anonymous';
 }
 
+export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'none';
+
 export interface BannerItem {
   id: string;
   image: string;
-  badge: string;
+  badge?: string;
   title: string;
   subtitle: string;
   buttonText: string;
+  linkType?: BannerLinkType;
+  linkUrl?: string;
+  linkEventId?: string;
   linkCategory?: ProductCategory;
   linkProductId?: string;
   isActive: boolean;

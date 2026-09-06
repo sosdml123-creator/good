@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   BarChart3, 
@@ -33,9 +33,14 @@ import {
   Activity,
   ArrowUpRight,
   Globe,
-  AlertTriangle
+  AlertTriangle,
+  Upload,
+  Image as ImageIcon,
+  Link2,
+  ExternalLink,
+  Gift
 } from 'lucide-react';
-import { ProductCategory, BannerItem, Product, PendingProduct } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -61,6 +66,7 @@ export const AdminDashboard: React.FC = () => {
     battleConfig,
     reviews,
     communityPosts,
+    events,
     addBanner, 
     updateBanner, 
     deleteBanner, 
@@ -202,15 +208,74 @@ export const AdminDashboard: React.FC = () => {
   // Banner modal states
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [editingBannerId, setEditingBannerId] = useState<string | null>(null);
+  const bannerFileInputRef = useRef<HTMLInputElement>(null);
+  const [isCompressingBannerImage, setIsCompressingBannerImage] = useState(false);
+  const [bannerImageMode, setBannerImageMode] = useState<'file' | 'url'>('file');
   const [bannerForm, setBannerForm] = useState<Omit<BannerItem, 'id' | 'order'>>({
     image: '',
-    badge: 'NEW ARRIVAL',
     title: '',
     subtitle: '',
     buttonText: '바로가기',
+    linkType: 'category',
     linkCategory: '신제품',
+    linkUrl: '',
+    linkEventId: '',
+    linkProductId: '',
     isActive: true,
   });
+
+  const handleBannerFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      showToast('이미지 파일만 선택할 수 있습니다.', 'error');
+      return;
+    }
+
+    setIsCompressingBannerImage(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxWidth = 1200;
+          let width = img.width;
+          let height = img.height;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+            setBannerForm(prev => ({ ...prev, image: optimizedDataUrl }));
+            showToast('📸 배너 이미지가 파일에서 적용되었습니다!', 'success');
+          } else {
+            setBannerForm(prev => ({ ...prev, image: event.target?.result as string }));
+          }
+          setIsCompressingBannerImage(false);
+        };
+        img.onerror = () => {
+          setBannerForm(prev => ({ ...prev, image: event.target?.result as string }));
+          setIsCompressingBannerImage(false);
+        };
+        img.src = event.target?.result as string;
+      };
+      reader.onerror = () => {
+        showToast('이미지 파일을 읽는데 실패했습니다.', 'error');
+        setIsCompressingBannerImage(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      showToast('이미지 처리 중 오류가 발생했습니다.', 'error');
+      setIsCompressingBannerImage(false);
+    }
+  };
 
   // Battle tab states
   const [battleTitle, setBattleTitle] = useState(battleConfig.title);
@@ -492,28 +557,44 @@ export const AdminDashboard: React.FC = () => {
   const handleOpenNewBanner = () => {
     setEditingBannerId(null);
     setBannerForm({
-      image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&auto=format&fit=crop&q=80',
-      badge: 'NEW ARRIVAL',
+      image: '',
       title: '',
       subtitle: '',
       buttonText: '신상 보러가기',
+      linkType: 'category',
       linkCategory: '신제품',
+      linkUrl: '',
+      linkEventId: events.length > 0 ? events[0].id : '',
+      linkProductId: products.length > 0 ? products[0].id : '',
       isActive: true,
     });
+    setBannerImageMode('file');
     setIsBannerModalOpen(true);
   };
 
   const handleOpenEditBanner = (banner: BannerItem) => {
     setEditingBannerId(banner.id);
+    let inferredLinkType: BannerLinkType = banner.linkType || 'category';
+    if (!banner.linkType) {
+      if (banner.linkUrl) inferredLinkType = 'url';
+      else if (banner.linkEventId) inferredLinkType = 'event';
+      else if (banner.linkProductId) inferredLinkType = 'product';
+      else if (banner.linkCategory) inferredLinkType = 'category';
+    }
+
     setBannerForm({
-      image: banner.image,
-      badge: banner.badge,
+      image: banner.image || '',
       title: banner.title,
       subtitle: banner.subtitle,
-      buttonText: banner.buttonText,
+      buttonText: banner.buttonText || '바로가기',
+      linkType: inferredLinkType,
       linkCategory: banner.linkCategory || '신제품',
+      linkUrl: banner.linkUrl || '',
+      linkEventId: banner.linkEventId || (events.length > 0 ? events[0].id : ''),
+      linkProductId: banner.linkProductId || (products.length > 0 ? products[0].id : ''),
       isActive: banner.isActive,
     });
+    setBannerImageMode(banner.image?.startsWith('data:') ? 'file' : 'file');
     setIsBannerModalOpen(true);
   };
 
@@ -522,12 +603,30 @@ export const AdminDashboard: React.FC = () => {
       showToast('배너 제목을 입력해주세요.', 'error');
       return;
     }
+    if (!bannerForm.image.trim()) {
+      showToast('배너 이미지 파일을 선택해주세요.', 'error');
+      return;
+    }
+
+    const payload: Omit<BannerItem, 'id' | 'order'> = {
+      image: bannerForm.image,
+      title: bannerForm.title.trim(),
+      subtitle: bannerForm.subtitle.trim(),
+      buttonText: bannerForm.buttonText.trim() || '바로가기',
+      linkType: bannerForm.linkType,
+      linkUrl: bannerForm.linkType === 'url' ? bannerForm.linkUrl?.trim() : undefined,
+      linkEventId: bannerForm.linkType === 'event' ? bannerForm.linkEventId : undefined,
+      linkProductId: bannerForm.linkType === 'product' ? bannerForm.linkProductId : undefined,
+      linkCategory: bannerForm.linkType === 'category' ? bannerForm.linkCategory : undefined,
+      isActive: bannerForm.isActive,
+    };
+
     if (editingBannerId) {
-      updateBanner(editingBannerId, bannerForm);
-      showToast('배너가 수정되었습니다.', 'success');
+      updateBanner(editingBannerId, payload);
+      showToast('배너가 성공적으로 수정되었습니다.', 'success');
     } else {
-      addBanner(bannerForm);
-      showToast('새 배너가 추가되었습니다.', 'success');
+      addBanner(payload);
+      showToast('새 배너가 성공적으로 등록되었습니다.', 'success');
     }
     setIsBannerModalOpen(false);
   };
@@ -2507,8 +2606,18 @@ export const AdminDashboard: React.FC = () => {
                         <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex flex-col justify-between">
                           <div className="flex items-center justify-between">
-                            <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30">
-                              {banner.badge}
+                            <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1">
+                              {banner.linkUrl ? (
+                                <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
+                              ) : banner.linkEventId ? (
+                                <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
+                              ) : banner.linkProductId ? (
+                                <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
+                              ) : banner.linkCategory ? (
+                                <><Layers className="w-3 h-3 text-indigo-300" /><span>카테고리: {banner.linkCategory}</span></>
+                              ) : (
+                                <span>기본 배너</span>
+                              )}
                             </span>
                             <span className="w-6 h-6 rounded-full bg-black/60 text-white font-mono text-xs flex items-center justify-center font-bold">
                               #{index + 1}
@@ -2527,9 +2636,17 @@ export const AdminDashboard: React.FC = () => {
                       {/* Info bar */}
                       <div className="p-4 space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">연결 카테고리</span>
-                          <span className={`font-bold px-2 py-0.5 rounded ${isDark ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-800'}`}>
-                            {banner.linkCategory || '미설정'}
+                          <span className="text-slate-400">연결 대상</span>
+                          <span className={`font-bold px-2 py-0.5 rounded text-[11px] truncate max-w-[190px] ${isDark ? 'bg-slate-800 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
+                            {banner.linkUrl 
+                              ? `🌐 ${banner.linkUrl}`
+                              : banner.linkEventId
+                              ? `🎁 ${events.find(e => e.id === banner.linkEventId)?.title || banner.linkEventId}`
+                              : banner.linkProductId
+                              ? `📦 ${products.find(p => p.id === banner.linkProductId)?.name || banner.linkProductId}`
+                              : banner.linkCategory
+                              ? `🏷️ ${banner.linkCategory}`
+                              : '🚫 연결 없음'}
                           </span>
                         </div>
                         <div className="flex items-center justify-between text-xs">
@@ -3320,60 +3437,249 @@ export const AdminDashboard: React.FC = () => {
               
               {/* Left Form */}
               <div className="space-y-4 text-xs">
+                {/* 1. Title */}
                 <div>
                   <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 메인 제목 *</label>
                   <input
                     type="text"
                     value={bannerForm.title}
                     onChange={e => setBannerForm({ ...bannerForm, title: e.target.value })}
+                    placeholder="예: 꼬북칩 신상 100인 체험단 모집"
                     className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
 
+                {/* 2. Subtitle */}
                 <div>
                   <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">서브 설명 문구</label>
                   <input
                     type="text"
                     value={bannerForm.subtitle}
                     onChange={e => setBannerForm({ ...bannerForm, subtitle: e.target.value })}
+                    placeholder="예: 벨기에산 리얼 초콜릿의 깊고 진한 맛을 가장 먼저 만나보세요"
                     className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상단 뱃지 텍스트</label>
-                    <input
-                      type="text"
-                      value={bannerForm.badge}
-                      onChange={e => setBannerForm({ ...bannerForm, badge: e.target.value })}
-                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                    />
+                {/* 3. Image File Upload (User Request: 파일로 선택하게 해줘) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
+                      <ImageIcon className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>배너 배경 이미지 (파일 선택) *</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setBannerImageMode(prev => prev === 'file' ? 'url' : 'file')}
+                      className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
+                    >
+                      {bannerImageMode === 'file' ? '🔗 웹 URL 직접 입력하기' : '📁 이미지 파일 선택기로 변경'}
+                    </button>
                   </div>
 
+                  <input
+                    type="file"
+                    ref={bannerFileInputRef}
+                    accept="image/*"
+                    onChange={handleBannerFileSelect}
+                    className="hidden"
+                  />
+
+                  {bannerImageMode === 'file' ? (
+                    <div>
+                      {bannerForm.image ? (
+                        <div className={`p-3 rounded-2xl border flex items-center gap-3 ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                          <div className="w-20 h-12 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-300 dark:border-slate-700">
+                            <img src={bannerForm.image} alt="배너 미리보기" className="w-full h-full object-cover" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                              {bannerForm.image.startsWith('data:') ? '📸 파일 이미지 등록 완료' : '🔗 이미지 등록됨'}
+                            </p>
+                            <p className="text-[11px] text-slate-400">
+                              {isCompressingBannerImage ? '⚡ 이미지 압축 처리 중...' : '권장 비율 16:9 규격으로 자동 최적화됨'}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => bannerFileInputRef.current?.click()}
+                              disabled={isCompressingBannerImage}
+                              className="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 transition-colors"
+                            >
+                              파일 변경
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setBannerForm(prev => ({ ...prev, image: '' }))}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => bannerFileInputRef.current?.click()}
+                          className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all hover:border-indigo-500 group ${
+                            isDark ? 'border-slate-800 hover:bg-slate-800/40' : 'border-slate-200 hover:bg-indigo-50/30'
+                          }`}
+                        >
+                          <div className="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400 mx-auto flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            {isCompressingBannerImage ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+                          </div>
+                          <p className="font-bold text-slate-700 dark:text-slate-200 text-xs">
+                            {isCompressingBannerImage ? '이미지 최적화 중입니다...' : '클릭하여 배너 이미지 파일 선택'}
+                          </p>
+                          <p className="text-[11px] text-slate-400 mt-0.5">
+                            JPG, PNG, WEBP 등 지원 (권장 비율 16:9, 자동 압축 최적화)
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      <input
+                        type="text"
+                        value={bannerForm.image}
+                        onChange={e => setBannerForm({ ...bannerForm, image: e.target.value })}
+                        placeholder="https://images.unsplash.com/..."
+                        className={`w-full p-2.5 rounded-xl border font-mono ${inputBg}`}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* 4. Link Target Settings (User Request: 연결되는 이벤트나 주소 설정) */}
+                <div className={`p-4 rounded-2xl border space-y-3 ${isDark ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-50/70 border-slate-200'}`}>
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
+                      <Link2 className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>배너 클릭 시 연결 대상 설정 *</span>
+                    </label>
+                    {/* Link Type Selector Tabs */}
+                    <div className="grid grid-cols-5 gap-1.5 bg-slate-200 dark:bg-slate-800 p-1 rounded-xl">
+                      {[
+                        { type: 'url' as BannerLinkType, label: '웹 주소' },
+                        { type: 'event' as BannerLinkType, label: '이벤트' },
+                        { type: 'product' as BannerLinkType, label: '상품' },
+                        { type: 'category' as BannerLinkType, label: '카테고리' },
+                        { type: 'none' as BannerLinkType, label: '없음' },
+                      ].map(item => (
+                        <button
+                          key={item.type}
+                          type="button"
+                          onClick={() => setBannerForm({ ...bannerForm, linkType: item.type })}
+                          className={`py-1.5 text-[11px] font-bold rounded-lg transition-all ${
+                            (bannerForm.linkType || 'category') === item.type
+                              ? 'bg-white dark:bg-indigo-600 text-slate-900 dark:text-white shadow-xs'
+                              : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                          }`}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Sub-inputs based on linkType */}
+                  {bannerForm.linkType === 'url' && (
+                    <div className="space-y-1 animate-in fade-in">
+                      <label className="block text-[11px] font-medium text-slate-500">
+                        외부 웹사이트 / 프로모션 랜딩 URL (새 창으로 연결)
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="url"
+                          value={bannerForm.linkUrl || ''}
+                          onChange={e => setBannerForm({ ...bannerForm, linkUrl: e.target.value })}
+                          placeholder="https://example.com/event"
+                          className={`w-full p-2.5 rounded-xl border pl-8 font-mono ${inputBg}`}
+                        />
+                        <ExternalLink className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-3" />
+                      </div>
+                    </div>
+                  )}
+
+                  {bannerForm.linkType === 'event' && (
+                    <div className="space-y-1 animate-in fade-in">
+                      <label className="block text-[11px] font-medium text-slate-500">
+                        연결할 프로모션 / 체험단 이벤트 선택 (상세 팝업 실행)
+                      </label>
+                      {events.length > 0 ? (
+                        <select
+                          value={bannerForm.linkEventId || events[0]?.id}
+                          onChange={e => setBannerForm({ ...bannerForm, linkEventId: e.target.value })}
+                          className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                        >
+                          {events.map(ev => (
+                            <option key={ev.id} value={ev.id}>
+                              [{ev.category}] {ev.title} ({ev.dDay || '진행중'})
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <p className="text-xs text-amber-500 font-medium p-2 bg-amber-50 dark:bg-amber-950/30 rounded-xl">
+                          현재 등록된 진행 중 이벤트가 없습니다. 먼저 이벤트를 등록해주세요.
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {bannerForm.linkType === 'product' && (
+                    <div className="space-y-1 animate-in fade-in">
+                      <label className="block text-[11px] font-medium text-slate-500">
+                        연결할 신상품 선택 (상품 상세 팝업 실행)
+                      </label>
+                      <select
+                        value={bannerForm.linkProductId || products[0]?.id}
+                        onChange={e => setBannerForm({ ...bannerForm, linkProductId: e.target.value })}
+                        className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                      >
+                        {products.slice(0, 100).map(p => (
+                          <option key={p.id} value={p.id}>
+                            [{p.category}] {p.brand} - {p.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {(bannerForm.linkType === 'category' || !bannerForm.linkType) && (
+                    <div className="space-y-1 animate-in fade-in">
+                      <label className="block text-[11px] font-medium text-slate-500">
+                        이동할 식품 카테고리 탭 선택
+                      </label>
+                      <select
+                        value={bannerForm.linkCategory || '신제품'}
+                        onChange={e => setBannerForm({ ...bannerForm, linkCategory: e.target.value as ProductCategory })}
+                        className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                      >
+                        {CATEGORIES.map(c => (
+                          <option key={c} value={c}>{c}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {bannerForm.linkType === 'none' && (
+                    <p className="text-[11px] text-slate-400 p-2 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                      배너 클릭 시 별도 이동 없이 순수 이미지 노출만 진행됩니다.
+                    </p>
+                  )}
+                </div>
+
+                {/* 5. Button text & Active toggle */}
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">버튼 문구</label>
                     <input
                       type="text"
                       value={bannerForm.buttonText}
                       onChange={e => setBannerForm({ ...bannerForm, buttonText: e.target.value })}
+                      placeholder="예: 바로가기, 참여하기"
                       className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                     />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">클릭 시 이동 카테고리</label>
-                    <select
-                      value={bannerForm.linkCategory}
-                      onChange={e => setBannerForm({ ...bannerForm, linkCategory: e.target.value as ProductCategory })}
-                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                    >
-                      {CATEGORIES.map(c => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </select>
                   </div>
 
                   <div className="flex items-center pt-5">
@@ -3388,37 +3694,51 @@ export const AdminDashboard: React.FC = () => {
                     </label>
                   </div>
                 </div>
-
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 배경 이미지 URL *</label>
-                  <input
-                    type="text"
-                    value={bannerForm.image}
-                    onChange={e => setBannerForm({ ...bannerForm, image: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border font-mono ${inputBg}`}
-                  />
-                </div>
               </div>
 
-              {/* Right: Live Banner Preview */}
-              <div className="space-y-2">
-                <span className="text-xs font-black text-slate-500">모바일 홈 캐러셀 미리보기</span>
-                <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-sm">
-                  <img src={bannerForm.image} alt="배너 미리보기" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-between">
-                    <div>
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30">
-                        {bannerForm.badge || '뱃지 텍스트'}
-                      </span>
+              {/* Right: Live Banner Preview (Badge Removed) */}
+              <div className="space-y-3">
+                <span className="text-xs font-black text-slate-500">모바일 홈 캐러셀 실시간 미리보기 (상단 뱃지 제외)</span>
+                <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-sm group">
+                  {bannerForm.image ? (
+                    <img src={bannerForm.image} alt="배너 미리보기" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 gap-2">
+                      <ImageIcon className="w-8 h-8 opacity-40" />
+                      <span className="text-xs">이미지 파일을 선택해주세요</span>
                     </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
                     <div>
-                      <h3 className="text-base font-black text-white leading-tight">{bannerForm.title || '배너 제목'}</h3>
-                      <p className="text-xs text-slate-300 mt-1">{bannerForm.subtitle || '서브 설명'}</p>
-                      <span className="inline-block mt-3 px-3.5 py-1.5 rounded-lg bg-indigo-600 text-white text-[11px] font-bold shadow-xs">
-                        {bannerForm.buttonText || '바로가기'} →
+                      <h3 className="text-base font-black text-white leading-tight">{bannerForm.title || '배너 메인 제목이 표시됩니다'}</h3>
+                      <p className="text-xs text-slate-300 mt-1">{bannerForm.subtitle || '서브 설명 문구가 표시됩니다'}</p>
+                      <span className="inline-flex items-center gap-1 mt-3 px-3.5 py-1.5 rounded-lg bg-indigo-600 text-white text-[11px] font-bold shadow-xs">
+                        <span>{bannerForm.buttonText || '바로가기'}</span>
+                        <ChevronRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
+                </div>
+
+                {/* Target info box */}
+                <div className={`p-3 rounded-xl border text-xs space-y-1 ${isDark ? 'bg-slate-900/60 border-slate-800 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
+                  <div className="flex items-center justify-between font-medium">
+                    <span className="text-slate-400">배너 탭 시 이동 대상</span>
+                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                      {bannerForm.linkType === 'url' ? '🌐 외부 웹 링크' :
+                       bannerForm.linkType === 'event' ? '🎁 이벤트 상세' :
+                       bannerForm.linkType === 'product' ? '📦 상품 상세' :
+                       bannerForm.linkType === 'none' ? '🚫 연결 없음' :
+                       '🏷️ 카테고리 탭'}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 truncate">
+                    {bannerForm.linkType === 'url' ? (bannerForm.linkUrl || '(URL 미입력)') :
+                     bannerForm.linkType === 'event' ? (events.find(e => e.id === bannerForm.linkEventId)?.title || bannerForm.linkEventId || '선택된 이벤트 없음') :
+                     bannerForm.linkType === 'product' ? (products.find(p => p.id === bannerForm.linkProductId)?.name || bannerForm.linkProductId || '선택된 상품 없음') :
+                     bannerForm.linkType === 'none' ? '배너 탭 시 이동하지 않습니다' :
+                     `카테고리: ${bannerForm.linkCategory || '신제품'}`}
+                  </p>
                 </div>
               </div>
 

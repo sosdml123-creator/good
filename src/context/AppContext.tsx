@@ -42,6 +42,7 @@ import {
   DBPostComment
 } from '../services/supabase';
 import { getSearchInfluxCount } from '../utils/ranking';
+import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
 
 interface AppContextType {
   products: Product[];
@@ -197,15 +198,28 @@ const createInitialUser = (): UserProfile => {
 };
 
 // Converters from DB types to App types
-const mapDBProductToProduct = (dbP: DBProduct): Product => ({
-  id: dbP.id,
-  name: dbP.name,
-  brand: dbP.brand,
-  category: dbP.category as ProductCategory,
-  subCategory: dbP.sub_category,
-  itemType: dbP.item_type,
-  image: dbP.image,
-  releaseDate: dbP.release_date || '',
+const mapDBProductToProduct = (dbP: DBProduct): Product => {
+  const isAgri = isAgriMarineProduct({
+    id: dbP.id,
+    name: dbP.name,
+    category: dbP.category,
+    subCategory: dbP.sub_category,
+    itemType: dbP.item_type,
+  });
+  const rawImage = dbP.image;
+  const image = isAgri && (!rawImage || rawImage.includes('unsplash') || !rawImage.startsWith('data:image/svg+xml'))
+    ? getProductIllustration({ id: dbP.id, name: dbP.name, category: dbP.category, subCategory: dbP.sub_category, itemType: dbP.item_type })
+    : (rawImage || '');
+
+  return {
+    id: dbP.id,
+    name: dbP.name,
+    brand: dbP.brand,
+    category: dbP.category as ProductCategory,
+    subCategory: dbP.sub_category,
+    itemType: dbP.item_type,
+    image,
+    releaseDate: dbP.release_date || '',
   price: dbP.price,
   discountRate: dbP.discount_rate,
   overallRating: Number(dbP.overall_rating) || 0,
@@ -232,7 +246,8 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => ({
   precautions: dbP.precautions,
   storeStocks: dbP.store_stocks,
   searchInfluxCount: (dbP as any).search_influx_count || undefined,
-});
+  };
+};
 
 const mapDBReviewToReview = (dbR: DBReview, isLiked: boolean, comments: ReviewComment[]): Review => ({
   id: dbR.id,
@@ -271,7 +286,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v5_20260905_search_influx_ranking';
+const DATA_VERSION = 'v6_20260906_fresh_produce_illustrations';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -516,6 +531,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             return {
               ...initial,
               ...mapped,
+              image: isAgriMarineProduct(initial) ? initial.image : (mapped.image || initial.image),
               nutrition: mapped.nutrition || initial.nutrition,
               ingredients: mapped.ingredients || initial.ingredients,
               allergens: mapped.allergens || initial.allergens,
@@ -1450,14 +1466,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Add Product
   const addProduct = (productData: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => {
+    const isAgri = isAgriMarineProduct(productData);
+    const rawImage = productData.image;
+    const finalImage = isAgri && (!rawImage || rawImage.includes('unsplash') || !rawImage.startsWith('data:image/svg+xml'))
+      ? getProductIllustration(productData)
+      : (rawImage || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80');
+
     const newProduct: Product = {
       id: 'prod-' + Date.now(),
       name: productData.name,
       brand: productData.brand,
       category: productData.category,
       subCategory: productData.subCategory,
-      itemType: productData.itemType || 'packaged',
-      image: productData.image || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
+      itemType: productData.itemType || (isAgri ? 'fresh' : 'packaged'),
+      image: finalImage,
       releaseDate: productData.releaseDate || new Date().toLocaleDateString('ko-KR') + ' 출시',
       price: productData.price || 0,
       discountRate: productData.discountRate || 0,
@@ -1586,14 +1608,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const pendingItem = pendingProducts.find(p => p.id === pendingId);
     if (!pendingItem) return;
 
+    const isAgri = isAgriMarineProduct({
+      name: customData?.name || pendingItem.name,
+      category: customData?.category || pendingItem.category,
+      subCategory: customData?.subCategory || pendingItem.subCategory,
+      itemType: customData?.itemType || pendingItem.itemType,
+    });
+    const rawImg = customData?.image || pendingItem.image;
+    const finalImg = isAgri && (!rawImg || rawImg.includes('unsplash') || !rawImg.startsWith('data:image/svg+xml'))
+      ? getProductIllustration({
+          name: customData?.name || pendingItem.name,
+          category: customData?.category || pendingItem.category,
+          subCategory: customData?.subCategory || pendingItem.subCategory,
+          itemType: customData?.itemType || pendingItem.itemType,
+        })
+      : (rawImg || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80');
+
     const newProduct: Product = {
       id: `prod-appr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       name: customData?.name || pendingItem.name,
       brand: customData?.brand || pendingItem.brand,
       category: customData?.category || pendingItem.category,
       subCategory: customData?.subCategory || pendingItem.subCategory,
-      itemType: customData?.itemType || pendingItem.itemType || 'packaged',
-      image: customData?.image || pendingItem.image,
+      itemType: customData?.itemType || pendingItem.itemType || (isAgri ? 'fresh' : 'packaged'),
+      image: finalImg,
       releaseDate: customData?.releaseDate || pendingItem.releaseDate || new Date().toLocaleDateString('ko-KR') + ' 출시',
       price: customData?.price !== undefined ? customData.price : pendingItem.price,
       discountRate: customData?.discountRate ?? pendingItem.discountRate ?? 0,
@@ -1668,14 +1706,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return;
     }
 
-    const approvedList: Product[] = pendingList.map((item, idx) => ({
-      id: `prod-bulk-${Date.now()}-${idx}`,
-      name: item.name,
-      brand: item.brand,
-      category: item.category,
-      subCategory: item.subCategory,
-      itemType: item.itemType || 'packaged',
-      image: item.image,
+    const approvedList: Product[] = pendingList.map((item, idx) => {
+      const isAgri = isAgriMarineProduct(item);
+      const rawImg = item.image;
+      const finalImg = isAgri && (!rawImg || rawImg.includes('unsplash') || !rawImg.startsWith('data:image/svg+xml'))
+        ? getProductIllustration(item)
+        : (rawImg || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80');
+
+      return {
+        id: `prod-bulk-${Date.now()}-${idx}`,
+        name: item.name,
+        brand: item.brand,
+        category: item.category,
+        subCategory: item.subCategory,
+        itemType: item.itemType || (isAgri ? 'fresh' : 'packaged'),
+        image: finalImg,
       releaseDate: item.releaseDate,
       price: item.price,
       discountRate: item.discountRate || 0,
@@ -1705,7 +1750,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         eventBadge: '신규입고',
         deliveryTime: '매장 즉시 픽업'
       })),
-    }));
+    };
+  });
 
     setProducts(prev => [...approvedList, ...prev]);
     setPendingProducts([]);

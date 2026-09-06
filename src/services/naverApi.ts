@@ -1,4 +1,18 @@
 import { PendingProduct, ProductCategory } from '../types';
+import {
+  ILLUSTRATION_PEACH,
+  ILLUSTRATION_WATERMELON,
+  ILLUSTRATION_APPLE,
+  ILLUSTRATION_STRAWBERRY,
+  ILLUSTRATION_CITRUS,
+  ILLUSTRATION_BEEF,
+  ILLUSTRATION_PORK,
+  ILLUSTRATION_CHICKEN,
+  ILLUSTRATION_SALMON,
+  ILLUSTRATION_SHRIMP,
+  ILLUSTRATION_EGG,
+  ILLUSTRATION_TOFU,
+} from '../utils/productIllustrations';
 
 export interface NaverSearchItem {
   title: string;
@@ -163,13 +177,22 @@ const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
     'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=800&auto=format&fit=crop&q=80'  // 스낵
   ],
   '과일': [
-    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
+    ILLUSTRATION_PEACH,
+    ILLUSTRATION_WATERMELON,
+    ILLUSTRATION_APPLE,
+    ILLUSTRATION_STRAWBERRY,
+    ILLUSTRATION_CITRUS
   ],
   '식재료': [
-    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
+    ILLUSTRATION_EGG,
+    ILLUSTRATION_TOFU
   ],
   '고기·수산': [
-    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
+    ILLUSTRATION_BEEF,
+    ILLUSTRATION_PORK,
+    ILLUSTRATION_CHICKEN,
+    ILLUSTRATION_SALMON,
+    ILLUSTRATION_SHRIMP
   ],
   '기타': [
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'

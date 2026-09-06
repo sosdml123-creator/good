@@ -93,42 +93,68 @@ export const HomeView: React.FC = () => {
     setActiveTab('category');
   };
 
-  const handleBannerButtonClick = () => {
+  const handleBannerClick = () => {
+    // 1. 외부 URL 웹링크
+    if (currentBanner.linkUrl && currentBanner.linkUrl.trim()) {
+      const rawUrl = currentBanner.linkUrl.trim();
+      const targetUrl = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`;
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // 2. 이벤트 연결
+    if (currentBanner.linkEventId) {
+      openEventDetail(currentBanner.linkEventId);
+      return;
+    }
+
+    // 3. 상품 연결
+    if (currentBanner.linkProductId) {
+      openProductDetail(currentBanner.linkProductId);
+      return;
+    }
+
+    // 4. 카테고리 이동
     if (currentBanner.linkCategory) {
       setSelectedCategory(currentBanner.linkCategory);
       setActiveTab('category');
-    } else if (currentBanner.linkProductId) {
-      openProductDetail(currentBanner.linkProductId);
-    } else {
-      setSelectedCategory('전체');
-      setActiveTab('category');
+      return;
     }
+
+    // 5. 기본: 전체 카테고리 탐색
+    setSelectedCategory('전체');
+    setActiveTab('category');
   };
 
   return (
     <div className="pb-12 bg-[#F5F5F5] min-h-full">
       
       {/* 1. Main Banner (Dynamic from Admin) */}
-      <div className="relative bg-gray-900 overflow-hidden" style={{ height: '220px' }}>
+      <div 
+        onClick={handleBannerClick}
+        className="relative bg-gray-900 overflow-hidden cursor-pointer select-none group" 
+        style={{ height: '220px' }}
+      >
         <img
           src={currentBanner.image}
           alt={currentBanner.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 transition-all duration-500"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <span className="text-xs font-bold text-white bg-[#0066FF] px-2 py-0.5 rounded shadow-xs">
-            {currentBanner.badge}
-          </span>
-          <div className="text-white font-black text-xl mt-1.5 leading-tight">
+          <div className="text-white font-black text-xl leading-tight">
             {currentBanner.title}<br />
             <span className="font-semibold text-base opacity-90">{currentBanner.subtitle}</span>
           </div>
           <button
-            onClick={handleBannerButtonClick}
-            className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleBannerClick();
+            }}
+            className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1"
           >
-            {currentBanner.buttonText || '자세히 보기'}
+            <span>{currentBanner.buttonText || '자세히 보기'}</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
         {/* Dots */}
@@ -137,7 +163,10 @@ export const HomeView: React.FC = () => {
             {activeBanners.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrentBannerIdx(i)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentBannerIdx(i);
+                }}
                 className={`h-1 rounded-full transition-all ${
                   i === currentBannerIdx ? 'w-4 bg-white' : 'w-1 bg-white/50'
                 }`}
