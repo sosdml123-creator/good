@@ -1,7 +1,7 @@
 /**
- * Vercel Serverless Function Proxy for NAVER Cloud Platform (NAVER API HUB)
+ * Vercel Serverless Function Proxy for NAVER Cloud Platform (NAVER API HUB) & NAVER Open API
  * Handles:
- * 1. Search APIs: GET /api/naver?type=news|image|blog&query=...&sort=...&display=...
+ * 1. Search APIs: GET /api/naver?type=news|image|blog|shop&query=...&sort=...&display=...
  * 2. DataLab Shopping Insight APIs: POST /api/naver?type=datalab_categories|datalab_keywords|datalab_age|datalab_gender
  */
 export default async function handler(req, res) {
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const clientId = process.env.NAVER_CLIENT_ID || process.env.VITE_NAVER_CLIENT_ID || 'ha89ylxb53';
   const clientSecret = process.env.NAVER_CLIENT_SECRET || process.env.VITE_NAVER_CLIENT_SECRET || '4hm7znMnOmGyvtw2xnvEjTWoRG1UZeLqlccI7b4p';
 
-  const { type = 'news', query = '', sort = 'date', display = '10', start = '1' } = req.query;
+  const { type = 'news', query = '', sort = 'sim', display = '10', start = '1' } = req.query;
 
   try {
     // 1. DataLab Shopping Insight APIs (POST)
@@ -34,7 +34,6 @@ export default async function handler(req, res) {
       }
 
       const datalabUrl = `https://naverapihub.apigw.ntruss.com/datalab/v1/shopping/${endpoint}`;
-      
       const bodyPayload = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
 
       const response = await fetch(datalabUrl, {
@@ -51,20 +50,34 @@ export default async function handler(req, res) {
       return res.status(response.status).json(data);
     }
 
-    // 2. NAVER Search APIs (GET: news, image, blog)
+    // 2. NAVER Search APIs (GET: news, image, blog, shop)
     if (!query) {
       return res.status(400).json({ error: 'query parameter is required' });
     }
 
-    const naverUrl = `https://naverapihub.apigw.ntruss.com/search/v1/${type}?query=${encodeURIComponent(String(query))}&display=${display}&start=${start}${sort ? `&sort=${sort}` : ''}`;
+    // Attempt NAVER API HUB first
+    const searchType = type === 'shop' ? 'shop' : type;
+    const naverHubUrl = `https://naverapihub.apigw.ntruss.com/search/v1/${searchType}?query=${encodeURIComponent(String(query))}&display=${display}&start=${start}${sort ? `&sort=${sort}` : ''}`;
 
-    const response = await fetch(naverUrl, {
+    let response = await fetch(naverHubUrl, {
       method: 'GET',
       headers: {
         'X-NCP-APIGW-API-KEY-ID': clientId,
         'X-NCP-APIGW-API-KEY': clientSecret
       }
     });
+
+    // If API Hub returned 404 or unsupported endpoint, fallback to Open API
+    if (!response.ok && (response.status === 404 || response.status === 401)) {
+      const openApiUrl = `https://openapi.naver.com/v1/search/${searchType}.json?query=${encodeURIComponent(String(query))}&display=${display}&start=${start}${sort ? `&sort=${sort}` : ''}`;
+      response = await fetch(openApiUrl, {
+        method: 'GET',
+        headers: {
+          'X-Naver-Client-Id': clientId,
+          'X-Naver-Client-Secret': clientSecret
+        }
+      });
+    }
 
     const data = await response.json();
     return res.status(response.status).json(data);

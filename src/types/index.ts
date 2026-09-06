@@ -318,5 +318,7 @@ export interface PendingProduct {
   storeStocks?: StoreStockItem[];
   bestQuotes?: string[];
   reviewedAt?: string;
+  needsReview?: boolean; // ⚠️ 검증 필요 상태 (쇼핑 API 가격/이미지 미매칭 또는 유사도 낮음)
+  reviewReason?: string; // 검증 필요 사유 (e.g. "가격 확인 불가", "키워드 유사도 불일치", "쇼핑몰 미등록")
 }
 

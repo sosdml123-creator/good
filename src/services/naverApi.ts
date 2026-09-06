@@ -9,6 +9,19 @@ export interface NaverSearchItem {
   thumbnail?: string;
   sizeheight?: string;
   sizewidth?: string;
+  // Shopping API fields
+  lprice?: string;
+  hprice?: string;
+  mallName?: string;
+  productId?: string;
+  productType?: string;
+  brand?: string;
+  maker?: string;
+  category1?: string;
+  category2?: string;
+  category3?: string;
+  category4?: string;
+  image?: string;
 }
 
 export interface NaverSearchResponse {
@@ -115,17 +128,6 @@ const EXCLUDE_KEYWORDS = [
   '영업이익', '매출액', '목표주가', '배당금', '특허', '업무협약'
 ];
 
-// 언론사 워터마크가 찍히는 대표적 뉴스 도메인/패턴 (이들 URL은 우선순위에서 제외하거나 필터링)
-const WATERMARKED_NEWS_DOMAINS = [
-  'yna.co.kr', 'yonhapnews', 'newsis', 'news1.kr', 'chosun.com', 'donga.com',
-  'joins.com', 'sedaily.com', 'hankyung.com', 'heraldcorp.com', 'etoday.co.kr',
-  'newspim.com', 'asiae.co.kr', 'fnnews.com', 'nocutnews.co.kr', 'ytn.co.kr',
-  'sbs.co.kr', 'kbs.co.kr', 'mbc.co.kr', 'munhwa.com', 'khan.co.kr', 'seoul.co.kr',
-  'kmib.co.kr', 'isplus.com', 'sportsworldi.com', 'sportschosun.com', 'osen.co.kr',
-  'xportsnews.com', 'mydaily.co.kr', 'stoo.com', 'joynews24.com', 'inews24.com',
-  'edaily.co.kr', 'mt.co.kr', 'moneys.co.kr', 'newsfreezone', 'wikitree'
-];
-
 // 카테고리별 고화질 클린 패키지/푸드 대표 이미지 풀 (워터마크 없는 깔끔한 이미지 대체용)
 const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
   '신제품': [
@@ -175,6 +177,57 @@ const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
   '전체': [
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
   ]
+};
+
+/**
+ * Check if the news publication date is within the allowed recent window (default: max 3 days)
+ */
+export const isRecentNewsArticle = (pubDateStr?: string, maxDaysAgo: number = 3): boolean => {
+  if (!pubDateStr) return false;
+  const pubTime = new Date(pubDateStr).getTime();
+  if (isNaN(pubTime)) return false;
+
+  const now = Date.now();
+  const diffDays = (now - pubTime) / (1000 * 60 * 60 * 24);
+  // Must be recent (between 0 and maxDaysAgo)
+  return diffDays >= -0.5 && diffDays <= maxDaysAgo;
+};
+
+/**
+ * Verify keyword similarity between search query / brand and extracted product name
+ */
+export const verifyKeywordSimilarity = (
+  searchKeyword: string,
+  productName: string,
+  brand: string
+): { isMatched: boolean; reason?: string } => {
+  const normProduct = productName.replace(/\s+/g, '').toLowerCase();
+  const normBrand = brand.replace(/\s+/g, '').toLowerCase();
+  const normKeyword = searchKeyword
+    .replace(/(신제품|신상|출시|편의점|디저트|라면|과자|음료)/g, '')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+
+  // 1. If keyword had specific terms (e.g. '투움바', '밤티라미수', '비쵸비')
+  if (normKeyword.length >= 2) {
+    const isKeywordContained = normProduct.includes(normKeyword) || normKeyword.includes(normProduct);
+    if (!isKeywordContained && !normProduct.includes(normBrand)) {
+      return {
+        isMatched: false,
+        reason: `검색어 '${searchKeyword}'와 추출 제품명 '${productName}' 간 연관성 낮음`
+      };
+    }
+  }
+
+  // 2. Minimum product name validity check
+  if (normProduct.length < 2 || ['신제품', '신상품', '인기상품', '단독출시'].includes(normProduct)) {
+    return {
+      isMatched: false,
+      reason: '제품명이 일반 수식어로만 추출됨 (수동 확인 필요)'
+    };
+  }
+
+  return { isMatched: true };
 };
 
 /**
@@ -270,7 +323,7 @@ export const extractProductName = (rawTitle: string, rawDesc: string = '', detec
       const invalidWords = [
         '출시', '신제품', '신상', '이것', '인기', '화제', '대박', '단독', '한정', '오픈', 
         '판매', '시작', '선봬', '공개', '선보여', '추천', '리뷰', '후기', '이벤트', '맛', 
-        '역대급', '매진', '품절', '대란'
+        '역대급', '매진', '품절', '대란', '할인', '행사'
       ];
       if (clean.length >= 2 && !invalidWords.includes(clean)) {
         clean = clean.replace(/(를|을|은|는|이|가|와|과|도)$/, '').trim();
@@ -406,31 +459,10 @@ export const generateCleanProductDescription = (
 };
 
 /**
- * Extract realistic price from text or category default
- */
-export const extractPrice = (text: string, category: ProductCategory): number => {
-  const priceMatch = text.match(/(\d{1,2}[,\d]{3})\s*원/);
-  if (priceMatch) {
-    const parsed = parseInt(priceMatch[1].replace(/,/g, ''), 10);
-    if (parsed >= 500 && parsed <= 50000) return parsed;
-  }
-
-  switch (category) {
-    case '과자': return 1800;
-    case '음료': return 2200;
-    case '빵·디저트': return 3400;
-    case '간편식': return 4800;
-    case '과일': return 6500;
-    case '고기·수산': return 7900;
-    default: return 2500;
-  }
-};
-
-/**
  * Call Naver API via proxy endpoint (/api/naver)
  */
 export const callNaverApi = async (
-  type: 'news' | 'image' | 'blog',
+  type: 'news' | 'image' | 'blog' | 'shop',
   query: string,
   sort: string = 'date',
   display: number = 10
@@ -531,7 +563,6 @@ export const fetchFoodKeywordShoppingTrends = async (
  * Get Realtime Trending Food Keywords curated with DataLab Shopping Insight
  */
 export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeywordInsight[]> => {
-  // Candidate trending food keywords across all convenience/snack sectors
   const candidateKeywords = [
     { name: '신라면 툼바', param: ['신라면 툼바', '신라면투움바'], category: '간편식' as ProductCategory, brand: '농심' },
     { name: '밤티라미수', param: ['밤티라미수', '밤 티라미수', '연세우유 밤티라미수'], category: '빵·디저트' as ProductCategory, brand: '연세유업' },
@@ -570,7 +601,6 @@ export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeyw
     console.warn('[Shopping Insight Trending Fetch Fallback]', err);
   }
 
-  // Fallback curated DataLab ranking
   return [
     { rank: 1, keyword: '신라면 툼바 큰사발면', category: '간편식', score: 98, growthRate: '+215%', isHot: true, relatedBrand: '농심' },
     { rank: 2, keyword: '연세우유 밤티라미수 생크림빵', category: '빵·디저트', score: 95, growthRate: '+190%', isHot: true, relatedBrand: '연세유업' },
@@ -584,43 +614,59 @@ export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeyw
 };
 
 /**
- * Filter out watermarked news photos and find high quality product packaging/food image
+ * Query NAVER Shopping Search API (openapi.naver.com / shop endpoint)
+ * Returns the exact lowest price (lprice) and official clean product packaging image
  */
-export const fetchCleanProductImage = async (
-  brand: string, 
-  productName: string, 
-  category: ProductCategory
-): Promise<string> => {
+export const fetchNaverShoppingInfo = async (
+  brand: string,
+  productName: string
+): Promise<{
+  price: number;
+  image: string;
+  isFound: boolean;
+  mallName?: string;
+}> => {
   try {
-    const query = `${brand} ${productName} 패키지`;
-    const imgRes = await callNaverApi('image', query, 'sim', 10);
+    const shopQuery = `${brand} ${productName}`.trim();
+    const shopRes = await callNaverApi('shop', shopQuery, 'sim', 5);
 
-    if (imgRes.items && imgRes.items.length > 0) {
-      const cleanImg = imgRes.items.find(item => {
-        const url = (item.link || item.thumbnail || '').toLowerCase();
-        const isWatermarked = WATERMARKED_NEWS_DOMAINS.some(domain => url.includes(domain));
-        return !isWatermarked && url.startsWith('http');
-      });
+    if (shopRes.items && shopRes.items.length > 0) {
+      // Find the most relevant matching shopping product item
+      const normProd = productName.replace(/\s+/g, '').toLowerCase();
+      const matched = shopRes.items.find(item => {
+        const itemTitle = cleanHtml(item.title).replace(/\s+/g, '').toLowerCase();
+        return itemTitle.includes(normProd) || normProd.includes(itemTitle);
+      }) || shopRes.items[0];
 
-      if (cleanImg) {
-        return cleanImg.link || cleanImg.thumbnail || '';
-      }
+      if (matched) {
+        const parsedPrice = matched.lprice ? parseInt(matched.lprice, 10) : 0;
+        const cleanImage = matched.image || '';
 
-      if (imgRes.items[0]) {
-        return imgRes.items[0].link || imgRes.items[0].thumbnail || '';
+        if (parsedPrice > 0 && cleanImage) {
+          return {
+            price: parsedPrice,
+            image: cleanImage,
+            isFound: true,
+            mallName: matched.mallName || '네이버쇼핑'
+          };
+        }
       }
     }
-  } catch (e) {
-    console.warn('[Image Search Warning]', productName, e);
+  } catch (err) {
+    console.warn('[Naver Shopping Search API Error]', brand, productName, err);
   }
 
-  const fallbackList = HIGH_QUALITY_CATEGORY_IMAGES[category] || HIGH_QUALITY_CATEGORY_IMAGES['간편식'];
-  const randomIndex = Math.floor(Math.random() * fallbackList.length);
-  return fallbackList[randomIndex] || HIGH_QUALITY_CATEGORY_IMAGES['신제품'][0];
+  return {
+    price: 0,
+    image: '',
+    isFound: false
+  };
 };
 
 /**
- * Search real new products using Naver News + Image + Blog APIs with full noise & watermark filtering
+ * Search real new products using Naver News (Filtered by pubDate <= 3 days)
+ * + Naver Shopping Search API (Exact Price & Official Clean Image)
+ * + Naver Blog (Consumer Quotes)
  */
 export const searchRealNewProducts = async (keyword: string): Promise<PendingProduct[]> => {
   const cleanQ = keyword.trim();
@@ -630,6 +676,7 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
 
   let newsRes: NaverSearchResponse;
   try {
+    // Call news API sorted by date (최신순)
     newsRes = await callNaverApi('news', searchKeywords, 'date', 20);
   } catch (err) {
     console.error('Failed to fetch Naver news:', err);
@@ -643,6 +690,12 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
   const nowTime = new Date().toTimeString().split(' ')[0].substring(0, 5);
 
   for (const item of items) {
+    // 1. [요구사항 1] 날짜 필터링: 최근 3일 이내에 발행된 최신 기사만 통과
+    const isRecent = isRecentNewsArticle(item.pubDate, 3);
+    if (!isRecent) {
+      continue; // 오래된 기사는 엄격히 제외
+    }
+
     const rawTitle = cleanHtml(item.title);
     const rawDesc = cleanHtml(item.description || '');
 
@@ -659,21 +712,51 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
 
     if (!productName || productName.length < 2) continue;
 
+    // 2. [요구사항 2] 검색 키워드와의 유사도 검증
+    const similarity = verifyKeywordSimilarity(cleanQ, productName, brand);
+
+    // 중복 검사
     const normalizedName = productName.replace(/\s+/g, '').toLowerCase();
     if (seenNames.has(normalizedName)) continue;
     seenNames.add(normalizedName);
 
     const category = detectCategory(rawTitle + ' ' + rawDesc + ' ' + productName);
     const stores = detectStores(rawTitle + ' ' + rawDesc);
-    const price = extractPrice(rawTitle + ' ' + rawDesc, category);
 
-    const imageUrl = await fetchCleanProductImage(brand, productName, category);
+    // 3 & 4 & 5. [요구사항 3, 4, 5] 네이버 쇼핑 검색 API로 실제 최저가 및 1순위 대표 이미지 조회
+    const shoppingInfo = await fetchNaverShoppingInfo(brand, productName);
+
+    let finalPrice = 0;
+    let finalImage = '';
+    let needsReview = false;
+    let reviewReason = '';
+
+    if (shoppingInfo.isFound && shoppingInfo.price > 0) {
+      finalPrice = shoppingInfo.price;
+      finalImage = shoppingInfo.image;
+    } else {
+      // 쇼핑 검색 결과가 없는 경우: 임의 추정값을 넣지 않고 0원 및 가격 확인 불가 표시
+      finalPrice = 0;
+      needsReview = true;
+      reviewReason = '가격 확인 불가 (네이버 쇼핑몰 미등록/신규 출시)';
+      
+      // Fallback Image
+      const categoryImages = HIGH_QUALITY_CATEGORY_IMAGES[category] || HIGH_QUALITY_CATEGORY_IMAGES['간편식'];
+      finalImage = categoryImages[Math.floor(Math.random() * categoryImages.length)];
+    }
+
+    // 키워드 유사도 불일치 시 검증 필요 표시
+    if (!similarity.isMatched) {
+      needsReview = true;
+      reviewReason = reviewReason ? `${reviewReason} · ${similarity.reason}` : (similarity.reason || '키워드 유사도 불일치');
+    }
+
     const refinedDescription = cleanProductDescription(rawDesc, productName, brand, category);
 
     // Fetch real consumer reviews from Naver Blog API
     let bestQuotes: string[] = [];
     try {
-      const blogRes = await callNaverApi('blog', `${brand} ${productName} 후기`, 'sim', 4);
+      const blogRes = await callNaverApi('blog', `${brand} ${productName} 후기`, 'sim', 3);
       if (blogRes.items && blogRes.items.length > 0) {
         bestQuotes = blogRes.items
           .map(b => cleanHtml(b.description || ''))
@@ -698,7 +781,7 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
     if (item.pubDate) {
       const pubDate = new Date(item.pubDate);
       if (!isNaN(pubDate.getTime())) {
-        releaseDateStr = `${pubDate.getFullYear()}.${String(pubDate.getMonth() + 1).padStart(2, '0')} 공식 출시`;
+        releaseDateStr = `${pubDate.getFullYear()}.${String(pubDate.getMonth() + 1).padStart(2, '0')}.${String(pubDate.getDate()).padStart(2, '0')} 공식 출시`;
       }
     }
 
@@ -709,19 +792,21 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
       category,
       subCategory: '실시간 편의점 신상',
       itemType: 'packaged',
-      image: imageUrl,
-      price,
+      image: finalImage,
+      price: finalPrice,
       discountRate: 0,
       releaseDate: releaseDateStr,
       stores,
       description: refinedDescription,
-      sourceName: '네이버 쇼핑인사이트·뉴스 연동',
+      sourceName: shoppingInfo.isFound ? `네이버 쇼핑 (${shoppingInfo.mallName || '최저가 연동'})` : '네이버 공식 신제품 뉴스',
       sourceUrl: item.originallink || item.link,
       crawledAt: `${dateStr} ${nowTime}`,
       status: 'pending',
       bestQuotes,
       calories: category === '음료' ? 140 : category === '과자' ? 380 : category === '빵·디저트' ? 420 : 520,
-      volume: category === '음료' ? '350ml' : category === '과자' ? '85g' : category === '빵·디저트' ? '120g' : '1팩'
+      volume: category === '음료' ? '350ml' : category === '과자' ? '85g' : category === '빵·디저트' ? '120g' : '1팩',
+      needsReview,
+      reviewReason: reviewReason || undefined
     });
 
     if (results.length >= 10) break;
@@ -732,12 +817,11 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
 
 /**
  * Fetch daily real new products across all main food & snack categories
- * (Powered by NAVER DataLab Shopping Insight + News + Blog)
+ * (Powered by NAVER Shopping Search API + DataLab Shopping Insight + News)
  */
 export const fetchDailyRealNewProducts = async (): Promise<PendingProduct[]> => {
-  // 1. Get current top trending keywords from DataLab Shopping Insight
   const trendingList = await getShoppingInsightTrendingKeywords();
-  const topKeywords = trendingList.slice(0, 4).map(t => `${t.relatedBrand || ''} ${t.keyword} 출시`.trim());
+  const topKeywords = trendingList.slice(0, 3).map(t => `${t.relatedBrand || ''} ${t.keyword}`.trim());
 
   const targetKeywords = [
     ...topKeywords,

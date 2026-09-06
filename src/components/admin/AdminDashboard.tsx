@@ -32,7 +32,8 @@ import {
   Award,
   Activity,
   ArrowUpRight,
-  Globe
+  Globe,
+  AlertTriangle
 } from 'lucide-react';
 import { ProductCategory, BannerItem, Product, PendingProduct } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -1488,6 +1489,12 @@ export const AdminDashboard: React.FC = () => {
                                           ⚠️ 이미 등록됨
                                         </span>
                                       )}
+                                      {item.needsReview && (
+                                        <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 flex items-center gap-0.5" title={item.reviewReason || '수동 검증 필요'}>
+                                          <AlertTriangle className="w-2.5 h-2.5" />
+                                          <span>검증 필요{item.reviewReason ? ` (${item.reviewReason})` : ''}</span>
+                                        </span>
+                                      )}
                                     </div>
                                     <p className="text-[11px] text-slate-400">{item.brand} · {item.releaseDate}</p>
                                   </div>
@@ -1499,7 +1506,13 @@ export const AdminDashboard: React.FC = () => {
                                 </span>
                               </td>
                               <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                {item.price > 0 ? `${item.price.toLocaleString()}원` : '가격정보없음'}
+                                {item.price > 0 ? (
+                                  `${item.price.toLocaleString()}원`
+                                ) : (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                                    가격 미정 (직접 입력)
+                                  </span>
+                                )}
                               </td>
                               <td className="py-3 px-4">
                                 <div className="flex flex-wrap gap-1">
@@ -3148,9 +3161,19 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="p-6 overflow-y-auto space-y-4 text-xs">
+              {(editingPendingItem.needsReview || editingPendingItem.price === 0) && (
+                <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-bold text-xs">수동 확인이 필요한 수집 항목입니다 ({editingPendingItem.reviewReason || '정보 불완전'})</p>
+                    <p className="text-[11px] opacity-90 mt-0.5">네이버 쇼핑 자동 매칭 및 키워드 검증 과정에서 확인이 필요한 항목입니다. 상품명, 브랜드, 실제 판매 가격(정가), 이미지를 확인하고 수정 후 승인해주세요.</p>
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품명</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품명 *</label>
                   <input
                     type="text"
                     value={editingPendingItem.name}
@@ -3159,7 +3182,7 @@ export const AdminDashboard: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드 *</label>
                   <input
                     type="text"
                     value={editingPendingItem.brand}
@@ -3183,11 +3206,12 @@ export const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">가격 (원)</label>
+                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">가격 (원) {editingPendingItem.price === 0 && <span className="text-amber-600 text-[10px] font-bold">⚠️ 가격 입력 필요</span>}</label>
                   <input
                     type="number"
                     value={editingPendingItem.price}
                     onChange={e => setEditingPendingItem({ ...editingPendingItem, price: Number(e.target.value) })}
+                    placeholder="실제 판매가 입력"
                     className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
@@ -3232,7 +3256,28 @@ export const AdminDashboard: React.FC = () => {
               </button>
               <button
                 onClick={() => {
-                  updatePendingProduct(editingPendingItem.id, editingPendingItem);
+                  updatePendingProduct(editingPendingItem.id, {
+                    ...editingPendingItem,
+                    needsReview: false,
+                    reviewReason: undefined
+                  });
+                  setIsEditingPendingModalOpen(false);
+                  showToast('대기 항목 수정사항이 저장되었습니다.', 'info');
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
+                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                }`}
+              >
+                수정 저장 (대기 유지)
+              </button>
+              <button
+                onClick={() => {
+                  const cleanedItem = {
+                    ...editingPendingItem,
+                    needsReview: false,
+                    reviewReason: undefined
+                  };
+                  updatePendingProduct(editingPendingItem.id, cleanedItem);
                   approvePendingProduct(editingPendingItem.id);
                   setIsEditingPendingModalOpen(false);
                   showToast(`'${editingPendingItem.name}' 상품이 승인되었습니다.`, 'success');

@@ -8,6 +8,7 @@ import {
   getSearchInfluxCount, 
   formatSearchCount 
 } from '../../utils/ranking';
+import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -55,7 +56,7 @@ export const HomeView: React.FC = () => {
   const activeBanners = banners.filter(b => b.isActive);
   const currentBanner = activeBanners[currentBannerIdx] || activeBanners[0] || {
     id: 'default',
-    image: 'https://images.unsplash.com/photo-1595158364153-23961fa633df?w=600&auto=format&fit=crop&q=80',
+    image: ILLUSTRATION_FRUIT_BANNER,
     badge: '먹거리 전체 탐색 & 평가',
     title: '신제품부터 산지직송 제철 먹거리까지',
     subtitle: '솔직한 먹거리 품목별 랭킹',
