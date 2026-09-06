@@ -82,7 +82,7 @@ export const BrandView: React.FC = () => {
 
       const matchCategory = selectedCategoryTab === '전체' || 
         brand.category.includes(selectedCategoryTab) ||
-        (selectedCategoryTab === '패스트푸드' && (brand.category.includes('패스트푸드') || ['맥도날드', '버거킹', '맘스터치', '롯데리아'].includes(brand.name))) ||
+        (selectedCategoryTab === '패스트푸드' && (brand.category.includes('패스트푸드') || ['맥도날드', '버거킹', '맘스터치', '롯데리아', 'KFC'].includes(brand.name))) ||
         (selectedCategoryTab === '커피·음료' && (brand.category.includes('음료') || brand.category.includes('커피'))) ||
         (selectedCategoryTab === '과자·스낵' && brand.category.includes('과자')) ||
         (selectedCategoryTab === '베이커리·디저트' && (brand.category.includes('빵') || brand.category.includes('디저트'))) ||

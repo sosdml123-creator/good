@@ -1,10 +1,11 @@
-﻿import { BrandInfo, Product } from '../types';
+import { BrandInfo, Product } from '../types';
 
 export const BRAND_LOGOS_MAP: Record<string, string> = {
   '맥도날드': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/320px-McDonald%27s_Golden_Arches.svg.png',
   '버거킹': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Burger_King_logo_%281999%29.svg/320px-Burger_King_logo_%281999%29.svg.png',
   '맘스터치': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mom%27s_Touch_logo.png/320px-Mom%27s_Touch_logo.png',
   '롯데리아': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Lotteria_Logo.svg/320px-Lotteria_Logo.svg.png',
+  'KFC': 'https://www.kfckorea.com/nas/common/img/logo.png',
   '스타벅스': 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/320px-Starbucks_Corporation_Logo_2011.svg.png',
   '메가MGC커피': 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
   '메가커피': 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
@@ -89,6 +90,19 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     description: '30년 전통의 리아 불고기와 리아 새우, 치즈 폭포 모짜렐라인더버거와 한우불고기버거.',
     officialUrl: 'https://www.lotteeats.com',
     badge: '대한민국 K-버거 원조',
+    isPopular: true
+  },
+  {
+    id: 'kfc',
+    name: 'KFC',
+    engName: 'KFC',
+    logo: BRAND_LOGOS_MAP['KFC'],
+    bannerImage: 'https://images.unsplash.com/photo-1513639776629-7b61b0ac49cb?w=1000&auto=format&fit=crop&q=80',
+    category: '패스트푸드',
+    slogan: 'Original Recipe! 커넬 샌더스의 70년 전통 치킨 & 버거',
+    description: '매콤바삭 통가슴살 징거버거, 해시브라운 타워버거, 바삭한 핫크리스피 치킨의 대명사.',
+    officialUrl: 'https://www.kfckorea.com',
+    badge: '치킨 & 버거 원조 맛집',
     isPopular: true
   },
   {
