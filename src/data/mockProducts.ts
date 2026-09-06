@@ -86,7 +86,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '부드럽게 맵닭! 맛있게 맵닭!',
-    bestQuotes: ["물결 굴곡 사이에 시즈닝이 듬뿍!","매콤바삭해서 스트레스 풀리는 맛","맥주 마실 때 필수 안주"]
+    bestQuotes: ["오리온 스윙칩 까르보나라불닭맛 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'snack-02',
@@ -1429,7 +1429,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '두꺼운 生감자칩에 풍부한 맛을 더하다',
-    bestQuotes: ["물결 굴곡 사이에 시즈닝이 듬뿍!","매콤바삭해서 스트레스 풀리는 맛","맥주 마실 때 필수 안주"]
+    bestQuotes: ["오리온 스윙칩 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-019',
@@ -3009,7 +3009,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '딸기의 상큼함이 통째로',
-    bestQuotes: ["통 초콜릿이 샌드되어 있어 고급스러워요","비스킷 바삭함과 초코 달콤함의 완벽 조화","선물용으로도 너무 좋은 과자"]
+    bestQuotes: ["오리온 비쵸비 딸기 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-039',
@@ -3641,7 +3641,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '오리온 공식 정품 제품입니다.',
-    bestQuotes: ["통 초콜릿이 샌드되어 있어 고급스러워요","비스킷 바삭함과 초코 달콤함의 완벽 조화","선물용으로도 너무 좋은 과자"]
+    bestQuotes: ["오리온 비쵸비 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-047',
@@ -5221,7 +5221,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '쫄깃탱글 젤리에 5가지 멀티비타민이 쏙!',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 비타민 마이구미 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-067',
@@ -5379,7 +5379,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '사르르 톡톡! 골드키위 속살',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 골드키위 알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-069',
@@ -5537,7 +5537,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '한 번에 즐기는 상큼백도, 달콤황도',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 복숭아 과즙 그대로 마이구미 백도&황도 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-071',
@@ -5695,7 +5695,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '달콤한 망고 속 탱탱한 코코젤리가 쏙',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 코코망고 알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-073',
@@ -5774,7 +5774,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '설탕은 제로 맛은 그대로!',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 마이구미 포도 ZERO% 설탕제로 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-074',
@@ -5932,7 +5932,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '오리온 공식 정품 제품입니다.',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 키위알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-076',
@@ -6011,7 +6011,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '오리온 공식 정품 제품입니다.',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 리찌알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-077',
@@ -6090,7 +6090,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '몽글몽글 자두속살, 자두알맹이',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 자두알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-078',
@@ -6169,7 +6169,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '말캉말캉 포도속살, 포도알맹이',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 포도알맹이 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-079',
@@ -6327,7 +6327,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '과일 과즙 그대로~ 마이구미',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 마이구미 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-081',
@@ -6406,7 +6406,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '더 탱글해서 더 쫄깃한 마이구미 미니, 더탱글 마이구미',
-    bestQuotes: ["과즙 팡팡 터지는 과일 젤리 최고","식감이 쫄깃탱글해서 멈출 수가 없어요","포도 과즙 맛이 진짜 진함"]
+    bestQuotes: ["오리온 더탱글 마이구미 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-082',
@@ -7117,7 +7117,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '닥터유만의 맛있는 저당설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 에너지바 저당 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-091',
@@ -7196,7 +7196,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '전문가를 위한 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질바 크런치 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-092',
@@ -7275,7 +7275,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '균형잡힌 고단백질 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질바 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-093',
@@ -7354,7 +7354,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '단백질 12g 보충을 위한 닥터유만의 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 단백질바 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-094',
@@ -7433,7 +7433,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '오래 지속되는 에너지를 위한 닥터유만의 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 에너지바 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-095',
@@ -7512,7 +7512,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '전문가를 위한 초고함량 단백질드링크',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질드링크 40g 딸기 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-096',
@@ -7591,7 +7591,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '전문가를 위한 초고함량 단백질드링크',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질드링크 40g 초코 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-097',
@@ -7670,7 +7670,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '지속되는 포만감의 고단백질 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질 드링크 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-098',
@@ -7749,7 +7749,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '다이어트 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질파우더 다이어트 곡물 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-099',
@@ -7828,7 +7828,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '전문가를 위한 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질파우더 MAX 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'orion-100',
@@ -7907,7 +7907,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '전문가를 위한 영양설계',
-    bestQuotes: ["단백질 든든하게 챙길 수 있어서 운동 필수템","당류 적은데도 너무 맛있음","아침 식사 대용으로 간편하고 좋아요"]
+    bestQuotes: ["오리온 닥터유 프로 단백질파우더 아이솔레이트 식감이 바삭하고 너무 맛있어요!","오리온 과자는 역시 믿고 먹습니다.","간식으로 하나씩 까먹기 딱 좋아요."]
   },
   {
     id: 'coffee-mega-01',
@@ -7966,7 +7966,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '메가MGC커피만의 하우스밀크로 고소하고 부드러운 맛과 은은한 단맛은 더하고 깊은 풍미의 에스프레소 샷을 블렌딩해 더욱 조화로운 밸런스를 완성한 카페라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-02',
@@ -8025,7 +8025,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '이탈리아산 크라스탄 오르조와 고소하고 부드러운 우유가 만나 카페라떼 그대로의 깊은 풍미를 부담없이 무카페인으로 즐길 수 있는 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-03',
@@ -8084,7 +8084,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '톡톡 터지는 자몽 과육을 듬뿍 담아, 자몽 한 알을 그대로 베어 문 듯 상큼함이 입안 가득 퍼지는 자몽 스무디',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-04',
@@ -8143,7 +8143,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '말차와 레몬의 상큼한 조화에 식이섬유 \'알파CD\'를 더해 부담 없이 산뜻하고 가볍게 즐기는 제로 칼로리, 제로 슈가 아이스티 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-05',
@@ -8202,7 +8202,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '저당으로 부담은 덜고, 새콤달콤한 맛은 더 풍부하게! 꿀처럼 달콤한 배의 시원하고 깨끗한 단맛에 설탕·당류·지방 3 ZERO 야쿠르트 XO 2병이 들어간 리프레쉬 한 잔 *대체당(알룰로스, 에리스리톨 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-06',
@@ -8261,7 +8261,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '딸기과육이 풍부히 느껴지는 스테디 셀러 산뜻하고 달콤한 딸기가 가득해 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-07',
@@ -8320,7 +8320,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '우유 그대로의 부드러움에 달콤함을 더해 꾸덕하고 진~한 풍미를 느낄 수 있는 겨울시즌 한정 밀크쉐이크',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-08',
@@ -8379,7 +8379,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '상큼달콤한 유자청과 은은하게 매콤한 생강의 풍미를 조화롭게 담아낸 겨울 한정 과일 티',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-09',
@@ -8438,7 +8438,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '진하고 꾸덕한 초코 젤라또를 제주산 고품질 말차, 쌉싸름한 블렌딩 커피와 함께 즐기는 말차 에스프레소 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-10',
@@ -8497,7 +8497,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-11',
@@ -8556,7 +8556,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-12',
@@ -8615,7 +8615,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '지친 현대인들에게 필요한 한 잔의 에너지! 타우린 1,000mg이 들어가 활력이 충전되는 에너지드링크맛 제로 칼로리 에이드 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-13',
@@ -8674,7 +8674,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '새콤달콤한 블루베리와 산뜻한 요거트가 만나 조화로운 스무디',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-14',
@@ -8733,7 +8733,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '새콤달콤한 블루베리와 식이섬유가 풍부한 플럼, 프리바이오틱스를 더해 건강한 블렌딩 주스',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-15',
@@ -8792,7 +8792,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '상큼달콤한 프리미엄 골드키위에 밀크씨슬을 더해 일상의 활력을 선사하는 건강한 블렌딩 주스',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-16',
@@ -8851,7 +8851,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '톡톡 터지는 상큼한 귤의 과육과 몽글한 젤리식감이 매력적인 스무디',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-17',
@@ -8910,7 +8910,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-18',
@@ -8969,7 +8969,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-19',
@@ -9028,7 +9028,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 디카페인 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-20',
@@ -9087,7 +9087,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '애플티의 향긋함과 유자청의 상큼달콤함을 느낄 수 있는 메가MGC커피만의 왕메가사이즈 과일티',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-21',
@@ -9146,7 +9146,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-22',
@@ -9205,7 +9205,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-23',
@@ -9264,7 +9264,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-24',
@@ -9323,7 +9323,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 디카페인 커피',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-25',
@@ -9382,7 +9382,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-26',
@@ -9441,7 +9441,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-27',
@@ -9500,7 +9500,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '곡물의 향이 고소한 미숫가루와 달달한 믹스커피의 황금비율 조합',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-28',
@@ -9559,7 +9559,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 라떼',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-29',
@@ -9618,7 +9618,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 왕 메가 사이즈 초코음료',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-mega-30',
@@ -9677,7 +9677,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       }
 ],
     description: '깊은 맛의 홍차와 달콤한 복숭아의 은은한 향이 어우러진 왕 메가 사이즈 아이스티',
-    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 오후에 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
+    bestQuotes: ["가성비 최고에 양도 푸짐해서 매일 마셔요!","달달하고 시원해서 활력 충전 완료.","메가커피 최애 메뉴 등극!"]
   },
   {
     id: 'coffee-sb-31',
@@ -13220,6 +13220,3124 @@ export const INITIAL_PRODUCTS: Product[] = [
     bestQuotes: ["용량 대비 가격도 착하고 맛도 진해요.","매머드오더로 간편하게 테이크아웃!","출근길 필수 모닝 커피로 강력 추천."]
   },
   {
+    id: 'burger-mcd-01',
+    name: '맥도날드 진주 고추 크림치즈 비프 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/2026/08/Corp_PC_VIEW_772x530_고추크림치즈비프버거_EVM_02.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7400,
+    overallRating: 4.7,
+    ratingCount: 310,
+    searchInfluxCount: 28000,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 94,
+    calories: 910,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.5, portion: 4.6, repurchase: 4.7 },
+    nutrition: {
+      "calories": 910,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 7400,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 7400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 7400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '매콤 새콤한 진주 고추 피클이 부드럽고 고소한 크림치즈 소스에 쏙! 두 장의 비프 패티와 만나 한층 더 풍성하게! *판매 시간 : 오전 10시 30분 ~ 새벽 4시',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-02',
+    name: '맥도날드 진주 고추 크림치즈 치킨 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/2026/07/Corp_PC_VIEW_772x530_고추크림치즈치킨버거_EVM.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7400,
+    overallRating: 4.8,
+    ratingCount: 367,
+    searchInfluxCount: 29430,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 95,
+    calories: 914,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
+    nutrition: {
+      "calories": 914,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 7400,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 7400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 7400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '진주 고추 크림치즈를 매콤 바삭한 상하이 패티에 더해 한층 더 매콤 바삭하게! *판매 시간 : 오전 10시 30분 ~ 새벽 4시',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-03',
+    name: '맥도날드 그릴드 치킨 모닝 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/2026/06/Corp_PC_VIEW_772x530_그릴드치킨모닝버거_EVB_1.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5200,
+    overallRating: 4.9,
+    ratingCount: 424,
+    searchInfluxCount: 30860,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 96,
+    calories: 529,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.7, portion: 4.8, repurchase: 4.9 },
+    nutrition: {
+      "calories": 529,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5200,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5200,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5200,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-04',
+    name: '맥도날드 더블 그릴드 치킨 모닝 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/2026/06/Corp_PC_VIEW_772x530_더블그릴드치킨모닝버거_EVB_1.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5200,
+    overallRating: 5,
+    ratingCount: 481,
+    searchInfluxCount: 32290,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 97,
+    calories: 585,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.8, portion: 4.6, repurchase: 5 },
+    nutrition: {
+      "calories": 585,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5200,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5200,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5200,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티 2장에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-05',
+    name: '맥도날드 맥스파이시® 상하이 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723562660091.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5500,
+    overallRating: 4.7,
+    ratingCount: 538,
+    searchInfluxCount: 33720,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 98,
+    calories: 825,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.7, repurchase: 4.7 },
+    nutrition: {
+      "calories": 825,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5500,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '쌀가루가 더해져 더 바삭해진 100% 닭가슴살 패티에 아삭아삭한 양상추와 신선한 토마토까지! 더 바삭하고 맛있어진 NEW 맥스파이시 상하이 버거로 입맛도 기분도 화끈하게! *판매 시간: 10:30AM~4AM',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-06',
+    name: '맥도날드 더블 치즈버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723563512104.png',
+    releaseDate: '공식 매장 판매중',
+    price: 3000,
+    overallRating: 4.8,
+    ratingCount: 595,
+    searchInfluxCount: 35150,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 94,
+    calories: 802,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.6, portion: 4.8, repurchase: 4.8 },
+    nutrition: {
+      "calories": 802,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 3000,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 3000,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 3000,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '고소하고 부드러운 치즈와 100% 순 쇠고기 패티가 두개 맥도날드만의 더블 치즈버거!! *판매 시간: 10:30AM~4AM',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-07',
+    name: '맥도날드 빅맥®',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/2025/08/빅맥®_세트.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5500,
+    overallRating: 4.9,
+    ratingCount: 652,
+    searchInfluxCount: 36580,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 95,
+    calories: 906,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.7, portion: 4.6, repurchase: 4.9 },
+    nutrition: {
+      "calories": 906,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5500,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '100% 순 쇠고기 패티 두 장에 빅맥 ® 만의 특별한 소스. 입안에서 살살 녹는 치즈와 신선한 양상추, 양파, 그리고 피클까지. 50년 넘게 전 세계인의 입맛을 사로 잡은 버거의 대명사. *판매 시간: 10:30AM~4AM',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-08',
+    name: '맥도날드 1955® 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723564262197.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6400,
+    overallRating: 5,
+    ratingCount: 709,
+    searchInfluxCount: 38010,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 96,
+    calories: 896,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 5 },
+    nutrition: {
+      "calories": 896,
+      "sodium": "850mg (43%)",
+      "carbs": "42g (13%)",
+      "sugar": "7g (7%)",
+      "fat": "28g (52%)",
+      "transFat": "0.5g",
+      "satFat": "10g (67%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 6400,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 6400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 6400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '113g 두툼한 순 쇠고기 패티, 특별한 1955 소스에 깊은 풍미의 그릴드 어니언까지! 맥도날드가 처음 생긴 1955년의 맛을 담은 영원한 오리지널 1955 버거 *판매 시간: 10:30AM~4AM',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-bk-09',
+    name: '버거킹 와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7100,
+    overallRating: 4.7,
+    ratingCount: 766,
+    searchInfluxCount: 39440,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 97,
+    calories: 619,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.5, portion: 4.8, repurchase: 4.7 },
+    nutrition: {
+      "calories": 619,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 7100,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7100,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7100,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '직화로 구운 100% 순 쇠고기 패티에 싱싱한 야채가 가득한 버거킹의 대표 시그니처 메뉴',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-10',
+    name: '버거킹 치즈와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/cheese_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7700,
+    overallRating: 4.8,
+    ratingCount: 823,
+    searchInfluxCount: 40870,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 98,
+    calories: 716,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.6, portion: 4.6, repurchase: 4.8 },
+    nutrition: {
+      "calories": 716,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 7700,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '불향 가득한 순 쇠고기 패티 와퍼에 고소한 슬라이스 치즈 2장을 더해 더욱 깊어진 풍미',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-11',
+    name: '버거킹 콰트로치즈와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/quattro_cheese_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7900,
+    overallRating: 4.9,
+    ratingCount: 880,
+    searchInfluxCount: 42300,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 94,
+    calories: 769,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.7, portion: 4.7, repurchase: 4.9 },
+    nutrition: {
+      "calories": 769,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 7900,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '모짜렐라, 아메리칸, 파르메산, 체다 4가지 치즈와 불맛 쇠고기 패티의 완벽한 하모니',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-12',
+    name: '버거킹 통새우와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/whole_shrimp_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7900,
+    overallRating: 5,
+    ratingCount: 937,
+    searchInfluxCount: 43730,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 95,
+    calories: 741,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.8, portion: 4.8, repurchase: 5 },
+    nutrition: {
+      "calories": 741,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 7900,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '직화 소고기 패티에 탱글탱글 갈릭페퍼 통새우와 매콤상큼 스파이시 토마토소스의 환상 조합',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-13',
+    name: '버거킹 갈릭불고기와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/garlic_bulgogi_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7400,
+    overallRating: 4.7,
+    ratingCount: 994,
+    searchInfluxCount: 45160,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 96,
+    calories: 662,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.5, portion: 4.6, repurchase: 4.7 },
+    nutrition: {
+      "calories": 662,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 7400,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7400,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7400,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '달콤한 특제 불고기 소스와 바삭한 갈릭칩이 어우러져 한국인의 입맛을 사로잡는 와퍼',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-14',
+    name: '버거킹 몬스터와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/monster_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 9300,
+    overallRating: 4.8,
+    ratingCount: 1051,
+    searchInfluxCount: 46590,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 97,
+    calories: 1055,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
+    nutrition: {
+      "calories": 1055,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 9300,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 9300,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 9300,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '불맛 소고기 패티와 치킨 패티, 베이컨, 화끈한 디아블로 소스가 만난 압도적인 크기의 괴물 와퍼',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-15',
+    name: '버거킹 비프불고기버거',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/beef_bulgogi_burger.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4300,
+    overallRating: 4.9,
+    ratingCount: 1108,
+    searchInfluxCount: 48020,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 98,
+    calories: 425,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.7, portion: 4.8, repurchase: 4.9 },
+    nutrition: {
+      "calories": 425,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 4300,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4300,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 4300,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '진한 직화 소고기 패티에 달콤 짭짤한 불고기 소스가 듬뿍 들어간 가성비 최강 버거',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-16',
+    name: '버거킹 롱치킨버거',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/long_chicken_burger.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4700,
+    overallRating: 5,
+    ratingCount: 1165,
+    searchInfluxCount: 49450,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 94,
+    calories: 571,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.8, portion: 4.6, repurchase: 5 },
+    nutrition: {
+      "calories": 571,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 4700,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 4700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '담백한 치킨 패티에 고소한 마요네즈 소스와 신선한 양상추가 길쭉한 세사미 번에 쏙 들어간 버거',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-17',
+    name: '버거킹 스태커2 와퍼',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/stacker2_whopper.png',
+    releaseDate: '공식 매장 판매중',
+    price: 9900,
+    overallRating: 4.7,
+    ratingCount: 1222,
+    searchInfluxCount: 50880,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 95,
+    calories: 1080,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.7, repurchase: 4.7 },
+    nutrition: {
+      "calories": 1080,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 9900,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 9900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 9900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '직화 쇠고기 패티 2장과 치즈 2장을 차곡차곡 쌓아올린 고기 마니아를 위한 진한 와퍼',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-bk-18',
+    name: '버거킹 와퍼 주니어',
+    brand: '버거킹',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/whopper_jr.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4800,
+    overallRating: 4.8,
+    ratingCount: 329,
+    searchInfluxCount: 52310,
+    stores: ["버거킹","킹오더","배달의민족","쿠팡이츠"],
+    repurchasePercent: 96,
+    calories: 399,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.6, portion: 4.8, repurchase: 4.8 },
+    nutrition: {
+      "calories": 399,
+      "sodium": "980mg (49%)",
+      "carbs": "48g (15%)",
+      "sugar": "10g (10%)",
+      "fat": "35g (65%)",
+      "transFat": "1.2g",
+      "satFat": "14g (93%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '버거킹',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "버거킹",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 4800,
+            "deliveryTime": "킹오더 즉시 픽업",
+            "appLink": "https://www.burgerking.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4800,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      },
+      {
+            "store": "쿠팡이츠",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 4800,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://www.coupangeats.com"
+      }
+],
+    description: '버거킹 와퍼의 직화 불맛과 신선함을 알맞은 크기로 부담 없이 가볍게 즐기는 주니어 버거',
+    bestQuotes: ["직화로 구워 불맛 가득한 패티 육즙이 예술이에요.","크기도 압도적이고 한 입 베어물면 감탄 나옵니다.","와퍼 특유의 불향과 신선한 채소 조합 최고"]
+  },
+  {
+    id: 'burger-lot-19',
+    name: '롯데리아 리아 불고기 (불고기버거)',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530143834190_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4800,
+    overallRating: 4.9,
+    ratingCount: 386,
+    searchInfluxCount: 53740,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 97,
+    calories: 476,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.7, portion: 4.6, repurchase: 4.9 },
+    nutrition: {
+      "calories": 476,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 4800,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 4800,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '1992년 출시 이후 대한민국 국민의 입맛을 사로잡은 원조 불고기 소스의 오리지널 롯데리아 대표 버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-20',
+    name: '롯데리아 리아 새우 (새우버거)',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530143924340_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4800,
+    overallRating: 5,
+    ratingCount: 443,
+    searchInfluxCount: 55170,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 98,
+    calories: 492,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 5 },
+    nutrition: {
+      "calories": 492,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 4800,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 4800,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '1979년 출시된 롯데리아의 전설! 탱글탱글한 새우 패티와 특제 타르타르 소스의 환상 조화',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-21',
+    name: '롯데리아 한우불고기버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144005870_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 8600,
+    overallRating: 4.7,
+    ratingCount: 500,
+    searchInfluxCount: 56600,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 94,
+    calories: 572,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.5, portion: 4.8, repurchase: 4.7 },
+    nutrition: {
+      "calories": 572,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 8600,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 8600,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '국내산 한우 인증 패티를 사용한 프리미엄 버거! 전국한우협회 공식 인증 한우 순 쇠고기의 풍부한 육즙',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-22',
+    name: '롯데리아 더블 한우불고기버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144045120_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 12500,
+    overallRating: 4.8,
+    ratingCount: 557,
+    searchInfluxCount: 58030,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 95,
+    calories: 802,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.6, portion: 4.6, repurchase: 4.8 },
+    nutrition: {
+      "calories": 802,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 12500,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 12500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '최상급 한우 패티가 2장! 두 배로 깊고 진한 프리미엄 한우의 감동을 선사하는 럭셔리 버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-23',
+    name: '롯데리아 모짜렐라 인 더 버거 베이컨',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144130540_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7600,
+    overallRating: 4.9,
+    ratingCount: 614,
+    searchInfluxCount: 59460,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 96,
+    calories: 715,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.7, portion: 4.7, repurchase: 4.9 },
+    nutrition: {
+      "calories": 715,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 7600,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 7600,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '자연산 모짜렐라 치즈 패티가 쭈-욱 늘어나는 치즈 마니아의 최애 버거! 고소한 베이컨과의 조화',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-24',
+    name: '롯데리아 핫크리스피버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144215780_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5900,
+    overallRating: 5,
+    ratingCount: 671,
+    searchInfluxCount: 60890,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 97,
+    calories: 503,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.8, portion: 4.8, repurchase: 5 },
+    nutrition: {
+      "calories": 503,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5900,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '닭가슴살을 매콤하게 시즈닝하여 바삭하게 튀겨낸 깔끔하고 칼칼한 매운맛의 인기 치킨버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-25',
+    name: '롯데리아 티렉스 (T-REX) 버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144255310_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4800,
+    overallRating: 4.7,
+    ratingCount: 728,
+    searchInfluxCount: 62320,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 98,
+    calories: 475,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.5, portion: 4.6, repurchase: 4.7 },
+    nutrition: {
+      "calories": 475,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 4800,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 4800,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '번(빵)보다 훨씬 거대한 통다리살 치킨 패티가 튀어나오는 무자비한 크기와 가성비의 T-REX 버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-26',
+    name: '롯데리아 데리버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144335890_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 3300,
+    overallRating: 4.8,
+    ratingCount: 785,
+    searchInfluxCount: 63750,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 94,
+    calories: 356,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
+    nutrition: {
+      "calories": 356,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 3300,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 3300,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '달콤한 데리야끼 소스와 담백한 패티, 아삭한 양상추가 어우러진 착한 가격의 국민 간식 버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-27',
+    name: '롯데리아 더블 데리버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144415230_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4500,
+    overallRating: 4.9,
+    ratingCount: 842,
+    searchInfluxCount: 65180,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 95,
+    calories: 450,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.7, portion: 4.8, repurchase: 4.9 },
+    nutrition: {
+      "calories": 450,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 4500,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 4500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '국민 데리버거에 패티를 한 장 더블로 얹어 풍성함을 더한 실속 만점 더블 패티 버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-lot-28',
+    name: '롯데리아 전주비빔라이스버거',
+    brand: '롯데리아',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://img.lotteeatz.com/upload/display/menu/20240530/20240530144500110_0.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6900,
+    overallRating: 5,
+    ratingCount: 899,
+    searchInfluxCount: 66610,
+    stores: ["롯데리아","롯데잇츠","배달의민족"],
+    repurchasePercent: 96,
+    calories: 541,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.8, portion: 4.6, repurchase: 5 },
+    nutrition: {
+      "calories": 541,
+      "sodium": "780mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "24g (44%)",
+      "transFat": "0.2g",
+      "satFat": "9g (60%)",
+      "cholesterol": "50mg (17%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '롯데리아',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "롯데리아",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 6900,
+            "deliveryTime": "잇츠오더 즉시 픽업",
+            "appLink": "https://www.lotteeatz.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 6900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '전주비빔밥을 그대로 번으로 재현! 반숙란 패티와 고기 패티, 고추장 소스가 어우러진 전통 라이스버거',
+    bestQuotes: ["어릴 때부터 먹던 바로 그 원조 불고기버거 맛!","새우 패티가 바삭하고 타르타르 소스랑 찰떡궁합","추억 돋는 한국적인 맛이라 주기적으로 생각나요"]
+  },
+  {
+    id: 'burger-kfc-29',
+    name: 'KFC 징거버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130310_20230509172023773.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5900,
+    overallRating: 4.7,
+    ratingCount: 956,
+    searchInfluxCount: 68040,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 97,
+    calories: 480,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.7, repurchase: 4.7 },
+    nutrition: {
+      "calories": 480,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5900,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 5900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '더 크고 두툼해진 100% 닭가슴살 패티에 신선한 토마토와 양상추가 어우러진 KFC 시그니처 대표 버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-30',
+    name: 'KFC 타워버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130320_20230509172108741.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6700,
+    overallRating: 4.8,
+    ratingCount: 1013,
+    searchInfluxCount: 69470,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 98,
+    calories: 630,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.6, portion: 4.8, repurchase: 4.8 },
+    nutrition: {
+      "calories": 630,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 6700,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 6700,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '두툼한 통가슴살 필렛과 고소한 해시브라운, 슬라이스 치즈가 탑처럼 쌓여 풍부한 식감을 선사하는 타워버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-31',
+    name: 'KFC 징거더블다운통다리',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130360_20230509172221437.png',
+    releaseDate: '공식 매장 판매중',
+    price: 8900,
+    overallRating: 4.9,
+    ratingCount: 1070,
+    searchInfluxCount: 70900,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 94,
+    calories: 780,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.7, portion: 4.6, repurchase: 4.9 },
+    nutrition: {
+      "calories": 780,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 8900,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 8900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '빵 대신 육즙 가득 통다리살 치킨 필렛 사이에 베이컨과 치즈가 듬뿍 들어간 올 치킨 버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-32',
+    name: 'KFC 핫치즈징거버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130330_20230509172138944.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6400,
+    overallRating: 5,
+    ratingCount: 1127,
+    searchInfluxCount: 72330,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 95,
+    calories: 520,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 5 },
+    nutrition: {
+      "calories": 520,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 6400,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 6400,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '매콤한 살사소스와 진하고 고소한 치즈소스가 어우러진 화끈한 치즈 징거버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-33',
+    name: 'KFC 블랙라벨폴인치즈버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130340_20230509172155797.png',
+    releaseDate: '공식 매장 판매중',
+    price: 7900,
+    overallRating: 4.7,
+    ratingCount: 1184,
+    searchInfluxCount: 73760,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 96,
+    calories: 680,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.5, portion: 4.8, repurchase: 4.7 },
+    nutrition: {
+      "calories": 680,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 7900,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 7900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '부드러운 프리미엄 닭다리살 통필렛에 크림치즈, 고다치즈, 블루치즈 등 풍미 가득한 치즈가 듬뿍',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-34',
+    name: 'KFC 캡새우버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130350_20230509172208197.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4900,
+    overallRating: 4.8,
+    ratingCount: 1241,
+    searchInfluxCount: 75190,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 97,
+    calories: 420,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.6, portion: 4.6, repurchase: 4.8 },
+    nutrition: {
+      "calories": 420,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4900,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 4900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '탱글탱글한 통새우살이 씹히는 패티에 고소하고 상큼한 특제 소스가 듬뿍 들어간 새우버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-35',
+    name: 'KFC 오리지널버거',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130300_20230509171959779.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5500,
+    overallRating: 4.9,
+    ratingCount: 348,
+    searchInfluxCount: 76620,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 98,
+    calories: 460,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.7, portion: 4.7, repurchase: 4.9 },
+    nutrition: {
+      "calories": 460,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5500,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: 'KFC 11가지 비밀 양념의 오리지널 치킨 필렛과 특제 참깨 소스가 어우러진 클래식 치킨버거',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-kfc-36',
+    name: 'KFC 트위스터',
+    brand: 'KFC',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://kfcapi.inicis.com/kfcs_api_img/kfcs/goods/DL_2130370_20230509172235948.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4900,
+    overallRating: 5,
+    ratingCount: 405,
+    searchInfluxCount: 78050,
+    stores: ["KFC","징거벨오더","배달의민족"],
+    repurchasePercent: 94,
+    calories: 390,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.8, portion: 4.8, repurchase: 5 },
+    nutrition: {
+      "calories": 390,
+      "sodium": "890mg (45%)",
+      "carbs": "38g (12%)",
+      "sugar": "6g (6%)",
+      "fat": "22g (41%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "cholesterol": "55mg (18%)",
+      "protein": "28g (51%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: 'KFC',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "KFC",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4900,
+            "deliveryTime": "징거벨오더 픽업",
+            "appLink": "https://www.kfckorea.com"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 25,
+            "price": 4900,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '담백한 또띠아에 바삭한 텐더스트립과 신선한 야채, 머스타드 소스를 돌돌 말아낸 간편 랩 샌드위치',
+    bestQuotes: ["두툼한 닭가슴살 패티가 겉바속촉 제대로네요.","치킨 명가답게 패티 퀄리티가 남다릅니다.","매콤하고 바삭해서 버거 하나로도 든든해요"]
+  },
+  {
+    id: 'burger-mom-37',
+    name: '맘스터치 싸이버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170114_kK3F8s3l.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4900,
+    overallRating: 4.7,
+    ratingCount: 462,
+    searchInfluxCount: 79480,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 95,
+    calories: 594,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.5, portion: 4.6, repurchase: 4.7 },
+    nutrition: {
+      "calories": 594,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 4900,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '매콤하게 시즈닝한 촉촉한 통다리살 패티와 신선한 양상추, 달콤한 화이트소스가 어우러진 맘스터치 부동의 1위 대표 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-38',
+    name: '맘스터치 불싸이버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170233_aB7C9d2e.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5200,
+    overallRating: 4.8,
+    ratingCount: 519,
+    searchInfluxCount: 80910,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 96,
+    calories: 543,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
+    nutrition: {
+      "calories": 543,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 5200,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5200,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '매콤한 통다리살 싸이패티에 화끈한 사천풍 매운 소스를 듬뿍 더해 맛있게 매운 중독성 강한 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-39',
+    name: '맘스터치 딥치즈싸이버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170345_fD2E4g6h.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5400,
+    overallRating: 4.9,
+    ratingCount: 576,
+    searchInfluxCount: 82340,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 97,
+    calories: 635,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.7, portion: 4.8, repurchase: 4.9 },
+    nutrition: {
+      "calories": 635,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 5400,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5400,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '두툼하고 부드러운 통다리살 패티에 깊고 진한 체다 치즈 소스가 듬뿍 흘러넘치는 치즈버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-40',
+    name: '맘스터치 화이트갈릭버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170450_jH8I0k1l.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5200,
+    overallRating: 5,
+    ratingCount: 633,
+    searchInfluxCount: 83770,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 98,
+    calories: 572,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.8, portion: 4.6, repurchase: 5 },
+    nutrition: {
+      "calories": 572,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 5200,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5200,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '마늘 향 은은한 화이트갈릭소스와 프리미엄 더블햄, 닭가슴살 통패티가 어우러진 묵직한 풍미의 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-41',
+    name: '맘스터치 인크레더블버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170530_mN2O3p4q.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5900,
+    overallRating: 4.7,
+    ratingCount: 690,
+    searchInfluxCount: 85200,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 94,
+    calories: 749,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.5, portion: 4.7, repurchase: 4.7 },
+    nutrition: {
+      "calories": 749,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 5900,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5900,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '에그프라이, 프리미엄 더블햄, 통다리살 치킨패티까지 입이 떡 벌어지는 압도적인 볼륨감의 대형 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-42',
+    name: '맘스터치 언빌리버블버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170615_rS5T6u7v.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6400,
+    overallRating: 4.8,
+    ratingCount: 747,
+    searchInfluxCount: 86630,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 95,
+    calories: 798,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.6, portion: 4.8, repurchase: 4.8 },
+    nutrition: {
+      "calories": 798,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 6400,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 6400,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '통새우, 에그프라이, 부드러운 통가슴살 패티에 매콤한 스리라차 마요소스가 더해진 끝판왕 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-43',
+    name: '맘스터치 휠렛버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170700_wX8Y9z0a.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4700,
+    overallRating: 4.9,
+    ratingCount: 804,
+    searchInfluxCount: 28060,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 96,
+    calories: 588,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.7, portion: 4.6, repurchase: 4.9 },
+    nutrition: {
+      "calories": 588,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 4700,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 4700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '기름기 쏙 뺀 담백한 100% 통가슴살 패티에 신선한 토마토와 양상추가 어우러진 깔끔한 치킨버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-44',
+    name: '맘스터치 텍사스바베큐치킨버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170745_bC1D2e3f.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6300,
+    overallRating: 5,
+    ratingCount: 861,
+    searchInfluxCount: 29490,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 97,
+    calories: 648,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 5 },
+    nutrition: {
+      "calories": 648,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 6300,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 6300,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '바삭한 닭다리살 패티에 스모키한 정통 텍사스 바베큐 소스와 딥치즈 소스, 바삭한 베이컨의 환상 궁합',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-45',
+    name: '맘스터치 골든맥앤치즈버거',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170830_gH4I5j6k.png',
+    releaseDate: '공식 매장 판매중',
+    price: 6500,
+    overallRating: 4.7,
+    ratingCount: 918,
+    searchInfluxCount: 30920,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 98,
+    calories: 688,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.5, portion: 4.8, repurchase: 4.7 },
+    nutrition: {
+      "calories": 688,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 6500,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 6500,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '고소하고 진한 체다 치즈 맥앤치즈와 매콤바삭 치킨패티가 만난 진한 미국식 풍미의 시그니처 버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mom-46',
+    name: '맘스터치 치즈홀릭버거(에멘탈)',
+    brand: '맘스터치',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://momstouch.co.kr/upload/menu/20230327170915_lM7N8o9p.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5700,
+    overallRating: 4.8,
+    ratingCount: 975,
+    searchInfluxCount: 32350,
+    stores: ["맘스터치","맘스오더","배달의민족"],
+    repurchasePercent: 94,
+    calories: 625,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.6, portion: 4.6, repurchase: 4.8 },
+    nutrition: {
+      "calories": 625,
+      "sodium": "940mg (47%)",
+      "carbs": "49g (15%)",
+      "sugar": "11g (11%)",
+      "fat": "29g (54%)",
+      "transFat": "0.3g",
+      "satFat": "8.5g (57%)",
+      "cholesterol": "68mg (23%)",
+      "protein": "29g (53%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맘스터치',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 5700,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 5700,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '치킨 패티 속에 고급 에멘탈 치즈를 통째로 품어 베어 물면 치즈가 터져 나오는 스페셜 치즈버거',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mcd-47',
+    name: '맥도날드 쿼터파운더® 치즈',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723563607567.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5500,
+    overallRating: 4.9,
+    ratingCount: 1032,
+    searchInfluxCount: 33780,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 95,
+    calories: 536,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.7, portion: 4.7, repurchase: 4.9 },
+    nutrition: {
+      "calories": 536,
+      "sodium": "985mg (49%)",
+      "carbs": "38g (12%)",
+      "sugar": "10g (10%)",
+      "fat": "28g (52%)",
+      "transFat": "1.2g",
+      "satFat": "13g (87%)",
+      "cholesterol": "85mg (28%)",
+      "protein": "31g (56%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","우유"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5500,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '두툼한 1/4 파운드 순 쇠고기 패티의 진한 육즙과 부드러운 고소한 치즈 2장의 풍성한 맛',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-48',
+    name: '맥도날드 불고기 버거',
+    brand: '맥도날드 불고기 버거',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723563795324.png',
+    releaseDate: '공식 매장 판매중',
+    price: 2800,
+    overallRating: 5,
+    ratingCount: 1089,
+    searchInfluxCount: 35210,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 96,
+    calories: 409,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 5, value: 4.8, portion: 4.8, repurchase: 5 },
+    nutrition: {
+      "calories": 409,
+      "sodium": "670mg (34%)",
+      "carbs": "46g (14%)",
+      "sugar": "14g (14%)",
+      "fat": "19g (35%)",
+      "transFat": "0.2g",
+      "satFat": "6g (40%)",
+      "cholesterol": "35mg (12%)",
+      "protein": "14g (25%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","돼지고기","난류(계란)","우유"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드 불고기 버거',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맘스터치",
+            "status": "입고완료",
+            "stockCount": 45,
+            "price": 2800,
+            "deliveryTime": "맘스오더 즉시 픽업",
+            "appLink": "https://momstouch.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 35,
+            "price": 2800,
+            "deliveryTime": "배달 20분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '한국인의 입맛에 딱 맞춘 달콤 짭짤한 특제 불고기 소스에 잘 재운 고소한 패티와 신선한 양상추',
+    bestQuotes: ["가성비 최고에 치킨 패티가 빵보다 훨씬 두꺼워요!","달콤고소한 화이트소스랑 매콤 닭다리살의 완벽 조화","맘스터치는 싸이버거가 진리입니다. 무조건 추천!"]
+  },
+  {
+    id: 'burger-mcd-49',
+    name: '맥도날드 더블 불고기 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723563842609.png',
+    releaseDate: '공식 매장 판매중',
+    price: 4500,
+    overallRating: 4.7,
+    ratingCount: 1146,
+    searchInfluxCount: 36640,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 97,
+    calories: 635,
+    volume: '1개 (단품)',
+    isToday: true,
+    isHot: true,
+    detailedRating: { taste: 4.8, value: 4.5, portion: 4.6, repurchase: 4.7 },
+    nutrition: {
+      "calories": 635,
+      "sodium": "1040mg (52%)",
+      "carbs": "49g (15%)",
+      "sugar": "15g (15%)",
+      "fat": "37g (69%)",
+      "transFat": "0.6g",
+      "satFat": "14g (93%)",
+      "cholesterol": "75mg (25%)",
+      "protein": "26g (47%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","돼지고기","난류(계란)","우유"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 4500,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 4500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 4500,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '진한 불고기 소스의 패티가 2장! 여기에 고소한 치즈와 마요네즈가 더해져 풍성한 맛의 절정',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
+    id: 'burger-mcd-50',
+    name: '맥도날드 슈비 버거',
+    brand: '맥도날드',
+    category: '간편식',
+    subCategory: '버거',
+    itemType: 'packaged',
+    image: 'https://www.mcdonalds.co.kr/upload/product/pcfile/1723564177726.png',
+    releaseDate: '공식 매장 판매중',
+    price: 5800,
+    overallRating: 4.8,
+    ratingCount: 1203,
+    searchInfluxCount: 38070,
+    stores: ["맥도날드","맥딜리버리","배달의민족"],
+    repurchasePercent: 98,
+    calories: 563,
+    volume: '1개 (단품)',
+    isToday: false,
+    isHot: false,
+    detailedRating: { taste: 4.9, value: 4.6, portion: 4.7, repurchase: 4.8 },
+    nutrition: {
+      "calories": 563,
+      "sodium": "978mg (49%)",
+      "carbs": "54g (17%)",
+      "sugar": "15g (15%)",
+      "fat": "29g (54%)",
+      "transFat": "0.4g",
+      "satFat": "7g (47%)",
+      "cholesterol": "65mg (22%)",
+      "protein": "20g (36%)"
+},
+    ingredients: '번(밀가루), 패티(소고기/닭고기/새우), 양상추, 토마토, 특제 소스 등',
+    allergens: ["밀","대두","쇠고기","갑각류(새우)","난류(계란)","토마토"],
+    origin: '패티 및 원재료(브랜드 공식 공시 원산지 준수)',
+    manufacturer: '맥도날드',
+    storageMethod: '구매 후 즉시 섭취 권장',
+    shelfLife: '제조 당일 섭취',
+    precautions: '패티 조리 특성상 뜨거우니 섭취 시 주의하세요.',
+    storeStocks: [
+      {
+            "store": "맥도날드",
+            "status": "입고완료",
+            "stockCount": 50,
+            "price": 5800,
+            "deliveryTime": "M오더 즉시 픽업",
+            "appLink": "https://www.mcdonalds.co.kr"
+      },
+      {
+            "store": "맥딜리버리",
+            "status": "입고완료",
+            "stockCount": 40,
+            "price": 5800,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://www.mcdelivery.co.kr"
+      },
+      {
+            "store": "배달의민족",
+            "status": "입고완료",
+            "stockCount": 30,
+            "price": 5800,
+            "deliveryTime": "배달 25분",
+            "appLink": "https://baemin.com"
+      }
+],
+    description: '탱글탱글한 통새우 패티와 100% 순 쇠고기 비프 패티가 한 번에! 스파이시 어니언 소스의 매력적인 조합',
+    bestQuotes: ["참깨빵 위에 순 쇠고기 패티 특별한 소스까지 완벽!","언제 먹어도 변함없이 맛있는 맥도날드 클래식","감자튀김이랑 콜라 조합으로 먹으면 든든한 한 끼"]
+  },
+  {
     id: 'fruit-01',
     name: '햇사레 프리미엄 당도선별 복숭아',
     brand: '햇사레',
@@ -13388,989 +16506,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     description: '자유롭게 방사되어 자란 건강한 닭이 낳은 1번 난각 동물복지 유정란.',
     bestQuotes: ['노른자가 엄청 탱글탱글하고 비린내 없음', '후라이 해먹으면 고소함 극치']
-  },
-  // ==================== 패스트푸드: 맥도날드 (McDonald's) ====================
-  {
-    id: 'fastfood-mcd-01',
-    name: '맥도날드 빅맥',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 시그니처',
-    price: 5500,
-    overallRating: 4.8,
-    ratingCount: 4200,
-    searchInfluxCount: 65000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 96,
-    calories: 583,
-    volume: '223g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 583,
-      sodium: '991mg (50%)',
-      carbs: '46g (14%)',
-      sugar: '7g (7%)',
-      fat: '33g (61%)',
-      transFat: '0.9g',
-      satFat: '11g (73%)',
-      cholesterol: '78mg (26%)',
-      protein: '27g (49%)'
-    },
-    ingredients: '100% 순 쇠고기 패티(호주산/뉴질랜드산), 빅맥 번, 특제 빅맥 소스, 양상추, 피클, 양파, 아메리칸 치즈',
-    allergens: ['난류', '우유', '대두', '밀', '쇠고기'],
-    origin: '쇠고기(호주산/뉴질랜드산), 채소(국내산)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '개봉 후 바로 드셔야 특유의 바삭함과 신선한 식감을 즐기실 수 있습니다.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 5500, eventBadge: 'M오더할인', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://www.mcdonalds.co.kr' },
-      { store: '배달의민족', status: '입고완료', stockCount: 50, price: 6300, eventBadge: '배달가능', deliveryTime: '20~35분 내 배달', appLink: 'https://www.baemin.com' },
-      { store: '쿠팡이츠', status: '입고완료', stockCount: 50, price: 6300, eventBadge: '와우무료배달', deliveryTime: '15~30분 내 배달', appLink: 'https://www.coupangeats.com' }
-    ],
-    description: '100% 순 쇠고기 패티 두 장에 특별한 빅맥 소스, 신선한 양상추, 치즈, 피클, 양파가 어우러진 맥도날드의 영원한 시그니처 버거.',
-    bestQuotes: ['역시 버거의 기준이자 정석 빅맥', '특제 소스와 참깨빵, 순쇠고기 패티 조화는 불패', 'M오더로 바로 픽업해서 먹으면 최고']
-  },
-  {
-    id: 'fastfood-mcd-02',
-    name: '맥도날드 1955 버거',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 프리미엄',
-    price: 6700,
-    overallRating: 4.7,
-    ratingCount: 3100,
-    searchInfluxCount: 42000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 93,
-    calories: 572,
-    volume: '255g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.5, portion: 4.8, repurchase: 4.7 },
-    nutrition: {
-      calories: 572,
-      sodium: '985mg (49%)',
-      carbs: '47g (15%)',
-      sugar: '15g (15%)',
-      fat: '29g (54%)',
-      transFat: '0.8g',
-      satFat: '10g (67%)',
-      cholesterol: '84mg (28%)',
-      protein: '29g (53%)'
-    },
-    ingredients: '113g 두툼한 순 쇠고기 패티(호주산), 그릴드 어니언, 베이컨, 신선한 토마토, 양상추, 1955 스페셜 바비큐 소스',
-    allergens: ['밀', '우유', '대두', '쇠고기', '돼지고기', '토마토'],
-    origin: '쇠고기(호주산), 돼지고기(외국산 베이컨)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '두툼한 패티와 그릴드 어니언의 풍미가 진하므로 따뜻할 때 드세요.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 6700, eventBadge: 'M오더할인', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.mcdonalds.co.kr' },
-      { store: '배달의민족', status: '입고완료', stockCount: 40, price: 7500, eventBadge: '배달가능', deliveryTime: '20~35분 내 배달', appLink: 'https://www.baemin.com' }
-    ],
-    description: '113g 두툼한 순 쇠고기 패티와 달콤하게 볶아낸 그릴드 어니언, 바삭한 베이컨에 1955 스페셜 소스가 선사하는 정통 아메리칸 버거의 진수.',
-    bestQuotes: ['볶은 양파의 풍미와 두툼한 패티 육즙이 최고', '맥도날드에서 패티 맛 제일 진한 버거', '클래식하면서도 묵직해서 든든함']
-  },
-  {
-    id: 'fastfood-mcd-03',
-    name: '맥도날드 맥스파이시 상하이 버거',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 베스트셀러',
-    price: 5500,
-    overallRating: 4.8,
-    ratingCount: 5100,
-    searchInfluxCount: 78000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 95,
-    calories: 501,
-    volume: '236g',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.6, repurchase: 4.9 },
-    nutrition: {
-      calories: 501,
-      sodium: '939mg (47%)',
-      carbs: '56g (17%)',
-      sugar: '8g (8%)',
-      fat: '20g (37%)',
-      transFat: '0.2g',
-      satFat: '3.3g (22%)',
-      cholesterol: '57mg (19%)',
-      protein: '24g (44%)'
-    },
-    ingredients: '100% 닭가슴 통살 패티(국내산 닭고기), 참깨 번, 화이트 마요 소스, 아삭한 양상추, 생 토마토',
-    allergens: ['난류', '대두', '밀', '닭고기', '토마토'],
-    origin: '닭고기(국내산), 채소(국내산)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '매콤한 시즈닝이 가미되어 있으니 매운맛에 민감하신 분은 참고하세요.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 5500, eventBadge: '인기메뉴', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.mcdonalds.co.kr' },
-      { store: '쿠팡이츠', status: '입고완료', stockCount: 50, price: 6300, eventBadge: '와우무료배달', deliveryTime: '15~30분', appLink: 'https://www.coupangeats.com' }
-    ],
-    description: '100% 닭가슴살 통살 패티의 매콤바삭한 시즈닝과 아삭한 양상추, 신선한 토마토, 부드러운 화이트 마요 소스가 완벽하게 어우러진 매콤치킨버거의 대명사.',
-    bestQuotes: ['매콤한 치킨 통살 패티와 마요네즈 조화는 진리', '느끼하지 않고 깔끔해서 매일 먹어도 안 질림', '치킨버거 원탑']
-  },
-  {
-    id: 'fastfood-mcd-04',
-    name: '맥도날드 맥크리스피 디럭스 버거',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 프리미엄 치킨버거',
-    price: 6800,
-    overallRating: 4.6,
-    ratingCount: 2200,
-    searchInfluxCount: 38000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 91,
-    calories: 600,
-    volume: '268g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.7, value: 4.4, portion: 4.7, repurchase: 4.6 },
-    nutrition: {
-      calories: 600,
-      sodium: '1290mg (65%)',
-      carbs: '62g (19%)',
-      sugar: '14g (14%)',
-      fat: '28g (52%)',
-      transFat: '0.4g',
-      satFat: '7g (47%)',
-      cholesterol: '83mg (28%)',
-      protein: '27g (49%)'
-    },
-    ingredients: '100% 통닭다리살 패티(외국산), 포테이토 브리오쉬 번, 스페셜 스모키 샤프 소스, 양상추, 토마토',
-    allergens: ['난류', '우유', '대두', '밀', '닭고기', '토마토'],
-    origin: '닭고기(브라질산/태국산 통다리살)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '바삭한 케이준 치킨 껍질과 촉촉한 통닭다리 육즙에 주의하세요.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 6800, eventBadge: '추천메뉴', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.mcdonalds.co.kr' }
-    ],
-    description: '100% 통닭다리살 케이준 치킨 패티와 쫀득하고 부드러운 포테이토 브리오쉬 번, 스모키 샤프 소스의 극강의 크런치와 육즙.',
-    bestQuotes: ['포테이토 번이 진짜 쫀득하고 통다리살이 바삭함', '소스 풍미가 고급스럽고 육즙 대폭발', '치킨버거 최강자']
-  },
-  {
-    id: 'fastfood-mcd-05',
-    name: '맥도날드 맥너겟 6조각 (소스 포함)',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 스낵',
-    price: 3800,
-    overallRating: 4.7,
-    ratingCount: 3900,
-    searchInfluxCount: 31000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 94,
-    calories: 262,
-    volume: '106g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.7, value: 4.6, portion: 4.4, repurchase: 4.8 },
-    nutrition: {
-      calories: 262,
-      sodium: '534mg (27%)',
-      carbs: '15g (5%)',
-      sugar: '0g (0%)',
-      fat: '16g (30%)',
-      transFat: '0.1g',
-      satFat: '3.4g (23%)',
-      cholesterol: '45mg (15%)',
-      protein: '15g (27%)'
-    },
-    ingredients: '닭안심살 및 닭가슴살(국내산), 튀김가루, 전분, 시즈닝, 디핑소스(스위트칠리/케이준/스위트앤사워 중 택1)',
-    allergens: ['밀', '대두', '닭고기'],
-    origin: '닭고기(국내산)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '소스에 푹 찍어 드시면 더욱 맛있습니다.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 3800, eventBadge: '스낵베스트', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.mcdonalds.co.kr' }
-    ],
-    description: '바삭바삭한 튀김옷 속에 촉촉한 닭고기 통살이 한입에 쏙! 취향 저격 특제 디핑 소스와 함께 즐기는 맥도날드 대표 사이드.',
-    bestQuotes: ['스위트 칠리 소스 푹 찍어 먹으면 꿀맛', '겉바속촉 한입 간식으로 언제나 최고']
-  },
-  {
-    id: 'fastfood-mcd-06',
-    name: '맥도날드 후렌치 후라이 (M)',
-    brand: '맥도날드',
-    category: '패스트푸드',
-    subCategory: '사이드',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맥도날드 공식 사이드',
-    price: 2300,
-    overallRating: 4.8,
-    ratingCount: 6200,
-    searchInfluxCount: 54000,
-    stores: ['맥도날드', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 97,
-    calories: 324,
-    volume: '102g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.6, repurchase: 4.9 },
-    nutrition: {
-      calories: 324,
-      sodium: '243mg (12%)',
-      carbs: '42g (13%)',
-      sugar: '0.4g (0%)',
-      fat: '16g (30%)',
-      transFat: '0.1g',
-      satFat: '2.5g (17%)',
-      cholesterol: '0mg (0%)',
-      protein: '4g (7%)'
-    },
-    ingredients: '감자(미국산), 식물성 유지, 정제소금',
-    allergens: ['대두'],
-    origin: '감자(미국산 러셋 버뱅크종)',
-    manufacturer: '한국맥도날드(유)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '바삭하고 짭조름한 온기가 남아있을 때 바로 드세요.',
-    storeStocks: [
-      { store: '맥도날드', status: '입고완료', stockCount: 99, price: 2300, eventBadge: '필수사이드', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.mcdonalds.co.kr' }
-    ],
-    description: '골든 브라운 컬러로 튀겨내 겉은 바삭하고 속은 포슬포슬 부드러운 전 세계인이 사랑하는 감자튀김의 정석.',
-    bestQuotes: ['감자튀김계의 부동의 1위', '짭짤바삭해서 멈출 수 없는 중독성']
-  },
-
-  // ==================== 패스트푸드: 버거킹 (Burger King) ====================
-  {
-    id: 'fastfood-bk-01',
-    name: '버거킹 와퍼',
-    brand: '버거킹',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '버거킹 공식 시그니처',
-    price: 7100,
-    overallRating: 4.8,
-    ratingCount: 5600,
-    searchInfluxCount: 82000,
-    stores: ['버거킹', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 96,
-    calories: 619,
-    volume: '278g',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.6, portion: 5.0, repurchase: 4.8 },
-    nutrition: {
-      calories: 619,
-      sodium: '809mg (40%)',
-      carbs: '49g (15%)',
-      sugar: '11g (11%)',
-      fat: '35g (65%)',
-      transFat: '1.2g',
-      satFat: '13g (87%)',
-      cholesterol: '88mg (29%)',
-      protein: '29g (53%)'
-    },
-    ingredients: '100% 직화 순 쇠고기 패티(호주산/뉴질랜드산), 5인치 참깨 번, 신선한 양상추, 완숙 토마토, 피클, 양파, 마요네즈, 케첩',
-    allergens: ['난류', '우유', '대두', '밀', '쇠고기', '토마토'],
-    origin: '쇠고기(호주산/뉴질랜드산)',
-    manufacturer: '비케이알(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '불맛 가득 직화 패티의 육즙을 온전히 즐기려면 따뜻할 때 드세요.',
-    storeStocks: [
-      { store: '버거킹', status: '입고완료', stockCount: 99, price: 7100, eventBadge: '킹오더할인', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://www.burgerking.co.kr' },
-      { store: '쿠팡이츠', status: '입고완료', stockCount: 60, price: 8100, eventBadge: '와우무료배달', deliveryTime: '20~35분 내 배달', appLink: 'https://www.coupangeats.com' }
-    ],
-    description: '직화 방식(Flame-Grilled)으로 불맛을 듬뿍 담은 100% 순 쇠고기 패티에 싱싱한 야채와 고소한 마요네즈가 어우러진 버거킹의 대표작.',
-    bestQuotes: ['패티에서 진짜 불향이 솔솔 나고 크기도 압도적', '버거킹 와퍼 특유의 묵직함은 대체 불가', '양상추와 토마토 신선함이 끝내줌']
-  },
-  {
-    id: 'fastfood-bk-02',
-    name: '버거킹 콰트로치즈와퍼',
-    brand: '버거킹',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '버거킹 공식 베스트셀러',
-    price: 7900,
-    overallRating: 4.8,
-    ratingCount: 4500,
-    searchInfluxCount: 61000,
-    stores: ['버거킹', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 95,
-    calories: 769,
-    volume: '309g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.5, portion: 4.9, repurchase: 4.8 },
-    nutrition: {
-      calories: 769,
-      sodium: '1053mg (53%)',
-      carbs: '46g (14%)',
-      sugar: '7g (7%)',
-      fat: '47g (87%)',
-      transFat: '1.4g',
-      satFat: '19g (127%)',
-      cholesterol: '114mg (38%)',
-      protein: '35g (64%)'
-    },
-    ingredients: '직화 순 쇠고기 패티, 모짜렐라 치즈, 아메리칸 치즈, 파마산 치즈, 체다 치즈 소스, 양상추, 토마토, 마요네즈',
-    allergens: ['난류', '우유', '대두', '밀', '쇠고기', '토마토'],
-    origin: '쇠고기(호주산/뉴질랜드산)',
-    manufacturer: '비케이알(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '4가지 치즈가 녹아 풍미가 진하므로 치즈 매니아에게 강력 추천합니다.',
-    storeStocks: [
-      { store: '버거킹', status: '입고완료', stockCount: 99, price: 7900, eventBadge: '치즈추천', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.burgerking.co.kr' }
-    ],
-    description: '모짜렐라, 아메리칸, 파마산, 체다 4가지 프리미엄 치즈와 직화 패티의 완벽한 앙상블로 녹아내리는 극상의 치즈 풍미.',
-    bestQuotes: ['치즈 덕후라면 무조건 이거! 치즈가 폭포처럼 쏟아짐', '고소하고 짭조름한 4가지 치즈 조화가 환상적']
-  },
-  {
-    id: 'fastfood-bk-03',
-    name: '버거킹 몬스터와퍼',
-    brand: '버거킹',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '버거킹 공식 헤비급 버거',
-    price: 9300,
-    overallRating: 4.7,
-    ratingCount: 2800,
-    searchInfluxCount: 39000,
-    stores: ['버거킹', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 92,
-    calories: 1055,
-    volume: '384g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.4, portion: 5.0, repurchase: 4.6 },
-    nutrition: {
-      calories: 1055,
-      sodium: '1620mg (81%)',
-      carbs: '82g (25%)',
-      sugar: '13g (13%)',
-      fat: '61g (113%)',
-      transFat: '1.5g',
-      satFat: '22g (147%)',
-      cholesterol: '142mg (47%)',
-      protein: '50g (91%)'
-    },
-    ingredients: '직화 순 쇠고기 패티, 킹치킨 패티, 훈연 베이컨, 화끈한 디아블로 소스, 양상추, 토마토, 치즈',
-    allergens: ['난류', '우유', '대두', '밀', '쇠고기', '돼지고기', '닭고기', '토마토'],
-    origin: '쇠고기(호주산), 닭고기(국내산), 돼지고기(외국산 베이컨)',
-    manufacturer: '비케이알(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '디아블로 소스가 매콤하며 한 개만 먹어도 포만감이 엄청납니다.',
-    storeStocks: [
-      { store: '버거킹', status: '입고완료', stockCount: 99, price: 9300, eventBadge: '압도적볼륨', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.burgerking.co.kr' }
-    ],
-    description: '직화 순쇠고기 패티와 매콤한 치킨 패티, 베이컨에 화끈한 디아블로 소스까지 더한 압도적 사이즈의 몬스터급 버거.',
-    bestQuotes: ['소고기 패티랑 치킨 패티 둘 다 들어있어서 진짜 몬스터', '매콤한 디아블로 소스가 느끼함 싹 잡아줌', '한 끼로 하루 종일 배부름']
-  },
-  {
-    id: 'fastfood-bk-04',
-    name: '버거킹 통모짜와퍼',
-    brand: '버거킹',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '버거킹 공식 프리미엄 모짜렐라',
-    price: 8900,
-    overallRating: 4.7,
-    ratingCount: 2300,
-    searchInfluxCount: 34000,
-    stores: ['버거킹', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 91,
-    calories: 959,
-    volume: '350g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.4, portion: 4.9, repurchase: 4.6 },
-    nutrition: {
-      calories: 959,
-      sodium: '1380mg (69%)',
-      carbs: '72g (22%)',
-      sugar: '12g (12%)',
-      fat: '52g (96%)',
-      transFat: '1.2g',
-      satFat: '20g (133%)',
-      cholesterol: '110mg (37%)',
-      protein: '42g (76%)'
-    },
-    ingredients: '통모짜렐라 치즈 패티, 직화 순 쇠고기 패티, 디아블로 소스, 양상추, 완숙 토마토, 참깨 번',
-    allergens: ['난류', '우유', '대두', '밀', '쇠고기', '토마토'],
-    origin: '쇠고기(호주산), 모짜렐라치즈(이탈리아산/외국산)',
-    manufacturer: '비케이알(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '치즈가 굳기 전 따뜻할 때 드셔야 길게 늘어나는 통모짜 치즈의 진미를 즐길 수 있습니다.',
-    storeStocks: [
-      { store: '버거킹', status: '입고완료', stockCount: 99, price: 8900, eventBadge: '치즈폭탄', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.burgerking.co.kr' }
-    ],
-    description: '쭉 늘어나는 100% 자연산 통모짜렐라 치즈 패티와 불맛 가득 순쇠고기 패티, 매콤달콤한 소스의 찰떡 궁합.',
-    bestQuotes: ['모짜렐라 치즈가 진짜 쭈우욱 늘어남', '치즈 패티 씹는 맛과 직화 소고기 향 최고']
-  },
-  {
-    id: 'fastfood-bk-05',
-    name: '버거킹 바삭킹 4조각 & 디아블로 소스',
-    brand: '버거킹',
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '버거킹 공식 치킨 윙/봉',
-    price: 6000,
-    overallRating: 4.6,
-    ratingCount: 1900,
-    searchInfluxCount: 22000,
-    stores: ['버거킹', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 90,
-    calories: 380,
-    volume: '140g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.7, value: 4.3, portion: 4.3, repurchase: 4.5 },
-    nutrition: {
-      calories: 380,
-      sodium: '790mg (40%)',
-      carbs: '18g (6%)',
-      sugar: '1g (1%)',
-      fat: '24g (44%)',
-      transFat: '0.2g',
-      satFat: '5.5g (37%)',
-      cholesterol: '95mg (32%)',
-      protein: '22g (40%)'
-    },
-    ingredients: '닭날개/닭봉(국내산), 쌀가루 크런치 튀김옷, 허브 시즈닝, 디아블로 딥소스',
-    allergens: ['밀', '대두', '닭고기'],
-    origin: '닭고기(국내산)',
-    manufacturer: '비케이알(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '뼈가 있는 제품이므로 섭취 시 주의하세요.',
-    storeStocks: [
-      { store: '버거킹', status: '입고완료', stockCount: 99, price: 6000, eventBadge: '크런치치킨', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.burgerking.co.kr' }
-    ],
-    description: '20여 가지 허브와 쌀가루로 튀겨내 극강의 바삭함을 자랑하는 매콤바삭 치킨 윙&봉과 디아블로 소스.',
-    bestQuotes: ['튀김옷이 쌀가루라 엄청 파삭파삭함', '맥주 안주로 완전 딱인 매콤한 맛']
-  },
-
-  // ==================== 패스트푸드: 맘스터치 (Mom's Touch) ====================
-  {
-    id: 'fastfood-mom-01',
-    name: '맘스터치 싸이버거',
-    brand: '맘스터치',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1619881590738-a111d176d906?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맘스터치 공식 시그니처 1위',
-    price: 4600,
-    overallRating: 4.9,
-    ratingCount: 7800,
-    searchInfluxCount: 110000,
-    stores: ['맘스터치', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 98,
-    calories: 594,
-    volume: '230g',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 4.9, repurchase: 5.0 },
-    nutrition: {
-      calories: 594,
-      sodium: '1010mg (51%)',
-      carbs: '55g (17%)',
-      sugar: '14g (14%)',
-      fat: '29.7g (55%)',
-      transFat: '0.3g',
-      satFat: '8.6g (57%)',
-      cholesterol: '84mg (28%)',
-      protein: '28g (51%)'
-    },
-    ingredients: '100% 닭다리살 통패티(브라질산), 참깨 번, 맘스터치 특제 화이트 마요 소스, 아삭한 양상추, 슬라이스 피클, 양파',
-    allergens: ['난류', '우유', '대두', '밀', '닭고기', '쇠고기'],
-    origin: '닭다리살(브라질산)',
-    manufacturer: '(주)맘스터치앤컴퍼니',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '주문 즉시 튀겨내어 패티가 매우 뜨거울 수 있으니 주의하세요.',
-    storeStocks: [
-      { store: '맘스터치', status: '입고완료', stockCount: 99, price: 4600, eventBadge: '가성비1위', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://www.momstouch.co.kr' },
-      { store: '배달의민족', status: '입고완료', stockCount: 80, price: 5200, eventBadge: '주문폭주', deliveryTime: '20~35분 내 배달', appLink: 'https://www.baemin.com' },
-      { store: '쿠팡이츠', status: '입고완료', stockCount: 80, price: 5200, eventBadge: '와우무료배달', deliveryTime: '15~30분 내 배달', appLink: 'https://www.coupangeats.com' }
-    ],
-    description: '매콤달콤한 특제 마요 소스에 바삭하고 두툼한 육즙 가득 통다리살 패티와 신선한 양상추가 조화로운 맘스터치 부동의 1위 시그니처 버거.',
-    bestQuotes: ['치킨버거는 무조건 싸이버거가 대한민국 1등', '한 입 베어물면 닭다리살 육즙이 주르륵', '가성비와 맛 모두 완벽']
-  },
-  {
-    id: 'fastfood-mom-02',
-    name: '맘스터치 화이트갈릭버거',
-    brand: '맘스터치',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맘스터치 공식 베스트셀러',
-    price: 4900,
-    overallRating: 4.8,
-    ratingCount: 3800,
-    searchInfluxCount: 45000,
-    stores: ['맘스터치', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 94,
-    calories: 572,
-    volume: '245g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.8, portion: 4.9, repurchase: 4.8 },
-    nutrition: {
-      calories: 572,
-      sodium: '1047mg (52%)',
-      carbs: '49g (15%)',
-      sugar: '10g (10%)',
-      fat: '25.3g (47%)',
-      transFat: '0.2g',
-      satFat: '7.5g (50%)',
-      cholesterol: '98mg (33%)',
-      protein: '38g (69%)'
-    },
-    ingredients: '두툼한 통가슴살 패티(국내산), 더블 프리미엄 햄, 고소한 치즈, 갈릭 마늘 소스, 피클, 양파',
-    allergens: ['난류', '우유', '대두', '밀', '돼지고기', '닭고기', '쇠고기'],
-    origin: '닭고기(국내산), 돼지고기(국내산 햄)',
-    manufacturer: '(주)맘스터치앤컴퍼니',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '진한 마늘 풍미의 화이트 소스와 더블 햄의 든든한 조화를 맛보실 수 있습니다.',
-    storeStocks: [
-      { store: '맘스터치', status: '입고완료', stockCount: 99, price: 4900, eventBadge: '마늘덕후추천', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.momstouch.co.kr' }
-    ],
-    description: '마늘 향이 풍부한 달콤알싸 화이트갈릭 소스에 더블 햄, 통가슴살 패티가 어우러져 깊고 묵직한 풍미를 선사하는 버거.',
-    bestQuotes: ['마늘 소스가 진짜 미쳤음 감칠맛 최고', '햄이랑 치킨 패티가 같이 들어있어서 단백질 충전 완벽']
-  },
-  {
-    id: 'fastfood-mom-03',
-    name: '맘스터치 딥치즈버거',
-    brand: '맘스터치',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맘스터치 공식 치즈 버거',
-    price: 4800,
-    overallRating: 4.7,
-    ratingCount: 2900,
-    searchInfluxCount: 36000,
-    stores: ['맘스터치', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 93,
-    calories: 607,
-    volume: '240g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.8, value: 4.7, portion: 4.8, repurchase: 4.7 },
-    nutrition: {
-      calories: 607,
-      sodium: '1180mg (59%)',
-      carbs: '52g (16%)',
-      sugar: '11g (11%)',
-      fat: '31g (57%)',
-      transFat: '0.4g',
-      satFat: '9.2g (61%)',
-      cholesterol: '91mg (30%)',
-      protein: '30g (55%)'
-    },
-    ingredients: '통가슴살 치킨 패티, 진한 체다 치즈 크림 소스, 양상추, 피클, 양파',
-    allergens: ['난류', '우유', '대두', '밀', '닭고기', '쇠고기'],
-    origin: '닭고기(국내산 통가슴살)',
-    manufacturer: '(주)맘스터치앤컴퍼니',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '체다 치즈 소스가 듬뿍 들어있어 흐를 수 있으니 포장지를 감싸고 드세요.',
-    storeStocks: [
-      { store: '맘스터치', status: '입고완료', stockCount: 99, price: 4800, eventBadge: '체다치즈', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.momstouch.co.kr' }
-    ],
-    description: '진하고 꾸덕한 체다치즈 소스가 흘러넘치는 치즈 매니아들의 필수 선택 버거.',
-    bestQuotes: ['체다 치즈 풍미가 버거 전체를 감싸는 맛', '치즈소스 듬뿍 찍어먹는 느낌']
-  },
-  {
-    id: 'fastfood-mom-04',
-    name: '맘스터치 케이준양념감자 (중)',
-    brand: '맘스터치',
-    category: '패스트푸드',
-    subCategory: '사이드',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맘스터치 공식 시그니처 사이드',
-    price: 2000,
-    overallRating: 4.9,
-    ratingCount: 6700,
-    searchInfluxCount: 62000,
-    stores: ['맘스터치', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 98,
-    calories: 313,
-    volume: '100g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 4.8, repurchase: 5.0 },
-    nutrition: {
-      calories: 313,
-      sodium: '632mg (32%)',
-      carbs: '38g (12%)',
-      sugar: '0.5g (1%)',
-      fat: '16.5g (31%)',
-      transFat: '0.1g',
-      satFat: '3.1g (21%)',
-      cholesterol: '0mg (0%)',
-      protein: '3.2g (6%)'
-    },
-    ingredients: '감자(미국산), 케이준 시즈닝, 식물성 유지, 정제소금, 후추, 파프리카분말',
-    allergens: ['대두'],
-    origin: '감자(미국산)',
-    manufacturer: '(주)맘스터치앤컴퍼니',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '케이준 시즈닝의 짭짤하고 바삭한 맛을 위해 바로 드세요.',
-    storeStocks: [
-      { store: '맘스터치', status: '입고완료', stockCount: 99, price: 2000, eventBadge: '감튀최강', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.momstouch.co.kr' }
-    ],
-    description: '케이준 스타일의 특제 시즈닝으로 짭짤하고 바삭하게 튀겨낸 맘스터치의 전설적인 감자튀김.',
-    bestQuotes: ['감자튀김 중 케이준 양념감자가 압도적 1티어', '케첩 안 찍어도 간이 딱 맞고 끝까지 바삭함']
-  },
-  {
-    id: 'fastfood-mom-05',
-    name: '맘스터치 후라이드싸이순살',
-    brand: '맘스터치',
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '맘스터치 공식 치킨',
-    price: 11900,
-    overallRating: 4.8,
-    ratingCount: 3200,
-    searchInfluxCount: 48000,
-    stores: ['맘스터치', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 95,
-    calories: 890,
-    volume: '350g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 890,
-      sodium: '1540mg (77%)',
-      carbs: '45g (14%)',
-      sugar: '3g (3%)',
-      fat: '48g (89%)',
-      transFat: '0.5g',
-      satFat: '12g (80%)',
-      cholesterol: '160mg (53%)',
-      protein: '68g (124%)'
-    },
-    ingredients: '100% 닭다리살(브라질산), 크리스피 튀김옷, 케이준 시즈닝, 허브 솔트',
-    allergens: ['밀', '대두', '닭고기'],
-    origin: '닭다리살(브라질산)',
-    manufacturer: '(주)맘스터치앤컴퍼니',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '닭다리살 특유의 촉촉하고 기름진 육즙이 가득합니다.',
-    storeStocks: [
-      { store: '맘스터치', status: '입고완료', stockCount: 99, price: 11900, eventBadge: '가성비치킨', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.momstouch.co.kr' }
-    ],
-    description: '100% 닭다리살로 만들어 겉은 크리스피하고 속은 촉촉한 육즙 가득 순살 치킨.',
-    bestQuotes: ['퍽퍽살 1도 없이 전부 다리살이라 너무 부드러움', '웬만한 치킨 전문점보다 맛있고 가성비 최고']
-  },
-
-  // ==================== 패스트푸드: 롯데리아 (Lotteria) ====================
-  {
-    id: 'fastfood-lot-01',
-    name: '롯데리아 리아 불고기 (불고기버거)',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 한국 최초 불고기버거',
-    price: 4700,
-    overallRating: 4.8,
-    ratingCount: 5200,
-    searchInfluxCount: 68000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 95,
-    calories: 476,
-    volume: '188g',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.7, portion: 4.6, repurchase: 4.8 },
-    nutrition: {
-      calories: 476,
-      sodium: '730mg (37%)',
-      carbs: '53g (16%)',
-      sugar: '10g (10%)',
-      fat: '22g (41%)',
-      transFat: '0.4g',
-      satFat: '8.8g (59%)',
-      cholesterol: '45mg (15%)',
-      protein: '17g (31%)'
-    },
-    ingredients: '불고기 쇠고기 패티(호주산), 참깨 번, 롯데리아 전통 불고기 소스, 마요네즈, 양상추, 양파',
-    allergens: ['밀', '대두', '난류', '우유', '쇠고기', '돼지고기', '닭고기'],
-    origin: '쇠고기(호주산)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '달콤 짭조름한 불고기 소스가 듬뿍 들어있어 어린아이부터 어른까지 누구나 즐기기 좋습니다.',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 4700, eventBadge: 'K버거원조', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://www.lotteeats.com' },
-      { store: '쿠팡이츠', status: '입고완료', stockCount: 60, price: 5500, eventBadge: '와우무료배달', deliveryTime: '15~30분 내 배달', appLink: 'https://www.coupangeats.com' }
-    ],
-    description: '대한민국 최초이자 불고기 소스와 두툼한 패티의 달콤짭조름한 조화로 30년 넘게 사랑받는 K-버거의 대표작.',
-    bestQuotes: ['한국인 입맛에 딱 맞춘 달콤 짭조름 소스는 영원한 추억의 맛', '양상추와 마요네즈, 불고기 소스 궁합이 최고']
-  },
-  {
-    id: 'fastfood-lot-02',
-    name: '롯데리아 리아 새우 (새우버거)',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 시그니처 새우버거',
-    price: 4700,
-    overallRating: 4.8,
-    ratingCount: 4900,
-    searchInfluxCount: 64000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 96,
-    calories: 492,
-    volume: '179g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.6, repurchase: 4.9 },
-    nutrition: {
-      calories: 492,
-      sodium: '810mg (41%)',
-      carbs: '58g (18%)',
-      sugar: '8g (8%)',
-      fat: '23g (43%)',
-      transFat: '0.2g',
-      satFat: '7.2g (48%)',
-      cholesterol: '50mg (17%)',
-      protein: '15g (27%)'
-    },
-    ingredients: '통새우살 패티(베트남산 새우), 사우전아일랜드 타르타르 소스, 참깨 번, 양상추',
-    allergens: ['새우', '밀', '대두', '난류', '우유', '토마토'],
-    origin: '새우(베트남산/인도네시아산)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '새우살의 탱글탱글한 식감을 바로 맛보실 수 있습니다.',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 4700, eventBadge: '새우버거원탑', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.lotteeats.com' }
-    ],
-    description: '탱글탱글한 통새우살이 씹히는 패티와 새콤달콤한 사우전아일랜드 타르타르 소스가 일품인 롯데리아의 전설적인 메뉴.',
-    bestQuotes: ['새우버거는 롯데리아를 따라올 곳이 없음', '패티 안에 통새우 씹히는 식감이 환상적']
-  },
-  {
-    id: 'fastfood-lot-03',
-    name: '롯데리아 모짜렐라인더버거 베이컨',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 자연치즈 버거',
-    price: 7400,
-    overallRating: 4.7,
-    ratingCount: 2700,
-    searchInfluxCount: 39000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 92,
-    calories: 715,
-    volume: '223g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.4, portion: 4.8, repurchase: 4.7 },
-    nutrition: {
-      calories: 715,
-      sodium: '1070mg (54%)',
-      carbs: '60g (18%)',
-      sugar: '5g (5%)',
-      fat: '39g (72%)',
-      transFat: '0.8g',
-      satFat: '13.9g (93%)',
-      cholesterol: '85mg (28%)',
-      protein: '30g (55%)'
-    },
-    ingredients: '이탈리아산 자연산 통모짜렐라 치즈 패티, 쇠고기 패티, 베이컨, 마요네즈, 참깨 번',
-    allergens: ['우유', '밀', '대두', '난류', '돼지고기', '쇠고기'],
-    origin: '모짜렐라치즈(이탈리아산), 쇠고기(호주산)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '치즈가 따뜻할 때 한 입 베어물면 끝없이 늘어나는 치즈 스트레칭을 즐길 수 있습니다.',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 7400, eventBadge: '치즈늘어남', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.lotteeats.com' }
-    ],
-    description: '이탈리아산 자연산 통모짜렐라 치즈 패티와 고소한 베이컨, 쇠고기 패티가 선사하는 쫀득하고 풍성한 치즈 폭포.',
-    bestQuotes: ['자연치즈 통으로 들어가서 치즈 늘어나는 게 예술', '치즈와 짭짤한 베이컨 조화가 일품']
-  },
-  {
-    id: 'fastfood-lot-04',
-    name: '롯데리아 한우불고기버거',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 한우 인증 프리미엄',
-    price: 8400,
-    overallRating: 4.8,
-    ratingCount: 2400,
-    searchInfluxCount: 35000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 93,
-    calories: 572,
-    volume: '263g',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.3, portion: 4.9, repurchase: 4.7 },
-    nutrition: {
-      calories: 572,
-      sodium: '890mg (45%)',
-      carbs: '61g (19%)',
-      sugar: '12g (12%)',
-      fat: '26g (48%)',
-      transFat: '0.6g',
-      satFat: '10g (67%)',
-      cholesterol: '70mg (23%)',
-      protein: '24g (44%)'
-    },
-    ingredients: '100% 국내산 한우 패티(한우 직인 인증), 신선한 토마토, 양상추, 양파, 특제 한우 불고기 소스, 브리오쉬 번',
-    allergens: ['밀', '대두', '난류', '우유', '쇠고기(한우)', '토마토'],
-    origin: '쇠고기(국내산 한우 100%)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '국내산 한우 인증마크가 새겨진 빵과 신선한 채소의 고급스러운 풍미를 느껴보세요.',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 8400, eventBadge: '한우100%', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.lotteeats.com' }
-    ],
-    description: '100% 국내산 한우 패티 인증마크 획득! 신선한 토마토와 양상추, 명품 한우의 진한 풍미를 담은 롯데리아의 최고급 버거.',
-    bestQuotes: ['진짜 한우 고기 맛이 제대로 느껴지고 크기도 큼직함', '한우 도장 찍힌 빵도 신기하고 버거 완성도가 높음']
-  },
-  {
-    id: 'fastfood-lot-05',
-    name: '롯데리아 양념감자 (어니언/치즈/칠리)',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '사이드',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 시그니처 사이드',
-    price: 2300,
-    overallRating: 4.8,
-    ratingCount: 5800,
-    searchInfluxCount: 52000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 97,
-    calories: 359,
-    volume: '114g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 359,
-      sodium: '490mg (25%)',
-      carbs: '46g (14%)',
-      sugar: '2g (2%)',
-      fat: '18g (33%)',
-      transFat: '0.1g',
-      satFat: '4.1g (27%)',
-      cholesterol: '0mg (0%)',
-      protein: '4g (7%)'
-    },
-    ingredients: '감자(미국산), 시즈닝 파우더(어니언/치즈/칠리/실비김치맛 중 택1), 식물성 유지, 정제소금',
-    allergens: ['우유', '대두', '밀'],
-    origin: '감자(미국산)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '종이봉투에 감자튀김과 시즈닝을 넣고 신나게 흔들어 드세요!',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 2300, eventBadge: '흔들어먹는맛', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.lotteeats.com' }
-    ],
-    description: '바삭한 감자튀김에 취향대로 골라 흔들어 먹는 마성의 시즈닝 가루 감자튀김의 원조.',
-    bestQuotes: ['어니언 시즈닝 팍팍 넣고 쉐킷쉐킷 흔들어 먹으면 중독', '롯데리아 오면 무조건 양념감자로 변경']
-  },
-  {
-    id: 'fastfood-lot-06',
-    name: '롯데리아 지파이 (하바네로/고소한맛)',
-    brand: '롯데리아',
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'packaged',
-    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
-    releaseDate: '롯데리아 공식 디저트 치킨',
-    price: 4300,
-    overallRating: 4.6,
-    ratingCount: 2100,
-    searchInfluxCount: 29000,
-    stores: ['롯데리아', '롯데잇츠', '배달의민족', '쿠팡이츠', '요기요'],
-    repurchasePercent: 89,
-    calories: 422,
-    volume: '160g',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.7, value: 4.4, portion: 4.8, repurchase: 4.5 },
-    nutrition: {
-      calories: 422,
-      sodium: '890mg (45%)',
-      carbs: '24g (7%)',
-      sugar: '1g (1%)',
-      fat: '23g (43%)',
-      transFat: '0.2g',
-      satFat: '5.2g (35%)',
-      cholesterol: '78mg (26%)',
-      protein: '30g (55%)'
-    },
-    ingredients: '닭가슴살(국내산), 대만식 크리스피 시즈닝, 하바네로 매운맛 파우더, 식물성유지',
-    allergens: ['밀', '대두', '닭고기'],
-    origin: '닭고기(국내산)',
-    manufacturer: '롯데GRS(주)',
-    storageMethod: '구입 후 즉시 섭취 권장',
-    shelfLife: '당일 조리 및 즉시 섭취',
-    precautions: '하바네로 맛은 알싸하게 매콤합니다.',
-    storeStocks: [
-      { store: '롯데리아', status: '입고완료', stockCount: 99, price: 4300, eventBadge: '대왕치킨', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.lotteeats.com' }
-    ],
-    description: '얼굴만한 거대한 크기에 바삭하고 촉촉한 대만 야시장 스타일의 통 닭가슴살 튀김 디저트.',
-    bestQuotes: ['진짜 크기가 손바닥보다 큼 바삭함 최고', '하바네로맛 매콤해서 맥주 생각남']
   }
 ];
 
@@ -14381,7 +16516,6 @@ export const CATEGORIES: ProductCategory[] = [
   '음료',
   '빵·디저트',
   '간편식',
-  '패스트푸드',
   '과일',
   '식재료',
   '고기·수산',
@@ -14390,12 +16524,11 @@ export const CATEGORIES: ProductCategory[] = [
 
 export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
   '전체': [],
-  '신제품': ['전체', '과자', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'],
+  '신제품': ['전체', '과자', '음료', '빵·디저트', '간편식', '기타'],
   '과자': ['전체', '스낵', '쿠키', '초콜릿', '젤리', '사탕', '팝콘', '견과류'],
   '음료': ['전체', '커피', '탄산', '차', '에너지', '이온음료', '주스', '생수'],
   '빵·디저트': ['전체', '식빵', '소금빵', '크루아상', '케이크', '아이스크림', '푸딩', '떡'],
-  '간편식': ['전체', '냉동식품', '밀키트', '즉석식품', '즉석밥', '컵밥', '만두', '피자', '국·탕'],
-  '패스트푸드': ['전체', '버거', '치킨', '사이드', '음료·디저트'],
+  '간편식': ['전체', '버거', '냉동식품', '밀키트', '즉석식품', '즉석밥', '컵밥', '만두', '피자', '국·탕'],
   '과일': ['전체', '복숭아', '사과', '딸기', '수박', '귤', '포도', '바나나'],
   '식재료': ['전체', '계란', '두부', '치즈', '소스', '조미료', '면', '통조림'],
   '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '연어', '광어', '오징어', '새우'],
@@ -14405,6 +16538,17 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
 export const INITIAL_BANNERS: BannerItem[] = [
   {
     id: 'banner-1',
+    image: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/whopper.png',
+    badge: '🍔 5대 햄버거 브랜드 오픈',
+    title: '맥도날드 · 버거킹 · 롯데리아 · KFC · 맘스터치',
+    subtitle: '빅맥, 와퍼, 싸이버거, 징거버거 신상 & 시그니처 총집합',
+    buttonText: '버거 신상 둘러보기',
+    linkCategory: '간편식',
+    isActive: true,
+    order: 1,
+  },
+  {
+    id: 'banner-2',
     image: 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
     badge: '☕ 커피 브랜드 신상 라인업',
     title: '메가커피 · 스타벅스 · 매머드커피',
@@ -14412,10 +16556,10 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '커피 신상 보러가기',
     linkCategory: '음료',
     isActive: true,
-    order: 1,
+    order: 2,
   },
   {
-    id: 'banner-2',
+    id: 'banner-3',
     image: 'https://www.orionworld.com/upload/goods/00086d1e89648f5fcf72cdb3a40847cb.png',
     badge: '⚡ 오리온 공식 신제품',
     title: '오리온 신제품 & 인기 스낵 총집합',
@@ -14423,10 +16567,10 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '오리온 신상 보러가기',
     linkCategory: '과자',
     isActive: true,
-    order: 2,
+    order: 3,
   },
   {
-    id: 'banner-3',
+    id: 'banner-4',
     image: ILLUSTRATION_FRUIT_BANNER,
     badge: '🍑 산지직송 제철 과일 랭킹',
     title: '신제품부터 산지직송 제철 먹거리까지',
@@ -14434,37 +16578,37 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '과일 랭킹 둘러보기',
     linkCategory: '과일',
     isActive: true,
-    order: 3,
+    order: 4,
   }
 ];
 
 export const INITIAL_BATTLE_CONFIG: BattleConfig = {
   title: '🥊 신상 배틀 투표',
   subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
-  productAId: 'coffee-sb-01',
-  labelA: '스타벅스 신상 1위',
-  productBId: 'coffee-mega-01',
-  labelB: '메가커피 신상 1위',
-  percentA: 51,
+  productAId: 'burger-mcd-07', // 빅맥
+  labelA: '맥도날드 빅맥',
+  productBId: 'burger-bk-01', // 와퍼
+  labelB: '버거킹 와퍼',
+  percentA: 52,
 };
 
 export const INITIAL_EVENTS: PromotionEvent[] = [
   {
     id: 'event-01',
-    title: '메가커피 & 스타벅스 신음료 시음단 100인 모집',
-    subtitle: '화제의 커피 브랜드 신상 메뉴를 가장 먼저 마셔보고 솔직 후기를 남겨보세요.',
+    title: '5대 햄버거 브랜드 시식 체험단 100인 모집',
+    subtitle: '맥도날드, 버거킹, 롯데리아, KFC, 맘스터치 신상 버거를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
     badge: '체험단 100명',
     category: '체험단',
-    bannerImage: 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
+    bannerImage: 'https://d1cua0vfacwuq2.cloudfront.net/products/burger/whopper.png',
     startDate: '2026.09.01',
-    endDate: '2026.09.20',
-    dDay: 'D-10',
+    endDate: '2026.09.25',
+    dDay: 'D-15',
     status: 'ongoing',
-    description: '[공식 커피 브랜드 신음료 체험단 오픈!]\n메가커피, 스타벅스, 매머드커피의 인기 신메뉴를 가장 먼저 경험해보세요!',
-    reward: '커피 모바일 교환권 (총 100명)',
-    targetProductId: 'coffee-mega-01',
+    description: '[5대 햄버거 프랜차이즈 신메뉴 체험단 오픈!]\n맥도날드, 버거킹, 롯데리아, KFC, 맘스터치의 대표 신상 버거를 무료로 체험하고 리뷰를 작성해보세요!',
+    reward: '버거 세트 모바일 교환권 (총 100명)',
+    targetProductId: 'burger-mcd-07',
     actionButtonText: '무료 체험단 즉시 신청하기',
-    participantsCount: 520,
+    participantsCount: 680,
     isParticipated: false,
     createdAt: '2026-09-01T10:00:00Z',
   }
@@ -14473,12 +16617,12 @@ export const INITIAL_EVENTS: PromotionEvent[] = [
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
   {
     id: 'notif-01',
-    title: '메가커피 · 스타벅스 · 매머드커피 신상 음료 오픈!',
-    body: '공식 홈페이지에 등록된 최신 커피 브랜드 메뉴 및 정보가 업데이트되었습니다.',
-    timestamp: '2026-09-06T04:40:00Z',
+    title: '맥도날드 · 버거킹 · 롯데리아 · KFC · 맘스터치 등록!',
+    body: '5대 버거 브랜드의 시그니처 및 신상 버거 50종의 상세 정보가 새롭게 추가되었습니다.',
+    timestamp: '2026-09-06T09:10:00Z',
     isRead: false,
     type: 'product',
-    targetId: 'coffee-mega-01',
+    targetId: 'burger-mcd-07',
     badge: 'NEW',
   }
 ];
