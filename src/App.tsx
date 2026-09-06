@@ -13,6 +13,7 @@ import { ProductDetailModal } from './components/detail/ProductDetailModal';
 import { SearchModal } from './components/search/SearchModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { EventDetailModal } from './components/event/EventDetailModal';
+import { BrandView } from './components/brand/BrandView';
 import { PushBanner } from './components/common/PushBanner';
 import { ToastContainer } from './components/common/Toast';
 
@@ -47,6 +48,7 @@ export const App: React.FC = () => {
             </>
           )}
           {activeTab === 'category' && <DiscoverView />}
+          {activeTab === 'brand' && <BrandView />}
           {activeTab === 'write' && <WriteReviewModal />}
           {activeTab === 'community' && <CommunityView />}
           {activeTab === 'my' && <MyPageView />}

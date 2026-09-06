@@ -257,6 +257,7 @@ export interface BattleConfig {
 export type ActiveTab = 
   | 'home' 
   | 'category' 
+  | 'brand'
   | 'write' 
   | 'community' 
   | 'my' 
@@ -266,6 +267,20 @@ export type ActiveTab =
   | 'search'
   | 'admin'
   | 'event_detail';
+
+export interface BrandInfo {
+  id: string;
+  name: string;
+  engName?: string;
+  logo: string;
+  bannerImage?: string;
+  category: string;
+  slogan: string;
+  description?: string;
+  officialUrl?: string;
+  badge?: string;
+  isPopular?: boolean;
+}
 
 export interface PromotionEvent {
   id: string;

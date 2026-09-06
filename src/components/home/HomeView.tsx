@@ -9,6 +9,7 @@ import {
   formatSearchCount 
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
+import { POPULAR_BRANDS } from '../../utils/brandData';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -19,6 +20,7 @@ export const HomeView: React.FC = () => {
     events,
     setActiveTab, 
     setSelectedCategory, 
+    openBrandDetail,
     openProductDetail, 
     openEventDetail,
     toggleBookmark, 
@@ -205,8 +207,8 @@ export const HomeView: React.FC = () => {
 
   const quickIcons = [
     { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
-    { label: '과자·스낵', icon: '🍪', color: 'bg-orange-50 text-orange-500', cat: '과자' as ProductCategory },
-    { label: '간편·밀키트', icon: '🍲', color: 'bg-red-50 text-red-500', cat: '간편식' as ProductCategory },
+    { label: '브랜드관', icon: '🏢', color: 'bg-blue-50 text-[#0066FF]', action: 'brand' },
+    { label: '패스트푸드', icon: '🍔', color: 'bg-orange-50 text-orange-500', cat: '패스트푸드' as ProductCategory },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'event' },
   ];
@@ -393,7 +395,9 @@ export const HomeView: React.FC = () => {
             <button
               key={m.label}
               onClick={() => {
-                if (m.action === 'compare') {
+                if (m.action === 'brand') {
+                  setActiveTab('brand');
+                } else if (m.action === 'compare') {
                   setActiveTab('compare');
                 } else if (m.action === 'event') {
                   if (events.length > 0) {
@@ -579,6 +583,56 @@ export const HomeView: React.FC = () => {
             선택하신 카테고리의 새로운 신상품을 준비 중입니다 ✨
           </div>
         )}
+      </div>
+
+      {/* 4.5 Section: 🏢 인기 대표 브랜드관 (Spotlight Brand Hub) */}
+      <div className="bg-white mt-2 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 mb-2">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[15px] font-bold text-gray-900">🏢 인기 대표 브랜드관</span>
+            <span className="text-[10px] font-bold bg-blue-50 text-[#0066FF] px-2 py-0.5 rounded-full border border-blue-100">
+              전용관
+            </span>
+          </div>
+          <button
+            onClick={() => setActiveTab('brand')}
+            className="text-[13px] text-[#0066FF] font-semibold hover:underline flex items-center"
+          >
+            전체 브랜드 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+          </button>
+        </div>
+
+        <p className="px-4 text-[11px] text-gray-400 mb-3">
+          맥도날드, 버거킹, 맘스터치, 스타벅스 등 브랜드별 제품 모아보기
+        </p>
+
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
+          {POPULAR_BRANDS.slice(0, 8).map((b) => {
+            const count = products.filter(p => p.brand === b.name).length;
+            return (
+              <div
+                key={b.id}
+                onClick={() => openBrandDetail(b.name)}
+                className="w-32 shrink-0 bg-[#F8F9FA] hover:bg-blue-50/50 rounded-2xl p-3 border border-gray-100 hover:border-blue-200 transition-all cursor-pointer text-center group flex flex-col items-center justify-between space-y-1.5 active:scale-95"
+              >
+                <div className="w-12 h-12 rounded-xl bg-white p-1 overflow-hidden shadow-2xs border border-gray-100 flex items-center justify-center">
+                  <img src={b.logo} alt={b.name} className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" />
+                </div>
+                <div>
+                  <div className="text-xs font-black text-gray-900 truncate max-w-[100px] group-hover:text-[#0066FF] transition-colors">
+                    {b.name}
+                  </div>
+                  <div className="text-[10px] text-gray-400 font-medium">
+                    {count > 0 ? `${count}개 메뉴` : b.category}
+                  </div>
+                </div>
+                <span className="text-[9px] font-bold text-[#0066FF] bg-white px-2 py-0.5 rounded-full shadow-2xs border border-blue-50">
+                  모아보기
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* 5. Section: 요즘 주목받는 먹거리 (검색 유입 순위 랭킹) */}

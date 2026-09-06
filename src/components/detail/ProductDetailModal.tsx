@@ -32,6 +32,7 @@ export const ProductDetailModal: React.FC = () => {
     goBack,
     toggleCompare,
     setActiveTab,
+    openBrandDetail,
     showToast,
     bookmarkedIds,
     toggleBookmark,
@@ -166,7 +167,15 @@ export const ProductDetailModal: React.FC = () => {
       {/* 3. Info Header Card */}
       <div className="bg-white px-4 pb-4 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <div className="text-[12px] text-gray-400 mb-1">{selectedProduct.brand}</div>
+          <button
+            onClick={() => openBrandDetail(selectedProduct.brand)}
+            className="text-[12px] text-[#0066FF] font-bold hover:underline flex items-center gap-1.5 mb-1 group"
+          >
+            <span>{selectedProduct.brand}</span>
+            <span className="text-[10px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 group-hover:bg-blue-100 transition-colors">
+              브랜드관 바로가기 →
+            </span>
+          </button>
           <button
             onClick={(e) => toggleBookmark(selectedProduct.id, e)}
             className={`text-xs font-semibold flex items-center gap-1 border px-2.5 py-1 rounded-full transition-all ${

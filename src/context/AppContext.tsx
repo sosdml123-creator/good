@@ -60,6 +60,7 @@ interface AppContextType {
   activeTab: ActiveTab;
   previousTab: ActiveTab;
   selectedCategory: ProductCategory;
+  selectedBrand: string | null;
   selectedProduct: Product;
   selectedProductId: string;
   bookmarkedIds: string[];
@@ -76,6 +77,8 @@ interface AppContextType {
   setActiveTab: (tab: ActiveTab) => void;
   goBack: () => void;
   setSelectedCategory: (cat: ProductCategory) => void;
+  setSelectedBrand: (brand: string | null) => void;
+  openBrandDetail: (brand: string) => void;
   openProductDetail: (productId: string) => void;
   openEventDetail: (eventId: string) => void;
   toggleBookmark: (productId: string, e?: React.MouseEvent) => void;
@@ -365,6 +368,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeTab, setActiveTabState] = useState<ActiveTab>('home');
   const [previousTab, setPreviousTab] = useState<ActiveTab>('home');
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('전체');
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [selectedProductId, setSelectedProductId] = useState<string>('snack-01');
 
   const [events, setEvents] = useState<PromotionEvent[]>(() => {
@@ -755,7 +759,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const openBrandDetail = (brand: string) => {
+    setSelectedBrand(brand);
+    setPreviousTab(activeTab);
+    setActiveTabState('brand');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const goBack = () => {
+    if (activeTab === 'brand') {
+      if (selectedBrand) {
+        setSelectedBrand(null);
+        return;
+      }
+      setActiveTabState(previousTab === activeTab ? 'home' : previousTab);
+      return;
+    }
+
     if (
       activeTab === 'detail' || 
       activeTab === 'event_detail' || 
@@ -1986,6 +2006,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeTab,
         previousTab,
         selectedCategory,
+        selectedBrand,
         selectedProduct,
         selectedProductId,
         bookmarkedIds,
@@ -2001,6 +2022,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setActiveTab,
         goBack,
         setSelectedCategory,
+        setSelectedBrand,
+        openBrandDetail,
         openProductDetail,
         openEventDetail,
         toggleBookmark,
