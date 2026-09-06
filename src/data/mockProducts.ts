@@ -8,8 +8,10 @@ import {
   ILLUSTRATION_FRUIT_BANNER,
 } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
+import { BIBIGO_PRODUCTS } from './bibigoProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...BIBIGO_PRODUCTS,
   ...COFFEE_BRAND_BEVERAGES,
   {
     id: 'orion-001',
@@ -20791,6 +20793,16 @@ export const INITIAL_EVENTS: PromotionEvent[] = [
 ];
 
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
+  {
+    id: 'notif-coffee-01',
+    title: '☕ 커피 브랜드 대표 음료 신규 등록 완료!',
+    body: '스타벅스, 메가커피, 컴포즈커피, 빽다방, 이디야, 투썸플레이스, 폴바셋, 더벤티의 시그니처 음료들이 정식 등록되었습니다.',
+    timestamp: '2026-09-06T19:30:00Z',
+    isRead: false,
+    type: 'product',
+    targetId: 'coffee-compose-01',
+    badge: 'NEW',
+  },
   {
     id: 'notif-01',
     title: '맥도날드 · 버거킹 · 롯데리아 · KFC · 맘스터치 등록!',

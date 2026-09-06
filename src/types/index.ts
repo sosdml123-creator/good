@@ -163,7 +163,24 @@ export interface ReviewComment {
   createdAt: string;
 }
 
-export interface Review {
+export interface ReviewFlavorProfile {
+  sweetness?: string; // e.g. '안 달아요' | '은은한 단맛' | '적당한 달콤함' | '아주 달아요'
+  spiciness?: string; // e.g. '안 매워요' | '살짝 매콤' | '신라면급' | '불닭급'
+  texture?: string;   // e.g. '바삭바삭' | '쫀득/꾸덕' | '부드러움' | '아삭아삭' | '촉촉함'
+}
+
+export interface ReviewExtraData {
+  purchasePlace?: string;      // e.g. 'GS25' | 'CU' | '세븐일레븐' | '이마트24' | '마켓컬리' | '쿠팡' | '대형마트' | '동네슈퍼' | '기타'
+  purchaseEvent?: string;      // e.g. '정가 구매' | '1+1 행사' | '2+1 행사' | '할인특가' | '선물/나눔'
+  purchasePrice?: number;      // 실제 구매 금액
+  repurchaseIntent?: string;   // e.g. '무조건 또 사먹어요!' | '행사/할인 시 구매' | '한 번으로 만족' | '아쉬워요' | '비추천'
+  headline?: string;           // 한 줄 핵심 요약평
+  flavorProfile?: ReviewFlavorProfile;
+  recommendTargets?: string[]; // e.g. ['#단짠러버', '#야식혼술', '#다이어터', '#가성비족']
+  isReceiptVerified?: boolean; // 내돈내산 영수증 인증 여부
+}
+
+export interface Review extends ReviewExtraData {
   id: string;
   productId: string;
   productName: string;

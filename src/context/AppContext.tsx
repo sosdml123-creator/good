@@ -16,6 +16,7 @@ import {
   PromotionEvent,
   AppNotification
 } from '../types';
+import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
@@ -155,7 +156,8 @@ interface AppContextType {
     detailedRating: DetailedRating,
     content: string,
     images?: string[],
-    tags?: string[]
+    tags?: string[],
+    extra?: ReviewExtraData
   ) => Promise<void>;
   toggleLikeReview: (reviewId: string) => Promise<void>;
   addReviewComment: (reviewId: string, text: string) => Promise<void>;
@@ -1043,7 +1045,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     detailedRating: DetailedRating,
     content: string,
     images?: string[],
-    tags?: string[]
+    tags?: string[],
+    extra?: ReviewExtraData
   ) => {
     const targetProduct = products.find(p => p.id === productId) || selectedProduct;
     const reviewId = 'rev-' + Date.now();
@@ -1067,12 +1070,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       comments: [],
       createdAt,
       tags: tags && tags.length > 0 ? tags : ['#신상후기', '#내돈내산'],
+      ...(extra || {}),
     };
 
     // Optimistic rating & count calculation
     const newCount = (targetProduct.ratingCount || 0) + 1;
     const currentTotal = (targetProduct.overallRating || 0) * (targetProduct.ratingCount || 0);
     const newRating = Number(((currentTotal + rating) / newCount).toFixed(1));
+
+    // Calculate dynamic points (Base 50P + Photo bonus 30P + Length bonus 20P)
+    let earnedPoints = 50;
+    if (images && images.length > 0) earnedPoints += 30;
+    if (content && content.trim().length >= 30) earnedPoints += 20;
 
     // 1. Optimistic Updates
     setReviews(prev => [newReview, ...prev]);
@@ -1087,14 +1096,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return p;
     }));
 
-    const nextPoints = currentUser.points + 50;
+    const nextPoints = currentUser.points + earnedPoints;
     setCurrentUser(prev => ({
       ...prev,
       points: nextPoints,
       level: calculateLevel(nextPoints),
     }));
 
-    showToast('🎉 리뷰가 등록되었습니다! (+50P 적립)', 'success');
+    showToast(`🎉 정성 가득 리뷰 등록 완료! (+${earnedPoints}P 적립)`, 'success');
     setActiveTabState('detail');
 
     // 2. Supabase Insert (Server-side Trigger automatically updates products.overall_rating & rating_count!)
@@ -2018,6 +2027,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         communityPosts,
         banners,
         battleConfig,
+        battleChoice,
+        voteBattle,
         events,
         selectedEventId,
         selectedEvent,

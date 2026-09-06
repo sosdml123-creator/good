@@ -18,6 +18,8 @@ export const HomeView: React.FC = () => {
     reviews, 
     banners,
     battleConfig,
+    battleChoice,
+    voteBattle,
     events,
     setActiveTab, 
     setSelectedCategory, 
@@ -25,12 +27,10 @@ export const HomeView: React.FC = () => {
     openProductDetail, 
     openEventDetail,
     toggleBookmark, 
-    bookmarkedIds,
-    showToast 
+    bookmarkedIds
   } = useApp();
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
-  const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(null);
   const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
   const [isPaused, setIsPaused] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -604,11 +604,11 @@ export const HomeView: React.FC = () => {
         </div>
 
         <p className="px-4 text-[11px] text-gray-400 mb-3">
-          맥도날드, 버거킹, 맘스터치, 스타벅스 등 브랜드별 제품 모아보기
+          스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기
         </p>
 
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
-          {POPULAR_BRANDS.slice(0, 8).map((b) => {
+          {POPULAR_BRANDS.map((b) => {
             const count = products.filter(p => p.brand === b.name).length;
             return (
               <div
@@ -838,12 +838,9 @@ export const HomeView: React.FC = () => {
             <div className="flex items-center gap-3">
               {/* Fighter A */}
               <div
-                onClick={() => {
-                  setBattleChoice('A');
-                  showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
-                }}
+                onClick={() => voteBattle('A')}
                 className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-                  battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20' : 'border-gray-200'
+                  battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20 shadow-xs' : 'border-gray-200'
                 }`}
               >
                 <img src={prodA.image} alt={prodA.name} className="w-full aspect-square object-cover" />
@@ -863,12 +860,9 @@ export const HomeView: React.FC = () => {
 
               {/* Fighter B */}
               <div
-                onClick={() => {
-                  setBattleChoice('B');
-                  showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
-                }}
+                onClick={() => voteBattle('B')}
                 className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-                  battleChoice === 'B' ? 'border-orange-500 bg-orange-50/20' : 'border-gray-200'
+                  battleChoice === 'B' ? 'border-orange-500 bg-orange-50/20 shadow-xs' : 'border-gray-200'
                 }`}
               >
                 <img src={prodB.image} alt={prodB.name} className="w-full aspect-square object-cover" />
