@@ -1,0 +1,545 @@
+/**
+ * Brand Logo Assets - Vector SVG Data URIs for 100% reliable offline/online rendering
+ * Prevents 400 Bad Request / 403 Forbidden / 404 Not Found from external CDNs or Wikipedia
+ */
+
+const svgToUri = (svg: string): string => {
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
+};
+
+export const BRAND_SVG_LOGOS: Record<string, string> = {
+  // 1. 맥도날드 (McDonald's)
+  '맥도날드': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#DA291C"/>
+      <path d="M26 94V50c0-14 8-23 20-23 9 0 14 6 14 15 0-9 5-15 14-15 12 0 20 9 20 23v44h-12V52c0-10-5-15-12-15s-11 6-11 16v41H61V52c0-10-5-15-11-15s-11 6-11 16v41H26z" fill="#FFC72C"/>
+      <text x="60" y="110" fill="#FFFFFF" font-size="10" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">MCDONALD'S</text>
+    </svg>
+  `),
+
+  // 2. 버거킹 (Burger King)
+  '버거킹': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFF8F0"/>
+      <circle cx="60" cy="60" r="50" fill="#D62300" opacity="0.08"/>
+      <path d="M25 50c0-18 16-26 35-26s35 8 35 26z" fill="#E88219"/>
+      <path d="M25 70c0 18 16 26 35 26s35-8 35-26z" fill="#E88219"/>
+      <rect x="22" y="52" width="76" height="16" rx="8" fill="#D62300"/>
+      <text x="60" y="47" fill="#D62300" font-size="13" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">BURGER</text>
+      <text x="60" y="64" fill="#FFFFFF" font-size="12" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">KING</text>
+      <path d="M18 45c-6 10-6 20 0 30" stroke="#005691" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M102 45c6 10 6 20 0 30" stroke="#005691" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </svg>
+  `),
+
+  // 3. 맘스터치 (Mom's Touch)
+  '맘스터치': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#4E1417"/>
+      <circle cx="60" cy="50" r="28" fill="#FBAF18"/>
+      <path d="M48 40h24l5 22H43z" fill="#4E1417"/>
+      <circle cx="60" cy="38" r="4" fill="#4E1417"/>
+      <path d="M52 35c2-4 14-4 16 0" stroke="#4E1417" stroke-width="2.5" fill="none"/>
+      <text x="60" y="86" fill="#FBAF18" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">MOM'S</text>
+      <text x="60" y="99" fill="#FFFFFF" font-size="11" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">TOUCH</text>
+    </svg>
+  `),
+
+  // 4. 롯데리아 (Lotteria)
+  '롯데리아': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#E30613"/>
+      <path d="M38 28h18v44h26v16H38z" fill="#FFFFFF"/>
+      <circle cx="78" cy="40" r="9" fill="#FFC72C"/>
+      <text x="60" y="104" fill="#FFFFFF" font-size="11" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1.5">LOTTERIA</text>
+    </svg>
+  `),
+
+  // 5. KFC
+  'KFC': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#E4002B"/>
+      <rect x="25" y="18" width="16" height="54" fill="#FFFFFF"/>
+      <rect x="79" y="18" width="16" height="54" fill="#FFFFFF"/>
+      <circle cx="53" cy="38" r="5" fill="#FFFFFF"/>
+      <circle cx="67" cy="38" r="5" fill="#FFFFFF"/>
+      <rect x="52" y="37" width="16" height="2.5" fill="#FFFFFF"/>
+      <path d="M50 50q10 7 20 0" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <polygon points="56,60 60,63 56,66" fill="#FFFFFF"/>
+      <polygon points="64,60 60,63 64,66" fill="#FFFFFF"/>
+      <circle cx="60" cy="63" r="2" fill="#FFFFFF"/>
+      <text x="60" y="98" fill="#FFFFFF" font-size="22" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="2">KFC</text>
+    </svg>
+  `),
+
+  // 6. 스타벅스 (Starbucks)
+  '스타벅스': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#006241"/>
+      <circle cx="60" cy="60" r="44" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+      <circle cx="60" cy="60" r="38" fill="#006241"/>
+      <circle cx="60" cy="54" r="11" fill="#FFFFFF"/>
+      <polygon points="60,34 63,40 67,36 65,43 55,43 53,36 57,40" fill="#FFFFFF"/>
+      <polygon points="60,37 61,39 63,39 61.5,40.5 62,42 60,41 58,42 58.5,40.5 57,39 59,39" fill="#006241"/>
+      <ellipse cx="60" cy="56" rx="7" ry="8" fill="#006241"/>
+      <path d="M38 60q8 18 22 18t22-18c0 14-8 22-22 22S38 74 38 60z" fill="#FFFFFF"/>
+      <text x="60" y="110" fill="#FFFFFF" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">STARBUCKS</text>
+    </svg>
+  `),
+
+  // 7. 메가MGC커피 (Mega Coffee)
+  '메가MGC커피': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFCC00"/>
+      <path d="M38 32h44l-6 46H44z" fill="#201C1D"/>
+      <path d="M80 38h8a6 6 0 0 1 0 12h-7z" fill="none" stroke="#201C1D" stroke-width="4"/>
+      <text x="60" y="67" fill="#FFCC00" font-size="28" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">M</text>
+      <text x="60" y="96" fill="#201C1D" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">MEGA MGC</text>
+      <text x="60" y="108" fill="#201C1D" font-size="9" font-family="'Helvetica Neue', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">COFFEE</text>
+    </svg>
+  `),
+
+  // 8. 빽다방 (Paik's Coffee)
+  '빽다방': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#1D3A6B"/>
+      <circle cx="60" cy="46" r="24" fill="#FFD200"/>
+      <path d="M42 42c4-12 28-12 36 0-3-4-10-8-18-8s-15 4-18 8z" fill="#1D3A6B"/>
+      <rect x="46" y="42" width="11" height="8" rx="3" fill="none" stroke="#1D3A6B" stroke-width="2.5"/>
+      <rect x="63" y="42" width="11" height="8" rx="3" fill="none" stroke="#1D3A6B" stroke-width="2.5"/>
+      <line x1="57" y1="46" x2="63" y2="46" stroke="#1D3A6B" stroke-width="2.5"/>
+      <path d="M52 56q8 6 16 0" stroke="#1D3A6B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="60" y="88" fill="#FFFFFF" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">빽다방</text>
+      <text x="60" y="102" fill="#FFD200" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="0.5">PAIK'S COFFEE</text>
+    </svg>
+  `),
+
+  // 9. 매머드커피 (Mammoth Coffee)
+  '매머드커피': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#181818"/>
+      <polygon points="32,70 32,32 46,54 60,32 74,54 88,32 88,70 76,70 76,48 68,60 52,60 44,48 44,70" fill="#D4AF37"/>
+      <text x="60" y="90" fill="#FFFFFF" font-size="11" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">MAMMOTH</text>
+      <text x="60" y="103" fill="#D4AF37" font-size="9" font-family="'Helvetica Neue', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">COFFEE</text>
+    </svg>
+  `),
+
+  // 10. 컴포즈커피 (Compose Coffee)
+  '컴포즈커피': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFC700"/>
+      <circle cx="60" cy="46" r="22" fill="#212121"/>
+      <ellipse cx="60" cy="46" rx="12" ry="16" fill="#FFC700"/>
+      <path d="M60 32q-6 14 0 28" stroke="#212121" stroke-width="2.5" fill="none"/>
+      <text x="60" y="86" fill="#212121" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">COMPOSE</text>
+      <text x="60" y="100" fill="#212121" font-size="10" font-family="'Arial Black', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">COFFEE</text>
+    </svg>
+  `),
+
+  // 11. 이디야커피 (EDIYA Coffee)
+  '이디야커피': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#002855"/>
+      <circle cx="60" cy="45" r="22" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+      <text x="60" y="52" fill="#FFFFFF" font-size="18" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">E</text>
+      <text x="60" y="86" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1.5">EDIYA</text>
+      <text x="60" y="100" fill="#88B4E7" font-size="10" font-family="'Helvetica Neue', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">COFFEE</text>
+    </svg>
+  `),
+
+  // 12. 투썸플레이스 (A Twosome Place)
+  '투썸플레이스': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#1C1C1C"/>
+      <rect x="25" y="22" width="70" height="22" rx="6" fill="#A6192E"/>
+      <text x="60" y="37" fill="#FFFFFF" font-size="11" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">A TWOSOME</text>
+      <text x="60" y="66" fill="#FFFFFF" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">PLACE</text>
+      <text x="60" y="86" fill="#A6192E" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1">COFFEE &amp; DESSERT</text>
+    </svg>
+  `),
+
+  // 12-1. 폴바셋 (Paul Bassett)
+  '폴바셋': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#1E1E1E"/>
+      <polygon points="60,22 66,34 78,32 71,42 77,52 64,48 60,58 56,48 43,52 49,42 42,32 54,34" fill="#C5A059"/>
+      <circle cx="60" cy="40" r="4" fill="#1E1E1E"/>
+      <text x="60" y="74" fill="#FFFFFF" font-size="12" font-family="'Georgia', serif" font-weight="bold" text-anchor="middle" letter-spacing="1">Paul Bassett</text>
+      <text x="60" y="90" fill="#C5A059" font-size="8" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1.5">BARISTA CHAMPION</text>
+      <text x="60" y="102" fill="#888888" font-size="7" font-family="'Arial', sans-serif" font-weight="600" text-anchor="middle" letter-spacing="1">SPECIALTY COFFEE</text>
+    </svg>
+  `),
+
+  // 12-2. 더벤티 (The Venti)
+  '더벤티': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#4B1E78"/>
+      <circle cx="60" cy="44" r="22" fill="#FFD200"/>
+      <text x="60" y="54" fill="#4B1E78" font-size="28" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">V</text>
+      <text x="60" y="86" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">THE VENTI</text>
+      <text x="60" y="100" fill="#FFD200" font-size="8.5" font-family="'Helvetica Neue', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">COFFEE &amp; BEVERAGE</text>
+    </svg>
+  `),
+
+  // 13. 농심 (Nongshim)
+  '농심': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <ellipse cx="60" cy="46" rx="28" ry="24" fill="#E60012"/>
+      <circle cx="53" cy="46" r="10" fill="#FFFFFF"/>
+      <ellipse cx="67" cy="46" rx="8" ry="10" fill="#FFFFFF"/>
+      <circle cx="53" cy="46" r="6" fill="#E60012"/>
+      <text x="60" y="88" fill="#E60012" font-size="16" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">농심</text>
+      <text x="60" y="103" fill="#555555" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">NONGSHIM</text>
+    </svg>
+  `),
+
+  // 14. 오리온 (Orion)
+  '오리온': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <circle cx="60" cy="46" r="26" fill="#E50012"/>
+      <polygon points="60,26 64,42 80,46 64,50 60,66 56,50 40,46 56,42" fill="#FFFFFF"/>
+      <circle cx="60" cy="46" r="3.5" fill="#E50012"/>
+      <text x="60" y="88" fill="#E50012" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1.5">ORION</text>
+      <text x="60" y="102" fill="#333333" font-size="10" font-family="'Arial Black', sans-serif" font-weight="800" text-anchor="middle">오리온</text>
+    </svg>
+  `),
+
+  // 15. 삼양식품 (Samyang Foods)
+  '삼양식품': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <circle cx="60" cy="45" r="24" fill="#FF6600"/>
+      <circle cx="60" cy="45" r="16" fill="#FFFFFF"/>
+      <circle cx="60" cy="45" r="8" fill="#FF6600"/>
+      <text x="60" y="88" fill="#FF6600" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">삼양식품</text>
+      <text x="60" y="102" fill="#333333" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">SAMYANG</text>
+    </svg>
+  `),
+
+  // 16. 오뚜기 (Ottogi)
+  '오뚜기': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFD100"/>
+      <circle cx="60" cy="45" r="25" fill="#E30613"/>
+      <circle cx="60" cy="45" r="21" fill="#FFFFFF"/>
+      <circle cx="52" cy="42" r="3.5" fill="#E30613"/>
+      <path d="M64 42q5-4 8 0" stroke="#E30613" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M52 51q8 6 16 0" stroke="#E30613" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <text x="60" y="88" fill="#E30613" font-size="15" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">오뚜기</text>
+      <text x="60" y="102" fill="#222222" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">OTTOGI</text>
+    </svg>
+  `),
+
+  // 17. CJ제일제당 (CJ CheilJedang)
+  'CJ제일제당': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <circle cx="48" cy="38" r="14" fill="#E30613"/>
+      <circle cx="72" cy="38" r="14" fill="#004B97"/>
+      <circle cx="60" cy="56" r="14" fill="#FFBA00"/>
+      <circle cx="48" cy="38" r="5" fill="#FFFFFF"/>
+      <circle cx="72" cy="38" r="5" fill="#FFFFFF"/>
+      <circle cx="60" cy="56" r="5" fill="#FFFFFF"/>
+      <text x="60" y="87" fill="#004B97" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">CJ제일제당</text>
+      <text x="60" y="101" fill="#E30613" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">CHEILJEDANG</text>
+    </svg>
+  `),
+
+  // 18. 빙그레 (Binggrae)
+  '빙그레': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <path d="M42 42c0-10 8-16 18-16s18 6 18 16c0 14-18 26-18 26s-18-12-18-26z" fill="#ED1C24"/>
+      <path d="M52 46q8 7 16 0" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <text x="60" y="88" fill="#ED1C24" font-size="15" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">빙그레</text>
+      <text x="60" y="102" fill="#555555" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1">binggrae</text>
+    </svg>
+  `),
+
+  // 19. 코카콜라 (Coca-Cola)
+  '코카콜라': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#F40009"/>
+      <path d="M15 75q45-20 90 0" stroke="#FFFFFF" stroke-width="3.5" fill="none" opacity="0.8"/>
+      <text x="60" y="52" fill="#FFFFFF" font-size="18" font-family="'Brush Script MT', 'Palatino', cursive, sans-serif" font-weight="900" font-style="italic" text-anchor="middle" letter-spacing="-0.5">Coca-Cola</text>
+      <text x="60" y="98" fill="#FFFFFF" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">코카-콜라</text>
+    </svg>
+  `),
+
+  // 20. 하이트진로 (HiteJinro)
+  '하이트진로': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#005BAA"/>
+      <ellipse cx="60" cy="46" rx="22" ry="18" fill="#FFFFFF"/>
+      <circle cx="50" cy="35" r="5" fill="#FFFFFF"/>
+      <circle cx="70" cy="35" r="5" fill="#FFFFFF"/>
+      <circle cx="50" cy="35" r="2.5" fill="#005BAA"/>
+      <circle cx="70" cy="35" r="2.5" fill="#005BAA"/>
+      <path d="M52 48q8 4 16 0" stroke="#005BAA" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="60" y="86" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">하이트진로</text>
+      <text x="60" y="100" fill="#90CAF9" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">HITEJINRO</text>
+    </svg>
+  `),
+
+  // 21. 매일유업 (Maeil)
+  '매일유업': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <path d="M46 42c0-8 8-16 14-22 6 6 14 14 14 22a14 14 0 0 1-28 0z" fill="#005CA9"/>
+      <circle cx="70" cy="48" r="8" fill="#78BE20"/>
+      <text x="60" y="86" fill="#005CA9" font-size="15" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">매일유업</text>
+      <text x="60" y="101" fill="#78BE20" font-size="10" font-family="'Helvetica Neue', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">Maeil</text>
+    </svg>
+  `),
+
+  // 22. 연세유업 (Yonsei)
+  '연세유업': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#00205B"/>
+      <path d="M42 28h36v24c0 14-18 22-18 22s-18-8-18-22z" fill="#FFFFFF"/>
+      <path d="M46 32h28v20c0 10-14 16-14 16s-14-6-14-16z" fill="#00205B"/>
+      <text x="60" y="48" fill="#D4AF37" font-size="14" font-family="'Times New Roman', serif" font-weight="900" text-anchor="middle">Y</text>
+      <text x="60" y="90" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">연세유업</text>
+      <text x="60" y="103" fill="#D4AF37" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1">YONSEI MILK</text>
+    </svg>
+  `),
+
+  // 23. 롯데웰푸드 / 롯데 (Lotte)
+  '롯데웰푸드': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#DA291C"/>
+      <polygon points="60,24 82,44 60,64 38,44" fill="#FFFFFF"/>
+      <text x="60" y="50" fill="#DA291C" font-size="16" font-family="'Georgia', serif" font-weight="bold" text-anchor="middle">L</text>
+      <text x="60" y="86" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">LOTTE</text>
+      <text x="60" y="101" fill="#FFE5E5" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1">WELLFOOD</text>
+    </svg>
+  `),
+
+  // 24. 해태제과 (Haitai)
+  '해태제과': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#DC0023"/>
+      <ellipse cx="60" cy="46" rx="28" ry="20" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+      <text x="60" y="53" fill="#FFFFFF" font-size="16" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">HT</text>
+      <text x="60" y="88" fill="#FFFFFF" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">해태제과</text>
+      <text x="60" y="102" fill="#FFE0E0" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="2">HAITAI</text>
+    </svg>
+  `),
+
+  // 25. GS25
+  'GS25': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#007BC3"/>
+      <rect x="22" y="28" width="76" height="64" rx="16" fill="#FFFFFF"/>
+      <text x="43" y="68" fill="#007BC3" font-size="20" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">GS</text>
+      <text x="75" y="68" fill="#00A69C" font-size="22" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">25</text>
+      <rect x="28" y="73" width="64" height="4" rx="2" fill="#00A69C"/>
+    </svg>
+  `),
+
+  // 26. CU
+  'CU': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#632483"/>
+      <path d="M25 32h70a8 8 0 0 1 8 8v34a8 8 0 0 1-8 8H45l-12 10v-10h-8a8 8 0 0 1-8-8V40a8 8 0 0 1 8-8z" fill="#FFFFFF"/>
+      <text x="60" y="65" fill="#632483" font-size="28" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">CU</text>
+      <circle cx="83" cy="46" r="4.5" fill="#8FC43C"/>
+      <text x="60" y="106" fill="#8FC43C" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="0.5">Nice to CU</text>
+    </svg>
+  `),
+
+  // 27. 세븐일레븐 (7-Eleven)
+  '세븐일레븐': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#008163" stroke-width="4"/>
+      <rect x="18" y="16" width="84" height="6" fill="#EE3124"/>
+      <rect x="18" y="98" width="84" height="6" fill="#008163"/>
+      <path d="M38 32h44l-22 50h-12l16-36H38z" fill="#EE3124"/>
+      <path d="M48 32h34l-14 30h-10l8-18H48z" fill="#F58220"/>
+      <rect x="30" y="55" width="60" height="15" rx="3" fill="#008163"/>
+      <text x="60" y="66" fill="#FFFFFF" font-size="10" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">ELEVEN</text>
+    </svg>
+  `),
+
+  // 28. 이마트24 (emart24)
+  '이마트24': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFB81C"/>
+      <text x="60" y="56" fill="#231F20" font-size="18" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">emart</text>
+      <text x="60" y="84" fill="#231F20" font-size="28" font-family="'Arial Black', Impact, sans-serif" font-weight="900" text-anchor="middle">24</text>
+      <polygon points="88,34 90,40 96,42 90,44 88,50 86,44 80,42 86,40" fill="#231F20"/>
+    </svg>
+  `),
+
+  // 29. 청도농협 (농협 NH)
+  '청도농협': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <path d="M38 32l22 34 22-34h-10l-12 20-12-20z" fill="#00873D"/>
+      <circle cx="60" cy="36" r="6" fill="#00873D"/>
+      <text x="60" y="86" fill="#00873D" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">청도농협</text>
+      <text x="60" y="100" fill="#222222" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">NH NONGHYUP</text>
+    </svg>
+  `),
+
+  // 30. 횡성축협
+  '횡성축협': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#8A151B"/>
+      <path d="M36 44c10-14 38-14 48 0-6-6-20-8-24-8s-18 2-24 8z" fill="#D4AF37"/>
+      <ellipse cx="60" cy="52" rx="14" ry="10" fill="#D4AF37"/>
+      <text x="60" y="86" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">횡성축협</text>
+      <text x="60" y="100" fill="#D4AF37" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">HWEONGSEONG</text>
+    </svg>
+  `),
+
+  // 31. 고창황토농원
+  '고창황토농원': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#8D4925"/>
+      <circle cx="60" cy="46" r="22" fill="#A8582E"/>
+      <path d="M60 30c-8 6-6 14 0 18 6-4 8-12 0-18z" fill="#78BE20"/>
+      <path d="M52 42q8-4 16 0" stroke="#78BE20" stroke-width="2.5" fill="none"/>
+      <text x="60" y="86" fill="#FFFFFF" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">고창황토농원</text>
+      <text x="60" y="100" fill="#FFCC80" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle">FARM FRESH</text>
+    </svg>
+  `),
+
+  // 32. 태안수협
+  '태안수협': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#00529B"/>
+      <path d="M40 45q20-14 40 0t-40 0z" fill="#FFFFFF"/>
+      <polygon points="76,45 86,40 86,50" fill="#FFFFFF"/>
+      <circle cx="48" cy="45" r="2.5" fill="#00529B"/>
+      <path d="M30 62q15-6 30 0t30 0" stroke="#4FC3F7" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <text x="60" y="88" fill="#FFFFFF" font-size="13" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">태안수협</text>
+      <text x="60" y="101" fill="#B3E5FC" font-size="9" font-family="'Arial', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="1">FISHERIES</text>
+    </svg>
+  `),
+
+  // 33. 자연애란
+  '자연애란': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#F7A028"/>
+      <ellipse cx="60" cy="46" rx="18" ry="24" fill="#FFFFFF"/>
+      <circle cx="60" cy="50" r="10" fill="#FFC107"/>
+      <text x="60" y="88" fill="#FFFFFF" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">자연애란</text>
+      <text x="60" y="102" fill="#FFF3E0" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle" letter-spacing="1">FRESH EGGS</text>
+    </svg>
+  `),
+
+  // 34. 동서식품
+  '동서식품': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFFFFF" stroke="#F0F0F0" stroke-width="2"/>
+      <circle cx="60" cy="46" r="22" fill="#004A99"/>
+      <polygon points="60,32 64,44 76,46 66,54 69,66 60,59 51,66 54,54 44,46 56,44" fill="#D4AF37"/>
+      <text x="60" y="88" fill="#004A99" font-size="14" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">동서식품</text>
+      <text x="60" y="102" fill="#666666" font-size="9" font-family="'Arial', sans-serif" font-weight="800" text-anchor="middle">DONGSUH</text>
+    </svg>
+  `),
+
+  // 35. 비비고 (bibigo)
+  '비비고': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#1B3A2C"/>
+      <circle cx="60" cy="46" r="24" fill="#244E3B" stroke="#D1A763" stroke-width="1.5"/>
+      <!-- 돌솥 그릇 & 한식 스푼 젓가락 심볼 -->
+      <path d="M43 45c0 10 7.6 18 17 18s17-8 17-18H43z" fill="#D1A763"/>
+      <rect x="40" y="42" width="40" height="4" rx="2" fill="#E8C98B"/>
+      <!-- 숟가락 / 젓가락 라인 -->
+      <line x1="56" y1="28" x2="56" y2="42" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="56" cy="27" r="3" fill="#FFFFFF"/>
+      <line x1="64" y1="26" x2="64" y2="42" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- 브랜드명 bibigo 영문 / 비비고 국문 -->
+      <text x="60" y="88" fill="#FFFFFF" font-size="16" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">bibigo</text>
+      <text x="60" y="103" fill="#D1A763" font-size="10" font-family="'Noto Sans KR', sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">비비고</text>
+    </svg>
+  `),
+
+  // 36. DEFAULT (공식 브랜드 기본 엠블럼)
+  'DEFAULT': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#0066FF"/>
+      <circle cx="60" cy="46" r="22" fill="#FFFFFF" opacity="0.15"/>
+      <path d="M42 52l18-18 18 18-5 5-13-13-13 13z" fill="#FFFFFF"/>
+      <rect x="45" y="52" width="30" height="18" rx="4" fill="#FFFFFF"/>
+      <text x="60" y="65" fill="#0066FF" font-size="9" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle">OFFICIAL</text>
+      <text x="60" y="94" fill="#FFFFFF" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="1">BRAND</text>
+    </svg>
+  `)
+};
+
+/**
+ * Aliases and normalize lookup
+ */
+export const BRAND_ALIASES: Record<string, string> = {
+  '스타벅스 / 동서식품': '스타벅스',
+  '스타벅스코리아': '스타벅스',
+  '동서식품 / 스타벅스': '스타벅스',
+  '메가커피': '메가MGC커피',
+  '메가MGC': '메가MGC커피',
+  '매머드': '매머드커피',
+  '매머드익스프레스': '매머드커피',
+  '롯데': '롯데웰푸드',
+  '롯데제과': '롯데웰푸드',
+  '해태': '해태제과',
+  '삼양': '삼양식품',
+  'CJ': 'CJ제일제당',
+  '씨제이제일제당': 'CJ제일제당',
+  '연세우유': '연세유업',
+  '이디야': '이디야커피',
+  '투썸': '투썸플레이스',
+  '컴포즈': '컴포즈커피',
+  '폴 바셋': '폴바셋',
+  '바셋': '폴바셋',
+  '벤티': '더벤티',
+  '더 벤티': '더벤티',
+  '진로': '하이트진로',
+  '하이트': '하이트진로',
+  '농협': '청도농협',
+  '비비고': '비비고',
+  'CJ 비비고': '비비고',
+  'CJ제일제당 비비고': '비비고',
+  'bibigo': '비비고',
+};
+
+/**
+ * Brand specific primary colors for avatar / badge styling
+ */
+export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  '비비고': { bg: '#1B3A2C', text: '#FFFFFF', border: '#12261D' },
+  '맥도날드': { bg: '#DA291C', text: '#FFC72C', border: '#B81E13' },
+  '버거킹': { bg: '#D62300', text: '#FFFFFF', border: '#B51B00' },
+  '맘스터치': { bg: '#4E1417', text: '#FBAF18', border: '#3B0F11' },
+  '롯데리아': { bg: '#E30613', text: '#FFFFFF', border: '#C0040F' },
+  'KFC': { bg: '#E4002B', text: '#FFFFFF', border: '#C00024' },
+  '스타벅스': { bg: '#006241', text: '#FFFFFF', border: '#004C32' },
+  '메가MGC커피': { bg: '#FFCC00', text: '#201C1D', border: '#E6B800' },
+  '빽다방': { bg: '#1D3A6B', text: '#FFD200', border: '#152B50' },
+  '매머드커피': { bg: '#181818', text: '#D4AF37', border: '#333333' },
+  '컴포즈커피': { bg: '#FFC700', text: '#212121', border: '#E0AF00' },
+  '이디야커피': { bg: '#002855', text: '#FFFFFF', border: '#001D3F' },
+  '투썸플레이스': { bg: '#1C1C1C', text: '#A6192E', border: '#333333' },
+  '폴바셋': { bg: '#1E1E1E', text: '#C5A059', border: '#3A3A3A' },
+  '더벤티': { bg: '#4B1E78', text: '#FFD200', border: '#361259' },
+  '농심': { bg: '#E60012', text: '#FFFFFF', border: '#C4000F' },
+  '오리온': { bg: '#E50012', text: '#FFFFFF', border: '#C2000F' },
+  '삼양식품': { bg: '#FF6600', text: '#FFFFFF', border: '#D95700' },
+  '오뚜기': { bg: '#FFD100', text: '#E30613', border: '#E0B800' },
+  'CJ제일제당': { bg: '#004B97', text: '#FFFFFF', border: '#003873' },
+  '빙그레': { bg: '#ED1C24', text: '#FFFFFF', border: '#C9141B' },
+  '코카콜라': { bg: '#F40009', text: '#FFFFFF', border: '#D00007' },
+  '하이트진로': { bg: '#005BAA', text: '#FFFFFF', border: '#004582' },
+  '매일유업': { bg: '#005CA9', text: '#FFFFFF', border: '#004782' },
+  '연세유업': { bg: '#00205B', text: '#D4AF37', border: '#001640' },
+  '롯데웰푸드': { bg: '#DA291C', text: '#FFFFFF', border: '#B81E13' },
+  '해태제과': { bg: '#DC0023', text: '#FFFFFF', border: '#B8001C' },
+  'GS25': { bg: '#007BC3', text: '#FFFFFF', border: '#00629C' },
+  'CU': { bg: '#632483', text: '#8FC43C', border: '#4E1B67' },
+  '세븐일레븐': { bg: '#008163', text: '#FFFFFF', border: '#00634C' },
+  '이마트24': { bg: '#FFB81C', text: '#231F20', border: '#E0A015' },
+};

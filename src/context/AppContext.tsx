@@ -51,6 +51,8 @@ interface AppContextType {
   communityPosts: CommunityPost[];
   banners: BannerItem[];
   battleConfig: BattleConfig;
+  battleChoice: 'A' | 'B' | null;
+  voteBattle: (choice: 'A' | 'B') => void;
   events: PromotionEvent[];
   selectedEventId: string;
   selectedEvent: PromotionEvent;
@@ -346,6 +348,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return INITIAL_BATTLE_CONFIG;
     }
   });
+
+  const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_battle_choice');
+      return stored === 'A' || stored === 'B' ? stored : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const voteBattle = (choice: 'A' | 'B') => {
+    setBattleChoice(choice);
+    try {
+      localStorage.setItem('sinsangpick_battle_choice', choice);
+    } catch (e) {
+      console.warn(e);
+    }
+    showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
+  };
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
     try {

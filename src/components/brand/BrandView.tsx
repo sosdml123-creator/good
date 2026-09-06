@@ -13,6 +13,7 @@ import {
   Store
 } from 'lucide-react';
 import { getAggregatedBrands, getBrandLogo, POPULAR_BRANDS, ProcessedBrand } from '../../utils/brandData';
+import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
@@ -257,11 +258,12 @@ export const BrandView: React.FC = () => {
             <span>브랜드 목록</span>
           </button>
 
-          <div className="flex items-center gap-1.5 truncate max-w-[180px]">
-            <img 
-              src={currentBrand.logo} 
-              alt={currentBrand.name} 
-              className="w-5 h-5 rounded-md object-contain bg-white border border-gray-200 shrink-0 p-0.5" 
+          <div className="flex items-center gap-2 truncate max-w-[190px]">
+            <BrandLogo 
+              brandName={currentBrand.name} 
+              logoUrl={currentBrand.logo} 
+              size="xs" 
+              roundedClassName="rounded-md" 
             />
             <span className="text-sm font-bold text-gray-900 truncate">
               {currentBrand.name} 브랜드관
@@ -295,13 +297,13 @@ export const BrandView: React.FC = () => {
             <div className="flex items-end justify-between gap-3">
               <div className="flex items-center gap-3">
                 {/* Clean Brand Logo Container */}
-                <div className="w-20 h-20 rounded-2xl bg-white p-2 shadow-lg shrink-0 border-2 border-white overflow-hidden flex items-center justify-center">
-                  <img
-                    src={currentBrand.logo}
-                    alt={currentBrand.name}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <BrandLogo
+                  brandName={currentBrand.name}
+                  logoUrl={currentBrand.logo}
+                  size="xl"
+                  className="shadow-xl border-2 border-white ring-2 ring-black/10"
+                  roundedClassName="rounded-3xl"
+                />
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-1.5">
                     {currentBrand.badge && (
@@ -514,8 +516,13 @@ export const BrandView: React.FC = () => {
                   }}
                   className="w-32 shrink-0 bg-white rounded-2xl p-3 border border-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer text-center group active:scale-95"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white p-1.5 mx-auto mb-2 overflow-hidden border border-gray-100 flex items-center justify-center shadow-2xs">
-                    <img src={b.logo} alt={b.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform" />
+                  <div className="mx-auto mb-2 flex justify-center">
+                    <BrandLogo 
+                      brandName={b.name} 
+                      logoUrl={b.logo} 
+                      size="md" 
+                      className="group-hover:scale-105 transition-transform" 
+                    />
                   </div>
                   <div className="text-xs font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors">
                     {b.name}
@@ -619,9 +626,12 @@ export const BrandView: React.FC = () => {
                 className="w-44 shrink-0 bg-white rounded-2xl p-3.5 border border-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between space-y-2 active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="w-11 h-11 rounded-xl bg-gray-50 p-1 overflow-hidden border border-gray-100 shrink-0 flex items-center justify-center">
-                    <img src={pb.logo} alt={pb.name} className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" />
-                  </div>
+                  <BrandLogo 
+                    brandName={pb.name} 
+                    logoUrl={pb.logo} 
+                    size="md" 
+                    className="group-hover:scale-105 transition-transform" 
+                  />
                   <div className="overflow-hidden">
                     <div className="text-xs font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors">
                       {pb.name}
@@ -675,13 +685,12 @@ export const BrandView: React.FC = () => {
                 {/* Brand Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-gray-50 p-1 border border-gray-100 shrink-0 overflow-hidden flex items-center justify-center shadow-2xs">
-                      <img
-                        src={b.logo}
-                        alt={b.name}
-                        className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform"
-                      />
-                    </div>
+                    <BrandLogo 
+                      brandName={b.name} 
+                      logoUrl={b.logo} 
+                      size="md" 
+                      className="group-hover:scale-105 transition-transform" 
+                    />
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-1.5">
                         <h3 className="text-sm font-black text-gray-900 group-hover:text-[#0066FF] transition-colors">

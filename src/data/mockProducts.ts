@@ -7,8 +7,10 @@ import {
   ILLUSTRATION_EGG,
   ILLUSTRATION_FRUIT_BANNER,
 } from '../utils/productIllustrations';
+import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...COFFEE_BRAND_BEVERAGES,
   {
     id: 'orion-001',
     name: "오리온 스윙칩 까르보나라불닭맛",
@@ -20723,11 +20725,11 @@ export const INITIAL_BANNERS: BannerItem[] = [
   },
   {
     id: 'banner-2',
-    image: 'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg',
-    badge: '☕ 커피 브랜드 신상 라인업',
-    title: '메가커피 · 스타벅스 · 매머드커피',
-    subtitle: '공식 브랜드 최신 커피 & 시그니처 음료 총집합',
-    buttonText: '커피 신상 보러가기',
+    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1000&auto=format&fit=crop&q=80',
+    badge: '☕ 전국 인기 커피 브랜드 음료 총집합',
+    title: '스타벅스 · 컴포즈 · 빽다방 · 이디야 · 투썸 · 폴바셋',
+    subtitle: '각 브랜드별 대표 시그니처 & 신메뉴 음료를 한눈에 비교하고 탐색해보세요',
+    buttonText: '커피 브랜드 음료 모아보기',
     linkCategory: '음료',
     isActive: true,
     order: 2,

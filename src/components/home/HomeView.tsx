@@ -10,6 +10,7 @@ import {
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { POPULAR_BRANDS } from '../../utils/brandData';
+import { BrandLogo } from '../brand/BrandLogo';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -615,8 +616,13 @@ export const HomeView: React.FC = () => {
                 onClick={() => openBrandDetail(b.name)}
                 className="w-32 shrink-0 bg-[#F8F9FA] hover:bg-blue-50/50 rounded-2xl p-3 border border-gray-100 hover:border-blue-200 transition-all cursor-pointer text-center group flex flex-col items-center justify-between space-y-1.5 active:scale-95"
               >
-                <div className="w-12 h-12 rounded-xl bg-white p-1 overflow-hidden shadow-2xs border border-gray-100 flex items-center justify-center">
-                  <img src={b.logo} alt={b.name} className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" />
+                <div className="flex justify-center">
+                  <BrandLogo 
+                    brandName={b.name} 
+                    logoUrl={b.logo} 
+                    size="md" 
+                    className="group-hover:scale-105 transition-transform" 
+                  />
                 </div>
                 <div>
                   <div className="text-xs font-black text-gray-900 truncate max-w-[100px] group-hover:text-[#0066FF] transition-colors">
