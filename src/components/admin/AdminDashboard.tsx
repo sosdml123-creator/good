@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   BarChart3, 
@@ -29,10 +29,19 @@ import {
   MessageSquare,
   TrendingUp,
   ThumbsUp,
-  Award
+  Award,
+  Activity,
+  ArrowUpRight,
+  Globe
 } from 'lucide-react';
 import { ProductCategory, BannerItem, Product, PendingProduct } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
+import { 
+  getShoppingInsightTrendingKeywords, 
+  fetchFoodCategoryShoppingTrends, 
+  TrendingKeywordInsight, 
+  ShoppingInsightResponse 
+} from '../../services/naverApi';
 
 export type AdminTab = 
   | 'overview' 
@@ -97,6 +106,40 @@ export const AdminDashboard: React.FC = () => {
   const [pendingSourceFilter, setPendingSourceFilter] = useState<string>('전체');
   const [isEditingPendingModalOpen, setIsEditingPendingModalOpen] = useState(false);
   const [editingPendingItem, setEditingPendingItem] = useState<PendingProduct | null>(null);
+
+  // NAVER DataLab Shopping Insight states
+  const [shoppingInsightTrends, setShoppingInsightTrends] = useState<TrendingKeywordInsight[]>([]);
+  const [shoppingCategoryTrends, setShoppingCategoryTrends] = useState<ShoppingInsightResponse | null>(null);
+  const [isLoadingInsights, setIsLoadingInsights] = useState(false);
+
+  // Load NAVER DataLab Shopping Insights
+  const loadShoppingInsights = async () => {
+    setIsLoadingInsights(true);
+    try {
+      const [keywords, catTrends] = await Promise.all([
+        getShoppingInsightTrendingKeywords(),
+        fetchFoodCategoryShoppingTrends()
+      ]);
+      setShoppingInsightTrends(keywords);
+      setShoppingCategoryTrends(catTrends);
+    } catch (e) {
+      console.warn('[Admin Shopping Insight Load Error]', e);
+    } finally {
+      setIsLoadingInsights(false);
+    }
+  };
+
+  useEffect(() => {
+    loadShoppingInsights();
+  }, []);
+
+  // Collect Products based on Shopping Insight Keyword
+  const handleCollectByInsightKeyword = async (kw: string) => {
+    showToast(`🔥 네이버 쇼핑인사이트 급상승 '${kw}' 신제품을 수집합니다...`, 'info');
+    const res = await searchAndCollect(`${kw} 신제품`);
+    setActiveAdminTab('approval');
+    showToast(`'${kw}' 관련 ${res.count}개 신제품이 승인 대기함에 추가되었습니다!`, 'success');
+  };
 
   // Products tab states
   const [productViewMode, setProductViewMode] = useState<'table' | 'grid'>('table');
@@ -1278,28 +1321,55 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Keyword Search Crawler Bar */}
-                <div className={`pt-3 border-t flex flex-wrap items-center gap-2 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-                  <div className="relative flex-1 min-w-[280px]">
-                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      value={crawlerSearchQuery}
-                      onChange={e => setCrawlerSearchQuery(e.target.value)}
-                      onKeyDown={e => e.key === 'Enter' && handleSearchCollect()}
-                      placeholder="특정 상품명이나 브랜드 검색 수집 (예: 꼬북칩, 제로밀크티, 찰떡아이스)"
-                      className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 border ${inputBg}`}
-                    />
+                {/* Keyword Search Crawler Bar & Shopping Insight Recommendation Chips */}
+                <div className={`pt-3 border-t space-y-2.5 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="relative flex-1 min-w-[280px]">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={crawlerSearchQuery}
+                        onChange={e => setCrawlerSearchQuery(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && handleSearchCollect()}
+                        placeholder="특정 상품명이나 브랜드 검색 수집 (예: 꼬북칩, 제로밀크티, 찰떡아이스)"
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 border ${inputBg}`}
+                      />
+                    </div>
+                    <button
+                      onClick={handleSearchCollect}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all border ${
+                        isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                      }`}
+                    >
+                      <Search className="w-3.5 h-3.5 text-amber-500" />
+                      <span>키워드 맞춤 수집</span>
+                    </button>
                   </div>
-                  <button
-                    onClick={handleSearchCollect}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all border ${
-                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                    }`}
-                  >
-                    <Search className="w-3.5 h-3.5 text-amber-500" />
-                    <span>키워드 맞춤 수집</span>
-                  </button>
+
+                  {/* Realtime DataLab Shopping Insight Quick Trigger Chips */}
+                  <div className="flex items-center gap-1.5 flex-wrap text-xs">
+                    <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                      <Activity className="w-3 h-3 animate-pulse" />
+                      <span>네이버 쇼핑인사이트 실시간 인기 키워드:</span>
+                    </span>
+                    {shoppingInsightTrends.slice(0, 6).map((item) => (
+                      <button
+                        key={item.keyword}
+                        onClick={() => handleCollectByInsightKeyword(item.keyword)}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all flex items-center gap-1 group ${
+                          isDark 
+                            ? 'bg-slate-800/90 text-slate-300 border-slate-700 hover:bg-amber-950/60 hover:text-amber-300 hover:border-amber-700' 
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 shadow-2xs'
+                        }`}
+                        title="클릭 시 이 키워드로 실시간 신제품을 자동 수집합니다"
+                      >
+                        <span className="font-mono text-amber-500 text-[10px]">#{item.rank}</span>
+                        <span>{item.keyword}</span>
+                        <span className="text-[9px] text-emerald-500 font-mono font-black">{item.growthRate}</span>
+                        <ArrowUpRight className="w-2.5 h-2.5 opacity-50 group-hover:opacity-100 text-amber-500" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -2127,17 +2197,164 @@ export const AdminDashboard: React.FC = () => {
           {activeAdminTab === 'analytics' && (
             <div className="space-y-6">
               
-              <div className={`p-6 rounded-2xl border shadow-sm ${cardBg}`}>
-                <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
-                  <span>신제품 카테고리 분포 및 검색 트렌드 빅데이터</span>
-                </h2>
-                <p className="text-xs text-slate-500 mt-1">
-                  소비자들의 관심사와 편의점 4사 신상품 출시 트렌드를 데이터 기반으로 분석합니다.
-                </p>
+              {/* 1. Header Card with DataLab Sync Status */}
+              <div className={`p-6 rounded-2xl border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 ${cardBg}`}>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1">
+                      <Globe className="w-3.5 h-3.5" />
+                      <span>NAVER DataLab 쇼핑인사이트 실시간 연동</span>
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
+                      실시간 트렌드 지수 자동 집계
+                    </span>
+                  </div>
+                  <h2 className={`text-base font-black flex items-center gap-2 mt-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    <TrendingUp className="w-5 h-5 text-blue-500" />
+                    <span>네이버 쇼핑인사이트 빅데이터 & 식품 신제품 트렌드 분석</span>
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    네이버 5,000만 사용자들의 실제 쇼핑 클릭/검색 빅데이터를 기반으로 최신 인기 먹거리 트렌드를 실시간 분석합니다.
+                  </p>
+                </div>
+
+                <button
+                  onClick={loadShoppingInsights}
+                  disabled={isLoadingInsights}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 ${
+                    isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                  }`}
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isLoadingInsights ? 'animate-spin text-indigo-500' : 'text-slate-500'}`} />
+                  <span>쇼핑인사이트 데이터 새로고침</span>
+                </button>
               </div>
 
-              {/* 2-Column: Left Category Share & Right Convenience Store Share */}
+              {/* 2. NAVER DataLab Shopping Category Click Share Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { name: '과자/베이커리', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20', defaultRatio: 84 },
+                  { name: '음료', color: 'text-blue-500', bg: 'bg-blue-500/10 border-blue-500/20', defaultRatio: 78 },
+                  { name: '가공/간편식품', color: 'text-purple-500', bg: 'bg-purple-500/10 border-purple-500/20', defaultRatio: 92 },
+                  { name: '신선식품', color: 'text-emerald-500', bg: 'bg-emerald-500/10 border-emerald-500/20', defaultRatio: 65 },
+                ].map((cat) => {
+                  const matchedResult = shoppingCategoryTrends?.results?.find(r => r.title.includes(cat.name) || cat.name.includes(r.title));
+                  const currentRatio = matchedResult && matchedResult.data && matchedResult.data.length > 0
+                    ? Math.round(matchedResult.data[matchedResult.data.length - 1].ratio)
+                    : cat.defaultRatio;
+
+                  return (
+                    <div key={cat.name} className={`p-4 rounded-2xl border shadow-sm flex flex-col justify-between ${cardBg}`}>
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold border ${cat.bg} ${cat.color}`}>
+                            {cat.name}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-mono">DataLab 지수</span>
+                        </div>
+                        <div className="mt-3 flex items-baseline gap-1.5">
+                          <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                            {currentRatio}
+                          </span>
+                          <span className="text-xs text-slate-400 font-mono">/ 100 pt</span>
+                        </div>
+                      </div>
+                      <div className="mt-3 w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div
+                          className={`h-full rounded-full bg-gradient-to-r from-indigo-500 to-amber-500`}
+                          style={{ width: `${currentRatio}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* 3. NAVER DataLab Realtime Shopping Trending Keywords Board */}
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-rose-500 animate-pulse" />
+                    <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>네이버 쇼핑인사이트 실시간 급상승 신제품 키워드 TOP 8</h3>
+                  </div>
+                  <span className="text-[11px] text-slate-400">※ 키워드를 클릭하면 즉시 신제품을 자동 수집합니다</span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
+                      <tr>
+                        <th className="py-2.5 px-3 w-14 text-center">순위</th>
+                        <th className="py-2.5 px-3">트렌드 검색어</th>
+                        <th className="py-2.5 px-3">카테고리</th>
+                        <th className="py-2.5 px-3">주요 브랜드</th>
+                        <th className="py-2.5 px-3">쇼핑 클릭 지수</th>
+                        <th className="py-2.5 px-3">주간 검색 증가율</th>
+                        <th className="py-2.5 px-3 text-right">수집 작업</th>
+                      </tr>
+                    </thead>
+                    <tbody className={`divide-y ${tableRowHover}`}>
+                      {shoppingInsightTrends.map(item => (
+                        <tr key={item.keyword} className="transition-colors">
+                          <td className="py-3 px-3 text-center">
+                            <span className={`w-6 h-6 rounded-full inline-flex items-center justify-center font-mono font-bold text-xs ${
+                              item.rank <= 3 ? 'bg-indigo-600 text-white shadow-xs' : isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'
+                            }`}>
+                              {item.rank}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <div className="flex items-center gap-2">
+                              <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.keyword}</span>
+                              {item.isHot && (
+                                <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-rose-500/10 text-rose-600 border border-rose-500/20">
+                                  HOT
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                              {item.category}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 text-slate-500 font-semibold">
+                            {item.relatedBrand || '-'}
+                          </td>
+                          <td className="py-3 px-3">
+                            <div className="space-y-1 max-w-[130px]">
+                              <div className="flex justify-between text-[10px] font-mono">
+                                <span className="text-slate-400">지수</span>
+                                <span className="font-bold text-indigo-500">{item.score} / 100</span>
+                              </div>
+                              <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                                <div
+                                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                                  style={{ width: `${item.score}%` }}
+                                />
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-3 font-mono font-bold text-emerald-500">
+                            {item.growthRate}
+                          </td>
+                          <td className="py-3 px-3 text-right">
+                            <button
+                              onClick={() => handleCollectByInsightKeyword(item.keyword)}
+                              className="px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto"
+                            >
+                              <Zap className="w-3 h-3" />
+                              <span>신제품 자동 수집</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* 3. 2-Column: Left Category Share & Right Convenience Store Share */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
                 {/* Category Share Distribution */}
