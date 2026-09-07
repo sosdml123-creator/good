@@ -82,7 +82,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "store": "이마트24",
         "status": "입고완료",
         "stockCount": 6,
-        "price": 15500,
+        "price": 14980,
         "eventBadge": "편의점입고",
         "deliveryTime": "매장 픽업",
         "appLink": "https://www.emart24.co.kr"

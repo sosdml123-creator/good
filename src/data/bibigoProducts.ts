@@ -46,7 +46,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     storeStocks: [
       { store: 'CJ더마켓', status: '입고완료', stockCount: 150, price: 1980, discountPrice: 1780, eventBadge: '공식특가', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com/the/product/category-product-list?ctgrId=004012' },
       { store: '대형마트', status: '입고완료', stockCount: 50, price: 1980, eventBadge: '만능육수', deliveryTime: '당일배송', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 80, price: 1680, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' },
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 80, price: 1980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' },
       { store: 'CU', status: '입고완료', stockCount: 15, price: 1980, eventBadge: '1+1행사', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: '8시간 동안 정성껏 푹 고아내어 뽀얗고 깊은 국물 맛! 떡국, 만둣국, 부대찌개, 김치찌개 등 모든 국물 요리의 만능 베이스 육수.',
@@ -146,7 +146,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     precautions: '전자레인지용 용기에 부어 4분간 데워 드세요.',
     storeStocks: [
       { store: 'CJ더마켓', status: '입고완료', stockCount: 80, price: 4980, discountPrice: 4230, eventBadge: '공식인기', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 50, price: 4180, eventBadge: '새벽도착', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' }
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 50, price: 4980, eventBadge: '새벽도착', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' }
     ],
     description: '완도산 청정 미역을 고소한 참기름에 달달 볶고, 결대로 찢은 두툼한 소고기 양지머리를 푹 고아내어 국물이 맑고 진한 정통 미역국.',
     bestQuotes: [
@@ -389,7 +389,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     precautions: '끓는 물에 파우치 채 5~6분 데워 드세요.',
     storeStocks: [
       { store: 'CJ더마켓', status: '입고완료', stockCount: 130, price: 4980, discountPrice: 4230, eventBadge: '국민육개장', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 60, price: 4180, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.coupang.com' }
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 60, price: 4980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.coupang.com' }
     ],
     description: '결대로 정성껏 찢은 소고기 양지와 신선한 대파, 토란대를 듬뿍 넣고 3시간 동안 직접 우려낸 사골 육수로 칼칼하고 깊게 끓여낸 육개장.',
     bestQuotes: [
@@ -1020,7 +1020,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     precautions: '이미 냉동된 바 있으니 해동 후 재냉동시키지 마십시오.',
     storeStocks: [
       { store: 'CJ더마켓', status: '입고완료', stockCount: 150, price: 9980, discountPrice: 8980, eventBadge: '대용량기획', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 90, price: 8980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' }
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 90, price: 9980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' }
     ],
     description: '대한민국 1등 만두! 큼직하게 썰어 넣은 국산 돼지고기와 신선한 부추, 쫄깃한 당면에서 터져 나오는 풍부한 육즙과 바삭 쫄깃한 만두피의 완벽한 조화.',
     bestQuotes: [

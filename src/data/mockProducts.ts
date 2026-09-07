@@ -71,7 +71,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/4fb6119efb74d64574a31407be292865.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 217,
     searchInfluxCount: 15280,
@@ -98,7 +98,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "한국인의 소울푸드 전, 고소한 맛과 바삭한 식감 그대로 스낵으로 재탄생!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -112,7 +112,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/fc3c965e4bb5cd7277ef44f0ca6a221f.png",
     releaseDate: '오리온 공식',
-    price: 1700,
+    price: 2000,
     overallRating: 4.9,
     ratingCount: 234,
     searchInfluxCount: 15560,
@@ -139,7 +139,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "더~길고 더~바삭해진 오!감자를 갈릭디핑소스에 찍먹!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -153,7 +153,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/b518a686cee6082d9a892f96ad6267f2.png",
     releaseDate: '오리온 공식',
-    price: 1100,
+    price: 1300,
     overallRating: 5.0,
     ratingCount: 251,
     searchInfluxCount: 15840,
@@ -180,7 +180,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 1100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1300, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "와작와작 바삭한 식감! 리얼한 치킨맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -194,7 +194,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/44c447d39d2ea82ed1644cebeb3ca7aa.png",
     releaseDate: '오리온 공식',
-    price: 2000,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 268,
     searchInfluxCount: 16120,
@@ -221,7 +221,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "올리브와 허브를 솔솔~ 뿌려 입 안 가득 향긋!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -235,7 +235,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/90bce3bb468e548dfc5183a11bb22627.png",
     releaseDate: '오리온 공식',
-    price: 1060,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 285,
     searchInfluxCount: 16400,
@@ -262,7 +262,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1060, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "생감자와 3가지 페퍼의 완벽한 조화!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -276,7 +276,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3f4b392a0a11fbd70b8a2f6a5d785639.png",
     releaseDate: '오리온 공식',
-    price: 2000,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 302,
     searchInfluxCount: 16680,
@@ -303,7 +303,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "칠리양념+치즈가루 듬뿍! 매콤짭짤 양념감자",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -358,7 +358,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/992389b811f954272c62f2afe6bdf77b.png",
     releaseDate: '오리온 공식',
-    price: 1980,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 336,
     searchInfluxCount: 17240,
@@ -385,7 +385,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 1980, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 꼬북칩 카라멜팝콘맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -399,7 +399,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3f22bab799f10f944f53e767de58cbd8.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 353,
     searchInfluxCount: 17520,
@@ -426,7 +426,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "국산쌀 100%로 구워 만든 쌀스낵!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -440,7 +440,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/633d26afbf01ed262153168fd7693afa.png",
     releaseDate: '오리온 공식',
-    price: 2720,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 370,
     searchInfluxCount: 17800,
@@ -467,7 +467,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 2720, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "담백한 생감자와 짭짤한 치즈의 하모니",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -481,7 +481,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/b99b9eaa464cd13c37ab49b226cb50e4.png",
     releaseDate: '오리온 공식',
-    price: 900,
+    price: 2000,
     overallRating: 5.0,
     ratingCount: 387,
     searchInfluxCount: 18080,
@@ -508,7 +508,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "나쵸는 역시 찍먹이지!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -522,7 +522,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/65a1684a3425b34ed02112ca5e211836.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 404,
     searchInfluxCount: 18360,
@@ -549,7 +549,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 꼬북칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -563,7 +563,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/19c7c8600b519f54d09e9894b4d57f91.png",
     releaseDate: '오리온 공식',
-    price: 1500,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 421,
     searchInfluxCount: 18640,
@@ -590,7 +590,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 무뚝뚝고구마칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -604,7 +604,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8d31ecc8f226ad560892cf1e854e2cbf.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 438,
     searchInfluxCount: 18920,
@@ -631,7 +631,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "감자맛이 좋은 생감자칩!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -645,7 +645,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/b19e0e9e0feb0e2cd7dda525e4caeac7.png",
     releaseDate: '오리온 공식',
-    price: 1400,
+    price: 1700,
     overallRating: 5.0,
     ratingCount: 455,
     searchInfluxCount: 19200,
@@ -672,7 +672,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1400, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "정성들여 제대로 구운 50년 전통의 맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -686,7 +686,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3fc4589a6a6d430b4b52fa37670bb5bb.png",
     releaseDate: '오리온 공식',
-    price: 1500,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 472,
     searchInfluxCount: 19480,
@@ -713,7 +713,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "태양의 맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -727,7 +727,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/5fc2977d7d4668adaad7a455fd93a8a9.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 489,
     searchInfluxCount: 19760,
@@ -754,7 +754,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "두꺼운 生감자칩에 풍부한 맛을 더하다",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -768,7 +768,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/1f9531b5d6a398306769a53d260d3702.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 506,
     searchInfluxCount: 20040,
@@ -795,7 +795,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "바삭! 사르르~",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -809,7 +809,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/6f050c269f3da032a9e6fd7340a49527.png",
     releaseDate: '오리온 공식',
-    price: 1100,
+    price: 1300,
     overallRating: 5.0,
     ratingCount: 523,
     searchInfluxCount: 20320,
@@ -836,7 +836,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1300, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "와작와작 바삭한 식감! 리얼한 치킨맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -850,7 +850,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/23281211ed8ce99bb6be98a1b0b8e0d6.png",
     releaseDate: '오리온 공식',
-    price: 2000,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 540,
     searchInfluxCount: 20600,
@@ -877,7 +877,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오독오독 生감자스틱",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -891,7 +891,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/5c06eef89fda53197ddeb42b843f027a.png",
     releaseDate: '오리온 공식',
-    price: 2000,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 557,
     searchInfluxCount: 20880,
@@ -918,7 +918,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 2000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "두툼하게 썰어 감자맛이 풍부한 生감자칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -932,7 +932,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8db74b4470c1ccc99c37a828ba5ffa67.png",
     releaseDate: '오리온 공식',
-    price: 900,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 574,
     searchInfluxCount: 21160,
@@ -959,7 +959,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "통옥수수 그대로!  고소함도 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -973,7 +973,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/aa4a5a1f3aa24132fc8d01c547878ddd.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 591,
     searchInfluxCount: 21440,
@@ -1000,7 +1000,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "고소한 땅콩 30% 함유!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1014,7 +1014,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/ea814f57c4f0269432ff1316b98a625f.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 4800,
     overallRating: 4.7,
     ratingCount: 608,
     searchInfluxCount: 21720,
@@ -1041,7 +1041,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "사각사각 씹히는 애플 콩포트가 들어간 데일리 디저트!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1096,7 +1096,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8b5b8fb80bb0ed494b4bb8c019879157.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 642,
     searchInfluxCount: 22280,
@@ -1123,7 +1123,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "리얼 생크림으로 완성한 부드러움 한 수 위",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1137,7 +1137,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/493641e6ed85f193033ce1418a977bc9.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 4800,
     overallRating: 5.0,
     ratingCount: 659,
     searchInfluxCount: 22560,
@@ -1164,7 +1164,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "진짜 과일로 만든 과일크림 케이크, 오리온 후레쉬베리",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1178,7 +1178,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7d682e1ccceafd2b3137af8f11e29f63.png",
     releaseDate: '오리온 공식',
-    price: 4090,
+    price: 4800,
     overallRating: 4.7,
     ratingCount: 676,
     searchInfluxCount: 22840,
@@ -1205,7 +1205,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 4090, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "새로운 시작, 오리온 초코파이情",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1219,7 +1219,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/95f304e66d7092a944fb3425ea327ce2.png",
     releaseDate: '오리온 공식',
-    price: 990,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 693,
     searchInfluxCount: 23120,
@@ -1246,7 +1246,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 990, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "리얼 바나나의 부드러움과 달콤함 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1260,7 +1260,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/9862b302d94c3d029bd5931aa17375b6.png",
     releaseDate: '오리온 공식',
-    price: 1200,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 710,
     searchInfluxCount: 23400,
@@ -1287,7 +1287,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "쫀득쫀득~ 참붕어빵",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1301,7 +1301,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/dab4e3872faf71c3e616a6bbeb7ab380.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 4800,
     overallRating: 5.0,
     ratingCount: 727,
     searchInfluxCount: 23680,
@@ -1328,7 +1328,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "길거리 대표간식 붕어빵과 호떡의 달콤한 만남!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1342,7 +1342,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/e620cc671c3ae5247b4f7d7486946305.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 4800,
     overallRating: 4.7,
     ratingCount: 744,
     searchInfluxCount: 23960,
@@ -1369,7 +1369,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "진짜 과일로 만든 과일크림 케이크, 오리온 후레쉬베리",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1383,7 +1383,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/307493f304a25f6065d2bd376cc142f9.png",
     releaseDate: '오리온 공식',
-    price: 2090,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 761,
     searchInfluxCount: 24240,
@@ -1410,7 +1410,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 2090, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "촉촉해서 더 맛있는 오리온 카스타드!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1424,7 +1424,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/2d75fc8968be497ce12885fd1a48e7ba.png",
     releaseDate: '오리온 공식',
-    price: 1130,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 778,
     searchInfluxCount: 24520,
@@ -1451,7 +1451,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 1130, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달지 않은 케이크, 오뜨",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1465,7 +1465,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/63d2f34cf19cadf4c85b4b9bfd1bad8d.png",
     releaseDate: '오리온 공식',
-    price: 3360,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 795,
     searchInfluxCount: 24800,
@@ -1492,7 +1492,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 3360, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤짭짤 초미니 황치즈 등장!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1506,7 +1506,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/9cd843a1760a1df3ba2350e148fdad49.png",
     releaseDate: '오리온 공식',
-    price: 1080,
+    price: 1200,
     overallRating: 4.7,
     ratingCount: 812,
     searchInfluxCount: 25080,
@@ -1533,7 +1533,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 1080, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "카카오 비스킷과 깊고 진한 말차 풍미의 조화!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1547,7 +1547,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/6b2beb338a5dfc34b10a6a773f863f09.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 3000,
     overallRating: 4.8,
     ratingCount: 829,
     searchInfluxCount: 25360,
@@ -1574,7 +1574,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "딸기의 상큼함이 통째로",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1588,7 +1588,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7fb9ac755421f581a3af4f68e684b258.png",
     releaseDate: '오리온 공식',
-    price: 1480,
+    price: 1700,
     overallRating: 4.9,
     ratingCount: 846,
     searchInfluxCount: 25640,
@@ -1615,7 +1615,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 1480, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤쌉쌀 말차쿠키와 진한초코칩의 환상조합!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1629,7 +1629,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/4beec305541a2fb48d35e6a69e92d021.png",
     releaseDate: '오리온 공식',
-    price: 1600,
+    price: 1700,
     overallRating: 5.0,
     ratingCount: 213,
     searchInfluxCount: 25920,
@@ -1656,7 +1656,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1600, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "이렇게 귀여운 감자크래커 봤어? 미소가득 감자풍미 호호감자 크래커",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1711,7 +1711,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/19e41b5c85c549895edb5702b2ae85a1.png",
     releaseDate: '오리온 공식',
-    price: 1080,
+    price: 1200,
     overallRating: 4.8,
     ratingCount: 247,
     searchInfluxCount: 26480,
@@ -1738,7 +1738,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 1080, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤상큼! 송이마을 새친구 등장!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1752,7 +1752,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/f5ee6e79c92809e71522c56ac7fa2eed.png",
     releaseDate: '오리온 공식',
-    price: 1180,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 264,
     searchInfluxCount: 26760,
@@ -1779,7 +1779,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1180, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "치즈크림 데굴~ 치즈가루 솔솔~",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1793,7 +1793,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/47a05c9204922f1539809e70d1dbb9ce.png",
     releaseDate: '오리온 공식',
-    price: 900,
+    price: 1200,
     overallRating: 5.0,
     ratingCount: 281,
     searchInfluxCount: 27040,
@@ -1820,7 +1820,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "중독적인 매콤함! 핫고래밥 매콤양념맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1875,7 +1875,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/4e3a94acf7418f4df7aae8caf485165c.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 3000,
     overallRating: 4.8,
     ratingCount: 315,
     searchInfluxCount: 27600,
@@ -1902,7 +1902,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 비쵸비",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1916,7 +1916,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7748a087f083a6a7699697bbc1725a7c.png",
     releaseDate: '오리온 공식',
-    price: 1100,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 332,
     searchInfluxCount: 27880,
@@ -1943,7 +1943,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 1100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "재미로 먹고 맛으로 먹는 고래밥",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1957,7 +1957,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/55052910c5d21cda9ffd190d62edb3e5.png",
     releaseDate: '오리온 공식',
-    price: 2300,
+    price: 1700,
     overallRating: 5.0,
     ratingCount: 349,
     searchInfluxCount: 28160,
@@ -1984,7 +1984,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 2300, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "튀기지 않은 감자칩, 예감",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -1998,7 +1998,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8419d651d5818ca4e7357c7bedfeccee.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 4.7,
     ratingCount: 366,
     searchInfluxCount: 28440,
@@ -2025,7 +2025,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤사르르 쿠키, 배배",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2039,7 +2039,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/c52c30a7e8a85c9da38a6ab01e22d7cc.png",
     releaseDate: '오리온 공식',
-    price: 1220,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 383,
     searchInfluxCount: 28720,
@@ -2066,7 +2066,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1220, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "40시간 발효 크래커, 쿠쉬쿠쉬",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2121,7 +2121,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7d6cbcb0bc13f9393270ee12e7e0a4f5.png",
     releaseDate: '오리온 공식',
-    price: 1050,
+    price: 1200,
     overallRating: 5.0,
     ratingCount: 417,
     searchInfluxCount: 29280,
@@ -2148,7 +2148,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 1050, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "사각사각 통안에 크림, 통크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2162,7 +2162,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/e8e14f1ed2c6a6b9a427402b8e81a7b6.png",
     releaseDate: '오리온 공식',
-    price: 2100,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 434,
     searchInfluxCount: 29560,
@@ -2189,7 +2189,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 2100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "부드러운 소프트 비스킷에 치즈 크림이 듬뿍!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2203,7 +2203,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3b66ce871a3c28b43b27756cfdb3004c.png",
     releaseDate: '오리온 공식',
-    price: 1080,
+    price: 1200,
     overallRating: 4.8,
     ratingCount: 451,
     searchInfluxCount: 29840,
@@ -2230,7 +2230,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 1080, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤한 초코모자와 바삭한 비스킷의 환상 궁합",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2244,7 +2244,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/b22fcd1aa32d558c4a694e9bb35f5739.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 468,
     searchInfluxCount: 30120,
@@ -2271,7 +2271,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "고래밥이 커졌어요!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2285,7 +2285,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/d0a91789f44ef4565a33ce897a01eff7.png",
     releaseDate: '오리온 공식',
-    price: 1400,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 485,
     searchInfluxCount: 30400,
@@ -2312,7 +2312,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1400, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤한 초미니 사이즈 쿠키",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2326,7 +2326,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/5c4175a50e746872f470a6aee0865615.png",
     releaseDate: '오리온 공식',
-    price: 1480,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 502,
     searchInfluxCount: 30680,
@@ -2353,7 +2353,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 1480, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "바삭한 쿠키와 달달한 초코칩의 조화",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2367,7 +2367,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/2a150fbf027617006d6324cab4f95d0f.png",
     releaseDate: '오리온 공식',
-    price: 1220,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 519,
     searchInfluxCount: 30960,
@@ -2394,7 +2394,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 1220, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "고소한 크래커 고소미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2408,7 +2408,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8c1b2d32a8878bf7056b4e4a71133ca2.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 2500,
     overallRating: 4.9,
     ratingCount: 536,
     searchInfluxCount: 31240,
@@ -2435,7 +2435,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "고소한 통밀로 설계한 든든함, 다이제",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2449,7 +2449,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3e992d223df4435c8edce9fe9f219ea2.png",
     releaseDate: '오리온 공식',
-    price: 1100,
+    price: 1200,
     overallRating: 5.0,
     ratingCount: 553,
     searchInfluxCount: 31520,
@@ -2476,7 +2476,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "쫀득~바삭 신식감 초코바",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2490,7 +2490,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3c4c25af103428d9cb80f7a93760994c.png",
     releaseDate: '오리온 공식',
-    price: 1100,
+    price: 1200,
     overallRating: 4.7,
     ratingCount: 570,
     searchInfluxCount: 31800,
@@ -2517,7 +2517,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 1100, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "꽉 찬 초코바로 제대로 쉬자!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2531,7 +2531,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/e88eff56f78e98b908e7928d6ed21141.png",
     releaseDate: '오리온 공식',
-    price: 900,
+    price: 1200,
     overallRating: 4.8,
     ratingCount: 587,
     searchInfluxCount: 32080,
@@ -2558,7 +2558,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "다채로운 토핑이 톡!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2572,7 +2572,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/d8cfd1129dbd5f3e61a7f0a0f655c09e.png",
     releaseDate: '오리온 공식',
-    price: 10230,
+    price: 1500,
     overallRating: 4.9,
     ratingCount: 604,
     searchInfluxCount: 32360,
@@ -2599,7 +2599,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 10230, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "고소한 다이제를 한 입에 쏙! 달콤바삭 통밀초코볼",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2695,7 +2695,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/1b2f162736d31a74e2157aa4cc251a39.png",
     releaseDate: '오리온 공식',
-    price: 1500,
+    price: 1200,
     overallRating: 4.8,
     ratingCount: 655,
     searchInfluxCount: 33200,
@@ -2722,7 +2722,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "쫄깃탱글 젤리에 5가지 멀티비타민이 쏙!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2777,7 +2777,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/fb0495671c283c835dd2f0bcb5fd279d.png",
     releaseDate: '오리온 공식',
-    price: 1200,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 689,
     searchInfluxCount: 33760,
@@ -2804,7 +2804,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "사르르 톡톡! 골드키위 속살",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2859,7 +2859,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/e3f787dd4f821db3bfb2b7e4dd77498b.png",
     releaseDate: '오리온 공식',
-    price: 6200,
+    price: 1800,
     overallRating: 4.8,
     ratingCount: 723,
     searchInfluxCount: 34320,
@@ -2886,7 +2886,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 6200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "한 번에 즐기는 상큼백도, 달콤황도",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2900,7 +2900,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/a7fb4231266bca60afb342d7471e83bf.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 740,
     searchInfluxCount: 34600,
@@ -2927,7 +2927,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오~래가는 짜릿함! 아이셔츄 츄시자두&요구르트맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2941,7 +2941,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/e0cf2c162262a85545a03e95764ef87c.png",
     releaseDate: '오리온 공식',
-    price: 1200,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 757,
     searchInfluxCount: 34880,
@@ -2968,7 +2968,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "달콤한 망고 속 탱탱한 코코젤리가 쏙",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -2982,7 +2982,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/9e2f2ab6afb804ce8f28546d29641c4c.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1200,
     overallRating: 4.7,
     ratingCount: 774,
     searchInfluxCount: 35160,
@@ -3009,7 +3009,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "설탕은 제로 맛은 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3023,7 +3023,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/4c0544e8563125a873850ae8036f7cd5.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 791,
     searchInfluxCount: 35440,
@@ -3050,7 +3050,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "쫄깃한 젤리 속 팡팡 터지는 잼필링, 쫄깃한 젤리 속 사각사각 사르르 샤베트 필링",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3064,7 +3064,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/32679ace665d59cb9314e5c7504d605b.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 4.9,
     ratingCount: 808,
     searchInfluxCount: 35720,
@@ -3091,7 +3091,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 키위알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3105,7 +3105,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7dce7c60fa3546eb94102a717351f822.png",
     releaseDate: '오리온 공식',
-    price: 1200,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 825,
     searchInfluxCount: 36000,
@@ -3132,7 +3132,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오리온 리찌알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3146,7 +3146,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/8e932c06aff4e237ef4f7deb01c0762d.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 4.7,
     ratingCount: 842,
     searchInfluxCount: 36280,
@@ -3173,7 +3173,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "몽글몽글 자두속살, 자두알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3187,7 +3187,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/0426da4ffc19199ff857a7f09fd10e5a.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 209,
     searchInfluxCount: 36560,
@@ -3214,7 +3214,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "말캉말캉 포도속살, 포도알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3228,7 +3228,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/80913108d205200046a330cc66126813.png",
     releaseDate: '오리온 공식',
-    price: 3000,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 226,
     searchInfluxCount: 36840,
@@ -3255,7 +3255,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 3000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오래가는 짜릿함!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3269,7 +3269,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/6e8f8aa5b088e5f53952daf909dc36d9.png",
     releaseDate: '오리온 공식',
-    price: 1035,
+    price: 1200,
     overallRating: 5.0,
     ratingCount: 243,
     searchInfluxCount: 37120,
@@ -3296,7 +3296,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1035, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "과일 과즙 그대로~ 마이구미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3310,7 +3310,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/f8b9dfffc3c1f6066bd20ce8502540ca.png",
     releaseDate: '오리온 공식',
-    price: 2800,
+    price: 4500,
     overallRating: 4.7,
     ratingCount: 260,
     searchInfluxCount: 37400,
@@ -3337,7 +3337,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 2800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 4500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "더 탱글해서 더 쫄깃한 마이구미 미니, 더탱글 마이구미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3351,7 +3351,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/b09c62fcafa1aa29449aa191db4241bc.png",
     releaseDate: '오리온 공식',
-    price: 1035,
+    price: 1200,
     overallRating: 4.8,
     ratingCount: 277,
     searchInfluxCount: 37680,
@@ -3378,7 +3378,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 1035, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "쭈~욱 길게 늘여먹는 재미가 왕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3392,7 +3392,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/7916de1933e4330bad1eb142ac4df42a.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1200,
     overallRating: 4.9,
     ratingCount: 294,
     searchInfluxCount: 37960,
@@ -3419,7 +3419,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "정신번쩍! 아이셔",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3433,7 +3433,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/6f9caea5fe948fadda442408772e7b49.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 1200,
     overallRating: 5.0,
     ratingCount: 311,
     searchInfluxCount: 38240,
@@ -3460,7 +3460,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1200, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "크기도 UP, 쫄깃함도 UP! 완전히 새롭게 돌아왔다!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3515,7 +3515,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/ed99569ce0e79d264ce719a8e8509524.png",
     releaseDate: '오리온 공식',
-    price: 1320,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 345,
     searchInfluxCount: 38800,
@@ -3542,7 +3542,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1320, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "아몬드와 캔디를 한번에- 바삭한 크런치캔디, 통아몬드",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3556,7 +3556,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/37def0042561418a3692ed46bf3defcd.png",
     releaseDate: '오리온 공식',
-    price: 3500,
+    price: 3800,
     overallRating: 4.9,
     ratingCount: 362,
     searchInfluxCount: 39080,
@@ -3583,7 +3583,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 11, price: 3500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 11, price: 3800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "진한 말차케이크에 초코칩이 콕콕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3597,7 +3597,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/dd8c072f0e331a16df00d345232d4a3d.png",
     releaseDate: '오리온 공식',
-    price: 2500,
+    price: 3800,
     overallRating: 5.0,
     ratingCount: 379,
     searchInfluxCount: 39360,
@@ -3624,7 +3624,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 3800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "진한 말차케이크에 초코칩이 콕콕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3638,7 +3638,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/629702daf6c9008a5bd105f5a5d80ca8.png",
     releaseDate: '오리온 공식',
-    price: 1000,
+    price: 3800,
     overallRating: 4.7,
     ratingCount: 396,
     searchInfluxCount: 39640,
@@ -3665,7 +3665,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 1000, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 3800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "갓 구워낸 듯 크러스트가 살아있는 카페스타일 브라우니",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3679,7 +3679,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/104e2b477d5406b1485eace9675715f8.png",
     releaseDate: '오리온 공식',
-    price: 1080,
+    price: 1700,
     overallRating: 4.8,
     ratingCount: 413,
     searchInfluxCount: 39920,
@@ -3706,7 +3706,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 1080, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 1700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "닥터유만의 맛있는 저당설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3720,7 +3720,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/c7cef0d2779b384eeebb4fa298734ada.png",
     releaseDate: '오리온 공식',
-    price: 2500,
+    price: 2700,
     overallRating: 4.9,
     ratingCount: 430,
     searchInfluxCount: 40200,
@@ -3747,7 +3747,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 5, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 5, price: 2700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3761,7 +3761,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/9456f870b113f8f99c2134c01ea01490.png",
     releaseDate: '오리온 공식',
-    price: 2500,
+    price: 2700,
     overallRating: 5.0,
     ratingCount: 447,
     searchInfluxCount: 40480,
@@ -3788,7 +3788,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 6, price: 2700, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "균형잡힌 고단백질 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3802,7 +3802,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/5cc57e4409bd4589faf6bb7cfdbc462a.png",
     releaseDate: '오리온 공식',
-    price: 1950,
+    price: 1900,
     overallRating: 4.7,
     ratingCount: 464,
     searchInfluxCount: 40760,
@@ -3829,7 +3829,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 1950, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 7, price: 1900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "단백질 12g 보충을 위한 닥터유만의 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3843,7 +3843,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/3cd78eaf0408812f8ab75b5645c0fa86.png",
     releaseDate: '오리온 공식',
-    price: 5380,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 481,
     searchInfluxCount: 41040,
@@ -3870,7 +3870,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 5380, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 8, price: 1500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "오래 지속되는 에너지를 위한 닥터유만의 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3884,7 +3884,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/271fc41c553a44b58859a1670b6cb6aa.png",
     releaseDate: '오리온 공식',
-    price: 1950,
+    price: 3800,
     overallRating: 4.9,
     ratingCount: 498,
     searchInfluxCount: 41320,
@@ -3911,7 +3911,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 9, price: 1950, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 9, price: 3800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "전문가를 위한 초고함량 단백질드링크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -3925,7 +3925,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/355042077dc56254bb96e929682cc0d6.png",
     releaseDate: '오리온 공식',
-    price: 1950,
+    price: 3800,
     overallRating: 5.0,
     ratingCount: 515,
     searchInfluxCount: 41600,
@@ -3952,7 +3952,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 1950, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 3800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "전문가를 위한 초고함량 단백질드링크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -4007,7 +4007,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/fbc0f72f92a56e082b31b9693afffd80.png",
     releaseDate: '오리온 공식',
-    price: 18600,
+    price: 24900,
     overallRating: 4.8,
     ratingCount: 549,
     searchInfluxCount: 42160,
@@ -4034,7 +4034,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 18600, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 24900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "다이어트 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -4048,7 +4048,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/55b6450452bd2364a36666a580eaedf6.png",
     releaseDate: '오리온 공식',
-    price: 2500,
+    price: 39900,
     overallRating: 4.9,
     ratingCount: 566,
     searchInfluxCount: 42440,
@@ -4075,7 +4075,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 13, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 13, price: 39900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -4089,7 +4089,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'packaged',
     image: "https://www.orionworld.com/upload/goods/0d80c3e583a8acd066348ec8bb4d0554.png",
     releaseDate: '오리온 공식',
-    price: 2500,
+    price: 44900,
     overallRating: 5.0,
     ratingCount: 583,
     searchInfluxCount: 42720,
@@ -4116,7 +4116,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 가급적 빨리 드십시오.',
     storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 14, price: 2500, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CU', status: '입고완료', stockCount: 14, price: 44900, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
     ],
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
@@ -4130,7 +4130,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3400,
     overallRating: 4.7,
     ratingCount: 250,
     searchInfluxCount: 18000,
@@ -4157,7 +4157,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "메가MGC커피만의 하우스밀크로 고소하고 부드러운 맛과 은은한 단맛은 더하고 깊은 풍미의 에스프레소 샷을 블렌딩해 더욱 조화로운 밸런스를 완성한 카페라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4171,7 +4171,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203238_1788348758239_bicMYSpckp.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 273,
     searchInfluxCount: 18320,
@@ -4198,7 +4198,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "이탈리아산 크라스탄 오르조와 고소하고 부드러운 우유가 만나 카페라떼 그대로의 깊은 풍미를 부담없이 무카페인으로 즐길 수 있는 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4253,7 +4253,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20260429173244_1777451564019_W1OpjQHJz4.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3700,
     overallRating: 5.0,
     ratingCount: 319,
     searchInfluxCount: 18960,
@@ -4280,7 +4280,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "말차와 레몬의 상큼한 조화에 식이섬유 '알파CD'를 더해 부담 없이 산뜻하고 가볍게 즐기는 제로 칼로리, 제로 슈가 아이스티 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4335,7 +4335,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250116001724_1736954244791_8qDsY0gj14.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 4.8,
     ratingCount: 365,
     searchInfluxCount: 19600,
@@ -4362,7 +4362,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "딸기과육이 풍부히 느껴지는 스테디 셀러 산뜻하고 달콤한 딸기가 가득해 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4376,7 +4376,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20251210220621_1765371981583_lnOltIAEKR.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3900,
     overallRating: 4.9,
     ratingCount: 388,
     searchInfluxCount: 19920,
@@ -4403,7 +4403,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우유 그대로의 부드러움에 달콤함을 더해 꾸덕하고 진~한 풍미를 느낄 수 있는 겨울시즌 한정 밀크쉐이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4458,7 +4458,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20251210155814_1765349894904_ps9wkFJ_kA.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4400,
     overallRating: 4.7,
     ratingCount: 434,
     searchInfluxCount: 20560,
@@ -4485,7 +4485,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "진하고 꾸덕한 초코 젤라또를 제주산 고품질 말차, 쌉싸름한 블렌딩 커피와 함께 즐기는 말차 에스프레소 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4499,7 +4499,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320000737_1742396857693_ngpZI3EbLM.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 457,
     searchInfluxCount: 20880,
@@ -4526,7 +4526,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4540,7 +4540,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320000925_1742396965069_ekSqAIVc1L.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2000,
     overallRating: 4.9,
     ratingCount: 480,
     searchInfluxCount: 21200,
@@ -4567,7 +4567,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4663,7 +4663,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003308_1742398388471_NLtoviExwY.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 549,
     searchInfluxCount: 22160,
@@ -4690,7 +4690,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "새콤달콤한 블루베리와 식이섬유가 풍부한 플럼, 프리바이오틱스를 더해 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4704,7 +4704,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003451_1742398491079_wWQva965Sn.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.9,
     ratingCount: 572,
     searchInfluxCount: 22480,
@@ -4731,7 +4731,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "상큼달콤한 프리미엄 골드키위에 밀크씨슬을 더해 일상의 활력을 선사하는 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4786,7 +4786,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320004326_1742399006488_yI4cvwXy6N.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4200,
     overallRating: 4.7,
     ratingCount: 618,
     searchInfluxCount: 23120,
@@ -4813,7 +4813,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4827,7 +4827,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320004527_1742399127150_aZXw3Wbf4H.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4200,
     overallRating: 4.8,
     ratingCount: 641,
     searchInfluxCount: 23440,
@@ -4854,7 +4854,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4868,7 +4868,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250402185107_1743587467742_jeeQmgRshX.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4900,
     overallRating: 4.9,
     ratingCount: 664,
     searchInfluxCount: 23760,
@@ -4895,7 +4895,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 디카페인 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -4991,7 +4991,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002019_1742397619030_g5iEBTRsp7.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2700,
     overallRating: 4.8,
     ratingCount: 733,
     searchInfluxCount: 24720,
@@ -5018,7 +5018,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5032,7 +5032,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002154_1742397714997_gJNgLAlBgB.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2700,
     overallRating: 4.9,
     ratingCount: 756,
     searchInfluxCount: 25040,
@@ -5059,7 +5059,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5237,7 +5237,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240703154302_1719988982437_ZzHlEUdQwF.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 871,
     searchInfluxCount: 26640,
@@ -5264,7 +5264,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5278,7 +5278,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114853_1717987733636_Uq2ZKYINXZ.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4400,
     overallRating: 4.7,
     ratingCount: 894,
     searchInfluxCount: 26960,
@@ -5305,7 +5305,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 왕 메가 사이즈 초코음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5319,7 +5319,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113625_1717986985834_J_PTjRFq7P.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3800,
     overallRating: 4.8,
     ratingCount: 917,
     searchInfluxCount: 27280,
@@ -5346,7 +5346,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "깊은 맛의 홍차와 달콤한 복숭아의 은은한 향이 어우러진 왕 메가 사이즈 아이스티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5360,7 +5360,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113548_1717986948917_wK8B5fR4h5.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3000,
     overallRating: 4.9,
     ratingCount: 940,
     searchInfluxCount: 27600,
@@ -5387,7 +5387,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "깊게 우려진 홍차와 은은한 복숭아향의 아이스티를 제로슈가, 제로칼로리로 즐길 수 있는 음료 *대체당(알룰로스,에리스리톨)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5401,7 +5401,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132459_1717993499610_KiXcTR2q5P.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 963,
     searchInfluxCount: 27920,
@@ -5428,7 +5428,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5483,7 +5483,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113252_1717986772176_6c36zo5yuf.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 1900,
     overallRating: 4.8,
     ratingCount: 1009,
     searchInfluxCount: 28560,
@@ -5510,7 +5510,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 1900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 시원한 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5524,7 +5524,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114915_1717987755314_1rAv8UqZUm.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2900,
     overallRating: 4.9,
     ratingCount: 1032,
     searchInfluxCount: 28880,
@@ -5551,7 +5551,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 2900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 메가사이즈 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5565,7 +5565,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132830_1717993710301_PxTeTM9Suh.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3900,
+    price: 4800,
     overallRating: 5.0,
     ratingCount: 255,
     searchInfluxCount: 29200,
@@ -5592,7 +5592,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "바삭하고 고소한 코코넛 칩을 올리고 쌉싸름한 커피와 달콤한 코코넛이 조화로운 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5606,7 +5606,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114741_1717987661472_LqJw6WITHO.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.7,
     ratingCount: 278,
     searchInfluxCount: 29520,
@@ -5633,7 +5633,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "새콤달콤한 딸기주스에 피쉬 콜라겐을 더해 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5647,7 +5647,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114817_1717987697259_APSvRawmJi.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 301,
     searchInfluxCount: 29840,
@@ -5674,7 +5674,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "상큼한 딸기와 부드러운 바나나가 만나, 새콤달콤한 매력이 살아 있는 과일 음료.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5688,7 +5688,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110159_1717984919074_jg4RYBdr_J.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2500,
     overallRating: 4.9,
     ratingCount: 324,
     searchInfluxCount: 30160,
@@ -5715,7 +5715,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 2500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인으로 만나는 메가MGC커피 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5729,7 +5729,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105207_1717984327186_Sgj9kfKYCi.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 2700,
     overallRating: 5.0,
     ratingCount: 347,
     searchInfluxCount: 30480,
@@ -5756,7 +5756,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5770,7 +5770,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104414_1717983854651_gNaXxjR35W.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.7,
     ratingCount: 370,
     searchInfluxCount: 30800,
@@ -5797,7 +5797,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5811,7 +5811,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105046_1717984246492_KeavFH2VTO.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.8,
     ratingCount: 393,
     searchInfluxCount: 31120,
@@ -5838,7 +5838,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5852,7 +5852,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104650_1717984010944__Ck8jyuaDL.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.9,
     ratingCount: 416,
     searchInfluxCount: 31440,
@@ -5879,7 +5879,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5893,7 +5893,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105117_1717984277710_7BjonXSBFE.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 439,
     searchInfluxCount: 31760,
@@ -5920,7 +5920,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5934,7 +5934,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105545_1717984545629_CaGhOpvAnm.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.7,
     ratingCount: 462,
     searchInfluxCount: 32080,
@@ -5961,7 +5961,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 카푸치노.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -5975,7 +5975,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104630_1717983990934_v3HPYN93uK.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4400,
     overallRating: 4.8,
     ratingCount: 485,
     searchInfluxCount: 32400,
@@ -6002,7 +6002,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6016,7 +6016,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105007_1717984207073_HqCto2mw3y.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4400,
     overallRating: 4.9,
     ratingCount: 508,
     searchInfluxCount: 32720,
@@ -6043,7 +6043,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6057,7 +6057,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105238_1717984358779_MvgzcNlZdI.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4900,
     overallRating: 5.0,
     ratingCount: 531,
     searchInfluxCount: 33040,
@@ -6084,7 +6084,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6098,7 +6098,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105224_1717984344775_9iKsKownRh.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4900,
     overallRating: 4.7,
     ratingCount: 554,
     searchInfluxCount: 33360,
@@ -6125,7 +6125,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6139,7 +6139,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105145_1717984305671_2_yE7sXma9.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4900,
     overallRating: 4.8,
     ratingCount: 577,
     searchInfluxCount: 33680,
@@ -6166,7 +6166,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6180,7 +6180,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101052_1718154652699_a0ElVTNb16.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 2700,
     overallRating: 4.9,
     ratingCount: 600,
     searchInfluxCount: 34000,
@@ -6207,7 +6207,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6221,7 +6221,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115001_1717987801368_av938eflM8.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3000,
+    price: 4000,
     overallRating: 5.0,
     ratingCount: 623,
     searchInfluxCount: 34320,
@@ -6248,7 +6248,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "메가MGC커피 디카페인 아메리카노를 '960ml' 더 크고 가볍게 즐길 수 있는 대용량 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6262,7 +6262,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131949_1717993189396_pb_H77_7AM.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.7,
     ratingCount: 646,
     searchInfluxCount: 34640,
@@ -6289,7 +6289,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6303,7 +6303,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131835_1717993115036_XaPndW7UkR.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.8,
     ratingCount: 669,
     searchInfluxCount: 34960,
@@ -6330,7 +6330,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6344,7 +6344,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131932_1717993172929_VUtwLd_LyN.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 2000,
+    price: 3700,
     overallRating: 4.9,
     ratingCount: 692,
     searchInfluxCount: 35280,
@@ -6371,7 +6371,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6385,7 +6385,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132005_1717993205762_9xKCxaSb9P.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 715,
     searchInfluxCount: 35600,
@@ -6412,7 +6412,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6426,7 +6426,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132018_1717993218605_64Ij4AhmCE.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.7,
     ratingCount: 738,
     searchInfluxCount: 35920,
@@ -6453,7 +6453,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6467,7 +6467,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113234_1717986754069_tSPQqoiPj6.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4400,
     overallRating: 4.8,
     ratingCount: 761,
     searchInfluxCount: 36240,
@@ -6494,7 +6494,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6508,7 +6508,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132034_1717993234457_aGDHQ0U0Ap.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4400,
     overallRating: 4.9,
     ratingCount: 784,
     searchInfluxCount: 36560,
@@ -6535,7 +6535,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6549,7 +6549,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131917_1717993157515_k1yeakRwwv.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4900,
     overallRating: 5.0,
     ratingCount: 807,
     searchInfluxCount: 36880,
@@ -6576,7 +6576,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6590,7 +6590,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131759_1717993079921_A7Gr7qp0g2.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4900,
     overallRating: 4.7,
     ratingCount: 830,
     searchInfluxCount: 37200,
@@ -6617,7 +6617,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6631,7 +6631,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101114_1718154674451_BGo4AZa57r.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4900,
     overallRating: 4.8,
     ratingCount: 853,
     searchInfluxCount: 37520,
@@ -6658,7 +6658,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6713,7 +6713,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132920_1717993760751_69WHioWjnb.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3800,
     overallRating: 5.0,
     ratingCount: 899,
     searchInfluxCount: 38160,
@@ -6740,7 +6740,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6754,7 +6754,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105522_1717984522154_Wf1ds9riaV.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 3800,
     overallRating: 4.7,
     ratingCount: 922,
     searchInfluxCount: 38480,
@@ -6781,7 +6781,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6795,7 +6795,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132902_1717993742550_EBciHOxu2w.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.8,
     ratingCount: 945,
     searchInfluxCount: 38800,
@@ -6822,7 +6822,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6836,7 +6836,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105453_1717984493950_uK1VQNQ6kc.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 968,
     searchInfluxCount: 39120,
@@ -6863,7 +6863,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6877,7 +6877,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105357_1717984437294_AduuhU3VyW.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 991,
     searchInfluxCount: 39440,
@@ -6904,7 +6904,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "메가MGC커피 원두의 향미를 온전히 즐길 수 있는 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -6918,7 +6918,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105413_1717984453131_1es5v0RxH2.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 2000,
     overallRating: 4.7,
     ratingCount: 1014,
     searchInfluxCount: 39760,
@@ -6945,7 +6945,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "더블샷으로 더욱 진하게 즐길 수 있는 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7000,7 +7000,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104240_1717983760778_agCooQEUb4.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3500,
     overallRating: 4.9,
     ratingCount: 260,
     searchInfluxCount: 40400,
@@ -7027,7 +7027,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7041,7 +7041,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104323_1717983803197_Dpwa_RK4_F.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3300,
     overallRating: 5.0,
     ratingCount: 283,
     searchInfluxCount: 40720,
@@ -7068,7 +7068,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 3300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7082,7 +7082,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105954_1717984794244_2JeEMNYiCL.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3800,
     overallRating: 4.7,
     ratingCount: 306,
     searchInfluxCount: 41040,
@@ -7109,7 +7109,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
+      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
     ],
     description: "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7246,7 +7246,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[30]_20210415144252244.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 4400,
     overallRating: 4.7,
     ratingCount: 398,
     searchInfluxCount: 42320,
@@ -7273,7 +7273,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7287,7 +7287,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[25]_20210415144211211.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 4400,
     overallRating: 4.8,
     ratingCount: 421,
     searchInfluxCount: 42640,
@@ -7314,7 +7314,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "신선한 에스프레소 샷에 우유 거품을 살짝 얹은 커피 음료로써, 강렬한 에스프레소의 맛과 우유의 부드러움을 같이 즐길 수 있는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7328,7 +7328,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/09/[9200000005514]_20240919154516844.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 4500,
+    price: 4700,
     overallRating: 4.9,
     ratingCount: 444,
     searchInfluxCount: 42960,
@@ -7355,7 +7355,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 뜨거운 물을 섞어 깔끔하게 즐길 수 있는 스타벅스 이대점만의 블랙 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7410,7 +7410,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/09/[9200000005516]_20240919154833807.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 4500,
+    price: 4700,
     overallRating: 4.7,
     ratingCount: 490,
     searchInfluxCount: 43600,
@@ -7437,7 +7437,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 얼음과 물을 섞어 시원하고 깔끔하게 즐길 수 있는 스타벅스 이대점만의 블랙 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7451,7 +7451,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110563]_20250626094353711.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 4500,
+    price: 4700,
     overallRating: 4.8,
     ratingCount: 513,
     searchInfluxCount: 43920,
@@ -7478,7 +7478,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "진한 에스프레소에 시원한 정수물과 얼음을 더한 깊이와 풍미가 살아있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7492,7 +7492,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[94]_20210430103337006.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 4500,
+    price: 4700,
     overallRating: 4.9,
     ratingCount: 536,
     searchInfluxCount: 44240,
@@ -7519,7 +7519,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "진한 에스프레소에 뜨거운 물을 더한 깊이와 풍미가 살아있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7656,7 +7656,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110601]_20250626095213930.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 4.9,
     ratingCount: 628,
     searchInfluxCount: 45520,
@@ -7683,7 +7683,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 진한 에스프레소에 신선한 우유와 우유 거품이 얼음과 함께 들어간 시원하고 부드러운 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7697,7 +7697,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[38]_20210415154821846.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 5.0,
     ratingCount: 651,
     searchInfluxCount: 45840,
@@ -7724,7 +7724,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7943,7 +7943,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/03/[9200000002095]_20240318144701881.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 4.8,
     ratingCount: 789,
     searchInfluxCount: 47760,
@@ -7970,7 +7970,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "얼음과 같이 쉐이킹하여 차가워진 진한 리저브 에스프레소와 하우스 메이드 크림이 어우러진 달콤한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -7984,7 +7984,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/09/[9200000005518]_20240919154933695.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 4.9,
     ratingCount: 812,
     searchInfluxCount: 48080,
@@ -8011,7 +8011,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 신선한 우유를 스팀하여 커피 위에 우유 거품을 살짝 얹은 스타벅스 이대점만의 카페 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8312,7 +8312,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/09/[9200000005520]_20240919155241283.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 4.9,
     ratingCount: 996,
     searchInfluxCount: 50640,
@@ -8339,7 +8339,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 신선한 우유와 얼음이 만나 고소함과 시원함을 즐길 수 있는 스타벅스 이대점만의 카페 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8517,7 +8517,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110569]_20250626094801903.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 5.0,
     ratingCount: 311,
     searchInfluxCount: 52240,
@@ -8544,7 +8544,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 진한 에스프레소에 시원한 우유를 더해 부드럽게 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8599,7 +8599,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/10/[9200000006575]_20251013103821201.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 4200,
     overallRating: 4.8,
     ratingCount: 357,
     searchInfluxCount: 52880,
@@ -8626,7 +8626,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "리저브 원두로 만든 라떼에 말차 돌체 베이스를 추가하여 제주 천년의 숲 비자림을 표현한 라떼. 오직 송당에서만 만날 수 있는 음료로, 따뜻한 비자림의 풍미를 느껴보세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8640,7 +8640,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[41]_20210415133833725.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5000,
+    price: 5200,
     overallRating: 4.9,
     ratingCount: 380,
     searchInfluxCount: 53200,
@@ -8667,7 +8667,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 5200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8681,7 +8681,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/10/[9200000006338]_20251029141124907.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 5800,
     overallRating: 5.0,
     ratingCount: 403,
     searchInfluxCount: 53520,
@@ -8708,7 +8708,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 5800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "진하면서도 부드러운 블론드 리스트레토 3샷에 폼을 살짝 낸 스팀 밀크를 더해 짙은 커피 풍미를 즐길 수 있는 코르타도입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -8968,7 +8968,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000005181]_20250626095819133.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5900,
+    price: 5800,
     overallRating: 4.9,
     ratingCount: 564,
     searchInfluxCount: 55760,
@@ -8995,7 +8995,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 5900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 5800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "부드러운 리스트레토 샷과 완벽한 양의 우유를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9009,7 +9009,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/03/[9200000005178]_20240326103727795.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5900,
+    price: 5800,
     overallRating: 5.0,
     ratingCount: 587,
     searchInfluxCount: 56080,
@@ -9036,7 +9036,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 5900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 5800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "부드러운 리스트레토 샷과 완벽한 양의 스팀밀크를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9050,7 +9050,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110612]_20250626095701777.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 5300,
     overallRating: 4.7,
     ratingCount: 610,
     searchInfluxCount: 56400,
@@ -9077,7 +9077,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 5300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "신선하게 제조된 더블 샷 믹스에 바닐라 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9091,7 +9091,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/03/[9200000003505]_20210322093241535.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 4.8,
     ratingCount: 633,
     searchInfluxCount: 56720,
@@ -9118,7 +9118,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "민트 잎과 쉐이킹한 리저브 에스프레소를 바닐라 아이스크림에 부어 프레쉬함과 달콤함이 조화롭게 퍼지는 리저브 만의 디저트 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9132,7 +9132,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/03/[9200000003506]_20210322093317854.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 4200,
     overallRating: 4.9,
     ratingCount: 656,
     searchInfluxCount: 57040,
@@ -9159,7 +9159,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "리저브 에스프레소에 상큼한 레몬과 진저에일을 더해 청량감과 시트러스 풍미를 가득 선사하는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9173,7 +9173,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/04/[20]_20210415144112678.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 4200,
     overallRating: 5.0,
     ratingCount: 679,
     searchInfluxCount: 57360,
@@ -9200,7 +9200,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "스타벅스 에스프레소는 향기로운 크레마 층과 바디 층, 하트 층으로 이루어져 있으며, 입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9214,7 +9214,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/09/[9900000001604]_20240909104819181.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 4.7,
     ratingCount: 702,
     searchInfluxCount: 57680,
@@ -9241,7 +9241,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "스타벅스 리저브 에스프레소를 새롭고 다양하게 즐길 수 있는 에스프레소 플라이트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9255,7 +9255,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/04/[9900000001721]_20250424124232037.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 4.8,
     ratingCount: 725,
     searchInfluxCount: 58000,
@@ -9282,7 +9282,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "스타벅스 리저브 에스프레소를 새롭고 다양하게 즐길 수 있는 에스프레소 플라이트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9296,7 +9296,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110611]_20250626095539402.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 5300,
     overallRating: 4.9,
     ratingCount: 748,
     searchInfluxCount: 58320,
@@ -9323,7 +9323,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 5300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "신선하게 제조된 더블 샷 믹스에 클래식 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9337,7 +9337,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2021/02/[9200000001631]_20210225090916684.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 5.0,
     ratingCount: 771,
     searchInfluxCount: 58640,
@@ -9364,7 +9364,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "[리저브R 매장 전용음료] 리저브 에스프레소 투 샷이 바닐라 아이스크림과 진하게 어우러진 정통 아포가토",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9378,7 +9378,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[110614]_20250626174624137.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 5300,
     overallRating: 4.7,
     ratingCount: 794,
     searchInfluxCount: 58960,
@@ -9405,7 +9405,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 5300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "신선하게 제조된 더블 샷 믹스에 헤이즐넛 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9419,7 +9419,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000002760]_20250626095415811.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 4200,
     overallRating: 4.8,
     ratingCount: 817,
     searchInfluxCount: 59280,
@@ -9446,7 +9446,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "리스트레토 에스프레소 2샷과 에스프레소 칩, 하프앤하��가 진하게 어우러진 커피의 기본에 충실한 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9460,7 +9460,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000006303]_20250619133012310.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6800,
     overallRating: 4.9,
     ratingCount: 840,
     searchInfluxCount: 59600,
@@ -9487,7 +9487,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 6800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "한국의 대표 길거리 음식의 친근하고 익숙한 호떡을 형상화한 음료로 어린시절 추억을 느끼며, 시나몬향과 고소한 견과류를 더욱 시원하게 즐길 수 있는 프라푸치노 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9501,7 +9501,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[168007]_20250626095952087.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 4200,
     overallRating: 5.0,
     ratingCount: 863,
     searchInfluxCount: 59920,
@@ -9528,7 +9528,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "풍부하고 진한 에스프레소 샷의 강렬함과 달콤함이 어우러져 깊은 커피의 풍미를 느낄 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9542,7 +9542,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[168016]_20250626113600873.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 4.7,
     ratingCount: 886,
     searchInfluxCount: 60240,
@@ -9569,7 +9569,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "커피, 모카 소스, 진한 초콜릿 칩이 입안 가득 느껴지는 스타벅스에서만 맛볼 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9583,7 +9583,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[168010]_20250626113443023.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6100,
     overallRating: 4.8,
     ratingCount: 909,
     searchInfluxCount: 60560,
@@ -9610,7 +9610,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6100, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "카라멜과 커피가 어우러진 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9624,7 +9624,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2024/06/[9200000005369]_20240614143554454.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6800,
     overallRating: 4.9,
     ratingCount: 932,
     searchInfluxCount: 60880,
@@ -9651,7 +9651,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "상큼&달콤한 딸기와 부드러운 글레이즈드 소스에 바삭한 딸기 토핑을 얹은 프라푸치노. 숙련된 바리스타의 솜씨로 그려낸 특별한 예술 작품을 감상해보세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9665,7 +9665,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/07/[9200000006304]_20250708105445804.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 5700,
     overallRating: 5.0,
     ratingCount: 955,
     searchInfluxCount: 61200,
@@ -9692,7 +9692,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 5700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "여름 수국의 사랑스러운 색감을 형상화한 음료로 은은하게 퍼지는 얼그레이의 플로럴향과 딸기의 상큼한 풍미가 느껴지는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9706,7 +9706,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000006305]_20250619141412982.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.7,
     ratingCount: 978,
     searchInfluxCount: 61520,
@@ -9733,7 +9733,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "자연과 어우러진 수국의 색감을 형상화한 음료로 제주산 말차와 함께 은은하게 퍼지는 얼그레이의 플로럴향으로 부드러운 맛을 즐길 수 있는 음료 (제주산 말차)",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9747,7 +9747,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000002088]_20250626114629418.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.8,
     ratingCount: 1001,
     searchInfluxCount: 61840,
@@ -9774,7 +9774,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "쫄깃한 흑임자 떡과 블랙 소보로 토핑으로 컵빙수처럼 먹는 음료. 고소한 흑임자와 쫄깃한 흑임자 떡, 달콤한 블랙 소보로 토핑으로 제주의 돌 하르방 길을 느낄 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9788,7 +9788,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000002502]_20250626100915378.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.9,
     ratingCount: 1024,
     searchInfluxCount: 62160,
@@ -9815,7 +9815,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "깊고 진한 말차 본연의 맛과 향을 시원하고 부드럽게 즐길 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9829,7 +9829,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000002090]_20250626114614395.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 5.0,
     ratingCount: 1047,
     searchInfluxCount: 62480,
@@ -9856,7 +9856,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "[제주지역 한정음료] 쫄깃쫄깃한 흑임자 떡으로 씹는 재미를 즐길 수 있는 음료로, 고소한 흑임자와 쑥떡 토핑이 올라간 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9870,7 +9870,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/04/[9200000006981]_20260422133605399.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.7,
     ratingCount: 270,
     searchInfluxCount: 62800,
@@ -9897,7 +9897,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "제주 오름의 풍경과 달콤한 초당옥수수를 담은 싱그러운 프라푸치노! 초당 옥수수와 부드러운 글레이즈 폼, 톡톡 터지는 옥수수 식감이 어우러진 제주 특화 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9911,7 +9911,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[168066]_20250626113822018.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6100,
     overallRating: 4.8,
     ratingCount: 293,
     searchInfluxCount: 63120,
@@ -9938,7 +9938,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6100, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "모카 소스와 진한 초콜릿 칩, 초콜릿 드리즐이 올라간 달콤한 크림 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9952,7 +9952,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/04/[9200000006980]_20260422133322108.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 5700,
     overallRating: 4.9,
     ratingCount: 316,
     searchInfluxCount: 63440,
@@ -9979,7 +9979,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 5700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "땅콩과 너티 쿠키가 어우러진 풍성하고 밀키한 프라푸치노. 달콤하고 고소한 땅콩 풍미를 시원하게 즐길 수 있는 제주 특화 음료로 여행을 특별하게 즐겨보세요!",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -9993,7 +9993,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[9200000002403]_20250626100106311.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 5.0,
     ratingCount: 339,
     searchInfluxCount: 63760,
@@ -10020,7 +10020,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "밀크 쉐이크 같은 부드럽고 달콤한 바닐라 크림 프라푸치노에 깊은 풍미의 단맛을 가진 흑당시럽이 어우러져 용인에버랜드 백호의 줄무늬를 형상화한 부드럽고 달콤한 프라푸치노 * 용인에버랜드점에서만 판매하는 음료입니다",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10034,7 +10034,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/08/[9200000006975]_20260827085929118.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 4.7,
     ratingCount: 362,
     searchInfluxCount: 64080,
@@ -10061,7 +10061,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "달콤 시원한 수박 과육을 갈아낸 블렌디드에 수박 주스를 부어주어 과일 본연의 풍부한 과즙이 살아있는 여름 음료입니다. 수박씨처럼 콕콕 박힌 오독오독한 초콜릿 땅콩 토핑도 함께 즐겨보세요!",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10075,7 +10075,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[167004]_20250626095805229.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 5600,
     overallRating: 4.8,
     ratingCount: 385,
     searchInfluxCount: 64400,
@@ -10102,7 +10102,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 5600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "망고 패션 프루트 주스와 블랙 티가 깔끔하게 어우러진 과일 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10116,7 +10116,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/03/[9200000004716]_20260303083311982.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.9,
     ratingCount: 408,
     searchInfluxCount: 64720,
@@ -10143,7 +10143,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 21, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "꼬냑 향을 가미한 상큼한 레모네이드와 은은한 얼 그레이 티가 어우러진 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10157,7 +10157,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/08/[9200000004945]_20250827131549415.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 5.0,
     ratingCount: 431,
     searchInfluxCount: 65040,
@@ -10184,7 +10184,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 22, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "블랙티의 풍미와 향이 더욱 풍요롭게 느껴질 수 있는 밀크티 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10198,7 +10198,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/07/[9200000004870]_20260731110244613.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.7,
     ratingCount: 454,
     searchInfluxCount: 65360,
@@ -10225,7 +10225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 23, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "맑고 깨끗한 여수 경도의 낮 바다 풍경을 형상화한 음료로 상큼하게 즐길 수 있는 유자 블렌디드 음료 (유자:국내산)",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10239,7 +10239,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/10/[9200000005377]_20251013104535651.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 7500,
     overallRating: 4.8,
     ratingCount: 477,
     searchInfluxCount: 65680,
@@ -10266,7 +10266,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 24, price: 7500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "새콤달콤 한라봉, 천혜향과 탱글말랑 한라봉 젤리로 제주의 싱그러움을 담아 낸 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10280,7 +10280,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/07/[9200000003276]_20250721084027663.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 4.9,
     ratingCount: 500,
     searchInfluxCount: 66000,
@@ -10307,7 +10307,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 15, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "고농축 유산균의 부드러운 요거트와 딸기 본연의 상콤&달콤한 과육이 상큼하게 어우러진 리뉴얼 된 과일 요거트 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10321,7 +10321,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/10/[9200000006577]_20251013103946321.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 5.0,
     ratingCount: 523,
     searchInfluxCount: 66320,
@@ -10348,7 +10348,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 16, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "쏟아지는 폭포를 표현한 말차와 상큼한 유자 캐모마일 티가 만나 시원한 평화를 선사하는 송당만의 과일 티 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10362,7 +10362,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/06/[169001]_20250626100121981.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 4.7,
     ratingCount: 546,
     searchInfluxCount: 66640,
@@ -10389,7 +10389,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 17, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "(Grande Only) 달콤한 망고 패션 프루트 주스에 바나나 1개가 통째로 들어간 신선한 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10403,7 +10403,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/03/[9200000006941]_20260324151120249.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 5500,
+    price: 6500,
     overallRating: 4.8,
     ratingCount: 569,
     searchInfluxCount: 66960,
@@ -10430,7 +10430,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 5500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 18, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "마스카포네 크림을 얹은 에스프레소 셔벗과 리저브 에스프레소를 함께, 또 따로 아포가토처럼 즐기는 디저트 스타일 셔벗 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10444,7 +10444,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2026/07/[9200000006963]_20260714082039571.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 4.9,
     ratingCount: 592,
     searchInfluxCount: 67280,
@@ -10471,7 +10471,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 19, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "고농축 유산균의 부드러운 요거트와 달콤한 블루베리가 부드럽게 어우러진 시원한 과일 요거트 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10485,7 +10485,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.starbucks.co.kr/upload/store/skuimg/2025/09/[9200000006466]_20250904105105974.jpg",
     releaseDate: '2026.09 신메뉴',
-    price: 6300,
+    price: 6500,
     overallRating: 5.0,
     ratingCount: 615,
     searchInfluxCount: 67600,
@@ -10512,7 +10512,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 6300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
+      { store: "스타벅스", status: '입고완료', stockCount: 20, price: 6500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.starbucks.co.kr' }
     ],
     description: "제로 시럽을 활용해 칼로리 부담을 낮추고, 달콤한 자몽 허니에 레몬을 더해 가볍고 상큼하게 즐길 수 있는 과일 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10608,7 +10608,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b6acea42f9cb2512a4c5586c975fcdf5.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3000,
     overallRating: 4.9,
     ratingCount: 684,
     searchInfluxCount: 68560,
@@ -10635,7 +10635,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10649,7 +10649,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/59e87d9696936237e39a905951e6dfec.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 5.0,
     ratingCount: 707,
     searchInfluxCount: 68880,
@@ -10676,7 +10676,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 에스프레소가 어우러진 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10690,7 +10690,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/cc7b52754c7ed81b8eed9c91c362f41f.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 2800,
     overallRating: 4.7,
     ratingCount: 730,
     searchInfluxCount: 69200,
@@ -10717,7 +10717,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 2800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "아메리카노 위에 바닐라 향의 달콤한 수제휩이 눈처럼 내리는 대용량 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10731,7 +10731,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/290c2692e89f2fa4050f3356c5d97429.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 753,
     searchInfluxCount: 69520,
@@ -10758,7 +10758,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "면역력과 식욕에도 좋은 홍초를 에이드로 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10772,7 +10772,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/da1e46e45e20db20f83b80aa9dfee0a4.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3500,
     overallRating: 4.9,
     ratingCount: 776,
     searchInfluxCount: 69840,
@@ -10799,7 +10799,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "1L 사이즈의 패션후르츠의 향과 생오렌지 홍차의 조합으로 과일향이 많이 나는 아이스티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10813,7 +10813,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/9bf62ccfc7ac9e91458c13b4ac758364.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 2600,
     overallRating: 5.0,
     ratingCount: 799,
     searchInfluxCount: 70160,
@@ -10840,7 +10840,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 2600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10854,7 +10854,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/24ad46b801a98ccc77ec12095d20d975.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4700,
     overallRating: 4.7,
     ratingCount: 822,
     searchInfluxCount: 70480,
@@ -10881,7 +10881,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 디카페인 에스프레소가 어우러진 음료&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -10895,7 +10895,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/8cc6659ce0cf5b936bf64c2bb087467d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 3800,
     overallRating: 4.8,
     ratingCount: 845,
     searchInfluxCount: 70800,
@@ -10922,7 +10922,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "디카페인 아메리카노 위에 바닐라 향의 달콤한 수제휩이 눈처럼 내리는 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11018,7 +11018,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/19266e6e5120bd4187b76ad779ac5370.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 2200,
     overallRating: 4.7,
     ratingCount: 914,
     searchInfluxCount: 71760,
@@ -11045,7 +11045,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "커피와 아몬드의 향이 입안에 꽉 차는 고소한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11059,7 +11059,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/8f9bfe1dd2aed45d5c54a06412fe78b3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 4.8,
     ratingCount: 937,
     searchInfluxCount: 72080,
@@ -11086,7 +11086,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 에스프레소가 어우러진 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11100,7 +11100,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5c6df8dfa5b4689e48138f81d6f14113.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 960,
     searchInfluxCount: 72400,
@@ -11127,7 +11127,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "100% 파인애플을 착즙한 주스에 에스프레소가 어우러진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11182,7 +11182,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7ed0c47709f58365930b5e11b16e942e.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3300,
     overallRating: 4.7,
     ratingCount: 1006,
     searchInfluxCount: 73040,
@@ -11209,7 +11209,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "매머드커피만의 깊고 진한 시그니처 우유에 에스프레소를 더한 부드럽고 크리미한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11264,7 +11264,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5c3aa520d5611683eda068700afc4b94.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3200,
     overallRating: 4.9,
     ratingCount: 252,
     searchInfluxCount: 73680,
@@ -11291,7 +11291,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "카페 라떼를 꿀맛으로 입안에서 달콤함과 고소함을 한 번에 즐길 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11305,7 +11305,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/92554d792c11d8c27de6a02cb8581215.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3200,
     overallRating: 5.0,
     ratingCount: 275,
     searchInfluxCount: 74000,
@@ -11332,7 +11332,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "카페 라떼에 아몬드를 더해 고소함이 두 배가 된 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11346,7 +11346,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/ffd8924505c0e07b51bd3312129a3b5d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3300,
     overallRating: 4.7,
     ratingCount: 298,
     searchInfluxCount: 74320,
@@ -11373,7 +11373,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "커피와 바닐라 향을 부드럽게 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11387,7 +11387,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/1c1e9e247c1f007fe74c1431eaf4b62f.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3500,
     overallRating: 4.8,
     ratingCount: 321,
     searchInfluxCount: 74640,
@@ -11414,7 +11414,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "꿀, 바나나, 커피, 우유! 말이 필요 없는 달콤 달콤한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11428,7 +11428,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/fc857003765c0941494bb5350e92cb44.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3800,
     overallRating: 4.9,
     ratingCount: 344,
     searchInfluxCount: 74960,
@@ -11455,7 +11455,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "카라멜의 달콤함과 우유 거품으로 인한 부드러운 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11469,7 +11469,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/939b184079acc4f48e5a46d420ba2104.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3800,
     overallRating: 5.0,
     ratingCount: 367,
     searchInfluxCount: 75280,
@@ -11496,7 +11496,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "초코와 카페 라떼의 조합으로 달달하고 취향에 따라 휘핑과 함께 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11510,7 +11510,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7c6642abcaa65ac69420708541273250.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3900,
     overallRating: 4.7,
     ratingCount: 390,
     searchInfluxCount: 75600,
@@ -11537,7 +11537,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "티라미수 케이크의 특징인 부드러운 초코릿과 치즈의 식감과 카카오 토핑으로 조화로운 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11592,7 +11592,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/0c0bb9c8709eb9d3ffcfc6aaeb2203a6.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 436,
     searchInfluxCount: 76240,
@@ -11619,7 +11619,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "베트남 커피의 주재료인 연유 베이스에 코코넛을 얹은 에스프레소 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11633,7 +11633,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/2f0159d810332d749f90cc761a8e8893.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3400,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 459,
     searchInfluxCount: 76560,
@@ -11660,7 +11660,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 로스티드 헤이즐넛에 리얼 초코칩과 에스프레소가 어우러져 입안 가득 익숙함을 느낄 수 있는 넛트 초콜릿 카페 모카 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11674,7 +11674,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d3d58dca9be42cfbd8af8cbf15763a2d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3800,
     overallRating: 4.7,
     ratingCount: 482,
     searchInfluxCount: 76880,
@@ -11701,7 +11701,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 에스프레소와 고소한 우유가 잘 어우러진 달콤한 커피 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11715,7 +11715,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c1575ebdf8c3d19e6a5bede61f3f228d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 505,
     searchInfluxCount: 77200,
@@ -11742,7 +11742,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 카페 라떼에 달콤 쌉싸름한 달고나를 올려 달고나의 바삭한 식감과 달콤함을 느낄 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11797,7 +11797,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7394358502b7bec0da827fc48a0fd649.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 2600,
     overallRating: 5.0,
     ratingCount: 551,
     searchInfluxCount: 77840,
@@ -11824,7 +11824,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 2600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 에스프레소의 풍미를 디카페인으로 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11879,7 +11879,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/4a26f205d8d5c30ae06b3ab133c2200a.png",
     releaseDate: '2026.09 신메뉴',
-    price: 1600,
+    price: 3200,
     overallRating: 4.8,
     ratingCount: 597,
     searchInfluxCount: 78480,
@@ -11906,7 +11906,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 1600, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "디카페인 아메리카노에 아몬드 향을 더해 입안 가득 고소함을 느낄 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11920,7 +11920,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/ec55caf2300c3867a737f5e0c0864072.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4200,
     overallRating: 4.9,
     ratingCount: 620,
     searchInfluxCount: 78800,
@@ -11947,7 +11947,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 카페 라떼와 달콤한 바닐라 향을 한 잔에 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -11961,7 +11961,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/ab349f0ede4d228a50803ea30deafdc7.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3700,
     overallRating: 5.0,
     ratingCount: 643,
     searchInfluxCount: 79120,
@@ -11988,7 +11988,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "디카페인 에스프레소와 우유의 고소함, 거품의 촉감을 한 번에 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12002,7 +12002,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/234f78a15ef18d75b78e9fa89085657e.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3700,
     overallRating: 4.7,
     ratingCount: 666,
     searchInfluxCount: 79440,
@@ -12029,7 +12029,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 풍미의 에스프레소와 부드러운 우유가 잘 어우러지는 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12043,7 +12043,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b3d5aeeb8cc74fbaf0e13a4257e3692e.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4300,
     overallRating: 4.8,
     ratingCount: 689,
     searchInfluxCount: 79760,
@@ -12070,7 +12070,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "매머드커피만의 깊고 진한 시그니처 우유에 디카페인 에스프레소를 더한 부드럽고 크리미한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12084,7 +12084,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b51c8183e76aebba19c192af15bd41f0.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4200,
     overallRating: 4.9,
     ratingCount: 712,
     searchInfluxCount: 80080,
@@ -12111,7 +12111,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "카페 라떼에 아몬드를 더해 고소함이 두 배가 된 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12125,7 +12125,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/1975d0c754e969ce6cac98e51163e4e1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4300,
     overallRating: 5.0,
     ratingCount: 735,
     searchInfluxCount: 80400,
@@ -12152,7 +12152,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 카페 라떼와 달콤한 바닐라 향을 한 잔에 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12166,7 +12166,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b58f5e24c896d0db29a9ddb2d7cdd3ae.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.7,
     ratingCount: 758,
     searchInfluxCount: 80720,
@@ -12193,7 +12193,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤한 카라멜과 부드러운 우유 거품을 디카페인으로 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12207,7 +12207,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d222650d19b97471ab15c238060c44c3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 781,
     searchInfluxCount: 81040,
@@ -12234,7 +12234,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "초코와 카페 라떼의 조합으로 달달하고 취향에 따라 휘핑과 함께 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12248,7 +12248,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6fc34ea2ffb3cda8691fad99e3bfb2ba.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4900,
     overallRating: 4.9,
     ratingCount: 804,
     searchInfluxCount: 81360,
@@ -12275,7 +12275,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "티라미수 케이크의 특징인 부드러운 초콜릿과 치즈의 식감과 카카오 토핑으로 조화로운 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12289,7 +12289,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/79d6544cd4cc22069255b61cef84902e.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 827,
     searchInfluxCount: 81680,
@@ -12316,7 +12316,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "꿀, 바나나, 디카페인 에스프레소, 우유! 말이 필요 없는 달콤 달콤한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12371,7 +12371,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5a1e2cca415a93cdbcca4e421a72c8a4.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4300,
     overallRating: 4.8,
     ratingCount: 873,
     searchInfluxCount: 82320,
@@ -12398,7 +12398,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "베트남 커피의 주재료인 연유 베이스에 코코넛을 얹은 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12412,7 +12412,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/138754c5a08fe9a11426585483e6e8de.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3400,
+    price: 4900,
     overallRating: 4.9,
     ratingCount: 896,
     searchInfluxCount: 82640,
@@ -12439,7 +12439,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 로스티드 헤이즐넛에 리얼 초코칩과 디카페인 에스프레소가 어우러져 입안 가득 익숙함을 느낄 수 있는 넛트 초콜릿 카페모카",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12453,7 +12453,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6a26c3e6c7d5c65cfd5864467b4f75b1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4800,
     overallRating: 5.0,
     ratingCount: 919,
     searchInfluxCount: 82960,
@@ -12480,7 +12480,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 풍미의 에스프레소와 고소한 우유가 잘 어우러진 달콤한 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12494,7 +12494,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c3ffe0bfaed67b91a56ec8f2f8ccc02c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 5000,
     overallRating: 4.7,
     ratingCount: 942,
     searchInfluxCount: 83280,
@@ -12521,7 +12521,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 5000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 카페 라떼에 달콤 쌉싸름한 달고나를 올려 달고나의 바삭한 식감과 달콤함을 느낄 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12535,7 +12535,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/3319e345db6318276ff1e81181f6478c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4700,
     overallRating: 4.8,
     ratingCount: 965,
     searchInfluxCount: 83600,
@@ -12562,7 +12562,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 디카페인 에스프레소가 어우러진 음료&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12576,7 +12576,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/29dda589168dc663f5a40c943d46baf3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 988,
     searchInfluxCount: 83920,
@@ -12603,7 +12603,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "100% 파인애플을 착즙한 주스에 디카페인 에스프레소가 어우러진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12658,7 +12658,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/3e2ab3ba336b1641400154f4db1964c0.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4000,
     overallRating: 4.7,
     ratingCount: 1034,
     searchInfluxCount: 84560,
@@ -12685,7 +12685,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "저온 추출하여 깔끔한 산미와 밸런스가 특징인 매머드 콜드브루에 우유가 더해져, 고소하면서도 깔끔한 맛으로 즐길 수 있는 콜드브루 라떼 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12699,7 +12699,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/effb98f62cea57f5b9956a8e160de0a0.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 257,
     searchInfluxCount: 84880,
@@ -12726,7 +12726,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤한 우유에 카카오의 풍미와 고소함을 가진 매머드 콜드브루가 조화롭게 어우러져, 깔끔하면서도 부드러운 단맛을 느낄 수 있는 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12822,7 +12822,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/f3aea45bb2e80b9ac8e9a4e2c3114128.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4000,
     overallRating: 4.7,
     ratingCount: 326,
     searchInfluxCount: 85840,
@@ -12849,7 +12849,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드럽고 달콤한 코코넛크림과 깔끔한 콜드브루의 감칠맛이 조화롭게 어우러진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12863,7 +12863,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c1693c215949f4e61a1ab5d2cb03da58.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 349,
     searchInfluxCount: 86160,
@@ -12890,7 +12890,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "화학 공법을 사용하지 않는 친환경적인 스위스 워터 프로세스로 본연의 풍미를 담은 디카페인 콜드브루 메뉴로, 부드러운 단맛과 깔끔한 목 넘김이 좋은 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12904,7 +12904,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/01d53e54d18c7c7ca94afbac0505e007.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 372,
     searchInfluxCount: 86480,
@@ -12931,7 +12931,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 밀크 초콜릿의 단맛을 가진 매머드 디카페인 콜드브루에 우유가 더해져, 한층 더 풍부한 맛으로 즐길 수 있는 디카페인 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12945,7 +12945,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/3fc48f4d8854ff75ace50bc11d94d917.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 395,
     searchInfluxCount: 86800,
@@ -12972,7 +12972,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "깔끔하면서도 고소한 디카페인 콜드브루 라떼에 연유를 넣어, 달콤하면서도 부드러운 맛을 느낄 수 있는 디카페인 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -12986,7 +12986,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/90fe25d5ea54f5817a2a796fc8cd895a.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.7,
     ratingCount: 418,
     searchInfluxCount: 87120,
@@ -13013,7 +13013,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 견과의 풍미를 가진 매머드의 디카페인 콜드브루에 아몬드 크림을 올려, 고소하고 부드러운 맛을 느낄 수 있는 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13027,7 +13027,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5d7162936be240b85ac33eb59695723a.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.8,
     ratingCount: 441,
     searchInfluxCount: 87440,
@@ -13054,7 +13054,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "상큼한 생레몬과 탄산, 그리고 깔끔한 매머드의 디카페인 콜드브루가 만나 더욱 청량감 있게 즐길 수 있는 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13068,7 +13068,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/2a450db698bb910f87c43f63a71650c6.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 464,
     searchInfluxCount: 87760,
@@ -13095,7 +13095,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤한 코코넛 유우에 디카페인 콜드브루를 조화롭게 더한 음료로, 달콤하고 부드러운 코코넛 크림과 콜드브루의 감칠맛이 특징인 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13150,7 +13150,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c38c3d677c95aa5201bd6cf4f31ff67c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4000,
     overallRating: 4.7,
     ratingCount: 510,
     searchInfluxCount: 88400,
@@ -13177,7 +13177,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 단맛과 긴 여운이 좋은 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13232,7 +13232,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5049ff29374c47a6e96ada2694a83227.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3700,
     overallRating: 4.9,
     ratingCount: 556,
     searchInfluxCount: 89040,
@@ -13259,7 +13259,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부담 없이 편하게 즐길 수 있는 초코와 우유를 섞은 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13314,7 +13314,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/a2c45f96177e57bfe70d812075f83e40.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3200,
     overallRating: 4.7,
     ratingCount: 602,
     searchInfluxCount: 89680,
@@ -13341,7 +13341,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "향긋한 밀크티를 즐기고 싶을 때 마시는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13437,7 +13437,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/70cfe628d7662a26375529a3fc2a1e1c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 2700,
+    price: 3700,
     overallRating: 5.0,
     ratingCount: 671,
     searchInfluxCount: 90640,
@@ -13464,7 +13464,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤하고 고소한 고구마 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13519,7 +13519,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/4f0eb90579c4efa2551b93c5113776b3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 717,
     searchInfluxCount: 91280,
@@ -13546,7 +13546,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "체리의 달콤한 향과 제로 콜라의 청량함이 더해져 상쾌하고 깔끔한 맛이 매력적인 제로 칼로리 탄산음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -13560,7 +13560,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d76eaa2578b57b362e62d86f3312eea2.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3000,
     overallRating: 4.9,
     ratingCount: 740,
     searchInfluxCount: 91600,
@@ -13587,7 +13587,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티를 제로 칼로리로 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14011,7 +14011,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6f3da9bd80ebfcd0ac23e110e8598572.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 993,
     searchInfluxCount: 95120,
@@ -14038,7 +14038,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생레몬 두 개가 들어가서 레몬 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14052,7 +14052,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/2ed7f2b5b094c6fb3bf915a6bd8b9695.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.9,
     ratingCount: 1016,
     searchInfluxCount: 95440,
@@ -14079,7 +14079,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "상큼하고 달콤한 유자 향 가득한 티 / 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14093,7 +14093,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/08059fd01be6c467aba472f086e74f80.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 1039,
     searchInfluxCount: 95760,
@@ -14120,7 +14120,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "장수 오미자를 베이스로 하여 레드 베리들의 조화로 오묘한 맛과 향을 즐길 수 있는 티와 청량함을 더한 에이드 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14134,7 +14134,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/f6589c4eca1fe16c8963322f91e03e69.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.7,
     ratingCount: 262,
     searchInfluxCount: 96080,
@@ -14161,7 +14161,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생자몽 하나가 들어가서 자몽 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14175,7 +14175,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/076bb19fcfd538ba694ba00bb7bec54f.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 285,
     searchInfluxCount: 96400,
@@ -14202,7 +14202,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "피로회복에 좋은 비타민이 풍부한 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14216,7 +14216,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/fe1e7c8efe8b515d57004eb9cdc43792.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.9,
     ratingCount: 308,
     searchInfluxCount: 96720,
@@ -14243,7 +14243,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생오렌지 두 개가 들어가서 오렌지 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14257,7 +14257,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d6dcb261fee4df03cc1ae5a00cf54442.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 5.0,
     ratingCount: 331,
     searchInfluxCount: 97040,
@@ -14284,7 +14284,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생라임 두 개가 들어가서 라임의 청량감을 느낄 수 있는 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14298,7 +14298,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/3a622402ada3ef6aadf38711b30d3fc1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.7,
     ratingCount: 354,
     searchInfluxCount: 97360,
@@ -14325,7 +14325,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "한라봉의 신선한 맛과 향이 과육과 함께 입안가득 느껴지는 한라봉 티/에이드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14380,7 +14380,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/85f48e9da36861d4323824df0c5e654c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3900,
     overallRating: 4.9,
     ratingCount: 400,
     searchInfluxCount: 98000,
@@ -14407,7 +14407,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "청포도가 씹히는 식감이 일품이며 청량감이 좋은 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14462,7 +14462,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/9764a11cd4cbd18cd8496de20d461575.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.7,
     ratingCount: 446,
     searchInfluxCount: 98640,
@@ -14489,7 +14489,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생레몬을 직접 착즙하여, 새콤한 생레몬의 맛을 더욱 신선하게 즐길 수 있는 주스 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14503,7 +14503,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/63f2deb936273b32de18f9a1f4c74067.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.8,
     ratingCount: 469,
     searchInfluxCount: 98960,
@@ -14530,7 +14530,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생자몽을 직접 착즙하여, 생자몽의 달콤 쌉싸름한 맛을 풍부하게 즐길 수 있는 주스 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14544,7 +14544,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6cd992a2d4c96921cdbe5f32e3302e20.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 492,
     searchInfluxCount: 99280,
@@ -14571,7 +14571,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생오렌지를 직접 착즙하여, 상큼 달콤한 생오렌지의 과즙을 그대로 담아낸 주스 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14585,7 +14585,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d1b26fd2a2ea839e59e4f8ea8c7464a3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 5.0,
     ratingCount: 515,
     searchInfluxCount: 99600,
@@ -14612,7 +14612,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "생라임을 직접 착즙하여, 풍부한 생라임의 향과 맛으로 즐길 수 있는 주스 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14626,7 +14626,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7e5e5539a2f8abf954d0eb4e76db89cd.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3000,
     overallRating: 4.7,
     ratingCount: 538,
     searchInfluxCount: 99920,
@@ -14653,7 +14653,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14667,7 +14667,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c0f74efdb82ab7147061613410922902.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.8,
     ratingCount: 561,
     searchInfluxCount: 100240,
@@ -14694,7 +14694,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤 시원한 수박 과육을 갈아내 풍부한 과즙이 살아있는 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14708,7 +14708,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5f4b6a3f53f2c544753fd3a3c27e713b.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.9,
     ratingCount: 584,
     searchInfluxCount: 100560,
@@ -14735,7 +14735,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "토마토의 자연스러운 풍미를 깔끔하게 담아낸 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14749,7 +14749,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/c52398df95479e5cb3c76d041c669e9b.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 5.0,
     ratingCount: 607,
     searchInfluxCount: 100880,
@@ -14776,7 +14776,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "적포도를 갈아내 새콤달콤한 맛이 매력적인 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14790,7 +14790,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/2f275281bd8b910fd4f265ad49092cf5.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.7,
     ratingCount: 630,
     searchInfluxCount: 101200,
@@ -14817,7 +14817,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "100% 파인애플을 착즙하여 시원하게 즐길 수 있는 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -14831,7 +14831,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5e644bf656579a82abbc60c35bbcb18d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 4300,
+    price: 4500,
     overallRating: 4.8,
     ratingCount: 653,
     searchInfluxCount: 101520,
@@ -14858,7 +14858,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "깊고 진한 말차의 풍미와 고소한 우유가 어우러져 말차 본연의 맛을 즐길 수 있는 프라페",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15241,7 +15241,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/87b99fdae3df1d4ce757dfda2f0b6549.png",
     releaseDate: '2026.09 신메뉴',
-    price: 4300,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 883,
     searchInfluxCount: 104720,
@@ -15268,7 +15268,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쿠키와 초코의 달콤함을 느낄 수 있는 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15282,7 +15282,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/20daff447551bb64961b8b143247fc91.png",
     releaseDate: '2026.09 신메뉴',
-    price: 4300,
+    price: 4500,
     overallRating: 4.7,
     ratingCount: 906,
     searchInfluxCount: 105040,
@@ -15309,7 +15309,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "커피와 초코의 맛과 향에 자바칩까지 더해 목 넘김이 즐거운 프라페",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15323,7 +15323,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b285adbd96dba6fa0efeb70b58ea41ac.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3400,
+    price: 4500,
     overallRating: 4.8,
     ratingCount: 929,
     searchInfluxCount: 105360,
@@ -15350,7 +15350,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "딸기와 바닐라 향을 즐기며 쿠키의 식감까지 즐길 수 있는 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15364,7 +15364,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/78e7ce3492ddd73cee12cdd38f682855.png",
     releaseDate: '2026.09 신메뉴',
-    price: 4300,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 952,
     searchInfluxCount: 105680,
@@ -15391,7 +15391,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "피스타치오와 아몬드의 조화와 향긋한 향의 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15487,7 +15487,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/23e6b8bcfb965dc24c0dfa3085b1d38c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1800,
     overallRating: 4.8,
     ratingCount: 1021,
     searchInfluxCount: 106640,
@@ -15514,7 +15514,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 1800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 마카다미아와 달콤한 화이트 초콜릿이 어우러진 쫀득하고 부드러운 식감의 프리미엄 쿠키",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15528,7 +15528,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/38f99d26b60af34c8093752355dd1678.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1800,
     overallRating: 4.9,
     ratingCount: 1044,
     searchInfluxCount: 106960,
@@ -15555,7 +15555,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 1800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 초콜릿칩이 듬뿍 들어간 쫀득하고 부드러운 식감의 프리미엄 쿠키",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15610,7 +15610,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/45d6ae6fa636c8025116f89f94389ab1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 4.7,
     ratingCount: 290,
     searchInfluxCount: 107600,
@@ -15637,7 +15637,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤한 초콜릿을 코팅한 고소한 크로아상 안에 진한 초코 크림을 가득 넣은 초코 크로슈",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15692,7 +15692,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/03ecb0d8859b36c6936b196d8d64141c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 4.9,
     ratingCount: 336,
     searchInfluxCount: 108240,
@@ -15719,7 +15719,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "100% 국내산 고구마를 오븐에 정성껏 구워 말린 쫀득한 군고구마&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15897,7 +15897,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6506a705de1bbb3fbc77237cfcf7a1f5.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1800,
     overallRating: 5.0,
     ratingCount: 451,
     searchInfluxCount: 109840,
@@ -15924,7 +15924,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 1800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "바나나 향을 입안 가득 느낄 수 있는 바나나 쿠키&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15938,7 +15938,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/ada4a5ed9dd882bae2cc10e966a437e3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1800,
     overallRating: 4.7,
     ratingCount: 474,
     searchInfluxCount: 110160,
@@ -15965,7 +15965,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 1800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득하고 달콤한 브라우니 쿠키&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -15979,7 +15979,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6021bf3e12213ec56cbf475abb0f4a73.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 497,
     searchInfluxCount: 110480,
@@ -16006,7 +16006,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "끼리 크림치즈가 61.9% 함유되어 치즈케이크 고유의 꾸덕함과 진한 맛을 느낄 수 있는 간편 디저트&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16061,7 +16061,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/32a85497e3b3b100cd7dc35d5ac20ba8.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1800,
     overallRating: 5.0,
     ratingCount: 543,
     searchInfluxCount: 111120,
@@ -16088,7 +16088,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 1800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "끼리 치즈의 진한 풍미와 달콤한 쿠키가 만나 더욱 달콤하고 고소한 간편 디저트&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16102,7 +16102,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/09ed1c91c0f717a5cd4c35fdba8f9e65.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2800,
     overallRating: 4.7,
     ratingCount: 566,
     searchInfluxCount: 111440,
@@ -16129,7 +16129,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소하고 풍미 넘치는 고메버터의 향이 입 안 가득 퍼지는 겉은 바삭, 속은 촉촉한 고메버터 플레인 스콘",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16143,7 +16143,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6d4caf304fd819b80b161512d2a1a2e5.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 3700,
     overallRating: 4.8,
     ratingCount: 589,
     searchInfluxCount: 111760,
@@ -16170,7 +16170,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "겉바속촉! 달콤하고 부드러운 카카오 초코크림이 입안 가득 퍼지는 비스킷 슈&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16184,7 +16184,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/60468e8aaa3010f645fa3622850f2942.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 612,
     searchInfluxCount: 112080,
@@ -16211,7 +16211,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤한 초코칩과 고소한 호두가 듬뿍 들어있는 부드럽고 촉촉한 초코 파운드 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16225,7 +16225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/57791ee8de7695a67b39a39783c4a110.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2800,
     overallRating: 5.0,
     ratingCount: 635,
     searchInfluxCount: 112400,
@@ -16252,7 +16252,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "듬뿍 들어간 초코칩과 풍미 가득한 고메버터 스콘이 조화롭게 어우러진 고메버터 초코 스콘",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16307,7 +16307,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b39a75c2cf3cba3e24dc3f6a02dddfdf.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 681,
     searchInfluxCount: 113040,
@@ -16334,7 +16334,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "스모키한 향과 풍미 가득 치즈의 고소함, 달콤한 맛이 돋보이는 부드러운 치즈케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16348,7 +16348,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/51ad694d4c6d20dbea162d7f1f9f5eae.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 704,
     searchInfluxCount: 113360,
@@ -16375,7 +16375,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "향긋한 레몬 제스트와 새콤달콤한 레몬 아이싱이 더해진 부드럽고 촉촉한 레몬 파운드 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16389,7 +16389,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/115b5fa7e181dacef044f6bd627feecc.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 727,
     searchInfluxCount: 113680,
@@ -16416,7 +16416,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "짭조름한 햄, 치즈와 달콤한 버터크림이 만나 단짠의 조화를 느낄 수 있는 소프트한 샌드위치&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ■ 알레르기 유발 성분 : 달걀, 우유, 대두, 밀 함유",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16430,7 +16430,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b2d84301cdae477de0158711301d0b58.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.7,
     ratingCount: 750,
     searchInfluxCount: 114000,
@@ -16457,7 +16457,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "카야 잼에 부드러운 버터크림이 더해져, 달콤하고 고소한 풍미를 느낄 수 있는 소프트한 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16471,7 +16471,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/d100f56d3914d7fdd1d0ff7010b50137.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 4.8,
     ratingCount: 773,
     searchInfluxCount: 114320,
@@ -16498,7 +16498,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "여섯 가지 맛을 한 번에 즐길 수 있는 알록달록 귀여운 미니 사이즈 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16512,7 +16512,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6e858cc623d5338c21e1b944657e0e79.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3400,
+    price: 2200,
     overallRating: 4.9,
     ratingCount: 796,
     searchInfluxCount: 114640,
@@ -16539,7 +16539,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤한 바닐라 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16553,7 +16553,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/508f4efbedabd9ad9a4d8fc7154651d1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 5.0,
     ratingCount: 819,
     searchInfluxCount: 114960,
@@ -16580,7 +16580,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤한 초콜릿 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16594,7 +16594,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/84cce71093ad9fb85e9b21edd91d761c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 4.7,
     ratingCount: 842,
     searchInfluxCount: 115280,
@@ -16621,7 +16621,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤한 망고 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16635,7 +16635,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/36d32a04dbbff771b163a1374b75e078.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 4.8,
     ratingCount: 865,
     searchInfluxCount: 115600,
@@ -16662,7 +16662,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤한 민트초코 버터크림을 듬뿍 넣은 마카롱",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16676,7 +16676,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/15f273b7ca08032e31eb58c8d7a1a449.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 4.9,
     ratingCount: 888,
     searchInfluxCount: 115920,
@@ -16703,7 +16703,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤하고 상큼한 라즈베리 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -16717,7 +16717,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7ca512f5f6eb5a30293960409ed6eaf6.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2200,
     overallRating: 5.0,
     ratingCount: 911,
     searchInfluxCount: 116240,
@@ -16744,7 +16744,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 2200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "쫀득한 꼬끄안에 달콤한 블루베리 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17127,7 +17127,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/5d98f5da10c559655510b04d95c3230a.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 2000,
     overallRating: 4.8,
     ratingCount: 341,
     searchInfluxCount: 119440,
@@ -17154,7 +17154,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 2000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "층층이 쌓인 바삭한 패스츄리와 부드럽고 달콤한 에그 필링이 어우러진 담백하고 고소한 에그 타르트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17168,7 +17168,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/bc5d5c13f277cfb0b96519193c09c75f.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.9,
     ratingCount: 364,
     searchInfluxCount: 119760,
@@ -17195,7 +17195,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "크림치즈 43%가 함유되어 치즈의 진한 맛과 레몬향이 입안 가득 퍼지는 치즈 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17209,7 +17209,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/e290fb250cff9eac400f2e1712d88818.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 5.0,
     ratingCount: 387,
     searchInfluxCount: 120080,
@@ -17236,7 +17236,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "달콤하고 부드러운 화이트 초콜릿 코팅 안에 풍미 가득 진한 크림치즈가 더해진 치즈 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17250,7 +17250,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/178fa564133bb9e11d4c011bd947d45b.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.7,
     ratingCount: 410,
     searchInfluxCount: 120400,
@@ -17277,7 +17277,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "진한 다크초콜릿의 쌉쌀함과 부드러움을 함께 느낄 수 있는 초코무스 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17291,7 +17291,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/aa267ed02b634785c21ab86fda14a653.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4800,
     overallRating: 4.8,
     ratingCount: 433,
     searchInfluxCount: 120720,
@@ -17318,7 +17318,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "담백한 당근 케이크에 부드러운 크림치즈와 시나몬 향이 더해져 매력적인 맛의 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17332,7 +17332,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/7f09943759daac01095356c7a62b971d.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 456,
     searchInfluxCount: 121040,
@@ -17359,7 +17359,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "동그란 모양의 영국 대표적인 모닝 브레드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17373,7 +17373,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/02f9305adbfec77336ef45f103e81bff.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 479,
     searchInfluxCount: 121360,
@@ -17400,7 +17400,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "고소한 맛과 풍미가 살아있는 호밀 브레드를 로프로 구운 후 호밀 브레드를 적당한 두께감으로 커팅하고 그 슬라이스 사이에 모짜렐라치즈, 체다 치즈, 에멘탈치즈까지, 3가지 치즈를 믹스해서 샌딩한 샌드위치",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17537,7 +17537,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/46d29e7cb232373a4020c91db82e37cc.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 571,
     searchInfluxCount: 122640,
@@ -17564,7 +17564,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "치즈와 바삭하게 구운 베이컨을 더해 풍미는 살리고 신선한 채소로 느끼함은 잡고 아삭한 식감을 더한 매력적인 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17578,7 +17578,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/8219f57b21022aa66589e40af9368d1e.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.7,
     ratingCount: 594,
     searchInfluxCount: 122960,
@@ -17605,7 +17605,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "딸기 잼과 누구나 좋아하는 담백한 에그 샐러드가 들어간 기본에 충실한 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17619,7 +17619,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/e54c6ec6b83eb2fee0b70bb92b919e08.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.8,
     ratingCount: 617,
     searchInfluxCount: 123280,
@@ -17646,7 +17646,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "마요네즈에 버무려진 참치와 아삭한 샐러리가 조화를 이룬 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17660,7 +17660,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/6117d1b7d78ab7b8eb7502c5f5f6a5bb.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 640,
     searchInfluxCount: 123600,
@@ -17687,7 +17687,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "닭 가슴살이 듬뿍 들어가 치즈의 풍미와 풍부한 야채가 함께 조화를 이루는 샌드위치",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17701,7 +17701,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/1f4f4bdb609c906e4c3119501d5d5d9a.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 663,
     searchInfluxCount: 123920,
@@ -17728,7 +17728,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 16, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "치즈와 바삭하게 구운 베이컨을 더해 풍미는 살리고 신선한 채소로 느끼함은 잡고 아삭한 식감을 더한 매력적인 샌드위치 + 아메리카노 세트 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17742,7 +17742,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/38445a236294a0f43b8a937b8e2dabd5.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.7,
     ratingCount: 686,
     searchInfluxCount: 124240,
@@ -17769,7 +17769,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 17, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "딸기 잼과 누구나 좋아하는 담백한 에그 샐러드가 들어간 기본에 충실한 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17783,7 +17783,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b4a65968efb66ce6495cd07b095fb6a3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.8,
     ratingCount: 709,
     searchInfluxCount: 124560,
@@ -17810,7 +17810,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 18, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "마요네즈에 버무려진 참치와 아삭한 샐러리가 조화를 이룬 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17824,7 +17824,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/65d11f406e93b579a888c934e99f23d1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 732,
     searchInfluxCount: 124880,
@@ -17851,7 +17851,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 19, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "닭 가슴살이 듬뿍 들어가 치즈의 풍미와 풍부한 야채가 함께 조화를 이루는 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17865,7 +17865,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/b5df755bb89402ca50959f9e6c76120c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1500,
     overallRating: 5.0,
     ratingCount: 755,
     searchInfluxCount: 125200,
@@ -17892,7 +17892,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "국내산 현미, 옥수수, 보리를 넣고 끓인 차&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17906,7 +17906,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/56e9d7cafd571ce6f3f9a291b4b2c55c.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1500,
     overallRating: 4.7,
     ratingCount: 778,
     searchInfluxCount: 125520,
@@ -17933,7 +17933,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 21, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1, 비타민D, 식이섬유, 젖산칼슘을 함유한 밀크맛 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17947,7 +17947,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/13136e9013506d925251428efaf3fcfe.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1500,
     overallRating: 4.8,
     ratingCount: 801,
     searchInfluxCount: 125840,
@@ -17974,7 +17974,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1 비타민D, 식이섬유를 함유한 딸기맛 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -17988,7 +17988,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/ecede46d7d6030917bbc2f04529190c3.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 1500,
     overallRating: 4.9,
     ratingCount: 824,
     searchInfluxCount: 126160,
@@ -18015,7 +18015,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 23, price: 1500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1 비타민D, 식이섬유를 함유한 사과맛 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -18070,7 +18070,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/e727f87e256baef1bffb008fcd3d54d1.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3200,
+    price: 4300,
     overallRating: 4.7,
     ratingCount: 870,
     searchInfluxCount: 126800,
@@ -18097,7 +18097,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 3200, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 15, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "설탕과 물이 들어가지 않은 100% 프리미엄 사과주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -18357,7 +18357,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://mmthcoffee.com/files/menu/564a4c4ac238359924a304a25e902e29.png",
     releaseDate: '2026.09 신메뉴',
-    price: 3500,
+    price: 4500,
     overallRating: 5.0,
     ratingCount: 1031,
     searchInfluxCount: 129040,
@@ -18384,7 +18384,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
     storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 3500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
+      { store: "매머드커피", status: '입고완료', stockCount: 22, price: 4500, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
     ],
     description: "부드러운 단맛, 견과류의 고소함과 자극적이지 않은 산미 그리고 부담스럽지 않은 바디감으로 목 넘김이 좋고 입안에 깔끔한 여운이 매력적인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
@@ -23426,7 +23426,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.tlj.co.kr/data/product/2026-3-31_event(2).jpg",
     releaseDate: "뚜레쥬르 데일리 식빵",
-    price: 3500,
+    price: 3200,
     overallRating: 4.8,
     ratingCount: 310,
     searchInfluxCount: 22000,
@@ -23460,7 +23460,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "뚜레쥬르",
                 "status": "입고완료",
                 "stockCount": 16,
-                "price": 3500,
+                "price": 3200,
                 "eventBadge": "순우유식빵",
                 "deliveryTime": "매장 즉시 픽업",
                 "appLink": "https://www.tlj.co.kr"

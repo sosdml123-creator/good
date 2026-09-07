@@ -357,7 +357,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=700&auto=format&fit=crop&q=80',
     releaseDate: '2026.09 공식',
-    price: 1500,
+    price: 1700,
     overallRating: 4.7,
     ratingCount: 750,
     searchInfluxCount: 59000,
@@ -377,7 +377,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '간얼음 선택 시 더 시원하고 아삭하게 즐기실 수 있습니다.',
     storeStocks: [
-      { store: '빽다방', status: '입고완료', stockCount: 35, price: 1500, eventBadge: '가성비 1등', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://paikdabang.com' }
+      { store: '빽다방', status: '입고완료', stockCount: 35, price: 1700, eventBadge: '가성비 1등', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://paikdabang.com' }
     ],
     description: '백종원 대표의 철학이 담긴 싸고, 크고, 맛있는 앗!메리카노! 콜롬비아 수프리모 원두를 베이스로 산미가 적고 고소하며 깔끔한 대용량 커피.',
     bestQuotes: ['간얼음으로 먹는 앗메리카노는 여름철 구원투수', '가성비와 양에서 적수가 없음']
@@ -459,7 +459,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=700&auto=format&fit=crop&q=80',
     releaseDate: '2026.09 베스트',
-    price: 4000,
+    price: 4500,
     overallRating: 4.9,
     ratingCount: 630,
     searchInfluxCount: 52000,
@@ -479,7 +479,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '아이스크림을 스푼으로 먼저 맛보고 음료와 섞어 드시면 더 부드럽습니다.',
     storeStocks: [
-      { store: '빽다방', status: '입고완료', stockCount: 18, price: 4000, eventBadge: '소프트토핑', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
+      { store: '빽다방', status: '입고완료', stockCount: 18, price: 4500, eventBadge: '소프트토핑', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
     ],
     description: '새콤달콤한 딸기 과육을 시원하게 갈아 넣은 빽스치노 위에 달콤하고 크리미한 소프트 아이스크림을 소복이 쌓아 올린 빽다방의 비주얼 대표 디저트 음료.',
     bestQuotes: ['소프트 아이스크림과 딸기 스무디 조합이 사기급', '이 가격에 이 퀄리티 아이스크림 프라페는 오직 빽다방뿐']
@@ -493,7 +493,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=700&auto=format&fit=crop&q=80',
     releaseDate: '2026.09 공식',
-    price: 4500,
+    price: 5000,
     overallRating: 4.8,
     ratingCount: 490,
     searchInfluxCount: 46000,
@@ -513,7 +513,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '피스타치오 알레르기 주의',
     storeStocks: [
-      { store: '빽다방', status: '입고완료', stockCount: 15, price: 4500, eventBadge: '인기돌풍', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
+      { store: '빽다방', status: '입고완료', stockCount: 15, price: 5000, eventBadge: '인기돌풍', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
     ],
     description: '고소하고 향긋한 피스타치오 베이스에 달콤 쌉싸름한 초코칩이 오독오독 씹히며, 부드러운 소프트 아이스크림이 어우러져 매니아층의 절대적인 지지를 받는 메뉴.',
     bestQuotes: ['배스킨라빈스 피스타치오 아몬드를 슬러시로 마시는 기분', '초코칩이 아낌없이 씹혀서 식감 깡패']
@@ -527,7 +527,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=700&auto=format&fit=crop&q=80',
     releaseDate: '2026.09 국민죠리퐁',
-    price: 3800,
+    price: 4000,
     overallRating: 4.9,
     ratingCount: 520,
     searchInfluxCount: 43000,
@@ -547,7 +547,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '바삭바삭한 죠리퐁을 먼저 떠먹은 뒤 스무디와 섞어 드세요.',
     storeStocks: [
-      { store: '빽다방', status: '입고완료', stockCount: 18, price: 3800, eventBadge: '죠리퐁가득', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
+      { store: '빽다방', status: '입고완료', stockCount: 18, price: 4000, eventBadge: '죠리퐁가득', deliveryTime: '매장 즉시 픽업', appLink: 'https://paikdabang.com' }
     ],
     description: '고소한 곡물 스무디 위에 바삭한 죠리퐁이 컵 위로 수북하게 넘치도록 올라가 한 끼 식사 대용으로도 든든한 빽다방 메가 히트 디저트 음료.',
     bestQuotes: ['죠리퐁 우유에 말아먹는 그 맛의 완벽한 업그레이드 버전', '바삭할 때 먹어도 맛있고 녹아도 꿀맛']
