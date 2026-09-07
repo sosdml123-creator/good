@@ -90,7 +90,7 @@ export const BrandView: React.FC = () => {
           brand.category.includes('빵') || 
           brand.category.includes('디저트') || 
           brand.category.includes('베이커리') ||
-          ['파리바게뜨', '파리바게트', '뚜레쥬르', '성심당', '런던베이글뮤지엄', '노티드', '삼송빵집', '태극당'].includes(brand.name)
+          ['파리바게뜨', '파리바게트', '뚜레쥬르', '성심당', '런던베이글뮤지엄', '노티드', '삼송빵집', '태극당', '배스킨라빈스', '베스킨라빈스'].includes(brand.name)
         )) ||
         (selectedCategoryTab === '라면·간편식' && (brand.category.includes('간편식') || brand.category.includes('식재료') || brand.name === '노브랜드'));
 

@@ -2,14 +2,121 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
-const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'brands');
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-}
+function cleanBibigoPng() {
+  const p = path.join(__dirname, '..', 'public', 'brands', '비비고.png');
+  if (!fs.existsSync(p)) return;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  const buf = fs.readFileSync(p);
+  const width = buf.readUInt32BE(16);
+  const height = buf.readUInt32BE(20);
+
+  let pos = 8;
+  const idatChunks = [];
+  const otherChunksBefore = [];
+  const otherChunksAfter = [];
+  let pastIdat = false;
+
+  while (pos < buf.length) {
+    const len = buf.readUInt32BE(pos);
+    const type = buf.slice(pos + 4, pos + 8).toString();
+    const chunk = buf.slice(pos, pos + 8 + len + 4);
+    if (type === 'IDAT') {
+      idatChunks.push(buf.slice(pos + 8, pos + 8 + len));
+      pastIdat = true;
+    } else if (!pastIdat) {
+      otherChunksBefore.push(chunk);
+    } else {
+      otherChunksAfter.push(chunk);
+    }
+    pos += 8 + len + 4;
+  }
+
+  const inflated = zlib.inflateSync(Buffer.concat(idatChunks));
+  const stride = 1 + width * 4;
+
+  // Unfilter PNG
+  const pixels = Buffer.alloc(width * height * 4);
+  for (let y = 0; y < height; y++) {
+    const filter = inflated[y * stride];
+    const prevRow = y > 0 ? pixels.subarray((y - 1) * width * 4, y * width * 4) : null;
+    const curRow = pixels.subarray(y * width * 4, (y + 1) * width * 4);
+
+    for (let x = 0; x < width * 4; x++) {
+      const rawByte = inflated[y * stride + 1 + x];
+      const a = x >= 4 ? curRow[x - 4] : 0;
+      const b = prevRow ? prevRow[x] : 0;
+      const c = (x >= 4 && prevRow) ? prevRow[x - 4] : 0;
+
+      let val = rawByte;
+      if (filter === 1) val = (rawByte + a) & 0xff;
+      else if (filter === 2) val = (rawByte + b) & 0xff;
+      else if (filter === 3) val = (rawByte + Math.floor((a + b) / 2)) & 0xff;
+      else if (filter === 4) {
+        const p = a + b - c;
+        const pa = Math.abs(p - a);
+        const pb = Math.abs(p - b);
+        const pc = Math.abs(p - c);
+        let pr = a;
+        if (pb < pa && pb <= pc) pr = b;
+        else if (pc < pa && pc <= pb) pr = c;
+        val = (rawByte + pr) & 0xff;
+      }
+      curRow[x] = val;
+    }
+  }
+
+  // Clear bottom-left decoration (x: 0..120, y: 240..height)
+  for (let y = 240; y < height; y++) {
+    for (let x = 0; x < 125; x++) {
+      const idx = (y * width + x) * 4;
+      pixels[idx] = 0;
+      pixels[idx + 1] = 0;
+      pixels[idx + 2] = 0;
+      pixels[idx + 3] = 0; // Alpha 0
+    }
+  }
+
+  // Re-encode with filter 0
+  const outRaw = Buffer.alloc(height * stride);
+  for (let y = 0; y < height; y++) {
+    outRaw[y * stride] = 0; // Filter None
+    pixels.copy(outRaw, y * stride + 1, y * width * 4, (y + 1) * width * 4);
+  }
+
+  const deflated = zlib.deflateSync(outRaw);
+  
+  // Create new IDAT chunk
+  const idatChunk = Buffer.alloc(12 + deflated.length);
+  idatChunk.writeUInt32BE(deflated.length, 0);
+  idatChunk.write('IDAT', 4);
+  deflated.copy(idatChunk, 8);
+
+  // CRC32
+  const crc32 = (b) => {
+    let crc = -1;
+    for (let i = 0; i < b.length; i++) {
+      crc ^= b[i];
+      for (let j = 0; j < 8; j++) {
+        crc = (crc >>> 1) ^ (-(crc & 1) & 0xedb88320);
+      }
+    }
+    return (crc ^ -1) >>> 0;
+  };
+
+  const idatCrc = crc32(idatChunk.subarray(4, 8 + deflated.length));
+  idatChunk.writeUInt32BE(idatCrc, 8 + deflated.length);
+
+  const finalBuf = Buffer.concat([
+    buf.subarray(0, 8),
+    ...otherChunksBefore,
+    idatChunk,
+    ...otherChunksAfter
+  ]);
+
+  fs.writeFileSync(p, finalBuf);
+  console.log('[CLEANUP] Successfully cleaned and refined 비비고.png');
 }
 
 async function scrapeSiteLogos(siteUrl) {
@@ -211,22 +318,96 @@ async function main() {
   console.log('\n--- Finished. Saved count:', Object.keys(results).length, '---');
 
   console.log('\n--- Checking dynamic sites for remaining brands ---');
-  const sitesToProbe = {
-    '매머드커피': 'https://www.mmthcoffee.com',
-    '더벤티': 'https://www.theventi.co.kr',
-    '성심당': 'https://sungsimdang.co.kr',
-    '노티드': 'https://knotted-donut.com',
-    '하이트진로': 'https://www.hitejinro.com',
-    '연세유업': 'https://www.yonseidairy.com',
-    '태극당': 'https://taegeukdang.com'
-  };
-
-  for (const [name, site] of Object.entries(sitesToProbe)) {
-    const logos = await scrapeSiteLogos(site);
-    console.log(`[PROBE] ${name.padEnd(10)}:`, logos);
+  
+  // Yonsei dairy
+  const yonseiCandidates = [
+    'https://cdn-saas-web-116-108.cdn-nhncommerce.com/yonseidairy243_godomall_com/data/skin/front/yonsei_pc_regular/custom/img/common/logo.svg',
+    'https://cdn-saas-web-116-108.cdn-nhncommerce.com/yonseidairy243_godomall_com/data/skin/front/yonsei_pc_regular/custom/img/common/logo.png',
+    'https://cdn-saas-web-116-108.cdn-nhncommerce.com/yonseidairy243_godomall_com/data/skin/front/yonsei_pc_regular/custom/img/common/h1_logo.png',
+    'https://cdn-saas-web-116-108.cdn-nhncommerce.com/yonseidairy243_godomall_com/data/skin/front/yonsei_pc_regular/custom/img/common/saverance-logo.svg'
+  ];
+  for (const u of yonseiCandidates) {
+    const res = await fetchBuffer(u);
+    if (res.ok) {
+      const ext = u.endsWith('.svg') ? '.svg' : '.png';
+      fs.writeFileSync(path.join(OUTPUT_DIR, '연세유업' + ext), res.buf);
+      console.log('[SUCCESS] 연세유업 -> /brands/연세유업' + ext, res.size, 'bytes');
+      break;
+    }
   }
+
+  // Taegeukdang
+  const tgCandidates = [
+    'https://taegeukdang.com/web/upload/img/logo.svg',
+    'https://taegeukdang.com/web/upload/img/logo.png',
+    'https://taegeukdang.com/images/common/logo.png'
+  ];
+  for (const u of tgCandidates) {
+    const res = await fetchBuffer(u);
+    if (res.ok) {
+      const ext = u.endsWith('.svg') ? '.svg' : '.png';
+      fs.writeFileSync(path.join(OUTPUT_DIR, '태극당' + ext), res.buf);
+      console.log('[SUCCESS] 태극당 -> /brands/태극당' + ext, res.size, 'bytes');
+      break;
+    }
+  }
+
+  // Samsong Bakery
+  const ssCandidates = [
+    'http://www.samsongbread.com/img/common/logo.png',
+    'http://www.samsongbread.com/images/common/logo.png',
+    'http://www.samsongbread.com/img/logo.png'
+  ];
+  for (const u of ssCandidates) {
+    const res = await fetchBuffer(u);
+    if (res.ok) {
+      fs.writeFileSync(path.join(OUTPUT_DIR, '삼송빵집.png'), res.buf);
+      console.log('[SUCCESS] 삼송빵집 -> /brands/삼송빵집.png', res.size, 'bytes');
+      break;
+    }
+  }
+
+  // Knotted
+  const knottedCandidates = [
+    'https://knottedstore.com/web/upload/img/logo.png',
+    'https://knottedstore.com/web/upload/img/logo.svg',
+    'https://knottedstore.com/images/common/logo.png',
+    'https://knottedstore.com/web/upload/knotted/logo.png',
+    'https://knottedstore.com/web/upload/knotted/logo.svg',
+    'https://knotted-donut.com/img/common/logo.png',
+  ];
+  for (const u of knottedCandidates) {
+    const res = await fetchBuffer(u);
+    if (res.ok) {
+      const ext = u.endsWith('.svg') ? '.svg' : '.png';
+      fs.writeFileSync(path.join(OUTPUT_DIR, '노티드' + ext), res.buf);
+      console.log('[SUCCESS] 노티드 -> /brands/노티드' + ext, res.size, 'bytes');
+      break;
+    }
+  }
+
+  // Copy english Orion logo to primary Orion logo
+  if (fs.existsSync(path.join(OUTPUT_DIR, '오리온_english.svg'))) {
+    fs.copyFileSync(path.join(OUTPUT_DIR, '오리온_english.svg'), path.join(OUTPUT_DIR, '오리온.svg'));
+    console.log('[SUCCESS] Replaced 오리온.svg with official ORION logo');
+  }
+
+  // Check Taegeukdang, Knotted, Samsongbread
+  console.log('Probing Taegeukdang, Knotted, Samsongbread...');
+  const tljImgs = await scrapeSiteLogos('http://www.taegeukdang.com');
+  console.log('Taegeukdang scraped:', tljImgs);
+
+  const knottedImgs = await scrapeSiteLogos('https://knottedstore.com');
+  console.log('Knotted scraped:', knottedImgs);
+
+  const samsongImgs = await scrapeSiteLogos('http://www.samsongbread.com');
+  cleanBibigoPng();
 }
 
 main();
+
+
+
+
 
 

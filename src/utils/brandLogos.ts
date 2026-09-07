@@ -37,7 +37,11 @@ export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
   '롯데': '/brands/롯데웰푸드.svg',
   '롯데제과': '/brands/롯데웰푸드.svg',
   '해태제과': '/brands/해태제과.png',
+  '해태아이스': '/brands/해태제과.png',
   '해태': '/brands/해태제과.png',
+  '배스킨라빈스': '/brands/배스킨라빈스.png',
+  '배스킨': '/brands/배스킨라빈스.png',
+  '베스킨라빈스': '/brands/배스킨라빈스.png',
   'GS25': '/brands/GS25.png',
   'CU': '/brands/CU.png',
   '세븐일레븐': '/brands/세븐일레븐.svg',
@@ -632,7 +636,22 @@ export const BRAND_SVG_LOGOS: Record<string, string> = {
     </svg>
   `),
 
-  // 36. DEFAULT (공식 브랜드 기본 엠블럼)
+  // 36. 배스킨라빈스 (Baskin Robbins)
+  '배스킨라빈스': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFF2F6"/>
+      <circle cx="60" cy="55" r="42" fill="#FFFFFF" stroke="#FF007A" stroke-width="2.5"/>
+      <g transform="translate(25, 23)">
+        <!-- B & R outline with signature 31 -->
+        <path d="M8 12h14c5 0 9 3 9 7 0 3-1.5 5-4 6 3.5 1 5.5 3.5 5.5 7.2 0 5-4 8.8-10.5 8.8H8V12z" fill="none" stroke="#0069B4" stroke-width="4.5" stroke-linejoin="round"/>
+        <path d="M42 25h11c4.5 0 8 2.5 8 6 0 2.5-1.5 4.5-4 5.5l6 11.5h-6l-5-10h-10v10h-5V25z" fill="none" stroke="#0069B4" stroke-width="4.5" stroke-linejoin="round"/>
+        <text x="35" y="38" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="22" fill="#FF007A" text-anchor="middle">31</text>
+      </g>
+      <text x="60" y="104" fill="#0069B4" font-size="11" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="-0.5">배스킨라빈스</text>
+    </svg>
+  `),
+
+  // 37. DEFAULT (공식 브랜드 기본 엠블럼)
   'DEFAULT': svgToUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
       <rect width="120" height="120" rx="26" fill="#0066FF"/>
@@ -700,12 +719,22 @@ export const BRAND_ALIASES: Record<string, string> = {
   'nobrand': '노브랜드',
   '이마트 노브랜드': '노브랜드',
   '이마트노브랜드': '노브랜드',
+  '배스킨라빈스': '배스킨라빈스',
+  '베스킨라빈스': '배스킨라빈스',
+  '베스킨': '배스킨라빈스',
+  '배스킨': '배스킨라빈스',
+  '베라': '배스킨라빈스',
+  '배라': '배스킨라빈스',
+  'baskinrobbins': '배스킨라빈스',
+  'Baskin Robbins': '배스킨라빈스',
+  'baskin robbins': '배스킨라빈스',
 };
 
 /**
  * Brand specific primary colors for avatar / badge styling
  */
 export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  '배스킨라빈스': { bg: '#FF3E83', text: '#FFFFFF', border: '#0069B4' },
   '노브랜드': { bg: '#FED100', text: '#231F20', border: '#E5BC00' },
   '비비고': { bg: '#1B3A2C', text: '#FFFFFF', border: '#12261D' },
   '맥도날드': { bg: '#DA291C', text: '#FFC72C', border: '#B81E13' },

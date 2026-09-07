@@ -1,0 +1,683 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns=""
+      style="height: 100%;"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;" />
+    <meta name="naver-site-verification" content="5d42fa4f463a2e7c184fd910aafb91d9320b3149" />
+    <meta name="description" content="과자, 냉동식품 제조, 홈런볼, 오예스, 맛동산, 에이스, 고향만두 등 제품소개.">
+    <meta property="og:description" content="과자, 냉동식품 제조, 홈런볼, 오예스, 맛동산, 에이스, 고향만두 등 제품소개.">
+
+    <link rel="icon" href="/img/icon/favicon.ico">
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="expires" content="-1"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="해태제과식품"/>
+    <meta property="og:url" content="https://ht.co.kr/">
+    <meta property="og:title" content="해태제과식품">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://ht.co.kr/img/og/og.jpg">
+    <meta property="og:site_name" content="해태제과식품">
+    <meta property="og:description" content="홈런볼, 오예스, 맛동산 등 달콤한 즐거움으로 세상을 행복하게 만드는 해태제과입니다.">
+    <meta name="path_role" content="">
+    <meta name="author" content="">
+    <meta name="description" content="홈런볼, 오예스, 맛동산 등 달콤한 즐거움으로 세상을 행복하게 만드는 해태제과입니다.">
+    <meta name="keywords" content="홈런볼,오예스,에이스,맛동산,허니버터칩">
+
+    <title>
+        해태제과식품
+    </title>
+
+
+    <meta name="google-site-verification" content="6I0ODoERxDTs4O36B3y0X28-bV8gb0lp2rws8PFHQUs" />
+    <meta name="naver-site-verification" content="573dfcfc4995453849a887b0e27a764a756370e3" />
+
+    <link href="/lib/fontawesome/css/all.css" rel="stylesheet">
+
+    <script src="/lib/tailwind/tailwind.min.js"></script>
+    <link type="text/css" href="/css/common/common.css" rel="stylesheet">
+    <link type="text/css" href="/css/common/commonMenu.css" rel="stylesheet">
+    <link type="text/css" href="/css/common/itzMenu.css" rel="stylesheet">
+    <script src="/js/common/restResourcePath.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap" rel="stylesheet">
+
+    <script type="module" src="/lib/chart/chart.umd.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>-->
+<!--    <scinript src="https://cdn.jsdelivr.net/npm/chart.js"></scinript>-->
+
+<!--    <link href='https://cdn.jsdelivr.net/npm/fullcalendar/main.css' rel='stylesheet'/>-->
+<!--    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/main.min.js'></script>-->
+<!--    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>-->
+<!--    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>-->
+
+    <link type="text/css" href="/css/web/external/main/main.css" rel="stylesheet">
+</head>
+
+<body class="h-full flex flex-col">
+
+    <div id="popup_img_org" class="hidden absolute fixed z-10 h-full w-full flex flex-wrap bg-slate-800/60">
+        <i class="absolute top-24 right-7 fa-solid fa-x cursor-pointer py-2 pl-7 font-bold text-xl text-white" onclick="popup_img_org.classList.add('hidden');"></i>
+    </div>
+
+
+
+    <div class="sticky top-0 z-10" >
+        <nav class="bg-white shadow w-full">
+            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" onmouseenter="commonMenu.showWebMenu();" >
+                <div class="relative flex justify-between">
+                    <div class="md:hidden absolute  inset-y-0 right-0 w-16  flex items-center">
+                        <!-- Mobile menu button -->
+                        <button type="button" onclick="commonMenu.toggleMobileMenuDiv();" class="relative inline-flex items-center justify-center rounded-md p-2 hover:text-white hover:bg-[#f23492] border-[#f23492] bg-white text-[#f23492] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#f23492]" aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="absolute -inset-0.5"></span>
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-1 items-center justify-center flex md:items-stretch sm:justify-start text-xl text-[#2D2D2D]">
+                        <div class="flex flex-shrink-0 items-center cursor-pointer" onclick="commonMenu.toMain()">
+                            <img class="w-auto p-4 sm:p-6" src="/img/logo/logo_p.png" alt="해태제과식품">
+                        </div>
+                        <div class="hidden sm:ml-6 md:flex flex flex-1 justify-center">
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                회사소개
+                            </a>
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                제품소개
+                            </a>
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                달콤한 세상
+                            </a>
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                이벤트
+                            </a>
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                ESG경영
+                            </a>
+                            <a href="#" class="flex justify-center items-center px-1 pt-1 w-32 mx-4">
+                                고객센터
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden xl:flex text-white text-xl space-x-4 items-center">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_global_gray.png" onclick="commonMenu.redirectToEnglishIntroduce()">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_search_gray.png" onclick="commonMenu.showMenuFindDiv()">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_shop_gray.png" onclick="location.href='https://haitaimall.co.kr/';" >
+                    </div>
+                </div>
+            </div>
+            <div class="sm:px-6 lg:px-8 hidden md:block absolute max-h-0 w-full bg-[#FFF5FD] border-b-2 border-[#f23492] border-solid transition transition-all ease-in-out duration-500 z-10" id="htWebMenuDiv"  onmouseleave="commonMenu.hideWebMenu()">
+                <div class="max-h-0 flex flex-1 items-center justify-center sm:items-stretch sm:justify-start opacity-0 transition transition-all ease-in-out duration-500" id="htWebMenuSubDiv">
+                    <div class="md:hidden absolute inset-y-0 right-0 w-16 flex items-center tracking-[-0.05rem]">
+                        <!-- Mobile menu button -->
+                        <button type="button" onclick="commonMenu.toggleMobileMenuDiv();" class="relative inline-flex items-center justify-center rounded-md p-2 hover:text-white hover:bg-[#f23492] border-[#f23492] bg-white text-[#f23492] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#f23492] tracking-[-0.05rem]" aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="absolute -inset-0.5"></span>
+                            <span class="sr-only tracking-[-0.05rem]">Open main menu</span>
+                            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                            </svg>
+                            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex flex-1 items-center justify-center md:items-stretch sm:justify-start text-xl text-[#2D2D2D] tracking-[-0.05rem]">
+                        <div class="flex flex-shrink-0 items-center cursor-pointer" onclick="commonMenu.toMain()"style="visibility: hidden;">
+                            <img class="w-auto p-4 sm:p-6" src="/img/logo/logo_p.png" alt="해태제과식품">
+                        </div>
+                        <div class="sm:ml-12 sm:flex flex flex-1 justify-center text-[#222222] text-sm py-4 " >
+
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/introduce/chairman" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">회장 인사말</a>
+                                <a href="/introduce/ht" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">해태 소개</a>
+                                <a href="/introduce/history" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">연혁</a>
+                                <a href="/introduce/network" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">해태 네트워크</a>
+                                <a href="/introduce/location" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">오시는 길</a>
+                                <a href="https://recruit.ht.co.kr/notification/" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" target="_blank">채용</a>
+                                <a href="/introduce/ir" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">IR 정보</a>
+                            </div>
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/product/character" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">해태제과 캐릭터</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'A00000')">비스켓</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'B00000')">스낵</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'C00000')">껌</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'D00000')">초코</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'E00000')">캔디</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'G00000')">식품</a>
+                                <a href="/product/list" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer" onclick="commonMenu.addParameter(event,'')">전체제품</a>
+                            </div>
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/sweet/cf" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">CF</a>
+                                <a href="/sweet/notice" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">공지사항</a>
+                                <a href="/sweet/news" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">해태뉴스</a>
+                            </div>
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/event/event" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">이벤트</a>
+                                <a href="/event/winner" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">당첨자 발표</a>
+                            </div>
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/esg/ethics" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">윤리경영</a>
+                                <a href="/esg/environment" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">환경</a>
+                                <a href="/esg/hrm" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">사회</a>
+                                <a href="/esg/governance" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">지배구조</a>
+                            </div>
+                            <div class="flex flex-col justify-start  px-1 pt-1  w-32 mx-4 space-y-2">
+                                <a href="/cc/cs" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">고객의 소리</a>
+                                <a href="/cc/idea" class="mx-2 hover:flex flex-col justify-center hover:text-[#f23492] cursor-pointer">아이디어 제안</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden xl:flex text-white text-xl space-x-4 items-center">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_global_gray.png" onclick="commonMenu.redirectToEnglishIntroduce()"style="visibility: hidden;">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_search_gray.png" onclick="commonMenu.showMenuFindDiv()"style="visibility: hidden;">
+                        <img class="cursor-pointer" src="/img/external/menu/icon_shop_gray.png" onclick="location.href='https://haitaimall.co.kr/';"style="visibility: hidden;">
+                    </div>
+                </div>
+            </div>
+            <div class="absolute flex justify-center w-full bg-[#FFF5FD] border-b-2 border-[#f23492] border-solid transition transition-all ease-in-out duration-500 max-h-0 z-0 flex-justify-center hidden" id="htWebMenuFindDiv">
+                <div class="h-auto hidden max-w-7xl items-center relative my-3 rounded-md w-full p-16 opacity-0 transition transition-all ease-in-out duration-700" id="htWebMenuFindInnerDiv">
+                    <i class="absolute top-0 right-7 fa-solid fa-x cursor-pointer py-2 pl-7 font-bold text-xl text-[#f23492]" onclick="commonMenu.hideMenuFindDiv()"></i>
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex p-12">
+                        <i class="fa-solid fa-magnifying-glass cursor-pointer py-8 pl-12 text-[#f23492] text-2xl"></i>
+                    </div>
+                    <input type="text" id="webMenuFindInput" class="rounded-full border-solid border-2 border-[#f23492] py-4 block w-full rounded-md border-0 pl-10 text-gray-900 ring-1 ring-inset ring-[#f23492] placeholder:text-gray-700 focus:ring-2 focus:ring-inset focus:ring-[#f23492] text-sm sm:text-2xl sm:leading-6 pl-20" placeholder="어떤 제품이 궁금하신가요?">
+                    <div class="flex flex-wrap my-4">
+                        <div class="rounded-full px-4 py-2 m-1 text-white bg-[#f23492] cursor-pointer" onclick="location.href='/search?searchString=홈런볼'">#홈런볼</div>
+                        <div class="rounded-full px-4 py-2 m-1 text-white bg-[#f23492] cursor-pointer" onclick="location.href='/search?searchString=자가비'">#자가비</div>
+                        <div class="rounded-full px-4 py-2 m-1 text-white bg-[#f23492] cursor-pointer" onclick="location.href='/search?searchString=후렌치파이'">#후렌치파이</div>
+                        <div class="rounded-full px-4 py-2 m-1 text-white bg-[#f23492] cursor-pointer" onclick="location.href='/search?searchString=자유시간'">#자유시간</div>
+                        <div class="rounded-full px-4 py-2 m-1 text-white bg-[#f23492] cursor-pointer" onclick="location.href='/search?searchString=에이스'">#에이스</div>
+                    </div>
+                </div>
+                <img class="h-48" src ="/img/external/menu/search_character.png">
+            </div>
+            <div id="htMobileMenuDiv" class="hidden lg:hidden w-full bg-black/80 flex justify-end h-[100%] max-h-[50rem] overflow-y-auto tracking-[-0.05rem]">
+                <div class="z-99 overflow-auto w-3/4 tracking-[-0.05rem]">
+
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav5_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav5_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/chairman">회장인사말</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/ht">해태소개</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/history">연혁</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/network">해태 네트워크</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/location">오시는길</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="https://recruit.ht.co.kr/notification/" target="_blank">채용</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/introduce/ir">IR정보</a>
+                    </div>
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav1_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav1_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/character">해태제과 캐릭터</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'A00000')">비스켓</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'B00000')">스낵</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'C00000')">껌</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'D00000')">초코</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'E00000')">캔디</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'G00000')">식품</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/product/list" onclick="commonMenu.addParameter(event,'')">전체</a>
+                    </div>
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav2_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav2_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/sweet/cf">CF</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/sweet/notice">공지사항</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/sweet/news">해태뉴스</a>
+                    </div>
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav3_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav3_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/event/event">이벤트</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/event/winner">당첨자발표</a>
+                    </div>
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav6_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav6_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/esg/ethics">윤리경영</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/esg/environment">환경</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/esg/hrm">사회</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/esg/governance">지배구조</a>
+                    </div>
+                    <div class="h-20 sm:h-auto bg-cover text-white bg-center border-b border-solid border-[#D9D7D2] cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        <img class="w-full h-full" src="/img/external/menu/img_nav4_off.png" onclick="this.nextElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                        <img class="hidden w-full h-full" src="/img/external/menu/img_nav4_on.png" onclick="this.previousElementSibling.classList.remove('hidden');this.classList.add('hidden');">
+                    </div>
+                    <div class="bg-[#E1E1E1] flex flex-col hidden">
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/cc/cs">고객의소리</a>
+                        <a class="cursor-pointer px-4 py-2 border-b border-solid border-[#828282] hover:bg-[#828282] hover:text-[#E1E1E1]" href="/cc/idea">아이디어제안</a>
+                    </div>
+                    <div class="flex text-white text-xl space-x-4 justify-center p-4 space-x-8 items-center bg-white">
+<!--                        <img class="cursor-pointer" src="/img/external/menu/icon_global.png" onclick="commonMenu.redirectToEnglishIntroduce(true)">-->
+<!--                        <img class="cursor-pointer" src="/img/external/menu/icon_search.png" onclick="commonMenu.showMenuFindDiv()">-->
+<!--                        <img class="cursor-pointer" src="/img/external/menu/icon_shop.png" onclick="location.href='https://haitaimall.co.kr/';" >-->
+                        <img class="cursor-pointer w-[50px] h-auto" src="/img/external/menu/menu_htmall.png" onclick="location.href='https://haitaimall.co.kr/';" >
+                        <img class="cursor-pointer w-[47.5px] h-auto" src="/img/external/menu/menu_eng.png" onclick="commonMenu.redirectToEnglishIntroduce(true)" >
+                        <img class="cursor-pointer w-[44px] h-auto" src="/img/external/menu/menu_search.png" onclick="commonMenu.showMenuFindDiv()" >
+                    </div>
+                    <div class="bg-white h-[20rem] w-full"></div>
+                </div>
+            </div>
+
+        </nav>
+
+    </div>
+
+<swiper-container class="hidden sm:block absolute h-full w-full" id="mainWebSwiper"  pagination="true" keyboard="true" css-mode="true" direction="vertical" pagination-clickable="true" >
+    <swiper-slide>
+        <div id="main_imgBg"class="h-full w-full bg-cover bg-no-repeat bg-center"  alt="해태제과">
+            <img id="main_imgMatggaebi" class="main-balloon-matggaebi" src="/img/external/main/1/main_visual_ballon2.png" alt="맛깨비 열기구" loading="lazy">
+            <img class="main-ghost-blue" src="/img/external/main/1/main_visual_item1.png" alt="설탕 유령" loading="lazy">
+            <img id="main_imgPeach1" class="main-jelly-small" src="/img/external/main/1/main_visual_item2.png" alt="복숭아 젤리" loading="lazy">
+            <img id="main_imgPeach2" class="main-jelly-medium" src="/img/external/main/1/main_visual_item3.png" alt="복숭아 젤리" loading="lazy">
+            <img class="main-cloud1" src="/img/external/main/1/main_visual_item8.png" alt="구름1" loading="lazy">
+            <img class="main-cloud2" src="/img/external/main/1/main_visual_item9.png" alt="구름2" loading="lazy">
+        </div>
+    </swiper-slide>
+    <swiper-slide>
+        <div class="flex flex-col h-full justify-center items-center">
+            <img src="/img/external/main/2/main-middle-banner.png">
+            <!--<div class="flex justify-center text-3xl sm:text-5xl my-12 text-slate-600">-달콤한세상으로의 초대-</div>
+            <div class="flex justify-center text-lg sm:text-2xl text-slate-500 mb-8">해태제과는 늘 새롭고 달콤한 세상을 꿈꿉니다.</div>
+            <div class="flex justify-center space-x-4">
+                <div class="items-center space-y-2 m-2">
+                    <img src="/img/external/main/2/main-1945.png" alt="1945">
+                    &lt;!&ndash;                        <div class="flex justify-center text-[#f23492] text-lg">Since 1945</div>&ndash;&gt;
+                    &lt;!&ndash;                        <div class="text-slate-500 text-sm">&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">좋은 제품을 끊임없이 연구하며</div>&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">고객과 함께하는 달콤한 해태제과</div>&ndash;&gt;
+                    &lt;!&ndash;                        </div>&ndash;&gt;
+                </div>
+                <div class="items-center space-y-2 m-2">
+                    <img src="/img/external/main/2/main-haitai.png" alt="해태 로고">
+                    &lt;!&ndash;                        <div class="flex justify-center text-[#f23492] text-lg">Dream World</div>&ndash;&gt;
+                    &lt;!&ndash;                        <div class="text-slate-500 text-sm">&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">늘 열린 마음으로 세상을 보고</div>&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">새로운 것을 상상하는 달콤한 기업</div>&ndash;&gt;
+                    &lt;!&ndash;                        </div>&ndash;&gt;
+                </div>
+                <div class="items-center space-y-2 m-2">
+                    <img src="/img/external/main/2/main-character.png" alt="해태">
+                    &lt;!&ndash;                        <div class="flex justify-center text-[#f23492] text-lg">Good Friend</div>&ndash;&gt;
+                    &lt;!&ndash;                        <div class="text-slate-500 text-sm">&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">올바르고 좋은 기운으로</div>&ndash;&gt;
+                    &lt;!&ndash;                            <div class="flex justify-center">고객을 지켜주는 달콤한 평생친구</div>&ndash;&gt;
+                    &lt;!&ndash;                        </div>&ndash;&gt;
+                </div>
+            </div>-->
+        </div>
+    </swiper-slide>
+    <swiper-slide>
+        <div class="flex items-center bg-[#222222] opacity-0.8 space-x-2 sm:space-x-8 w-full h-full justify-center p-2">
+            <div class="space-y-6 w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] md:h-[450px]">
+                <div class="flex justify-center text-white text-md whitespace-nowrap sm:text-2xl">NEW PRODUCT</div>
+                <swiper-container class="absolute w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] lg:h-[450px]" id="mainWebSwiperBanner_1" autoplay="true" autoplay-delay="3000" pagination="true" css-mode="true" direction="horizontal" pagination-clickable="true" >
+                </swiper-container>
+            </div>
+
+            <div class="space-y-6 w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] md:h-[450px]">
+                <div class="flex justify-center text-white text-md sm:text-2xl">EVENT</div>
+                <swiper-container class="absolute w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] lg:h-[450px]" id="mainWebSwiperBanner_2" autoplay="true" autoplay-delay="3300" pagination="true" css-mode="true" direction="horizontal" pagination-clickable="true" >
+                </swiper-container>
+            </div>
+
+            <div class="space-y-6 w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] md:h-[450px]">
+                <div class="flex justify-center text-white text-md sm:text-2xl whitespace-nowrap">HAITAI MALL</div>
+                <swiper-container class="absolute w-[120px] h-[150px] md:w-[250px] md:h-[290px] lg:w-[410px] lg:h-[450px]" id="mainWebSwiperBanner_3" autoplay="true" autoplay-delay="3600" pagination="true" css-mode="true" direction="horizontal" pagination-clickable="true" >
+                </swiper-container>
+            </div>
+        </div>
+    </swiper-slide>
+
+
+
+    <swiper-slide class="bg-[url('/img/external/main/4/main-bg-yellow.jpg')]">
+        <div class="flex flex-col h-full justify-center w-full">
+            <div class="flex justify-center h-full w-full ">
+                <div class="h-full w-full pt-20 flex flex-col p-2 space-y-2">
+                    <div class="flex justify-center mt-16">
+                        <img class="w-auto h-auto" src="/img/external/main/4/main-honeystory.png" alt="허니 스토리">
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="flex justify-center text-sm sm:text-md">달콤한 세상을 만들기 위한 해태제과의 숨은 이야기, 허니스토리</p>
+                        <p class="flex justify-center text-sm sm:text-md">허니 시리즈를 만든 해태제과의 달콤한 이야기를 들어보세요!</p>
+                    </div>
+
+                    <div class="flex justify-center flex-1">
+                        <div class="absolute w-full h-full bg-[url('/img/external/main/4/main-bg-honey-world.png')] bg-center bg-cover ">
+                            <div class="hidden md:flex justify-center space-x-96 tracking-[-0.05rem]">
+                                <div class="max-w-7xl">
+                                    <div class="flex w-full justify-center">
+                                        <img class="" src="/img/external/main/4/main-bulb.gif" alt="허니 스토리">
+                                    </div>
+                                    <div class="text-3xl flex justify-center">
+                                        New Sweet
+                                    </div>
+                                    <div class="text-sm">
+                                        <div class="flex justify-center">새로운 달콤함을 찾아라!</div>
+                                        <div class="flex justify-center">어떻게 새로운 달콤함을 만들어 낼까?</div>
+                                        <div class="flex justify-center">해태제과는 세상에 없던 새로운 달콤한</div>
+                                        <div class="flex justify-center">맛을 찾기로 했어요</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex w-full justify-center">
+                                        <img class="" src="/img/external/main/4/main-volcano.gif" alt="허니 스토리">
+                                    </div>
+                                    <div class="text-3xl flex justify-center">
+                                        Haitai Sweet
+                                    </div>
+                                    <div class="text-sm">
+                                        <div class="flex justify-center">일만오천 시간이 넘게! 고민을 하고,</div>
+                                        <div class="flex justify-center">일천오백 봉지가 넘게! 맛을 보고,</div>
+                                        <div class="flex justify-center">드디어 탄생한 해태 오리지널 허니 시리즈!</div>
+                                        <div class="flex justify-center">해태 제과의 새로운 달콤한을 만나 보세요!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+<!--                    <img class="absolute lg:w-auto w-[100px] h-auto top-[86%-150px] left-[83%-100px] lg:top-[78%] lg:left-[76%-130px] transform -translate-x-1/2" src="/img/external/main/4/main-bee-right.gif">-->
+                    <img class="absolute w-auto h-[15%] top-[74%] left-[69%] transform -translate-x-1/2" src="/img/external/main/4/main-bee-right.gif">
+                    <img class="absolute w-auto h-[15%] top-[65%] left-[35%] transform -translate-x-1/2" src="/img/external/main/4/main-bee-left.gif">
+<!--                    <img class="absolute w-[14%] h-auto top-[80%] left-[32%] transform -translate-x-1/2" src="/img/external/main/4/img-bg-main2-0-1.png">-->
+                    <img class="absolute w-[20%] left-[66%] top-[80%] transform -translate-x-1/2" src="/img/external/main/4/img-bg-main2-0-1.png">
+                    <img class="absolute w-[13%] left-[32%] top-[80%] transform -translate-x-1/2" src="/img/external/main/4/img-bg-main2-0-0.png">
+
+                </div>
+            </div>
+        </div>
+    </swiper-slide>
+    <swiper-slide class="bg-[url('/img/external/main/4/main-bg-yellow.jpg')]">
+        <div class="flex flex-col h-full justify-center w-full bg-[url('/img/external/main/4/main-bg-yellow-circle.png')]">
+            <div class="flex justify-center h-full w-full">
+                <div class="h-full w-full pt-20 space-y-2 p-2">
+                    <div class="flex justify-center mt-16">
+                        <img class="w-auto h-auto" src="/img/external/main/5/main-ht-character.png" alt="허니 스토리">
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="flex justify-center">제품의 특성을 살린 귀여운 해태제과식품 캐릭터들의 탄생!</p>
+                        <p class="flex justify-center">달콤한 세상으로 여러분을 이끌어줄 해태제과식품 캐릭터를 소개합니다.</p>
+                    </div>
+                    <div class="flex justify-center w-full">
+                        <img class="w-auto h-auto cursor-pointer" onclick="location.href='/product/character'" src="/img/external/main/5/main-btn-link.png" alt="허니 스토리">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="/img/external/main/5/main-bg-character.png">
+                    </div>
+<!--                    <div class="bg-[url('/img/external/main/5/main-bg-character.png')] bg-no-repeat bg-center flex justify-center h-1/2">-->
+
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </swiper-slide>
+    <swiper-slide>
+        <div class="flex flex-col justify-center bg-[#ffe8f2] text-slate-600 h-full">
+            <div class="flex justify-center text-5xl mb-16 text[#8C897E]">
+                INSTAGRAM
+            </div>
+            <div class="flex justify-center">
+                <div class="grid grid-cols-5 max-w-7xl items-center w-full" id="instagram">
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                    <img class="w-full h-full bg-cover bg-center" src="https://www.instagram.com/haitai_co/p/C-SFcxWyrUr/" onerror=`/external/resources/images/common/noimg_335x335.jpg`>
+                </div>
+            </div>
+        </div>
+    </swiper-slide>
+    <swiper-slide>
+        <div class="flex flex-col justify-center text-slate-600 h-full">
+            <div class="flex justify-center text-5xl my-4 text[#8C897E] pt-24">
+                HAITAI LINK
+            </div>
+            <div class="flex justify-center">
+                <div class="grid grid-cols-3 gap-4 max-w-7xl items-center">
+                    <div class="image-container cursor-pointer" onclick="location.href='https://www.instagram.com/haitai_co/'">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-instagram.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-instagram.gif" >
+                        <div class="flex justify-center">인스타그램</div>
+                    </div>
+                    <div class="image-container cursor-pointer" onclick="location.href='https://blog.naver.com/htlatte'">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-blog.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-blog.gif" >
+                        <div class="flex justify-center">네이버 블로그</div>
+                    </div>
+                    <div class="image-container cursor-pointer" onclick="location.href='https://m.post.naver.com/htlatte'">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-post.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-post.gif" >
+                        <div class="flex justify-center">네이버 포스트</div>
+                    </div>
+                    <div class="image-container cursor-pointer" onclick="location.href='/cc/cs'">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-cs.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-cs.gif" >
+                        <div class="flex justify-center">고객센터</div>
+                    </div>
+                    <div class="image-container cursor-pointer">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-howtocome.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-howtocome.gif" >
+                        <div class="flex justify-center">오시는 길</div>
+                    </div>
+                    <div class="image-container cursor-pointer" id="main_growTogether">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-growtogether.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-growtogether.gif" >
+                        <div class="flex justify-center">동반성장</div>
+                    </div>
+                    <div class="image-container cursor-pointer">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-recruitment.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-recruitment.gif" >
+                        <div class="flex justify-center">채용</div>
+                    </div>
+                    <div class="image-container cursor-pointer">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-mall.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-mall.gif" >
+                        <div class="flex justify-center">해태몰</div>
+                    </div>
+                    <div class="image-container cursor-pointer" onclick="location.href='https://www.instagram.com/sue_avata_star/'">
+                        <img class="static-image w-auto h-auto" src="/img/external/main/7/main-instagram.png" >
+                        <img class="hover-image hidden w-auto h-auto" src="/img/external/main/7/main-instagram.gif" >
+                        <div class="flex justify-center">슈 인스타그램</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </swiper-slide>
+    <swiper-slide>
+        <div class="flex flex-col justify-center bg-[#e7e1d3] h-full">
+            <div class="flex justify-center text-xl md:text-5xl my-12 text[#8C897E] pt-12 md:pt-24 tracking-[-0.05rem]">
+                SWEET NEWS
+            </div>
+            <div class="flex justify-center">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 max-w-7xl items-center" id="main_divNews">
+                </div>
+            </div>
+
+            <div class="flex flex-1"></div>
+            
+    <div class="hidden md:block w-full bg-[#2B2B2B] text-[#FFFFFF]">
+        <div class="mx-auto max-w-7xl flex flex-col justify-center ">
+            <div class="flex py-12 border-b border-[#505050] border-solid justify-between">
+                <div class="flex space-x-8">
+                    <a href="/privacy/policy">개인정보처리방침</a>
+                    <a href="/privacy/email">이메일주소 무단수집 거부</a>
+                    <a href="/introduce/location">오시는길</a>
+                </div>
+                <div class="flex space-x-8 text-xl">
+                    <div class="cursor-pointer" onclick="location.href='/cc/cs'">고객센터</div>
+                    <div class="cursor-pointer" onclick="location.href='https://recruit.ht.co.kr/notification/'">채용</div>
+                    <div class="cursor-pointer" onclick="location.href='https://haitaimall.co.kr/'">해태몰</div>
+                </div>
+            </div>
+            <div class="flex text-[#828282] justify-between pt-12 pb-4">
+                <div>
+                    <p>해태제과식품(주) 서울특별시 용산구 한강대로72길3(남영동) 대표이사:신정훈</p>
+                    <p>COPYRIGHT (C) 2024 HAITAI CONFECTIONERY & FOODS CO.,LTD ALL RIGHTS RESERVED</p>
+                </div>
+                <div>
+                    <p>고객센터문의</p>
+                    <div class="flex">
+                        <a class="text-[#FFFFFF] text-2xl cursor-board" href="tel:0802336677"> 080.233.6677</a>
+                        <p class="mt-2">(수신자부담)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex text-[#828282] justify-between pb-12">
+                <img class="py-2" src="/img/external/footer/logo_footer%201.png">
+                <div class="flex  space-x-2">
+                    <img onclick="location.href='https://www.instagram.com/haitai_co';" class="cursor-pointer p-2" src="/img/external/footer/footer_icon_insta%201.png">
+                    <img onclick="location.href='https://blog.naver.com/htlatte/';" class="cursor-pointer p-2" src="/img/external/footer/footer_icon_blog%201.png">
+                    <img onclick="location.href='https://www.youtube.com/haitaico/';" class="cursor-pointer p-2" src="/img/external/footer/footer_icon_youtube%201.png">
+                    <select class="text-[#828282] m-2 pr-16 pl-4 border-solid border-2 border-[#828282] bg-[#2B2B2B]" id="footerSelectBox" onchange="commonMenu.onchangeFooterSelect(this.value)">
+                        <option value="/">패밀리 사이트</option>
+                        <option value="https://www.haitaimall.co.kr/ ">해태몰</option>
+                        <option value="https://hainuri.ht.co.kr">해누리</option>
+                        <option value="https://ht.poacloud.net//">구매사이트</option>
+                        <option value="https://www.chitv.co.kr/">CHITV</option>
+                        <option value="https://www.instagram.com/sue_avata_star/">아바타스타 슈 인스타그램</option>
+                        <option value="https://www.instagram.com/haitai_co/">해태 인스타그램</option>
+                        <option value="https://blog.naver.com/htlatte">해태 블로그</option>
+                        <option value="https://www.youtube.com/@Haitaico/">해태 유튜브</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+    <div class="md:hidden flex flex-col bg-[#262520] text-slate-300 text-xs">
+
+        <div class="flex">
+            <a href="/introduce/chairman"><img src="/img/external/footer/mf_회사소개.png" alt=""></a>
+            <a href="https://recruit.ht.co.kr/notification/"><img src="/img/external/footer/mf_채용안내.png" alt=""></a>
+            <a href="/cc/cs"><img src="/img/external/footer/mf_고객센터.png" alt=""></a>
+            <a href="https://www.instagram.com/haitai_co"><img src="/img/external/footer/mf_인스타그램.png" alt=""></a>
+        </div>
+        <div class="flex">
+            <a class="p-4" href="/"><img src="/img/external/footer/mf_해태로고.png" alt="해태"></a>
+            <div class="p-4">
+                <div class="flex mb-2">
+                    <a href="/privacy/policy" ><img src="/img/external/footer/mf_개인정보처리방침.png" alt=""></a>
+                    <a href="/privacy/email" class="ml-3 border-[#828282] border-l pl-2"><img src="/img/external/footer/mf_이메일주소무단수집거부.png" alt=""></a>
+                    <a href="tel:0802336677" class="ml-3 border-[#828282] border-l pl-2"><img src="/img/external/footer/mf_고객문의.png" alt=""></a>
+                </div>
+                <span class="text-[#828282]">COPYRIGHT (C) 2006 HAITAI CONFECTIONERY &amp; FOODS CO., LTD ALL RIGHTS RESERVED</span>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </swiper-slide>
+</swiper-container>
+
+
+
+
+<div class="sm:hidden block w-full h-full overflow-y-auto">
+    <img id="main_imgMobileBg" src="" class="object-cover w-full h-auto sm:mr-4"/> <!-- Adjusted image for mobile -->
+    <swiper-container id="main_swiperNews" class="w-full h-[170px] my-5" autoplay="true" autoplay-delay="3000" pagination="true" css-mode="true" direction="horizontal" pagination-clickable="true" >
+    </swiper-container>
+
+    <a href="/product/character">
+        <img src="/img/external/main/mobile/bg_main2_all.png" class="object-cover w-full h-auto sm:mr-4"/>
+    </a>
+
+    <div class="swiper-container w-full h-[220px]" id="main_swiperProduct">
+        <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 m-4">BEST PRODUCT</h2>
+        <div class="swiper-wrapper flex">
+        </div>
+    </div>
+
+    <div class="banner_wrap"><a href="http://www.haitaimall.co.kr/" target="_blank">
+        <img src="/external/resources/mobile/images/main/img_banner.png" alt="달콤함의 핫 플레이스 해태몰! Sweet World"></a>
+    </div>
+
+    <div class="flex bg-[#262520] text-slate-300 text-xs">
+        <a href="/introduce/chairman"><img src="/img/external/footer/mf_회사소개.png" alt=""></a>
+        <a href="https://recruit.ht.co.kr/notification/"><img src="/img/external/footer/mf_채용안내.png" alt=""></a>
+        <a href="/cc/cs"><img src="/img/external/footer/mf_고객센터.png" alt=""></a>
+        <a href="https://www.instagram.com/haitai_co"><img src="/img/external/footer/mf_인스타그램.png" alt=""></a>
+    </div>
+    <div class="flex bg-[#262520] text-slate-300 text-xs">
+        <a class="p-4" href="/"><img src="/img/external/footer/mf_해태로고.png" alt="해태"></a>
+        <div class="p-4">
+            <div class="flex mb-2">
+                <a href="/privacy/policy" ><img src="/img/external/footer/mf_개인정보처리방침.png" alt=""></a>
+                <a href="/privacy/email" class="ml-3 border-[#828282] border-l pl-2"><img src="/img/external/footer/mf_이메일주소무단수집거부.png" alt=""></a>
+                <a href="tel:0802336677" class="ml-3 border-[#828282] border-l pl-2"><img src="/img/external/footer/mf_고객문의.png" alt=""></a>
+            </div>
+            <span class="text-[#828282]">COPYRIGHT (C) 2006 HAITAI CONFECTIONERY &amp; FOODS CO., LTD ALL RIGHTS RESERVED</span>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/common/popup.js"></script>
+
+<!--    <th:block th:replace="~{fragments/external/footerFragment :: web-footer}" ></th:block>-->
+<!--    <th:block th:replace="~{fragments/external/footerFragment :: mobile-footer}"></th:block>-->
+
+    <!--lib-->
+<!--    <script src="/lib/socket/sockjs.min.js"></script>-->
+<!--    <script src="/lib/socket/stomp.min.js"></script>-->
+
+    <script src="/lib/tree/tree.js"></script>
+    <script src="/lib/aggrid/ag-grid-locale-ko.js"></script>
+    <script src="/lib/aggrid/ag-grid-community.28.0.2.min.js"></script>
+    <script src="/lib/sweetalert/sweetalert2.11.7.27.min.js"></script>
+    <script src="/js/common/common.js"></script>
+    <script src="/js/common/commonMenu.js"></script>
+    <script src="/js/common/itzGrid.js"></script>
+    <script src="/js/common/itzModal.js"></script>
+    <script src="/js/common/itzGridEditor.js"></script>
+    <script src="/js/common/itzGridCommonOption.js"></script>
+    <script src="/js/common/itzLinkedList.js"></script>
+    <script src="/js/common/itzOrgToggle.js"></script>
+    <script src="/js/common/itzEmail.js"></script>
+
+
+
+<script src="/js/web/external/main/main.js"></script>
+</body>
+</html>
+
+<!--<div class=" flex justify-center my-2 pointer">
+                <p class="relative rounded-full text-white bg-[#ed1d85] px-4 py-1.5 text-sm leading-6 ring-1 ring-inset ring-red-900/5">
+                    <span class="hidden sm:inline">MORE</span>
+                    <i class="fa-solid fa-plus"></i>
+                </p>
+            </div>-->

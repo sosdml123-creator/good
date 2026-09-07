@@ -7,11 +7,15 @@ import {
   ILLUSTRATION_EGG,
   ILLUSTRATION_FRUIT_BANNER,
 } from '../utils/productIllustrations';
+import { BASKIN_ROBBINS_PRODUCTS } from './baskinRobbinsProducts';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
+import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...BASKIN_ROBBINS_PRODUCTS,
+  ...ICE_CREAM_PRODUCTS,
   ...NO_BRAND_PRODUCTS,
   ...BIBIGO_PRODUCTS,
   ...COFFEE_BRAND_BEVERAGES,
