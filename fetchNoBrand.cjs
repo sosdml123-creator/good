@@ -1,0 +1,3 @@
+const https = require('https');
+function fetchUrl(url) { return new Promise((resolve, reject) => { https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => { let d = ''; res.on('data', c => d += c); res.on('end', () => resolve(d)); }).on('error', reject); }); }
+fetchUrl('https://www.ssg.com/search.ssg?target=all&categoryId=00000000&query=%ED%93%B8%EB%B3%84%EB9E%94').then(res => { console.log('Length:', res.length); const ms = [...res.matchAll(/alt=\"[^\"]*[노브랜드][^\"]*\"/g)]; console.log('Matches:', ms.length, ms.slice(0, 10).map(m => m[0])); }).catch(e => console.error(e));

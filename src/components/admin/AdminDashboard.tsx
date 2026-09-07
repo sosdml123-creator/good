@@ -32,7 +32,6 @@ import {
   Award,
   Activity,
   ArrowUpRight,
-  ArrowDownRight,
   Globe,
   AlertTriangle,
   Upload,
@@ -42,17 +41,13 @@ import {
   Gift,
   Coins,
   Users,
-  UserCheck,
   MinusCircle,
   PlusCircle,
   History,
   ShieldCheck,
-  Filter,
-  CheckSquare,
-  Square,
   Copy
 } from 'lucide-react';
-import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, PointTransaction } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -119,6 +114,7 @@ export const AdminDashboard: React.FC = () => {
     batchGrantPoints,
     batchRevokePoints,
     fetchAllProfiles,
+    currentUser,
   } = useApp();
 
   // Theme mode: Default to 'light' for high readability, with quick toggle to 'dark'
@@ -428,6 +424,169 @@ export const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Points Management Helpers & Handlers
+  const handleOpenGrantModal = (user: UserProfile) => {
+    setTargetPointUser(user);
+    setIsBatchMode(false);
+    setPointAmountInput(500);
+    setPointReasonPreset('우수 리뷰어 베스트 픽 선정 보상');
+    setPointReasonCustom('');
+    setPointAdminMemo('');
+    setIsGrantModalOpen(true);
+  };
+
+  const handleOpenBatchGrantModal = () => {
+    if (selectedUserIds.length === 0) {
+      showToast('포인트를 지급할 회원을 1명 이상 선택해주세요.', 'error');
+      return;
+    }
+    setTargetPointUser(null);
+    setIsBatchMode(true);
+    setPointAmountInput(500);
+    setPointReasonPreset('이벤트 당첨 특별 포인트 보상');
+    setPointReasonCustom('');
+    setPointAdminMemo('');
+    setIsGrantModalOpen(true);
+  };
+
+  const handleOpenRevokeModal = (user: UserProfile) => {
+    setTargetPointUser(user);
+    setIsBatchMode(false);
+    setPointAmountInput(100);
+    setPointReasonPreset('어뷰징/중복 도배 리뷰 삭제로 인한 포인트 회수');
+    setPointReasonCustom('');
+    setPointAdminMemo('');
+    setIsRevokeModalOpen(true);
+  };
+
+  const handleOpenBatchRevokeModal = () => {
+    if (selectedUserIds.length === 0) {
+      showToast('포인트를 회수할 회원을 1명 이상 선택해주세요.', 'error');
+      return;
+    }
+    setTargetPointUser(null);
+    setIsBatchMode(true);
+    setPointAmountInput(100);
+    setPointReasonPreset('어뷰징/중복 도배 리뷰 삭제로 인한 포인트 회수');
+    setPointReasonCustom('');
+    setPointAdminMemo('');
+    setIsRevokeModalOpen(true);
+  };
+
+  const handleOpenUserDetailModal = (user: UserProfile) => {
+    setTargetPointUser(user);
+    setIsUserDetailModalOpen(true);
+  };
+
+  const handleConfirmGrant = async () => {
+    const finalReason = pointReasonPreset === '직접 입력' 
+      ? (pointReasonCustom.trim() || '관리자 포인트 특별 지급') 
+      : pointReasonPreset;
+
+    if (pointAmountInput <= 0) {
+      showToast('1P 이상의 포인트를 입력해주세요.', 'error');
+      return;
+    }
+
+    if (isBatchMode) {
+      await batchGrantPoints(selectedUserIds, pointAmountInput, finalReason, pointAdminMemo.trim() || undefined);
+      setSelectedUserIds([]);
+    } else if (targetPointUser) {
+      await grantUserPoints(targetPointUser.uid, pointAmountInput, finalReason, pointAdminMemo.trim() || undefined);
+    }
+
+    setIsGrantModalOpen(false);
+  };
+
+  const handleConfirmRevoke = async () => {
+    const finalReason = pointReasonPreset === '직접 입력' 
+      ? (pointReasonCustom.trim() || '관리자 포인트 회수/차감') 
+      : pointReasonPreset;
+
+    if (pointAmountInput <= 0) {
+      showToast('1P 이상의 포인트를 입력해주세요.', 'error');
+      return;
+    }
+
+    if (isBatchMode) {
+      await batchRevokePoints(selectedUserIds, pointAmountInput, finalReason, pointAdminMemo.trim() || undefined);
+      setSelectedUserIds([]);
+    } else if (targetPointUser) {
+      await revokeUserPoints(targetPointUser.uid, pointAmountInput, finalReason, pointAdminMemo.trim() || undefined);
+    }
+
+    setIsRevokeModalOpen(false);
+  };
+
+  // User list filtering & sorting for Points Tab
+  const filteredPointUsers = allProfiles.filter(u => {
+    if (pointLevelFilter !== '전체' && u.level !== pointLevelFilter) return false;
+    if (pointUserSearch.trim()) {
+      const q = pointUserSearch.toLowerCase();
+      const name = (u.displayName || '').toLowerCase();
+      const email = (u.email || '').toLowerCase();
+      const uid = (u.uid || '').toLowerCase();
+      return name.includes(q) || email.includes(q) || uid.includes(q);
+    }
+    return true;
+  }).sort((a, b) => {
+    if (pointSortBy === 'points_desc') return (b.points || 0) - (a.points || 0);
+    if (pointSortBy === 'points_asc') return (a.points || 0) - (b.points || 0);
+    if (pointSortBy === 'name') return (a.displayName || '').localeCompare(b.displayName || '');
+    if (pointSortBy === 'newest') return (b.createdAt || '').localeCompare(a.createdAt || '');
+    return 0;
+  });
+
+  // History filtering
+  const filteredPointTransactions = pointTransactions.filter(tx => {
+    if (historyTypeFilter !== 'all' && tx.type !== historyTypeFilter) return false;
+    if (historySearchQuery.trim()) {
+      const q = historySearchQuery.toLowerCase();
+      return (
+        (tx.userName || '').toLowerCase().includes(q) ||
+        (tx.reason || '').toLowerCase().includes(q) ||
+        (tx.adminMemo || '').toLowerCase().includes(q) ||
+        (tx.userId || '').toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+
+  // Calculate Point Statistics
+  const totalMemberPoints = allProfiles.reduce((acc, u) => acc + (u.points || 0), 0);
+  const avgMemberPoints = allProfiles.length > 0 ? Math.round(totalMemberPoints / allProfiles.length) : 0;
+  const totalGrantedPoints = pointTransactions
+    .filter(tx => tx.type === 'grant' || (tx.amount > 0))
+    .reduce((acc, tx) => acc + Math.abs(tx.amount), 0);
+  const totalRevokedPoints = pointTransactions
+    .filter(tx => tx.type === 'revoke' || (tx.amount < 0))
+    .reduce((acc, tx) => acc + Math.abs(tx.amount), 0);
+
+  const toggleSelectAllUsers = () => {
+    if (selectedUserIds.length === filteredPointUsers.length) {
+      setSelectedUserIds([]);
+    } else {
+      setSelectedUserIds(filteredPointUsers.map(u => u.uid));
+    }
+  };
+
+  const toggleSelectUser = (uid: string) => {
+    setSelectedUserIds(prev => 
+      prev.includes(uid) ? prev.filter(id => id !== uid) : [...prev, uid]
+    );
+  };
+
+  const handleExportTransactionsJson = () => {
+    const blob = new Blob([JSON.stringify(pointTransactions, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sinsangpick_point_transactions_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('📜 포인트 거래 내역이 JSON 파일로 다운로드되었습니다.', 'success');
+  };
+
   // Helper to check if a pending product is a duplicate of an existing approved product
   const isDuplicateItem = (name: string): boolean => {
     const cleanName = name.replace(/\s+/g, '').toLowerCase();
@@ -726,6 +885,7 @@ export const AdminDashboard: React.FC = () => {
   const inputBg = isDark ? 'bg-slate-950 border-slate-700 text-white placeholder:text-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white';
   const tableHeaderBg = isDark ? 'bg-slate-950/80 text-slate-400 border-slate-800' : 'bg-slate-100/70 text-slate-600 border-slate-200';
   const tableRowHover = isDark ? 'hover:bg-slate-800/40 divide-slate-800/60' : 'hover:bg-slate-50/80 divide-slate-100';
+  const modalBg = isDark ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900 shadow-2xl';
 
   return (
     <div className={`flex h-screen w-full antialiased overflow-hidden font-sans transition-colors duration-200 ${mainBg}`}>
@@ -992,6 +1152,7 @@ export const AdminDashboard: React.FC = () => {
               {activeAdminTab === 'overview' && '📊 대시보드 개요 및 실시간 종합 지표'}
               {activeAdminTab === 'approval' && '⚡ 신제품 자동 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'products' && '📦 상품 및 신제품 전체 데이터베이스'}
+              {activeAdminTab === 'points' && '🪙 회원 관리 및 포인트 지급·회수 콘솔'}
               {activeAdminTab === 'reviews' && '💬 사용자 리뷰 및 커뮤니티 피드 모더레이션'}
               {activeAdminTab === 'analytics' && '📈 신상 검색 트렌드 및 카테고리 분석'}
               {activeAdminTab === 'banners' && '🖼️ 모바일 메인 홈 배너 관리'}
@@ -1080,43 +1241,43 @@ export const AdminDashboard: React.FC = () => {
           {activeAdminTab === 'overview' && (
             <div className="space-y-8">
               
-              {/* 1. 5-Column Large KPI Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+              {/* 1. 6-Column Large KPI Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
                 
                 {/* Total Products */}
-                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
-                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center border border-blue-500/20">
-                      <Package className="w-5 h-5" />
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
+                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center border border-blue-500/20">
+                      <Package className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</span>
-                    <span className="text-xs text-slate-400">개 등록됨</span>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</span>
+                    <span className="text-xs text-slate-400">개 등록</span>
                   </div>
-                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>식품사 통합 카탈로그</span>
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>식품사 카탈로그</span>
                     <button onClick={() => setActiveAdminTab('products')} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
-                      관리하기 <ChevronRight className="w-3 h-3" />
+                      관리 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Today's New Products */}
-                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider">오늘의 출시 신상</span>
-                    <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center border border-indigo-500/20">
-                      <Zap className="w-5 h-5" />
+                    <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">오늘의 출시 신상</span>
+                    <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center border border-indigo-500/20">
+                      <Zap className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>{todayProductsCount}</span>
-                    <span className="text-xs text-indigo-500">개 활성 노출 중</span>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>{todayProductsCount}</span>
+                    <span className="text-xs text-indigo-500">개 활성</span>
                   </div>
-                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>홈 화면 메인 피드</span>
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>홈 피드 노출</span>
                     <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
@@ -1124,19 +1285,19 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Hot Products */}
-                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-orange-500 uppercase tracking-wider">인기 HOT 급상승</span>
-                    <div className="w-9 h-9 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center border border-orange-500/20">
-                      <Flame className="w-5 h-5" />
+                    <span className="text-[11px] font-bold text-orange-500 uppercase tracking-wider">인기 HOT 신상</span>
+                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center border border-orange-500/20">
+                      <Flame className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-orange-200' : 'text-orange-600'}`}>{hotProductsCount}</span>
-                    <span className="text-xs text-orange-500">개 상품</span>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-orange-200' : 'text-orange-600'}`}>{hotProductsCount}</span>
+                    <span className="text-xs text-orange-500">개</span>
                   </div>
-                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>리뷰·평점 우수 먹거리</span>
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>평점 우수 먹거리</span>
                     <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-orange-600 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
@@ -1144,41 +1305,61 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Reviews & Satisfaction */}
-                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider">누적 사용자 리뷰</span>
-                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
-                      <MessageSquare className="w-5 h-5" />
+                    <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">누적 리뷰</span>
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                      <MessageSquare className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-emerald-200' : 'text-emerald-600'}`}>{reviews.length}</span>
-                    <span className="text-xs text-emerald-600 font-semibold">★ {avgReviewRating}</span>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-emerald-200' : 'text-emerald-600'}`}>{reviews.length}</span>
+                    <span className="text-xs text-emerald-600 font-bold">★ {avgReviewRating}</span>
                   </div>
-                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>커뮤니티 글 {communityPosts.length}건</span>
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>커뮤니티 {communityPosts.length}건</span>
                     <button onClick={() => setActiveAdminTab('reviews')} className="text-emerald-600 hover:underline flex items-center gap-0.5 font-semibold">
-                      검토하기 <ChevronRight className="w-3 h-3" />
+                      검토 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Pending Approval */}
-                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">신제품 수집 대기</span>
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
-                      <Sparkles className="w-5 h-5" />
+                    <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">신제품 수집 대기</span>
+                    <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center border border-rose-500/20">
+                      <Sparkles className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className={`text-3xl font-black font-mono ${isDark ? 'text-amber-200' : 'text-amber-600'}`}>{pendingCount}</span>
-                    <span className="text-xs text-amber-500 font-semibold">개 검토 필요</span>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-rose-200' : 'text-rose-600'}`}>{pendingCount}</span>
+                    <span className="text-xs text-rose-500 font-semibold">개 대기</span>
                   </div>
-                  <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>자동 크롤러 수집함</span>
-                    <button onClick={() => setActiveAdminTab('approval')} className="text-amber-600 hover:underline flex items-center gap-0.5 font-bold">
-                      승인하기 <ChevronRight className="w-3 h-3" />
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>크롤러 수집함</span>
+                    <button onClick={() => setActiveAdminTab('approval')} className="text-rose-600 hover:underline flex items-center gap-0.5 font-bold">
+                      승인 <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* NEW: 6. Members & Total Points */}
+                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">회원 & 포인트</span>
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
+                      <Coins className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <div className="mt-2.5 flex items-baseline gap-1.5">
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-amber-200' : 'text-amber-600'}`}>{allProfiles.length}</span>
+                    <span className="text-xs text-amber-500 font-bold">명 / {totalMemberPoints.toLocaleString()}P</span>
+                  </div>
+                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
+                    <span>포인트 지급·회수</span>
+                    <button onClick={() => setActiveAdminTab('points')} className="text-amber-600 hover:underline flex items-center gap-0.5 font-bold">
+                      관리 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -2155,7 +2336,570 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 4: REVIEWS & COMMUNITY (리뷰 및 커뮤니티 모더레이션 NEW)
+              TAB: POINTS & USER MANAGEMENT (회원 및 포인트 관리 NEW)
+             ======================================================== */}
+          {activeAdminTab === 'points' && (
+            <div className="space-y-6">
+              
+              {/* Header Card */}
+              <div className={`p-6 rounded-2xl border shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4 ${cardBg}`}>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
+                      <Coins className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        회원 관리 및 포인트 지급·회수 콘솔
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 font-mono font-bold">
+                          POINTS PRO
+                        </span>
+                      </h2>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        회원별 실시간 보유 포인트를 조회하고, 리뷰 포상/이벤트 보너스 지급 및 어뷰징 회수를 안전하게 관리합니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sub Tab Switcher & Quick Refresh */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className={`flex items-center p-1 rounded-xl border text-xs ${subCardBg}`}>
+                    <button
+                      onClick={() => setPointsSubTab('users')}
+                      className={`px-3.5 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+                        pointsSubTab === 'users'
+                          ? 'bg-amber-500 text-white shadow-xs'
+                          : 'text-slate-500 hover:text-slate-900'
+                      }`}
+                    >
+                      <Users className="w-3.5 h-3.5" />
+                      <span>회원별 포인트 관리 ({allProfiles.length})</span>
+                    </button>
+                    <button
+                      onClick={() => setPointsSubTab('history')}
+                      className={`px-3.5 py-1.5 rounded-lg font-bold transition-all flex items-center gap-1.5 ${
+                        pointsSubTab === 'history'
+                          ? 'bg-indigo-600 text-white shadow-xs'
+                          : 'text-slate-500 hover:text-slate-900'
+                      }`}
+                    >
+                      <History className="w-3.5 h-3.5" />
+                      <span>지급·회수 로그 ({pointTransactions.length})</span>
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={async () => {
+                      await fetchAllProfiles();
+                      showToast('🔄 회원 목록 및 포인트 정보를 최신 상태로 동기화했습니다.', 'info');
+                    }}
+                    className={`p-2 rounded-xl border flex items-center gap-1 text-xs font-semibold transition-all ${
+                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'
+                    }`}
+                    title="회원 목록 새로고침"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* 4-Column Point KPI Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* 1. Total Members */}
+                <div className={`p-4 rounded-2xl border shadow-xs flex items-center justify-between ${cardBg}`}>
+                  <div>
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">전체 등록 회원</span>
+                    <div className="mt-1.5 flex items-baseline gap-1.5">
+                      <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{allProfiles.length}</span>
+                      <span className="text-xs text-slate-400">명</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 mt-1 block">평균 보유: {avgMemberPoints.toLocaleString()}P</span>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center border border-blue-500/20">
+                    <Users className="w-5 h-5" />
+                  </div>
+                </div>
+
+                {/* 2. Total System Points */}
+                <div className={`p-4 rounded-2xl border shadow-xs flex items-center justify-between ${cardBg}`}>
+                  <div>
+                    <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">총 보유 포인트 잔액</span>
+                    <div className="mt-1.5 flex items-baseline gap-1.5">
+                      <span className={`text-2xl font-black font-mono ${isDark ? 'text-amber-200' : 'text-amber-600'}`}>
+                        {totalMemberPoints.toLocaleString()}
+                      </span>
+                      <span className="text-xs text-amber-500 font-bold">P</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 mt-1 block">회원 보유 총 자산</span>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
+                    <Coins className="w-5 h-5" />
+                  </div>
+                </div>
+
+                {/* 3. Total Points Granted */}
+                <div className={`p-4 rounded-2xl border shadow-xs flex items-center justify-between ${cardBg}`}>
+                  <div>
+                    <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">누적 지급 포인트</span>
+                    <div className="mt-1.5 flex items-baseline gap-1.5">
+                      <span className={`text-2xl font-black font-mono ${isDark ? 'text-emerald-200' : 'text-emerald-600'}`}>
+                        +{totalGrantedPoints.toLocaleString()}
+                      </span>
+                      <span className="text-xs text-emerald-500 font-bold">P</span>
+                    </div>
+                    <span className="text-[10px] text-emerald-600 font-semibold mt-1 block">
+                      리뷰/이벤트/관리자 특별지급
+                    </span>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                    <PlusCircle className="w-5 h-5" />
+                  </div>
+                </div>
+
+                {/* 4. Total Points Revoked */}
+                <div className={`p-4 rounded-2xl border shadow-xs flex items-center justify-between ${cardBg}`}>
+                  <div>
+                    <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">누적 회수 포인트</span>
+                    <div className="mt-1.5 flex items-baseline gap-1.5">
+                      <span className={`text-2xl font-black font-mono ${isDark ? 'text-rose-200' : 'text-rose-600'}`}>
+                        -{totalRevokedPoints.toLocaleString()}
+                      </span>
+                      <span className="text-xs text-rose-500 font-bold">P</span>
+                    </div>
+                    <span className="text-[10px] text-rose-500 font-semibold mt-1 block">
+                      어뷰징/오지급 정정 회수
+                    </span>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center border border-rose-500/20">
+                    <MinusCircle className="w-5 h-5" />
+                  </div>
+                </div>
+
+              </div>
+
+              {/* ----------------------------------------------------
+                  SUB-TAB 1: USERS POINT MANAGEMENT (회원별 포인트 관리)
+                 ---------------------------------------------------- */}
+              {pointsSubTab === 'users' && (
+                <div className="space-y-4">
+                  
+                  {/* Toolbar & Filter */}
+                  <div className={`p-4 rounded-2xl border shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 ${subCardBg}`}>
+                    
+                    {/* Left: Search input */}
+                    <div className="relative flex-1 max-w-md">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={pointUserSearch}
+                        onChange={e => setPointUserSearch(e.target.value)}
+                        placeholder="회원 닉네임, 이메일, UID 검색..."
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none border ${inputBg}`}
+                      />
+                    </div>
+
+                    {/* Right: Filters & Actions */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      
+                      {/* Level Filter */}
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-400">등급:</span>
+                        <select
+                          value={pointLevelFilter}
+                          onChange={e => setPointLevelFilter(e.target.value)}
+                          className={`px-3 py-2 rounded-xl text-xs border font-semibold ${inputBg}`}
+                        >
+                          <option value="전체">전체 등급</option>
+                          <option value="Lv.1">Lv.1 (0~199P)</option>
+                          <option value="Lv.2">Lv.2 (200~399P)</option>
+                          <option value="Lv.3">Lv.3 (400~599P)</option>
+                          <option value="Lv.4">Lv.4 (600~799P)</option>
+                          <option value="Lv.5">Lv.5 (800~999P)</option>
+                          <option value="Lv.6">Lv.6 (1,000~1,199P)</option>
+                          <option value="Lv.7">Lv.7 (1,200~1,399P)</option>
+                          <option value="Lv.8">Lv.8 (1,400~1,599P)</option>
+                          <option value="Lv.9">Lv.9 (1,600~1,799P)</option>
+                          <option value="Lv.10">Lv.10 (1,800P+)</option>
+                        </select>
+                      </div>
+
+                      {/* Sort Order */}
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-400">정렬:</span>
+                        <select
+                          value={pointSortBy}
+                          onChange={e => setPointSortBy(e.target.value as any)}
+                          className={`px-3 py-2 rounded-xl text-xs border font-semibold ${inputBg}`}
+                        >
+                          <option value="points_desc">포인트 높은순 🪙</option>
+                          <option value="points_asc">포인트 낮은순 🔻</option>
+                          <option value="name">닉네임 가나다순</option>
+                          <option value="newest">최근 가입순</option>
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  {/* Bulk Actions Floating Bar (When items are selected) */}
+                  {selectedUserIds.length > 0 && (
+                    <div className="p-3.5 rounded-2xl bg-indigo-600 text-white shadow-lg flex items-center justify-between animate-in slide-in-from-top-2">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                        <span className="text-xs font-black">
+                          {selectedUserIds.length}명의 회원이 선택되었습니다.
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={handleOpenBatchGrantModal}
+                          className="px-3.5 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-xs transition-all active:scale-95"
+                        >
+                          <PlusCircle className="w-3.5 h-3.5" />
+                          <span>선택 회원 일괄 지급</span>
+                        </button>
+                        <button
+                          onClick={handleOpenBatchRevokeModal}
+                          className="px-3.5 py-1.5 bg-rose-500 hover:bg-rose-400 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-xs transition-all active:scale-95"
+                        >
+                          <MinusCircle className="w-3.5 h-3.5" />
+                          <span>선택 회원 일괄 회수</span>
+                        </button>
+                        <button
+                          onClick={() => setSelectedUserIds([])}
+                          className="px-2.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-semibold"
+                        >
+                          선택 해제
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* User List Table */}
+                  <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                          <tr className={`border-b ${isDark ? 'border-slate-800 bg-slate-900/80 text-slate-400' : 'border-slate-100 bg-slate-50/80 text-slate-500'}`}>
+                            <th className="p-3.5 w-10 text-center">
+                              <input
+                                type="checkbox"
+                                checked={filteredPointUsers.length > 0 && selectedUserIds.length === filteredPointUsers.length}
+                                onChange={toggleSelectAllUsers}
+                                className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4 cursor-pointer"
+                              />
+                            </th>
+                            <th className="p-3.5 font-bold">회원 정보</th>
+                            <th className="p-3.5 font-bold">회원 고유 ID (UID)</th>
+                            <th className="p-3.5 font-bold text-center">등급 (Level)</th>
+                            <th className="p-3.5 font-bold text-right">보유 포인트</th>
+                            <th className="p-3.5 font-bold text-center">가입일</th>
+                            <th className="p-3.5 font-bold text-center w-52">포인트 관리 액션</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                          {filteredPointUsers.length === 0 ? (
+                            <tr>
+                              <td colSpan={7} className="p-12 text-center text-slate-400">
+                                검색 조건에 해당하는 회원이 없습니다.
+                              </td>
+                            </tr>
+                          ) : (
+                            filteredPointUsers.map(user => {
+                              const isSelected = selectedUserIds.includes(user.uid);
+                              const isCurrentAdmin = user.uid === currentUser.uid;
+
+                              return (
+                                <tr 
+                                  key={user.uid}
+                                  className={`transition-colors ${
+                                    isSelected 
+                                      ? isDark ? 'bg-indigo-950/40' : 'bg-indigo-50/60' 
+                                      : isDark ? 'hover:bg-slate-800/40' : 'hover:bg-slate-50/60'
+                                  }`}
+                                >
+                                  {/* Checkbox */}
+                                  <td className="p-3.5 text-center">
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => toggleSelectUser(user.uid)}
+                                      className="rounded border-slate-300 text-indigo-600 focus:ring-0 w-4 h-4 cursor-pointer"
+                                    />
+                                  </td>
+
+                                  {/* User Profile Info */}
+                                  <td className="p-3.5">
+                                    <div className="flex items-center gap-3">
+                                      <img
+                                        src={user.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                                        alt={user.displayName}
+                                        className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700 shrink-0"
+                                      />
+                                      <div>
+                                        <div className="flex items-center gap-1.5">
+                                          <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                            {user.displayName}
+                                          </span>
+                                          {isCurrentAdmin && (
+                                            <span className="px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 text-[10px] font-bold">
+                                              현재 계정
+                                            </span>
+                                          )}
+                                        </div>
+                                        <span className="text-[11px] text-slate-400 block truncate max-w-[200px]">
+                                          {user.email || (user.provider ? `${user.provider} 간편회원` : '신상픽 회원')}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+
+                                  {/* UID with copy button */}
+                                  <td className="p-3.5">
+                                    <div className="flex items-center gap-1.5 font-mono text-[11px] text-slate-400">
+                                      <span className="truncate max-w-[130px]" title={user.uid}>{user.uid}</span>
+                                      <button
+                                        onClick={() => {
+                                          navigator.clipboard.writeText(user.uid);
+                                          showToast('📋 회원 UID가 복사되었습니다.', 'info');
+                                        }}
+                                        className="p-1 hover:text-slate-600 dark:hover:text-slate-200"
+                                        title="UID 복사"
+                                      >
+                                        <Copy className="w-3 h-3" />
+                                      </button>
+                                    </div>
+                                  </td>
+
+                                  {/* Level */}
+                                  <td className="p-3.5 text-center">
+                                    <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                                      {user.level || 'Lv.1'}
+                                    </span>
+                                  </td>
+
+                                  {/* Points */}
+                                  <td className="p-3.5 text-right">
+                                    <div className="inline-flex items-baseline gap-1">
+                                      <span className={`text-base font-black font-mono ${isDark ? 'text-amber-300' : 'text-amber-600'}`}>
+                                        {(user.points || 0).toLocaleString()}
+                                      </span>
+                                      <span className="text-[11px] font-bold text-amber-500">P</span>
+                                    </div>
+                                  </td>
+
+                                  {/* Created At */}
+                                  <td className="p-3.5 text-center text-slate-400 text-[11px]">
+                                    {user.createdAt || '2025.01.01'}
+                                  </td>
+
+                                  {/* Actions: Grant, Revoke, Details */}
+                                  <td className="p-3.5 text-center">
+                                    <div className="flex items-center justify-center gap-1.5">
+                                      
+                                      {/* Grant Button */}
+                                      <button
+                                        onClick={() => handleOpenGrantModal(user)}
+                                        className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:hover:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300 font-bold text-xs flex items-center gap-1 transition-all"
+                                        title="포인트 지급하기"
+                                      >
+                                        <Plus className="w-3 h-3" />
+                                        <span>지급</span>
+                                      </button>
+
+                                      {/* Revoke Button */}
+                                      <button
+                                        onClick={() => handleOpenRevokeModal(user)}
+                                        className="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/50 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-300 font-bold text-xs flex items-center gap-1 transition-all"
+                                        title="포인트 회수하기"
+                                      >
+                                        <MinusCircle className="w-3 h-3" />
+                                        <span>회수</span>
+                                      </button>
+
+                                      {/* History / Detail Button */}
+                                      <button
+                                        onClick={() => handleOpenUserDetailModal(user)}
+                                        className={`p-1.5 rounded-lg border text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors ${
+                                          isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'
+                                        }`}
+                                        title="회원 상세 및 포인트 내역"
+                                      >
+                                        <History className="w-3.5 h-3.5" />
+                                      </button>
+
+                                    </div>
+                                  </td>
+
+                                </tr>
+                              );
+                            })
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+              {/* ----------------------------------------------------
+                  SUB-TAB 2: POINT TRANSACTION HISTORY (지급·회수 로그)
+                 ---------------------------------------------------- */}
+              {pointsSubTab === 'history' && (
+                <div className="space-y-4">
+                  
+                  {/* History Toolbar */}
+                  <div className={`p-4 rounded-2xl border shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 ${subCardBg}`}>
+                    
+                    {/* Search input */}
+                    <div className="relative flex-1 max-w-md">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={historySearchQuery}
+                        onChange={e => setHistorySearchQuery(e.target.value)}
+                        placeholder="회원명, 사유, 관리자 메모 검색..."
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none border ${inputBg}`}
+                      />
+                    </div>
+
+                    {/* Filter by Type & JSON Download */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-400">구분:</span>
+                        <select
+                          value={historyTypeFilter}
+                          onChange={e => setHistoryTypeFilter(e.target.value as any)}
+                          className={`px-3 py-2 rounded-xl text-xs border font-semibold ${inputBg}`}
+                        >
+                          <option value="all">전체 내역 ({pointTransactions.length})</option>
+                          <option value="grant">🎁 포인트 지급</option>
+                          <option value="revoke">🔻 포인트 회수</option>
+                        </select>
+                      </div>
+
+                      <button
+                        onClick={handleExportTransactionsJson}
+                        className={`px-3 py-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all ${
+                          isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'
+                        }`}
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>내역 백업 (JSON)</span>
+                      </button>
+
+                    </div>
+                  </div>
+
+                  {/* History List Table */}
+                  <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                          <tr className={`border-b ${isDark ? 'border-slate-800 bg-slate-900/80 text-slate-400' : 'border-slate-100 bg-slate-50/80 text-slate-500'}`}>
+                            <th className="p-3.5 font-bold w-36">거래 일시</th>
+                            <th className="p-3.5 font-bold">대상 회원</th>
+                            <th className="p-3.5 font-bold text-center w-28">변동 구분</th>
+                            <th className="p-3.5 font-bold text-right w-32">변동 포인트</th>
+                            <th className="p-3.5 font-bold text-right w-32">변동 후 잔액</th>
+                            <th className="p-3.5 font-bold">지급·회수 사유</th>
+                            <th className="p-3.5 font-bold">관리자 메모</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                          {filteredPointTransactions.length === 0 ? (
+                            <tr>
+                              <td colSpan={7} className="p-12 text-center text-slate-400">
+                                기록된 포인트 변동 내역이 없습니다.
+                              </td>
+                            </tr>
+                          ) : (
+                            filteredPointTransactions.map(tx => {
+                              const isGrant = tx.type === 'grant' || tx.amount > 0;
+
+                              return (
+                                <tr key={tx.id} className={isDark ? 'hover:bg-slate-800/40' : 'hover:bg-slate-50/60'}>
+                                  
+                                  {/* Date */}
+                                  <td className="p-3.5 font-mono text-[11px] text-slate-400 whitespace-nowrap">
+                                    {tx.createdAt}
+                                  </td>
+
+                                  {/* Target User */}
+                                  <td className="p-3.5">
+                                    <div className="flex items-center gap-2">
+                                      {tx.userAvatar ? (
+                                        <img src={tx.userAvatar} alt="" className="w-6 h-6 rounded-full object-cover border border-slate-200 dark:border-slate-700" />
+                                      ) : (
+                                        <div className="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-[10px] font-bold">
+                                          {tx.userName.slice(0, 1)}
+                                        </div>
+                                      )}
+                                      <div>
+                                        <span className={`font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>{tx.userName}</span>
+                                        <span className="text-[10px] text-slate-400 font-mono">{tx.userId}</span>
+                                      </div>
+                                    </div>
+                                  </td>
+
+                                  {/* Type Badge */}
+                                  <td className="p-3.5 text-center">
+                                    {isGrant ? (
+                                      <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1">
+                                        <Plus className="w-3 h-3" />
+                                        <span>지급 완료</span>
+                                      </span>
+                                    ) : (
+                                      <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 inline-flex items-center gap-1">
+                                        <MinusCircle className="w-3 h-3" />
+                                        <span>회수 완료</span>
+                                      </span>
+                                    )}
+                                  </td>
+
+                                  {/* Amount */}
+                                  <td className="p-3.5 text-right font-mono font-black text-sm whitespace-nowrap">
+                                    <span className={isGrant ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}>
+                                      {isGrant ? `+${Math.abs(tx.amount).toLocaleString()}` : `-${Math.abs(tx.amount).toLocaleString()}`} P
+                                    </span>
+                                  </td>
+
+                                  {/* Balance After */}
+                                  <td className="p-3.5 text-right font-mono text-slate-500 dark:text-slate-400 font-bold whitespace-nowrap">
+                                    {tx.balanceAfter.toLocaleString()} P
+                                  </td>
+
+                                  {/* Reason */}
+                                  <td className={`p-3.5 font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                                    {tx.reason}
+                                  </td>
+
+                                  {/* Admin Memo */}
+                                  <td className="p-3.5 text-slate-400 text-[11px] italic">
+                                    {tx.adminMemo || '-'}
+                                  </td>
+
+                                </tr>
+                              );
+                            })
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+          )}
+
+          {/* ========================================================
+              TAB 5: REVIEWS & COMMUNITY (리뷰 및 커뮤니티 모더레이션 NEW)
              ======================================================== */}
           {activeAdminTab === 'reviews' && (
             <div className="space-y-6">
@@ -3836,6 +4580,559 @@ export const AdminDashboard: React.FC = () => {
                 className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-sm"
               >
                 {editingBannerId ? '수정 완료' : '새 배너 등록'}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL 1: POINT GRANT MODAL (포인트 지급 모달)
+         ======================================================== */}
+      {isGrantModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
+          <div className={`relative w-full max-w-lg rounded-3xl border shadow-2xl overflow-hidden my-8 ${modalBg}`}>
+            
+            {/* Modal Header */}
+            <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-100 bg-emerald-50/50'}`}>
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                  <PlusCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className={`text-sm font-black flex items-center gap-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    포인트 지급 (Grant Points)
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    {isBatchMode 
+                      ? `선택된 ${selectedUserIds.length}명의 회원에게 일괄 포인트를 지급합니다.`
+                      : `${targetPointUser?.displayName} 회원님께 포인트를 직접 지급합니다.`}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsGrantModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-5 max-h-[75vh] overflow-y-auto text-xs">
+              
+              {/* Target User Info Banner */}
+              {!isBatchMode && targetPointUser ? (
+                <div className={`p-3.5 rounded-2xl border flex items-center justify-between ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src={targetPointUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                      alt=""
+                      className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold">{targetPointUser.displayName}</span>
+                        <span className="px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 text-[10px] font-bold">
+                          {targetPointUser.level || 'Lv.1'}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-mono">{targetPointUser.uid}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] text-slate-400 block">현재 잔액</span>
+                    <span className="font-mono font-black text-sm text-amber-500">
+                      {(targetPointUser.points || 0).toLocaleString()} P
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                  <Users className="w-4 h-4 shrink-0" />
+                  <span className="font-bold">
+                    선택된 총 {selectedUserIds.length}명 회원 모두에게 동일한 포인트가 각각 지급됩니다.
+                  </span>
+                </div>
+              )}
+
+              {/* Amount Input & Quick Chips */}
+              <div className="space-y-2">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  지급할 포인트 금액 (P) *
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min={1}
+                    step={10}
+                    value={pointAmountInput || ''}
+                    onChange={e => setPointAmountInput(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                    placeholder="예: 500"
+                    className={`w-full p-3 rounded-2xl border font-mono font-black text-base text-emerald-600 dark:text-emerald-400 pl-4 pr-10 ${inputBg}`}
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">P</span>
+                </div>
+
+                {/* Quick Preset Buttons */}
+                <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                  {[100, 300, 500, 1000, 3000, 5000, 10000].map(amt => (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => setPointAmountInput(amt)}
+                      className={`px-2.5 py-1 rounded-xl text-[11px] font-bold border transition-all ${
+                        pointAmountInput === amt
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                          : isDark
+                            ? 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      +{amt.toLocaleString()}P
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Reason Preset Selection */}
+              <div className="space-y-2">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  지급 사유 선택 *
+                </label>
+                <select
+                  value={pointReasonPreset}
+                  onChange={e => setPointReasonPreset(e.target.value)}
+                  className={`w-full p-2.5 rounded-xl border font-medium ${inputBg}`}
+                >
+                  <option value="우수 리뷰어 베스트 픽 선정 보상">⭐ 우수 리뷰어 베스트 픽 선정 보상</option>
+                  <option value="체험단 성실 리뷰 미션 완수 포상">🎁 체험단 성실 리뷰 미션 완수 포상</option>
+                  <option value="신제품 제보 채택 감사 보너스">🔍 신제품 제보 채택 감사 보너스</option>
+                  <option value="이벤트 당첨 특별 포인트 보상">🎉 이벤트 당첨 특별 포인트 보상</option>
+                  <option value="출석체크/미션 달성 보너스">📅 출석체크 / 미션 달성 보너스</option>
+                  <option value="시스템 오류/장애 보상 지급">🛠️ 시스템 오류/장애 보상 지급</option>
+                  <option value="직접 입력">✍️ 직접 입력</option>
+                </select>
+
+                {pointReasonPreset === '직접 입력' && (
+                  <input
+                    type="text"
+                    value={pointReasonCustom}
+                    onChange={e => setPointReasonCustom(e.target.value)}
+                    placeholder="지급 사유를 직접 입력해주세요..."
+                    className={`w-full p-2.5 rounded-xl border mt-2 ${inputBg}`}
+                  />
+                )}
+              </div>
+
+              {/* Admin Internal Memo */}
+              <div className="space-y-1">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  관리자 내부 메모 (선택사항)
+                </label>
+                <input
+                  type="text"
+                  value={pointAdminMemo}
+                  onChange={e => setPointAdminMemo(e.target.value)}
+                  placeholder="예: 3월 1주차 프로모션 이벤트 당첨자 지급 건"
+                  className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                />
+              </div>
+
+              {/* Live Preview Box */}
+              {!isBatchMode && targetPointUser && (
+                <div className={`p-3.5 rounded-2xl border text-xs space-y-1.5 ${isDark ? 'bg-emerald-950/20 border-emerald-900/40 text-emerald-300' : 'bg-emerald-50/70 border-emerald-200 text-emerald-800'}`}>
+                  <span className="font-bold flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>지급 후 예상 잔액</span>
+                  </span>
+                  <div className="flex items-center justify-between font-mono pt-1">
+                    <span className="text-slate-500">현재 {(targetPointUser.points || 0).toLocaleString()} P</span>
+                    <span>➡️</span>
+                    <span className="font-black text-sm text-emerald-600 dark:text-emerald-300">
+                      {((targetPointUser.points || 0) + (pointAmountInput || 0)).toLocaleString()} P
+                    </span>
+                    <span className="font-bold text-[10px] text-emerald-500">(+{pointAmountInput.toLocaleString()}P)</span>
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className={`p-4 border-t flex items-center justify-end gap-2 ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
+              <button
+                type="button"
+                onClick={() => setIsGrantModalOpen(false)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'}`}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmGrant}
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-md shadow-emerald-600/20 flex items-center gap-1.5 transition-all active:scale-95"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>{pointAmountInput.toLocaleString()}P 지급 확정</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL 2: POINT REVOKE MODAL (포인트 회수 모달)
+         ======================================================== */}
+      {isRevokeModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
+          <div className={`relative w-full max-w-lg rounded-3xl border shadow-2xl overflow-hidden my-8 ${modalBg}`}>
+            
+            {/* Modal Header */}
+            <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-100 bg-rose-50/50'}`}>
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center border border-rose-500/20">
+                  <MinusCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className={`text-sm font-black flex items-center gap-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    포인트 회수·차감 (Revoke Points)
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    {isBatchMode 
+                      ? `선택된 ${selectedUserIds.length}명의 회원으로부터 일괄 포인트를 회수합니다.`
+                      : `${targetPointUser?.displayName} 회원님의 포인트를 안전하게 차감/회수합니다.`}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsRevokeModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-5 max-h-[75vh] overflow-y-auto text-xs">
+              
+              {/* Target User Info Banner */}
+              {!isBatchMode && targetPointUser ? (
+                <div className={`p-3.5 rounded-2xl border flex items-center justify-between ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src={targetPointUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                      alt=""
+                      className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold">{targetPointUser.displayName}</span>
+                        <span className="px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 text-[10px] font-bold">
+                          {targetPointUser.level || 'Lv.1'}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-mono">{targetPointUser.uid}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] text-slate-400 block">현재 잔액</span>
+                    <span className="font-mono font-black text-sm text-amber-500">
+                      {(targetPointUser.points || 0).toLocaleString()} P
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 shrink-0" />
+                  <span className="font-bold">
+                    선택된 총 {selectedUserIds.length}명 회원 각자로부터 해당 포인트가 차감됩니다 (최대 보유한도 내).
+                  </span>
+                </div>
+              )}
+
+              {/* Amount Input & Quick Chips */}
+              <div className="space-y-2">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  회수할 포인트 금액 (P) *
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min={1}
+                    step={10}
+                    value={pointAmountInput || ''}
+                    onChange={e => setPointAmountInput(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                    placeholder="예: 100"
+                    className={`w-full p-3 rounded-2xl border font-mono font-black text-base text-rose-600 dark:text-rose-400 pl-4 pr-10 ${inputBg}`}
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">P</span>
+                </div>
+
+                {/* Quick Preset Buttons */}
+                <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                  {[100, 300, 500, 1000].map(amt => (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => setPointAmountInput(amt)}
+                      className={`px-2.5 py-1 rounded-xl text-[11px] font-bold border transition-all ${
+                        pointAmountInput === amt
+                          ? 'bg-rose-600 text-white border-rose-600 shadow-xs'
+                          : isDark
+                            ? 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      -{amt.toLocaleString()}P
+                    </button>
+                  ))}
+                  {!isBatchMode && targetPointUser && (
+                    <button
+                      type="button"
+                      onClick={() => setPointAmountInput(targetPointUser.points || 0)}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-rose-500/10 border border-rose-500/20 text-rose-600 hover:bg-rose-500 hover:text-white transition-all"
+                    >
+                      전액 회수 ({(targetPointUser.points || 0).toLocaleString()}P)
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Reason Preset Selection */}
+              <div className="space-y-2">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  회수 사유 선택 *
+                </label>
+                <select
+                  value={pointReasonPreset}
+                  onChange={e => setPointReasonPreset(e.target.value)}
+                  className={`w-full p-2.5 rounded-xl border font-medium ${inputBg}`}
+                >
+                  <option value="어뷰징/중복 도배 리뷰 삭제로 인한 포인트 회수">🚫 어뷰징/중복 도배 리뷰 삭제로 인한 포인트 회수</option>
+                  <option value="주문/체험단 신청 취소에 따른 포인트 회수">📦 주문/체험단 신청 취소에 따른 포인트 회수</option>
+                  <option value="오지급 포인트 정정 회수">🔧 오지급 포인트 정정 회수</option>
+                  <option value="부정 활동/비정상 행위 제재 차감">⚠️ 부정 활동/비정상 행위 제재 차감</option>
+                  <option value="직접 입력">✍️ 직접 입력</option>
+                </select>
+
+                {pointReasonPreset === '직접 입력' && (
+                  <input
+                    type="text"
+                    value={pointReasonCustom}
+                    onChange={e => setPointReasonCustom(e.target.value)}
+                    placeholder="회수 사유를 직접 입력해주세요..."
+                    className={`w-full p-2.5 rounded-xl border mt-2 ${inputBg}`}
+                  />
+                )}
+              </div>
+
+              {/* Admin Internal Memo */}
+              <div className="space-y-1">
+                <label className="block font-bold text-slate-700 dark:text-slate-300">
+                  관리자 내부 메모 (선택사항)
+                </label>
+                <input
+                  type="text"
+                  value={pointAdminMemo}
+                  onChange={e => setPointAdminMemo(e.target.value)}
+                  placeholder="예: 어뷰징 도배 게시글 3건 삭제 처리 후 회수"
+                  className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                />
+              </div>
+
+              {/* Live Preview Box */}
+              {!isBatchMode && targetPointUser && (
+                <div className={`p-3.5 rounded-2xl border text-xs space-y-1.5 ${isDark ? 'bg-rose-950/20 border-rose-900/40 text-rose-300' : 'bg-rose-50/70 border-rose-200 text-rose-800'}`}>
+                  <span className="font-bold flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-rose-500" />
+                    <span>회수 후 예상 잔액 (마이너스 방지 보호)</span>
+                  </span>
+                  <div className="flex items-center justify-between font-mono pt-1">
+                    <span className="text-slate-500">현재 {(targetPointUser.points || 0).toLocaleString()} P</span>
+                    <span>➡️</span>
+                    <span className="font-black text-sm text-rose-600 dark:text-rose-300">
+                      {Math.max(0, (targetPointUser.points || 0) - (pointAmountInput || 0)).toLocaleString()} P
+                    </span>
+                    <span className="font-bold text-[10px] text-rose-500">
+                      (-{Math.min(targetPointUser.points || 0, pointAmountInput || 0).toLocaleString()}P)
+                    </span>
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className={`p-4 border-t flex items-center justify-end gap-2 ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
+              <button
+                type="button"
+                onClick={() => setIsRevokeModalOpen(false)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'}`}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmRevoke}
+                className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-black shadow-md shadow-rose-600/20 flex items-center gap-1.5 transition-all active:scale-95"
+              >
+                <MinusCircle className="w-4 h-4" />
+                <span>{pointAmountInput.toLocaleString()}P 회수 확정</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL 3: USER DETAIL & TRANSACTION HISTORY MODAL (회원 상세 내역)
+         ======================================================== */}
+      {isUserDetailModalOpen && targetPointUser && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
+          <div className={`relative w-full max-w-2xl rounded-3xl border shadow-2xl overflow-hidden my-8 ${modalBg}`}>
+            
+            {/* Modal Header */}
+            <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-100 bg-slate-50/50'}`}>
+              <div className="flex items-center gap-3">
+                <img
+                  src={targetPointUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                  alt=""
+                  className="w-11 h-11 rounded-full object-cover border-2 border-indigo-500/30 shadow-xs"
+                />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      {targetPointUser.displayName}
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 text-xs font-bold border border-indigo-500/20">
+                      {targetPointUser.level || 'Lv.1'}
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-400 font-mono">{targetPointUser.uid}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsUserDetailModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto text-xs">
+              
+              {/* Profile Summary Cards */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className={`p-3.5 rounded-2xl border text-center ${cardBg}`}>
+                  <span className="text-[10px] font-bold text-slate-400 block uppercase">현재 보유 잔액</span>
+                  <span className="text-lg font-black font-mono text-amber-500 mt-1 block">
+                    {(targetPointUser.points || 0).toLocaleString()} P
+                  </span>
+                </div>
+                <div className={`p-3.5 rounded-2xl border text-center ${cardBg}`}>
+                  <span className="text-[10px] font-bold text-slate-400 block uppercase">계정 종류</span>
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1.5 block truncate">
+                    {targetPointUser.email || (targetPointUser.provider ? `${targetPointUser.provider} 계정` : '일반 회원')}
+                  </span>
+                </div>
+                <div className={`p-3.5 rounded-2xl border text-center ${cardBg}`}>
+                  <span className="text-[10px] font-bold text-slate-400 block uppercase">가입 일자</span>
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1.5 block">
+                    {targetPointUser.createdAt || '2025.01.01'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons for this user */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setIsUserDetailModalOpen(false);
+                    handleOpenGrantModal(targetPointUser);
+                  }}
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>이 회원에게 포인트 지급</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setIsUserDetailModalOpen(false);
+                    handleOpenRevokeModal(targetPointUser);
+                  }}
+                  className="flex-1 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
+                >
+                  <MinusCircle className="w-4 h-4" />
+                  <span>이 회원에게서 포인트 회수</span>
+                </button>
+              </div>
+
+              {/* Timeline of User's Point Transactions */}
+              <div className="space-y-3">
+                <h4 className="font-black text-xs text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <History className="w-3.5 h-3.5 text-indigo-500" />
+                  <span>개인 포인트 변동 타임라인</span>
+                </h4>
+
+                {pointTransactions.filter(tx => tx.userId === targetPointUser.uid).length === 0 ? (
+                  <div className={`p-8 rounded-2xl border text-center text-slate-400 ${cardBg}`}>
+                    기록된 개별 거래 내역이 없습니다.
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {pointTransactions
+                      .filter(tx => tx.userId === targetPointUser.uid)
+                      .map(tx => {
+                        const isGrant = tx.type === 'grant' || tx.amount > 0;
+
+                        return (
+                          <div
+                            key={tx.id}
+                            className={`p-3 rounded-2xl border flex items-center justify-between ${cardBg}`}
+                          >
+                            <div className="space-y-0.5">
+                              <div className="flex items-center gap-2">
+                                <span className={`px-2 py-0.2 rounded-md text-[10px] font-bold ${
+                                  isGrant 
+                                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' 
+                                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                                }`}>
+                                  {isGrant ? '지급' : '회수'}
+                                </span>
+                                <span className="font-bold text-slate-800 dark:text-slate-200">{tx.reason}</span>
+                              </div>
+                              <span className="text-[10px] text-slate-400 block">{tx.createdAt} {tx.adminMemo ? `• ${tx.adminMemo}` : ''}</span>
+                            </div>
+
+                            <div className="text-right font-mono">
+                              <span className={`text-sm font-black block ${
+                                isGrant ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                              }`}>
+                                {isGrant ? `+${Math.abs(tx.amount).toLocaleString()}` : `-${Math.abs(tx.amount).toLocaleString()}`} P
+                              </span>
+                              <span className="text-[10px] text-slate-400">잔여: {tx.balanceAfter.toLocaleString()}P</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
+              </div>
+
+            </div>
+
+            {/* Modal Footer */}
+            <div className={`p-4 border-t flex items-center justify-end ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
+              <button
+                onClick={() => setIsUserDetailModalOpen(false)}
+                className={`px-5 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'}`}
+              >
+                닫기
               </button>
             </div>
 
