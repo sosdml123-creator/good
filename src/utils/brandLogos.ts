@@ -51,6 +51,10 @@ export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
   '스타벅스 / 동서식품': '/brands/스타벅스.svg',
   '노브랜드': '/brands/노브랜드.svg',
   'No Brand': '/brands/노브랜드.svg',
+  '뚜레쥬르': '/brands/뚜레쥬르.png',
+  'CJ푸드빌': '/brands/뚜레쥬르.png',
+  'CJ푸드빌 뚜레쥬르': '/brands/뚜레쥬르.png',
+  'Tous Les Jours': '/brands/뚜레쥬르.png',
 };
 
 const svgToUri = (svg: string): string => {

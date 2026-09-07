@@ -401,5 +401,45 @@ export const INITIAL_REVIEWS: Review[] = [
     createdAt: '2026-09-06T18:00:00Z',
     tags: ['#파리바게뜨', '#그대로토스트', '#버터식빵', '#겉바속촉'],
   },
+
+  // 17. [베이커리] 뚜레쥬르 그대로 구워먹는 꿀 토스트 식빵
+  {
+    id: 'rev-tlj-bread-5469-1',
+    productId: 'tlj-bread-5469',
+    productName: '뚜레쥬르 그대로 구워먹는 꿀 토스트 식빵',
+    productImage: 'https://www.tlj.co.kr/data/product/2026-3-31_event(8).jpg',
+    userName: '달콤한토스트🐝',
+    userAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.6',
+    rating: 5,
+    detailedRating: { taste: 5.0, value: 4.8, portion: 4.9, repurchase: 5.0 },
+    content: '꿀분말과 펄슈가가 콕콕 박혀있어서 토스터기에 굽기만 하면 겉은 카라멜라이징되어 달콤바삭하고 속은 촉촉해요! 버터나 잼 안 발라도 이것만으로 완벽한 브런치입니다.',
+    images: ['https://www.tlj.co.kr/data/product/2026-3-31_event(8).jpg'],
+    likes: 53,
+    isLiked: false,
+    commentsCount: 5,
+    createdAt: '2026-09-07T11:20:00Z',
+    tags: ['#뚜레쥬르', '#꿀토스트', '#인생식빵', '#겉바속촉달콤'],
+  },
+
+  // 18. [베이커리] 뚜레쥬르 오지치즈 포테이토 포카치아
+  {
+    id: 'rev-tlj-bread-5571-1',
+    productId: 'tlj-bread-5571',
+    productName: '뚜레쥬르 오지치즈 포테이토 포카치아',
+    productImage: 'https://www.tlj.co.kr/data/product/2026-8-19_event(8).jpg',
+    userName: '포카치아매니아🥔',
+    userAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.7',
+    rating: 5,
+    detailedRating: { taste: 4.9, value: 4.7, portion: 5.0, repurchase: 4.9 },
+    content: '포카치아 도우가 폭신쫄깃하고 위에 올라간 웨지감자랑 베이컨, 오지치즈 소스 조합이 미쳤습니다. 든든한 한 끼 식사빵으로 최고예요. 에프에 3분 돌려드세요!',
+    images: ['https://www.tlj.co.kr/data/product/2026-8-19_event(8).jpg'],
+    likes: 47,
+    isLiked: false,
+    commentsCount: 4,
+    createdAt: '2026-09-07T14:15:00Z',
+    tags: ['#뚜레쥬르', '#오지치즈포테이토', '#포카치아', '#식사대용'],
+  },
 ];
 

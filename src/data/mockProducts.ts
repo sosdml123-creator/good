@@ -12,8 +12,10 @@ import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
+import { TLJ_PRODUCTS } from './tljProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...TLJ_PRODUCTS,
   ...BASKIN_ROBBINS_PRODUCTS,
   ...ICE_CREAM_PRODUCTS,
   ...NO_BRAND_PRODUCTS,

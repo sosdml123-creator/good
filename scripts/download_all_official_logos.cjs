@@ -4,6 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'brands');
+if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
 function cleanBibigoPng() {
   const p = path.join(__dirname, '..', 'public', 'brands', '비비고.png');
   if (!fs.existsSync(p)) return;
@@ -392,19 +396,28 @@ async function main() {
     console.log('[SUCCESS] Replaced 오리온.svg with official ORION logo');
   }
 
-  // Check Taegeukdang, Knotted, Samsongbread
-  console.log('Probing Taegeukdang, Knotted, Samsongbread...');
-  const tljImgs = await scrapeSiteLogos('http://www.taegeukdang.com');
-  console.log('Taegeukdang scraped:', tljImgs);
+  // Scrape mmthcoffee
+  const mmthHtml = await new Promise((res) => {
+    https.get('https://www.mmthcoffee.com', { headers: { 'User-Agent': 'Mozilla/5.0' } }, r => {
+      let d = '';
+      r.on('data', c => d += c);
+      r.on('end', () => res(d));
+    }).on('error', () => res(''));
+  });
 
-  const knottedImgs = await scrapeSiteLogos('https://knottedstore.com');
-  console.log('Knotted scraped:', knottedImgs);
-
-  const samsongImgs = await scrapeSiteLogos('http://www.samsongbread.com');
-  cleanBibigoPng();
+  const urls = [];
+  const re = /["']([^"']*\.(?:png|jpg|svg|webp))["']/gi;
+  let m;
+  while ((m = re.exec(mmthHtml)) !== null) {
+    if (m[1].includes('logo') || m[1].includes('common') || m[1].includes('brand') || m[1].includes('header')) {
+      urls.push(m[1]);
+    }
+  }
+  console.log('Mammoth images:', [...new Set(urls)]);
 }
 
 main();
+
 
 
 
