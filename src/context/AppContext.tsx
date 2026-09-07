@@ -462,7 +462,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v16_20260907_momstouch_fix';
+const DATA_VERSION = 'v17_20260907_ramen_all';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -480,7 +480,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return INITIAL_PRODUCTS;
       }
       const stored = localStorage.getItem('sinsangpick_products');
-      return stored ? JSON.parse(stored) : INITIAL_PRODUCTS;
+      if (stored) {
+        const parsed: Product[] = JSON.parse(stored);
+        const existingIds = new Set(parsed.map(p => p.id));
+        const missing = INITIAL_PRODUCTS.filter(p => !existingIds.has(p.id));
+        return missing.length > 0 ? [...parsed, ...missing] : parsed;
+      }
+      return INITIAL_PRODUCTS;
     } catch {
       return INITIAL_PRODUCTS;
     }

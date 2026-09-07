@@ -545,6 +545,18 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     officialUrl: 'https://taegeukdang.com',
     badge: '서울 최고(最古) 빵집 명가',
     isPopular: true
+  },
+  {
+    id: 'tteokbokkida',
+    name: '떡볶이다',
+    engName: 'Tteokbokkida',
+    logo: BRAND_LOGOS_MAP['떡볶이다'],
+    bannerImage: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=1000&auto=format&fit=crop&q=80',
+    category: '간편식·분식',
+    slogan: '대한민국 1등 떡볶이 전문 브랜드, 진짜 맛있는 떡볶이다!',
+    description: '오리지널 국물떡볶이부터 매콤 꾸덕 로제, 직화 불맛 차돌, 쫀득 치즈 폭탄까지! 떡볶이의 모든 즐거움을 선사하는 프리미엄 분식 대표 브랜드.',
+    badge: 'K-떡볶이 대표 브랜드',
+    isPopular: true
   }
 ];
 

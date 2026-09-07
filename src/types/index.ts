@@ -150,6 +150,7 @@ export interface Product {
   storageMethod?: string;     // 보관방법
   shelfLife?: string;         // 유통/소비기한
   precautions?: string;       // 섭취 시 주의사항
+  spiciness?: string;        // 맵기 단계 (e.g. '안 매워요', '신라면급', '불닭급')
   produceDetails?: ProduceNutritionDetail; // 자연 원물(과일, 채소, 생물 수산물) 영양 성분 & 특성 상세
   searchInfluxCount?: number; // 검색 유입수 (검색 후 상세 방문 및 유입 클릭 수)
 }

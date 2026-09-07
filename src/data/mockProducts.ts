@@ -13,8 +13,13 @@ import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
 import { TLJ_PRODUCTS } from './tljProducts';
+import { TTEOKBOKKIDA_PRODUCTS } from './tteokbokkidaProducts';
+
+import { RAMEN_PRODUCTS } from './ramenProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...RAMEN_PRODUCTS,
+  ...TTEOKBOKKIDA_PRODUCTS,
   ...TLJ_PRODUCTS,
   ...BASKIN_ROBBINS_PRODUCTS,
   ...ICE_CREAM_PRODUCTS,

@@ -25,6 +25,8 @@ export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
   '삼양식품': '/brands/삼양식품.svg',
   '삼양': '/brands/삼양식품.svg',
   '오뚜기': '/brands/오뚜기.png',
+  '팔도': '/brands/팔도.png',
+  '하림': '/brands/하림.png',
   'CJ제일제당': '/brands/CJ제일제당.svg',
   'CJ': '/brands/CJ제일제당.svg',
   '비비고': '/brands/비비고.png',
@@ -64,6 +66,7 @@ export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
   '더벤티': '/brands/더벤티.png',
   '삼송빵집': '/brands/삼송빵집.png',
   '태극당': '/brands/태극당.png',
+  '떡볶이다': '/brands/떡볶이다.png',
 };
 
 const svgToUri = (svg: string): string => {
@@ -71,6 +74,15 @@ const svgToUri = (svg: string): string => {
 };
 
 export const BRAND_SVG_LOGOS: Record<string, string> = {
+  '떡볶이다': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#E53935"/>
+      <circle cx="60" cy="60" r="46" fill="#FFEB3B" opacity="0.2"/>
+      <path d="M35 75 Q60 90 85 75" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+      <text x="60" y="54" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="22" fill="#FFFFFF" text-anchor="middle">떡볶이다</text>
+      <text x="60" y="74" font-family="'Arial Black', sans-serif" font-weight="800" font-size="9" fill="#FFEB3B" text-anchor="middle" letter-spacing="1">TTEOKBOKKIDA</text>
+    </svg>
+  `),
   // 0. 노브랜드 (No Brand)
   '노브랜드': svgToUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
@@ -787,4 +799,6 @@ export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; bord
   'CU': { bg: '#632483', text: '#8FC43C', border: '#4E1B67' },
   '세븐일레븐': { bg: '#008163', text: '#FFFFFF', border: '#00634C' },
   '이마트24': { bg: '#FFB81C', text: '#231F20', border: '#E0A015' },
+  '팔도': { bg: '#003087', text: '#FFFFFF', border: '#002060' },
+  '하림': { bg: '#E60026', text: '#FFFFFF', border: '#C0001F' },
 };
