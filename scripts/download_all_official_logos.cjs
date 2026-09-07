@@ -8,6 +8,28 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'brands');
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+function processMammothSvg() {
+  const p = path.join(OUTPUT_DIR, '매머드커피.svg');
+  if (!fs.existsSync(p)) return;
+
+  const raw = fs.readFileSync(p, 'utf8');
+  if (raw.includes('viewBox="0 0 320 120"')) return; // already processed
+
+  // Create clean, legible, high-end 2-line Mammoth Coffee badge
+  // On black background with gold and white letters, matching brand CI
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <rect width="160" height="160" rx="36" fill="#181818"/>
+  <!-- Signature MMTH Monogram -->
+  <path d="M40 92V46h16l14 26 14-26h16v46h-12V64L76 86h-4L60 64v28H40z" fill="#D4AF37"/>
+  <text x="80" y="116" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.5">MAMMOTH</text>
+  <text x="80" y="132" font-family="'Arial Black', sans-serif" font-weight="800" font-size="10.5" fill="#D4AF37" text-anchor="middle" letter-spacing="3">COFFEE</text>
+</svg>`;
+
+  fs.writeFileSync(p, svg);
+  console.log('[SUCCESS] Rebuilt 매머드커피.svg as clean official CI emblem');
+}
+
+
 function cleanBibigoPng() {
   const p = path.join(__dirname, '..', 'public', 'brands', '비비고.png');
   if (!fs.existsSync(p)) return;
@@ -413,10 +435,11 @@ async function main() {
       urls.push(m[1]);
     }
   }
-  console.log('Mammoth images:', [...new Set(urls)]);
+  processMammothSvg();
 }
 
 main();
+
 
 
 
