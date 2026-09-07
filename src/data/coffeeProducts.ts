@@ -769,7 +769,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     itemType: 'restaurant',
     image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=700&auto=format&fit=crop&q=80',
     releaseDate: '2026.09 대용량',
-    price: 3500,
+    price: 3900,
     overallRating: 4.8,
     ratingCount: 650,
     searchInfluxCount: 49000,
@@ -789,7 +789,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '아샷추(아이스티에 에스프레소 샷 추가)의 원조 브랜드입니다.',
     storeStocks: [
-      { store: '이디야커피', status: '입고완료', stockCount: 25, price: 3500, eventBadge: '아샷추성지', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.ediya.com' }
+      { store: '이디야커피', status: '입고완료', stockCount: 25, price: 3900, eventBadge: '아샷추성지', deliveryTime: '매장 즉시 픽업', appLink: 'https://www.ediya.com' }
     ],
     description: '아샷추 열풍을 일으킨 바로 그 음료! 진하고 달콤한 복숭아 향에 깊은 홍차의 쌉쌀함미가 더해져 엑스트라 대용량으로 시원하게 들이켜는 국민 아이스티.',
     bestQuotes: ['아샷추는 역시 이디야 아이스티가 원조 맛집', '대용량이라 하루 종일 두고 마시기 좋아요']
