@@ -8,144 +8,80 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-// Map of official brand logo candidates (official sites + official vector SVGs)
-const BRAND_SOURCES = {
-  '맥도날드': [
-    'https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/0/05/McDonald%27s_square_2020.svg'
-  ],
-  '버거킹': [
-    'https://upload.wikimedia.org/wikipedia/commons/8/85/Burger_King_logo_%281999%29.svg',
-    'https://cdn.worldvectorlogo.com/logos/burger-king-4.svg'
-  ],
-  '맘스터치': [
-    'https://www.momstouch.co.kr/images/common/logo.png',
-    'https://upload.wikimedia.org/wikipedia/commons/d/d7/Mom%27s_Touch_logo.png'
-  ],
-  '롯데리아': [
-    'https://upload.wikimedia.org/wikipedia/commons/9/9b/Lotteria_Logo.svg',
-    'https://www.lotteeats.com/static/images/common/logo_lotteria.png'
-  ],
-  'KFC': [
-    'https://upload.wikimedia.org/wikipedia/commons/b/bf/KFC_logo.svg',
-    'https://upload.wikimedia.org/wikipedia/en/b/bf/KFC_logo.svg',
-    'https://www.kfckorea.com/nas/common/img/logo.png'
-  ],
-  '스타벅스': [
-    'https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg',
-    'https://www.starbucks.co.kr/common/img/common/logo.png'
-  ],
-  '메가MGC커피': [
-    'https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg'
-  ],
-  '빽다방': [
-    'https://paikdabang.com/wp-content/themes/paikdabang/assets/images/logo.png'
-  ],
-  '매머드커피': [
-    'https://mmthcoffee.com/files/menu/564a4c4ac238359924a304a25e902e29.png'
-  ],
-  '컴포즈커피': [
-    'https://composecoffee.com/files/attach/images/138/9ef795638c4d29f0412ee26a6a241e3d.png',
-    'https://composecoffee.com/layouts/compose/img/logo.png'
-  ],
-  '이디야커피': [
-    'https://www.ediya.com/images/common/top_logo.png'
-  ],
-  '투썸플레이스': [
-    'https://upload.wikimedia.org/wikipedia/commons/1/15/A_Twosome_Place_logo.svg',
-    'https://www.twosome.co.kr/resources/images/common/logo_header.png'
-  ],
-  '오리온': [
-    'https://www.orionworld.com/upload/goods/00086d1e89648f5fcf72cdb3a40847cb.png'
-  ],
-  '농심': [
-    'https://upload.wikimedia.org/wikipedia/commons/e/e4/Nongshim_Logo.svg'
-  ],
-  '삼양식품': [
-    'https://upload.wikimedia.org/wikipedia/commons/5/52/Samyang_Foods_logo.svg'
-  ],
-  '오뚜기': [
-    'https://upload.wikimedia.org/wikipedia/commons/1/14/Ottogi_Logo.svg'
-  ],
-  'CJ제일제당': [
-    'https://upload.wikimedia.org/wikipedia/commons/4/4e/CJ_logo.svg'
-  ],
-  '빙그레': [
-    'https://upload.wikimedia.org/wikipedia/commons/b/b3/Binggrae_logo.svg'
-  ],
-  '코카콜라': [
-    'https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg'
-  ],
-  '하이트진로': [
-    'https://upload.wikimedia.org/wikipedia/commons/7/7b/Hitejinro_logo.svg',
-    'https://www.hitejinro.com/assets/images/common/logo.png'
-  ],
-  '매일유업': [
-    'https://upload.wikimedia.org/wikipedia/commons/f/f6/Maeil_Dairies_logo.svg'
-  ],
-  '연세유업': [
-    'https://www.yonseidairy.com/images/common/logo.png'
-  ],
-  '롯데웰푸드': [
-    'https://upload.wikimedia.org/wikipedia/commons/8/87/Lotte_Logo.svg'
-  ],
-  '해태제과': [
-    'https://upload.wikimedia.org/wikipedia/commons/2/23/Haitai_Confectionery_%26_Foods_Logo.svg',
-    'https://www.ht.co.kr/images/common/logo.png'
-  ],
-  'GS25': [
-    'https://gs25.gsretail.com/gscvs/ko/images/common/logo.png'
-  ],
-  'CU': [
-    'https://cu.bgfretail.com/images/common/logo.png'
-  ],
-  '세븐일레븐': [
-    'https://upload.wikimedia.org/wikipedia/commons/4/40/7-eleven_logo.svg',
-    'https://www.7-eleven.co.kr/images/common/h1_logo.png'
-  ],
-  '이마트24': [
-    'https://www.emart24.co.kr/assets/images/common/logo.png'
-  ],
-  '청도농협': [
-    'https://upload.wikimedia.org/wikipedia/commons/a/ab/Nonghyup_logo.svg',
-    'https://www.nonghyup.com/images/common/logo.png'
-  ]
-};
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-function downloadUrl(url, dest) {
+async function scrapeSiteLogos(siteUrl) {
+  return new Promise((resolve) => {
+    try {
+      const client = siteUrl.startsWith('https') ? https : http;
+      client.get(siteUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+        },
+        timeout: 8000
+      }, res => {
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          const next = res.headers.location.startsWith('http') ? res.headers.location : new URL(res.headers.location, siteUrl).href;
+          return resolve(scrapeSiteLogos(next));
+        }
+        let html = '';
+        res.on('data', c => html += c);
+        res.on('end', () => {
+          const found = [];
+          const regex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+          let match;
+          while ((match = regex.exec(html)) !== null) {
+            const src = match[1];
+            if (/logo|brand|bi|ci|header/i.test(src) || /logo|brand|bi|ci/i.test(match[0])) {
+              const fullUrl = src.startsWith('http') ? src : new URL(src, siteUrl).href;
+              found.push(fullUrl);
+            }
+          }
+          resolve(found);
+        });
+      }).on('error', () => resolve([]));
+    } catch (e) {
+      resolve([]);
+    }
+  });
+}
+
+function fetchBuffer(url) {
   return new Promise((resolve) => {
     try {
       const client = url.startsWith('https') ? https : http;
       const req = client.get(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': 'SinsangpickBrandHub/2.0 (contact@sinsangpick.app; Educational Project)',
           'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
           'Referer': new URL(url).origin
         },
-        timeout: 8000
+        timeout: 10000
       }, res => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          const file = fs.createWriteStream(dest);
-          res.pipe(file);
-          file.on('finish', () => {
-            file.close();
-            const size = fs.statSync(dest).size;
-            if (size > 100) {
-              resolve({ ok: true, size });
-            } else {
-              fs.unlinkSync(dest);
-              resolve({ ok: false, reason: 'empty file' });
-            }
-          });
-          file.on('error', () => resolve({ ok: false, reason: 'write error' }));
-        } else if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
           const next = res.headers.location.startsWith('http') ? res.headers.location : new URL(res.headers.location, url).href;
-          downloadUrl(next, dest).then(resolve);
-        } else {
-          resolve({ ok: false, statusCode: res.statusCode });
+          return resolve(fetchBuffer(next));
         }
+
+        if (res.statusCode !== 200) {
+          return resolve({ ok: false, status: res.statusCode });
+        }
+
+        const chunks = [];
+        res.on('data', c => chunks.push(c));
+        res.on('end', () => {
+          const buf = Buffer.concat(chunks);
+          const head = buf.slice(0, 100).toString().toLowerCase();
+          const isHtml = head.includes('<html') || head.includes('<!doctype') || head.includes('<head');
+          if (isHtml || buf.length < 100) {
+            return resolve({ ok: false, status: 200, isHtml: true, size: buf.length });
+          }
+          resolve({ ok: true, status: 200, buf, size: buf.length, contentType: res.headers['content-type'] });
+        });
       });
-      req.on('error', (e) => resolve({ ok: false, error: e.message }));
+      req.on('error', e => resolve({ ok: false, error: e.message }));
       req.on('timeout', () => { req.destroy(); resolve({ ok: false, reason: 'timeout' }); });
     } catch (e) {
       resolve({ ok: false, error: e.message });
@@ -153,31 +89,127 @@ function downloadUrl(url, dest) {
   });
 }
 
-async function run() {
-  console.log('Downloading official brand logos into public/brands/...');
+const VERIFIED_BRAND_SOURCES = {
+  // 1. Core brands specifically requested by user
+  '비비고': [
+    'https://m.cj.co.kr/resources/img/brand/bibigo2_ourstory_img_3_1_kr.png',
+  ],
+  '오리온': [
+    'https://upload.wikimedia.org/wikipedia/commons/f/f2/Orion_Corporation_logo_2.svg',
+    'https://upload.wikimedia.org/wikipedia/commons/f/f3/Orion_Corporation_logo_%28english%29.svg',
+  ],
+  '매머드커피': [
+    'https://upload.wikimedia.org/wikipedia/commons/b/bd/Mammoth_Coffee_logo.svg',
+    'https://mmthcoffee.com/files/attach/images/138/039/019/336b95420377eeb0d40fa88942b005fe.png'
+  ],
+  '맘스터치': [
+    'https://upload.wikimedia.org/wikipedia/commons/0/05/Mom%27s_Touch_logo_%282020%29.svg',
+  ],
+  '파리바게뜨': [
+    'https://upload.wikimedia.org/wikipedia/commons/b/b7/Paris_Baguette_logo.svg',
+  ],
+
+  // 2. Coffee & Bakery brands
+  '메가MGC커피': [
+    'https://upload.wikimedia.org/wikipedia/commons/7/7b/Mega_MGC_Coffee_logo.png',
+  ],
+  '이디야커피': [
+    'https://upload.wikimedia.org/wikipedia/commons/9/92/Ediya_Coffee_logo.svg',
+  ],
+  '뚜레쥬르': [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/TOUSlesJOURSnewlogo.jpg/800px-TOUSlesJOURSnewlogo.jpg',
+    'https://www.tlj.co.kr/static/images/common/logo.png',
+    'https://www.tlj.co.kr/images/common/logo.png'
+  ],
+  '폴바셋': [
+    'https://www.baristapaulbassett.co.kr/images/common/logo.png',
+    'https://www.baristapaulbassett.co.kr/resources/images/common/logo.png'
+  ],
+  '더벤티': [
+    'https://www.theventi.co.kr/design/img/header/logo.png',
+    'https://www.theventi.co.kr/images/common/logo.png'
+  ],
+  '성심당': [
+    'https://sungsimdang.co.kr/data/skin/front/sungsimdang_pc/img/banner/header_logo.png',
+    'https://www.sungsimdang.co.kr/images/common/logo.png'
+  ],
+  '노티드': [
+    'https://knotted-donut.com/img/common/logo.png',
+    'https://knotted-donut.com/img/common/logo.svg'
+  ],
+
+  // 3. Retail & Food brands
+  'GS25': [
+    'https://upload.wikimedia.org/wikipedia/commons/3/3a/GS25_Logo.png',
+  ],
+  '이마트24': [
+    'https://upload.wikimedia.org/wikipedia/commons/f/fc/Emart_24_logo.svg',
+  ],
+  '해태제과': [
+    'https://upload.wikimedia.org/wikipedia/commons/9/9f/Haitai_logo.svg',
+  ],
+  '하이트진로': [
+    'https://upload.wikimedia.org/wikipedia/commons/7/7b/Hitejinro_logo.svg',
+    'https://upload.wikimedia.org/wikipedia/commons/9/9b/Jinro.co.jp.logo.png'
+  ],
+  '연세유업': [
+    'https://www.yonseidairy.com/front/images/common/logo.png',
+    'https://www.yonseidairy.com/images/common/logo.png'
+  ],
+  '청도농협': [
+    'https://upload.wikimedia.org/wikipedia/commons/a/ab/Nonghyup_logo.svg',
+  ],
+
+  // 4. Stable verified vector logos
+  '맥도날드': ['https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg'],
+  '버거킹': ['https://upload.wikimedia.org/wikipedia/commons/8/85/Burger_King_logo_%281999%29.svg'],
+  '롯데리아': ['https://upload.wikimedia.org/wikipedia/commons/9/9b/Lotteria_Logo.svg'],
+  'KFC': ['https://upload.wikimedia.org/wikipedia/commons/b/bf/KFC_logo.svg'],
+  '스타벅스': ['https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg'],
+  '컴포즈커피': ['https://composecoffee.com/files/attach/images/138/9ef795638c4d29f0412ee26a6a241e3d.png'],
+  '농심': ['https://upload.wikimedia.org/wikipedia/commons/e/e4/Nongshim_Logo.svg'],
+  '삼양식품': ['https://upload.wikimedia.org/wikipedia/commons/5/52/Samyang_Foods_logo.svg'],
+  '빙그레': ['https://upload.wikimedia.org/wikipedia/commons/b/b3/Binggrae_logo.svg'],
+  '코카콜라': ['https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg'],
+  '롯데웰푸드': ['https://upload.wikimedia.org/wikipedia/commons/8/87/Lotte_Logo.svg'],
+  '세븐일레븐': ['https://upload.wikimedia.org/wikipedia/commons/4/40/7-eleven_logo.svg'],
+  'CJ제일제당': ['https://upload.wikimedia.org/wikipedia/commons/4/4e/CJ_logo.svg']
+};
+
+async function main() {
+  console.log('--- Starting Brand Logo Download & Verification ---');
   const results = {};
 
-  for (const [brand, urls] of Object.entries(BRAND_SOURCES)) {
-    let downloaded = false;
+  for (const [brand, urls] of Object.entries(VERIFIED_BRAND_SOURCES)) {
+    let saved = false;
     for (const url of urls) {
-      const ext = url.toLowerCase().includes('.svg') ? '.svg' : url.toLowerCase().includes('.jpg') ? '.jpg' : '.png';
-      const filename = `${brand}${ext}`;
-      const dest = path.join(OUTPUT_DIR, filename);
-
-      const res = await downloadUrl(url, dest);
+      await sleep(350);
+      const res = await fetchBuffer(url);
       if (res.ok) {
+        let ext = '.png';
+        if (url.toLowerCase().includes('.svg') || (res.contentType && res.contentType.includes('svg')) || res.buf.slice(0, 50).toString().includes('<svg')) {
+          ext = '.svg';
+        } else if (url.toLowerCase().includes('.jpg') || url.toLowerCase().includes('.jpeg') || (res.contentType && res.contentType.includes('jpeg'))) {
+          ext = '.jpg';
+        }
+
+        const filename = `${brand}${ext}`;
+        const dest = path.join(OUTPUT_DIR, filename);
+        fs.writeFileSync(dest, res.buf);
+
         results[brand] = `/brands/${filename}`;
-        console.log(`[SUCCESS] ${brand} -> /brands/${filename} (${res.size} bytes)`);
-        downloaded = true;
+        console.log(`[SUCCESS] ${brand.padEnd(10)} -> /brands/${filename} (${res.size} bytes)`);
+        saved = true;
         break;
       }
     }
-    if (!downloaded) {
-      console.log(`[FAILED] ${brand}`);
+    if (!saved) {
+      console.log(`[FAILED]  ${brand}`);
     }
   }
 
-  console.log('\nDownloaded Summary:', JSON.stringify(results, null, 2));
+  console.log('\n--- Finished. Saved count:', Object.keys(results).length, '---');
 }
 
-run();
+main();
+

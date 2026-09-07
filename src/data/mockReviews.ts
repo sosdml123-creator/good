@@ -382,19 +382,19 @@ export const INITIAL_REVIEWS: Review[] = [
     tags: ['#뚜레쥬르', '#치즈방앗간', '#단짠쫄깃', '#크림치즈폭탄'],
   },
 
-  // 16. [베이커리] 파리바게뜨 그대로토스트 PLUS
+  // 16. [베이커리] 파리바게뜨 그대로 토스트
   {
     id: 'rev-bakery-pb-01-1',
     productId: 'bakery-pb-01',
-    productName: '파리바게뜨 그대로토스트 PLUS',
-    productImage: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80',
+    productName: '파리바게뜨 그대로 토스트',
+    productImage: 'https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/그대로토스트정면-600x600.jpg',
     userName: '모닝토스트🍞',
     userAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
     userLevel: 'Lv.8',
     rating: 5,
     detailedRating: { taste: 4.9, value: 4.9, portion: 4.8, repurchase: 5.0 },
     content: '버터를 따로 바를 필요 없이 토스터기에 넣고 굽기만 하면 버터가 자글자글 녹아 나와 겉바속촉 끝판왕입니다. 아침마다 딸기잼 발라 먹으면 세상 행복해요.',
-    images: ['https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80'],
+    images: ['https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/그대로토스트정면-600x600.jpg'],
     likes: 61,
     isLiked: false,
     commentsCount: 8,
