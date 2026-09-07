@@ -46,9 +46,10 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   // 2. Vector SVG fallback
   const svgLogo = BRAND_SVG_LOGOS[normalized] || BRAND_SVG_LOGOS[raw];
   
-  // Choose source (official logo prioritized)
-  const primarySrc = officialFile || logoUrl || svgLogo;
-  const imageSrc = !hasError ? primarySrc : (officialFile !== primarySrc ? officialFile : svgLogo);
+  // Choose source: 1. Official file -> 2. SVG vector -> 3. custom logoUrl
+  const primarySrc = officialFile || svgLogo || logoUrl;
+  const fallbackSrc = primarySrc !== svgLogo && svgLogo ? svgLogo : undefined;
+  const imageSrc = !hasError ? primarySrc : fallbackSrc;
 
   const theme = BRAND_THEME_COLORS[normalized] || {
     bg: '#0066FF',
@@ -70,7 +71,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           src={imageSrc}
           alt={brandName}
           onError={() => {
-            if (!hasError && logoUrl) {
+            if (!hasError) {
               setHasError(true);
             }
           }}

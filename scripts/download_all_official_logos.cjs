@@ -418,27 +418,53 @@ async function main() {
     console.log('[SUCCESS] Replaced 오리온.svg with official ORION logo');
   }
 
-  // Scrape mmthcoffee
-  const mmthHtml = await new Promise((res) => {
-    https.get('https://www.mmthcoffee.com', { headers: { 'User-Agent': 'Mozilla/5.0' } }, r => {
+  // Probe ssbnc.kr
+  const ssbncImgs = await scrapeSiteLogos('https://www.ssbnc.kr');
+  console.log('ssbnc scraped:', ssbncImgs);
+  for (const u of ssbncImgs) {
+    const res = await fetchBuffer(u);
+    if (res.ok) {
+      const ext = u.endsWith('.svg') ? '.svg' : '.png';
+      fs.writeFileSync(path.join(OUTPUT_DIR, '삼송빵집' + ext), res.buf);
+      console.log('[SUCCESS] 삼송빵집 -> /brands/삼송빵집' + ext, res.size, 'bytes');
+      break;
+    }
+  }
+
+  // Probe taegeukdang brand_identity.php
+  const tgHtml = await new Promise((res) => {
+    https.get('https://www.taegeukdang.com/page/brand_identity.php', { rejectUnauthorized: false, headers: { 'User-Agent': 'Mozilla/5.0' } }, r => {
       let d = '';
       r.on('data', c => d += c);
       r.on('end', () => res(d));
     }).on('error', () => res(''));
   });
 
-  const urls = [];
-  const re = /["']([^"']*\.(?:png|jpg|svg|webp))["']/gi;
-  let m;
-  while ((m = re.exec(mmthHtml)) !== null) {
-    if (m[1].includes('logo') || m[1].includes('common') || m[1].includes('brand') || m[1].includes('header')) {
-      urls.push(m[1]);
+  const tgImgs = [];
+  const tgRe = /["']([^"']*\.(?:png|jpg|svg|webp))["']/gi;
+  let tm;
+  while ((tm = tgRe.exec(tgHtml)) !== null) {
+    const u = tm[1].startsWith('http') ? tm[1] : 'https://www.taegeukdang.com' + (tm[1].startsWith('/') ? '' : '/') + tm[1];
+    tgImgs.push(u);
+  }
+  console.log('Taegeukdang BI images:', [...new Set(tgImgs)]);
+  for (const u of tgImgs) {
+    if (u.includes('logo') || u.includes('bi') || u.includes('symbol')) {
+      const res = await fetchBuffer(u);
+      if (res.ok) {
+        const ext = u.endsWith('.svg') ? '.svg' : '.png';
+        fs.writeFileSync(path.join(OUTPUT_DIR, '태극당' + ext), res.buf);
+        console.log('[SUCCESS] 태극당 -> /brands/태극당' + ext, res.size, 'bytes');
+        break;
+      }
     }
   }
-  processMammothSvg();
 }
 
 main();
+
+
+
 
 
 
