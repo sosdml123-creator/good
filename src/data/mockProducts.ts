@@ -22378,7 +22378,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=800&auto=format&fit=crop&q=80",
     releaseDate: "런던베이글뮤지엄 정통 세트",
-    price: 8300,
+    price: 7600,
     overallRating: 4.9,
     ratingCount: 820,
     searchInfluxCount: 65000,
@@ -22412,7 +22412,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "런던베이글뮤지엄",
                 "status": "입고완료",
                 "stockCount": 16,
-                "price": 8300,
+                "price": 7600,
                 "eventBadge": "인기스프레드",
                 "deliveryTime": "매장 현장 구매",
                 "appLink": "https://www.instagram.com/london.bagel.museum"
