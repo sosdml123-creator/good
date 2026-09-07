@@ -20818,7 +20818,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%A0%80%EB%8B%B9%EB%B0%9C%ED%9A%A8%EB%B2%84%ED%84%B0%EB%A1%A4-%EC%A0%9C%ED%92%88.png",
     releaseDate: "파리바게뜨 데일리",
-    price: 2900,
+    price: 2700,
     overallRating: 4.6,
     ratingCount: 260,
     searchInfluxCount: 19000,
@@ -20852,7 +20852,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "파리바게뜨",
                 "status": "입고완료",
                 "stockCount": 20,
-                "price": 2900,
+                "price": 2700,
                 "eventBadge": "소금빵인기",
                 "deliveryTime": "매장 즉시 픽업",
                 "appLink": "https://www.paris.co.kr"
@@ -20870,7 +20870,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%8B%AC%EC%BD%A4%EC%97%B0%EC%9C%A0-%ED%81%AC%EB%A6%BC%EB%B8%8C%EB%A0%88%EB%93%9C.png",
     releaseDate: "파리바게뜨 시그니처 맘모스",
-    price: 4500,
+    price: 3800,
     overallRating: 4.7,
     ratingCount: 215,
     searchInfluxCount: 16000,
@@ -20904,7 +20904,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "파리바게뜨",
                 "status": "입고완료",
                 "stockCount": 7,
-                "price": 4500,
+                "price": 3800,
                 "eventBadge": "추억의맛",
                 "deliveryTime": "매장 즉시 픽업",
                 "appLink": "https://www.paris.co.kr"
@@ -20922,7 +20922,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%B9%98%EC%A6%88-%EC%88%98%ED%94%8C%EB%A0%88-%EC%BC%80%EC%9D%B4%ED%81%AC.jpg",
     releaseDate: "파리바게뜨 베스트 미니케이크",
-    price: 6800,
+    price: 6400,
     overallRating: 4.8,
     ratingCount: 380,
     searchInfluxCount: 24000,
@@ -20956,7 +20956,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "파리바게뜨",
                 "status": "입고완료",
                 "stockCount": 9,
-                "price": 6800,
+                "price": 6400,
                 "eventBadge": "치즈케익1위",
                 "deliveryTime": "매장 즉시 픽업",
                 "appLink": "https://www.paris.co.kr"
@@ -21390,7 +21390,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://www.tlj.co.kr/data/product/2024-9-12_event(39).jpg",
     releaseDate: "뚜레쥬르 시그니처 초콜릿",
-    price: 2900,
+    price: 2800,
     overallRating: 4.9,
     ratingCount: 420,
     searchInfluxCount: 29000,
@@ -21424,7 +21424,7 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "뚜레쥬르",
                 "status": "입고완료",
                 "stockCount": 16,
-                "price": 2900,
+                "price": 2800,
                 "eventBadge": "꾸덕끝판왕",
                 "deliveryTime": "매장 즉시 픽업",
                 "appLink": "https://www.tlj.co.kr"
@@ -22066,7 +22066,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     itemType: 'restaurant',
     image: "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=800&auto=format&fit=crop&q=80",
     releaseDate: "성심당 소금빵 열풍작",
-    price: 2200,
+    price: 1800,
     overallRating: 4.8,
     ratingCount: 460,
     searchInfluxCount: 33000,
@@ -22100,14 +22100,14 @@ export const INITIAL_PRODUCTS: Product[] = [
                 "store": "성심당",
                 "status": "입고완료",
                 "stockCount": 30,
-                "price": 2200,
+                "price": 1800,
                 "eventBadge": "착한가격",
                 "deliveryTime": "대전 매장 현장 구매",
                 "appLink": "https://www.sungsimdangmall.co.kr"
           }
     ],
     description: "버터를 아끼지 않고 넣어 바닥은 튀기듯 바삭하고 속은 쫄깃하며 펄솔트가 톡톡 터지는 성심당식 갓성비 소금빵.",
-    bestQuotes: ["2200원에 이런 버터 동굴과 겉바속촉이라니 성심당 만세","다른 베이커리 4천원짜리 소금빵보다 훨씬 맛있음"]
+    bestQuotes: ["1800원에 이런 버터 동굴과 겉바속촉이라니 성심당 만세","다른 베이커리 4천원짜리 소금빵보다 훨씬 맛있음"]
   },
   {
     id: "bakery-lbm-01",
