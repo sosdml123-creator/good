@@ -40,6 +40,19 @@ export const getBrandLogo = (brandName: string, fallbackImage?: string): string 
 
 export const POPULAR_BRANDS: BrandInfo[] = [
   {
+    id: 'nobrand',
+    name: '노브랜드',
+    engName: 'No Brand',
+    logo: BRAND_LOGOS_MAP['노브랜드'],
+    bannerImage: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80',
+    category: '간편식·스낵',
+    slogan: '브랜드가 아니다. 소비자다 - 최적의 품질과 압도적 가성비',
+    description: '숯불데리야끼 닭꼬치, 초코칩쿠키, 칠리새우, 자색고구마칩 등 대한민국 1등 PB 노브랜드 대표 먹거리 총집합.',
+    officialUrl: 'https://emart.ssg.com',
+    badge: '국민 가성비 1등 PB',
+    isPopular: true
+  },
+  {
     id: 'mcdonalds',
     name: '맥도날드',
     engName: "McDonald's",

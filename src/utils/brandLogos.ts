@@ -45,6 +45,8 @@ export const OFFICIAL_BRAND_LOGOS: Record<string, string> = {
   '청도농협': '/brands/청도농협.png',
   '농협': '/brands/청도농협.png',
   '스타벅스 / 동서식품': '/brands/스타벅스.svg',
+  '노브랜드': '/brands/노브랜드.svg',
+  'No Brand': '/brands/노브랜드.svg',
 };
 
 const svgToUri = (svg: string): string => {
@@ -52,6 +54,26 @@ const svgToUri = (svg: string): string => {
 };
 
 export const BRAND_SVG_LOGOS: Record<string, string> = {
+  // 0. 노브랜드 (No Brand)
+  '노브랜드': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FED100"/>
+      <rect x="12" y="16" width="96" height="88" rx="14" fill="none" stroke="#231F20" stroke-width="3.5" stroke-dasharray="8 5"/>
+      <text x="60" y="52" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="20" fill="#231F20" text-anchor="middle" letter-spacing="-0.5">No Brand</text>
+      <text x="60" y="74" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="800" font-size="12" fill="#231F20" text-anchor="middle">노브랜드</text>
+      <text x="60" y="90" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="600" font-size="7.5" fill="#333333" text-anchor="middle">소비자가 브랜드다</text>
+    </svg>
+  `),
+  'No Brand': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FED100"/>
+      <rect x="12" y="16" width="96" height="88" rx="14" fill="none" stroke="#231F20" stroke-width="3.5" stroke-dasharray="8 5"/>
+      <text x="60" y="52" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="20" fill="#231F20" text-anchor="middle" letter-spacing="-0.5">No Brand</text>
+      <text x="60" y="74" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="800" font-size="12" fill="#231F20" text-anchor="middle">노브랜드</text>
+      <text x="60" y="90" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="600" font-size="7.5" fill="#333333" text-anchor="middle">소비자가 브랜드다</text>
+    </svg>
+  `),
+
   // 1. 맥도날드 (McDonald's)
   '맥도날드': svgToUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
@@ -673,12 +695,18 @@ export const BRAND_ALIASES: Record<string, string> = {
   '대구삼송빵집': '삼송빵집',
   '마약옥수수빵': '삼송빵집',
   '장충동태극당': '태극당',
+  'No Brand': '노브랜드',
+  'NoBrand': '노브랜드',
+  'nobrand': '노브랜드',
+  '이마트 노브랜드': '노브랜드',
+  '이마트노브랜드': '노브랜드',
 };
 
 /**
  * Brand specific primary colors for avatar / badge styling
  */
 export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  '노브랜드': { bg: '#FED100', text: '#231F20', border: '#E5BC00' },
   '비비고': { bg: '#1B3A2C', text: '#FFFFFF', border: '#12261D' },
   '맥도날드': { bg: '#DA291C', text: '#FFC72C', border: '#B81E13' },
   '버거킹': { bg: '#D62300', text: '#FFFFFF', border: '#B51B00' },

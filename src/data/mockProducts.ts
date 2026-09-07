@@ -9,8 +9,10 @@ import {
 } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
+import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...NO_BRAND_PRODUCTS,
   ...BIBIGO_PRODUCTS,
   ...COFFEE_BRAND_BEVERAGES,
   {
