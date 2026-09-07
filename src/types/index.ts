@@ -232,6 +232,19 @@ export interface ToastMessage {
   type?: 'success' | 'info' | 'error';
 }
 
+export interface PointTransaction {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar?: string;
+  type: 'grant' | 'revoke' | 'reward' | 'use';
+  amount: number; // + or -
+  balanceAfter: number;
+  reason: string;
+  createdAt: string;
+  adminMemo?: string;
+}
+
 export interface UserProfile {
   uid: string;
   displayName: string;
@@ -241,6 +254,7 @@ export interface UserProfile {
   isAnonymous?: boolean;
   email?: string;
   provider?: 'apple' | 'google' | 'kakao' | 'anonymous';
+  createdAt?: string;
 }
 
 export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'none';

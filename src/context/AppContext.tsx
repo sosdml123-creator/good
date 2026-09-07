@@ -14,7 +14,8 @@ import {
   BattleConfig,
   PendingProduct,
   PromotionEvent,
-  AppNotification
+  AppNotification,
+  PointTransaction
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
@@ -174,15 +175,180 @@ interface AppContextType {
   // Admin Moderation Actions
   deleteReview: (reviewId: string) => Promise<void>;
   deleteCommunityPost: (postId: string) => Promise<void>;
+
+  // User & Points Management (Admin & App)
+  allProfiles: UserProfile[];
+  pointTransactions: PointTransaction[];
+  grantUserPoints: (userId: string, amount: number, reason: string, memo?: string) => Promise<void>;
+  revokeUserPoints: (userId: string, amount: number, reason: string, memo?: string) => Promise<void>;
+  batchGrantPoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
+  batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
+  fetchAllProfiles: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // Helper for calculating user level based on points
-const calculateLevel = (points: number): string => {
+export const calculateLevel = (points: number): string => {
   const levelNum = Math.max(1, Math.min(10, Math.floor(points / 200) + 1));
   return `Lv.${levelNum}`;
 };
+
+export const INITIAL_USER_PROFILES: UserProfile[] = [
+  {
+    uid: 'user_minji_01',
+    displayName: '신상탐험가_민지',
+    photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.5',
+    points: 850,
+    email: 'minji.snack@gmail.com',
+    provider: 'apple',
+    createdAt: '2025.01.10'
+  },
+  {
+    uid: 'user_junho_02',
+    displayName: '편의점고수_준호',
+    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.7',
+    points: 1340,
+    email: 'junho_cu@kakao.com',
+    provider: 'kakao',
+    createdAt: '2025.01.05'
+  },
+  {
+    uid: 'user_dessert_03',
+    displayName: '디저트요정',
+    photoURL: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.3',
+    points: 520,
+    email: 'sweet_fairy@naver.com',
+    provider: 'google',
+    createdAt: '2025.01.18'
+  },
+  {
+    uid: 'user_taeyang_04',
+    displayName: '야식러버_태양',
+    photoURL: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.5',
+    points: 980,
+    email: 'sun_night@gmail.com',
+    provider: 'google',
+    createdAt: '2025.01.22'
+  },
+  {
+    uid: 'user_jiwoo_05',
+    displayName: '스낵마니아_지우',
+    photoURL: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.2',
+    points: 310,
+    email: 'jiwoo.snack@gmail.com',
+    provider: 'apple',
+    createdAt: '2025.02.01'
+  },
+  {
+    uid: 'user_donghyun_06',
+    displayName: '맛집탐험대_동현',
+    photoURL: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.9',
+    points: 1620,
+    email: 'donghyun@daum.net',
+    provider: 'kakao',
+    createdAt: '2024.12.15'
+  },
+  {
+    uid: 'user_hyejin_07',
+    displayName: '매운맛도전자_혜진',
+    photoURL: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.4',
+    points: 730,
+    email: 'spicy_queen@gmail.com',
+    provider: 'google',
+    createdAt: '2025.01.29'
+  },
+  {
+    uid: 'user_suho_08',
+    displayName: '헬린이식단_수호',
+    photoURL: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.3',
+    points: 440,
+    email: 'suho_fit@gmail.com',
+    provider: 'apple',
+    createdAt: '2025.02.10'
+  },
+  {
+    uid: 'user_seoyeon_09',
+    displayName: '과자박사_서연',
+    photoURL: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.10',
+    points: 1950,
+    email: 'seoyeon_snack@naver.com',
+    provider: 'kakao',
+    createdAt: '2024.11.20'
+  }
+];
+
+export const INITIAL_POINT_TRANSACTIONS: PointTransaction[] = [
+  {
+    id: 'tx-01',
+    userId: 'user_seoyeon_09',
+    userName: '과자박사_서연',
+    userAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',
+    type: 'grant',
+    amount: 500,
+    balanceAfter: 1950,
+    reason: '우수 리뷰어 베스트 픽 선정 보상',
+    createdAt: '2026.03.06 18:30',
+    adminMemo: '3월 1주차 베스트 신상 리뷰 1등 포상'
+  },
+  {
+    id: 'tx-02',
+    userId: 'user_junho_02',
+    userName: '편의점고수_준호',
+    userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+    type: 'grant',
+    amount: 300,
+    balanceAfter: 1340,
+    reason: '체험단 성실 리뷰 작성 보너스',
+    createdAt: '2026.03.05 14:15',
+    adminMemo: '신라면 똠얌 체험단 미션 완수'
+  },
+  {
+    id: 'tx-03',
+    userId: 'user_minji_01',
+    userName: '신상탐험가_민지',
+    userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    type: 'grant',
+    amount: 200,
+    balanceAfter: 850,
+    reason: '신규 상품 제보 채택 보상',
+    createdAt: '2026.03.04 11:00',
+    adminMemo: '편의점 단독 출시 신상 제보 반영'
+  },
+  {
+    id: 'tx-04',
+    userId: 'user_jiwoo_05',
+    userName: '스낵마니아_지우',
+    userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+    type: 'revoke',
+    amount: -100,
+    balanceAfter: 310,
+    reason: '어뷰징/중복 작성 리뷰 삭제로 인한 포인트 회수',
+    createdAt: '2026.03.02 09:40',
+    adminMemo: '동일 내용 단순 복사 도배 적발'
+  },
+  {
+    id: 'tx-05',
+    userId: 'user_taeyang_04',
+    userName: '야식러버_태양',
+    userAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
+    type: 'grant',
+    amount: 150,
+    balanceAfter: 980,
+    reason: '출석체크 연속 7일 달성 보너스',
+    createdAt: '2026.03.01 16:20',
+    adminMemo: '2월 출석 이벤트'
+  }
+];
 
 // Initial User Profile
 const createInitialUser = (): UserProfile => {
@@ -434,6 +600,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
+  // All Profiles & Point Transactions for Admin & User Management
+  const [allProfiles, setAllProfiles] = useState<UserProfile[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_all_profiles');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {
+      // ignore
+    }
+    return INITIAL_USER_PROFILES;
+  });
+
+  const [pointTransactions, setPointTransactions] = useState<PointTransaction[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_point_transactions');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {
+      // ignore
+    }
+    return INITIAL_POINT_TRANSACTIONS;
+  });
+
   // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation & verified healing
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
     try {
@@ -455,6 +648,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
     return localStorage.getItem(LAST_CRAWL_STORAGE_KEY);
   });
+
+  // Sync allProfiles & pointTransactions to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(allProfiles));
+    } catch (e) {
+      // ignore
+    }
+  }, [allProfiles]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(pointTransactions));
+    } catch (e) {
+      // ignore
+    }
+  }, [pointTransactions]);
 
   // Sync pending products to localStorage
   useEffect(() => {
@@ -643,7 +853,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCommunityPosts(parsedPosts);
       }
 
-      // 5. Fetch Profile
+      // 5. Fetch Current User Profile
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
@@ -658,6 +868,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           points: profile.points ?? prev.points,
           level: calculateLevel(profile.points ?? prev.points),
         }));
+      }
+
+      // 6. Fetch All Profiles (for Admin Points & Member Management)
+      const { data: dbAllProfiles } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('points', { ascending: false });
+
+      if (dbAllProfiles && dbAllProfiles.length > 0) {
+        setAllProfiles(prev => {
+          const dbMap = new Map<string, any>();
+          dbAllProfiles.forEach(p => dbMap.set(p.id, p));
+
+          const updated = prev.map(p => {
+            const dbP = dbMap.get(p.uid);
+            if (dbP) {
+              return {
+                ...p,
+                displayName: dbP.display_name || p.displayName,
+                photoURL: dbP.avatar_url || p.photoURL,
+                points: dbP.points ?? p.points,
+                level: calculateLevel(dbP.points ?? p.points),
+                createdAt: dbP.created_at ? new Date(dbP.created_at).toLocaleDateString('ko-KR') : p.createdAt
+              };
+            }
+            return p;
+          });
+
+          const existingUids = new Set(prev.map(p => p.uid));
+          const extraUsers: UserProfile[] = dbAllProfiles
+            .filter(p => !existingUids.has(p.id))
+            .map(p => ({
+              uid: p.id,
+              displayName: p.display_name || '신상러버',
+              photoURL: p.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+              level: calculateLevel(p.points ?? 100),
+              points: p.points ?? 100,
+              email: p.email || undefined,
+              createdAt: p.created_at ? new Date(p.created_at).toLocaleDateString('ko-KR') : '2025.01.01'
+            }));
+
+          return [...updated, ...extraUsers];
+        });
       }
 
     } catch (err) {
@@ -710,6 +963,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           loadSupabaseData(uid);
         })
         .on('postgres_changes', { event: '*', schema: 'public', table: 'review_comments' }, () => {
+          loadSupabaseData(uid);
+        })
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
           loadSupabaseData(uid);
         })
       // 6. Listen for Auth State Changes (Apple / Google / Kakao OAuth redirect)
@@ -2001,6 +2257,360 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('승인 대기 목록이 모두 비워졌습니다.', 'info');
   };
 
+  // User & Points Management Actions (Admin)
+  const fetchAllProfiles = async () => {
+    if (!supabase || !isSupabaseConfigured) return;
+    try {
+      const { data: dbAllProfiles, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('points', { ascending: false });
+
+      if (!error && dbAllProfiles) {
+        setAllProfiles(prev => {
+          const dbMap = new Map<string, any>();
+          dbAllProfiles.forEach(p => dbMap.set(p.id, p));
+
+          const updated = prev.map(p => {
+            const dbP = dbMap.get(p.uid);
+            if (dbP) {
+              return {
+                ...p,
+                displayName: dbP.display_name || p.displayName,
+                photoURL: dbP.avatar_url || p.photoURL,
+                points: dbP.points ?? p.points,
+                level: calculateLevel(dbP.points ?? p.points),
+                createdAt: dbP.created_at ? new Date(dbP.created_at).toLocaleDateString('ko-KR') : p.createdAt
+              };
+            }
+            return p;
+          });
+
+          const existingUids = new Set(prev.map(p => p.uid));
+          const extraUsers: UserProfile[] = dbAllProfiles
+            .filter(p => !existingUids.has(p.id))
+            .map(p => ({
+              uid: p.id,
+              displayName: p.display_name || '신상러버',
+              photoURL: p.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+              level: calculateLevel(p.points ?? 100),
+              points: p.points ?? 100,
+              email: p.email || undefined,
+              createdAt: p.created_at ? new Date(p.created_at).toLocaleDateString('ko-KR') : '2025.01.01'
+            }));
+
+          return [...updated, ...extraUsers];
+        });
+      }
+    } catch (e) {
+      console.warn('[Supabase fetchAllProfiles error]', e);
+    }
+  };
+
+  const grantUserPoints = async (userId: string, amount: number, reason: string, memo?: string) => {
+    if (amount <= 0) {
+      showToast('지급할 포인트를 1P 이상 입력해주세요.', 'error');
+      return;
+    }
+
+    const targetUser = allProfiles.find(u => u.uid === userId);
+    const userName = targetUser ? targetUser.displayName : '회원';
+    const userAvatar = targetUser?.photoURL;
+    let newBalance = amount;
+
+    setAllProfiles(prev => {
+      return prev.map(u => {
+        if (u.uid === userId) {
+          const updatedPoints = (u.points || 0) + amount;
+          newBalance = updatedPoints;
+          return {
+            ...u,
+            points: updatedPoints,
+            level: calculateLevel(updatedPoints)
+          };
+        }
+        return u;
+      });
+    });
+
+    if (currentUser.uid === userId) {
+      setCurrentUser(prev => {
+        const nextPoints = (prev.points || 0) + amount;
+        return {
+          ...prev,
+          points: nextPoints,
+          level: calculateLevel(nextPoints)
+        };
+      });
+    }
+
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId,
+      userName,
+      userAvatar,
+      type: 'grant',
+      amount: Math.abs(amount),
+      balanceAfter: newBalance,
+      reason: reason || '관리자 포인트 특별 지급',
+      createdAt: new Date().toLocaleString('ko-KR', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }),
+      adminMemo: memo
+    };
+
+    setPointTransactions(prev => [newTx, ...prev]);
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ 
+            points: newBalance,
+            level: calculateLevel(newBalance)
+          })
+          .eq('id', userId);
+      } catch (err) {
+        console.warn('[Supabase Points Update Error]', err);
+      }
+    }
+
+    showToast(`🎁 ${userName}님께 +${amount.toLocaleString()}P가 지급되었습니다!`, 'success');
+  };
+
+  const revokeUserPoints = async (userId: string, amount: number, reason: string, memo?: string) => {
+    if (amount <= 0) {
+      showToast('회수할 포인트를 1P 이상 입력해주세요.', 'error');
+      return;
+    }
+
+    const targetUser = allProfiles.find(u => u.uid === userId);
+    if (!targetUser) return;
+    const currentPoints = targetUser.points || 0;
+    const actualDeduct = Math.min(currentPoints, amount);
+    const newBalance = Math.max(0, currentPoints - amount);
+    const userName = targetUser.displayName;
+    const userAvatar = targetUser.photoURL;
+
+    setAllProfiles(prev => {
+      return prev.map(u => {
+        if (u.uid === userId) {
+          return {
+            ...u,
+            points: newBalance,
+            level: calculateLevel(newBalance)
+          };
+        }
+        return u;
+      });
+    });
+
+    if (currentUser.uid === userId) {
+      setCurrentUser(prev => ({
+        ...prev,
+        points: newBalance,
+        level: calculateLevel(newBalance)
+      }));
+    }
+
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId,
+      userName,
+      userAvatar,
+      type: 'revoke',
+      amount: -actualDeduct,
+      balanceAfter: newBalance,
+      reason: reason || '관리자 포인트 회수/차감',
+      createdAt: new Date().toLocaleString('ko-KR', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }),
+      adminMemo: memo
+    };
+
+    setPointTransactions(prev => [newTx, ...prev]);
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ 
+            points: newBalance,
+            level: calculateLevel(newBalance)
+          })
+          .eq('id', userId);
+      } catch (err) {
+        console.warn('[Supabase Points Update Error]', err);
+      }
+    }
+
+    showToast(`🔻 ${userName}님의 -${actualDeduct.toLocaleString()}P가 회수되었습니다.`, 'info');
+  };
+
+  const batchGrantPoints = async (userIds: string[], amount: number, reason: string, memo?: string) => {
+    if (userIds.length === 0) {
+      showToast('지급할 회원을 선택해주세요.', 'error');
+      return;
+    }
+    if (amount <= 0) {
+      showToast('지급할 포인트를 1P 이상 입력해주세요.', 'error');
+      return;
+    }
+
+    const targetSet = new Set(userIds);
+    const nowStr = new Date().toLocaleString('ko-KR', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false 
+    });
+
+    const newTransactions: PointTransaction[] = [];
+
+    setAllProfiles(prev => {
+      return prev.map(u => {
+        if (targetSet.has(u.uid)) {
+          const updatedPoints = (u.points || 0) + amount;
+          newTransactions.push({
+            id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+            userId: u.uid,
+            userName: u.displayName,
+            userAvatar: u.photoURL,
+            type: 'grant',
+            amount: Math.abs(amount),
+            balanceAfter: updatedPoints,
+            reason: reason || '관리자 일괄 포인트 지급',
+            createdAt: nowStr,
+            adminMemo: memo
+          });
+          return {
+            ...u,
+            points: updatedPoints,
+            level: calculateLevel(updatedPoints)
+          };
+        }
+        return u;
+      });
+    });
+
+    if (targetSet.has(currentUser.uid)) {
+      setCurrentUser(prev => {
+        const nextPoints = (prev.points || 0) + amount;
+        return {
+          ...prev,
+          points: nextPoints,
+          level: calculateLevel(nextPoints)
+        };
+      });
+    }
+
+    setPointTransactions(prev => [...newTransactions, ...prev]);
+
+    if (supabase && isSupabaseConfigured) {
+      for (const uid of userIds) {
+        const u = allProfiles.find(p => p.uid === uid);
+        const updatedPoints = (u?.points || 0) + amount;
+        supabase.from('profiles').update({
+          points: updatedPoints,
+          level: calculateLevel(updatedPoints)
+        }).eq('id', uid).then();
+      }
+    }
+
+    showToast(`🎉 총 ${userIds.length}명의 회원에게 각 +${amount.toLocaleString()}P가 일괄 지급되었습니다!`, 'success');
+  };
+
+  const batchRevokePoints = async (userIds: string[], amount: number, reason: string, memo?: string) => {
+    if (userIds.length === 0) {
+      showToast('회수할 회원을 선택해주세요.', 'error');
+      return;
+    }
+    if (amount <= 0) {
+      showToast('회수할 포인트를 1P 이상 입력해주세요.', 'error');
+      return;
+    }
+
+    const targetSet = new Set(userIds);
+    const nowStr = new Date().toLocaleString('ko-KR', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false 
+    });
+
+    const newTransactions: PointTransaction[] = [];
+
+    setAllProfiles(prev => {
+      return prev.map(u => {
+        if (targetSet.has(u.uid)) {
+          const currentPoints = u.points || 0;
+          const actualDeduct = Math.min(currentPoints, amount);
+          const newBalance = Math.max(0, currentPoints - amount);
+
+          newTransactions.push({
+            id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+            userId: u.uid,
+            userName: u.displayName,
+            userAvatar: u.photoURL,
+            type: 'revoke',
+            amount: -actualDeduct,
+            balanceAfter: newBalance,
+            reason: reason || '관리자 일괄 포인트 회수',
+            createdAt: nowStr,
+            adminMemo: memo
+          });
+
+          return {
+            ...u,
+            points: newBalance,
+            level: calculateLevel(newBalance)
+          };
+        }
+        return u;
+      });
+    });
+
+    if (targetSet.has(currentUser.uid)) {
+      setCurrentUser(prev => {
+        const newBalance = Math.max(0, (prev.points || 0) - amount);
+        return {
+          ...prev,
+          points: newBalance,
+          level: calculateLevel(newBalance)
+        };
+      });
+    }
+
+    setPointTransactions(prev => [...newTransactions, ...prev]);
+
+    if (supabase && isSupabaseConfigured) {
+      for (const uid of userIds) {
+        const u = allProfiles.find(p => p.uid === uid);
+        const newBalance = Math.max(0, (u?.points || 0) - amount);
+        supabase.from('profiles').update({
+          points: newBalance,
+          level: calculateLevel(newBalance)
+        }).eq('id', uid).then();
+      }
+    }
+
+    showToast(`🔻 총 ${userIds.length}명의 회원으로부터 각 -${amount.toLocaleString()}P가 일괄 회수되었습니다.`, 'info');
+  };
+
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
     setProducts(INITIAL_PRODUCTS);
@@ -2008,12 +2618,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBattleConfig(INITIAL_BATTLE_CONFIG);
     setEvents(INITIAL_EVENTS);
     setNotifications(INITIAL_NOTIFICATIONS);
+    setAllProfiles(INITIAL_USER_PROFILES);
+    setPointTransactions(INITIAL_POINT_TRANSACTIONS);
     setPendingProducts([]);
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
     localStorage.removeItem('sinsangpick_events');
     localStorage.removeItem('sinsangpick_notifications');
+    localStorage.removeItem('sinsangpick_all_profiles');
+    localStorage.removeItem('sinsangpick_point_transactions');
     localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
     localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
     showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
@@ -2116,6 +2730,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         revalidateAllPending,
         updatePendingProduct,
         clearAllPendingProducts,
+
+        // User & Points Management
+        allProfiles,
+        pointTransactions,
+        grantUserPoints,
+        revokeUserPoints,
+        batchGrantPoints,
+        batchRevokePoints,
+        fetchAllProfiles,
 
         submitReview,
         toggleLikeReview,

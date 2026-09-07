@@ -32,15 +32,27 @@ import {
   Award,
   Activity,
   ArrowUpRight,
+  ArrowDownRight,
   Globe,
   AlertTriangle,
   Upload,
   Image as ImageIcon,
   Link2,
   ExternalLink,
-  Gift
+  Gift,
+  Coins,
+  Users,
+  UserCheck,
+  MinusCircle,
+  PlusCircle,
+  History,
+  ShieldCheck,
+  Filter,
+  CheckSquare,
+  Square,
+  Copy
 } from 'lucide-react';
-import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, PointTransaction } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -53,6 +65,7 @@ export type AdminTab =
   | 'overview' 
   | 'approval' 
   | 'products' 
+  | 'points'
   | 'reviews' 
   | 'analytics' 
   | 'banners' 
@@ -99,6 +112,13 @@ export const AdminDashboard: React.FC = () => {
     clearAllPendingProducts,
     deleteReview,
     deleteCommunityPost,
+    allProfiles,
+    pointTransactions,
+    grantUserPoints,
+    revokeUserPoints,
+    batchGrantPoints,
+    batchRevokePoints,
+    fetchAllProfiles,
   } = useApp();
 
   // Theme mode: Default to 'light' for high readability, with quick toggle to 'dark'
@@ -106,6 +126,30 @@ export const AdminDashboard: React.FC = () => {
 
   // Desktop active tab
   const [activeAdminTab, setActiveAdminTab] = useState<AdminTab>('overview');
+
+  // Points Management states
+  const [pointsSubTab, setPointsSubTab] = useState<'users' | 'history'>('users');
+  const [pointUserSearch, setPointUserSearch] = useState('');
+  const [pointLevelFilter, setPointLevelFilter] = useState<string>('전체');
+  const [pointSortBy, setPointSortBy] = useState<'points_desc' | 'points_asc' | 'name' | 'newest'>('points_desc');
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+
+  // Modal states for Points
+  const [isGrantModalOpen, setIsGrantModalOpen] = useState(false);
+  const [isRevokeModalOpen, setIsRevokeModalOpen] = useState(false);
+  const [isUserDetailModalOpen, setIsUserDetailModalOpen] = useState(false);
+  const [targetPointUser, setTargetPointUser] = useState<UserProfile | null>(null);
+  const [isBatchMode, setIsBatchMode] = useState(false);
+
+  // Form states for Grant / Revoke
+  const [pointAmountInput, setPointAmountInput] = useState<number>(500);
+  const [pointReasonPreset, setPointReasonPreset] = useState<string>('우수 리뷰어 베스트 픽 선정 보상');
+  const [pointReasonCustom, setPointReasonCustom] = useState<string>('');
+  const [pointAdminMemo, setPointAdminMemo] = useState<string>('');
+
+  // History Tab states
+  const [historySearchQuery, setHistorySearchQuery] = useState('');
+  const [historyTypeFilter, setHistoryTypeFilter] = useState<'all' | 'grant' | 'revoke'>('all');
 
   // Approval / Crawler tab states
   const [crawlerSearchQuery, setCrawlerSearchQuery] = useState('');
@@ -783,7 +827,31 @@ export const AdminDashboard: React.FC = () => {
               </span>
             </button>
 
-            {/* 4. Reviews & Community Moderation (NEW) */}
+            {/* 4. Points & User Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('points')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'points'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Coins className="w-4 h-4 text-amber-400" />
+                <span>회원·포인트 관리</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                activeAdminTab === 'points' 
+                  ? 'bg-white/20 text-white font-bold' 
+                  : isDark ? 'bg-slate-800 text-amber-300' : 'bg-amber-50 text-amber-700 font-bold'
+              }`}>
+                {allProfiles.length}명
+              </span>
+            </button>
+
+            {/* 5. Reviews & Community Moderation (NEW) */}
             <button
               onClick={() => setActiveAdminTab('reviews')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
