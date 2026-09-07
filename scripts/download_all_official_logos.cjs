@@ -209,7 +209,24 @@ async function main() {
   }
 
   console.log('\n--- Finished. Saved count:', Object.keys(results).length, '---');
+
+  console.log('\n--- Checking dynamic sites for remaining brands ---');
+  const sitesToProbe = {
+    '매머드커피': 'https://www.mmthcoffee.com',
+    '더벤티': 'https://www.theventi.co.kr',
+    '성심당': 'https://sungsimdang.co.kr',
+    '노티드': 'https://knotted-donut.com',
+    '하이트진로': 'https://www.hitejinro.com',
+    '연세유업': 'https://www.yonseidairy.com',
+    '태극당': 'https://taegeukdang.com'
+  };
+
+  for (const [name, site] of Object.entries(sitesToProbe)) {
+    const logos = await scrapeSiteLogos(site);
+    console.log(`[PROBE] ${name.padEnd(10)}:`, logos);
+  }
 }
 
 main();
+
 
