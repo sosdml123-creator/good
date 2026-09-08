@@ -46,7 +46,8 @@ import {
   History,
   ShieldCheck,
   Copy,
-  Target
+  Target,
+  FolderCheck
 } from 'lucide-react';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -1875,8 +1876,8 @@ export const AdminDashboard: React.FC = () => {
                       <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
                         <tr>
                           <th className="py-3 px-4 w-12 text-center">선택</th>
-                          <th className="py-3 px-4">신제품 / 브랜드</th>
-                          <th className="py-3 px-4">카테고리</th>
+                          <th className="py-3 px-4">신제품 / 브랜드 (클릭 시 출처 확인)</th>
+                          <th className="py-3 px-4">저장 카테고리</th>
                           <th className="py-3 px-4">가격</th>
                           <th className="py-3 px-4">판매처 편의점</th>
                           <th className="py-3 px-4">수집 출처</th>
@@ -1932,7 +1933,13 @@ export const AdminDashboard: React.FC = () => {
                                   </div>
                                   <div className="min-w-0">
                                     <div className="flex items-center gap-1.5 flex-wrap">
-                                      <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.name}</p>
+                                      <p 
+                                        onClick={() => openEditPending(item)}
+                                        className={`font-bold text-xs truncate max-w-xs cursor-pointer hover:underline ${isDark ? 'text-white hover:text-amber-400' : 'text-slate-900 hover:text-amber-600'}`}
+                                        title="클릭하여 수집 출처 및 저장될 카테고리 확인/수정"
+                                      >
+                                        {item.name}
+                                      </p>
                                       {isDupl && (
                                         <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-600 border border-amber-500/40 animate-pulse">
                                           ⚠️ 이미 등록됨
@@ -1950,8 +1957,12 @@ export const AdminDashboard: React.FC = () => {
                                 </div>
                               </td>
                               <td className="py-3 px-4">
-                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
-                                  {item.category}
+                                <span 
+                                  onClick={() => openEditPending(item)}
+                                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold cursor-pointer hover:ring-1 hover:ring-indigo-400 transition-all ${isDark ? 'bg-indigo-950/40 text-indigo-300 border border-indigo-800/50' : 'bg-indigo-50 text-indigo-700 border border-indigo-200'}`}
+                                  title={`승인 시 [${item.category}] 카테고리에 저장됩니다. 클릭 시 변경 가능`}
+                                >
+                                  📁 {item.category}
                                 </span>
                               </td>
                               <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -1973,8 +1984,12 @@ export const AdminDashboard: React.FC = () => {
                                 </div>
                               </td>
                               <td className="py-3 px-4">
-                                <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 text-[10px] font-bold">
-                                  {item.sourceName}
+                                <span 
+                                  onClick={() => openEditPending(item)}
+                                  className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 text-[10px] font-bold cursor-pointer hover:bg-amber-500/20 transition-colors inline-flex items-center gap-1"
+                                  title={`어디서 수집되었는지: ${item.sourceName}`}
+                                >
+                                  <span>📍 {item.sourceName}</span>
                                 </span>
                               </td>
                               <td className="py-3 px-4 text-slate-400 font-mono text-[10px]">
@@ -4301,6 +4316,39 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* Source & Destination Category Guide Banner */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-indigo-500/10 border border-amber-500/30 space-y-2.5">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">📍</span>
+                    <span className="text-xs font-black text-amber-800 dark:text-amber-300">
+                      어디서 가져왔나요? (수집 출처):
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                      {editingPendingItem.sourceName || '공식 채널'}
+                    </span>
+                  </div>
+                  {editingPendingItem.sourceUrl && (
+                    <a
+                      href={editingPendingItem.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                    >
+                      <span>출처 원본 링크</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                  <FolderCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>
+                    어디 카테고리에 저장되나요?: 승인 시 앱의 <strong className="text-indigo-600 dark:text-indigo-400 underline font-black">[{editingPendingItem.category}]</strong> 카테고리 탭 및 메인 홈에 등록됩니다. (아래 선택창에서 변경 가능)
+                  </span>
+                </div>
+              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>

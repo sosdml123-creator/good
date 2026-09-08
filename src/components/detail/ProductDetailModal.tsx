@@ -152,11 +152,9 @@ export const ProductDetailModal: React.FC = () => {
           alt={selectedProduct.name}
           className="w-64 h-64 object-cover rounded-2xl shadow-xs"
         />
-        {selectedProduct.subCategory && (
-          <span className="absolute top-4 left-4 bg-black/70 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-xs">
-            {selectedProduct.category} · {selectedProduct.subCategory}
-          </span>
-        )}
+        <span className="absolute top-4 left-4 bg-black/75 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-xs flex items-center gap-1">
+          <span>📁 {selectedProduct.category}{selectedProduct.subCategory ? ` · ${selectedProduct.subCategory}` : ''}</span>
+        </span>
         {selectedProduct.isHot && (
           <span className="absolute top-4 right-4 bg-rose-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5 shadow-sm">
             <Flame className="w-3 h-3" /> 인기 급상승

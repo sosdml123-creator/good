@@ -15,7 +15,9 @@ import {
   X,
   Globe,
   Camera,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ChevronRight,
+  Info
 } from 'lucide-react';
 import { ProductCategory, Product, PendingProduct } from '../../types';
 import {
@@ -27,6 +29,7 @@ import {
   crawlOfficialProductsByBrandAndCategory
 } from '../../services/officialStoreCrawler';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
+import { ProductSourceInspectionModal } from './ProductSourceInspectionModal';
 
 interface BrandProductAutoCollectorProps {
   isDark?: boolean;
@@ -62,6 +65,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
   // High-Res Image Selector Modal State
   const [imageModalTarget, setImageModalTarget] = useState<{ id: string; brand: string; name: string; currentImage: string } | null>(null);
+
+  // Source & Destination Category Inspection Modal State
+  const [inspectingProduct, setInspectingProduct] = useState<OfficialCollectedProduct | null>(null);
 
   // Styling helpers
   const cardBg = isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-white border-slate-200';
@@ -640,15 +646,28 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
               return (
                 <div
                   key={product.id}
-                  className={`rounded-2xl border transition-all relative overflow-hidden flex flex-col justify-between ${
+                  onClick={() => setInspectingProduct(product)}
+                  className={`rounded-2xl border transition-all relative overflow-hidden flex flex-col justify-between cursor-pointer hover:shadow-xl hover:border-amber-500/60 group/card ${
                     isSelected ? (isDark ? 'ring-2 ring-amber-500/40 border-amber-500/50' : 'ring-2 ring-amber-500 border-amber-400') : ''
                   } ${isRegistered ? 'opacity-70 bg-emerald-500/5' : ''} ${cardBg}`}
                 >
-                  {/* Card Header & Checkbox */}
+                  {/* Top Source & Destination Category Banner */}
+                  <div className="flex items-center justify-between gap-1 text-[11px] px-3.5 py-2 bg-gradient-to-r from-amber-500/10 via-slate-100 to-indigo-500/10 dark:from-amber-950/30 dark:via-slate-800 dark:to-indigo-950/30 border-b border-slate-200 dark:border-slate-800 font-bold">
+                    <span className="truncate flex items-center gap-1.5 text-slate-800 dark:text-slate-200" title={`수집 출처: ${product.mallName}`}>
+                      <span className="text-amber-600 dark:text-amber-400">📍 출처:</span>
+                      <span className="font-extrabold truncate max-w-[140px] sm:max-w-[180px]">{product.mallName}</span>
+                    </span>
+                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-black bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
+                      <span>📁 저장:</span>
+                      <strong className="underline">[{product.category}]</strong>
+                    </span>
+                  </div>
+
+                  {/* Card Body */}
                   <div className="p-4 space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       {/* Checkbox */}
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                         <input
                           type="checkbox"
                           checked={isSelected}
@@ -715,7 +734,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                           <span className="text-amber-500 font-semibold">{product.category}</span>
                         </div>
 
-                        <h4 className={`text-xs font-black line-clamp-2 leading-snug ${isDark ? 'text-white' : 'text-slate-900'}`} title={product.name}>
+                        <h4 className={`text-xs font-black line-clamp-2 leading-snug group-hover/card:text-amber-600 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`} title={product.name}>
                           {product.name}
                         </h4>
 
@@ -762,16 +781,29 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                     </p>
                   </div>
 
+                  {/* Click Hint Bar */}
+                  <div className="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                    <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <Info className="w-3 h-3 text-amber-500" />
+                      <span>클릭하여 <strong>수집 출처</strong> & <strong>저장 카테고리</strong> 확인/변경</span>
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover/card:translate-x-0.5 transition-transform" />
+                  </div>
+
                   {/* Card Bottom Actions */}
                   <div className={`p-3 border-t flex items-center justify-between gap-1.5 ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
                     <div className="flex items-center gap-1">
                       <button
-                        onClick={() => setImageModalTarget({
-                          id: product.id,
-                          brand: product.brand,
-                          name: product.name,
-                          currentImage: product.image
-                        })}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setImageModalTarget({
+                            id: product.id,
+                            brand: product.brand,
+                            name: product.name,
+                            currentImage: product.image
+                          });
+                        }}
                         className={`p-1.5 rounded-lg border text-slate-500 hover:text-amber-600 transition-colors ${
                           isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-white'
                         }`}
@@ -781,7 +813,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                       </button>
 
                       <button
-                        onClick={() => {
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
                           setEditingItem(product);
                           setIsEditModalOpen(true);
                         }}
@@ -794,7 +828,11 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                       </button>
 
                       <button
-                        onClick={() => handleDeleteFromCollected(product.id)}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFromCollected(product.id);
+                        }}
                         className={`p-1.5 rounded-lg border text-slate-400 hover:text-rose-500 transition-colors ${
                           isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-white'
                         }`}
@@ -806,7 +844,11 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => handleAddToPending(product)}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToPending(product);
+                        }}
                         disabled={isRegistered}
                         className="px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900/60 rounded-xl text-[11px] font-bold transition-all disabled:opacity-40"
                       >
@@ -814,7 +856,11 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                       </button>
 
                       <button
-                        onClick={() => handleRegisterProduct(product)}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRegisterProduct(product);
+                        }}
                         disabled={isRegistered}
                         className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[11px] font-black shadow-xs transition-all flex items-center gap-1 disabled:opacity-40"
                       >
@@ -1021,6 +1067,52 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           productName={imageModalTarget.name}
           currentImage={imageModalTarget.currentImage}
           onSelectImage={handleSelectImageForTarget}
+          isDark={isDark}
+        />
+      )}
+
+      {/* 6. Product Source & Destination Category Inspection Modal */}
+      {inspectingProduct && (
+        <ProductSourceInspectionModal
+          isOpen={Boolean(inspectingProduct)}
+          onClose={() => setInspectingProduct(null)}
+          product={{
+            id: inspectingProduct.id,
+            name: inspectingProduct.name,
+            brand: inspectingProduct.brand,
+            category: inspectingProduct.category,
+            subCategory: inspectingProduct.subCategory,
+            price: inspectingProduct.price,
+            image: inspectingProduct.image,
+            description: inspectingProduct.description,
+            stores: inspectingProduct.stores,
+            sourceName: inspectingProduct.mallName,
+            sourceType: inspectingProduct.sourceType,
+            sourceBadge: inspectingProduct.officialMallBadge,
+            sourceUrl: inspectingProduct.productLink,
+            isOfficialMall: inspectingProduct.isOfficialMall,
+            instagramInfo: inspectingProduct.instagramInfo,
+            tags: inspectingProduct.tags,
+            crawledAt: inspectingProduct.crawledAt
+          }}
+          onCategoryChange={(newCat) => {
+            setCollectedProducts(prev =>
+              prev.map(p => p.id === inspectingProduct.id ? { ...p, category: newCat } : p)
+            );
+            setInspectingProduct(prev => prev ? { ...prev, category: newCat } : null);
+            showToast(`'${inspectingProduct.name}' 저장 카테고리가 [${newCat}](으)로 변경되었습니다!`, 'success');
+          }}
+          onRegister={() => handleRegisterProduct(inspectingProduct)}
+          onAddToPending={() => handleAddToPending(inspectingProduct)}
+          onOpenImageSelector={() => {
+            setImageModalTarget({
+              id: inspectingProduct.id,
+              brand: inspectingProduct.brand,
+              name: inspectingProduct.name,
+              currentImage: inspectingProduct.image
+            });
+          }}
+          isRegistered={registeredIds.has(inspectingProduct.id)}
           isDark={isDark}
         />
       )}
