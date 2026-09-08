@@ -4,7 +4,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 1. [과일] 영덕 햇 딱딱이 백도 복숭아
   {
     id: 'rev-fruit-01-1',
-    productId: 'fruit-01',
+    productId: 'orion-001',
     productName: '영덕 햇 딱딱이 백도 복숭아',
     productImage: 'https://images.unsplash.com/photo-1595786810148-5221ff146194?w=600&auto=format&fit=crop&q=80',
     userName: '과일러버🍑',
@@ -23,7 +23,7 @@ export const INITIAL_REVIEWS: Review[] = [
   },
   {
     id: 'rev-fruit-01-2',
-    productId: 'fruit-01',
+    productId: 'orion-001',
     productName: '영덕 햇 딱딱이 백도 복숭아',
     productImage: 'https://images.unsplash.com/photo-1595786810148-5221ff146194?w=600&auto=format&fit=crop&q=80',
     userName: '달콤한하루',
@@ -44,7 +44,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 2. [과일] 고창 명품 흑수박
   {
     id: 'rev-fruit-02-1',
-    productId: 'fruit-02',
+    productId: 'orion-002',
     productName: '고창 명품 흑수박 (황토밭 특선)',
     productImage: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&auto=format&fit=crop&q=80',
     userName: '수박킬러🍉',
@@ -65,7 +65,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 3. [과일] 청송 꿀사과
   {
     id: 'rev-fruit-03-1',
-    productId: 'fruit-03',
+    productId: 'orion-003',
     productName: '청송 프리미엄 꿀사과 (부사/시나노골드)',
     productImage: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600&auto=format&fit=crop&q=80',
     userName: '청송사과마니아',
@@ -86,7 +86,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 4. [과자] 두바이 스타일 피스타치오 카다이프 초콜릿
   {
     id: 'rev-snack-19-1',
-    productId: 'snack-19',
+    productId: 'orion-004',
     productName: '두바이 스타일 피스타치오 카다이프 초콜릿',
     productImage: 'https://images.unsplash.com/photo-1548741487-18d16a1a0983?w=600&auto=format&fit=crop&q=80',
     userName: '디저트탐험가🍫',
@@ -104,7 +104,7 @@ export const INITIAL_REVIEWS: Review[] = [
   },
   {
     id: 'rev-snack-19-2',
-    productId: 'snack-19',
+    productId: 'orion-004',
     productName: '두바이 스타일 피스타치오 카다이프 초콜릿',
     productImage: 'https://images.unsplash.com/photo-1548741487-18d16a1a0983?w=600&auto=format&fit=crop&q=80',
     userName: '초코덕후',
@@ -124,7 +124,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 5. [과자] 꼬북칩 초코츄러스맛
   {
     id: 'rev-snack-01-1',
-    productId: 'snack-01',
+    productId: 'orion-005',
     productName: '꼬북칩 초코츄러스맛 더블크런치',
     productImage: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80',
     userName: '스낵러버🍿',
@@ -144,7 +144,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 6. [음료] 아사히 수퍼드라이 생맥주캔
   {
     id: 'rev-drink-14-1',
-    productId: 'drink-14',
+    productId: 'coffee-compose-01',
     productName: '아사히 수퍼드라이 생맥주캔',
     productImage: 'https://images.unsplash.com/photo-1608270129572-773d5e0a6d71?w=600&auto=format&fit=crop&q=80',
     userName: '홈술마스터🍺',
@@ -164,7 +164,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 7. [빵·디저트] 요아정 요거트 아이스크림
   {
     id: 'rev-bakery-01-1',
-    productId: 'bakery-01',
+    productId: 'bakery-pb-03',
     productName: '연세우유 밤티라미수 생크림빵',
     productImage: 'https://images.unsplash.com/photo-1488900128323-21503983a07e?w=600&auto=format&fit=crop&q=80',
     userName: '디저트요정🧚',
@@ -184,7 +184,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 8. [고기·수산] 자연산 독도 꽃새우
   {
     id: 'rev-seafood-02-1',
-    productId: 'seafood-02',
+    productId: 'nobrand-002',
     productName: '서해안 안면도 활 흰다리새우 (생물 왕대하)',
     productImage: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&auto=format&fit=crop&q=80',
     userName: '바다의맛🦐',
@@ -205,7 +205,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 9. [고기·수산] 횡성한우 1++ 꽃등심
   {
     id: 'rev-meat-01-1',
-    productId: 'meat-01',
+    productId: 'nobrand-001',
     productName: '횡성한우 1++ No.9 마블링 꽃등심',
     productImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
     userName: '미식고기연구가🥩',
@@ -226,7 +226,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 10. [간편식] CJ 비비고 통새우 만두
   {
     id: 'rev-bibigo-002-1',
-    productId: 'bibigo-mandu-002',
+    productId: 'bibigo-soup-002',
     productName: 'CJ 비비고 통새우 만두',
     productImage: 'http://imgnews.naver.net/image/5638/2024/09/19/0000100239_001_20240919104217278.jpg',
     userName: '딤섬러버🥟',
@@ -245,7 +245,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 10-1. [간편식] CJ 비비고 왕교자
   {
     id: 'rev-bibigo-001-1',
-    productId: 'bibigo-mandu-001',
+    productId: 'bibigo-soup-001',
     productName: 'CJ 비비고 왕교자',
     productImage: 'http://imgnews.naver.net/image/5638/2024/09/19/0000100239_001_20240919104217278.jpg',
     userName: '만두장인🧑‍🍳',
@@ -284,7 +284,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 11. [식재료] 동물복지 유정란
   {
     id: 'rev-ing-01-1',
-    productId: 'ing-01',
+    productId: 'nobrand-004',
     productName: '동물복지 유정란 1+등급 자연방사란',
     productImage: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&auto=format&fit=crop&q=80',
     userName: '건강식단맘🍳',
@@ -305,7 +305,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 12. [베이커리] 성심당 튀김소보로
   {
     id: 'rev-bakery-ssd-01-1',
-    productId: 'bakery-ssd-01',
+    productId: 'bakery-pb-01',
     productName: '성심당 튀김소보로 (튀소)',
     productImage: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop&q=80',
     userName: '빵지순례러🥖',
@@ -325,7 +325,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 13. [베이커리] 런던베이글뮤지엄 스프링 어니언 프레첼 베이글
   {
     id: 'rev-bakery-lbm-01-1',
-    productId: 'bakery-lbm-01',
+    productId: 'bakery-pb-02',
     productName: '런던베이글뮤지엄 스프링 어니언 프레첼 베이글',
     productImage: 'https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=800&auto=format&fit=crop&q=80',
     userName: '베이글매니아🥯',
@@ -345,7 +345,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 14. [베이커리] 노티드 우유 생크림 도넛
   {
     id: 'rev-bakery-knt-01-1',
-    productId: 'bakery-knt-01',
+    productId: 'tlj-bread-5467',
     productName: '노티드 우유 생크림 도넛',
     productImage: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&auto=format&fit=crop&q=80',
     userName: '스위트디저트🍩',
@@ -365,7 +365,7 @@ export const INITIAL_REVIEWS: Review[] = [
   // 15. [베이커리] 뚜레쥬르 치즈방앗간
   {
     id: 'rev-bakery-tlj-01-1',
-    productId: 'bakery-tlj-01',
+    productId: 'tlj-bread-4241',
     productName: '뚜레쥬르 치즈방앗간',
     productImage: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=800&auto=format&fit=crop&q=80',
     userName: '치즈덕후🧀',

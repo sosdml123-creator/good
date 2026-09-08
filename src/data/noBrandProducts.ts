@@ -1,7 +1,7 @@
 import { Product } from '../types';
 
 export const NO_BRAND_PRODUCTS: Product[] = [
-  {
+{
     "id": "nobrand-001",
     "name": "노브랜드 숯불데리야끼 닭꼬치 (20개입)",
     "brand": "노브랜드",
@@ -95,7 +95,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "20꼬치 대용량에 이 가격이라니 노브랜드 가성비의 끝판왕입니다"
     ]
   },
-  {
+{
     "id": "nobrand-002",
     "name": "노브랜드 바삭 칠리새우",
     "brand": "노브랜드",
@@ -170,7 +170,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "에어프라이어에 바삭하게 구워 소스에 버무리면 훌륭한 일품요리 완성"
     ]
   },
-  {
+{
     "id": "nobrand-003",
     "name": "노브랜드 꼬치어묵 (시원한맛)",
     "brand": "노브랜드",
@@ -236,7 +236,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "14꼬치나 들어있는데 4천원대라니 가성비 믿기지 않음"
     ]
   },
-  {
+{
     "id": "nobrand-004",
     "name": "노브랜드 크리스피 모짜렐라 치즈 핫도그",
     "brand": "노브랜드",
@@ -301,7 +301,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "핫도그 전문점 1개 가격에 5개를 먹을 수 있는 가성비"
     ]
   },
-  {
+{
     "id": "nobrand-005",
     "name": "노브랜드 쫀득한 더블 치즈스틱 (1kg)",
     "brand": "노브랜드",
@@ -364,7 +364,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "체다치즈가 섞여있어서 짭조름하고 치즈 풍미가 훨씬 진해요"
     ]
   },
-  {
+{
     "id": "nobrand-006",
     "name": "노브랜드 냉동 우삼겹 바로구이 (600g)",
     "brand": "노브랜드",
@@ -425,7 +425,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "숙주 한 봉지 사다가 굴소스 넣고 볶으면 5분 만에 훌륭한 요리 완성"
     ]
   },
-  {
+{
     "id": "nobrand-007",
     "name": "노브랜드 냉동 차돌박이 바로구이 (600g)",
     "brand": "노브랜드",
@@ -486,7 +486,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "식당에서 1인분에 1만5천원인데 600g이 1만5천원대라니 갓성비"
     ]
   },
-  {
+{
     "id": "nobrand-008",
     "name": "노브랜드 든든한 교자만두 (1kg)",
     "brand": "노브랜드",
@@ -549,7 +549,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "가격 대비 고기 함량도 준수하고 만두피가 쫄깃합니다"
     ]
   },
-  {
+{
     "id": "nobrand-009",
     "name": "노브랜드 라면한그릇 얼큰한맛 (5개입)",
     "brand": "노브랜드",
@@ -613,75 +613,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "요즘 라면값 비싼데 5개입 2천원대라 비상식량으로 필수"
     ]
   },
-  {
-    "id": "nobrand-010",
-    "name": "노브랜드 달콤한 초코칩쿠키 (400g 버킷통)",
-    "brand": "노브랜드",
-    "category": "과자",
-    "subCategory": "쿠키/비스킷",
-    "itemType": "packaged",
-    "image": "https://st.kakaocdn.net/shophow/p/T50028212178.jpg",
-    "releaseDate": "노브랜드 공식 인간사료 1호",
-    "price": 3480,
-    "overallRating": 4.8,
-    "ratingCount": 7800,
-    "searchInfluxCount": 88000,
-    "stores": [
-      "이마트",
-      "노브랜드 전문점",
-      "SSG.COM",
-      "이마트24"
-    ],
-    "repurchasePercent": 96,
-    "calories": 2000,
-    "volume": "400g (소포장 18봉지 내외)",
-    "isToday": true,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 5,
-      "portion": 5,
-      "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 500,
-      "sodium": "640mg (32%)",
-      "carbs": "73g (23%)",
-      "sugar": "40g (40%)",
-      "fat": "20g (37%)",
-      "protein": "7g (13%)"
-    },
-    "ingredients": "소맥분(밀), 초코칩 19%[설탕, 코코아매스, 코코아버터], 식물성유지(팜유), 정백당, 계란, 정제소금, 바닐라향",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "난류(계란)"
-    ],
-    "origin": "원산지: 인도네시아",
-    "manufacturer": "(주)이마트 수입판매원",
-    "storageMethod": "직사광선을 피하고 서늘하고 건조한 곳에 보관",
-    "shelfLife": "제조일로부터 12개월",
-    "precautions": "개봉 후 바삭함 유지를 위해 뚜껑을 꼭 닫아 보관하십시오.",
-    "storeStocks": [
-      {
-        "store": "이마트",
-        "status": "입고완료",
-        "stockCount": 50,
-        "price": 3480,
-        "eventBadge": "노브랜드 상징",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
-      }
-    ],
-    "description": "노브랜드의 역사를 연 전설의 버킷 쿠키! 바삭바삭한 하드쿠키 베이스에 달콤한 초코칩이 콕콕 박혀 우유나 아메리카노와 함께 즐기면 끝없이 들어가는 가성비 최고 간식.",
-    "bestQuotes": [
-      "통도 크고 소포장되어 있어서 사무실 탕비실 필수템입니다",
-      "우유에 푹 찍어 먹으면 초코칩이 사르르 녹아 꿀맛",
-      "가격 대비 양이 진짜 어마어마한 인간사료의 원조"
-    ]
-  },
-  {
+{
     "id": "nobrand-011",
     "name": "노브랜드 고소한 버터쿠키 (400g 버킷통)",
     "brand": "노브랜드",
@@ -744,7 +676,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "통이 튼튼해서 다 먹고 장난감이나 소품 보관함으로 쓰기 좋아요"
     ]
   },
-  {
+{
     "id": "nobrand-012",
     "name": "노브랜드 자색고구마칩 (110g)",
     "brand": "노브랜드",
@@ -809,7 +741,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "색감도 너무 예쁘고 바삭바삭해서 영화 볼 때 한 캔 순삭"
     ]
   },
-  {
+{
     "id": "nobrand-013",
     "name": "노브랜드 감자칩 오리지널 (110g)",
     "brand": "노브랜드",
@@ -871,7 +803,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "짜지 않고 바삭해서 맥주 안주로 언제나 쟁여둡니다"
     ]
   },
-  {
+{
     "id": "nobrand-014",
     "name": "노브랜드 대용량 체다치즈볼 (370g)",
     "brand": "노브랜드",
@@ -933,7 +865,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "거대한 통에 가득 들어있어 친구들과 홈파티할 때 필수"
     ]
   },
-  {
+{
     "id": "nobrand-015",
     "name": "노브랜드 고르곤졸라치즈 소프트콘 (150g)",
     "brand": "노브랜드",
@@ -998,7 +930,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "냉동실에 넣어 차갑게 얼려 먹으면 바삭함과 시원함이 두 배입니다"
     ]
   },
-  {
+{
     "id": "nobrand-016",
     "name": "노브랜드 다크 초콜릿 70% (100g)",
     "brand": "노브랜드",
@@ -1061,7 +993,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "홈베이킹용으로도 너무 좋고 다이어트 중 달콤함 채우기 최고"
     ]
   },
-  {
+{
     "id": "nobrand-017",
     "name": "노브랜드 정통 포르투갈식 에그타르트 (6개입)",
     "brand": "노브랜드",
@@ -1122,139 +1054,6 @@ export const NO_BRAND_PRODUCTS: Product[] = [
     "bestQuotes": [
       "에어프라이어에 돌리면 파이 껍질이 파사삭 부서지면서 크림이 녹아내립니다",
       "카페에서 1개 3천원씩 파는 타르트보다 훨씬 맛있어요"
-    ]
-  },
-  {
-    "id": "nobrand-018",
-    "name": "노브랜드 미네랄워터 무라벨 생수 (2L x 6병)",
-    "brand": "노브랜드",
-    "category": "음료",
-    "subCategory": "생수",
-    "itemType": "packaged",
-    "image": "https://images.unsplash.com/photo-1559839914-17aae19cec71?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "노브랜드 공식 생수 1위",
-    "price": 2980,
-    "overallRating": 4.9,
-    "ratingCount": 12000,
-    "searchInfluxCount": 98000,
-    "stores": [
-      "이마트",
-      "노브랜드 전문점",
-      "SSG.COM"
-    ],
-    "repurchasePercent": 99,
-    "calories": 0,
-    "volume": "2L x 6병 (12L)",
-    "isToday": true,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 5,
-      "portion": 5,
-      "repurchase": 5
-    },
-    "nutrition": {
-      "calories": 0,
-      "sodium": "5mg",
-      "carbs": "0g",
-      "sugar": "0g",
-      "fat": "0g",
-      "protein": "0g"
-    },
-    "ingredients": "암반대수층 지하수 100% (칼슘, 마그네슘, 칼륨, 불소 함유)",
-    "allergens": [],
-    "origin": "대한민국 (지리산 / 가평 청정 수원지)",
-    "manufacturer": "(주)이마트 / 화이트생수",
-    "storageMethod": "직사광선을 피하고 깨끗하고 시원한 곳에 보관",
-    "shelfLife": "제조일로부터 12개월",
-    "precautions": "개봉 후에는 냉장 보관하시고 빨리 드십시오.",
-    "storeStocks": [
-      {
-        "store": "이마트",
-        "status": "입고완료",
-        "stockCount": 100,
-        "price": 2980,
-        "eventBadge": "2L 6병 2980원",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
-      },
-      {
-        "store": "SSG.COM",
-        "status": "입고완료",
-        "stockCount": 150,
-        "price": 2980,
-        "eventBadge": "새벽배송",
-        "deliveryTime": "새벽 7시 전 도착",
-        "appLink": "https://www.ssg.com"
-      }
-    ],
-    "description": "깨끗하고 시원한 암반 천연 미네랄워터! 비닐 라벨을 없앤 친환경 에코 무라벨 패키지로 분리배출이 간편하며 2L 6병에 2,980원이라는 최고의 경제성을 자랑합니다.",
-    "bestQuotes": [
-      "물맛 깔끔하고 무라벨이라 비닐 뗄 필요 없이 버리기 편해요",
-      "정수기 대신 쓱배송으로 매달 정기 주문하는 필수 생필품"
-    ]
-  },
-  {
-    "id": "nobrand-019",
-    "name": "노브랜드 굿모닝 굿밀크 1A등급 우유 (1000ml)",
-    "brand": "노브랜드",
-    "category": "음료",
-    "subCategory": "우유/유제품",
-    "itemType": "packaged",
-    "image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "노브랜드 공식 신선우유 1위",
-    "price": 1890,
-    "overallRating": 4.9,
-    "ratingCount": 9500,
-    "searchInfluxCount": 84000,
-    "stores": [
-      "이마트",
-      "노브랜드 전문점",
-      "SSG.COM"
-    ],
-    "repurchasePercent": 98,
-    "calories": 650,
-    "volume": "1000ml (1L)",
-    "isToday": true,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.9,
-      "value": 5,
-      "portion": 4.9,
-      "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 65,
-      "sodium": "50mg (3%)",
-      "carbs": "5g (2%)",
-      "sugar": "5g (5%)",
-      "fat": "3.6g (7%)",
-      "protein": "3.1g (6%)"
-    },
-    "ingredients": "국산 원유 100% (1A등급 세균수 기준)",
-    "allergens": [
-      "우유"
-    ],
-    "origin": "대한민국",
-    "manufacturer": "(주)이마트 / 데어리젠",
-    "storageMethod": "0~10℃ 냉장 보관",
-    "shelfLife": "제조일로부터 10~14일",
-    "precautions": "개봉 후 반드시 냉장 보관하시고 빨리 드십시오.",
-    "storeStocks": [
-      {
-        "store": "이마트",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 1890,
-        "eventBadge": "1A등급 1890원",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
-      }
-    ],
-    "description": "엄격한 1A등급 원유 100%! 고소하고 신선한 원유의 풍미는 그대로 살리면서 1천원대 가격을 유지하여 매일 마시는 우유로 최고의 만족을 드립니다.",
-    "bestQuotes": [
-      "1A등급 원유인데 1,800원대라 매주 2팩씩 삽니다",
-      "라떼 만들 때 거품도 풍성하게 잘 나고 고소해요"
     ]
   }
 ];

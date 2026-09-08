@@ -1,32 +1,20 @@
 import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification } from '../types';
-import {
-  ILLUSTRATION_PEACH,
-  ILLUSTRATION_WATERMELON,
-  ILLUSTRATION_BEEF,
-  ILLUSTRATION_SHRIMP,
-  ILLUSTRATION_EGG,
-  ILLUSTRATION_FRUIT_BANNER,
-} from '../utils/productIllustrations';
-import { BASKIN_ROBBINS_PRODUCTS } from './baskinRobbinsProducts';
+import { ILLUSTRATION_FRUIT_BANNER } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
 import { TLJ_PRODUCTS } from './tljProducts';
-import { TTEOKBOKKIDA_PRODUCTS } from './tteokbokkidaProducts';
-
 import { RAMEN_PRODUCTS } from './ramenProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
   ...RAMEN_PRODUCTS,
-  ...TTEOKBOKKIDA_PRODUCTS,
   ...TLJ_PRODUCTS,
-  ...BASKIN_ROBBINS_PRODUCTS,
   ...ICE_CREAM_PRODUCTS,
   ...NO_BRAND_PRODUCTS,
   ...BIBIGO_PRODUCTS,
   ...COFFEE_BRAND_BEVERAGES,
-  {
+{
     id: 'orion-001',
     name: "오리온 스윙칩 까르보나라불닭맛",
     brand: '오리온',
@@ -67,7 +55,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드럽게 맵닭! 맛있게 맵닭!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-002',
     name: "오리온 지지미",
     brand: '오리온',
@@ -108,7 +96,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한국인의 소울푸드 전, 고소한 맛과 바삭한 식감 그대로 스낵으로 재탄생!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-003',
     name: "오리온 찍먹 오!감자 버터갈릭감자튀김맛",
     brand: '오리온',
@@ -149,7 +137,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "더~길고 더~바삭해진 오!감자를 갈릭디핑소스에 찍먹!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-004',
     name: "오리온 마라뿌린 치킨팝",
     brand: '오리온',
@@ -190,7 +178,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "와작와작 바삭한 식감! 리얼한 치킨맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-005',
     name: "오리온 무뚝뚝 감자칩 올리브앤솔트맛",
     brand: '오리온',
@@ -231,7 +219,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "올리브와 허브를 솔솔~ 뿌려 입 안 가득 향긋!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-006',
     name: "오리온 포카칩 트리플페퍼",
     brand: '오리온',
@@ -272,7 +260,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생감자와 3가지 페퍼의 완벽한 조화!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-007',
     name: "오리온 눈을감자 칠리치즈 프라이즈맛",
     brand: '오리온',
@@ -313,7 +301,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "칠리양념+치즈가루 듬뿍! 매콤짭짤 양념감자",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-008',
     name: "오리온 찍먹 오감자 스윗칠리소스맛",
     brand: '오리온',
@@ -354,7 +342,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 찍먹 오감자 스윗칠리소스맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-009',
     name: "오리온 꼬북칩 카라멜팝콘맛",
     brand: '오리온',
@@ -395,7 +383,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 꼬북칩 카라멜팝콘맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-010',
     name: "오리온 뉴룽지",
     brand: '오리온',
@@ -436,7 +424,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국산쌀 100%로 구워 만든 쌀스낵!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-011',
     name: "오리온 포카칩 스윗치즈맛",
     brand: '오리온',
@@ -477,7 +465,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백한 생감자와 짭짤한 치즈의 하모니",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-012',
     name: "오리온 찍먹 나쵸 치폴레마요소스맛",
     brand: '오리온',
@@ -518,7 +506,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "나쵸는 역시 찍먹이지!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-013',
     name: "오리온 꼬북칩",
     brand: '오리온',
@@ -559,7 +547,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 꼬북칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-014',
     name: "오리온 무뚝뚝고구마칩",
     brand: '오리온',
@@ -600,7 +588,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 무뚝뚝고구마칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-015',
     name: "오리온 포카칩",
     brand: '오리온',
@@ -641,7 +629,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "감자맛이 좋은 생감자칩!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-016',
     name: "오리온 오징어땅콩",
     brand: '오리온',
@@ -682,7 +670,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "정성들여 제대로 구운 50년 전통의 맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-017',
     name: "오리온 썬",
     brand: '오리온',
@@ -723,7 +711,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "태양의 맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-018',
     name: "오리온 스윙칩",
     brand: '오리온',
@@ -764,7 +752,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두꺼운 生감자칩에 풍부한 맛을 더하다",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-019',
     name: "오리온 오!감자",
     brand: '오리온',
@@ -805,7 +793,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭! 사르르~",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-020',
     name: "오리온 치킨팝",
     brand: '오리온',
@@ -846,7 +834,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "와작와작 바삭한 식감! 리얼한 치킨맛!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-021',
     name: "오리온 눈을 감자",
     brand: '오리온',
@@ -887,7 +875,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오독오독 生감자스틱",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-022',
     name: "오리온 무뚝뚝감자칩",
     brand: '오리온',
@@ -928,7 +916,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두툼하게 썰어 감자맛이 풍부한 生감자칩",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-023',
     name: "오리온 도도한 나쵸",
     brand: '오리온',
@@ -969,7 +957,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "통옥수수 그대로!  고소함도 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-024',
     name: "오리온 땅콩강정",
     brand: '오리온',
@@ -1010,7 +998,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 땅콩 30% 함유!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-025',
     name: "오리온 오뜨 애플파이",
     brand: '오리온',
@@ -1051,7 +1039,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "사각사각 씹히는 애플 콩포트가 들어간 데일리 디저트!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-026',
     name: "오리온 참붕어빵 우유슈크림맛",
     brand: '오리온',
@@ -1092,7 +1080,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한 입 가득 슈~르르 칼슘 품은 우유슈크림",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-027',
     name: "오리온 쉘위",
     brand: '오리온',
@@ -1133,7 +1121,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리얼 생크림으로 완성한 부드러움 한 수 위",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-028',
     name: "오리온 후레쉬베리",
     brand: '오리온',
@@ -1174,7 +1162,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진짜 과일로 만든 과일크림 케이크, 오리온 후레쉬베리",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-029',
     name: "오리온 초코파이情",
     brand: '오리온',
@@ -1215,7 +1203,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "새로운 시작, 오리온 초코파이情",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-030',
     name: "오리온 초코파이情 바나나",
     brand: '오리온',
@@ -1256,7 +1244,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리얼 바나나의 부드러움과 달콤함 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-031',
     name: "오리온 참붕어빵",
     brand: '오리온',
@@ -1297,7 +1285,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득쫀득~ 참붕어빵",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-032',
     name: "오리온 호떡 품은 참붕어빵",
     brand: '오리온',
@@ -1338,48 +1326,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "길거리 대표간식 붕어빵과 호떡의 달콤한 만남!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
-    id: 'orion-033',
-    name: "오리온 후레쉬베리",
-    brand: '오리온',
-    category: "빵·디저트",
-    subCategory: "파이/케이크",
-    itemType: 'packaged',
-    image: "https://www.orionworld.com/upload/goods/e620cc671c3ae5247b4f7d7486946305.png",
-    releaseDate: '오리온 공식',
-    price: 4800,
-    overallRating: 4.7,
-    ratingCount: 744,
-    searchInfluxCount: 23960,
-    stores: ["세븐일레븐","대형마트"],
-    repurchasePercent: 95,
-    calories: 1524,
-    volume: "336g",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
-    nutrition: {
-      calories: 1524,
-      sodium: '152mg',
-      carbs: '32g',
-      sugar: '12g',
-      fat: '18g',
-      protein: '5g'
-    },
-    ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
-    allergens: ["밀","달걀","우유","대두"],
-    origin: '대한민국',
-    manufacturer: '(주)오리온',
-    storageMethod: '직사광선을 피하고 서늘한 곳에 보관',
-    shelfLife: '제조일로부터 12개월',
-    precautions: '개봉 후 가급적 빨리 드십시오.',
-    storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 7, price: 4800, eventBadge: '공식인기', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
-    ],
-    description: "진짜 과일로 만든 과일크림 케이크, 오리온 후레쉬베리",
-    bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
-  },
-  {
+{
     id: 'orion-034',
     name: "오리온 카스타드",
     brand: '오리온',
@@ -1420,7 +1367,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "촉촉해서 더 맛있는 오리온 카스타드!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-035',
     name: "오리온 오뜨",
     brand: '오리온',
@@ -1461,7 +1408,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달지 않은 케이크, 오뜨",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-036',
     name: "오리온 미쯔 황치즈",
     brand: '오리온',
@@ -1502,7 +1449,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤짭짤 초미니 황치즈 등장!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-037',
     name: "오리온 초코송이 말차",
     brand: '오리온',
@@ -1543,7 +1490,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카카오 비스킷과 깊고 진한 말차 풍미의 조화!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-038',
     name: "오리온 비쵸비 딸기",
     brand: '오리온',
@@ -1584,7 +1531,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기의 상큼함이 통째로",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-039',
     name: "오리온 초코칩쿠키 말차라떼맛",
     brand: '오리온',
@@ -1625,7 +1572,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤쌉쌀 말차쿠키와 진한초코칩의 환상조합!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-040',
     name: "오리온 호호감자 크래커",
     brand: '오리온',
@@ -1666,7 +1613,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "이렇게 귀여운 감자크래커 봤어? 미소가득 감자풍미 호호감자 크래커",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-041',
     name: "오리온 찍먹예감",
     brand: '오리온',
@@ -1707,7 +1654,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백한 예감을 소스에 콕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-042',
     name: "오리온 초코송이 딸기",
     brand: '오리온',
@@ -1748,7 +1695,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤상큼! 송이마을 새친구 등장!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-043',
     name: "오리온 고래밥 달콤치즈맛",
     brand: '오리온',
@@ -1789,7 +1736,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "치즈크림 데굴~ 치즈가루 솔솔~",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-044',
     name: "오리온 핫고래밥 매콤양념맛",
     brand: '오리온',
@@ -1830,7 +1777,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "중독적인 매콤함! 핫고래밥 매콤양념맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-045',
     name: "오리온 피넛칩쿠키",
     brand: '오리온',
@@ -1871,7 +1818,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "피넛버터와 땅콩으로 고소함 가득!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-046',
     name: "오리온 비쵸비",
     brand: '오리온',
@@ -1912,7 +1859,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 비쵸비",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-047',
     name: "오리온 고래밥",
     brand: '오리온',
@@ -1953,7 +1900,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "재미로 먹고 맛으로 먹는 고래밥",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-048',
     name: "오리온 예감",
     brand: '오리온',
@@ -1994,7 +1941,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "튀기지 않은 감자칩, 예감",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-049',
     name: "오리온 배배",
     brand: '오리온',
@@ -2035,7 +1982,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤사르르 쿠키, 배배",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-050',
     name: "오리온 쿠쉬쿠쉬",
     brand: '오리온',
@@ -2076,7 +2023,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "40시간 발효 크래커, 쿠쉬쿠쉬",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-051',
     name: "오리온 촉촉한 초코칩",
     brand: '오리온',
@@ -2117,7 +2064,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "더 진한 초코칩과 촉촉한 쿠키의 만남",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-052',
     name: "오리온 통크",
     brand: '오리온',
@@ -2158,7 +2105,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "사각사각 통안에 크림, 통크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-053',
     name: "오리온 나! 샌드",
     brand: '오리온',
@@ -2199,7 +2146,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 소프트 비스킷에 치즈 크림이 듬뿍!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-054',
     name: "오리온 초코송이",
     brand: '오리온',
@@ -2240,7 +2187,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 초코모자와 바삭한 비스킷의 환상 궁합",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-055',
     name: "오리온 왕고래밥",
     brand: '오리온',
@@ -2281,7 +2228,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고래밥이 커졌어요!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-056',
     name: "오리온 미쯔블랙",
     brand: '오리온',
@@ -2322,7 +2269,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 초미니 사이즈 쿠키",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-057',
     name: "오리온 초코칩쿠키",
     brand: '오리온',
@@ -2363,7 +2310,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭한 쿠키와 달달한 초코칩의 조화",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-058',
     name: "오리온 고소미",
     brand: '오리온',
@@ -2404,7 +2351,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 크래커 고소미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-059',
     name: "오리온 다이제",
     brand: '오리온',
@@ -2445,7 +2392,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 통밀로 설계한 든든함, 다이제",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-060',
     name: "오리온 핫브레이크 쫀득쿠키바",
     brand: '오리온',
@@ -2486,7 +2433,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득~바삭 신식감 초코바",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-061',
     name: "오리온 핫브레이크",
     brand: '오리온',
@@ -2527,7 +2474,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꽉 찬 초코바로 제대로 쉬자!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-062',
     name: "오리온 톡핑",
     brand: '오리온',
@@ -2568,7 +2515,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "다채로운 토핑이 톡!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-063',
     name: "오리온 다이제볼",
     brand: '오리온',
@@ -2609,7 +2556,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 다이제를 한 입에 쏙! 달콤바삭 통밀초코볼",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-064',
     name: "오리온 아이셔 하드캔디",
     brand: '오리온',
@@ -2650,7 +2597,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "정신번쩍 짜릿함! 하드캔디로 즐기는 아이셔!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-065',
     name: "오리온 목앤허니 깔라만시맛",
     brand: '오리온',
@@ -2691,7 +2638,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "천연 꿀을 담아 부드러운 상쾌함",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-066',
     name: "오리온 비타민 마이구미",
     brand: '오리온',
@@ -2732,7 +2679,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃탱글 젤리에 5가지 멀티비타민이 쏙!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-067',
     name: "오리온 왕꿈틀이 미니",
     brand: '오리온',
@@ -2773,7 +2720,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃폭신 이중식감! 4가지 과일맛의 왕꿈틀이 미니",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-068',
     name: "오리온 골드키위 알맹이",
     brand: '오리온',
@@ -2814,7 +2761,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "사르르 톡톡! 골드키위 속살",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-069',
     name: "오리온 과일꿀꺽 왕꿈틀이",
     brand: '오리온',
@@ -2855,7 +2802,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "과일을 꿀꺽삼켜 과즙팡팡 이중식감!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-070',
     name: "오리온 복숭아 과즙 그대로 마이구미 백도&황도",
     brand: '오리온',
@@ -2896,7 +2843,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한 번에 즐기는 상큼백도, 달콤황도",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-071',
     name: "오리온 아이셔츄 쥬시자두&요구르트",
     brand: '오리온',
@@ -2937,7 +2884,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오~래가는 짜릿함! 아이셔츄 츄시자두&요구르트맛",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-072',
     name: "오리온 코코망고 알맹이",
     brand: '오리온',
@@ -2978,7 +2925,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 망고 속 탱탱한 코코젤리가 쏙",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-073',
     name: "오리온 마이구미 포도 ZERO% 설탕제로",
     brand: '오리온',
@@ -3019,7 +2966,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "설탕은 제로 맛은 그대로!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-074',
     name: "오리온 아이셔젤리",
     brand: '오리온',
@@ -3060,7 +3007,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃한 젤리 속 팡팡 터지는 잼필링, 쫄깃한 젤리 속 사각사각 사르르 샤베트 필링",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-075',
     name: "오리온 키위알맹이",
     brand: '오리온',
@@ -3101,7 +3048,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 키위알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-076',
     name: "오리온 리찌알맹이",
     brand: '오리온',
@@ -3142,7 +3089,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오리온 리찌알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-077',
     name: "오리온 자두알맹이",
     brand: '오리온',
@@ -3183,7 +3130,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "몽글몽글 자두속살, 자두알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-078',
     name: "오리온 포도알맹이",
     brand: '오리온',
@@ -3224,7 +3171,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "말캉말캉 포도속살, 포도알맹이",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-079',
     name: "오리온 아이셔츄",
     brand: '오리온',
@@ -3265,7 +3212,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오래가는 짜릿함!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-080',
     name: "오리온 마이구미",
     brand: '오리온',
@@ -3306,7 +3253,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "과일 과즙 그대로~ 마이구미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-081',
     name: "오리온 더탱글 마이구미",
     brand: '오리온',
@@ -3347,7 +3294,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "더 탱글해서 더 쫄깃한 마이구미 미니, 더탱글 마이구미",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-082',
     name: "오리온 왕꿈틀이",
     brand: '오리온',
@@ -3388,7 +3335,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쭈~욱 길게 늘여먹는 재미가 왕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-083',
     name: "오리온 아이셔 츄잉캔디",
     brand: '오리온',
@@ -3429,7 +3376,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "정신번쩍! 아이셔",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-084',
     name: "오리온 All New! 비틀즈",
     brand: '오리온',
@@ -3470,7 +3417,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "크기도 UP, 쫄깃함도 UP! 완전히 새롭게 돌아왔다!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-085',
     name: "오리온 바이오 캔디",
     brand: '오리온',
@@ -3511,7 +3458,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진~하고 부드러운 생우유캔디, 바이오캔디",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-086',
     name: "오리온 통아몬드 캔디",
     brand: '오리온',
@@ -3552,7 +3499,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "아몬드와 캔디를 한번에- 바삭한 크런치캔디, 통아몬드",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-087',
     name: "오리온 마켓오 브라우니 크림치즈",
     brand: '오리온',
@@ -3593,7 +3540,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 말차케이크에 초코칩이 콕콕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-088',
     name: "오리온 마켓오 브라우니 말차",
     brand: '오리온',
@@ -3634,7 +3581,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 말차케이크에 초코칩이 콕콕!",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-089',
     name: "오리온 마켓오 브라우니",
     brand: '오리온',
@@ -3675,7 +3622,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "갓 구워낸 듯 크러스트가 살아있는 카페스타일 브라우니",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-090',
     name: "오리온 닥터유 에너지바 저당",
     brand: '오리온',
@@ -3716,7 +3663,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "닥터유만의 맛있는 저당설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-091',
     name: "오리온 닥터유 프로 단백질바 크런치",
     brand: '오리온',
@@ -3757,7 +3704,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-092',
     name: "오리온 닥터유 프로 단백질바",
     brand: '오리온',
@@ -3798,7 +3745,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "균형잡힌 고단백질 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-093',
     name: "오리온 닥터유 단백질바",
     brand: '오리온',
@@ -3839,7 +3786,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "단백질 12g 보충을 위한 닥터유만의 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-094',
     name: "오리온 닥터유 에너지바",
     brand: '오리온',
@@ -3880,7 +3827,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오래 지속되는 에너지를 위한 닥터유만의 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-095',
     name: "오리온 닥터유 프로 단백질드링크 40g 딸기",
     brand: '오리온',
@@ -3921,7 +3868,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전문가를 위한 초고함량 단백질드링크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-096',
     name: "오리온 닥터유 프로 단백질드링크 40g 초코",
     brand: '오리온',
@@ -3962,7 +3909,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전문가를 위한 초고함량 단백질드링크",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-097',
     name: "오리온 닥터유 프로 단백질 드링크",
     brand: '오리온',
@@ -4003,7 +3950,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "지속되는 포만감의 고단백질 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-098',
     name: "오리온 닥터유 프로 단백질파우더 다이어트 곡물",
     brand: '오리온',
@@ -4044,7 +3991,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "다이어트 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-099',
     name: "오리온 닥터유 프로 단백질파우더 MAX",
     brand: '오리온',
@@ -4085,7 +4032,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'orion-100',
     name: "오리온 닥터유 프로 단백질파우더 아이솔레이트",
     brand: '오리온',
@@ -4126,7 +4073,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전문가를 위한 영양설계",
     bestQuotes: ['달콤바삭하고 질리지 않는 맛', '가성비 최고 국민 간식']
   },
-  {
+{
     id: 'coffee-mmth-01',
     name: "메가커피 하우스밀크 라떼",
     brand: "메가MGC커피",
@@ -4167,7 +4114,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "메가MGC커피만의 하우스밀크로 고소하고 부드러운 맛과 은은한 단맛은 더하고 깊은 풍미의 에스프레소 샷을 블렌딩해 더욱 조화로운 밸런스를 완성한 카페라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-02',
     name: "메가커피 무카페인 오르조라떼",
     brand: "메가MGC커피",
@@ -4208,7 +4155,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "이탈리아산 크라스탄 오르조와 고소하고 부드러운 우유가 만나 카페라떼 그대로의 깊은 풍미를 부담없이 무카페인으로 즐길 수 있는 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-03',
     name: "메가커피 자몽 톡톡 스무디",
     brand: "메가MGC커피",
@@ -4249,7 +4196,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "톡톡 터지는 자몽 과육을 듬뿍 담아, 자몽 한 알을 그대로 베어 문 듯 상큼함이 입안 가득 퍼지는 자몽 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-04',
     name: "메가커피 제로 레몬말차 아이스티",
     brand: "메가MGC커피",
@@ -4290,7 +4237,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "말차와 레몬의 상큼한 조화에 식이섬유 '알파CD'를 더해 부담 없이 산뜻하고 가볍게 즐기는 제로 칼로리, 제로 슈가 아이스티 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-05',
     name: "메가커피 저당 꿀배 XO야쿠르트",
     brand: "메가MGC커피",
@@ -4331,7 +4278,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "저당으로 부담은 덜고, 새콤달콤한 맛은 더 풍부하게! 꿀처럼 달콤한 배의 시원하고 깨끗한 단맛에 설탕·당류·지방 3 ZERO 야쿠르트 XO 2병이 들어간 리프레쉬 한 잔 *대체당(알룰로스, 에리스리톨 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-06',
     name: "메가커피 딸기라떼",
     brand: "메가MGC커피",
@@ -4372,7 +4319,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기과육이 풍부히 느껴지는 스테디 셀러 산뜻하고 달콤한 딸기가 가득해 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-07',
     name: "메가커피 밀크쉐이크",
     brand: "메가MGC커피",
@@ -4413,7 +4360,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우유 그대로의 부드러움에 달콤함을 더해 꾸덕하고 진~한 풍미를 느낄 수 있는 겨울시즌 한정 밀크쉐이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-08',
     name: "메가커피 유자생강차",
     brand: "메가MGC커피",
@@ -4454,7 +4401,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼달콤한 유자청과 은은하게 매콤한 생강의 풍미를 조화롭게 담아낸 겨울 한정 과일 티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-09',
     name: "메가커피 초코젤라또 말차라떼",
     brand: "메가MGC커피",
@@ -4495,7 +4442,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진하고 꾸덕한 초코 젤라또를 제주산 고품질 말차, 쌉싸름한 블렌딩 커피와 함께 즐기는 말차 에스프레소 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-10',
     name: "메가커피 (HOT)헛개리카노",
     brand: "메가MGC커피",
@@ -4536,7 +4483,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-11',
     name: "메가커피 (ICE)헛개리카노",
     brand: "메가MGC커피",
@@ -4577,7 +4524,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-12',
     name: "메가커피 제로 부스트 에이드",
     brand: "메가MGC커피",
@@ -4618,7 +4565,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "지친 현대인들에게 필요한 한 잔의 에너지! 타우린 1,000mg이 들어가 활력이 충전되는 에너지드링크맛 제로 칼로리 에이드 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-13',
     name: "메가커피 블루베리요거트스무디",
     brand: "메가MGC커피",
@@ -4659,7 +4606,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "새콤달콤한 블루베리와 산뜻한 요거트가 만나 조화로운 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-14',
     name: "메가커피 블루베리플럼주스",
     brand: "메가MGC커피",
@@ -4700,7 +4647,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "새콤달콤한 블루베리와 식이섬유가 풍부한 플럼, 프리바이오틱스를 더해 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-15',
     name: "메가커피 골드키위주스",
     brand: "메가MGC커피",
@@ -4741,7 +4688,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼달콤한 프리미엄 골드키위에 밀크씨슬을 더해 일상의 활력을 선사하는 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-16',
     name: "메가커피 귤 톡톡 젤리스무디",
     brand: "메가MGC커피",
@@ -4782,7 +4729,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "톡톡 터지는 상큼한 귤의 과육과 몽글한 젤리식감이 매력적인 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-17',
     name: "메가커피 왕메가카페라떼",
     brand: "메가MGC커피",
@@ -4823,7 +4770,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-18',
     name: "메가커피 디카페인 왕메가카페라떼",
     brand: "메가MGC커피",
@@ -4864,7 +4811,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-19',
     name: "메가커피 디카페인 라이트 바닐라 아몬드라떼",
     brand: "메가MGC커피",
@@ -4905,7 +4852,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 디카페인 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-20',
     name: "메가커피 왕메가사과유자",
     brand: "메가MGC커피",
@@ -4946,7 +4893,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "애플티의 향긋함과 유자청의 상큼달콤함을 느낄 수 있는 메가MGC커피만의 왕메가사이즈 과일티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-21',
     name: "메가커피 왕메가헛개리카노",
     brand: "메가MGC커피",
@@ -4987,7 +4934,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-22',
     name: "메가커피 (HOT)디카페인 헛개리카노",
     brand: "메가MGC커피",
@@ -5028,7 +4975,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-23',
     name: "메가커피 (ICE)디카페인 헛개리카노",
     brand: "메가MGC커피",
@@ -5069,7 +5016,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-24',
     name: "메가커피 디카페인 왕메가헛개리카노",
     brand: "메가MGC커피",
@@ -5110,7 +5057,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-25',
     name: "메가커피 (HOT)상큼 리치티",
     brand: "메가MGC커피",
@@ -5151,7 +5098,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-26',
     name: "메가커피 (ICE)상큼 리치티",
     brand: "메가MGC커피",
@@ -5192,7 +5139,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-27',
     name: "메가커피 할메가미숫커피",
     brand: "메가MGC커피",
@@ -5233,7 +5180,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "곡물의 향이 고소한 미숫가루와 달달한 믹스커피의 황금비율 조합",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-28',
     name: "메가커피 라이트 바닐라 아몬드라떼",
     brand: "메가MGC커피",
@@ -5274,7 +5221,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-29',
     name: "메가커피 왕메가초코",
     brand: "메가MGC커피",
@@ -5315,7 +5262,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 왕 메가 사이즈 초코음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-30',
     name: "메가커피 왕메가아이스티",
     brand: "메가MGC커피",
@@ -5356,7 +5303,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깊은 맛의 홍차와 달콤한 복숭아의 은은한 향이 어우러진 왕 메가 사이즈 아이스티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-31',
     name: "메가커피 제로 복숭아 아이스티",
     brand: "메가MGC커피",
@@ -5397,7 +5344,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깊게 우려진 홍차와 은은한 복숭아향의 아이스티를 제로슈가, 제로칼로리로 즐길 수 있는 음료 *대체당(알룰로스,에리스리톨)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-32',
     name: "메가커피 연유라떼",
     brand: "메가MGC커피",
@@ -5438,7 +5385,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-33',
     name: "메가커피 골드망고스무디",
     brand: "메가MGC커피",
@@ -5479,7 +5426,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "황금빛 골드망고가 진하게 느껴지는 부드럽고 상큼 달콤한 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-34',
     name: "메가커피 할메가커피",
     brand: "메가MGC커피",
@@ -5520,7 +5467,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 시원한 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-35',
     name: "메가커피 왕할메가커피",
     brand: "메가MGC커피",
@@ -5561,7 +5508,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 메가사이즈 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-36',
     name: "메가커피 코코넛 커피 스무디",
     brand: "메가MGC커피",
@@ -5602,7 +5549,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭하고 고소한 코코넛 칩을 올리고 쌉싸름한 커피와 달콤한 코코넛이 조화로운 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-37',
     name: "메가커피 딸기주스",
     brand: "메가MGC커피",
@@ -5643,7 +5590,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "새콤달콤한 딸기주스에 피쉬 콜라겐을 더해 건강한 블렌딩 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-38',
     name: "메가커피 딸기바나나주스",
     brand: "메가MGC커피",
@@ -5684,7 +5631,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼한 딸기와 부드러운 바나나가 만나, 새콤달콤한 매력이 살아 있는 과일 음료.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-39',
     name: "메가커피 디카페인 에스프레소",
     brand: "메가MGC커피",
@@ -5725,7 +5672,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인으로 만나는 메가MGC커피 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-40',
     name: "메가커피 디카페인 아메리카노",
     brand: "메가MGC커피",
@@ -5766,7 +5713,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-41',
     name: "메가커피 디카페인 꿀아메리카노",
     brand: "메가MGC커피",
@@ -5807,7 +5754,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-42',
     name: "메가커피 디카페인 헤이즐넛 아메리카노",
     brand: "메가MGC커피",
@@ -5848,7 +5795,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-43',
     name: "메가커피 디카페인 바닐라 아메리카노",
     brand: "메가MGC커피",
@@ -5889,7 +5836,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-44',
     name: "메가커피 디카페인 카페라떼",
     brand: "메가MGC커피",
@@ -5930,7 +5877,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-45',
     name: "메가커피 디카페인 카푸치노",
     brand: "메가MGC커피",
@@ -5971,7 +5918,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 카푸치노.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-46',
     name: "메가커피 디카페인 바닐라라떼",
     brand: "메가MGC커피",
@@ -6012,7 +5959,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-47',
     name: "메가커피 디카페인 헤이즐넛 라떼",
     brand: "메가MGC커피",
@@ -6053,7 +6000,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-48',
     name: "메가커피 디카페인 카라멜마끼아또",
     brand: "메가MGC커피",
@@ -6094,7 +6041,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-49',
     name: "메가커피 디카페인 연유라떼",
     brand: "메가MGC커피",
@@ -6135,7 +6082,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-50',
     name: "메가커피 디카페인 카페모카",
     brand: "메가MGC커피",
@@ -6176,499 +6123,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
-    id: 'coffee-mmth-51',
-    name: "메가커피 디카페인 아메리카노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101052_1718154652699_a0ElVTNb16.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 2700,
-    overallRating: 4.9,
-    ratingCount: 600,
-    searchInfluxCount: 34000,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 94,
-    calories: 10,
-    volume: "710ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 10,
-      sodium: '40mg',
-      carbs: '20g',
-      sugar: '26g',
-      fat: '6g',
-      protein: '5g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 2700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-52',
-    name: "메가커피 디카페인 메가리카노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115001_1717987801368_av938eflM8.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4000,
-    overallRating: 5.0,
-    ratingCount: 623,
-    searchInfluxCount: 34320,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 95,
-    calories: 17,
-    volume: "946ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 17,
-      sodium: '41mg',
-      carbs: '21g',
-      sugar: '27g',
-      fat: '7g',
-      protein: '6g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 4000, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "메가MGC커피 디카페인 아메리카노를 '960ml' 더 크고 가볍게 즐길 수 있는 대용량 커피",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-53',
-    name: "메가커피 디카페인 꿀아메리카노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131949_1717993189396_pb_H77_7AM.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3700,
-    overallRating: 4.7,
-    ratingCount: 646,
-    searchInfluxCount: 34640,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 96,
-    calories: 137,
-    volume: "710ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 137,
-      sodium: '42mg',
-      carbs: '22g',
-      sugar: '28g',
-      fat: '8g',
-      protein: '7g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 17, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-54',
-    name: "메가커피 디카페인 헤이즐넛 아메리카노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131835_1717993115036_XaPndW7UkR.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3700,
-    overallRating: 4.8,
-    ratingCount: 669,
-    searchInfluxCount: 34960,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 97,
-    calories: 109,
-    volume: "710ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 109,
-      sodium: '43mg',
-      carbs: '23g',
-      sugar: '29g',
-      fat: '9g',
-      protein: '8g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 18, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-55',
-    name: "메가커피 디카페인 바닐라 아메리카노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131932_1717993172929_VUtwLd_LyN.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3700,
-    overallRating: 4.9,
-    ratingCount: 692,
-    searchInfluxCount: 35280,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 98,
-    calories: 112,
-    volume: "710ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 112,
-      sodium: '44mg',
-      carbs: '24g',
-      sugar: '12g',
-      fat: '10g',
-      protein: '3g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-56',
-    name: "메가커피 디카페인 카페라떼",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132005_1717993205762_9xKCxaSb9P.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3900,
-    overallRating: 5.0,
-    ratingCount: 715,
-    searchInfluxCount: 35600,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 99,
-    calories: 148,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 148,
-      sodium: '45mg',
-      carbs: '25g',
-      sugar: '13g',
-      fat: '11g',
-      protein: '4g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 20, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-57',
-    name: "메가커피 디카페인 카푸치노",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132018_1717993218605_64Ij4AhmCE.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3900,
-    overallRating: 4.7,
-    ratingCount: 738,
-    searchInfluxCount: 35920,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 92,
-    calories: 127,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 127,
-      sodium: '46mg',
-      carbs: '26g',
-      sugar: '14g',
-      fat: '4g',
-      protein: '5g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 3900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-58',
-    name: "메가커피 디카페인 바닐라라떼",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113234_1717986754069_tSPQqoiPj6.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4400,
-    overallRating: 4.8,
-    ratingCount: 761,
-    searchInfluxCount: 36240,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 93,
-    calories: 225,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 225,
-      sodium: '47mg',
-      carbs: '27g',
-      sugar: '15g',
-      fat: '5g',
-      protein: '6g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 22, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-59',
-    name: "메가커피 디카페인 헤이즐넛 라떼",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132034_1717993234457_aGDHQ0U0Ap.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4400,
-    overallRating: 4.9,
-    ratingCount: 784,
-    searchInfluxCount: 36560,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 94,
-    calories: 237,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 237,
-      sodium: '48mg',
-      carbs: '28g',
-      sugar: '16g',
-      fat: '6g',
-      protein: '7g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 23, price: 4400, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-60',
-    name: "메가커피 디카페인 카라멜마끼아또",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131917_1717993157515_k1yeakRwwv.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4900,
-    overallRating: 5.0,
-    ratingCount: 807,
-    searchInfluxCount: 36880,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 95,
-    calories: 210,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 210,
-      sodium: '49mg',
-      carbs: '29g',
-      sugar: '17g',
-      fat: '7g',
-      protein: '8g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 24, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-61',
-    name: "메가커피 디카페인 연유라떼",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131759_1717993079921_A7Gr7qp0g2.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4900,
-    overallRating: 4.7,
-    ratingCount: 830,
-    searchInfluxCount: 37200,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 96,
-    calories: 305,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 305,
-      sodium: '50mg',
-      carbs: '30g',
-      sugar: '18g',
-      fat: '8g',
-      protein: '3g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 15, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
-    id: 'coffee-mmth-62',
-    name: "메가커피 디카페인 카페모카",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101114_1718154674451_BGo4AZa57r.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4900,
-    overallRating: 4.8,
-    ratingCount: 853,
-    searchInfluxCount: 37520,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 97,
-    calories: 320,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 320,
-      sodium: '51mg',
-      carbs: '31g',
-      sugar: '19g',
-      fat: '9g',
-      protein: '4g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유","대두"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 16, price: 4900, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
+{
     id: 'coffee-mmth-63',
     name: "메가커피 딸기쿠키프라페",
     brand: "메가MGC커피",
@@ -6709,7 +6164,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 바닐라와 달달한 딸기, 바삭한 오레오 쿠키가 달콤한 하모니를 선물하는 프라페.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-64',
     name: "메가커피 콜드브루디카페인",
     brand: "메가MGC커피",
@@ -6750,48 +6205,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
-    id: 'coffee-mmth-65',
-    name: "메가커피 콜드브루디카페인",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105522_1717984522154_Wf1ds9riaV.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 3800,
-    overallRating: 4.7,
-    ratingCount: 922,
-    searchInfluxCount: 38480,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 92,
-    calories: 9,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 9,
-      sodium: '54mg',
-      carbs: '34g',
-      sugar: '22g',
-      fat: '4g',
-      protein: '7g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 19, price: 3800, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
+{
     id: 'coffee-mmth-66',
     name: "메가커피 콜드브루디카페인라떼",
     brand: "메가MGC커피",
@@ -6832,48 +6246,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
-    id: 'coffee-mmth-67',
-    name: "메가커피 콜드브루디카페인라떼",
-    brand: "메가MGC커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105453_1717984493950_uK1VQNQ6kc.jpg",
-    releaseDate: '2026.09 신메뉴',
-    price: 4300,
-    overallRating: 4.9,
-    ratingCount: 968,
-    searchInfluxCount: 39120,
-    stores: ["메가MGC커피"],
-    repurchasePercent: 94,
-    calories: 154,
-    volume: "591ml",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 154,
-      sodium: '56mg',
-      carbs: '36g',
-      sugar: '24g',
-      fat: '6g',
-      protein: '3g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "메가MGC커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "메가MGC커피", status: '입고완료', stockCount: 21, price: 4300, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.megamgc-coffee.com' }
-    ],
-    description: "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
+{
     id: 'coffee-mmth-68',
     name: "메가커피 에스프레소",
     brand: "메가MGC커피",
@@ -6914,7 +6287,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "메가MGC커피 원두의 향미를 온전히 즐길 수 있는 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-69',
     name: "메가커피 에스프레소 도피오",
     brand: "메가MGC커피",
@@ -6955,7 +6328,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "더블샷으로 더욱 진하게 즐길 수 있는 에스프레소",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-70',
     name: "메가커피 쿠키프라페",
     brand: "메가MGC커피",
@@ -6996,7 +6369,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭하고 달콤한 오레오와 고소한 우유, 부드러운 바닐라향의 조화를 느낄 수 있는 프라페.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-71',
     name: "메가커피 고구마라떼",
     brand: "메가MGC커피",
@@ -7037,7 +6410,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-72',
     name: "메가커피 곡물라떼",
     brand: "메가MGC커피",
@@ -7078,7 +6451,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-73',
     name: "메가커피 토피넛라떼",
     brand: "메가MGC커피",
@@ -7119,7 +6492,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-74',
     name: "스타벅스 에어로카노",
     brand: "스타벅스",
@@ -7160,7 +6533,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "아메리카노에 바리스타의 기술을 더해 벨벳 같은 미세한 거품층과 부드러운 목넘김을 즐길 수 있는 새로운 스타일의 음료 한층 풍부한 커피 풍미와 물결처럼 흘러내리는 캐스케이딩 비주얼의 에어로카노를 경험해보세요!",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-75',
     name: "스타벅스 블랙 글레이즈드 라떼",
     brand: "스타벅스",
@@ -7201,7 +6574,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "가을 시즌 대표 음료! 돌아온 블랙 글레이즈드 라떼 짙고 풍부한 커피와 달콤하고 부드러운 글레이즈드 폼의 조화가 돋보이는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-76',
     name: "스타벅스 아이스 블랙 글레이즈드 라떼",
     brand: "스타벅스",
@@ -7242,7 +6615,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "가을 시즌 대표 음료! 돌아온 블랙 글레이즈드 라떼 짙고 풍부한 커피와 달콤하고 부드러운 글레이즈드 폼의 조화가 돋보이는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-77',
     name: "스타벅스 에스프레소 콘 파나",
     brand: "스타벅스",
@@ -7283,7 +6656,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-78',
     name: "스타벅스 에스프레소 마키아또",
     brand: "스타벅스",
@@ -7324,7 +6697,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "신선한 에스프레소 샷에 우유 거품을 살짝 얹은 커피 음료로써, 강렬한 에스프레소의 맛과 우유의 부드러움을 같이 즐길 수 있는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-79',
     name: "스타벅스 1호점 카페 아메리카노",
     brand: "스타벅스",
@@ -7365,7 +6738,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 뜨거운 물을 섞어 깔끔하게 즐길 수 있는 스타벅스 이대점만의 블랙 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-80',
     name: "스타벅스 자몽 허니 에어로카노",
     brand: "스타벅스",
@@ -7406,7 +6779,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼한 자몽의 풍미와 벨벳같은 미세한 거품으로 부드러운 목넘김이 조화롭게 어우러져 밝고 산뜻하면서도 균형 잡힌 맛을 선사하는 에어로카노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-81',
     name: "스타벅스 아이스 스타벅스 1호점 카페 아메리카노",
     brand: "스타벅스",
@@ -7447,7 +6820,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 얼음과 물을 섞어 시원하고 깔끔하게 즐길 수 있는 스타벅스 이대점만의 블랙 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-82',
     name: "스타벅스 아이스 카페 아메리카노",
     brand: "스타벅스",
@@ -7488,7 +6861,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소에 시원한 정수물과 얼음을 더한 깊이와 풍미가 살아있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-83',
     name: "스타벅스 카페 아메리카노",
     brand: "스타벅스",
@@ -7529,7 +6902,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소에 뜨거운 물을 더한 깊이와 풍미가 살아있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-84',
     name: "스타벅스 아이스 우베 코코넛 마키아또",
     brand: "스타벅스",
@@ -7570,7 +6943,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "코코넛 베이스에 진한 에스프레소와 부드러운 우베 폼을 더한 음료 크런치한 코코넛칩과 함께 즐길 수 있는 리저브 마키아또",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-85',
     name: "스타벅스 아이스 카라멜 마키아또",
     brand: "스타벅스",
@@ -7611,7 +6984,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향긋한 바닐라 시럽과 시원한 우유에 얼음을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-86',
     name: "스타벅스 카라멜 마키아또",
     brand: "스타벅스",
@@ -7652,7 +7025,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향긋한 바닐라 시럽과 따뜻한 스팀 밀크 위에 풍성한 우유 거품을 얹고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-87',
     name: "스타벅스 아이스 카푸치노",
     brand: "스타벅스",
@@ -7693,7 +7066,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 진한 에스프레소에 신선한 우유와 우유 거품이 얼음과 함께 들어간 시원하고 부드러운 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-88',
     name: "스타벅스 카푸치노",
     brand: "스타벅스",
@@ -7734,7 +7107,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-89',
     name: "스타벅스 라벤더 카페 브레베",
     brand: "스타벅스",
@@ -7775,7 +7148,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 리저브 에스프레소 샷과 은은한 라벤더향이 고급스럽게 어우러진 부드럽고 세련된 풍미의 라벤더 카페 브레베",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-90',
     name: "스타벅스 밀크카라멜 라떼",
     brand: "스타벅스",
@@ -7816,7 +7189,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드럽고 달콤한 밀크카라멜의 은은한 풍미와 풍부한 질감을 느낄 수 있는 특별한 우유가 만나 언제나 편안하게 즐길 수 있는 라떼입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-91',
     name: "스타벅스 바닐라 라떼",
     brand: "스타벅스",
@@ -7857,7 +7230,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-92',
     name: "스타벅스 바닐라 빈 라떼",
     brand: "스타벅스",
@@ -7898,7 +7271,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리저브만을 위한 바닐라 빈 시럽이 부드럽게 어우러진 카페 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-93',
     name: "스타벅스 번트 카라멜 라떼",
     brand: "스타벅스",
@@ -7939,7 +7312,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리저브 에스프레소 커피와 번트 카라멜의 깊고 달콤한 풍미가 어우러진 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-94',
     name: "스타벅스 사케라또 비안코 오버 아이스",
     brand: "스타벅스",
@@ -7980,7 +7353,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "얼음과 같이 쉐이킹하여 차가워진 진한 리저브 에스프레소와 하우스 메이드 크림이 어우러진 달콤한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-95',
     name: "스타벅스 1호점 카페 라떼",
     brand: "스타벅스",
@@ -8021,7 +7394,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 신선한 우유를 스팀하여 커피 위에 우유 거품을 살짝 얹은 스타벅스 이대점만의 카페 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-96',
     name: "스타벅스 1호점 크림 라떼",
     brand: "스타벅스",
@@ -8062,7 +7435,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "\"Coffee & Tea & Spice\"스타벅스 첫번째 로고에서 착안한 음료로 스파이시한 향의 달콤하고 부드러운 커피 차이 크림폼, 풍부한 바디감의 별다방 블렌드 원두를 사용한 깊고 부드러운 크림 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-97',
     name: "스타벅스 꿀 호떡 라떼",
     brand: "스타벅스",
@@ -8103,7 +7476,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한국의 대표 길거리 음식의 친근하고 익숙한 호떡을 형상화한 음료로 어린시절 추억이 느껴지는 커피 음료 시나몬향과 고소한 견과류가 느껴지는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-98',
     name: "스타벅스 돌체 라떼",
     brand: "스타벅스",
@@ -8144,7 +7517,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스의 다른 커피 음료보다 더욱 깊은 커피의 맛과 향에 깔끔한 무지방 우유와 부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-99',
     name: "스타벅스 아이스 라벤더 카페 브레베",
     brand: "스타벅스",
@@ -8185,7 +7558,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 리저브 에스프레소 샷과 은은한 라벤더향이 고급스럽게 어우러진 부드럽고 세련된 풍미의 라벤더 카페 브레베",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-100',
     name: "스타벅스 아이스 밀크카라멜 라떼",
     brand: "스타벅스",
@@ -8226,7 +7599,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드럽고 달콤한 밀크카라멜의 은은한 풍미와 풍부한 질감을 느낄 수 있는 특별한 우유가 만나 언제나 편안하게 즐길 수 있는 라떼입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-101',
     name: "스타벅스 아이스 바닐라 라떼",
     brand: "스타벅스",
@@ -8267,7 +7640,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-102',
     name: "스타벅스 아이스 바닐라 빈 라떼",
     brand: "스타벅스",
@@ -8308,7 +7681,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리저브만을 위한 바닐라 빈 시럽이 부드럽게 어우러진 카페 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-103',
     name: "스타벅스 아이스 스타벅스 1호점 카페 라떼",
     brand: "스타벅스",
@@ -8349,7 +7722,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 부드러운 바디감의 별다방 블렌드 원두로 내린 에스프레소와 신선한 우유와 얼음이 만나 고소함과 시원함을 즐길 수 있는 스타벅스 이대점만의 카페 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-104',
     name: "스타벅스 아이스 스타벅스 1호점 크림 라떼",
     brand: "스타벅스",
@@ -8390,7 +7763,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "\"Coffee & Tea & Spice\"스타벅스 첫번째 로고에서 착안한 음료로 스파이시한 향의 달콤하고 부드러운 커피 차이 크림폼, 풍부한 바디감의 별다방 블렌드 원두를 사용한 깊고 부드러운 크림 라떼 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-105',
     name: "스타벅스 아이스 스타벅스 꿀 호떡 라떼",
     brand: "스타벅스",
@@ -8431,7 +7804,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한국의 대표 길거리 음식의 친근하고 익숙한 호떡을 형상화한 음료로 어린시절 추억이 느껴지는 커피 음료 시나몬향과 고소한 견과류가 느껴지는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-106',
     name: "스타벅스 아이스 스타벅스 돌체 라떼",
     brand: "스타벅스",
@@ -8472,7 +7845,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스의 다른 커피 음료보다 더욱 깊은 커피의 맛과 향에 깔끔한 무지방 우유와 부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-107',
     name: "스타벅스 아이스 인절미 크림 라떼",
     brand: "스타벅스",
@@ -8513,7 +7886,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소하고 쌉싸름한 맛의 콩고물과 쫀득한 식감의 인절미 젤리를 달콤한 크림이 얹어진 커피와 함께 즐길 수 있는 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-108',
     name: "스타벅스 아이스 카페 라떼",
     brand: "스타벅스",
@@ -8554,7 +7927,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 진한 에스프레소에 시원한 우유를 더해 부드럽게 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-109',
     name: "스타벅스 인절미 크림 라떼",
     brand: "스타벅스",
@@ -8595,7 +7968,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소하고 쌉싸름한 맛의 콩고물과 쫀득한 식감의 인절미 젤리를 달콤한 크림이 얹어진 커피와 함께 즐길 수 있는 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-110',
     name: "스타벅스 제주 비자림 리저브 에스프레소 라떼",
     brand: "스타벅스",
@@ -8636,7 +8009,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리저브 원두로 만든 라떼에 말차 돌체 베이스를 추가하여 제주 천년의 숲 비자림을 표현한 라떼. 오직 송당에서만 만날 수 있는 음료로, 따뜻한 비자림의 풍미를 느껴보세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-111',
     name: "스타벅스 카페 라떼",
     brand: "스타벅스",
@@ -8677,7 +8050,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-112',
     name: "스타벅스 코르타도",
     brand: "스타벅스",
@@ -8718,7 +8091,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진하면서도 부드러운 블론드 리스트레토 3샷에 폼을 살짝 낸 스팀 밀크를 더해 짙은 커피 풍미를 즐길 수 있는 코르타도입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-113',
     name: "스타벅스 피넛 크림 쿠키 아인슈페너",
     brand: "스타벅스",
@@ -8759,7 +8132,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "제주의 고소함을 가득 담은 시그니처 피넛 아인슈페너의 등장! 진한 땅콩 풍미에 에스프레소를 더하고, 땅콩 크림과 너티 쿠키로 완성한 제주 특화 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-114',
     name: "스타벅스 아이스 카페 모카",
     brand: "스타벅스",
@@ -8800,7 +8173,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 초콜릿 모카 시럽과 풍부한 에스프레소를 신선한 우유 그리고 얼음과 섞어 휘핑크림으로 마무리한 음료로 진한 에스프레소와 초콜릿 맛이 어우러진 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-115',
     name: "스타벅스 아이스 화이트 초콜릿 모카",
     brand: "스타벅스",
@@ -8841,7 +8214,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 신선한 우유 그리고 얼음과 섞어 휘핑크림으로 마무리한 음료로 달콤함과 강렬한 에스프레소가 부드럽게 어우러진 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-116',
     name: "스타벅스 카페 모카",
     brand: "스타벅스",
@@ -8882,7 +8255,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 초콜릿 모카 시럽과 풍부한 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 진한 에스프레소와 초콜릿 맛이 어우러진 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-117',
     name: "스타벅스 클래식 민트 모카",
     brand: "스타벅스",
@@ -8923,7 +8296,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스의 클래식인 페퍼민트 모카를 떠올리게 하는 리저브만의 에스프레소 음료 오트음료(식물성 대체유)의 고소함과 다크 초콜릿의 쌉쌀함이 특징인 음료입니다",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-118',
     name: "스타벅스 화이트 초콜릿 모카",
     brand: "스타벅스",
@@ -8964,7 +8337,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 달콤함과 강렬한 에스프레소가 부드럽게 어우러진 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-119',
     name: "스타벅스 아이스 플랫 화이트",
     brand: "스타벅스",
@@ -9005,7 +8378,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 리스트레토 샷과 완벽한 양의 우유를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-120',
     name: "스타벅스 플랫 화이트",
     brand: "스타벅스",
@@ -9046,7 +8419,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 리스트레토 샷과 완벽한 양의 스팀밀크를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-121',
     name: "스타벅스 바닐라 스타벅스 더블 샷",
     brand: "스타벅스",
@@ -9087,7 +8460,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "신선하게 제조된 더블 샷 믹스에 바닐라 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-122',
     name: "스타벅스 사케라또 아포가토",
     brand: "스타벅스",
@@ -9128,7 +8501,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "민트 잎과 쉐이킹한 리저브 에스프레소를 바닐라 아이스크림에 부어 프레쉬함과 달콤함이 조화롭게 퍼지는 리저브 만의 디저트 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-123',
     name: "스타벅스 스파클링 시트러스 에스프레소",
     brand: "스타벅스",
@@ -9169,7 +8542,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리저브 에스프레소에 상큼한 레몬과 진저에일을 더해 청량감과 시트러스 풍미를 가득 선사하는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-124',
     name: "스타벅스 에스프레소",
     brand: "스타벅스",
@@ -9210,7 +8583,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스 에스프레소는 향기로운 크레마 층과 바디 층, 하트 층으로 이루어져 있으며, 입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-125',
     name: "스타벅스 에스프레소 플라이트",
     brand: "스타벅스",
@@ -9251,7 +8624,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스 리저브 에스프레소를 새롭고 다양하게 즐길 수 있는 에스프레소 플라이트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-126',
     name: "스타벅스 에스프레소 플라이트 도산",
     brand: "스타벅스",
@@ -9292,7 +8665,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스타벅스 리저브 에스프레소를 새롭고 다양하게 즐길 수 있는 에스프레소 플라이트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-127',
     name: "스타벅스 커피 스타벅스 더블 샷",
     brand: "스타벅스",
@@ -9333,7 +8706,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "신선하게 제조된 더블 샷 믹스에 클래식 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-128',
     name: "스타벅스 클래식 아포가토",
     brand: "스타벅스",
@@ -9374,7 +8747,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "[리저브R 매장 전용음료] 리저브 에스프레소 투 샷이 바닐라 아이스크림과 진하게 어우러진 정통 아포가토",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-129',
     name: "스타벅스 헤이즐넛 스타벅스 더블 샷",
     brand: "스타벅스",
@@ -9415,7 +8788,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "신선하게 제조된 더블 샷 믹스에 헤이즐넛 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-130',
     name: "스타벅스 더블 에스프레소 칩 프라푸치노",
     brand: "스타벅스",
@@ -9456,7 +8829,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "리스트레토 에스프레소 2샷과 에스프레소 칩, 하프앤하��가 진하게 어우러진 커피의 기본에 충실한 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-131',
     name: "스타벅스 꿀 호떡 크림 프라푸치노",
     brand: "스타벅스",
@@ -9497,7 +8870,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한국의 대표 길거리 음식의 친근하고 익숙한 호떡을 형상화한 음료로 어린시절 추억을 느끼며, 시나몬향과 고소한 견과류를 더욱 시원하게 즐길 수 있는 프라푸치노 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-132',
     name: "스타벅스 에스프레소 프라푸치노",
     brand: "스타벅스",
@@ -9538,7 +8911,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부하고 진한 에스프레소 샷의 강렬함과 달콤함이 어우러져 깊은 커피의 풍미를 느낄 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-133',
     name: "스타벅스 자바 칩 프라푸치노",
     brand: "스타벅스",
@@ -9579,7 +8952,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피, 모카 소스, 진한 초콜릿 칩이 입안 가득 느껴지는 스타벅스에서만 맛볼 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-134',
     name: "스타벅스 카라멜 프라푸치노",
     brand: "스타벅스",
@@ -9620,7 +8993,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카라멜과 커피가 어우러진 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-135',
     name: "스타벅스 딸기 글레이즈드 크림 프라푸치노",
     brand: "스타벅스",
@@ -9661,7 +9034,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼&달콤한 딸기와 부드러운 글레이즈드 소스에 바삭한 딸기 토핑을 얹은 프라푸치노. 숙련된 바리스타의 솜씨로 그려낸 특별한 예술 작품을 감상해보세요.",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-136',
     name: "스타벅스 베르가못 딸기 크림 프라푸치노",
     brand: "스타벅스",
@@ -9702,7 +9075,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "여름 수국의 사랑스러운 색감을 형상화한 음료로 은은하게 퍼지는 얼그레이의 플로럴향과 딸기의 상큼한 풍미가 느껴지는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-137',
     name: "스타벅스 베르가못 제주 말차 크림 프라푸치노",
     brand: "스타벅스",
@@ -9743,7 +9116,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "자연과 어우러진 수국의 색감을 형상화한 음료로 제주산 말차와 함께 은은하게 퍼지는 얼그레이의 플로럴향으로 부드러운 맛을 즐길 수 있는 음료 (제주산 말차)",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-138',
     name: "스타벅스 제주 까망 크림 프라푸치노",
     brand: "스타벅스",
@@ -9784,7 +9157,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃한 흑임자 떡과 블랙 소보로 토핑으로 컵빙수처럼 먹는 음료. 고소한 흑임자와 쫄깃한 흑임자 떡, 달콤한 블랙 소보로 토핑으로 제주의 돌 하르방 길을 느낄 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-139',
     name: "스타벅스 제주 말차 크림 프라푸치노",
     brand: "스타벅스",
@@ -9825,7 +9198,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깊고 진한 말차 본연의 맛과 향을 시원하고 부드럽게 즐길 수 있는 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-140',
     name: "스타벅스 제주 쑥떡 크림 프라푸치노",
     brand: "스타벅스",
@@ -9866,7 +9239,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "[제주지역 한정음료] 쫄깃쫄깃한 흑임자 떡으로 씹는 재미를 즐길 수 있는 음료로, 고소한 흑임자와 쑥떡 토핑이 올라간 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-141',
     name: "스타벅스 제주 오름 초당옥수수 프라푸치노",
     brand: "스타벅스",
@@ -9907,7 +9280,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "제주 오름의 풍경과 달콤한 초당옥수수를 담은 싱그러운 프라푸치노! 초당 옥수수와 부드러운 글레이즈 폼, 톡톡 터지는 옥수수 식감이 어우러진 제주 특화 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-142',
     name: "스타벅스 초콜릿 크림 칩 프라푸치노",
     brand: "스타벅스",
@@ -9948,7 +9321,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "모카 소스와 진한 초콜릿 칩, 초콜릿 드리즐이 올라간 달콤한 크림 프라푸치노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-143',
     name: "스타벅스 피넛 쿠키 크림 프라푸치노",
     brand: "스타벅스",
@@ -9989,7 +9362,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "땅콩과 너티 쿠키가 어우러진 풍성하고 밀키한 프라푸치노. 달콤하고 고소한 땅콩 풍미를 시원하게 즐길 수 있는 제주 특화 음료로 여행을 특별하게 즐겨보세요!",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-144',
     name: "스타벅스 화이트 타이거 프라푸치노",
     brand: "스타벅스",
@@ -10030,7 +9403,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "밀크 쉐이크 같은 부드럽고 달콤한 바닐라 크림 프라푸치노에 깊은 풍미의 단맛을 가진 흑당시럽이 어우러져 용인에버랜드 백호의 줄무늬를 형상화한 부드럽고 달콤한 프라푸치노 * 용인에버랜드점에서만 판매하는 음료입니다",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-145',
     name: "스타벅스 수박 주스 블렌디드",
     brand: "스타벅스",
@@ -10071,7 +9444,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤 시원한 수박 과육을 갈아낸 블렌디드에 수박 주스를 부어주어 과일 본연의 풍부한 과즙이 살아있는 여름 음료입니다. 수박씨처럼 콕콕 박힌 오독오독한 초콜릿 땅콩 토핑도 함께 즐겨보세요!",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-146',
     name: "스타벅스 망고 패션 프루트 블렌디드",
     brand: "스타벅스",
@@ -10112,7 +9485,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "망고 패션 프루트 주스와 블랙 티가 깔끔하게 어우러진 과일 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-147',
     name: "스타벅스 북한산 레몬 얼 그레이 블렌디드",
     brand: "스타벅스",
@@ -10153,7 +9526,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꼬냑 향을 가미한 상큼한 레모네이드와 은은한 얼 그레이 티가 어우러진 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-148',
     name: "스타벅스 클래식 밀크티 블렌디드",
     brand: "스타벅스",
@@ -10194,7 +9567,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "블랙티의 풍미와 향이 더욱 풍요롭게 느껴질 수 있는 밀크티 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-149',
     name: "스타벅스 여수 바다 유자 블렌디드",
     brand: "스타벅스",
@@ -10235,7 +9608,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "맑고 깨끗한 여수 경도의 낮 바다 풍경을 형상화한 음료로 상큼하게 즐길 수 있는 유자 블렌디드 음료 (유자:국내산)",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-150',
     name: "스타벅스 제주 탄제린 블렌디드",
     brand: "스타벅스",
@@ -10276,7 +9649,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "새콤달콤 한라봉, 천혜향과 탱글말랑 한라봉 젤리로 제주의 싱그러움을 담아 낸 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-151',
     name: "스타벅스 딸기 딜라이트 요거트 블렌디드",
     brand: "스타벅스",
@@ -10317,7 +9690,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고농축 유산균의 부드러운 요거트와 딸기 본연의 상콤&달콤한 과육이 상큼하게 어우러진 리뉴얼 된 과일 요거트 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-152',
     name: "스타벅스 말차 폭포 유자 블렌디드",
     brand: "스타벅스",
@@ -10358,7 +9731,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쏟아지는 폭포를 표현한 말차와 상큼한 유자 캐모마일 티가 만나 시원한 평화를 선사하는 송당만의 과일 티 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-153',
     name: "스타벅스 망고 바나나 블렌디드",
     brand: "스타벅스",
@@ -10399,7 +9772,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "(Grande Only) 달콤한 망고 패션 프루트 주스에 바나나 1개가 통째로 들어간 신선한 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-154',
     name: "스타벅스 블랙 글레이즈드 셔벗 플레이트",
     brand: "스타벅스",
@@ -10440,7 +9813,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "마스카포네 크림을 얹은 에스프레소 셔벗과 리저브 에스프레소를 함께, 또 따로 아포가토처럼 즐기는 디저트 스타일 셔벗 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-155',
     name: "스타벅스 블루베리 딜라이트 요거트 블렌디드",
     brand: "스타벅스",
@@ -10481,7 +9854,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고농축 유산균의 부드러운 요거트와 달콤한 블루베리가 부드럽게 어우러진 시원한 과일 요거트 블렌디드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-156',
     name: "스타벅스 자몽 허니 레몬 블렌디드",
     brand: "스타벅스",
@@ -10522,7 +9895,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "제로 시럽을 활용해 칼로리 부담을 낮추고, 달콤한 자몽 허니에 레몬을 더해 가볍고 상큼하게 즐길 수 있는 과일 블렌디드 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-sbux-157',
     name: "스타벅스 피치 망고 블렌디드",
     brand: "스타벅스",
@@ -10563,7 +9936,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "오직 강릉에서만 다시 만날 수 있는 특화 음료로, 달콤한 피치,망고에 산뜻한 히비스커스 티를 더한 매력적인 음료 *G Only",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-158',
     name: "매머드 커피",
     brand: "매머드커피",
@@ -10604,7 +9977,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "에스프레소 4샷이 들어간 대용량 아메리카노",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-159',
     name: "매머드커피 아이스티",
     brand: "매머드커피",
@@ -10645,7 +10018,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-160',
     name: "매머드커피 아샷추 아이스티",
     brand: "매머드커피",
@@ -10686,7 +10059,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 에스프레소가 어우러진 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-161',
     name: "매머드커피 스노우 매머드 커피",
     brand: "매머드커피",
@@ -10727,7 +10100,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "아메리카노 위에 바닐라 향의 달콤한 수제휩이 눈처럼 내리는 대용량 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-162',
     name: "매머드커피 허니베리 홍초 에이드",
     brand: "매머드커피",
@@ -10768,7 +10141,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "면역력과 식욕에도 좋은 홍초를 에이드로 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-163',
     name: "매머드커피 패션 오렌지 아이스티",
     brand: "매머드커피",
@@ -10809,7 +10182,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "1L 사이즈의 패션후르츠의 향과 생오렌지 홍차의 조합으로 과일향이 많이 나는 아이스티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-164',
     name: "매머드커피 디카페인 매머드 커피",
     brand: "매머드커피",
@@ -10850,7 +10223,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-165',
     name: "매머드커피 디카페인 아샷추 아이스티",
     brand: "매머드커피",
@@ -10891,7 +10264,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 디카페인 에스프레소가 어우러진 음료&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-166',
     name: "매머드커피 디카페인 스노우 매머드 커피",
     brand: "매머드커피",
@@ -10932,7 +10305,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 아메리카노 위에 바닐라 향의 달콤한 수제휩이 눈처럼 내리는 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-167',
     name: "매머드커피 아메리카노",
     brand: "매머드커피",
@@ -10973,7 +10346,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피의 풍미를 천천히 간단하게 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-168',
     name: "매머드커피 꿀 커피",
     brand: "매머드커피",
@@ -11014,7 +10387,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "아메리카노에 꿀을 더해 자극 없이 편안하게 즐길 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-169',
     name: "매머드커피 아몬드 아메리카노",
     brand: "매머드커피",
@@ -11055,48 +10428,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피와 아몬드의 향이 입안에 꽉 차는 고소한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
-    id: 'coffee-mmth-170',
-    name: "매머드커피 아샷추 아이스티",
-    brand: "매머드커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://mmthcoffee.com/files/menu/8f9bfe1dd2aed45d5c54a06412fe78b3.png",
-    releaseDate: '2026.09 신메뉴',
-    price: 3700,
-    overallRating: 4.8,
-    ratingCount: 937,
-    searchInfluxCount: 72080,
-    stores: ["매머드커피"],
-    repurchasePercent: 93,
-    calories: 140,
-    volume: "M(20oz) / L(32oz)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 140,
-      sodium: '39mg',
-      carbs: '39g',
-      sugar: '19g',
-      fat: '5g',
-      protein: '4g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "매머드커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 24, price: 3700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
-    ],
-    description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 에스프레소가 어우러진 음료&nbsp;",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
+{
     id: 'coffee-mmth-171',
     name: "매머드커피 샷추가 파인애플 주스",
     brand: "매머드커피",
@@ -11137,7 +10469,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "100% 파인애플을 착즙한 주스에 에스프레소가 어우러진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-172',
     name: "매머드커피 카페 라떼",
     brand: "매머드커피",
@@ -11178,7 +10510,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "에스프레소에 우유를 더해, 보다 부드럽고 포만감을 느낄 수 있는 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-173',
     name: "매머드커피 시그니처 라떼",
     brand: "매머드커피",
@@ -11219,7 +10551,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "매머드커피만의 깊고 진한 시그니처 우유에 에스프레소를 더한 부드럽고 크리미한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-174',
     name: "매머드커피 카푸치노",
     brand: "매머드커피",
@@ -11260,7 +10592,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피의 향, 우유의 맛, 거품의 촉감을 한 번에 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-175',
     name: "매머드커피 꿀 라떼",
     brand: "매머드커피",
@@ -11301,7 +10633,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카페 라떼를 꿀맛으로 입안에서 달콤함과 고소함을 한 번에 즐길 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-176',
     name: "매머드커피 아몬드 라떼",
     brand: "매머드커피",
@@ -11342,7 +10674,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카페 라떼에 아몬드를 더해 고소함이 두 배가 된 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-177',
     name: "매머드커피 바닐라 라떼",
     brand: "매머드커피",
@@ -11383,7 +10715,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피와 바닐라 향을 부드럽게 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-178',
     name: "매머드커피 꿀바나 라떼",
     brand: "매머드커피",
@@ -11424,7 +10756,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꿀, 바나나, 커피, 우유! 말이 필요 없는 달콤 달콤한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-179',
     name: "매머드커피 카라멜 마키아토",
     brand: "매머드커피",
@@ -11465,7 +10797,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카라멜의 달콤함과 우유 거품으로 인한 부드러운 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-180',
     name: "매머드커피 카페 모카",
     brand: "매머드커피",
@@ -11506,7 +10838,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "초코와 카페 라떼의 조합으로 달달하고 취향에 따라 휘핑과 함께 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-181',
     name: "매머드커피 티라미수 라떼",
     brand: "매머드커피",
@@ -11547,7 +10879,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "티라미수 케이크의 특징인 부드러운 초코릿과 치즈의 식감과 카카오 토핑으로 조화로운 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-182',
     name: "매머드커피 헤이즐넛 커피",
     brand: "매머드커피",
@@ -11588,7 +10920,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "로스티드 헤이즐넛 풍미와 넛트계열의 매머드커피의 원두가 어우러져 입안 가득 좋은 향이 퍼지는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-183',
     name: "매머드커피 코코넛 사이공 라떼",
     brand: "매머드커피",
@@ -11629,7 +10961,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "베트남 커피의 주재료인 연유 베이스에 코코넛을 얹은 에스프레소 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-184',
     name: "매머드커피 헤이즐넛 모카",
     brand: "매머드커피",
@@ -11670,7 +11002,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 로스티드 헤이즐넛에 리얼 초코칩과 에스프레소가 어우러져 입안 가득 익숙함을 느낄 수 있는 넛트 초콜릿 카페 모카 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-185',
     name: "매머드커피 돌체 라떼",
     brand: "매머드커피",
@@ -11711,7 +11043,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소와 고소한 우유가 잘 어우러진 달콤한 커피 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-186',
     name: "매머드커피 달고나 카페라떼",
     brand: "매머드커피",
@@ -11752,7 +11084,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 카페 라떼에 달콤 쌉싸름한 달고나를 올려 달고나의 바삭한 식감과 달콤함을 느낄 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-187',
     name: "매머드커피 믹스 커피",
     brand: "매머드커피",
@@ -11793,7 +11125,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "남녀노소 모두가 즐길 수 있는 달콤한 믹스 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-188',
     name: "매머드커피 디카페인 아메리카노",
     brand: "매머드커피",
@@ -11834,7 +11166,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소의 풍미를 디카페인으로 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-189',
     name: "매머드커피 디카페인 꿀 커피",
     brand: "매머드커피",
@@ -11875,7 +11207,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꿀 베이스에 디카페인 아메리카노를 더해 자극 없이 편안하게 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-190',
     name: "매머드커피 디카페인 아몬드 아메리카노",
     brand: "매머드커피",
@@ -11916,7 +11248,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 아메리카노에 아몬드 향을 더해 입안 가득 고소함을 느낄 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-191',
     name: "매머드커피 디카페인 꿀 라떼",
     brand: "매머드커피",
@@ -11957,7 +11289,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 카페 라떼와 달콤한 바닐라 향을 한 잔에 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-192',
     name: "매머드커피 디카페인 카푸치노",
     brand: "매머드커피",
@@ -11998,7 +11330,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "디카페인 에스프레소와 우유의 고소함, 거품의 촉감을 한 번에 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-193',
     name: "매머드커피 디카페인 카페 라떼",
     brand: "매머드커피",
@@ -12039,7 +11371,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 풍미의 에스프레소와 부드러운 우유가 잘 어우러지는 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-194',
     name: "매머드커피 디카페인 시그니처 라떼",
     brand: "매머드커피",
@@ -12080,7 +11412,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "매머드커피만의 깊고 진한 시그니처 우유에 디카페인 에스프레소를 더한 부드럽고 크리미한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-195',
     name: "매머드커피 디카페인 아몬드 라떼",
     brand: "매머드커피",
@@ -12121,7 +11453,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카페 라떼에 아몬드를 더해 고소함이 두 배가 된 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-196',
     name: "매머드커피 디카페인 바닐라 라떼",
     brand: "매머드커피",
@@ -12162,7 +11494,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 카페 라떼와 달콤한 바닐라 향을 한 잔에 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-197',
     name: "매머드커피 디카페인 카라멜 마키아토",
     brand: "매머드커피",
@@ -12203,7 +11535,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 카라멜과 부드러운 우유 거품을 디카페인으로 즐길 수 있는 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-198',
     name: "매머드커피 디카페인 카페 모카",
     brand: "매머드커피",
@@ -12244,7 +11576,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "초코와 카페 라떼의 조합으로 달달하고 취향에 따라 휘핑과 함께 즐길 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-199',
     name: "매머드커피 디카페인 티라미수 라떼",
     brand: "매머드커피",
@@ -12285,7 +11617,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "티라미수 케이크의 특징인 부드러운 초콜릿과 치즈의 식감과 카카오 토핑으로 조화로운 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-200',
     name: "매머드커피 디카페인 꿀바나 라떼",
     brand: "매머드커피",
@@ -12326,7 +11658,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꿀, 바나나, 디카페인 에스프레소, 우유! 말이 필요 없는 달콤 달콤한 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-201',
     name: "매머드커피 디카페인 헤이즐넛 커피",
     brand: "매머드커피",
@@ -12367,7 +11699,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "풍부한 헤이즐넛 향과 달콤함이 어우러져 입안 가득 좋은 향이 퍼지는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-202',
     name: "매머드커피 디카페인 코코넛 사이공 라떼",
     brand: "매머드커피",
@@ -12408,7 +11740,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "베트남 커피의 주재료인 연유 베이스에 코코넛을 얹은 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-203',
     name: "매머드커피 디카페인 헤이즐넛 모카",
     brand: "매머드커피",
@@ -12449,7 +11781,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 로스티드 헤이즐넛에 리얼 초코칩과 디카페인 에스프레소가 어우러져 입안 가득 익숙함을 느낄 수 있는 넛트 초콜릿 카페모카",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-204',
     name: "매머드커피 디카페인 돌체 라떼",
     brand: "매머드커피",
@@ -12490,7 +11822,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 풍미의 에스프레소와 고소한 우유가 잘 어우러진 달콤한 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-205',
     name: "매머드커피 디카페인 달고나 카페라떼",
     brand: "매머드커피",
@@ -12531,48 +11863,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 카페 라떼에 달콤 쌉싸름한 달고나를 올려 달고나의 바삭한 식감과 달콤함을 느낄 수 있는 디카페인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
-    id: 'coffee-mmth-206',
-    name: "매머드커피 디카페인 아샷추 아이스티",
-    brand: "매머드커피",
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: "https://mmthcoffee.com/files/menu/3319e345db6318276ff1e81181f6478c.png",
-    releaseDate: '2026.09 신메뉴',
-    price: 4700,
-    overallRating: 4.8,
-    ratingCount: 965,
-    searchInfluxCount: 83600,
-    stores: ["매머드커피"],
-    repurchasePercent: 97,
-    calories: 140,
-    volume: "M(20oz) / L(32oz)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: {
-      calories: 140,
-      sodium: '35mg',
-      carbs: '25g',
-      sugar: '19g',
-      fat: '9g',
-      protein: '4g'
-    },
-    ingredients: "정제수, 에스프레소 샷, 원유",
-    allergens: ["우유"],
-    origin: '원두: 외국산(에티오피아, 콜롬비아, 브라질 등)',
-    manufacturer: "매머드커피 코리아",
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 음료는 어린이 및 임산부 섭취에 주의하세요.',
-    storeStocks: [
-      { store: "매머드커피", status: '입고완료', stockCount: 20, price: 4700, eventBadge: '신메뉴', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://www.mmthcoffee.com' }
-    ],
-    description: "홍차와 복숭아 향이 조화로운 달콤한 복숭아 아이스티에 디카페인 에스프레소가 어우러진 음료&nbsp;&nbsp;",
-    bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
-  },
-  {
+{
     id: 'coffee-mmth-207',
     name: "매머드커피 디카페인 샷추가 파인애플 주스",
     brand: "매머드커피",
@@ -12613,7 +11904,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "100% 파인애플을 착즙한 주스에 디카페인 에스프레소가 어우러진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-208',
     name: "매머드커피 콜드브루",
     brand: "매머드커피",
@@ -12654,7 +11945,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 맛을 느낄 수 있는 브라질 피베리 콜드브루",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-209',
     name: "매머드커피 콜드브루 라떼",
     brand: "매머드커피",
@@ -12695,7 +11986,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "저온 추출하여 깔끔한 산미와 밸런스가 특징인 매머드 콜드브루에 우유가 더해져, 고소하면서도 깔끔한 맛으로 즐길 수 있는 콜드브루 라떼 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-210',
     name: "매머드커피 돌체 콜드브루 라떼",
     brand: "매머드커피",
@@ -12736,7 +12027,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 우유에 카카오의 풍미와 고소함을 가진 매머드 콜드브루가 조화롭게 어우러져, 깔끔하면서도 부드러운 단맛을 느낄 수 있는 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-211',
     name: "매머드커피 아몬드 크림 콜드브루",
     brand: "매머드커피",
@@ -12777,7 +12068,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 아몬드의 풍미와 수제 크림이 올라간 콜드브루",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-212',
     name: "매머드커피 레몬토닉 콜드브루",
     brand: "매머드커피",
@@ -12818,7 +12109,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼한 레몬 과즙과 청량감이 더해진 콜드브루",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-213',
     name: "매머드커피 코코넛 크림 콜드브루 라떼",
     brand: "매머드커피",
@@ -12859,7 +12150,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드럽고 달콤한 코코넛크림과 깔끔한 콜드브루의 감칠맛이 조화롭게 어우러진 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-214',
     name: "매머드커피 디카페인 콜드브루",
     brand: "매머드커피",
@@ -12900,7 +12191,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "화학 공법을 사용하지 않는 친환경적인 스위스 워터 프로세스로 본연의 풍미를 담은 디카페인 콜드브루 메뉴로, 부드러운 단맛과 깔끔한 목 넘김이 좋은 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-215',
     name: "매머드커피 디카페인 콜드브루 라떼",
     brand: "매머드커피",
@@ -12941,7 +12232,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 밀크 초콜릿의 단맛을 가진 매머드 디카페인 콜드브루에 우유가 더해져, 한층 더 풍부한 맛으로 즐길 수 있는 디카페인 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-216',
     name: "매머드커피 디카페인 돌체 콜드브루 라떼",
     brand: "매머드커피",
@@ -12982,7 +12273,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깔끔하면서도 고소한 디카페인 콜드브루 라떼에 연유를 넣어, 달콤하면서도 부드러운 맛을 느낄 수 있는 디카페인 콜드브루 라떼 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-217',
     name: "매머드커피 디카페인 아몬드 크림 콜드브루",
     brand: "매머드커피",
@@ -13023,7 +12314,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 견과의 풍미를 가진 매머드의 디카페인 콜드브루에 아몬드 크림을 올려, 고소하고 부드러운 맛을 느낄 수 있는 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-218',
     name: "매머드커피 디카페인 레몬토닉 콜드브루",
     brand: "매머드커피",
@@ -13064,7 +12355,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼한 생레몬과 탄산, 그리고 깔끔한 매머드의 디카페인 콜드브루가 만나 더욱 청량감 있게 즐길 수 있는 디카페인 콜드브루 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-219',
     name: "매머드커피 디카페인 코코넛 크림 콜드브루 라떼",
     brand: "매머드커피",
@@ -13105,7 +12396,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 코코넛 유우에 디카페인 콜드브루를 조화롭게 더한 음료로, 달콤하고 부드러운 코코넛 크림과 콜드브루의 감칠맛이 특징인 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-220',
     name: "매머드 콜드브루 원액",
     brand: "매머드커피",
@@ -13146,7 +12437,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카카오의 풍미와 균형 잡힌 단맛의 밸런스가 특징인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-221',
     name: "매머드 콜드브루 디카페인 원액",
     brand: "매머드커피",
@@ -13187,7 +12478,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 단맛과 긴 여운이 좋은 디카페인 커피&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-222',
     name: "매머드커피 말차 클래식 라떼",
     brand: "매머드커피",
@@ -13228,7 +12519,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깊고 진한 말차의 풍미와 고소한 우유가 어우러져 말차 본연의 맛을 즐길 수 있는 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-223',
     name: "매머드커피 초코 라떼",
     brand: "매머드커피",
@@ -13269,7 +12560,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부담 없이 편하게 즐길 수 있는 초코와 우유를 섞은 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-224',
     name: "매머드커피 딸기 크림 라떼",
     brand: "매머드커피",
@@ -13310,7 +12601,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "과육이 씹히는 딸기청 위 달콤한 연유 라떼와 딸기향 크림이 더해진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-225',
     name: "매머드커피 차이티 라떼",
     brand: "매머드커피",
@@ -13351,7 +12642,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향긋한 밀크티를 즐기고 싶을 때 마시는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-226',
     name: "매머드커피 콩가루 라떼",
     brand: "매머드커피",
@@ -13392,7 +12683,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "영양 가득 17곡 미숫가루와 두유, 꿀이 들어가 기분 좋은 달콤함과 고소함, 그레놀라의 든든함까지 챙긴 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-227',
     name: "매머드커피 옥수수 라떼",
     brand: "매머드커피",
@@ -13433,7 +12724,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 옥수수가 가득한 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-228',
     name: "매머드커피 고구마 라떼",
     brand: "매머드커피",
@@ -13474,7 +12765,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤하고 고소한 고구마 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-229',
     name: "매머드커피 메론바나 라떼",
     brand: "매머드커피",
@@ -13515,7 +12806,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "싱그러운 메론과 달달한 바나나 향이 입안 가득한 라떼",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-230',
     name: "매머드커피 제로 체리콕 에이드",
     brand: "매머드커피",
@@ -13556,7 +12847,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "체리의 달콤한 향과 제로 콜라의 청량함이 더해져 상쾌하고 깔끔한 맛이 매력적인 제로 칼로리 탄산음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-231',
     name: "매머드커피 제로 복숭아 아이스티",
     brand: "매머드커피",
@@ -13597,7 +12888,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티를 제로 칼로리로 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-232',
     name: "매머드커피 리얼 레몬티",
     brand: "매머드커피",
@@ -13638,7 +12929,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "꿀, 생 레몬 그리고 홍차의 조합으로 좀 더 고급스러운 티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-233',
     name: "매머드커피 페퍼민트티",
     brand: "매머드커피",
@@ -13679,7 +12970,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "박하향을 느낄 수 있고 집중력 향상과 졸음 예방을 도와주는 허브티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-234',
     name: "매머드커피 캐모마일티",
     brand: "매머드커피",
@@ -13720,7 +13011,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진정 효과와 피부 노화 억제에 좋은 허브티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-235',
     name: "매머드커피 레몬&오렌지티",
     brand: "매머드커피",
@@ -13761,7 +13052,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "천연 레몬향과 오렌지 향이 더해졌고 인도네시아 홍차를 사용해서 떫은맛없이 부드럽게 마실 수 있는 홍차",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-236',
     name: "매머드커피 얼그레이티",
     brand: "매머드커피",
@@ -13802,7 +13093,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "베르가못향이 매력적인 누구나 쉽게 즐길 수 있는 영국의 홍차&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-237',
     name: "매머드커피 페퍼민트 라임티",
     brand: "매머드커피",
@@ -13843,7 +13134,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼한 라임이 페퍼민트의 향긋함과 더해진 허브티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-238',
     name: "매머드커피 오렌지 아일랜드티",
     brand: "매머드커피",
@@ -13884,7 +13175,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "열대과일 향과 생과일 오렌지를 즐길 수 있는 티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-239',
     name: "매머드커피 우롱 밀크티",
     brand: "매머드커피",
@@ -13925,7 +13216,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "구수한 우롱의 은은한 향이 우유와 잘 어우러진 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-240',
     name: "매머드커피 달고나 밀크티",
     brand: "매머드커피",
@@ -13966,7 +13257,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우롱 티와 달고나가 어우러져 은은한 향과 달콤한 맛을 느낄 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-241',
     name: "매머드커피 밀크티",
     brand: "매머드커피",
@@ -14007,7 +13298,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차를 우려 우유와 바닐라 향의 조합으로 진한 맛의 티",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-242',
     name: "매머드커피 블루레몬 티 / 에이드",
     brand: "매머드커피",
@@ -14048,7 +13339,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생레몬 두 개가 들어가서 레몬 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-243',
     name: "매머드커피 유자 티 / 에이드",
     brand: "매머드커피",
@@ -14089,7 +13380,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "상큼하고 달콤한 유자 향 가득한 티 / 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-244',
     name: "매머드커피 오미자 크랜베리 티 / 에이드",
     brand: "매머드커피",
@@ -14130,7 +13421,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "장수 오미자를 베이스로 하여 레드 베리들의 조화로 오묘한 맛과 향을 즐길 수 있는 티와 청량함을 더한 에이드 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-245',
     name: "매머드커피 자몽 티 / 에이드",
     brand: "매머드커피",
@@ -14171,7 +13462,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생자몽 하나가 들어가서 자몽 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-246',
     name: "매머드커피 라임 레몬 깔라만시 티 / 에이드",
     brand: "매머드커피",
@@ -14212,7 +13503,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "피로회복에 좋은 비타민이 풍부한 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-247',
     name: "매머드커피 오렌지 티 / 에이드",
     brand: "매머드커피",
@@ -14253,7 +13544,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생오렌지 두 개가 들어가서 오렌지 맛이 풍부한 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-248',
     name: "매머드커피 라임 티 / 에이드",
     brand: "매머드커피",
@@ -14294,7 +13585,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생라임 두 개가 들어가서 라임의 청량감을 느낄 수 있는 에이드 / 티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-249',
     name: "매머드커피 제주 한라봉 티 / 에이드",
     brand: "매머드커피",
@@ -14335,7 +13626,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한라봉의 신선한 맛과 향이 과육과 함께 입안가득 느껴지는 한라봉 티/에이드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-250',
     name: "매머드커피 지리산 청매실티",
     brand: "매머드커피",
@@ -14376,7 +13667,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "피로회복, 소화불량 해소, 숙취해소에 좋고, 지리산 청매실을 담은 상큼 달달한 건강 차&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-251',
     name: "매머드커피 청포도 에이드",
     brand: "매머드커피",
@@ -14417,7 +13708,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "청포도가 씹히는 식감이 일품이며 청량감이 좋은 에이드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-252',
     name: "매머드커피 인크레드불",
     brand: "매머드커피",
@@ -14458,7 +13749,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바쁜 일상생활에 활력을 불어넣어 주는 새콤달콤한 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-253',
     name: "매머드커피 레몬 착즙주스",
     brand: "매머드커피",
@@ -14499,7 +13790,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생레몬을 직접 착즙하여, 새콤한 생레몬의 맛을 더욱 신선하게 즐길 수 있는 주스 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-254',
     name: "매머드커피 자몽 착즙주스",
     brand: "매머드커피",
@@ -14540,7 +13831,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생자몽을 직접 착즙하여, 생자몽의 달콤 쌉싸름한 맛을 풍부하게 즐길 수 있는 주스 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-255',
     name: "매머드커피 오렌지 착즙주스",
     brand: "매머드커피",
@@ -14581,7 +13872,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생오렌지를 직접 착즙하여, 상큼 달콤한 생오렌지의 과즙을 그대로 담아낸 주스 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-256',
     name: "매머드커피 라임 착즙주스",
     brand: "매머드커피",
@@ -14622,7 +13913,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "생라임을 직접 착즙하여, 풍부한 생라임의 향과 맛으로 즐길 수 있는 주스 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-257',
     name: "매머드커피 복숭아 아이스티",
     brand: "매머드커피",
@@ -14663,7 +13954,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "홍차와 복숭아 향이 조화롭게 어우러진 달콤한 복숭아 아이스티&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-258',
     name: "매머드커피 수박 주스",
     brand: "매머드커피",
@@ -14704,7 +13995,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤 시원한 수박 과육을 갈아내 풍부한 과즙이 살아있는 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-259',
     name: "매머드커피 토마토 주스",
     brand: "매머드커피",
@@ -14745,7 +14036,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "토마토의 자연스러운 풍미를 깔끔하게 담아낸 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-260',
     name: "매머드커피 포도 주스",
     brand: "매머드커피",
@@ -14786,7 +14077,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "적포도를 갈아내 새콤달콤한 맛이 매력적인 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-261',
     name: "매머드커피 파인애플 주스",
     brand: "매머드커피",
@@ -14827,7 +14118,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "100% 파인애플을 착즙하여 시원하게 즐길 수 있는 주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-262',
     name: "매머드커피 말차 클래식 프라페",
     brand: "매머드커피",
@@ -14868,7 +14159,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깊고 진한 말차의 풍미와 고소한 우유가 어우러져 말차 본연의 맛을 즐길 수 있는 프라페",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-263',
     name: "매머드커피 코코넛 커피 스무디",
     brand: "매머드커피",
@@ -14909,7 +14200,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "젤라토 타입의 아이스크림 스무디로 커피와 코코넛의 절묘한 조합을 이룬 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-264',
     name: "매머드커피 달고나 밀크 스무디",
     brand: "매머드커피",
@@ -14950,7 +14241,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "밀크 스무디의 부드러운 맛과 달고나의 달콤하고 바삭함을 느낄 수 있는 스무디&nbsp;&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-265',
     name: "매머드커피 딸기 스무디",
     brand: "매머드커피",
@@ -14991,7 +14282,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기를 차갑고 상큼하게 느낄 수 있는 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-266',
     name: "매머드커피 복숭아 스무디",
     brand: "매머드커피",
@@ -15032,7 +14323,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "복숭아의 달콤함을 차갑게 즐길 수 있는 스무디",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-267',
     name: "매머드커피 플레인 요거트 스무디",
     brand: "매머드커피",
@@ -15073,7 +14364,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "요거트 그대로를 시원하게 즐기고 싶을 때 마시는 아이스 블렌딩 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-268',
     name: "매머드커피 블루베리 요거트 스무디",
     brand: "매머드커피",
@@ -15114,7 +14405,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "플레인 요거트에 블루베리 향을 가미시켜 좀 더 새콤한 맛의 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-269',
     name: "매머드커피 딸기 요거트 스무디",
     brand: "매머드커피",
@@ -15155,7 +14446,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "플레인 요거트에 딸기향을 가미시켜 좀 더 딸기의 새콤함을 즐길 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-270',
     name: "매머드커피 복숭아 요거트 스무디",
     brand: "매머드커피",
@@ -15196,7 +14487,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "플레인 요거트에 복숭아 향을 가미시켜 좀 더 복숭아의 달콤함을 즐길 수 있는 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-271',
     name: "매머드커피 솜사탕 쉐이크",
     brand: "매머드커피",
@@ -15237,7 +14528,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 사탕 스무디와 소다 우유 거품이 덮여 달달함과 부드러움을 느낄 수 있는 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-272',
     name: "매머드커피 쿠앤크 프라페",
     brand: "매머드커피",
@@ -15278,7 +14569,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쿠키와 초코의 달콤함을 느낄 수 있는 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-273',
     name: "매머드커피 자바칩 프라페",
     brand: "매머드커피",
@@ -15319,7 +14610,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커피와 초코의 맛과 향에 자바칩까지 더해 목 넘김이 즐거운 프라페",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-274',
     name: "매머드커피 스트로베리 바닐라 프라페",
     brand: "매머드커피",
@@ -15360,7 +14651,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기와 바닐라 향을 즐기며 쿠키의 식감까지 즐길 수 있는 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-275',
     name: "매머드커피 피스타치오 프라페",
     brand: "매머드커피",
@@ -15401,7 +14692,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "피스타치오와 아몬드의 조화와 향긋한 향의 프라페&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-276',
     name: "매머드커피 디카페인 코코넛 커피 스무디",
     brand: "매머드커피",
@@ -15442,7 +14733,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "젤라토 타입의 아이스크림 스무디로 디카페인 커피와 코코넛의 절묘한 조합을 이룬 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-277',
     name: "매머드커피 소금빵",
     brand: "매머드커피",
@@ -15483,7 +14774,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 버터의 풍미와 쫄깃하고 부드럽게 찢어지는 결이 매력적인 소금빵",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-278',
     name: "매머드 마카다미아 쿠키",
     brand: "매머드커피",
@@ -15524,7 +14815,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 마카다미아와 달콤한 화이트 초콜릿이 어우러진 쫀득하고 부드러운 식감의 프리미엄 쿠키",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-279',
     name: "매머드 초콜릿 칩 쿠키",
     brand: "매머드커피",
@@ -15565,7 +14856,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 초콜릿칩이 듬뿍 들어간 쫀득하고 부드러운 식감의 프리미엄 쿠키",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-280',
     name: "매머드커피 우유 크림 크로슈",
     brand: "매머드커피",
@@ -15606,7 +14897,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "입안을 가득 채우는 버터 풍미가 풍성한 크로아상 안에 달달 고소한 우유 크림이 가득 채워져 있는 우유 크로슈",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-281',
     name: "매머드커피 초코 덮인 크로슈",
     brand: "매머드커피",
@@ -15647,7 +14938,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 초콜릿을 코팅한 고소한 크로아상 안에 진한 초코 크림을 가득 넣은 초코 크로슈",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-282',
     name: "매머드커피 바삭 한입 페스츄리 약과",
     brand: "매머드커피",
@@ -15688,7 +14979,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "정성스럽게 손으로 밀어 편 페스츄리에 조청이 가득 스며든 간편하게 즐기는 한입 약과&nbsp;&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-283',
     name: "매머드커피 쫀득 한입 고구마말랭이",
     brand: "매머드커피",
@@ -15729,7 +15020,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "100% 국내산 고구마를 오븐에 정성껏 구워 말린 쫀득한 군고구마&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-284',
     name: "매머드커피 근대골목 생크림 단팥빵",
     brand: "매머드커피",
@@ -15770,7 +15061,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 생크림과 호두, 직접 끓인 단팥소를 사용한 수제 생크림 단팥빵&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-285',
     name: "매머드커피 근대골목 단팥빵",
     brand: "매머드커피",
@@ -15811,7 +15102,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "호두와 직접 끓인 단팥소를 사용한 수제 단팥빵&nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-286',
     name: "매머드커피 꿀 우유 크림 도넛",
     brand: "매머드커피",
@@ -15852,7 +15143,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃한 도넛 속 고소하고 진한 우유 크림에 향긋한 바닐라빈과 꿀이 들어간 크림 도넛&nbsp; &nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-287',
     name: "매머드커피 미니 매머드 빵",
     brand: "매머드커피",
@@ -15893,7 +15184,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 소보로빵 속에 부드러운 생크림과 달콤한 딸기잼, 앙금이 어우러져 있는 귀여운 미니 매머드 빵 ■ 알레르기 유발 성분 : 계란, 우유, 밀, 대두유, 호두 함유&nbsp; &nbsp;&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-288',
     name: "매머드커피 바나나 쿠키",
     brand: "매머드커피",
@@ -15934,7 +15225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바나나 향을 입안 가득 느낄 수 있는 바나나 쿠키&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-289',
     name: "매머드커피 브라우니 쿠키",
     brand: "매머드커피",
@@ -15975,7 +15266,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득하고 달콤한 브라우니 쿠키&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-290',
     name: "매머드커피 끼리 플레인 치즈 스틱 케이크",
     brand: "매머드커피",
@@ -16016,7 +15307,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "끼리 크림치즈가 61.9% 함유되어 치즈케이크 고유의 꾸덕함과 진한 맛을 느낄 수 있는 간편 디저트&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-291',
     name: "매머드 크룽지",
     brand: "매머드커피",
@@ -16057,7 +15348,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "프랑스산 무염 버터로 만든 크로아상 생지를 누룽지처럼 납작하게 눌러 카라멜라이징 한 스낵",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-292',
     name: "매머드커피 끼리 쿠키앤 크림 치즈 스틱 케이크",
     brand: "매머드커피",
@@ -16098,7 +15389,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "끼리 치즈의 진한 풍미와 달콤한 쿠키가 만나 더욱 달콤하고 고소한 간편 디저트&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-293',
     name: "매머드 고메버터 플레인 스콘",
     brand: "매머드커피",
@@ -16139,7 +15430,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소하고 풍미 넘치는 고메버터의 향이 입 안 가득 퍼지는 겉은 바삭, 속은 촉촉한 고메버터 플레인 스콘",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-294',
     name: "매머드커피 초코 비스킷 슈",
     brand: "매머드커피",
@@ -16180,7 +15471,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겉바속촉! 달콤하고 부드러운 카카오 초코크림이 입안 가득 퍼지는 비스킷 슈&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-295',
     name: "매머드 초코 파운드 케이크",
     brand: "매머드커피",
@@ -16221,7 +15512,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 초코칩과 고소한 호두가 듬뿍 들어있는 부드럽고 촉촉한 초코 파운드 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-296',
     name: "매머드 고메버터 초코 스콘",
     brand: "매머드커피",
@@ -16262,7 +15553,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "듬뿍 들어간 초코칩과 풍미 가득한 고메버터 스콘이 조화롭게 어우러진 고메버터 초코 스콘",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-297',
     name: "매머드커피 바닐라 비스킷 슈",
     brand: "매머드커피",
@@ -16303,7 +15594,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겉바속촉! 달콤하고 고소한 바닐라빈 슈크림이 입안 가득 퍼지는 비스킷 슈&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-298',
     name: "매머드커피 바스크 치즈 케이크",
     brand: "매머드커피",
@@ -16344,7 +15635,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "스모키한 향과 풍미 가득 치즈의 고소함, 달콤한 맛이 돋보이는 부드러운 치즈케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-299',
     name: "매머드 레몬 파운드 케이크",
     brand: "매머드커피",
@@ -16385,7 +15676,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "향긋한 레몬 제스트와 새콤달콤한 레몬 아이싱이 더해진 부드럽고 촉촉한 레몬 파운드 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-300',
     name: "매머드커피 햄&치즈 대만식 샌드위치",
     brand: "매머드커피",
@@ -16426,7 +15717,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "짭조름한 햄, 치즈와 달콤한 버터크림이 만나 단짠의 조화를 느낄 수 있는 소프트한 샌드위치&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ■ 알레르기 유발 성분 : 달걀, 우유, 대두, 밀 함유",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-301',
     name: "매머드커피 카야 대만식 샌드위치",
     brand: "매머드커피",
@@ -16467,7 +15758,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "카야 잼에 부드러운 버터크림이 더해져, 달콤하고 고소한 풍미를 느낄 수 있는 소프트한 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-302',
     name: "매머드커피 미니 쁘띠 마카롱",
     brand: "매머드커피",
@@ -16508,7 +15799,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "여섯 가지 맛을 한 번에 즐길 수 있는 알록달록 귀여운 미니 사이즈 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-303',
     name: "매머드커피 바닐라 마카롱",
     brand: "매머드커피",
@@ -16549,7 +15840,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤한 바닐라 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-304',
     name: "매머드커피 초콜릿 마카롱",
     brand: "매머드커피",
@@ -16590,7 +15881,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤한 초콜릿 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-305',
     name: "매머드커피 망고 마카롱",
     brand: "매머드커피",
@@ -16631,7 +15922,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤한 망고 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-306',
     name: "매머드커피 민트초코 마카롱",
     brand: "매머드커피",
@@ -16672,7 +15963,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤한 민트초코 버터크림을 듬뿍 넣은 마카롱",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-307',
     name: "매머드커피 라즈베리 마카롱",
     brand: "매머드커피",
@@ -16713,7 +16004,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤하고 상큼한 라즈베리 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-308',
     name: "매머드커피 블루베리 마카롱",
     brand: "매머드커피",
@@ -16754,7 +16045,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫀득한 꼬끄안에 달콤한 블루베리 버터크림을 듬뿍 넣은 마카롱&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-309',
     name: "매머드커피 마스카포네 티라미수",
     brand: "매머드커피",
@@ -16795,7 +16086,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 에스프레소를 적신 부드러운 핑거 쿠키와 풍미가 가득한 마스카포네 치즈 크림이 어우러져 환상의 궁합을 자랑하는 티라미수 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-310',
     name: "매머드커피 폭탄 카스테라",
     brand: "매머드커피",
@@ -16836,7 +16127,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드럽고 촉촉한 빵에 고소하고 달콤한 크림이 폭발할듯 가득 들어있는 카스테라&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-311',
     name: "매머드커피 밀크 크레이프",
     brand: "매머드커피",
@@ -16877,7 +16168,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "얇게 만들어진 크레이프 사이사이에 달콤한 생크림이 발라져 있어 입에 넣자마자 사르르 녹는 크레이프 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-312',
     name: "매머드 렐리시 핫도그",
     brand: "매머드커피",
@@ -16918,7 +16209,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 핫도그번 사이에 육즙 가득한 대왕 소시지와 새콤 달콤한 렐리시 소스가 잘 어우러진 미국식 핫도그&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-313',
     name: "매머드 미트 칠리 핫도그",
     brand: "매머드커피",
@@ -16959,7 +16250,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 핫도그번 사이에 육즙 가득한 대왕 소시지와 미트 칠리 소스가 잘 어우러진 미국식 핫도그",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-314',
     name: "매머드 렐리시 핫도그 세트",
     brand: "매머드커피",
@@ -17000,7 +16291,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 핫도그번 사이에 육즙 가득한 대왕 소시지와 새콤 달콤한 렐리시 소스가 잘 어우러진 미국식 핫도그 + 아메리카노 세트 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-315',
     name: "매머드 미트 칠리 핫도그 세트",
     brand: "매머드커피",
@@ -17041,7 +16332,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 핫도그번 사이에 육즙 가득한 대왕 소시지와 미트 칠리 소스가 잘 어우러진 미국식 핫도그 + 아메리카노 세트 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-316',
     name: "매머드커피 크로플",
     brand: "매머드커피",
@@ -17082,7 +16373,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겹겹이 쌓여있는 페이스트리에 달콤한 솔티 캐러맬 소스가 뿌려져 단짠의 조화가 환상적인 크로플&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-317',
     name: "매머드커피 치즈 크로플",
     brand: "매머드커피",
@@ -17123,7 +16414,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겹겹이 쌓여있는 페이스트리에 담백한 체다치즈와 솔티 캐러맬 소스까지 더해진 매력만점 치즈 크로플&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-318',
     name: "매머드커피 에그 타르트",
     brand: "매머드커피",
@@ -17164,7 +16455,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "층층이 쌓인 바삭한 패스츄리와 부드럽고 달콤한 에그 필링이 어우러진 담백하고 고소한 에그 타르트",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-319',
     name: "매머드커피 클래식 치즈 케이크",
     brand: "매머드커피",
@@ -17205,7 +16496,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "크림치즈 43%가 함유되어 치즈의 진한 맛과 레몬향이 입안 가득 퍼지는 치즈 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-320',
     name: "매머드커피 제리의 치즈 케이크",
     brand: "매머드커피",
@@ -17246,7 +16537,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤하고 부드러운 화이트 초콜릿 코팅 안에 풍미 가득 진한 크림치즈가 더해진 치즈 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-321',
     name: "매머드커피 쇼콜라 아메르 케이크",
     brand: "매머드커피",
@@ -17287,7 +16578,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 다크초콜릿의 쌉쌀함과 부드러움을 함께 느낄 수 있는 초코무스 케이크",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-322',
     name: "매머드커피 당근 케이크",
     brand: "매머드커피",
@@ -17328,7 +16619,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백한 당근 케이크에 부드러운 크림치즈와 시나몬 향이 더해져 매력적인 맛의 케이크&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-323',
     name: "매머드커피 잉글리쉬 머핀 샌드위치",
     brand: "매머드커피",
@@ -17369,7 +16660,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "동그란 모양의 영국 대표적인 모닝 브레드&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-324',
     name: "매머드커피 멜팅 치즈 샌드위치",
     brand: "매머드커피",
@@ -17410,7 +16701,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 맛과 풍미가 살아있는 호밀 브레드를 로프로 구운 후 호밀 브레드를 적당한 두께감으로 커팅하고 그 슬라이스 사이에 모짜렐라치즈, 체다 치즈, 에멘탈치즈까지, 3가지 치즈를 믹스해서 샌딩한 샌드위치",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-325',
     name: "매머드커피 허니브레드",
     brand: "매머드커피",
@@ -17451,7 +16742,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "점보 통식빵을 9등분으로 칼집을 넣은 후 허니버터를 윗면에 골고루 발라준 제품&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-326',
     name: "매머드커피 플레인 베이글",
     brand: "매머드커피",
@@ -17492,7 +16783,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃하면서도 촉촉하고 담백한 플레인 베이글&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-327',
     name: "매머드커피 블루베리 베이글",
     brand: "매머드커피",
@@ -17533,7 +16824,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃하면서도 촉촉하고 담백한 블루베리 베이글&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-328',
     name: "매머드커피 베이컨 치즈 샌드위치",
     brand: "매머드커피",
@@ -17574,7 +16865,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "치즈와 바삭하게 구운 베이컨을 더해 풍미는 살리고 신선한 채소로 느끼함은 잡고 아삭한 식감을 더한 매력적인 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-329',
     name: "매머드커피 에그 샐러드 샌드위치",
     brand: "매머드커피",
@@ -17615,7 +16906,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기 잼과 누구나 좋아하는 담백한 에그 샐러드가 들어간 기본에 충실한 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-330',
     name: "매머드커피 튜나 샌드위치",
     brand: "매머드커피",
@@ -17656,7 +16947,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "마요네즈에 버무려진 참치와 아삭한 샐러리가 조화를 이룬 샌드위치&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-331',
     name: "매머드커피 클럽 샌드위치",
     brand: "매머드커피",
@@ -17697,7 +16988,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "닭 가슴살이 듬뿍 들어가 치즈의 풍미와 풍부한 야채가 함께 조화를 이루는 샌드위치",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-332',
     name: "매머드커피 베이컨 치즈 샌드위치 세트",
     brand: "매머드커피",
@@ -17738,7 +17029,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "치즈와 바삭하게 구운 베이컨을 더해 풍미는 살리고 신선한 채소로 느끼함은 잡고 아삭한 식감을 더한 매력적인 샌드위치 + 아메리카노 세트 메뉴&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-333',
     name: "매머드커피 에그 샐러드 샌드위치 세트",
     brand: "매머드커피",
@@ -17779,7 +17070,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "딸기 잼과 누구나 좋아하는 담백한 에그 샐러드가 들어간 기본에 충실한 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-334',
     name: "매머드커피 튜나 샌드위치 세트",
     brand: "매머드커피",
@@ -17820,7 +17111,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "마요네즈에 버무려진 참치와 아삭한 샐러리가 조화를 이룬 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-335',
     name: "매머드커피 클럽 샌드위치 세트",
     brand: "매머드커피",
@@ -17861,7 +17152,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "닭 가슴살이 듬뿍 들어가 치즈의 풍미와 풍부한 야채가 함께 조화를 이루는 샌드위치 + 아메리카노 세트 메뉴",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-336',
     name: "매머드커피 뽀로로(보리차)",
     brand: "매머드커피",
@@ -17902,7 +17193,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 현미, 옥수수, 보리를 넣고 끓인 차&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-337',
     name: "매머드커피 뽀로로(밀크)",
     brand: "매머드커피",
@@ -17943,7 +17234,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1, 비타민D, 식이섬유, 젖산칼슘을 함유한 밀크맛 음료",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-338',
     name: "매머드커피 뽀로로(딸기)",
     brand: "매머드커피",
@@ -17984,7 +17275,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1 비타민D, 식이섬유를 함유한 딸기맛 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-339',
     name: "매머드커피 뽀로로(사과)",
     brand: "매머드커피",
@@ -18025,7 +17316,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "[無탄산/無색소/無보존료] 칼슘, 비타민B1 비타민D, 식이섬유를 함유한 사과맛 음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-340',
     name: "매머드커피 아쿠아파나(병)",
     brand: "매머드커피",
@@ -18066,7 +17357,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "미네랄이 함유된 무탄산 워터&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-341',
     name: "매머드커피 골드메달 애플주스(병)",
     brand: "매머드커피",
@@ -18107,7 +17398,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "설탕과 물이 들어가지 않은 100% 프리미엄 사과주스",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-342',
     name: "매머드커피 로리나(핑크레몬)",
     brand: "매머드커피",
@@ -18148,7 +17439,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "깔끔한 뒷맛이 상쾌한 에이드",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-343',
     name: "매머드커피 창소다워터",
     brand: "매머드커피",
@@ -18189,7 +17480,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "강렬하고 건강한 태국의 청정 탄산수&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-344',
     name: "매머드커피 분다버그(망고)",
     brand: "매머드커피",
@@ -18230,7 +17521,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "호주에서 온 자연발효 탄산음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-345',
     name: "매머드커피 분다버그(진저비어)",
     brand: "매머드커피",
@@ -18271,7 +17562,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "호주에서 온 자연발효 탄산음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-346',
     name: "매머드커피 분다버그(핑크자몽)",
     brand: "매머드커피",
@@ -18312,7 +17603,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "호주에서 온 자연발효 탄산음료&nbsp;",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-347',
     name: "매머드 탄산수",
     brand: "매머드커피",
@@ -18353,7 +17644,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "강력한 탄산과 깔끔한 맛의 탄산수",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'coffee-mmth-348',
     name: "매머드 콜드브루 스틱커피",
     brand: "매머드커피",
@@ -18394,7 +17685,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "부드러운 단맛, 견과류의 고소함과 자극적이지 않은 산미 그리고 부담스럽지 않은 바디감으로 목 넘김이 좋고 입안에 깔끔한 여운이 매력적인 커피",
     bestQuotes: ['커피 풍미가 아주 깊고 깔끔해요', '매일 마셔도 부담 없는 맛!']
   },
-  {
+{
     id: 'burger-mcd-01',
     name: "맥도날드 빅맥®",
     brand: "맥도날드",
@@ -18435,7 +17726,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "100% 순 쇠고기 패티 두 장에 특별한 소스, 양상추, 치즈, 피클, 양파까지 50년 넘게 사랑받은 시그니처",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-02',
     name: "맥도날드 맥스파이시® 상하이 버거",
     brand: "맥도날드",
@@ -18476,7 +17767,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "매콤한 시즈닝을 입힌 100% 닭가슴살 통살 패티에 아삭한 양상추와 신선한 토마토의 매콤 바삭한 조화",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-03',
     name: "맥도날드 1955® 버거",
     brand: "맥도날드",
@@ -18517,7 +17808,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "113g 두툼한 순 쇠고기 패티, 특별한 1955 소스에 깊은 풍미의 그릴드 어니언과 베이컨이 더해진 정통 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-04',
     name: "맥도날드 맥치킨®",
     brand: "맥도날드",
@@ -18558,7 +17849,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭하고 두툼해진 치킨 패티와 고소한 화이트 마요 소스가 어우러진 클래식 치킨버거의 대명사",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-05',
     name: "맥도날드 맥치킨® 모짜렐라",
     brand: "맥도날드",
@@ -18599,7 +17890,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "든든한 맥치킨 패티에 쫀득한 골든 모짜렐라 치즈스틱 2조각과 매콤한 아라비아따 소스가 듬뿍 들어간 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-06',
     name: "맥도날드 더블 치즈버거",
     brand: "맥도날드",
@@ -18640,7 +17931,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "순 쇠고기 패티 2장에 고소한 치즈 2장! 진한 고기와 치즈 본연의 풍미를 입안 가득 즐기는 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-07',
     name: "맥도날드 쿼터파운더® 치즈",
     brand: "맥도날드",
@@ -18681,7 +17972,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두툼한 1/4 파운드 순 쇠고기 패티의 진한 육즙과 부드럽고 고소한 치즈 2장의 풍성한 맛",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-08',
     name: "맥도날드 진주 고추 크림치즈 비프 버거",
     brand: "맥도날드",
@@ -18722,7 +18013,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "한국의 맛 프로젝트! 진주 고추의 알싸한 매콤함과 부드러운 크림치즈 피클 토핑이 육즙 가득 비프 패티와 환상의 조화",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-09',
     name: "맥도날드 진주 고추 크림치즈 치킨 버거",
     brand: "맥도날드",
@@ -18763,7 +18054,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭하고 매콤한 100% 닭가슴살 패티에 한국 진주 고추 크림치즈 소스가 듬뿍 올라간 특급 신메뉴",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-mcd-10',
     name: "맥도날드 그릴드 치킨 모닝 버거",
     brand: "맥도날드",
@@ -18804,7 +18095,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백하게 구워낸 그릴드 치킨 패티와 부드러운 에그, 신선한 양상추로 가볍고 든든하게 시작하는 하루",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-11',
     name: "버거킹 와퍼",
     brand: "버거킹",
@@ -18845,7 +18136,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "불에 직접 구운 직화 순 쇠고기 패티에 싱싱한 야채와 토마토가 듬뿍 들어간 버거킹의 대표 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-12',
     name: "버거킹 치즈와퍼",
     brand: "버거킹",
@@ -18886,7 +18177,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "불에 직접 구운 직화 순 쇠고기 패티와 고소한 슬라이스 치즈 2장이 어우러진 클래식 치즈버거의 정석",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-13',
     name: "버거킹 콰트로치즈와퍼",
     brand: "버거킹",
@@ -18927,7 +18218,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "모짜렐라, 아메리칸, 파르메산, 체다 등 진짜 4가지 프리미엄 치즈와 직화 패티의 환상적인 치즈 풍미",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-14',
     name: "버거킹 통새우와퍼",
     brand: "버거킹",
@@ -18968,7 +18259,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "탱글탱글한 통새우에 매콤상큼한 스파이시 토마토소스와 직화 패티가 선사하는 버거킹 부동의 베스트셀러",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-15',
     name: "버거킹 갈릭불고기와퍼",
     brand: "버거킹",
@@ -19009,7 +18300,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 특제 불고기소스와 바삭하고 향긋한 갈릭칩이 직화 패티와 조화를 이루는 한국인 맞춤 와퍼",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-16',
     name: "버거킹 몬스터와퍼",
     brand: "버거킹",
@@ -19050,7 +18341,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "직화 순 쇠고기 패티, 바삭한 치킨 패티, 훈연 베이컨과 매콤한 디아블로 소스가 만난 압도적 볼륨의 끝판왕",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-17',
     name: "버거킹 비프불고기버거",
     brand: "버거킹",
@@ -19091,7 +18382,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "불맛 가득 직화 쇠고기 패티에 달콤 짭조름한 특제 불고기 소스가 듬뿍 들어간 실속형 알짜 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-18',
     name: "버거킹 롱치킨버거",
     brand: "버거킹",
@@ -19132,7 +18423,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭하고 촉촉한 롱 치킨 패티 위에 담백한 마요네즈와 아삭한 양상추를 얹은 버거킹 스테디셀러 치킨버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-19',
     name: "버거킹 베이컨치즈와퍼",
     brand: "버거킹",
@@ -19173,7 +18464,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "직화 순 쇠고기 패티에 훈연 베이컨과 고소한 치즈가 듬뿍 더해져 진한 풍미를 선사하는 프리미엄 와퍼",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-bk-20',
     name: "버거킹 와퍼 주니어",
     brand: "버거킹",
@@ -19214,7 +18505,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "와퍼의 직화 불맛과 신선한 야채의 풍미를 부담 없는 알찬 크기로 가볍게 즐기는 실속형 와퍼",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-21',
     name: "롯데리아 리아 불고기 (불고기버거)",
     brand: "롯데리아",
@@ -19255,7 +18546,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "1992년 출시 이후 대한민국 국민의 입맛을 사로잡은 원조 불고기 소스의 오리지널 롯데리아 대표 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-22',
     name: "롯데리아 리아 새우 (새우버거)",
     brand: "롯데리아",
@@ -19296,7 +18587,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "1979년 출시된 롯데리아의 전설! 탱글탱글한 새우 패티와 특제 타르타르 소스의 환상 조화",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-23',
     name: "롯데리아 한우불고기버거",
     brand: "롯데리아",
@@ -19337,7 +18628,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 한우 인증 패티를 사용한 프리미엄 버거! 전국한우협회 공식 인증 한우 순 쇠고기의 풍부한 육즙",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-24',
     name: "롯데리아 더블 한우불고기버거",
     brand: "롯데리아",
@@ -19378,7 +18669,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "최상급 한우 패티가 2장! 두 배로 깊고 진한 프리미엄 한우의 감동을 선사하는 럭셔리 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-25',
     name: "롯데리아 모짜렐라 인 더 버거 베이컨",
     brand: "롯데리아",
@@ -19419,7 +18710,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "자연산 모짜렐라 치즈 패티가 쭈-욱 늘어나는 치즈 마니아의 최애 버거! 고소한 베이컨과의 조화",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-26',
     name: "롯데리아 핫크리스피버거",
     brand: "롯데리아",
@@ -19460,7 +18751,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "닭가슴살을 매콤하게 시즈닝하여 바삭하게 튀겨낸 깔끔하고 칼칼한 매운맛의 인기 치킨버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-27',
     name: "롯데리아 티렉스 (T-REX) 버거",
     brand: "롯데리아",
@@ -19501,7 +18792,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "번(빵)보다 훨씬 거대한 통다리살 치킨 패티가 튀어나오는 무자비한 크기와 가성비의 T-REX 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-28',
     name: "롯데리아 데리버거",
     brand: "롯데리아",
@@ -19542,7 +18833,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 데리야끼 소스와 담백한 패티, 아삭한 양상추가 어우러진 착한 가격의 국민 간식 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-29',
     name: "롯데리아 더블 데리버거",
     brand: "롯데리아",
@@ -19583,7 +18874,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국민 데리버거에 패티를 한 장 더블로 얹어 풍성함을 더한 실속 만점 더블 패티 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-ria-30',
     name: "롯데리아 전주비빔라이스버거",
     brand: "롯데리아",
@@ -19624,7 +18915,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "전주비빔밥을 그대로 번으로 재현! 반숙란 패티와 고기 패티, 고추장 소스가 어우러진 전통 라이스버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-31',
     name: "KFC 징거버거",
     brand: "KFC",
@@ -19665,7 +18956,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "KFC를 대표하는 100% 통닭가슴살 필렛의 매콤바삭함과 신선한 토마토, 양상추가 어우러진 시그니처 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-32',
     name: "KFC 타워버거",
     brand: "KFC",
@@ -19706,7 +18997,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두툼한 통가슴살 필렛 위에 고소한 해시브라운과 슬라이스 치즈를 높게 쌓아올린 푸짐한 대표 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-33',
     name: "KFC 징거더블다운맥스",
     brand: "KFC",
@@ -19747,7 +19038,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "빵(번) 대신 두툼한 치킨 필렛 2장 사이에 해시브라운, 베이컨, 치즈를 가득 채운 고기 매니아들의 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-34',
     name: "KFC 핫치즈징거버거",
     brand: "KFC",
@@ -19788,7 +19079,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "매콤한 통가슴살 징거 필렛에 진하고 매콤한 핫치즈 살사소스를 듬뿍 얹어 감칠맛을 극대화한 버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-35',
     name: "KFC 블랙라벨폴인치즈버거",
     brand: "KFC",
@@ -19829,7 +19120,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "육즙 가득 부드러운 100% 닭다리살 순살 필렛에 크림치즈와 고다치즈가 흘러넘치는 프리미엄 치즈버거",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-36',
     name: "KFC 캡새버거",
     brand: "KFC",
@@ -19870,7 +19161,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "통새우살이 톡톡 씹히는 바삭한 새우 패티에 고소하고 알싸한 특제 머스타드 마요소스의 깔끔한 조화",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-37',
     name: "KFC 오치킨버거베이직",
     brand: "KFC",
@@ -19911,7 +19202,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "치킨의 명가 KFC가 만든 클래식하고 담백한 기본 치킨버거, 풍성한 가성비와 바삭한 식감",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-38',
     name: "KFC 트위스터",
     brand: "KFC",
@@ -19952,7 +19243,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백하고 쫄깃한 토르티야에 바삭한 안심 텐더와 신선한 야채, 상큼한 페퍼마요 소스를 돌돌 만 랩 샌드위치",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-39',
     name: "KFC 핫크리스피치킨 1조각",
     brand: "KFC",
@@ -19993,7 +19284,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "KFC만의 비법 레시피로 튀겨내 겉은 극강의 바삭함과 매콤함, 속은 촉촉한 육즙이 터지는 명품 치킨",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
+{
     id: 'burger-kfc-40',
     name: "KFC 오리지널치킨 1조각",
     brand: "KFC",
@@ -20034,792 +19325,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "커넬 샌더스의 11가지 비밀 향신료를 더해 압력 튀김기로 조리한 70년 전통의 원조 KFC 치킨",
     bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
   },
-  {
-    id: 'burger-mom-41',
-    name: "맘스터치 싸이버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 4900,
-    overallRating: 4.9,
-    ratingCount: 2450,
-    searchInfluxCount: 52000,
-    stores: ["맘스터치"],
-    repurchasePercent: 96,
-    calories: 594,
-    volume: "1개 (단품)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 594,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "매콤하게 시즈닝한 촉촉한 통다리살 패티와 신선한 양상추, 달콤한 화이트소스가 어우러진 맘스터치 부동의 1위 대표 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 50, price: 4900, eventBadge: '대표메뉴', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "매콤하게 시즈닝한 촉촉한 통다리살 패티와 신선한 양상추, 달콤한 화이트소스가 어우러진 맘스터치 부동의 1위 대표 버거",
-    bestQuotes: ['패티 육즙과 신선한 야채의 환상 조합', '언제 먹어도 든든하고 맛있는 갓성비 버거!']
-  },
-  {
-    id: 'burger-mom-42',
-    name: "맘스터치 불싸이버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 5200,
-    overallRating: 4.8,
-    ratingCount: 1141,
-    searchInfluxCount: 36350,
-    stores: ["맘스터치"],
-    repurchasePercent: 93,
-    calories: 543,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.8, repurchase: 4.8 },
-    nutrition: {
-      calories: 543,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "매콤한 통다리살 싸이패티에 화끈한 사천풍 매운 소스를 듬뿍 더해 맛있게 매운 중독성 강한 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 30, price: 5200, eventBadge: '매운맛강추', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "매콤한 통다리살 싸이패티에 화끈한 사천풍 매운 소스를 듬뿍 더해 맛있게 매운 중독성 강한 버거",
-    bestQuotes: ['화끈하게 매운 중독적인 불소스!', '스트레스 날아가는 매콤한 맛']
-  },
-  {
-    id: 'burger-mom-43',
-    name: "맘스터치 딥치즈싸이버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 5400,
-    overallRating: 4.9,
-    ratingCount: 1162,
-    searchInfluxCount: 36700,
-    stores: ["맘스터치"],
-    repurchasePercent: 95,
-    calories: 635,
-    volume: "1개 (단품)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 635,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "두툼하고 부드러운 통다리살 패티에 깊고 진한 체다 치즈 소스가 듬뿍 흘러넘치는 치즈버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 35, price: 5400, eventBadge: '치즈덕후강추', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "두툼하고 부드러운 통다리살 패티에 깊고 진한 체다 치즈 소스가 듬뿍 흘러넘치는 치즈버거",
-    bestQuotes: ['치즈 소스 양이 미쳤어요!', '고소함과 바삭함의 완벽한 조화']
-  },
-  {
-    id: 'burger-mom-44',
-    name: "맘스터치 화이트갈릭버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 5200,
-    overallRating: 4.8,
-    ratingCount: 983,
-    searchInfluxCount: 37050,
-    stores: ["맘스터치"],
-    repurchasePercent: 94,
-    calories: 572,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.8, repurchase: 4.8 },
-    nutrition: {
-      calories: 572,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "마늘 향 은은한 화이트갈릭소스와 프리미엄 더블햄, 닭가슴살 통패티가 어우러진 묵직한 풍미의 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 23, price: 5200, eventBadge: '대표메뉴', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "마늘 향 은은한 화이트갈릭소스와 프리미엄 더블햄, 닭가슴살 통패티가 어우러진 묵직한 풍미의 버거",
-    bestQuotes: ['은은한 마늘 풍미가 은근히 중독성 있음', '더블햄까지 들어있어서 푸짐해요']
-  },
-  {
-    id: 'burger-mom-45',
-    name: "맘스터치 인크레더블버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 5900,
-    overallRating: 4.8,
-    ratingCount: 1304,
-    searchInfluxCount: 37400,
-    stores: ["맘스터치"],
-    repurchasePercent: 96,
-    calories: 749,
-    volume: "1개 (단품)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 5.0, repurchase: 4.8 },
-    nutrition: {
-      calories: 749,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "에그프라이, 프리미엄 더블햄, 통다리살 치킨패티까지 입이 떡 벌어지는 압도적인 볼륨감의 대형 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 28, price: 5900, eventBadge: '대용량강추', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "에그프라이, 프리미엄 더블햄, 통다리살 치킨패티까지 입이 떡 벌어지는 압도적인 볼륨감의 대형 버거",
-    bestQuotes: ['하나만 먹어도 하루 종일 배불러요!', '계란프라이와 햄, 치킨의 미친 볼륨']
-  },
-  {
-    id: 'burger-mom-46',
-    name: "맘스터치 언빌리버블버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f6?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 6400,
-    overallRating: 4.8,
-    ratingCount: 1225,
-    searchInfluxCount: 37750,
-    stores: ["맘스터치"],
-    repurchasePercent: 95,
-    calories: 798,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.9, repurchase: 4.8 },
-    nutrition: {
-      calories: 798,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "통새우, 에그프라이, 부드러운 통가슴살 패티에 매콤한 스리라차 마요소스가 더해진 끝판왕 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토","새우"],
-    origin: '패티/원재료: 국내산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 25, price: 6400, eventBadge: '해산물+치킨', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "통새우, 에그프라이, 부드러운 통가슴살 패티에 매콤한 스리라차 마요소스가 더해진 끝판왕 버거",
-    bestQuotes: ['통새우 씹히는 식감이 대박!', '스리라차 마요 소스가 신의 한 수']
-  },
-  {
-    id: 'burger-mom-47',
-    name: "맘스터치 휠렛버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 4700,
-    overallRating: 4.7,
-    ratingCount: 846,
-    searchInfluxCount: 38100,
-    stores: ["맘스터치"],
-    repurchasePercent: 94,
-    calories: 588,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.8, value: 4.7, portion: 4.7, repurchase: 4.7 },
-    nutrition: {
-      calories: 588,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "기름기 쏙 뺀 담백한 100% 통가슴살 패티에 신선한 토마토와 양상추가 어우러진 깔끔한 치킨버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 26, price: 4700, eventBadge: '담백한맛', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "기름기 쏙 뺀 담백한 100% 통가슴살 패티에 신선한 토마토와 양상추가 어우러진 깔끔한 치킨버거",
-    bestQuotes: ['가슴살패티인데 퍽퍽하지 않고 촉촉함', '토마토가 들어가 깔끔한 뒷맛']
-  },
-  {
-    id: 'burger-mom-48',
-    name: "맘스터치 텍사스바베큐치킨버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 6300,
-    overallRating: 4.9,
-    ratingCount: 1367,
-    searchInfluxCount: 38450,
-    stores: ["맘스터치"],
-    repurchasePercent: 96,
-    calories: 648,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.8, repurchase: 4.8 },
-    nutrition: {
-      calories: 648,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "바삭한 닭다리살 패티에 스모키한 정통 텍사스 바베큐 소스와 딥치즈 소스, 바삭한 베이컨의 환상 궁합",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토","돼지고기"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 27, price: 6300, eventBadge: '스모키BBQ', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "바삭한 닭다리살 패티에 스모키한 정통 텍사스 바베큐 소스와 딥치즈 소스, 바삭한 베이컨의 환상 궁합",
-    bestQuotes: ['스모키한 바베큐 향이 입안을 가득 체움', '베이컨과 치즈의 풍미가 예술']
-  },
-  {
-    id: 'burger-mom-49',
-    name: "맘스터치 골든맥앤치즈버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1521305916504-4a1121188589?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 6500,
-    overallRating: 4.7,
-    ratingCount: 388,
-    searchInfluxCount: 38800,
-    stores: ["맘스터치"],
-    repurchasePercent: 92,
-    calories: 688,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.8, value: 4.6, portion: 4.8, repurchase: 4.7 },
-    nutrition: {
-      calories: 688,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "고소하고 진한 체다 치즈 맥앤치즈와 매콤바삭 치킨패티가 만난 진한 미국식 풍미의 시그니처 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 28, price: 6500, eventBadge: '미국식풍미', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "고소하고 진한 체다 치즈 맥앤치즈와 매콤바삭 치킨패티가 만난 진한 미국식 풍미의 시그니처 버거",
-    bestQuotes: ['맥앤치즈 좋아하면 무조건 드세요', '치즈 풍미가 묵직하고 꾸덕함']
-  },
-  {
-    id: 'burger-mom-50',
-    name: "맘스터치 치즈홀릭버거(에멘탈)",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 공식',
-    price: 5700,
-    overallRating: 4.8,
-    ratingCount: 409,
-    searchInfluxCount: 39150,
-    stores: ["맘스터치"],
-    repurchasePercent: 93,
-    calories: 625,
-    volume: "1개 (단품)",
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.8, repurchase: 4.8 },
-    nutrition: {
-      calories: 625,
-      sodium: "940mg (47%)",
-      carbs: "49g (15%)",
-      sugar: "11g (11%)",
-      fat: "29g (54%)",
-      protein: "29g (53%)"
-    },
-    ingredients: "치킨 패티 속에 고급 에멘탈 치즈를 통째로 품어 베어 물면 치즈가 터져 나오는 스페셜 치즈버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 29, price: 5700, eventBadge: '치즈폭포', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "치킨 패티 속에 고급 에멘탈 치즈를 통째로 품어 베어 물면 치즈가 터져 나오는 스페셜 치즈버거",
-    bestQuotes: ['패티 속에 치즈가 들어있어서 베어물면 콸콸', '에멘탈 치즈 풍미 최고']
-  },
-  {
-    id: 'burger-mom-51',
-    name: "맘스터치 아라비아따 내슈빌 핫치킨버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 신메뉴',
-    price: 6900,
-    overallRating: 4.9,
-    ratingCount: 890,
-    searchInfluxCount: 41200,
-    stores: ["맘스터치"],
-    repurchasePercent: 95,
-    calories: 670,
-    volume: "1개 (단품)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 670,
-      sodium: "990mg (50%)",
-      carbs: "52g (16%)",
-      sugar: "12g (12%)",
-      fat: "31g (57%)",
-      protein: "32g (58%)"
-    },
-    ingredients: "매콤한 아라비아따 소스와 정통 내슈빌 핫치킨 시즈닝, 모짜렐라 치즈 패티가 조화를 이루는 프리미엄 핫버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 30, price: 6900, eventBadge: '신메뉴인기', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "매콤한 아라비아따 소스와 정통 내슈빌 핫치킨 시즈닝, 모짜렐라 치즈 패티가 조화를 이루는 프리미엄 핫버거",
-    bestQuotes: ['아라비아따와 내슈빌 핫치킨의 알싸한 만남!', '모짜렐라 치즈가 매운맛을 착 감싸줌']
-  },
-  {
-    id: 'burger-mom-52',
-    name: "맘스터치 슈퍼싸이버거",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '버거',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '버거 프랜차이즈 신메뉴',
-    price: 9800,
-    overallRating: 5.0,
-    ratingCount: 1540,
-    searchInfluxCount: 58000,
-    stores: ["맘스터치"],
-    repurchasePercent: 97,
-    calories: 890,
-    volume: "1개 (단품)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 5.0, repurchase: 4.9 },
-    nutrition: {
-      calories: 890,
-      sodium: "1280mg (64%)",
-      carbs: "68g (21%)",
-      sugar: "15g (15%)",
-      fat: "42g (78%)",
-      protein: "45g (82%)"
-    },
-    ingredients: "압도적인 스케일의 빅사이즈 싸이패티에 갈릭바베큐 소스와 시그니처 체다치즈가 폭발하는 한정판 슈퍼 버거",
-    allergens: ["밀","대두","닭고기","난류(계란)","우유","토마토"],
-    origin: '패티/원재료: 국내산/브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 40, price: 9800, eventBadge: '빅사이즈신상', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "압도적인 스케일의 빅사이즈 싸이패티에 갈릭바베큐 소스와 시그니처 체다치즈가 폭발하는 한정판 슈퍼 버거",
-    bestQuotes: ['패티가 빵 밖으로 한참 튀어나오는 슈퍼 비주얼!', '이건 진짜 세 잔 치킨 먹는 수준']
-  },
-  {
-    id: 'burger-mom-53',
-    name: "맘스터치 후라이드 싸이순살",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '치킨 메뉴 시그니처',
-    price: 11900,
-    overallRating: 4.9,
-    ratingCount: 2100,
-    searchInfluxCount: 48900,
-    stores: ["맘스터치"],
-    repurchasePercent: 96,
-    calories: 950,
-    volume: "1박스 (순살)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 950,
-      sodium: "1120mg (56%)",
-      carbs: "42g (13%)",
-      sugar: "4g (4%)",
-      fat: "55g (102%)",
-      protein: "68g (124%)"
-    },
-    ingredients: "100% 닭다리살로 만든 겉바속촉 극강의 순살 치킨, 맘스터치 특제 튀김옷으로 고소하고 짭조름한 대표 치킨",
-    allergens: ["밀","대두","닭고기"],
-    origin: '원재료: 브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 45, price: 11900, eventBadge: '치킨베스트', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "100% 닭다리살로 만든 겉바속촉 극강의 순살 치킨, 맘스터치 특제 튀김옷으로 고소하고 짭조름한 대표 치킨",
-    bestQuotes: ['싸이버거 패티만 따로 원없이 먹는 기분!', '바삭함이 집까지 배달돼도 유지됨']
-  },
-  {
-    id: 'burger-mom-54',
-    name: "맘스터치 케이준 양념감자",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '사이드',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '사이드 시그니처',
-    price: 2000,
-    overallRating: 5.0,
-    ratingCount: 3890,
-    searchInfluxCount: 65000,
-    stores: ["맘스터치"],
-    repurchasePercent: 99,
-    calories: 329,
-    volume: "1중자 (R)",
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 5.0, portion: 4.9, repurchase: 5.0 },
-    nutrition: {
-      calories: 329,
-      sodium: "580mg (29%)",
-      carbs: "38g (12%)",
-      sugar: "2g (2%)",
-      fat: "18g (33%)",
-      protein: "4g (7%)"
-    },
-    ingredients: "케이준 스타일의 매콤짭조름한 시즈닝이 듬뿍 입혀진 맘스터치 전설의 케이준 감자튀김",
-    allergens: ["밀","대두"],
-    origin: '원재료: 미국산 감자',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 100, price: 2000, eventBadge: '사이드 1위', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "케이준 스타일의 매콤짭조름한 시즈닝이 듬뿍 입혀진 맘스터치 전설의 케이준 감자튀김",
-    bestQuotes: ['감튀 전 프랜차이즈 압도적 1위!', '짭조름해서 케찹 안 찍어도 완전 맛도리']
-  },
-  {
-    id: 'burger-mom-55',
-    name: "맘스터치 간장마늘 싸이순살",
-    brand: "맘스터치",
-    category: '패스트푸드',
-    subCategory: '치킨',
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=800&auto=format&fit=crop&q=80",
-    releaseDate: '치킨 메뉴 시그니처',
-    price: 13900,
-    overallRating: 4.9,
-    ratingCount: 1420,
-    searchInfluxCount: 42100,
-    stores: ["맘스터치"],
-    repurchasePercent: 95,
-    calories: 1020,
-    volume: "1박스 (순살)",
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.8, portion: 4.8, repurchase: 4.9 },
-    nutrition: {
-      calories: 1020,
-      sodium: "1350mg (68%)",
-      carbs: "58g (18%)",
-      sugar: "18g (18%)",
-      fat: "58g (107%)",
-      protein: "66g (120%)"
-    },
-    ingredients: "달콤짭조름한 특제 알싸 간장 마늘 소스가 감칠맛 나게 버무려진 바삭한 100% 닭다리 순살 치킨",
-    allergens: ["밀","대두","닭고기"],
-    origin: '원재료: 브라질산 닭고기',
-    manufacturer: "맘스터치",
-    storageMethod: '구입 후 즉시 취식 권장',
-    shelfLife: '제조 당일 섭취',
-    precautions: '알레르기 유발 물질을 사전에 확인하세요.',
-    storeStocks: [
-      { store: "맘스터치", status: '입고완료', stockCount: 35, price: 13900, eventBadge: '단짠알싸', deliveryTime: '매장 즉시 픽업 / 딜리버리', appLink: 'https://momstouch.co.kr' }
-    ],
-    description: "달콤짭조름한 특제 알싸 간장 마늘 소스가 감칠맛 나게 버무려진 바삭한 100% 닭다리 순살 치킨",
-    bestQuotes: ['달콤하고 알싸한 마늘간장 소스 입맛 돋움', '치맥할 때 1순위']
-  },
-  {
-    id: 'fruit-01',
-    name: '청도 달콤 홍백도 딱딱이 복숭아 2kg',
-    brand: '청도농협',
-    category: '과일',
-    subCategory: '복숭아',
-    itemType: 'fresh',
-    image: ILLUSTRATION_PEACH,
-    releaseDate: '산지직송 제철',
-    price: 18900,
-    overallRating: 4.9,
-    ratingCount: 520,
-    searchInfluxCount: 28000,
-    stores: ['CU', 'GS25', '대형마트'],
-    repurchasePercent: 96,
-    calories: 68,
-    volume: '2kg (6~8과 내외)',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.8, portion: 4.7, repurchase: 4.9 },
-    nutrition: { calories: 68, sodium: '0mg', carbs: '17g', sugar: '14g', fat: '0.4g', protein: '1.4g' },
-    ingredients: '국내산 복숭아 100%',
-    allergens: ['복숭아'],
-    origin: '대한민국 경북 청도군',
-    manufacturer: '청도복숭아영농조합',
-    storageMethod: '통풍이 잘되는 서늘한 실온 또는 신문지에 싸서 냉장보관',
-    shelfLife: '수령 후 3~5일 이내 섭취 권장',
-    precautions: '과육이 단단할 때 아삭하게 드시거나 1~2일 후숙하여 부드럽게 드세요.',
-    storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 8, price: 18900, eventBadge: '산지직송', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
-    ],
-    description: '맑은 청도 햇살을 머금고 자란 프리미엄 딱딱이 복숭아! 고당도 12Brix 이상 엄선 출하.',
-    bestQuotes: ['아삭아삭한 식감이 예술이에요', '당도 최고라 선물용으로 재구매함']
-  },
-  {
-    id: 'fruit-02',
-    name: '고창 황토밭 당도선별 흑수박 7kg 미만',
-    brand: '고창황토농원',
-    category: '과일',
-    subCategory: '수박',
-    itemType: 'fresh',
-    image: ILLUSTRATION_WATERMELON,
-    releaseDate: '당일 수확 출하',
-    price: 22900,
-    overallRating: 4.8,
-    ratingCount: 410,
-    searchInfluxCount: 24000,
-    stores: ['대형마트', 'GS25'],
-    repurchasePercent: 94,
-    calories: 31,
-    volume: '1통 (6~7kg 내외)',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 5.0, repurchase: 4.8 },
-    nutrition: { calories: 31, sodium: '2mg', carbs: '7.6g', sugar: '6.2g', fat: '0.2g', protein: '0.6g' },
-    ingredients: '국내산 수박 100%',
-    allergens: ['해당 없음'],
-    origin: '대한민국 전북 고창군',
-    manufacturer: '고창수박출하회',
-    storageMethod: '수령 즉시 냉장 보관 또는 시원한 음달 보관',
-    shelfLife: '수령 후 7일 이내 권장',
-    precautions: '칼로 자른 후에는 밀폐용기에 담아 냉장 보관하세요.',
-    storeStocks: [
-      { store: '대형마트', status: '입고완료', stockCount: 15, price: 22900, eventBadge: '당도보장', deliveryTime: '당일 배송', appLink: 'https://emart.ssg.com' }
-    ],
-    description: '고창 황토 토양에서 재배한 최고급 흑수박. 껍질이 얇고 속이 꽉 차 과즙과 단맛이 풍부합니다.',
-    bestQuotes: ['씨도 적고 진짜 달아요', '속이 꽉 차서 쪼갤 때 쩍 갈라짐']
-  },
-  {
-    id: 'meat-01',
-    name: '횡성한우 1++ No.9 웻에이징 숙성 꽃등심',
-    brand: '횡성축협',
-    category: '고기·수산',
-    subCategory: '소고기',
-    itemType: 'fresh',
-    image: ILLUSTRATION_BEEF,
-    releaseDate: '프리미엄 웻에이징',
-    price: 49800,
-    overallRating: 4.9,
-    ratingCount: 310,
-    searchInfluxCount: 19000,
-    stores: ['대형마트', '마켓컬리'],
-    repurchasePercent: 97,
-    calories: 320,
-    volume: '300g (냉장)',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 5.0, value: 4.4, portion: 4.6, repurchase: 4.9 },
-    nutrition: { calories: 320, sodium: '55mg', carbs: '0g', sugar: '0g', fat: '25g', protein: '22g' },
-    ingredients: '소고기 100% (한우 1++등급)',
-    allergens: ['쇠고기'],
-    origin: '대한민국 강원도 횡성군',
-    manufacturer: '횡성축산업협동조합',
-    storageMethod: '0~2℃ 냉장 보관',
-    shelfLife: '제조일로부터 14일',
-    precautions: '개봉 후 즉시 조리하여 드세요.',
-    storeStocks: [
-      { store: '대형마트', status: '입고완료', stockCount: 12, price: 49800, eventBadge: '1++No.9', deliveryTime: '당일 배송', appLink: 'https://emart.ssg.com' }
-    ],
-    description: '최고등급 1++ No.9 마블링의 횡성 암소 한우! 14일간 웻에이징 숙성하여 입안에서 녹아내리는 육즙.',
-    bestQuotes: ['소금만 찍어도 육즙 폭발', '마블링 예술이고 부드러움 극치']
-  },
-  {
-    id: 'seafood-02',
-    name: '서해안 안면도 활 흰다리새우 (생물 왕대하)',
-    brand: '태안수협',
-    category: '고기·수산',
-    subCategory: '수산물/새우',
-    itemType: 'fresh',
-    image: ILLUSTRATION_SHRIMP,
-    releaseDate: '당일 산지직송',
-    price: 24900,
-    overallRating: 4.9,
-    ratingCount: 280,
-    searchInfluxCount: 21000,
-    stores: ['대형마트', '마켓컬리'],
-    repurchasePercent: 96,
-    calories: 90,
-    volume: '1kg (25~30미 내외)',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.6, portion: 4.8, repurchase: 4.8 },
-    nutrition: { calories: 90, sodium: '120mg', carbs: '0.2g', sugar: '0g', fat: '0.8g', protein: '19g' },
-    ingredients: '흰다리새우 100% (국산)',
-    allergens: ['갑각류(새우)'],
-    origin: '대한민국 충남 태안군 안면도',
-    manufacturer: '안면도수산물유통협동조합',
-    storageMethod: '-18℃ 이하 냉동 또는 당일 즉시 섭취',
-    shelfLife: '수령 당일 또는 냉동 보관',
-    precautions: '수령 후 즉시 소금구이 또는 찜으로 드세요.',
-    storeStocks: [
-      { store: '대형마트', status: '입고완료', stockCount: 18, price: 24900, eventBadge: '산지직송', deliveryTime: '당일 배송', appLink: 'https://emart.ssg.com' }
-    ],
-    description: '서해안 안면도 갯벌에서 당일 아침 조업한 펄떡이는 활 흰다리새우. 소금구이로 제격.',
-    bestQuotes: ['새우 살이 달짝지근하고 탱탱함', '굵은 소금 깔고 구우면 감칠맛 최고']
-  },
-  {
-    id: 'ing-01',
-    name: '동물복지 유정란 1+등급 자연방사란',
-    brand: '자연애란',
-    category: '식재료',
-    subCategory: '계란/알류',
-    itemType: 'fresh',
-    image: ILLUSTRATION_EGG,
-    releaseDate: '매일 아침 산란',
-    price: 7900,
-    overallRating: 4.9,
-    ratingCount: 390,
-    searchInfluxCount: 16000,
-    stores: ['CU', 'GS25', '대형마트'],
-    repurchasePercent: 98,
-    calories: 75,
-    volume: '10구 팩 (냉장)',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 5.0, value: 4.7, portion: 4.8, repurchase: 5.0 },
-    nutrition: { calories: 75, sodium: '70mg', carbs: '0.4g', sugar: '0.2g', fat: '5g', protein: '6.5g' },
-    ingredients: '달걀 100% (국산 동물복지 유정란)',
-    allergens: ['난류(계란)'],
-    origin: '대한민국 충북 청주시',
-    manufacturer: '자연애농장영농조합',
-    storageMethod: '0~10℃ 냉장 보관',
-    shelfLife: '산란일로부터 30일',
-    precautions: '신선란이므로 냉장 보관 필수입니다.',
-    storeStocks: [
-      { store: 'CU', status: '입고완료', stockCount: 6, price: 7900, eventBadge: '동물복지', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
-    ],
-    description: '자유롭게 방사되어 자란 건강한 닭이 낳은 1번 난각 동물복지 유정란.',
-    bestQuotes: ['노른자가 엄청 탱글탱글하고 비린내 없음', '후라이 해먹으면 고소함 극치']
-  },
-  {
+{
     id: "bakery-pb-01",
     name: "파리바게뜨 그대로 토스트",
     brand: "파리바게뜨",
@@ -20871,7 +19377,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "버터 없이도 맛있는 토스트를 만들고 싶다는 생각으로 1993년 세상에 나온 ’그대로 토스트’ 가장 맛있는 토스트 두께 2.0CM로 입안 가득 고소하고 리치한 풍미가 느껴지는 히트 토스트 식빵",
     bestQuotes: ["버터 안 발라도 토스터기에 넣으면 겉바속촉 극락입니다","식빵 유목민인데 결국 그대로토스트로 돌아옵니다"]
   },
-  {
+{
     id: "bakery-pb-02",
     name: "파리바게뜨 실키롤케익",
     brand: "파리바게뜨",
@@ -20923,7 +19429,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "최상의 비율로 완성한 폭신함이 살아있는 부드러운 케이크에 프랑스 명품 에쉬레 버터와 달콤한 건포도로 맛을 더하고 고소한 크림으로 속까지 촉촉하게 채운 롤케이크",
     bestQuotes: ["선물용으로 이만한 게 없어요. 촉촉함이 남다릅니다","어릴 때부터 먹던 바로 그 롤케이크 명작 맛!"]
   },
-  {
+{
     id: "bakery-pb-03",
     name: "파리바게뜨 인생크림빵 단팥",
     brand: "파리바게뜨",
@@ -20975,7 +19481,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바닐라빈 듬뿍 우유생크림과 달콤한 닽팥을 더한 최고의 조합! 내 인생 최고의 인생 단팥 생크림빵",
     bestQuotes: ["크림이 흘러넘쳐요! 팥이랑 조화가 갓벽","얼려먹으면 아이스크림 빵처럼 더 맛있어요"]
   },
-  {
+{
     id: "bakery-pb-04",
     name: "파리바게뜨 인생크림빵 우유",
     brand: "파리바게뜨",
@@ -21027,7 +19533,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바닐라빈 듬뿍, 더 진한 우유생크림이 빵속에 가득! 내 인생 우유 생크림빵",
     bestQuotes: ["미끌거리지 않는 순수 우유 동물성 생크림 맛","당 충전 필요할 때 무조건 사먹는 1순위"]
   },
-  {
+{
     id: "bakery-pb-05",
     name: "파리바게뜨 발효버터 소금빵",
     brand: "파리바게뜨",
@@ -21079,7 +19585,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "발효버터를 넣은 반죽을 고온에 구워 속은 촉촉, 빵 밑면은 바삭 두 가지 식감과 고소한 풍미를 느낄 수 있는 소금빵",
     bestQuotes: ["에어프라이어에 살짝 돌려 먹으면 버터향 대폭발","겉은 바삭하고 속은 쫄깃촉촉 버터동굴 예술"]
   },
-  {
+{
     id: "bakery-pb-06",
     name: "파리바게뜨 밤소보루 맘모스",
     brand: "파리바게뜨",
@@ -21131,7 +19637,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 소보루빵 안에 밤 조각, 팥앙금, 연유크림까지 들어있어 한 번에 즐길 수 있는 든든한 요즘 맘모스 브레드",
     bestQuotes: ["두께가 엄청 두껍고 밤이 씹혀서 진짜 든든함","우유랑 같이 먹으면 한 끼 식사로도 충분해요"]
   },
-  {
+{
     id: "bakery-pb-07",
     name: "파리바게뜨 치즈가 부드러운 시간",
     brand: "파리바게뜨",
@@ -21183,7 +19689,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "세 가지 치즈의 깊은 풍미로 완성한 더욱 진하고 부드러운 미니 치즈케이크",
     bestQuotes: ["혼자 가볍게 치즈케익 땡길 때 필수템","진짜 이름 그대로 입에서 사르르 녹아요"]
   },
-  {
+{
     id: "bakery-pb-08",
     name: "파리바게뜨 찹쌀도넛",
     brand: "파리바게뜨",
@@ -21235,7 +19741,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "국내산 찹쌀과 달콤한 통단팥으로 만든 쫄깃한 도넛",
     bestQuotes: ["파바 가면 무조건 2개씩 집어오는 최애 쫄깃 도넛","기름지지 않고 쫜득쫜득 팥도 넉넉해요"]
   },
-  {
+{
     id: "bakery-pb-09",
     name: "파리바게뜨 햄치즈 오리지널 머핀",
     brand: "파리바게뜨",
@@ -21287,7 +19793,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "에그패티, 햄, 치즈를 넣어 부드럽고 담백한 따뜻하게 즐기는 정통 잉글리쉬머핀 샌드위치",
     bestQuotes: ["출근길 아메리카노랑 같이 먹으면 완벽한 아침식사","패스트푸드 모닝버거보다 빵이 훨씬 쫄깃함"]
   },
-  {
+{
     id: "bakery-pb-10",
     name: "파리바게뜨 마이넘버원",
     brand: "파리바게뜨",
@@ -21339,7 +19845,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "누구나 좋아하는 스테디한 맛 부터 트렌디하고 고급스러운 맛 까지 6가지 맛을 한 번에 즐길 수 있는 케이크 (*케이크 과일장식은 계절과일로 대체될 수 있습니다.)",
     bestQuotes: ["가족들 취향 다 다를 때 무조건 이거 사가면 칭찬받음","골라먹는 재미가 쏠쏠한 파바 원탑 케이크"]
   },
-  {
+{
     id: "bakery-pb-11",
     name: "파리바게뜨 초코쫀득츄러스",
     brand: "파리바게뜨",
@@ -21391,7 +19897,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두툼한 볼륨감에 쫀득쫀득한 식감, 진한 초코맛이 매력적인 통통한 츄러스",
     bestQuotes: ["두툼한 통통 츄러스 식감이 미쳤어요! 진한 초코 코팅 대박","놀이공원 츄러스보다 훨씬 쫀득하고 맛있음"]
   },
-  {
+{
     id: "bakery-pb-12",
     name: "파리바게뜨 오리지널 쫀득 츄러스",
     brand: "파리바게뜨",
@@ -21443,7 +19949,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "두툼한 볼륨감과 쫀득쫀득한 식감으로 꽉 채운 통통한 츄러스",
     bestQuotes: ["겉에 설탕 시나몬 솔솔 뿌려져서 쫀득 바삭함","커피랑 먹으면 끊임없이 들어가는 마성의 맛"]
   },
-  {
+{
     id: "bakery-pb-13",
     name: "파리바게뜨 카레 크로켓",
     brand: "파리바게뜨",
@@ -21495,7 +20001,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 풍미의 카레소스와 바삭쫄깃한 식감이 매력적인 카레 크로켓",
     bestQuotes: ["바삭하게 튀겨진 빵 안에 매콤달콤 카레 꽉 차있음","파바 고로케 라인 중 제일 좋아하는 최애 메뉴"]
   },
-  {
+{
     id: "bakery-pb-14",
     name: "파리바게뜨 에그샐러드 크로켓",
     brand: "파리바게뜨",
@@ -21547,7 +20053,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소하고 부드러운 에그샐러드와 바삭쫄깃한 식감이 매력적인 에그샐러드 크로켓",
     bestQuotes: ["부드럽고 몽글몽글한 달걀 샐러드가 가득 들어있어요","자극적이지 않고 고소해서 아이들도 잘 먹어요"]
   },
-  {
+{
     id: "bakery-pb-15",
     name: "파리바게뜨 감자쫀떡(1개입)",
     brand: "파리바게뜨",
@@ -21599,7 +20105,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "담백한 감자에 달콤 짭짜름한 버터를 더해 겉은 바삭하고 속은 쫀득한 감자쫀떡",
     bestQuotes: ["감자의 포슬함과 떡의 쫀득함이 환상 조화","버터 풍미 살짝 돌면서 단짠 쫄깃함"]
   },
-  {
+{
     id: "bakery-pb-16",
     name: "파리바게뜨 단팥소보루빵",
     brand: "파리바게뜨",
@@ -21651,7 +20157,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 소보루 토핑에 달콤한 단팥 앙금을 더해 노릇노릇 맛있게 구운 단팥소보루빵",
     bestQuotes: ["소보루의 바삭고소함과 팥의 달콤함이 한 번에","할매니얼 입맛 저격 최고의 조합"]
   },
-  {
+{
     id: "bakery-pb-17",
     name: "파리바게뜨 핫도그도넛",
     brand: "파리바게뜨",
@@ -21703,7 +20209,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겉은 바삭, 속은 쫄깃한 도넛과 육즙 가득 탱글한 롱소시지의 식감을 조화롭게 즐길 수 있는 핫도그 도넛",
     bestQuotes: ["소시지가 뽀득뽀득 육즙 터지고 빵은 쫄깃해요","든든한 간식으로 최고! 케첩 머스터드 뿌리면 꿀맛"]
   },
-  {
+{
     id: "bakery-pb-18",
     name: "파리바게뜨 초코바게뜨",
     brand: "파리바게뜨",
@@ -21755,7 +20261,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "진한 다크초코칩과 달콤한 화이트초코칩을 담은 바게뜨 모양의 부드러운 초코빵에 크랜베리의 상큼함을 더한 초코 바게뜨",
     bestQuotes: ["바게뜨인데 초코칩이 오독오독 씹혀서 진짜 별미","딱딱하지 않고 쫄깃 담백 달콤해요"]
   },
-  {
+{
     id: "bakery-pb-19",
     name: "파리바게뜨 인생크림빵 옥수수",
     brand: "파리바게뜨",
@@ -21807,7 +20313,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤 고소한 옥수수 생크림과 커스터드 크림으로 옥수수맛을 듬뿍 담은 옥수수 생크림빵",
     bestQuotes: ["옥수수 알갱이 풍미와 고소달콤한 크림이 가득","여름 가을 간식으로 최고 크림 폭탄"]
   },
-  {
+{
     id: "bakery-pb-20",
     name: "파리바게뜨 인생크림빵 메론",
     brand: "파리바게뜨",
@@ -21859,7 +20365,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "은은하게 달콤한 메론 생크림과 진한 메론 커스터드가 조화로운 메론 생크림빵",
     bestQuotes: ["메론빵 특유의 향긋함과 부드러운 생크림 궁합 굿","일본 편의점 메론빵 부럽지 않은 퀄리티"]
   },
-  {
+{
     id: "bakery-pb-21",
     name: "파리바게뜨 인생크림빵 말차단팥",
     brand: "파리바게뜨",
@@ -21911,7 +20417,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "제주 말차를 더한 진한 말차 풍미와 달콤한 단팥으로 깊고 조화로운 맛을 느낄 수 있는 말차단팥 인생크림빵",
     bestQuotes: ["쌉싸름한 제주 말차 크림에 달콤한 단팥 조합 최고","녹차 덕후라면 무조건 먹어봐야 할 빵"]
   },
-  {
+{
     id: "bakery-pb-22",
     name: "파리바게뜨 인생크림빵 소보루",
     brand: "파리바게뜨",
@@ -21963,7 +20469,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 소보루 빵 속 바닐라빈 듬뿍 우유생크림이 가득! 인생 소보루 생크림빵",
     bestQuotes: ["소보루 크럼블 씹히면서 크림이 터져 나와요","크림빵과 소보루를 둘 다 먹고 싶을 때 직진"]
   },
-  {
+{
     id: "bakery-pb-23",
     name: "파리바게뜨 프랑스정통바게뜨",
     brand: "파리바게뜨",
@@ -22015,7 +20521,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "정성을 들여 발효해 쫄깃한 식감이 일품인, 깊은 풍미의 프랑스 정통 바게뜨",
     bestQuotes: ["겉바속촉 쫄깃함이 남다른 파바 시그니처 바게뜨","감바스나 잠봉뵈르 샌드위치 만들어 먹기 최고"]
   },
-  {
+{
     id: "bakery-pb-24",
     name: "파리바게뜨 NEW 마늘바게뜨",
     brand: "파리바게뜨",
@@ -22067,7 +20573,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겉은 바삭하고 속은 부드러운 프렌치바게뜨에 마늘토핑 고소한 버터를 듬뿍 발라 구워낸 맛있는 마늘바게뜨",
     bestQuotes: ["마늘 소스가 속까지 흠뻑 적셔져서 촉촉달콤","에프에 데우면 마늘 향이 집안 가득 퍼집니다"]
   },
-  {
+{
     id: "bakery-pb-25",
     name: "파리바게뜨 흑임자 베이글",
     brand: "파리바게뜨",
@@ -22119,7 +20625,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "흑임자 베이스에 통밀,통보리,아마씨 등 다양한 곡물과 씨앗을 더해 씹을수록 고소하고, 건포도의 은은한 단맛과 조화를 이루는 흑임자 베이글",
     bestQuotes: ["고소한 흑임자 향과 통곡물이 씹혀서 건강한 맛","크림치즈 발라 먹으면 끝도 없이 들어감"]
   },
-  {
+{
     id: "bakery-pb-26",
     name: "파리바게뜨 플레인 베이글",
     brand: "파리바게뜨",
@@ -22171,7 +20677,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고온으로 빠르게 구워내 겉과 속이 두번 쫄깃한 플레인 베이글",
     bestQuotes: ["두 번 구워 겉바속쫀 식감이 확실히 살아있어요","아침 식사용으로 매일 질리지 않고 먹기 좋아요"]
   },
-  {
+{
     id: "bakery-pb-27",
     name: "파리바게뜨 블루베리 베이글",
     brand: "파리바게뜨",
@@ -22223,7 +20729,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "쫄깃 담백한 식감에 새콤달콤한 블루베리가 더해진 베이글",
     bestQuotes: ["상큼한 블루베리가 콕콕 박혀서 상큼쫄깃","그냥 먹어도 달콤하고 토스트해도 맛있어요"]
   },
-  {
+{
     id: "bakery-pb-28",
     name: "파리바게뜨 빅! 우피파이",
     brand: "파리바게뜨",
@@ -22275,7 +20781,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "사이즈 UP! 사르르 녹는 초코시트에 폭신폭신 촉촉한 생 마시멜로우가 가득한 미국 전통 디저트",
     bestQuotes: ["초코파이 프리미엄 버전! 촉촉한 시트와 크림","우유 한 잔이랑 먹으면 당 충전 제대로 됩니다"]
   },
-  {
+{
     id: "bakery-pb-29",
     name: "파리바게뜨 사각사각 애플파이",
     brand: "파리바게뜨",
@@ -22327,7 +20833,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "사각사각 상큼한 사과 과육이 씹히는, 진한 버터 풍미의 클래식한 애플파이",
     bestQuotes: ["사과 과육이 사각사각 씹히고 버터 풍미 가득","바삭한 페스츄리 결이 예술이에요"]
   },
-  {
+{
     id: "bakery-pb-30",
     name: "파리바게뜨 멕시칸소시지페스츄리(2개입)",
     brand: "파리바게뜨",
@@ -22379,7 +20885,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "탱글한 소시지가 들어간 바삭한 페스츄리에 매콤한 치폴레소스를 더해 간편하게 즐기는 미니 소시지 페스츄리",
     bestQuotes: ["매콤한 치폴레 소스와 짭짤한 소시지의 중독성","맥주 안주나 간식으로 매콤바삭 최고"]
   },
-  {
+{
     id: "bakery-pb-31",
     name: "파리바게뜨 치즈소시지페스츄리",
     brand: "파리바게뜨",
@@ -22431,7 +20937,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "바삭한 페스츄리 위에 탱글탱글 짭조름한 소시지가 통으로 올라간, 남녀노소 누구나 좋아하는 클래식한 치즈소시지페스츄리",
     bestQuotes: ["소시지 겉을 감싼 바삭한 페스츄리와 짭조름 치즈","아이들도 어른들도 호불호 없이 좋아하는 맛"]
   },
-  {
+{
     id: "bakery-pb-32",
     name: "파리바게뜨 갈릭고구마페스츄리",
     brand: "파리바게뜨",
@@ -22483,7 +20989,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "겹겹이 바삭한 페스츄리에, 달콤한 고구마 앙금이 가득. 마늘풍미까지 더해 더 맛있는 단짠단짠 갈릭고구마페스츄리",
     bestQuotes: ["마늘의 알싸달콤함과 달콤한 고구마 무스 조화","페스츄리 결마다 고구마가 촉촉해요"]
   },
-  {
+{
     id: "bakery-pb-33",
     name: "파리바게뜨 NO.1 우유식빵",
     brand: "파리바게뜨",
@@ -22535,7 +21041,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "1988년부터 꾸준히 사랑 받아온 파바의 인기 식빵, 우유의 고소한 풍미와 부드러움, 폭신폭신한 식감까지 가장 기본에 충실한 파바 대표 일등 식빵",
     bestQuotes: ["부드럽고 촉촉해서 잼만 발라먹어도 최고","샌드위치용으로 제일 부드러운 국민 식빵"]
   },
-  {
+{
     id: "bakery-pb-34",
     name: "파리바게뜨 부드러운 상미종 생(生)식빵",
     brand: "파리바게뜨",
@@ -22587,7 +21093,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "아무것도 더하지 않고 ’생(生)’ 그대로 먹어도 식빵 본연의 촉촉 쫄깃한 식감과 진한 풍미가 살아있는 생식빵",
     bestQuotes: ["아무것도 안 바르고 생으로 뜯어먹어도 꿀맛","특허 상미종 효모라 속도 편하고 촉촉함 끝판왕"]
   },
-  {
+{
     id: "bakery-pb-35",
     name: "파리바게뜨 밤식빵",
     brand: "파리바게뜨",
@@ -22639,7 +21145,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "달콤한 밤 다이스와 풍미 가득 밤 페이스트를 듬뿍 넣은 NEW밤식빵",
     bestQuotes: ["밤 다이스가 아낌없이 콕콕 박혀있는 정통 밤식빵","소보루 껍질 뜯어먹고 밤 골라먹는 재미"]
   },
-  {
+{
     id: "bakery-pb-36",
     name: "파리바게뜨 소금버터식빵(1/2)",
     brand: "파리바게뜨",
@@ -22691,7 +21197,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "펄솔트의 짭조름한 맛과 버터의 고소한 풍미가 어우러진 겉바속촉 식빵",
     bestQuotes: ["짭조름한 펄솔트와 고소한 버터 풍미가 진해요","에어프라이어에 살짝 구워 먹으면 풍미 폭발"]
   },
-  {
+{
     id: "bakery-pb-37",
     name: "파리바게뜨 후레쉬 식빵",
     brand: "파리바게뜨",
@@ -22743,7 +21249,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "매일 부담 없이 즐기는 담백하고 부드러운 후레쉬 식빵",
     bestQuotes: ["매일 아침 가볍고 담백하게 즐기기 좋은 데일리 식빵","가성비 좋고 토스트하면 바삭해요"]
   },
-  {
+{
     id: "bakery-pb-38",
     name: "파리바게뜨 우유크림도넛",
     brand: "파리바게뜨",
@@ -22795,7 +21301,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "입 안 가득! 시원하고 달콤하게 퍼지는 우유크림도넛",
     bestQuotes: ["냉장고에 차갑게 뒀다 먹으면 아이스크림 도넛 느낌","순백 우유크림이 듬뿍 들어있어 부드러움"]
   },
-  {
+{
     id: "bakery-pb-39",
     name: "파리바게뜨 우리찹쌀 왕꽈배기",
     brand: "파리바게뜨",
@@ -22847,7 +21353,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우리밀과 우리찹쌀을 더해 만든 꽈배기에 설탕을 얹어 쫄깃하게 즐기는 추억의 왕꽈배기",
     bestQuotes: ["우리 찹쌀이라 찰기가 남다르고 쫄깃쫄깃함","추억의 시장 꽈배기보다 훨씬 깔끔하고 쫀득"]
   },
-  {
+{
     id: "bakery-pb-40",
     name: "파리바게뜨 야채감자 샐러드고로케",
     brand: "파리바게뜨",
@@ -22899,7 +21405,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "감자 본연의 맛이 풍부한 야채콕콕 감자샐러드 고로케",
     bestQuotes: ["포슬포슬한 감자와 야채가 가득 채워져 든든해요","기름지지 않고 겉은 파삭 속은 촉촉"]
   },
-  {
+{
     id: "bakery-pb-41",
     name: "파리바게뜨 연유크림빵",
     brand: "파리바게뜨",
@@ -22951,7 +21457,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "폭신하고 담백한 빵에 달콤한 연유크림이 들어있는 간식빵",
     bestQuotes: ["달콤하고 부드러운 연유크림이 듬뿍 들어있어요","어릴 적 추억 생각나는 달콤한 크림빵"]
   },
-  {
+{
     id: "bakery-pb-42",
     name: "파리바게뜨 우유 듬뿍 연유브레드",
     brand: "파리바게뜨",
@@ -23003,7 +21509,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "우유가 들어가 더 부드러운 빵에 촉촉한 연유가 사이사이 뿌려져 맛있게 똑똑 끊어먹는 빵",
     bestQuotes: ["촉촉하게 젖은 연유 시럽과 부드러운 빵의 조화","따뜻하게 전자레인지 데우면 촉촉함 극대화"]
   },
-  {
+{
     id: "bakery-pb-43",
     name: "파리바게뜨 단팥빵",
     brand: "파리바게뜨",
@@ -23055,7 +21561,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "단팥앙금이 부드러운 빵 안에 들어있어달콤하게 즐길 수 있는 간식용 빵",
     bestQuotes: ["클래식 이즈 베스트, 팥 앙금이 꽉 찬 파바 정통 단팥빵","우유랑 같이 먹으면 한 끼 든든간식"]
   },
-  {
+{
     id: "bakery-pb-44",
     name: "파리바게뜨 소보루빵",
     brand: "파리바게뜨",
@@ -23107,7 +21613,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     description: "고소한 소보루 토핑이 올라가 맛있게 즐길 수 있는 간식용 빵",
     bestQuotes: ["겉에 소보루 비스킷이 두툼하고 고소달콤해요","노릇노릇 고소한 땅콩 향이 일품"]
   },
-  {
+{
     id: "bakery-pb-45",
     name: "파리바게뜨 명가명품 우리벌꿀 카스테라",
     brand: "파리바게뜨",
@@ -23158,2242 +21664,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     description: "반죽이 숨쉬는 소나무틀에서 신선한 목초란(木醋卵)과 황금빛 우리 꿀을 담아 속까지 촉촉하게 구워낸 부드러운 카스테라",
     bestQuotes: ["소나무틀에서 구워내 깊은 벌꿀 풍미와 촉촉함","선물용으로 고급스럽고 어르신들이 정말 좋아하심"]
-  },
-  {
-    id: "bakery-tlj-01",
-    name: "뚜레쥬르 치즈방앗간",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2019-12-17_event.jpg",
-    releaseDate: "뚜레쥬르 메가히트 시그니처",
-    price: 3600,
-    overallRating: 4.9,
-    ratingCount: 460,
-    searchInfluxCount: 32000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 96,
-    calories: 385,
-    volume: "115g (3개입)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.8,"portion":4.7,"repurchase":4.9},
-    nutrition: {
-          "calories": 385,
-          "sodium": "360mg (18%)",
-          "carbs": "48g (15%)",
-          "sugar": "16g (16%)",
-          "fat": "17g (31%)",
-          "transFat": "0g",
-          "satFat": "9g (60%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "7g (13%)"
-    },
-    ingredients: "국산 찹쌀떡 반죽, 크림치즈(미국산), 천연벌꿀, 파마산 치즈 파우더",
-    allergens: ["밀","우유","대두"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "서늘한 실온 또는 냉장 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "전자레인지에 10초 살짝 데우면 크림치즈가 사르르 녹아 더욱 쫀득합니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 14,
-                "price": 3600,
-                "eventBadge": "시그니처1위",
-                "deliveryTime": "매장 즉시 픽업 / 뚜레쥬르앱",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "쫄깃한 찹쌀떡 도우 속에 진한 크림치즈를 듬뿍 채우고, 겉면에는 달콤한 꿀과 짭짤한 파마산 치즈를 토핑한 단짠쫄깃 레전드 빵.",
-    bestQuotes: ["뚜레쥬르 최고 존엄 메뉴! 꿀과 치즈의 조화가 예술","떡이랑 빵의 장점만 합쳐놓은 식감"]
-  },
-  {
-    id: "bakery-tlj-02",
-    name: "뚜레쥬르 순진우유롤",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2025-9-24_event(5).jpg",
-    releaseDate: "뚜레쥬르 순우유 시리즈",
-    price: 14000,
-    overallRating: 4.8,
-    ratingCount: 390,
-    searchInfluxCount: 26000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 94,
-    calories: 1180,
-    volume: "380g (1롤)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 1180,
-          "sodium": "390mg (20%)",
-          "carbs": "140g (43%)",
-          "sugar": "72g (72%)",
-          "fat": "58g (107%)",
-          "transFat": "0.4g",
-          "satFat": "32g (213%)",
-          "cholesterol": "240mg (80%)",
-          "protein": "19g (35%)"
-    },
-    ingredients: "국내산 1A등급 원유, 신선한 우유 생크림, 달걀, 소맥분, 바닐라빈",
-    allergens: ["우유","난류","밀"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "냉장 보관 (0~10℃)",
-    shelfLife: "제조일로부터 4일",
-    precautions: "냉장고에 넣어 차갑게 드셔야 크림의 순수한 우유 향이 살아납니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 6,
-                "price": 14000,
-                "eventBadge": "순우유100%",
-                "deliveryTime": "매장 즉시 픽업 / 배달",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "물 한 방울 넣지 않고 신선한 1A 등급 우유로만 반죽한 촉촉한 시트에 고소한 순우유 생크림을 듬뿍 말아 올린 프리미엄 롤케이크.",
-    bestQuotes: ["크림이 하나도 안 느끼하고 엄청 부드러워요","아이들 간식이나 어르신 선물로 제일 좋습니다"]
-  },
-  {
-    id: "bakery-tlj-03",
-    name: "뚜레쥬르 퐁신퐁신 우유도넛",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2024-9-9_event(5).jpg",
-    releaseDate: "뚜레쥬르 트렌드 신상",
-    price: 3100,
-    overallRating: 4.7,
-    ratingCount: 310,
-    searchInfluxCount: 23000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 91,
-    calories: 295,
-    volume: "95g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.8,"value":4.7,"portion":4.6,"repurchase":4.7},
-    nutrition: {
-          "calories": 295,
-          "sodium": "210mg (11%)",
-          "carbs": "37g (11%)",
-          "sugar": "14g (14%)",
-          "fat": "14g (26%)",
-          "transFat": "0g",
-          "satFat": "7g (47%)",
-          "cholesterol": "25mg (8%)",
-          "protein": "5g (9%)"
-    },
-    ingredients: "국산 우유 생크림, 도넛 프리믹스, 설탕 프로스팅, 식물성유지",
-    allergens: ["밀","우유","난류","대두"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "시원하게 드시면 크림의 풍미가 더욱 뛰어납니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 11,
-                "price": 3100,
-                "eventBadge": "인기도넛",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "구름처럼 퐁신퐁신한 브리오슈 도넛 속에 순백의 우유 생크림이 터질 듯 채워진 디저트 도넛.",
-    bestQuotes: ["도넛 전문점 못지않은 크림 퀄리티","빵이 퍽퍽하지 않고 구름처럼 퐁신해요"]
-  },
-  {
-    id: "bakery-tlj-04",
-    name: "뚜레쥬르 겹겹이 연유 퐁당 페이스트리",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "크루아상",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2020-6-24_event(6).jpg",
-    releaseDate: "뚜레쥬르 베스트 페이스트리",
-    price: 3700,
-    overallRating: 4.8,
-    ratingCount: 280,
-    searchInfluxCount: 20000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 92,
-    calories: 410,
-    volume: "110g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 410,
-          "sodium": "310mg (16%)",
-          "carbs": "49g (15%)",
-          "sugar": "19g (19%)",
-          "fat": "21g (39%)",
-          "transFat": "0.3g",
-          "satFat": "12g (80%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "발효버터 페이스트리 반죽, 달콤한 연유 크림, 슈가 파우더",
-    allergens: ["밀","우유","난류"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "커피와 페어링 시 버터의 고소함이 극대화됩니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 9,
-                "price": 3700,
-                "eventBadge": "바삭달콤",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "결마다 버터 향이 살아있는 바삭한 페이스트리 시트에 부드럽고 달콤한 연유 크림이 촉촉하게 스며든 디저트.",
-    bestQuotes: ["겹겹이 찢어먹는 재미가 있고 연유가 진해요","아메리카노랑 궁합 100점!"]
-  },
-  {
-    id: "bakery-tlj-05",
-    name: "뚜레쥬르 밤이 듬뿍 맘모스",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2018-8-16_event(2).jpg",
-    releaseDate: "뚜레쥬르 스테디셀러",
-    price: 4900,
-    overallRating: 4.8,
-    ratingCount: 350,
-    searchInfluxCount: 25000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 93,
-    calories: 620,
-    volume: "240g (대용량)",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.8,"value":4.9,"portion":5,"repurchase":4.8},
-    nutrition: {
-          "calories": 620,
-          "sodium": "440mg (22%)",
-          "carbs": "92g (28%)",
-          "sugar": "39g (39%)",
-          "fat": "23g (43%)",
-          "transFat": "0.2g",
-          "satFat": "11g (73%)",
-          "cholesterol": "38mg (13%)",
-          "protein": "12g (22%)"
-    },
-    ingredients: "고소한 소보로 빵, 밤다이스, 단팥앙금, 완두앙금, 버터크림",
-    allergens: ["밀","우유","대두","난류","땅콩"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "서늘한 실온 보관",
-    shelfLife: "제조일로부터 2~3일",
-    precautions: "크기가 크므로 슬라이스하여 밀폐용기에 소분 보관하시면 좋습니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 8,
-                "price": 4900,
-                "eventBadge": "가성비최고",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "달콤한 밤 알갱이가 톡톡 씹히는 고소한 소보로 빵 사이에 단팥앙금, 완두앙금, 달콤한 크림을 샌드한 대용량 맘모스.",
-    bestQuotes: ["밤이 진짜 아낌없이 들어있어요","할매니얼 입맛 저격 묵직하고 푸짐함"]
-  },
-  {
-    id: "bakery-tlj-06",
-    name: "뚜레쥬르 리얼 브라우니",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2024-9-12_event(39).jpg",
-    releaseDate: "뚜레쥬르 시그니처 초콜릿",
-    price: 2800,
-    overallRating: 4.9,
-    ratingCount: 420,
-    searchInfluxCount: 29000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 95,
-    calories: 285,
-    volume: "70g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.8,"portion":4.6,"repurchase":4.9},
-    nutrition: {
-          "calories": 285,
-          "sodium": "110mg (6%)",
-          "carbs": "34g (10%)",
-          "sugar": "26g (26%)",
-          "fat": "15g (28%)",
-          "transFat": "0.2g",
-          "satFat": "9g (60%)",
-          "cholesterol": "50mg (17%)",
-          "protein": "4g (7%)"
-    },
-    ingredients: "벨기에산 다크초콜릿, 코코아매스, 버터, 계란, 소맥분",
-    allergens: ["우유","난류","밀","대두"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "직사광선을 피하고 서늘한 실온 또는 냉장 보관",
-    shelfLife: "제조일로부터 7일",
-    precautions: "냉장고에 넣어 차갑게 드시면 파베 초콜릿처럼 쫀득꾸덕해집니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 16,
-                "price": 2800,
-                "eventBadge": "꾸덕끝판왕",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "벨기에산 진한 다크 초콜릿을 듬뿍 넣어 마치 생초콜릿처럼 쫀득하고 묵직한 식감을 선사하는 뚜레쥬르 시그니처 브라우니.",
-    bestQuotes: ["다른 빵집 브라우니랑 비교 불가! 이 꾸덕함은 진짜","얼먹(얼려먹기)하면 생초콜릿 씹는 느낌"]
-  },
-  {
-    id: "bakery-tlj-07",
-    name: "뚜레쥬르 매콤치킨고로케",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2023-5-18_event(5).png",
-    releaseDate: "뚜레쥬르 조리빵 1위",
-    price: 3000,
-    overallRating: 4.7,
-    ratingCount: 270,
-    searchInfluxCount: 18000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 91,
-    calories: 320,
-    volume: "110g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 320,
-          "sodium": "540mg (27%)",
-          "carbs": "38g (12%)",
-          "sugar": "5g (5%)",
-          "fat": "15g (28%)",
-          "transFat": "0g",
-          "satFat": "4g (27%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "9g (16%)"
-    },
-    ingredients: "닭가슴살(국산), 매콤 고로케 소스, 야채믹스(양파, 당근, 대파), 빵가루",
-    allergens: ["밀","닭고기","대두","난류"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "실온 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "에어프라이어에 170도 4분 돌리면 갓 튀긴 바삭함이 되살아납니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 12,
-                "price": 3000,
-                "eventBadge": "바삭매콤",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "바삭바삭한 빵가루 튀김 속 매콤달콤한 특제 소스로 버무린 닭고기와 아삭한 야채가 꽉 찬 든든한 조리 고로케.",
-    bestQuotes: ["느끼함 하나도 없이 매콤해서 순식간에 다 먹음","속재료가 진짜 실하게 꽉 차있어요"]
-  },
-  {
-    id: "bakery-tlj-08",
-    name: "뚜레쥬르 얼그레이 크림번",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2020-9-24_event(2).jpg",
-    releaseDate: "뚜레쥬르 티 디저트",
-    price: 3400,
-    overallRating: 4.8,
-    ratingCount: 240,
-    searchInfluxCount: 19000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 92,
-    calories: 335,
-    volume: "120g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.6,"repurchase":4.8},
-    nutrition: {
-          "calories": 335,
-          "sodium": "220mg (11%)",
-          "carbs": "44g (14%)",
-          "sugar": "18g (18%)",
-          "fat": "15g (28%)",
-          "transFat": "0g",
-          "satFat": "8g (53%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "얼그레이 홍차 잎(영국산 트와이닝), 우유 생크림, 번 도우, 연유",
-    allergens: ["밀","우유","난류"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "홍차 본연의 은은한 베르가못 향을 음미해보세요.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 9,
-                "price": 3400,
-                "eventBadge": "은은한홍차향",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "향긋한 베르가못 향의 얼그레이 홍차 크림을 듬뿍 채워 향긋함과 부드러움이 입안 가득 맴도는 프리미엄 크림번.",
-    bestQuotes: ["얼그레이 덕후 심장 저격하는 향과 맛","크림이 인위적이지 않고 홍차 풍미가 진함"]
-  },
-  {
-    id: "bakery-tlj-09",
-    name: "뚜레쥬르 진한 초코 생크림 케이크",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2024-9-25_event(51).jpg",
-    releaseDate: "뚜레쥬르 대표 시그니처 케이크",
-    price: 32000,
-    overallRating: 4.9,
-    ratingCount: 480,
-    searchInfluxCount: 36000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 96,
-    calories: 2280,
-    volume: "650g (2호)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.8,"portion":4.9,"repurchase":4.9},
-    nutrition: {
-          "calories": 2280,
-          "sodium": "780mg (39%)",
-          "carbs": "255g (79%)",
-          "sugar": "168g (168%)",
-          "fat": "125g (231%)",
-          "transFat": "0.7g",
-          "satFat": "68g (453%)",
-          "cholesterol": "330mg (110%)",
-          "protein": "34g (62%)"
-    },
-    ingredients: "벨기에산 가나슈 초콜릿, 다크초코 시트, 초코 생크림, 초코볼 크런치",
-    allergens: ["우유","난류","밀","대두"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "냉장 보관 (0~10℃)",
-    shelfLife: "구입 후 2~3일 내 섭취",
-    precautions: "초코볼 크런치가 들어있어 바삭한 식감을 함께 느끼실 수 있습니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 6,
-                "price": 32000,
-                "eventBadge": "케이크부문1위",
-                "deliveryTime": "매장 즉시 픽업 / 예약",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "촉촉한 초코 시트 사이에 진한 벨기에산 초콜릿 가나슈와 부드러운 초코 생크림, 바삭한 초코 크런치볼을 샌드한 뚜레쥬르 부동의 1위 케이크.",
-    bestQuotes: ["뚜레쥬르는 무조건 초코케이크입니다. 퀄리티 압도적","바삭하게 씹히는 초코볼이 신의 한 수"]
-  },
-  {
-    id: "bakery-tlj-10",
-    name: "뚜레쥬르 자연에서 온 통우유식빵",
-    brand: "뚜레쥬르",
-    category: '빵·디저트',
-    subCategory: "식빵",
-    itemType: 'restaurant',
-    image: "https://www.tlj.co.kr/data/product/2026-3-31_event(2).jpg",
-    releaseDate: "뚜레쥬르 데일리 식빵",
-    price: 3200,
-    overallRating: 4.8,
-    ratingCount: 310,
-    searchInfluxCount: 22000,
-    stores: ["뚜레쥬르"],
-    repurchasePercent: 94,
-    calories: 740,
-    volume: "380g (1봉)",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.8,"portion":4.8,"repurchase":4.9},
-    nutrition: {
-          "calories": 740,
-          "sodium": "820mg (41%)",
-          "carbs": "138g (43%)",
-          "sugar": "15g (15%)",
-          "fat": "14g (26%)",
-          "transFat": "0g",
-          "satFat": "7g (47%)",
-          "cholesterol": "18mg (6%)",
-          "protein": "22g (40%)"
-    },
-    ingredients: "국산 1A 등급 원유 30.7%, 소맥분, 천연효모, 가공버터",
-    allergens: ["밀","우유"],
-    origin: "제조: CJ푸드빌",
-    manufacturer: "(주)CJ푸드빌",
-    storageMethod: "실온 보관 (개봉 후 냉동 보관)",
-    shelfLife: "제조일로부터 3일",
-    precautions: "갓 뜯어서 잼 없이 그냥 뜯어먹어도 우유 단맛이 납니다.",
-    storeStocks: [
-          {
-                "store": "뚜레쥬르",
-                "status": "입고완료",
-                "stockCount": 16,
-                "price": 3200,
-                "eventBadge": "순우유식빵",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://www.tlj.co.kr"
-          }
-    ],
-    description: "물 대신 신선한 1A 등급 원유를 듬뿍 넣어 빵 결이 실크처럼 쫄깃하고 촉촉하게 찢어지는 프리미엄 우유식빵.",
-    bestQuotes: ["그냥 손으로 뜯어먹어도 고소하고 맛있음","식빵 결이 살아있고 퍽퍽함이 전혀 없어요"]
-  },
-  {
-    id: "bakery-ssd-01",
-    name: "성심당 튀김소보로 (튀소)",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 1980년 탄생 대표 시그니처",
-    price: 1700,
-    overallRating: 5,
-    ratingCount: 1250,
-    searchInfluxCount: 95000,
-    stores: ["성심당"],
-    repurchasePercent: 99,
-    calories: 343,
-    volume: "132g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":5,"portion":4.9,"repurchase":5},
-    nutrition: {
-          "calories": 343,
-          "sodium": "190mg (10%)",
-          "carbs": "49g (15%)",
-          "sugar": "21g (21%)",
-          "fat": "14g (26%)",
-          "transFat": "0g",
-          "satFat": "5g (33%)",
-          "cholesterol": "15mg (5%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "소맥분, 팥앙금(성심당 특제 가마솥 팥앙금), 소보로비스킷 반죽, 옥배유",
-    allergens: ["밀","대두","난류","우유","땅콩"],
-    origin: "제조: (주)로쏘 성심당 (대전 중구 은행동)",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "직사광선을 피한 실온 (당일 섭취 권장)",
-    shelfLife: "제조 당일 권장 (냉동 보관 시 1개월)",
-    precautions: "에어프라이어에 180도 5분 데우면 갓 튀긴 바삭한 튀소로 환생합니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 50,
-                "price": 1700,
-                "eventBadge": "전국1위특산품",
-                "deliveryTime": "대전 본점/지점 현장 구매 / KTX 특송",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "1980년 팥도넛과 곰보빵(소보로)을 결합하여 탄생한 성심당의 심장이자 전설의 빵! 바삭한 소보로 튀김 옷 속에 촉촉한 통팥 앙금의 황홀경.",
-    bestQuotes: ["대전 가는 유일한 이유! 1700원에 이 퀄리티는 기적","에어프라이어 돌리면 겉바속촉 미쳤습니다 무조건 사세요"]
-  },
-  {
-    id: "bakery-ssd-02",
-    name: "성심당 튀소구마",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "튀김소보로 탄생 35주년 기념작",
-    price: 1700,
-    overallRating: 4.9,
-    ratingCount: 780,
-    searchInfluxCount: 48000,
-    stores: ["성심당"],
-    repurchasePercent: 97,
-    calories: 335,
-    volume: "130g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":5,"portion":4.9,"repurchase":4.9},
-    nutrition: {
-          "calories": 335,
-          "sodium": "180mg (9%)",
-          "carbs": "51g (16%)",
-          "sugar": "19g (19%)",
-          "fat": "12g (22%)",
-          "transFat": "0g",
-          "satFat": "4g (27%)",
-          "cholesterol": "12mg (4%)",
-          "protein": "5g (9%)"
-    },
-    ingredients: "소맥분, 달콤한 고구마 앙금(국산 고구마), 흑임자 토핑, 소보로 반죽",
-    allergens: ["밀","대두","난류","우유","땅콩"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "실온 보관 (당일 섭취 권장)",
-    shelfLife: "제조 당일",
-    precautions: "흑임자가 콕콕 박혀있어 고구마의 달콤함과 고소함이 배가됩니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 35,
-                "price": 1700,
-                "eventBadge": "고구마튀소",
-                "deliveryTime": "대전 매장 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "튀김소보로의 바삭함 속에 팥 대신 부드럽고 달콤한 고구마 앙금을 가득 채우고 흑임자를 솔솔 뿌린 형제 시그니처.",
-    bestQuotes: ["팥 안 좋아하는 사람도 튀소구마는 무조건 반함","달콤하고 부드러운 고구마 크림이 최고"]
-  },
-  {
-    id: "bakery-ssd-03",
-    name: "성심당 판타롱 부추빵",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 1986년 출시 명물",
-    price: 2000,
-    overallRating: 4.8,
-    ratingCount: 890,
-    searchInfluxCount: 52000,
-    stores: ["성심당"],
-    repurchasePercent: 96,
-    calories: 250,
-    volume: "115g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":4.8,"value":5,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 250,
-          "sodium": "360mg (18%)",
-          "carbs": "32g (10%)",
-          "sugar": "6g (6%)",
-          "fat": "9g (17%)",
-          "transFat": "0g",
-          "satFat": "3g (20%)",
-          "cholesterol": "55mg (18%)",
-          "protein": "9g (16%)"
-    },
-    ingredients: "신선한 부추(국산), 삶은 계란(국산), 햄(돈육), 참기름, 소맥분",
-    allergens: ["밀","난류","돼지고기","대두"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "부추의 신선도를 위해 즉시 취식 권장 (냉장 보관 필수)",
-    shelfLife: "제조 당일 섭취 권장",
-    precautions: "전자레인지에 돌리지 마시고 시원하거나 미지근한 상태로 드시는 것이 가장 향긋합니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 40,
-                "price": 2000,
-                "eventBadge": "부추의향연",
-                "deliveryTime": "대전 매장 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "향긋하고 신선한 초록 부추와 고소한 계란, 짭짤한 햄이 촉촉한 빵 속에 어우러진 담백하고 건강한 성심당 대표 조리빵.",
-    bestQuotes: ["자극적이지 않고 만두처럼 담백하고 깔끔한 맛","부추 향이 은은하고 빵이 진짜 폭신해요"]
-  },
-  {
-    id: "bakery-ssd-04",
-    name: "성심당 명란바게트",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "크루아상",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 전설의 짠맛 1위",
-    price: 3800,
-    overallRating: 4.9,
-    ratingCount: 1100,
-    searchInfluxCount: 82000,
-    stores: ["성심당"],
-    repurchasePercent: 98,
-    calories: 410,
-    volume: "210g (롱사이즈)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":5,"portion":4.9,"repurchase":5},
-    nutrition: {
-          "calories": 410,
-          "sodium": "790mg (40%)",
-          "carbs": "65g (20%)",
-          "sugar": "4g (4%)",
-          "fat": "11g (20%)",
-          "transFat": "0g",
-          "satFat": "4g (27%)",
-          "cholesterol": "45mg (15%)",
-          "protein": "13g (24%)"
-    },
-    ingredients: "프랑스 정통 바게트, 덕절명란(국산 명란젓), 마요네즈, 김가루, 참기름",
-    allergens: ["밀","난류","대두"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "실온 보관 (당일 섭취 권장)",
-    shelfLife: "제조 당일 또는 익일",
-    precautions: "프라이팬이나 에어프라이어에 살짝 구워 마요네즈나 명란마요를 살짝 곁들이면 맥주 안주로 최고입니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 30,
-                "price": 3800,
-                "eventBadge": "품절대란",
-                "deliveryTime": "대전 매장 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "바삭하고 쫄깃한 전통 프랑스 바게트 사이에 짭조름하고 알싸한 명란젓과 고소한 김가루를 듬뿍 바른 마약 바게트.",
-    bestQuotes: ["이거 사러 대전 갑니다. 짭짤고소해서 앉은자리에서 한줄 순삭","에프 돌리면 바게트 바삭함이랑 명란 풍미 폭발"]
-  },
-  {
-    id: "bakery-ssd-05",
-    name: "성심당 보문산메아리",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "크루아상",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 대전명물 페이스트리",
-    price: 6000,
-    overallRating: 4.9,
-    ratingCount: 720,
-    searchInfluxCount: 45000,
-    stores: ["성심당"],
-    repurchasePercent: 97,
-    calories: 560,
-    volume: "230g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.9,"portion":5,"repurchase":4.9},
-    nutrition: {
-          "calories": 560,
-          "sodium": "420mg (21%)",
-          "carbs": "68g (21%)",
-          "sugar": "28g (28%)",
-          "fat": "28g (52%)",
-          "transFat": "0.4g",
-          "satFat": "16g (107%)",
-          "cholesterol": "60mg (20%)",
-          "protein": "9g (16%)"
-    },
-    ingredients: "발효버터, 소맥분, 골든시럽, 바닐라 슈가, 럼주 미량",
-    allergens: ["밀","우유","난류"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 3일",
-    precautions: "결대로 한 겹씩 뜯어 먹으면 촉촉한 버터 시럽의 결을 제대로 느낄 수 있습니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 25,
-                "price": 6000,
-                "eventBadge": "명예의전당",
-                "deliveryTime": "대전 매장 현장 구매 / 택배",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "대전을 상징하는 보문산의 메아리를 형상화한 골드 페이스트리! 돌돌 말린 겹겹의 빵 사이로 달콤한 시럽과 버터 풍미가 뿜어져 나오는 명작.",
-    bestQuotes: ["손으로 결대로 뜯어먹으면 촉촉함의 극치","커피나 홍차랑 페어링하면 호텔 디저트 부럽지 않음"]
-  },
-  {
-    id: "bakery-ssd-06",
-    name: "성심당 작은메아리",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "크루아상",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "보문산메아리의 바삭 버전",
-    price: 3000,
-    overallRating: 4.8,
-    ratingCount: 510,
-    searchInfluxCount: 31000,
-    stores: ["성심당"],
-    repurchasePercent: 95,
-    calories: 290,
-    volume: "85g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.6,"repurchase":4.8},
-    nutrition: {
-          "calories": 290,
-          "sodium": "220mg (11%)",
-          "carbs": "38g (12%)",
-          "sugar": "17g (17%)",
-          "fat": "14g (26%)",
-          "transFat": "0.2g",
-          "satFat": "8g (53%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "4g (7%)"
-    },
-    ingredients: "발효버터 페이스트리, 캐러멜 슈가 코팅, 바닐라빈",
-    allergens: ["밀","우유"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "바닥의 캐러멜 코팅이 단단하고 바삭하니 치아에 유의하여 드세요.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 20,
-                "price": 3000,
-                "eventBadge": "바삭달콤",
-                "deliveryTime": "대전 매장 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "보문산메아리를 퀸아망 스타일로 재해석하여 버터의 풍미와 달콤하고 바삭한 캐러멜 크러스트를 집약한 인기 메뉴.",
-    bestQuotes: ["바닥에 눌어붙은 캐러멜이 바삭바삭 진짜 맛있어요","작지만 강력한 단맛의 완성도"]
-  },
-  {
-    id: "bakery-ssd-07",
-    name: "성심당 순수롤",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 케익부띠끄 명작",
-    price: 14000,
-    overallRating: 5,
-    ratingCount: 840,
-    searchInfluxCount: 56000,
-    stores: ["성심당"],
-    repurchasePercent: 98,
-    calories: 1250,
-    volume: "400g (1롤)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":5,"portion":4.9,"repurchase":5},
-    nutrition: {
-          "calories": 1250,
-          "sodium": "320mg (16%)",
-          "carbs": "128g (40%)",
-          "sugar": "65g (65%)",
-          "fat": "72g (133%)",
-          "transFat": "0g",
-          "satFat": "42g (280%)",
-          "cholesterol": "290mg (97%)",
-          "protein": "22g (41%)"
-    },
-    ingredients: "100% 국산 동물성 순우유 생크림, 신선란, 박력분, 설탕",
-    allergens: ["우유","난류","밀"],
-    origin: "제조: (주)로쏘 성심당 케익부띠끄",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "냉장 보관 (0~10℃)",
-    shelfLife: "제조일로부터 3일",
-    precautions: "식물성 유지나 첨가물이 없어 반드시 냉장 보관하셔야 신선합니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 15,
-                "price": 14000,
-                "eventBadge": "순우유100%",
-                "deliveryTime": "대전 케익부띠끄 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "100% 순수 우유 생크림만을 가득 채워 입안에서 사르르 녹아내리는 성심당 케익부띠끄의 간판 롤케이크.",
-    bestQuotes: ["도지마롤보다 훨씬 맛있고 가격은 절반","크림이 우유 그 자체예요 느끼함 0%"]
-  },
-  {
-    id: "bakery-ssd-08",
-    name: "성심당 딸기시루 막내",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "전국 오픈런 대란 시그니처 케이크",
-    price: 43000,
-    overallRating: 5,
-    ratingCount: 1580,
-    searchInfluxCount: 120000,
-    stores: ["성심당"],
-    repurchasePercent: 99,
-    calories: 2800,
-    volume: "2.3kg (특대용량)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":5,"portion":5,"repurchase":5},
-    nutrition: {
-          "calories": 2800,
-          "sodium": "980mg (49%)",
-          "carbs": "340g (105%)",
-          "sugar": "210g (210%)",
-          "fat": "140g (259%)",
-          "transFat": "0.8g",
-          "satFat": "78g (520%)",
-          "cholesterol": "450mg (150%)",
-          "protein": "45g (82%)"
-    },
-    ingredients: "신선한 생딸기 2.3kg 가득, 묵직한 초콜릿 시트, 발로나 초코 크림",
-    allergens: ["밀","우유","난류","대두"],
-    origin: "제조: (주)로쏘 성심당 케익부띠끄",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "냉장 보관 (0~10℃)",
-    shelfLife: "구입 당일~익일 섭취 권장",
-    precautions: "무게가 2kg이 넘어 들고 갈 때 상자 손잡이를 두 손으로 꼭 받쳐주세요.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 8,
-                "price": 43000,
-                "eventBadge": "오픈런전설",
-                "deliveryTime": "대전 케익부띠끄 현장 예약/수령",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "케이크 상자가 찢어질 듯 신선한 생딸기를 아낌없이 쏟아붓고 진한 초콜릿 시트를 층층이 쌓은 전국구 오픈런 전설의 딸기 케이크.",
-    bestQuotes: ["딸기를 샀더니 케이크가 덤으로 온 수준! 무게가 아령 수준입니다","이 가격에 생딸기가 이만큼 들어가는 케이크는 전 세계에 여기뿐"]
-  },
-  {
-    id: "bakery-ssd-09",
-    name: "성심당 소금크루아상 (소금빵)",
-    brand: "성심당",
-    category: '빵·디저트',
-    subCategory: "소금빵",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "성심당 소금빵 열풍작",
-    price: 1800,
-    overallRating: 4.8,
-    ratingCount: 460,
-    searchInfluxCount: 33000,
-    stores: ["성심당"],
-    repurchasePercent: 95,
-    calories: 230,
-    volume: "75g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":5,"portion":4.7,"repurchase":4.9},
-    nutrition: {
-          "calories": 230,
-          "sodium": "360mg (18%)",
-          "carbs": "29g (9%)",
-          "sugar": "2g (2%)",
-          "fat": "11g (20%)",
-          "transFat": "0g",
-          "satFat": "6g (40%)",
-          "cholesterol": "20mg (7%)",
-          "protein": "4g (7%)"
-    },
-    ingredients: "발효버터, 소맥분, 펄솔트(프랑스 게랑드 소금), 천연효모",
-    allergens: ["밀","우유"],
-    origin: "제조: (주)로쏘 성심당",
-    manufacturer: "(주)로쏘 성심당",
-    storageMethod: "실온 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "바닥이 바삭하게 버터에 구워져 식감이 예술입니다.",
-    storeStocks: [
-          {
-                "store": "성심당",
-                "status": "입고완료",
-                "stockCount": 30,
-                "price": 1800,
-                "eventBadge": "착한가격",
-                "deliveryTime": "대전 매장 현장 구매",
-                "appLink": "https://www.sungsimdangmall.co.kr"
-          }
-    ],
-    description: "버터를 아끼지 않고 넣어 바닥은 튀기듯 바삭하고 속은 쫄깃하며 펄솔트가 톡톡 터지는 성심당식 갓성비 소금빵.",
-    bestQuotes: ["1800원에 이런 버터 동굴과 겉바속촉이라니 성심당 만세","다른 베이커리 4천원짜리 소금빵보다 훨씬 맛있음"]
-  },
-  {
-    id: "bakery-lbm-01",
-    name: "런던베이글뮤지엄 스프링 어니언 프레첼 베이글",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 대표 시그니처 1위",
-    price: 8500,
-    overallRating: 4.9,
-    ratingCount: 1350,
-    searchInfluxCount: 110000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 97,
-    calories: 460,
-    volume: "185g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.6,"portion":4.9,"repurchase":4.9},
-    nutrition: {
-          "calories": 460,
-          "sodium": "580mg (29%)",
-          "carbs": "54g (17%)",
-          "sugar": "11g (11%)",
-          "fat": "22g (41%)",
-          "transFat": "0.2g",
-          "satFat": "12g (80%)",
-          "cholesterol": "50mg (17%)",
-          "protein": "11g (20%)"
-    },
-    ingredients: "프레첼 베이글 도우, 신선한 쪽파, 크림치즈(필라델피아 크림치즈), 양파분말, 꿀",
-    allergens: ["밀","우유","대두"],
-    origin: "런던베이글뮤지엄 안국/도산/잠실/제주",
-    manufacturer: "LBM (London Bagel Museum)",
-    storageMethod: "냉장 보관 권장",
-    shelfLife: "당일 즉시 섭취 권장",
-    precautions: "생쪽파가 아삭하게 씹히는 크림치즈가 듬뿍 들어있어 바로 드실 때 가장 향긋합니다.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 12,
-                "price": 8500,
-                "eventBadge": "오픈런1위",
-                "deliveryTime": "매장 현장 캐치테이블 웨이팅",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "짭조름한 프레첼 베이글 사이에 신선한 알싸한 쪽파와 부드러운 양파 크림치즈를 샌드한 대한민국 베이글 신드롬의 주인공.",
-    bestQuotes: ["2시간 웨이팅이 하나도 안 아까운 충격적인 맛","쪽파와 크림치즈 조합이 이렇게 완벽할 줄이야"]
-  },
-  {
-    id: "bakery-lbm-02",
-    name: "런던베이글뮤지엄 포테이토 치즈 베이글",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 스테디셀러",
-    price: 5500,
-    overallRating: 4.9,
-    ratingCount: 980,
-    searchInfluxCount: 78000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 96,
-    calories: 395,
-    volume: "160g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.9,"repurchase":4.9},
-    nutrition: {
-          "calories": 395,
-          "sodium": "490mg (25%)",
-          "carbs": "60g (19%)",
-          "sugar": "5g (5%)",
-          "fat": "12g (22%)",
-          "transFat": "0g",
-          "satFat": "6g (40%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "12g (22%)"
-    },
-    ingredients: "으깬 감자 매쉬, 체다 슬라이스 치즈, 베이글 도우, 파마산 치즈",
-    allergens: ["밀","우유"],
-    origin: "런던베이글뮤지엄",
-    manufacturer: "LBM",
-    storageMethod: "실온 보관 (당일 섭취 권장)",
-    shelfLife: "제조 당일",
-    precautions: "전자레인지에 20초 데우면 위의 노란 체다 치즈가 사르르 녹아 풍미가 극대화됩니다.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 15,
-                "price": 5500,
-                "eventBadge": "식사대용베스트",
-                "deliveryTime": "매장 현장 구매",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "베이글 속에는 부드럽고 든든한 감자 매쉬가 가득 차있고, 윗면에는 체다치즈 한 장이 노릇하게 녹아내린 든든한 식사빵.",
-    bestQuotes: ["속에 감자가 진짜 꽉 차서 하나만 먹어도 배불러요","쫀득한 베이글 식감과 감자 매쉬의 찰떡궁합"]
-  },
-  {
-    id: "bakery-lbm-03",
-    name: "런던베이글뮤지엄 브릭레인 샌드위치",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 정통 브리티시",
-    price: 6800,
-    overallRating: 4.8,
-    ratingCount: 750,
-    searchInfluxCount: 62000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 94,
-    calories: 420,
-    volume: "150g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 420,
-          "sodium": "410mg (21%)",
-          "carbs": "50g (15%)",
-          "sugar": "18g (18%)",
-          "fat": "19g (35%)",
-          "transFat": "0.2g",
-          "satFat": "11g (73%)",
-          "cholesterol": "45mg (15%)",
-          "protein": "10g (19%)"
-    },
-    ingredients: "참깨 가득 베이글, 꾸덕한 크림치즈, 천연 벌꿀 시럽 튜브",
-    allergens: ["밀","우유","대두"],
-    origin: "런던베이글뮤지엄",
-    manufacturer: "LBM",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "함께 제공되는 꿀 튜브를 크림치즈 위에 듬뿍 뿌려 드세요.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 10,
-                "price": 6800,
-                "eventBadge": "시그니처허니",
-                "deliveryTime": "매장 현장 구매",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "고소한 참깨가 빽빽하게 박힌 베이글 사이에 두툼한 크림치즈를 샌드하고 천연 꿀을 뿌려 먹는 정통 런던 브릭레인 스타일 샌드위치.",
-    bestQuotes: ["참깨의 고소함과 크림치즈, 꿀의 삼박자가 미쳤어요","커피랑 먹으면 유럽 브런치 카페 부럽지 않음"]
-  },
-  {
-    id: "bakery-lbm-04",
-    name: "런던베이글뮤지엄 솔트 버터 베이글 (소금빵 베이글)",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 베이직 인기작",
-    price: 4700,
-    overallRating: 4.8,
-    ratingCount: 620,
-    searchInfluxCount: 51000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 95,
-    calories: 310,
-    volume: "115g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.7,"repurchase":4.9},
-    nutrition: {
-          "calories": 310,
-          "sodium": "420mg (21%)",
-          "carbs": "48g (15%)",
-          "sugar": "4g (4%)",
-          "fat": "10g (19%)",
-          "transFat": "0g",
-          "satFat": "6g (40%)",
-          "cholesterol": "20mg (7%)",
-          "protein": "8g (15%)"
-    },
-    ingredients: "소맥분, 버터, 말돈 소금(영국 왕실 소금), 효모",
-    allergens: ["밀","우유"],
-    origin: "런던베이글뮤지엄",
-    manufacturer: "LBM",
-    storageMethod: "실온 보관 (당일 섭취)",
-    shelfLife: "제조 당일",
-    precautions: "토스터에 살짝 구우면 겉은 바삭하고 속은 쫄깃한 버터 향이 폭발합니다.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 18,
-                "price": 4700,
-                "eventBadge": "소금버터베이글",
-                "deliveryTime": "매장 현장 구매",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "베이글 특유의 쫀득한 탄력감에 풍부한 버터 동굴과 영국산 말돈 소금의 바삭한 결이 살아있는 명품 소금빵 베이글.",
-    bestQuotes: ["베이글과 소금빵의 장점만 완벽하게 합침","도우 자체가 너무 쫄깃해서 스프레드 없이도 순삭"]
-  },
-  {
-    id: "bakery-lbm-05",
-    name: "런던베이글뮤지엄 다크 초콜릿 베이글",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 초코 베스트",
-    price: 4900,
-    overallRating: 4.7,
-    ratingCount: 480,
-    searchInfluxCount: 39000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 92,
-    calories: 345,
-    volume: "125g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.7},
-    nutrition: {
-          "calories": 345,
-          "sodium": "290mg (15%)",
-          "carbs": "58g (18%)",
-          "sugar": "19g (19%)",
-          "fat": "9g (17%)",
-          "transFat": "0g",
-          "satFat": "5g (33%)",
-          "cholesterol": "15mg (5%)",
-          "protein": "8g (15%)"
-    },
-    ingredients: "프랑스산 다크초콜릿 청크, 카카오 도우, 버터, 소맥분",
-    allergens: ["밀","우유","대두"],
-    origin: "런던베이글뮤지엄",
-    manufacturer: "LBM",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "전자레인지에 15초 데우면 초콜릿 청크가 부드럽게 녹아 흘러나옵니다.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 14,
-                "price": 4900,
-                "eventBadge": "달콤초코",
-                "deliveryTime": "매장 현장 구매",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "쌉싸름하고 진한 다크 초콜릿 청크가 도우 곳곳에 콕콕 박혀 따뜻하게 데우면 초코 퐁듀처럼 녹아내리는 매력적인 베이글.",
-    bestQuotes: ["너무 달지 않고 고급스러운 다크초코 맛","우유에 찍어먹으면 진짜 꿀맛"]
-  },
-  {
-    id: "bakery-lbm-06",
-    name: "런던베이글뮤지엄 플레인 베이글 & 메이플 피칸 크림치즈",
-    brand: "런던베이글뮤지엄",
-    category: '빵·디저트',
-    subCategory: "베이글",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "런던베이글뮤지엄 정통 세트",
-    price: 7600,
-    overallRating: 4.9,
-    ratingCount: 820,
-    searchInfluxCount: 65000,
-    stores: ["런던베이글뮤지엄"],
-    repurchasePercent: 96,
-    calories: 410,
-    volume: "플레인베이글 110g + 크림치즈 80g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.7,"portion":4.8,"repurchase":4.9},
-    nutrition: {
-          "calories": 410,
-          "sodium": "380mg (19%)",
-          "carbs": "54g (17%)",
-          "sugar": "16g (16%)",
-          "fat": "17g (31%)",
-          "transFat": "0.1g",
-          "satFat": "9g (60%)",
-          "cholesterol": "35mg (12%)",
-          "protein": "9g (16%)"
-    },
-    ingredients: "플레인 베이글, 메이플 시럽, 볶음 피칸, 필라델피아 크림치즈",
-    allergens: ["밀","우유","견과류(피칸)"],
-    origin: "런던베이글뮤지엄",
-    manufacturer: "LBM",
-    storageMethod: "크림치즈 냉장 보관",
-    shelfLife: "구입 당일",
-    precautions: "피칸이 아작아작 씹히는 크림치즈를 아낌없이 두껍게 발라 드세요.",
-    storeStocks: [
-          {
-                "store": "런던베이글뮤지엄",
-                "status": "입고완료",
-                "stockCount": 16,
-                "price": 7600,
-                "eventBadge": "인기스프레드",
-                "deliveryTime": "매장 현장 구매",
-                "appLink": "https://www.instagram.com/london.bagel.museum"
-          }
-    ],
-    description: "베이글 본연의 담백 쫄깃함을 가장 잘 느낄 수 있는 플레인 베이글에 달콤한 메이플과 고소한 피칸이 듬뿍 든 수제 크림치즈 세트.",
-    bestQuotes: ["메이플 피칸 크림치즈는 대용량으로 따로 사와야 함","빵 자체의 쫄깃함이 차원이 다릅니다"]
-  },
-  {
-    id: "bakery-knt-01",
-    name: "노티드 우유 생크림 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 전설의 시그니처 1위",
-    price: 3900,
-    overallRating: 4.9,
-    ratingCount: 1420,
-    searchInfluxCount: 98000,
-    stores: ["노티드"],
-    repurchasePercent: 97,
-    calories: 342,
-    volume: "110g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.7,"portion":4.8,"repurchase":4.9},
-    nutrition: {
-          "calories": 342,
-          "sodium": "190mg (10%)",
-          "carbs": "38g (12%)",
-          "sugar": "17g (17%)",
-          "fat": "19g (35%)",
-          "transFat": "0g",
-          "satFat": "11g (73%)",
-          "cholesterol": "45mg (15%)",
-          "protein": "5g (9%)"
-    },
-    ingredients: "국산 100% 우유 생크림, 바닐라빈 커스터드, 브리오슈 반죽, 슈가 파우더",
-    allergens: ["밀","우유","난류","대두"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관 필수 (0~10℃)",
-    shelfLife: "제조 당일 섭취 권장",
-    precautions: "생크림이 듬뿍 채워져 있으니 누르지 마시고 조심히 베어 무세요.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 20,
-                "price": 3900,
-                "eventBadge": "도넛1위",
-                "deliveryTime": "매장 즉시 픽업 / 카카오 선물하기",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "폭신하고 쫀득한 브리오슈 도넛 사이에 입안에서 사르르 녹아내리는 순백의 우유 생크림을 산처럼 쌓아 올린 노티드의 대표작.",
-    bestQuotes: ["크림이 산더미인데 느끼하지 않고 우유맛 그 자체","노티드 가면 무조건 4개씩 담는 시그니처"]
-  },
-  {
-    id: "bakery-knt-02",
-    name: "노티드 클래식 바닐라 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 스테디셀러",
-    price: 3500,
-    overallRating: 4.8,
-    ratingCount: 890,
-    searchInfluxCount: 54000,
-    stores: ["노티드"],
-    repurchasePercent: 95,
-    calories: 320,
-    volume: "105g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 320,
-          "sodium": "180mg (9%)",
-          "carbs": "39g (12%)",
-          "sugar": "19g (19%)",
-          "fat": "16g (30%)",
-          "transFat": "0g",
-          "satFat": "9g (60%)",
-          "cholesterol": "55mg (18%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "마다가스카르산 바닐라빈, 노티드 수제 커스터드 크림, 브리오슈 반죽",
-    allergens: ["밀","우유","난류"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "바닐라빈 까만 점이 콕콕 박혀있는 고급 커스터드입니다.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 15,
-                "price": 3500,
-                "eventBadge": "진한커스터드",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "마다가스카르산 천연 바닐라빈의 깊고 은은한 풍미가 묵직하게 전해지는 정통 수제 바닐라 커스터드 도넛.",
-    bestQuotes: ["커스터드 크림이 진짜 부드럽고 풍미가 남달라요","우유 생크림이랑 바닐라 조합은 진리"]
-  },
-  {
-    id: "bakery-knt-03",
-    name: "노티드 얼그레이 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1519869325930-281384150729?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 인기 플레이버",
-    price: 3500,
-    overallRating: 4.8,
-    ratingCount: 670,
-    searchInfluxCount: 42000,
-    stores: ["노티드"],
-    repurchasePercent: 93,
-    calories: 335,
-    volume: "105g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 335,
-          "sodium": "170mg (9%)",
-          "carbs": "37g (11%)",
-          "sugar": "16g (16%)",
-          "fat": "18g (33%)",
-          "transFat": "0g",
-          "satFat": "10g (67%)",
-          "cholesterol": "40mg (13%)",
-          "protein": "5g (9%)"
-    },
-    ingredients: "영국산 얼그레이 찻잎 추출액, 유크림, 얼그레이 글레이즈, 브리오슈 반죽",
-    allergens: ["밀","우유","난류"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "진한 밀크티를 마시는 듯한 은은한 홍차 향이 매력적입니다.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 12,
-                "price": 3500,
-                "eventBadge": "향긋한홍차",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "은은한 베르가못 향의 얼그레이 홍차 크림이 입안 가득 퍼지며 달콤 쌉싸름한 여운을 남기는 티타임 도넛.",
-    bestQuotes: ["얼그레이 좋아하는 분들은 무조건 이거 원픽","글레이즈부터 크림까지 얼그레이 향이 진함"]
-  },
-  {
-    id: "bakery-knt-04",
-    name: "노티드 초코푸딩 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 초코 러버 추천",
-    price: 3900,
-    overallRating: 4.8,
-    ratingCount: 710,
-    searchInfluxCount: 46000,
-    stores: ["노티드"],
-    repurchasePercent: 94,
-    calories: 360,
-    volume: "115g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 360,
-          "sodium": "210mg (11%)",
-          "carbs": "44g (14%)",
-          "sugar": "24g (24%)",
-          "fat": "19g (35%)",
-          "transFat": "0.2g",
-          "satFat": "11g (73%)",
-          "cholesterol": "35mg (12%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "벨기에산 다크초콜릿, 초코 커스터드 푸딩 크림, 코코아 파우더",
-    allergens: ["밀","우유","난류","대두"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "초코 푸딩처럼 탱글하면서도 녹아내리는 식감입니다.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 14,
-                "price": 3900,
-                "eventBadge": "진한초코",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "푸딩처럼 쫀득하고 부드러운 다크 초코 크림이 가득 채워져 깊고 진한 카카오 풍미를 선사하는 도넛.",
-    bestQuotes: ["당 떨어졌을 때 이거 하나 먹으면 바로 텐션 충전","인위적인 초코맛이 아니라 고급 초코맛"]
-  },
-  {
-    id: "bakery-knt-05",
-    name: "노티드 카야버터 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 이색 도넛",
-    price: 3900,
-    overallRating: 4.7,
-    ratingCount: 540,
-    searchInfluxCount: 35000,
-    stores: ["노티드"],
-    repurchasePercent: 91,
-    calories: 375,
-    volume: "110g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.6,"portion":4.7,"repurchase":4.7},
-    nutrition: {
-          "calories": 375,
-          "sodium": "240mg (12%)",
-          "carbs": "40g (12%)",
-          "sugar": "18g (18%)",
-          "fat": "22g (41%)",
-          "transFat": "0.3g",
-          "satFat": "13g (87%)",
-          "cholesterol": "50mg (17%)",
-          "protein": "5g (9%)"
-    },
-    ingredients: "싱가포르산 카야잼(판단 잎, 코코넛밀크), 두툼한 앵커버터 슬라이스, 브리오슈 반죽",
-    allergens: ["밀","우유","난류"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관 (버터 형태 유지)",
-    shelfLife: "제조 당일 섭취",
-    precautions: "버터가 녹지 않도록 시원하게 보관 후 드세요.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 10,
-                "price": 3900,
-                "eventBadge": "단짠버터",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "달콤하고 향긋한 싱가포르 카야잼과 두툼하게 썰어 넣은 무염 버터가 입안에서 녹아드는 단짠 고소함의 결정체.",
-    bestQuotes: ["카야잼이랑 두툼한 버터의 조화가 예술","버터가 느끼하지 않고 풍미가 깊어요"]
-  },
-  {
-    id: "bakery-knt-06",
-    name: "노티드 레몬슈가 도넛",
-    brand: "노티드",
-    category: '빵·디저트',
-    subCategory: "도넛",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "노티드 상큼 시그니처",
-    price: 3900,
-    overallRating: 4.8,
-    ratingCount: 680,
-    searchInfluxCount: 44000,
-    stores: ["노티드"],
-    repurchasePercent: 93,
-    calories: 310,
-    volume: "105g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 310,
-          "sodium": "160mg (8%)",
-          "carbs": "42g (13%)",
-          "sugar": "20g (20%)",
-          "fat": "14g (26%)",
-          "transFat": "0g",
-          "satFat": "7g (47%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "4g (7%)"
-    },
-    ingredients: "이탈리아산 레몬 제스트, 레몬 과즙 커스터드, 슈가 파우더, 브리오슈 반죽",
-    allergens: ["밀","우유","난류"],
-    origin: "노티드 코리아 (GFFG)",
-    manufacturer: "(주)GFFG 노티드",
-    storageMethod: "냉장 보관",
-    shelfLife: "제조 당일 섭취",
-    precautions: "상큼한 산미가 있어 기름진 맛을 완벽하게 잡아줍니다.",
-    storeStocks: [
-          {
-                "store": "노티드",
-                "status": "입고완료",
-                "stockCount": 12,
-                "price": 3900,
-                "eventBadge": "상큼레몬",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://knotted-donut.com"
-          }
-    ],
-    description: "생레몬의 상큼한 과즙과 산뜻한 풍미가 꽉 찬 레몬 커스터드 크림이 톡톡 터지는 기분 좋은 디저트 도넛.",
-    bestQuotes: ["새콤달콤해서 질리지 않고 3개는 먹을 수 있음","크림도넛 중 제일 산뜻하고 깔끔해요"]
-  },
-  {
-    id: "bakery-ss-01",
-    name: "삼송빵집 통옥수수빵 (원조 마약빵)",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "삼송빵집 대구 본점 대표 시그니처",
-    price: 2400,
-    overallRating: 4.9,
-    ratingCount: 1120,
-    searchInfluxCount: 84000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 97,
-    calories: 285,
-    volume: "110g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.9,"portion":4.8,"repurchase":4.9},
-    nutrition: {
-          "calories": 285,
-          "sodium": "320mg (16%)",
-          "carbs": "42g (13%)",
-          "sugar": "15g (15%)",
-          "fat": "11g (20%)",
-          "transFat": "0g",
-          "satFat": "5g (33%)",
-          "cholesterol": "25mg (8%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "스위트콘 옥수수 알갱이(통옥수수), 삼송 특제 크림소스, 옥수수가루 소보로 토핑, 소맥분",
-    allergens: ["밀","우유","난류","대두"],
-    origin: "삼송빵집 본점 (대구 동성로)",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "서늘한 실온 (당일 섭취 권장)",
-    shelfLife: "제조 당일 (냉동 보관 시 2주)",
-    precautions: "전자레인지에 15~20초 데우면 옥수수 알갱이가 톡톡 터지며 크림이 따뜻하게 녹아내립니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 40,
-                "price": 2400,
-                "eventBadge": "원조마약빵",
-                "deliveryTime": "매장 즉시 픽업 / KTX 역사 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "한번 맛보면 멈출 수 없어 일명 마약빵으로 불리는 대구 대표 명물! 톡톡 터지는 통옥수수 알갱이와 달콤고소한 특제 크림소스의 향연.",
-    bestQuotes: ["진짜 마약 맞음... 한 박스 사 오면 하루 만에 다 사라져요","톡톡 터지는 옥수수 식감과 겉의 고소한 소보로가 미쳤음"]
-  },
-  {
-    id: "bakery-ss-02",
-    name: "삼송빵집 먹물 통옥수수빵",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "삼송빵집 인기 시그니처",
-    price: 2600,
-    overallRating: 4.8,
-    ratingCount: 680,
-    searchInfluxCount: 45000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 95,
-    calories: 290,
-    volume: "115g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 290,
-          "sodium": "340mg (17%)",
-          "carbs": "40g (12%)",
-          "sugar": "14g (14%)",
-          "fat": "12g (22%)",
-          "transFat": "0g",
-          "satFat": "6g (40%)",
-          "cholesterol": "25mg (8%)",
-          "protein": "7g (13%)"
-    },
-    ingredients: "오징어 먹물 반죽, 통옥수수, 베이컨, 크림치즈, 양파",
-    allergens: ["밀","우유","난류","돼지고기","오징어"],
-    origin: "삼송빵집 본점",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "실온 보관",
-    shelfLife: "제조 당일",
-    precautions: "오징어 먹물과 베이컨이 들어가 짭조름한 풍미가 더해졌습니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 25,
-                "price": 2600,
-                "eventBadge": "먹물베이컨",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "오징어 먹물로 반죽한 쫄깃한 블랙 번 속에 톡톡 터지는 옥수수와 짭조름한 베이컨, 양파, 크림치즈가 어우러진 업그레이드 마약빵.",
-    bestQuotes: ["원조 옥수수빵보다 덜 달고 베이컨이 씹혀서 더 취향","오징어먹물 도우가 쫀득쫀득해요"]
-  },
-  {
-    id: "bakery-ss-03",
-    name: "삼송빵집 오븐에 구운 야채고로케",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "삼송빵집 건강 구운 고로케",
-    price: 2500,
-    overallRating: 4.8,
-    ratingCount: 520,
-    searchInfluxCount: 36000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 94,
-    calories: 260,
-    volume: "120g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.8,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 260,
-          "sodium": "460mg (23%)",
-          "carbs": "34g (10%)",
-          "sugar": "5g (5%)",
-          "fat": "8g (15%)",
-          "transFat": "0g",
-          "satFat": "2.5g (17%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "8g (15%)"
-    },
-    ingredients: "신선한 야채믹스(양배추, 당근, 양파, 대파), 삶은 감자, 돈육, 소맥분",
-    allergens: ["밀","돼지고기","대두","난류"],
-    origin: "삼송빵집 본점",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "실온 보관",
-    shelfLife: "제조 당일",
-    precautions: "기름에 튀기지 않고 오븐에 구워 칼로리가 낮고 담백합니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 20,
-                "price": 2500,
-                "eventBadge": "오븐구이고로케",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "기름에 튀기지 않고 오븐에 담백하게 구워내 기름기 없이 바삭하고 아삭한 야채 소가 꽉 찬 착한 고로케.",
-    bestQuotes: ["튀긴 고로케처럼 속 더부룩한 게 전혀 없음","야채가 꽉 차있어서 진짜 담백하고 맛있어요"]
-  },
-  {
-    id: "bakery-ss-04",
-    name: "삼송빵집 오븐에 구운 고추고로케",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "삼송빵집 매콤 인기작",
-    price: 2700,
-    overallRating: 4.8,
-    ratingCount: 490,
-    searchInfluxCount: 33000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 93,
-    calories: 275,
-    volume: "120g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 275,
-          "sodium": "520mg (26%)",
-          "carbs": "35g (11%)",
-          "sugar": "5g (5%)",
-          "fat": "9g (17%)",
-          "transFat": "0g",
-          "satFat": "3g (20%)",
-          "cholesterol": "30mg (10%)",
-          "protein": "9g (16%)"
-    },
-    ingredients: "국산 청양고추, 야채, 돼지고기, 당면, 소맥분",
-    allergens: ["밀","돼지고기","대두","난류"],
-    origin: "삼송빵집 본점",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "실온 보관",
-    shelfLife: "제조 당일",
-    precautions: "청양고추의 알싸한 매운맛이 느끼함을 잡아줍니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 18,
-                "price": 2700,
-                "eventBadge": "매콤칼칼",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "칼칼한 청양고추의 알싸한 매운맛과 알찬 만두 소 같은 고기·야채가 꽉 찬 중독성 넘치는 매콤 구운 고로케.",
-    bestQuotes: ["고추고로케 먹고 나면 일반 고로케 못 먹음","매콤한 맛이 빵이랑 기가 막히게 어울려요"]
-  },
-  {
-    id: "bakery-ss-05",
-    name: "삼송빵집 크림치즈 찰떡빵",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "삼송빵집 떡빵 시그니처",
-    price: 2800,
-    overallRating: 4.8,
-    ratingCount: 430,
-    searchInfluxCount: 29000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 92,
-    calories: 310,
-    volume: "115g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 310,
-          "sodium": "280mg (14%)",
-          "carbs": "48g (15%)",
-          "sugar": "16g (16%)",
-          "fat": "11g (20%)",
-          "transFat": "0g",
-          "satFat": "6g (40%)",
-          "cholesterol": "20mg (7%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "국산 찹쌀떡, 진한 크림치즈, 단팥 앙금, 소맥분",
-    allergens: ["밀","우유","대두"],
-    origin: "삼송빵집 본점",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "전자레인지에 살짝 데우면 찰떡이 쭉 늘어납니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 15,
-                "price": 2800,
-                "eventBadge": "쫀득찰떡",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "쫄깃한 찰떡과 달콤한 단팥, 진한 크림치즈를 부드러운 빵 속에 한 번에 품은 극강의 쫀득 디저트 빵.",
-    bestQuotes: ["떡이랑 크림치즈가 이렇게 잘 어울릴 줄이야","식감이 진짜 쫠깃쫠깃해요"]
-  },
-  {
-    id: "bakery-ss-06",
-    name: "삼송빵집 호두 단팥빵",
-    brand: "삼송빵집",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "1957년부터 이어온 전통 단팥",
-    price: 2500,
-    overallRating: 4.7,
-    ratingCount: 380,
-    searchInfluxCount: 25000,
-    stores: ["삼송빵집"],
-    repurchasePercent: 91,
-    calories: 280,
-    volume: "110g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.8,"value":4.8,"portion":4.7,"repurchase":4.8},
-    nutrition: {
-          "calories": 280,
-          "sodium": "220mg (11%)",
-          "carbs": "50g (15%)",
-          "sugar": "20g (20%)",
-          "fat": "7g (13%)",
-          "transFat": "0g",
-          "satFat": "2g (13%)",
-          "cholesterol": "10mg (3%)",
-          "protein": "6g (11%)"
-    },
-    ingredients: "수제 팥앙금(팥: 국산), 고소한 호두 분태, 소맥분, 검은깨",
-    allergens: ["밀","대두","견과류(호두)"],
-    origin: "삼송빵집 본점",
-    manufacturer: "(주)삼송BNC",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "호두가 듬뿍 들어있어 씹는 맛이 고소합니다.",
-    storeStocks: [
-          {
-                "store": "삼송빵집",
-                "status": "입고완료",
-                "stockCount": 20,
-                "price": 2500,
-                "eventBadge": "전통단팥",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "http://www.samsongbread.com"
-          }
-    ],
-    description: "1957년부터 3대를 이어온 삼송빵집의 뿌리! 묵직하고 달지 않은 수제 팥앙금 속에 고소한 호두가 오독오독 씹히는 단팥빵.",
-    bestQuotes: ["팥이 인위적으로 달지 않고 호두가 씹혀서 진짜 고급스러움","부모님 사다 드렸더니 옛날 맛 난다고 좋아하심"]
-  },
-  {
-    id: "bakery-tgd-01",
-    name: "태극당 모나카 아이스크림 (우유)",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "서울 최고(最古) 빵집 시그니처 1위",
-    price: 3300,
-    overallRating: 5,
-    ratingCount: 1180,
-    searchInfluxCount: 89000,
-    stores: ["태극당"],
-    repurchasePercent: 98,
-    calories: 150,
-    volume: "75g",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":5,"value":4.8,"portion":4.7,"repurchase":5},
-    nutrition: {
-          "calories": 150,
-          "sodium": "55mg (3%)",
-          "carbs": "22g (7%)",
-          "sugar": "13g (13%)",
-          "fat": "5g (9%)",
-          "transFat": "0g",
-          "satFat": "3.5g (23%)",
-          "cholesterol": "18mg (6%)",
-          "protein": "3g (5%)"
-    },
-    ingredients: "국산 우유, 찹쌀 모나카 피(국산 찹쌀), 천연 바닐라향, 유크림",
-    allergens: ["우유","대두"],
-    origin: "태극당 장충동 본점 (Since 1946)",
-    manufacturer: "(주)태극당",
-    storageMethod: "냉동 보관 (-18℃ 이하)",
-    shelfLife: "제조일로부터 6개월",
-    precautions: "포장을 뜯고 바로 드셔야 모나카 피의 바삭함이 살아있습니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 30,
-                "price": 3300,
-                "eventBadge": "모나카원조",
-                "deliveryTime": "매장 즉시 수령 / 포장 보냉백",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "1946년부터 70여 년간 사랑받아 온 서울의 상징! 바삭하고 얇은 수제 찹쌀 모나카 피 안에 담백하고 깨끗한 순우유 아이스크림을 꽉 채운 명작.",
-    bestQuotes: ["모나카 과자가 눅눅하지 않고 파삭함이 기적적","서울 장충동 가면 무조건 먹어야 하는 필수 코스"]
-  },
-  {
-    id: "bakery-tgd-02",
-    name: "태극당 초코 모나카 아이스크림",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "디저트",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "태극당 달콤 초코 모나카",
-    price: 3300,
-    overallRating: 4.9,
-    ratingCount: 650,
-    searchInfluxCount: 42000,
-    stores: ["태극당"],
-    repurchasePercent: 96,
-    calories: 165,
-    volume: "75g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.7,"repurchase":4.9},
-    nutrition: {
-          "calories": 165,
-          "sodium": "60mg (3%)",
-          "carbs": "24g (7%)",
-          "sugar": "15g (15%)",
-          "fat": "6g (11%)",
-          "transFat": "0g",
-          "satFat": "4g (27%)",
-          "cholesterol": "18mg (6%)",
-          "protein": "3g (5%)"
-    },
-    ingredients: "네덜란드산 코코아 파우더, 국산 우유, 찹쌀 모나카 피, 유크림",
-    allergens: ["우유","대두"],
-    origin: "태극당 장충동 본점",
-    manufacturer: "(주)태극당",
-    storageMethod: "냉동 보관 (-18℃ 이하)",
-    shelfLife: "제조일로부터 6개월",
-    precautions: "아이들과 초콜릿 마니아들에게 강력 추천하는 맛입니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 20,
-                "price": 3300,
-                "eventBadge": "달콤초코",
-                "deliveryTime": "매장 즉시 수령",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "바삭바삭한 찹쌀 모나카 피 속에 쌉싸름하고 달콤한 정통 카카오 초콜릿 아이스크림을 채운 달콤한 행복.",
-    bestQuotes: ["우유 모나카랑 초코 모나카 하나씩 사서 먹는 게 국룰","초코 아이스크림이 텁텁하지 않고 깔끔함"]
-  },
-  {
-    id: "bakery-tgd-03",
-    name: "태극당 야채 사라다빵",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "식빵",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "태극당 묵직한 베스트셀러",
-    price: 7000,
-    overallRating: 4.9,
-    ratingCount: 940,
-    searchInfluxCount: 71000,
-    stores: ["태극당"],
-    repurchasePercent: 97,
-    calories: 480,
-    volume: "280g (벽돌무게)",
-    isToday: true,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.9,"portion":5,"repurchase":5},
-    nutrition: {
-          "calories": 480,
-          "sodium": "720mg (36%)",
-          "carbs": "48g (15%)",
-          "sugar": "9g (9%)",
-          "fat": "24g (44%)",
-          "transFat": "0.2g",
-          "satFat": "6g (40%)",
-          "cholesterol": "85mg (28%)",
-          "protein": "14g (25%)"
-    },
-    ingredients: "신선한 양배추(국산), 당근, 오이, 감자, 사과, 햄, 계란, 마요네즈, 핫도그 번",
-    allergens: ["밀","난류","돼지고기","대두"],
-    origin: "태극당 장충동 본점",
-    manufacturer: "(주)태극당",
-    storageMethod: "냉장 보관 필수",
-    shelfLife: "제조 당일 섭취 권장",
-    precautions: "무게가 엄청나 묵직하며, 야채의 아삭함을 위해 구입 즉시 드시는 것이 가장 좋습니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 15,
-                "price": 7000,
-                "eventBadge": "식사대용끝판왕",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "아삭한 양배추와 감자, 사과, 햄을 마요네즈에 버무려 핫도그 번이 터질 만큼 꽉 채운 묵직한 옛날식 정통 사라다빵.",
-    bestQuotes: ["무게가 거의 흉기 수준으로 묵직함! 둘이 나눠 먹어도 배부름","아삭아삭한 양배추 샐러드 맛이 진짜 추억 돋아요"]
-  },
-  {
-    id: "bakery-tgd-04",
-    name: "태극당 단팥빵",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "단팥빵·고로케",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "1946년부터 이어진 서울 단팥빵",
-    price: 3000,
-    overallRating: 4.8,
-    ratingCount: 560,
-    searchInfluxCount: 38000,
-    stores: ["태극당"],
-    repurchasePercent: 94,
-    calories: 295,
-    volume: "115g",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":4.8,"repurchase":4.8},
-    nutrition: {
-          "calories": 295,
-          "sodium": "240mg (12%)",
-          "carbs": "54g (17%)",
-          "sugar": "22g (22%)",
-          "fat": "6g (11%)",
-          "transFat": "0g",
-          "satFat": "2g (13%)",
-          "cholesterol": "15mg (5%)",
-          "protein": "7g (13%)"
-    },
-    ingredients: "수제 통단팥앙금(팥: 국산), 소맥분, 버터, 검은깨",
-    allergens: ["밀","대두","우유","난류"],
-    origin: "태극당 장충동 본점",
-    manufacturer: "(주)태극당",
-    storageMethod: "실온 보관",
-    shelfLife: "제조일로부터 2일",
-    precautions: "팥이 알차게 들어있어 묵직합니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 25,
-                "price": 3000,
-                "eventBadge": "70년전통",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "달지 않고 구수한 가마솥 수제 팥앙금이 빵 속 가득 묵직하게 들어차 있는 70여 년 전통의 서울 대표 단팥빵.",
-    bestQuotes: ["어르신들 선물로 사다 드리면 극찬받는 단팥빵","팥이 씹히는 맛이 살아있고 빵 피가 얇음"]
-  },
-  {
-    id: "bakery-tgd-05",
-    name: "태극당 고봉 카스테라",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "태극당 전통 카스텔라",
-    price: 7500,
-    overallRating: 4.8,
-    ratingCount: 420,
-    searchInfluxCount: 28000,
-    stores: ["태극당"],
-    repurchasePercent: 93,
-    calories: 620,
-    volume: "220g",
-    isToday: false,
-    isHot: false,
-    detailedRating: {"taste":4.9,"value":4.7,"portion":4.9,"repurchase":4.8},
-    nutrition: {
-          "calories": 620,
-          "sodium": "260mg (13%)",
-          "carbs": "105g (32%)",
-          "sugar": "55g (55%)",
-          "fat": "16g (30%)",
-          "transFat": "0g",
-          "satFat": "5g (33%)",
-          "cholesterol": "180mg (60%)",
-          "protein": "14g (25%)"
-    },
-    ingredients: "신선란(국산 계란 듬뿍), 백설탕, 소맥분, 천연 꿀",
-    allergens: ["난류","밀"],
-    origin: "태극당 장충동 본점",
-    manufacturer: "(주)태극당",
-    storageMethod: "직사광선을 피하고 서늘한 실온 보관",
-    shelfLife: "제조일로부터 5일",
-    precautions: "흰 우유에 푹 적셔 드시면 천상의 부드러움을 맛볼 수 있습니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 12,
-                "price": 7500,
-                "eventBadge": "계란가득",
-                "deliveryTime": "매장 즉시 픽업",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "신선한 계란을 아낌없이 넣어 고봉밥처럼 든든하고 촉촉하게 구워낸 태극당의 전통 수제 카스테라.",
-    bestQuotes: ["우유에 콕 찍어먹으면 입안에서 솜사탕처럼 녹아요","계란 풍미가 진해서 일반 빵집 카스테라랑 차원이 다름"]
-  },
-  {
-    id: "bakery-tgd-06",
-    name: "태극당 로루케익 (정통 롤케이크)",
-    brand: "태극당",
-    category: '빵·디저트',
-    subCategory: "케이크",
-    itemType: 'restaurant',
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop&q=80",
-    releaseDate: "태극당 클래식 롤케익",
-    price: 25000,
-    overallRating: 4.9,
-    ratingCount: 390,
-    searchInfluxCount: 31000,
-    stores: ["태극당"],
-    repurchasePercent: 95,
-    calories: 1680,
-    volume: "520g (특대 1롤)",
-    isToday: false,
-    isHot: true,
-    detailedRating: {"taste":4.9,"value":4.8,"portion":5,"repurchase":4.9},
-    nutrition: {
-          "calories": 1680,
-          "sodium": "480mg (24%)",
-          "carbs": "240g (74%)",
-          "sugar": "130g (130%)",
-          "fat": "65g (120%)",
-          "transFat": "0.4g",
-          "satFat": "28g (187%)",
-          "cholesterol": "380mg (127%)",
-          "protein": "28g (51%)"
-    },
-    ingredients: "신선란, 소맥분, 수제 사과잼, 버터크림, 건포도",
-    allergens: ["난류","밀","우유","대두"],
-    origin: "태극당 장충동 본점",
-    manufacturer: "(주)태극당",
-    storageMethod: "실온 또는 냉장 보관",
-    shelfLife: "제조일로부터 7일",
-    precautions: "클래식 포장지로 포장되어 선물용으로 최고의 인기를 자랑합니다.",
-    storeStocks: [
-          {
-                "store": "태극당",
-                "status": "입고완료",
-                "stockCount": 8,
-                "price": 25000,
-                "eventBadge": "레트로명품",
-                "deliveryTime": "매장 즉시 픽업 / 택배",
-                "appLink": "https://taegeukdang.com"
-          }
-    ],
-    description: "특유의 레트로한 종이 상자에 담긴 태극당의 헤리티지! 묵직하고 촉촉한 스펀지 시트에 사과잼과 고소한 버터크림을 말아낸 명작.",
-    bestQuotes: ["포장부터 맛까지 정통 레트로의 품격","묵직하고 꽉 찬 맛이라 선물했을 때 다들 감탄하심"]
   }
 ];
 
