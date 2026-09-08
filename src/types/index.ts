@@ -435,3 +435,5 @@ export interface RecipePost {
   tags: string[];
   createdAt: string;
 }
+
+export type WriteRecipeInput = Omit<RecipePost, 'id' | 'likes' | 'commentsCount' | 'createdAt' | 'author' | 'authorAvatar' | 'authorLevel' | 'isLiked'>;

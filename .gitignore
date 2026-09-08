@@ -32,3 +32,6 @@ dist-ssr
 
 .vercel
 ios_cert
+*_products.json
+dup_images.json
+products_summary.json

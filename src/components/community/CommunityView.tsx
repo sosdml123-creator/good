@@ -9,6 +9,10 @@ export const CommunityView: React.FC = () => {
     products, 
     communityPosts, 
     events,
+    recipes,
+    openRecipeDetail,
+    openWriteRecipe,
+    toggleRecipeLike,
     openEventDetail,
     openProductDetail, 
     setActiveTab,
@@ -18,7 +22,7 @@ export const CommunityView: React.FC = () => {
     showToast 
   } = useApp();
 
-  const [activeSubTab, setActiveSubTab] = useState<'인기' | '자유게시판' | '질문/답변' | '이벤트'>('인기');
+  const [activeSubTab, setActiveSubTab] = useState<'인기' | '꿀조합' | '자유게시판' | '질문/답변' | '이벤트'>('인기');
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
@@ -81,16 +85,16 @@ export const CommunityView: React.FC = () => {
         </div>
 
         {/* Subtabs */}
-        <div className="flex border-b border-gray-100">
-          {(['인기', '자유게시판', '질문/답변', '이벤트'] as const).map((t) => (
+        <div className="flex border-b border-gray-100 overflow-x-auto no-scrollbar">
+          {(['인기', '꿀조합', '자유게시판', '질문/답변', '이벤트'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setActiveSubTab(t)}
-              className={`flex-1 py-2.5 text-[13px] font-semibold transition-colors ${
+              className={`flex-1 min-w-[65px] py-2.5 text-[13px] font-semibold transition-colors whitespace-nowrap ${
                 activeSubTab === t ? 'text-[#0066FF] border-b-2 border-[#0066FF]' : 'text-gray-500 hover:text-gray-900'
               }`}
             >
-              {t}
+              {t === '꿀조합' ? '꿀조합 🥪' : t}
             </button>
           ))}
         </div>
@@ -192,8 +196,80 @@ export const CommunityView: React.FC = () => {
         </div>
       )}
 
-      {/* 3. Post list */}
-      <div className="bg-white divide-y divide-gray-100">
+      {/* 2.8 Recipe Feed Section (When 꿀조합 tab is active) */}
+      {activeSubTab === '꿀조합' ? (
+        <div className="p-4 space-y-4 bg-gray-50/50">
+          {/* Banner & Write Button */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-sm flex items-center justify-between">
+            <div>
+              <span className="text-[10px] font-black bg-white/20 px-2 py-0.5 rounded-full inline-block mb-1">
+                🥪 편의점 맛잘알 공간
+              </span>
+              <h3 className="text-sm font-black">나만의 신상 꿀조합을 공유해보세요!</h3>
+              <p className="text-[11px] text-white/80 mt-0.5">등록 시 50P 즉시 지급 ✨</p>
+            </div>
+            <button
+              onClick={openWriteRecipe}
+              className="px-3.5 py-2 rounded-xl bg-white text-orange-600 font-bold text-xs shadow-xs hover:bg-orange-50 transition-all active:scale-95 shrink-0"
+            >
+              레시피 등록 +
+            </button>
+          </div>
+
+          {/* 2-Column Recipe Cards Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {recipes.map((recipe) => (
+              <div
+                key={recipe.id}
+                onClick={() => openRecipeDetail(recipe.id)}
+                className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
+              >
+                <div>
+                  <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <span className="absolute top-1.5 left-1.5 text-[9px] font-black bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                      ⏱️ {recipe.prepTime}
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleRecipeLike(recipe.id);
+                      }}
+                      className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-white/85 backdrop-blur-xs flex items-center justify-center shadow-xs text-xs active:scale-90"
+                    >
+                      <Heart className={`w-3.5 h-3.5 ${recipe.isLiked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
+                    </button>
+                  </div>
+
+                  <div className="p-2.5">
+                    <div className="text-[10px] text-gray-400 font-medium truncate">
+                      {recipe.author} · {recipe.difficulty}
+                    </div>
+                    <h4 className="text-xs font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-[#0066FF] transition-colors">
+                      {recipe.title}
+                    </h4>
+                  </div>
+                </div>
+
+                <div className="px-2.5 pb-2.5 pt-1 border-t border-gray-50 flex items-center justify-between text-[10px]">
+                  <span className="font-extrabold text-gray-900">
+                    약 {recipe.totalCost.toLocaleString()}원
+                  </span>
+                  <span className="text-gray-400 font-medium">
+                    ♡ {recipe.likes}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        /* 3. Post list */
+        <div className="bg-white divide-y divide-gray-100">
         {displayedPosts.length > 0 ? (
           displayedPosts.map((c) => (
             <div
@@ -259,6 +335,7 @@ export const CommunityView: React.FC = () => {
           </div>
         )}
       </div>
+      )}
 
       {/* 4. Write FAB */}
       <button

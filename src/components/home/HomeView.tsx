@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, Sparkles, ChevronRight, ChevronLeft, Search, Flame } from 'lucide-react';
+import { Star, Heart, Sparkles, ChevronRight, ChevronLeft, Search, Flame, Calendar as CalendarIcon, Bell, BellRing } from 'lucide-react';
 import { ProductCategory, Product, BannerItem } from '../../types';
 import { 
   getPopularProducts, 
@@ -21,9 +21,14 @@ export const HomeView: React.FC = () => {
     battleChoice,
     voteBattle,
     events,
+    calendarItems,
+    calendarReminders,
+    toggleCalendarReminder,
+    recipes,
+    openRecipeDetail,
     setActiveTab, 
     setSelectedCategory, 
-    openBrandDetail,
+    openBrandDetail, 
     openProductDetail, 
     openEventDetail,
     toggleBookmark, 
@@ -208,8 +213,8 @@ export const HomeView: React.FC = () => {
 
   const quickIcons = [
     { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
+    { label: '드롭캘린더', icon: '📅', color: 'bg-indigo-50 text-indigo-600', action: 'calendar' },
     { label: '브랜드관', icon: '🏢', color: 'bg-blue-50 text-[#0066FF]', action: 'brand' },
-    { label: '패스트푸드', icon: '🍔', color: 'bg-orange-50 text-orange-500', cat: '패스트푸드' as ProductCategory },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'event' },
   ];
@@ -396,7 +401,9 @@ export const HomeView: React.FC = () => {
             <button
               key={m.label}
               onClick={() => {
-                if (m.action === 'brand') {
+                if (m.action === 'calendar') {
+                  setActiveTab('calendar');
+                } else if (m.action === 'brand') {
                   setActiveTab('brand');
                 } else if (m.action === 'compare') {
                   setActiveTab('compare');
@@ -442,6 +449,98 @@ export const HomeView: React.FC = () => {
               </span>
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* 3.5 Section: 📅 이번 주 신상 드롭 캘린더 (Drop Calendar Preview) */}
+      <div className="bg-white mt-2 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 mb-2.5">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-indigo-100">
+                <CalendarIcon className="w-3 h-3" /> 드롭 캘린더
+              </span>
+              <span className="text-[11px] text-gray-400 font-medium">놓치면 품절! 출시 예정</span>
+            </div>
+            <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
+              📅 이번 주 신상 드롭 캘린더
+            </h3>
+          </div>
+          <button
+            onClick={() => setActiveTab('calendar')}
+            className="text-[12px] text-indigo-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
+          >
+            <span>전체일정</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Horizontal Calendar Cards */}
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
+          {calendarItems.slice(0, 6).map((item) => {
+            const isReserved = calendarReminders.includes(item.id);
+
+            return (
+              <div
+                key={item.id}
+                className="shrink-0 w-[210px] bg-[#F8F9FB] hover:bg-indigo-50/40 rounded-2xl p-3 border border-gray-200/80 transition-all flex flex-col justify-between shadow-2xs hover:border-indigo-200"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
+                      item.isToday ? 'bg-red-500 text-white animate-pulse' : 'bg-indigo-100 text-indigo-700'
+                    }`}>
+                      {item.dDay}
+                    </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleCalendarReminder(item.id);
+                      }}
+                      className={`p-1.5 rounded-full transition-all active:scale-90 ${
+                        isReserved ? 'text-indigo-600 bg-white shadow-2xs' : 'text-gray-400 hover:text-indigo-500'
+                      }`}
+                      title="알림예약 토글"
+                    >
+                      {isReserved ? (
+                        <BellRing className="w-4 h-4 fill-indigo-600" />
+                      ) : (
+                        <Bell className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  <div 
+                    onClick={() => {
+                      if (item.productId) openProductDetail(item.productId);
+                      else setActiveTab('calendar');
+                    }}
+                    className="flex gap-2.5 cursor-pointer group"
+                  >
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
+                      <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                        {item.name}
+                      </div>
+                      <div className="text-[11px] font-black text-gray-800 mt-0.5">
+                        {item.price.toLocaleString()}원
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[10px]">
+                  <span className="text-indigo-600 font-bold">{item.releaseDateFormatted}</span>
+                  <span className="text-gray-500 font-medium">{item.stores[0] || '편의점'}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -810,6 +909,83 @@ export const HomeView: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* 5.8 Section: 🥪 SNS 화제의 편의점 꿀조합 레시피 */}
+      <div className="mt-2 bg-white py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 mb-2">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[15px] font-black text-gray-900">🥪 화제의 편의점 꿀조합</span>
+            <span className="text-[10px] font-extrabold bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200">
+              맛잘알 추천
+            </span>
+          </div>
+          <button
+            onClick={() => setActiveTab('community')}
+            className="text-[13px] text-[#0066FF] font-semibold hover:underline flex items-center"
+          >
+            수다방 레시피 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+          </button>
+        </div>
+
+        <p className="px-4 text-[11px] text-gray-400 mb-3">
+          신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.
+        </p>
+
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
+          {recipes.map((recipe) => (
+            <div
+              key={recipe.id}
+              onClick={() => openRecipeDetail(recipe.id)}
+              className="shrink-0 w-[220px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
+            >
+              <div>
+                <div className="relative aspect-16/10 bg-gray-100 overflow-hidden">
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  
+                  <div className="absolute top-2 left-2 flex gap-1">
+                    <span className="text-[9px] font-black bg-black/60 text-white px-2 py-0.5 rounded-full backdrop-blur-xs">
+                      ⏱️ {recipe.prepTime}
+                    </span>
+                    <span className="text-[9px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded-full shadow-xs">
+                      {recipe.difficulty}
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-1.5 left-2 right-2 text-white">
+                    <span className="text-[10px] font-bold opacity-90 truncate block">
+                      {recipe.tags[0] || '#꿀조합'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3">
+                  <h4 className="text-xs font-bold text-gray-900 group-hover:text-[#0066FF] transition-colors line-clamp-1 leading-snug">
+                    {recipe.title}
+                  </h4>
+                  <p className="text-[11px] text-gray-500 line-clamp-2 mt-1 leading-relaxed">
+                    {recipe.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-3 pb-3 pt-1 border-t border-gray-50 flex items-center justify-between text-[11px]">
+                <span className="font-extrabold text-gray-900">
+                  약 {recipe.totalCost.toLocaleString()}원
+                </span>
+                <span className="text-gray-400 font-medium flex items-center gap-1">
+                  <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
+                  <span>{recipe.likes}</span>
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* 6. Section: 신상 배틀 VS (Dynamic from Admin) */}
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">

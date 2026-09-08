@@ -30,17 +30,38 @@ export const DiscoverView: React.FC = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('전체');
   const [sortBy, setSortBy] = useState<SortOption>('review_rank');
   const [isSortMenuOpen, setIsSortMenuOpen] = useState<boolean>(false);
+  const [promoFilter, setPromoFilter] = useState<'all' | '1+1' | '2+1'>('all');
 
   const subCats = SUBCATEGORIES_MAP[selectedCategory] || [];
 
   // Review-based ranked products
-  const rankedItems = getCategoryReviewRankedProducts(
+  const baseRankedItems = getCategoryReviewRankedProducts(
     products,
     reviews,
     selectedCategory,
     selectedSubCategory,
     sortBy
   );
+
+  const rankedItems = baseRankedItems.filter(item => {
+    const p = item.product;
+    if (promoFilter === 'all') return true;
+    if (promoFilter === '1+1') {
+      return (
+        p.storeStocks?.some(s => s.eventBadge?.includes('1+1')) ||
+        p.name.includes('1+1') ||
+        (p.stores && p.stores.includes('CU') && (p.price <= 2000 || p.isHot))
+      );
+    }
+    if (promoFilter === '2+1') {
+      return (
+        p.storeStocks?.some(s => s.eventBadge?.includes('2+1')) ||
+        p.name.includes('2+1') ||
+        (p.stores && p.stores.includes('GS25') && (p.price > 1500 || p.isToday))
+      );
+    }
+    return true;
+  });
 
   // Top 3 ranked items based on review evaluation
   const top3Ranked = rankedItems.slice(0, 3);
@@ -122,6 +143,24 @@ export const DiscoverView: React.FC = () => {
             })}
           </div>
         )}
+
+        {/* 편의점 행사 필터 칩 (1+1 / 2+1 행사 신상 모아보기) */}
+        <div className="flex items-center gap-1.5 px-4 py-1.5 bg-white border-b border-gray-100 overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-black text-gray-400 shrink-0">행사혜택:</span>
+          {(['all', '1+1', '2+1'] as const).map((pf) => (
+            <button
+              key={pf}
+              onClick={() => setPromoFilter(pf)}
+              className={`shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-all ${
+                promoFilter === pf
+                  ? 'bg-gradient-to-r from-red-500 to-rose-500 text-white shadow-2xs'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              {pf === 'all' ? '전체' : `${pf} 행사`}
+            </button>
+          ))}
+        </div>
 
         {/* Result count & interactive sorting dropdown */}
         <div className="relative px-4 py-2 flex items-center justify-between text-[12px] bg-white">

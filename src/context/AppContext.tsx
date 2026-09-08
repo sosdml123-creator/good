@@ -18,7 +18,7 @@ import {
   PointTransaction,
   ReleaseCalendarItem,
   RecipePost,
-  RecipeIngredient
+  WriteRecipeInput
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
@@ -205,7 +205,7 @@ interface AppContextType {
   openWriteRecipe: () => void;
   closeWriteRecipe: () => void;
   toggleRecipeLike: (recipeId: string) => void;
-  addRecipePost: (recipeData: Omit<RecipePost, 'id' | 'likes' | 'commentsCount' | 'createdAt'>) => void;
+  addRecipePost: (recipeData: WriteRecipeInput) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -627,6 +627,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     '신라면 똠얌',
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // 📅 New Product Drop Calendar State
+  const [calendarItems] = useState<ReleaseCalendarItem[]>(INITIAL_CALENDAR_ITEMS);
+  const [calendarReminders, setCalendarReminders] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_calendar_reminders');
+      return stored ? JSON.parse(stored) : ['cal-02'];
+    } catch {
+      return ['cal-02'];
+    }
+  });
+
+  // 🥪 New Product Recipe / Combination State
+  const [recipes, setRecipes] = useState<RecipePost[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_recipes');
+      return stored ? JSON.parse(stored) : INITIAL_RECIPES;
+    } catch {
+      return INITIAL_RECIPES;
+    }
+  });
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+  const [isRecipeDetailOpen, setIsRecipeDetailOpen] = useState(false);
+  const [isWriteRecipeOpen, setIsWriteRecipeOpen] = useState(false);
 
   // All Profiles & Point Transactions for Admin & User Management
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(() => {
@@ -1090,12 +1114,104 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       activeTab === 'alert_settings' || 
       activeTab === 'settings' || 
       activeTab === 'compare' || 
-      activeTab === 'write'
+      activeTab === 'write' ||
+      activeTab === 'calendar'
     ) {
       setActiveTabState(previousTab === activeTab ? 'home' : previousTab);
     } else {
       setActiveTabState('home');
     }
+  };
+
+  // 📅 Calendar Handlers
+  const toggleCalendarReminder = (id: string) => {
+    const item = calendarItems.find(c => c.id === id);
+    const isAlready = calendarReminders.includes(id);
+    let updated: string[];
+    if (isAlready) {
+      updated = calendarReminders.filter(rId => rId !== id);
+      showToast(`🔕 [${item?.name || '신상'}] 출시 알림이 해제되었습니다.`, 'info');
+    } else {
+      updated = [...calendarReminders, id];
+      showToast(`🔔 [${item?.name || '신상'}] 출시 알림이 예약되었습니다!`, 'success');
+      if (item) {
+        sendPushNotification({
+          title: `🔔 [출시알림 예약 완료] ${item.brand} ${item.name}`,
+          body: `${item.releaseDateFormatted} 편의점/매장 출시 당일 오전 9시에 가장 먼저 알려드릴게요!`,
+          type: 'notice',
+          targetId: item.productId || item.id,
+          imageUrl: item.image,
+          badge: item.dDay
+        });
+      }
+    }
+    setCalendarReminders(updated);
+    try {
+      localStorage.setItem('sinsangpick_calendar_reminders', JSON.stringify(updated));
+    } catch (e) {
+      // ignore
+    }
+  };
+
+  // 🥪 Recipe Handlers
+  const selectedRecipe = recipes.find(r => r.id === selectedRecipeId) || null;
+
+  const openRecipeDetail = (id: string) => {
+    setSelectedRecipeId(id);
+    setIsRecipeDetailOpen(true);
+  };
+
+  const closeRecipeDetail = () => {
+    setIsRecipeDetailOpen(false);
+    setSelectedRecipeId(null);
+  };
+
+  const openWriteRecipe = () => setIsWriteRecipeOpen(true);
+  const closeWriteRecipe = () => setIsWriteRecipeOpen(false);
+
+  const toggleRecipeLike = (recipeId: string) => {
+    setRecipes(prev => {
+      const next = prev.map(r => {
+        if (r.id === recipeId) {
+          const isLiked = !r.isLiked;
+          return {
+            ...r,
+            isLiked,
+            likes: isLiked ? r.likes + 1 : Math.max(0, r.likes - 1)
+          };
+        }
+        return r;
+      });
+      try {
+        localStorage.setItem('sinsangpick_recipes', JSON.stringify(next));
+      } catch (e) {
+        // ignore
+      }
+      return next;
+    });
+  };
+
+  const addRecipePost = async (recipeData: WriteRecipeInput) => {
+    const newRecipe: RecipePost = {
+      ...recipeData,
+      id: `recipe_${Date.now()}`,
+      author: currentUser.displayName,
+      authorAvatar: currentUser.photoURL,
+      authorLevel: currentUser.level,
+      likes: 1,
+      isLiked: true,
+      commentsCount: 0,
+      createdAt: '방금 전'
+    };
+    const next = [newRecipe, ...recipes];
+    setRecipes(next);
+    try {
+      localStorage.setItem('sinsangpick_recipes', JSON.stringify(next));
+    } catch (e) {
+      // ignore
+    }
+    showToast('🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (+50P)', 'success');
+    await grantUserPoints(currentUser.uid, 50, '꿀조합 레시피 등록 보너스');
   };
 
   const openProductDetail = (productId: string) => {
@@ -2817,6 +2933,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addPostComment,
         deleteReview,
         deleteCommunityPost,
+
+        // 📅 Calendar & 🥪 Recipes
+        calendarItems,
+        calendarReminders,
+        toggleCalendarReminder,
+        recipes,
+        selectedRecipe,
+        isRecipeDetailOpen,
+        openRecipeDetail,
+        closeRecipeDetail,
+        isWriteRecipeOpen,
+        openWriteRecipe,
+        closeWriteRecipe,
+        toggleRecipeLike,
+        addRecipePost,
       }}
     >
       {children}

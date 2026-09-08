@@ -18,6 +18,9 @@ import { SettingsView } from './components/settings/SettingsView';
 import { WebPolicyPage } from './components/settings/WebPolicyPage';
 import { PushBanner } from './components/common/PushBanner';
 import { ToastContainer } from './components/common/Toast';
+import { CalendarView } from './components/calendar/CalendarView';
+import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
+import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
 
 export const App: React.FC = () => {
   const { activeTab } = useApp();
@@ -73,7 +76,12 @@ export const App: React.FC = () => {
           {activeTab === 'alert_settings' && <NotificationModal />}
           {activeTab === 'settings' && <SettingsView />}
           {activeTab === 'search' && <SearchModal />}
+          {activeTab === 'calendar' && <CalendarView />}
         </main>
+
+        {/* Recipe Modals (Floating Global Modals) */}
+        <RecipeDetailModal />
+        <WriteRecipeModal />
 
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
         <BottomNav />
