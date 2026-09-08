@@ -15,10 +15,15 @@ import {
   PendingProduct,
   PromotionEvent,
   AppNotification,
-  PointTransaction
+  PointTransaction,
+  ReleaseCalendarItem,
+  RecipePost,
+  RecipeIngredient
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
+import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
+import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import {
@@ -186,6 +191,21 @@ interface AppContextType {
   batchGrantPoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   fetchAllProfiles: () => Promise<void>;
+
+  // Calendar & Recipes
+  calendarItems: ReleaseCalendarItem[];
+  calendarReminders: string[];
+  toggleCalendarReminder: (calendarItemId: string) => void;
+  recipes: RecipePost[];
+  selectedRecipe: RecipePost | null;
+  isRecipeDetailOpen: boolean;
+  openRecipeDetail: (recipeId: string) => void;
+  closeRecipeDetail: () => void;
+  isWriteRecipeOpen: boolean;
+  openWriteRecipe: () => void;
+  closeWriteRecipe: () => void;
+  toggleRecipeLike: (recipeId: string) => void;
+  addRecipePost: (recipeData: Omit<RecipePost, 'id' | 'likes' | 'commentsCount' | 'createdAt'>) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

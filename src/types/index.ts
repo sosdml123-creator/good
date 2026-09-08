@@ -302,7 +302,8 @@ export type ActiveTab =
   | 'settings'
   | 'search'
   | 'admin'
-  | 'event_detail';
+  | 'event_detail'
+  | 'calendar';
 
 export interface BrandInfo {
   id: string;
@@ -384,3 +385,53 @@ export interface PendingProduct {
   reviewReason?: string; // 검증 필요 사유 (e.g. "가격 확인 불가", "키워드 유사도 불일치", "쇼핑몰 미등록")
 }
 
+export interface ReleaseCalendarItem {
+  id: string;
+  productId?: string;
+  name: string;
+  brand: string;
+  category: ProductCategory;
+  subCategory?: string;
+  image: string;
+  price: number;
+  stores: string[];
+  releaseDate: string; // "2026.09.11"
+  releaseDateFormatted: string; // "9월 11일 (금)"
+  dayOfWeek: string; // "금"
+  dDay: string; // "D-2", "오늘출시", "D-5"
+  isToday?: boolean;
+  isUpcoming: boolean;
+  highlight: string;
+  eventBadge?: string; // "1+1 행사", "한정판", "사전예약"
+  notificationCount?: number;
+}
+
+export interface RecipeIngredient {
+  name: string;
+  store?: string;
+  price?: number;
+  productId?: string;
+  amount?: string;
+  isKeyItem?: boolean;
+}
+
+export interface RecipePost {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  author: string;
+  authorAvatar?: string;
+  authorLevel?: string;
+  prepTime: string; // "3분", "5분"
+  difficulty: '초간단' | '쉬움' | '보통';
+  totalCost: number;
+  ingredients: RecipeIngredient[];
+  steps: string[];
+  tips?: string;
+  likes: number;
+  isLiked?: boolean;
+  commentsCount: number;
+  tags: string[];
+  createdAt: string;
+}
