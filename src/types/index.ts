@@ -9,6 +9,7 @@ export type ProductCategory =
   | '과일'
   | '식재료'
   | '고기·수산'
+  | '아이스크림'
   | '기타';
 
 export interface DetailedRating {
@@ -86,6 +87,7 @@ export interface NutritionInfo {
   fat?: string;           // e.g. "22g (41%)"
   transFat?: string;      // e.g. "0g"
   satFat?: string;        // e.g. "10g (67%)"
+  saturatedFat?: string;  // e.g. "10g (67%)"
   cholesterol?: string;   // e.g. "5mg (2%)"
   protein?: string;       // e.g. "5g (9%)"
 }
@@ -142,6 +144,7 @@ export interface Product {
   repurchasePercent?: number;
   isToday?: boolean;
   isHot?: boolean;
+  isBest?: boolean;
   nutrition?: NutritionInfo;
   ingredients?: string;       // 원재료명 및 함량
   allergens?: string[];       // 알레르기 유발물질 e.g. ['밀', '대두', '우유']
@@ -296,6 +299,7 @@ export type ActiveTab =
   | 'detail' 
   | 'compare' 
   | 'alert_settings' 
+  | 'settings'
   | 'search'
   | 'admin'
   | 'event_detail';

@@ -205,6 +205,11 @@ const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
   '기타': [
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
   ],
+  '아이스크림': [
+    'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=800&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&auto=format&fit=crop&q=80'
+  ],
   '전체': [
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80'
   ]
@@ -804,11 +809,44 @@ export const fetchNaverShoppingInfo = async (
     sourceMall = dbMatch.sourceName || '네이버 쇼핑 공식';
   }
 
-  // 2. Query NAVER Image Search API (NAVER API HUB /search/v1/image)
-  // Queries Naver's live image index which includes official Naver Shopping (shop1.phinf.naver.net) and retail packages
+  // 2. 우선 순위 1위: 네이버 쇼핑 API (shop) 직접 조회
+  // 제조사 및 공식 브랜드스토어의 고화질 누끼/패키지컷 (800x800 이상) 및 실시간 판매 정가 연동
+  if (!foundImage || foundPrice === 0) {
+    try {
+      const cleanSearchBrand = brand && brand !== '기타' ? brand : '';
+      const shopRes = await callNaverApi('shop', `${cleanSearchBrand} ${productName}`.trim(), 'sim', 5);
+      if (shopRes.items && shopRes.items.length > 0) {
+        // 공식 브랜드스토어 / 직영몰 우선 탐색
+        const officialShopItem = shopRes.items.find(item => {
+          const mall = (item.mallName || '').toLowerCase();
+          return mall.includes('공식') || mall.includes('직영') || mall.includes('브랜드스토어') || (cleanSearchBrand && mall.includes(cleanSearchBrand.toLowerCase()));
+        });
+        const targetShopItem = officialShopItem || shopRes.items[0];
+
+        if (targetShopItem) {
+          if (!foundImage && targetShopItem.image) {
+            foundImage = targetShopItem.image.replace(/^http:\/\//, 'https://');
+          }
+          if (foundPrice === 0 && targetShopItem.lprice) {
+            const parsedPrice = parseInt(targetShopItem.lprice, 10);
+            if (!isNaN(parsedPrice) && parsedPrice >= 500 && parsedPrice <= 50000) {
+              foundPrice = parsedPrice;
+            }
+          }
+          if (targetShopItem.mallName) {
+            sourceMall = targetShopItem.mallName;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[Naver Shopping Search Fetch Warning]', brand, productName, err);
+    }
+  }
+
+  // 3. 우선 순위 2위: 쇼핑에서 이미지가 안 나온 경우 NAVER Image Search API 실물 패키지 컷 쿼리
   if (!foundImage) {
     try {
-      const imgRes = await callNaverApi('image', `${brand} ${productName}`, 'sim', 5);
+      const imgRes = await callNaverApi('image', `${brand} ${productName} 공식 패키지`, 'sim', 6);
       if (imgRes.items && imgRes.items.length > 0) {
         // Prioritize official shopping/retail image hosts
         const shoppingImage = imgRes.items.find(item => {
@@ -818,15 +856,18 @@ export const fetchNaverShoppingInfo = async (
             url.includes('coupangcdn.com') ||
             url.includes('emart') ||
             url.includes('bgfretail') ||
-            url.includes('imgnews.naver.net')
+            url.includes('gsretail')
           );
         });
 
         const selected = shoppingImage || imgRes.items[0];
         if (selected) {
-          foundImage = selected.link || selected.thumbnail || '';
-          if (foundImage.includes('phinf.naver.net')) {
-            sourceMall = '네이버쇼핑 패키지컷';
+          const picked = selected.link || selected.thumbnail || '';
+          if (picked) {
+            foundImage = picked.replace(/^http:\/\//, 'https://');
+            if (foundImage.includes('phinf.naver.net')) {
+              sourceMall = '네이버쇼핑 패키지컷';
+            }
           }
         }
       }
@@ -835,7 +876,7 @@ export const fetchNaverShoppingInfo = async (
     }
   }
 
-  // 3. Determine accurate retail price from article text
+  // 4. 기사 텍스트에서 소비자가/판매가 추출 보완
   if (foundPrice === 0 && articleText) {
     const priceMatch = articleText.match(/(?:소비자가|출고가|판매가|가격|편의점가)?\s*[:는은]?\s*([1-9][0-9]{0,2}(?:,[0-9]{3})+|[1-9][0-9]{3,4})\s*원/);
     if (priceMatch) {
@@ -846,7 +887,7 @@ export const fetchNaverShoppingInfo = async (
     }
   }
 
-  // 4. If price still 0, assign standard Korean convenience store retail price by category
+  // 5. If price still 0, assign standard Korean convenience store retail price by category
   if (foundPrice === 0) {
     switch (category) {
       case '과자':
@@ -872,6 +913,99 @@ export const fetchNaverShoppingInfo = async (
     isFound: !!foundImage,
     mallName: sourceMall
   };
+};
+
+/**
+ * 고화질 제품 이미지 후보 탐색 인터페이스
+ */
+export interface ProductImageCandidate {
+  url: string;
+  title: string;
+  source: string;
+  isOfficial: boolean;
+  price?: number;
+}
+
+/**
+ * 관리자가 특정 제품의 고화질 이미지를 원클릭으로 선택/교체할 수 있도록
+ * 네이버 쇼핑 및 실시간 패키지 이미지 후보 6~12개를 검색하여 반환
+ */
+export const searchHighResProductImages = async (
+  brand: string,
+  productName: string
+): Promise<ProductImageCandidate[]> => {
+  const candidates: ProductImageCandidate[] = [];
+  const seenUrls = new Set<string>();
+
+  const addCandidate = (url: string, title: string, source: string, isOfficial: boolean, price?: number) => {
+    if (!url || seenUrls.has(url)) return;
+    seenUrls.add(url);
+    const safeUrl = url.replace(/^http:\/\//, 'https://');
+    candidates.push({
+      url: safeUrl,
+      title: cleanHtml(title),
+      source,
+      isOfficial,
+      price
+    });
+  };
+
+  const cleanBrand = brand && brand !== '기타' ? brand : '';
+  const query = `${cleanBrand} ${productName}`.trim();
+
+  // 1. 네이버 쇼핑 API (공식 브랜드스토어 및 쇼핑 카탈로그 누끼/패키지컷)
+  try {
+    const shopRes = await callNaverApi('shop', query, 'sim', 8);
+    if (shopRes.items) {
+      for (const item of shopRes.items) {
+        if (item.image) {
+          const mall = item.mallName || '네이버 쇼핑';
+          const isOff = Boolean(mall.includes('공식') || mall.includes('직영') || mall.includes('스토어') || (cleanBrand && mall.includes(cleanBrand)));
+          addCandidate(
+            item.image,
+            item.title,
+            isOff ? `${mall} (공식 누끼)` : `${mall} (쇼핑 정품)`,
+            isOff,
+            item.lprice ? parseInt(item.lprice, 10) : undefined
+          );
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[searchHighResProductImages] Shop query failed:', err);
+  }
+
+  // 2. 네이버 이미지 검색 API (실물 패키지컷 및 매장 진열컷)
+  try {
+    const imgRes = await callNaverApi('image', `${query} 패키지`, 'sim', 8);
+    if (imgRes.items) {
+      for (const item of imgRes.items) {
+        const link = item.link || item.thumbnail;
+        if (link) {
+          const isRetailCdn = link.includes('phinf.naver.net') || link.includes('coupangcdn') || link.includes('emart') || link.includes('bgfretail');
+          addCandidate(
+            link,
+            item.title || productName,
+            isRetailCdn ? '공식 패키지컷' : '실물 제품 컷',
+            isRetailCdn
+          );
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[searchHighResProductImages] Image query failed:', err);
+  }
+
+  // 3. 내부 실물 신제품 DB에서 매칭되는 패키지컷 보완
+  const lowerName = productName.toLowerCase().replace(/\s+/g, '');
+  for (const preset of REAL_NEW_PRODUCTS_DATABASE) {
+    const presetNorm = preset.name.toLowerCase().replace(/\s+/g, '');
+    if ((presetNorm.includes(lowerName) || lowerName.includes(presetNorm)) && preset.image) {
+      addCandidate(preset.image, preset.name, `${preset.brand} 공식 패키지`, true, preset.price);
+    }
+  }
+
+  return candidates;
 };
 
 /**

@@ -36,7 +36,7 @@ export const MyPageView: React.FC = () => {
     { label: '출시알림 설정', sub: '', action: () => setActiveTab('alert_settings') },
     { label: '포인트', sub: `${userPoints.toLocaleString()}P`, hi: true },
     { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },
-    { label: '설정', sub: '', action: () => setActiveTab('alert_settings') },
+    { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
   ];
 
   const getProviderBadge = () => {
@@ -104,7 +104,7 @@ export const MyPageView: React.FC = () => {
 
           <div className="flex items-center gap-1 shrink-0">
             <button
-              onClick={() => setActiveTab('alert_settings')}
+              onClick={() => setActiveTab('settings')}
               className="p-1.5 text-white/80 hover:text-white"
               title="설정"
             >

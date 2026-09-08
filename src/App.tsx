@@ -14,11 +14,26 @@ import { SearchModal } from './components/search/SearchModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { EventDetailModal } from './components/event/EventDetailModal';
 import { BrandView } from './components/brand/BrandView';
+import { SettingsView } from './components/settings/SettingsView';
+import { WebPolicyPage } from './components/settings/WebPolicyPage';
 import { PushBanner } from './components/common/PushBanner';
 import { ToastContainer } from './components/common/Toast';
 
 export const App: React.FC = () => {
   const { activeTab } = useApp();
+
+  // Check URL parameters or pathname for public web policy viewer (Store Review Requirement)
+  const urlParams = new URLSearchParams(window.location.search);
+  const policyParam = urlParams.get('policy') || urlParams.get('page');
+  const path = window.location.pathname.replace('/', '').toLowerCase();
+
+  if (policyParam) {
+    return <WebPolicyPage initialPolicyId={policyParam} />;
+  }
+
+  if (path === 'privacy' || path === 'terms' || path === 'location' || path === 'delete-account') {
+    return <WebPolicyPage initialPolicyId={path} />;
+  }
 
   // PC Admin Dashboard Layout (Full Desktop View without mobile BottomNav)
   if (activeTab === 'admin') {
@@ -56,6 +71,7 @@ export const App: React.FC = () => {
           {activeTab === 'event_detail' && <EventDetailModal />}
           {activeTab === 'compare' && <CompareModal />}
           {activeTab === 'alert_settings' && <NotificationModal />}
+          {activeTab === 'settings' && <SettingsView />}
           {activeTab === 'search' && <SearchModal />}
         </main>
 

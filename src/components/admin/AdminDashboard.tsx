@@ -57,6 +57,7 @@ import {
   ShoppingInsightResponse 
 } from '../../services/naverApi';
 import { BrandProductAutoCollector } from './BrandProductAutoCollector';
+import { ProductImageSelectorModal } from './ProductImageSelectorModal';
 
 export type AdminTab = 
   | 'overview' 
@@ -334,6 +335,9 @@ export const AdminDashboard: React.FC = () => {
   // Image zoom modal
   const [previewImageModalUrl, setPreviewImageModalUrl] = useState<string | null>(null);
 
+
+
+
   // Statistics
   const todayProductsCount = products.filter(p => p.isToday).length;
   const hotProductsCount = products.filter(p => p.isHot).length;
@@ -346,7 +350,17 @@ export const AdminDashboard: React.FC = () => {
   const filteredPendingProducts = pendingProducts.filter(item => {
     if (item.status !== 'pending') return false;
     if (pendingCategoryFilter !== '전체' && item.category !== pendingCategoryFilter) return false;
-    if (pendingSourceFilter !== '전체' && !item.sourceName.includes(pendingSourceFilter)) return false;
+    if (pendingSourceFilter !== '전체') {
+      if (pendingSourceFilter === '공식몰') {
+        if (!item.sourceName.includes('공식') && !item.sourceName.includes('몰') && !item.sourceName.includes('스토어') && !item.sourceName.includes('마켓')) return false;
+      } else if (pendingSourceFilter === '인스타그램') {
+        if (!item.sourceName.includes('인스타') && !item.sourceName.includes('@')) return false;
+      } else if (pendingSourceFilter === '보도자료') {
+        if (!item.sourceName.includes('뉴스') && !item.sourceName.includes('보도자료') && !item.sourceName.includes('발표')) return false;
+      } else if (!item.sourceName.includes(pendingSourceFilter)) {
+        return false;
+      }
+    }
     if (crawlerSearchQuery.trim()) {
       const q = crawlerSearchQuery.toLowerCase();
       return item.name.toLowerCase().includes(q) || item.brand.toLowerCase().includes(q);
@@ -1801,13 +1815,13 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Source Filter Pills */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                  <span className="font-semibold">출처:</span>
-                  {(['전체', 'CU', 'GS25', '세븐일레븐', '이마트24'] as const).map(src => (
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 overflow-x-auto no-scrollbar">
+                  <span className="font-semibold shrink-0">출처:</span>
+                  {(['전체', 'CU', 'GS25', '세븐일레븐', '이마트24', '공식몰', '인스타그램', '보도자료'] as const).map(src => (
                     <button
                       key={src}
                       onClick={() => setPendingSourceFilter(src)}
-                      className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
+                      className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all whitespace-nowrap ${
                         pendingSourceFilter === src
                           ? 'bg-slate-700 text-white font-bold'
                           : 'text-slate-400 hover:text-slate-600'
@@ -1877,14 +1891,35 @@ export const AdminDashboard: React.FC = () => {
                               </td>
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-3">
-                                  <div
-                                    onClick={() => setPreviewImageModalUrl(item.image)}
-                                    className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0 cursor-pointer relative group"
-                                  >
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                      <Eye className="w-3.5 h-3.5 text-white" />
+                                  <div className="relative shrink-0 group">
+                                    <div
+                                      onClick={() => setPreviewImageModalUrl(item.image)}
+                                      className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden cursor-pointer"
+                                    >
+                                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
+                                        <Eye className="w-3.5 h-3.5 text-white" />
+                                      </div>
                                     </div>
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setImageSelectorTarget({
+                                          brand: item.brand,
+                                          name: item.name,
+                                          currentImage: item.image,
+                                          onSelect: (newUrl) => {
+                                            updatePendingProduct(item.id, { image: newUrl });
+                                            showToast('신제품 이미지가 고화질 실물 이미지로 교체되었습니다.', 'success');
+                                          }
+                                        });
+                                      }}
+                                      className="absolute -bottom-1 -right-1 p-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full shadow-xs transition-transform hover:scale-110"
+                                      title="고화질 실물 이미지로 교체"
+                                    >
+                                      <ImageIcon className="w-2.5 h-2.5" />
+                                    </button>
                                   </div>
                                   <div className="min-w-0">
                                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -1952,6 +1987,24 @@ export const AdminDashboard: React.FC = () => {
                                     }`}
                                   >
                                     수정
+                                  </button>
+                                  <button
+                                    onClick={() => setImageSelectorTarget({
+                                      brand: item.brand,
+                                      name: item.name,
+                                      currentImage: item.image,
+                                      onSelect: (newUrl) => {
+                                        updatePendingProduct(item.id, { image: newUrl });
+                                        showToast('고화질 실물 이미지로 교체되었습니다.', 'success');
+                                      }
+                                    })}
+                                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
+                                      isDark ? 'bg-indigo-950/40 hover:bg-indigo-900/60 text-indigo-300 border-indigo-800/60' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border-indigo-200'
+                                    }`}
+                                    title="네이버 쇼핑 공식몰 고화질 이미지 검색 및 교체"
+                                  >
+                                    <ImageIcon className="w-3 h-3" />
+                                    <span>이미지</span>
                                   </button>
                                   <button
                                     onClick={() => rejectPendingProduct(item.id)}

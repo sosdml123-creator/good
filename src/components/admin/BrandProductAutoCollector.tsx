@@ -12,15 +12,21 @@ import {
   Tag,
   Layers,
   ShoppingBag,
-  X
+  X,
+  Globe,
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react';
 import { ProductCategory, Product, PendingProduct } from '../../types';
 import {
   OfficialCollectedProduct,
+  CollectionSourceType,
   POPULAR_BRANDS,
   POPULAR_ITEMS,
+  INSTAGRAM_FOOD_CHANNELS,
   crawlOfficialProductsByBrandAndCategory
 } from '../../services/officialStoreCrawler';
+import { ProductImageSelectorModal } from './ProductImageSelectorModal';
 
 interface BrandProductAutoCollectorProps {
   isDark?: boolean;
@@ -35,6 +41,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
   onAddToPending,
   showToast
 }) => {
+  // Multi-source Channel Selection State
+  const [activeSourceType, setActiveSourceType] = useState<CollectionSourceType>('all');
+
   // Brand & Category Selection States
   const [selectedBrand, setSelectedBrand] = useState<string>('농심');
   const [customBrandInput, setCustomBrandInput] = useState<string>('');
@@ -51,6 +60,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
   const [editingItem, setEditingItem] = useState<OfficialCollectedProduct | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
+  // High-Res Image Selector Modal State
+  const [imageModalTarget, setImageModalTarget] = useState<{ id: string; brand: string; name: string; currentImage: string } | null>(null);
+
   // Styling helpers
   const cardBg = isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-white border-slate-200';
   const subCardBg = isDark ? 'bg-slate-800/60 border-slate-700/60' : 'bg-slate-50 border-slate-200/80';
@@ -63,22 +75,24 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
   // Run Crawl
   const handleRunCrawl = async () => {
-    if (!effectiveBrand && !effectiveItem) {
-      showToast('브랜드 또는 품목을 하나 이상 선택하거나 입력해주세요.', 'error');
-      return;
-    }
-
     setIsCrawling(true);
-    showToast(`🔍 [${effectiveBrand || '전체'}] ${effectiveItem || ''} 공식몰 제품 및 고화질 이미지를 수집 중입니다...`, 'info');
+
+    const sourceLabel = 
+      activeSourceType === 'official' ? '제조사 공식 홈페이지/직영몰' :
+      activeSourceType === 'instagram' ? '인스타그램 & SNS 핫신상' :
+      activeSourceType === 'convenience' ? '편의점 4사 공식 앱' :
+      activeSourceType === 'news' ? '공식 론칭 보도자료' : '전체 채널 통합';
+
+    showToast(`🔍 [${sourceLabel}] ${effectiveBrand || '전체'} ${effectiveItem || ''} 실물 패키지 및 제품을 수집 중입니다...`, 'info');
 
     try {
-      const results = await crawlOfficialProductsByBrandAndCategory(effectiveBrand, effectiveItem, 20);
+      const results = await crawlOfficialProductsByBrandAndCategory(effectiveBrand, effectiveItem, activeSourceType, 24);
       setCollectedProducts(results);
       setSelectedIds(results.map(r => r.id)); // 기본 전체 선택
       setRegisteredIds(new Set());
 
       if (results.length > 0) {
-        showToast(`✨ 공식몰/홈페이지에서 ${results.length}개의 실제 제품과 이미지를 수집했습니다!`, 'success');
+        showToast(`✨ [${sourceLabel}]에서 ${results.length}개의 정품 제품과 고화질 이미지를 수집했습니다!`, 'success');
       } else {
         showToast('검색 조건에 맞는 공식 제품을 찾지 못했습니다. 키워드를 변경해보세요.', 'info');
       }
@@ -88,6 +102,20 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
     } finally {
       setIsCrawling(false);
     }
+  };
+
+  // Image Selector Callback
+  const handleSelectImageForTarget = (newImageUrl: string) => {
+    if (!imageModalTarget) return;
+    const targetId = imageModalTarget.id;
+    setCollectedProducts(prev =>
+      prev.map(p => p.id === targetId ? { ...p, image: newImageUrl } : p)
+    );
+    if (editingItem && editingItem.id === targetId) {
+      setEditingItem(prev => prev ? { ...prev, image: newImageUrl } : null);
+    }
+    showToast('제품 이미지가 고화질 패키지컷으로 변경되었습니다!', 'success');
+    setImageModalTarget(null);
   };
 
   // Toggle single selection
@@ -286,7 +314,132 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         </div>
       </div>
 
-      {/* 2. Brand & Item Selection Panel */}
+      {/* 2. Channel Selector Bar (수집 출처 채널 선택) */}
+      <div className={`p-5 rounded-2xl border shadow-sm ${cardBg} space-y-3`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-black flex items-center justify-center shadow-xs">
+              <Globe className="w-3 h-3" />
+            </span>
+            <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              신제품 수집 출처 채널 선택
+            </h3>
+          </div>
+          <span className="text-[11px] text-slate-400">
+            원하는 수집 소스를 선택하면 해당 채널에 특화된 신제품과 패키지컷을 가져옵니다.
+          </span>
+        </div>
+
+        {/* Channel Selector Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
+          <button
+            onClick={() => setActiveSourceType('all')}
+            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+              activeSourceType === 'all'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-md ring-2 ring-amber-500/20'
+                : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+            }`}
+          >
+            <span className="text-base">🌟</span>
+            <span>전체 채널 통합</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSourceType('official')}
+            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+              activeSourceType === 'official'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-700 shadow-md ring-2 ring-blue-500/20'
+                : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+            }`}
+          >
+            <span className="text-base">🏢</span>
+            <span>제조사 공식몰·홈페이지</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSourceType('instagram')}
+            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+              activeSourceType === 'instagram'
+                ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white border-rose-600 shadow-md ring-2 ring-rose-500/20'
+                : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+            }`}
+          >
+            <span className="text-base">📸</span>
+            <span>인스타그램 & SNS 핫신상</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSourceType('convenience')}
+            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+              activeSourceType === 'convenience'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-700 shadow-md ring-2 ring-emerald-500/20'
+                : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+            }`}
+          >
+            <span className="text-base">🏪</span>
+            <span>편의점 4사 공식 앱</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSourceType('news')}
+            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+              activeSourceType === 'news'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-700 shadow-md ring-2 ring-purple-500/20'
+                : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+            }`}
+          >
+            <span className="text-base">📰</span>
+            <span>공식 론칭 보도자료</span>
+          </button>
+        </div>
+
+        {/* Channel Special Assist Banner */}
+        {activeSourceType === 'official' && (
+          <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-between text-xs text-blue-600 dark:text-blue-400">
+            <div className="flex items-center gap-2">
+              <Store className="w-4 h-4 shrink-0" />
+              <span>
+                <strong>농심몰, 오뚜기몰, CJ더마켓, 롯데스위트몰, 삼양몰, 서울우유 나100샵</strong> 등 각 제조사 본사 공식 홈페이지 및 직영 브랜드스토어에 정식 출시된 정품 정보를 수집합니다.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {activeSourceType === 'instagram' && (
+          <div className="p-3 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 space-y-2">
+            <div className="flex items-center justify-between text-xs text-rose-600 dark:text-rose-400">
+              <span className="font-bold flex items-center gap-1.5">
+                <Camera className="w-4 h-4" />
+                <span>인기 인스타그램 신제품 큐레이션 채널 빠른 타겟팅:</span>
+              </span>
+              <span className="text-[11px] text-slate-400">클릭 시 해당 채널 타겟팅</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {INSTAGRAM_FOOD_CHANNELS.map(ch => (
+                <button
+                  key={ch.handle}
+                  onClick={() => {
+                    setCustomBrandInput(ch.handle.replace('@', ''));
+                    setCustomItemInput('');
+                  }}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all flex items-center gap-1 shadow-2xs ${
+                    customBrandInput === ch.handle.replace('@', '')
+                      ? 'bg-rose-500 text-white border-rose-600 shadow-xs'
+                      : isDark ? 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700' : 'bg-white text-slate-700 border-slate-200 hover:bg-rose-50'
+                  }`}
+                  title={ch.description}
+                >
+                  <span>{ch.icon}</span>
+                  <span>{ch.name}</span>
+                  <span className="text-[10px] opacity-70">({ch.handle})</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 3. Brand & Item Selection Panel */}
       <div className={`p-6 rounded-2xl border shadow-sm space-y-5 ${cardBg}`}>
         {/* Step 1: Brand Selection */}
         <div className="space-y-3">
@@ -517,22 +670,41 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
                     {/* Product Image & Info Split */}
                     <div className="flex gap-3">
-                      {/* Product Official Image */}
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 overflow-hidden shrink-0 relative group">
+                      {/* Product Official Image with Hover Overlay */}
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 overflow-hidden shrink-0 relative group">
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover object-center transition-transform group-hover:scale-105"
+                          className="w-full h-full object-contain object-center transition-transform group-hover:scale-105 p-1"
                           referrerPolicy="no-referrer"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop&q=80';
+                            (e.target as HTMLImageElement).src = 'https://shopping-phinf.pstatic.net/main_4187063/41870638618.20230814143219.jpg';
                           }}
                         />
                         {product.isOfficialMall && (
-                          <span className="absolute bottom-1 right-1 bg-slate-950/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs">
+                          <span className="absolute bottom-1 right-1 bg-slate-950/80 text-white text-[9px] font-black px-1.5 py-0.5 rounded backdrop-blur-xs">
                             정품
                           </span>
                         )}
+
+                        {/* Image Swap Quick Overlay */}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setImageModalTarget({
+                              id: product.id,
+                              brand: product.brand,
+                              name: product.name,
+                              currentImage: product.image
+                            });
+                          }}
+                          className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 text-white text-[10px] font-bold cursor-pointer"
+                          title="고화질 이미지 검색 및 교체"
+                        >
+                          <ImageIcon className="w-4 h-4 text-amber-400" />
+                          <span>이미지 교체</span>
+                        </button>
                       </div>
 
                       {/* Info */}
@@ -556,7 +728,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                         </div>
 
                         {/* Stores Tag */}
-                        <div className="flex flex-wrap gap-1 pt-1">
+                        <div className="flex flex-wrap gap-1 pt-0.5">
                           {product.stores.map(s => (
                             <span key={s} className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                               {s}
@@ -565,6 +737,24 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                         </div>
                       </div>
                     </div>
+
+                    {/* Instagram Hashtags or Channel Tags */}
+                    {product.tags && product.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {product.tags.map((t, idx) => (
+                          <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Instagram influencer quote if present */}
+                    {product.instagramInfo?.quote && (
+                      <p className="text-[11px] text-pink-600 dark:text-pink-300 italic bg-pink-50 dark:bg-pink-950/30 p-2 rounded-lg border border-pink-100 dark:border-pink-900/40">
+                        💬 "{product.instagramInfo.quote}"
+                      </p>
+                    )}
 
                     {/* Short Description */}
                     <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
@@ -575,6 +765,21 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                   {/* Card Bottom Actions */}
                   <div className={`p-3 border-t flex items-center justify-between gap-1.5 ${isDark ? 'border-slate-800 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
                     <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => setImageModalTarget({
+                          id: product.id,
+                          brand: product.brand,
+                          name: product.name,
+                          currentImage: product.image
+                        })}
+                        className={`p-1.5 rounded-lg border text-slate-500 hover:text-amber-600 transition-colors ${
+                          isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-white'
+                        }`}
+                        title="고화질 정품 패키지 이미지 교체"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5 text-amber-500" />
+                      </button>
+
                       <button
                         onClick={() => {
                           setEditingItem(product);
@@ -731,8 +936,21 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                     onChange={e => setEditingItem({ ...editingItem, image: e.target.value })}
                     className={`flex-1 px-3 py-2 rounded-xl text-xs border ${inputBg}`}
                   />
-                  <div className="w-10 h-10 rounded-lg overflow-hidden border shrink-0 bg-slate-100">
-                    <img src={editingItem.image} alt="preview" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setImageModalTarget({
+                      id: editingItem.id,
+                      brand: editingItem.brand,
+                      name: editingItem.name,
+                      currentImage: editingItem.image
+                    })}
+                    className="px-3 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-bold shrink-0 flex items-center gap-1 shadow-xs cursor-pointer"
+                  >
+                    <ImageIcon className="w-3.5 h-3.5" />
+                    <span>고화질 검색</span>
+                  </button>
+                  <div className="w-10 h-10 rounded-lg overflow-hidden border shrink-0 bg-white p-0.5">
+                    <img src={editingItem.image} alt="preview" className="w-full h-full object-contain" />
                   </div>
                 </div>
               </div>
@@ -792,6 +1010,19 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             </div>
           </div>
         </div>
+      )}
+
+      {/* 5. High-Res Image Selector Modal */}
+      {imageModalTarget && (
+        <ProductImageSelectorModal
+          isOpen={!!imageModalTarget}
+          onClose={() => setImageModalTarget(null)}
+          brand={imageModalTarget.brand}
+          productName={imageModalTarget.name}
+          currentImage={imageModalTarget.currentImage}
+          onSelectImage={handleSelectImageForTarget}
+          isDark={isDark}
+        />
       )}
     </div>
   );

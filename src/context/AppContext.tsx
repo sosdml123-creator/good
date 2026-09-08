@@ -102,6 +102,7 @@ interface AppContextType {
   loginWithGoogle: () => Promise<void>;
   loginWithKakao: () => Promise<void>;
   logout: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 
   // Events & Push Notifications Actions
   addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
@@ -1067,6 +1068,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       activeTab === 'event_detail' || 
       activeTab === 'search' || 
       activeTab === 'alert_settings' || 
+      activeTab === 'settings' || 
       activeTab === 'compare' || 
       activeTab === 'write'
     ) {
@@ -1298,6 +1300,38 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (err) {
       console.error('Logout error:', err);
       showToast('로그아웃 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
+  const deleteAccount = async () => {
+    try {
+      if (supabase && isSupabaseConfigured) {
+        try {
+          await supabase.from('profiles').delete().eq('id', currentUser.uid);
+          await signOutSupabase();
+        } catch (err) {
+          console.warn('[Supabase] Failed to delete user profile from DB:', err);
+        }
+      }
+      // 로컬 스토리지에 저장된 사용자 고유 데이터 일괄 영구 파기
+      localStorage.removeItem('sinsangpick_uid');
+      localStorage.removeItem('sinsangpick_name');
+      localStorage.removeItem('sinsangpick_points');
+      localStorage.removeItem('sinsangpick_bookmarks');
+      localStorage.removeItem('sinsangpick_compared');
+      localStorage.removeItem('sinsangpick_recent_searches');
+      localStorage.removeItem('sinsangpick_alert_cats');
+
+      // 상태 초기화
+      const initialUser = createInitialUser();
+      setCurrentUser(initialUser);
+      setBookmarkedIds([]);
+      setComparedIds([]);
+      setActiveTabState('home');
+      showToast('회원 탈퇴 및 계정 삭제가 정상적으로 완료되었습니다.', 'info');
+    } catch (err) {
+      console.error('Delete account error:', err);
+      showToast('계정 삭제 중 오류가 발생했습니다.', 'error');
     }
   };
 
@@ -2702,6 +2736,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         loginWithGoogle,
         loginWithKakao,
         logout,
+        deleteAccount,
 
         // Events & Push Notifications
         addEvent,
