@@ -146,6 +146,7 @@ interface AppContextType {
   revalidateAllPending: () => void;
   updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
   clearAllPendingProducts: () => void;
+  addPendingProduct: (item: PendingProduct) => void;
 
   // Admin Reset Action
   resetAllDataToDefaults: () => void;
@@ -2263,6 +2264,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('승인 대기 목록이 모두 비워졌습니다.', 'info');
   };
 
+  // 8. 개별 신제품 대기함 직접 추가
+  const addPendingProduct = (item: PendingProduct) => {
+    setPendingProducts(prev => [item, ...prev.filter(p => p.id !== item.id)]);
+    showToast(`'${item.name}' 상품이 승인 대기함에 추가되었습니다.`, 'info');
+  };
+
   // User & Points Management Actions (Admin)
   const fetchAllProfiles = async () => {
     if (!supabase || !isSupabaseConfigured) return;
@@ -2736,6 +2743,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         revalidateAllPending,
         updatePendingProduct,
         clearAllPendingProducts,
+        addPendingProduct,
 
         // User & Points Management
         allProfiles,

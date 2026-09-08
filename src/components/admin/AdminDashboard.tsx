@@ -45,7 +45,8 @@ import {
   PlusCircle,
   History,
   ShieldCheck,
-  Copy
+  Copy,
+  Target
 } from 'lucide-react';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -55,9 +56,11 @@ import {
   TrendingKeywordInsight, 
   ShoppingInsightResponse 
 } from '../../services/naverApi';
+import { BrandProductAutoCollector } from './BrandProductAutoCollector';
 
 export type AdminTab = 
   | 'overview' 
+  | 'collector'
   | 'approval' 
   | 'products' 
   | 'points'
@@ -105,6 +108,7 @@ export const AdminDashboard: React.FC = () => {
     revalidateAllPending,
     updatePendingProduct,
     clearAllPendingProducts,
+    addPendingProduct,
     deleteReview,
     deleteCommunityPost,
     allProfiles,
@@ -943,7 +947,27 @@ export const AdminDashboard: React.FC = () => {
               <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeAdminTab === 'overview' ? 'rotate-90 text-white' : 'text-slate-400'}`} />
             </button>
 
-            {/* 2. Approval / Crawler Inbox */}
+            {/* 2. Official Brand/Item Collector (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('collector')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'collector'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-orange-500/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Target className="w-4 h-4 text-amber-500" />
+                <span>브랜드·품목 공식 수집</span>
+              </div>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-500 border border-amber-500/30">
+                NEW
+              </span>
+            </button>
+
+            {/* 3. Approval / Crawler Inbox */}
             <button
               onClick={() => setActiveAdminTab('approval')}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
@@ -1150,6 +1174,7 @@ export const AdminDashboard: React.FC = () => {
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {activeAdminTab === 'overview' && '📊 대시보드 개요 및 실시간 종합 지표'}
+              {activeAdminTab === 'collector' && '🎯 브랜드 & 품목 공식홈페이지 제품 자동수집기'}
               {activeAdminTab === 'approval' && '⚡ 신제품 자동 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'products' && '📦 상품 및 신제품 전체 데이터베이스'}
               {activeAdminTab === 'points' && '🪙 회원 관리 및 포인트 지급·회수 콘솔'}
@@ -1556,6 +1581,18 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
+              TAB: OFFICIAL COLLECTOR (브랜드 & 품목 공식몰 제품 자동 수집 등록기)
+             ======================================================== */}
+          {activeAdminTab === 'collector' && (
+            <BrandProductAutoCollector
+              isDark={isDark}
+              onAddProduct={addProduct}
+              onAddToPending={addPendingProduct}
+              showToast={showToast}
+            />
+          )}
+
+          {/* ========================================================
               TAB 2: APPROVAL / CRAWLER INBOX (신제품 수집 & 승인함)
              ======================================================== */}
           {activeAdminTab === 'approval' && (
@@ -1583,6 +1620,14 @@ export const AdminDashboard: React.FC = () => {
 
                   {/* Crawler Action Buttons */}
                   <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={() => setActiveAdminTab('collector')}
+                      className="px-3.5 py-2.5 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white rounded-xl text-xs font-black shadow-md flex items-center gap-1.5 transition-all active:scale-95"
+                    >
+                      <Target className="w-4 h-4" />
+                      <span>🎯 브랜드·품목 맞춤 공식 수집기 열기</span>
+                    </button>
+
                     <button
                       onClick={() => runDailyCrawler(true)}
                       disabled={isCrawling}
