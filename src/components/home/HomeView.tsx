@@ -71,7 +71,9 @@ export const HomeView: React.FC = () => {
     return p.category === newProductCategoryFilter;
   });
 
-  const activeBanners = banners.filter(b => b.isActive);
+  const activeBanners = [...banners]
+    .filter(b => b.isActive)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const displayBanners = activeBanners.length > 0 ? activeBanners : [{
     id: 'default',
     image: ILLUSTRATION_FRUIT_BANNER,
@@ -279,7 +281,7 @@ export const HomeView: React.FC = () => {
       {/* 1. Main Banner (Dynamic from Admin + Auto-rolling + Touch/Mouse Swiping) */}
       <div 
         className="relative bg-gray-900 overflow-hidden select-none touch-pan-y" 
-        style={{ height: '220px' }}
+        style={{ height: '228px' }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
@@ -326,19 +328,26 @@ export const HomeView: React.FC = () => {
                   {banner.title}<br />
                   <span className="font-medium text-base text-gray-200">{banner.subtitle}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (!hasMovedSignificantly.current) {
-                      handleBannerClick(banner);
-                    }
-                  }}
-                  className="mt-2.5 text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1 pointer-events-auto"
-                >
-                  <span>{banner.buttonText || '자세히 보기'}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
+                <div className="flex items-center gap-2 mt-2">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!hasMovedSignificantly.current) {
+                        handleBannerClick(banner);
+                      }
+                    }}
+                    className="text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1 pointer-events-auto"
+                  >
+                    <span>{banner.buttonText || '자세히 보기'}</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
+                  <p className="mt-1.5 text-[9.5px] text-amber-200/90 font-medium tracking-tight bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded max-w-fit pointer-events-none select-none">
+                    ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -397,6 +406,16 @@ export const HomeView: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* 1-1. Coupang Partners / Affiliate Notice Strip (공정위 권고 고지 문구) */}
+      {(displayBanners[currentBannerIdx]?.disclaimer || (displayBanners[currentBannerIdx]?.linkUrl && displayBanners[currentBannerIdx]?.linkUrl?.includes('coupang.com'))) && (
+        <div className="bg-amber-50/95 border-b border-amber-200/80 px-4 py-1.5 flex items-center gap-1.5 text-[11px] text-amber-900 transition-all shadow-xs">
+          <span className="shrink-0 text-xs">📢</span>
+          <span className="font-medium truncate">
+            {displayBanners[currentBannerIdx]?.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
+          </span>
+        </div>
+      )}
 
       {/* 2. Quick Icon Menus */}
       <div className="bg-white py-4 px-4 border-b border-gray-100">

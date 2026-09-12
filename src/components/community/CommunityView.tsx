@@ -50,7 +50,12 @@ export const CommunityView: React.FC = () => {
       return;
     }
 
-    await addCommunityPost(newCategory, newTitle, newContent);
+    let finalContent = newContent.trim();
+    if (finalContent.includes('coupang.com') && !finalContent.includes('쿠팡 파트너스 활동의 일환')) {
+      finalContent += '\n\n이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+    }
+
+    await addCommunityPost(newCategory, newTitle, finalContent);
     setNewTitle('');
     setNewContent('');
     setIsWriteModalOpen(false);
@@ -390,14 +395,31 @@ export const CommunityView: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1.5">내용</label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-bold text-gray-700 block">내용</label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const notice = '\n\n이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+                      if (!newContent.includes('쿠팡 파트너스 활동의 일환')) {
+                        setNewContent(prev => prev.trim() + notice);
+                      }
+                    }}
+                    className="text-[11px] font-bold text-[#0066FF] hover:underline"
+                  >
+                    + 쿠팡 파트너스 문구 삽입
+                  </button>
+                </div>
                 <textarea
                   rows={4}
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
-                  placeholder="신상에 대한 궁금증, 꿀조합, 솔직한 느낌을 자유롭게 적어보세요!"
+                  placeholder="신상에 대한 궁금증, 꿀조합, 솔직한 느낌을 자유롭게 적어보세요! (제휴/파트너스 링크 첨부 시 안내 문구를 삽입해 주세요)"
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-900 outline-none resize-none focus:border-[#0066FF]"
                 />
+                <p className="mt-1 text-[10px] text-gray-400">
+                  ※ 쿠팡 링크 첨부 시 필수 고지 문구가 자동으로 추가됩니다.
+                </p>
               </div>
 
               <div className="pt-2 flex gap-2">

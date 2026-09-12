@@ -23469,6 +23469,19 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
 
 export const INITIAL_BANNERS: BannerItem[] = [
   {
+    id: 'banner-coupang-fresh',
+    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=80',
+    badge: '🚀 쿠팡 로켓프레시 메인특가',
+    title: '로켓프레시 추석 메인특가 & 신선 먹거리',
+    subtitle: '과일·정육·간편식 새벽배송 최대 혜택 기획전',
+    buttonText: '쿠팡 특가 바로가기',
+    linkType: 'url',
+    linkUrl: 'https://link.coupang.com/a/gYQgcAnmMK',
+    disclaimer: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.',
+    isActive: true,
+    order: 1,
+  },
+  {
     id: 'banner-bakery-01',
     image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1000&auto=format&fit=crop&q=80',
     badge: '🥖 전국 7대 명가 베이커리 & 빵지순례 오픈',
@@ -23477,7 +23490,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '베이커리 메뉴 보러가기',
     linkCategory: '빵·디저트',
     isActive: true,
-    order: 1,
+    order: 2,
   },
   {
     id: 'banner-1',
@@ -23488,7 +23501,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '버거 신상 둘러보기',
     linkCategory: '패스트푸드',
     isActive: true,
-    order: 1,
+    order: 3,
   },
   {
     id: 'banner-2',
@@ -23499,7 +23512,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '커피 브랜드 음료 모아보기',
     linkCategory: '음료',
     isActive: true,
-    order: 2,
+    order: 4,
   },
   {
     id: 'banner-3',
@@ -23510,7 +23523,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '오리온 신상 보러가기',
     linkCategory: '과자',
     isActive: true,
-    order: 3,
+    order: 5,
   },
   {
     id: 'banner-4',
@@ -23521,7 +23534,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '과일 랭킹 둘러보기',
     linkCategory: '과일',
     isActive: true,
-    order: 4,
+    order: 6,
   }
 ];
 

@@ -277,6 +277,7 @@ export interface BannerItem {
   linkProductId?: string;
   isActive: boolean;
   order: number;
+  disclaimer?: string;
 }
 
 export interface BattleConfig {

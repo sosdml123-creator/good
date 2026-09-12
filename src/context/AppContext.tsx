@@ -122,10 +122,14 @@ interface AppContextType {
   clearAllNotifications: () => void;
 
   // Admin Banner Actions
-  addBanner: (banner: Omit<BannerItem, 'id' | 'order'>) => void;
+  addBanner: (banner: Omit<BannerItem, 'id' | 'order'>, targetOrder?: number) => void;
   updateBanner: (id: string, updated: Partial<BannerItem>) => void;
   deleteBanner: (id: string) => void;
   toggleBannerActive: (id: string) => void;
+  moveBannerOrder: (id: string, direction: 'up' | 'down') => void;
+  setBannerOrder: (id: string, targetOrder: number) => void;
+  duplicateBanner: (id: string) => void;
+  reorderBanners: (newBanners: BannerItem[]) => void;
 
   // Admin Product Actions
   addProduct: (product: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => void;
@@ -492,7 +496,12 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v20_20260912_samyang_official_119';
+export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
+  const sorted = [...bannerList].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  return sorted.map((b, idx) => ({ ...b, order: idx + 1 }));
+};
+
+const DATA_VERSION = 'v21_20260912_coupang_fresh_banner';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -505,7 +514,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_data_version', DATA_VERSION);
         localStorage.setItem('sinsangpick_products', JSON.stringify(INITIAL_PRODUCTS));
         localStorage.setItem('sinsangpick_reviews', JSON.stringify(INITIAL_REVIEWS));
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(INITIAL_BANNERS));
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalizeBanners(INITIAL_BANNERS)));
         localStorage.setItem('sinsangpick_battle_config', JSON.stringify(INITIAL_BATTLE_CONFIG));
         return INITIAL_PRODUCTS;
       }
@@ -538,9 +547,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [banners, setBanners] = useState<BannerItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_banners');
-      return stored ? JSON.parse(stored) : INITIAL_BANNERS;
+      if (stored) {
+        const parsed: BannerItem[] = JSON.parse(stored);
+        const hasCoupang = parsed.some(b => b.id === 'banner-coupang-fresh');
+        if (!hasCoupang) {
+          const coupangBanner = INITIAL_BANNERS.find(b => b.id === 'banner-coupang-fresh');
+          if (coupangBanner) {
+            return normalizeBanners([coupangBanner, ...parsed]);
+          }
+        }
+        return normalizeBanners(parsed);
+      }
+      return normalizeBanners(INITIAL_BANNERS);
     } catch {
-      return INITIAL_BANNERS;
+      return normalizeBanners(INITIAL_BANNERS);
     }
   });
 
@@ -1978,32 +1998,113 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // ================= ADMIN FUNCTIONS =================
-  // Add Banner
-  const addBanner = (bannerData: Omit<BannerItem, 'id' | 'order'>) => {
+  // Add Banner (특정 구좌 순서 지정 지원)
+  const addBanner = (bannerData: Omit<BannerItem, 'id' | 'order'>, targetOrder?: number) => {
     const newBanner: BannerItem = {
       ...bannerData,
       id: 'banner-' + Date.now(),
-      order: banners.length + 1,
+      order: targetOrder ?? (banners.length + 1),
     };
-    setBanners(prev => [...prev, newBanner]);
-    showToast('🎉 새 배너가 성공적으로 등록되었습니다!', 'success');
+    setBanners(prev => {
+      let list = [...prev];
+      if (typeof targetOrder === 'number' && targetOrder >= 1 && targetOrder <= list.length) {
+        list.splice(targetOrder - 1, 0, newBanner);
+      } else {
+        list.push(newBanner);
+      }
+      return normalizeBanners(list);
+    });
+    showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다!', 'success');
   };
 
   // Update Banner
   const updateBanner = (id: string, updated: Partial<BannerItem>) => {
-    setBanners(prev => prev.map(b => b.id === id ? { ...b, ...updated } : b));
-    showToast('배너 정보가 수정되었습니다.', 'success');
+    setBanners(prev => {
+      let next = prev.map(b => b.id === id ? { ...b, ...updated } : b);
+      if (typeof updated.order === 'number') {
+        const itemIdx = next.findIndex(b => b.id === id);
+        if (itemIdx !== -1) {
+          const [item] = next.splice(itemIdx, 1);
+          const insertIdx = Math.max(0, Math.min(next.length, updated.order - 1));
+          next.splice(insertIdx, 0, item);
+        }
+      }
+      return normalizeBanners(next);
+    });
+    showToast('배너 구좌 정보가 수정되었습니다.', 'success');
   };
 
-  // Delete Banner
+  // Delete Banner (남은 구좌 번호 1부터 자동 재배열)
   const deleteBanner = (id: string) => {
-    setBanners(prev => prev.filter(b => b.id !== id));
-    showToast('배너가 삭제되었습니다.', 'info');
+    setBanners(prev => normalizeBanners(prev.filter(b => b.id !== id)));
+    showToast('배너 구좌가 삭제되었습니다.', 'info');
   };
 
   // Toggle Banner Active
   const toggleBannerActive = (id: string) => {
     setBanners(prev => prev.map(b => b.id === id ? { ...b, isActive: !b.isActive } : b));
+  };
+
+  // Move Banner Order (▲ 위로 / ▼ 아래로 한 단계 이동)
+  const moveBannerOrder = (id: string, direction: 'up' | 'down') => {
+    setBanners(prev => {
+      const sorted = normalizeBanners(prev);
+      const index = sorted.findIndex(b => b.id === id);
+      if (index === -1) return prev;
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= sorted.length) return prev;
+      
+      const newBanners = [...sorted];
+      const temp = newBanners[index];
+      newBanners[index] = newBanners[targetIndex];
+      newBanners[targetIndex] = temp;
+      
+      return normalizeBanners(newBanners);
+    });
+    showToast(`배너 구좌 순서가 ${direction === 'up' ? '상위' : '하위'}로 변경되었습니다.`, 'info');
+  };
+
+  // Set Banner Order (특정 구좌 번호로 바로 이동)
+  const setBannerOrder = (id: string, targetOrder: number) => {
+    setBanners(prev => {
+      const sorted = normalizeBanners(prev);
+      const index = sorted.findIndex(b => b.id === id);
+      if (index === -1) return prev;
+      
+      const [item] = sorted.splice(index, 1);
+      const insertIndex = Math.max(0, Math.min(sorted.length, targetOrder - 1));
+      sorted.splice(insertIndex, 0, item);
+      
+      return normalizeBanners(sorted);
+    });
+    showToast(`배너가 ${targetOrder}구좌로 이동되었습니다.`, 'success');
+  };
+
+  // Duplicate Banner (기존 구좌 복제하여 다음 순서에 추가)
+  const duplicateBanner = (id: string) => {
+    setBanners(prev => {
+      const sorted = normalizeBanners(prev);
+      const target = sorted.find(b => b.id === id);
+      if (!target) return prev;
+      
+      const duplicated: BannerItem = {
+        ...target,
+        id: 'banner-' + Date.now(),
+        title: `${target.title} (복사본)`,
+        order: target.order + 1,
+      };
+      
+      const targetIndex = sorted.findIndex(b => b.id === id);
+      sorted.splice(targetIndex + 1, 0, duplicated);
+      return normalizeBanners(sorted);
+    });
+    showToast('배너 구좌가 성공적으로 복제되었습니다!', 'success');
+  };
+
+  // Reorder Banners (일괄 순서 저장)
+  const reorderBanners = (newBanners: BannerItem[]) => {
+    setBanners(normalizeBanners(newBanners));
+    showToast('배너 구좌 순서가 저장되었습니다.', 'success');
   };
 
   // Add Product
@@ -2938,6 +3039,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateBanner,
         deleteBanner,
         toggleBannerActive,
+        moveBannerOrder,
+        setBannerOrder,
+        duplicateBanner,
+        reorderBanners,
         addProduct,
         updateProduct,
         deleteProduct,

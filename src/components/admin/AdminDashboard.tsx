@@ -47,7 +47,10 @@ import {
   ShieldCheck,
   Copy,
   Target,
-  FolderCheck
+  FolderCheck,
+  ArrowUp,
+  ArrowDown,
+  ChevronLeft
 } from 'lucide-react';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -87,6 +90,9 @@ export const AdminDashboard: React.FC = () => {
     updateBanner, 
     deleteBanner, 
     toggleBannerActive,
+    moveBannerOrder,
+    setBannerOrder,
+    duplicateBanner,
     addProduct, 
     updateProduct, 
     deleteProduct, 
@@ -263,18 +269,24 @@ export const AdminDashboard: React.FC = () => {
   const bannerFileInputRef = useRef<HTMLInputElement>(null);
   const [isCompressingBannerImage, setIsCompressingBannerImage] = useState(false);
   const [bannerImageMode, setBannerImageMode] = useState<'file' | 'url'>('file');
-  const [bannerForm, setBannerForm] = useState<Omit<BannerItem, 'id' | 'order'>>({
+  const [bannerForm, setBannerForm] = useState<Omit<BannerItem, 'id'> & { order: number; badge?: string; disclaimer?: string }>({
     image: '',
+    badge: '',
     title: '',
     subtitle: '',
-    buttonText: '바로가기',
+    buttonText: '신상 보러가기',
     linkType: 'category',
     linkCategory: '신제품',
     linkUrl: '',
     linkEventId: '',
     linkProductId: '',
+    disclaimer: '',
     isActive: true,
+    order: 1,
   });
+
+  // Banner Live Preview state in admin
+  const [previewBannerIdx, setPreviewBannerIdx] = useState(0);
 
   const handleBannerFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -800,10 +812,12 @@ export const AdminDashboard: React.FC = () => {
   };
 
   // Banner modal helpers
-  const handleOpenNewBanner = () => {
+  const handleOpenNewBanner = (targetOrder?: number | unknown) => {
     setEditingBannerId(null);
+    const nextOrder = typeof targetOrder === 'number' ? targetOrder : banners.length + 1;
     setBannerForm({
       image: '',
+      badge: '',
       title: '',
       subtitle: '',
       buttonText: '신상 보러가기',
@@ -812,7 +826,9 @@ export const AdminDashboard: React.FC = () => {
       linkUrl: '',
       linkEventId: events.length > 0 ? events[0].id : '',
       linkProductId: products.length > 0 ? products[0].id : '',
+      disclaimer: '',
       isActive: true,
+      order: nextOrder,
     });
     setBannerImageMode('file');
     setIsBannerModalOpen(true);
@@ -830,6 +846,7 @@ export const AdminDashboard: React.FC = () => {
 
     setBannerForm({
       image: banner.image || '',
+      badge: banner.badge || '',
       title: banner.title,
       subtitle: banner.subtitle,
       buttonText: banner.buttonText || '바로가기',
@@ -838,7 +855,9 @@ export const AdminDashboard: React.FC = () => {
       linkUrl: banner.linkUrl || '',
       linkEventId: banner.linkEventId || (events.length > 0 ? events[0].id : ''),
       linkProductId: banner.linkProductId || (products.length > 0 ? products[0].id : ''),
+      disclaimer: banner.disclaimer || '',
       isActive: banner.isActive,
+      order: banner.order || 1,
     });
     setBannerImageMode(banner.image?.startsWith('data:') ? 'file' : 'file');
     setIsBannerModalOpen(true);
@@ -854,8 +873,13 @@ export const AdminDashboard: React.FC = () => {
       return;
     }
 
-    const payload: Omit<BannerItem, 'id' | 'order'> = {
+    const defaultDisclaimer = (bannerForm.linkType === 'url' && bannerForm.linkUrl?.includes('coupang.com'))
+      ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
+      : undefined;
+
+    const payload: Omit<BannerItem, 'id' | 'order'> & { badge?: string; order?: number } = {
       image: bannerForm.image,
+      badge: bannerForm.badge?.trim() || undefined,
       title: bannerForm.title.trim(),
       subtitle: bannerForm.subtitle.trim(),
       buttonText: bannerForm.buttonText.trim() || '바로가기',
@@ -864,15 +888,17 @@ export const AdminDashboard: React.FC = () => {
       linkEventId: bannerForm.linkType === 'event' ? bannerForm.linkEventId : undefined,
       linkProductId: bannerForm.linkType === 'product' ? bannerForm.linkProductId : undefined,
       linkCategory: bannerForm.linkType === 'category' ? bannerForm.linkCategory : undefined,
+      disclaimer: bannerForm.disclaimer?.trim() || defaultDisclaimer,
       isActive: bannerForm.isActive,
+      order: bannerForm.order,
     };
 
     if (editingBannerId) {
       updateBanner(editingBannerId, payload);
-      showToast('배너가 성공적으로 수정되었습니다.', 'success');
+      showToast('배너 구좌가 성공적으로 수정되었습니다.', 'success');
     } else {
-      addBanner(payload);
-      showToast('새 배너가 성공적으로 등록되었습니다.', 'success');
+      addBanner(payload, bannerForm.order);
+      showToast('새 배너 구좌가 성공적으로 등록되었습니다.', 'success');
     }
     setIsBannerModalOpen(false);
   };
@@ -1274,11 +1300,11 @@ export const AdminDashboard: React.FC = () => {
               </button>
             ) : activeAdminTab === 'banners' ? (
               <button
-                onClick={handleOpenNewBanner}
+                onClick={() => handleOpenNewBanner()}
                 className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>새 배너 추가</span>
+                <span>새 배너 구좌 추가</span>
               </button>
             ) : (
               <button
@@ -3648,12 +3674,23 @@ export const AdminDashboard: React.FC = () => {
                             <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-bold">
                               {banner.buttonText} →
                             </span>
+                            {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
+                              <p className="mt-1.5 text-[9px] text-amber-200/90 font-medium tracking-tight bg-black/60 px-2 py-0.5 rounded max-w-fit line-clamp-1">
+                                ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
 
                       {/* Info bar */}
                       <div className="p-4 space-y-2">
+                        {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
+                          <div className="flex items-center text-[11px] text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 rounded-lg">
+                            <span className="shrink-0 font-bold">📢 파트너스:</span>
+                            <span className="truncate ml-1">{banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}</span>
+                          </div>
+                        )}
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-slate-400">연결 대상</span>
                           <span className={`font-bold px-2 py-0.5 rounded text-[11px] truncate max-w-[190px] ${isDark ? 'bg-slate-800 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
@@ -4892,6 +4929,35 @@ export const AdminDashboard: React.FC = () => {
                     </label>
                   </div>
                 </div>
+
+                {/* 6. Disclaimer (Coupang Partners / FTC mandatory notice) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 text-xs">
+                      제휴/광고 필수 고지 문구 (공정위/쿠팡 파트너스)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setBannerForm({
+                        ...bannerForm,
+                        disclaimer: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'
+                      })}
+                      className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                    >
+                      + 쿠팡 문구 자동입력
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    value={bannerForm.disclaimer || ''}
+                    onChange={e => setBannerForm({ ...bannerForm, disclaimer: e.target.value })}
+                    placeholder="예: 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+                    className={`w-full p-2.5 rounded-xl border text-xs ${inputBg}`}
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    쿠팡 파트너스 등 제휴 링크 배너 시 필수 고지 문구가 배너에 자동 표기됩니다.
+                  </p>
+                </div>
               </div>
 
               {/* Right: Live Banner Preview (Badge Removed) */}
@@ -4914,6 +4980,11 @@ export const AdminDashboard: React.FC = () => {
                         <span>{bannerForm.buttonText || '바로가기'}</span>
                         <ChevronRight className="w-3 h-3" />
                       </span>
+                      {(bannerForm.disclaimer || (bannerForm.linkType === 'url' && bannerForm.linkUrl?.includes('coupang.com'))) && (
+                        <p className="text-[9.5px] text-amber-200/90 mt-2 font-medium line-clamp-1 bg-black/60 px-2 py-0.5 rounded max-w-fit">
+                          ※ {bannerForm.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
