@@ -3615,141 +3615,360 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
-              TAB 6: BANNERS (홈 배너 관리)
+              TAB 6: BANNERS (홈 배너 구좌 관리)
              ======================================================== */}
-          {activeAdminTab === 'banners' && (
-            <div className="space-y-6">
-              
-              <div className={`p-6 rounded-2xl border shadow-sm flex items-center justify-between ${cardBg}`}>
-                <div>
-                  <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    <Layers className="w-5 h-5 text-indigo-500" />
-                    <span>모바일 메인 홈 프로모션 배너 관리</span>
-                  </h2>
-                  <p className="text-xs text-slate-500 mt-1">
-                    사용자 앱 홈 화면 최상단에 회전 노출되는 대형 비주얼 배너를 등록하고 순서를 변경할 수 있습니다.
-                  </p>
+          {activeAdminTab === 'banners' && (() => {
+            const sortedBanners = [...banners].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            const activeList = sortedBanners.filter(b => b.isActive);
+            const currentPreview = activeList[previewBannerIdx % Math.max(activeList.length, 1)] || sortedBanners[0];
+
+            return (
+              <div className="space-y-6">
+                
+                {/* 1. Header with Stats & New Banner Button */}
+                <div className={`p-6 rounded-2xl border shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 ${cardBg}`}>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
+                        <Layers className="w-5 h-5 text-indigo-500" />
+                      </div>
+                      <div>
+                        <h2 className={`text-base font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                          <span>모바일 메인 홈 배너 구좌(슬롯) 관리</span>
+                        </h2>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          구좌를 1개씩 추가하고, 순서 변경(▲/▼ 이동 또는 번호 지정)으로 홈 화면 최상단 노출 순서를 즉시 제어합니다.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-400">총 구좌:</span>
+                      <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">{sortedBanners.length}개</span>
+                      <span className="text-slate-300 dark:text-slate-700">|</span>
+                      <span className="text-slate-400">실시간 활성:</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{activeList.length}개</span>
+                    </div>
+
+                    <button
+                      onClick={() => handleOpenNewBanner(sortedBanners.length + 1)}
+                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all active:scale-95"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>새 구좌 추가</span>
+                    </button>
+                  </div>
                 </div>
 
-                <button
-                  onClick={handleOpenNewBanner}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all active:scale-95"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>새 배너 추가</span>
-                </button>
-              </div>
-
-              {/* 3-Column Wide Desktop Banner Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {banners.map((banner, index) => (
-                  <div key={banner.id} className={`rounded-2xl border shadow-sm overflow-hidden flex flex-col justify-between ${cardBg}`}>
-                    
-                    {/* Banner Live Card Look */}
-                    <div>
-                      <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
-                        <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex flex-col justify-between">
-                          <div className="flex items-center justify-between">
-                            <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1">
-                              {banner.linkUrl ? (
-                                <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
-                              ) : banner.linkEventId ? (
-                                <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
-                              ) : banner.linkProductId ? (
-                                <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
-                              ) : banner.linkCategory ? (
-                                <><Layers className="w-3 h-3 text-indigo-300" /><span>카테고리: {banner.linkCategory}</span></>
-                              ) : (
-                                <span>기본 배너</span>
-                              )}
-                            </span>
-                            <span className="w-6 h-6 rounded-full bg-black/60 text-white font-mono text-xs flex items-center justify-center font-bold">
-                              #{index + 1}
-                            </span>
-                          </div>
-                          <div>
-                            <h3 className="text-sm font-black text-white leading-tight">{banner.title}</h3>
-                            <p className="text-xs text-slate-300 mt-0.5">{banner.subtitle}</p>
-                            <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-bold">
-                              {banner.buttonText} →
-                            </span>
-                            {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
-                              <p className="mt-1.5 text-[9px] text-amber-200/90 font-medium tracking-tight bg-black/60 px-2 py-0.5 rounded max-w-fit line-clamp-1">
-                                ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
-                              </p>
-                            )}
-                          </div>
-                        </div>
+                {/* 2. Live Mobile Carousel Preview */}
+                {activeList.length > 0 && currentPreview && (
+                  <div className={`p-5 rounded-2xl border shadow-sm space-y-3 ${cardBg}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Smartphone className="w-4 h-4 text-indigo-500" />
+                        <h3 className={`text-xs font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                          실제 모바일 홈 롤링 라이브 프리뷰
+                        </h3>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                          순서 실시간 동기화
+                        </span>
                       </div>
 
-                      {/* Info bar */}
-                      <div className="p-4 space-y-2">
-                        {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
-                          <div className="flex items-center text-[11px] text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 rounded-lg">
-                            <span className="shrink-0 font-bold">📢 파트너스:</span>
-                            <span className="truncate ml-1">{banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}</span>
-                          </div>
-                        )}
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">연결 대상</span>
-                          <span className={`font-bold px-2 py-0.5 rounded text-[11px] truncate max-w-[190px] ${isDark ? 'bg-slate-800 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
-                            {banner.linkUrl 
-                              ? `🌐 ${banner.linkUrl}`
-                              : banner.linkEventId
-                              ? `🎁 ${events.find(e => e.id === banner.linkEventId)?.title || banner.linkEventId}`
-                              : banner.linkProductId
-                              ? `📦 ${products.find(p => p.id === banner.linkProductId)?.name || banner.linkProductId}`
-                              : banner.linkCategory
-                              ? `🏷️ ${banner.linkCategory}`
-                              : '🚫 연결 없음'}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">노출 상태</span>
+                      {/* Carousel controls */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono text-slate-400 font-bold">
+                          {((previewBannerIdx % activeList.length) + 1)} / {activeList.length} (현재 {currentPreview.order}구좌)
+                        </span>
+                        <div className="flex items-center gap-1">
                           <button
-                            onClick={() => toggleBannerActive(banner.id)}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                              banner.isActive
-                                ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
-                                : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
-                            }`}
+                            type="button"
+                            onClick={() => setPreviewBannerIdx(prev => (prev - 1 + activeList.length) % activeList.length)}
+                            className="p-1.5 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                            title="이전 배너"
                           >
-                            {banner.isActive ? '● 실시간 노출 중' : '비활성 (숨김)'}
+                            <ChevronLeft className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPreviewBannerIdx(prev => (prev + 1) % activeList.length)}
+                            className="p-1.5 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors"
+                            title="다음 배너"
+                          >
+                            <ChevronRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className={`p-4 pt-0 border-t flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-                      <button
-                        onClick={() => handleOpenEditBanner(banner)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all border ${
-                          isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                        }`}
-                      >
-                        <Edit3 className="w-3.5 h-3.5 text-indigo-500" />
-                        <span>수정</span>
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (confirm(`'${banner.title}' 배너를 삭제하시겠습니까?`)) {
-                            deleteBanner(banner.id);
-                          }
-                        }}
-                        className="p-1.5 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded-lg transition-all"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                    {/* Preview Card Showcase */}
+                    <div className="relative aspect-[21/9] sm:aspect-[24/9] md:aspect-[30/9] max-h-[160px] w-full rounded-2xl overflow-hidden bg-slate-900 shadow-md">
+                      <img src={currentPreview.image} alt={currentPreview.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent p-5 flex flex-col justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white font-mono shadow-sm">
+                            {currentPreview.order}구좌 노출 중
+                          </span>
+                          {currentPreview.badge && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30">
+                              {currentPreview.badge}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-end justify-between">
+                          <div>
+                            <h4 className="text-sm md:text-base font-black text-white leading-tight">{currentPreview.title}</h4>
+                            <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">{currentPreview.subtitle}</p>
+                          </div>
+                          <span className="px-3 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-bold shrink-0 shadow-sm">
+                            {currentPreview.buttonText} →
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. Slot Cards Grid */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-slate-500">배너 구좌 목록 및 순서 관리 ({sortedBanners.length}개 구좌)</span>
+                    <span className="text-[11px] text-slate-400">
+                      💡 ▲/▼ 버튼이나 구좌 선택 셀렉트로 원하는 순서로 즉시 변경됩니다.
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {sortedBanners.map((banner, index) => {
+                      const isFirst = index === 0;
+                      const isLast = index === sortedBanners.length - 1;
+
+                      return (
+                        <div
+                          key={banner.id}
+                          className={`rounded-2xl border shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-200 hover:shadow-md ${cardBg} ${
+                            banner.isActive ? 'border-slate-200 dark:border-slate-800' : 'border-dashed border-slate-300 dark:border-slate-800 opacity-80'
+                          }`}
+                        >
+                          <div>
+                            {/* Card Top Slot Bar */}
+                            <div className={`p-3 border-b flex items-center justify-between ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-100'}`}>
+                              {/* Slot Badge */}
+                              <div className="flex items-center gap-2">
+                                <span className="px-2.5 py-1 rounded-lg text-xs font-black bg-indigo-600 text-white shadow-xs font-mono">
+                                  {banner.order}구좌
+                                </span>
+                                {banner.isActive ? (
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                    <span>실시간 노출</span>
+                                  </span>
+                                ) : (
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 dark:bg-slate-800 text-slate-400">
+                                    비활성 (숨김)
+                                  </span>
+                                )}
+                              </div>
+
+                              {/* Order Reorder Controls */}
+                              <div className="flex items-center gap-1">
+                                {/* Up button */}
+                                <button
+                                  type="button"
+                                  disabled={isFirst}
+                                  onClick={() => moveBannerOrder(banner.id, 'up')}
+                                  title={isFirst ? '이미 최상단 1구좌입니다' : '윗 구좌와 순서 바꾸기 (위로 이동)'}
+                                  className={`p-1.5 rounded-lg border transition-all ${
+                                    isFirst
+                                      ? 'opacity-30 cursor-not-allowed border-slate-200 dark:border-slate-800 text-slate-400'
+                                      : 'hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-300 dark:hover:bg-indigo-950/40 dark:border-slate-700 text-slate-600 dark:text-slate-300'
+                                  }`}
+                                >
+                                  <ArrowUp className="w-3.5 h-3.5" />
+                                </button>
+
+                                {/* Down button */}
+                                <button
+                                  type="button"
+                                  disabled={isLast}
+                                  onClick={() => moveBannerOrder(banner.id, 'down')}
+                                  title={isLast ? '이미 마지막 구좌입니다' : '아랫 구좌와 순서 바꾸기 (아래로 이동)'}
+                                  className={`p-1.5 rounded-lg border transition-all ${
+                                    isLast
+                                      ? 'opacity-30 cursor-not-allowed border-slate-200 dark:border-slate-800 text-slate-400'
+                                      : 'hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-300 dark:hover:bg-indigo-950/40 dark:border-slate-700 text-slate-600 dark:text-slate-300'
+                                  }`}
+                                >
+                                  <ArrowDown className="w-3.5 h-3.5" />
+                                </button>
+
+                                {/* Direct Slot Select */}
+                                <select
+                                  value={banner.order}
+                                  onChange={e => setBannerOrder(banner.id, Number(e.target.value))}
+                                  title="원하는 구좌 번호로 즉시 이동"
+                                  className={`text-xs font-bold py-1 px-2 rounded-lg border focus:outline-none focus:border-indigo-500 cursor-pointer ${
+                                    isDark ? 'bg-slate-800 border-slate-700 text-indigo-300' : 'bg-white border-slate-200 text-indigo-600'
+                                  }`}
+                                >
+                                  {sortedBanners.map((_, i) => (
+                                    <option key={i + 1} value={i + 1}>
+                                      {i + 1}구좌로 이동
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            {/* Banner Live Card Look */}
+                            <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
+                              <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex flex-col justify-between">
+                                <div className="flex items-center justify-between">
+                                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1">
+                                    {banner.linkUrl ? (
+                                      <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
+                                    ) : banner.linkEventId ? (
+                                      <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
+                                    ) : banner.linkProductId ? (
+                                      <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
+                                    ) : banner.linkCategory ? (
+                                      <><Layers className="w-3 h-3 text-indigo-300" /><span>카테고리: {banner.linkCategory}</span></>
+                                    ) : (
+                                      <span>기본 배너</span>
+                                    )}
+                                  </span>
+
+                                  {banner.badge && (
+                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/80 text-white">
+                                      {banner.badge}
+                                    </span>
+                                  )}
+                                </div>
+                                <div>
+                                  <h3 className="text-sm font-black text-white leading-tight">{banner.title}</h3>
+                                  <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">{banner.subtitle}</p>
+                                  <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-bold">
+                                    {banner.buttonText} →
+                                  </span>
+                                  {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
+                                    <p className="mt-1.5 text-[9px] text-amber-200/90 font-medium tracking-tight bg-black/60 px-2 py-0.5 rounded max-w-fit line-clamp-1">
+                                      ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Info bar */}
+                            <div className="p-4 space-y-2">
+                              {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
+                                <div className="flex items-center text-[11px] text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 rounded-lg">
+                                  <span className="shrink-0 font-bold">📢 파트너스:</span>
+                                  <span className="truncate ml-1">{banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}</span>
+                                </div>
+                              )}
+                              <div className="flex items-center justify-between text-xs">
+                                <span className="text-slate-400">연결 대상</span>
+                                <span className={`font-bold px-2 py-0.5 rounded text-[11px] truncate max-w-[190px] ${isDark ? 'bg-slate-800 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
+                                  {banner.linkUrl 
+                                    ? `🌐 ${banner.linkUrl}`
+                                    : banner.linkEventId
+                                    ? `🎁 ${events.find(e => e.id === banner.linkEventId)?.title || banner.linkEventId}`
+                                    : banner.linkProductId
+                                    ? `📦 ${products.find(p => p.id === banner.linkProductId)?.name || banner.linkProductId}`
+                                    : banner.linkCategory
+                                    ? `🏷️ ${banner.linkCategory}`
+                                    : '🚫 연결 없음'}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between text-xs">
+                                <span className="text-slate-400">홈 화면 노출</span>
+                                <button
+                                  type="button"
+                                  onClick={() => toggleBannerActive(banner.id)}
+                                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                                    banner.isActive
+                                      ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                                  }`}
+                                >
+                                  {banner.isActive ? '● 실시간 노출 중 (ON)' : '숨김 상태 (OFF)'}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Actions */}
+                          <div className={`p-4 pt-3 border-t flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                onClick={() => handleOpenEditBanner(banner)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all border ${
+                                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                                }`}
+                              >
+                                <Edit3 className="w-3.5 h-3.5 text-indigo-500" />
+                                <span>구좌 수정</span>
+                              </button>
+
+                              <button
+                                onClick={() => duplicateBanner(banner.id)}
+                                title="이 구좌 설정을 복제하여 새 구좌로 등록"
+                                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all border ${
+                                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-200'
+                                }`}
+                              >
+                                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                                <span>복제</span>
+                              </button>
+                            </div>
+
+                            <button
+                              onClick={() => {
+                                if (confirm(`'${banner.order}구좌: ${banner.title}' 배너를 삭제하시겠습니까?\n삭제 시 다른 구좌의 순서가 자동으로 당겨집니다.`)) {
+                                  deleteBanner(banner.id);
+                                }
+                              }}
+                              className="p-1.5 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded-lg transition-all"
+                              title="구좌 삭제"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+
+                        </div>
+                      );
+                    })}
+
+                    {/* Add Slot Card at the end */}
+                    <div
+                      onClick={() => handleOpenNewBanner(sortedBanners.length + 1)}
+                      className={`rounded-2xl border-2 border-dashed p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:border-indigo-500 group min-h-[300px] ${
+                        isDark ? 'border-slate-800 hover:bg-slate-850' : 'border-slate-200 hover:bg-indigo-50/40'
+                      }`}
+                    >
+                      <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <Plus className="w-6 h-6" />
+                      </div>
+                      <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        + 새 배너 {sortedBanners.length + 1}구좌 추가하기
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1 max-w-[220px]">
+                        새로운 프로모션이나 기획전을 위해 추가 구좌를 등록합니다.
+                      </p>
+                      <span className="mt-4 px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm group-hover:bg-indigo-500 transition-colors">
+                        구좌 추가하기
+                      </span>
                     </div>
 
                   </div>
-                ))}
-              </div>
+                </div>
 
-            </div>
-          )}
+              </div>
+            );
+          })()}
 
           {/* ========================================================
               TAB 7: BATTLE (신상 배틀 설정)
@@ -4672,6 +4891,38 @@ export const AdminDashboard: React.FC = () => {
               
               {/* Left Form */}
               <div className="space-y-4 text-xs">
+                {/* 0. Slot Order & Badge */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">
+                      배너 구좌 위치 (순서) *
+                    </label>
+                    <select
+                      value={bannerForm.order || 1}
+                      onChange={e => setBannerForm({ ...bannerForm, order: Number(e.target.value) })}
+                      className={`w-full p-2.5 rounded-xl border font-bold text-indigo-600 dark:text-indigo-400 ${inputBg}`}
+                    >
+                      {Array.from({ length: Math.max(banners.length + (editingBannerId ? 0 : 1), 1) }, (_, i) => i + 1).map(num => (
+                        <option key={num} value={num}>
+                          {num}구좌 {num === 1 ? '(첫 번째 노출)' : num === (editingBannerId ? banners.length : banners.length + 1) ? '(마지막)' : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">
+                      상단 뱃지 문구 (선택)
+                    </label>
+                    <input
+                      type="text"
+                      value={bannerForm.badge || ''}
+                      onChange={e => setBannerForm({ ...bannerForm, badge: e.target.value })}
+                      placeholder="예: 🥖 빵지순례 오픈"
+                      className={`w-full p-2.5 rounded-xl border ${inputBg}`}
+                    />
+                  </div>
+                </div>
+
                 {/* 1. Title */}
                 <div>
                   <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 메인 제목 *</label>
@@ -4960,9 +5211,14 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right: Live Banner Preview (Badge Removed) */}
+              {/* Right: Live Banner Preview */}
               <div className="space-y-3">
-                <span className="text-xs font-black text-slate-500">모바일 홈 캐러셀 실시간 미리보기 (상단 뱃지 제외)</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black text-slate-500">모바일 홈 캐러셀 실시간 미리보기</span>
+                  <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded-md">
+                    {bannerForm.order || 1}구좌로 등록 예정
+                  </span>
+                </div>
                 <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-sm group">
                   {bannerForm.image ? (
                     <img src={bannerForm.image} alt="배너 미리보기" className="w-full h-full object-cover" />
@@ -4972,7 +5228,17 @@ export const AdminDashboard: React.FC = () => {
                       <span className="text-xs">이미지 파일을 선택해주세요</span>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      {bannerForm.badge ? (
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30">
+                          {bannerForm.badge}
+                        </span>
+                      ) : <span />}
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white font-mono shadow-sm">
+                        {bannerForm.order || 1}구좌
+                      </span>
+                    </div>
                     <div>
                       <h3 className="text-base font-black text-white leading-tight">{bannerForm.title || '배너 메인 제목이 표시됩니다'}</h3>
                       <p className="text-xs text-slate-300 mt-1">{bannerForm.subtitle || '서브 설명 문구가 표시됩니다'}</p>
