@@ -6,8 +6,10 @@ import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
 import { TLJ_PRODUCTS } from './tljProducts';
 import { RAMEN_PRODUCTS } from './ramenProducts';
+import { SAMYANG_PRODUCTS } from './samyangProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...SAMYANG_PRODUCTS,
   ...RAMEN_PRODUCTS,
   ...TLJ_PRODUCTS,
   ...ICE_CREAM_PRODUCTS,
