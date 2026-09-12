@@ -110,6 +110,9 @@ interface AppContextType {
   loginWithKakao: () => Promise<void>;
   logout: () => Promise<void>;
   deleteAccount: () => Promise<void>;
+  isLoginModalOpen: boolean;
+  setIsLoginModalOpen: (open: boolean) => void;
+  openLoginModal: () => void;
 
   // Events & Push Notifications Actions
   addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
@@ -506,6 +509,8 @@ const DATA_VERSION = 'v22_20260912_clear_store_links';
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const openLoginModal = () => setIsLoginModalOpen(true);
 
   const [products, setProducts] = useState<Product[]>(() => {
     try {
@@ -1060,7 +1065,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           loadSupabaseData(uid);
         })
       // 6. Listen for Auth State Changes (Apple / Google / Kakao OAuth redirect)
-      const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (_event, session) => {
+      const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (event, session) => {
         if (session?.user && isMounted) {
           const u = session.user;
           const providerName = (u.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
@@ -1072,10 +1077,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             uid: u.id,
             displayName: prev.displayName && !prev.displayName.startsWith('신상러버_') ? prev.displayName : displayName,
             photoURL: photoURL || prev.photoURL,
-            isAnonymous: u.is_anonymous || false,
+            isAnonymous: false,
             email: u.email,
             provider: providerName,
           }));
+
+          localStorage.setItem('sinsangpick_uid', u.id);
+          localStorage.setItem('sinsangpick_name', displayName);
+          setIsLoginModalOpen(false);
+
+          if (event === 'SIGNED_IN') {
+            const providerMsg = providerName === 'apple' ? '🍎 Apple 계정으로 로그인되었습니다!' : '✨ 소셜 계정으로 로그인되었습니다!';
+            showToast(providerMsg, 'success');
+            if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
+              window.history.replaceState(null, '', window.location.pathname);
+            }
+          }
 
           try {
             await client.from('profiles').upsert({
@@ -3023,6 +3040,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         loginWithKakao,
         logout,
         deleteAccount,
+        isLoginModalOpen,
+        setIsLoginModalOpen,
+        openLoginModal,
 
         // Events & Push Notifications
         addEvent,

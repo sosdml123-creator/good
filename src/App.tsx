@@ -22,6 +22,7 @@ import { SaleNewsView } from './components/sale/SaleNewsView';
 import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
 import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
 import { RankingView } from './components/ranking/RankingView';
+import { LoginModal } from './components/common/LoginModal';
 
 export const App: React.FC = () => {
   const { activeTab } = useApp();
@@ -84,6 +85,7 @@ export const App: React.FC = () => {
         {/* Recipe Modals (Floating Global Modals) */}
         <RecipeDetailModal />
         <WriteRecipeModal />
+        <LoginModal />
 
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
         <BottomNav />

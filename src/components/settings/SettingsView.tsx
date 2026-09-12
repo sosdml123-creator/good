@@ -32,7 +32,8 @@ export const SettingsView: React.FC = () => {
     logout, 
     goBack, 
     setActiveTab, 
-    showToast 
+    showToast,
+    openLoginModal
   } = useApp();
 
   // State for modals & editing
@@ -390,13 +391,52 @@ export const SettingsView: React.FC = () => {
           </div>
         </div>
 
-        {/* 6. Account Actions (Logout & Delete Account) */}
+        {/* 6. Account Actions (Login, Logout & Delete Account) */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden">
           <div className="divide-y divide-gray-100">
+            {/* Social Connect or Connected Status */}
+            {currentUser.isAnonymous ? (
+              <button
+                onClick={openLoginModal}
+                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-blue-50/40 transition-colors text-left group cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 170 170">
+                      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.69-7.85-12-14.42-6.74-10.23-11.75-21.9-15.03-35.01-3.28-13.11-4.92-25.16-4.92-36.15 0-14.36 3.69-26.06 11.07-35.1 7.38-9.04 16.74-13.68 28.08-13.91 4.79 0 10.27 1.22 16.44 3.66 6.18 2.44 10.05 3.72 11.62 3.84 2.07-.23 6.06-1.55 11.96-3.96 5.9-2.42 11.07-3.51 15.52-3.28 14.15.82 25.17 6.13 33.06 15.93-12.38 7.5-18.42 17.65-18.12 30.45.31 10.24 4.29 18.79 11.94 25.65 7.65 6.86 16.79 10.74 27.42 11.65-2.22 6.74-4.82 13.54-7.8 20.41zM119.22 32.64c0-7.39 2.67-14.33 8.01-20.82 5.34-6.49 12.01-10.66 20.02-12.51.21 1.09.32 2.12.32 3.09 0 7.39-2.73 14.48-8.19 21.26-5.46 6.78-12.18 10.9-20.16 12.36-.21-1.09-.32-2.12-.32-3.38z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900 group-hover:text-[#0066FF] transition-colors">
+                      소셜 계정 연결 (Apple / 카카오 / Google)
+                    </div>
+                    <div className="text-[11px] text-gray-400">
+                      계정을 연결하여 활동 내역을 영구 보관하세요
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded-lg">
+                  연결
+                </span>
+              </button>
+            ) : (
+              <div className="px-4 py-3.5 flex items-center justify-between bg-gray-50/50">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="text-xs font-bold text-gray-700">
+                    {currentUser.provider === 'apple' ? '🍎 Apple 계정 연동됨' : (currentUser.provider === 'kakao' ? '💬 카카오 계정 연동됨' : '🌐 Google 계정 연동됨')}
+                  </span>
+                </div>
+                <span className="text-[11px] text-gray-400 font-mono">
+                  {currentUser.email || currentUser.displayName}
+                </span>
+              </div>
+            )}
+
             {/* Logout */}
             <button
               onClick={logout}
-              className="w-full px-4 py-3.5 flex items-center gap-3 text-gray-700 hover:bg-gray-50 transition-colors text-left"
+              className="w-full px-4 py-3.5 flex items-center gap-3 text-gray-700 hover:bg-gray-50 transition-colors text-left cursor-pointer"
             >
               <LogOut className="w-4 h-4 text-gray-400" />
               <span className="text-xs font-bold">로그아웃</span>
