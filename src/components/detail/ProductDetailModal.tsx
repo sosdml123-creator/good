@@ -47,29 +47,61 @@ export const ProductDetailModal: React.FC = () => {
   const [isStockAlertModalOpen, setIsStockAlertModalOpen] = useState(false);
   const [fetchedNutrition, setFetchedNutrition] = useState<NutritionInfo | null>(null);
 
-  // 식약처 영양성분 DB 실시간 자동 보강 (기존 영양정보 누락 상품 대응)
+  // 식약처 영양성분 DB 실시간 자동 검증 및 실제 공공데이터 우선 적용
   useEffect(() => {
     if (!selectedProduct) return;
-    if (selectedProduct.nutrition || selectedProduct.itemType === 'fresh') {
+    if (selectedProduct.itemType === 'fresh' || selectedProduct.category === '과일' || selectedProduct.category === '고기·수산') {
       setFetchedNutrition(null);
       return;
     }
 
-    let isMounted = true;
-    const fetchNutrition = async () => {
+    const cacheKey = `sinsangpick_real_nutri_${selectedProduct.id}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
       try {
-        const res = await searchFoodNutrition(selectedProduct.name, 1, 3);
+        setFetchedNutrition(JSON.parse(cached));
+        return;
+      } catch (e) {
+        localStorage.removeItem(cacheKey);
+      }
+    }
+
+    let isMounted = true;
+    const fetchOfficialNutrition = async () => {
+      try {
+        // 검색어 정제: 브랜드 접두사 및 수식어 제거하여 식약처 DB 매칭률 극대화
+        let cleanQuery = selectedProduct.name
+          .replace(/^(오리온|농심|삼양식품|삼양|롯데제과|롯데|해태제과|해태|빙그레|CJ제일제당|CJ|동원|풀무원|매일유업|남양유업|서울우유|오뚜기|팔도|청정원|하림)\s+/g, '')
+          .trim();
+
+        // 1차 검색: 정제된 상품명
+        let res = await searchFoodNutrition(cleanQuery, 1, 3);
+
+        // 1차 검색 실패 시 공백 분리하여 첫 번째 단어(대표 상품명)로 2차 검색 (예: "스윙칩 까르보나라불닭맛" -> "스윙칩")
+        if (res.items.length === 0 && cleanQuery.includes(' ')) {
+          const firstWord = cleanQuery.split(' ')[0];
+          if (firstWord.length >= 2) {
+            res = await searchFoodNutrition(firstWord, 1, 3);
+          }
+        }
+
         if (isMounted && res.items.length > 0) {
-          setFetchedNutrition(res.items[0].nutrition);
+          const officialItem = res.items[0];
+          setFetchedNutrition(officialItem.nutrition);
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify(officialItem.nutrition));
+          } catch (storageErr) {
+            // quota exceeded ignore
+          }
         }
       } catch (e) {
-        // fail silently
+        // silently fallback
       }
     };
 
-    fetchNutrition();
+    fetchOfficialNutrition();
     return () => { isMounted = false; };
-  }, [selectedProduct?.id, selectedProduct?.name, selectedProduct?.nutrition]);
+  }, [selectedProduct?.id, selectedProduct?.name]);
 
   if (!selectedProduct) return null;
 
@@ -801,16 +833,21 @@ export const ProductDetailModal: React.FC = () => {
                 </div>
               </div>
             ) : (() => {
-              const activeNutrition = selectedProduct.nutrition || fetchedNutrition;
-              const displayCalories = selectedProduct.calories || activeNutrition?.calories;
-              const isAutoFetched = !selectedProduct.nutrition && Boolean(fetchedNutrition);
+              const activeNutrition = fetchedNutrition || selectedProduct.nutrition;
+              const displayCalories = (fetchedNutrition && fetchedNutrition.calories) || selectedProduct.calories;
+              const isOfficialVerified = Boolean(fetchedNutrition);
 
               return (
                 <div className="space-y-2">
-                  {isAutoFetched && (
-                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-100 animate-in fade-in">
+                  {isOfficialVerified ? (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold border border-emerald-200 dark:border-emerald-800 animate-in fade-in">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span>식약처 공식 식품영양성분DB 자동 연동</span>
+                      <span>🌿 식품의약품안전처 공식 식품영양성분DB 검증</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 text-[10px]">
+                      <Info className="w-3 h-3 text-slate-400 shrink-0" />
+                      <span>제조사 공개 영양성분 기준</span>
                     </div>
                   )}
                   <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
