@@ -13,9 +13,7 @@ export const MyPageView: React.FC = () => {
     currentUser,
     savedSaleIds,
     updateUserNickname,
-    setActiveTab,
-    openLoginModal,
-    loginWithApple
+    setActiveTab
   } = useApp();
 
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
@@ -33,9 +31,6 @@ export const MyPageView: React.FC = () => {
   };
 
   const menuItems = [
-    ...(currentUser.isAnonymous ? [
-      { label: '🔑 간편 로그인 / 계정 연동', sub: 'Apple·카카오·Google', hi: true, action: openLoginModal }
-    ] : []),
     { label: '내가 쓴 리뷰', sub: `${myReviewsCount}개`, action: () => setIsReviewsOpen(true) },
     { label: '찜한 제품', sub: `${bookmarkedIds.length}개`, action: () => setIsBookmarksOpen(true) },
     { label: '비교함', sub: `${comparedIds.length}개`, action: () => setActiveTab('compare') },
@@ -146,45 +141,6 @@ export const MyPageView: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* 2.5 Quick Social Login / Account Link Banner */}
-      {currentUser.isAnonymous && (
-        <div className="px-4 mt-3">
-          <div className="bg-gradient-to-br from-slate-900 via-gray-900 to-black rounded-2xl p-4 text-white shadow-sm border border-gray-800">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-md">
-                  간편 계정 연결
-                </span>
-                <h3 className="text-[14px] font-extrabold mt-1.5 leading-snug">
-                  계정을 연결하고 내 활동을 안전하게 보관하세요
-                </h3>
-                <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
-                  기기를 변경해도 리뷰, 찜 목록, 보유 포인트를 그대로 유지할 수 있습니다.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-3.5 pt-3 border-t border-gray-800 flex items-center gap-2">
-              <button
-                onClick={loginWithApple}
-                className="flex-1 h-10 bg-white hover:bg-gray-100 active:scale-[0.99] text-black rounded-xl flex items-center justify-center gap-2 font-bold text-xs shadow-sm transition-all cursor-pointer"
-              >
-                <svg className="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 170 170">
-                  <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.69-7.85-12-14.42-6.74-10.23-11.75-21.9-15.03-35.01-3.28-13.11-4.92-25.16-4.92-36.15 0-14.36 3.69-26.06 11.07-35.1 7.38-9.04 16.74-13.68 28.08-13.91 4.79 0 10.27 1.22 16.44 3.66 6.18 2.44 10.05 3.72 11.62 3.84 2.07-.23 6.06-1.55 11.96-3.96 5.9-2.42 11.07-3.51 15.52-3.28 14.15.82 25.17 6.13 33.06 15.93-12.38 7.5-18.42 17.65-18.12 30.45.31 10.24 4.29 18.79 11.94 25.65 7.65 6.86 16.79 10.74 27.42 11.65-2.22 6.74-4.82 13.54-7.8 20.41zM119.22 32.64c0-7.39 2.67-14.33 8.01-20.82 5.34-6.49 12.01-10.66 20.02-12.51.21 1.09.32 2.12.32 3.09 0 7.39-2.73 14.48-8.19 21.26-5.46 6.78-12.18 10.9-20.16 12.36-.21-1.09-.32-2.12-.32-3.38z" />
-                </svg>
-                <span>Apple로 시작하기</span>
-              </button>
-              <button
-                onClick={openLoginModal}
-                className="h-10 px-3 bg-white/10 hover:bg-white/20 active:scale-[0.99] text-gray-200 rounded-xl text-xs font-semibold transition-all cursor-pointer"
-              >
-                더보기
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* 3. Menu list */}
       <div className="mt-4 bg-white divide-y divide-gray-100 rounded-2xl mx-4 overflow-hidden border border-gray-100 shadow-sm">

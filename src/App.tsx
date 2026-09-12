@@ -23,9 +23,11 @@ import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
 import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
 import { RankingView } from './components/ranking/RankingView';
 import { LoginModal } from './components/common/LoginModal';
+import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
+import { NicknameSetupModal } from './components/auth/NicknameSetupModal';
 
 export const App: React.FC = () => {
-  const { activeTab } = useApp();
+  const { activeTab, currentUser, isGuestBrowse } = useApp();
 
   // Check URL parameters or pathname for public web policy viewer (Store Review Requirement)
   const urlParams = new URLSearchParams(window.location.search);
@@ -48,6 +50,16 @@ export const App: React.FC = () => {
         <PushBanner />
         <AdminDashboard />
       </div>
+    );
+  }
+
+  // First-time Launch / Unauthenticated Onboarding Auth View
+  if (currentUser.isAnonymous && !isGuestBrowse) {
+    return (
+      <>
+        <ToastContainer />
+        <AuthOnboardingView />
+      </>
     );
   }
 
@@ -86,6 +98,7 @@ export const App: React.FC = () => {
         <RecipeDetailModal />
         <WriteRecipeModal />
         <LoginModal />
+        <NicknameSetupModal />
 
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
         <BottomNav />

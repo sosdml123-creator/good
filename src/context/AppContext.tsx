@@ -113,6 +113,11 @@ interface AppContextType {
   isLoginModalOpen: boolean;
   setIsLoginModalOpen: (open: boolean) => void;
   openLoginModal: () => void;
+  isGuestBrowse: boolean;
+  setIsGuestBrowse: (val: boolean) => void;
+  isNicknameModalOpen: boolean;
+  setIsNicknameModalOpen: (open: boolean) => void;
+  completeNicknameSetup: (newNickname: string) => Promise<void>;
 
   // Events & Push Notifications Actions
   addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
@@ -511,6 +516,44 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const openLoginModal = () => setIsLoginModalOpen(true);
+  const [isGuestBrowse, setIsGuestBrowseState] = useState<boolean>(() => localStorage.getItem('sinsangpick_guest_browse') === 'true');
+  const setIsGuestBrowse = (val: boolean) => {
+    setIsGuestBrowseState(val);
+    localStorage.setItem('sinsangpick_guest_browse', String(val));
+  };
+  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState<boolean>(false);
+
+  const completeNicknameSetup = async (newNickname: string) => {
+    const uid = currentUser.uid;
+    const bonus = 100;
+    const nextPoints = currentUser.points + bonus;
+    localStorage.setItem('sinsangpick_points', nextPoints.toString());
+    localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
+    localStorage.setItem('sinsangpick_name', newNickname);
+
+    setCurrentUser(prev => ({
+      ...prev,
+      displayName: newNickname,
+      points: nextPoints,
+      level: calculateLevel(nextPoints),
+    }));
+
+    setIsNicknameModalOpen(false);
+    setIsGuestBrowse(true);
+    showToast(`🎉 닉네임이 설정되었습니다! 웰컴 ${bonus}P가 지급되었어요!`, 'success');
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase.from('profiles').upsert({
+          id: uid,
+          display_name: newNickname,
+          points: nextPoints,
+        }, { onConflict: 'id' });
+      } catch (err) {
+        console.warn('Failed to update profile nickname in Supabase:', err);
+      }
+    }
+  };
 
   const [products, setProducts] = useState<Product[]>(() => {
     try {
@@ -1085,10 +1128,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           localStorage.setItem('sinsangpick_uid', u.id);
           localStorage.setItem('sinsangpick_name', displayName);
           setIsLoginModalOpen(false);
+          setIsGuestBrowse(true);
 
           if (event === 'SIGNED_IN') {
-            const providerMsg = providerName === 'apple' ? '🍎 Apple 계정으로 로그인되었습니다!' : '✨ 소셜 계정으로 로그인되었습니다!';
-            showToast(providerMsg, 'success');
+            const hasNicknameSet = localStorage.getItem('sinsangpick_nickname_set_' + u.id);
+            if (!hasNicknameSet) {
+              setIsNicknameModalOpen(true);
+            } else {
+              const providerMsg = providerName === 'apple' ? '🍎 Apple 계정으로 로그인되었습니다!' : '✨ 소셜 계정으로 로그인되었습니다!';
+              showToast(providerMsg, 'success');
+            }
             if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
               window.history.replaceState(null, '', window.location.pathname);
             }
@@ -1516,6 +1565,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
       localStorage.removeItem('sinsangpick_points');
+      localStorage.removeItem('sinsangpick_guest_browse');
+      setIsGuestBrowseState(false);
       const initialUser = createInitialUser();
       setCurrentUser(initialUser);
       showToast('로그아웃 되었습니다.', 'info');
@@ -3043,6 +3094,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isLoginModalOpen,
         setIsLoginModalOpen,
         openLoginModal,
+        isGuestBrowse,
+        setIsGuestBrowse,
+        isNicknameModalOpen,
+        setIsNicknameModalOpen,
+        completeNicknameSetup,
 
         // Events & Push Notifications
         addEvent,
