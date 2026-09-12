@@ -304,7 +304,7 @@ export const INITIAL_SALE_PROMOTIONS: SalePromotionItem[] = [
     salePrice: 1500,
     unitPriceDescription: '1+1 개당 750원꼴',
     discountRate: 50,
-    image: 'https://images.unsplash.com/photo-1622484216850-252f8664eb2f?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=600&auto=format&fit=crop&q=80',
     period: '09.05 ~ 09.28',
     dDay: 'D-16',
     benefitTag: '바쁜 아침 든든한 간식',

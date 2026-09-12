@@ -4,6 +4,7 @@ import { ChevronLeft, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
 import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
+import { SafeImage } from '../common/SafeImage';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 
@@ -240,7 +241,13 @@ export const DiscoverView: React.FC = () => {
                       {item.reviewRank}
                     </span>
 
-                    <img src={p.image} alt={p.name} className="w-10 h-10 rounded-lg object-cover bg-gray-100 shrink-0" />
+                    <SafeImage
+                      src={p.image}
+                      alt={p.name}
+                      fallbackCategory={p.category}
+                      fallbackName={p.name}
+                      className="w-10 h-10 rounded-lg object-cover bg-gray-100 shrink-0"
+                    />
                     
                     <div className="min-w-0">
                       <div className="text-xs font-bold text-gray-900 truncate">{p.name}</div>
@@ -299,7 +306,13 @@ export const DiscoverView: React.FC = () => {
               >
                 {/* Image & Rank Badge */}
                 <div className="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-gray-100 shadow-2xs">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                  <SafeImage
+                    src={p.image}
+                    alt={p.name}
+                    fallbackCategory={p.category}
+                    fallbackName={p.name}
+                    className="w-full h-full object-cover"
+                  />
                   
                   {/* 순위 뱃지 */}
                   <span className={`absolute top-1 left-1 w-5 h-5 rounded-md text-[11px] font-black flex items-center justify-center shadow-xs ${

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Star, Heart, MessageSquare, Send } from 'lucide-react';
+import { SafeImage } from '../common/SafeImage';
 
 interface ReviewListProps {
   productId?: string;
@@ -67,6 +68,9 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                   src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
                   alt={r.userName}
                   className="w-8 h-8 rounded-full object-cover bg-gray-100"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+                  }}
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
@@ -149,10 +153,11 @@ export const ReviewList: React.FC<ReviewListProps> = ({
               {r.images && r.images.length > 0 && (
                 <div className="flex gap-2 mt-2.5 overflow-x-auto no-scrollbar">
                   {r.images.map((imgSrc, imgIdx) => (
-                    <img 
+                    <SafeImage 
                       key={imgIdx} 
                       src={imgSrc} 
                       alt="review" 
+                      fallbackName={r.productName || '리뷰 사진'}
                       className={`rounded-xl object-cover border border-gray-100 ${
                         r.images && r.images.length > 1 ? 'w-40 h-32 shrink-0' : 'w-full h-44'
                       }`} 

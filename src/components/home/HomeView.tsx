@@ -11,6 +11,7 @@ import {
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { POPULAR_BRANDS } from '../../utils/brandData';
 import { BrandLogo } from '../brand/BrandLogo';
+import { SafeImage } from '../common/SafeImage';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -309,6 +310,9 @@ export const HomeView: React.FC = () => {
                 src={banner.image}
                 alt={banner.title}
                 draggable={false}
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80';
+                }}
                 className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
@@ -523,9 +527,11 @@ export const HomeView: React.FC = () => {
                     }}
                     className="flex gap-2.5 cursor-pointer group"
                   >
-                    <img 
+                    <SafeImage 
                       src={item.image} 
                       alt={item.title} 
+                      fallbackName={item.title}
+                      fallbackCategory="과자"
                       className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
                     />
                     <div className="min-w-0 flex-1">
@@ -616,9 +622,11 @@ export const HomeView: React.FC = () => {
                   className="shrink-0 w-[138px] cursor-pointer group"
                 >
                   <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-square shadow-2xs">
-                    <img
+                    <SafeImage
                       src={p.image}
                       alt={p.name}
+                      fallbackName={p.name}
+                      fallbackCategory={p.category}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
@@ -789,7 +797,13 @@ export const HomeView: React.FC = () => {
                 className="shrink-0 w-[130px] cursor-pointer group"
               >
                 <div className="relative rounded-xl overflow-hidden bg-gray-100" style={{ height: '130px' }}>
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <SafeImage
+                    src={p.image}
+                    alt={p.name}
+                    fallbackName={p.name}
+                    fallbackCategory={p.category}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
                   
                   {/* Rank Badge */}
                   <div className="absolute top-1.5 left-1.5">
@@ -882,6 +896,9 @@ export const HomeView: React.FC = () => {
                     src={ev.bannerImage}
                     alt={ev.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                   
@@ -957,6 +974,9 @@ export const HomeView: React.FC = () => {
                     src={recipe.image}
                     alt={recipe.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   
@@ -1032,7 +1052,13 @@ export const HomeView: React.FC = () => {
                   battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20 shadow-xs' : 'border-gray-200'
                 }`}
               >
-                <img src={prodA.image} alt={prodA.name} className="w-full aspect-square object-cover" />
+                <SafeImage
+                  src={prodA.image}
+                  alt={prodA.name}
+                  fallbackName={prodA.name}
+                  fallbackCategory={prodA.category}
+                  className="w-full aspect-square object-cover"
+                />
                 <div className="p-2.5">
                   <div className="text-[11px] text-[#0066FF] font-bold">{battleConfig.labelA || `${prodA.category} 1위`}</div>
                   <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
@@ -1054,7 +1080,13 @@ export const HomeView: React.FC = () => {
                   battleChoice === 'B' ? 'border-orange-500 bg-orange-50/20 shadow-xs' : 'border-gray-200'
                 }`}
               >
-                <img src={prodB.image} alt={prodB.name} className="w-full aspect-square object-cover" />
+                <SafeImage
+                  src={prodB.image}
+                  alt={prodB.name}
+                  fallbackName={prodB.name}
+                  fallbackCategory={prodB.category}
+                  className="w-full aspect-square object-cover"
+                />
                 <div className="p-2.5">
                   <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category} 1위`}</div>
                   <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
@@ -1092,7 +1124,13 @@ export const HomeView: React.FC = () => {
               <span className={`w-5 text-[13px] font-black ${i === 0 ? 'text-[#0066FF]' : i === 1 ? 'text-gray-700' : 'text-gray-400'}`}>
                 {i + 1}
               </span>
-              <img src={p.image} alt={p.name} className="w-14 h-14 rounded-xl object-cover bg-gray-100 shrink-0" />
+              <SafeImage
+                src={p.image}
+                alt={p.name}
+                fallbackName={p.name}
+                fallbackCategory={p.category}
+                className="w-14 h-14 rounded-xl object-cover bg-gray-100 shrink-0"
+              />
               <div className="flex-1 min-w-0">
                 <div className="text-[11px] text-gray-400">{p.brand} {p.subCategory ? `· ${p.subCategory}` : ''}</div>
                 <div className="text-[13px] font-semibold text-gray-900 truncate">{p.name}</div>
@@ -1132,7 +1170,14 @@ export const HomeView: React.FC = () => {
                 className="cursor-pointer space-y-2 pb-3 border-b border-gray-100 last:border-0"
               >
                 <div className="flex items-center gap-2">
-                  <img src={r.userAvatar} alt={r.userName} className="w-8 h-8 rounded-full object-cover" />
+                  <img
+                    src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                    alt={r.userName}
+                    className="w-8 h-8 rounded-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+                    }}
+                  />
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-[13px] font-semibold text-gray-900">{r.userName}</span>
@@ -1157,7 +1202,13 @@ export const HomeView: React.FC = () => {
                 </p>
 
                 {r.images && r.images.length > 0 && (
-                  <img src={r.images[0]} alt="review" className="mt-2 w-full rounded-xl object-cover" style={{ height: '160px' }} />
+                  <SafeImage
+                    src={r.images[0]}
+                    alt="review"
+                    fallbackName={r.productName || '리뷰 사진'}
+                    className="mt-2 w-full rounded-xl object-cover"
+                    style={{ height: '160px' }}
+                  />
                 )}
 
                 <div className="flex items-center gap-4 mt-2 text-[12px] text-gray-400">

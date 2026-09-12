@@ -9,6 +9,7 @@ import {
   Share2
 } from 'lucide-react';
 import { SaleStoreType, SalePromotionItem } from '../../types';
+import { SafeImage } from '../common/SafeImage';
 
 type FilterType = 'all' | '1+1' | '2+1' | 'discount' | 'saved';
 type SortOption = 'popular' | 'discount' | 'urgent';
@@ -347,11 +348,12 @@ export const SaleNewsView: React.FC = () => {
                   className={`flex gap-3 items-center ${item.productId ? 'cursor-pointer' : ''}`}
                 >
                   <div className="relative shrink-0 overflow-hidden rounded-xl bg-gray-100 w-20 h-20 border border-gray-100">
-                    <img
+                    <SafeImage
                       src={item.image}
                       alt={item.title}
+                      fallbackName={item.title}
+                      fallbackCategory="과자"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
                     />
                     {item.isHot && (
                       <span className="absolute bottom-1 left-1 bg-red-600 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full shadow-2xs">

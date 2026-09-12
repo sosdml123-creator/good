@@ -162,13 +162,13 @@ const HIGH_QUALITY_CATEGORY_IMAGES: Record<ProductCategory, string[]> = {
     'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80', // 프리미엄 버거
     'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80', // 치즈버거
     'https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&auto=format&fit=crop&q=80', // 버거&감튀
-    'https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&auto=format&fit=crop&q=80', // 치킨너겟/윙
+    'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&auto=format&fit=crop&q=80', // 치킨너겟/윙
     'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&auto=format&fit=crop&q=80'  // 감자튀김
   ],
   '음료': [
     'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=800&auto=format&fit=crop&q=80', // 커피
     'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800&auto=format&fit=crop&q=80', // 탄산캔
-    'https://images.unsplash.com/photo-1608270178497-60e5dfa43872?w=800&auto=format&fit=crop&q=80', // 맥주/주류
+    'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&auto=format&fit=crop&q=80', // 맥주/주류
     'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&auto=format&fit=crop&q=80', // 라떼/오트
     'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=800&auto=format&fit=crop&q=80'  // 주스/스무디
   ],

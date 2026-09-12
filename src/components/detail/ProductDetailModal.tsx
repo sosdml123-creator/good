@@ -25,6 +25,7 @@ import { StoreStockItem } from '../../types';
 import { ReviewList } from './ReviewList';
 import { NearbyStoreStockModal } from './NearbyStoreStockModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
+import { SafeImage } from '../common/SafeImage';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -147,9 +148,11 @@ export const ProductDetailModal: React.FC = () => {
 
       {/* 2. Product image */}
       <div className="bg-white py-6 flex justify-center border-b border-gray-50 relative">
-        <img
+        <SafeImage
           src={selectedProduct.image}
           alt={selectedProduct.name}
+          fallbackCategory={selectedProduct.category}
+          fallbackName={selectedProduct.name}
           className="w-64 h-64 object-cover rounded-2xl shadow-xs"
         />
         <span className="absolute top-4 left-4 bg-black/75 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-xs flex items-center gap-1">
