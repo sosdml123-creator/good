@@ -129,26 +129,30 @@ export async function searchFoodNutrition(
     return { totalCount: 0, items: [] };
   }
 
-  // 1차 시도: Vercel Serverless Function Proxy (/api/nutrition)
-  try {
-    const proxyUrl = `/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
-    const res = await fetch(proxyUrl);
-    if (res.ok) {
-      const data = await res.json();
-      if (data?.body?.items && Array.isArray(data.body.items)) {
-        return {
-          totalCount: Number(data.body.totalCount) || data.body.items.length,
-          items: data.body.items.map(mapToFoodNutritionData)
-        };
+  // 1차 시도: Vercel Serverless Function Proxy (/api/nutrition) (브라우저 환경일 때)
+  if (typeof window !== 'undefined') {
+    try {
+      const proxyUrl = `/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
+      const res = await fetch(proxyUrl);
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.body?.items && Array.isArray(data.body.items)) {
+          return {
+            totalCount: Number(data.body.totalCount) || data.body.items.length,
+            items: data.body.items.map(mapToFoodNutritionData)
+          };
+        }
       }
+    } catch (proxyError) {
+      console.warn('[NutritionAPI] Proxy call failed or not running in Vercel, falling back to direct call:', proxyError);
     }
-  } catch (proxyError) {
-    console.warn('[NutritionAPI] Proxy call failed or not running in Vercel, falling back to direct call:', proxyError);
   }
 
   // 2차 시도: Direct API Call (모바일 앱 또는 프록시 미작동 시)
   try {
-    const apiKey = import.meta.env.VITE_FOOD_NUTRITION_API_KEY || DEFAULT_API_KEY;
+    const apiKey = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_FOOD_NUTRITION_API_KEY) ||
+                   (typeof process !== 'undefined' && process.env && (process.env.VITE_FOOD_NUTRITION_API_KEY || process.env.FOOD_NUTRITION_API_KEY)) ||
+                   DEFAULT_API_KEY;
     const directUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
 
     const res = await fetch(directUrl);

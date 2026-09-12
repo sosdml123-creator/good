@@ -4331,6 +4331,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
+    calories: 255,
     volume: "200g",
     
     isHot: true,
@@ -4342,6 +4343,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 255,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -4408,6 +4410,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
     
+    calories: 204,
     volume: "200g",
     
     isHot: true,
@@ -4419,6 +4422,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 204,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -4485,6 +4489,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
+    calories: 260,
     volume: "200g",
     
     isHot: true,
@@ -4496,6 +4501,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 260,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -4562,6 +4568,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
     
+    calories: 255,
     volume: "160g(16g x 10개입)",
     
     isHot: true,
@@ -4573,6 +4580,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 255,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -4716,6 +4724,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
     
+    calories: 255,
     volume: "2kg",
     
     isHot: true,
@@ -4727,6 +4736,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 255,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8335,6 +8345,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
+    calories: 235,
     volume: "1,500 g",
     
     
@@ -8346,6 +8357,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 235,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8412,6 +8424,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
+    calories: 250,
     volume: "1,300 g",
     
     
@@ -8423,6 +8436,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 250,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8489,6 +8503,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
     
+    calories: 260,
     volume: "1,000 g",
     
     
@@ -8500,6 +8515,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 260,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8643,6 +8659,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
+    calories: 195,
     volume: "1,000g",
     
     
@@ -8654,6 +8671,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 195,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8720,6 +8738,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
     
+    calories: 180,
     volume: "1KG",
     
     
@@ -8731,6 +8750,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 180,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -8797,6 +8817,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
+    calories: 185,
     volume: "1kg",
     
     
@@ -8808,6 +8829,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 185,
       
       sodium: '1150mg',
       carbs: '65g',
@@ -9028,6 +9050,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
     
+    calories: 220,
     volume: "1,000g",
     
     
@@ -9039,6 +9062,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
+      calories: 220,
       
       sodium: '1150mg',
       carbs: '65g',
