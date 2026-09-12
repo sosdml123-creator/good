@@ -1,6 +1,6 @@
-﻿import React from 'react';
+import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Sparkles, ArrowRight, ShieldCheck, Flame, Award, Tag } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Flame, Award, Tag } from 'lucide-react';
 
 export const AuthOnboardingView: React.FC = () => {
   const { loginWithApple, loginWithKakao, loginWithGoogle, setIsGuestBrowse } = useApp();
@@ -15,13 +15,20 @@ export const AuthOnboardingView: React.FC = () => {
 
         {/* Top Header & Branding */}
         <div className="relative z-10 pt-8 space-y-6">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#0066FF] to-blue-400 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-              <Sparkles className="w-5 h-5 fill-white/20" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-blue-500/25 border border-white/40 shrink-0">
+              <img 
+                src="/logo.png" 
+                alt="신상픽 (SinSangPick)" 
+                className="w-full h-full object-cover" 
+              />
             </div>
             <div className="flex flex-col">
-              <span className="text-[17px] font-black tracking-tight text-gray-900 leading-none">신상픽</span>
-              <span className="text-[10px] font-bold text-[#0066FF] tracking-wider uppercase mt-0.5">Sinsangpick</span>
+              <div className="flex items-center gap-1">
+                <span className="text-[18px] font-black tracking-tight text-gray-900 leading-none">신상픽</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF]"></span>
+              </div>
+              <span className="text-[10px] font-bold text-[#0066FF] tracking-wider uppercase mt-0.5">NEW PICK • Sinsangpick</span>
             </div>
           </div>
 

@@ -351,16 +351,16 @@ export const SettingsView: React.FC = () => {
             {/* Version Info */}
             <div className="px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-gray-50 text-gray-600 flex items-center justify-center shrink-0">
-                  <Info className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-xl overflow-hidden shadow-2xs border border-gray-100 shrink-0">
+                  <img src="/logo.png" alt="신상픽" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">앱 버전 정보</div>
-                  <div className="text-[11px] text-gray-400">최신 버전 이용 중</div>
+                  <div className="text-xs font-bold text-gray-900">신상픽 공식 앱 버전</div>
+                  <div className="text-[11px] text-gray-400">최신 정식 릴리즈 v1.0.0</div>
                 </div>
               </div>
-              <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full">
-                v1.0.0
+              <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded-full">
+                최신 버전
               </span>
             </div>
 
