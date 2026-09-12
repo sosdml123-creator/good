@@ -57,8 +57,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5467"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "더 부드럽고 더 촉촉해진 신선한 우유맛 가득한 식빵",
@@ -120,8 +119,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5469"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "꿀분말과 펄슈가를 넣어 은은한 단맛과 고소한 버터 풍미로 토스트 하였을 때 가장 맛있는 식빵",
@@ -183,8 +181,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5471"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "탕종법을 사용해 촉촉하고 쫄깃한 식감을 살리고, 현미와 호두, 아몬드, 호박씨, 해바라기씨 등 다양한 견과류를 더해 고소하게 즐기기 좋은 고단백 식빵",
@@ -244,8 +241,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5470"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "식이섬유가 풍부한 고대곡물 호라산밀과 밀기울로 만들어 더 건강하고, 더 고소하게! 샌드위치로도 활용하기 좋은 데일리 건강 식빵",
@@ -305,8 +301,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5098"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "2배 더 진해진 우유 함량과 순우유 탕종으로 보들보들한 빵결 속에 진한 우유의 고소한 풍미를 가득 담은 우유 식빵",
@@ -366,8 +361,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5099"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "2배 더 진해진 우유 함량과 순우유 탕종으로 보들보들한 빵결 속에 진한 우유의 고소한 풍미를 가득 담은 우유 식빵",
@@ -427,8 +421,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4436"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "탕종을 넣어 더욱 촉촉하고 쫄깃한 식감과 은은한 단맛이 어우러지는 담백 식빵",
@@ -489,8 +482,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3949"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "마스카포네 생크림을 넣어 극강의 부드러움과 마지막까지 은은한 단맛을 느낄 수 있는 뚜레쥬르 대표 식빵",
@@ -551,8 +543,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2507"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "한층 더 촉촉해지고 옥수수 맛이 풍부한 빵 속에 고소한 옥수수 알갱이가 톡톡 씹히는 식빵",
@@ -613,8 +604,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3888"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "한층 더 촉촉해지고 옥수수 맛이 풍부한 빵 속에 고소한 옥수수 알갱이가 톡톡 씹히는 식빵",
@@ -674,8 +664,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5124"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "3개의 이즈니버터 홀로 깊어진 풍미와 소금의 짭조름한 맛을 더 바삭하고 더 쫄깃하게 즐길 수 있는 시그니처 식빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -736,8 +725,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4792"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "통밀을 넣어 고소 담백하고 맥주발효종으로 풍미와 식감을 더한 식사빵. 맛있고 건강한 푸드업사이클링 재료를 더해 내 몸과 지구에 더욱 건강한 제품 * 푸드 업사이클링 재료인 밀기울이 완전히 분쇄되지 않아 씹힐 수 있으나, 이물이 아니오니 안심하시기 바랍니다.",
@@ -798,8 +786,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5320"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "호라산밀, 듀럼밀, 오트로 식이섬유가 가득하고, 씹을수록 고소하고 깊은 풍미가 살아있는 촉촉한 오트 식빵 ※ 겉면의 곡물은 굽는 과정에서 다소 단단해질 수 있으니 섭취 시 주의 부탁드립니다.",
@@ -861,8 +848,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3603"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "브라운버터를 넣어 버터의 풍미를 올린 촉촉하고 부드러운 빵에 바삭하고 고소한 풍미의 패스트리가 만나 껍질까지 맛있게 먹을 수 있는 맛있는 식빵",
@@ -925,8 +911,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2523"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "호박의 고소한 맛을 살린 바삭한 패스트리 식빵",
@@ -989,8 +974,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 6000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4635"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 촉촉한 반죽에 밤다이스와 밤크림이 듬뿍 들어가 밤 맛의 풍부함을 한 층 업그레이드한 제품",
@@ -1054,8 +1038,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4636"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 촉촉한 반죽에 밤다이스와 밤크림이 듬뿍 들어가 밤 맛의 풍부함을 한 층 업그레이드한 제품",
@@ -1117,8 +1100,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3800,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5573"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "다크·밀크 초콜릿을 듬뿍 더해 달콤함도 더블! 진한 카카오 풍미와 호두의 고소함을 담은 부드러운 초코 바게트",
@@ -1182,8 +1164,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4200,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5556"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "담백하고 쫄깃한 라우겐에 소시지와 달콤짭조름한 소불고기를 듬뿍 담아 든든하게 즐기는 조리빵",
@@ -1243,8 +1224,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5489"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "은은한 산미가 매력적인 발아 호밀이 들어간 사워도우에 대추야자, 건자두, 건포도를 더해 쫀득하고 달콤하게 즐기는 식사빵",
@@ -1306,8 +1286,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5490"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "짭조름한 올리브와 치즈, 고소한 견과류와 달콤한 크랜베리를 더해 그냥 먹어도 맛있는 롱~한 깜파뉴",
@@ -1367,8 +1346,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5123"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국내산 쌀로 만든 쌀 탕종과 쌀 발효당으로 더 쫄깃하고 촉촉하게 구워낸 쌀 베이글 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -1430,8 +1408,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5237"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "마늘의 향긋함과 버터의 고소한 맛을 그대로 담은 바삭한 식감의 마늘 바게트",
@@ -1491,8 +1468,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5122"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국내산 쌀 탕종과 발효당을 더한 반죽에 올리브를 더해 감칠맛은 더 올리고 쫄깃한 식감을 살려 구워낸 쌀 베이글 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -1552,8 +1528,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 2600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4807"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "폭신하고 쫄깃한 기지에 담백한 플레인 베이글",
@@ -1613,8 +1588,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4808"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "폭신하고 쫄깃한 기지에 새콤달콤한 블루베리가 콕콕 박혀있는 블루베리 베이글",
@@ -1675,8 +1649,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4791"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "통밀을 넣어 고소 담백하고, 맥주 발효종으로 풍미와 식감을 더한 식사빵 그냥 먹기에도 좋고, 샌드위치 빵으로도 활용 가능한 건강빵 * 푸드 업사이클링 재료인 밀기울이 완전히 분쇄되지 않아 씹힐 수 있으나, 이물이 아니오니 안심하시기 바랍니다.",
@@ -1737,8 +1710,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 4800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5012"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 빵에 견과류를 듬뿍 넣어 고소하고 담백한 맛을 느낄 수 있는 식사빵으로 그냥 먹기에도 좋고, 샌드위치 빵으로도 활용 가능한 고단백 건강빵",
@@ -1800,8 +1772,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5513"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "마늘 소스를 듬뿍 더해 마늘 본연의 풍미에 퐁당! 겉은 바삭, 속은 꾸덕하고 촉촉해 더욱 진하고 맛있는 마늘 바게트",
@@ -1861,8 +1832,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5235"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 호두를 더해 풍미와 씹는 식감이 더해진 호두 바게트",
@@ -1924,8 +1894,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5236"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 풍미 가득 호두 바게트에 연유크림을 더해 달콤하게 즐기는 간식형 바게트",
@@ -1984,8 +1953,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5234"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "프랑스산 밀가루가 들어가 겉은 더 바삭하고 속은 더 촉촉한, 구수한 맛의 정통 바게트",
@@ -2045,8 +2013,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3923"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "담백한 라우겐 빵 속에 달콤한 연유와 AOP 버터가 샌드된 제품",
@@ -2106,8 +2073,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4044"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "담백한 라우겐 속에 달콤한 통팥 앙금과 AOP 버터가 샌드된 제품",
@@ -2166,8 +2132,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3911"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "짙은 갈색이 도는 담백한 독일빵으로 앙버터, 샌드위치 등을 만들어 먹을 수 있는 제품",
@@ -2230,8 +2195,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3900,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5571"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 쫄깃한 포카치아에 짭조름한 베이컨과 웨지감자, 진한 오지치즈 소스를 더한 풍미 가득 간식빵",
@@ -2295,8 +2259,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3900,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5572"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 쫄깃한 포카치아에 은은한 마늘 풍미, 탱글한 새우가 들어간 감바스를 접목한 감칠맛 가득 간식빵",
@@ -2358,8 +2321,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5530"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "새콤달콤한 딸기우유 크림과 부드럽고 진한 크림치즈가 더해진 쫀득한 크림빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -2419,8 +2381,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5488"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "향긋한 쑥 풍미를 가득 담은 쫀득한 빵 안에 견과류가 듬뿍 들어간 무설탕 팥앙금으로 부담 없이 즐기는 단팥빵",
@@ -2482,8 +2443,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5477"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 연유크림을 듬뿍 더해 촉촉함에 퐁당! 버터 한 조각을 올려 풍미를 더하고, 데워 먹으면 더욱 맛있는 간식빵",
@@ -2545,8 +2505,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5527"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "겉은 바삭! 속은 쫀득! 맛 없을 수 없는 쫄깃한 식감에 매콤한 떡볶이 소스를 더해 떡볶이 맛 그대로 재현한 간식빵",
@@ -2607,8 +2566,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=46"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "타피오카를 넣어 쫄깃쫄깃하게 구워낸 빵",
@@ -2670,8 +2628,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=60"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤하고 부드러운 단팥 앙금을 듬뿍 넣어 남녀노소 좋아하는 간식빵",
@@ -2733,8 +2690,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5165"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 연유크림이 들어있는 단팥빵",
@@ -2797,8 +2753,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=59"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 땅콩과 소보로가 토핑된 간식빵",
@@ -2861,8 +2816,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5020"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "뚜레쥬르의 인기 아이템 소보로에 부드러운 생크림이 어우러진제품",
@@ -2925,8 +2879,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3802"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 소보로 빵 속에 달콤한 단팥 앙금이 들어있는 제품",
@@ -2989,8 +2942,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1291"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 땅콩크림이 들어있는 소보로",
@@ -3052,8 +3004,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 2200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=534"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 진한 슈크림이 들어간 간식빵",
@@ -3115,8 +3066,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=44"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 완두앙금이 들어있는 간식빵",
@@ -3178,8 +3128,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3080"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 빵속에 달콤한 연유버터크림을 샌드하여 여성층의 인기가 높은 빵",
@@ -3242,8 +3191,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=45"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭한 패스트리 결을 얹은 부드러운 빵 속에 고소한 땅콩크림이 샌드된 간식빵",
@@ -3305,8 +3253,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1240"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 소라 모양 빵에 진한 초코 크림이 듬뿍 들어있는 간식빵",
@@ -3368,8 +3315,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3834"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤하고 진한 초코 가나슈가 부드러운 빵 속에 가득 채워져 간식으로 즐기기 좋은 제품",
@@ -3430,8 +3376,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4348"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "물 대신 우유로만 반죽한 빵에 우유크림을 넣어 더 진한 우유의 맛을 느낄 수 있는 제품",
@@ -3491,8 +3436,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4767"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "우유 초죽을 넣어 촉촉하면서 부드러운 식감을 살리고 크림치즈 본연의 맛을 살린 간식빵",
@@ -3554,8 +3498,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3909"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고구마를 닮은 빵에 부드러운 크림과 고구마 필링이 듬뿍 들어있어 입안에서 사르르 녹는 빵",
@@ -3617,8 +3560,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5362"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 메이플의 깊은 풍미에, 고소한 피칸과 바삭한 쿠키를 더해 한층 더 맛있는 간식",
@@ -3680,8 +3622,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4688"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진하고 깊은 커피향과 버터 커스터드 내용물을 더해 한 층 업그레이드한 커피번",
@@ -3743,8 +3684,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5074"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진하고 깊은 커피향 가득 모카번에 부드러운 연유 생크림이 가득 들어간 간식형 제품",
@@ -3805,8 +3745,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4521"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "버터의 고소함과 소금의 짭짤함이 어우러져 술술 들어가는 식사빵",
@@ -3867,8 +3806,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5131"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 버터와 달콤한 팥앙금이 만난 소금버터롤 샌드",
@@ -3929,8 +3867,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4162"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "생크림과 꿀토핑물을 바르고 구워서 더욱 달콤 바삭해 한 번 먹으면 멈출 수 없는 러스크",
@@ -3992,8 +3929,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4241"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 생크림과 얼그레이 토핑을 더한 빵이 은은하게 어우러져 향긋한 홍차향을 느낄 수 있는 크림번",
@@ -4053,8 +3989,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4347"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "물 한방울도 넣지 않고 우유로만 반죽하여 구워내 폭신폭신하고 담백한 맛이 좋은 제품",
@@ -4116,8 +4051,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5097"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "우리 쌀이 들어가 더 폭신하고 촉촉한 빵 속에 단짠 우유크림을 더해 한 알씩 나눠먹는 크림빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -4179,8 +4113,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4046"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "치즈가 쏙쏙 박힌 쫄깃한 빵에 크림치즈를 넣고 달콤한 꿀을 토핑하여 빵순이라면 지나칠 수 없는 빵",
@@ -4241,8 +4174,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1557"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "담백한 빵 속에 고소한 롤치즈가 쏙쏙 박혀있는 미니 치즈롤",
@@ -4304,8 +4236,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1780"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "보들하고 부드러운 빵 속에 순수하고 진한 우유의 맛을 그대로 담은 제품",
@@ -4364,8 +4295,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5321"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "버터, 우유, 계란 없이 \"오트밀 페스토\"를 더해 만들어 고소함은 기본! 촉촉하고 부드러운 모닝롤",
@@ -4428,8 +4358,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5363"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "구수한 누룽지를 더해 겉은 바삭! 속은 고구마의 달콤함과 부드러움으로 가득- 누구나 즐기기 좋은 간식빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -4493,8 +4422,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4049"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 곡물빵과 달콤한 콩, 쫄깃한 찰떡이 조화롭게 어우러지는 든든한 제품",
@@ -4555,8 +4483,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5246"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "세 가지 콩과 팥, 고구마를 듬뿍! 맛있는 건강함을 담뿍 담고 깨를 더해 고소하고 달콤하게 즐기는 간식빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -4617,8 +4544,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5247"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "세 가지 콩과 팥, 고구마를 듬뿍! 맛있는 건강함을 담뿍 담고 깨를 더해 고소하고 달콤하게 즐기는 간식빵 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -4681,8 +4607,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1315"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "곡물빵에 부드럽고 달콤한 크림치즈를 넣은 간식빵",
@@ -4744,8 +4669,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=941"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "더욱 진해진 모카 풍미 가득! 우유, 커피와 함께 드시면 더욱 맛있는 제품",
@@ -4807,8 +4731,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3569"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진하고 부드러운 모카향 가득~ 우유나 커피와 함께하면 더욱 맛있는 뚜레쥬르 모카향 가득 모카빵",
@@ -4870,8 +4793,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1088"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "은은한 모카향 가득 모카빵에 달콤한 모카크림이 사이사이 샌드되어 더욱 맛있는 제품",
@@ -4933,8 +4855,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=54"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진한 모카향 가득한 빵에 달콤한 모카크림을 듬뿍 채워 더욱 부드럽게 즐길 수 있는 빵",
@@ -4996,8 +4917,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1733"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "은은한 모카향 가득 모카빵에 달콤한 모카크림이 사이사이 샌드되어 더욱 맛있는 제품",
@@ -5060,8 +4980,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3570"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "단팥 앙금과 크림, 고구마와 밤 다이스를 듬뿍 레이어드하고 땅콩소보로를 토핑한 달콤하고 속이 꽉 찬 제품",
@@ -5124,8 +5043,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4799"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "소보로를 토핑한 부드러운 빵 사이에 버터크림과 딸기잼을 샌드한 대형제품",
@@ -5187,8 +5105,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5525"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤하고 부드러운 버터크림이 사이 사이에 듬뿍 샌드된 부드러운 간식빵 *크림속 검은 반점은 바닐라씨드임으로 안심하고 드시길 바랍니다.",
@@ -5250,8 +5167,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5495"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 단팥 앙금이 들어있는 간식빵",
@@ -5314,8 +5230,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5496"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소하고 달콤한 소보로가 폭신한 빵과 어우러지는 간식빵",
@@ -5377,8 +5292,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 2200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5498"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 슈크림이 들어있는 간식빵",
@@ -5440,8 +5354,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5535"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "토이스토리 캐릭터 포키와 캐런의 사랑스러운 케미! 오직 우유로만 반죽하여 촉촉하고 부드러운 식감과 계란, 버터로 영양 가득한 스틱 브레드",
@@ -5503,8 +5416,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5536"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "토이스토리 캐릭터 버즈 라이트이어와 알린 출동! 부드럽고 촉촉한 빵 속에 달콤한 완두앙금이 들어있는 간식빵",
@@ -5566,8 +5478,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5298"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 버터크림이 들어있는 부드러운 스틱빵",
@@ -5630,8 +5541,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1459"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 땅콩크림을 듬뿍 넣은 땅콩크림빵",
@@ -5694,8 +5604,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1405"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "우유와 버터를 겹겹이 넣어 맛있게 구워낸 부드러운 간식용 빵!",
@@ -5758,8 +5667,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2020"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "한 겹 한 겹 촉촉한 빵에 치즈의 풍미가 가득한 스틱형 간식빵! 우유와 함께 드시면 더욱 부드럽습니다.",
@@ -5822,8 +5730,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1329"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "한입 사이즈의 미니 단팥빵",
@@ -5885,8 +5792,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2889"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "보들보들한 빵 결 속 풍부한 버터 향 가득! 담백하고 부드러운 모닝롤",
@@ -5947,8 +5853,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5472"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "상큼한 딸기 크림이 가득 들어간 간식형 제품",
@@ -6009,8 +5914,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5473"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 연유 크림이 가득 들어간 간식형 제품",
@@ -6076,8 +5980,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5528"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 빵에 짭쪼름한 소시지, 아삭한 야채마요 믹스를 더해 남녀노소 누구나 좋아하는 소시지빵",
@@ -6139,8 +6042,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3799"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "더욱 커지고 업그레이드된 후랑크 소시지가 통으로 들어간 고소하고 짭조롬한 제품",
@@ -6204,8 +6106,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3800"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 쫄깃한 포카치아 속에 머스터드, 크리스피 어니언이 토핑된 소시지를 함께 즐길 수 있는 든든한 간식빵",
@@ -6269,8 +6170,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=854"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 식빵 위에 피자 토핑을 올린 홈메이드 스타일 피자 토스트",
@@ -6332,8 +6232,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5021"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 식빵 위에 슬라이스 치즈와 햄을 놓고 피자 치즈를 듬뿍 뿌려 살짝 구운 간식빵",
@@ -6397,8 +6296,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3600,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4222"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "마늘버터로 구워낸 바삭한 식빵에 부드러운 계란 오믈렛과 새우가 어우러진 미니 토스트",
@@ -6462,8 +6360,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5022"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "더욱 촉촉해진 빵에 햄, 야채, 체다치즈가 콕콕 박혀 다른 재료 없이 그냥 먹어도 맛있는 모닝롤",
@@ -6526,8 +6423,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 4500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1222"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "담백한 빵과 체다치즈, 햄이 조화로운 미니사이즈 제품",
@@ -6591,8 +6487,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 4200,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4911"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 식빵 사이에 계란, 햄, 체다치즈, 몬잭치즈를 더해 맛을 더하고 계란 내용물을 묻혀 구워내 부드럽게 즐길 수 있는 토스트",
@@ -6655,8 +6550,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3500,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5538"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "톡톡 터지는 옥수수 알갱이의 달콤 고소함과 바삭한 나초칩, 짭조름한 치즈맛 시즈닝이 어우러져 자꾸만 생각나는 맛의 패스트리",
@@ -6719,8 +6613,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3400,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5542"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "상큼한 레몬 커스터드와 향긋한 얼그레이 크림, 달콤한 귤 토핑을 더한 빵에 화이트 초콜릿을 입혀 아그작한 식감을 살린 제품 (*우리밀 함유 제품)",
@@ -6783,8 +6676,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5529"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭한 패스트리 결 속 상큼한 레몬 커스타드와 향긋한 얼그레이 크림을 듬뿍 더한 크림빵 (*우리밀 함유 제품)",
@@ -6846,8 +6738,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5474"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "카라멜라이징된 달콤 바삭한 밑면과 쫄깃한 찰떡, 고소한 콩고물이 더해져 겹겹이 매력적인 K-패스트리",
@@ -6910,8 +6801,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5475"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 데니쉬와 시나몬 페이스트, 크림치즈 프로스팅이 어우러져 풍미 가득한 간식빵",
@@ -6975,8 +6865,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3500,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5569"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "짭조름한 햄과 치즈가 돌돌 말린 한 입에 쏙! 먹기 좋은 바삭한 패스트리",
@@ -7040,8 +6929,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3500,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5570"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "짭조름한 햄과 치즈가 돌돌 말린 한 입에 쏙! 먹기 좋은 바삭한 패스트리",
@@ -7103,8 +6991,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5476"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 데니쉬와 시나몬 페이스트, 다크 초콜릿이 어우러져 달콤하게 즐기기 좋은 간식빵",
@@ -7167,8 +7054,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5439"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "상큼한 딸기잼과 고소한 피스타치오 크림이 어우러진 바삭한 패스트리",
@@ -7230,8 +7116,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3557"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소한 버터 풍미가 진하고 바삭한 패스트리의 결이 살아있는 크라상",
@@ -7294,8 +7179,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3566"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "고소하고 바삭한 크라상에 달콤한 생크림을 샌드한 제품",
@@ -7356,8 +7240,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3559"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭하고 버터의 풍미가 좋은 크라상 속에 고소한 아몬드 크림이 샌드되어 달콤함을 더하는 커피와 잘 어울리는 제품",
@@ -7420,8 +7303,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3798"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "깊고 진한 버터의 풍미와 카라멜라이징한 생크림 소스와 설탕의 달달함이 어우러지는 제품",
@@ -7483,8 +7365,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1478"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭하고 달콤한 패스트리 속 슈크림을 듬뿍 넣은 제품",
@@ -7547,8 +7428,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4189"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "겹겹이 결이 살아있는 데니쉬에 설탕을 뿌려 구워내 달콤하게 즐길 수 있는 간식용 빵",
@@ -7611,8 +7491,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4188"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "겹겹이 결이 살아있는 데니쉬에 달콤한 연유크림을 듬뿍 샌드한 간식용 빵",
@@ -7675,8 +7554,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5096"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "프랑스산 버터가 겹겹이 녹아 퍼지는 풍미! 티슈처럼 한 장, 한 장 뜯어지는 재미를 더한 달콤한 패스트리",
@@ -7738,8 +7616,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 4800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4081"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "돌돌 말린 패스트리에 달콤한 시럽을 뿌려 촉촉한 식감과 풍미를 살리고 우박설탕을 더하여 마지막까지 맛있게 드실 수 있는 몽블랑",
@@ -7800,8 +7677,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3778"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "프랑스산 버터를 사용하여 풍미가 진하고 바삭한 패스트리에 달콤한 설탕을 토핑해 구워낸 스틱형 제품",
@@ -7863,8 +7739,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3776"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "먹는 순간 진한 버터의 풍미가 입안에 퍼지고, 씹을수록 앙금의 달콤함과 버터의 풍미가 전해지는 황금색 파이만주",
@@ -7925,8 +7800,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3257"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭바삭한 파이 안에 유자크림이 들어가 더욱 상큼한 패스트리",
@@ -7987,8 +7861,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 4800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4891"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭한 파이 속 달콤한 카라멜과 시나몬 풍미가 풍부한 사과 필링이 듬뿍 들어있는 제품",
@@ -8051,8 +7924,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 3500,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3573"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "육즙이 살아있는 짭조름한 그릴후랑크를 바삭한 패스트리에 통째로 올린 제품",
@@ -8115,8 +7987,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 3400,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5430"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭한 결의 패스트리 속 달콤한 커스터드와 초코칩을 더하고 초콜릿 토핑으로 더욱 달콤하게 즐길 수 있는 제품",
@@ -8181,8 +8052,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 2900,
         "eventBadge": "신제품",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5537"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "타코 스타일의 고기 내용물에 산뜻한 랜치 소스를 더하고, 겉면에 바삭한 나초칩 토핑으로 맛과 식감을 살린 고로케",
@@ -8242,8 +8112,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 1900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5239"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국내산 쌀로 만든 쌀 탕종으로 더 부드럽고 쫄깃해진 도넛 속 씹을수록 고소하고 달콤한 팥 앙금이 가득!",
@@ -8304,8 +8173,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5248"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "우리쌀을 더해 더 쫄깃하고, 조청으로 은은한 단맛과 쌀크런치 토핑으로 씹는 재미까지 더한 추억의 왕꽈배기 *본 제품에 들어간 가루쌀은 물에 불리지 않고 빻을 수 있는 국산 쌀 품종으로 농가와 상생하는 착한 원료입니다.",
@@ -8365,8 +8233,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=5238"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국내산 쌀로 만든 쌀 탕종으로 더 부드럽고 쫄깃해진, 어릴 적 먹던 한입 쏙 미니 찹쌀 도나쓰",
@@ -8428,8 +8295,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 11,
         "price": 2900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3878"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭바삭하게 잘 튀겨진 빵 속에 다진 돼지고기와 표고버섯, 당근, 부추, 당면 등이 듬뿍 들어있는 오리지널 고로케",
@@ -8491,8 +8357,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2000,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4171"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 폭신한 식감의 달콤한 추억의 꽈배기",
@@ -8554,8 +8419,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 13,
         "price": 2100,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=4172"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드럽고 폭신한 도넛 속 단팥 앙금이 듬뿍 들어있는 달콤한 추억의 도넛",
@@ -8617,8 +8481,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 1800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=848"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 도넛에 달콤한 슈거글레이즈를 디핑한 제품",
@@ -8680,8 +8543,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 7,
         "price": 1800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2692"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "화이트초코에 딸기마카롱 후레이크를 듬뿍 얹은 달콤한 도넛",
@@ -8742,8 +8604,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 8,
         "price": 1800,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=2691"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "초콜릿과 초코마카롱 후레이크를 듬뿍 얹은 달콤한 도넛",
@@ -8806,8 +8667,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 9,
         "price": 2900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=3879"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭바삭하게 잘 튀겨진 빵 속에 매콤 아삭한 김치와 깍두기, 당면이 듬뿍 들어있어 먹으면 먹을수록 끌리는 김치 고로케",
@@ -8870,8 +8730,7 @@ export const TLJ_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2900,
         "eventBadge": "인기베이커리",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.tlj.co.kr:7008/product/detail.asp?ref=2&prod_num=1807"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "바삭한 고로케 속에 아삭아삭 맛있는 야채 사라다가 듬뿍 들어간 든든한 식사 대용 제품",

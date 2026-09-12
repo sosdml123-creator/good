@@ -52,7 +52,7 @@ import {
   ArrowDown,
   ChevronLeft
 } from 'lucide-react';
-import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo, StoreStockItem } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -234,6 +234,7 @@ export const AdminDashboard: React.FC = () => {
     calories: number;
     volume: string;
     stores: string[];
+    storeLinks: Record<string, string>;
     isToday: boolean;
     isHot: boolean;
     ingredients: string;
@@ -254,6 +255,7 @@ export const AdminDashboard: React.FC = () => {
     calories: 350,
     volume: '80g',
     stores: ['CU', 'GS25'],
+    storeLinks: {},
     isToday: true,
     isHot: false,
     ingredients: '',
@@ -262,6 +264,14 @@ export const AdminDashboard: React.FC = () => {
     manufacturer: '',
     nutrition: undefined
   });
+
+  const [customStoreInput, setCustomStoreInput] = useState('');
+
+  // Quick Store Links Modal state
+  const [quickLinkProduct, setQuickLinkProduct] = useState<Product | null>(null);
+  const [quickStores, setQuickStores] = useState<string[]>([]);
+  const [quickStoreLinks, setQuickStoreLinks] = useState<Record<string, string>>({});
+  const [quickCustomStore, setQuickCustomStore] = useState('');
 
   // Banner modal states
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
@@ -735,6 +745,7 @@ export const AdminDashboard: React.FC = () => {
       calories: 350,
       volume: '80g',
       stores: ['CU', 'GS25'],
+      storeLinks: {},
       isToday: true,
       isHot: false,
       ingredients: '',
@@ -743,10 +754,25 @@ export const AdminDashboard: React.FC = () => {
       manufacturer: '',
       nutrition: undefined
     });
+    setCustomStoreInput('');
     setIsProductModalOpen(true);
   };
 
   const handleOpenEditProduct = (prod: Product) => {
+    const initialLinks: Record<string, string> = {};
+    if (prod.storeStocks) {
+      prod.storeStocks.forEach(st => {
+        if (st.appLink) {
+          initialLinks[st.store] = st.appLink;
+        }
+      });
+    }
+
+    const availableStores = Array.from(new Set([
+      ...(prod.stores || []),
+      ...(prod.storeStocks ? prod.storeStocks.map(s => s.store) : [])
+    ]));
+
     setEditingProductId(prod.id);
     setProductForm({
       name: prod.name,
@@ -760,7 +786,8 @@ export const AdminDashboard: React.FC = () => {
       description: prod.description || '',
       calories: prod.calories || 300,
       volume: prod.volume || '',
-      stores: prod.stores || ['CU'],
+      stores: availableStores.length > 0 ? availableStores : ['CU'],
+      storeLinks: initialLinks,
       isToday: !!prod.isToday,
       isHot: !!prod.isHot,
       ingredients: prod.ingredients || '',
@@ -769,6 +796,7 @@ export const AdminDashboard: React.FC = () => {
       manufacturer: prod.manufacturer || '',
       nutrition: prod.nutrition
     });
+    setCustomStoreInput('');
     setIsProductModalOpen(true);
   };
 
@@ -777,6 +805,24 @@ export const AdminDashboard: React.FC = () => {
       showToast('상품명과 브랜드를 입력해주세요.', 'error');
       return;
     }
+
+    // 선택된 stores 기반으로 storeStocks 매핑 & appLink 반영
+    const currentProd = editingProductId ? products.find(p => p.id === editingProductId) : null;
+    const updatedStoreStocks: StoreStockItem[] = productForm.stores.map(stName => {
+      const existingStock = currentProd?.storeStocks?.find(s => s.store === stName);
+      const link = (productForm.storeLinks && productForm.storeLinks[stName]) ? productForm.storeLinks[stName].trim() : undefined;
+
+      return {
+        store: stName,
+        status: existingStock?.status || '입고완료',
+        stockCount: existingStock?.stockCount ?? 10,
+        price: existingStock?.price ?? (Number(productForm.price) || 0),
+        discountPrice: existingStock?.discountPrice,
+        eventBadge: existingStock?.eventBadge || undefined,
+        deliveryTime: existingStock?.deliveryTime || (stName === '온라인' || stName.includes('몰') || stName.includes('쿠팡') || stName.includes('컬리') ? '전국 택배 배송' : '매장 즉시 픽업'),
+        appLink: link || undefined
+      };
+    });
 
     const payload = {
       name: productForm.name.trim(),
@@ -791,6 +837,7 @@ export const AdminDashboard: React.FC = () => {
       calories: Number(productForm.calories) || undefined,
       volume: productForm.volume,
       stores: productForm.stores,
+      storeStocks: updatedStoreStocks,
       isToday: productForm.isToday,
       isHot: productForm.isHot,
       ingredients: productForm.ingredients,
@@ -802,13 +849,62 @@ export const AdminDashboard: React.FC = () => {
 
     if (editingProductId) {
       updateProduct(editingProductId, payload);
-      showToast('상품 정보가 수정되었습니다.', 'success');
+      showToast('상품 정보와 판매처 링크가 수정되었습니다.', 'success');
     } else {
       addProduct(payload);
       showToast('신규 상품이 등록되었습니다.', 'success');
     }
 
     setIsProductModalOpen(false);
+  };
+
+  // Quick Store Links Modal handlers
+  const handleOpenQuickLinks = (prod: Product) => {
+    setQuickLinkProduct(prod);
+    const existingStores = Array.from(new Set([
+      ...(prod.stores || []),
+      ...(prod.storeStocks ? prod.storeStocks.map(s => s.store) : [])
+    ]));
+    const initialStores = existingStores.length > 0 ? existingStores : ['CU', 'GS25'];
+    const initialLinks: Record<string, string> = {};
+    if (prod.storeStocks) {
+      prod.storeStocks.forEach(st => {
+        if (st.appLink) {
+          initialLinks[st.store] = st.appLink;
+        }
+      });
+    }
+    setQuickStores(initialStores);
+    setQuickStoreLinks(initialLinks);
+    setQuickCustomStore('');
+  };
+
+  const handleSaveQuickLinks = () => {
+    if (!quickLinkProduct) return;
+
+    const updatedStoreStocks: StoreStockItem[] = quickStores.map(stName => {
+      const existingStock = quickLinkProduct.storeStocks?.find(s => s.store === stName);
+      const link = quickStoreLinks[stName]?.trim() || undefined;
+
+      return {
+        store: stName,
+        status: existingStock?.status || '입고완료',
+        stockCount: existingStock?.stockCount ?? 10,
+        price: existingStock?.price ?? quickLinkProduct.price,
+        discountPrice: existingStock?.discountPrice,
+        eventBadge: existingStock?.eventBadge || undefined,
+        deliveryTime: existingStock?.deliveryTime || (stName === '온라인' || stName.includes('몰') || stName.includes('쿠팡') || stName.includes('컬리') ? '전국 택배 배송' : '매장 즉시 픽업'),
+        appLink: link || undefined
+      };
+    });
+
+    updateProduct(quickLinkProduct.id, {
+      stores: quickStores,
+      storeStocks: updatedStoreStocks
+    });
+
+    showToast(`'${quickLinkProduct.name}'의 판매처 링크가 성공적으로 저장되었습니다.`, 'success');
+    setQuickLinkProduct(null);
   };
 
   // Banner modal helpers
@@ -2300,7 +2396,7 @@ export const AdminDashboard: React.FC = () => {
                           <th className="py-3 px-4">평점 / 리뷰</th>
                           <th className="py-3 px-4">⚡ 오늘신상 토글</th>
                           <th className="py-3 px-4">🔥 인기HOT 토글</th>
-                          <th className="py-3 px-4">판매처 편의점</th>
+                          <th className="py-3 px-4">판매처 & 구매 링크</th>
                           <th className="py-3 px-4 text-right">관리</th>
                         </tr>
                       </thead>
@@ -2399,16 +2495,64 @@ export const AdminDashboard: React.FC = () => {
                                 </button>
                               </td>
                               <td className="py-3 px-4">
-                                <div className="flex flex-wrap gap-1 max-w-[140px]">
-                                  {prod.stores?.map(st => (
-                                    <span key={st} className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                                      {st}
-                                    </span>
-                                  ))}
+                                <div className="space-y-1 max-w-[170px]">
+                                  <div className="flex flex-wrap gap-1">
+                                    {prod.stores?.map(st => {
+                                      const stockItem = prod.storeStocks?.find(s => s.store === st);
+                                      const hasLink = !!stockItem?.appLink;
+                                      return (
+                                        <span
+                                          key={st}
+                                          onClick={(e) => {
+                                            if (hasLink) {
+                                              e.stopPropagation();
+                                              window.open(stockItem.appLink, '_blank');
+                                            }
+                                          }}
+                                          className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-semibold border transition-all ${
+                                            hasLink
+                                              ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800 cursor-pointer hover:bg-indigo-100'
+                                              : isDark ? 'bg-slate-800 text-slate-400 border-slate-700' : 'bg-slate-100 text-slate-500 border-slate-200'
+                                          }`}
+                                          title={hasLink ? `${st}: ${stockItem.appLink} (클릭 시 새 창 열기)` : `${st} (링크 미등록)`}
+                                        >
+                                          <span>{st}</span>
+                                          {hasLink && <ExternalLink className="w-2.5 h-2.5 text-indigo-500 shrink-0" />}
+                                        </span>
+                                      );
+                                    })}
+                                  </div>
+                                  {/* 링크 등록 요약 배지 */}
+                                  {(() => {
+                                    const linkedCount = prod.storeStocks?.filter(s => !!s.appLink).length || 0;
+                                    return linkedCount > 0 ? (
+                                      <div className="flex items-center gap-1">
+                                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded border border-emerald-200/60 dark:border-emerald-800/40">
+                                          <span>🔗 링크 {linkedCount}개 등록됨</span>
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <span className="inline-block text-[9px] text-slate-400">
+                                        링크 미등록
+                                      </span>
+                                    );
+                                  })()}
                                 </div>
                               </td>
                               <td className="py-3 px-4 text-right">
                                 <div className="flex items-center justify-end gap-1.5">
+                                  <button
+                                    onClick={() => handleOpenQuickLinks(prod)}
+                                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
+                                      (prod.storeStocks?.some(s => !!s.appLink))
+                                        ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800'
+                                        : 'bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+                                    }`}
+                                    title="판매처 링크 간편 등록/수정"
+                                  >
+                                    <Link2 className="w-3 h-3 text-indigo-500" />
+                                    <span>링크</span>
+                                  </button>
                                   <button
                                     onClick={() => handleOpenEditProduct(prod)}
                                     className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
@@ -4476,35 +4620,154 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Store checkboxes */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">판매처 편의점 및 유통처</label>
-                  <div className="flex flex-wrap gap-2">
-                    {['CU', 'GS25', '세븐일레븐', '이마트24', '대형마트', '온라인'].map(store => {
+                {/* Store checkboxes & Link inputs */}
+                <div className="space-y-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center justify-between flex-wrap gap-1">
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                      <Link2 className="w-3.5 h-3.5 text-indigo-500" />
+                      <span>판매처 편의점 및 구매 링크 설정</span>
+                    </label>
+                    <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">
+                      * 링크를 입력하면 앱 내 상세페이지 [판매처] 탭에서 바로가기가 제공됩니다
+                    </span>
+                  </div>
+
+                  {/* 1. 판매처 선택 프리셋 버튼 */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {['CU', 'GS25', '세븐일레븐', '이마트24', '대형마트', '온라인', '공식몰', '쿠팡', '마켓컬리'].map(store => {
                       const isChecked = productForm.stores.includes(store);
+                      const hasLink = !!productForm.storeLinks?.[store]?.trim();
                       return (
                         <button
                           key={store}
                           type="button"
                           onClick={() => {
+                            const nextStores = isChecked
+                              ? productForm.stores.filter(s => s !== store)
+                              : [...productForm.stores, store];
                             setProductForm({
                               ...productForm,
-                              stores: isChecked
-                                ? productForm.stores.filter(s => s !== store)
-                                : [...productForm.stores, store]
+                              stores: nextStores
                             });
                           }}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                             isChecked
-                              ? 'bg-indigo-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                              ? 'bg-indigo-600 text-white shadow-xs'
+                              : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300'
                           }`}
                         >
-                          {store}
+                          <span>{store}</span>
+                          {isChecked && hasLink && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="링크 등록됨" />
+                          )}
                         </button>
                       );
                     })}
                   </div>
+
+                  {/* 2. 기타 판매처 직접 추가 */}
+                  <div className="flex items-center gap-1.5 pt-1">
+                    <input
+                      type="text"
+                      placeholder="기타 판매처 직접 추가 (예: 네이버스마트스토어, 올리브영)"
+                      value={customStoreInput}
+                      onChange={(e) => setCustomStoreInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const val = customStoreInput.trim();
+                          if (val && !productForm.stores.includes(val)) {
+                            setProductForm({
+                              ...productForm,
+                              stores: [...productForm.stores, val]
+                            });
+                            setCustomStoreInput('');
+                          }
+                        }
+                      }}
+                      className={`flex-1 p-2 rounded-xl text-xs border ${inputBg}`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const val = customStoreInput.trim();
+                        if (val && !productForm.stores.includes(val)) {
+                          setProductForm({
+                            ...productForm,
+                            stores: [...productForm.stores, val]
+                          });
+                          setCustomStoreInput('');
+                        }
+                      }}
+                      className="px-3 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all shrink-0"
+                    >
+                      추가
+                    </button>
+                  </div>
+
+                  {/* 3. 선택된 판매처별 구매 URL 입력 */}
+                  {productForm.stores.length > 0 ? (
+                    <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-slate-700/80">
+                      <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400">
+                        선택된 판매처별 구매/웹 링크 URL (비워두면 오프라인 매장으로 처리):
+                      </p>
+                      {productForm.stores.map(store => {
+                        const linkVal = productForm.storeLinks?.[store] || '';
+                        return (
+                          <div key={store} className="flex items-center gap-2">
+                            <span className="w-20 shrink-0 text-xs font-bold text-slate-700 dark:text-slate-200 px-2 py-1.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 text-center truncate shadow-2xs">
+                              {store}
+                            </span>
+                            <div className="relative flex-1">
+                              <input
+                                type="url"
+                                placeholder={`https://... (${store} 상품 구매 링크)`}
+                                value={linkVal}
+                                onChange={(e) => {
+                                  setProductForm({
+                                    ...productForm,
+                                    storeLinks: {
+                                      ...productForm.storeLinks,
+                                      [store]: e.target.value
+                                    }
+                                  });
+                                }}
+                                className={`w-full p-2 pr-7 rounded-xl text-xs border ${inputBg}`}
+                              />
+                              {linkVal && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const next = { ...productForm.storeLinks };
+                                    delete next[store];
+                                    setProductForm({ ...productForm, storeLinks: next });
+                                  }}
+                                  className="absolute right-2 top-2.5 text-slate-400 hover:text-rose-500"
+                                  title="링크 비우기"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </div>
+                            {linkVal && (
+                              <button
+                                type="button"
+                                onClick={() => window.open(linkVal, '_blank')}
+                                className="p-2 rounded-xl bg-blue-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-300 shrink-0 border border-indigo-200 dark:border-indigo-800"
+                                title="링크 미리보기 테스트"
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-[11px] text-amber-600 dark:text-amber-400">
+                      ⚠️ 최소 1개 이상의 판매처를 선택해주세요.
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -4580,6 +4843,220 @@ export const AdminDashboard: React.FC = () => {
                 className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-600/20"
               >
                 {editingProductId ? '수정사항 저장' : '새 상품 등록 완료'}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: QUICK STORE LINKS MANAGEMENT MODAL
+         ======================================================== */}
+      {quickLinkProduct && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div className={`rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border ${cardBg}`}>
+            
+            {/* Header */}
+            <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center shrink-0">
+                  <Link2 className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.2 rounded-md">
+                      {quickLinkProduct.brand}
+                    </span>
+                    <h3 className={`font-bold text-sm truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      {quickLinkProduct.name}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-0.5">판매처별 구매 및 공식 링크를 등록·수정합니다.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setQuickLinkProduct(null)}
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-5 overflow-y-auto space-y-4 text-xs">
+              
+              {/* Product Info Summary Box */}
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80">
+                <img src={quickLinkProduct.image} alt="" className="w-12 h-12 rounded-xl object-cover shrink-0 border border-slate-200 dark:border-slate-700" />
+                <div className="min-w-0 flex-1">
+                  <p className={`font-bold text-xs truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>{quickLinkProduct.name}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    정가: {quickLinkProduct.price.toLocaleString()}원 · 카테고리: {quickLinkProduct.category}
+                  </p>
+                </div>
+              </div>
+
+              {/* 1. Store Presets */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200">
+                  판매처 선택 (클릭하여 추가/제외)
+                </label>
+                <div className="flex flex-wrap gap-1.5">
+                  {['CU', 'GS25', '세븐일레븐', '이마트24', '대형마트', '온라인', '공식몰', '쿠팡', '마켓컬리'].map(store => {
+                    const isChecked = quickStores.includes(store);
+                    const hasLink = !!quickStoreLinks[store]?.trim();
+                    return (
+                      <button
+                        key={store}
+                        type="button"
+                        onClick={() => {
+                          if (isChecked) {
+                            setQuickStores(quickStores.filter(s => s !== store));
+                          } else {
+                            setQuickStores([...quickStores, store]);
+                          }
+                        }}
+                        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                          isChecked
+                            ? 'bg-indigo-600 text-white shadow-xs'
+                            : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                        }`}
+                      >
+                        <span>{store}</span>
+                        {isChecked && hasLink && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="링크 등록됨" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 2. Custom Store Input */}
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  placeholder="기타 판매처 직접 추가 (예: 네이버스마트스토어, 올리브영)"
+                  value={quickCustomStore}
+                  onChange={(e) => setQuickCustomStore(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      const val = quickCustomStore.trim();
+                      if (val && !quickStores.includes(val)) {
+                        setQuickStores([...quickStores, val]);
+                        setQuickCustomStore('');
+                      }
+                    }
+                  }}
+                  className={`flex-1 p-2 rounded-xl text-xs border ${inputBg}`}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const val = quickCustomStore.trim();
+                    if (val && !quickStores.includes(val)) {
+                      setQuickStores([...quickStores, val]);
+                      setQuickCustomStore('');
+                    }
+                  }}
+                  className="px-3 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all shrink-0"
+                >
+                  추가
+                </button>
+              </div>
+
+              {/* 3. Link inputs for selected stores */}
+              <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-slate-400">
+                  <span>판매처별 구매 URL (웹/앱 링크)</span>
+                  <span>* 비워두면 오프라인 매장으로만 표기</span>
+                </div>
+
+                {quickStores.length > 0 ? (
+                  <div className="space-y-2">
+                    {quickStores.map(store => {
+                      const linkVal = quickStoreLinks[store] || '';
+                      return (
+                        <div key={store} className="flex items-center gap-2">
+                          <span className="w-20 shrink-0 text-xs font-bold text-slate-700 dark:text-slate-200 px-2 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 text-center truncate shadow-2xs">
+                            {store}
+                          </span>
+                          <div className="relative flex-1">
+                            <input
+                              type="url"
+                              placeholder={`https://... (${store} 상품 구매 링크)`}
+                              value={linkVal}
+                              onChange={(e) => {
+                                setQuickStoreLinks({
+                                  ...quickStoreLinks,
+                                  [store]: e.target.value
+                                });
+                              }}
+                              className={`w-full p-2 pr-7 rounded-xl text-xs border ${inputBg}`}
+                            />
+                            {linkVal && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const next = { ...quickStoreLinks };
+                                  delete next[store];
+                                  setQuickStoreLinks(next);
+                                }}
+                                className="absolute right-2 top-2.5 text-slate-400 hover:text-rose-500"
+                                title="링크 비우기"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                          {linkVal && (
+                            <button
+                              type="button"
+                              onClick={() => window.open(linkVal, '_blank')}
+                              className="p-2 rounded-xl bg-blue-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-300 shrink-0 border border-indigo-200 dark:border-indigo-800"
+                              title="새 창에서 링크 테스트"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-amber-600 dark:text-amber-400 py-2">
+                    ⚠️ 최소 1개 이상의 판매처를 선택해주세요.
+                  </p>
+                )}
+              </div>
+
+              <div className="p-3 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 text-[11px] text-indigo-700 dark:text-indigo-300 space-y-1">
+                <p className="font-bold flex items-center gap-1">
+                  💡 안내 사항
+                </p>
+                <p className="opacity-90">
+                  링크를 등록한 판매처는 앱 내 상품 상세페이지 [판매처] 탭에서 <strong className="underline">구매 / 바로가기 ↗</strong> 버튼으로 표시되어 고객이 해당 판매 페이지로 바로 이동할 수 있습니다.
+                </p>
+              </div>
+
+            </div>
+
+            {/* Footer */}
+            <div className={`p-4 border-t flex items-center justify-end gap-2 shrink-0 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-100 bg-white'}`}>
+              <button
+                onClick={() => setQuickLinkProduct(null)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
+              >
+                취소
+              </button>
+              <button
+                onClick={handleSaveQuickLinks}
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-600/20 flex items-center gap-1.5"
+              >
+                <Check className="w-3.5 h-3.5" />
+                <span>판매처 링크 저장</span>
               </button>
             </div>
 

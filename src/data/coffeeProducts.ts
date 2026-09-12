@@ -33,7 +33,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일 음용',
     precautions: '고카페인 함유 (어린이, 임산부 섭취 주의)',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 30, price: 1500, eventBadge: '베스트셀러', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 30, price: 1500, eventBadge: '베스트셀러', deliveryTime: '매장 즉시 픽업 / 배달' }
     ],
     description: '컴포즈커피의 시그니처 비터홀릭(Bitter Holic) 블렌딩 원두로 내린 대용량 아메리카노. 다크 로스팅 특유의 묵직한 바디감과 고소한 견과류 풍미, 은은한 다크초콜릿 여운이 일품입니다.',
     bestQuotes: ['가성비 커피 중 크레마와 바디감이 가장 훌륭함', '매일 출근길 필수 코스, 벤티 사이즈라 든든해요']
@@ -67,7 +67,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '생크림 층과 커피를 섞지 않고 입을 대고 함께 드실 때 가장 맛있습니다.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '시그니처', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '시그니처', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '쌉싸름하고 진한 롱블랙 에스프레소 위에 컴포즈만의 쫀쫀하고 달콤한 특제 수제 생크림을 풍성하게 얹은 정통 비엔나 스타일 아인슈페너.',
     bestQuotes: ['크림이 묵직하고 쫀쫀해서 카페 전문점 퀄리티', '크림과 커피가 함께 넘어오는 첫 모금이 환상']
@@ -101,7 +101,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '생초콜릿 토핑을 먼저 스푼으로 떠먹은 뒤 음료와 함께 즐겨보세요.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4500, eventBadge: 'SNS 품절대란', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4500, eventBadge: 'SNS 품절대란', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '고객들의 빗발치는 요청으로 재출시된 컴포즈의 전설적 메뉴! 정통 벨기에산 다크 생초콜릿 덩어리가 통째로 듬뿍 올라가 꾸덕꾸덕하고 극강의 달콤함을 선사합니다.',
     bestQuotes: ['진짜 생초콜릿이 숟가락 가득 퍼질 정도로 푸짐함', '당 충전 필요할 때 무조건 이거 마셔야 함']
@@ -135,7 +135,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '우유 함유 제품입니다.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 25, price: 2900, eventBadge: '인기', deliveryTime: '매장 즉시 픽업 / 배달', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 25, price: 2900, eventBadge: '인기', deliveryTime: '매장 즉시 픽업 / 배달' }
     ],
     description: '1A등급 프리미엄 신선 원유와 갓 로스팅한 비터홀릭 에스프레소가 만나 고소함과 부드러움의 극대화를 이룬 스테디셀러 라떼.',
     bestQuotes: ['우유가 고소하고 커피가 밍밍하지 않아서 딱 좋음', '가성비 최고의 데일리 라떼']
@@ -169,7 +169,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '달콤한 연유와 커피를 고루 저어 드세요.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 22, price: 3800, eventBadge: '달콤추천', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 22, price: 3800, eventBadge: '달콤추천', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '부드러운 연유의 은은하고 깊은 달콤함에 에스프레소 샷이 어우러져 한 모금마다 행복한 당 충전을 선사하는 달콤 시그니처 라떼.',
     bestQuotes: ['스타벅스 돌체라떼 못지않게 달콤하고 부드러워요', '피곤한 오후에 마시면 눈이 번쩍 뜨임']
@@ -203,7 +203,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '자몽 알갱이가 가라앉아 있으므로 빨대로 잘 섞어 드세요.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '여성인기 1위', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '여성인기 1위', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '쌉싸름하고 상큼한 자몽 생과육에 달콤한 아카시아 꿀과 깊고 그윽한 스리랑카 블랙티의 조화가 완벽한 티 블렌딩 음료.',
     bestQuotes: ['자몽 알갱이가 톡톡 씹히고 적당히 달아서 인생 자허블 등극', '커피 못 마실 때 대체불가 음료']
@@ -237,7 +237,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '바삭한 쿠키 토핑을 먼저 즐겨보세요.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 16, price: 4500, eventBadge: '디저트쉐이크', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 16, price: 4500, eventBadge: '디저트쉐이크', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '상하목장 프리미엄 원유로 만든 부드러운 밀크쉐이크에 바삭바삭한 시나몬 카라멜 쿠키 크런치가 듬뿍 블렌딩된 마성의 디저트 쉐이크.',
     bestQuotes: ['쿠키가 눅눅하지 않고 끝까지 바삭해서 대박', '맥플러리보다 훨씬 고급진 맛']
@@ -271,7 +271,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '생딸기 과육이 듬뿍 들어있어 굵은 빨대로 드시길 권장합니다.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '생과육 듬뿍', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '생과육 듬뿍', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '대한민국 대표 딸기 산지 논산 설향딸기 과육을 아낌없이 넣어, 신선한 딸기의 새콤달콤함과 우유의 부드러움이 입안 가득 터지는 딸기 라떼.',
     bestQuotes: ['딸기 씹히는 식감이 너무 좋고 시럽맛만 나는 싸구려 라떼가 아님', '매 시즌마다 무조건 챙겨 마셔요']
@@ -305,7 +305,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '녹차 본연의 진한 쌉싸름함이 살아있습니다.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '진한녹차', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '진한녹차', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '청정 보성과 제주의 엄선된 햇녹차를 곱게 갈아 넣어, 쌉싸름한 녹차 특유의 그윽한 향과 부드러운 우유 크림의 달콤함이 완벽한 앙상블을 이루는 프라페.',
     bestQuotes: ['녹차 맛이 아주 진하고 달지 않아서 좋아요', '스타벅스 그린티 프라푸치노 못지않은 완성도']
@@ -339,7 +339,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     shelfLife: '제조 당일',
     precautions: '무색소, 무방부제 클렌즈 헬시 음료입니다.',
     storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4000, eventBadge: '건강클렌즈', deliveryTime: '매장 즉시 픽업', appLink: 'https://composecoffee.com' }
+      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4000, eventBadge: '건강클렌즈', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '달콤한 샤인머스캣과 영양 가득 신선한 생케일을 황금 비율로 착즙하여, 쓴맛 전혀 없이 청량하고 상쾌하게 비타민을 채워주는 웰빙 클렌즈 주스.',
     bestQuotes: ['케일 냄새 전혀 안 나고 샤인머스캣의 달달함이 대박', '아침 대용으로 상쾌하게 마시기 최고']

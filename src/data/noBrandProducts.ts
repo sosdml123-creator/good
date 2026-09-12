@@ -57,8 +57,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 35,
         "price": 14980,
         "eventBadge": "공식 1등 베스트",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       },
       {
         "store": "노브랜드 전문점",
@@ -66,8 +65,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 22,
         "price": 14980,
         "eventBadge": "매장인기",
-        "deliveryTime": "매장 즉시 구매",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "매장 즉시 구매"
       },
       {
         "store": "SSG.COM",
@@ -75,8 +73,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 40,
         "price": 14980,
         "eventBadge": "새벽배송",
-        "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.ssg.com"
+        "deliveryTime": "내일 아침 7시 전 도착"
       },
       {
         "store": "이마트24",
@@ -84,8 +81,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 6,
         "price": 14980,
         "eventBadge": "편의점입고",
-        "deliveryTime": "매장 픽업",
-        "appLink": "https://www.emart24.co.kr"
+        "deliveryTime": "매장 픽업"
       }
     ],
     "description": "노브랜드 역사상 가장 압도적인 사랑을 받는 1등 베스트셀러! 부드럽고 쫄깃한 닭다리살에 달콤 짭조름한 숯불 데리야끼 소스를 듬뿍 발라 직화로 구워낸 홈술·야식 필수 쟁여템.",
@@ -151,8 +147,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 18,
         "price": 7280,
         "eventBadge": "추천상품",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       },
       {
         "store": "SSG.COM",
@@ -160,8 +155,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 25,
         "price": 7280,
         "eventBadge": "새벽배송",
-        "deliveryTime": "새벽 7시 전 도착",
-        "appLink": "https://www.ssg.com"
+        "deliveryTime": "새벽 7시 전 도착"
       }
     ],
     "description": "중식당 퀄리티의 쫀득바삭 칠리새우를 집에서 7천원대에! 탱글탱글한 통새우에 찹쌀 튀김옷을 입혀 겉은 바삭 속은 쫄깃하며, 매콤달콤한 특제 칠리소스가 환상의 궁합을 이룹니다.",
@@ -226,8 +220,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 4980,
         "eventBadge": "캠핑필수템",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "포장마차 어묵탕을 그대로 옮겨놓은 14개입 꼬치어묵! 동봉된 비법 육수 소스 하나만 넣고 끓이면 깊고 진한 포장마차 국물맛이 즉석에서 완성되는 캠핑·홈파티 필수템.",
@@ -291,8 +284,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 6480,
         "eventBadge": "아이간식추천",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "상단에는 쭈-욱 늘어나는 고소한 통 모짜렐라 치즈, 하단에는 육즙 팡팡 돈육 소시지가 들어간 2in1 크리스피 핫도그! 쌀가루 반죽으로 바삭함이 남다릅니다.",
@@ -354,8 +346,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 9980,
         "eventBadge": "대용량 1kg",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "모짜렐라와 체다 치즈를 듬뿍 채운 1kg 초대용량 치즈스틱! 바삭한 튀김옷 속에서 터져 나오는 고소하고 진한 치즈의 풍미를 맘껏 즐겨보세요.",
@@ -415,8 +406,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 28,
         "price": 11980,
         "eventBadge": "가성비 소고기",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "된장찌개, 숙주볶음, 구이 어디에 넣어도 고소한 기름과 육즙이 폭발하는 노브랜드 정육 코너 1등 우삼겹! 얇게 슬라이스되어 해동 없이 바로 팬에 구워먹을 수 있습니다.",
@@ -476,8 +466,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 16,
         "price": 15980,
         "eventBadge": "고소한 풍미",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "쫄깃하고 꼬들한 차돌박이 특유의 식감과 고소함이 일품! 600g 넉넉한 양으로 가족 식사 및 홈파티 고기구이로 언제나 인기 만점입니다.",
@@ -539,8 +528,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 22,
         "price": 4980,
         "eventBadge": "대용량 1kg",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "1kg에 4천원대라는 파격적인 가성비! 라면에 퐁당 넣어 끓이거나 떡만둣국, 군만두로 부담 없이 팍팍 넣어 먹기 좋은 대한민국 대표 가성비 냉동만두.",
@@ -603,8 +591,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 40,
         "price": 2480,
         "eventBadge": "개당 496원",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "1봉지에 500원도 안 되는 가격! 진한 쇠고기 육수에 얼큰하고 칼칼한 고춧가루를 더해 한국인 입맛에 딱 맞춘 얼큰하고 깔끔한 국물 라면.",
@@ -666,8 +653,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 30,
         "price": 3480,
         "eventBadge": "버터향 가득",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "한 입 베어 물면 퍼지는 은은하고 부드러운 버터 풍미! 얇고 바삭한 식감으로 티타임에 홍차나 따뜻한 커피와 가장 잘 어울리는 클래식 쿠키 버킷.",
@@ -731,8 +717,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 60,
         "price": 1380,
         "eventBadge": "단짠스낵 최강자",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "노브랜드 과자 코너의 독보적인 스테디셀러! 보랏빛 자색고구마의 은은한 달콤함과 바삭한 칩의 짭조름함이 어우러진 마성의 단짠 감자칩.",
@@ -793,8 +778,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 45,
         "price": 1180,
         "eventBadge": "착한가격 1180원",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "프링글스 부럽지 않은 바삭함과 담백 짭조름한 감자 본연의 풍미! 1,180원이라는 놀라운 가격으로 오랫동안 사랑받는 국민 감자칩.",
@@ -855,8 +839,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 25,
         "price": 4980,
         "eventBadge": "대용량 버킷",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "영화관이나 파티에서 손이 멈추지 않는 짭짤 고소한 체다치즈볼! 바삭하고 부드러운 옥수수 볼에 찐한 체다치즈 시즈닝이 듬뿍 묻어있어 맥주 안주로 최고입니다.",
@@ -920,8 +903,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 50,
         "price": 1480,
         "eventBadge": "사르르 녹는맛",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "입에 넣자마자 솜사탕처럼 사르르 녹아내리는 부드러운 콘스낵! 고소하고 달콤한 고르곤졸라 치즈 풍미가 가득해 한번 뜯으면 멈출 수 없는 중독성을 자랑합니다. 냉동실에 얼려 먹으면 더욱 별미!",
@@ -983,8 +965,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 35,
         "price": 1980,
         "eventBadge": "카카오 70%",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "카카오버터 100% 프랑스 전통 쇼콜라티에 제조! 팜유 섞인 가짜 초콜릿이 아닌 카카오 70%의 진하고 묵직한 카카오 본연의 쌉싸름함과 풍미를 1,980원에 즐길 수 있는 프리미엄 초콜릿.",
@@ -1046,8 +1027,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 5980,
         "eventBadge": "포르투갈 직수입",
-        "deliveryTime": "쓱배송 당일도착",
-        "appLink": "https://emart.ssg.com"
+        "deliveryTime": "쓱배송 당일도착"
       }
     ],
     "description": "포르투갈 현지 베이커리 직수입! 겹겹이 바삭한 페이스트리 시트 속에 부드럽고 진한 커스터드 크림이 가득 찬 리얼 포르투갈 정통 에그타르트.",

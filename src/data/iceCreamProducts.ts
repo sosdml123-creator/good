@@ -60,8 +60,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -69,8 +68,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [메로나]. 메로나 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -138,8 +136,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 9000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -147,8 +144,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 9000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [투게더]. 투게더 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -216,8 +212,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -225,8 +220,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 2200,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [붕어싸만코]. 붕어싸만코 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -294,8 +288,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -303,8 +296,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 2200,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [부라보]. 부라보 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -372,8 +364,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -381,8 +372,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [요맘때]. 요맘때 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -450,8 +440,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -459,8 +448,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 3000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [끌레도르]. 끌레도르 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -528,8 +516,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -537,8 +524,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [누가바]. 누가바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -606,8 +592,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -615,8 +600,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [비비빅]. 비비빅 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -684,8 +668,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -693,8 +676,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 2200,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [빵또아]. 빵또아 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -762,8 +744,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -771,8 +752,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [따옴바]. 따옴바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -840,8 +820,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -849,8 +828,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [쌍쌍바]. 쌍쌍바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -918,8 +896,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -927,8 +904,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [바밤바]. 바밤바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -996,8 +972,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1005,8 +980,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [마루]. 마루 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1074,8 +1048,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1083,8 +1056,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [폴라포]. 폴라포 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1152,8 +1124,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1161,8 +1132,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [더위사냥]. 더위사냥 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1230,8 +1200,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 9800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1239,8 +1208,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 9800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [엑설런트]. 엑설런트 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1308,8 +1276,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1317,8 +1284,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [쿠앤크]. 쿠앤크 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1386,8 +1352,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1395,8 +1360,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [엔초]. 엔초 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1464,8 +1428,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1473,8 +1436,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [탱크보이]. 탱크보이 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1542,8 +1504,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1551,8 +1512,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [뽕따]. 뽕따 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1620,8 +1580,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 3500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1629,8 +1588,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 3500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [빙그레 빙수]. 빙그레 빙수 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1698,8 +1656,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1707,8 +1664,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 7000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [그라시아 쿠앤크]. 그라시아 쿠앤크 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1776,8 +1732,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1785,8 +1740,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [아이스가이]. 아이스가이 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1854,8 +1808,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1863,8 +1816,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [캔디바]. 캔디바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -1932,8 +1884,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -1941,8 +1892,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [생귤탱귤]. 생귤탱귤 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2010,8 +1960,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2019,8 +1968,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [딥앤로우]. 딥앤로우 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2088,8 +2036,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2097,8 +2044,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [아이스가이 팝시클]. 아이스가이 팝시클 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2166,8 +2112,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2175,8 +2120,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [까페오레]. 까페오레 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2244,8 +2188,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2253,8 +2196,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 2200,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [시모나]. 시모나 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2322,8 +2264,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2331,8 +2272,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 7000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [팽이팽이]. 팽이팽이 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2400,8 +2340,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2409,8 +2348,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [젤루조아]. 젤루조아 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2478,8 +2416,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2487,8 +2424,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [파워캡]. 파워캡 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2556,8 +2492,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2565,8 +2500,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [디핀다트]. 디핀다트 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2634,8 +2568,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2643,8 +2576,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [쫀득쫀득 인절미바]. 쫀득쫀득 인절미바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2712,8 +2644,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2721,8 +2652,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [따옴 트위스트]. 따옴 트위스트 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2790,8 +2720,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2799,8 +2728,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [카카오바]. 카카오바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2868,8 +2796,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2877,8 +2804,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1800,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [토마토마]. 토마토마 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -2946,8 +2872,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -2955,8 +2880,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 7000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "해태아이스를 대표하는 국민 스테디셀러 아이스크림 [리틀텐]. 리틀텐 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3024,8 +2948,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3033,8 +2956,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 7000,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [링키바]. 링키바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3102,8 +3024,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3111,8 +3032,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [폭신폭신 솜사탕바]. 폭신폭신 솜사탕바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3180,8 +3100,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3189,8 +3108,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [둘둘바]. 둘둘바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3258,8 +3176,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3267,8 +3184,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [시원시원 우유팥바]. 시원시원 우유팥바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3336,8 +3252,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3345,8 +3260,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [냠]. 냠 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3414,8 +3328,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3423,8 +3336,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [이게 웬 떡]. 이게 웬 떡 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3492,8 +3404,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 12,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "GS25",
@@ -3501,8 +3412,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 15,
         "price": 1500,
         "eventBadge": "2+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://woodongs.page.link"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "빙그레를 대표하는 국민 스테디셀러 아이스크림 [브륄레바]. 브륄레바 특유의 깊고 부드러운 풍미와 달콤함을 시원하게 즐겨보세요.",
@@ -3572,8 +3482,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3581,8 +3490,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "대한민국 No.1 콘아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [월드콘]입니다.",
@@ -3652,8 +3560,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3661,8 +3568,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "1급A 파파파스퇴르 우유를 사용하여 더욱 부드러운 대한민국 대표 소프트 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [빵빠레]입니다.",
@@ -3732,8 +3638,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3741,8 +3646,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "겉은 바삭한 크런치 쿠키로, 속은 달콤한 딸기잼으로 가득 채운 대표 크런치바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [돼지바]입니다.",
@@ -3812,8 +3716,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3821,8 +3724,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "대체불가한 시원한 초코 샤베트 튜브 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [빠삐코]입니다.",
@@ -3892,8 +3794,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3901,8 +3802,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "어느 장소에서든 편리하게 취식이 가능한 시원한 파우치 제형의 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [설레임]입니다.",
@@ -3972,8 +3872,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -3981,8 +3880,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "쫀득쫀득한 찰떡 속에 달콤한 아이스크림이 쏘옥~! 이거야말로 찰떡 궁합일세! 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [찰떡아이스]입니다.",
@@ -4052,8 +3950,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4061,8 +3958,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 7000,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 아이스크림에 얇고 바삭한 초코가 코팅된 스낵킹 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [티코]입니다.",
@@ -4132,8 +4028,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 7000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4141,8 +4036,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 7000,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "우리 즐겁게 위즐~ 진하고 청키한 디저트 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [위즐]입니다.",
@@ -4212,8 +4106,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4221,8 +4114,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "손으로 잡고 주물러 먹는 쮸쮸바의 원조, 달콤 상큼 과일맛 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [쮸쮸바]입니다.",
@@ -4292,8 +4184,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4301,8 +4192,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "손 끝까지 시원한 맛! 주물러 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [주물러]입니다.",
@@ -4372,8 +4262,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4381,8 +4270,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "파파파스퇴르 전용 강원도 청정목장의 신선한 국내산 우유 100%로 만든 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [���파파스퇴르]입니다.",
@@ -4452,8 +4340,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4461,8 +4348,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "와플형태의 바삭한 병과와 부드러운 아이스크림이 조화를 이룬 시원하게 즐기는 모나카 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [잇츠와플]입니다.",
@@ -4532,8 +4418,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4541,8 +4426,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "포도 딸기 레몬 과즙이 들어있어 시원하고 달콤하게 즐길 수 있는 3가지 맛의 얼음 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [색고드름]입니다.",
@@ -4612,8 +4496,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4621,8 +4504,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "땀 흘리는 순간 시원하게 채우는 얼음 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [이온플러스]입니다.",
@@ -4692,8 +4574,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4701,8 +4582,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "아이스밀크를 볶은 땅콩과 초코로 코팅한 바삭한 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [누크바]입니다.",
@@ -4772,8 +4652,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4781,8 +4660,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "팥맛 아이스크림 안에 연유, 팥+얼음 믹스가 들어가 있는 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [빙빙바]입니다.",
@@ -4852,8 +4730,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4861,8 +4738,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "시원한 소다향 아이스크림 중간에 있는 얼음의 와삭 와삭 식감이 매력적인 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [와삭바]입니다.",
@@ -4932,8 +4808,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -4941,8 +4816,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "카라멜맛의 쫀득한 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [메가톤]입니다.",
@@ -5012,8 +4886,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5021,8 +4894,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "스크류바모양 + 죠스바 외믹스 + 수박바 내믹스의 재미있는 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [죠크박바]입니다.",
@@ -5092,8 +4964,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5101,8 +4972,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "파파파스퇴르 우유를 사용해 풍부한 유풍미와 소프트한 식감의 바 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [빵빠레 소프트바]입니다.",
@@ -5172,8 +5042,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5181,8 +5050,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진한 초코쿠키로 샌딩한 고급 유러피언 디저트 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [쿠키오]입니다.",
@@ -5252,8 +5120,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5261,8 +5128,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "아이스크림, 초콜릿, 톡톡 터지는 탄산캔디까지 3가지를 한번에 즐기는 별난 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [별난바]입니다.",
@@ -5332,8 +5198,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5341,8 +5206,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "사과&파인애플맛 아이스크림이 층층이 쌓인 테트리스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [테트리스바]입니다.",
@@ -5412,8 +5276,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5421,8 +5284,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "초콜릿과 마시멜로우, 카라멜 시럽이 섞인 아이스크림에 고소한 땅콩까지 한번에 즐기는 맛있는 구구 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [구구]입니다.",
@@ -5492,8 +5354,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5501,8 +5362,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "겉은 오렌지와 속은 딸기맛의 상어 모양 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [죠스바]입니다.",
@@ -5572,8 +5432,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5581,8 +5440,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "사과와 딸기맛의 꽈배기 모양 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [스크류바]입니다.",
@@ -5652,8 +5510,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5661,8 +5518,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "여름 대표 과일 수박을 아이스크림으로!! 수박바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [수박바]입니다.",
@@ -5732,8 +5588,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5741,8 +5596,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "달콤한 팥시럽이 가득 들어있는 정통 팥바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [아맛나]입니다.",
@@ -5812,8 +5666,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5821,8 +5674,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "시원한 아이스에 색색 얼음이 오독오독 씹히는 보석바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [보석바]입니다.",
@@ -5892,8 +5744,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5901,8 +5752,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 아이스크림과 달콤한 시럽, 상큼한 샤베트까지 한번에 즐길 수 있는 콘 아이스 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [더블비얀코]입니다.",
@@ -5972,8 +5822,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -5981,8 +5830,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국화 모양 과자 속 아이스크림, 팥시럽, 떡 등이 어우러진 K-감성 모나카 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [국화빵]입니다.",
@@ -6052,8 +5900,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6061,8 +5908,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "풍부한 과즙을 함유한 과일 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [델몬트]입니다.",
@@ -6132,8 +5978,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 8000,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6141,8 +5986,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 8000,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "딸기, 초코 2가지 맛의 미니 아이스 바! 기호에 맞게 골라먹고 나눠먹는 재미 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [셀렉션]입니다.",
@@ -6212,8 +6056,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6221,8 +6064,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "아이스크림이 세겹이나?! 3가지 맛을 한 번에 즐길 수 있는 삼색조 아이스! 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [옥동자]입니다.",
@@ -6292,8 +6134,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6301,8 +6142,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "진한 초코 아이스크림 속 쫀득한 퍼지시럽이 매력적인 아이스크림 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [초코퍼지]입니다.",
@@ -6372,8 +6212,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6381,8 +6220,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "맛도 모양도 진짜 옥수수네?! 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [찰옥수수]입니다.",
@@ -6452,8 +6290,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6461,8 +6298,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 바닐라 아이스크림 속 보이지 않는 얼음 입자가 주는 짜릿한 시원함 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [와]입니다.",
@@ -6532,8 +6368,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6541,8 +6376,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "국내 유일 천연 고무 튜브 펜슬 속 꽉 찬 아이스크림! 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [거북알]입니다.",
@@ -6612,8 +6446,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 2200,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6621,8 +6454,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 2200,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "부드러운 아이스크림과 바삭한 초콜릿이 절묘하게 조화된 롯데웰푸드 대표 아이스바 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [와일드바디]입니다.",
@@ -6692,8 +6524,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 1800,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6701,8 +6532,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 1800,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "한여름 시원하고 상큼하게 즐길 수 있는 진한 복숭아 얼음 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [쿨샷]입니다.",
@@ -6772,8 +6602,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 10,
         "price": 3500,
         "eventBadge": "공식인기",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://pocketcu.bgfretail.com"
+        "deliveryTime": "매장 즉시 픽업"
       },
       {
         "store": "세븐일레븐",
@@ -6781,8 +6610,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 14,
         "price": 3500,
         "eventBadge": "1+1 행사",
-        "deliveryTime": "매장 즉시 픽업",
-        "appLink": "https://www.7-eleven.co.kr"
+        "deliveryTime": "매장 즉시 픽업"
       }
     ],
     "description": "여름 더위엔 시원한 첫눈애 일품 팥빙수 롯데웰푸드의 독보적인 빙과 기술과 오랜 사랑을 받아온 레시피로 만든 [팥빙수]입니다.",
@@ -6849,8 +6677,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "도쿄바나나 맛 아이스크림에 바나나 퓨레와 프랄린 슈가 리본, 바삭한 브륄레 크런치와 폭신한 브레드 큐브로 떠나는 달콤한 여행 (TOKYO BANANA CREME BRULEE)",
@@ -6916,8 +6743,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "진한 에스프레소 & 크림 아이스크림에 바삭한 비스코프 쿠키와 비스코프가 들어간 카다이프 리본이 가득 (BISCOFF ESPRESSO CRUNCH)",
@@ -6981,8 +6807,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "새콤한 산딸기 소르베와 달콤한 연유 아이스크림에 끌릴 수 밖에 없는 연유(緣由)! (BERRY & SWEET MILK)",
@@ -7048,8 +6873,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "크림치즈 아이스크림에 달콤하고 짭조름한 솔티 조청 카라멜과 바삭한 현미 그라함 쿠키의 만남 (SALTY RICE SYRUP NEW YORK CHEESE CAKE)",
@@ -7114,8 +6938,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "블루베리 요거트 아이스크림에 쫀득한 마카롱과 블루베리 & 허니 리본의 만남 (GUM-GUM BLUEBERRY MACARON)",
@@ -7179,8 +7002,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "부드럽고 상큼한 열대과일, 입 안 가득 진한 망고 향이 가득! (Mango Tango)",
@@ -7244,8 +7066,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "열대과일 파인애플&망고&코코넛 샤베트와 라임 소르베가 만나 펼쳐지는 입안 가득 달콤상큼 파라다이스~ (Tropical Colada)",
@@ -7310,8 +7131,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "우디와 함께 떠나는 알록달록한 모험! 4가지 컬러 속에 숨겨진 젤리의 탱글한 반전 (Woody’s Fruits Adventure)",
@@ -7377,8 +7197,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "리얼 카다이프가 들어간 피스타치오&초콜릿 아이스크림에 초콜릿 쫀떡볼이 쏙쏙! (ICE PISTACHIO & CHOCOLATE WITH KADAYIF)",
@@ -7442,8 +7261,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "상큼한 파인애플, 오렌지, 라즈베리가 만드는 일곱빛깔 무지개 (Rainbow Sherbet)",
@@ -7507,8 +7325,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "엄선된 녹차를 사용한 싱그러운 그린티 아이스크림 (Green Tea)",
@@ -7572,8 +7389,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "진한 머스크 멜론의 풍미가 가득! (Melong Melon)",
@@ -7637,8 +7453,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "가볍게 제대로 즐기는 바나나 딸기 바닐라 (BANANA BERRY VANILLA)",
@@ -7704,8 +7519,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "맛은 그대로! 당류 & 칼로리는 더 가볍게~ 자사 기존 제품 대비 당류 39&#37;, 칼로리 47&#37; 낮아진 엄마는 외계인 ((Lessly Edition) Puss In Boots)",
@@ -7773,8 +7587,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "딸기와 초콜릿이 치즈케이크에 반해버린 사랑의 맛 (Love Struck Strawberry)",
@@ -7840,8 +7653,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "밀크 초콜릿, 다크 초콜릿, 화이트 무스 세 가지 아이스크림에 달콤 바삭한 초코볼이 더해진 아이스크림 (Puss In Boots)",
@@ -7906,8 +7718,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "쿨한 당신의 선택! 상쾌한 민트향에 초코칩까지! (Mint Chocolate Chip)",
@@ -7973,8 +7784,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "부드럽게 즐기는 뉴욕식 정통 치즈케이크 아이스크림 (New York CheeseCake)",
@@ -8038,8 +7848,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "체리과육이 탱글탱글 씹히는 체리 아이스크림 (Cherries Jubilee)",
@@ -8105,8 +7914,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "블루베리 & 바닐라향에 입안에서 톡톡 터지는 캔디와 신나는 축제 (Shooting Star)",
@@ -8172,8 +7980,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "부드러운 바닐라향 아이스크림에, 달콤하고 진한 오레오 쿠키가 듬뿍! (Oreo Cookie´s n Cream)",
@@ -8237,8 +8044,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "새콤상큼 딸기 과육이 듬뿍! (Very Berry Strawberry)",
@@ -8303,8 +8109,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "유산균이 들어있는 오리지널 요거트 아이스크림 (31 Yogurt)",
@@ -8371,8 +8176,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "블루베리와 딸기로 상큼함을 더한 치즈케이크 한 조각 (Twinberry CheeseCake)",
@@ -8436,8 +8240,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "피스타치오와 아몬드가 만나 고소함이 두 배! (Pistachio Almond)",
@@ -8502,8 +8305,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "초콜릿 칩이 들어있는 진한 초콜릿 아이스크림 (Chocolate Mousse)",
@@ -8567,8 +8369,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "진하고 부드러운 정통 초콜릿 아이스크림 (Chocolate)",
@@ -8632,8 +8433,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "깊고 풍부한 자모카 아이스크림에 고소한 아몬드와 초콜릿 훠지 시럽이 들어있는 제품 (Jamoca Almond Fudge)",
@@ -8698,8 +8498,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "입안 가득 즐거운 초콜릿, 아몬드로 더욱 달콤하게! (Almond Bon Bon)",
@@ -8763,8 +8562,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
         "stockCount": 20,
         "price": 3900,
         "eventBadge": "인기플레이버",
-        "deliveryTime": "매장 즉시 픽업 / 배달",
-        "appLink": "https://www.baskinrobbins.co.kr"
+        "deliveryTime": "매장 즉시 픽업 / 배달"
       }
     ],
     "description": "부드럽고 깔끔한 바닐라 아이스크림 (Vanilla)",

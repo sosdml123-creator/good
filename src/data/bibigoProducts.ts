@@ -44,10 +44,10 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '끓는 물에 파우치째 넣고 데우거나 냄비에 부어 끓여 드세요.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 150, price: 1980, discountPrice: 1780, eventBadge: '공식특가', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com/the/product/category-product-list?ctgrId=004012' },
-      { store: '대형마트', status: '입고완료', stockCount: 50, price: 1980, eventBadge: '만능육수', deliveryTime: '당일배송', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 80, price: 1980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' },
-      { store: 'CU', status: '입고완료', stockCount: 15, price: 1980, eventBadge: '1+1행사', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 150, price: 1980, discountPrice: 1780, eventBadge: '공식특가', deliveryTime: '당일출고' },
+      { store: '대형마트', status: '입고완료', stockCount: 50, price: 1980, eventBadge: '만능육수', deliveryTime: '당일배송' },
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 80, price: 1980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 전 도착' },
+      { store: 'CU', status: '입고완료', stockCount: 15, price: 1980, eventBadge: '1+1행사', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '8시간 동안 정성껏 푹 고아내어 뽀얗고 깊은 국물 맛! 떡국, 만둣국, 부대찌개, 김치찌개 등 모든 국물 요리의 만능 베이스 육수.',
     bestQuotes: [
@@ -96,8 +96,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 남은 국물은 변질될 수 있으니 즉시 조리해 드십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 120, price: 2980, discountPrice: 2530, eventBadge: '한우100%', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '마켓컬리', status: '입고완료', stockCount: 40, price: 2980, discountPrice: 2680, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.kurly.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 120, price: 2980, discountPrice: 2530, eventBadge: '한우100%', deliveryTime: '당일출고' },
+      { store: '마켓컬리', status: '입고완료', stockCount: 40, price: 2980, discountPrice: 2680, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착' }
     ],
     description: '100% 대한민국 국산 한우사골만을 엄선하여 더 진하고 깊게 우려낸 프리미엄 한우 곰탕. 아이들 국물 요리나 보양식 베이스로 최고입니다.',
     bestQuotes: [
@@ -145,8 +145,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지용 용기에 부어 4분간 데워 드세요.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 80, price: 4980, discountPrice: 4230, eventBadge: '공식인기', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 50, price: 4980, eventBadge: '새벽도착', deliveryTime: '내일 아침 7시 전 도착', appLink: 'https://www.coupang.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 80, price: 4980, discountPrice: 4230, eventBadge: '공식인기', deliveryTime: '당일출고' },
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 50, price: 4980, eventBadge: '새벽도착', deliveryTime: '내일 아침 7시 전 도착' }
     ],
     description: '완도산 청정 미역을 고소한 참기름에 달달 볶고, 결대로 찢은 두툼한 소고기 양지머리를 푹 고아내어 국물이 맑고 진한 정통 미역국.',
     bestQuotes: [
@@ -194,7 +194,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '파우치를 흔든 후 개봉하여 냄비에 붓고 4~5분간 끓여 드세요.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 65, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 65, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고' }
     ],
     description: '기존 비비고 미역국 대비 소고기를 2배 이상 듬뿍! 숟가락을 뜰 때마다 푸짐하게 올라오는 소고기 양지와 진한 참기름 미역국의 환상적인 조화.',
     bestQuotes: [
@@ -242,8 +242,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지 조리 시 전용 용기에 담아 4분간 조리하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 90, price: 5980, discountPrice: 5260, eventBadge: '특가할인', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: 'CU', status: '입고완료', stockCount: 12, price: 5980, eventBadge: '2+1행사', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 90, price: 5980, discountPrice: 5260, eventBadge: '특가할인', deliveryTime: '당일출고' },
+      { store: 'CU', status: '입고완료', stockCount: 12, price: 5980, eventBadge: '2+1행사', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '고소한 소차돌박이와 도톰한 두부, 표고버섯, 감자를 듬뿍 넣고 비비고 특제 전통 된장으로 구수하고 칼칼하게 끓여낸 정통 찌개.',
     bestQuotes: [
@@ -291,7 +291,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 바로 조리해 드십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 75, price: 5480, discountPrice: 4930, eventBadge: '묵은지정통', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 75, price: 5480, discountPrice: 4930, eventBadge: '묵은지정통', deliveryTime: '당일출고' }
     ],
     description: '잘 익은 비비고 묵은지를 달달 볶고 두툼한 국산 돼지고기와 사골 육수를 더해 칼칼하고 깊은 감칠맛을 완성한 대한민국 대표 김치찌개.',
     bestQuotes: [
@@ -339,8 +339,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '뼈가 들어있으니 섭취 시 치아 손상에 주의하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 110, price: 6980, discountPrice: 6280, eventBadge: '인기보양', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '마켓컬리', status: '입고완료', stockCount: 30, price: 6980, discountPrice: 6480, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.kurly.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 110, price: 6980, discountPrice: 6280, eventBadge: '인기보양', deliveryTime: '당일출고' },
+      { store: '마켓컬리', status: '입고완료', stockCount: 30, price: 6980, discountPrice: 6480, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착' }
     ],
     description: '갈비와 야채를 직접 오랜 시간 우려내어 맑고 깊은 육수에, 뼈에서 부드럽게 쏙 발라지는 살코기가 듬뿍 담긴 정통 갈비탕.',
     bestQuotes: [
@@ -388,8 +388,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '끓는 물에 파우치 채 5~6분 데워 드세요.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 130, price: 4980, discountPrice: 4230, eventBadge: '국민육개장', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '쿠팡프레시', status: '입고완료', stockCount: 60, price: 4980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.coupang.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 130, price: 4980, discountPrice: 4230, eventBadge: '국민육개장', deliveryTime: '당일출고' },
+      { store: '쿠팡프레시', status: '입고완료', stockCount: 60, price: 4980, eventBadge: '로켓프레시', deliveryTime: '내일 아침 7시 도착' }
     ],
     description: '결대로 정성껏 찢은 소고기 양지와 신선한 대파, 토란대를 듬뿍 넣고 3시간 동안 직접 우려낸 사골 육수로 칼칼하고 깊게 끓여낸 육개장.',
     bestQuotes: [
@@ -437,7 +437,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지 전용 용기에 담아 4분 30초 조리하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 70, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 70, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고' }
     ],
     description: '소고기 양지 건더기를 2배 이상 듬뿍! 풍성한 대파와 버섯, 얼큰하고 진한 육개장 국물의 깊은 감칠맛을 선사합니다.',
     bestQuotes: [
@@ -485,7 +485,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '개봉 후 바로 조리해 드십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 55, price: 5480, discountPrice: 4930, eventBadge: '시원한감칠맛', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 55, price: 5480, discountPrice: 4930, eventBadge: '시원한감칠맛', deliveryTime: '당일출고' }
     ],
     description: '달큰한 국산 무와 푹 고아낸 소고기 양지를 듬뿍 넣어 집에서 어머니가 정성껏 끓여주신 것 같은 맑고 시원한 감칠맛의 소고기 뭇국.',
     bestQuotes: [
@@ -533,8 +533,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '라면사리나 떡을 추가해 냄비에 끓여 드시면 더욱 맛있습니다.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 95, price: 5980, discountPrice: 5380, eventBadge: '정품스팸듬뿍', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: 'CU', status: '입고완료', stockCount: 10, price: 5980, eventBadge: '2+1행사', deliveryTime: '매장 즉시 픽업', appLink: 'https://pocketcu.bgfretail.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 95, price: 5980, discountPrice: 5380, eventBadge: '정품스팸듬뿍', deliveryTime: '당일출고' },
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 5980, eventBadge: '2+1행사', deliveryTime: '매장 즉시 픽업' }
     ],
     description: '진짜 CJ 정품 스팸 클래식과 쫄깃한 소시지가 듬뿍! 사골 육수에 칼칼한 특제 다대기를 풀어 진하고 걸쭉한 부대찌개의 깊은 맛을 재현했습니다.',
     bestQuotes: [
@@ -582,7 +582,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '뼈 없이 부드러운 살코기만 엄선하여 편리하게 드실 수 있습니다.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 6480, discountPrice: 5830, eventBadge: '살코기듬뿍', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 6480, discountPrice: 5830, eventBadge: '살코기듬뿍', deliveryTime: '당일출고' }
     ],
     description: '직접 우린 돼지뼈 육수에 뼈 없이 부드러운 순살코기만 쏙! 구수한 양구 무청 시래기와 들깨가루의 고소함이 어우러진 깔끔한 감자탕.',
     bestQuotes: [
@@ -630,7 +630,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '끓는 물에 파우치 채 데워 드십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 50, price: 6980, discountPrice: 6280, eventBadge: '콜라겐보양', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 50, price: 6980, discountPrice: 6280, eventBadge: '콜라겐보양', deliveryTime: '당일출고' }
     ],
     description: '진하게 우려낸 사골 육수에 쫄깃쫄깃한 소 스지와 부드러운 소고기 살코기가 듬뿍 들어간 콜라겐 가득 전통 도가니곰탕.',
     bestQuotes: [
@@ -678,7 +678,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '기호에 따라 청양고추나 제피가루를 곁들여 드세요.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 45, price: 6480, discountPrice: 5830, eventBadge: '남도전통식', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 45, price: 6480, discountPrice: 5830, eventBadge: '남도전통식', deliveryTime: '당일출고' }
     ],
     description: '국산 미꾸라지를 곱게 갈아 넣고 부드러운 무청 시래기와 고소한 들깨가루, 산초를 더해 비린내 없이 깊고 걸쭉하게 끓여낸 정통 남도식 추어탕.',
     bestQuotes: [
@@ -726,7 +726,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지 조리 시 전용 용기에 담아 4분간 조리하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 4980, discountPrice: 4480, eventBadge: '담백깔끔', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 4980, discountPrice: 4480, eventBadge: '담백깔끔', deliveryTime: '당일출고' }
     ],
     description: '결대로 부드럽게 찢은 국산 닭고기와 진한 닭 육수를 오랜 시간 우려내어 기름기 없이 맑고 담백한 서울식 닭곰탕.',
     bestQuotes: [
@@ -774,8 +774,8 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '통닭 뼈가 포함되어 있으므로 섭취 시 주의하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 100, price: 9980, discountPrice: 8480, eventBadge: '통닭1마리', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' },
-      { store: '마켓컬리', status: '입고완료', stockCount: 35, price: 9980, discountPrice: 8980, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착', appLink: 'https://www.kurly.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 100, price: 9980, discountPrice: 8480, eventBadge: '통닭1마리', deliveryTime: '당일출고' },
+      { store: '마켓컬리', status: '입고완료', stockCount: 35, price: 9980, discountPrice: 8980, eventBadge: '샛별배송', deliveryTime: '내일 아침 7시 도착' }
     ],
     description: '국산 어린 통닭 한 마리에 찹쌀, 수삼 한 뿌리, 마늘, 대추를 꽉 채워 오랜 시간 푹 끓여낸 든든하고 깊은 맛의 프리미엄 보양 삼계탕.',
     bestQuotes: [
@@ -823,7 +823,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지 조리 시 전용 용기에 담아 4분간 조리하십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 65, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 65, price: 5980, discountPrice: 5380, eventBadge: '소고기2배', deliveryTime: '당일출고' }
     ],
     description: '사골을 뽀얗게 고아낸 진한 육수에 나트륨은 낮추고 얇게 저민 부드러운 소고기 양지는 2배 듬뿍 담은 건강한 설렁탕.',
     bestQuotes: [
@@ -871,7 +871,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '기호에 따라 달걀 하나를 풀어 넣으시면 더욱 고소합니다.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 50, price: 5480, discountPrice: 4930, eventBadge: '황태듬뿍', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 50, price: 5480, discountPrice: 4930, eventBadge: '황태듬뿍', deliveryTime: '당일출고' }
     ],
     description: '참기름에 고소하게 볶아낸 황태채와 아삭한 콩나물, 달달한 무를 듬뿍 넣어 속을 시원하고 개운하게 풀어주는 명품 황태해장국.',
     bestQuotes: [
@@ -919,7 +919,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '정성껏 살코기만 발라내어 치아 부담 없이 편하게 드실 수 있습니다.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 40, price: 7480, discountPrice: 6730, eventBadge: '소꼬리순살', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 40, price: 7480, discountPrice: 6730, eventBadge: '소꼬리순살', deliveryTime: '당일출고' }
     ],
     description: '소꼬리를 푹 고아내어 정성껏 발라낸 부드러운 살코기와 진하고 구수한 사골 육수가 어우러진 최고급 궁중 꼬리곰탕.',
     bestQuotes: [
@@ -967,7 +967,7 @@ export const BIBIGO_PRODUCTS: Product[] = [
     shelfLife: '제조일로부터 12개월',
     precautions: '전자레인지 또는 냄비에 4분간 가열해 드십시오.',
     storeStocks: [
-      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 4980, discountPrice: 4480, eventBadge: '두부듬뿍', deliveryTime: '당일출고', appLink: 'https://www.cjthemarket.com' }
+      { store: 'CJ더마켓', status: '입고완료', stockCount: 60, price: 4980, discountPrice: 4480, eventBadge: '두부듬뿍', deliveryTime: '당일출고' }
     ],
     description: '도톰하고 부드러운 국산 콩 두부와 애호박, 표고버섯을 듬뿍 넣고 비비고 전통 된장으로 구수하고 깔끔하게 끓여낸 웰빙 된장찌개.',
     bestQuotes: [

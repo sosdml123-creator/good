@@ -57,8 +57,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -134,8 +133,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/13642154979"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -214,8 +212,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -294,8 +291,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 2200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -374,8 +370,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -454,8 +449,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 2200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -534,8 +528,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -614,8 +607,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 2200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -694,8 +686,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -774,8 +765,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 2200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/category/63c89c6b919a4828af1f3529b10cfa68?cp=1"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -854,8 +844,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1450,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -934,8 +923,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1014,8 +1002,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1094,8 +1081,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1174,8 +1160,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1254,8 +1239,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1334,8 +1318,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1414,8 +1397,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1494,8 +1476,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1574,8 +1555,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1400,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1654,8 +1634,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1734,8 +1713,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1814,8 +1792,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1400,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1894,8 +1871,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -1974,8 +1950,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2054,8 +2029,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2134,8 +2108,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2214,8 +2187,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2294,8 +2266,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2374,8 +2345,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2454,8 +2424,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2534,8 +2503,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1450,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2614,8 +2582,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2694,8 +2661,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1450,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2774,8 +2740,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2854,8 +2819,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -2934,8 +2898,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/6159554888"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3014,8 +2977,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3094,8 +3056,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3174,8 +3135,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3254,8 +3214,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3334,8 +3293,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3414,8 +3372,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3494,8 +3451,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1600,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3574,8 +3530,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3654,8 +3609,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3734,8 +3688,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1050,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3814,8 +3767,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3894,8 +3846,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -3974,8 +3925,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4054,8 +4004,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4134,8 +4083,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4214,8 +4162,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://smartstore.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4291,8 +4238,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 1500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4368,8 +4314,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3800,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4445,8 +4390,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4526,8 +4470,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4607,8 +4550,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4688,8 +4630,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4769,8 +4710,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4849,8 +4789,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 4500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -4930,8 +4869,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 16500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5010,8 +4948,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 16500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/10058172831"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5090,8 +5027,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5170,8 +5106,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5247,8 +5182,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5327,8 +5261,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5407,8 +5340,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5487,8 +5419,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5567,8 +5498,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/12101788890"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5647,8 +5577,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/12101791029"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5727,8 +5656,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/12101785394"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5807,8 +5735,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop/products/12101787308"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5887,8 +5814,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -5967,8 +5893,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 3200,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6047,8 +5972,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6127,8 +6051,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6207,8 +6130,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6287,8 +6209,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6367,8 +6288,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6447,8 +6367,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 7500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6527,8 +6446,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6607,8 +6525,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6687,8 +6604,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6767,8 +6683,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 7500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6847,8 +6762,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 7500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -6927,8 +6841,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7007,8 +6920,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7087,8 +6999,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7167,8 +7078,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7247,8 +7157,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 7500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7327,8 +7236,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7407,8 +7315,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7487,8 +7394,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7567,8 +7473,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7647,8 +7552,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7727,8 +7631,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7807,8 +7710,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7887,8 +7789,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -7967,8 +7868,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8047,8 +7947,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8127,8 +8026,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8207,8 +8105,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8287,8 +8184,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8367,8 +8263,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8447,8 +8342,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8527,8 +8421,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8607,8 +8500,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8688,8 +8580,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8769,8 +8660,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8850,8 +8740,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -8930,8 +8819,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9011,8 +8899,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9092,8 +8979,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9173,8 +9059,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9253,8 +9138,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9333,8 +9217,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 8500,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9414,8 +9297,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',
@@ -9494,8 +9376,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
         stockCount: 100,
         price: 6900,
         eventBadge: '공식직영',
-        deliveryTime: '전국 당일/익일 출고',
-        appLink: "https://brand.naver.com/syfoodshop"
+        deliveryTime: '전국 당일/익일 출고'
       },
       {
         store: 'CU',

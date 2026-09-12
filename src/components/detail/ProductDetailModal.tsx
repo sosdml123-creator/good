@@ -1162,10 +1162,14 @@ export const ProductDetailModal: React.FC = () => {
                               setIsNearbyModalOpen(true);
                             }
                           }}
-                          className="px-3 py-1.5 rounded-full text-xs font-bold bg-blue-50 text-[#0066FF] hover:bg-[#0066FF] hover:text-white transition-colors flex items-center gap-1 shrink-0 ml-2 shadow-2xs"
+                          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shrink-0 ml-2 shadow-2xs ${
+                            stItem.appLink
+                              ? 'bg-[#0066FF] text-white hover:bg-blue-600'
+                              : 'bg-blue-50 text-[#0066FF] hover:bg-blue-100'
+                          }`}
                         >
-                          <span>구매 / 확인</span>
-                          <ExternalLink className="w-3 h-3" />
+                          <span>{stItem.appLink ? '구매 / 바로가기' : '매장 재고확인'}</span>
+                          {stItem.appLink ? <ExternalLink className="w-3 h-3" /> : <MapPin className="w-3 h-3" />}
                         </button>
                       </div>
                     );

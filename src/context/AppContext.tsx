@@ -501,7 +501,7 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
   return sorted.map((b, idx) => ({ ...b, order: idx + 1 }));
 };
 
-const DATA_VERSION = 'v21_20260912_coupang_fresh_banner';
+const DATA_VERSION = 'v22_20260912_clear_store_links';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
