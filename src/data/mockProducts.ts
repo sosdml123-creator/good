@@ -44,7 +44,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "40g (74%)",
       transFat: "0g",
       satFat: "15g (100%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -176,7 +176,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "21.7g (40%)",
       transFat: "0g",
       satFat: "10g (67%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5g (9%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -220,7 +220,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "30.4g (56%)",
       transFat: "0g",
       satFat: "8.7g (58%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.5g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -264,7 +264,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "41.7g (77%)",
       transFat: "0g",
       satFat: "16.7g (111%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -308,7 +308,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "26.8g (50%)",
       transFat: "0g",
       satFat: "8.8g (59%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.4g (10%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -349,10 +349,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "648mg (32%)",
       carbs: "28g (9%)",
       sugar: "10.2g (10%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
       satFat: "2.5g (17%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "3.7g (7%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -440,7 +440,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "20g (37%)",
       transFat: "0g",
       satFat: "10g (67%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -484,7 +484,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "38.3g (71%)",
       transFat: "0.8g",
       satFat: "15g (100%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -616,7 +616,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "20.9g (39%)",
       transFat: "0g",
       satFat: "10g (67%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.5g (10%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -660,7 +660,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "36.7g (68%)",
       transFat: "1.2g",
       satFat: "14.3g (95%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -704,7 +704,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "16.5g (31%)",
       transFat: "0g",
       satFat: "5.2g (35%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "9.4g (17%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -743,12 +743,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     nutrition: {
       calories: 74,
       sodium: "2mg (0%)",
-      carbs: "0g",
+      carbs: "0g (0%)",
       sugar: "17.1g (17%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "0.2g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -792,7 +792,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "40g (74%)",
       transFat: "0g",
       satFat: "15g (100%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -880,7 +880,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "25.9g (48%)",
       transFat: "0g",
       satFat: "11.1g (74%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "4.9g (9%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -924,7 +924,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "24.5g (45%)",
       transFat: "0g",
       satFat: "9g (60%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.1g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -968,7 +968,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "33.3g (62%)",
       transFat: "0g",
       satFat: "14g (93%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.7g (12%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1012,7 +1012,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "26.7g (49%)",
       transFat: "0.3g",
       satFat: "12g (80%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "10g (18%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1056,7 +1056,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "15g (28%)",
       transFat: "0.6g",
       satFat: "3.4g (23%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "11.3g (21%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1188,7 +1188,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "15.9g (29%)",
       transFat: "0g",
       satFat: "14g (93%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "1.7g (3%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1276,7 +1276,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "18g (33%)",
       transFat: "0g",
       satFat: "10g (67%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "4g (7%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1320,7 +1320,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "19g (35%)",
       transFat: "0g",
       satFat: "11g (73%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "4g (7%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1447,12 +1447,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     nutrition: {
       calories: 336,
       sodium: "350mg (18%)",
-      carbs: "0g",
+      carbs: "0g (0%)",
       sugar: "13.9g (14%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
       satFat: "8.3g (55%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "4.4g (8%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1540,7 +1540,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "19.1g (35%)",
       transFat: "0g",
       satFat: "9.5g (63%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "7.1g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1672,7 +1672,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "27.9g (52%)",
       transFat: "0g",
       satFat: "12.9g (86%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1716,7 +1716,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "26.3g (49%)",
       transFat: "0g",
       satFat: "11.8g (79%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.3g (10%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1754,11 +1754,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
     nutrition: {
       calories: 350,
-      sodium: '160mg',
-      carbs: '40g',
-      sugar: '20g',
-      fat: '14g',
-      protein: '3g'
+      sodium: "160mg (8%)",
+      carbs: "40g (12%)",
+      sugar: "20g (20%)",
+      fat: "14g (26%)",
+      protein: "3g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["밀","달걀","우유","대두","쇠고기","오징어","새우"],
@@ -1845,7 +1845,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "12.9g (24%)",
       transFat: "0g",
       satFat: "6.5g (43%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.9g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1889,7 +1889,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "12.5g (23%)",
       transFat: "0g",
       satFat: "6.4g (43%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "7.1g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -1972,12 +1972,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     nutrition: {
       calories: 250,
       sodium: "83mg (4%)",
-      carbs: "0g",
+      carbs: "0g (0%)",
       sugar: "20g (20%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
       satFat: "9.6g (64%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "3.5g (6%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2021,7 +2021,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "12.9g (24%)",
       transFat: "0g",
       satFat: "6.5g (43%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.9g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2236,12 +2236,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     nutrition: {
       calories: 433,
       sodium: "429mg (21%)",
-      carbs: "0g",
+      carbs: "0g (0%)",
       sugar: "8.2g (8%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
       satFat: "22.5g (150%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "6.1g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2373,7 +2373,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "12.5g (23%)",
       transFat: "0g",
       satFat: "6.4g (43%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "7.1g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2417,7 +2417,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "19.1g (35%)",
       transFat: "0g",
       satFat: "9.5g (63%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "7.1g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2505,7 +2505,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "16g (30%)",
       transFat: "0g",
       satFat: "7g (47%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "10g (18%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2549,7 +2549,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "20.5g (38%)",
       transFat: "0g",
       satFat: "8.7g (58%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5.1g (9%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2768,9 +2768,9 @@ export const INITIAL_PRODUCTS: Product[] = [
       sugar: "80g (80%)",
       fat: "1.4g (3%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
-      protein: "0g"
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "0g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["우유"],
@@ -2814,7 +2814,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       transFat: "0.2g",
       satFat: "0.5g (3%)",
       cholesterol: "2mg (1%)",
-      protein: "0g"
+      protein: "0g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["없음"],
@@ -2851,13 +2851,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
     nutrition: {
       calories: 333,
-      sodium: "0mg",
+      sodium: "0mg (0%)",
       carbs: "76.4g (24%)",
       sugar: "54.2g (54%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "7g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2898,10 +2898,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "30mg (2%)",
       carbs: "73.1g (23%)",
       sugar: "53.7g (54%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "6g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2942,10 +2942,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "129mg (6%)",
       carbs: "75.8g (23%)",
       sugar: "57.6g (58%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "3g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -2986,10 +2986,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "120mg (6%)",
       carbs: "73.3g (23%)",
       sugar: "66.7g (67%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "5.3g (10%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3030,10 +3030,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "188mg (9%)",
       carbs: "35g (11%)",
       sugar: "14g (14%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
       satFat: "6g (40%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "2.5g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3077,7 +3077,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "9g (17%)",
       transFat: "0g",
       satFat: "8g (53%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "1g (2%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3118,10 +3118,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "60mg (3%)",
       carbs: "73.1g (23%)",
       sugar: "64.2g (64%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "3g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3159,13 +3159,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
     nutrition: {
       calories: 333,
-      sodium: "0mg",
+      sodium: "0mg (0%)",
       carbs: "76.4g (24%)",
       sugar: "54.2g (54%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "7g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3208,8 +3208,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sugar: "61.2g (61%)",
       fat: "2.2g (4%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "8.2g (15%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3250,10 +3250,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "164mg (8%)",
       carbs: "76.1g (23%)",
       sugar: "56.7g (57%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "3g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3296,8 +3296,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sugar: "52.2g (52%)",
       fat: "0.9g (2%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "3g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3338,10 +3338,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "83mg (4%)",
       carbs: "75g (23%)",
       sugar: "55.6g (56%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "2.8g (5%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3382,10 +3382,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "97mg (5%)",
       carbs: "72.2g (22%)",
       sugar: "55.6g (56%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "2.1g (4%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3429,8 +3429,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "9.5g (18%)",
       transFat: "0g",
       satFat: "7.1g (47%)",
-      cholesterol: "0mg",
-      protein: "0g"
+      cholesterol: "0mg (0%)",
+      protein: "0g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["우유","대두","돼지고기"],
@@ -3467,13 +3467,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
     nutrition: {
       calories: 333,
-      sodium: "0mg",
+      sodium: "0mg (0%)",
       carbs: "76.4g (24%)",
       sugar: "54.2g (54%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "7g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3516,8 +3516,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sugar: "60g (60%)",
       fat: "1g (2%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "7g (13%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3558,10 +3558,10 @@ export const INITIAL_PRODUCTS: Product[] = [
       sodium: "30mg (2%)",
       carbs: "73.1g (23%)",
       sugar: "53.7g (54%)",
-      fat: "0g",
+      fat: "0g (0%)",
       transFat: "0g",
-      satFat: "0g",
-      cholesterol: "0mg",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
       protein: "6g (11%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3605,8 +3605,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "7.6g (14%)",
       transFat: "0g",
       satFat: "7.6g (51%)",
-      cholesterol: "0mg",
-      protein: "0g"
+      cholesterol: "0mg (0%)",
+      protein: "0g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["대두","우유","돼지고기"],
@@ -3643,14 +3643,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.8 },
     nutrition: {
       calories: 412,
-      sodium: "0mg",
+      sodium: "0mg (0%)",
       carbs: "86g (27%)",
       sugar: "82.5g (83%)",
       fat: "7.5g (14%)",
       transFat: "0g",
       satFat: "7.4g (49%)",
-      cholesterol: "0mg",
-      protein: "0g"
+      cholesterol: "0mg (0%)",
+      protein: "0g (0%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
     allergens: ["우유","대두","돼지고기"],
@@ -3693,7 +3693,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "17.4g (32%)",
       transFat: "0.2g",
       satFat: "8.2g (55%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "3.6g (7%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -3737,7 +3737,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       fat: "34g (63%)",
       transFat: "0g",
       satFat: "19g (127%)",
-      cholesterol: "0mg",
+      cholesterol: "0mg (0%)",
       protein: "5g (9%)"
     },
     ingredients: "밀가루, 백설탕, 식물성유지, 정제소금",
@@ -4391,11 +4391,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 328,
-      sodium: '30mg',
-      carbs: '20g',
-      sugar: '12g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "30mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "12g (12%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4432,11 +4432,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 238,
-      sodium: '31mg',
-      carbs: '21g',
-      sugar: '13g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "31mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "13g (13%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4473,11 +4473,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 342,
-      sodium: '32mg',
-      carbs: '22g',
-      sugar: '14g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "32mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "14g (14%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4514,11 +4514,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 20,
-      sodium: '33mg',
-      carbs: '23g',
-      sugar: '15g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "33mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "15g (15%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4555,11 +4555,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 25,
-      sodium: '34mg',
-      carbs: '24g',
-      sugar: '16g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "34mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "16g (16%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -4596,11 +4596,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 366,
-      sodium: '35mg',
-      carbs: '25g',
-      sugar: '17g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "35mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "17g (17%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4637,11 +4637,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 401,
-      sodium: '36mg',
-      carbs: '26g',
-      sugar: '18g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "36mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "18g (18%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -4678,11 +4678,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 389,
-      sodium: '37mg',
-      carbs: '27g',
-      sugar: '19g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "37mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "19g (19%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4719,11 +4719,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 327,
-      sodium: '38mg',
-      carbs: '28g',
-      sugar: '20g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "38mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "20g (20%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -4760,11 +4760,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 36,
-      sodium: '39mg',
-      carbs: '29g',
-      sugar: '21g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "39mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "21g (21%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4801,11 +4801,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 35,
-      sodium: '40mg',
-      carbs: '30g',
-      sugar: '22g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "40mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "22g (22%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4842,11 +4842,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 12,
-      sodium: '41mg',
-      carbs: '31g',
-      sugar: '23g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "41mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "23g (23%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4883,11 +4883,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 532,
-      sodium: '42mg',
-      carbs: '32g',
-      sugar: '24g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "42mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "24g (24%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -4924,11 +4924,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 257,
-      sodium: '43mg',
-      carbs: '33g',
-      sugar: '25g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "43mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "25g (25%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["복숭아"],
@@ -4965,11 +4965,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 203,
-      sodium: '44mg',
-      carbs: '34g',
-      sugar: '26g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "44mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "26g (26%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5006,11 +5006,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 364,
-      sodium: '45mg',
-      carbs: '35g',
-      sugar: '27g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "45mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "27g (27%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5047,11 +5047,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 269,
-      sodium: '46mg',
-      carbs: '36g',
-      sugar: '28g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "46mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "28g (28%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5088,11 +5088,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 279,
-      sodium: '47mg',
-      carbs: '37g',
-      sugar: '29g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "47mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "29g (29%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5129,11 +5129,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 66,
-      sodium: '48mg',
-      carbs: '38g',
-      sugar: '12g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "48mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "12g (12%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5170,11 +5170,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 313,
-      sodium: '49mg',
-      carbs: '39g',
-      sugar: '13g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "49mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "13g (13%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5211,11 +5211,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 56,
-      sodium: '50mg',
-      carbs: '40g',
-      sugar: '14g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "50mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "14g (14%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5252,11 +5252,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 34,
-      sodium: '51mg',
-      carbs: '41g',
-      sugar: '15g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "51mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "15g (15%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5293,11 +5293,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 33,
-      sodium: '52mg',
-      carbs: '42g',
-      sugar: '16g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "52mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "16g (16%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5334,11 +5334,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 56,
-      sodium: '53mg',
-      carbs: '43g',
-      sugar: '17g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "53mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "17g (17%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5375,11 +5375,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 275,
-      sodium: '54mg',
-      carbs: '44g',
-      sugar: '18g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "54mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "18g (18%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["복숭아"],
@@ -5416,11 +5416,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 260,
-      sodium: '55mg',
-      carbs: '20g',
-      sugar: '19g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "55mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "19g (19%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["복숭아"],
@@ -5457,11 +5457,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 428,
-      sodium: '56mg',
-      carbs: '21g',
-      sugar: '20g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "56mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "20g (20%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["밀","우유","대두"],
@@ -5498,11 +5498,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 75,
-      sodium: '57mg',
-      carbs: '22g',
-      sugar: '21g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "57mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "21g (21%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5539,11 +5539,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 574,
-      sodium: '58mg',
-      carbs: '23g',
-      sugar: '22g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "58mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "22g (22%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5580,11 +5580,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 475,
-      sodium: '59mg',
-      carbs: '24g',
-      sugar: '23g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "59mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "23g (23%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["복숭아","아황산류"],
@@ -5621,11 +5621,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 26,
-      sodium: '60mg',
-      carbs: '25g',
-      sugar: '24g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "60mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "24g (24%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["복숭아","아황산류"],
@@ -5662,11 +5662,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 352,
-      sodium: '61mg',
-      carbs: '26g',
-      sugar: '25g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "61mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "25g (25%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5703,11 +5703,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 210,
-      sodium: '62mg',
-      carbs: '27g',
-      sugar: '26g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "62mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "26g (26%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5744,11 +5744,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 282,
-      sodium: '63mg',
-      carbs: '28g',
-      sugar: '27g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "63mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "27g (27%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -5785,11 +5785,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 469,
-      sodium: '64mg',
-      carbs: '29g',
-      sugar: '28g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "64mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "28g (28%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -5826,11 +5826,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 747,
-      sodium: '65mg',
-      carbs: '30g',
-      sugar: '29g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "65mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "29g (29%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5867,11 +5867,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 228,
-      sodium: '66mg',
-      carbs: '31g',
-      sugar: '12g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "66mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "12g (12%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5908,11 +5908,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 269,
-      sodium: '67mg',
-      carbs: '32g',
-      sugar: '13g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "67mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "13g (13%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5949,11 +5949,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 6,
-      sodium: '68mg',
-      carbs: '33g',
-      sugar: '14g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "68mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "14g (14%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -5990,11 +5990,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 8,
-      sodium: '69mg',
-      carbs: '34g',
-      sugar: '15g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "69mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "15g (15%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6031,11 +6031,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 149,
-      sodium: '30mg',
-      carbs: '35g',
-      sugar: '16g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "30mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "16g (16%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6072,11 +6072,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 84,
-      sodium: '31mg',
-      carbs: '36g',
-      sugar: '17g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "31mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "17g (17%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6113,11 +6113,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 87,
-      sodium: '32mg',
-      carbs: '37g',
-      sugar: '18g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "32mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "18g (18%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6154,11 +6154,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 179,
-      sodium: '33mg',
-      carbs: '38g',
-      sugar: '19g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "33mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "19g (19%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6195,11 +6195,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 153,
-      sodium: '34mg',
-      carbs: '39g',
-      sugar: '20g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "34mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "20g (20%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6236,11 +6236,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 220,
-      sodium: '35mg',
-      carbs: '40g',
-      sugar: '21g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "35mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "21g (21%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6277,11 +6277,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 240,
-      sodium: '36mg',
-      carbs: '41g',
-      sugar: '22g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "36mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "22g (22%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6318,11 +6318,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 240,
-      sodium: '37mg',
-      carbs: '42g',
-      sugar: '23g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "37mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "23g (23%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6359,11 +6359,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 302,
-      sodium: '38mg',
-      carbs: '43g',
-      sugar: '24g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "38mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "24g (24%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6400,11 +6400,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 360,
-      sodium: '39mg',
-      carbs: '44g',
-      sugar: '25g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "39mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "25g (25%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -6441,11 +6441,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 583,
-      sodium: '52mg',
-      carbs: '32g',
-      sugar: '20g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "52mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "20g (20%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","밀","대두"],
@@ -6482,11 +6482,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 8,
-      sodium: '53mg',
-      carbs: '33g',
-      sugar: '21g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "53mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "21g (21%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6523,11 +6523,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 141,
-      sodium: '55mg',
-      carbs: '35g',
-      sugar: '23g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "55mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "23g (23%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6564,11 +6564,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 8,
-      sodium: '57mg',
-      carbs: '37g',
-      sugar: '25g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "57mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "25g (25%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6605,11 +6605,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 15,
-      sodium: '58mg',
-      carbs: '38g',
-      sugar: '26g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "58mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "26g (26%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6646,11 +6646,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 698,
-      sodium: '59mg',
-      carbs: '39g',
-      sugar: '27g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "59mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "27g (27%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","밀","대두"],
@@ -6687,11 +6687,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 311,
-      sodium: '60mg',
-      carbs: '40g',
-      sugar: '28g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "60mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "28g (28%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","아몬드"],
@@ -6728,11 +6728,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 420,
-      sodium: '61mg',
-      carbs: '41g',
-      sugar: '29g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "61mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "29g (29%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","밀","대두"],
@@ -6769,11 +6769,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 373,
-      sodium: '62mg',
-      carbs: '42g',
-      sugar: '12g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "62mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "12g (12%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유","대두"],
@@ -6810,11 +6810,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '63mg',
-      carbs: '43g',
-      sugar: '13g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "63mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "13g (13%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6851,11 +6851,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 345,
-      sodium: '64mg',
-      carbs: '44g',
-      sugar: '14g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "64mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "14g (14%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6892,11 +6892,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 290,
-      sodium: '65mg',
-      carbs: '20g',
-      sugar: '15g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "65mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "15g (15%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6933,11 +6933,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 30,
-      sodium: '66mg',
-      carbs: '21g',
-      sugar: '16g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "66mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "16g (16%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -6974,11 +6974,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '67mg',
-      carbs: '22g',
-      sugar: '17g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "67mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "17g (17%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7015,11 +7015,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '68mg',
-      carbs: '23g',
-      sugar: '18g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "68mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "18g (18%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7056,11 +7056,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 105,
-      sodium: '69mg',
-      carbs: '24g',
-      sugar: '19g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "69mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "19g (19%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7097,11 +7097,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '30mg',
-      carbs: '25g',
-      sugar: '20g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "30mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "20g (20%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7138,11 +7138,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '31mg',
-      carbs: '26g',
-      sugar: '21g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "31mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "21g (21%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7179,11 +7179,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 10,
-      sodium: '32mg',
-      carbs: '27g',
-      sugar: '22g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "32mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "22g (22%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7220,11 +7220,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 245,
-      sodium: '33mg',
-      carbs: '28g',
-      sugar: '23g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "33mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "23g (23%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7261,11 +7261,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 190,
-      sodium: '34mg',
-      carbs: '29g',
-      sugar: '24g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "34mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "24g (24%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7302,11 +7302,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 200,
-      sodium: '35mg',
-      carbs: '30g',
-      sugar: '25g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "35mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "25g (25%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7343,11 +7343,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '36mg',
-      carbs: '31g',
-      sugar: '26g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "36mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "26g (26%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7384,11 +7384,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '37mg',
-      carbs: '32g',
-      sugar: '27g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "37mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "27g (27%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7425,11 +7425,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 400,
-      sodium: '38mg',
-      carbs: '33g',
-      sugar: '28g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "38mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "28g (28%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7466,11 +7466,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 310,
-      sodium: '39mg',
-      carbs: '34g',
-      sugar: '29g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "39mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "29g (29%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7507,11 +7507,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 210,
-      sodium: '40mg',
-      carbs: '35g',
-      sugar: '12g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "40mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "12g (12%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7548,11 +7548,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 245,
-      sodium: '41mg',
-      carbs: '36g',
-      sugar: '13g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "41mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "13g (13%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7589,11 +7589,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 380,
-      sodium: '42mg',
-      carbs: '37g',
-      sugar: '14g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "42mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "14g (14%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7630,11 +7630,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 270,
-      sodium: '43mg',
-      carbs: '38g',
-      sugar: '15g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "43mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "15g (15%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7671,11 +7671,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 200,
-      sodium: '44mg',
-      carbs: '39g',
-      sugar: '16g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "44mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "16g (16%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7712,11 +7712,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 215,
-      sodium: '45mg',
-      carbs: '40g',
-      sugar: '17g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "45mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "17g (17%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7753,11 +7753,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 360,
-      sodium: '46mg',
-      carbs: '41g',
-      sugar: '18g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "46mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "18g (18%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7794,11 +7794,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 215,
-      sodium: '47mg',
-      carbs: '42g',
-      sugar: '19g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "47mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "19g (19%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7835,11 +7835,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 335,
-      sodium: '48mg',
-      carbs: '43g',
-      sugar: '20g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "48mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "20g (20%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7876,11 +7876,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 240,
-      sodium: '49mg',
-      carbs: '44g',
-      sugar: '21g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "49mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "21g (21%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7917,11 +7917,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 150,
-      sodium: '50mg',
-      carbs: '20g',
-      sugar: '22g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "50mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "22g (22%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7958,11 +7958,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 155,
-      sodium: '51mg',
-      carbs: '21g',
-      sugar: '23g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "51mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "23g (23%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -7999,11 +7999,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '52mg',
-      carbs: '22g',
-      sugar: '24g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "52mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "24g (24%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8040,11 +8040,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 215,
-      sodium: '53mg',
-      carbs: '23g',
-      sugar: '25g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "53mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "25g (25%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8081,11 +8081,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 290,
-      sodium: '54mg',
-      carbs: '24g',
-      sugar: '26g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "54mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "26g (26%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8122,11 +8122,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 190,
-      sodium: '55mg',
-      carbs: '25g',
-      sugar: '27g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "55mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "27g (27%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8163,11 +8163,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 455,
-      sodium: '56mg',
-      carbs: '26g',
-      sugar: '28g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "56mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "28g (28%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8204,11 +8204,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '57mg',
-      carbs: '27g',
-      sugar: '29g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "57mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "29g (29%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8245,11 +8245,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 530,
-      sodium: '58mg',
-      carbs: '28g',
-      sugar: '12g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "58mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "12g (12%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8286,11 +8286,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 240,
-      sodium: '59mg',
-      carbs: '29g',
-      sugar: '13g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "59mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "13g (13%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8327,11 +8327,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 180,
-      sodium: '60mg',
-      carbs: '30g',
-      sugar: '14g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "60mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "14g (14%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8368,11 +8368,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 115,
-      sodium: '61mg',
-      carbs: '31g',
-      sugar: '15g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "61mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "15g (15%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8409,11 +8409,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 345,
-      sodium: '62mg',
-      carbs: '32g',
-      sugar: '16g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "62mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "16g (16%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8450,11 +8450,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 250,
-      sodium: '63mg',
-      carbs: '33g',
-      sugar: '17g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "63mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "17g (17%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8491,11 +8491,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 300,
-      sodium: '64mg',
-      carbs: '34g',
-      sugar: '18g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "64mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "18g (18%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8532,11 +8532,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 290,
-      sodium: '65mg',
-      carbs: '35g',
-      sugar: '19g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "65mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "19g (19%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8573,11 +8573,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 335,
-      sodium: '66mg',
-      carbs: '36g',
-      sugar: '20g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "66mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "20g (20%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8614,11 +8614,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 350,
-      sodium: '67mg',
-      carbs: '37g',
-      sugar: '21g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "67mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "21g (21%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8655,11 +8655,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 120,
-      sodium: '68mg',
-      carbs: '38g',
-      sugar: '22g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "68mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "22g (22%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8696,11 +8696,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 170,
-      sodium: '69mg',
-      carbs: '39g',
-      sugar: '23g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "69mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "23g (23%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8737,11 +8737,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 125,
-      sodium: '30mg',
-      carbs: '40g',
-      sugar: '24g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "30mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "24g (24%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8778,11 +8778,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 290,
-      sodium: '31mg',
-      carbs: '41g',
-      sugar: '25g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "31mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "25g (25%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8819,11 +8819,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 65,
-      sodium: '32mg',
-      carbs: '42g',
-      sugar: '26g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "32mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "26g (26%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8860,11 +8860,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 5,
-      sodium: '33mg',
-      carbs: '43g',
-      sugar: '27g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "33mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "27g (27%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8901,11 +8901,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 150,
-      sodium: '34mg',
-      carbs: '44g',
-      sugar: '28g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "34mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "28g (28%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8942,11 +8942,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 150,
-      sodium: '35mg',
-      carbs: '20g',
-      sugar: '29g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "35mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "29g (29%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -8983,11 +8983,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 125,
-      sodium: '36mg',
-      carbs: '21g',
-      sugar: '12g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "36mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "12g (12%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9024,11 +9024,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 240,
-      sodium: '37mg',
-      carbs: '22g',
-      sugar: '13g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "37mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "13g (13%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9065,11 +9065,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 125,
-      sodium: '38mg',
-      carbs: '23g',
-      sugar: '14g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "38mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "14g (14%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9106,11 +9106,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 225,
-      sodium: '39mg',
-      carbs: '24g',
-      sugar: '15g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "39mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "15g (15%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9147,11 +9147,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 325,
-      sodium: '40mg',
-      carbs: '25g',
-      sugar: '16g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "40mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "16g (16%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9188,11 +9188,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '41mg',
-      carbs: '26g',
-      sugar: '17g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "41mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "17g (17%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9229,11 +9229,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 285,
-      sodium: '42mg',
-      carbs: '27g',
-      sugar: '18g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "42mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "18g (18%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9270,11 +9270,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 225,
-      sodium: '43mg',
-      carbs: '28g',
-      sugar: '19g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "43mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "19g (19%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9311,11 +9311,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 315,
-      sodium: '44mg',
-      carbs: '29g',
-      sugar: '20g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "44mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "20g (20%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9352,11 +9352,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 420,
-      sodium: '45mg',
-      carbs: '30g',
-      sugar: '21g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "45mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "21g (21%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9393,11 +9393,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 405,
-      sodium: '46mg',
-      carbs: '31g',
-      sugar: '22g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "46mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "22g (22%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9434,11 +9434,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 505,
-      sodium: '47mg',
-      carbs: '32g',
-      sugar: '23g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "47mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "23g (23%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9475,11 +9475,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 235,
-      sodium: '48mg',
-      carbs: '33g',
-      sugar: '24g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "48mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "24g (24%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9516,11 +9516,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 410,
-      sodium: '49mg',
-      carbs: '34g',
-      sugar: '25g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "49mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "25g (25%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9557,11 +9557,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 310,
-      sodium: '50mg',
-      carbs: '35g',
-      sugar: '26g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "50mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "26g (26%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9598,11 +9598,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 275,
-      sodium: '51mg',
-      carbs: '36g',
-      sugar: '27g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "51mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "27g (27%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9639,11 +9639,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 370,
-      sodium: '52mg',
-      carbs: '37g',
-      sugar: '28g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "52mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "28g (28%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9680,11 +9680,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 385,
-      sodium: '53mg',
-      carbs: '38g',
-      sugar: '29g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "53mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "29g (29%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9721,11 +9721,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 315,
-      sodium: '54mg',
-      carbs: '39g',
-      sugar: '12g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "54mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "12g (12%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9762,11 +9762,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 180,
-      sodium: '55mg',
-      carbs: '40g',
-      sugar: '13g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "55mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "13g (13%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9803,11 +9803,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 110,
-      sodium: '56mg',
-      carbs: '41g',
-      sugar: '14g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "56mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "14g (14%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9844,11 +9844,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 315,
-      sodium: '57mg',
-      carbs: '42g',
-      sugar: '15g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "57mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "15g (15%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9885,11 +9885,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 145,
-      sodium: '58mg',
-      carbs: '43g',
-      sugar: '16g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "58mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "16g (16%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9926,11 +9926,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 260,
-      sodium: '59mg',
-      carbs: '44g',
-      sugar: '17g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "59mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "17g (17%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -9967,11 +9967,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 255,
-      sodium: '60mg',
-      carbs: '20g',
-      sugar: '18g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "60mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "18g (18%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10008,11 +10008,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 150,
-      sodium: '61mg',
-      carbs: '21g',
-      sugar: '19g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "61mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "19g (19%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10049,11 +10049,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 290,
-      sodium: '62mg',
-      carbs: '22g',
-      sugar: '20g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "62mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "20g (20%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10090,11 +10090,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 190,
-      sodium: '63mg',
-      carbs: '23g',
-      sugar: '21g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "63mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "21g (21%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10131,11 +10131,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 245,
-      sodium: '64mg',
-      carbs: '24g',
-      sugar: '22g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "64mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "22g (22%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10172,11 +10172,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 175,
-      sodium: '65mg',
-      carbs: '25g',
-      sugar: '23g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "65mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "23g (23%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10213,11 +10213,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 225,
-      sodium: '66mg',
-      carbs: '26g',
-      sugar: '24g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "66mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "24g (24%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10254,11 +10254,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '67mg',
-      carbs: '27g',
-      sugar: '25g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "67mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "25g (25%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10295,11 +10295,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '68mg',
-      carbs: '28g',
-      sugar: '26g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "68mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "26g (26%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10336,11 +10336,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '69mg',
-      carbs: '29g',
-      sugar: '27g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "69mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "27g (27%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10377,11 +10377,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '30mg',
-      carbs: '30g',
-      sugar: '28g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "30mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "28g (28%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10418,11 +10418,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '31mg',
-      carbs: '31g',
-      sugar: '29g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "31mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "29g (29%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10459,11 +10459,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '32mg',
-      carbs: '32g',
-      sugar: '12g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "32mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "12g (12%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10500,11 +10500,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '33mg',
-      carbs: '33g',
-      sugar: '13g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "33mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "13g (13%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10541,11 +10541,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '34mg',
-      carbs: '34g',
-      sugar: '14g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "34mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "14g (14%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10582,11 +10582,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '35mg',
-      carbs: '35g',
-      sugar: '15g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "35mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "15g (15%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10623,11 +10623,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '36mg',
-      carbs: '36g',
-      sugar: '16g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "36mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "16g (16%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10664,11 +10664,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '37mg',
-      carbs: '37g',
-      sugar: '17g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "37mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "17g (17%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10705,11 +10705,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '38mg',
-      carbs: '38g',
-      sugar: '18g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "38mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "18g (18%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10746,11 +10746,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '40mg',
-      carbs: '40g',
-      sugar: '20g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "40mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "20g (20%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10787,11 +10787,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '41mg',
-      carbs: '41g',
-      sugar: '21g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "41mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "21g (21%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10828,11 +10828,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '42mg',
-      carbs: '42g',
-      sugar: '22g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "42mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "22g (22%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10869,11 +10869,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '43mg',
-      carbs: '43g',
-      sugar: '23g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "43mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "23g (23%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10910,11 +10910,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '44mg',
-      carbs: '44g',
-      sugar: '24g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "44mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "24g (24%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10951,11 +10951,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '45mg',
-      carbs: '20g',
-      sugar: '25g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "45mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "25g (25%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -10992,11 +10992,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '46mg',
-      carbs: '21g',
-      sugar: '26g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "46mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "26g (26%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11033,11 +11033,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '47mg',
-      carbs: '22g',
-      sugar: '27g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "47mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "27g (27%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11074,11 +11074,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '48mg',
-      carbs: '23g',
-      sugar: '28g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "48mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "28g (28%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11115,11 +11115,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '49mg',
-      carbs: '24g',
-      sugar: '29g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "49mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "29g (29%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11156,11 +11156,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '50mg',
-      carbs: '25g',
-      sugar: '12g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "50mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "12g (12%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11197,11 +11197,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '51mg',
-      carbs: '26g',
-      sugar: '13g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "51mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "13g (13%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11238,11 +11238,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '52mg',
-      carbs: '27g',
-      sugar: '14g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "52mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "14g (14%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11279,11 +11279,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '53mg',
-      carbs: '28g',
-      sugar: '15g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "53mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "15g (15%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11320,11 +11320,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '54mg',
-      carbs: '29g',
-      sugar: '16g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "54mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "16g (16%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11361,11 +11361,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '55mg',
-      carbs: '30g',
-      sugar: '17g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "55mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "17g (17%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11402,11 +11402,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '56mg',
-      carbs: '31g',
-      sugar: '18g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "56mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "18g (18%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11443,11 +11443,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '57mg',
-      carbs: '32g',
-      sugar: '19g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "57mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "19g (19%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11484,11 +11484,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '58mg',
-      carbs: '33g',
-      sugar: '20g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "58mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "20g (20%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11525,11 +11525,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '59mg',
-      carbs: '34g',
-      sugar: '21g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "59mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "21g (21%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11566,11 +11566,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '60mg',
-      carbs: '35g',
-      sugar: '22g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "60mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "22g (22%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11607,11 +11607,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '61mg',
-      carbs: '36g',
-      sugar: '23g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "61mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "23g (23%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11648,11 +11648,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '62mg',
-      carbs: '37g',
-      sugar: '24g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "62mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "24g (24%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11689,11 +11689,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '63mg',
-      carbs: '38g',
-      sugar: '25g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "63mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "25g (25%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11730,11 +11730,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '64mg',
-      carbs: '39g',
-      sugar: '26g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "64mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "26g (26%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11771,11 +11771,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '65mg',
-      carbs: '40g',
-      sugar: '27g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "65mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "27g (27%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11812,11 +11812,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '66mg',
-      carbs: '41g',
-      sugar: '28g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "66mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "28g (28%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11853,11 +11853,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '67mg',
-      carbs: '42g',
-      sugar: '29g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "67mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "29g (29%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11894,11 +11894,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '68mg',
-      carbs: '43g',
-      sugar: '12g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "68mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "12g (12%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11935,11 +11935,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '69mg',
-      carbs: '44g',
-      sugar: '13g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "69mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "13g (13%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -11976,11 +11976,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '30mg',
-      carbs: '20g',
-      sugar: '14g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "30mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "14g (14%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12017,11 +12017,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '31mg',
-      carbs: '21g',
-      sugar: '15g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "31mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "15g (15%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12058,11 +12058,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '32mg',
-      carbs: '22g',
-      sugar: '16g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "32mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "16g (16%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12099,11 +12099,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '33mg',
-      carbs: '23g',
-      sugar: '17g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "33mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "17g (17%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12140,11 +12140,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '34mg',
-      carbs: '24g',
-      sugar: '18g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "34mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "18g (18%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12181,11 +12181,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '36mg',
-      carbs: '26g',
-      sugar: '20g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "36mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "20g (20%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12222,11 +12222,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '37mg',
-      carbs: '27g',
-      sugar: '21g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "37mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "21g (21%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12263,11 +12263,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '38mg',
-      carbs: '28g',
-      sugar: '22g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "38mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "22g (22%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12304,11 +12304,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '39mg',
-      carbs: '29g',
-      sugar: '23g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "39mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "23g (23%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12345,11 +12345,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '40mg',
-      carbs: '30g',
-      sugar: '24g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "40mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "24g (24%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12386,11 +12386,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '41mg',
-      carbs: '31g',
-      sugar: '25g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "41mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "25g (25%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12427,11 +12427,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '42mg',
-      carbs: '32g',
-      sugar: '26g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "42mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "26g (26%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12468,11 +12468,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '43mg',
-      carbs: '33g',
-      sugar: '27g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "43mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "27g (27%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12509,11 +12509,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '44mg',
-      carbs: '34g',
-      sugar: '28g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "44mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "28g (28%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12550,11 +12550,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '45mg',
-      carbs: '35g',
-      sugar: '29g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "45mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "29g (29%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12591,11 +12591,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '46mg',
-      carbs: '36g',
-      sugar: '12g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "46mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "12g (12%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12632,11 +12632,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '47mg',
-      carbs: '37g',
-      sugar: '13g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "47mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "13g (13%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12673,11 +12673,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '48mg',
-      carbs: '38g',
-      sugar: '14g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "48mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "14g (14%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12714,11 +12714,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '49mg',
-      carbs: '39g',
-      sugar: '15g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "49mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "15g (15%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12755,11 +12755,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '50mg',
-      carbs: '40g',
-      sugar: '16g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "50mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "16g (16%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12796,11 +12796,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '51mg',
-      carbs: '41g',
-      sugar: '17g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "51mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "17g (17%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12837,11 +12837,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '52mg',
-      carbs: '42g',
-      sugar: '18g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "52mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "18g (18%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12878,11 +12878,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '53mg',
-      carbs: '43g',
-      sugar: '19g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "53mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "19g (19%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12919,11 +12919,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '54mg',
-      carbs: '44g',
-      sugar: '20g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "54mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "20g (20%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -12960,11 +12960,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '55mg',
-      carbs: '20g',
-      sugar: '21g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "55mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "21g (21%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13001,11 +13001,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '56mg',
-      carbs: '21g',
-      sugar: '22g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "56mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "22g (22%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13042,11 +13042,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '57mg',
-      carbs: '22g',
-      sugar: '23g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "57mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "23g (23%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13083,11 +13083,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '58mg',
-      carbs: '23g',
-      sugar: '24g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "58mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "24g (24%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13124,11 +13124,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '59mg',
-      carbs: '24g',
-      sugar: '25g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "59mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "25g (25%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13165,11 +13165,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '60mg',
-      carbs: '25g',
-      sugar: '26g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "60mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "26g (26%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13206,11 +13206,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '61mg',
-      carbs: '26g',
-      sugar: '27g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "61mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "27g (27%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13247,11 +13247,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '62mg',
-      carbs: '27g',
-      sugar: '28g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "62mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "28g (28%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13288,11 +13288,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '63mg',
-      carbs: '28g',
-      sugar: '29g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "63mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "29g (29%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13329,11 +13329,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '64mg',
-      carbs: '29g',
-      sugar: '12g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "64mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "12g (12%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13370,11 +13370,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '65mg',
-      carbs: '30g',
-      sugar: '13g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "65mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "13g (13%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13411,11 +13411,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '66mg',
-      carbs: '31g',
-      sugar: '14g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "66mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "14g (14%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13452,11 +13452,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '67mg',
-      carbs: '32g',
-      sugar: '15g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "67mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "15g (15%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13493,11 +13493,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '68mg',
-      carbs: '33g',
-      sugar: '16g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "68mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "16g (16%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13534,11 +13534,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '69mg',
-      carbs: '34g',
-      sugar: '17g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "69mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "17g (17%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13575,11 +13575,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '30mg',
-      carbs: '35g',
-      sugar: '18g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "30mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "18g (18%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13616,11 +13616,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '31mg',
-      carbs: '36g',
-      sugar: '19g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "31mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "19g (19%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13657,11 +13657,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '32mg',
-      carbs: '37g',
-      sugar: '20g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "32mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "20g (20%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13698,11 +13698,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '33mg',
-      carbs: '38g',
-      sugar: '21g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "33mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "21g (21%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13739,11 +13739,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '34mg',
-      carbs: '39g',
-      sugar: '22g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "34mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "22g (22%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13780,11 +13780,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '35mg',
-      carbs: '40g',
-      sugar: '23g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "35mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "23g (23%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13821,11 +13821,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '36mg',
-      carbs: '41g',
-      sugar: '24g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "36mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "24g (24%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13862,11 +13862,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '37mg',
-      carbs: '42g',
-      sugar: '25g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "37mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "25g (25%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13903,11 +13903,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '38mg',
-      carbs: '43g',
-      sugar: '26g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "38mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "26g (26%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13944,11 +13944,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '39mg',
-      carbs: '44g',
-      sugar: '27g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "39mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "27g (27%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -13985,11 +13985,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '40mg',
-      carbs: '20g',
-      sugar: '28g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "40mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "28g (28%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14026,11 +14026,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '41mg',
-      carbs: '21g',
-      sugar: '29g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "41mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "29g (29%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14067,11 +14067,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '42mg',
-      carbs: '22g',
-      sugar: '12g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "42mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "12g (12%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14108,11 +14108,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '43mg',
-      carbs: '23g',
-      sugar: '13g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "43mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "13g (13%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14149,11 +14149,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '44mg',
-      carbs: '24g',
-      sugar: '14g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "44mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "14g (14%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14190,11 +14190,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '45mg',
-      carbs: '25g',
-      sugar: '15g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "45mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "15g (15%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14231,11 +14231,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '46mg',
-      carbs: '26g',
-      sugar: '16g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "46mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "16g (16%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14272,11 +14272,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '47mg',
-      carbs: '27g',
-      sugar: '17g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "47mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "17g (17%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14313,11 +14313,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '48mg',
-      carbs: '28g',
-      sugar: '18g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "48mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "18g (18%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14354,11 +14354,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '49mg',
-      carbs: '29g',
-      sugar: '19g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "49mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "19g (19%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14395,11 +14395,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '50mg',
-      carbs: '30g',
-      sugar: '20g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "50mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "20g (20%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14436,11 +14436,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '51mg',
-      carbs: '31g',
-      sugar: '21g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "51mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "21g (21%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14477,11 +14477,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '52mg',
-      carbs: '32g',
-      sugar: '22g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "52mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "22g (22%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14518,11 +14518,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '53mg',
-      carbs: '33g',
-      sugar: '23g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "53mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "23g (23%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14559,11 +14559,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '54mg',
-      carbs: '34g',
-      sugar: '24g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "54mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "24g (24%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14600,11 +14600,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '55mg',
-      carbs: '35g',
-      sugar: '25g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "55mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "25g (25%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14641,11 +14641,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '56mg',
-      carbs: '36g',
-      sugar: '26g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "56mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "26g (26%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14682,11 +14682,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '57mg',
-      carbs: '37g',
-      sugar: '27g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "57mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "27g (27%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14723,11 +14723,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '58mg',
-      carbs: '38g',
-      sugar: '28g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "58mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "28g (28%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14764,11 +14764,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '59mg',
-      carbs: '39g',
-      sugar: '29g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "59mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "29g (29%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14805,11 +14805,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '60mg',
-      carbs: '40g',
-      sugar: '12g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "60mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "12g (12%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14846,11 +14846,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '61mg',
-      carbs: '41g',
-      sugar: '13g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "61mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "13g (13%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14887,11 +14887,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '62mg',
-      carbs: '42g',
-      sugar: '14g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "62mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "14g (14%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14928,11 +14928,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '63mg',
-      carbs: '43g',
-      sugar: '15g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "63mg (3%)",
+      carbs: "43g (13%)",
+      sugar: "15g (15%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -14969,11 +14969,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '64mg',
-      carbs: '44g',
-      sugar: '16g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "64mg (3%)",
+      carbs: "44g (14%)",
+      sugar: "16g (16%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15010,11 +15010,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '65mg',
-      carbs: '20g',
-      sugar: '17g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "65mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "17g (17%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15051,11 +15051,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '66mg',
-      carbs: '21g',
-      sugar: '18g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "66mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "18g (18%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15092,11 +15092,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '67mg',
-      carbs: '22g',
-      sugar: '19g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "67mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "19g (19%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15133,11 +15133,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '68mg',
-      carbs: '23g',
-      sugar: '20g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "68mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "20g (20%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15174,11 +15174,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '69mg',
-      carbs: '24g',
-      sugar: '21g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "69mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "21g (21%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15215,11 +15215,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '30mg',
-      carbs: '25g',
-      sugar: '22g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "30mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "22g (22%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15256,11 +15256,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '31mg',
-      carbs: '26g',
-      sugar: '23g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "31mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "23g (23%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15297,11 +15297,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '32mg',
-      carbs: '27g',
-      sugar: '24g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "32mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "24g (24%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15338,11 +15338,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '33mg',
-      carbs: '28g',
-      sugar: '25g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "33mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "25g (25%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15379,11 +15379,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '34mg',
-      carbs: '29g',
-      sugar: '26g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "34mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "26g (26%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15420,11 +15420,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '35mg',
-      carbs: '30g',
-      sugar: '27g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "35mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "27g (27%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15461,11 +15461,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '36mg',
-      carbs: '31g',
-      sugar: '28g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "36mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "28g (28%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15502,11 +15502,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '37mg',
-      carbs: '32g',
-      sugar: '29g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "37mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "29g (29%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15543,11 +15543,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '38mg',
-      carbs: '33g',
-      sugar: '12g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "38mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "12g (12%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15584,11 +15584,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '39mg',
-      carbs: '34g',
-      sugar: '13g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "39mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "13g (13%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15625,11 +15625,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '40mg',
-      carbs: '35g',
-      sugar: '14g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "40mg (2%)",
+      carbs: "35g (11%)",
+      sugar: "14g (14%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15666,11 +15666,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '41mg',
-      carbs: '36g',
-      sugar: '15g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "41mg (2%)",
+      carbs: "36g (11%)",
+      sugar: "15g (15%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15707,11 +15707,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '42mg',
-      carbs: '37g',
-      sugar: '16g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "42mg (2%)",
+      carbs: "37g (11%)",
+      sugar: "16g (16%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15748,11 +15748,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '43mg',
-      carbs: '38g',
-      sugar: '17g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "43mg (2%)",
+      carbs: "38g (12%)",
+      sugar: "17g (17%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15789,11 +15789,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '44mg',
-      carbs: '39g',
-      sugar: '18g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "44mg (2%)",
+      carbs: "39g (12%)",
+      sugar: "18g (18%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15830,11 +15830,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '45mg',
-      carbs: '40g',
-      sugar: '19g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "45mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "19g (19%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15871,11 +15871,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '46mg',
-      carbs: '41g',
-      sugar: '20g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "46mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "20g (20%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15912,11 +15912,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '47mg',
-      carbs: '42g',
-      sugar: '21g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "47mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "21g (21%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15953,11 +15953,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '48mg',
-      carbs: '43g',
-      sugar: '22g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "48mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "22g (22%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -15994,11 +15994,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '49mg',
-      carbs: '44g',
-      sugar: '23g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "49mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "23g (23%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16035,11 +16035,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '50mg',
-      carbs: '20g',
-      sugar: '24g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "50mg (3%)",
+      carbs: "20g (6%)",
+      sugar: "24g (24%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16076,11 +16076,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '51mg',
-      carbs: '21g',
-      sugar: '25g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "51mg (3%)",
+      carbs: "21g (6%)",
+      sugar: "25g (25%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16117,11 +16117,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '52mg',
-      carbs: '22g',
-      sugar: '26g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "52mg (3%)",
+      carbs: "22g (7%)",
+      sugar: "26g (26%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16158,11 +16158,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '53mg',
-      carbs: '23g',
-      sugar: '27g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "53mg (3%)",
+      carbs: "23g (7%)",
+      sugar: "27g (27%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16199,11 +16199,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '54mg',
-      carbs: '24g',
-      sugar: '28g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "54mg (3%)",
+      carbs: "24g (7%)",
+      sugar: "28g (28%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16240,11 +16240,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '55mg',
-      carbs: '25g',
-      sugar: '29g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "55mg (3%)",
+      carbs: "25g (8%)",
+      sugar: "29g (29%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16281,11 +16281,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '56mg',
-      carbs: '26g',
-      sugar: '12g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "56mg (3%)",
+      carbs: "26g (8%)",
+      sugar: "12g (12%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16322,11 +16322,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '57mg',
-      carbs: '27g',
-      sugar: '13g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "57mg (3%)",
+      carbs: "27g (8%)",
+      sugar: "13g (13%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16363,11 +16363,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '58mg',
-      carbs: '28g',
-      sugar: '14g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "58mg (3%)",
+      carbs: "28g (9%)",
+      sugar: "14g (14%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16404,11 +16404,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '59mg',
-      carbs: '29g',
-      sugar: '15g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "59mg (3%)",
+      carbs: "29g (9%)",
+      sugar: "15g (15%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16445,11 +16445,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '60mg',
-      carbs: '30g',
-      sugar: '16g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "60mg (3%)",
+      carbs: "30g (9%)",
+      sugar: "16g (16%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16486,11 +16486,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '61mg',
-      carbs: '31g',
-      sugar: '17g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "61mg (3%)",
+      carbs: "31g (10%)",
+      sugar: "17g (17%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16527,11 +16527,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '62mg',
-      carbs: '32g',
-      sugar: '18g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "62mg (3%)",
+      carbs: "32g (10%)",
+      sugar: "18g (18%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16568,11 +16568,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '63mg',
-      carbs: '33g',
-      sugar: '19g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "63mg (3%)",
+      carbs: "33g (10%)",
+      sugar: "19g (19%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16609,11 +16609,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '64mg',
-      carbs: '34g',
-      sugar: '20g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "64mg (3%)",
+      carbs: "34g (10%)",
+      sugar: "20g (20%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16650,11 +16650,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '65mg',
-      carbs: '35g',
-      sugar: '21g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "65mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "21g (21%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16691,11 +16691,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '66mg',
-      carbs: '36g',
-      sugar: '22g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "66mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "22g (22%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16732,11 +16732,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '67mg',
-      carbs: '37g',
-      sugar: '23g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "67mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "23g (23%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16773,11 +16773,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '68mg',
-      carbs: '38g',
-      sugar: '24g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "68mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "24g (24%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16814,11 +16814,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '69mg',
-      carbs: '39g',
-      sugar: '25g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "69mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "25g (25%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16855,11 +16855,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '30mg',
-      carbs: '40g',
-      sugar: '26g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "30mg (2%)",
+      carbs: "40g (12%)",
+      sugar: "26g (26%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16896,11 +16896,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '31mg',
-      carbs: '41g',
-      sugar: '27g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "31mg (2%)",
+      carbs: "41g (13%)",
+      sugar: "27g (27%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16937,11 +16937,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '32mg',
-      carbs: '42g',
-      sugar: '28g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "32mg (2%)",
+      carbs: "42g (13%)",
+      sugar: "28g (28%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -16978,11 +16978,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '33mg',
-      carbs: '43g',
-      sugar: '29g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "33mg (2%)",
+      carbs: "43g (13%)",
+      sugar: "29g (29%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17019,11 +17019,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '34mg',
-      carbs: '44g',
-      sugar: '12g',
-      fat: '8g',
-      protein: '3g'
+      sodium: "34mg (2%)",
+      carbs: "44g (14%)",
+      sugar: "12g (12%)",
+      fat: "8g (15%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17060,11 +17060,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '35mg',
-      carbs: '20g',
-      sugar: '13g',
-      fat: '9g',
-      protein: '4g'
+      sodium: "35mg (2%)",
+      carbs: "20g (6%)",
+      sugar: "13g (13%)",
+      fat: "9g (17%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17101,11 +17101,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '36mg',
-      carbs: '21g',
-      sugar: '14g',
-      fat: '10g',
-      protein: '5g'
+      sodium: "36mg (2%)",
+      carbs: "21g (6%)",
+      sugar: "14g (14%)",
+      fat: "10g (19%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17142,11 +17142,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '37mg',
-      carbs: '22g',
-      sugar: '15g',
-      fat: '11g',
-      protein: '6g'
+      sodium: "37mg (2%)",
+      carbs: "22g (7%)",
+      sugar: "15g (15%)",
+      fat: "11g (20%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17183,11 +17183,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '38mg',
-      carbs: '23g',
-      sugar: '16g',
-      fat: '4g',
-      protein: '7g'
+      sodium: "38mg (2%)",
+      carbs: "23g (7%)",
+      sugar: "16g (16%)",
+      fat: "4g (7%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17224,11 +17224,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '39mg',
-      carbs: '24g',
-      sugar: '17g',
-      fat: '5g',
-      protein: '8g'
+      sodium: "39mg (2%)",
+      carbs: "24g (7%)",
+      sugar: "17g (17%)",
+      fat: "5g (9%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17265,11 +17265,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '40mg',
-      carbs: '25g',
-      sugar: '18g',
-      fat: '6g',
-      protein: '3g'
+      sodium: "40mg (2%)",
+      carbs: "25g (8%)",
+      sugar: "18g (18%)",
+      fat: "6g (11%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17306,11 +17306,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '41mg',
-      carbs: '26g',
-      sugar: '19g',
-      fat: '7g',
-      protein: '4g'
+      sodium: "41mg (2%)",
+      carbs: "26g (8%)",
+      sugar: "19g (19%)",
+      fat: "7g (13%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17347,11 +17347,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '42mg',
-      carbs: '27g',
-      sugar: '20g',
-      fat: '8g',
-      protein: '5g'
+      sodium: "42mg (2%)",
+      carbs: "27g (8%)",
+      sugar: "20g (20%)",
+      fat: "8g (15%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17388,11 +17388,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '43mg',
-      carbs: '28g',
-      sugar: '21g',
-      fat: '9g',
-      protein: '6g'
+      sodium: "43mg (2%)",
+      carbs: "28g (9%)",
+      sugar: "21g (21%)",
+      fat: "9g (17%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17429,11 +17429,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '44mg',
-      carbs: '29g',
-      sugar: '22g',
-      fat: '10g',
-      protein: '7g'
+      sodium: "44mg (2%)",
+      carbs: "29g (9%)",
+      sugar: "22g (22%)",
+      fat: "10g (19%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17470,11 +17470,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '45mg',
-      carbs: '30g',
-      sugar: '23g',
-      fat: '11g',
-      protein: '8g'
+      sodium: "45mg (2%)",
+      carbs: "30g (9%)",
+      sugar: "23g (23%)",
+      fat: "11g (20%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17511,11 +17511,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '46mg',
-      carbs: '31g',
-      sugar: '24g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "46mg (2%)",
+      carbs: "31g (10%)",
+      sugar: "24g (24%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17552,11 +17552,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '47mg',
-      carbs: '32g',
-      sugar: '25g',
-      fat: '5g',
-      protein: '4g'
+      sodium: "47mg (2%)",
+      carbs: "32g (10%)",
+      sugar: "25g (25%)",
+      fat: "5g (9%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17593,11 +17593,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '48mg',
-      carbs: '33g',
-      sugar: '26g',
-      fat: '6g',
-      protein: '5g'
+      sodium: "48mg (2%)",
+      carbs: "33g (10%)",
+      sugar: "26g (26%)",
+      fat: "6g (11%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17634,11 +17634,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '49mg',
-      carbs: '34g',
-      sugar: '27g',
-      fat: '7g',
-      protein: '6g'
+      sodium: "49mg (2%)",
+      carbs: "34g (10%)",
+      sugar: "27g (27%)",
+      fat: "7g (13%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17675,11 +17675,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '50mg',
-      carbs: '35g',
-      sugar: '28g',
-      fat: '8g',
-      protein: '7g'
+      sodium: "50mg (3%)",
+      carbs: "35g (11%)",
+      sugar: "28g (28%)",
+      fat: "8g (15%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17716,11 +17716,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '51mg',
-      carbs: '36g',
-      sugar: '29g',
-      fat: '9g',
-      protein: '8g'
+      sodium: "51mg (3%)",
+      carbs: "36g (11%)",
+      sugar: "29g (29%)",
+      fat: "9g (17%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17757,11 +17757,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '52mg',
-      carbs: '37g',
-      sugar: '12g',
-      fat: '10g',
-      protein: '3g'
+      sodium: "52mg (3%)",
+      carbs: "37g (11%)",
+      sugar: "12g (12%)",
+      fat: "10g (19%)",
+      protein: "3g (5%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17798,11 +17798,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '53mg',
-      carbs: '38g',
-      sugar: '13g',
-      fat: '11g',
-      protein: '4g'
+      sodium: "53mg (3%)",
+      carbs: "38g (12%)",
+      sugar: "13g (13%)",
+      fat: "11g (20%)",
+      protein: "4g (7%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17839,11 +17839,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '54mg',
-      carbs: '39g',
-      sugar: '14g',
-      fat: '4g',
-      protein: '5g'
+      sodium: "54mg (3%)",
+      carbs: "39g (12%)",
+      sugar: "14g (14%)",
+      fat: "4g (7%)",
+      protein: "5g (9%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17880,11 +17880,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '55mg',
-      carbs: '40g',
-      sugar: '15g',
-      fat: '5g',
-      protein: '6g'
+      sodium: "55mg (3%)",
+      carbs: "40g (12%)",
+      sugar: "15g (15%)",
+      fat: "5g (9%)",
+      protein: "6g (11%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17921,11 +17921,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '56mg',
-      carbs: '41g',
-      sugar: '16g',
-      fat: '6g',
-      protein: '7g'
+      sodium: "56mg (3%)",
+      carbs: "41g (13%)",
+      sugar: "16g (16%)",
+      fat: "6g (11%)",
+      protein: "7g (13%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -17962,11 +17962,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: { taste: 4.9, value: 4.8, portion: 4.7, repurchase: 4.9 },
     nutrition: {
       calories: 140,
-      sodium: '57mg',
-      carbs: '42g',
-      sugar: '17g',
-      fat: '7g',
-      protein: '8g'
+      sodium: "57mg (3%)",
+      carbs: "42g (13%)",
+      sugar: "17g (17%)",
+      fat: "7g (13%)",
+      protein: "8g (15%)"
     },
     ingredients: "정제수, 에스프레소 샷, 원유",
     allergens: ["우유"],
@@ -21119,14 +21119,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 280,
-      "sodium": "420mg",
-      "carbs": "45g",
-      "sugar": "6g",
-      "fat": "5g",
+      "sodium": "420mg (21%)",
+      "carbs": "45g (14%)",
+      "sugar": "6g (6%)",
+      "fat": "5g (9%)",
       "transFat": "0g",
-      "satFat": "5g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "5g (33%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -21171,14 +21171,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 395,
-      "sodium": "170mg",
-      "carbs": "45g",
-      "sugar": "27g",
-      "fat": "8g",
+      "sodium": "170mg (9%)",
+      "carbs": "45g (14%)",
+      "sugar": "27g (27%)",
+      "fat": "8g (15%)",
       "transFat": "0g",
-      "satFat": "8g",
-      "cholesterol": "20mg",
-      "protein": "6g"
+      "satFat": "8g (53%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "6g (11%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["계란","밀","대두","우유"],
@@ -21223,14 +21223,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 365,
-      "sodium": "250mg",
-      "carbs": "45g",
-      "sugar": "22g",
-      "fat": "11g",
+      "sodium": "250mg (13%)",
+      "carbs": "45g (14%)",
+      "sugar": "22g (22%)",
+      "fat": "11g (20%)",
       "transFat": "0g",
-      "satFat": "11g",
-      "cholesterol": "20mg",
-      "protein": "6g"
+      "satFat": "11g (73%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "6g (11%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -21275,14 +21275,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 340,
-      "sodium": "210mg",
-      "carbs": "45g",
-      "sugar": "15g",
-      "fat": "12g",
+      "sodium": "210mg (11%)",
+      "carbs": "45g (14%)",
+      "sugar": "15g (15%)",
+      "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "12g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "12g (80%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -21327,14 +21327,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 205,
-      "sodium": "300mg",
-      "carbs": "45g",
-      "sugar": "5g",
-      "fat": "5g",
+      "sodium": "300mg (15%)",
+      "carbs": "45g (14%)",
+      "sugar": "5g (5%)",
+      "fat": "5g (9%)",
       "transFat": "0g",
-      "satFat": "5g",
-      "cholesterol": "20mg",
-      "protein": "4g"
+      "satFat": "5g (33%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "4g (7%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","계란","대두"],
@@ -21379,14 +21379,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 830,
-      "sodium": "560mg",
-      "carbs": "45g",
-      "sugar": "49g",
-      "fat": "11g",
+      "sodium": "560mg (28%)",
+      "carbs": "45g (14%)",
+      "sugar": "49g (49%)",
+      "fat": "11g (20%)",
       "transFat": "0g",
-      "satFat": "11g",
-      "cholesterol": "20mg",
-      "protein": "18g"
+      "satFat": "11g (73%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "18g (33%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란","땅콩"],
@@ -21431,14 +21431,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 615,
-      "sodium": "580mg",
-      "carbs": "45g",
-      "sugar": "20g",
-      "fat": "17g",
+      "sodium": "580mg (29%)",
+      "carbs": "45g (14%)",
+      "sugar": "20g (20%)",
+      "fat": "17g (31%)",
       "transFat": "0g",
-      "satFat": "17g",
-      "cholesterol": "20mg",
-      "protein": "14g"
+      "satFat": "17g (113%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "14g (25%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["우유","계란","밀","대두"],
@@ -21483,14 +21483,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 310,
-      "sodium": "230mg",
-      "carbs": "45g",
-      "sugar": "16g",
-      "fat": "1.2g",
+      "sodium": "230mg (12%)",
+      "carbs": "45g (14%)",
+      "sugar": "16g (16%)",
+      "fat": "1.2g (2%)",
       "transFat": "0g",
-      "satFat": "1.2g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "1.2g (8%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두"],
@@ -21535,14 +21535,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 325,
-      "sodium": "1110mg",
-      "carbs": "45g",
-      "sugar": "3g",
-      "fat": "4g",
+      "sodium": "1110mg (56%)",
+      "carbs": "45g (14%)",
+      "sugar": "3g (3%)",
+      "fat": "4g (7%)",
       "transFat": "0g",
-      "satFat": "4g",
-      "cholesterol": "20mg",
-      "protein": "13g"
+      "satFat": "4g (27%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "13g (24%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두","우유","계란","돼지고기","쇠고기","조개류(굴)"],
@@ -21587,14 +21587,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 275,
-      "sodium": "100mg",
-      "carbs": "45g",
-      "sugar": "15g",
-      "fat": "10g",
+      "sodium": "100mg (5%)",
+      "carbs": "45g (14%)",
+      "sugar": "15g (15%)",
+      "fat": "10g (19%)",
       "transFat": "0g",
-      "satFat": "10g",
-      "cholesterol": "20mg",
-      "protein": "4g"
+      "satFat": "10g (67%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "4g (7%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["우유","계란","대두","밀","돼지고기"],
@@ -21639,14 +21639,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 245,
-      "sodium": "150mg",
-      "carbs": "45g",
-      "sugar": "12g",
-      "fat": "5g",
+      "sodium": "150mg (8%)",
+      "carbs": "45g (14%)",
+      "sugar": "12g (12%)",
+      "fat": "5g (9%)",
       "transFat": "0g",
-      "satFat": "5g",
-      "cholesterol": "20mg",
-      "protein": "2g"
+      "satFat": "5g (33%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "2g (4%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -21691,14 +21691,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 215,
-      "sodium": "150mg",
-      "carbs": "45g",
-      "sugar": "6g",
-      "fat": "3.4g",
+      "sodium": "150mg (8%)",
+      "carbs": "45g (14%)",
+      "sugar": "6g (6%)",
+      "fat": "3.4g (6%)",
       "transFat": "0g",
-      "satFat": "3.4g",
-      "cholesterol": "20mg",
-      "protein": "2g"
+      "satFat": "3.4g (23%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "2g (4%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -21743,14 +21743,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 155,
-      "sodium": "160mg",
-      "carbs": "45g",
-      "sugar": "5g",
-      "fat": "1.1g",
+      "sodium": "160mg (8%)",
+      "carbs": "45g (14%)",
+      "sugar": "5g (5%)",
+      "fat": "1.1g (2%)",
       "transFat": "0g",
-      "satFat": "1.1g",
-      "cholesterol": "20mg",
-      "protein": "3g"
+      "satFat": "1.1g (7%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "3g (5%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","계란","대두","토마토","돼지고기","쇠고기","아황산류","조개류(굴)"],
@@ -21795,14 +21795,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 170,
-      "sodium": "180mg",
-      "carbs": "45g",
-      "sugar": "5g",
-      "fat": "1.3g",
+      "sodium": "180mg (9%)",
+      "carbs": "45g (14%)",
+      "sugar": "5g (5%)",
+      "fat": "1.3g (2%)",
       "transFat": "0g",
-      "satFat": "1.3g",
-      "cholesterol": "20mg",
-      "protein": "3g"
+      "satFat": "1.3g (9%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "3g (5%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","계란","대두","돼지고기","닭고기","토마토"],
@@ -21847,14 +21847,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 160,
-      "sodium": "140mg",
-      "carbs": "45g",
-      "sugar": "13g",
-      "fat": "5g",
+      "sodium": "140mg (7%)",
+      "carbs": "45g (14%)",
+      "sugar": "13g (13%)",
+      "fat": "5g (9%)",
       "transFat": "0g",
-      "satFat": "5g",
-      "cholesterol": "20mg",
-      "protein": "2g"
+      "satFat": "5g (33%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "2g (4%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["계란","우유","대두"],
@@ -21899,14 +21899,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 250,
-      "sodium": "180mg",
-      "carbs": "45g",
-      "sugar": "16g",
-      "fat": "3.4g",
+      "sodium": "180mg (9%)",
+      "carbs": "45g (14%)",
+      "sugar": "16g (16%)",
+      "fat": "3.4g (6%)",
       "transFat": "0g",
-      "satFat": "3.4g",
-      "cholesterol": "20mg",
-      "protein": "6g"
+      "satFat": "3.4g (23%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "6g (11%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란","땅콩"],
@@ -21951,14 +21951,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 295,
-      "sodium": "380mg",
-      "carbs": "45g",
-      "sugar": "6g",
-      "fat": "2.4g",
+      "sodium": "380mg (19%)",
+      "carbs": "45g (14%)",
+      "sugar": "6g (6%)",
+      "fat": "2.4g (4%)",
       "transFat": "0g",
-      "satFat": "2.4g",
-      "cholesterol": "20mg",
-      "protein": "6g"
+      "satFat": "2.4g (16%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "6g (11%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","계란","대두","돼지고기","쇠고기","토마토"],
@@ -22003,14 +22003,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 350,
-      "sodium": "480mg",
-      "carbs": "45g",
-      "sugar": "17g",
-      "fat": "3.9g",
+      "sodium": "480mg (24%)",
+      "carbs": "45g (14%)",
+      "sugar": "17g (17%)",
+      "fat": "3.9g (7%)",
       "transFat": "0g",
-      "satFat": "3.9g",
-      "cholesterol": "20mg",
-      "protein": "9g"
+      "satFat": "3.9g (26%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "9g (16%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","메밀"],
@@ -22055,14 +22055,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 335,
-      "sodium": "260mg",
-      "carbs": "45g",
-      "sugar": "14g",
-      "fat": "11g",
+      "sodium": "260mg (13%)",
+      "carbs": "45g (14%)",
+      "sugar": "14g (14%)",
+      "fat": "11g (20%)",
       "transFat": "0g",
-      "satFat": "11g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "11g (73%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란","쇠고기","닭고기"],
@@ -22107,14 +22107,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 315,
-      "sodium": "210mg",
-      "carbs": "45g",
-      "sugar": "14g",
-      "fat": "10g",
+      "sodium": "210mg (11%)",
+      "carbs": "45g (14%)",
+      "sugar": "14g (14%)",
+      "fat": "10g (19%)",
       "transFat": "0g",
-      "satFat": "10g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "10g (67%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -22159,14 +22159,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 335,
-      "sodium": "200mg",
-      "carbs": "45g",
-      "sugar": "19g",
-      "fat": "7g",
+      "sodium": "200mg (10%)",
+      "carbs": "45g (14%)",
+      "sugar": "19g (19%)",
+      "fat": "7g (13%)",
       "transFat": "0g",
-      "satFat": "7g",
-      "cholesterol": "20mg",
-      "protein": "6g"
+      "satFat": "7g (47%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "6g (11%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","계란","대두"],
@@ -22211,14 +22211,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 395,
-      "sodium": "230mg",
-      "carbs": "45g",
-      "sugar": "18g",
-      "fat": "11g",
+      "sodium": "230mg (12%)",
+      "carbs": "45g (14%)",
+      "sugar": "18g (18%)",
+      "fat": "11g (20%)",
       "transFat": "0g",
-      "satFat": "11g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "11g (73%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란. 땅콩"],
@@ -22263,14 +22263,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 730,
-      "sodium": "1300mg",
-      "carbs": "45g",
-      "sugar": "8g",
-      "fat": "1.1g",
+      "sodium": "1300mg (65%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "1.1g (2%)",
       "transFat": "0g",
-      "satFat": "1.1g",
-      "cholesterol": "20mg",
-      "protein": "23g"
+      "satFat": "1.1g (7%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "23g (42%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀"],
@@ -22315,14 +22315,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 800,
-      "sodium": "1410mg",
-      "carbs": "45g",
-      "sugar": "15g",
-      "fat": "7g",
+      "sodium": "1410mg (71%)",
+      "carbs": "45g (14%)",
+      "sugar": "15g (15%)",
+      "fat": "7g (13%)",
       "transFat": "0g",
-      "satFat": "7g",
-      "cholesterol": "20mg",
-      "protein": "22g"
+      "satFat": "7g (47%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "22g (40%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -22367,14 +22367,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 345,
-      "sodium": "530mg",
-      "carbs": "45g",
-      "sugar": "11g",
-      "fat": "1.7g",
+      "sodium": "530mg (27%)",
+      "carbs": "45g (14%)",
+      "sugar": "11g (11%)",
+      "fat": "1.7g (3%)",
       "transFat": "0g",
-      "satFat": "1.7g",
-      "cholesterol": "20mg",
-      "protein": "10g"
+      "satFat": "1.7g (11%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "10g (18%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","메밀"],
@@ -22419,14 +22419,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 310,
-      "sodium": "590mg",
-      "carbs": "45g",
-      "sugar": "7g",
-      "fat": "2.2g",
+      "sodium": "590mg (30%)",
+      "carbs": "45g (14%)",
+      "sugar": "7g (7%)",
+      "fat": "2.2g (4%)",
       "transFat": "0g",
-      "satFat": "2.2g",
-      "cholesterol": "20mg",
-      "protein": "9g"
+      "satFat": "2.2g (15%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "9g (16%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22471,14 +22471,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 345,
-      "sodium": "990mg",
-      "carbs": "45g",
-      "sugar": "17g",
-      "fat": "3.5g",
+      "sodium": "990mg (50%)",
+      "carbs": "45g (14%)",
+      "sugar": "17g (17%)",
+      "fat": "3.5g (6%)",
       "transFat": "0g",
-      "satFat": "3.5g",
-      "cholesterol": "20mg",
-      "protein": "9g"
+      "satFat": "3.5g (23%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "9g (16%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22523,14 +22523,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 166,
-      "sodium": "62mg",
-      "carbs": "45g",
-      "sugar": "14g",
-      "fat": "2.1g",
+      "sodium": "62mg (3%)",
+      "carbs": "45g (14%)",
+      "sugar": "14g (14%)",
+      "fat": "2.1g (4%)",
       "transFat": "0g",
-      "satFat": "2.1g",
-      "cholesterol": "20mg",
-      "protein": "3g"
+      "satFat": "2.1g (14%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "3g (5%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["대두","계란","밀","우유","쇠고기","돼지고기"],
@@ -22575,14 +22575,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 245,
-      "sodium": "230mg",
-      "carbs": "45g",
-      "sugar": "4g",
-      "fat": "10g",
+      "sodium": "230mg (12%)",
+      "carbs": "45g (14%)",
+      "sugar": "4g (4%)",
+      "fat": "10g (19%)",
       "transFat": "0g",
-      "satFat": "10g",
-      "cholesterol": "20mg",
-      "protein": "3g"
+      "satFat": "10g (67%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "3g (5%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22627,14 +22627,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 290,
-      "sodium": "480mg",
-      "carbs": "45g",
-      "sugar": "3g",
-      "fat": "9g",
+      "sodium": "480mg (24%)",
+      "carbs": "45g (14%)",
+      "sugar": "3g (3%)",
+      "fat": "9g (17%)",
       "transFat": "0g",
-      "satFat": "9g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "9g (60%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두","우유","계란","돼지고기","쇠고기","토마토"],
@@ -22679,14 +22679,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 390,
-      "sodium": "670mg",
-      "carbs": "45g",
-      "sugar": "3g",
-      "fat": "11g",
+      "sodium": "670mg (34%)",
+      "carbs": "45g (14%)",
+      "sugar": "3g (3%)",
+      "fat": "11g (20%)",
       "transFat": "0g",
-      "satFat": "11g",
-      "cholesterol": "20mg",
-      "protein": "12g"
+      "satFat": "11g (73%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "12g (22%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","쇠고기","돼지고기","계란","토마토"],
@@ -22731,14 +22731,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 345,
-      "sodium": "390mg",
-      "carbs": "45g",
-      "sugar": "13g",
-      "fat": "9g",
+      "sodium": "390mg (20%)",
+      "carbs": "45g (14%)",
+      "sugar": "13g (13%)",
+      "fat": "9g (17%)",
       "transFat": "0g",
-      "satFat": "9g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "9g (60%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란"],
@@ -22783,14 +22783,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 260,
-      "sodium": "380mg",
-      "carbs": "45g",
-      "sugar": "9g",
-      "fat": "1.7g",
+      "sodium": "380mg (19%)",
+      "carbs": "45g (14%)",
+      "sugar": "9g (9%)",
+      "fat": "1.7g (3%)",
       "transFat": "0g",
-      "satFat": "1.7g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "1.7g (11%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22835,14 +22835,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 280,
-      "sodium": "450mg",
-      "carbs": "45g",
-      "sugar": "9g",
-      "fat": "2.5g",
+      "sodium": "450mg (23%)",
+      "carbs": "45g (14%)",
+      "sugar": "9g (9%)",
+      "fat": "2.5g (5%)",
       "transFat": "0g",
-      "satFat": "2.5g",
-      "cholesterol": "20mg",
-      "protein": "8g"
+      "satFat": "2.5g (17%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "8g (15%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22887,14 +22887,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 1145,
-      "sodium": "1310mg",
-      "carbs": "45g",
-      "sugar": "37g",
-      "fat": "16g",
+      "sodium": "1310mg (66%)",
+      "carbs": "45g (14%)",
+      "sugar": "37g (37%)",
+      "fat": "16g (30%)",
       "transFat": "0g",
-      "satFat": "16g",
-      "cholesterol": "20mg",
-      "protein": "30g"
+      "satFat": "16g (107%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "30g (55%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","계란","대두","우유","땅콩"],
@@ -22939,14 +22939,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 340,
-      "sodium": "540mg",
-      "carbs": "45g",
-      "sugar": "6g",
-      "fat": "8g",
+      "sodium": "540mg (27%)",
+      "carbs": "45g (14%)",
+      "sugar": "6g (6%)",
+      "fat": "8g (15%)",
       "transFat": "0g",
-      "satFat": "8g",
-      "cholesterol": "20mg",
-      "protein": "8g"
+      "satFat": "8g (53%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "8g (15%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -22991,14 +22991,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 260,
-      "sodium": "490mg",
-      "carbs": "45g",
-      "sugar": "4g",
-      "fat": "2g",
+      "sodium": "490mg (25%)",
+      "carbs": "45g (14%)",
+      "sugar": "4g (4%)",
+      "fat": "2g (4%)",
       "transFat": "0g",
-      "satFat": "2g",
-      "cholesterol": "20mg",
-      "protein": "8g"
+      "satFat": "2g (13%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "8g (15%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -23043,14 +23043,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 230,
-      "sodium": "220mg",
-      "carbs": "45g",
-      "sugar": "8g",
-      "fat": "4.8g",
+      "sodium": "220mg (11%)",
+      "carbs": "45g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "4.8g (9%)",
       "transFat": "0g",
-      "satFat": "4.8g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "4.8g (32%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두","계란","우유"],
@@ -23095,14 +23095,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 435,
-      "sodium": "460mg",
-      "carbs": "45g",
-      "sugar": "15g",
-      "fat": "3.1g",
+      "sodium": "460mg (23%)",
+      "carbs": "45g (14%)",
+      "sugar": "15g (15%)",
+      "fat": "3.1g (6%)",
       "transFat": "0g",
-      "satFat": "3.1g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "3.1g (21%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두","계란"],
@@ -23147,14 +23147,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 345,
-      "sodium": "430mg",
-      "carbs": "45g",
-      "sugar": "7g",
-      "fat": "3.5g",
+      "sodium": "430mg (22%)",
+      "carbs": "45g (14%)",
+      "sugar": "7g (7%)",
+      "fat": "3.5g (6%)",
       "transFat": "0g",
-      "satFat": "3.5g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "3.5g (23%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","계란","우유","대두","닭고기","돼지고기"],
@@ -23199,14 +23199,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 260,
-      "sodium": "200mg",
-      "carbs": "45g",
-      "sugar": "12g",
-      "fat": "8g",
+      "sodium": "200mg (10%)",
+      "carbs": "45g (14%)",
+      "sugar": "12g (12%)",
+      "fat": "8g (15%)",
       "transFat": "0g",
-      "satFat": "4.5g",
-      "cholesterol": "20mg",
-      "protein": "5g"
+      "satFat": "4.5g (30%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "5g (9%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -23251,14 +23251,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 670,
-      "sodium": "770mg",
-      "carbs": "45g",
-      "sugar": "24g",
-      "fat": "24g",
+      "sodium": "770mg (39%)",
+      "carbs": "45g (14%)",
+      "sugar": "24g (24%)",
+      "fat": "24g (44%)",
       "transFat": "0g",
-      "satFat": "24g",
-      "cholesterol": "20mg",
-      "protein": "11g"
+      "satFat": "24g (160%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "11g (20%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두"],
@@ -23303,14 +23303,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 275,
-      "sodium": "190mg",
-      "carbs": "45g",
-      "sugar": "18g",
-      "fat": "2.5g",
+      "sodium": "190mg (10%)",
+      "carbs": "45g (14%)",
+      "sugar": "18g (18%)",
+      "fat": "2.5g (5%)",
       "transFat": "0g",
-      "satFat": "2.5g",
-      "cholesterol": "20mg",
-      "protein": "8g"
+      "satFat": "2.5g (17%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "8g (15%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","대두","우유","계란"],
@@ -23355,14 +23355,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 335,
-      "sodium": "220mg",
-      "carbs": "45g",
-      "sugar": "16g",
-      "fat": "6g",
+      "sodium": "220mg (11%)",
+      "carbs": "45g (14%)",
+      "sugar": "16g (16%)",
+      "fat": "6g (11%)",
       "transFat": "0g",
-      "satFat": "6g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "6g (40%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["밀","우유","대두","계란","땅콩"],
@@ -23407,14 +23407,14 @@ export const INITIAL_PRODUCTS: Product[] = [
     detailedRating: {"taste":4.8,"value":4.7,"portion":4.7,"repurchase":4.8},
     nutrition: {
       "calories": 335,
-      "sodium": "95mg",
-      "carbs": "45g",
-      "sugar": "35g",
-      "fat": "0.6g",
+      "sodium": "95mg (5%)",
+      "carbs": "45g (14%)",
+      "sugar": "35g (35%)",
+      "fat": "0.6g (1%)",
       "transFat": "0g",
-      "satFat": "0.6g",
-      "cholesterol": "20mg",
-      "protein": "7g"
+      "satFat": "0.6g (4%)",
+      "cholesterol": "20mg (7%)",
+      "protein": "7g (13%)"
     },
     ingredients: "소맥분(밀: 미국산, 캐나다산), 버터, 효모, 정제소금, 백설탕",
     allergens: ["계란","밀","대두"],

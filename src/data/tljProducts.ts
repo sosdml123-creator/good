@@ -7334,7 +7334,7 @@ export const TLJ_PRODUCTS: Product[] = [
     "nutrition": {
       "calories": 520,
       "sodium": "330mg (17%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "protein": "9g (16%)",
       "satFat": "14g (93%)"
     },

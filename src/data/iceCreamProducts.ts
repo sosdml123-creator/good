@@ -6821,14 +6821,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 242,
-      "sodium": "84mg",
+      "sodium": "84mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "27g",
+      "sugar": "27g (27%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 도쿄바나나 크렘브륄레 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6889,14 +6889,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 297,
-      "sodium": "140mg",
+      "sodium": "140mg (7%)",
       "carbs": "28g (9%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 비스코프 에스프레소 크런치 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6956,14 +6956,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 189,
-      "sodium": "38mg",
+      "sodium": "38mg (2%)",
       "carbs": "28g (9%)",
-      "sugar": "26g",
+      "sugar": "26g (26%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "3.1g",
+      "satFat": "3.1g (21%)",
       "cholesterol": "25mg (8%)",
-      "protein": "2g"
+      "protein": "2g (4%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 산딸기가 끌리는 연유 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7021,14 +7021,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 301,
-      "sodium": "118mg",
+      "sodium": "118mg (6%)",
       "carbs": "28g (9%)",
-      "sugar": "23g",
+      "sugar": "23g (23%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "11g",
+      "satFat": "11g (73%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 솔티 조청 뉴욕치즈케이크 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7088,14 +7088,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 243,
-      "sodium": "67mg",
+      "sodium": "67mg (3%)",
       "carbs": "28g (9%)",
-      "sugar": "28g",
+      "sugar": "28g (28%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "6g",
+      "satFat": "6g (40%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 고무고무 블루베리 마카롱 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7154,14 +7154,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 238,
-      "sodium": "37mg",
+      "sodium": "37mg (2%)",
       "carbs": "28g (9%)",
-      "sugar": "27g",
+      "sugar": "27g (27%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "6g",
+      "satFat": "6g (40%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 망고 탱고 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7219,14 +7219,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 177,
-      "sodium": "16mg",
+      "sodium": "16mg (1%)",
       "carbs": "28g (9%)",
-      "sugar": "26g",
+      "sugar": "26g (26%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "1.2g",
+      "satFat": "1.2g (8%)",
       "cholesterol": "25mg (8%)",
-      "protein": "1g"
+      "protein": "1g (2%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 트로피컬 콜라다 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7284,14 +7284,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 162,
-      "sodium": "11mg",
+      "sodium": "11mg (1%)",
       "carbs": "28g (9%)",
-      "sugar": "28g",
+      "sugar": "28g (28%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "0.4g",
+      "satFat": "0.4g (3%)",
       "cholesterol": "25mg (8%)",
-      "protein": "0g"
+      "protein": "0g (0%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 우디의 후르츠 어드벤처 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7350,14 +7350,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 295,
-      "sodium": "153mg",
+      "sodium": "153mg (8%)",
       "carbs": "28g (9%)",
-      "sugar": "24g",
+      "sugar": "24g (24%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 두바이에서 온 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7417,14 +7417,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 163,
-      "sodium": "15mg",
+      "sodium": "15mg (1%)",
       "carbs": "28g (9%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "1.2g",
+      "satFat": "1.2g (8%)",
       "cholesterol": "25mg (8%)",
-      "protein": "1g"
+      "protein": "1g (2%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 레인보우 샤베트 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7482,14 +7482,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 250,
-      "sodium": "73mg",
+      "sodium": "73mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "22g",
+      "sugar": "22g (22%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 그린티 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7547,14 +7547,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 218,
-      "sodium": "41mg",
+      "sodium": "41mg (2%)",
       "carbs": "28g (9%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "3.8g",
+      "satFat": "3.8g (25%)",
       "cholesterol": "25mg (8%)",
-      "protein": "2g"
+      "protein": "2g (4%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 메롱 멜론 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7612,14 +7612,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 135,
-      "sodium": "45mg",
+      "sodium": "45mg (2%)",
       "carbs": "28g (9%)",
-      "sugar": "17g",
+      "sugar": "17g (17%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "1.7g",
+      "satFat": "1.7g (11%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, (Lessly Edition) 바 베 바 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7677,14 +7677,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 156,
-      "sodium": "57mg",
+      "sodium": "57mg (3%)",
       "carbs": "28g (9%)",
-      "sugar": "14g",
+      "sugar": "14g (14%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "3.8g",
+      "satFat": "3.8g (25%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, (Lessly Edition) 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7744,14 +7744,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 292,
-      "sodium": "103mg",
+      "sodium": "103mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "26g",
+      "sugar": "26g (26%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 사랑에 빠진 딸기 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7813,14 +7813,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 296,
-      "sodium": "114mg",
+      "sodium": "114mg (6%)",
       "carbs": "28g (9%)",
-      "sugar": "23g",
+      "sugar": "23g (23%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "11g",
+      "satFat": "11g (73%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7880,14 +7880,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 259,
-      "sodium": "81mg",
+      "sodium": "81mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "23g",
+      "sugar": "23g (23%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "9g",
+      "satFat": "9g (60%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 민트 초콜릿 칩 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7946,14 +7946,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 275,
-      "sodium": "105mg",
+      "sodium": "105mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "21g",
+      "sugar": "21g (21%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "10g",
+      "satFat": "10g (67%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 뉴욕 치즈케이크 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8013,14 +8013,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 239,
-      "sodium": "48mg",
+      "sodium": "48mg (2%)",
       "carbs": "28g (9%)",
-      "sugar": "28g",
+      "sugar": "28g (28%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "7g",
+      "satFat": "7g (47%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 체리쥬빌레 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8078,14 +8078,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 260,
-      "sodium": "65mg",
+      "sodium": "65mg (3%)",
       "carbs": "28g (9%)",
-      "sugar": "27g",
+      "sugar": "27g (27%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "7g",
+      "satFat": "7g (47%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 슈팅스타 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8145,14 +8145,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 254,
-      "sodium": "92mg",
+      "sodium": "92mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "20g",
+      "sugar": "20g (20%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 오레오 쿠키 앤 크림 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8212,14 +8212,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 228,
-      "sodium": "69mg",
+      "sodium": "69mg (3%)",
       "carbs": "28g (9%)",
-      "sugar": "24g",
+      "sugar": "24g (24%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "7g",
+      "satFat": "7g (47%)",
       "cholesterol": "25mg (8%)",
-      "protein": "3g"
+      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 베리베리 스트로베리 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8277,14 +8277,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 198,
-      "sodium": "67mg",
+      "sodium": "67mg (3%)",
       "carbs": "28g (9%)",
-      "sugar": "26g",
+      "sugar": "26g (26%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "4g",
+      "satFat": "4g (27%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 31요거트 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8343,14 +8343,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 269,
-      "sodium": "95mg",
+      "sodium": "95mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 바람과 함께 사라지다 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8411,14 +8411,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 302,
-      "sodium": "72mg",
+      "sodium": "72mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "27g",
+      "sugar": "27g (27%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "7g"
+      "protein": "7g (13%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 피스타치오 아몬드 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8476,14 +8476,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 318,
-      "sodium": "96mg",
+      "sodium": "96mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "27g",
+      "sugar": "27g (27%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "12g",
+      "satFat": "12g (80%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 초콜릿 무스 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8542,14 +8542,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 274,
-      "sodium": "85mg",
+      "sodium": "85mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "24g",
+      "sugar": "24g (24%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 초콜릿 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8607,14 +8607,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 273,
-      "sodium": "82mg",
+      "sodium": "82mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "25g",
+      "sugar": "25g (25%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "7g",
+      "satFat": "7g (47%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 자모카 아몬드 훠지 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8672,14 +8672,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 312,
-      "sodium": "94mg",
+      "sodium": "94mg (5%)",
       "carbs": "28g (9%)",
-      "sugar": "26g",
+      "sugar": "26g (26%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "5g"
+      "protein": "5g (9%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 아몬드 봉봉 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8738,14 +8738,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 246,
-      "sodium": "74mg",
+      "sodium": "74mg (4%)",
       "carbs": "28g (9%)",
-      "sugar": "21g",
+      "sugar": "21g (21%)",
       "fat": "12g (22%)",
       "transFat": "0g",
-      "satFat": "8g",
+      "satFat": "8g (53%)",
       "cholesterol": "25mg (8%)",
-      "protein": "4g"
+      "protein": "4g (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 바닐라 고유 부재료 및 플레이버 리본",
     "allergens": [

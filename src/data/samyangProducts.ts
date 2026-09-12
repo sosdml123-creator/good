@@ -18,7 +18,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 530,
+    calories: 405,
     volume: "131g",
     isToday: true,
     isHot: true,
@@ -30,12 +30,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 530,
-      sodium: '1166mg',
-      carbs: '74g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      calories: 405,
+      sodium: "1328mg (66%)",
+      carbs: "61.1g (19%)",
+      sugar: "2.3g (2%)",
+      fat: "14.5g (27%)",
+      transFat: "0.5g",
+      satFat: "5.3g (35%)",
+      cholesterol: "8mg (3%)",
+      protein: "7.6g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -108,11 +111,11 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 550,
-      sodium: '1210mg',
-      carbs: '77g',
-      sugar: '6g',
-      fat: '17g',
-      protein: '11g'
+      sodium: "1210mg (61%)",
+      carbs: "77g (24%)",
+      sugar: "6g (6%)",
+      fat: "17g (31%)",
+      protein: "11g (20%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -172,7 +175,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 370,
+    calories: 250,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -184,12 +187,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 370,
-      sodium: '814mg',
-      carbs: '52g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 250,
+      sodium: "582mg (29%)",
+      carbs: "24.6g (8%)",
+      sugar: "8.2g (8%)",
+      fat: "12.7g (24%)",
+      transFat: "0g",
+      satFat: "4.5g (30%)",
+      cholesterol: "19mg (6%)",
+      protein: "10.5g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀","우유"],
@@ -249,7 +255,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 370,
+    calories: 185,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -261,12 +267,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 370,
-      sodium: '814mg',
-      carbs: '52g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀","우유"],
@@ -326,7 +335,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 370,
+    calories: 250,
     volume: "100g",
     isToday: true,
     isHot: true,
@@ -338,12 +347,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 370,
-      sodium: '814mg',
-      carbs: '52g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 250,
+      sodium: "582mg (29%)",
+      carbs: "24.6g (8%)",
+      sugar: "8.2g (8%)",
+      fat: "12.7g (24%)",
+      transFat: "0g",
+      satFat: "4.5g (30%)",
+      cholesterol: "19mg (6%)",
+      protein: "10.5g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀"],
@@ -403,7 +415,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 370,
+    calories: 185,
     volume: "100g",
     isToday: true,
     isHot: true,
@@ -415,12 +427,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 370,
-      sodium: '814mg',
-      carbs: '52g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀"],
@@ -480,7 +495,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 345,
+    calories: 250,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -492,12 +507,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 345,
-      sodium: '759mg',
-      carbs: '48g',
-      sugar: '6g',
-      fat: '10g',
-      protein: '7g'
+      calories: 250,
+      sodium: "582mg (29%)",
+      carbs: "24.6g (8%)",
+      sugar: "8.2g (8%)",
+      fat: "12.7g (24%)",
+      transFat: "0g",
+      satFat: "4.5g (30%)",
+      cholesterol: "19mg (6%)",
+      protein: "10.5g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀"],
@@ -557,7 +575,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 380,
+    calories: 185,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -569,12 +587,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 380,
-      sodium: '836mg',
-      carbs: '53g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '8g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀"],
@@ -634,7 +655,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 380,
+    calories: 250,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -646,12 +667,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 380,
-      sodium: '836mg',
-      carbs: '53g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '8g'
+      calories: 250,
+      sodium: "582mg (29%)",
+      carbs: "24.6g (8%)",
+      sugar: "8.2g (8%)",
+      fat: "12.7g (24%)",
+      transFat: "0g",
+      satFat: "4.5g (30%)",
+      cholesterol: "19mg (6%)",
+      protein: "10.5g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀","새우","조개류"],
@@ -711,7 +735,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 380,
+    calories: 185,
     volume: "105g",
     isToday: true,
     isHot: true,
@@ -723,12 +747,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 380,
-      sodium: '836mg',
-      carbs: '53g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '8g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (건면)",
     allergens: ["대두","밀","새우","조개류"],
@@ -788,7 +815,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 120000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 545,
+    calories: 407,
     volume: "134g",
     isToday: true,
     isHot: true,
@@ -800,12 +827,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 545,
-      sodium: '1199mg',
-      carbs: '76g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      calories: 407,
+      sodium: "910mg (46%)",
+      carbs: "64.9g (20%)",
+      sugar: "9g (9%)",
+      fat: "13.4g (25%)",
+      transFat: "0g",
+      satFat: "5.2g (35%)",
+      cholesterol: "0mg (0%)",
+      protein: "6.7g (12%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -865,7 +895,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 460,
+    calories: 185,
     volume: "105g",
     
     isHot: true,
@@ -877,12 +907,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 460,
-      sodium: '1012mg',
-      carbs: '64g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기","새우","조개류"],
@@ -942,7 +975,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 515,
+    calories: 417,
     volume: "120g",
     
     
@@ -954,12 +987,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 515,
-      sodium: '1133mg',
-      carbs: '72g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 417,
+      sodium: "1492mg (75%)",
+      carbs: "65.8g (20%)",
+      sugar: "3.3g (3%)",
+      fat: "13.3g (25%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -1019,7 +1055,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 470,
+    calories: 185,
     volume: "110g",
     
     
@@ -1031,12 +1067,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 470,
-      sodium: '1034mg',
-      carbs: '66g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -1096,7 +1135,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 280,
+    calories: 273,
     volume: "65g",
     
     
@@ -1108,12 +1147,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 280,
-      sodium: '616mg',
-      carbs: '39g',
-      sugar: '6g',
-      fat: '8g',
-      protein: '6g'
+      calories: 273,
+      sodium: "714mg (36%)",
+      carbs: "38.1g (12%)",
+      sugar: "8.4g (8%)",
+      fat: "10.1g (19%)",
+      transFat: "0g",
+      satFat: "1.3g (9%)",
+      cholesterol: "16mg (5%)",
+      protein: "7.5g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -1173,7 +1215,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 510,
+    calories: 429,
     volume: "120g",
     
     
@@ -1185,12 +1227,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 510,
-      sodium: '1122mg',
-      carbs: '71g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 429,
+      sodium: "1467mg (73%)",
+      carbs: "70.8g (22%)",
+      sugar: "1.7g (2%)",
+      fat: "12.5g (23%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -1250,7 +1295,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 480,
+    calories: 185,
     volume: "110g",
     
     
@@ -1262,12 +1307,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 480,
-      sodium: '1056mg',
-      carbs: '67g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '10g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -1327,7 +1375,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 530,
+    calories: 405,
     volume: "140g",
     
     isHot: true,
@@ -1339,12 +1387,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 530,
-      sodium: '1166mg',
-      carbs: '74g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      calories: 405,
+      sodium: "1409mg (70%)",
+      carbs: "60.9g (19%)",
+      sugar: "8.2g (8%)",
+      fat: "13.6g (25%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "4mg (1%)",
+      protein: "10g (18%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -1404,7 +1455,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 425,
+    calories: 405,
     volume: "105g",
     
     isHot: true,
@@ -1416,12 +1467,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 425,
-      sodium: '935mg',
-      carbs: '60g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 405,
+      sodium: "905mg (45%)",
+      carbs: "60g (19%)",
+      sugar: "7.6g (8%)",
+      fat: "14.3g (26%)",
+      transFat: "0g",
+      satFat: "7.6g (51%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.6g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -1481,7 +1535,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 280,
+    calories: 405,
     volume: "70g",
     
     isHot: true,
@@ -1493,12 +1547,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 280,
-      sodium: '616mg',
-      carbs: '39g',
-      sugar: '6g',
-      fat: '8g',
-      protein: '6g'
+      calories: 405,
+      sodium: "905mg (45%)",
+      carbs: "60g (19%)",
+      sugar: "7.6g (8%)",
+      fat: "14.3g (26%)",
+      transFat: "0g",
+      satFat: "7.6g (51%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.6g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -1558,7 +1615,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 550,
+    calories: 400,
     volume: "130g",
     
     isHot: true,
@@ -1570,12 +1627,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 550,
-      sodium: '1210mg',
-      carbs: '77g',
-      sugar: '6g',
-      fat: '17g',
-      protein: '11g'
+      calories: 400,
+      sodium: "1058mg (53%)",
+      carbs: "60g (19%)",
+      sugar: "8.3g (8%)",
+      fat: "14.2g (26%)",
+      transFat: "0g",
+      satFat: "7.5g (50%)",
+      cholesterol: "4mg (1%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -1635,7 +1695,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 470,
+    calories: 185,
     volume: "105g",
     
     isHot: true,
@@ -1647,12 +1707,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 470,
-      sodium: '1034mg',
-      carbs: '66g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -1712,7 +1775,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 355,
+    calories: 273,
     volume: "80g",
     
     isHot: true,
@@ -1724,12 +1787,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 355,
-      sodium: '781mg',
-      carbs: '50g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 273,
+      sodium: "714mg (36%)",
+      carbs: "38.1g (12%)",
+      sugar: "8.4g (8%)",
+      fat: "10.1g (19%)",
+      transFat: "0g",
+      satFat: "1.3g (9%)",
+      cholesterol: "16mg (5%)",
+      protein: "7.5g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -1789,7 +1855,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 555,
+    calories: 396,
     volume: "140g",
     
     isHot: true,
@@ -1801,12 +1867,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 555,
-      sodium: '1221mg',
-      carbs: '78g',
-      sugar: '6g',
-      fat: '17g',
-      protein: '11g'
+      calories: 396,
+      sodium: "879mg (44%)",
+      carbs: "62.9g (19%)",
+      sugar: "7.9g (8%)",
+      fat: "12.1g (22%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "7mg (2%)",
+      protein: "9.3g (17%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -1866,7 +1935,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 420,
+    calories: 400,
     volume: "105g",
     
     isHot: true,
@@ -1878,12 +1947,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 420,
-      sodium: '924mg',
-      carbs: '59g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '8g'
+      calories: 400,
+      sodium: "867mg (43%)",
+      carbs: "64.8g (20%)",
+      sugar: "8.6g (9%)",
+      fat: "12.4g (23%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "10mg (3%)",
+      protein: "7.6g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -1943,7 +2015,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 470,
+    calories: 367,
     volume: "145g",
     
     isHot: true,
@@ -1955,12 +2027,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 470,
-      sodium: '1034mg',
-      carbs: '66g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 367,
+      sodium: "1508mg (75%)",
+      carbs: "65g (20%)",
+      sugar: "7.5g (8%)",
+      fat: "8.3g (15%)",
+      transFat: "0g",
+      satFat: "3.3g (22%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -2020,7 +2095,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 465,
+    calories: 367,
     volume: "120g",
     
     isHot: true,
@@ -2032,12 +2107,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 465,
-      sodium: '1023mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 367,
+      sodium: "1508mg (75%)",
+      carbs: "65g (20%)",
+      sugar: "7.5g (8%)",
+      fat: "8.3g (15%)",
+      transFat: "0g",
+      satFat: "3.3g (22%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -2097,7 +2175,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 575,
+    calories: 405,
     volume: "145g",
     
     isHot: true,
@@ -2109,12 +2187,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 575,
-      sodium: '1265mg',
-      carbs: '81g',
-      sugar: '6g',
-      fat: '17g',
-      protein: '12g'
+      calories: 405,
+      sodium: "1409mg (70%)",
+      carbs: "60.9g (19%)",
+      sugar: "8.2g (8%)",
+      fat: "13.6g (25%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "4mg (1%)",
+      protein: "10g (18%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -2174,7 +2255,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 445,
+    calories: 185,
     volume: "110g",
     
     isHot: true,
@@ -2186,12 +2267,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -2251,7 +2335,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 430,
+    calories: 410,
     volume: "105g",
     
     isHot: true,
@@ -2263,12 +2347,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 430,
-      sodium: '946mg',
-      carbs: '60g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 410,
+      sodium: "952mg (48%)",
+      carbs: "60g (19%)",
+      sugar: "4.8g (5%)",
+      fat: "15.2g (28%)",
+      transFat: "0g",
+      satFat: "7.6g (51%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.6g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -2328,7 +2415,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 400,
+    calories: 425,
     volume: "100g",
     
     isHot: true,
@@ -2340,12 +2427,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 400,
-      sodium: '880mg',
-      carbs: '56g',
-      sugar: '6g',
-      fat: '12g',
-      protein: '8g'
+      calories: 425,
+      sodium: "1260mg (63%)",
+      carbs: "68g (21%)",
+      sugar: "6g (6%)",
+      fat: "13g (24%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "0mg (0%)",
+      protein: "9g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","닭고기"],
@@ -2405,7 +2495,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 455,
+    calories: 423,
     volume: "110g",
     
     
@@ -2417,12 +2507,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 455,
-      sodium: '1001mg',
-      carbs: '64g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 423,
+      sodium: "1636mg (82%)",
+      carbs: "67.3g (21%)",
+      sugar: "2.7g (3%)",
+      fat: "13.6g (25%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "3mg (1%)",
+      protein: "7.3g (13%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","새우","조개류"],
@@ -2482,7 +2575,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 480,
+    calories: 185,
     volume: "110g",
     
     
@@ -2494,12 +2587,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 480,
-      sodium: '1056mg',
-      carbs: '67g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '10g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","새우","조개류"],
@@ -2559,7 +2655,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 460,
+    calories: 418,
     volume: "110g",
     
     
@@ -2571,12 +2667,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 460,
-      sodium: '1012mg',
-      carbs: '64g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 418,
+      sodium: "1600mg (80%)",
+      carbs: "67.3g (21%)",
+      sugar: "2.7g (3%)",
+      fat: "12.7g (24%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.2g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -2636,7 +2735,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 465,
+    calories: 185,
     volume: "110g",
     
     
@@ -2648,12 +2747,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 465,
-      sodium: '1023mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -2713,7 +2815,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 540,
+    calories: 407,
     volume: "140g",
     
     
@@ -2725,12 +2827,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 540,
-      sodium: '1188mg',
-      carbs: '76g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      calories: 407,
+      sodium: "850mg (43%)",
+      carbs: "60.7g (19%)",
+      sugar: "5g (5%)",
+      fat: "14.3g (26%)",
+      transFat: "0g",
+      satFat: "6.4g (43%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.6g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -2790,7 +2895,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 445,
+    calories: 387,
     volume: "115g",
     
     
@@ -2802,12 +2907,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 387,
+      sodium: "896mg (45%)",
+      carbs: "62.6g (19%)",
+      sugar: "5.2g (5%)",
+      fat: "10.4g (19%)",
+      transFat: "0g",
+      satFat: "4.4g (29%)",
+      cholesterol: "0mg (0%)",
+      protein: "10.4g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -2867,7 +2975,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 480,
+    calories: 355,
     volume: "115g",
     
     
@@ -2879,12 +2987,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 480,
-      sodium: '1056mg',
-      carbs: '67g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '10g'
+      calories: 355,
+      sodium: "1820mg (91%)",
+      carbs: "75g (23%)",
+      sugar: "4g (4%)",
+      fat: "4.8g (9%)",
+      transFat: "0g",
+      satFat: "0.7g (5%)",
+      cholesterol: "0mg (0%)",
+      protein: "10g (18%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -2944,7 +3055,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 485,
+    calories: 420,
     volume: "112g",
     
     
@@ -2956,12 +3067,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 485,
-      sodium: '1067mg',
-      carbs: '68g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 420,
+      sodium: "1652mg (83%)",
+      carbs: "65.2g (20%)",
+      sugar: "3.6g (4%)",
+      fat: "14.3g (26%)",
+      transFat: "0g",
+      satFat: "5.4g (36%)",
+      cholesterol: "0mg (0%)",
+      protein: "8g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3021,7 +3135,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 285,
+    calories: 392,
     volume: "65g",
     
     
@@ -3033,12 +3147,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 285,
-      sodium: '627mg',
-      carbs: '40g',
-      sugar: '6g',
-      fat: '9g',
-      protein: '6g'
+      calories: 392,
+      sodium: "1739mg (87%)",
+      carbs: "60g (19%)",
+      sugar: "3.1g (3%)",
+      fat: "13.9g (26%)",
+      transFat: "0g",
+      satFat: "4.8g (32%)",
+      cholesterol: "0mg (0%)",
+      protein: "7.7g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3098,7 +3215,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 560,
+    calories: 400,
     volume: "140g",
     
     
@@ -3110,12 +3227,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 560,
-      sodium: '1232mg',
-      carbs: '78g',
-      sugar: '6g',
-      fat: '17g',
-      protein: '11g'
+      calories: 400,
+      sodium: "921mg (46%)",
+      carbs: "62.9g (19%)",
+      sugar: "5g (5%)",
+      fat: "12.1g (22%)",
+      transFat: "0g",
+      satFat: "5g (33%)",
+      cholesterol: "5mg (2%)",
+      protein: "10g (18%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3175,7 +3295,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 415,
+    calories: 395,
     volume: "105g",
     
     
@@ -3187,12 +3307,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 415,
-      sodium: '913mg',
-      carbs: '58g',
-      sugar: '6g',
-      fat: '12g',
-      protein: '8g'
+      calories: 395,
+      sodium: "952mg (48%)",
+      carbs: "56.2g (17%)",
+      sugar: "7.6g (8%)",
+      fat: "15.2g (28%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "8mg (3%)",
+      protein: "8.6g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3252,7 +3375,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 475,
+    calories: 422,
     volume: "115g",
     
     
@@ -3264,12 +3387,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 475,
-      sodium: '1045mg',
-      carbs: '67g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '10g'
+      calories: 422,
+      sodium: "1557mg (78%)",
+      carbs: "68.7g (21%)",
+      sugar: "5.2g (5%)",
+      fat: "13g (24%)",
+      transFat: "0g",
+      satFat: "6.1g (41%)",
+      cholesterol: "4mg (1%)",
+      protein: "7.8g (14%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3329,7 +3455,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 445,
+    calories: 185,
     volume: "105g",
     
     
@@ -3341,12 +3467,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 185,
+      sodium: "831mg (42%)",
+      carbs: "34.3g (11%)",
+      sugar: "3.7g (4%)",
+      fat: "2.7g (5%)",
+      transFat: "0g",
+      satFat: "0.6g (4%)",
+      cholesterol: "2mg (1%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀"],
@@ -3406,7 +3535,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 480,
+    calories: 432,
     volume: "110g",
     
     
@@ -3418,12 +3547,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 480,
-      sodium: '1056mg',
-      carbs: '67g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '10g'
+      calories: 432,
+      sodium: "1518mg (76%)",
+      carbs: "66.4g (20%)",
+      sugar: "2.7g (3%)",
+      fat: "15.5g (29%)",
+      transFat: "0g",
+      satFat: "7.3g (49%)",
+      cholesterol: "0mg (0%)",
+      protein: "7.3g (13%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","쇠고기"],
@@ -3483,7 +3615,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 500,
+    calories: 425,
     volume: "120g",
     
     
@@ -3495,12 +3627,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 500,
-      sodium: '1100mg',
-      carbs: '70g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 425,
+      sodium: "1458mg (73%)",
+      carbs: "66.7g (21%)",
+      sugar: "2.5g (3%)",
+      fat: "13.3g (25%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "0mg (0%)",
+      protein: "9.2g (17%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","쇠고기"],
@@ -3560,7 +3695,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 380,
+    calories: 30,
     volume: "86g",
     
     
@@ -3572,12 +3707,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 380,
-      sodium: '836mg',
-      carbs: '53g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '8g'
+      calories: 30,
+      sodium: "201mg (10%)",
+      carbs: "1.5g (0%)",
+      sugar: "0.8g (1%)",
+      fat: "1g (2%)",
+      transFat: "0g",
+      satFat: "0.2g (1%)",
+      cholesterol: "11mg (4%)",
+      protein: "3.7g (7%)"
     },
     ingredients: "삼양식품 엄선 원재료 (유탕면)",
     allergens: ["대두","밀","돼지고기"],
@@ -3637,7 +3775,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 320,
+    calories: 444,
     volume: "72g",
     
     
@@ -3649,12 +3787,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 320,
-      sodium: '704mg',
-      carbs: '45g',
-      sugar: '6g',
-      fat: '10g',
-      protein: '6g'
+      calories: 444,
+      sodium: "347mg (17%)",
+      carbs: "77.8g (24%)",
+      sugar: "19.5g (20%)",
+      fat: "11.1g (21%)",
+      transFat: "0g",
+      satFat: "5.8g (39%)",
+      cholesterol: "0mg (0%)",
+      protein: "8.3g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유탕처리제품))",
     allergens: ["대두","밀"],
@@ -3714,7 +3855,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 595,
+    calories: 124,
     volume: "115g",
     
     
@@ -3726,12 +3867,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 595,
-      sodium: '1309mg',
-      carbs: '83g',
-      sugar: '6g',
-      fat: '18g',
-      protein: '12g'
+      calories: 124,
+      sodium: "49mg (2%)",
+      carbs: "0g (0%)",
+      sugar: "16g (16%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "3.6g (24%)",
+      cholesterol: "0mg (0%)",
+      protein: "3.9g (7%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유탕처리제품))",
     allergens: ["대두","밀"],
@@ -3791,7 +3935,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 1430,
+    calories: 533,
     volume: "275g",
     
     
@@ -3803,12 +3947,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1430,
-      sodium: '3146mg',
-      carbs: '200g',
-      sugar: '6g',
-      fat: '43g',
-      protein: '29g'
+      calories: 533,
+      sodium: "250mg (13%)",
+      carbs: "66.7g (21%)",
+      sugar: "10g (10%)",
+      fat: "26.7g (49%)",
+      transFat: "0g",
+      satFat: "13.3g (89%)",
+      cholesterol: "0mg (0%)",
+      protein: "6.7g (12%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유탕처리제품))",
     allergens: ["대두","밀"],
@@ -3868,7 +4015,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 365,
+    calories: 533,
     volume: "70g",
     
     
@@ -3880,12 +4027,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 365,
-      sodium: '803mg',
-      carbs: '51g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 533,
+      sodium: "367mg (18%)",
+      carbs: "66.7g (21%)",
+      sugar: "10g (10%)",
+      fat: "26.7g (49%)",
+      transFat: "0g",
+      satFat: "13g (87%)",
+      cholesterol: "0mg (0%)",
+      protein: "6.7g (12%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유탕처리제품))",
     allergens: ["대두","밀"],
@@ -3945,7 +4095,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 400,
+    calories: 531,
     volume: "85g",
     
     
@@ -3957,12 +4107,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 400,
-      sodium: '880mg',
-      carbs: '56g',
-      sugar: '6g',
-      fat: '12g',
-      protein: '8g'
+      calories: 531,
+      sodium: "298mg (15%)",
+      carbs: "64.4g (20%)",
+      sugar: "31.9g (32%)",
+      fat: "28.2g (52%)",
+      transFat: "0.2g",
+      satFat: "10.5g (70%)",
+      cholesterol: "0mg (0%)",
+      protein: "4.9g (9%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유탕처리제품))",
     allergens: ["대두","밀"],
@@ -4022,7 +4175,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 140000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 350,
+    calories: 550,
     volume: "67g",
     
     
@@ -4034,12 +4187,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 350,
-      sodium: '770mg',
-      carbs: '49g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '7g'
+      calories: 550,
+      sodium: "800mg (40%)",
+      carbs: "60g (19%)",
+      sugar: "10g (10%)",
+      fat: "33.3g (62%)",
+      transFat: "0g",
+      satFat: "12.7g (85%)",
+      cholesterol: "0mg (0%)",
+      protein: "3.3g (6%)"
     },
     ingredients: "삼양식품 엄선 원재료 (과자(유처리제품))",
     allergens: ["대두","밀"],
@@ -4112,11 +4268,11 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 125,
-      sodium: '275mg',
-      carbs: '18g',
-      sugar: '6g',
-      fat: '4g',
-      protein: '3g'
+      sodium: "275mg (14%)",
+      carbs: "18g (6%)",
+      sugar: "6g (6%)",
+      fat: "4g (7%)",
+      protein: "3g (5%)"
     },
     ingredients: "삼양식품 엄선 원재료 (우유)",
     allergens: ["대두","밀","우유"],
@@ -4189,11 +4345,11 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 525,
-      sodium: '1155mg',
-      carbs: '74g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      sodium: "1155mg (58%)",
+      carbs: "74g (23%)",
+      sugar: "6g (6%)",
+      fat: "16g (30%)",
+      protein: "11g (20%)"
     },
     ingredients: "삼양식품 엄선 원재료 (우유)",
     allergens: ["대두","밀","우유"],
@@ -4266,11 +4422,11 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 700,
-      sodium: '1540mg',
-      carbs: '98g',
-      sugar: '6g',
-      fat: '21g',
-      protein: '14g'
+      sodium: "1540mg (77%)",
+      carbs: "98g (30%)",
+      sugar: "6g (6%)",
+      fat: "21g (39%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (우유)",
     allergens: ["대두","밀","우유"],
@@ -4331,7 +4487,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
-    calories: 255,
+    calories: 340,
     volume: "200g",
     
     isHot: true,
@@ -4343,13 +4499,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 255,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 340,
+      sodium: "1130mg (56%)",
+      carbs: "77g (24%)",
+      sugar: "9g (9%)",
+      fat: "1.4g (3%)",
+      transFat: "0g",
+      satFat: "0.5g (3%)",
+      cholesterol: "0mg (0%)",
+      protein: "7g (13%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -4423,12 +4581,14 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 204,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      sodium: "1744mg (87%)",
+      carbs: "32.3g (10%)",
+      sugar: "22g (22%)",
+      fat: "7g (13%)",
+      transFat: "0.1g",
+      satFat: "2.4g (16%)",
+      cholesterol: "11mg (4%)",
+      protein: "3g (5%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","우유","닭고기"],
@@ -4489,7 +4649,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
-    calories: 260,
+    calories: 45,
     volume: "200g",
     
     isHot: true,
@@ -4501,13 +4661,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 260,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 45,
+      sodium: "1490mg (75%)",
+      carbs: "13g (4%)",
+      sugar: "3g (3%)",
+      fat: "0.9g (2%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -4568,7 +4730,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
     
-    calories: 255,
+    calories: 340,
     volume: "160g(16g x 10개입)",
     
     isHot: true,
@@ -4580,13 +4742,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 255,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 340,
+      sodium: "1130mg (56%)",
+      carbs: "77g (24%)",
+      sugar: "9g (9%)",
+      fat: "1.4g (3%)",
+      transFat: "0g",
+      satFat: "0.5g (3%)",
+      cholesterol: "0mg (0%)",
+      protein: "7g (13%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -4646,7 +4810,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 1050,
+    calories: 481,
     volume: "250g",
     
     isHot: true,
@@ -4658,12 +4822,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1050,
-      sodium: '2310mg',
-      carbs: '147g',
-      sugar: '6g',
-      fat: '32g',
-      protein: '21g'
+      calories: 481,
+      sodium: "667mg (33%)",
+      carbs: "63.8g (20%)",
+      sugar: "8.7g (9%)",
+      fat: "23.2g (43%)",
+      transFat: "0g",
+      satFat: "8.7g (58%)",
+      cholesterol: "0mg (0%)",
+      protein: "4.4g (8%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기","계란"],
@@ -4724,7 +4891,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
     
-    calories: 255,
+    calories: 337,
     volume: "2kg",
     
     isHot: true,
@@ -4736,13 +4903,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 255,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 337,
+      sodium: "631mg (32%)",
+      carbs: "0g (0%)",
+      sugar: "4.2g (4%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "6.7g (45%)",
+      cholesterol: "0mg (0%)",
+      protein: "11.7g (21%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -4802,7 +4971,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 8400,
+    calories: 481,
     volume: "2kg",
     
     isHot: true,
@@ -4814,12 +4983,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 8400,
-      sodium: '18480mg',
-      carbs: '1176g',
-      sugar: '6g',
-      fat: '252g',
-      protein: '168g'
+      calories: 481,
+      sodium: "667mg (33%)",
+      carbs: "63.8g (20%)",
+      sugar: "8.7g (9%)",
+      fat: "23.2g (43%)",
+      transFat: "0g",
+      satFat: "8.7g (58%)",
+      cholesterol: "0mg (0%)",
+      protein: "4.4g (8%)"
     },
     ingredients: "삼양식품 엄선 원재료 (소스(살균제품))",
     allergens: ["대두","밀","닭고기","계란"],
@@ -4879,7 +5051,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 445,
+    calories: 213,
     volume: "185g",
     
     isHot: true,
@@ -4891,12 +5063,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 213,
+      sodium: "178mg (9%)",
+      carbs: "46.4g (14%)",
+      sugar: "1.3g (1%)",
+      fat: "1g (2%)",
+      transFat: "0g",
+      satFat: "0.4g (3%)",
+      cholesterol: "0mg (0%)",
+      protein: "5.9g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (떡볶이떡-떡류/불닭떡볶이 소스-소스(살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -4956,7 +5131,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 445,
+    calories: 211,
     volume: "179g",
     
     isHot: true,
@@ -4968,12 +5143,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 211,
+      sodium: "342mg (17%)",
+      carbs: "0g (0%)",
+      sugar: "2g (2%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "3.1g (21%)",
+      cholesterol: "0mg (0%)",
+      protein: "6g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (떡볶이떡-떡류/소스-소스(살균제품)/후첨분말-복합조미식품)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -5046,11 +5224,11 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 455,
-      sodium: '1001mg',
-      carbs: '64g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      sodium: "1001mg (50%)",
+      carbs: "64g (20%)",
+      sugar: "6g (6%)",
+      fat: "14g (26%)",
+      protein: "9g (16%)"
     },
     ingredients: "삼양식품 엄선 원재료 (떡류)",
     allergens: ["대두","밀","우유","닭고기"],
@@ -5110,7 +5288,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 445,
+    calories: 271,
     volume: "164.5g",
     
     isHot: true,
@@ -5122,12 +5300,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 445,
-      sodium: '979mg',
-      carbs: '62g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '9g'
+      calories: 271,
+      sodium: "705mg (35%)",
+      carbs: "55.9g (17%)",
+      sugar: "6.7g (7%)",
+      fat: "4.3g (8%)",
+      transFat: "0g",
+      satFat: "2.6g (17%)",
+      cholesterol: "9mg (3%)",
+      protein: "2.4g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (숙면(주정처리 제품))",
     allergens: ["대두","밀","우유","닭고기"],
@@ -5187,7 +5368,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 380,
+    calories: 277,
     volume: "155.5g",
     
     isHot: true,
@@ -5199,12 +5380,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 380,
-      sodium: '836mg',
-      carbs: '53g',
-      sugar: '6g',
-      fat: '11g',
-      protein: '8g'
+      calories: 277,
+      sodium: "744mg (37%)",
+      carbs: "56.1g (17%)",
+      sugar: "7.1g (7%)",
+      fat: "4.7g (9%)",
+      transFat: "0.1g",
+      satFat: "2.6g (17%)",
+      cholesterol: "6mg (2%)",
+      protein: "2.4g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (숙면(주정처리 제품))",
     allergens: ["대두","밀","닭고기"],
@@ -5264,7 +5448,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 470,
+    calories: 277,
     volume: "169.4g",
     
     isHot: true,
@@ -5276,12 +5460,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 470,
-      sodium: '1034mg',
-      carbs: '66g',
-      sugar: '6g',
-      fat: '14g',
-      protein: '9g'
+      calories: 277,
+      sodium: "744mg (37%)",
+      carbs: "56.1g (17%)",
+      sugar: "7.1g (7%)",
+      fat: "4.7g (9%)",
+      transFat: "0.1g",
+      satFat: "2.6g (17%)",
+      cholesterol: "6mg (2%)",
+      protein: "2.4g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (숙면(주정처리 제품))",
     allergens: ["대두","밀","우유","닭고기"],
@@ -5341,7 +5528,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 670,
+    calories: 239,
     volume: "280g",
     
     
@@ -5353,12 +5540,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 670,
-      sodium: '1474mg',
-      carbs: '94g',
-      sugar: '6g',
-      fat: '20g',
-      protein: '13g'
+      calories: 239,
+      sodium: "443mg (22%)",
+      carbs: "33.2g (10%)",
+      sugar: "4.6g (5%)",
+      fat: "8.2g (15%)",
+      transFat: "0g",
+      satFat: "0.9g (6%)",
+      cholesterol: "0mg (0%)",
+      protein: "11.1g (20%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타가공품)",
     allergens: ["대두","밀"],
@@ -5418,7 +5608,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 620,
+    calories: 228,
     volume: "280g",
     
     
@@ -5430,12 +5620,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 620,
-      sodium: '1364mg',
-      carbs: '87g',
-      sugar: '6g',
-      fat: '19g',
-      protein: '12g'
+      calories: 228,
+      sodium: "407mg (20%)",
+      carbs: "29.6g (9%)",
+      sugar: "3.2g (3%)",
+      fat: "9.6g (18%)",
+      transFat: "0g",
+      satFat: "1.1g (7%)",
+      cholesterol: "0mg (0%)",
+      protein: "10g (18%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타가공품)",
     allergens: ["대두","밀"],
@@ -5495,7 +5688,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 830,
+    calories: 148,
     volume: "290g",
     
     
@@ -5507,12 +5700,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 830,
-      sodium: '1826mg',
-      carbs: '116g',
-      sugar: '6g',
-      fat: '25g',
-      protein: '17g'
+      calories: 148,
+      sodium: "441mg (22%)",
+      carbs: "0g (0%)",
+      sugar: "7.3g (7%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "1.6g (11%)",
+      cholesterol: "0mg (0%)",
+      protein: "11.9g (22%)"
     },
     ingredients: "삼양식품 엄선 원재료 (즉석조리식품)",
     allergens: ["대두","밀"],
@@ -5572,7 +5768,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 835,
+    calories: 148,
     volume: "289g",
     
     
@@ -5584,12 +5780,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 835,
-      sodium: '1837mg',
-      carbs: '117g',
-      sugar: '6g',
-      fat: '25g',
-      protein: '17g'
+      calories: 148,
+      sodium: "441mg (22%)",
+      carbs: "0g (0%)",
+      sugar: "7.3g (7%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "1.6g (11%)",
+      cholesterol: "0mg (0%)",
+      protein: "11.9g (22%)"
     },
     ingredients: "삼양식품 엄선 원재료 (즉석조리식품)",
     allergens: ["대두","밀"],
@@ -5649,7 +5848,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 420,
+    calories: 177,
     volume: "220g",
     
     isHot: true,
@@ -5661,12 +5860,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 420,
-      sodium: '924mg',
-      carbs: '59g',
-      sugar: '6g',
-      fat: '13g',
-      protein: '8g'
+      calories: 177,
+      sodium: "268mg (13%)",
+      carbs: "25.8g (8%)",
+      sugar: "4g (4%)",
+      fat: "3.4g (6%)",
+      transFat: "0g",
+      satFat: "0.5g (3%)",
+      cholesterol: "32mg (11%)",
+      protein: "10.7g (19%)"
     },
     ingredients: "삼양식품 엄선 원재료 (즉석조리식품(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","닭고기"],
@@ -5726,7 +5928,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 195000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 525,
+    calories: 239,
     volume: "220g",
     
     isHot: true,
@@ -5738,12 +5940,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 525,
-      sodium: '1155mg',
-      carbs: '74g',
-      sugar: '6g',
-      fat: '16g',
-      protein: '11g'
+      calories: 239,
+      sodium: "447mg (22%)",
+      carbs: "33.6g (10%)",
+      sugar: "0g (0%)",
+      fat: "9.6g (18%)",
+      transFat: "0g",
+      satFat: "2.3g (15%)",
+      cholesterol: "12mg (4%)",
+      protein: "4.6g (8%)"
     },
     ingredients: "삼양식품 엄선 원재료 (즉석조리식품(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","우유","닭고기"],
@@ -5803,7 +6008,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 1750,
+    calories: 24,
     volume: "760 g",
     
     
@@ -5815,12 +6020,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1750,
-      sodium: '3850mg',
-      carbs: '245g',
-      sugar: '6g',
-      fat: '53g',
-      protein: '35g'
+      calories: 24,
+      sodium: "6mg (0%)",
+      carbs: "3.8g (1%)",
+      sugar: "2.8g (3%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2.1g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","쇠고기","돼지고기"],
@@ -5880,7 +6088,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 2450,
+    calories: 24,
     volume: "1,000 g",
     
     
@@ -5892,12 +6100,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2450,
-      sodium: '5390mg',
-      carbs: '343g',
-      sugar: '6g',
-      fat: '74g',
-      protein: '49g'
+      calories: 24,
+      sodium: "6mg (0%)",
+      carbs: "3.8g (1%)",
+      sugar: "2.8g (3%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2.1g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -5957,7 +6168,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 1920,
+    calories: 24,
     volume: "800 g",
     
     
@@ -5969,12 +6180,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1920,
-      sodium: '4224mg',
-      carbs: '269g',
-      sugar: '6g',
-      fat: '58g',
-      protein: '38g'
+      calories: 24,
+      sodium: "6mg (0%)",
+      carbs: "3.8g (1%)",
+      sugar: "2.8g (3%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2.1g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -6034,7 +6248,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 3550,
+    calories: 24,
     volume: "1,200 g",
     
     
@@ -6046,12 +6260,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 3550,
-      sodium: '7810mg',
-      carbs: '497g',
-      sugar: '6g',
-      fat: '107g',
-      protein: '71g'
+      calories: 24,
+      sodium: "6mg (0%)",
+      carbs: "3.8g (1%)",
+      sugar: "2.8g (3%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2.1g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -6111,7 +6328,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 2250,
+    calories: 24,
     volume: "1,000 g",
     
     
@@ -6123,12 +6340,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2250,
-      sodium: '4950mg',
-      carbs: '315g',
-      sugar: '6g',
-      fat: '68g',
-      protein: '45g'
+      calories: 24,
+      sodium: "6mg (0%)",
+      carbs: "3.8g (1%)",
+      sugar: "2.8g (3%)",
+      fat: "0g (0%)",
+      transFat: "0g",
+      satFat: "0g (0%)",
+      cholesterol: "0mg (0%)",
+      protein: "2.1g (4%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -6188,7 +6408,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 2230,
+    calories: 260,
     volume: "1,350g",
     
     
@@ -6200,12 +6420,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2230,
-      sodium: '4906mg',
-      carbs: '312g',
-      sugar: '6g',
-      fat: '67g',
-      protein: '45g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6265,7 +6488,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 2405,
+    calories: 260,
     volume: "1,300g",
     
     
@@ -6277,12 +6500,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2405,
-      sodium: '5291mg',
-      carbs: '337g',
-      sugar: '6g',
-      fat: '72g',
-      protein: '48g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6342,7 +6568,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 2340,
+    calories: 260,
     volume: "1,300g",
     
     
@@ -6354,12 +6580,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2340,
-      sodium: '5148mg',
-      carbs: '328g',
-      sugar: '6g',
-      fat: '70g',
-      protein: '47g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6419,7 +6648,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 2100,
+    calories: 230,
     volume: "1,000g",
     
     
@@ -6431,12 +6660,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2100,
-      sodium: '4620mg',
-      carbs: '294g',
-      sugar: '6g',
-      fat: '63g',
-      protein: '42g'
+      calories: 230,
+      sodium: "430mg (22%)",
+      carbs: "25g (8%)",
+      sugar: "3g (3%)",
+      fat: "11g (20%)",
+      transFat: "0g",
+      satFat: "4.6g (31%)",
+      cholesterol: "20mg (7%)",
+      protein: "8g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","쇠고기","돼지고기"],
@@ -6496,7 +6728,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 4725,
+    calories: 175,
     volume: "2,700G",
     
     
@@ -6508,12 +6740,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 4725,
-      sodium: '10395mg',
-      carbs: '662g',
-      sugar: '6g',
-      fat: '142g',
-      protein: '95g'
+      calories: 175,
+      sodium: "430mg (22%)",
+      carbs: "26g (8%)",
+      sugar: "1g (1%)",
+      fat: "5g (9%)",
+      transFat: "0g",
+      satFat: "1.6g (11%)",
+      cholesterol: "10mg (3%)",
+      protein: "7g (13%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6573,7 +6808,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 4995,
+    calories: 260,
     volume: "2,700g",
     
     
@@ -6585,12 +6820,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 4995,
-      sodium: '10989mg',
-      carbs: '699g',
-      sugar: '6g',
-      fat: '150g',
-      protein: '100g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6650,7 +6888,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 2240,
+    calories: 160,
     volume: "1,400g",
     
     
@@ -6662,12 +6900,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2240,
-      sodium: '4928mg',
-      carbs: '314g',
-      sugar: '6g',
-      fat: '67g',
-      protein: '45g'
+      calories: 160,
+      sodium: "300mg (15%)",
+      carbs: "22g (7%)",
+      sugar: "1g (1%)",
+      fat: "4.5g (8%)",
+      transFat: "0g",
+      satFat: "1.1g (7%)",
+      cholesterol: "10mg (3%)",
+      protein: "8g (15%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6727,7 +6968,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 3700,
+    calories: 185,
     volume: "2,000g",
     
     
@@ -6739,12 +6980,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 3700,
-      sodium: '8140mg',
-      carbs: '518g',
-      sugar: '6g',
-      fat: '111g',
-      protein: '74g'
+      calories: 185,
+      sodium: "470mg (24%)",
+      carbs: "27g (8%)",
+      sugar: "1g (1%)",
+      fat: "6g (11%)",
+      transFat: "0g",
+      satFat: "2g (13%)",
+      cholesterol: "5mg (2%)",
+      protein: "6g (11%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6804,7 +7048,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 2660,
+    calories: 260,
     volume: "1,400g",
     
     
@@ -6816,12 +7060,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2660,
-      sodium: '5852mg',
-      carbs: '372g',
-      sugar: '6g',
-      fat: '80g',
-      protein: '53g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6881,7 +7128,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 2380,
+    calories: 260,
     volume: "1,400g",
     
     
@@ -6893,12 +7140,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2380,
-      sodium: '5236mg',
-      carbs: '333g',
-      sugar: '6g',
-      fat: '71g',
-      protein: '48g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -6958,7 +7208,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 2635,
+    calories: 260,
     volume: "1,350g",
     
     
@@ -6970,12 +7220,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2635,
-      sodium: '5797mg',
-      carbs: '369g',
-      sugar: '6g',
-      fat: '79g',
-      protein: '53g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (만두(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","돼지고기"],
@@ -7035,7 +7288,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 1950,
+    calories: 217,
     volume: "900g",
     
     
@@ -7047,12 +7300,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1950,
-      sodium: '4290mg',
-      carbs: '273g',
-      sugar: '6g',
-      fat: '59g',
-      protein: '39g'
+      calories: 217,
+      sodium: "689mg (34%)",
+      carbs: "13.3g (4%)",
+      sugar: "6.7g (7%)",
+      fat: "11.1g (21%)",
+      transFat: "0g",
+      satFat: "3.8g (25%)",
+      cholesterol: "44mg (15%)",
+      protein: "15.6g (28%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7112,7 +7368,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 2450,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -7124,12 +7380,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2450,
-      sodium: '5390mg',
-      carbs: '343g',
-      sugar: '6g',
-      fat: '74g',
-      protein: '49g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -7189,7 +7448,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 2250,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -7201,12 +7460,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2250,
-      sodium: '4950mg',
-      carbs: '315g',
-      sugar: '6g',
-      fat: '68g',
-      protein: '45g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","돼지고기"],
@@ -7266,7 +7528,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 2100,
+    calories: 260,
     volume: "1,000 g",
     
     
@@ -7278,12 +7540,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2100,
-      sodium: '4620mg',
-      carbs: '294g',
-      sugar: '6g',
-      fat: '63g',
-      protein: '42g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -7343,7 +7608,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 2450,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -7355,12 +7620,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2450,
-      sodium: '5390mg',
-      carbs: '343g',
-      sugar: '6g',
-      fat: '74g',
-      protein: '49g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7420,7 +7688,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 1029,
+    calories: 235,
     volume: "420g",
     
     
@@ -7432,12 +7700,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1029,
-      sodium: '2264mg',
-      carbs: '144g',
-      sugar: '6g',
-      fat: '31g',
-      protein: '21g'
+      calories: 235,
+      sodium: "480mg (24%)",
+      carbs: "13g (4%)",
+      sugar: "7g (7%)",
+      fat: "14g (26%)",
+      transFat: "0g",
+      satFat: "5g (33%)",
+      cholesterol: "35mg (12%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7497,7 +7768,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 2600,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -7509,12 +7780,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2600,
-      sodium: '5720mg',
-      carbs: '364g',
-      sugar: '6g',
-      fat: '78g',
-      protein: '52g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7574,7 +7848,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 94,
-    calories: 2650,
+    calories: 265,
     volume: "1,000g",
     
     
@@ -7586,12 +7860,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2650,
-      sodium: '5830mg',
-      carbs: '371g',
-      sugar: '6g',
-      fat: '80g',
-      protein: '53g'
+      calories: 265,
+      sodium: "610mg (31%)",
+      carbs: "18g (6%)",
+      sugar: "8g (8%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "5g (33%)",
+      cholesterol: "35mg (12%)",
+      protein: "12g (22%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7651,7 +7928,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
-    calories: 1040,
+    calories: 260,
     volume: "400g",
     
     
@@ -7663,12 +7940,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1040,
-      sodium: '2288mg',
-      carbs: '146g',
-      sugar: '6g',
-      fat: '31g',
-      protein: '21g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품/냉동제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7728,7 +8008,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 5150,
+    calories: 258,
     volume: "2,000g",
     
     
@@ -7740,12 +8020,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 5150,
-      sodium: '11330mg',
-      carbs: '721g',
-      sugar: '6g',
-      fat: '155g',
-      protein: '103g'
+      calories: 258,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "6.5g (7%)",
+      fat: "16g (30%)",
+      transFat: "0.3g",
+      satFat: "5.5g (37%)",
+      cholesterol: "45mg (15%)",
+      protein: "13.5g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7805,7 +8088,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 95,
-    calories: 60160,
+    calories: 260,
     volume: "1.2KG",
     
     
@@ -7817,12 +8100,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 60160,
-      sodium: '132352mg',
-      carbs: '8422g',
-      sugar: '6g',
-      fat: '1805g',
-      protein: '1203g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기"],
@@ -7882,7 +8168,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
-    calories: 4200,
+    calories: 260,
     volume: "1.6kg",
     
     
@@ -7894,12 +8180,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 4200,
-      sodium: '9240mg',
-      carbs: '588g',
-      sugar: '6g',
-      fat: '126g',
-      protein: '84g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -7959,7 +8248,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 2150,
+    calories: 215,
     volume: "1KG",
     
     
@@ -7971,12 +8260,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2150,
-      sodium: '4730mg',
-      carbs: '301g',
-      sugar: '6g',
-      fat: '65g',
-      protein: '43g'
+      calories: 215,
+      sodium: "380mg (19%)",
+      carbs: "14g (4%)",
+      sugar: "4g (4%)",
+      fat: "11g (20%)",
+      transFat: "0g",
+      satFat: "4.1g (27%)",
+      cholesterol: "25mg (8%)",
+      protein: "15g (27%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -8036,7 +8328,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 1600,
+    calories: 260,
     volume: "800g",
     
     
@@ -8048,12 +8340,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1600,
-      sodium: '3520mg',
-      carbs: '224g',
-      sugar: '6g',
-      fat: '48g',
-      protein: '32g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","우유"],
@@ -8113,7 +8408,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 2800,
+    calories: 225,
     volume: "1KG",
     
     
@@ -8125,12 +8420,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2800,
-      sodium: '6160mg',
-      carbs: '392g',
-      sugar: '6g',
-      fat: '84g',
-      protein: '56g'
+      calories: 225,
+      sodium: "740mg (37%)",
+      carbs: "13g (4%)",
+      sugar: "1g (1%)",
+      fat: "13g (24%)",
+      transFat: "0g",
+      satFat: "4.5g (30%)",
+      cholesterol: "55mg (18%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -8190,7 +8488,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 1750,
+    calories: 260,
     volume: "1,000 g",
     
     
@@ -8202,12 +8500,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1750,
-      sodium: '3850mg',
-      carbs: '245g',
-      sugar: '6g',
-      fat: '53g',
-      protein: '35g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","돼지고기"],
@@ -8267,7 +8568,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 91,
-    calories: 1500,
+    calories: 260,
     volume: "1,000 g",
     
     
@@ -8279,12 +8580,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1500,
-      sodium: '3300mg',
-      carbs: '210g',
-      sugar: '6g',
-      fat: '45g',
-      protein: '30g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","닭고기"],
@@ -8345,7 +8649,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
-    calories: 235,
+    calories: 260,
     volume: "1,500 g",
     
     
@@ -8357,13 +8661,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 235,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (식육함유가공품(가열하여 섭취하는 냉동식품/비살균제품))",
     allergens: ["대두","밀","우유","돼지고기"],
@@ -8424,7 +8730,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 90,
     
-    calories: 250,
+    calories: 260,
     volume: "1,300 g",
     
     
@@ -8436,13 +8742,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 250,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","돼지고기"],
@@ -8516,12 +8824,14 @@ export const SAMYANG_PRODUCTS: Product[] = [
     },
     nutrition: {
       calories: 260,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","돼지고기"],
@@ -8581,7 +8891,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
-    calories: 1500,
+    calories: 260,
     volume: "1,200g",
     
     
@@ -8593,12 +8903,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 1500,
-      sodium: '3300mg',
-      carbs: '210g',
-      sugar: '6g',
-      fat: '45g',
-      protein: '30g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타수산물가공품 (가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀"],
@@ -8659,7 +8972,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
-    calories: 195,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -8671,13 +8984,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 195,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타가공품 (가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀"],
@@ -8738,7 +9053,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 93,
     
-    calories: 180,
+    calories: 260,
     volume: "1KG",
     
     
@@ -8750,13 +9065,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 180,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타수산물가공품(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","새우","조개류"],
@@ -8817,7 +9134,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
     
-    calories: 185,
+    calories: 260,
     volume: "1kg",
     
     
@@ -8829,13 +9146,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 185,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (기타가공품(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀","새우","조개류"],
@@ -8895,7 +9214,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 88,
-    calories: 2300,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -8907,12 +9226,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2300,
-      sodium: '5060mg',
-      carbs: '322g',
-      sugar: '6g',
-      fat: '69g',
-      protein: '46g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -8972,7 +9294,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 92,
-    calories: 2700,
+    calories: 219,
     volume: "1.2 KG",
     
     
@@ -8984,12 +9306,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 2700,
-      sodium: '5940mg',
-      carbs: '378g',
-      sugar: '6g',
-      fat: '81g',
-      protein: '54g'
+      calories: 219,
+      sodium: "388mg (19%)",
+      carbs: "12.5g (4%)",
+      sugar: "5g (5%)",
+      fat: "13.8g (26%)",
+      transFat: "0g",
+      satFat: "4.3g (29%)",
+      cholesterol: "38mg (13%)",
+      protein: "11.3g (21%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀"],
@@ -9050,7 +9375,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 96,
     
-    calories: 220,
+    calories: 260,
     volume: "1,000g",
     
     
@@ -9062,13 +9387,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 220,
-      
-      sodium: '1150mg',
-      carbs: '65g',
-      sugar: '6g',
-      fat: '15g',
-      protein: '10g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (떡류(가열하여 섭취하는 냉동식품))",
     allergens: ["대두","밀"],
@@ -9128,7 +9455,7 @@ export const SAMYANG_PRODUCTS: Product[] = [
     searchInfluxCount: 52000,
     stores: ['삼양식품 공식몰', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'],
     repurchasePercent: 89,
-    calories: 6500,
+    calories: 260,
     volume: "2.5KG",
     
     
@@ -9140,12 +9467,15 @@ export const SAMYANG_PRODUCTS: Product[] = [
       repurchase: 4.8
     },
     nutrition: {
-      calories: 6500,
-      sodium: '14300mg',
-      carbs: '910g',
-      sugar: '6g',
-      fat: '195g',
-      protein: '130g'
+      calories: 260,
+      sodium: "500mg (25%)",
+      carbs: "15g (5%)",
+      sugar: "7g (7%)",
+      fat: "16g (30%)",
+      transFat: "0g",
+      satFat: "6g (40%)",
+      cholesterol: "45mg (15%)",
+      protein: "14g (25%)"
     },
     ingredients: "삼양식품 엄선 원재료 (분쇄가공육제품(비살균제품))",
     allergens: ["대두","밀","쇠고기","돼지고기"],
