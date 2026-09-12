@@ -492,7 +492,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   images: dbP.images || [],
 });
 
-const DATA_VERSION = 'v18_20260912_image_fixes';
+const DATA_VERSION = 'v19_20260912_momstouch_official';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
