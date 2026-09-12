@@ -11,7 +11,7 @@ export const MyPageView: React.FC = () => {
     userPoints, 
     reviews,
     currentUser,
-    calendarReminders,
+    savedSaleIds,
     updateUserNickname,
     setActiveTab
   } = useApp();
@@ -34,7 +34,7 @@ export const MyPageView: React.FC = () => {
     { label: '내가 쓴 리뷰', sub: `${myReviewsCount}개`, action: () => setIsReviewsOpen(true) },
     { label: '찜한 제품', sub: `${bookmarkedIds.length}개`, action: () => setIsBookmarksOpen(true) },
     { label: '비교함', sub: `${comparedIds.length}개`, action: () => setActiveTab('compare') },
-    { label: '📅 신상 드롭 캘린더', sub: `${calendarReminders.length}개 예약`, hi: true, action: () => setActiveTab('calendar') },
+    { label: '🏷️ 편의점·마트 행사소식', sub: `${savedSaleIds.length}개 찜`, hi: true, action: () => setActiveTab('calendar') },
     { label: '출시알림 설정', sub: '', action: () => setActiveTab('alert_settings') },
     { label: '포인트', sub: `${userPoints.toLocaleString()}P`, hi: true },
     { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },

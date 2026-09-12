@@ -385,6 +385,33 @@ export interface PendingProduct {
   reviewReason?: string; // 검증 필요 사유 (e.g. "가격 확인 불가", "키워드 유사도 불일치", "쇼핑몰 미등록")
 }
 
+export type SaleDealType = '1+1' | '2+1' | '할인특가' | '콤보할인' | '증정행사';
+export type SaleStoreType = 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '이마트' | '홈플러스' | '전체';
+
+export interface SalePromotionItem {
+  id: string;
+  productId?: string;
+  title: string;
+  brand: string;
+  category: ProductCategory;
+  subCategory?: string;
+  store: SaleStoreType;
+  stores?: string[];
+  dealType: SaleDealType;
+  badgeText: string;
+  originalPrice: number;
+  salePrice: number;
+  unitPriceDescription: string;
+  discountRate?: number;
+  image: string;
+  period: string;
+  dDay: string;
+  benefitTag?: string;
+  description: string;
+  isHot?: boolean;
+  likeCount: number;
+}
+
 export interface ReleaseCalendarItem {
   id: string;
   productId?: string;

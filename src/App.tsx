@@ -18,7 +18,7 @@ import { SettingsView } from './components/settings/SettingsView';
 import { WebPolicyPage } from './components/settings/WebPolicyPage';
 import { PushBanner } from './components/common/PushBanner';
 import { ToastContainer } from './components/common/Toast';
-import { CalendarView } from './components/calendar/CalendarView';
+import { SaleNewsView } from './components/sale/SaleNewsView';
 import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
 import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
 
@@ -76,7 +76,7 @@ export const App: React.FC = () => {
           {activeTab === 'alert_settings' && <NotificationModal />}
           {activeTab === 'settings' && <SettingsView />}
           {activeTab === 'search' && <SearchModal />}
-          {activeTab === 'calendar' && <CalendarView />}
+          {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <SaleNewsView />}
         </main>
 
         {/* Recipe Modals (Floating Global Modals) */}

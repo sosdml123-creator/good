@@ -1,6 +1,6 @@
 /**
- * 농수산물 (과일, 채소, 고기, 수산, 신선란 등) 전용 고화질 벡터 일러스트레이션 모듈
- * 실제 사진 대신 친근하고 직관적인 프리미엄 음식 일러스트를 제공합니다.
+ * 농축수산물 (과일, 채소, 고기, 수산, 신선란 등) 전용 토스(Toss) 스타일 프리미엄 3D 일러스트레이션 모듈
+ * 군더더기 없는 미니멀하고 화사한 3D 볼륨감과 부드러운 파스텔 톤온톤 배경을 제공합니다.
  */
 
 // Helper to encode SVG string safely for data URI
@@ -8,971 +8,921 @@ export const svgToDataUri = (svgString: string): string => {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString.trim())}`;
 };
 
-// 1. [과일] 햇사레 복숭아 일러스트
+// 1. [과일] 토스 스타일 햇사레 복숭아 일러스트
 export const SVG_PEACH = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="peachBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF1F2"/>
-      <stop offset="100%" stop-color="#FFE4E6"/>
+    <linearGradient id="tpBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5F6"/>
+      <stop offset="100%" stop-color="#FED7E2"/>
     </linearGradient>
-    <radialGradient id="peachGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFCCD5" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#FFE4E6" stop-opacity="0"/>
+    <radialGradient id="tpBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFE4E6"/>
+      <stop offset="25%" stop-color="#FDA4AF"/>
+      <stop offset="65%" stop-color="#FB7185"/>
+      <stop offset="90%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#E11D48"/>
     </radialGradient>
-    <radialGradient id="peachBody" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#FFF3E0"/>
-      <stop offset="25%" stop-color="#FFAB91"/>
-      <stop offset="65%" stop-color="#FF6F91"/>
-      <stop offset="95%" stop-color="#E91E63"/>
-      <stop offset="100%" stop-color="#C2185B"/>
-    </radialGradient>
-    <radialGradient id="peachLeftLobe" cx="30%" cy="35%" r="60%">
-      <stop offset="0%" stop-color="#FFE0B2"/>
-      <stop offset="40%" stop-color="#FF8A80"/>
-      <stop offset="85%" stop-color="#FF5252"/>
-      <stop offset="100%" stop-color="#D81B60"/>
-    </radialGradient>
-    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#81C784"/>
-      <stop offset="50%" stop-color="#4CAF50"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
+    <linearGradient id="tpLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
     </linearGradient>
-    <linearGradient id="leafGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#66BB6A"/>
-      <stop offset="100%" stop-color="#388E3C"/>
+    <linearGradient id="tpLeaf2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#10B981"/>
     </linearGradient>
-    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#8D6E63"/>
-      <stop offset="100%" stop-color="#4E342E"/>
-    </linearGradient>
-    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#FF8A80" flood-opacity="0.25"/>
+    <filter id="tpShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#E11D48" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#peachBg)"/>
-  <circle cx="200" cy="210" r="140" fill="url(#peachGlow)"/>
 
-  <!-- Decorative sparkles -->
-  <path d="M70 90 Q80 90 80 80 Q80 90 90 90 Q80 90 80 100 Q80 90 70 90 Z" fill="#FFA4B6"/>
-  <path d="M330 110 Q338 110 338 102 Q338 110 346 110 Q338 110 338 118 Q338 110 330 110 Z" fill="#FFA4B6"/>
-  <circle cx="95" cy="290" r="4" fill="#FFA4B6" opacity="0.6"/>
-  <circle cx="320" cy="280" r="5" fill="#FFA4B6" opacity="0.6"/>
+  <rect width="400" height="400" rx="40" fill="url(#tpBg)"/>
+  
+  <!-- Ground Soft Ambient Shadow -->
+  <ellipse cx="200" cy="340" rx="90" ry="14" fill="#FDA4AF" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="55" ry="8" fill="#F43F5E" opacity="0.15"/>
 
-  <!-- Peach Shadow -->
-  <ellipse cx="200" cy="335" rx="100" ry="18" fill="#F8BBD0" opacity="0.5"/>
-
-  <!-- Main Peach Body Group -->
-  <g filter="url(#softShadow)">
+  <!-- Peach Main 3D Shape -->
+  <g filter="url(#tpShadow)">
     <!-- Right Lobe -->
-    <path d="M200 135 C260 110 320 160 320 235 C320 300 255 330 200 320 Z" fill="url(#peachBody)"/>
+    <path d="M200 135 C265 110 325 160 325 235 C325 295 265 325 200 320 Z" fill="url(#tpBody)"/>
     <!-- Left Lobe -->
-    <path d="M200 135 C140 110 80 160 80 235 C80 300 145 330 200 320 Z" fill="url(#peachLeftLobe)"/>
-    <!-- Cleft Crease -->
-    <path d="M200 135 C198 175 196 240 200 318" stroke="#AD1457" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
-    <!-- Center Highlight -->
-    <ellipse cx="145" cy="195" rx="32" ry="45" transform="rotate(-20 145 195)" fill="#FFFFFF" opacity="0.25"/>
-    <ellipse cx="138" cy="180" rx="14" ry="22" transform="rotate(-20 138 180)" fill="#FFFFFF" opacity="0.45"/>
-    <!-- Subtle Peach Bottom Warmth -->
-    <path d="M160 310 Q200 326 240 310" stroke="#FFCDD2" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+    <path d="M200 135 C135 110 75 160 75 235 C75 295 135 325 200 320 Z" fill="url(#tpBody)"/>
+    <!-- Smooth Center Cleft Shade -->
+    <path d="M200 135 C198 175 197 240 200 320" stroke="#BE123C" stroke-width="4" stroke-linecap="round" opacity="0.25"/>
+    
+    <!-- Top-Left 3D Glossy Light Reflection -->
+    <ellipse cx="145" cy="180" rx="30" ry="45" transform="rotate(-25 145 180)" fill="#FFFFFF" opacity="0.32"/>
+    <ellipse cx="138" cy="165" rx="12" ry="20" transform="rotate(-25 138 165)" fill="#FFFFFF" opacity="0.5"/>
+    
+    <!-- Bottom Ambient Warm Rim Reflection -->
+    <path d="M140 300 Q200 322 260 300" stroke="#FFF1F2" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
   </g>
 
   <!-- Stem -->
-  <path d="M198 140 C198 115 204 95 212 85" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M200 140 C200 115 206 95 214 85" stroke="#78350F" stroke-width="7" stroke-linecap="round" fill="none"/>
 
-  <!-- Leaves -->
+  <!-- 3D Leaves -->
   <g>
     <!-- Right Leaf -->
-    <path d="M204 110 C240 85 285 95 300 115 C285 135 240 135 204 110 Z" fill="url(#leafGrad)"/>
-    <path d="M204 110 Q255 110 298 115" stroke="#A5D6A7" stroke-width="2" fill="none" opacity="0.8"/>
+    <path d="M205 115 C245 85 295 95 310 120 C290 142 245 140 205 115 Z" fill="url(#tpLeaf)"/>
+    <path d="M205 115 Q255 115 305 120" stroke="#A7F3D0" stroke-width="2" fill="none" opacity="0.7"/>
     <!-- Left Leaf -->
-    <path d="M196 118 C165 95 125 105 110 125 C125 142 165 140 196 118 Z" fill="url(#leafGrad2)"/>
-    <path d="M196 118 Q150 120 112 125" stroke="#C8E6C9" stroke-width="2" fill="none" opacity="0.8"/>
-    <!-- Fresh Dewdrop on Leaf -->
-    <circle cx="270" cy="110" r="4.5" fill="#FFFFFF" opacity="0.85"/>
-    <circle cx="271.5" cy="109" r="1.5" fill="#FFFFFF"/>
+    <path d="M195 122 C160 95 115 105 100 128 C120 148 160 144 195 122 Z" fill="url(#tpLeaf2)"/>
+    <path d="M195 122 Q150 125 105 128" stroke="#D1FAE5" stroke-width="2" fill="none" opacity="0.7"/>
   </g>
 </svg>`;
 
-// 2. [과일] 고창 당도보증 수박 일러스트
+// 2. [과일] 토스 스타일 고창 당도보증 수박 일러스트
 export const SVG_WATERMELON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="wmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="twmBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#F0FDF4"/>
       <stop offset="100%" stop-color="#DCFCE7"/>
     </linearGradient>
-    <radialGradient id="wmGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#BBF7D0" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#DCFCE7" stop-opacity="0"/>
+    <radialGradient id="twmFlesh" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FF6B81"/>
+      <stop offset="40%" stop-color="#FF385C"/>
+      <stop offset="85%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
     </radialGradient>
-    <linearGradient id="wmFlesh" x1="20%" y1="20%" x2="80%" y2="80%">
-      <stop offset="0%" stop-color="#FF5252"/>
-      <stop offset="50%" stop-color="#FF1744"/>
-      <stop offset="100%" stop-color="#D50000"/>
+    <linearGradient id="twmRind" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#166534"/>
     </linearGradient>
-    <linearGradient id="wmRindOuter" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2E7D32"/>
-      <stop offset="100%" stop-color="#1B5E20"/>
+    <linearGradient id="twmRindInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DCFCE7"/>
+      <stop offset="100%" stop-color="#BBF7D0"/>
     </linearGradient>
-    <filter id="wmShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#15803D" flood-opacity="0.25"/>
+    <filter id="twmShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#15803D" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#wmBg)"/>
-  <circle cx="200" cy="200" r="140" fill="url(#wmGlow)"/>
 
-  <!-- Watermelon Slice Shadow -->
-  <ellipse cx="200" cy="335" rx="110" ry="16" fill="#86EFAC" opacity="0.4"/>
+  <rect width="400" height="400" rx="40" fill="url(#twmBg)"/>
 
-  <!-- Watermelon Slice Wedge -->
-  <g filter="url(#wmShadow)">
-    <!-- Outer Dark Green Rind -->
-    <path d="M60 210 C70 320 330 320 340 210 L200 100 Z" fill="url(#wmRindOuter)"/>
-    <!-- Light Green Rind Layer -->
-    <path d="M72 212 C82 308 318 308 328 212 L200 110 Z" fill="#DCEDC8"/>
-    <!-- Crisp White Inner Rind Layer -->
-    <path d="M82 214 C92 298 308 298 318 214 L200 120 Z" fill="#F1F8E9"/>
-    <!-- Sweet Red Juicy Flesh -->
-    <path d="M90 215 C100 290 300 290 310 215 L200 126 Z" fill="url(#wmFlesh)"/>
-    
-    <!-- Dark Green Rind Stripes -->
-    <path d="M125 285 Q135 298 150 305" stroke="#0F4214" stroke-width="8" stroke-linecap="round" fill="none"/>
-    <path d="M190 295 Q200 308 215 307" stroke="#0F4214" stroke-width="8" stroke-linecap="round" fill="none"/>
-    <path d="M255 285 Q265 298 280 295" stroke="#0F4214" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Ground Shadow -->
+  <ellipse cx="200" cy="340" rx="105" ry="15" fill="#86EFAC" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="60" ry="8" fill="#15803D" opacity="0.15"/>
 
-    <!-- Specular Highlight Arc -->
-    <path d="M120 200 L195 140" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.45"/>
-    <circle cx="120" cy="205" r="4" fill="#FFFFFF" opacity="0.6"/>
+  <!-- Watermelon Wedge Group -->
+  <g filter="url(#twmShadow)">
+    <!-- Outer Dark Green Rind Arc -->
+    <path d="M70 215 C80 320 320 320 330 215 L200 110 Z" fill="url(#twmRind)"/>
+    <!-- Light Lime Inner Rind -->
+    <path d="M80 215 C90 308 310 308 320 215 L200 120 Z" fill="url(#twmRindInner)"/>
+    <!-- Crisp White Margin -->
+    <path d="M88 215 C98 298 302 298 312 215 L200 128 Z" fill="#F8FAFC"/>
+    <!-- Sweet Juicy Red Flesh -->
+    <path d="M94 215 C104 290 296 290 306 215 L200 134 Z" fill="url(#twmFlesh)"/>
 
-    <!-- Watermelon Seeds (Teardrop shape) -->
-    <!-- Seed 1 -->
-    <path d="M150 200 C146 194 147 186 153 186 C158 186 159 194 155 200 C154 202 151 202 150 200 Z" fill="#212121"/>
-    <circle cx="151" cy="190" r="1.5" fill="#FFFFFF" opacity="0.7"/>
-    <!-- Seed 2 -->
-    <path d="M195 180 C191 174 192 166 198 166 C203 166 204 174 200 180 C199 182 196 182 195 180 Z" fill="#212121"/>
-    <circle cx="196" cy="170" r="1.5" fill="#FFFFFF" opacity="0.7"/>
-    <!-- Seed 3 -->
-    <path d="M245 195 C241 189 242 181 248 181 C253 181 254 189 250 195 C249 197 246 197 245 195 Z" fill="#212121"/>
-    <circle cx="246" cy="185" r="1.5" fill="#FFFFFF" opacity="0.7"/>
-    <!-- Seed 4 -->
-    <path d="M140 235 C136 229 137 221 143 221 C148 221 149 229 145 235 C144 237 141 237 140 235 Z" fill="#212121"/>
-    <circle cx="141" cy="225" r="1.5" fill="#FFFFFF" opacity="0.7"/>
-    <!-- Seed 5 -->
-    <path d="M200 230 C196 224 197 216 203 216 C208 216 209 224 205 230 C204 232 201 232 200 230 Z" fill="#212121"/>
-    <circle cx="201" cy="220" r="1.5" fill="#FFFFFF" opacity="0.7"/>
-    <!-- Seed 6 -->
-    <path d="M260 230 C256 224 257 216 263 216 C268 216 269 224 265 230 C264 232 261 232 260 230 Z" fill="#212121"/>
-    <circle cx="261" cy="220" r="1.5" fill="#FFFFFF" opacity="0.7"/>
+    <!-- Subtle Clean Stripes on Rind Bottom -->
+    <path d="M135 285 Q145 300 155 306" stroke="#052e16" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.7"/>
+    <path d="M195 296 Q200 308 208 307" stroke="#052e16" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.7"/>
+    <path d="M245 285 Q255 300 265 298" stroke="#052e16" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.7"/>
+
+    <!-- Clean 3D Top Highlight Arc -->
+    <path d="M125 205 L195 145" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Minimal Cute Toss-style Seeds -->
+    <g fill="#1E293B">
+      <path d="M150 205 C146 199 148 193 153 193 C158 193 160 199 156 205 C155 207 151 207 150 205 Z"/>
+      <circle cx="152" cy="196" r="1.2" fill="#FFFFFF" opacity="0.8"/>
+      
+      <path d="M196 185 C192 179 194 173 199 173 C204 173 206 179 202 185 C201 187 197 187 196 185 Z"/>
+      <circle cx="198" cy="176" r="1.2" fill="#FFFFFF" opacity="0.8"/>
+      
+      <path d="M244 200 C240 194 242 188 247 188 C252 188 254 194 250 200 C249 202 245 202 244 200 Z"/>
+      <circle cx="246" cy="191" r="1.2" fill="#FFFFFF" opacity="0.8"/>
+      
+      <path d="M172 238 C168 232 170 226 175 226 C180 226 182 232 178 238 C177 240 173 240 172 238 Z"/>
+      <circle cx="174" cy="229" r="1.2" fill="#FFFFFF" opacity="0.8"/>
+      
+      <path d="M222 235 C218 229 220 223 225 223 C230 223 232 229 228 235 C227 237 223 237 222 235 Z"/>
+      <circle cx="224" cy="226" r="1.2" fill="#FFFFFF" opacity="0.8"/>
+    </g>
   </g>
-
-  <!-- Sweet Juice Droplets -->
-  <circle cx="215" cy="330" r="4" fill="#FF1744" opacity="0.7"/>
-  <circle cx="185" cy="345" r="3" fill="#FF1744" opacity="0.6"/>
 </svg>`;
 
-// 3. [과일] 청송 꿀사과 부사 일러스트
+// 3. [과일] 토스 스타일 청송 꿀사과 부사 일러스트
 export const SVG_APPLE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="appleBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFBEB"/>
-      <stop offset="100%" stop-color="#FEF3C7"/>
+    <linearGradient id="taBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF2F2"/>
+      <stop offset="100%" stop-color="#FEE2E2"/>
     </linearGradient>
-    <radialGradient id="appleGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FEE2E2" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    <radialGradient id="taBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FF7675"/>
+      <stop offset="25%" stop-color="#FF4757"/>
+      <stop offset="65%" stop-color="#E11D48"/>
+      <stop offset="90%" stop-color="#BE123C"/>
+      <stop offset="100%" stop-color="#881337"/>
     </radialGradient>
-    <radialGradient id="appleBody" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#FFEB3B"/>
-      <stop offset="15%" stop-color="#FF5252"/>
-      <stop offset="55%" stop-color="#D50000"/>
-      <stop offset="85%" stop-color="#B71C1C"/>
-      <stop offset="100%" stop-color="#880E4F"/>
-    </radialGradient>
-    <linearGradient id="appleLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#81C784"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
+    <linearGradient id="taLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#16A34A"/>
     </linearGradient>
-    <filter id="appleShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#DC2626" flood-opacity="0.28"/>
+    <filter id="taShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#E11D48" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#appleBg)"/>
-  <circle cx="200" cy="210" r="140" fill="url(#appleGlow)"/>
 
-  <!-- Apple Ground Shadow -->
-  <ellipse cx="200" cy="340" rx="95" ry="16" fill="#FDE68A" opacity="0.6"/>
+  <rect width="400" height="400" rx="40" fill="url(#taBg)"/>
 
-  <g filter="url(#appleShadow)">
-    <!-- Apple Body -->
-    <path d="M200 135 C175 110 100 110 90 190 C80 270 140 330 185 330 C195 330 198 322 200 322 C202 322 205 330 215 330 C260 330 320 270 310 190 C300 110 225 110 200 135 Z" fill="url(#appleBody)"/>
+  <!-- Ground Shadow -->
+  <ellipse cx="200" cy="342" rx="90" ry="14" fill="#FECDD3" opacity="0.5"/>
+  <ellipse cx="200" cy="342" rx="50" ry="7" fill="#E11D48" opacity="0.15"/>
 
-    <!-- Top Dimple Shade -->
-    <ellipse cx="200" cy="138" rx="22" ry="8" fill="#4E342E" opacity="0.35"/>
-
-    <!-- Glossy Highlights -->
-    <ellipse cx="145" cy="185" rx="30" ry="50" transform="rotate(-25 145 185)" fill="#FFFFFF" opacity="0.3"/>
-    <ellipse cx="138" cy="170" rx="12" ry="24" transform="rotate(-25 138 170)" fill="#FFFFFF" opacity="0.5"/>
-    <circle cx="160" cy="250" r="4" fill="#FFFFFF" opacity="0.3"/>
+  <!-- Apple Body Group -->
+  <g filter="url(#taShadow)">
+    <path d="M200 135 C170 105 95 105 85 190 C75 270 140 330 185 330 C195 330 198 322 200 322 C202 322 205 330 215 330 C260 330 325 270 315 190 C305 105 230 105 200 135 Z" fill="url(#taBody)"/>
+    
+    <!-- Top Dimple -->
+    <ellipse cx="200" cy="138" rx="20" ry="7" fill="#701A75" opacity="0.3"/>
+    
+    <!-- 3D Soft Glow & Gloss -->
+    <ellipse cx="145" cy="180" rx="28" ry="45" transform="rotate(-25 145 180)" fill="#FFFFFF" opacity="0.32"/>
+    <ellipse cx="138" cy="165" rx="12" ry="22" transform="rotate(-25 138 165)" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="155" cy="240" r="4" fill="#FFFFFF" opacity="0.3"/>
   </g>
 
-  <!-- Wooden Stem -->
-  <path d="M200 136 C202 100 218 75 235 65" stroke="#5D4037" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- Cute Stem -->
+  <path d="M200 138 C202 100 218 75 235 65" stroke="#78350F" stroke-width="7" stroke-linecap="round" fill="none"/>
 
-  <!-- Leaf -->
+  <!-- 3D Leaf -->
   <g>
-    <path d="M210 100 C245 75 285 85 295 105 C275 125 235 125 210 100 Z" fill="url(#appleLeaf)"/>
-    <path d="M210 100 Q255 102 292 105" stroke="#C8E6C9" stroke-width="2" fill="none"/>
-    <!-- Dewdrop -->
-    <circle cx="265" cy="100" r="3.5" fill="#FFFFFF" opacity="0.9"/>
+    <path d="M208 100 C245 75 290 85 300 108 C280 128 235 128 208 100 Z" fill="url(#taLeaf)"/>
+    <path d="M208 100 Q255 102 295 108" stroke="#DCFCE7" stroke-width="2" fill="none" opacity="0.8"/>
   </g>
 </svg>`;
 
-// 4. [과일] 논산 설향 고당도 생딸기 일러스트
+// 4. [과일] 토스 스타일 논산 설향 고당도 생딸기 일러스트
 export const SVG_STRAWBERRY = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="sbBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tsbBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFF1F2"/>
       <stop offset="100%" stop-color="#FFE4E6"/>
     </linearGradient>
-    <radialGradient id="sbGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FECDD3" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#FFE4E6" stop-opacity="0"/>
+    <radialGradient id="tsbBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FF6584"/>
+      <stop offset="30%" stop-color="#FF3366"/>
+      <stop offset="75%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#9F1239"/>
     </radialGradient>
-    <radialGradient id="sbBody" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#FF5252"/>
-      <stop offset="40%" stop-color="#E53935"/>
-      <stop offset="85%" stop-color="#C62828"/>
-      <stop offset="100%" stop-color="#880E4F"/>
-    </radialGradient>
-    <linearGradient id="sbLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#66BB6A"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
+    <linearGradient id="tsbLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
     </linearGradient>
-    <filter id="sbShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#E11D48" flood-opacity="0.25"/>
+    <filter id="tsbShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#E11D48" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#sbBg)"/>
-  <circle cx="200" cy="210" r="140" fill="url(#sbGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tsbBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="340" rx="75" ry="14" fill="#FDA4AF" opacity="0.4"/>
+  <ellipse cx="200" cy="342" rx="80" ry="14" fill="#FDA4AF" opacity="0.45"/>
+  <ellipse cx="200" cy="342" rx="45" ry="7" fill="#E11D48" opacity="0.15"/>
 
-  <g filter="url(#sbShadow)">
-    <!-- Strawberry Heart/Cone Body -->
-    <path d="M200 120 C270 120 310 160 300 220 C288 285 225 335 200 340 C175 335 112 285 100 220 C90 160 130 120 200 120 Z" fill="url(#sbBody)"/>
+  <!-- Strawberry Body Group -->
+  <g filter="url(#tsbShadow)">
+    <path d="M200 130 C270 130 310 180 295 245 C280 305 225 335 200 335 C175 335 120 305 105 245 C90 180 130 130 200 130 Z" fill="url(#tsbBody)"/>
 
-    <!-- Specular Highlight -->
-    <ellipse cx="150" cy="180" rx="25" ry="40" transform="rotate(-20 150 180)" fill="#FFFFFF" opacity="0.3"/>
-    <ellipse cx="145" cy="165" rx="10" ry="18" transform="rotate(-20 145 165)" fill="#FFFFFF" opacity="0.55"/>
+    <!-- 3D Soft Highlights -->
+    <ellipse cx="150" cy="180" rx="24" ry="38" transform="rotate(-20 150 180)" fill="#FFFFFF" opacity="0.32"/>
+    <ellipse cx="144" cy="168" rx="10" ry="18" transform="rotate(-20 144 168)" fill="#FFFFFF" opacity="0.5"/>
 
-    <!-- Golden Seeds Pattern -->
-    <g fill="#FFD54F" opacity="0.95">
-      <!-- Row 1 -->
-      <ellipse cx="160" cy="160" rx="3.5" ry="5" transform="rotate(10 160 160)"/>
-      <ellipse cx="200" cy="155" rx="3.5" ry="5"/>
-      <ellipse cx="240" cy="160" rx="3.5" ry="5" transform="rotate(-10 240 160)"/>
-      <!-- Row 2 -->
-      <ellipse cx="140" cy="195" rx="3.5" ry="5" transform="rotate(15 140 195)"/>
-      <ellipse cx="175" cy="190" rx="3.5" ry="5" transform="rotate(5 175 190)"/>
-      <ellipse cx="215" cy="190" rx="3.5" ry="5" transform="rotate(-5 215 190)"/>
-      <ellipse cx="255" cy="195" rx="3.5" ry="5" transform="rotate(-15 255 195)"/>
-      <!-- Row 3 -->
-      <ellipse cx="130" cy="235" rx="3.5" ry="5" transform="rotate(20 130 235)"/>
-      <ellipse cx="165" cy="230" rx="3.5" ry="5" transform="rotate(8 165 230)"/>
-      <ellipse cx="200" cy="225" rx="3.5" ry="5"/>
-      <ellipse cx="235" cy="230" rx="3.5" ry="5" transform="rotate(-8 235 230)"/>
-      <ellipse cx="270" cy="235" rx="3.5" ry="5" transform="rotate(-20 270 235)"/>
-      <!-- Row 4 -->
-      <ellipse cx="150" cy="270" rx="3.5" ry="5" transform="rotate(15 150 270)"/>
-      <ellipse cx="185" cy="265" rx="3.5" ry="5" transform="rotate(5 185 265)"/>
-      <ellipse cx="215" cy="265" rx="3.5" ry="5" transform="rotate(-5 215 265)"/>
-      <ellipse cx="250" cy="270" rx="3.5" ry="5" transform="rotate(-15 250 270)"/>
-      <!-- Row 5 -->
-      <ellipse cx="175" cy="300" rx="3" ry="4.5" transform="rotate(10 175 300)"/>
-      <ellipse cx="200" cy="295" rx="3" ry="4.5"/>
-      <ellipse cx="225" cy="300" rx="3" ry="4.5" transform="rotate(-10 225 300)"/>
-      <!-- Row 6 -->
-      <ellipse cx="190" cy="322" rx="2.5" ry="4"/>
-      <ellipse cx="210" cy="322" rx="2.5" ry="4"/>
+    <!-- Cute Seed Pits -->
+    <g fill="#FEF08A">
+      <ellipse cx="160" cy="195" rx="3" ry="5" transform="rotate(-15 160 195)"/>
+      <ellipse cx="200" cy="185" rx="3" ry="5"/>
+      <ellipse cx="240" cy="195" rx="3" ry="5" transform="rotate(15 240 195)"/>
+      <ellipse cx="140" cy="235" rx="3" ry="5" transform="rotate(-18 140 235)"/>
+      <ellipse cx="175" cy="230" rx="3" ry="5" transform="rotate(-8 175 230)"/>
+      <ellipse cx="225" cy="230" rx="3" ry="5" transform="rotate(8 225 230)"/>
+      <ellipse cx="260" cy="235" rx="3" ry="5" transform="rotate(18 260 235)"/>
+      <ellipse cx="160" cy="275" rx="3" ry="5" transform="rotate(-10 160 275)"/>
+      <ellipse cx="200" cy="270" rx="3" ry="5"/>
+      <ellipse cx="240" cy="275" rx="3" ry="5" transform="rotate(10 240 275)"/>
+      <ellipse cx="185" cy="305" rx="2.5" ry="4" transform="rotate(-5 185 305)"/>
+      <ellipse cx="215" cy="305" rx="2.5" ry="4" transform="rotate(5 215 305)"/>
     </g>
   </g>
 
-  <!-- Green Crown / Calyx -->
+  <!-- Green Calyx Leaves -->
   <g>
-    <!-- Center Stem -->
-    <path d="M200 120 C200 95 206 75 215 65" stroke="#388E3C" stroke-width="7" stroke-linecap="round" fill="none"/>
-    <!-- Sepals -->
-    <path d="M200 120 C180 85 140 85 125 110 C145 115 175 125 200 120 Z" fill="url(#sbLeaf)"/>
-    <path d="M200 120 C220 85 260 85 275 110 C255 115 225 125 200 120 Z" fill="url(#sbLeaf)"/>
-    <path d="M200 120 C160 110 120 135 115 155 C140 145 175 135 200 120 Z" fill="url(#sbLeaf)"/>
-    <path d="M200 120 C240 110 280 135 285 155 C260 145 225 135 200 120 Z" fill="url(#sbLeaf)"/>
-    <path d="M200 120 C190 90 210 90 200 120 Z" fill="#2E7D32"/>
+    <path d="M200 130 C200 100 204 80 208 75" stroke="#15803D" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M200 135 L165 95 C175 118 185 128 200 135 Z" fill="url(#tsbLeaf)"/>
+    <path d="M200 135 L135 125 C155 135 175 138 200 135 Z" fill="url(#tsbLeaf)"/>
+    <path d="M200 135 L235 95 C225 118 215 128 200 135 Z" fill="url(#tsbLeaf)"/>
+    <path d="M200 135 L265 125 C245 135 225 138 200 135 Z" fill="url(#tsbLeaf)"/>
+    <path d="M200 135 L200 150 C195 142 205 142 200 135 Z" fill="#15803D"/>
   </g>
 </svg>`;
 
-// 5. [과일] 제주 서귀포 고당도 타이벡 감귤 일러스트
+// 5. [과일] 토스 스타일 서귀포 타이벡 감귤 일러스트
 export const SVG_CITRUS = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="citrusBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tciBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFF7ED"/>
       <stop offset="100%" stop-color="#FFEDD5"/>
     </linearGradient>
-    <radialGradient id="citrusGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FED7AA" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#FFEDD5" stop-opacity="0"/>
+    <radialGradient id="tciBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="25%" stop-color="#FB923C"/>
+      <stop offset="70%" stop-color="#F97316"/>
+      <stop offset="95%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#C2410C"/>
     </radialGradient>
-    <radialGradient id="citrusBody" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#FFE082"/>
-      <stop offset="25%" stop-color="#FFA726"/>
-      <stop offset="70%" stop-color="#FB8C00"/>
-      <stop offset="95%" stop-color="#E65100"/>
-    </radialGradient>
-    <linearGradient id="citrusLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#81C784"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
+    <linearGradient id="tciLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
     </linearGradient>
-    <filter id="citrusShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#EA580C" flood-opacity="0.25"/>
+    <filter id="tciShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#EA580C" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#citrusBg)"/>
-  <circle cx="200" cy="210" r="140" fill="url(#citrusGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tciBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="100" ry="16" fill="#FDBA74" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="95" ry="14" fill="#FDBA74" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="55" ry="7" fill="#EA580C" opacity="0.15"/>
 
-  <g filter="url(#citrusShadow)">
-    <!-- Oblate/Flattened Jeju Tangerine Body -->
-    <ellipse cx="200" cy="225" rx="125" ry="105" fill="url(#citrusBody)"/>
+  <!-- Tangerine Main Body -->
+  <g filter="url(#tciShadow)">
+    <ellipse cx="200" cy="225" rx="125" ry="105" fill="url(#tciBody)"/>
 
-    <!-- Peel Texture Dapples -->
-    <g fill="#EF6C00" opacity="0.25">
-      <circle cx="120" cy="200" r="2.5"/>
-      <circle cx="140" cy="240" r="2.5"/>
-      <circle cx="160" cy="215" r="2"/>
-      <circle cx="250" cy="210" r="2.5"/>
-      <circle cx="270" cy="235" r="2"/>
-      <circle cx="230" cy="250" r="2.5"/>
-      <circle cx="190" cy="270" r="2.5"/>
-    </g>
+    <!-- 3D Soft Highlights -->
+    <ellipse cx="150" cy="180" rx="35" ry="22" transform="rotate(-18 150 180)" fill="#FFFFFF" opacity="0.35"/>
+    <ellipse cx="142" cy="172" rx="15" ry="9" transform="rotate(-18 142 172)" fill="#FFFFFF" opacity="0.55"/>
 
-    <!-- Top Dimple Area -->
-    <ellipse cx="200" cy="130" rx="20" ry="8" fill="#E65100" opacity="0.4"/>
-
-    <!-- Light Reflection -->
-    <ellipse cx="145" cy="180" rx="35" ry="25" transform="rotate(-15 145 180)" fill="#FFFFFF" opacity="0.32"/>
-    <ellipse cx="140" cy="170" rx="16" ry="10" transform="rotate(-15 140 170)" fill="#FFFFFF" opacity="0.55"/>
+    <!-- Gentle Bottom Rim Bounce Light -->
+    <path d="M130 290 Q200 325 270 290" stroke="#FFEDD5" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.4"/>
   </g>
 
-  <!-- Green Calyx & Stem -->
+  <!-- Green Stem & Leaf -->
   <g>
-    <!-- Short Woody Stem -->
-    <path d="M200 130 C201 108 205 92 208 85" stroke="#4E342E" stroke-width="6" stroke-linecap="round" fill="none"/>
-    <!-- Calyx 5-star -->
-    <path d="M200 130 L188 122 L194 133 L185 138 L197 137 L200 144 L203 137 L215 138 L206 133 L212 122 Z" fill="#43A047"/>
-    <!-- Right Leaf -->
-    <path d="M206 115 C240 90 280 100 290 120 C270 138 235 135 206 115 Z" fill="url(#citrusLeaf)"/>
-    <path d="M206 115 Q250 115 288 120" stroke="#C8E6C9" stroke-width="2" fill="none"/>
-    <!-- Left Small Leaf -->
-    <path d="M198 120 C175 100 145 105 135 120 C150 132 178 132 198 120 Z" fill="url(#citrusLeaf)"/>
-    <circle cx="265" cy="115" r="3" fill="#FFFFFF" opacity="0.85"/>
+    <ellipse cx="200" cy="122" rx="8" ry="5" fill="#15803D"/>
+    <path d="M200 122 C200 105 204 95 208 90" stroke="#166534" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M204 115 C240 88 285 98 295 120 C275 138 235 138 204 115 Z" fill="url(#tciLeaf)"/>
+    <path d="M204 115 Q250 115 290 120" stroke="#DCFCE7" stroke-width="2" fill="none" opacity="0.75"/>
   </g>
 </svg>`;
 
-// 6. [고기] 횡성한우 1++ 꽃등심 스테이크 일러스트
+// 6. [고기] 토스 스타일 횡성한우 1++ 꽃등심 스테이크 일러스트
 export const SVG_BEEF = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="beefBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FAF5F5"/>
-      <stop offset="100%" stop-color="#F5EBEB"/>
+    <linearGradient id="tbfBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF1F2"/>
+      <stop offset="100%" stop-color="#FFE4E6"/>
     </linearGradient>
-    <radialGradient id="beefGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FECDD3" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#F5EBEB" stop-opacity="0"/>
+    <radialGradient id="tbfMeat" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="40%" stop-color="#E11D48"/>
+      <stop offset="80%" stop-color="#BE123C"/>
+      <stop offset="100%" stop-color="#881337"/>
     </radialGradient>
-    <linearGradient id="beefCut" x1="15%" y1="15%" x2="85%" y2="85%">
-      <stop offset="0%" stop-color="#E53935"/>
-      <stop offset="40%" stop-color="#C62828"/>
-      <stop offset="85%" stop-color="#880E4F"/>
-      <stop offset="100%" stop-color="#4A148C"/>
+    <linearGradient id="tbfFat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFFBEB"/>
     </linearGradient>
-    <linearGradient id="beefFat" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFDE7"/>
-      <stop offset="100%" stop-color="#FFF9C4"/>
-    </linearGradient>
-    <filter id="beefShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#991B1B" flood-opacity="0.25"/>
+    <filter id="tbfShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#BE123C" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#beefBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#beefGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tbfBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="125" ry="18" fill="#E2E8F0" opacity="0.6"/>
+  <ellipse cx="200" cy="340" rx="105" ry="15" fill="#FECDD3" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="60" ry="8" fill="#BE123C" opacity="0.15"/>
 
-  <g filter="url(#beefShadow)">
-    <!-- Outer Fat Layer -->
-    <path d="M75 180 C80 120 180 110 240 115 C300 120 335 160 330 220 C325 285 240 315 170 310 C110 305 70 245 75 180 Z" fill="url(#beefFat)"/>
-    
-    <!-- Thick Prime Meat Flesh -->
-    <path d="M85 185 C90 135 180 125 235 130 C285 135 320 170 315 220 C310 275 235 300 175 295 C120 290 80 240 85 185 Z" fill="url(#beefCut)"/>
+  <!-- Beef Steak Block Group -->
+  <g filter="url(#tbfShadow)">
+    <path d="M85 180 C85 125 180 110 245 115 C310 120 335 165 330 225 C325 285 240 315 170 310 C105 305 85 245 85 180 Z" fill="url(#tbfFat)"/>
+    <path d="M95 183 C95 135 180 122 240 127 C295 132 320 172 315 222 C310 275 235 300 175 295 C115 290 95 240 95 183 Z" fill="url(#tbfMeat)"/>
 
-    <!-- Premium Snowflake Marbling (1++ 꽃마블링) -->
-    <g stroke="#FFF9C4" stroke-linecap="round" opacity="0.85" fill="none">
-      <!-- Cluster 1 -->
-      <path d="M120 170 Q135 180 150 175 M135 180 Q145 195 160 190" stroke-width="3"/>
-      <path d="M140 180 Q145 170 155 165" stroke-width="2"/>
-      
-      <!-- Cluster 2 (Center Eye) -->
-      <path d="M175 160 Q205 180 230 165 M205 180 Q220 205 245 195" stroke-width="3.5"/>
-      <path d="M190 195 Q205 210 220 205" stroke-width="2.5"/>
-      <path d="M210 175 Q225 185 240 180" stroke-width="2"/>
-
-      <!-- Cluster 3 (Right) -->
-      <path d="M245 150 Q265 170 290 165 M265 170 Q280 190 295 185" stroke-width="3"/>
-      <path d="M260 215 Q275 235 290 225" stroke-width="2.5"/>
-
-      <!-- Cluster 4 (Bottom) -->
-      <path d="M130 230 Q155 245 185 235 M155 245 Q175 265 200 260" stroke-width="3"/>
-      <path d="M150 215 Q165 225 180 220" stroke-width="2"/>
-      <path d="M210 240 Q235 255 255 245" stroke-width="2.5"/>
+    <!-- Snowflake Marbling Lines -->
+    <g stroke="#FFFBEB" stroke-linecap="round" opacity="0.85" fill="none">
+      <path d="M130 170 Q145 180 160 175 M145 180 Q155 195 170 190" stroke-width="3.5"/>
+      <path d="M190 155 Q215 175 240 160 M215 175 Q230 200 255 190" stroke-width="4"/>
+      <path d="M145 225 Q170 240 200 230 M170 240 Q190 260 215 255" stroke-width="3.5"/>
+      <path d="M225 215 Q245 230 270 220" stroke-width="3"/>
+      <path d="M255 150 Q275 170 295 165" stroke-width="3"/>
     </g>
 
-    <!-- Outer Steak Rim Depth Highlight -->
-    <path d="M100 155 C135 135 200 130 245 135" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.4"/>
+    <ellipse cx="150" cy="155" rx="30" ry="12" transform="rotate(-15 150 155)" fill="#FFFFFF" opacity="0.35"/>
   </g>
 
-  <!-- Fresh Rosemary Sprig -->
+  <!-- Rosemary Sprig Accent -->
   <g>
-    <path d="M80 280 Q140 270 200 295" stroke="#2E7D32" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <!-- Leaves -->
-    <path d="M110 278 L100 260 M125 275 L120 252 M145 273 L145 250 M165 277 L170 255 M185 285 L195 265" stroke="#43A047" stroke-width="3" stroke-linecap="round"/>
-    <path d="M110 278 L105 295 M130 276 L130 298 M150 275 L155 298 M170 280 L180 302" stroke="#388E3C" stroke-width="3" stroke-linecap="round"/>
+    <path d="M85 295 Q140 280 195 305" stroke="#166534" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M115 290 L110 275 M135 285 L130 268 M155 285 L155 268 M175 292 L180 275" stroke="#22C55E" stroke-width="3" stroke-linecap="round"/>
+    <path d="M120 292 L118 305 M140 290 L142 305 M160 292 L165 306" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
   </g>
-
-  <!-- Coarse Black Peppercorn Garnish -->
-  <circle cx="165" cy="150" r="3" fill="#212121"/>
-  <circle cx="230" cy="220" r="3.5" fill="#212121"/>
-  <circle cx="180" cy="210" r="2.5" fill="#212121"/>
-  <circle cx="270" cy="180" r="3" fill="#212121"/>
-  <circle cx="140" cy="260" r="2.5" fill="#212121"/>
 </svg>`;
 
-// 7. [고기] 제주 흑돼지 칼집 오겹살 일러스트
+// 7. [고기] 토스 스타일 제주 흑돼지 칼집 오겹살·삼겹살 일러스트
 export const SVG_PORK = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="porkBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF5F5"/>
-      <stop offset="100%" stop-color="#FEE2E2"/>
+    <linearGradient id="tpkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF1F2"/>
+      <stop offset="100%" stop-color="#FFE4E6"/>
     </linearGradient>
-    <radialGradient id="porkGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FECDD3" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#FEE2E2" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="porkLean" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#EF5350"/>
-      <stop offset="100%" stop-color="#C62828"/>
+    <linearGradient id="tpkLean" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="60%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#E11D48"/>
     </linearGradient>
-    <linearGradient id="porkFat" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tpkFat" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#FFF9C4"/>
+      <stop offset="100%" stop-color="#FFF5F5"/>
     </linearGradient>
-    <filter id="porkShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#DC2626" flood-opacity="0.22"/>
+    <filter id="tpkShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#F43F5E" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#porkBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#porkGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tpkBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="120" ry="16" fill="#FECDD3" opacity="0.6"/>
+  <ellipse cx="200" cy="340" rx="105" ry="14" fill="#FDA4AF" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="60" ry="7" fill="#F43F5E" opacity="0.15"/>
 
-  <g filter="url(#porkShadow)">
-    <!-- Strip 1 (Upper Slice) -->
-    <g transform="rotate(-8 200 170)">
-      <!-- Base Slab -->
-      <rect x="70" y="130" width="260" height="65" rx="16" fill="url(#porkLean)"/>
-      <!-- Fat Layer 1 (Top Skin & Fat) -->
-      <path d="M70 144 Q200 138 330 144 L330 130 Q200 125 70 130 Z" fill="url(#porkFat)"/>
-      <!-- Fat Layer 2 (Middle Strip) -->
-      <path d="M70 168 Q200 162 330 168 L330 156 Q200 152 70 156 Z" fill="url(#porkFat)"/>
-      <!-- Diamond Knife Score Cuts (칼집) -->
-      <g stroke="#B71C1C" stroke-width="2.5" stroke-linecap="round" opacity="0.75">
-        <line x1="95" y1="130" x2="115" y2="195"/>
-        <line x1="125" y1="130" x2="145" y2="195"/>
-        <line x1="155" y1="130" x2="175" y2="195"/>
-        <line x1="185" y1="130" x2="205" y2="195"/>
-        <line x1="215" y1="130" x2="235" y2="195"/>
-        <line x1="245" y1="130" x2="265" y2="195"/>
-        <line x1="275" y1="130" x2="295" y2="195"/>
+  <!-- Pork Slices Group -->
+  <g filter="url(#tpkShadow)">
+    <g transform="rotate(-6 200 170)">
+      <rect x="75" y="135" width="250" height="60" rx="18" fill="url(#tpkLean)"/>
+      <path d="M75 150 Q200 144 325 150 L325 135 Q200 130 75 135 Z" fill="url(#tpkFat)"/>
+      <path d="M75 174 Q200 168 325 174 L325 162 Q200 158 75 162 Z" fill="url(#tpkFat)"/>
+      <g stroke="#BE123C" stroke-width="2" stroke-linecap="round" opacity="0.4">
+        <line x1="110" y1="135" x2="125" y2="195"/>
+        <line x1="150" y1="135" x2="165" y2="195"/>
+        <line x1="190" y1="135" x2="205" y2="195"/>
+        <line x1="230" y1="135" x2="245" y2="195"/>
+        <line x1="270" y1="135" x2="285" y2="195"/>
       </g>
     </g>
 
-    <!-- Strip 2 (Lower Main Slice) -->
-    <g transform="rotate(5 200 240)">
-      <!-- Base Slab -->
-      <rect x="70" y="210" width="260" height="70" rx="16" fill="url(#porkLean)"/>
-      <!-- Fat Layer 1 (Top Skin & Fat) -->
-      <path d="M70 225 Q200 220 330 225 L330 210 Q200 205 70 210 Z" fill="url(#porkFat)"/>
-      <!-- Fat Layer 2 (Middle Strip) -->
-      <path d="M70 252 Q200 248 330 252 L330 240 Q200 236 70 240 Z" fill="url(#porkFat)"/>
-      <!-- Diamond Knife Score Cuts (칼집) -->
-      <g stroke="#B71C1C" stroke-width="2.5" stroke-linecap="round" opacity="0.75">
-        <line x1="100" y1="210" x2="120" y2="280"/>
-        <line x1="130" y1="210" x2="150" y2="280"/>
-        <line x1="160" y1="210" x2="180" y2="280"/>
-        <line x1="190" y1="210" x2="210" y2="280"/>
-        <line x1="220" y1="210" x2="240" y2="280"/>
-        <line x1="250" y1="210" x2="270" y2="280"/>
-        <line x1="280" y1="210" x2="300" y2="280"/>
+    <g transform="rotate(4 200 235)">
+      <rect x="75" y="210" width="250" height="65" rx="18" fill="url(#tpkLean)"/>
+      <path d="M75 225 Q200 220 325 225 L325 210 Q200 205 75 210 Z" fill="url(#tpkFat)"/>
+      <path d="M75 252 Q200 248 325 252 L325 240 Q200 236 75 240 Z" fill="url(#tpkFat)"/>
+      <g stroke="#BE123C" stroke-width="2" stroke-linecap="round" opacity="0.4">
+        <line x1="115" y1="210" x2="130" y2="275"/>
+        <line x1="155" y1="210" x2="170" y2="275"/>
+        <line x1="195" y1="210" x2="210" y2="275"/>
+        <line x1="235" y1="210" x2="250" y2="275"/>
+        <line x1="275" y1="210" x2="290" y2="275"/>
       </g>
+      <ellipse cx="140" cy="220" rx="35" ry="6" fill="#FFFFFF" opacity="0.45"/>
     </g>
   </g>
 
-  <!-- Garnish: Garlic Cloves & Spring Onion -->
+  <!-- Clean Garlic Garnish -->
   <g>
-    <ellipse cx="95" cy="305" rx="12" ry="8" fill="#FFF9C4" stroke="#FFE082" stroke-width="1.5"/>
-    <ellipse cx="120" cy="315" rx="10" ry="7" fill="#FFF9C4" stroke="#FFE082" stroke-width="1.5"/>
-    <path d="M290 295 Q310 280 325 295" stroke="#4CAF50" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <path d="M300 305 Q318 292 332 305" stroke="#81C784" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <ellipse cx="95" cy="305" rx="12" ry="8" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+    <ellipse cx="120" cy="312" rx="10" ry="7" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
   </g>
 </svg>`;
 
-// 8. [고기] 하림 무항생제 신선 닭볶음탕용 생닭 일러스트
+// 8. [고기] 토스 스타일 무항생제 신선 닭볶음탕용 생닭·닭다리 일러스트
 export const SVG_CHICKEN = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="chkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tckBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFFBEB"/>
       <stop offset="100%" stop-color="#FEF3C7"/>
     </linearGradient>
-    <radialGradient id="chkGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    <radialGradient id="tckMeat" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="35%" stop-color="#FB923C"/>
+      <stop offset="75%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
     </radialGradient>
-    <radialGradient id="chkMeat" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#FFF0F5"/>
-      <stop offset="35%" stop-color="#FFCDD2"/>
-      <stop offset="75%" stop-color="#EF9A9A"/>
-      <stop offset="100%" stop-color="#E57373"/>
-    </radialGradient>
-    <linearGradient id="boneGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="tckBone" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#EEEEEE"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
     </linearGradient>
-    <filter id="chkShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#F59E0B" flood-opacity="0.2"/>
+    <filter id="tckShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#F59E0B" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#chkBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#chkGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tckBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="110" ry="16" fill="#FDE68A" opacity="0.6"/>
+  <ellipse cx="200" cy="340" rx="95" ry="14" fill="#FDE68A" opacity="0.5"/>
+  <ellipse cx="200" cy="340" rx="55" ry="7" fill="#F59E0B" opacity="0.15"/>
 
-  <g filter="url(#chkShadow)">
-    <!-- Chicken Drumstick 1 (Background Angle) -->
+  <!-- Drumsticks Group -->
+  <g filter="url(#tckShadow)">
     <g transform="rotate(25 240 180)">
-      <!-- Bone Stem & Knobs -->
-      <rect x="250" y="165" width="45" height="18" rx="4" fill="url(#boneGrad)"/>
-      <circle cx="295" cy="168" r="9" fill="url(#boneGrad)"/>
-      <circle cx="295" cy="180" r="9" fill="url(#boneGrad)"/>
-      <!-- Meat Bulb -->
-      <ellipse cx="190" cy="174" rx="75" ry="52" fill="url(#chkMeat)"/>
+      <rect x="245" y="165" width="45" height="18" rx="5" fill="url(#tckBone)"/>
+      <circle cx="290" cy="168" r="9" fill="url(#tckBone)"/>
+      <circle cx="290" cy="180" r="9" fill="url(#tckBone)"/>
+      <ellipse cx="185" cy="174" rx="75" ry="50" fill="url(#tckMeat)"/>
     </g>
 
-    <!-- Chicken Drumstick 2 (Foreground Main) -->
-    <g transform="rotate(-20 170 230)">
-      <!-- Bone Stem & Knobs -->
-      <rect x="240" y="215" width="50" height="20" rx="4" fill="url(#boneGrad)"/>
-      <circle cx="290" cy="217" r="10" fill="url(#boneGrad)"/>
-      <circle cx="290" cy="233" r="10" fill="url(#boneGrad)"/>
-      <!-- Plump Fresh Meat Bulb -->
-      <ellipse cx="170" cy="225" rx="85" ry="58" fill="url(#chkMeat)"/>
-      <!-- Soft Glossy Sheen -->
-      <ellipse cx="145" cy="205" rx="35" ry="20" transform="rotate(-10 145 205)" fill="#FFFFFF" opacity="0.45"/>
+    <g transform="rotate(-18 170 230)">
+      <rect x="235" y="215" width="50" height="20" rx="5" fill="url(#tckBone)"/>
+      <circle cx="285" cy="217" r="10" fill="url(#tckBone)"/>
+      <circle cx="285" cy="233" r="10" fill="url(#tckBone)"/>
+      <ellipse cx="165" cy="225" rx="85" ry="58" fill="url(#tckMeat)"/>
+      <ellipse cx="140" cy="205" rx="35" ry="18" transform="rotate(-10 140 205)" fill="#FFFFFF" opacity="0.45"/>
+      <ellipse cx="132" cy="198" rx="15" ry="8" transform="rotate(-10 132 198)" fill="#FFFFFF" opacity="0.6"/>
     </g>
   </g>
 
-  <!-- Farm Fresh Herb Garnish (Parsley/Bay Leaf) -->
+  <!-- Clean Herb Leaf Point -->
   <g>
-    <path d="M100 290 C90 270 110 255 125 265 C135 275 120 295 100 290 Z" fill="#4CAF50"/>
-    <path d="M100 290 L125 265" stroke="#81C784" stroke-width="1.5"/>
-    <path d="M85 305 C75 285 95 270 110 280 C120 290 105 310 85 305 Z" fill="#388E3C"/>
+    <path d="M95 295 C85 275 105 260 120 270 C130 280 115 300 95 295 Z" fill="#22C55E"/>
+    <path d="M80 308 C70 290 90 275 105 285 C115 295 100 312 80 308 Z" fill="#16A34A"/>
   </g>
 </svg>`;
 
-// 9. [수산] 노르웨이 생연어회 일러스트
+// 9. [수산] 토스 스타일 노르웨이 슈프림 생연어회 일러스트
 export const SVG_SALMON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="salmonBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tsmBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#F0F9FF"/>
       <stop offset="100%" stop-color="#E0F2FE"/>
     </linearGradient>
-    <radialGradient id="salmonGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#BAE6FD" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#E0F2FE" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="salmonFlesh" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF8A65"/>
-      <stop offset="50%" stop-color="#FF7043"/>
-      <stop offset="100%" stop-color="#F4511E"/>
+    <linearGradient id="tsmFlesh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB923C"/>
+      <stop offset="50%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
     </linearGradient>
-    <linearGradient id="lemonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFEE58"/>
-      <stop offset="100%" stop-color="#FDD835"/>
+    <linearGradient id="tsmLemon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#EAB308"/>
     </linearGradient>
-    <filter id="salmonShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.22"/>
+    <filter id="tsmShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0284C7" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#salmonBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#salmonGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tsmBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="115" ry="16" fill="#BAE6FD" opacity="0.5"/>
+  <ellipse cx="200" cy="340" rx="105" ry="14" fill="#BAE6FD" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="60" ry="7" fill="#0284C7" opacity="0.15"/>
 
-  <g filter="url(#salmonShadow)">
-    <!-- Salmon Fillet Slab 1 (Back Slice) -->
-    <g transform="rotate(-6 190 160)">
-      <path d="M70 145 C110 130 280 130 320 150 C325 180 300 200 260 205 C180 210 80 195 70 165 Z" fill="url(#salmonFlesh)"/>
-      <!-- Delicate White Fat Marbling Lines -->
-      <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.8" fill="none">
-        <path d="M95 150 Q115 165 110 185"/>
-        <path d="M135 142 Q155 165 150 195"/>
-        <path d="M175 140 Q195 165 190 200"/>
-        <path d="M215 140 Q235 165 230 200"/>
-        <path d="M255 142 Q275 165 270 195"/>
-        <path d="M295 148 Q305 165 295 185"/>
+  <!-- Salmon Slabs Group -->
+  <g filter="url(#tsmShadow)">
+    <g transform="rotate(-6 195 165)">
+      <path d="M75 145 C115 130 280 130 320 150 C325 180 300 200 260 205 C180 210 85 195 75 165 Z" fill="url(#tsmFlesh)"/>
+      <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.85" fill="none">
+        <path d="M100 150 Q118 165 115 185"/>
+        <path d="M140 142 Q158 165 155 195"/>
+        <path d="M180 140 Q198 165 195 200"/>
+        <path d="M220 140 Q238 165 235 200"/>
+        <path d="M260 142 Q278 165 275 195"/>
       </g>
     </g>
 
-    <!-- Salmon Fillet Slab 2 (Front Fresh Sashimi Slice) -->
     <g transform="rotate(4 200 230)">
-      <path d="M75 210 C120 190 280 190 325 215 C330 250 300 275 260 280 C180 285 85 270 75 235 Z" fill="url(#salmonFlesh)"/>
-      <!-- Delicate White Fat Marbling Lines -->
-      <g stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.85" fill="none">
-        <path d="M100 215 Q120 235 115 260"/>
-        <path d="M140 205 Q160 235 155 270"/>
-        <path d="M180 200 Q205 235 195 275"/>
-        <path d="M225 200 Q245 235 240 275"/>
-        <path d="M265 205 Q285 235 280 270"/>
-        <path d="M305 212 Q315 235 305 258"/>
+      <path d="M75 210 C120 190 285 190 325 215 C330 250 300 275 260 280 C180 285 85 270 75 235 Z" fill="url(#tsmFlesh)"/>
+      <g stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.9" fill="none">
+        <path d="M105 215 Q122 235 120 260"/>
+        <path d="M145 205 Q165 235 160 270"/>
+        <path d="M185 200 Q208 235 200 275"/>
+        <path d="M230 200 Q250 235 245 275"/>
+        <path d="M270 205 Q290 235 285 270"/>
       </g>
-      <!-- Specular Fresh Glaze -->
-      <ellipse cx="140" cy="225" rx="35" ry="12" fill="#FFFFFF" opacity="0.35"/>
+      <ellipse cx="140" cy="225" rx="35" ry="10" fill="#FFFFFF" opacity="0.45"/>
     </g>
   </g>
 
-  <!-- Fresh Lemon Wedge Garnish -->
-  <g transform="translate(60, 260) rotate(-15)">
-    <!-- Rind -->
-    <path d="M0 40 A40 40 0 0 1 80 40 Z" fill="#FDD835"/>
-    <path d="M5 38 A35 35 0 0 1 75 38 Z" fill="#FFFDE7"/>
-    <!-- Segments -->
-    <path d="M10 36 A30 30 0 0 1 70 36 Z" fill="url(#lemonGrad)"/>
-    <line x1="40" y1="36" x2="40" y2="8" stroke="#FFFDE7" stroke-width="2"/>
-    <line x1="40" y1="36" x2="20" y2="16" stroke="#FFFDE7" stroke-width="2"/>
-    <line x1="40" y1="36" x2="60" y2="16" stroke="#FFFDE7" stroke-width="2"/>
+  <!-- Clean Lemon Wedge Accent -->
+  <g transform="translate(65, 265) rotate(-15)">
+    <path d="M0 36 A36 36 0 0 1 72 36 Z" fill="url(#tsmLemon)"/>
+    <path d="M6 34 A30 30 0 0 1 66 34 Z" fill="#FFFBEB"/>
+    <line x1="36" y1="34" x2="36" y2="8" stroke="url(#tsmLemon)" stroke-width="2"/>
+    <line x1="36" y1="34" x2="18" y2="15" stroke="url(#tsmLemon)" stroke-width="2"/>
+    <line x1="36" y1="34" x2="54" y2="15" stroke="url(#tsmLemon)" stroke-width="2"/>
   </g>
-
-  <!-- Green Dill Sprig -->
-  <path d="M295 285 Q325 270 340 290" stroke="#388E3C" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M305 282 L310 272 M318 278 L328 270 M330 282 L338 275" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
 </svg>`;
 
-// 10. [수산] 서해안 활 흰다리새우 / 신안 왕대하 일러스트
+// 10. [수산] 토스 스타일 서해안 활 흰다리새우 / 왕대하 일러스트
 export const SVG_SHRIMP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="shrimpBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tshBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ECFEFF"/>
       <stop offset="100%" stop-color="#CFFAFE"/>
     </linearGradient>
-    <radialGradient id="shrimpGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#A5F3FC" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#CFFAFE" stop-opacity="0"/>
+    <radialGradient id="tshShell" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FDA4AF"/>
+      <stop offset="35%" stop-color="#FB7185"/>
+      <stop offset="75%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#E11D48"/>
     </radialGradient>
-    <linearGradient id="shrimpShell" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFA4A2"/>
-      <stop offset="40%" stop-color="#FF7597"/>
-      <stop offset="85%" stop-color="#FF5252"/>
-      <stop offset="100%" stop-color="#E53935"/>
-    </linearGradient>
-    <filter id="shrimpShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0891B2" flood-opacity="0.22"/>
+    <filter id="tshShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0891B2" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#shrimpBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#shrimpGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tshBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="105" ry="16" fill="#A5F3FC" opacity="0.5"/>
+  <ellipse cx="200" cy="340" rx="95" ry="14" fill="#A5F3FC" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="55" ry="7" fill="#0891B2" opacity="0.15"/>
 
-  <g filter="url(#shrimpShadow)">
-    <!-- Curled Shrimp Body (Segmented Shell) -->
-    <!-- Head / Thorax -->
-    <path d="M120 180 C100 135 150 90 215 95 C250 98 275 125 270 160 C265 190 225 200 185 190 Z" fill="url(#shrimpShell)"/>
+  <!-- Curled 3D Shrimp Body Group -->
+  <g filter="url(#tshShadow)">
+    <path d="M125 180 C105 135 155 90 220 95 C255 98 280 125 275 160 C270 190 230 200 190 190 Z" fill="url(#tshShell)"/>
+    <path d="M215 115 C265 120 295 155 290 195 C285 220 260 230 235 220 C225 185 220 150 215 115 Z" fill="url(#tshShell)"/>
+    <path d="M245 180 C290 200 300 240 280 270 C260 290 230 285 215 260 C225 235 235 205 245 180 Z" fill="url(#tshShell)"/>
+    <path d="M245 250 C265 275 250 305 220 315 C195 320 180 305 185 285 C205 275 225 265 245 250 Z" fill="url(#tshShell)"/>
     
-    <!-- Segment 1 -->
-    <path d="M210 115 C260 120 295 155 290 195 C285 220 260 230 235 220 C225 185 220 150 210 115 Z" fill="url(#shrimpShell)"/>
-    
-    <!-- Segment 2 -->
-    <path d="M245 180 C290 200 300 240 280 270 C260 290 230 285 215 260 C225 235 235 205 245 180 Z" fill="url(#shrimpShell)"/>
+    <path d="M195 300 C175 325 140 325 125 305 C145 298 165 300 195 300 Z" fill="#E11D48"/>
+    <path d="M185 305 C155 335 120 330 110 312 C130 305 155 305 185 305 Z" fill="#BE123C"/>
 
-    <!-- Segment 3 -->
-    <path d="M245 250 C265 275 250 305 220 315 C195 320 180 305 185 285 C205 275 225 265 245 250 Z" fill="url(#shrimpShell)"/>
-
-    <!-- Tail Segment -->
-    <path d="M205 295 C190 315 160 320 135 310 C120 300 135 285 155 285 Z" fill="url(#shrimpShell)"/>
-
-    <!-- Tail Fan Flippers -->
-    <path d="M140 310 C110 325 90 320 85 300 C105 295 125 300 140 310 Z" fill="#E53935"/>
-    <path d="M135 310 C100 335 80 340 75 320 C95 310 120 310 135 310 Z" fill="#D32F2F"/>
-
-    <!-- Shell Segment Ridge Lines -->
-    <g stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6" fill="none">
-      <path d="M225 105 Q245 140 235 175"/>
-      <path d="M260 145 Q275 180 255 210"/>
-      <path d="M270 210 Q280 240 250 265"/>
-      <path d="M240 265 Q240 290 210 305"/>
+    <g stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.65" fill="none">
+      <path d="M230 108 Q248 140 240 175"/>
+      <path d="M265 145 Q278 180 260 210"/>
+      <path d="M272 210 Q280 240 252 265"/>
     </g>
 
-    <!-- Black Eye -->
-    <circle cx="160" cy="125" r="5" fill="#212121"/>
-    <circle cx="158.5" cy="123.5" r="1.8" fill="#FFFFFF"/>
+    <ellipse cx="190" cy="125" rx="30" ry="14" transform="rotate(-15 190 125)" fill="#FFFFFF" opacity="0.4"/>
 
-    <!-- Long Graceful Antennae Curves -->
-    <path d="M150 120 C100 80 50 120 40 180" stroke="#FF5252" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    <path d="M152 125 C110 100 70 140 55 210" stroke="#FF8A80" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="160" cy="125" r="5" fill="#1E293B"/>
+    <circle cx="158" cy="123" r="1.5" fill="#FFFFFF"/>
 
-    <!-- Swimming Legs (Pleopods) -->
-    <g stroke="#FF7597" stroke-width="2.5" stroke-linecap="round" fill="none">
-      <path d="M240 210 Q225 225 220 240"/>
-      <path d="M255 230 Q240 245 235 260"/>
-      <path d="M245 265 Q230 280 220 290"/>
-    </g>
+    <path d="M150 120 C100 80 50 120 40 170" stroke="#F43F5E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
   </g>
 </svg>`;
 
-// 11. [식재료] 동물복지 유정란 자연방사란 일러스트
+// 11. [식재료] 토스 스타일 동물복지 유정란 자연방사란 일러스트
 export const SVG_EGG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="eggBg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="tegBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FEFCE8"/>
       <stop offset="100%" stop-color="#FEF08A"/>
     </linearGradient>
-    <radialGradient id="eggGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FDE047" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#FEF08A" stop-opacity="0"/>
+    <radialGradient id="tegShell" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="35%" stop-color="#FDE68A"/>
+      <stop offset="75%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
     </radialGradient>
-    <radialGradient id="eggShell" cx="35%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#FFF8E1"/>
-      <stop offset="40%" stop-color="#FFE0B2"/>
-      <stop offset="85%" stop-color="#D7CCC8"/>
-      <stop offset="100%" stop-color="#A1887F"/>
+    <radialGradient id="tegYolk" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="35%" stop-color="#FBBF24"/>
+      <stop offset="80%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
     </radialGradient>
-    <radialGradient id="eggYolk" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#FFF176"/>
-      <stop offset="35%" stop-color="#FFB300"/>
-      <stop offset="85%" stop-color="#FF8F00"/>
-      <stop offset="100%" stop-color="#E65100"/>
-    </radialGradient>
-    <filter id="eggShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#CA8A04" flood-opacity="0.22"/>
+    <filter id="tegShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#CA8A04" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#eggBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#eggGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#tegBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="340" rx="120" ry="16" fill="#FACC15" opacity="0.45"/>
+  <ellipse cx="200" cy="342" rx="100" ry="14" fill="#FDE047" opacity="0.45"/>
+  <ellipse cx="200" cy="342" rx="60" ry="7" fill="#CA8A04" opacity="0.15"/>
 
-  <g filter="url(#eggShadow)">
-    <!-- Whole Brown Egg (Standing Upright in Background) -->
-    <g transform="rotate(15 250 170)">
-      <path d="M250 100 C280 100 305 145 305 195 C305 245 280 270 250 270 C220 270 195 245 195 195 C195 145 220 100 250 100 Z" fill="url(#eggShell)"/>
-      <!-- Soft Shell Speckles -->
-      <circle cx="235" cy="180" r="1.5" fill="#8D6E63" opacity="0.4"/>
-      <circle cx="265" cy="195" r="1.8" fill="#8D6E63" opacity="0.4"/>
-      <circle cx="245" cy="225" r="1.5" fill="#8D6E63" opacity="0.4"/>
-      <!-- Specular Highlight -->
-      <ellipse cx="230" cy="150" rx="15" ry="25" transform="rotate(-15 230 150)" fill="#FFFFFF" opacity="0.45"/>
+  <!-- Eggs Group -->
+  <g filter="url(#tegShadow)">
+    <g transform="rotate(12 250 170)">
+      <path d="M250 105 C280 105 305 145 305 195 C305 245 280 270 250 270 C220 270 195 245 195 195 C195 145 220 105 250 105 Z" fill="url(#tegShell)"/>
+      <ellipse cx="232" cy="150" rx="14" ry="24" transform="rotate(-15 232 150)" fill="#FFFFFF" opacity="0.45"/>
     </g>
 
-    <!-- Cracked Egg in Foreground (Albumen & Golden Yolk) -->
-    <!-- Clear Albumen (Egg White) Pool -->
-    <path d="M90 280 C80 250 130 225 180 230 C240 235 270 270 260 300 C250 330 170 340 120 330 C90 320 95 295 90 280 Z" fill="#FFFFFF" opacity="0.85"/>
-    <path d="M100 285 C95 265 135 245 175 250 C225 255 250 280 240 305 C230 325 170 330 130 320 C105 315 105 295 100 285 Z" fill="#FFFDE7" opacity="0.6"/>
+    <path d="M85 280 C75 250 125 225 175 230 C235 235 265 270 255 300 C245 330 165 340 115 330 C85 320 90 295 85 280 Z" fill="#FFFFFF"/>
+    <path d="M95 285 C90 265 130 245 170 250 C220 255 245 280 235 305 C225 325 165 330 125 320 C100 315 100 295 95 285 Z" fill="#FEFCE8" opacity="0.7"/>
 
-    <!-- Plump Spherical Golden-Orange 3D Yolk -->
-    <circle cx="170" cy="285" r="42" fill="url(#eggYolk)"/>
-    <!-- Specular Highlight Dome on Yolk -->
-    <ellipse cx="155" cy="270" rx="14" ry="9" transform="rotate(-20 155 270)" fill="#FFFFFF" opacity="0.75"/>
-    <circle cx="152" cy="268" r="3" fill="#FFFFFF"/>
-  </g>
-
-  <!-- Cracked Eggshell Cup Resting Nearby -->
-  <g transform="translate(60, 210) rotate(-25)">
-    <path d="M30 30 C30 50 50 65 75 65 C100 65 120 50 120 30 L105 35 L90 25 L75 35 L60 25 L45 35 Z" fill="url(#eggShell)"/>
+    <circle cx="165" cy="285" r="42" fill="url(#tegYolk)"/>
+    <ellipse cx="150" cy="270" rx="14" ry="9" transform="rotate(-20 150 270)" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="147" cy="268" r="3" fill="#FFFFFF"/>
   </g>
 </svg>`;
 
-// 12. [식재료] 풀무원 국산콩 부침두부 일러스트
+// 12. [식재료] 토스 스타일 풀무원 국산콩 부침두부 일러스트
 export const SVG_TOFU = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="tofuBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F7FEE7"/>
-      <stop offset="100%" stop-color="#ECFCCB"/>
+    <linearGradient id="ttfBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
     </linearGradient>
-    <radialGradient id="tofuGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#D9F99D" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#ECFCCB" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="tofuTop" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="ttfTop" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="100%" stop-color="#F8FAFC"/>
     </linearGradient>
-    <linearGradient id="tofuFront" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="ttfFront" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#F1F5F9"/>
       <stop offset="100%" stop-color="#E2E8F0"/>
     </linearGradient>
-    <linearGradient id="tofuSide" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="ttfSide" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#E2E8F0"/>
       <stop offset="100%" stop-color="#CBD5E1"/>
     </linearGradient>
-    <linearGradient id="podGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="ttfEdamame" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#84CC16"/>
       <stop offset="100%" stop-color="#4D7C0F"/>
     </linearGradient>
-    <filter id="tofuShadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#65A30D" flood-opacity="0.2"/>
+    <filter id="ttfShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#475569" flood-opacity="0.12"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
     </filter>
   </defs>
-  <rect width="400" height="400" rx="32" fill="url(#tofuBg)"/>
-  <circle cx="200" cy="205" r="140" fill="url(#tofuGlow)"/>
+
+  <rect width="400" height="400" rx="40" fill="url(#ttfBg)"/>
 
   <!-- Ground Shadow -->
-  <ellipse cx="200" cy="335" rx="120" ry="16" fill="#D9F99D" opacity="0.6"/>
+  <ellipse cx="200" cy="340" rx="100" ry="14" fill="#CBD5E1" opacity="0.45"/>
+  <ellipse cx="200" cy="340" rx="60" ry="7" fill="#64748B" opacity="0.15"/>
 
-  <g filter="url(#tofuShadow)">
-    <!-- 3D Isometric Tofu Block -->
-    <!-- Front Face -->
-    <path d="M100 215 L240 270 L240 315 L100 260 Z" fill="url(#tofuFront)"/>
-    <!-- Right Side Face -->
-    <path d="M240 270 L320 220 L320 265 L240 315 Z" fill="url(#tofuSide)"/>
-    <!-- Top Face -->
-    <path d="M100 215 L180 165 L320 220 L240 270 Z" fill="url(#tofuTop)"/>
+  <!-- 3D Soft Cube Tofu Group -->
+  <g filter="url(#ttfShadow)">
+    <path d="M100 215 L240 270 L240 315 L100 260 Z" fill="url(#ttfFront)"/>
+    <path d="M240 270 L320 220 L320 265 L240 315 Z" fill="url(#ttfSide)"/>
+    <path d="M100 215 L180 165 L320 220 L240 270 Z" fill="url(#ttfTop)"/>
 
-    <!-- Delicate Cotton Cloth Texture / Cuts on Top -->
     <g stroke="#E2E8F0" stroke-width="1.5" opacity="0.7">
-      <line x1="135" y1="202" x2="275" y2="257"/>
-      <line x1="170" y1="190" x2="310" y2="245"/>
-      <line x1="140" y1="190" x2="180" y2="242"/>
-      <line x1="210" y1="180" x2="250" y2="232"/>
-      <line x1="260" y1="198" x2="295" y2="238"/>
+      <line x1="140" y1="200" x2="280" y2="255"/>
+      <line x1="175" y1="190" x2="215" y2="242"/>
+      <line x1="245" y1="180" x2="285" y2="232"/>
     </g>
   </g>
 
-  <!-- Fresh Soybean Pod (Edamame) Garnish -->
-  <g transform="translate(60, 230) rotate(-15)">
-    <!-- Pod Curve -->
-    <path d="M30 40 C60 15 110 20 140 45 C110 50 60 55 30 40 Z" fill="url(#podGrad)"/>
-    <!-- Bulges of Beans inside Pod -->
-    <circle cx="65" cy="34" r="11" fill="#A3E635" opacity="0.5"/>
-    <circle cx="95" cy="35" r="11" fill="#A3E635" opacity="0.5"/>
-    <circle cx="120" cy="40" r="9" fill="#A3E635" opacity="0.5"/>
-  </g>
-
-  <!-- Toasted Sesame Seed Garnish on Tofu Top -->
-  <g fill="#D97706" opacity="0.85">
-    <ellipse cx="190" cy="210" rx="3.5" ry="2" transform="rotate(30 190 210)"/>
-    <ellipse cx="205" cy="218" rx="3.5" ry="2" transform="rotate(-20 205 218)"/>
-    <ellipse cx="225" cy="205" rx="3.5" ry="2" transform="rotate(45 225 205)"/>
-    <ellipse cx="240" cy="225" rx="3.5" ry="2" transform="rotate(10 240 225)"/>
+  <!-- Fresh Edamame Herb Accent -->
+  <g transform="translate(65, 235) rotate(-15)">
+    <path d="M20 40 C50 15 100 20 130 45 C100 50 50 55 20 40 Z" fill="url(#ttfEdamame)"/>
+    <circle cx="55" cy="34" r="10" fill="#BEF264" opacity="0.6"/>
+    <circle cx="85" cy="35" r="10" fill="#BEF264" opacity="0.6"/>
+    <circle cx="110" cy="40" r="8" fill="#BEF264" opacity="0.6"/>
   </g>
 </svg>`;
 
-// 13. [과일 배너] 산지직송 제철 과일 랭킹 와이드 일러스트 배너 (800x400)
+// 13. [과일] 토스 스타일 샤인머스캣 / 포도 일러스트
+export const SVG_GRAPES = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0FDF4"/>
+      <stop offset="100%" stop-color="#DCFCE7"/>
+    </linearGradient>
+    <radialGradient id="tgBerry" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#BBF7D0"/>
+      <stop offset="35%" stop-color="#4ADE80"/>
+      <stop offset="85%" stop-color="#16A34A"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </radialGradient>
+    <linearGradient id="tgLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#14532D"/>
+    </linearGradient>
+    <filter id="tgShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#16A34A" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="400" rx="40" fill="url(#tgBg)"/>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="200" cy="340" rx="80" ry="14" fill="#86EFAC" opacity="0.45"/>
+
+  <!-- Grape Cluster Group -->
+  <g filter="url(#tgShadow)">
+    <circle cx="160" cy="180" r="32" fill="url(#tgBerry)"/>
+    <circle cx="215" cy="175" r="32" fill="url(#tgBerry)"/>
+    <circle cx="245" cy="195" r="30" fill="url(#tgBerry)"/>
+    
+    <circle cx="140" cy="225" r="30" fill="url(#tgBerry)"/>
+    <circle cx="190" cy="225" r="34" fill="url(#tgBerry)"/>
+    <circle cx="240" cy="240" r="30" fill="url(#tgBerry)"/>
+    
+    <circle cx="165" cy="275" r="28" fill="url(#tgBerry)"/>
+    <circle cx="210" cy="280" r="28" fill="url(#tgBerry)"/>
+    
+    <circle cx="188" cy="315" r="24" fill="url(#tgBerry)"/>
+
+    <ellipse cx="180" cy="215" rx="10" ry="16" transform="rotate(-20 180 215)" fill="#FFFFFF" opacity="0.5"/>
+    <ellipse cx="150" cy="170" rx="8" ry="14" transform="rotate(-20 150 170)" fill="#FFFFFF" opacity="0.5"/>
+    <ellipse cx="205" cy="165" rx="8" ry="14" transform="rotate(-20 205 165)" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+
+  <!-- Stem & Vine Leaf -->
+  <g>
+    <path d="M195 155 C195 115 210 90 225 75" stroke="#78350F" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M190 145 C155 115 130 135 115 155 C135 170 170 165 190 145 Z" fill="url(#tgLeaf)"/>
+  </g>
+</svg>`;
+
+// 14. [과일] 토스 스타일 꿀바나나 일러스트
+export const SVG_BANANA = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tbnBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEFCE8"/>
+      <stop offset="100%" stop-color="#FEF08A"/>
+    </linearGradient>
+    <linearGradient id="tbnBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="35%" stop-color="#FDE047"/>
+      <stop offset="80%" stop-color="#EAB308"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+    <filter id="tbnShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#CA8A04" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="400" rx="40" fill="url(#tbnBg)"/>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="200" cy="340" rx="90" ry="14" fill="#FDE047" opacity="0.45"/>
+
+  <!-- Curved 3D Banana -->
+  <g filter="url(#tbnShadow)">
+    <path d="M100 145 C120 255 245 320 310 245 C320 230 315 210 295 215 C240 235 155 210 135 130 Z" fill="url(#tbnBody)"/>
+    <path d="M100 145 L85 135 L92 125 L110 135 Z" fill="#65A30D"/>
+    <path d="M310 245 L320 250 L318 258 L308 252 Z" fill="#78350F"/>
+    <path d="M125 155 C145 235 235 270 290 230" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5"/>
+  </g>
+</svg>`;
+
+// 15. [식재료/채소] 토스 스타일 신선 채소 일러스트
+export const SVG_VEGETABLE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tvgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0FDF4"/>
+      <stop offset="100%" stop-color="#DCFCE7"/>
+    </linearGradient>
+    <radialGradient id="tvgCarrot" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FDBA74"/>
+      <stop offset="35%" stop-color="#FB923C"/>
+      <stop offset="80%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#C2410C"/>
+    </radialGradient>
+    <linearGradient id="tvgGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <filter id="tvgShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#EA580C" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="400" rx="40" fill="url(#tvgBg)"/>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="200" cy="340" rx="90" ry="14" fill="#86EFAC" opacity="0.45"/>
+
+  <!-- Plump 3D Carrot Group -->
+  <g transform="rotate(-25 200 220)" filter="url(#tvgShadow)">
+    <path d="M170 120 C230 120 240 145 220 220 C205 285 195 320 185 325 C175 320 165 285 150 220 C130 145 140 120 170 120 Z" fill="url(#tvgCarrot)"/>
+    <ellipse cx="170" cy="170" rx="14" ry="40" fill="#FFFFFF" opacity="0.4"/>
+    <path d="M155 180 Q175 185 190 180" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+    <path d="M165 230 Q180 235 195 230" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+    
+    <!-- Carrot Greens -->
+    <path d="M185 120 C185 60 150 40 135 30 C155 60 175 80 180 120 Z" fill="url(#tvgGreen)"/>
+    <path d="M185 120 C190 50 215 35 230 25 C215 55 200 80 185 120 Z" fill="url(#tvgGreen)"/>
+    <path d="M185 120 C195 70 185 45 185 20 C180 55 180 80 185 120 Z" fill="#22C55E"/>
+  </g>
+</svg>`;
+
+// 16. [과일 배너] 토스 스타일 산지직송 제철 과일 랭킹 와이드 배너 (800x400)
 export const SVG_FRUIT_BANNER = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
   <defs>
-    <linearGradient id="banBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF1F2"/>
-      <stop offset="45%" stop-color="#FFFBEB"/>
+    <linearGradient id="tbanBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="35%" stop-color="#EFF6FF"/>
+      <stop offset="70%" stop-color="#FDF2F8"/>
       <stop offset="100%" stop-color="#F0FDF4"/>
     </linearGradient>
-    <radialGradient id="banSun" cx="20%" cy="30%" r="50%">
-      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#FFFBEB" stop-opacity="0"/>
+
+    <radialGradient id="tbanGlow" cx="70%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE4E6" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#EFF6FF" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="banPeach" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFAB91"/>
-      <stop offset="60%" stop-color="#FF6F91"/>
-      <stop offset="100%" stop-color="#E91E63"/>
-    </linearGradient>
-    <linearGradient id="banWm" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF5252"/>
-      <stop offset="100%" stop-color="#D50000"/>
-    </linearGradient>
+
+    <radialGradient id="tbPeach" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFE4E6"/>
+      <stop offset="35%" stop-color="#FDA4AF"/>
+      <stop offset="75%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </radialGradient>
+
+    <radialGradient id="tbWatermelon" cx="45%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FF6B81"/>
+      <stop offset="45%" stop-color="#FF385C"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </radialGradient>
+
+    <radialGradient id="tbCitrus" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="45%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </radialGradient>
+
+    <radialGradient id="tbBerry" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#BBF7D0"/>
+      <stop offset="45%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#16A34A"/>
+    </radialGradient>
+
+    <filter id="tbShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.12"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.04"/>
+    </filter>
   </defs>
-  <rect width="800" height="400" fill="url(#banBg)"/>
-  <circle cx="160" cy="120" r="200" fill="url(#banSun)"/>
 
-  <!-- Subtle Sunbeam & Sparkle Accents -->
-  <path d="M400 60 Q410 60 410 50 Q410 60 420 60 Q410 60 410 70 Q410 60 400 60 Z" fill="#F59E0B" opacity="0.6"/>
-  <path d="M680 80 Q690 80 690 70 Q690 80 700 80 Q690 80 690 90 Q690 80 680 80 Z" fill="#EC4899" opacity="0.5"/>
-  <circle cx="720" cy="160" r="6" fill="#FBBF24" opacity="0.5"/>
-  <circle cx="360" cy="140" r="4" fill="#34D399" opacity="0.5"/>
+  <rect width="800" height="400" rx="32" fill="url(#tbanBg)"/>
+  <circle cx="600" cy="200" r="230" fill="url(#tbanGlow)"/>
 
-  <!-- Left Side: Farm Fresh Atmosphere / Leaf Vines -->
-  <path d="M0 0 C120 40 180 180 160 400 L0 400 Z" fill="#DCFCE7" opacity="0.35"/>
-  
-  <!-- Right Group of Fresh Illustrated Fruits -->
-  <!-- 1. Big Juicy Watermelon Slice (Center-Right) -->
-  <g transform="translate(480, 110) rotate(-12)">
-    <path d="M0 160 C10 260 220 260 230 160 L115 60 Z" fill="#1B5E20"/>
-    <path d="M12 162 C20 248 210 248 218 162 L115 70 Z" fill="#DCEDC8"/>
-    <path d="M22 165 C30 235 200 235 208 165 L115 82 Z" fill="url(#banWm)"/>
-    <!-- Seeds -->
-    <circle cx="85" cy="150" r="3" fill="#212121"/>
-    <circle cx="115" cy="130" r="3" fill="#212121"/>
-    <circle cx="145" cy="150" r="3" fill="#212121"/>
-    <circle cx="115" cy="175" r="3" fill="#212121"/>
+  <!-- Left Side: Clean Pastel Decorative Circles -->
+  <circle cx="100" cy="80" r="140" fill="#E0E7FF" opacity="0.3"/>
+  <circle cx="280" cy="320" r="90" fill="#DCFCE7" opacity="0.35"/>
+
+  <!-- Right Floating 3D Fruits Composition -->
+  <!-- 1. Watermelon Slice (Center-Right) -->
+  <g transform="translate(480, 110) rotate(-10)" filter="url(#tbShadow)">
+    <path d="M0 160 C10 255 215 255 225 160 L112 60 Z" fill="#15803D"/>
+    <path d="M10 160 C18 245 208 245 215 160 L112 70 Z" fill="#DCFCE7"/>
+    <path d="M18 160 C26 235 200 235 207 160 L112 80 Z" fill="#F8FAFC"/>
+    <path d="M24 160 C32 228 194 228 201 160 L112 86 Z" fill="url(#tbWatermelon)"/>
+    <circle cx="75" cy="148" r="3" fill="#1E293B"/>
+    <circle cx="112" cy="130" r="3" fill="#1E293B"/>
+    <circle cx="150" cy="148" r="3" fill="#1E293B"/>
+    <circle cx="112" cy="172" r="3" fill="#1E293B"/>
+    <path d="M50 150 L112 95" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
   </g>
 
-  <!-- 2. Sweet Peach (Foreground Left of watermelon) -->
-  <g transform="translate(370, 160)">
-    <circle cx="65" cy="100" r="70" fill="url(#banPeach)"/>
-    <path d="M65 30 C30 50 15 90 25 130 C35 165 75 170 65 170 C55 170 95 165 105 130 C115 90 100 50 65 30 Z" fill="url(#banPeach)"/>
-    <!-- Leaves -->
-    <path d="M65 35 C85 10 115 20 125 35 C110 50 85 45 65 35 Z" fill="#4CAF50"/>
-    <!-- Specular -->
-    <ellipse cx="40" cy="80" rx="14" ry="24" transform="rotate(-20 40 80)" fill="#FFFFFF" opacity="0.35"/>
+  <!-- 2. Sweet Toss Peach (Foreground Left) -->
+  <g transform="translate(360, 150) rotate(8)" filter="url(#tbShadow)">
+    <circle cx="70" cy="100" r="68" fill="url(#tbPeach)"/>
+    <path d="M70 34 C35 55 18 95 28 135 C38 168 78 172 70 172 C62 172 102 168 112 135 C122 95 105 55 70 34 Z" fill="url(#tbPeach)"/>
+    <path d="M70 38 C90 15 120 22 130 38 C115 52 90 48 70 38 Z" fill="#10B981"/>
+    <ellipse cx="45" cy="80" rx="14" ry="24" transform="rotate(-20 45 80)" fill="#FFFFFF" opacity="0.4"/>
   </g>
 
-  <!-- 3. Red Apple (Right side) -->
-  <g transform="translate(620, 180) rotate(10)">
-    <circle cx="60" cy="70" r="55" fill="#D32F2F"/>
-    <path d="M60 15 C62 -5 72 -20 82 -25" stroke="#5D4037" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M68 0 C90 -15 115 -10 120 5 C105 15 85 15 68 0 Z" fill="#66BB6A"/>
-    <ellipse cx="40" cy="55" rx="12" ry="20" transform="rotate(-20 40 55)" fill="#FFFFFF" opacity="0.35"/>
+  <!-- 3. Fresh Tangerine (Front-Right Accent) -->
+  <g transform="translate(640, 200) rotate(-6)" filter="url(#tbShadow)">
+    <ellipse cx="50" cy="50" rx="46" ry="40" fill="url(#tbCitrus)"/>
+    <circle cx="50" cy="14" r="5" fill="#15803D"/>
+    <ellipse cx="35" cy="38" rx="14" ry="9" transform="rotate(-15 35 38)" fill="#FFFFFF" opacity="0.45"/>
   </g>
 
-  <!-- 4. Fresh Strawberry (Front Accent) -->
-  <g transform="translate(470, 250) rotate(15)">
-    <path d="M35 15 C55 15 70 30 65 55 C60 80 40 95 35 95 C30 95 10 80 5 55 C0 30 15 15 35 15 Z" fill="#E53935"/>
-    <!-- Green Cap -->
-    <path d="M35 15 L25 5 L35 18 L45 5 L35 15 Z" fill="#43A047" stroke="#43A047" stroke-width="4"/>
-    <!-- Seeds -->
-    <circle cx="25" cy="40" r="1.5" fill="#FFD54F"/>
-    <circle cx="45" cy="40" r="1.5" fill="#FFD54F"/>
-    <circle cx="35" cy="60" r="1.5" fill="#FFD54F"/>
-  </g>
-
-  <!-- 5. Golden Mandarin (Front Left) -->
-  <g transform="translate(320, 230) rotate(-10)">
-    <ellipse cx="45" cy="45" rx="42" ry="36" fill="#FB8C00"/>
-    <circle cx="45" cy="12" r="4" fill="#388E3C"/>
-    <path d="M45 12 C60 0 75 5 80 15 C70 20 55 18 45 12 Z" fill="#4CAF50"/>
-    <ellipse cx="30" cy="35" rx="12" ry="8" fill="#FFFFFF" opacity="0.4"/>
+  <!-- 4. Shine Muscat Grape Berries (Floating Top) -->
+  <g transform="translate(620, 75)" filter="url(#tbShadow)">
+    <circle cx="30" cy="30" r="26" fill="url(#tbBerry)"/>
+    <circle cx="65" cy="45" r="24" fill="url(#tbBerry)"/>
+    <ellipse cx="25" cy="24" rx="7" ry="12" transform="rotate(-20 25 24)" fill="#FFFFFF" opacity="0.5"/>
   </g>
 </svg>`;
 
@@ -989,6 +939,9 @@ export const ILLUSTRATION_SALMON = svgToDataUri(SVG_SALMON);
 export const ILLUSTRATION_SHRIMP = svgToDataUri(SVG_SHRIMP);
 export const ILLUSTRATION_EGG = svgToDataUri(SVG_EGG);
 export const ILLUSTRATION_TOFU = svgToDataUri(SVG_TOFU);
+export const ILLUSTRATION_GRAPES = svgToDataUri(SVG_GRAPES);
+export const ILLUSTRATION_BANANA = svgToDataUri(SVG_BANANA);
+export const ILLUSTRATION_VEGETABLE = svgToDataUri(SVG_VEGETABLE);
 export const ILLUSTRATION_FRUIT_BANNER = svgToDataUri(SVG_FRUIT_BANNER);
 
 // Product ID to Illustration Mapping for instant 1:1 matching
@@ -998,6 +951,8 @@ export const PRODUCT_ID_ILLUSTRATIONS: Record<string, string> = {
   'fruit-03': ILLUSTRATION_APPLE,
   'fruit-04': ILLUSTRATION_STRAWBERRY,
   'fruit-05': ILLUSTRATION_CITRUS,
+  'fruit-06': ILLUSTRATION_GRAPES,
+  'fruit-07': ILLUSTRATION_BANANA,
   'meat-01': ILLUSTRATION_BEEF,
   'meat-02': ILLUSTRATION_PORK,
   'meat-03': ILLUSTRATION_CHICKEN,
@@ -1006,6 +961,7 @@ export const PRODUCT_ID_ILLUSTRATIONS: Record<string, string> = {
   'seafood-shrimp-02': ILLUSTRATION_SHRIMP,
   'ing-01': ILLUSTRATION_EGG,
   'ing-02': ILLUSTRATION_TOFU,
+  'veg-01': ILLUSTRATION_VEGETABLE,
 };
 
 /**
@@ -1031,9 +987,9 @@ export const isAgriMarineProduct = (product?: {
 
   // 4. SubCategory check
   const freshSubCats = [
-    '복숭아', '수박', '사과', '딸기', '귤', '감귤', '포도', '바나나', '참외', '배',
-    '소고기', '돼지고기', '닭고기', '연어', '광어', '오징어', '새우', '대하', '전복',
-    '계란', '두부', '채소', '야채', '생선', '수산물', '정육'
+    '복숭아', '수박', '사과', '딸기', '귤', '감귤', '포도', '샤인머스캣', '바나나', '참외', '배',
+    '소고기', '한우', '돼지고기', '삼겹살', '닭고기', '치킨', '연어', '광어', '오징어', '새우', '대하', '전복',
+    '계란', '달걀', '두부', '채소', '야채', '당근', '생선', '수산물', '정육'
   ];
   if (product.subCategory && freshSubCats.some(sub => product.subCategory?.includes(sub))) {
     return true;
@@ -1042,15 +998,15 @@ export const isAgriMarineProduct = (product?: {
   // 5. Name keywords check
   const name = (product.name || '').toLowerCase();
   const agriMarineKeywords = [
-    '복숭아', '수박', '사과', '딸기', '감귤', '타이벡', '한우', '꽃등심', '오겹살', '삼겹살',
+    '복숭아', '수박', '사과', '딸기', '감귤', '타이벡', '샤인머스캣', '포도', '바나나', '한우', '꽃등심', '오겹살', '삼겹살',
     '생연어', '연어회', '흰다리새우', '대하', '왕새우', '생닭', '닭볶음탕용', '유정란', '자연방사란',
-    '부침두부', '국산콩두부', '제철과일', '산지직송', '활어', '생물'
+    '부침두부', '국산콩두부', '제철과일', '산지직송', '활어', '생물', '당근', '양파', '대파'
   ];
   return agriMarineKeywords.some(kw => name.includes(kw));
 };
 
 /**
- * 상품에 알맞은 최적의 일러스트레이션을 반환
+ * 상품에 알맞은 최적의 토스 스타일 3D 일러스트레이션을 반환
  */
 export const getProductIllustration = (product?: {
   id?: string;
@@ -1076,6 +1032,8 @@ export const getProductIllustration = (product?: {
   if (name.includes('사과') || subCat.includes('사과')) return ILLUSTRATION_APPLE;
   if (name.includes('딸기') || subCat.includes('딸기')) return ILLUSTRATION_STRAWBERRY;
   if (name.includes('귤') || name.includes('감귤') || subCat.includes('귤')) return ILLUSTRATION_CITRUS;
+  if (name.includes('포도') || name.includes('샤인머스캣') || subCat.includes('포도')) return ILLUSTRATION_GRAPES;
+  if (name.includes('바나나') || subCat.includes('바나나')) return ILLUSTRATION_BANANA;
 
   // 3. Meat items
   if (name.includes('소고기') || name.includes('한우') || name.includes('꽃등심') || subCat.includes('소고기')) return ILLUSTRATION_BEEF;
@@ -1086,9 +1044,10 @@ export const getProductIllustration = (product?: {
   if (name.includes('연어') || subCat.includes('연어')) return ILLUSTRATION_SALMON;
   if (name.includes('새우') || name.includes('대하') || subCat.includes('새우')) return ILLUSTRATION_SHRIMP;
 
-  // 5. Fresh ingredients
+  // 5. Fresh ingredients & vegetables
   if (name.includes('란') || name.includes('달걀') || name.includes('계란') || subCat.includes('계란')) return ILLUSTRATION_EGG;
   if (name.includes('두부') || subCat.includes('두부')) return ILLUSTRATION_TOFU;
+  if (name.includes('당근') || name.includes('채소') || name.includes('야채') || subCat.includes('채소')) return ILLUSTRATION_VEGETABLE;
 
   // Fallbacks by category
   if (cat === '과일') return ILLUSTRATION_PEACH;

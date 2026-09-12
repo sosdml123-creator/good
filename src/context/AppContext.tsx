@@ -17,12 +17,14 @@ import {
   AppNotification,
   PointTransaction,
   ReleaseCalendarItem,
+  SalePromotionItem,
   RecipePost,
   WriteRecipeInput
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
+import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
 import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
@@ -196,6 +198,12 @@ interface AppContextType {
   calendarItems: ReleaseCalendarItem[];
   calendarReminders: string[];
   toggleCalendarReminder: (calendarItemId: string) => void;
+
+  // 🏷️ Sale Promotions (1+1 & 할인특가 행사소식)
+  salePromotions: SalePromotionItem[];
+  savedSaleIds: string[];
+  toggleSaveSale: (saleId: string) => void;
+
   recipes: RecipePost[];
   selectedRecipe: RecipePost | null;
   isRecipeDetailOpen: boolean;
@@ -636,6 +644,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return stored ? JSON.parse(stored) : ['cal-02'];
     } catch {
       return ['cal-02'];
+    }
+  });
+
+  // 🏷️ 편의점/마트 1+1 & 할인특가 행사소식 State
+  const [salePromotions] = useState<SalePromotionItem[]>(INITIAL_SALE_PROMOTIONS);
+  const [savedSaleIds, setSavedSaleIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_saved_sales');
+      return stored ? JSON.parse(stored) : ['sale-01', 'sale-04'];
+    } catch {
+      return ['sale-01', 'sale-04'];
     }
   });
 
@@ -1148,6 +1167,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCalendarReminders(updated);
     try {
       localStorage.setItem('sinsangpick_calendar_reminders', JSON.stringify(updated));
+    } catch (e) {
+      // ignore
+    }
+  };
+
+  // 🏷️ Sale Promotion Handlers
+  const toggleSaveSale = (id: string) => {
+    const item = salePromotions.find(s => s.id === id);
+    const isAlready = savedSaleIds.includes(id);
+    let updated: string[];
+    if (isAlready) {
+      updated = savedSaleIds.filter(sId => sId !== id);
+      showToast(`🤍 [${item?.title || '행사'}] 관심 행사에서 제외되었습니다.`, 'info');
+    } else {
+      updated = [...savedSaleIds, id];
+      showToast(`❤️ [${item?.title || '행사'}] 관심 행사로 저장되었습니다!`, 'success');
+      if (item) {
+        sendPushNotification({
+          title: `🏷️ [행사 찜 완료] ${item.store} ${item.badgeText} 특가`,
+          body: `${item.title} - ${item.unitPriceDescription} (${item.period}까지)`,
+          type: 'event',
+          targetId: item.productId || item.id,
+          imageUrl: item.image,
+          badge: item.badgeText
+        });
+      }
+    }
+    setSavedSaleIds(updated);
+    try {
+      localStorage.setItem('sinsangpick_saved_sales', JSON.stringify(updated));
     } catch (e) {
       // ignore
     }
@@ -2934,10 +2983,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteReview,
         deleteCommunityPost,
 
-        // 📅 Calendar & 🥪 Recipes
+        // 📅 Calendar & 🏷️ Sale Promotions & 🥪 Recipes
         calendarItems,
         calendarReminders,
         toggleCalendarReminder,
+        salePromotions,
+        savedSaleIds,
+        toggleSaveSale,
         recipes,
         selectedRecipe,
         isRecipeDetailOpen,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, Sparkles, ChevronRight, ChevronLeft, Search, Flame, Calendar as CalendarIcon, Bell, BellRing } from 'lucide-react';
+import { Star, Heart, Sparkles, ChevronRight, ChevronLeft, Search, Flame, Tag } from 'lucide-react';
 import { ProductCategory, Product, BannerItem } from '../../types';
 import { 
   getPopularProducts, 
@@ -21,9 +21,9 @@ export const HomeView: React.FC = () => {
     battleChoice,
     voteBattle,
     events,
-    calendarItems,
-    calendarReminders,
-    toggleCalendarReminder,
+    salePromotions,
+    savedSaleIds,
+    toggleSaveSale,
     recipes,
     openRecipeDetail,
     setActiveTab, 
@@ -213,7 +213,7 @@ export const HomeView: React.FC = () => {
 
   const quickIcons = [
     { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
-    { label: '드롭캘린더', icon: '📅', color: 'bg-indigo-50 text-indigo-600', action: 'calendar' },
+    { label: '행사소식', icon: '🏷️', color: 'bg-rose-50 text-rose-600', action: 'calendar' },
     { label: '브랜드관', icon: '🏢', color: 'bg-blue-50 text-[#0066FF]', action: 'brand' },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'event' },
@@ -452,61 +452,67 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 3.5 Section: 📅 이번 주 신상 드롭 캘린더 (Drop Calendar Preview) */}
+      {/* 3.5 Section: 🏷️ 이달의 편의점·마트 행사소식 (1+1 & 할인특가 Preview) */}
       <div className="bg-white mt-2 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between px-4 mb-2.5">
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-indigo-100">
-                <CalendarIcon className="w-3 h-3" /> 드롭 캘린더
+              <span className="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-rose-100">
+                <Tag className="w-3 h-3" /> 1+1 · 할인특가
               </span>
-              <span className="text-[11px] text-gray-400 font-medium">놓치면 품절! 출시 예정</span>
+              <span className="text-[11px] text-gray-400 font-medium">편의점·마트 실속 혜택</span>
             </div>
             <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
-              📅 이번 주 신상 드롭 캘린더
+              🔥 놓치면 손해! 이달의 행사소식
             </h3>
           </div>
           <button
             onClick={() => setActiveTab('calendar')}
-            className="text-[12px] text-indigo-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
+            className="text-[12px] text-rose-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
           >
-            <span>전체일정</span>
+            <span>전체보기</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Horizontal Calendar Cards */}
+        {/* Horizontal Sale Cards */}
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
-          {calendarItems.slice(0, 6).map((item) => {
-            const isReserved = calendarReminders.includes(item.id);
+          {salePromotions.slice(0, 8).map((item) => {
+            const isSaved = savedSaleIds.includes(item.id);
 
             return (
               <div
                 key={item.id}
-                className="shrink-0 w-[210px] bg-[#F8F9FB] hover:bg-indigo-50/40 rounded-2xl p-3 border border-gray-200/80 transition-all flex flex-col justify-between shadow-2xs hover:border-indigo-200"
+                className="shrink-0 w-[220px] bg-[#F8F9FB] hover:bg-rose-50/30 rounded-2xl p-3 border border-gray-200/80 transition-all flex flex-col justify-between shadow-2xs hover:border-rose-200"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                      item.isToday ? 'bg-red-500 text-white animate-pulse' : 'bg-indigo-100 text-indigo-700'
-                    }`}>
-                      {item.dDay}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
+                        item.dealType === '1+1'
+                          ? 'bg-red-500 text-white animate-pulse'
+                          : item.dealType === '2+1'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-amber-500 text-white'
+                      }`}>
+                        {item.badgeText}
+                      </span>
+                      <span className="text-[10px] font-bold text-gray-600 bg-gray-200/70 px-1.5 py-0.5 rounded-md">
+                        {item.store}
+                      </span>
+                    </div>
+
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleCalendarReminder(item.id);
+                        toggleSaveSale(item.id);
                       }}
                       className={`p-1.5 rounded-full transition-all active:scale-90 ${
-                        isReserved ? 'text-indigo-600 bg-white shadow-2xs' : 'text-gray-400 hover:text-indigo-500'
+                        isSaved ? 'text-rose-500 bg-white shadow-2xs' : 'text-gray-400 hover:text-rose-500'
                       }`}
-                      title="알림예약 토글"
+                      title="관심 행사 찜하기"
                     >
-                      {isReserved ? (
-                        <BellRing className="w-4 h-4 fill-indigo-600" />
-                      ) : (
-                        <Bell className="w-4 h-4" />
-                      )}
+                      <Heart className={`w-4 h-4 ${isSaved ? 'fill-rose-500' : ''}`} />
                     </button>
                   </div>
 
@@ -519,24 +525,31 @@ export const HomeView: React.FC = () => {
                   >
                     <img 
                       src={item.image} 
-                      alt={item.name} 
+                      alt={item.title} 
                       className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
                     />
                     <div className="min-w-0 flex-1">
                       <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
-                      <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-indigo-600 transition-colors">
-                        {item.name}
+                      <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition-colors">
+                        {item.title}
                       </div>
-                      <div className="text-[11px] font-black text-gray-800 mt-0.5">
-                        {item.price.toLocaleString()}원
+                      <div className="text-[11px] font-black text-rose-600 mt-0.5">
+                        {item.unitPriceDescription}
                       </div>
+                      {item.originalPrice > 0 && (
+                        <div className="text-[10px] text-gray-400 line-through">
+                          {item.originalPrice.toLocaleString()}원
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[10px]">
-                  <span className="text-indigo-600 font-bold">{item.releaseDateFormatted}</span>
-                  <span className="text-gray-500 font-medium">{item.stores[0] || '편의점'}</span>
+                  <span className="text-gray-500 font-medium truncate max-w-[120px]">
+                    {item.benefitTag || item.description}
+                  </span>
+                  <span className="text-rose-600 font-bold shrink-0">{item.dDay}</span>
                 </div>
               </div>
             );
