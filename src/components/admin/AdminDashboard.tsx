@@ -49,7 +49,7 @@ import {
   Target,
   FolderCheck
 } from 'lucide-react';
-import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -59,6 +59,8 @@ import {
 } from '../../services/naverApi';
 import { BrandProductAutoCollector } from './BrandProductAutoCollector';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
+import { FoodNutritionSearchModal } from './FoodNutritionSearchModal';
+import { FoodNutritionData } from '../../services/nutritionApi';
 
 
 export type AdminTab = 
@@ -232,6 +234,7 @@ export const AdminDashboard: React.FC = () => {
     allergens: string;
     origin: string;
     manufacturer: string;
+    nutrition?: NutritionInfo;
   }>({
     name: '',
     brand: '',
@@ -250,7 +253,8 @@ export const AdminDashboard: React.FC = () => {
     ingredients: '',
     allergens: '',
     origin: '대한민국',
-    manufacturer: ''
+    manufacturer: '',
+    nutrition: undefined
   });
 
   // Banner modal states
@@ -346,6 +350,13 @@ export const AdminDashboard: React.FC = () => {
     name: string;
     currentImage: string;
     onSelect: (newUrl: string) => void;
+  } | null>(null);
+
+  // Food Nutrition Search modal target (식약처 영양성분 자동조회)
+  const [nutritionSearchTarget, setNutritionSearchTarget] = useState<{
+    initialQuery: string;
+    brand?: string;
+    onSelect: (data: FoodNutritionData) => void;
   } | null>(null);
 
   // Statistics
@@ -717,7 +728,8 @@ export const AdminDashboard: React.FC = () => {
       ingredients: '',
       allergens: '',
       origin: '대한민국',
-      manufacturer: ''
+      manufacturer: '',
+      nutrition: undefined
     });
     setIsProductModalOpen(true);
   };
@@ -742,7 +754,8 @@ export const AdminDashboard: React.FC = () => {
       ingredients: prod.ingredients || '',
       allergens: prod.allergens ? prod.allergens.join(', ') : '',
       origin: prod.origin || '대한민국',
-      manufacturer: prod.manufacturer || ''
+      manufacturer: prod.manufacturer || '',
+      nutrition: prod.nutrition
     });
     setIsProductModalOpen(true);
   };
@@ -771,7 +784,8 @@ export const AdminDashboard: React.FC = () => {
       ingredients: productForm.ingredients,
       allergens: productForm.allergens ? productForm.allergens.split(',').map(s => s.trim()).filter(Boolean) : [],
       origin: productForm.origin,
-      manufacturer: productForm.manufacturer
+      manufacturer: productForm.manufacturer,
+      nutrition: productForm.nutrition
     };
 
     if (editingProductId) {
@@ -4093,7 +4107,30 @@ export const AdminDashboard: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">용량 / 칼로리</label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs font-bold text-slate-600 dark:text-slate-300">용량 / 칼로리</label>
+                      <button
+                        type="button"
+                        onClick={() => setNutritionSearchTarget({
+                          initialQuery: productForm.name || productForm.brand,
+                          brand: productForm.brand,
+                          onSelect: (data: FoodNutritionData) => {
+                            setProductForm(prev => ({
+                              ...prev,
+                              calories: data.calories || prev.calories,
+                              volume: data.totalWeight || data.servingSize || prev.volume,
+                              manufacturer: prev.manufacturer || data.makerName,
+                              nutrition: data.nutrition
+                            }));
+                            showToast(`식약처 공식 영양성분(${data.foodName}, ${data.calories}kcal)이 자동 적용되었습니다!`, 'success');
+                          }
+                        })}
+                        className="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1 transition-all"
+                      >
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>식약처 영양성분 자동조회</span>
+                      </button>
+                    </div>
                     <div className="flex gap-2">
                       <input
                         type="text"
@@ -4110,6 +4147,16 @@ export const AdminDashboard: React.FC = () => {
                         className={`w-1/2 p-2.5 rounded-xl text-xs border ${inputBg}`}
                       />
                     </div>
+                    {productForm.nutrition && (
+                      <div className="mt-1.5 p-2 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900 flex flex-wrap gap-1.5 text-[10px] text-emerald-800 dark:text-emerald-300">
+                        <span className="font-bold">적용된 영양표시:</span>
+                        <span>탄수화물 {productForm.nutrition.carbs || '0g'}</span>
+                        <span>당류 {productForm.nutrition.sugar || '0g'}</span>
+                        <span>단백질 {productForm.nutrition.protein || '0g'}</span>
+                        <span>지방 {productForm.nutrition.fat || '0g'}</span>
+                        <span>나트륨 {productForm.nutrition.sodium || '0mg'}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -4403,6 +4450,71 @@ export const AdminDashboard: React.FC = () => {
                     className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                   />
                 </div>
+              </div>
+
+              {/* 용량 / 칼로리 / 식약처 영양성분 자동조회 */}
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-700 dark:text-slate-200 text-xs flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <span>영양성분 및 규격 정보</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setNutritionSearchTarget({
+                      initialQuery: editingPendingItem.name || editingPendingItem.brand,
+                      brand: editingPendingItem.brand,
+                      onSelect: (data: FoodNutritionData) => {
+                        setEditingPendingItem(prev => prev ? ({
+                          ...prev,
+                          calories: data.calories || prev.calories,
+                          volume: data.totalWeight || data.servingSize || prev.volume,
+                          manufacturer: prev.manufacturer || data.makerName,
+                          nutrition: data.nutrition
+                        }) : null);
+                        showToast(`식약처 공식 영양성분(${data.foodName}, ${data.calories}kcal)이 자동 적용되었습니다!`, 'success');
+                      }
+                    })}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1 transition-all"
+                  >
+                    <Search className="w-3 h-3" />
+                    <span>식약처 영양성분 자동조회</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 mb-1">용량 (g/ml)</label>
+                    <input
+                      type="text"
+                      value={editingPendingItem.volume || ''}
+                      onChange={e => setEditingPendingItem({ ...editingPendingItem, volume: e.target.value })}
+                      placeholder="예: 80g"
+                      className={`w-full p-2 rounded-xl border text-xs ${inputBg}`}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 mb-1">칼로리 (kcal)</label>
+                    <input
+                      type="number"
+                      value={editingPendingItem.calories || ''}
+                      onChange={e => setEditingPendingItem({ ...editingPendingItem, calories: Number(e.target.value) })}
+                      placeholder="예: 350"
+                      className={`w-full p-2 rounded-xl border text-xs ${inputBg}`}
+                    />
+                  </div>
+                </div>
+
+                {editingPendingItem.nutrition && (
+                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex flex-wrap gap-2 text-[10px] text-emerald-800 dark:text-emerald-300">
+                    <span className="font-bold">연동된 영양표시:</span>
+                    <span>탄수 {editingPendingItem.nutrition.carbs || '0g'}</span>
+                    <span>당류 {editingPendingItem.nutrition.sugar || '0g'}</span>
+                    <span>단백질 {editingPendingItem.nutrition.protein || '0g'}</span>
+                    <span>지방 {editingPendingItem.nutrition.fat || '0g'}</span>
+                    <span>나트륨 {editingPendingItem.nutrition.sodium || '0mg'}</span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -5436,6 +5548,22 @@ export const AdminDashboard: React.FC = () => {
             setImageSelectorTarget(null);
           }}
           isDark={isDark}
+        />
+      )}
+
+      {/* ========================================================
+          MODAL: FOOD NUTRITION SEARCH (식약처 영양성분 자동조회)
+         ======================================================== */}
+      {nutritionSearchTarget && (
+        <FoodNutritionSearchModal
+          isOpen={Boolean(nutritionSearchTarget)}
+          onClose={() => setNutritionSearchTarget(null)}
+          initialQuery={nutritionSearchTarget.initialQuery}
+          brand={nutritionSearchTarget.brand}
+          onSelect={(data: FoodNutritionData) => {
+            nutritionSearchTarget.onSelect(data);
+            setNutritionSearchTarget(null);
+          }}
         />
       )}
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   ChevronLeft, 
@@ -21,11 +21,12 @@ import {
   AlertTriangle,
   Check
 } from 'lucide-react';
-import { StoreStockItem } from '../../types';
+import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
 import { NearbyStoreStockModal } from './NearbyStoreStockModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { SafeImage } from '../common/SafeImage';
+import { searchFoodNutrition } from '../../services/nutritionApi';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -44,6 +45,31 @@ export const ProductDetailModal: React.FC = () => {
   const [showAllQuotes, setShowAllQuotes] = useState(false);
   const [isNearbyModalOpen, setIsNearbyModalOpen] = useState(false);
   const [isStockAlertModalOpen, setIsStockAlertModalOpen] = useState(false);
+  const [fetchedNutrition, setFetchedNutrition] = useState<NutritionInfo | null>(null);
+
+  // 식약처 영양성분 DB 실시간 자동 보강 (기존 영양정보 누락 상품 대응)
+  useEffect(() => {
+    if (!selectedProduct) return;
+    if (selectedProduct.nutrition || selectedProduct.itemType === 'fresh') {
+      setFetchedNutrition(null);
+      return;
+    }
+
+    let isMounted = true;
+    const fetchNutrition = async () => {
+      try {
+        const res = await searchFoodNutrition(selectedProduct.name, 1, 3);
+        if (isMounted && res.items.length > 0) {
+          setFetchedNutrition(res.items[0].nutrition);
+        }
+      } catch (e) {
+        // fail silently
+      }
+    };
+
+    fetchNutrition();
+    return () => { isMounted = false; };
+  }, [selectedProduct?.id, selectedProduct?.name, selectedProduct?.nutrition]);
 
   if (!selectedProduct) return null;
 
@@ -774,40 +800,56 @@ export const ProductDetailModal: React.FC = () => {
                   <div className="text-[10px] text-purple-600 mt-0.5">소비자 체감 평점</div>
                 </div>
               </div>
-            ) : (
-              <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
-                <div className="flex justify-between items-center py-2.5 px-3 bg-gray-50/70 font-bold">
-                  <span className="text-gray-700">열량 (칼로리)</span>
-                  <span className="text-gray-900">{selectedProduct.calories ? `${selectedProduct.calories} kcal` : '상세 표기 참조'}</span>
+            ) : (() => {
+              const activeNutrition = selectedProduct.nutrition || fetchedNutrition;
+              const displayCalories = selectedProduct.calories || activeNutrition?.calories;
+              const isAutoFetched = !selectedProduct.nutrition && Boolean(fetchedNutrition);
+
+              return (
+                <div className="space-y-2">
+                  {isAutoFetched && (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-100 animate-in fade-in">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span>식약처 공식 식품영양성분DB 자동 연동</span>
+                    </div>
+                  )}
+                  <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
+                    <div className="flex justify-between items-center py-2.5 px-3 bg-gray-50/70 font-bold">
+                      <span className="text-gray-700">열량 (칼로리)</span>
+                      <span className="text-gray-900 font-bold text-[#0066FF]">
+                        {displayCalories ? `${displayCalories} kcal` : '상세 표기 참조'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-3">
+                      <span className="text-gray-600">나트륨</span>
+                      <span className="font-semibold text-gray-900">{activeNutrition?.sodium || '표기 기준 준수'}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
+                      <span className="text-gray-600">탄수화물 / 당류</span>
+                      <span className="font-semibold text-gray-900">
+                        {activeNutrition?.carbs || '균형 함유'} {activeNutrition?.sugar ? `(당류 ${activeNutrition.sugar})` : ''}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-3">
+                      <span className="text-gray-600">지방 / 트랜스지방</span>
+                      <span className="font-semibold text-gray-900">
+                        {activeNutrition?.fat || '균형 함유'} {activeNutrition?.transFat ? `(트랜스 ${activeNutrition.transFat})` : ''}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
+                      <span className="text-gray-600">포화지방 / 콜레스테롤</span>
+                      <span className="font-semibold text-gray-900">
+                        {activeNutrition?.satFat ? `포화 ${activeNutrition.satFat}` : '0g'} {activeNutrition?.cholesterol ? `· 콜레스테롤 ${activeNutrition.cholesterol}` : ''}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-3">
+                      <span className="text-gray-600">단백질</span>
+                      <span className="font-bold text-[#0066FF]">{activeNutrition?.protein || '균형 함유'}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center py-2 px-3">
-                  <span className="text-gray-600">나트륨</span>
-                  <span className="font-semibold text-gray-900">{selectedProduct.nutrition?.sodium || '표기 기준 준수'}</span>
-                </div>
-                <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
-                  <span className="text-gray-600">탄수화물 / 당류</span>
-                  <span className="font-semibold text-gray-900">
-                    {selectedProduct.nutrition?.carbs || '균형 함유'} {selectedProduct.nutrition?.sugar ? `(당류 ${selectedProduct.nutrition.sugar})` : ''}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-2 px-3">
-                  <span className="text-gray-600">지방 / 트랜스지방</span>
-                  <span className="font-semibold text-gray-900">
-                    {selectedProduct.nutrition?.fat || '균형 함유'} {selectedProduct.nutrition?.transFat ? `(트랜스 ${selectedProduct.nutrition.transFat})` : ''}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
-                  <span className="text-gray-600">포화지방 / 콜레스테롤</span>
-                  <span className="font-semibold text-gray-900">
-                    {selectedProduct.nutrition?.satFat ? `포화 ${selectedProduct.nutrition.satFat}` : '0g'} {selectedProduct.nutrition?.cholesterol ? `· 콜레스테롤 ${selectedProduct.nutrition.cholesterol}` : ''}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-2 px-3">
-                  <span className="text-gray-600">단백질</span>
-                  <span className="font-bold text-[#0066FF]">{selectedProduct.nutrition?.protein || '균형 함유'}</span>
-                </div>
-              </div>
-            )}
+              );
+            })()}
 
             <p className="text-[10px] text-gray-400 mt-2">
               * 1일 영양성분 기준치(2,000 kcal)에 대한 비율(%)이며, 개인의 필요 열량에 따라 다를 수 있습니다.
