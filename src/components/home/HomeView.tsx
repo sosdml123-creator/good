@@ -1079,7 +1079,7 @@ export const HomeView: React.FC = () => {
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[15px] font-bold text-gray-900">🔥 실시간 인기 품목 랭킹</span>
-          <button onClick={() => setActiveTab('category')} className="text-[13px] text-gray-400">전체보기</button>
+          <button onClick={() => setActiveTab('ranking')} className="text-[13px] text-[#0066FF] font-semibold">전체보기</button>
         </div>
 
         <div className="space-y-4">

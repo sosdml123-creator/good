@@ -21,6 +21,7 @@ import { ToastContainer } from './components/common/Toast';
 import { SaleNewsView } from './components/sale/SaleNewsView';
 import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
 import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
+import { RankingView } from './components/ranking/RankingView';
 
 export const App: React.FC = () => {
   const { activeTab } = useApp();
@@ -76,6 +77,7 @@ export const App: React.FC = () => {
           {activeTab === 'alert_settings' && <NotificationModal />}
           {activeTab === 'settings' && <SettingsView />}
           {activeTab === 'search' && <SearchModal />}
+          {activeTab === 'ranking' && <RankingView />}
           {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <SaleNewsView />}
         </main>
 

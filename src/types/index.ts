@@ -303,7 +303,8 @@ export type ActiveTab =
   | 'search'
   | 'admin'
   | 'event_detail'
-  | 'calendar';
+  | 'calendar'
+  | 'ranking';
 
 export interface BrandInfo {
   id: string;
