@@ -66,7 +66,7 @@ export const NotificationModal: React.FC = () => {
 
         <button
           onClick={goBack}
-          className="text-xs font-black text-[#0066FF] hover:opacity-80 px-2 py-1"
+          className="text-xs font-black text-gray-900 hover:opacity-80 px-2 py-1"
         >
           완료
         </button>
@@ -78,7 +78,7 @@ export const NotificationModal: React.FC = () => {
           onClick={() => setActiveSubTab('inbox')}
           className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors relative ${
             activeSubTab === 'inbox'
-              ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
+              ? 'text-gray-900 border-b-2 border-gray-900'
               : 'text-gray-500 hover:text-gray-900'
           }`}
         >
@@ -95,7 +95,7 @@ export const NotificationModal: React.FC = () => {
           onClick={() => setActiveSubTab('settings')}
           className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors ${
             activeSubTab === 'settings'
-              ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
+              ? 'text-gray-900 border-b-2 border-gray-900'
               : 'text-gray-500 hover:text-gray-900'
           }`}
         >
@@ -140,7 +140,7 @@ export const NotificationModal: React.FC = () => {
                   onClick={() => handleNotificationClick(n)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 shadow-2xs ${
                     !n.isRead
-                      ? 'bg-blue-50/40 border-blue-200 hover:bg-blue-50/70'
+                      ? 'bg-gray-50/80 border-gray-300 hover:bg-gray-100/70'
                       : 'bg-white border-gray-100 hover:border-gray-200'
                   }`}
                 >
@@ -152,7 +152,7 @@ export const NotificationModal: React.FC = () => {
                       className="w-12 h-12 rounded-xl object-cover border border-gray-200 bg-white shrink-0"
                     />
                   ) : (
-                    <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#0066FF] flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gray-100 text-gray-900 flex items-center justify-center shrink-0">
                       <Sparkles className="w-5 h-5" />
                     </div>
                   )}
@@ -161,7 +161,7 @@ export const NotificationModal: React.FC = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1 mb-0.5">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold text-[#0066FF] bg-blue-100/70 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
                           {n.badge || '알림'}
                         </span>
                         {!n.isRead && (
@@ -178,7 +178,7 @@ export const NotificationModal: React.FC = () => {
                       {n.body}
                     </p>
 
-                    <div className="flex items-center gap-0.5 text-[10px] font-bold text-[#0066FF] mt-1.5">
+                    <div className="flex items-center gap-0.5 text-[10px] font-bold text-gray-900 mt-1.5">
                       <span>바로 확인하기</span>
                       <ChevronRight className="w-3 h-3 stroke-[2.5]" />
                     </div>
@@ -210,7 +210,7 @@ export const NotificationModal: React.FC = () => {
                   onClick={() => toggleAlertCategory(cat.id)}
                   className={`relative aspect-square p-3 rounded-2xl border flex flex-col items-center justify-center transition-all focus:outline-none shadow-2xs ${
                     isSelected
-                      ? 'border-[#0066FF] bg-blue-50/50 shadow-xs ring-1 ring-[#0066FF]/30'
+                      ? 'border-gray-900 bg-gray-50 shadow-xs ring-1 ring-gray-900'
                       : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
                 >
@@ -218,7 +218,7 @@ export const NotificationModal: React.FC = () => {
                   <span className="text-xs font-bold text-gray-900">{cat.label}</span>
 
                   {isSelected && (
-                    <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-[#0066FF] text-white flex items-center justify-center">
+                    <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-gray-900 text-white flex items-center justify-center">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </div>
                   )}

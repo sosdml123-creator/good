@@ -118,7 +118,7 @@ export const EventDetailModal: React.FC = () => {
 
         {/* Floating Badges */}
         <div className="absolute top-4 left-4 flex gap-1.5 flex-wrap">
-          <span className="text-xs font-black text-white bg-[#0066FF] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+          <span className="text-xs font-black text-white bg-gray-900/90 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-md flex items-center gap-1 border border-white/20">
             <Sparkles className="w-3 h-3 fill-white" />
             {selectedEvent.badge}
           </span>
@@ -151,7 +151,7 @@ export const EventDetailModal: React.FC = () => {
         <div className="bg-white rounded-2xl p-4 shadow-2xs border border-gray-100">
           <div className="flex items-center justify-between text-xs text-gray-500 pb-3 border-b border-gray-100">
             <div className="flex items-center gap-1.5 font-medium">
-              <Calendar className="w-4 h-4 text-[#0066FF]" />
+              <Calendar className="w-4 h-4 text-gray-700" />
               <span>진행 기간</span>
             </div>
             <span className="font-bold text-gray-800">
@@ -164,21 +164,21 @@ export const EventDetailModal: React.FC = () => {
               <Users className="w-4 h-4 text-emerald-500" />
               <span>현재 참여 인원</span>
             </div>
-            <span className="font-bold text-[#0066FF]">
+            <span className="font-bold text-gray-900">
               {selectedEvent.participantsCount.toLocaleString()}명 신청 중
             </span>
           </div>
         </div>
 
         {/* 4. Reward Highlight Card */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 rounded-2xl p-4 border border-blue-100/80 shadow-2xs">
+        <div className="bg-gradient-to-br from-amber-50 to-orange-50/50 rounded-2xl p-4 border border-amber-200/80 shadow-2xs">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-7 h-7 rounded-xl bg-[#0066FF] text-white flex items-center justify-center shadow-xs">
+            <div className="w-7 h-7 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
               <Gift className="w-4 h-4" />
             </div>
             <span className="text-xs font-black text-gray-900">이벤트 혜택 & 선물</span>
           </div>
-          <p className="text-sm font-black text-[#0066FF] pl-9">
+          <p className="text-sm font-black text-amber-800 pl-9">
             {selectedEvent.reward}
           </p>
         </div>
@@ -190,7 +190,7 @@ export const EventDetailModal: React.FC = () => {
               <span className="text-xs font-black text-gray-900">이벤트 대상 신상품</span>
               <button 
                 onClick={() => openProductDetail(targetProduct.id)}
-                className="text-[11px] font-bold text-[#0066FF] flex items-center gap-0.5 hover:underline"
+                className="text-[11px] font-bold text-gray-900 flex items-center gap-0.5 hover:underline"
               >
                 <span>상세스펙 보기</span>
                 <ArrowRight className="w-3 h-3" />
@@ -207,7 +207,7 @@ export const EventDetailModal: React.FC = () => {
                 className="w-14 h-14 rounded-xl object-cover border border-gray-200 bg-white shrink-0"
               />
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
                   {targetProduct.brand} · {targetProduct.category}
                 </span>
                 <h4 className="text-xs font-bold text-gray-900 truncate mt-0.5">
@@ -247,11 +247,11 @@ export const EventDetailModal: React.FC = () => {
               value={commentInput}
               onChange={(e) => setCommentInput(e.target.value)}
               placeholder="이벤트 기대평 또는 응원 메시지를 남겨보세요"
-              className="flex-1 text-xs bg-gray-100 rounded-xl px-3.5 py-2.5 outline-none focus:ring-1 focus:ring-[#0066FF] border border-transparent focus:bg-white"
+              className="flex-1 text-xs bg-gray-100 rounded-xl px-3.5 py-2.5 outline-none focus:ring-1 focus:ring-gray-900 border border-transparent focus:bg-white"
             />
             <button
               type="submit"
-              className="px-3 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold shrink-0 transition-colors flex items-center justify-center"
+              className="px-3 py-2 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shrink-0 transition-colors flex items-center justify-center"
             >
               <Send className="w-3.5 h-3.5" />
             </button>
@@ -282,7 +282,7 @@ export const EventDetailModal: React.FC = () => {
         ) : (
           <button
             onClick={handleParticipate}
-            className="w-full py-3.5 rounded-2xl bg-[#0066FF] hover:bg-blue-700 active:scale-[0.98] transition-all text-white text-xs font-black flex items-center justify-center gap-2 shadow-md"
+            className="w-full py-3.5 rounded-2xl bg-gray-900 hover:bg-black active:scale-[0.98] transition-all text-white text-xs font-black flex items-center justify-center gap-2 shadow-md"
           >
             <Sparkles className="w-4 h-4 fill-white" />
             <span>{selectedEvent.actionButtonText || '무료 체험단 신청하기'}</span>

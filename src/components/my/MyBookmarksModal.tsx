@@ -79,7 +79,7 @@ export const MyBookmarksModal: React.FC<MyBookmarksModalProps> = ({ isOpen, onCl
                     <button
                       onClick={(e) => toggleCompare(p.id, e)}
                       className={`p-2 rounded-xl border transition-colors ${
-                        isCompared ? 'bg-blue-50 border-blue-200 text-[#0066FF]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'
+                        isCompared ? 'bg-gray-900 border-gray-900 text-white' : 'border-gray-200 text-gray-500 hover:bg-gray-50'
                       }`}
                       title="비교함 담기"
                     >
@@ -108,7 +108,7 @@ export const MyBookmarksModal: React.FC<MyBookmarksModalProps> = ({ isOpen, onCl
                   onClose();
                   setActiveTab('category');
                 }}
-                className="px-4 py-2 bg-[#0066FF] text-white text-xs font-bold rounded-full shadow-xs hover:bg-blue-600"
+                className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-full shadow-xs hover:bg-black"
               >
                 신제품 둘러보기
               </button>

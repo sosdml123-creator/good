@@ -210,7 +210,7 @@ export const SettingsView: React.FC = () => {
             {/* Push Toggle */}
             <div className="px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0066FF] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-gray-100 text-gray-900 flex items-center justify-center shrink-0">
                   <Bell className="w-4 h-4" />
                 </div>
                 <div>
@@ -221,7 +221,7 @@ export const SettingsView: React.FC = () => {
               <button
                 onClick={handleTogglePush}
                 className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  pushEnabled ? 'bg-[#0066FF]' : 'bg-gray-200'
+                  pushEnabled ? 'bg-gray-900' : 'bg-gray-200'
                 }`}
                 aria-label="푸시 알림 토글"
               >
@@ -247,7 +247,7 @@ export const SettingsView: React.FC = () => {
               <button
                 onClick={handleToggleNightPush}
                 className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  nightPushEnabled ? 'bg-[#0066FF]' : 'bg-gray-200'
+                  nightPushEnabled ? 'bg-gray-900' : 'bg-gray-200'
                 }`}
                 aria-label="야간 알림 토글"
               >
@@ -284,7 +284,7 @@ export const SettingsView: React.FC = () => {
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
               약관 및 정책 (Legal)
             </h2>
-            <span className="text-[10px] text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] text-gray-700 font-semibold bg-gray-100 px-2 py-0.5 rounded-full">
               스토어 심사 기준 준수
             </span>
           </div>
@@ -306,7 +306,7 @@ export const SettingsView: React.FC = () => {
                         {item.title}
                       </span>
                       {item.badge && (
-                        <span className="text-[9px] font-extrabold bg-blue-50 text-[#0066FF] px-1.5 py-0.2 rounded">
+                        <span className="text-[9px] font-extrabold bg-gray-100 text-gray-700 px-1.5 py-0.2 rounded">
                           {item.badge}
                         </span>
                       )}
@@ -359,7 +359,7 @@ export const SettingsView: React.FC = () => {
                   <div className="text-[11px] text-gray-400">최신 정식 릴리즈 v1.0.0</div>
                 </div>
               </div>
-              <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded-full">
+              <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-full">
                 최신 버전
               </span>
             </div>
@@ -398,7 +398,7 @@ export const SettingsView: React.FC = () => {
             {currentUser.isAnonymous ? (
               <button
                 onClick={openLoginModal}
-                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-blue-50/40 transition-colors text-left group cursor-pointer"
+                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors text-left group cursor-pointer"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center shrink-0">
@@ -407,7 +407,7 @@ export const SettingsView: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-gray-900 group-hover:text-[#0066FF] transition-colors">
+                    <div className="text-xs font-bold text-gray-900 group-hover:text-gray-600 transition-colors">
                       소셜 계정 연결 (Apple / 카카오 / Google)
                     </div>
                     <div className="text-[11px] text-gray-400">
@@ -415,7 +415,7 @@ export const SettingsView: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded-lg">
+                <span className="text-xs font-bold text-white bg-gray-900 px-2.5 py-1 rounded-lg">
                   연결
                 </span>
               </button>
@@ -479,7 +479,7 @@ export const SettingsView: React.FC = () => {
                 maxLength={15}
                 autoFocus
                 placeholder="새로운 닉네임을 입력하세요"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-[#0066FF]"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-gray-900"
               />
               <div className="flex gap-2">
                 <button
@@ -491,7 +491,7 @@ export const SettingsView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-[#0066FF] text-white text-xs font-bold hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
+                  className="flex-1 py-2.5 rounded-xl bg-gray-900 text-white text-xs font-bold hover:bg-black transition-colors flex items-center justify-center gap-1"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>변경완료</span>

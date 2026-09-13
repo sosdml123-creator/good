@@ -119,7 +119,7 @@ export const WriteRecipeModal: React.FC = () => {
         {/* Top Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white sticky top-0 z-20">
           <div className="flex items-center gap-1.5 font-black text-sm text-gray-900">
-            <ChefHat className="w-4 h-4 text-[#0066FF]" />
+            <ChefHat className="w-4 h-4 text-gray-900" />
             <span>나만의 꿀조합 레시피 등록</span>
             <span className="text-[10px] font-bold bg-amber-50 text-amber-600 px-1.5 py-0.2 rounded">
               +50P 적립
@@ -146,7 +146,7 @@ export const WriteRecipeModal: React.FC = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="예: 불닭 콘치즈마요 황금 레시피"
-              className="w-full text-xs p-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#0066FF]"
+              className="w-full text-xs p-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-gray-900"
             />
           </div>
 
@@ -160,7 +160,7 @@ export const WriteRecipeModal: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="이 꿀조합의 맛과 특징을 한 줄로 자랑해주세요!"
-              className="w-full text-xs p-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#0066FF] resize-none"
+              className="w-full text-xs p-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-gray-900 resize-none"
             />
           </div>
 
@@ -176,7 +176,7 @@ export const WriteRecipeModal: React.FC = () => {
                   key={preset.label}
                   onClick={() => setSelectedImage(preset.url)}
                   className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all ${
-                    selectedImage === preset.url ? 'border-[#0066FF] ring-2 ring-blue-500/20' : 'border-transparent opacity-60'
+                    selectedImage === preset.url ? 'border-gray-900 ring-2 ring-gray-900/20' : 'border-transparent opacity-60'
                   }`}
                 >
                   <img src={preset.url} alt={preset.label} className="w-full h-full object-cover" />
@@ -239,7 +239,7 @@ export const WriteRecipeModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleAddIngredient}
-                className="text-[11px] font-bold text-[#0066FF] flex items-center gap-0.5 hover:underline"
+                className="text-[11px] font-bold text-gray-900 flex items-center gap-0.5 hover:underline"
               >
                 <Plus className="w-3.5 h-3.5" /> 재료 추가
               </button>
@@ -285,7 +285,7 @@ export const WriteRecipeModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleAddStep}
-                className="text-[11px] font-bold text-[#0066FF] flex items-center gap-0.5 hover:underline"
+                className="text-[11px] font-bold text-gray-900 flex items-center gap-0.5 hover:underline"
               >
                 <Plus className="w-3.5 h-3.5" /> 단계 추가
               </button>
@@ -294,7 +294,7 @@ export const WriteRecipeModal: React.FC = () => {
             <div className="space-y-1.5">
               {steps.map((step, idx) => (
                 <div key={idx} className="flex gap-1.5 items-center">
-                  <span className="w-5 h-5 rounded-full bg-blue-100 text-[#0066FF] font-bold text-[11px] flex items-center justify-center shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-gray-100 text-gray-900 font-bold text-[11px] flex items-center justify-center shrink-0">
                     {idx + 1}
                   </span>
                   <input
@@ -350,7 +350,7 @@ export const WriteRecipeModal: React.FC = () => {
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3 bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors active:scale-98"
+              className="w-full py-3 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-xl shadow-xs transition-colors active:scale-98"
             >
               레시피 등록하고 50P 받기 ✨
             </button>

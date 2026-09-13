@@ -56,7 +56,7 @@ export const RecipeDetailModal: React.FC = () => {
           <div className="flex items-center gap-1">
             <button
               onClick={handleShare}
-              className="p-1.5 text-gray-600 hover:text-[#0066FF] transition-colors rounded-full hover:bg-gray-100"
+              className="p-1.5 text-gray-600 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-100"
               aria-label="공유하기"
             >
               <Share2 className="w-5 h-5" />
@@ -73,8 +73,8 @@ export const RecipeDetailModal: React.FC = () => {
 
         {/* 2. Scrollable Body */}
         <div className="flex-1 overflow-y-auto no-scrollbar pb-6">
-          {/* Main Visual Image */}
-          <div className="relative aspect-16/10 bg-gray-900 overflow-hidden">
+          {/* Hero Banner */}
+          <div className="relative w-full aspect-16/10 bg-gray-900 overflow-hidden">
             <img 
               src={selectedRecipe.image} 
               alt={selectedRecipe.title} 
@@ -108,7 +108,7 @@ export const RecipeDetailModal: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-1">
                     <span className="text-xs font-bold text-gray-900">{selectedRecipe.author}</span>
-                    <span className="text-[10px] font-semibold text-[#0066FF] bg-blue-50 px-1.5 py-0.2 rounded">
+                    <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
                       {selectedRecipe.authorLevel || 'LV.1'}
                     </span>
                   </div>
@@ -136,9 +136,9 @@ export const RecipeDetailModal: React.FC = () => {
 
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-3 gap-2 mt-3 text-center">
-              <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100">
-                <div className="flex items-center justify-center gap-1 text-[10px] text-blue-800 font-bold">
-                  <Clock className="w-3 h-3 text-[#0066FF]" />
+              <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-200">
+                <div className="flex items-center justify-center gap-1 text-[10px] text-gray-700 font-bold">
+                  <Clock className="w-3 h-3 text-gray-600" />
                   <span>소요 시간</span>
                 </div>
                 <div className="text-sm font-black text-gray-900 mt-0.5">{selectedRecipe.prepTime}</div>
@@ -168,10 +168,10 @@ export const RecipeDetailModal: React.FC = () => {
           <div className="p-4 border-b border-gray-100 bg-white">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-1.5">
-                <ShoppingBag className="w-4 h-4 text-[#0066FF]" />
+                <ShoppingBag className="w-4 h-4 text-gray-900" />
                 <h3 className="text-[14px] font-black text-gray-900">필요한 편의점 재료</h3>
               </div>
-              <span className="text-[11px] text-[#0066FF] font-bold">
+              <span className="text-[11px] text-gray-900 font-bold">
                 총 {selectedRecipe.ingredients.length}개 재료
               </span>
             </div>
@@ -181,7 +181,7 @@ export const RecipeDetailModal: React.FC = () => {
                 <div
                   key={idx}
                   onClick={() => handleIngredientClick(ing.productId, ing.name)}
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50/80 border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all cursor-pointer group"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50/80 border border-gray-100 hover:border-gray-300 hover:bg-gray-100/50 transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-white text-gray-500 font-bold text-xs flex items-center justify-center border border-gray-200 shadow-2xs">
@@ -189,7 +189,7 @@ export const RecipeDetailModal: React.FC = () => {
                     </span>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-gray-900 group-hover:text-[#0066FF] transition-colors">
+                        <span className="text-xs font-bold text-gray-900 group-hover:text-gray-600 transition-colors">
                           {ing.name}
                         </span>
                         {ing.isKeyItem && (
@@ -212,7 +212,7 @@ export const RecipeDetailModal: React.FC = () => {
                       </span>
                     )}
                     {ing.productId ? (
-                      <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 flex items-center">
+                      <span className="text-[10px] font-bold text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200 flex items-center">
                         신상보기 <ChevronRight className="w-3 h-3 ml-0.5" />
                       </span>
                     ) : (
@@ -229,14 +229,14 @@ export const RecipeDetailModal: React.FC = () => {
           {/* 4. Steps Section */}
           <div className="p-4 border-b border-gray-100 bg-white">
             <div className="flex items-center gap-1.5 mb-3">
-              <ChefHat className="w-4 h-4 text-[#0066FF]" />
+              <ChefHat className="w-4 h-4 text-gray-900" />
               <h3 className="text-[14px] font-black text-gray-900">만드는 순서 (초간단 레시피)</h3>
             </div>
 
             <div className="space-y-3">
               {selectedRecipe.steps.map((step, idx) => (
                 <div key={idx} className="flex gap-3 items-start">
-                  <span className="w-6 h-6 rounded-full bg-[#0066FF] text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                  <span className="w-6 h-6 rounded-full bg-gray-900 text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                     {idx + 1}
                   </span>
                   <div className="flex-1 text-xs text-gray-800 font-medium leading-relaxed bg-gray-50/70 p-3 rounded-xl border border-gray-100">
@@ -274,7 +274,7 @@ export const RecipeDetailModal: React.FC = () => {
 
           <button
             onClick={closeRecipeDetail}
-            className="px-5 py-3 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold transition-colors active:scale-98"
+            className="px-5 py-3 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold transition-colors active:scale-98"
           >
             확인
           </button>

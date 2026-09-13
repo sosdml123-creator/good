@@ -251,7 +251,7 @@ export const WriteReviewModal: React.FC = () => {
         </button>
         <div className="text-center">
           <span className="text-[15px] font-black text-gray-900 block leading-tight">신상 솔직 리뷰 작성</span>
-          <span className="text-[10px] text-[#0066FF] font-semibold">최대 +100P 적립 기회!</span>
+          <span className="text-[10px] text-amber-600 font-semibold">최대 +100P 적립 기회!</span>
         </div>
         <button 
           onClick={handleSubmit} 
@@ -259,7 +259,7 @@ export const WriteReviewModal: React.FC = () => {
           className={`text-[13px] font-black px-3 py-1 rounded-full transition-all ${
             isSubmitting || !prod
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-[#0066FF] text-white shadow-xs hover:bg-blue-600 active:scale-95'
+              : 'bg-gray-900 text-white shadow-xs hover:bg-black active:scale-95'
           }`}
         >
           {isSubmitting ? '등록중' : '등록'}
@@ -267,7 +267,7 @@ export const WriteReviewModal: React.FC = () => {
       </div>
 
       {/* 2. 포인트 적립 게이지 배너 */}
-      <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-[#0066FF] text-white px-4 py-3 shadow-xs">
+      <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 text-white px-4 py-3 shadow-xs">
         <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
           <span className="flex items-center gap-1.5">
             <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
@@ -293,12 +293,12 @@ export const WriteReviewModal: React.FC = () => {
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold text-gray-500 flex items-center gap-1">
-              <Store className="w-3.5 h-3.5 text-[#0066FF]" />
+              <Store className="w-3.5 h-3.5 text-gray-700" />
               리뷰 대상 상품
             </span>
             <button
               onClick={() => setIsSearchModalOpen(true)}
-              className="text-[11px] font-bold text-[#0066FF] bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-full flex items-center gap-1 transition-colors"
+              className="text-[11px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-2.5 py-1 rounded-full flex items-center gap-1 transition-colors"
             >
               <Search className="w-3 h-3" />
               {prod ? '상품 다시 검색' : '상품 검색하기'}
@@ -308,7 +308,7 @@ export const WriteReviewModal: React.FC = () => {
           {prod ? (
             <div 
               onClick={() => setIsSearchModalOpen(true)}
-              className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50/50 border border-gray-100 cursor-pointer transition-colors group"
+              className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-100 cursor-pointer transition-colors group"
             >
               <img 
                 src={prod.image} 
@@ -317,28 +317,28 @@ export const WriteReviewModal: React.FC = () => {
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-bold text-[#0066FF] bg-white border border-blue-200 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-gray-700 bg-white border border-gray-200 px-1.5 py-0.5 rounded">
                     {prod.category}
                   </span>
                   <span className="text-[11px] text-gray-500 font-medium truncate">{prod.brand}</span>
                 </div>
-                <div className="text-[13px] font-bold text-gray-900 mt-1 truncate group-hover:text-[#0066FF] transition-colors">
+                <div className="text-[13px] font-bold text-gray-900 mt-1 truncate group-hover:text-gray-900 transition-colors">
                   {prod.name}
                 </div>
                 <div className="text-[11px] font-semibold text-gray-600 mt-0.5">
                   {prod.price.toLocaleString()}원
                 </div>
               </div>
-              <span className="text-[11px] text-gray-400 font-bold group-hover:text-[#0066FF] shrink-0">
+              <span className="text-[11px] text-gray-400 font-bold group-hover:text-gray-900 shrink-0">
                 변경 &gt;
               </span>
             </div>
           ) : (
             <div 
               onClick={() => setIsSearchModalOpen(true)}
-              className="border-2 border-dashed border-blue-200 bg-blue-50/40 rounded-xl p-5 text-center cursor-pointer hover:bg-blue-50 transition-colors"
+              className="border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl p-5 text-center cursor-pointer hover:bg-gray-100 transition-colors"
             >
-              <Search className="w-7 h-7 text-[#0066FF] mx-auto mb-1.5" />
+              <Search className="w-7 h-7 text-gray-400 mx-auto mb-1.5" />
               <div className="text-xs font-bold text-gray-900">어떤 상품을 드셔보셨나요?</div>
               <p className="text-[11px] text-gray-500 mt-0.5">터치하여 리뷰할 상품을 검색해 선택해주세요</p>
             </div>
@@ -348,13 +348,13 @@ export const WriteReviewModal: React.FC = () => {
         {/* 4. 종합 만족도 별점 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 text-center">
           <div className="text-xs font-bold text-gray-500 mb-1">종합 만족도 평점</div>
-          <div className="flex items-center gap-2 text-4xl justify-center py-2">
+          <div className="flex items-center justify-center gap-2 py-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
                 type="button"
                 onClick={() => setRating(star)}
-                className="focus:outline-none hover:scale-115 active:scale-95 transition-transform"
+                className="p-1 transition-transform active:scale-110"
               >
                 <Star
                   className={`w-9 h-9 ${
@@ -366,7 +366,7 @@ export const WriteReviewModal: React.FC = () => {
               </button>
             ))}
           </div>
-          <div className="text-center text-[13px] font-black text-[#0066FF] mt-1">
+          <div className="text-center text-[13px] font-black text-gray-900 mt-1">
             {rating === 5 ? '정말 최고예요! 무조건 추천 ⭐⭐⭐⭐⭐' : 
              rating === 4 ? '맛있고 기대 이상이에요 👍' : 
              rating === 3 ? '무난하고 평범해요 😐' : 
@@ -393,7 +393,7 @@ export const WriteReviewModal: React.FC = () => {
                   onClick={() => setPurchasePlace(place.id)}
                   className={`py-2 px-2 rounded-xl text-xs font-bold border transition-all text-center ${
                     isSelected
-                      ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-xs scale-[1.02]'
+                      ? 'bg-gray-900 text-white border-gray-900 shadow-xs scale-[1.02]'
                       : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
                   }`}
                 >
@@ -414,7 +414,7 @@ export const WriteReviewModal: React.FC = () => {
                   onClick={() => setPurchaseEvent(evt)}
                   className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
                     purchaseEvent === evt
-                      ? 'bg-blue-50 text-[#0066FF] border-[#0066FF] font-bold'
+                      ? 'bg-gray-900 text-white border-gray-900 font-bold'
                       : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
                   }`}
                 >
@@ -430,7 +430,7 @@ export const WriteReviewModal: React.FC = () => {
                 placeholder={prod ? `${prod.price.toLocaleString()} (선택입력)` : '구매금액 (선택입력)'}
                 value={purchasePrice}
                 onChange={(e) => setPurchasePrice(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1 text-xs text-gray-800 outline-none focus:border-[#0066FF] focus:bg-white"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1 text-xs text-gray-800 outline-none focus:border-gray-900 focus:bg-white"
               />
               <span className="text-xs text-gray-500 shrink-0">원</span>
             </div>
@@ -452,7 +452,7 @@ export const WriteReviewModal: React.FC = () => {
                   onClick={() => setRepurchaseIntent(opt.value)}
                   className={`p-2 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all ${
                     isSelected
-                      ? 'bg-blue-50 border-[#0066FF] shadow-xs text-[#0066FF]'
+                      ? 'bg-rose-50 border-rose-400 shadow-xs text-rose-600'
                       : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -463,7 +463,7 @@ export const WriteReviewModal: React.FC = () => {
             })}
           </div>
           <div className="text-center text-[11px] font-semibold text-gray-500 bg-gray-50 py-1.5 rounded-lg">
-            선택: <span className="text-[#0066FF] font-bold">{repurchaseIntent}</span>
+            선택: <span className="text-rose-600 font-bold">{repurchaseIntent}</span>
           </div>
         </div>
 
@@ -481,7 +481,7 @@ export const WriteReviewModal: React.FC = () => {
             value={headline}
             onChange={(e) => setHeadline(e.target.value)}
             placeholder="예: 크림이 진짜 가득 차있어서 인생 빵 등극!"
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 font-bold outline-none placeholder-gray-400 focus:border-[#0066FF] focus:bg-white transition-colors"
+            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 font-bold outline-none placeholder-gray-400 focus:border-gray-900 focus:bg-white transition-colors"
           />
         </div>
 
@@ -577,10 +577,10 @@ export const WriteReviewModal: React.FC = () => {
                   max="5"
                   value={item.val}
                   onChange={(e) => item.set(Number(e.target.value))}
-                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0066FF]"
+                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-900"
                 />
               </div>
-              <span className="w-16 text-right text-[11px] font-black text-[#0066FF]">
+              <span className="w-16 text-right text-[11px] font-black text-gray-900">
                 {item.val}점 ({item.meta.right})
               </span>
             </div>
@@ -605,7 +605,7 @@ export const WriteReviewModal: React.FC = () => {
                   onClick={() => toggleTarget(tag)}
                   className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                     isSelected
-                      ? 'bg-[#0066FF] text-white shadow-2xs font-bold'
+                      ? 'bg-gray-900 text-white shadow-2xs font-bold'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -631,7 +631,7 @@ export const WriteReviewModal: React.FC = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최소 5자 이상)"
-            className="w-full bg-gray-50 rounded-xl p-3 text-xs text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-[#0066FF] focus:bg-white transition-colors"
+            className="w-full bg-gray-50 rounded-xl p-3 text-xs text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-gray-900 focus:bg-white transition-colors"
           />
           <div className="flex items-center justify-between text-[11px] text-gray-400 pt-0.5">
             <span>정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
@@ -644,7 +644,7 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
               📸 사진 첨부
-              <span className="text-[10px] text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded font-bold">
+              <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-bold">
                 +30P 보너스
               </span>
             </span>
@@ -664,7 +664,7 @@ export const WriteReviewModal: React.FC = () => {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-18 h-18 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#0066FF] flex flex-col items-center justify-center text-gray-500 text-xs gap-1 shrink-0 bg-gray-50 hover:bg-blue-50/30 transition-colors"
+              className="w-18 h-18 rounded-xl border-2 border-dashed border-gray-300 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 text-xs gap-1 shrink-0 bg-gray-50 hover:bg-gray-100 transition-colors"
             >
               <Camera className="w-5 h-5 text-gray-400" />
               <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
@@ -725,7 +725,7 @@ export const WriteReviewModal: React.FC = () => {
             className={`w-full py-4 font-black text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 ${
               isSubmitting || !prod
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-[#0066FF] hover:bg-blue-600 active:scale-98 text-white shadow-blue-500/20'
+                : 'bg-gray-900 hover:bg-black active:scale-98 text-white shadow-md'
             }`}
           >
             <span>리뷰 등록하고 +{earnedPoints}P 즉시 받기</span>
@@ -761,7 +761,7 @@ export const WriteReviewModal: React.FC = () => {
 
             {/* Search Input Bar */}
             <div className="p-4 pb-2 shrink-0">
-              <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-3.5 py-2.5 border border-transparent focus-within:border-[#0066FF] focus-within:bg-white transition-all">
+              <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-3.5 py-2.5 border border-transparent focus-within:border-gray-900 focus-within:bg-white transition-all">
                 <Search className="w-4 h-4 text-gray-400 shrink-0" />
                 <input
                   type="text"
@@ -791,7 +791,7 @@ export const WriteReviewModal: React.FC = () => {
                       onClick={() => setSelectedSearchCategory(cat)}
                       className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
                         isSelected
-                          ? 'bg-[#0066FF] text-white shadow-2xs'
+                          ? 'bg-gray-900 text-white shadow-2xs'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       }`}
                     >
@@ -808,7 +808,7 @@ export const WriteReviewModal: React.FC = () => {
                 <span>
                   {searchQuery ? `검색 결과 (${filteredProducts.length}개)` : `인기 신상품 (${filteredProducts.length}개)`}
                 </span>
-                <span className="text-[#0066FF]">터치하여 선택</span>
+                <span className="text-gray-500">터치하여 선택</span>
               </div>
 
               {filteredProducts.length > 0 ? (
@@ -824,7 +824,7 @@ export const WriteReviewModal: React.FC = () => {
                       }}
                       className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border ${
                         isCurrent
-                          ? 'bg-blue-50/80 border-[#0066FF] shadow-xs'
+                          ? 'bg-slate-50 border-gray-900 shadow-xs'
                           : 'bg-white hover:bg-gray-50 border-gray-100'
                       }`}
                     >
@@ -835,7 +835,7 @@ export const WriteReviewModal: React.FC = () => {
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.2 rounded">
+                          <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
                             {item.category}
                           </span>
                           <span className="text-[11px] text-gray-400 truncate">{item.brand}</span>
@@ -854,11 +854,11 @@ export const WriteReviewModal: React.FC = () => {
                       </div>
                       <div className="shrink-0 pl-1">
                         {isCurrent ? (
-                          <div className="w-6 h-6 rounded-full bg-[#0066FF] text-white flex items-center justify-center">
+                          <div className="w-6 h-6 rounded-full bg-gray-900 text-white flex items-center justify-center">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         ) : (
-                          <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                          <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-full border border-gray-200">
                             선택
                           </span>
                         )}
@@ -876,7 +876,7 @@ export const WriteReviewModal: React.FC = () => {
                       setSearchQuery('');
                       setSelectedSearchCategory('전체');
                     }}
-                    className="mt-2 text-xs font-bold text-[#0066FF] underline"
+                    className="mt-2 text-xs font-bold text-gray-900 underline"
                   >
                     전체 상품 보기
                   </button>

@@ -99,7 +99,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
                 onClick={() => setSelectedId(doc.id)}
                 className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
                   active
-                    ? 'bg-[#0066FF] text-white shadow-xs'
+                    ? 'bg-gray-900 text-white shadow-xs'
                     : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
                 }`}
               >
@@ -110,8 +110,8 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
         </div>
 
         {/* Policy Document Meta */}
-        <div className="bg-blue-50/60 px-4 py-2 border-b border-blue-100/70 flex items-center justify-between text-[11px] text-gray-600 shrink-0">
-          <span className="font-semibold text-[#0066FF]">
+        <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center justify-between text-[11px] text-gray-600 shrink-0">
+          <span className="font-semibold text-gray-900">
             {currentPolicy.title}
           </span>
           <span className="text-gray-500 font-medium">
@@ -151,7 +151,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
         <div className="p-3 bg-white border-t border-gray-100 shrink-0">
           <button
             onClick={onClose}
-            className="w-full py-3 bg-[#0066FF] text-white rounded-xl text-xs font-bold hover:bg-blue-600 transition-colors shadow-xs"
+            className="w-full py-3 bg-gray-900 text-white rounded-xl text-xs font-bold hover:bg-black transition-colors shadow-xs"
           >
             확인 및 닫기
           </button>

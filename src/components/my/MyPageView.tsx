@@ -155,7 +155,7 @@ export const MyPageView: React.FC = () => {
             </span>
             <div className="flex items-center gap-2">
               {m.sub && (
-                <span className={`text-[13px] ${m.hi ? 'text-[#0066FF] font-bold' : 'text-gray-400'}`}>
+                <span className={`text-[13px] ${m.hi ? 'text-gray-900 font-bold' : 'text-gray-400'}`}>
                   {m.sub}
                 </span>
               )}

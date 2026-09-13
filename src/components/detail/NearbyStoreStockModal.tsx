@@ -151,7 +151,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
             className="w-12 h-12 rounded-xl object-cover border border-gray-200 bg-white shrink-0" 
           />
           <div className="min-w-0 flex-1">
-            <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+            <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
               {product.brand}
             </span>
             <div className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</div>
@@ -167,7 +167,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
           </div>
           <button
             onClick={() => setIsChangingLoc(!isChangingLoc)}
-            className="text-[11px] text-[#0066FF] font-bold hover:underline shrink-0 ml-2"
+            className="text-[11px] text-gray-900 font-bold hover:underline shrink-0 ml-2"
           >
             {isChangingLoc ? '닫기' : '위치변경'}
           </button>
@@ -175,14 +175,14 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
 
         {/* Location Change Accordion */}
         {isChangingLoc && (
-          <div className="p-3 bg-blue-50/60 border-b border-blue-100 space-y-2">
+          <div className="p-3 bg-gray-50 border-b border-gray-200 space-y-2">
             <div className="flex gap-1.5">
               <input
                 type="text"
                 value={locInput}
                 onChange={(e) => setLocInput(e.target.value)}
                 placeholder="동/역 이름 입력 (예: 강남역, 홍대입구)"
-                className="flex-1 bg-white border border-blue-200 rounded-xl px-3 py-1.5 text-xs text-gray-800 outline-none placeholder-gray-400"
+                className="flex-1 bg-white border border-gray-200 focus:border-gray-900 rounded-xl px-3 py-1.5 text-xs text-gray-800 outline-none placeholder-gray-400"
               />
               <button
                 onClick={() => {
@@ -193,7 +193,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
                     showToast('📍 탐색 위치가 변경되었습니다.');
                   }
                 }}
-                className="px-3 py-1.5 bg-[#0066FF] text-white text-xs font-bold rounded-xl"
+                className="px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-xl"
               >
                 적용
               </button>
@@ -208,7 +208,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
                     setIsChangingLoc(false);
                     showToast(`📍 '${loc}' 주변 매장으로 갱신되었습니다.`);
                   }}
-                  className="bg-white px-2 py-0.5 rounded-md border border-blue-200 hover:bg-blue-100 text-blue-700"
+                  className="bg-white px-2 py-0.5 rounded-md border border-gray-200 hover:bg-gray-100 text-gray-700"
                 >
                   {loc}
                 </button>
@@ -259,7 +259,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
 
                   <div className="text-right shrink-0">
                     <div className="text-xs font-black text-gray-900 flex items-center gap-1 justify-end">
-                      <Navigation className="w-3 h-3 text-[#0066FF]" />
+                      <Navigation className="w-3 h-3 text-gray-700" />
                       <span>{store.distance}</span>
                     </div>
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md inline-block mt-0.5 ${
@@ -283,7 +283,7 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
                       isReserved
                         ? 'bg-emerald-600 text-white'
                         : store.stockCount > 0
-                          ? 'bg-[#0066FF] hover:bg-blue-700 text-white shadow-xs'
+                          ? 'bg-gray-900 hover:bg-black text-white shadow-xs'
                           : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     }`}
                   >

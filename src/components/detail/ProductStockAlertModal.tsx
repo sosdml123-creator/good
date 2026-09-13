@@ -62,7 +62,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
         {/* Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-blue-50 text-[#0066FF] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-900 flex items-center justify-center font-bold">
               <Bell className="w-4 h-4" />
             </div>
             <div>
@@ -86,7 +86,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
             className="w-14 h-14 rounded-2xl object-cover border border-gray-200 bg-white shrink-0" 
           />
           <div className="min-w-0 flex-1">
-            <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+            <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
               {product.brand} · {product.category}
             </span>
             <div className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</div>
@@ -101,7 +101,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="font-bold text-gray-900">1. 알림받을 판매처 선택</span>
-              <span className="text-[11px] text-[#0066FF] font-semibold">{selectedStores.length}개 선택됨</span>
+              <span className="text-[11px] text-gray-900 font-bold">{selectedStores.length}개 선택됨</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {storeOptions.map((st) => {
@@ -114,13 +114,13 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
                     onClick={() => toggleStore(st.id)}
                     className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                       isChecked
-                        ? 'border-[#0066FF] bg-blue-50/50 text-[#0066FF] font-bold shadow-2xs'
+                        ? 'border-gray-900 bg-gray-50 text-gray-900 font-bold shadow-2xs ring-1 ring-gray-900'
                         : 'border-gray-200 text-gray-700 hover:border-gray-300'
                     }`}
                   >
                     <span className="text-xs truncate">{st.label}</span>
                     <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
-                      isChecked ? 'bg-[#0066FF] text-white' : 'border border-gray-300'
+                      isChecked ? 'bg-gray-900 text-white' : 'border border-gray-300'
                     }`}>
                       {isChecked && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                     </div>
@@ -146,7 +146,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
                   type="checkbox"
                   checked={notifyChannels.push}
                   onChange={(e) => setNotifyChannels(prev => ({ ...prev, push: e.target.checked }))}
-                  className="w-4 h-4 text-[#0066FF] rounded"
+                  className="w-4 h-4 accent-gray-900 rounded"
                 />
               </label>
 
@@ -162,7 +162,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
                   type="checkbox"
                   checked={notifyChannels.kakao}
                   onChange={(e) => setNotifyChannels(prev => ({ ...prev, kakao: e.target.checked }))}
-                  className="w-4 h-4 text-[#0066FF] rounded"
+                  className="w-4 h-4 accent-gray-900 rounded"
                 />
               </label>
             </div>
@@ -194,7 +194,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
           </button>
           <button
             onClick={handleSave}
-            className="w-2/3 py-3 rounded-2xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
+            className="w-2/3 py-3 rounded-2xl bg-gray-900 hover:bg-black text-white text-xs font-bold shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
           >
             <Bell className="w-4 h-4" />
             <span>입고 알림 신청 완료</span>

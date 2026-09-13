@@ -48,7 +48,7 @@ export const PushBanner: React.FC = () => {
             className="w-11 h-11 rounded-xl object-cover border border-gray-100 shrink-0 bg-gray-50"
           />
         ) : (
-          <div className="w-11 h-11 rounded-xl bg-[#0066FF] text-white flex items-center justify-center shrink-0 shadow-md">
+          <div className="w-11 h-11 rounded-xl bg-gray-900 text-white flex items-center justify-center shrink-0 shadow-md">
             <Bell className="w-5 h-5" />
           </div>
         )}
@@ -57,7 +57,7 @@ export const PushBanner: React.FC = () => {
         <div className="flex-1 min-w-0 pr-1">
           <div className="flex items-center justify-between gap-1 mb-0.5">
             <div className="flex items-center gap-1.5 min-w-0">
-              <span className="text-[10px] font-black tracking-wide text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+              <span className="text-[10px] font-black tracking-wide text-gray-900 bg-gray-100 px-1.5 py-0.5 rounded">
                 신상픽 {incomingPush.badge || '알림'}
               </span>
               <span className="text-[10px] text-gray-400 shrink-0 font-medium">
@@ -73,7 +73,7 @@ export const PushBanner: React.FC = () => {
             {incomingPush.body}
           </p>
           
-          <div className="flex items-center gap-0.5 text-[10px] font-bold text-[#0066FF] mt-1.5">
+          <div className="flex items-center gap-0.5 text-[10px] font-bold text-gray-800 mt-1.5">
             <span>눌러서 자세히 보기</span>
             <ChevronRight className="w-3 h-3 stroke-[2.5]" />
           </div>

@@ -44,7 +44,7 @@ export const SinSangPickLogo: React.FC<SinSangPickLogoProps> = ({
             신상픽
           </span>
           {showTagline && (
-            <span className={`${textSizeMap[size].sub} font-bold text-[#0066FF] tracking-wider uppercase mt-0.5`}>
+            <span className={`${textSizeMap[size].sub} font-semibold text-gray-400 tracking-wider uppercase mt-0.5`}>
               Sinsangpick
             </span>
           )}
@@ -119,7 +119,7 @@ export const SinSangPickLogo: React.FC<SinSangPickLogoProps> = ({
           신상픽
         </span>
         {showTagline && (
-          <span className={`${textSizeMap[size].sub} font-bold text-[#0066FF] tracking-wider uppercase mt-0.5`}>
+          <span className={`${textSizeMap[size].sub} font-semibold text-gray-400 tracking-wider uppercase mt-0.5`}>
             Sinsangpick
           </span>
         )}
@@ -136,10 +136,10 @@ export const SinSangPickLogo: React.FC<SinSangPickLogoProps> = ({
           <span className={`${textSizeMap[size].title} font-black tracking-tight text-gray-900 leading-none`}>
             신상픽
           </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF]"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-900"></span>
         </div>
         {showTagline && (
-          <span className={`${textSizeMap[size].sub} font-bold text-[#0066FF] tracking-wider uppercase mt-0.5`}>
+          <span className={`${textSizeMap[size].sub} font-semibold text-gray-400 tracking-wider uppercase mt-0.5`}>
             NEW PICK
           </span>
         )}

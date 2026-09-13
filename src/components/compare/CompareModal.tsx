@@ -302,7 +302,7 @@ export const CompareModal: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleShare}
-            className="p-1.5 text-gray-500 hover:text-[#0066FF] hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-1.5 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
             title="공유하기"
           >
             <Share2 className="w-4 h-4" />
@@ -310,7 +310,7 @@ export const CompareModal: React.FC = () => {
           {isCustomCompare && (
             <button
               onClick={clearCompare}
-              className="text-xs font-bold text-[#0066FF] hover:opacity-80 px-2 py-1 bg-blue-50 rounded-lg"
+              className="text-xs font-bold text-gray-700 hover:text-gray-900 px-2 py-1 bg-gray-100 rounded-lg"
             >
               비교함 비우기
             </button>
@@ -319,10 +319,10 @@ export const CompareModal: React.FC = () => {
       </div>
 
       {/* 2. 배틀 인포 헤더 카드 */}
-      <div className="bg-gradient-to-b from-blue-50/70 to-white px-4 pt-4 pb-2 border-b border-gray-100">
+      <div className="bg-gradient-to-b from-slate-50 to-white px-4 pt-4 pb-2 border-b border-gray-100">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-black text-[#0066FF] bg-blue-100/60 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-black text-gray-900 bg-gray-100 border border-gray-200/80 px-2 py-0.5 rounded-full">
               {battleConfig.labelA || '매치업'} VS {battleConfig.labelB || '매치업'}
             </span>
             <span className="text-[11px] text-gray-500 font-medium">실시간 대결</span>
@@ -343,9 +343,9 @@ export const CompareModal: React.FC = () => {
         {/* 실시간 득표율 게이지 바 */}
         <div className="mt-3.5 bg-white p-3 rounded-2xl border border-gray-200/80 shadow-xs">
           <div className="flex justify-between items-center text-xs font-black mb-1.5">
-            <span className="text-[#0066FF] flex items-center gap-1">
-              🔵 {p1.brand} ({percentA}%)
-              {battleChoice === 'A' && <span className="text-[10px] bg-blue-50 text-[#0066FF] px-1 py-0.2 rounded font-bold">내 선택</span>}
+            <span className="text-gray-900 flex items-center gap-1">
+              ⚫ {p1.brand} ({percentA}%)
+              {battleChoice === 'A' && <span className="text-[10px] bg-gray-100 text-gray-900 px-1 py-0.2 rounded font-bold">내 선택</span>}
             </span>
             <span className="text-orange-500 flex items-center gap-1">
               {battleChoice === 'B' && <span className="text-[10px] bg-orange-50 text-orange-500 px-1 py-0.2 rounded font-bold">내 선택</span>}
@@ -354,7 +354,7 @@ export const CompareModal: React.FC = () => {
           </div>
           <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden flex shadow-inner">
             <div 
-              className="bg-gradient-to-r from-blue-500 to-[#0066FF] h-full transition-all duration-500 flex items-center justify-end pr-1 text-[9px] font-bold text-white"
+              className="bg-gradient-to-r from-gray-900 to-slate-700 h-full transition-all duration-500 flex items-center justify-end pr-1 text-[9px] font-bold text-white"
               style={{ width: `${percentA}%` }}
             />
             <div 
@@ -367,8 +367,8 @@ export const CompareModal: React.FC = () => {
               onClick={() => voteBattle('A')}
               className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
                 battleChoice === 'A'
-                  ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-xs'
-                  : 'bg-white text-gray-700 border-gray-200 hover:border-blue-300'
+                  ? 'bg-gray-900 text-white border-gray-900 shadow-xs'
+                  : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
               }`}
             >
               {battleChoice === 'A' && <Check className="w-3.5 h-3.5" />}
@@ -396,10 +396,10 @@ export const CompareModal: React.FC = () => {
           <div 
             onClick={() => openProductDetail(p1.id)}
             className={`flex-1 min-w-0 p-3 rounded-2xl border transition-all cursor-pointer hover:shadow-xs relative ${
-              battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20' : 'border-gray-200 bg-white'
+              battleChoice === 'A' ? 'border-gray-900 bg-slate-50/50' : 'border-gray-200 bg-white'
             }`}
           >
-            <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-[#0066FF] px-2 py-0.5 rounded-md shadow-xs">
+            <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-gray-900 px-2 py-0.5 rounded-md shadow-xs">
               A
             </span>
             <img
@@ -409,8 +409,8 @@ export const CompareModal: React.FC = () => {
             />
             <h3 className="text-xs font-bold text-gray-900 truncate">{p1.name}</h3>
             <span className="text-[11px] text-gray-400 block mt-0.5">{p1.brand}</span>
-            <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-[#0066FF] mt-1">
-              <Star className="w-3.5 h-3.5 fill-[#0066FF]" />
+            <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-amber-500 mt-1">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               <span>{p1.overallRating.toFixed(1)}</span>
               <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount})</span>
             </div>
@@ -419,7 +419,7 @@ export const CompareModal: React.FC = () => {
                 e.stopPropagation();
                 openProductDetail(p1.id);
               }}
-              className="mt-2.5 w-full py-1.5 text-[11px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors flex items-center justify-center gap-0.5"
+              className="mt-2.5 w-full py-1.5 text-[11px] font-bold text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors flex items-center justify-center gap-0.5"
             >
               <span>리뷰 보기</span>
               <ArrowRight className="w-3 h-3" />
@@ -481,9 +481,9 @@ export const CompareModal: React.FC = () => {
           {/* 맛 */}
           <div className="flex items-center">
             <span className="w-16 text-gray-600 text-[11px]">맛 평가</span>
-            <span className="w-7 text-left font-bold text-[#0066FF] text-[11px]">{p1.detailedRating.taste.toFixed(1)}</span>
+            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.taste.toFixed(1)}</span>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-[#0066FF] h-full rounded-l-full" style={{ width: `${(p1.detailedRating.taste / 5) * 100}%` }} />
+              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.taste / 5) * 100}%` }} />
             </div>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
               <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.taste / 5) * 100}%` }} />
@@ -494,9 +494,9 @@ export const CompareModal: React.FC = () => {
           {/* 가성비 */}
           <div className="flex items-center">
             <span className="w-16 text-gray-600 text-[11px]">가성비</span>
-            <span className="w-7 text-left font-bold text-[#0066FF] text-[11px]">{p1.detailedRating.value.toFixed(1)}</span>
+            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.value.toFixed(1)}</span>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-[#0066FF] h-full rounded-l-full" style={{ width: `${(p1.detailedRating.value / 5) * 100}%` }} />
+              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.value / 5) * 100}%` }} />
             </div>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
               <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.value / 5) * 100}%` }} />
@@ -507,9 +507,9 @@ export const CompareModal: React.FC = () => {
           {/* 양 */}
           <div className="flex items-center">
             <span className="w-16 text-gray-600 text-[11px]">푸짐함(양)</span>
-            <span className="w-7 text-left font-bold text-[#0066FF] text-[11px]">{p1.detailedRating.portion.toFixed(1)}</span>
+            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.portion.toFixed(1)}</span>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-[#0066FF] h-full rounded-l-full" style={{ width: `${(p1.detailedRating.portion / 5) * 100}%` }} />
+              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.portion / 5) * 100}%` }} />
             </div>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
               <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.portion / 5) * 100}%` }} />
@@ -520,9 +520,9 @@ export const CompareModal: React.FC = () => {
           {/* 재구매 의사 */}
           <div className="flex items-center">
             <span className="w-16 text-gray-600 text-[11px]">재구매 의사</span>
-            <span className="w-7 text-left font-bold text-[#0066FF] text-[11px]">{p1.detailedRating.repurchase.toFixed(1)}</span>
+            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.repurchase.toFixed(1)}</span>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-[#0066FF] h-full rounded-l-full" style={{ width: `${(p1.detailedRating.repurchase / 5) * 100}%` }} />
+              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.repurchase / 5) * 100}%` }} />
             </div>
             <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
               <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.repurchase / 5) * 100}%` }} />
@@ -577,11 +577,11 @@ export const CompareModal: React.FC = () => {
             onClick={() => setFilterChoice('A')}
             className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all flex items-center gap-1 ${
               filterChoice === 'A'
-                ? 'bg-[#0066FF] text-white shadow-xs'
-                : 'bg-blue-50 text-[#0066FF] hover:bg-blue-100'
+                ? 'bg-gray-900 text-white shadow-xs'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            <span>🔵 {p1.name.slice(0, 7)} 파</span>
+            <span>⚫ {p1.name.slice(0, 7)} 파</span>
             <span className="opacity-80 font-normal">({countA})</span>
           </button>
           <button
@@ -613,11 +613,11 @@ export const CompareModal: React.FC = () => {
               onClick={() => setSelectedChoice('A')}
               className={`py-1.5 px-2 rounded-xl text-[11px] font-bold border transition-all truncate ${
                 selectedChoice === 'A'
-                  ? 'bg-blue-50 text-[#0066FF] border-[#0066FF] shadow-xs'
+                  ? 'bg-gray-900 text-white border-gray-900 shadow-xs'
                   : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
               }`}
             >
-              🔵 {p1.brand} 지지
+              ⚫ {p1.brand} 지지
             </button>
             <button
               type="button"
@@ -656,7 +656,7 @@ export const CompareModal: React.FC = () => {
                   ? `[${p2.name.slice(0, 8)}] 추천 이유나 솔직한 한마디...` 
                   : '두 신상품에 대한 의견을 자유롭게 나눠보세요!'
               }`}
-              className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#0066FF] shadow-2xs"
+              className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 shadow-2xs"
             />
             <button
               type="submit"
@@ -698,8 +698,8 @@ export const CompareModal: React.FC = () => {
                       {/* 지지 진영 뱃지 */}
                       <div className="mt-0.5">
                         {comment.choice === 'A' && (
-                          <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.2 rounded inline-block">
-                            🔵 {p1.name.slice(0, 10)} 지지
+                          <span className="text-[10px] font-bold text-gray-800 bg-gray-100 px-1.5 py-0.2 rounded inline-block">
+                            ⚫ {p1.name.slice(0, 10)} 지지
                           </span>
                         )}
                         {comment.choice === 'B' && (
@@ -741,11 +741,11 @@ export const CompareModal: React.FC = () => {
                       onClick={() => handleToggleLike(comment.id)}
                       className={`flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full border transition-all ${
                         comment.isLiked
-                          ? 'bg-blue-50 text-[#0066FF] border-blue-200'
+                          ? 'border-rose-300 bg-rose-50 text-rose-500'
                           : 'bg-gray-50 text-gray-600 border-gray-200/80 hover:bg-gray-100'
                       }`}
                     >
-                      <ThumbsUp className={`w-3 h-3 ${comment.isLiked ? 'fill-[#0066FF]' : ''}`} />
+                      <ThumbsUp className={`w-3 h-3 ${comment.isLiked ? 'fill-rose-500' : ''}`} />
                       <span>공감 {comment.likes}</span>
                     </button>
 
@@ -788,11 +788,11 @@ export const CompareModal: React.FC = () => {
                             }
                           }}
                           placeholder="답글을 남겨보세요..."
-                          className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs text-gray-800 outline-none focus:border-[#0066FF]"
+                          className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs text-gray-800 outline-none focus:border-gray-900"
                         />
                         <button
                           onClick={() => handleAddReply(comment.id)}
-                          className="px-2.5 py-1.5 bg-[#0066FF] hover:bg-blue-600 text-white rounded-xl text-xs font-bold shrink-0 transition-colors"
+                          className="px-2.5 py-1.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shrink-0 transition-colors"
                         >
                           등록
                         </button>

@@ -139,7 +139,7 @@ export const ProductDetailModal: React.FC = () => {
       case 'CU':
         return { text: '1+1 행사중', color: 'bg-purple-50 text-purple-600 border-purple-200' };
       case 'GS25':
-        return { text: '재고여유', color: 'bg-blue-50 text-blue-600 border-blue-200' };
+        return { text: '재고여유', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
       case '세븐일레븐':
         return { text: '입고완료', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' };
       case '이마트24':
@@ -259,7 +259,7 @@ export const ProductDetailModal: React.FC = () => {
               <span>100% 산지직송 자연 원물</span>
             </span>
             {selectedProduct.produceDetails?.sizeGrade && (
-              <span className="text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+              <span className="text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
                 <span>📐</span>
                 <span>{selectedProduct.produceDetails.sizeGrade}</span>
               </span>
@@ -403,9 +403,9 @@ export const ProductDetailModal: React.FC = () => {
               </div>
 
               {/* 📐 1. 사이즈 평균 및 선별 규격 카드 */}
-              <div className="p-3 rounded-xl bg-gradient-to-br from-blue-50/70 to-indigo-50/40 border border-blue-200/80 mb-3">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-slate-50 to-gray-100 border border-slate-200 mb-3">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-blue-900">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900">
                     <span>📐</span>
                     <span>사이즈 평균 & 선별 규격</span>
                   </div>
@@ -737,7 +737,7 @@ export const ProductDetailModal: React.FC = () => {
           {/* 1. Detailed Product Specs Table */}
           <div className="bg-white px-4 py-4 border-b border-gray-100">
             <div className="flex items-center gap-1.5 mb-3">
-              <Info className="w-4 h-4 text-[#0066FF]" />
+              <Info className="w-4 h-4 text-gray-900" />
               <span className="text-[14px] font-bold text-gray-900">품목 기본 정보</span>
             </div>
 
@@ -768,7 +768,7 @@ export const ProductDetailModal: React.FC = () => {
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">총 열량(칼로리)</span>
-                <span className="text-gray-900 font-bold text-[#0066FF]">
+                <span className="text-gray-900 font-bold">
                   {selectedProduct.calories ? `${selectedProduct.calories} kcal` : (selectedProduct.itemType === 'fresh' ? '신선 자연식품' : '상세 표기 참조')}
                 </span>
               </div>
@@ -790,7 +790,7 @@ export const ProductDetailModal: React.FC = () => {
               </div>
               <div className="flex py-2.5 px-3">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">소비자 재구매율</span>
-                <span className="text-[#0066FF] font-black">{selectedProduct.repurchasePercent || 95}% 추천</span>
+                <span className="text-emerald-700 font-black">{selectedProduct.repurchasePercent || 95}% 추천</span>
               </div>
             </div>
           </div>
@@ -799,7 +799,7 @@ export const ProductDetailModal: React.FC = () => {
           <div className="bg-white px-4 py-4 border-b border-gray-100">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-[#0066FF]" />
+                <Layers className="w-4 h-4 text-gray-900" />
                 <span className="text-[14px] font-bold text-gray-900">
                   {selectedProduct.freshMetrics ? '신선 먹거리 품질 지표' : '영양 성분 분석표 (식약처 기준)'}
                 </span>
@@ -816,10 +816,10 @@ export const ProductDetailModal: React.FC = () => {
                   <div className="text-base font-black text-emerald-800 mt-0.5">{selectedProduct.freshMetrics.sweetness} / 5.0</div>
                   <div className="text-[10px] text-emerald-600 mt-0.5">비파괴 고당도 선별</div>
                 </div>
-                <div className="p-3 bg-blue-50/60 rounded-xl border border-blue-100">
-                  <div className="text-[11px] text-blue-700 font-bold">신선도 등급</div>
-                  <div className="text-base font-black text-blue-800 mt-0.5">{selectedProduct.freshMetrics.freshness} / 5.0</div>
-                  <div className="text-[10px] text-blue-600 mt-0.5">산지직송 콜드체인</div>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                  <div className="text-[11px] text-slate-700 font-bold">신선도 등급</div>
+                  <div className="text-base font-black text-slate-900 mt-0.5">{selectedProduct.freshMetrics.freshness} / 5.0</div>
+                  <div className="text-[10px] text-slate-600 mt-0.5">산지직송 콜드체인</div>
                 </div>
                 <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-100">
                   <div className="text-[11px] text-amber-700 font-bold">식감 만족도</div>
@@ -853,7 +853,7 @@ export const ProductDetailModal: React.FC = () => {
                   <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
                     <div className="flex justify-between items-center py-2.5 px-3 bg-gray-50/70 font-bold">
                       <span className="text-gray-700">열량 (칼로리)</span>
-                      <span className="text-gray-900 font-bold text-[#0066FF]">
+                      <span className="text-gray-900 font-bold">
                         {displayCalories ? `${displayCalories} kcal` : '상세 표기 참조'}
                       </span>
                     </div>
@@ -881,7 +881,7 @@ export const ProductDetailModal: React.FC = () => {
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
                       <span className="text-gray-600">단백질</span>
-                      <span className="font-bold text-[#0066FF]">{activeNutrition?.protein || '균형 함유'}</span>
+                      <span className="font-bold text-gray-900">{activeNutrition?.protein || '균형 함유'}</span>
                     </div>
                   </div>
                 </div>
@@ -1001,7 +1001,7 @@ export const ProductDetailModal: React.FC = () => {
 
                     <div className="flex items-center gap-2">
                       {br.tag && (
-                        <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
                           {br.tag}
                         </span>
                       )}
@@ -1012,7 +1012,7 @@ export const ProductDetailModal: React.FC = () => {
                       {br.buyLink && (
                         <button
                           onClick={() => window.open(br.buyLink, '_blank')}
-                          className="text-[10px] font-bold text-[#0066FF] bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-md ml-1"
+                          className="text-[10px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md ml-1"
                         >
                           판매처
                         </button>
@@ -1036,16 +1036,16 @@ export const ProductDetailModal: React.FC = () => {
             <div className="bg-white px-4 py-4 border-b border-gray-100 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#0066FF]" />
+                  <MapPin className="w-4 h-4 text-gray-900" />
                   <span className="text-[14px] font-bold text-gray-900">전국 대표 맛집 위치 및 랭킹</span>
                 </div>
-                <span className="text-[11px] text-[#0066FF] font-bold">인기순</span>
+                <span className="text-[11px] text-gray-500 font-bold">인기순</span>
               </div>
 
               {selectedProduct.restaurantInfo?.popularVariations && (
                 <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
                   {selectedProduct.restaurantInfo.popularVariations.map((v) => (
-                    <span key={v} className="shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-50 text-[#0066FF]">
+                    <span key={v} className="shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-700">
                       #{v}
                     </span>
                   ))}
@@ -1058,7 +1058,7 @@ export const ProductDetailModal: React.FC = () => {
                     <div key={rr.restaurantName} className="p-3.5 rounded-xl border border-gray-100 bg-gray-50/60 flex items-center justify-between">
                       <div>
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold text-white bg-[#0066FF] px-1.5 py-0.2 rounded">
+                          <span className="text-[10px] font-bold text-white bg-gray-900 px-1.5 py-0.2 rounded">
                             {rr.region}
                           </span>
                           <span className="text-xs font-bold text-gray-900">{rr.restaurantName}</span>
@@ -1069,7 +1069,7 @@ export const ProductDetailModal: React.FC = () => {
                             const url = `https://map.naver.com/v5/search/${encodeURIComponent(rr.restaurantName + ' ' + (rr.region || ''))}`;
                             window.open(url, '_blank');
                           }}
-                          className="mt-2 text-[11px] font-bold text-[#0066FF] flex items-center gap-1 hover:underline"
+                          className="mt-2 text-[11px] font-bold text-gray-800 flex items-center gap-1 hover:underline"
                         >
                           <MapPin className="w-3 h-3" />
                           <span>네이버 지도 길찾기</span>
@@ -1097,7 +1097,7 @@ export const ProductDetailModal: React.FC = () => {
               <div className="bg-white px-4 py-4 border-b border-gray-100">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
-                    <Store className="w-4 h-4 text-[#0066FF]" />
+                    <Store className="w-4 h-4 text-gray-900" />
                     <span className="text-[14px] font-bold text-gray-900">판매처별 실시간 입고 & 재고 현황</span>
                   </div>
                   <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">실시간 연동</span>
@@ -1109,44 +1109,37 @@ export const ProductDetailModal: React.FC = () => {
                     status: '입고완료',
                     stockCount: 6,
                     price: selectedProduct.price,
-                    discountPrice: selectedProduct.price,
-                    eventBadge: getStoreBadge(st).text,
-                    deliveryTime: '매장 즉시 픽업'
+                    appLink: `https://www.google.com/search?q=${encodeURIComponent(st + ' ' + selectedProduct.name)}`,
+                    distance: '250m',
+                    deliveryTime: '지금 즉시 픽업 가능'
                   }))).map((stItem) => {
-                    const icon = getStoreIcon(stItem.store);
-                    const defaultBadge = getStoreBadge(stItem.store);
-
+                    const badge = getStoreBadge(stItem.store);
+                    const storeIcon = getStoreIcon(stItem.store);
                     return (
-                      <div 
-                        key={stItem.store}
-                        className="p-3.5 rounded-2xl border border-gray-100 bg-white hover:border-blue-200 transition-all flex items-center justify-between shadow-2xs"
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-11 h-11 rounded-xl bg-gray-50 flex items-center justify-center text-2xl shrink-0 border border-gray-100">
-                            {icon}
+                      <div key={stItem.store} className="p-3.5 rounded-xl border border-gray-100 bg-gray-50/60 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center p-1.5 shadow-2xs text-lg">
+                            {storeIcon}
                           </div>
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2 flex-wrap">
+                          <div>
+                            <div className="flex items-center gap-2">
                               <span className="text-xs font-bold text-gray-900">{stItem.store}</span>
-                              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${
-                                stItem.eventBadge ? 'bg-purple-50 text-purple-700 border-purple-200' : defaultBadge.color
-                              }`}>
-                                {stItem.eventBadge || defaultBadge.text}
+                              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${badge.color}`}>
+                                {stItem.eventBadge || badge.text}
                               </span>
-                              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
-                                stItem.stockCount > 2 
-                                  ? 'bg-emerald-50 text-emerald-700' 
-                                  : stItem.stockCount > 0 
-                                    ? 'bg-amber-50 text-amber-700' 
-                                    : 'bg-gray-100 text-gray-500'
-                              }`}>
-                                {stItem.stockCount > 0 ? `재고 ${stItem.stockCount}개` : '일시품절'}
-                              </span>
+                              {stItem.stockCount !== undefined && stItem.stockCount > 0 && (
+                                <span className="text-[10px] text-emerald-600 font-semibold">
+                                  재고 {stItem.stockCount}개
+                                </span>
+                              )}
                             </div>
-                            <div className="flex items-center gap-2 mt-1">
+                            <div className="flex items-center gap-1.5 mt-1">
                               <span className="text-xs font-black text-gray-900">
-                                {(stItem.discountPrice || stItem.price || selectedProduct.price).toLocaleString()}원
+                                {stItem.price?.toLocaleString() || selectedProduct.price.toLocaleString()}원
                               </span>
+                              {stItem.distance && (
+                                <span className="text-[11px] text-gray-500 font-medium">· 거리 {stItem.distance}</span>
+                              )}
                               {stItem.deliveryTime && (
                                 <span className="text-[11px] text-gray-400">· {stItem.deliveryTime}</span>
                               )}
@@ -1164,8 +1157,8 @@ export const ProductDetailModal: React.FC = () => {
                           }}
                           className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shrink-0 ml-2 shadow-2xs ${
                             stItem.appLink
-                              ? 'bg-[#0066FF] text-white hover:bg-blue-600'
-                              : 'bg-blue-50 text-[#0066FF] hover:bg-blue-100'
+                              ? 'bg-gray-900 text-white hover:bg-black'
+                              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                           }`}
                         >
                           <span>{stItem.appLink ? '구매 / 바로가기' : '매장 재고확인'}</span>
@@ -1216,7 +1209,7 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
                   <button
                     onClick={() => setIsStockAlertModalOpen(true)}
-                    className="px-3 py-1.5 rounded-full border border-[#0066FF] text-[#0066FF] font-bold text-xs hover:bg-blue-50 transition-colors shrink-0 ml-2"
+                    className="px-3 py-1.5 rounded-full border border-gray-900 text-gray-900 font-bold text-xs hover:bg-gray-100 transition-colors shrink-0 ml-2"
                   >
                     입고 알림 설정
                   </button>

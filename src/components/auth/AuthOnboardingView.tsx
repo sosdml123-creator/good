@@ -26,16 +26,16 @@ export const AuthOnboardingView: React.FC = () => {
             <div className="flex flex-col">
               <div className="flex items-center gap-1">
                 <span className="text-[18px] font-black tracking-tight text-gray-900 leading-none">신상픽</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-900"></span>
               </div>
-              <span className="text-[10px] font-bold text-[#0066FF] tracking-wider uppercase mt-0.5">NEW PICK • Sinsangpick</span>
+              <span className="text-[10px] font-bold text-gray-500 tracking-wider uppercase mt-0.5">NEW PICK • Sinsangpick</span>
             </div>
           </div>
 
           <div className="space-y-2 text-left">
             <h1 className="text-2xl sm:text-[26px] font-black text-gray-900 leading-[1.25] tracking-tight">
               오늘 가장 핫한 신상,<br />
-              <span className="text-[#0066FF]">3초 만에</span> 확인하세요!
+              <span className="text-gray-900 font-black underline decoration-amber-400 decoration-2">3초 만에</span> 확인하세요!
             </h1>
             <p className="text-xs text-gray-500 font-medium leading-relaxed">
               편의점·마트 실시간 신제품 탐색부터 솔직 리뷰와 할인 소식까지
@@ -45,7 +45,7 @@ export const AuthOnboardingView: React.FC = () => {
           {/* Feature Highlight Cards */}
           <div className="grid grid-cols-1 gap-2.5 pt-2">
             <div className="flex items-center gap-3 p-3 bg-gray-50/80 border border-gray-100/80 rounded-2xl">
-              <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0066FF] flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0">
                 <Flame className="w-4 h-4" />
               </div>
               <div className="text-left min-w-0">

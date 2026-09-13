@@ -24,7 +24,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
         {/* Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-blue-50 text-[#0066FF] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-900 flex items-center justify-center font-bold">
               <PenSquare className="w-4 h-4" />
             </div>
             <div>
@@ -52,7 +52,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                     onClose();
                     openProductDetail(r.productId);
                   }}
-                  className="p-2 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-blue-50/50 transition-colors"
+                  className="p-2 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     {r.productImage && (
@@ -60,7 +60,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                     )}
                     <span className="text-xs font-bold text-gray-900 truncate">{r.productName}</span>
                   </div>
-                  <span className="text-[11px] text-[#0066FF] font-semibold flex items-center gap-0.5 shrink-0">
+                  <span className="text-[11px] text-gray-700 hover:text-gray-900 font-semibold flex items-center gap-0.5 shrink-0">
                     상세보기
                     <ExternalLink className="w-3 h-3" />
                   </span>
@@ -83,7 +83,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                 {(r.purchasePlace || r.repurchaseIntent || r.isReceiptVerified) && (
                   <div className="flex flex-wrap items-center gap-1">
                     {r.purchasePlace && (
-                      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">
                         🏪 {r.purchasePlace} {r.purchaseEvent ? `· ${r.purchaseEvent}` : ''}
                       </span>
                     )}
@@ -152,7 +152,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                   onClose();
                   setActiveTab('write');
                 }}
-                className="px-4 py-2 bg-[#0066FF] text-white text-xs font-bold rounded-full shadow-xs hover:bg-blue-600"
+                className="px-4 py-2 bg-gray-900 text-white text-xs font-bold rounded-full shadow-xs hover:bg-black"
               >
                 리뷰 작성하기
               </button>

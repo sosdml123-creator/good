@@ -98,7 +98,7 @@ export const SearchModal: React.FC = () => {
 
         <button
           onClick={() => handleSearch(inputQuery)}
-          className="text-xs font-bold text-[#0066FF] px-2 py-1 shrink-0"
+          className="text-xs font-bold text-gray-900 px-2 py-1 shrink-0"
         >
           검색
         </button>
@@ -221,7 +221,7 @@ export const SearchModal: React.FC = () => {
                           <h3 className="text-xs font-bold text-gray-900">
                             ‘{inputQuery}’ 관련 가공식품 · 제품
                           </h3>
-                          <span className="text-[9px] bg-blue-50 text-[#0066FF] font-bold px-1.5 py-0.2 rounded border border-blue-200">
+                          <span className="text-[9px] bg-gray-100 text-gray-700 font-bold px-1.5 py-0.2 rounded border border-gray-200">
                             스낵·간편식
                           </span>
                         </div>
@@ -291,9 +291,9 @@ export const SearchModal: React.FC = () => {
       ) : (
         <div className="flex-1 p-4 space-y-6">
           {/* Quick produce search tags */}
-          <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+          <div className="p-3 bg-gradient-to-r from-gray-50 to-slate-100 rounded-2xl border border-gray-200">
             <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#0066FF]" />
+              <Sparkles className="w-3.5 h-3.5 text-gray-900" />
               <span>원물 vs 관련제품 추천 검색</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -307,7 +307,7 @@ export const SearchModal: React.FC = () => {
                 <button
                   key={item.tag}
                   onClick={() => handleSearch(item.query)}
-                  className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs font-semibold border border-blue-200/60 hover:border-[#0066FF] hover:text-[#0066FF] transition-all shadow-2xs"
+                  className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs font-semibold border border-gray-200 hover:border-gray-900 hover:text-gray-900 transition-all shadow-2xs"
                 >
                   {item.tag}
                 </button>
@@ -369,7 +369,7 @@ export const SearchModal: React.FC = () => {
                   <div className="flex items-center gap-2.5">
                     <span
                       className={`text-xs font-black ${
-                        idx < 3 ? 'text-[#0066FF]' : 'text-gray-400'
+                        idx < 3 ? 'text-gray-900' : 'text-gray-400'
                       }`}
                     >
                       {idx + 1}

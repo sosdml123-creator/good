@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Sparkles, Check, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -66,8 +66,8 @@ export const NicknameSetupModal: React.FC = () => {
       >
         {/* Celebration Header Icon */}
         <div className="flex flex-col items-center text-center space-y-2 pt-2">
-          <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0066FF] flex items-center justify-center shadow-sm">
-            <Sparkles className="w-7 h-7 fill-blue-500/20" />
+          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shadow-sm">
+            <Sparkles className="w-7 h-7 fill-amber-500/20" />
           </div>
           <h2 className="text-xl font-black text-gray-900 tracking-tight">
             환영합니다! 🎉
@@ -110,7 +110,7 @@ export const NicknameSetupModal: React.FC = () => {
               className={`w-full bg-gray-50 border rounded-2xl px-4 py-3 text-sm text-gray-900 outline-none transition-all ${
                 errorMsg 
                   ? 'border-rose-400 focus:border-rose-500 bg-rose-50/30' 
-                  : 'border-gray-200 focus:border-[#0066FF] focus:bg-white'
+                  : 'border-gray-200 focus:border-gray-900 focus:bg-white'
               }`}
             />
             {errorMsg && (
@@ -123,7 +123,7 @@ export const NicknameSetupModal: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting || nickname.trim().length < 2}
-            className="w-full h-12 bg-[#0066FF] hover:bg-blue-600 disabled:bg-gray-200 disabled:text-gray-400 active:scale-[0.99] text-white rounded-2xl flex items-center justify-center gap-2 font-bold text-sm shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+            className="w-full h-12 bg-gray-900 hover:bg-black disabled:bg-gray-200 disabled:text-gray-400 active:scale-[0.99] text-white rounded-2xl flex items-center justify-center gap-2 font-bold text-sm shadow-md transition-all cursor-pointer"
           >
             {isSubmitting ? (
               <span>설정 중...</span>

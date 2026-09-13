@@ -67,7 +67,7 @@ export const AuthCallbackBridge: React.FC = () => {
       <div className="bg-white rounded-3xl p-6 max-w-[360px] w-full shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
         
         {/* App Icon / Graphic */}
-        <div className="mx-auto w-16 h-16 rounded-2xl bg-blue-50 text-[#0066FF] flex items-center justify-center shadow-inner">
+        <div className="mx-auto w-16 h-16 rounded-2xl bg-gray-100 text-gray-900 flex items-center justify-center shadow-inner">
           <Smartphone className="w-8 h-8 animate-bounce" />
         </div>
 
@@ -89,7 +89,7 @@ export const AuthCallbackBridge: React.FC = () => {
         <div className="space-y-2.5 pt-1">
           <button
             onClick={handleOpenApp}
-            className="w-full h-12 bg-[#0066FF] hover:bg-blue-700 active:scale-[0.98] text-white font-bold text-[14px] rounded-2xl flex items-center justify-center gap-2 shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+            className="w-full h-12 bg-gray-900 hover:bg-black active:scale-[0.98] text-white font-bold text-[14px] rounded-2xl flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
           >
             <span>신상픽 앱 열기</span>
             <ArrowRight className="w-4 h-4" />

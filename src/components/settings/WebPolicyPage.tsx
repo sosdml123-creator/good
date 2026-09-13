@@ -24,13 +24,13 @@ export const WebPolicyPage: React.FC<WebPolicyPageProps> = ({ initialPolicyId })
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>신상픽 앱으로 이동</span>
             </a>
-            <span className="font-extrabold text-base text-[#0066FF] tracking-tight">
+            <span className="font-extrabold text-base text-gray-900 tracking-tight">
               신상픽 (Sinsangpick)
             </span>
           </div>
 
           <div className="text-xs text-gray-400">
-            고객문의: <a href="mailto:contact@sinsangpick.com" className="text-blue-600 hover:underline">contact@sinsangpick.com</a>
+            고객문의: <a href="mailto:contact@sinsangpick.com" className="text-gray-800 underline">contact@sinsangpick.com</a>
           </div>
         </div>
       </header>
@@ -39,7 +39,7 @@ export const WebPolicyPage: React.FC<WebPolicyPageProps> = ({ initialPolicyId })
       <div className="bg-white border-b border-gray-200 py-6 px-4">
         <div className="max-w-4xl mx-auto space-y-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">
+            <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-0.5 rounded-full">
               공식 정책 문서
             </span>
             <span className="text-xs text-gray-400">
@@ -60,7 +60,7 @@ export const WebPolicyPage: React.FC<WebPolicyPageProps> = ({ initialPolicyId })
                   onClick={() => setSelectedId(p.id)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
                     active
-                      ? 'bg-[#0066FF] text-white shadow-xs'
+                      ? 'bg-gray-900 text-white shadow-xs'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >

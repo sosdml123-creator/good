@@ -50,7 +50,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
             onClick={() => setSortTab(s)}
             className={`py-2 px-2.5 text-[12px] font-semibold transition-colors ${
               sortTab === s
-                ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
+                ? 'text-gray-900 border-b-2 border-gray-900'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -63,26 +63,31 @@ export const ReviewList: React.FC<ReviewListProps> = ({
         <div className="space-y-4">
           {sortedReviews.map((r) => (
             <div key={r.id} className="border-b border-gray-100 pb-4 last:border-0">
-              <div className="flex items-center gap-2 mb-2">
-                <img
-                  src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
-                  alt={r.userName}
-                  className="w-8 h-8 rounded-full object-cover bg-gray-100"
-                  onError={(e) => {
-                    e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
-                  }}
-                />
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[13px] font-semibold text-gray-900">{r.userName}</span>
-                    <span className="text-[10px] text-white bg-gray-400 px-1.5 py-0.2 rounded font-semibold">{r.userLevel}</span>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-xs text-gray-700">
+                    {r.userName ? r.userName[0] : 'U'}
                   </div>
-                  <div className="flex items-center gap-1 text-[11px] text-gray-400">
-                    <div className="flex items-center">
-                      <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                      <span className="font-semibold text-gray-700 ml-0.5">{r.rating.toFixed(1)}</span>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-gray-900">{r.userName}</span>
+                      {r.userLevel && (
+                        <span className="text-[10px] bg-amber-50 text-amber-600 font-bold px-1 rounded">
+                          Lv.{r.userLevel}
+                        </span>
+                      )}
                     </div>
-                    <span>· {typeof r.createdAt === 'string' && r.createdAt.includes('T') ? new Date(r.createdAt).toLocaleDateString() : r.createdAt}</span>
+                    <div className="text-[10px] text-gray-400 flex items-center gap-1">
+                      <div className="flex items-center text-amber-400">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3 h-3 ${i < r.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-200 fill-gray-200'}`}
+                          />
+                        ))}
+                      </div>
+                      <span>· {typeof r.createdAt === 'string' && r.createdAt.includes('T') ? new Date(r.createdAt).toLocaleDateString() : r.createdAt}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,7 +95,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
               {/* Badges: Purchase Place, Verified, Repurchase */}
               <div className="flex flex-wrap items-center gap-1.5 mb-2">
                 {r.purchasePlace && (
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">
                     🏪 {r.purchasePlace} {r.purchaseEvent ? `· ${r.purchaseEvent}` : ''}
                   </span>
                 )}
@@ -216,7 +221,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                     />
                     <button
                       onClick={() => handleAddComment(r.id)}
-                      className="w-7 h-7 rounded-full bg-[#0066FF] text-white flex items-center justify-center shrink-0 hover:bg-blue-600"
+                      className="w-7 h-7 rounded-full bg-gray-900 text-white flex items-center justify-center shrink-0 hover:bg-black"
                     >
                       <Send className="w-3.5 h-3.5" />
                     </button>
@@ -238,7 +243,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
           </p>
           <button
             onClick={() => setActiveTab('write')}
-            className="mt-2 px-4 py-1.5 bg-[#0066FF] hover:bg-blue-600 text-white text-xs font-bold rounded-full shadow-xs transition-colors"
+            className="mt-2 px-4 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs transition-colors"
           >
             리뷰 작성하기
           </button>

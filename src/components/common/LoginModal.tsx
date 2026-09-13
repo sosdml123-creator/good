@@ -22,9 +22,9 @@ export const LoginModal: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="신상픽" 
-              className="w-5 h-5 rounded-lg object-cover shadow-xs border border-blue-100" 
+              className="w-5 h-5 rounded-lg object-cover shadow-xs border border-gray-200" 
             />
-            <span className="text-xs font-bold text-[#0066FF] uppercase tracking-wider">Sinsangpick Login</span>
+            <span className="text-xs font-bold text-gray-700 uppercase tracking-wider">Sinsangpick Login</span>
           </div>
           <button
             onClick={() => setIsLoginModalOpen(false)}

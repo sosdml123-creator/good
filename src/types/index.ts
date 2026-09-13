@@ -101,6 +101,7 @@ export interface StoreStockItem {
   eventBadge?: string;    // '1+1', '2+1', '샛별배송', '새벽도착', '특가할인'
   appLink?: string;       // Direct official app/web link
   deliveryTime?: string;  // '매장 즉시 픽업', '새벽 7시 전 도착'
+  distance?: string;
 }
 
 export interface NearbyStore {
