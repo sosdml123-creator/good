@@ -45,12 +45,16 @@ import {
   signInWithApple as supabaseSignInWithApple,
   signInWithKakao as supabaseSignInWithKakao,
   signOutSupabase,
+  handleAuthCallbackUrl,
   DBProduct,
   DBReview,
   DBCommunityPost,
   DBReviewComment,
   DBPostComment
 } from '../services/supabase';
+import { App as CapacitorApp } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
+
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
 
@@ -1157,13 +1161,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       });
 
+      // 7. Listen for Capacitor App URL Open (Native Deep Link: sinsangpick://auth-callback)
+      let appUrlSub: any = null;
+      if (Capacitor.isNativePlatform()) {
+        CapacitorApp.addListener('appUrlOpen', async (data) => {
+          console.log('[Capacitor App] Deep link received:', data.url);
+          if (data.url && (data.url.includes('auth-callback') || data.url.includes('access_token') || data.url.includes('code='))) {
+            const success = await handleAuthCallbackUrl(data.url);
+            if (success && isMounted) {
+              setIsLoginModalOpen(false);
+              setIsGuestBrowse(true);
+            }
+          }
+        }).then(sub => {
+          appUrlSub = sub;
+        }).catch(err => {
+          console.warn('[Capacitor App] addListener appUrlOpen error:', err);
+        });
+      }
+
       return () => {
         client.removeChannel(channel);
         authSub.unsubscribe();
+        if (appUrlSub && typeof appUrlSub.remove === 'function') {
+          appUrlSub.remove();
+        }
       };
     };
 
     init();
+
 
     return () => {
       isMounted = false;

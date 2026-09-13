@@ -25,6 +25,7 @@ import { RankingView } from './components/ranking/RankingView';
 import { LoginModal } from './components/common/LoginModal';
 import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
 import { NicknameSetupModal } from './components/auth/NicknameSetupModal';
+import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
 
 export const App: React.FC = () => {
   const { activeTab, currentUser, isGuestBrowse } = useApp();
@@ -35,17 +36,28 @@ export const App: React.FC = () => {
   const path = window.location.pathname.replace('/', '').toLowerCase();
 
   if (policyParam) {
-    return <WebPolicyPage initialPolicyId={policyParam} />;
+    return (
+      <>
+        <AuthCallbackBridge />
+        <WebPolicyPage initialPolicyId={policyParam} />
+      </>
+    );
   }
 
   if (path === 'privacy' || path === 'terms' || path === 'location' || path === 'delete-account') {
-    return <WebPolicyPage initialPolicyId={path} />;
+    return (
+      <>
+        <AuthCallbackBridge />
+        <WebPolicyPage initialPolicyId={path} />
+      </>
+    );
   }
 
   // PC Admin Dashboard Layout (Full Desktop View without mobile BottomNav)
   if (activeTab === 'admin') {
     return (
       <div className="h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden antialiased">
+        <AuthCallbackBridge />
         <ToastContainer />
         <PushBanner />
         <AdminDashboard />
@@ -57,6 +69,7 @@ export const App: React.FC = () => {
   if (currentUser.isAnonymous && !isGuestBrowse) {
     return (
       <>
+        <AuthCallbackBridge />
         <ToastContainer />
         <AuthOnboardingView />
       </>
@@ -65,7 +78,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
+      <AuthCallbackBridge />
       <div className="w-full max-w-[430px] h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-sm">
+
         <ToastContainer />
         {/* Floating Top In-App Push Notification Banner */}
         <PushBanner />

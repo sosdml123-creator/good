@@ -1,4 +1,6 @@
 import { createClient, SupabaseClient, User, Session } from '@supabase/supabase-js';
+import { Capacitor } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lyyzhldazfyrpprdvmeg.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P8eHIISOPV3KKP_l-Gxx_A_cAjfyR-C';
@@ -153,45 +155,133 @@ export const ensureSupabaseAuth = async (): Promise<{ user: User | null; session
 };
 
 /**
+ * Returns appropriate redirect URL for OAuth based on platform.
+ * Native iOS/Android apps use custom URL scheme 'sinsangpick://auth-callback',
+ * while Web browsers use window.location.origin.
+ */
+export const getAuthRedirectUri = (): string => {
+  if (Capacitor.isNativePlatform()) {
+    return 'sinsangpick://auth-callback';
+  }
+  return window.location.origin;
+};
+
+/**
+ * Parses and processes OAuth tokens from deep link URL or web redirect
+ */
+export const handleAuthCallbackUrl = async (url: string): Promise<boolean> => {
+  if (!supabase) return false;
+  
+  try {
+    // Close in-app browser sheet if open
+    if (Capacitor.isNativePlatform()) {
+      await Browser.close().catch(() => {});
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  try {
+    // 1. PKCE flow with authorization code: ?code=xxx
+    if (url.includes('code=')) {
+      const searchPart = url.includes('?') ? url.split('?')[1].split('#')[0] : '';
+      if (searchPart) {
+        const params = new URLSearchParams(searchPart);
+        const code = params.get('code');
+        if (code) {
+          const { error } = await supabase.auth.exchangeCodeForSession(code);
+          if (!error) {
+            console.log('[Supabase Auth] PKCE session exchange successful');
+            return true;
+          }
+          console.warn('[Supabase Auth] PKCE exchange error:', error);
+        }
+      }
+    }
+
+    // 2. Implicit flow with access_token and refresh_token in hash: #access_token=xxx&refresh_token=yyy
+    if (url.includes('access_token=') && url.includes('refresh_token=')) {
+      const hashPart = url.includes('#') ? url.split('#')[1] : '';
+      if (hashPart) {
+        const params = new URLSearchParams(hashPart);
+        const accessToken = params.get('access_token');
+        const refreshToken = params.get('refresh_token');
+        if (accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+          if (!error) {
+            console.log('[Supabase Auth] SetSession from token successful');
+            return true;
+          }
+          console.warn('[Supabase Auth] SetSession error:', error);
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[Supabase Auth] Failed to handle callback URL:', err);
+  }
+
+  return false;
+};
+
+/**
+ * Generic OAuth sign-in runner supporting both Capacitor Native & Web
+ */
+const startOAuth = async (provider: 'apple' | 'google' | 'kakao') => {
+  if (!supabase) return;
+  const isNative = Capacitor.isNativePlatform();
+  const redirectTo = getAuthRedirectUri();
+
+  if (isNative) {
+    // Native app flow: request URL without auto-redirecting webview, then open in system browser sheet
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo,
+        skipBrowserRedirect: true,
+      },
+    });
+    if (error) throw error;
+    if (data?.url) {
+      await Browser.open({
+        url: data.url,
+        windowName: '_self',
+        presentationStyle: 'popover',
+      });
+    }
+  } else {
+    // Web browser flow
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo,
+      },
+    });
+    if (error) throw error;
+  }
+};
+
+/**
  * Google OAuth sign-in helper
  */
 export const signInWithGoogle = async () => {
-  if (!supabase) return;
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: window.location.origin,
-    },
-  });
-  if (error) throw error;
+  await startOAuth('google');
 };
 
 /**
  * Apple OAuth sign-in helper (아이폰 / Apple 계정 로그인)
  */
 export const signInWithApple = async () => {
-  if (!supabase) return;
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'apple',
-    options: {
-      redirectTo: window.location.origin,
-    },
-  });
-  if (error) throw error;
+  await startOAuth('apple');
 };
 
 /**
  * Kakao OAuth sign-in helper
  */
 export const signInWithKakao = async () => {
-  if (!supabase) return;
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'kakao',
-    options: {
-      redirectTo: window.location.origin,
-    },
-  });
-  if (error) throw error;
+  await startOAuth('kakao');
 };
 
 /**
@@ -202,4 +292,5 @@ export const signOutSupabase = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
 };
+
 
