@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>신상픽(SinSangPick) 서비스 소개서</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+    @page {
+      size: 297mm 167mm; /* 16:9 와이드스크린 규격 */
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Pretendard Variable", Pretendard, "Malgun Gothic", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 297mm;
+      height: 167mm;
+      page-break-after: always;
+      page-break-inside: avoid;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18mm 24mm 14mm 24mm;
+      position: relative;
+    }
+
+    /* 슬라이드 1: 표지 */
+    .cover-top-tag {
+      display: inline-block;
+      font-size: 14pt;
+      font-weight: 700;
+      color: #2563EB;
+      margin-bottom: 8mm;
+      letter-spacing: -0.3px;
+    }
+
+    .cover-title {
+      font-size: 42pt;
+      font-weight: 900;
+      color: #111827;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 10mm;
+    }
+
+    .cover-subtitle {
+      font-size: 20pt;
+      font-weight: 600;
+      color: #374151;
+      line-height: 1.5;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-subtitle span.point {
+      color: #2563EB;
+      font-weight: 800;
+    }
+
+    .cover-footer {
+      border-top: 1px solid #E5E7EB;
+      padding-top: 5mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11pt;
+      color: #9CA3AF;
+      font-weight: 500;
+    }
+
+    /* 슬라이드 공통 헤더 */
+    .slide-header {
+      margin-bottom: 6mm;
+    }
+
+    .slide-title {
+      font-size: 24pt;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.8px;
+    }
+
+    .slide-desc {
+      font-size: 12pt;
+      font-weight: 500;
+      color: #6B7280;
+      margin-top: 2mm;
+    }
+
+    /* 슬라이드 2: 3단계 카드 그리드 */
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6mm;
+      flex: 1;
+      align-items: stretch;
+      margin-bottom: 5mm;
+    }
+
+    .step-card {
+      background-color: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 6mm;
+      padding: 7mm 6mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-card.highlight {
+      background-color: #EFF6FF;
+      border: 1.5px solid #BFDBFE;
+    }
+
+    .step-num {
+      font-size: 26pt;
+      font-weight: 900;
+      color: #2563EB;
+      margin-bottom: 3mm;
+      line-height: 1;
+    }
+
+    .step-card-title {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .step-card.highlight .step-card-title {
+      border-bottom-color: #DBEAFE;
+    }
+
+    .step-card-desc {
+      font-size: 11pt;
+      color: #4B5563;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .step-card-desc .badge-point {
+      display: inline-block;
+      margin-top: 3mm;
+      color: #1D4ED8;
+      font-weight: 700;
+      font-size: 11pt;
+    }
+
+    /* 슬라이드 3: 핵심 가치 2열 그리드 */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8mm;
+      flex: 1;
+      align-items: stretch;
+      margin-bottom: 5mm;
+    }
+
+    .value-card {
+      background-color: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 6mm;
+      padding: 7mm 8mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .value-target {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #2563EB;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .value-title {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .value-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5mm;
+    }
+
+    .value-list li {
+      font-size: 11.5pt;
+      color: #374151;
+      line-height: 1.5;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5mm;
+    }
+
+    .value-list li::before {
+      content: "•";
+      color: #2563EB;
+      font-weight: 800;
+      font-size: 14pt;
+      line-height: 1;
+    }
+
+    /* 공통 푸터 */
+    .slide-footer {
+      border-top: 1px solid #F3F4F6;
+      padding-top: 4mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10pt;
+      color: #9CA3AF;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- SLIDE 1: 표지 -->
+  <!-- ========================================== -->
+  <div class="page">
+    <div>
+      <div class="cover-top-tag">신상 먹거리 리뷰 & 리워드 앱</div>
+      <div class="cover-title">신상픽 (SinSangPick)</div>
+      <div class="cover-subtitle">
+        신제품 먹어보고 리뷰 쓰면 <span class="point">포인트 적립!</span><br>
+        모은 포인트로 편의점·카페 <span class="point">e쿠폰(기프티콘) 교환</span>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <span>서비스 소개서</span>
+      <span>신상픽 (SinSangPick)</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SLIDE 2: 서비스 이용 흐름 -->
+  <!-- ========================================== -->
+  <div class="page">
+    <div>
+      <div class="slide-header">
+        <div class="slide-title">서비스 이용 흐름</div>
+        <div class="slide-desc">소비자가 신상품을 구매하고 보상을 받는 3단계 구조</div>
+      </div>
+
+      <div class="step-grid">
+        <!-- 01 -->
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-card-title">신상품 탐색 & 구매</div>
+          <div class="step-card-desc">
+            편의점(CU, GS25, 세븐, 이마트24), 마트의 새로 나온 과자, 음료, 디저트 등 신상 먹거리 확인 및 구매
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="step-card highlight">
+          <div class="step-num">02</div>
+          <div class="step-card-title">솔직한 리뷰 등록</div>
+          <div class="step-card-desc">
+            직접 먹어본 맛, 가성비, 사진과 함께 솔직 후기 작성<br>
+            <span class="badge-point">👉 작성 즉시 현금성 포인트 적립!</span>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-card-title">e쿠폰 교환</div>
+          <div class="step-card-desc">
+            차곡차곡 모은 포인트로 편의점 상품권, 스타벅스 커피 쿠폰 등 원하는 모바일 e쿠폰 즉시 교환
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>신상픽 서비스 이용 흐름</span>
+      <span>2 / 3</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SLIDE 3: 핵심 가치 & 기대효과 -->
+  <!-- ========================================== -->
+  <div class="page">
+    <div>
+      <div class="slide-header">
+        <div class="slide-title">핵심 가치 & 기대효과</div>
+        <div class="slide-desc">유저에게는 확실한 혜택을, 플랫폼에는 신뢰할 수 있는 데이터를 만듭니다.</div>
+      </div>
+
+      <div class="value-grid">
+        <!-- User -->
+        <div class="value-card">
+          <div class="value-target">유저 관점 (User)</div>
+          <div class="value-title">실패 없는 소비 & 쏠쏠한 리워드</div>
+          <ul class="value-list">
+            <li>광고·협찬 없는 찐후기 보고 신제품 실패 없이 구매</li>
+            <li>내가 먹은 일상 후기 작성하고 포인트 받는 쏠쏠한 앱테크</li>
+            <li>모은 포인트로 편의점 상품권·커피 e쿠폰 무료 교환</li>
+          </ul>
+        </div>
+
+        <!-- Platform -->
+        <div class="value-card">
+          <div class="value-target">서비스 관점 (Platform)</div>
+          <div class="value-title">자발적인 찐리뷰 축적 & 활성화</div>
+          <ul class="value-list">
+            <li>포인트 보상 시스템으로 고품질 실구매자 리뷰 자발적 누적</li>
+            <li>신제품 궁금한 유저들의 지속적인 방문 및 커뮤니티 활성화</li>
+            <li>축적된 리뷰 데이터를 바탕으로 F&B 제휴 및 e쿠폰 커머스 확장</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>신상픽 핵심 가치 & 기대효과</span>
+      <span>3 / 3</span>
+    </div>
+  </div>
+
+</body>
+</html>
