@@ -475,114 +475,7 @@ export const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* 3.5 Section: 🏷️ 이달의 편의점·마트 행사소식 (1+1 & 할인특가 Preview) */}
-      <div className="bg-white mt-2 py-4 border-b border-gray-100">
-        <div className="flex items-center justify-between px-4 mb-2.5">
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-rose-100">
-                <Tag className="w-3 h-3" /> 1+1 · 할인특가
-              </span>
-              <span className="text-[11px] text-gray-400 font-medium">편의점·마트 실속 혜택</span>
-            </div>
-            <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
-              🔥 놓치면 손해! 이달의 행사소식
-            </h3>
-          </div>
-          <button
-            onClick={() => setActiveTab('calendar')}
-            className="text-[12px] text-rose-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
-          >
-            <span>전체보기</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Horizontal Sale Cards */}
-        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
-          {salePromotions.slice(0, 8).map((item) => {
-            const isSaved = savedSaleIds.includes(item.id);
-
-            return (
-              <div
-                key={item.id}
-                className="shrink-0 w-[220px] bg-[#F8F9FB] hover:bg-rose-50/30 rounded-2xl p-3 border border-gray-200/80 transition-all flex flex-col justify-between shadow-2xs hover:border-rose-200"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-1">
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                        item.dealType === '1+1'
-                          ? 'bg-red-500 text-white animate-pulse'
-                          : item.dealType === '2+1'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-amber-500 text-white'
-                      }`}>
-                        {item.badgeText}
-                      </span>
-                      <span className="text-[10px] font-bold text-gray-600 bg-gray-200/70 px-1.5 py-0.5 rounded-md">
-                        {item.store}
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleSaveSale(item.id);
-                      }}
-                      className={`p-1.5 rounded-full transition-all active:scale-90 ${
-                        isSaved ? 'text-rose-500 bg-white shadow-2xs' : 'text-gray-400 hover:text-rose-500'
-                      }`}
-                      title="관심 행사 찜하기"
-                    >
-                      <Heart className={`w-4 h-4 ${isSaved ? 'fill-rose-500' : ''}`} />
-                    </button>
-                  </div>
-
-                  <div 
-                    onClick={() => {
-                      if (item.productId) openProductDetail(item.productId);
-                      else setActiveTab('calendar');
-                    }}
-                    className="flex gap-2.5 cursor-pointer group"
-                  >
-                    <SafeImage 
-                      src={item.image} 
-                      alt={item.title} 
-                      fallbackName={item.title}
-                      fallbackCategory="과자"
-                      className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
-                      <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition-colors">
-                        {item.title}
-                      </div>
-                      <div className="text-[11px] font-black text-rose-600 mt-0.5">
-                        {item.unitPriceDescription}
-                      </div>
-                      {item.originalPrice > 0 && (
-                        <div className="text-[10px] text-gray-400 line-through">
-                          {item.originalPrice.toLocaleString()}원
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[10px]">
-                  <span className="text-gray-500 font-medium truncate max-w-[120px]">
-                    {item.benefitTag || item.description}
-                  </span>
-                  <span className="text-rose-600 font-bold shrink-0">{item.dDay}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 4. Section: ⚡ 따끈따끈 새로 나온 신제품 구좌 */}
+      {/* 4. Section: ⚡ 따끈따끈 새로 나온 신제품 구좌 (NEW 신상) */}
       <div className="bg-white mt-2 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between px-4 mb-2.5">
           <div>
@@ -723,6 +616,113 @@ export const HomeView: React.FC = () => {
             선택하신 카테고리의 새로운 신상품을 준비 중입니다 ✨
           </div>
         )}
+      </div>
+
+      {/* 4.5 Section: 🏷️ 이달의 편의점·마트 행사소식 (1+1 & 할인특가 Preview) */}
+      <div className="bg-white mt-2 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 mb-2.5">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-rose-100">
+                <Tag className="w-3 h-3" /> 1+1 · 할인특가
+              </span>
+              <span className="text-[11px] text-gray-400 font-medium">편의점·마트 실속 혜택</span>
+            </div>
+            <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
+              🔥 놓치면 손해! 이달의 행사소식
+            </h3>
+          </div>
+          <button
+            onClick={() => setActiveTab('calendar')}
+            className="text-[12px] text-rose-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
+          >
+            <span>전체보기</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Horizontal Sale Cards */}
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
+          {salePromotions.slice(0, 8).map((item) => {
+            const isSaved = savedSaleIds.includes(item.id);
+
+            return (
+              <div
+                key={item.id}
+                className="shrink-0 w-[220px] bg-[#F8F9FB] hover:bg-rose-50/30 rounded-2xl p-3 border border-gray-200/80 transition-all flex flex-col justify-between shadow-2xs hover:border-rose-200"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-1">
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
+                        item.dealType === '1+1'
+                          ? 'bg-red-500 text-white animate-pulse'
+                          : item.dealType === '2+1'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-amber-500 text-white'
+                      }`}>
+                        {item.badgeText}
+                      </span>
+                      <span className="text-[10px] font-bold text-gray-600 bg-gray-200/70 px-1.5 py-0.5 rounded-md">
+                        {item.store}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSaveSale(item.id);
+                      }}
+                      className={`p-1.5 rounded-full transition-all active:scale-90 ${
+                        isSaved ? 'text-rose-500 bg-white shadow-2xs' : 'text-gray-400 hover:text-rose-500'
+                      }`}
+                      title="관심 행사 찜하기"
+                    >
+                      <Heart className={`w-4 h-4 ${isSaved ? 'fill-rose-500' : ''}`} />
+                    </button>
+                  </div>
+
+                  <div 
+                    onClick={() => {
+                      if (item.productId) openProductDetail(item.productId);
+                      else setActiveTab('calendar');
+                    }}
+                    className="flex gap-2.5 cursor-pointer group"
+                  >
+                    <SafeImage 
+                      src={item.image} 
+                      alt={item.title} 
+                      fallbackName={item.title}
+                      fallbackCategory="과자"
+                      className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
+                      <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition-colors">
+                        {item.title}
+                      </div>
+                      <div className="text-[11px] font-black text-rose-600 mt-0.5">
+                        {item.unitPriceDescription}
+                      </div>
+                      {item.originalPrice > 0 && (
+                        <div className="text-[10px] text-gray-400 line-through">
+                          {item.originalPrice.toLocaleString()}원
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[10px]">
+                  <span className="text-gray-500 font-medium truncate max-w-[120px]">
+                    {item.benefitTag || item.description}
+                  </span>
+                  <span className="text-rose-600 font-bold shrink-0">{item.dDay}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* 4.5 Section: 🏢 인기 대표 브랜드관 (Spotlight Brand Hub) */}
