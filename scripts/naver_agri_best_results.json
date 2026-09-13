@@ -1,0 +1,325 @@
+[
+  {
+    "category": "과일",
+    "subCategory": "사과",
+    "query": "사과",
+    "best": {
+      "title": "사과 경북 홍로 감홍 부사 못난이 꿀사과 가정용 세트",
+      "price": 28400,
+      "originalPrice": 56000,
+      "discountRate": 48,
+      "image": "https://shopping-phinf.pstatic.net/main_8275464/82754642762.21.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 8857,
+      "mallName": "과일꾼",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "복숭아",
+    "query": "복숭아",
+    "best": {
+      "title": "복숭아 대극천 신비 천도 황도 백도 말랑이 딱딱이 거반도 망고 신선",
+      "price": 15700,
+      "originalPrice": 141000,
+      "discountRate": 88,
+      "image": "https://shopping-phinf.pstatic.net/main_9118948/91189484597.1.jpg?type=f300",
+      "rating": 4.81,
+      "reviewCount": 1597,
+      "purchaseCount": 5574,
+      "mallName": "청온과",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "딸기",
+    "query": "딸기",
+    "best": {
+      "title": "논산 설향딸기 400g",
+      "price": 25400,
+      "originalPrice": 25400,
+      "discountRate": 0,
+      "image": "https://shopping-phinf.pstatic.net/main_8996758/89967586353.2.jpg?type=f300",
+      "rating": 4.79,
+      "reviewCount": 398,
+      "purchaseCount": 832,
+      "mallName": "농산다팜",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "수박",
+    "query": "수박",
+    "best": {
+      "title": "[8인분] 큰 수박 하우스 꿀 양구 고창 맹동 고당도 수박",
+      "price": 28400,
+      "originalPrice": 50000,
+      "discountRate": 40,
+      "image": "https://shopping-phinf.pstatic.net/main_9098699/90986997459.7.jpg?type=f300",
+      "rating": 4.53,
+      "reviewCount": 2460,
+      "purchaseCount": 8564,
+      "mallName": "농수산도매시장",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "귤",
+    "query": "제주 감귤",
+    "best": {
+      "title": "[농할20%] 제주 하우스귤 3kg 5kg",
+      "price": 22900,
+      "originalPrice": 46900,
+      "discountRate": 49,
+      "image": "https://shopping-phinf.pstatic.net/main_1262412/12624121425.12.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 2809,
+      "mallName": "인하네",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "포도",
+    "query": "샤인머스캣",
+    "best": {
+      "title": "프리미엄 고당도 샤인머스켓 망고포도 설 설날 추석 명절 선물세트",
+      "price": 18400,
+      "originalPrice": 38000,
+      "discountRate": 50,
+      "image": "https://shopping-phinf.pstatic.net/main_8320059/83200591927.18.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 9447,
+      "mallName": "과일꾼",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "바나나",
+    "query": "바나나",
+    "best": {
+      "title": "주스용 못난이 대용량 낱발 고당도 바나나 1박스 13kg",
+      "price": 19900,
+      "originalPrice": 30000,
+      "discountRate": 33,
+      "image": "https://shopping-phinf.pstatic.net/main_8714579/87145791600.2.jpg?type=f300",
+      "rating": 4.75,
+      "reviewCount": 1421,
+      "purchaseCount": 1931,
+      "mallName": "만복이상회",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "배",
+    "query": "나주배",
+    "best": {
+      "title": "나주배 가정용 선물용 5kg 7.5kg 15kg",
+      "price": 26900,
+      "originalPrice": 54900,
+      "discountRate": 49,
+      "image": "https://shopping-phinf.pstatic.net/main_8182577/81825774009.8.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 7325,
+      "mallName": "나주청년농부",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "과일",
+    "subCategory": "참외",
+    "query": "성주 참외",
+    "best": {
+      "title": "고당도 성주 꿀 참외 프리미엄 대과 중 소 한입 꼬마 1kg 2kg 3kg 5kg 10kg",
+      "price": 7900,
+      "originalPrice": 130000,
+      "discountRate": 93,
+      "image": "https://shopping-phinf.pstatic.net/main_8244148/82441481935.4.jpg?type=f300",
+      "rating": 4.45,
+      "reviewCount": 1489,
+      "purchaseCount": 197,
+      "mallName": "오렌지씨",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "고기·수산",
+    "subCategory": "소고기",
+    "query": "한우 꽃등심",
+    "best": {
+      "title": "No9투뿔한우 살치살 투쁠투플소고기 마장동한우선물세트 추석 횡성한우등심 채끝스테이크 안심",
+      "price": 9400,
+      "originalPrice": 154600,
+      "discountRate": 93,
+      "image": "https://shopping-phinf.pstatic.net/main_8941117/89411170347.33.jpg?type=f300",
+      "rating": 4.92,
+      "reviewCount": 9669,
+      "purchaseCount": 9545,
+      "mallName": "진한우",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "고기·수산",
+    "subCategory": "돼지고기",
+    "query": "한돈 삼겹살",
+    "best": {
+      "title": "유황한돈 냉장 오겹살 목살 1kg 삼겹살 캠핑음식",
+      "price": 26900,
+      "originalPrice": 35900,
+      "discountRate": 22,
+      "image": "https://shopping-phinf.pstatic.net/main_8921219/89212193699.jpg?type=f300",
+      "rating": 4.81,
+      "reviewCount": 867,
+      "purchaseCount": 693,
+      "mallName": "유황한돈",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "고기·수산",
+    "subCategory": "닭고기",
+    "query": "닭볶음탕용 생닭",
+    "best": {
+      "title": "국내산 생닭 도리육 1kg 닭도리탕용 절단닭 닭볶음탕용 절단육",
+      "price": 5500,
+      "originalPrice": 5500,
+      "discountRate": 0,
+      "image": "https://shopping-phinf.pstatic.net/main_8311880/83118807688.1.jpg?type=f300",
+      "rating": 4.9,
+      "reviewCount": 2165,
+      "purchaseCount": 894,
+      "mallName": "닭장사",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "고기·수산",
+    "subCategory": "오리고기",
+    "query": "생오리로스",
+    "best": {
+      "title": "팜스제임 오리고기 로스 슬라이스 무항생제 냉장 생오리 대패 가슴살 다리살 통오리 식단",
+      "price": 6800,
+      "originalPrice": 24000,
+      "discountRate": 71,
+      "image": "https://shopping-phinf.pstatic.net/main_8710855/87108550821.14.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 4367,
+      "mallName": "팜스제임",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "계란",
+    "query": "무항생제 동물복지 계란",
+    "best": {
+      "title": "[슈퍼적립] [난각번호 2번] 상하농원 꼬소한 동물복지 무항생제 유정란 30구 (꼬소복지란)_냉장",
+      "price": 23560,
+      "originalPrice": 27000,
+      "discountRate": 8,
+      "image": "https://shopping-phinf.pstatic.net/main_8935492/89354924996.18.jpg?type=f300",
+      "rating": 4.81,
+      "reviewCount": 8542,
+      "purchaseCount": 0,
+      "mallName": "상하농원 공식스토어",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "두부",
+    "query": "국산콩 부침두부",
+    "best": {
+      "title": "정담두부집 국산콩 무첨가 손두부 순두부 700g 건강식 전통방식 촌두부 부침 수제두부",
+      "price": 4000,
+      "originalPrice": 5000,
+      "discountRate": 20,
+      "image": "https://shopping-phinf.pstatic.net/main_8431320/84313201825.7.jpg?type=f300",
+      "rating": 4.92,
+      "reviewCount": 9609,
+      "purchaseCount": 6540,
+      "mallName": "정담 두부집",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "감자",
+    "query": "강원도 수미 감자",
+    "best": {
+      "title": "26년 햇감자 수미감자 홍감자 3kg 5kg 10kg 강원도 충청도 개진 두백",
+      "price": 6900,
+      "originalPrice": 13500,
+      "discountRate": 45,
+      "image": "https://shopping-phinf.pstatic.net/main_9838566/9838566637.60.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 7392,
+      "mallName": "친환경팔도",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "고구마",
+    "query": "베니하루카 꿀고구마",
+    "best": {
+      "title": "[26년 햇고구마] 산지직송 해들녘 고창 무농약 세척 꿀 고구마 베니하루카 5kg",
+      "price": 16900,
+      "originalPrice": 19000,
+      "discountRate": 11,
+      "image": "https://shopping-phinf.pstatic.net/main_8474356/84743565711.18.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 6025,
+      "mallName": "해들녘고구마",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "양파",
+    "query": "국내산 햇양파",
+    "best": {
+      "title": "[청년농부정경석] 양파 햇양파 국내산 자색 무안양파 3KG 5KG 10KG",
+      "price": 6600,
+      "originalPrice": 29000,
+      "discountRate": 76,
+      "image": "https://shopping-phinf.pstatic.net/main_8240460/82404607347.15.jpg?type=f300",
+      "rating": 4.8,
+      "reviewCount": 150,
+      "purchaseCount": 8581,
+      "mallName": "정가문",
+      "deliveryText": "무료배송 🚀"
+    }
+  },
+  {
+    "category": "식재료",
+    "subCategory": "쌀·잡곡",
+    "query": "햅쌀 10kg",
+    "best": {
+      "title": "26년 쌀 고시히카리 햅쌀 백미 20kg 10kg 4kg",
+      "price": 44900,
+      "originalPrice": 88000,
+      "discountRate": 47,
+      "image": "https://shopping-phinf.pstatic.net/main_8674706/86747060091.18.jpg?type=f300",
+      "rating": 4.88,
+      "reviewCount": 9571,
+      "purchaseCount": 6455,
+      "mallName": "살레농수산",
+      "deliveryText": "무료배송 🚀"
+    }
+  }
+]

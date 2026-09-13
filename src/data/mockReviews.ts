@@ -1,20 +1,20 @@
 import { Review } from '../types';
 
 export const INITIAL_REVIEWS: Review[] = [
-  // 1. [과일] 영덕 햇 딱딱이 백도 복숭아
+  // 1. [과일] 산지직송 프리미엄 꿀복숭아
   {
     id: 'rev-fruit-01-1',
-    productId: 'orion-001',
-    productName: '영덕 햇 딱딱이 백도 복숭아',
-    productImage: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?w=600&auto=format&fit=crop&q=80',
+    productId: 'agri-fruit-02',
+    productName: '산지직송 프리미엄 꿀복숭아 (황도·백도·신비 달콤 말랑이&딱딱이)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_9118948/91189484597.1.jpg?type=f300',
     userName: '과일러버🍑',
     userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
     userLevel: 'Lv.7',
     rating: 5,
     detailedRating: { taste: 5, value: 4.8, portion: 4.7, repurchase: 5 },
     freshMetrics: { sweetness: 4.9, freshness: 5.0, texture: 4.9, value: 4.6 },
-    content: '복숭아 크기가 주먹보다 훨씬 크고 개당 320g 정도로 묵직해요! 한 입 베어 무는데 당도계로 잰 것처럼 꿀물이 뚝뚝 떨어집니다. 딱딱이파인데 씹는 맛이 최고예요.',
-    images: ['https://images.unsplash.com/photo-1557800636-894a64c1696f?w=600&auto=format&fit=crop&q=80'],
+    content: '복숭아 크기가 주먹보다 훨씬 크고 개당 280g 정도로 묵직해요! 한 입 베어 무는데 당도계로 잰 것처럼 꿀물이 뚝뚝 떨어집니다. 딱딱이파인데 씹는 맛이 최고예요.',
+    images: ['https://shopping-phinf.pstatic.net/main_9118948/91189484597.1.jpg?type=f300'],
     likes: 42,
     isLiked: false,
     commentsCount: 3,
@@ -23,9 +23,9 @@ export const INITIAL_REVIEWS: Review[] = [
   },
   {
     id: 'rev-fruit-01-2',
-    productId: 'orion-001',
-    productName: '영덕 햇 딱딱이 백도 복숭아',
-    productImage: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?w=600&auto=format&fit=crop&q=80',
+    productId: 'agri-fruit-02',
+    productName: '산지직송 프리미엄 꿀복숭아 (황도·백도·신비 달콤 말랑이&딱딱이)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_9118948/91189484597.1.jpg?type=f300',
     userName: '달콤한하루',
     userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
     userLevel: 'Lv.4',
@@ -41,12 +41,12 @@ export const INITIAL_REVIEWS: Review[] = [
     tags: ['#산지직송', '#특품선별'],
   },
 
-  // 2. [과일] 고창 명품 흑수박
+  // 2. [과일] 고창·맹동 명품 하우스 꿀수박
   {
     id: 'rev-fruit-02-1',
-    productId: 'orion-002',
-    productName: '고창 명품 흑수박 (황토밭 특선)',
-    productImage: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&auto=format&fit=crop&q=80',
+    productId: 'agri-fruit-04',
+    productName: '고창·맹동 명품 하우스 꿀수박 대과 (비파괴 당도선별 12Brix 이상)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_9098699/90986997459.7.jpg?type=f300',
     userName: '수박킬러🍉',
     userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
     userLevel: 'Lv.6',
@@ -54,7 +54,7 @@ export const INITIAL_REVIEWS: Review[] = [
     detailedRating: { taste: 4.9, value: 4.7, portion: 5.0, repurchase: 4.8 },
     freshMetrics: { sweetness: 4.9, freshness: 4.8, texture: 4.8, value: 4.5 },
     content: '무게가 8kg 가까이 나가는 대형 특품이에요! 껍질이 종이처럼 얇고 과육 끝부분까지 13 Brix 이상으로 설탕 뿌린 듯 시원하고 아삭아삭합니다.',
-    images: ['https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&auto=format&fit=crop&q=80'],
+    images: ['https://shopping-phinf.pstatic.net/main_9098699/90986997459.7.jpg?type=f300'],
     likes: 35,
     isLiked: false,
     commentsCount: 2,
@@ -62,12 +62,12 @@ export const INITIAL_REVIEWS: Review[] = [
     tags: ['#초특대사이즈', '#당도보증', '#껍질얇음'],
   },
 
-  // 3. [과일] 청송 꿀사과
+  // 3. [과일] 경북 고당도 꿀사과
   {
     id: 'rev-fruit-03-1',
-    productId: 'orion-003',
-    productName: '청송 프리미엄 꿀사과 (부사/시나노골드)',
-    productImage: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600&auto=format&fit=crop&q=80',
+    productId: 'agri-fruit-01',
+    productName: '경북 고당도 꿀사과 (부사·홍로·감홍 선별 가정용/선물용 세트)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_8275464/82754642762.21.jpg?type=f300',
     userName: '청송사과마니아',
     userAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
     userLevel: 'Lv.5',
@@ -75,12 +75,96 @@ export const INITIAL_REVIEWS: Review[] = [
     detailedRating: { taste: 4.8, value: 4.6, portion: 4.7, repurchase: 4.8 },
     freshMetrics: { sweetness: 4.8, freshness: 5.0, texture: 4.9, value: 4.6 },
     content: '사과를 반으로 쪼개보니 꿀심이 노랗게 꽉 박혀있네요! 개당 300g 균일한 대과 사이즈에 새콤달콤한 당산비가 완벽합니다.',
-    images: [],
+    images: ['https://shopping-phinf.pstatic.net/main_8275464/82754642762.21.jpg?type=f300'],
     likes: 21,
     isLiked: false,
     commentsCount: 1,
     createdAt: '2026-09-04T09:10:00Z',
     tags: ['#꿀심가득', '#황금당산비', '#아삭아삭'],
+  },
+
+  // [축산물 1위] 1++ No.9 투뿔한우 꽃등심
+  {
+    id: 'rev-meat-10-1',
+    productId: 'agri-meat-10',
+    productName: '1++ No.9 투뿔한우 마장동 명품 꽃등심·살치살 구이용 (초신선 숙성)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_8941117/89411170347.33.jpg?type=f300',
+    userName: '한우미식가🥩',
+    userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.8',
+    rating: 5,
+    detailedRating: { taste: 5.0, value: 4.8, portion: 4.8, repurchase: 5.0 },
+    freshMetrics: { sweetness: 4.8, freshness: 5.0, texture: 5.0, value: 4.7 },
+    content: '마블링 스코어 No.9 투뿔답게 입에 넣자마자 씹을 것도 없이 육즙이 팡 터지며 사르르 녹아내립니다. 진공포장도 완벽하고 핏물 흡수패드까지 깔끔하게 배송됐어요.',
+    images: ['https://shopping-phinf.pstatic.net/main_8941117/89411170347.33.jpg?type=f300'],
+    likes: 56,
+    isLiked: false,
+    commentsCount: 4,
+    createdAt: '2026-09-10T11:20:00Z',
+    tags: ['#투뿔한우', '#No9마블링', '#육즙폭발', '#인생소고기']
+  },
+
+  // [축산물 1위] 국내산 1등급 유황한돈 삼겹살
+  {
+    id: 'rev-meat-11-1',
+    productId: 'agri-meat-11',
+    productName: '국내산 1등급 유황한돈 냉장 삼겹살·오겹살 1kg (캠핑·구이용)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_8921219/89212193699.jpg?type=f300',
+    userName: '캠핑바베큐파',
+    userAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.6',
+    rating: 5,
+    detailedRating: { taste: 4.9, value: 5.0, portion: 5.0, repurchase: 4.9 },
+    freshMetrics: { sweetness: 4.6, freshness: 4.9, texture: 4.9, value: 4.9 },
+    content: '잡내가 전혀 없고 비계와 살코기 비율이 3:7로 완벽합니다. 센 불에 구우니 겉바속촉 육즙이 가득하고 기름까지 맑고 고소해요.',
+    images: ['https://shopping-phinf.pstatic.net/main_8921219/89212193699.jpg?type=f300'],
+    likes: 38,
+    isLiked: false,
+    commentsCount: 2,
+    createdAt: '2026-09-09T18:40:00Z',
+    tags: ['#유황한돈', '#삼겹살1kg', '#캠핑필수품', '#잡내제로']
+  },
+
+  // [식재료 1위] 상하농원 동물복지 유정란
+  {
+    id: 'rev-ing-14-1',
+    productId: 'agri-ing-14',
+    productName: '상하농원 동물복지 난각번호 2번 무항생제 유정란 30구 (냉장 안전배송)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_8935492/89354924996.18.jpg?type=f300',
+    userName: '건강식단마스터🥚',
+    userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.7',
+    rating: 5,
+    detailedRating: { taste: 5.0, value: 4.7, portion: 5.0, repurchase: 5.0 },
+    freshMetrics: { sweetness: 4.6, freshness: 5.0, texture: 5.0, value: 4.7 },
+    content: '노른자가 주황빛으로 아주 봉긋하고 탄탄해서 이쑤시개를 꽂아도 터지지 않아요. 비린내가 전혀 안 나고 계란프라이만 해먹어도 버터처럼 고소합니다.',
+    images: ['https://shopping-phinf.pstatic.net/main_8935492/89354924996.18.jpg?type=f300'],
+    likes: 47,
+    isLiked: false,
+    commentsCount: 3,
+    createdAt: '2026-09-08T08:30:00Z',
+    tags: ['#난각번호2번', '#동물복지', '#무항생제유정란', '#비린내제로']
+  },
+
+  // [식재료 1위] 고창 무농약 세척 꿀고구마
+  {
+    id: 'rev-ing-17-1',
+    productId: 'agri-ing-17',
+    productName: '고창 황토밭 무농약 세척 베니하루카 꿀고구마 5kg (당도보증 꿀뚝뚝)',
+    productImage: 'https://shopping-phinf.pstatic.net/main_8474356/84743565711.18.jpg?type=f300',
+    userName: '고구마러버🍠',
+    userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    userLevel: 'Lv.5',
+    rating: 5,
+    detailedRating: { taste: 5.0, value: 4.9, portion: 4.9, repurchase: 5.0 },
+    freshMetrics: { sweetness: 5.0, freshness: 4.9, texture: 4.9, value: 4.8 },
+    content: '에어프라이어 180도에 40분 구웠더니 껍질 밖으로 꿀물이 뚝뚝 흘러내려요! 설탕이나 꿀 전혀 안 넣어도 꿀밤 맛 그 자체입니다.',
+    images: ['https://shopping-phinf.pstatic.net/main_8474356/84743565711.18.jpg?type=f300'],
+    likes: 31,
+    isLiked: false,
+    commentsCount: 1,
+    createdAt: '2026-09-07T16:15:00Z',
+    tags: ['#베니하루카', '#꿀뚝뚝', '#에어프라이어군고구마', '#인생고구마']
   },
 
   // 4. [과자] 두바이 스타일 피스타치오 카다이프 초콜릿

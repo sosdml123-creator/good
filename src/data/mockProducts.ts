@@ -8,8 +8,10 @@ import { TLJ_PRODUCTS } from './tljProducts';
 import { RAMEN_PRODUCTS } from './ramenProducts';
 import { SAMYANG_PRODUCTS } from './samyangProducts';
 import { CONVENIENCE_EXCLUSIVE_PRODUCTS } from './convenienceProducts';
+import { AGRI_MARINE_PRODUCTS } from './agriMarineProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...AGRI_MARINE_PRODUCTS,
   ...CONVENIENCE_EXCLUSIVE_PRODUCTS,
   ...SAMYANG_PRODUCTS,
   ...RAMEN_PRODUCTS,
@@ -23418,9 +23420,9 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
   '빵·디저트': ['전체', '베이글', '도넛', '식빵', '소금빵', '크루아상', '단팥빵·고로케', '케이크', '디저트'],
   '간편식': ['전체', '냉동식품', '밀키트', '즉석식품', '즉석밥', '컵밥', '만두', '피자', '국·탕'],
   '패스트푸드': ['전체', '버거', '치킨', '사이드', '세트'],
-  '과일': ['전체', '복숭아', '사과', '딸기', '수박', '귤', '포도', '바나나'],
-  '식재료': ['전체', '계란', '두부', '치즈', '소스', '조미료', '면', '통조림'],
-  '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '연어', '광어', '오징어', '새우'],
+  '과일': ['전체', '사과', '복숭아', '딸기', '수박', '귤', '포도', '바나나', '배', '참외'],
+  '식재료': ['전체', '계란', '두부', '감자', '고구마', '양파', '쌀·잡곡', '치즈', '소스', '조미료', '면', '통조림'],
+  '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '오리고기', '연어', '광어', '오징어', '새우'],
   '기타': ['전체', '주류', '건강기능식품', '비건', '기타']
 };
 
