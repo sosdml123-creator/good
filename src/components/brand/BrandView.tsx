@@ -26,7 +26,7 @@ const SORT_LABELS: Record<SortOption, string> = {
   price_desc: '높은 가격순',
 };
 
-const BRAND_CATEGORIES = ['전체', '패스트푸드', '커피·음료', '과자·스낵', '베이커리·디저트', '라면·간편식'];
+const BRAND_CATEGORIES = ['전체', '편의점', '패스트푸드', '커피·음료', '과자·스낵', '베이커리·디저트', '라면·간편식'];
 
 export const BrandView: React.FC = () => {
   const {
@@ -83,6 +83,10 @@ export const BrandView: React.FC = () => {
 
       const matchCategory = selectedCategoryTab === '전체' || 
         brand.category.includes(selectedCategoryTab) ||
+        (selectedCategoryTab === '편의점' && (
+          brand.category.includes('편의점') || 
+          ['CU', 'GS25', '세븐일레븐', '이마트24'].includes(brand.name)
+        )) ||
         (selectedCategoryTab === '패스트푸드' && (brand.category.includes('패스트푸드') || ['맥도날드', '버거킹', '맘스터치', '롯데리아', 'KFC'].includes(brand.name))) ||
         (selectedCategoryTab === '커피·음료' && (brand.category.includes('음료') || brand.category.includes('커피'))) ||
         (selectedCategoryTab === '과자·스낵' && (brand.category.includes('과자') || brand.category.includes('스낵') || brand.name === '노브랜드')) ||

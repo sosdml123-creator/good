@@ -321,6 +321,20 @@ export interface BrandInfo {
   isPopular?: boolean;
 }
 
+export type StoreChannelType = 'convenience' | 'mart' | 'online' | 'official' | 'specialty';
+
+export interface StoreChannelInfo {
+  id: string;
+  name: string;
+  category: StoreChannelType;
+  logo?: string;
+  defaultLink?: string;
+  deliveryBadge?: string;
+  color?: string;
+  isActive: boolean;
+  order: number;
+}
+
 export interface PromotionEvent {
   id: string;
   title: string;

@@ -443,6 +443,32 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     isPopular: true
   },
   {
+    id: '7eleven',
+    name: '세븐일레븐',
+    engName: '7-Eleven',
+    logo: BRAND_LOGOS_MAP['세븐일레븐'],
+    bannerImage: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000&auto=format&fit=crop&q=80',
+    category: '편의점·간편식',
+    slogan: '맛있고 편리한 편의점, 세븐일레븐 단독 PB',
+    description: '세븐셀렉트 대파라면, 동원참치라면, 제주우유 생크림빵, 맛장우 도시락 등 세븐일레븐만의 단독 상품.',
+    officialUrl: 'https://www.7-eleven.co.kr',
+    badge: '차별화 1등 편의점',
+    isPopular: true
+  },
+  {
+    id: 'emart24',
+    name: '이마트24',
+    engName: 'Emart24',
+    logo: BRAND_LOGOS_MAP['이마트24'],
+    bannerImage: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80',
+    category: '편의점·스낵',
+    slogan: '새로운 라이프스타일, 아임e와 함께하는 이마트24',
+    description: '아임e 속풀송송 대파라면, 800원 민생라면, 자색고구마칩, 조선호텔 도시락 등 가성비와 품질의 단독 상품.',
+    officialUrl: 'https://www.emart24.co.kr',
+    badge: '초가성비 1등 편의점',
+    isPopular: true
+  },
+  {
     id: 'maeil',
     name: '매일유업',
     engName: 'Maeil',
@@ -580,10 +606,18 @@ export interface ProcessedBrand {
 /**
  * Extract all unique brands from products list and augment with metadata
  */
-export const getAggregatedBrands = (products: Product[]): ProcessedBrand[] => {
+export const getAggregatedBrands = (products: Product[], customBrands?: BrandInfo[]): ProcessedBrand[] => {
+  const brandList = customBrands && customBrands.length > 0 ? customBrands : POPULAR_BRANDS;
   const brandMap = new Map<string, Product[]>();
 
-  // Group products by brand
+  // 1. Ensure all custom/popular brands exist in the map
+  brandList.forEach((b) => {
+    if (b.name && !brandMap.has(b.name.trim())) {
+      brandMap.set(b.name.trim(), []);
+    }
+  });
+
+  // 2. Group products by brand
   products.forEach((p) => {
     if (!p.brand) return;
     const brandName = p.brand.trim();
@@ -598,33 +632,35 @@ export const getAggregatedBrands = (products: Product[]): ProcessedBrand[] => {
   const result: ProcessedBrand[] = [];
 
   brandMap.forEach((brandProducts, brandName) => {
-    const knownMeta = POPULAR_BRANDS.find(
-      (b) => b.name === brandName || brandName.includes(b.name) || b.name.includes(brandName)
+    const knownMeta = brandList.find(
+      (b) => b.name.toLowerCase() === brandName.toLowerCase() || brandName.includes(b.name) || b.name.includes(brandName)
     );
 
     // Calculate rating and review counts
-    const totalRating = brandProducts.reduce((acc, curr) => acc + (curr.overallRating || 4.5), 0);
+    const totalRating = brandProducts.length > 0 
+      ? brandProducts.reduce((acc, curr) => acc + (curr.overallRating || 4.5), 0)
+      : 4.8;
     const avgRating = Number((totalRating / (brandProducts.length || 1)).toFixed(1));
     const totalReviews = brandProducts.reduce((acc, curr) => acc + (curr.ratingCount || 0), 0);
 
     // Derive category
-    const mainCategory = brandProducts[0]?.category || '기타';
+    const mainCategory = knownMeta?.category || brandProducts[0]?.category || '기타';
 
     // Logo resolution
     const brandLogo = knownMeta?.logo || getBrandLogo(brandName);
-    const defaultBanner = brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
+    const defaultBanner = knownMeta?.bannerImage || brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
 
     result.push({
       name: brandName,
       engName: knownMeta?.engName,
       logo: brandLogo,
-      bannerImage: knownMeta?.bannerImage || defaultBanner,
-      category: knownMeta?.category || mainCategory,
+      bannerImage: defaultBanner,
+      category: mainCategory,
       slogan: knownMeta?.slogan || `${brandName}의 공식 인기 메뉴 및 신제품 라인업`,
       description: knownMeta?.description || `${brandName}에서 판매 중인 다양한 상품과 실시간 리뷰를 확인해보세요.`,
       officialUrl: knownMeta?.officialUrl,
       badge: knownMeta?.badge || (brandProducts.length >= 4 ? '인기 브랜드' : '공식 입점'),
-      isPopular: knownMeta?.isPopular || brandProducts.length >= 3,
+      isPopular: knownMeta?.isPopular ?? (brandProducts.length >= 3),
       productCount: brandProducts.length,
       avgRating,
       totalReviews,
@@ -639,3 +675,4 @@ export const getAggregatedBrands = (products: Product[]): ProcessedBrand[] => {
     return b.productCount - a.productCount;
   });
 };
+
