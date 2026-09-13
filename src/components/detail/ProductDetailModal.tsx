@@ -1170,35 +1170,6 @@ export const ProductDetailModal: React.FC = () => {
                 </div>
               </div>
 
-              {/* Nearby Store Finder Banner (Now Opens NearbyStoreStockModal!) */}
-              <div className="bg-white px-4 py-4 border-b border-gray-100">
-                <div 
-                  onClick={() => setIsNearbyModalOpen(true)}
-                  className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex items-center justify-between cursor-pointer hover:border-emerald-400 hover:shadow-xs transition-all active:scale-98"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-sm">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                        <span>내 주변 매장 실시간 재고 찾기</span>
-                        <span className="text-[10px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-black">클릭</span>
-                      </div>
-                      <div className="text-[11px] text-emerald-700 mt-0.5">반경 1km 편의점/마트 재고와 거리를 바로 확인해보세요</div>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsNearbyModalOpen(true);
-                    }}
-                    className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-full shadow-xs shrink-0"
-                  >
-                    찾기
-                  </button>
-                </div>
-              </div>
 
               {/* Stock Alert Subscription (Now Opens ProductStockAlertModal!) */}
               <div className="bg-white px-4 py-4">
