@@ -114,7 +114,7 @@ export const DiscoverView: React.FC = () => {
               }}
               className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
                 selectedCategory === c
-                  ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
+                  ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
                   : 'text-gray-500 hover:text-gray-900'
               }`}
             >
@@ -134,7 +134,7 @@ export const DiscoverView: React.FC = () => {
                   onClick={() => setSelectedSubCategory(sub)}
                   className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                     isSelected
-                      ? 'bg-[#0066FF] text-white shadow-xs'
+                      ? 'bg-gray-900 text-white shadow-xs'
                       : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -189,11 +189,11 @@ export const DiscoverView: React.FC = () => {
                     setIsSortMenuOpen(false);
                   }}
                   className={`w-full px-3 py-2 text-left text-xs flex items-center justify-between transition-colors ${
-                    sortBy === opt ? 'font-bold text-[#0066FF] bg-blue-50/60' : 'text-gray-700 hover:bg-gray-50'
+                    sortBy === opt ? 'font-bold text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-50'
                   }`}
                 >
                   <span>{SORT_LABELS[opt]}</span>
-                  {sortBy === opt && <Check className="w-3.5 h-3.5 text-[#0066FF]" />}
+                  {sortBy === opt && <Check className="w-3.5 h-3.5 text-gray-900" />}
                 </button>
               ))}
             </div>
@@ -203,7 +203,7 @@ export const DiscoverView: React.FC = () => {
 
       {/* 2. Highlight: 게시된 리뷰 반영 실시간 랭킹 TOP 3 */}
       {top3Ranked.length > 0 && (
-        <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-amber-50/90 via-blue-50/50 to-indigo-50/40 rounded-2xl border border-amber-200/80 shadow-2xs">
+        <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-amber-50/90 via-slate-50/70 to-orange-50/30 rounded-2xl border border-amber-200/80 shadow-2xs">
           <div className="flex items-center justify-between mb-2.5">
             <div className="flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-500" />
@@ -227,7 +227,7 @@ export const DiscoverView: React.FC = () => {
                   key={p.id}
                   onClick={() => openProductDetail(p.id)}
                   className={`bg-white p-2.5 rounded-xl border transition-all cursor-pointer shadow-2xs hover:shadow-xs flex items-center justify-between ${
-                    isFirst ? 'border-amber-300 ring-1 ring-amber-200/50' : isSecond ? 'border-blue-200' : 'border-gray-200'
+                    isFirst ? 'border-amber-300 ring-1 ring-amber-200/50' : isSecond ? 'border-gray-300' : 'border-gray-200'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -255,13 +255,13 @@ export const DiscoverView: React.FC = () => {
                       <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
                         <span className="text-[10px] text-gray-400">{p.brand}</span>
                         {item.topKeyword && (
-                          <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.2 rounded">
+                          <span className="text-[9px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
                             #{item.topKeyword}
                           </span>
                         )}
                         {/* 농수산물 사이즈 / 당도 배지 */}
                         {p.produceDetails?.sizeGrade && (
-                          <span className="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded">
+                          <span className="text-[9px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
                             📐 {p.produceDetails.sizeGrade.split(' ')[0]}
                           </span>
                         )}
@@ -367,7 +367,7 @@ export const DiscoverView: React.FC = () => {
                   {isProduce(p) && (
                     <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                       {p.produceDetails?.sizeGrade && (
-                        <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
+                        <span className="text-[10px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
                           <span>📐</span>
                           <span>{p.produceDetails.sizeGrade.split(' ')[0]}</span>
                         </span>

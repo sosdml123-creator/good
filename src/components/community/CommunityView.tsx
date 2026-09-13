@@ -80,10 +80,10 @@ export const CommunityView: React.FC = () => {
         <div className="flex items-center justify-between px-4 py-3">
           <span className="text-[17px] font-bold text-gray-900">신상 수다방</span>
           <div className="flex items-center gap-2 text-gray-700">
-            <button onClick={() => setActiveTab('search')} className="p-1 hover:text-[#0066FF]">
+            <button onClick={() => setActiveTab('search')} className="p-1 hover:text-gray-900">
               <Search className="w-5 h-5" />
             </button>
-            <button onClick={() => setActiveTab('alert_settings')} className="p-1 hover:text-[#0066FF]">
+            <button onClick={() => setActiveTab('alert_settings')} className="p-1 hover:text-gray-900">
               <Bell className="w-5 h-5" />
             </button>
           </div>
@@ -96,7 +96,7 @@ export const CommunityView: React.FC = () => {
               key={t}
               onClick={() => setActiveSubTab(t)}
               className={`flex-1 min-w-[65px] py-2.5 text-[13px] font-semibold transition-colors whitespace-nowrap ${
-                activeSubTab === t ? 'text-[#0066FF] border-b-2 border-[#0066FF]' : 'text-gray-500 hover:text-gray-900'
+                activeSubTab === t ? 'text-gray-900 border-b-2 border-gray-900 font-bold' : 'text-gray-500 hover:text-gray-900'
               }`}
             >
               {t === '꿀조합' ? '꿀조합 🥪' : t}
@@ -124,7 +124,7 @@ export const CommunityView: React.FC = () => {
               <div className="relative rounded-xl overflow-hidden bg-gray-100" style={{ height: '100px' }}>
                 <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
                 <span className={`absolute top-1.5 left-1.5 w-5 h-5 rounded-md ${
-                  i === 0 ? 'bg-[#0066FF]' : i === 1 ? 'bg-gray-600' : 'bg-gray-400'
+                  i === 0 ? 'bg-amber-500' : i === 1 ? 'bg-gray-600' : 'bg-gray-400'
                 } text-white text-[10px] font-black flex items-center justify-center`}>
                   {i + 1}
                 </span>
@@ -148,10 +148,10 @@ export const CommunityView: React.FC = () => {
         <div className="bg-[#F8F9FA] p-4 border-b border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#0066FF]" />
+              <Sparkles className="w-4 h-4 text-amber-500" />
               <span className="text-xs font-black text-gray-900">현재 모집 중인 체험단 & 프로모션</span>
             </div>
-            <span className="text-[11px] text-[#0066FF] font-bold">{events.length}개 진행</span>
+            <span className="text-[11px] text-gray-500 font-bold">{events.length}개 진행</span>
           </div>
 
           <div className="space-y-3">
@@ -169,7 +169,7 @@ export const CommunityView: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   
-                  <span className="absolute top-2.5 left-2.5 text-[10px] font-black text-white bg-[#0066FF] px-2.5 py-0.5 rounded-full shadow-xs">
+                  <span className="absolute top-2.5 left-2.5 text-[10px] font-black text-white bg-gray-900 px-2.5 py-0.5 rounded-full shadow-xs">
                     {ev.badge}
                   </span>
 
@@ -191,7 +191,7 @@ export const CommunityView: React.FC = () => {
                       기간: {ev.startDate} ~ {ev.endDate}
                     </span>
                   </div>
-                  <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1.5 rounded-xl shrink-0">
+                  <span className="text-xs font-bold text-gray-900 bg-gray-100 hover:bg-gray-200 px-2.5 py-1.5 rounded-xl shrink-0 transition-colors">
                     신청하기
                   </span>
                 </div>
@@ -227,7 +227,7 @@ export const CommunityView: React.FC = () => {
               <div
                 key={recipe.id}
                 onClick={() => openRecipeDetail(recipe.id)}
-                className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
+                className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-gray-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
               >
                 <div>
                   <div className="relative aspect-square bg-gray-100 overflow-hidden">
@@ -254,7 +254,7 @@ export const CommunityView: React.FC = () => {
                     <div className="text-[10px] text-gray-400 font-medium truncate">
                       {recipe.author} · {recipe.difficulty}
                     </div>
-                    <h4 className="text-xs font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-[#0066FF] transition-colors">
+                    <h4 className="text-xs font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-gray-700 transition-colors">
                       {recipe.title}
                     </h4>
                   </div>
@@ -285,7 +285,7 @@ export const CommunityView: React.FC = () => {
               <div className="flex items-start gap-2.5 flex-1 min-w-0 pr-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="inline-block text-[10px] font-semibold text-[#0066FF] bg-blue-50 px-1.5 py-0.2 rounded">
+                    <span className="inline-block text-[10px] font-semibold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
                       {c.category}
                     </span>
                     <span className="text-[11px] text-gray-500 font-medium">
@@ -333,7 +333,7 @@ export const CommunityView: React.FC = () => {
             </p>
             <button
               onClick={() => setIsWriteModalOpen(true)}
-              className="mt-2 px-5 py-2 bg-[#0066FF] hover:bg-blue-600 text-white text-xs font-bold rounded-full shadow-sm transition-all"
+              className="mt-2 px-5 py-2 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-sm transition-all"
             >
               글 작성하기
             </button>
@@ -345,7 +345,7 @@ export const CommunityView: React.FC = () => {
       {/* 4. Write FAB */}
       <button
         onClick={() => setIsWriteModalOpen(true)}
-        className="fixed bottom-20 right-5 w-12 h-12 rounded-full bg-[#0066FF] text-white shadow-lg flex items-center justify-center z-30 active:scale-95 transition-transform"
+        className="fixed bottom-20 right-5 w-12 h-12 rounded-full bg-gray-900 hover:bg-black text-white shadow-lg flex items-center justify-center z-30 active:scale-95 transition-transform"
         title="글쓰기"
       >
         <Plus className="w-6 h-6 stroke-[2.5]" />
@@ -373,7 +373,7 @@ export const CommunityView: React.FC = () => {
                       onClick={() => setNewCategory(cat)}
                       className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-colors ${
                         newCategory === cat
-                          ? 'border-[#0066FF] bg-blue-50 text-[#0066FF]'
+                          ? 'border-gray-900 bg-gray-900 text-white'
                           : 'border-gray-200 text-gray-600 hover:border-gray-300'
                       }`}
                     >
@@ -390,7 +390,7 @@ export const CommunityView: React.FC = () => {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="제목을 입력하세요"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 outline-none focus:border-[#0066FF]"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 outline-none focus:border-gray-900"
                 />
               </div>
 
@@ -405,7 +405,7 @@ export const CommunityView: React.FC = () => {
                         setNewContent(prev => prev.trim() + notice);
                       }
                     }}
-                    className="text-[11px] font-bold text-[#0066FF] hover:underline"
+                    className="text-[11px] font-bold text-gray-700 hover:text-gray-900 hover:underline"
                   >
                     + 쿠팡 파트너스 문구 삽입
                   </button>
@@ -415,7 +415,7 @@ export const CommunityView: React.FC = () => {
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder="신상에 대한 궁금증, 꿀조합, 솔직한 느낌을 자유롭게 적어보세요! (제휴/파트너스 링크 첨부 시 안내 문구를 삽입해 주세요)"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-900 outline-none resize-none focus:border-[#0066FF]"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-900 outline-none resize-none focus:border-gray-900"
                 />
                 <p className="mt-1 text-[10px] text-gray-400">
                   ※ 쿠팡 링크 첨부 시 필수 고지 문구가 자동으로 추가됩니다.
@@ -432,7 +432,7 @@ export const CommunityView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-[#0066FF] text-white text-xs font-bold shadow-sm hover:bg-blue-600 transition-colors"
+                  className="flex-1 py-2.5 rounded-xl bg-gray-900 text-white text-xs font-bold shadow-sm hover:bg-black transition-colors"
                 >
                   등록 (+20P)
                 </button>
@@ -447,7 +447,7 @@ export const CommunityView: React.FC = () => {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 shadow-2xl max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded">
+              <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded">
                 {selectedPost.category}
               </span>
               <button onClick={() => setSelectedPost(null)} className="p-1 text-gray-400 hover:text-gray-700">
@@ -518,7 +518,7 @@ export const CommunityView: React.FC = () => {
               />
               <button
                 onClick={() => handleAddComment(selectedPost.id)}
-                className="w-8 h-8 rounded-full bg-[#0066FF] text-white flex items-center justify-center shrink-0 hover:bg-blue-600"
+                className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center shrink-0 hover:bg-black"
               >
                 <Send className="w-4 h-4" />
               </button>

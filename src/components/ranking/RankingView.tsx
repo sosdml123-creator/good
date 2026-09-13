@@ -364,7 +364,7 @@ export const RankingView: React.FC = () => {
                   >
                     {/* Rank Badge */}
                     <div className="w-7 flex flex-col items-center justify-center shrink-0">
-                      <span className="text-base font-black text-gray-700 group-hover:text-[#0066FF] transition-colors">
+                      <span className="text-base font-black text-gray-700 group-hover:text-gray-900 transition-colors">
                         {item.rank}
                       </span>
                       <span className="text-[9px] text-emerald-500 font-bold flex items-center">
@@ -408,7 +408,7 @@ export const RankingView: React.FC = () => {
                         )}
                       </div>
 
-                      <h3 className="text-xs font-bold text-gray-900 truncate mt-0.5 group-hover:text-[#0066FF] transition-colors">
+                      <h3 className="text-xs font-bold text-gray-900 truncate mt-0.5 group-hover:text-gray-700 transition-colors">
                         {item.product.name}
                       </h3>
 
@@ -427,7 +427,7 @@ export const RankingView: React.FC = () => {
 
                       <div className="flex items-center gap-2 mt-1">
                         {item.repurchaseScore > 0 && (
-                          <span className="text-[10px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-medium">
+                          <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-medium">
                             재구매의사 {item.repurchaseScore}%
                           </span>
                         )}
@@ -463,10 +463,10 @@ export const RankingView: React.FC = () => {
         )}
 
         {/* ✍️ Bottom Floating Review Induction Banner */}
-        <div className="mt-8 mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-4 text-white shadow-md flex items-center justify-between">
+        <div className="mt-8 mb-4 bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-2xl p-4 text-white shadow-md flex items-center justify-between">
           <div className="flex-1 pr-3">
-            <div className="flex items-center gap-1.5 text-blue-100 text-[11px] font-bold mb-0.5">
-              <PenLine className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 text-gray-300 text-[11px] font-bold mb-0.5">
+              <PenLine className="w-3.5 h-3.5 text-amber-400" />
               <span>신상 랭킹은 여러분의 손으로!</span>
             </div>
             <h4 className="text-xs font-bold leading-snug">
@@ -476,7 +476,7 @@ export const RankingView: React.FC = () => {
           </div>
           <button
             onClick={() => setActiveTab('write')}
-            className="shrink-0 bg-white text-[#0066FF] hover:bg-blue-50 px-3 py-2 rounded-xl text-xs font-bold shadow-sm active:scale-95 transition-all"
+            className="shrink-0 bg-white text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-xl text-xs font-bold shadow-sm active:scale-95 transition-all"
           >
             리뷰 작성 ✍️
           </button>
@@ -569,7 +569,7 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
         <span className="text-[9px] text-gray-400 block truncate font-medium">
           {item.product.brand}
         </span>
-        <h4 className="text-[11px] font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors leading-tight">
+        <h4 className="text-[11px] font-bold text-gray-900 truncate group-hover:text-gray-700 transition-colors leading-tight">
           {item.product.name}
         </h4>
         <div className="flex items-center justify-between mt-1">

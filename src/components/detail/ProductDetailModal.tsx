@@ -190,7 +190,7 @@ export const ProductDetailModal: React.FC = () => {
               }
               showToast('🔗 품목 링크가 복사되었습니다!');
             }}
-            className="p-1 hover:text-[#0066FF] transition-colors"
+            className="p-1 hover:text-gray-900 transition-colors"
             title="공유하기"
           >
             <Share2 className="w-5 h-5" />
@@ -228,10 +228,10 @@ export const ProductDetailModal: React.FC = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={() => openBrandDetail(selectedProduct.brand)}
-            className="text-[12px] text-[#0066FF] font-bold hover:underline flex items-center gap-1.5 mb-1 group"
+            className="text-[12px] text-gray-900 font-bold hover:underline flex items-center gap-1.5 mb-1 group"
           >
             <span>{selectedProduct.brand}</span>
-            <span className="text-[10px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 group-hover:bg-blue-100 transition-colors">
+            <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200 group-hover:bg-gray-200 transition-colors">
               브랜드관 바로가기 →
             </span>
           </button>
@@ -280,7 +280,7 @@ export const ProductDetailModal: React.FC = () => {
           <span className="text-[15px] font-bold text-gray-800">{selectedProduct.overallRating.toFixed(1)}</span>
           <span className="text-[12px] text-gray-400">({selectedProduct.ratingCount}명 평가)</span>
           {selectedProduct.repurchasePercent && (
-            <span className="text-[11px] text-[#0066FF] font-bold bg-blue-50 px-2 py-0.5 rounded-md ml-auto">
+            <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
               재구매율 {selectedProduct.repurchasePercent}%
             </span>
           )}
@@ -306,25 +306,25 @@ export const ProductDetailModal: React.FC = () => {
       <div className="bg-white px-4 py-3 mt-2 border-b border-gray-100 grid grid-cols-3 gap-2">
         <button
           onClick={() => setActiveTab('write')}
-          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-[#0066FF] hover:bg-blue-50/30 transition-all active:scale-98"
+          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-gray-400 hover:bg-gray-50 transition-all active:scale-98"
         >
-          <PenSquare className="w-4 h-4 text-[#0066FF]" />
+          <PenSquare className="w-4 h-4 text-gray-900" />
           <span>평가 및 리뷰</span>
         </button>
         <button
           onClick={(e) => toggleCompare(selectedProduct.id, e)}
           className={`py-3 rounded-xl border text-[12px] font-bold flex flex-col items-center gap-1 transition-all active:scale-98 ${
             isCompared
-              ? 'border-[#0066FF] bg-blue-50 text-[#0066FF]'
+              ? 'border-gray-900 bg-gray-900 text-white'
               : 'border-gray-200 text-gray-700 hover:bg-gray-50'
           }`}
         >
-          <Scale className={`w-4 h-4 ${isCompared ? 'text-[#0066FF]' : 'text-gray-600'}`} />
+          <Scale className={`w-4 h-4 ${isCompared ? 'text-white' : 'text-gray-600'}`} />
           <span>{isCompared ? '비교함 담김' : '비교함 담기'}</span>
         </button>
         <button
           onClick={() => setActiveTab('alert_settings')}
-          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-[#0066FF] hover:bg-blue-50/30 transition-all active:scale-98"
+          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-gray-400 hover:bg-gray-50 transition-all active:scale-98"
         >
           <Bell className="w-4 h-4 text-amber-500" />
           <span>제철/출시 알림</span>
@@ -338,13 +338,13 @@ export const ProductDetailModal: React.FC = () => {
             onClick={() => setDetailTab('reviews')}
             className={`flex-1 py-3 text-[13px] font-bold transition-all relative ${
               detailTab === 'reviews' 
-                ? 'text-[#0066FF]' 
+                ? 'text-gray-900' 
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
             소비자 리뷰 ({selectedProduct.ratingCount})
             {detailTab === 'reviews' && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0066FF]" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
           </button>
           
@@ -352,13 +352,13 @@ export const ProductDetailModal: React.FC = () => {
             onClick={() => setDetailTab('info')}
             className={`flex-1 py-3 text-[13px] font-bold transition-all relative ${
               detailTab === 'info' 
-                ? 'text-[#0066FF]' 
+                ? 'text-gray-900' 
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
             품목 정보
             {detailTab === 'info' && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0066FF]" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
           </button>
 
@@ -366,13 +366,13 @@ export const ProductDetailModal: React.FC = () => {
             onClick={() => setDetailTab('stores')}
             className={`flex-1 py-3 text-[13px] font-bold transition-all relative ${
               detailTab === 'stores' 
-                ? 'text-[#0066FF]' 
+                ? 'text-gray-900' 
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
             {selectedProduct.itemType === 'restaurant' ? '맛집 위치' : '판매처'}
             {detailTab === 'stores' && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0066FF]" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
           </button>
         </div>
@@ -417,25 +417,25 @@ export const ProductDetailModal: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                  <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
                     <span className="text-[10px] text-gray-400 block">평균 규격 / 크기</span>
                     <span className="font-black text-gray-900 text-[12px] block mt-0.5">
                       {selectedProduct.produceDetails?.averageSize || (selectedProduct.volume ? `평균 ${selectedProduct.volume}` : '실측 선별 규격')}
                     </span>
                   </div>
-                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                  <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
                     <span className="text-[10px] text-gray-400 block">선별 등급</span>
-                    <span className="font-black text-[#0066FF] text-[12px] block mt-0.5">
+                    <span className="font-black text-gray-900 text-[12px] block mt-0.5">
                       {selectedProduct.produceDetails?.sizeGrade || '특과·로얄과 선별'}
                     </span>
                   </div>
-                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                  <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
                     <span className="text-[10px] text-gray-400 block">수율 / 가식부</span>
                     <span className="font-bold text-gray-800 text-[11px] block mt-0.5">
                       {selectedProduct.produceDetails?.fleshYield || '과육 비율 90% 이상'}
                     </span>
                   </div>
-                  <div className="bg-white/90 p-2 rounded-lg border border-blue-100 shadow-2xs">
+                  <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
                     <span className="text-[10px] text-gray-400 block">선별 및 유통 방식</span>
                     <span className="font-bold text-gray-800 text-[11px] block mt-0.5 truncate">
                       {selectedProduct.produceDetails?.freshnessGrade || '산지 비파괴 선별'}
@@ -456,12 +456,12 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-blue-50/80 border border-blue-200">
-                  <div className="text-[10px] text-blue-800 font-bold">수분율 & 과즙</div>
-                  <div className="text-sm font-black text-blue-950 mt-0.5">
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="text-[10px] text-slate-700 font-bold">수분율 & 과즙</div>
+                  <div className="text-sm font-black text-slate-900 mt-0.5">
                     {selectedProduct.produceDetails?.waterContent?.split(' ')[0] || '89%'}
                   </div>
-                  <div className="text-[9px] text-blue-700 mt-0.5">천연 과즙 가득</div>
+                  <div className="text-[9px] text-slate-600 mt-0.5">천연 과즙 가득</div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
@@ -484,7 +484,7 @@ export const ProductDetailModal: React.FC = () => {
                       <div key={idx} className="p-2 bg-white rounded-lg border border-gray-100 shadow-2xs">
                         <div className="flex items-center justify-between text-[11px] font-bold">
                           <span className="text-gray-800">{nut.name}</span>
-                          <span className="text-[#0066FF]">{nut.value}</span>
+                          <span className="text-gray-900">{nut.value}</span>
                         </div>
                         <p className="text-[10px] text-gray-500 mt-0.5 line-clamp-1">{nut.desc}</p>
                       </div>
@@ -567,7 +567,7 @@ export const ProductDetailModal: React.FC = () => {
                             <div className="flex items-center gap-1.5 flex-wrap">
                               <h4 className="text-xs font-bold text-gray-900">{br.name}</h4>
                               {br.tag && (
-                                <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded">
+                                <span className="text-[9px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.2 rounded">
                                   {br.tag}
                                 </span>
                               )}
@@ -590,7 +590,7 @@ export const ProductDetailModal: React.FC = () => {
                             <span className="text-[10px] text-gray-400 font-normal">({br.ratingCount})</span>
                           </div>
                           {br.price && (
-                            <span className="text-xs font-black text-[#0066FF] block mt-0.5">
+                            <span className="text-xs font-black text-gray-900 block mt-0.5">
                               {br.price.toLocaleString()}원
                             </span>
                           )}
@@ -627,8 +627,8 @@ export const ProductDetailModal: React.FC = () => {
                           }}
                           className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 transition-all ${
                             br.rank === 1
-                              ? 'bg-[#0066FF] text-white hover:bg-blue-600 shadow-xs'
-                              : 'bg-blue-50 text-[#0066FF] hover:bg-blue-100'
+                              ? 'bg-gray-900 text-white hover:bg-black shadow-xs'
+                              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                           }`}
                         >
                           <span>구매 / 판매처</span>
@@ -661,7 +661,7 @@ export const ProductDetailModal: React.FC = () => {
                   <span className="w-24 text-[12px] text-gray-600 font-medium shrink-0">{m.label}</span>
                   <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
                     <div 
-                      className={`h-full rounded-full transition-all duration-500 ${selectedProduct.freshMetrics ? 'bg-emerald-500' : 'bg-[#0066FF]'}`} 
+                      className={`h-full rounded-full transition-all duration-500 ${selectedProduct.freshMetrics ? 'bg-emerald-500' : 'bg-gray-900'}`} 
                       style={{ width: `${(m.val / 5) * 100}%` }}
                     />
                   </div>
@@ -681,7 +681,7 @@ export const ProductDetailModal: React.FC = () => {
               {quotes.length > 2 && (
                 <button 
                   onClick={() => setShowAllQuotes(!showAllQuotes)}
-                  className="text-[12px] text-[#0066FF] font-semibold hover:underline"
+                  className="text-[12px] text-gray-700 hover:text-gray-900 font-semibold hover:underline"
                 >
                   {showAllQuotes ? '접기' : '더보기'}
                 </button>
@@ -690,7 +690,7 @@ export const ProductDetailModal: React.FC = () => {
             <div className="space-y-2">
               {displayedQuotes.map((q, idx) => (
                 <div key={idx} className="flex items-start gap-2 py-1.5 bg-gray-50/70 px-3 rounded-xl border border-gray-100">
-                  <CheckCircle2 className="w-4 h-4 text-[#0066FF] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <span className="text-[13px] text-gray-700 font-medium">{q}</span>
                 </div>
               ))}
@@ -701,18 +701,18 @@ export const ProductDetailModal: React.FC = () => {
           <div className="bg-white px-4 py-3 border-b border-gray-100">
             <div 
               onClick={() => setActiveTab('write')}
-              className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex items-center justify-between cursor-pointer hover:border-[#0066FF] transition-all"
+              className="p-3.5 rounded-2xl bg-gradient-to-r from-slate-50 to-gray-100 border border-gray-200 flex items-center justify-between cursor-pointer hover:border-gray-400 transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#0066FF] text-white flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold">
                   <PenSquare className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-900">이 먹거리 직접 맛보셨나요?</div>
-                  <div className="text-[11px] text-[#0066FF] font-semibold mt-0.5">솔직한 후기 남기고 +50P 적립받기</div>
+                  <div className="text-[11px] text-amber-600 font-semibold mt-0.5">솔직한 후기 남기고 +50P 적립받기</div>
                 </div>
               </div>
-              <button className="px-3 py-1.5 bg-[#0066FF] text-white text-xs font-bold rounded-full shadow-xs">
+              <button className="px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs">
                 쓰기
               </button>
             </div>
