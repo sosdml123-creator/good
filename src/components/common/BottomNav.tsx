@@ -25,7 +25,7 @@ export const BottomNav: React.FC = () => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`flex-1 flex flex-col items-center py-1 transition-colors focus:outline-none ${
-                isActive ? 'text-[#0066FF] font-semibold' : 'text-gray-400 hover:text-gray-600'
+                isActive ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
               <div className="transition-transform active:scale-90">{item.icon}</div>

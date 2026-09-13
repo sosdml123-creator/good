@@ -19,15 +19,19 @@ import {
   ReleaseCalendarItem,
   SalePromotionItem,
   RecipePost,
-  WriteRecipeInput
+  WriteRecipeInput,
+  BrandInfo,
+  StoreChannelInfo
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
 import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
+import { INITIAL_STORE_CHANNELS } from '../data/mockStores';
 import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
+import { POPULAR_BRANDS } from '../utils/brandData';
 import {
   fetchDailyNewProducts,
   searchAndCrawlNewProducts,
@@ -210,15 +214,36 @@ interface AppContextType {
   batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   fetchAllProfiles: () => Promise<void>;
 
-  // Calendar & Recipes
+  // 🏢 Brands Management (Admin & App)
+  brands: BrandInfo[];
+  addBrand: (brand: Omit<BrandInfo, 'id'> & { id?: string }) => void;
+  updateBrand: (id: string, updated: Partial<BrandInfo>) => void;
+  deleteBrand: (id: string) => void;
+  toggleBrandPopular: (id: string) => void;
+
+  // 🏪 Store Channels Master Management (Admin & App)
+  storeChannels: StoreChannelInfo[];
+  addStoreChannel: (store: Omit<StoreChannelInfo, 'id' | 'order'> & { id?: string; order?: number }) => void;
+  updateStoreChannel: (id: string, updated: Partial<StoreChannelInfo>) => void;
+  deleteStoreChannel: (id: string) => void;
+  toggleStoreChannelActive: (id: string) => void;
+
+  // 📅 Calendar
   calendarItems: ReleaseCalendarItem[];
   calendarReminders: string[];
   toggleCalendarReminder: (calendarItemId: string) => void;
+  addCalendarItem: (item: Omit<ReleaseCalendarItem, 'id'> & { id?: string }) => void;
+  updateCalendarItem: (id: string, updated: Partial<ReleaseCalendarItem>) => void;
+  deleteCalendarItem: (id: string) => void;
 
   // 🏷️ Sale Promotions (1+1 & 할인특가 행사소식)
   salePromotions: SalePromotionItem[];
   savedSaleIds: string[];
   toggleSaveSale: (saleId: string) => void;
+  addSalePromotion: (item: Omit<SalePromotionItem, 'id' | 'likeCount'> & { id?: string; likeCount?: number }) => void;
+  updateSalePromotion: (id: string, updated: Partial<SalePromotionItem>) => void;
+  deleteSalePromotion: (id: string) => void;
+  toggleSaleHot: (id: string) => void;
 
   recipes: RecipePost[];
   selectedRecipe: RecipePost | null;
@@ -708,8 +733,60 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   ]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
+  // 🏢 Brands Management State
+  const [brands, setBrands] = useState<BrandInfo[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_brands_v1');
+      return stored ? JSON.parse(stored) : POPULAR_BRANDS;
+    } catch {
+      return POPULAR_BRANDS;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_brands_v1', JSON.stringify(brands));
+    } catch (e) {
+      console.error('Failed to save brands to localStorage', e);
+    }
+  }, [brands]);
+
+  // 🏪 Store Channels Master State
+  const [storeChannels, setStoreChannels] = useState<StoreChannelInfo[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_stores_v1');
+      return stored ? JSON.parse(stored) : INITIAL_STORE_CHANNELS;
+    } catch {
+      return INITIAL_STORE_CHANNELS;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_stores_v1', JSON.stringify(storeChannels));
+    } catch (e) {
+      console.error('Failed to save stores to localStorage', e);
+    }
+  }, [storeChannels]);
+
   // 📅 New Product Drop Calendar State
-  const [calendarItems] = useState<ReleaseCalendarItem[]>(INITIAL_CALENDAR_ITEMS);
+  const [calendarItems, setCalendarItems] = useState<ReleaseCalendarItem[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_calendar_v1');
+      return stored ? JSON.parse(stored) : INITIAL_CALENDAR_ITEMS;
+    } catch {
+      return INITIAL_CALENDAR_ITEMS;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_calendar_v1', JSON.stringify(calendarItems));
+    } catch (e) {
+      console.error('Failed to save calendar items to localStorage', e);
+    }
+  }, [calendarItems]);
+
   const [calendarReminders, setCalendarReminders] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_calendar_reminders');
@@ -720,13 +797,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   // 🏷️ 편의점/마트 1+1 & 할인특가 행사소식 State
-  const [salePromotions] = useState<SalePromotionItem[]>(INITIAL_SALE_PROMOTIONS);
+  const [salePromotions, setSalePromotions] = useState<SalePromotionItem[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_sales_v1');
+      return stored ? JSON.parse(stored) : INITIAL_SALE_PROMOTIONS;
+    } catch {
+      return INITIAL_SALE_PROMOTIONS;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_sales_v1', JSON.stringify(salePromotions));
+    } catch (e) {
+      console.error('Failed to save sale promotions to localStorage', e);
+    }
+  }, [salePromotions]);
+
   const [savedSaleIds, setSavedSaleIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_saved_sales');
-      return stored ? JSON.parse(stored) : ['sale-01', 'sale-04'];
+      return stored ? JSON.parse(stored) : [];
     } catch {
-      return ['sale-01', 'sale-04'];
+      return [];
     }
   });
 
@@ -2266,6 +2359,125 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('🥊 신상 배틀 설정이 업데이트되었습니다!', 'success');
   };
 
+  // --- Admin Brand Actions ---
+  const addBrand = (brandData: Omit<BrandInfo, 'id'> & { id?: string }) => {
+    const newId = brandData.id?.trim() || `brand_${Date.now()}`;
+    const newBrand: BrandInfo = {
+      ...brandData,
+      id: newId,
+      name: brandData.name.trim(),
+      category: brandData.category || '간편식·스낵',
+      slogan: brandData.slogan || '',
+      logo: brandData.logo || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=120&auto=format&fit=crop&q=80',
+      isPopular: brandData.isPopular ?? false,
+    };
+    setBrands(prev => [newBrand, ...prev]);
+    showToast(`🏢 '${newBrand.name}' 브랜드가 등록되었습니다.`, 'success');
+  };
+
+  const updateBrand = (id: string, updated: Partial<BrandInfo>) => {
+    setBrands(prev => prev.map(b => b.id === id ? { ...b, ...updated } : b));
+    showToast('🏢 브랜드 정보가 업데이트되었습니다.', 'success');
+  };
+
+  const deleteBrand = (id: string) => {
+    const target = brands.find(b => b.id === id);
+    setBrands(prev => prev.filter(b => b.id !== id));
+    showToast(`🏢 '${target?.name || ''}' 브랜드가 삭제되었습니다.`, 'info');
+  };
+
+  const toggleBrandPopular = (id: string) => {
+    setBrands(prev => prev.map(b => b.id === id ? { ...b, isPopular: !b.isPopular } : b));
+    showToast('인기 브랜드 상태가 변경되었습니다.', 'info');
+  };
+
+  // --- Admin Store Channel Actions ---
+  const addStoreChannel = (storeData: Omit<StoreChannelInfo, 'id' | 'order'> & { id?: string; order?: number }) => {
+    const newId = storeData.id?.trim() || `store_${Date.now()}`;
+    const newStore: StoreChannelInfo = {
+      ...storeData,
+      id: newId,
+      name: storeData.name.trim(),
+      category: storeData.category || 'convenience',
+      isActive: storeData.isActive ?? true,
+      order: storeData.order ?? (storeChannels.length + 1),
+    };
+    setStoreChannels(prev => [...prev, newStore]);
+    showToast(`🏪 '${newStore.name}' 판매처가 등록되었습니다.`, 'success');
+  };
+
+  const updateStoreChannel = (id: string, updated: Partial<StoreChannelInfo>) => {
+    setStoreChannels(prev => prev.map(s => s.id === id ? { ...s, ...updated } : s));
+    showToast('🏪 판매처 정보가 업데이트되었습니다.', 'success');
+  };
+
+  const deleteStoreChannel = (id: string) => {
+    const target = storeChannels.find(s => s.id === id);
+    setStoreChannels(prev => prev.filter(s => s.id !== id));
+    showToast(`🏪 '${target?.name || ''}' 판매처가 삭제되었습니다.`, 'info');
+  };
+
+  const toggleStoreChannelActive = (id: string) => {
+    setStoreChannels(prev => prev.map(s => s.id === id ? { ...s, isActive: !s.isActive } : s));
+    showToast('판매처 노출 상태가 변경되었습니다.', 'info');
+  };
+
+  // --- Admin Sale Promotion Actions ---
+  const addSalePromotion = (itemData: Omit<SalePromotionItem, 'id' | 'likeCount'> & { id?: string; likeCount?: number }) => {
+    const newId = itemData.id?.trim() || `sale_${Date.now()}`;
+    const newSale: SalePromotionItem = {
+      ...itemData,
+      id: newId,
+      likeCount: itemData.likeCount ?? 0,
+      badgeText: itemData.badgeText || itemData.dealType,
+      dDay: itemData.dDay || '상시',
+      description: itemData.description || '',
+    };
+    setSalePromotions(prev => [newSale, ...prev]);
+    showToast(`🏷️ '${newSale.title}' 행사 소식이 등록되었습니다.`, 'success');
+  };
+
+  const updateSalePromotion = (id: string, updated: Partial<SalePromotionItem>) => {
+    setSalePromotions(prev => prev.map(s => s.id === id ? { ...s, ...updated } : s));
+    showToast('🏷️ 행사 소식이 업데이트되었습니다.', 'success');
+  };
+
+  const deleteSalePromotion = (id: string) => {
+    const target = salePromotions.find(s => s.id === id);
+    setSalePromotions(prev => prev.filter(s => s.id !== id));
+    showToast(`🏷️ '${target?.title || ''}' 행사가 삭제되었습니다.`, 'info');
+  };
+
+  const toggleSaleHot = (id: string) => {
+    setSalePromotions(prev => prev.map(s => s.id === id ? { ...s, isHot: !s.isHot } : s));
+    showToast('🔥 핫딜 상태가 변경되었습니다.', 'info');
+  };
+
+  // --- Admin Calendar Actions ---
+  const addCalendarItem = (itemData: Omit<ReleaseCalendarItem, 'id'> & { id?: string }) => {
+    const newId = itemData.id?.trim() || `cal_${Date.now()}`;
+    const newCalendar: ReleaseCalendarItem = {
+      ...itemData,
+      id: newId,
+      stores: itemData.stores && itemData.stores.length > 0 ? itemData.stores : ['전국 편의점'],
+      highlight: itemData.highlight || '',
+      isUpcoming: itemData.isUpcoming ?? true,
+    };
+    setCalendarItems(prev => [newCalendar, ...prev]);
+    showToast(`📅 '${newCalendar.name}' 출시 일정이 등록되었습니다.`, 'success');
+  };
+
+  const updateCalendarItem = (id: string, updated: Partial<ReleaseCalendarItem>) => {
+    setCalendarItems(prev => prev.map(c => c.id === id ? { ...c, ...updated } : c));
+    showToast('📅 출시 일정이 업데이트되었습니다.', 'success');
+  };
+
+  const deleteCalendarItem = (id: string) => {
+    const target = calendarItems.find(c => c.id === id);
+    setCalendarItems(prev => prev.filter(c => c.id !== id));
+    showToast(`📅 '${target?.name || ''}' 일정이 삭제되었습니다.`, 'info');
+  };
+
   // --- Admin Pending Products & Crawler Actions ---
 
   // 1. 오늘의 실제 신제품 일일 크롤링 실행
@@ -3049,6 +3261,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setAllProfiles(INITIAL_USER_PROFILES);
     setPointTransactions(INITIAL_POINT_TRANSACTIONS);
     setPendingProducts([]);
+    setBrands(POPULAR_BRANDS);
+    setStoreChannels(INITIAL_STORE_CHANNELS);
+    setSalePromotions(INITIAL_SALE_PROMOTIONS);
+    setCalendarItems(INITIAL_CALENDAR_ITEMS);
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
@@ -3056,6 +3272,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('sinsangpick_notifications');
     localStorage.removeItem('sinsangpick_all_profiles');
     localStorage.removeItem('sinsangpick_point_transactions');
+    localStorage.removeItem('sinsangpick_brands_v1');
+    localStorage.removeItem('sinsangpick_stores_v1');
+    localStorage.removeItem('sinsangpick_sales_v1');
+    localStorage.removeItem('sinsangpick_calendar_v1');
     localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
     localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
     showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
@@ -3154,6 +3374,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateBattleConfig,
         resetAllDataToDefaults,
 
+        // 🏢 Brands Management
+        brands,
+        addBrand,
+        updateBrand,
+        deleteBrand,
+        toggleBrandPopular,
+
+        // 🏪 Store Channels Master Management
+        storeChannels,
+        addStoreChannel,
+        updateStoreChannel,
+        deleteStoreChannel,
+        toggleStoreChannelActive,
+
         // Admin Pending Products & Crawler Actions
         pendingProducts,
         pendingCount: pendingProducts.filter(p => p.status === 'pending').length,
@@ -3195,9 +3429,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         calendarItems,
         calendarReminders,
         toggleCalendarReminder,
+        addCalendarItem,
+        updateCalendarItem,
+        deleteCalendarItem,
+
         salePromotions,
         savedSaleIds,
         toggleSaveSale,
+        addSalePromotion,
+        updateSalePromotion,
+        deleteSalePromotion,
+        toggleSaleHot,
+
         recipes,
         selectedRecipe,
         isRecipeDetailOpen,

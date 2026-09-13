@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
           className="flex items-center gap-1.5 shrink-0 hover:opacity-90 active:scale-95 transition-all text-left group"
           title="신상픽 홈으로 이동"
         >
-          <div className="w-8 h-8 rounded-xl overflow-hidden shadow-xs border border-blue-100/80 shrink-0">
+          <div className="w-8 h-8 rounded-xl overflow-hidden shadow-xs border border-gray-200 shrink-0">
             <img 
               src="/logo.png" 
               alt="신상픽" 
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('alert_settings')}
-          className="relative p-2 text-gray-700 hover:text-[#0066FF] transition-colors"
+          className="relative p-2 text-gray-700 hover:text-gray-900 transition-colors"
           title="알림 센터"
         >
           <Bell className="w-5 h-5 stroke-[2]" />
@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('admin')}
-          className="p-2 text-gray-700 hover:text-[#0066FF] transition-colors"
+          className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
           title="서비스 관리자 (Admin)"
         >
           <Settings className="w-5 h-5 stroke-[2]" />

@@ -42,7 +42,7 @@ export const RankingView: React.FC = () => {
   const sortTabs: SortTabItem[] = [
     { id: 'popular', label: '실시간 급상승', icon: <Flame className="w-3.5 h-3.5 text-amber-500" /> },
     { id: 'rating', label: '평점 TOP', icon: <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> },
-    { id: 'reviews', label: '리뷰 많은순', icon: <Sparkles className="w-3.5 h-3.5 text-blue-500" /> },
+    { id: 'reviews', label: '리뷰 많은순', icon: <Sparkles className="w-3.5 h-3.5 text-amber-500" /> },
     { id: 'repurchase', label: '재구매 1위', icon: <ThumbsUp className="w-3.5 h-3.5 text-green-500" /> },
   ];
 
@@ -186,7 +186,7 @@ export const RankingView: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="찾고 싶은 신제품이나 브랜드 검색..."
-                className="w-full bg-gray-100 text-sm rounded-xl pl-9 pr-8 py-2 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0066FF]"
+                className="w-full bg-gray-100 text-sm rounded-xl pl-9 pr-8 py-2 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
                 autoFocus
               />
               <Search className="w-4 h-4 text-gray-400 absolute left-3" />
@@ -235,7 +235,7 @@ export const RankingView: React.FC = () => {
                   onClick={() => setSelectedCategory(cat)}
                   className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors focus:outline-none ${
                     active
-                      ? 'bg-[#0066FF] text-white font-semibold shadow-xs'
+                      ? 'bg-gray-900 text-white font-semibold shadow-xs'
                       : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-300'
                   }`}
                 >

@@ -12,7 +12,7 @@ import {
   ChevronRight,
   Store
 } from 'lucide-react';
-import { getAggregatedBrands, getBrandLogo, POPULAR_BRANDS, ProcessedBrand } from '../../utils/brandData';
+import { getAggregatedBrands, getBrandLogo, ProcessedBrand } from '../../utils/brandData';
 import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
 
@@ -31,6 +31,7 @@ const BRAND_CATEGORIES = ['전체', '편의점', '패스트푸드', '커피·음
 export const BrandView: React.FC = () => {
   const {
     products,
+    brands,
     selectedBrand,
     setSelectedBrand,
     openBrandDetail,
@@ -47,8 +48,8 @@ export const BrandView: React.FC = () => {
   const [sortBy, setSortBy] = useState<SortOption>('popular');
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  // All aggregated brands from actual product catalogue
-  const allBrands = useMemo(() => getAggregatedBrands(products), [products]);
+  // All aggregated brands from actual product catalogue + custom configured brands
+  const allBrands = useMemo(() => getAggregatedBrands(products, brands), [products, brands]);
 
   // Current active brand profile if in detail mode
   const currentBrand = useMemo(() => {
@@ -232,7 +233,7 @@ export const BrandView: React.FC = () => {
         <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
           <div className="space-y-1">
             <div className="text-[10px] text-gray-400 font-semibold">{p.brand}</div>
-            <h3 className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-[#0066FF] transition-colors">
+            <h3 className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-gray-700 transition-colors">
               {p.name}
             </h3>
           </div>
@@ -285,7 +286,7 @@ export const BrandView: React.FC = () => {
               setBrandItemSearchQuery('');
               setSelectedSubCategory('전체');
             }}
-            className="text-xs text-[#0066FF] font-semibold hover:underline"
+            className="text-xs text-gray-500 font-semibold hover:text-gray-900"
           >
             전체 브랜드
           </button>
@@ -367,7 +368,7 @@ export const BrandView: React.FC = () => {
               </div>
               <div className="bg-white/10 backdrop-blur-xs rounded-xl p-2 border border-white/5">
                 <div className="text-[10px] text-gray-300">실시간 리뷰</div>
-                <div className="text-sm font-black text-blue-300">
+                <div className="text-sm font-black text-white">
                   {currentBrand.totalReviews > 1000 ? `${(currentBrand.totalReviews / 1000).toFixed(1)}k+` : currentBrand.totalReviews}
                 </div>
               </div>
@@ -410,12 +411,12 @@ export const BrandView: React.FC = () => {
                     onClick={() => setSelectedSubCategory(subCat)}
                     className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
                       selectedSubCategory === subCat
-                        ? 'bg-[#0066FF] text-white shadow-xs'
+                        ? 'bg-gray-900 text-white shadow-xs'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
                     <span>{subCat}</span>
-                    <span className={`text-[10px] ${selectedSubCategory === subCat ? 'text-blue-100' : 'text-gray-400'}`}>
+                    <span className={`text-[10px] ${selectedSubCategory === subCat ? 'text-gray-300' : 'text-gray-400'}`}>
                       {count}
                     </span>
                   </button>
@@ -443,7 +444,7 @@ export const BrandView: React.FC = () => {
                         setIsSortOpen(false);
                       }}
                       className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
-                        sortBy === opt ? 'bg-blue-50 text-[#0066FF] font-bold' : 'text-gray-700 hover:bg-gray-50'
+                        sortBy === opt ? 'bg-gray-100 text-gray-900 font-bold' : 'text-gray-700 hover:bg-gray-50'
                       }`}
                     >
                       {SORT_LABELS[opt]}
@@ -469,15 +470,15 @@ export const BrandView: React.FC = () => {
               <div key={group.categoryName} className="space-y-3">
                 <div className="flex items-center justify-between border-b border-gray-200 pb-2">
                   <h3 className="text-sm font-black text-gray-900 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#0066FF]" />
+                    <span className="w-2 h-2 rounded-full bg-gray-900" />
                     <span>{group.categoryName}</span>
-                    <span className="text-xs text-[#0066FF] font-bold bg-blue-50 px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-gray-700 font-bold bg-gray-100 px-2 py-0.5 rounded-full">
                       {group.items.length}
                     </span>
                   </h3>
                   <button
                     onClick={() => setSelectedSubCategory(group.categoryName)}
-                    className="text-xs text-gray-400 hover:text-[#0066FF] font-medium"
+                    className="text-xs text-gray-400 hover:text-gray-900 font-medium"
                   >
                     이 카테고리만 보기 →
                   </button>
@@ -494,7 +495,7 @@ export const BrandView: React.FC = () => {
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-xs font-black text-gray-900 flex items-center gap-1.5">
                   <span>{selectedSubCategory !== '전체' ? `${selectedSubCategory} 메뉴` : `${currentBrand.name} 검색 결과`}</span>
-                  <span className="text-[#0066FF] font-mono">({displayedBrandProducts.length})</span>
+                  <span className="text-gray-700 font-mono">({displayedBrandProducts.length})</span>
                 </h2>
                 <span className="text-[11px] text-gray-400">클릭 시 상세정보 확인</span>
               </div>
@@ -533,7 +534,7 @@ export const BrandView: React.FC = () => {
                       className="group-hover:scale-105 transition-transform" 
                     />
                   </div>
-                  <div className="text-xs font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors">
+                  <div className="text-xs font-bold text-gray-900 truncate group-hover:text-gray-700 transition-colors">
                     {b.name}
                   </div>
                   <div className="text-[10px] text-gray-400 mt-0.5">
@@ -588,7 +589,7 @@ export const BrandView: React.FC = () => {
               onClick={() => setSelectedCategoryTab(cat)}
               className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
                 selectedCategoryTab === cat
-                  ? 'text-[#0066FF] border-b-2 border-[#0066FF]'
+                  ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
                   : 'text-gray-500 hover:text-gray-900'
               }`}
             >
@@ -599,15 +600,15 @@ export const BrandView: React.FC = () => {
       </div>
 
       {/* 2. Top Banner: Brand Zone Intro */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-5 m-4 rounded-3xl shadow-sm relative overflow-hidden">
+      <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 text-white p-5 m-4 rounded-3xl shadow-sm relative overflow-hidden">
         <div className="relative z-10 space-y-1 max-w-[280px]">
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs text-blue-100">
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-xs text-gray-200">
             🏢 BRAND HUB
           </span>
           <h1 className="text-base font-black tracking-tight text-white leading-snug">
             좋아하는 브랜드의<br />모든 제품을 한눈에 모아보세요
           </h1>
-          <p className="text-[11px] text-blue-100 font-medium pt-0.5">
+          <p className="text-[11px] text-gray-300 font-medium pt-0.5">
             맥도날드, 버거킹, 스타벅스부터 오리온, 농심까지
           </p>
         </div>
@@ -626,7 +627,7 @@ export const BrandView: React.FC = () => {
         </div>
 
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
-          {POPULAR_BRANDS.slice(0, 8).map((pb) => {
+          {(brands.filter(b => b.isPopular).length > 0 ? brands.filter(b => b.isPopular) : brands).slice(0, 10).map((pb) => {
             const brandProductCount = products.filter(p => p.brand === pb.name).length;
             return (
               <div
@@ -642,7 +643,7 @@ export const BrandView: React.FC = () => {
                     className="group-hover:scale-105 transition-transform" 
                   />
                   <div className="overflow-hidden">
-                    <div className="text-xs font-bold text-gray-900 truncate group-hover:text-[#0066FF] transition-colors">
+                    <div className="text-xs font-bold text-gray-900 truncate group-hover:text-gray-700 transition-colors">
                       {pb.name}
                     </div>
                     <div className="text-[10px] text-gray-400 truncate">
@@ -657,7 +658,7 @@ export const BrandView: React.FC = () => {
 
                 <div className="flex items-center justify-between text-[10px] text-gray-400 pt-1 border-t border-gray-50">
                   <span className="font-semibold text-gray-700">{brandProductCount > 0 ? `${brandProductCount}개 메뉴` : '공식 메뉴'}</span>
-                  <span className="text-[#0066FF] font-bold flex items-center">
+                  <span className="text-gray-700 font-bold flex items-center">
                     전용관 <ChevronRight className="w-3 h-3" />
                   </span>
                 </div>
@@ -672,7 +673,7 @@ export const BrandView: React.FC = () => {
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xs font-black text-gray-900 flex items-center gap-1.5">
             <span>전체 브랜드 리스트</span>
-            <span className="text-[#0066FF] font-mono">({filteredBrands.length})</span>
+            <span className="text-gray-700 font-mono">({filteredBrands.length})</span>
           </h2>
           <span className="text-[11px] text-gray-400">브랜드 터치 시 상품 모아보기</span>
         </div>
@@ -702,11 +703,11 @@ export const BrandView: React.FC = () => {
                     />
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-1.5">
-                        <h3 className="text-sm font-black text-gray-900 group-hover:text-[#0066FF] transition-colors">
+                        <h3 className="text-sm font-black text-gray-900 group-hover:text-gray-700 transition-colors">
                           {b.name}
                         </h3>
                         {b.badge && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-blue-50 text-[#0066FF] border border-blue-100">
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-gray-100 text-gray-700 border border-gray-200">
                             {b.badge}
                           </span>
                         )}
@@ -717,8 +718,8 @@ export const BrandView: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-blue-50 group-hover:text-[#0066FF] flex items-center justify-center transition-colors">
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#0066FF]" />
+                  <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-gray-200 group-hover:text-gray-900 flex items-center justify-center transition-colors">
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-900" />
                   </div>
                 </div>
 

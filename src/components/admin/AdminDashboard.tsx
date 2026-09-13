@@ -50,7 +50,11 @@ import {
   FolderCheck,
   ArrowUp,
   ArrowDown,
-  ChevronLeft
+  ChevronLeft,
+  Building2,
+  Store,
+  Calendar as CalendarIcon,
+  Tag
 } from 'lucide-react';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo, StoreStockItem } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -64,13 +68,22 @@ import { BrandProductAutoCollector } from './BrandProductAutoCollector';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
 import { FoodNutritionSearchModal } from './FoodNutritionSearchModal';
 import { FoodNutritionData } from '../../services/nutritionApi';
-
+import { BrandManagementTab } from './BrandManagementTab';
+import { StoreManagementTab } from './StoreManagementTab';
+import { SalePromotionManagementTab } from './SalePromotionManagementTab';
+import { CalendarManagementTab } from './CalendarManagementTab';
+import { EventManagementTab } from './EventManagementTab';
 
 export type AdminTab = 
   | 'overview' 
   | 'collector'
   | 'approval' 
   | 'products' 
+  | 'brands'
+  | 'stores'
+  | 'sales'
+  | 'calendar'
+  | 'events'
   | 'points'
   | 'reviews' 
   | 'analytics' 
@@ -86,6 +99,10 @@ export const AdminDashboard: React.FC = () => {
     reviews,
     communityPosts,
     events,
+    brands,
+    storeChannels,
+    salePromotions,
+    calendarItems,
     addBanner, 
     updateBanner, 
     deleteBanner, 
@@ -235,12 +252,16 @@ export const AdminDashboard: React.FC = () => {
     volume: string;
     stores: string[];
     storeLinks: Record<string, string>;
+    storeStocks: StoreStockItem[];
     isToday: boolean;
     isHot: boolean;
     ingredients: string;
     allergens: string;
     origin: string;
     manufacturer: string;
+    storageMethod: string;
+    shelfLife: string;
+    precautions: string;
     nutrition?: NutritionInfo;
   }>({
     name: '',
@@ -256,12 +277,19 @@ export const AdminDashboard: React.FC = () => {
     volume: '80g',
     stores: ['CU', 'GS25'],
     storeLinks: {},
+    storeStocks: [
+      { store: 'CU', status: '입고완료', stockCount: 10, price: 2000, deliveryTime: '매장 즉시 픽업' },
+      { store: 'GS25', status: '입고완료', stockCount: 10, price: 2000, deliveryTime: '매장 즉시 픽업' }
+    ],
     isToday: true,
     isHot: false,
     ingredients: '',
     allergens: '',
     origin: '대한민국',
     manufacturer: '',
+    storageMethod: '실온 보관 (직사광선을 피하고 서늘한 곳에 보관)',
+    shelfLife: '제조일로부터 6개월',
+    precautions: '',
     nutrition: undefined
   });
 
@@ -746,12 +774,19 @@ export const AdminDashboard: React.FC = () => {
       volume: '80g',
       stores: ['CU', 'GS25'],
       storeLinks: {},
+      storeStocks: [
+        { store: 'CU', status: '입고완료', stockCount: 10, price: 2000, deliveryTime: '매장 즉시 픽업' },
+        { store: 'GS25', status: '입고완료', stockCount: 10, price: 2000, deliveryTime: '매장 즉시 픽업' }
+      ],
       isToday: true,
       isHot: false,
       ingredients: '',
       allergens: '',
       origin: '대한민국',
       manufacturer: '',
+      storageMethod: '실온 보관 (직사광선을 피하고 서늘한 곳에 보관)',
+      shelfLife: '제조일로부터 6개월',
+      precautions: '',
       nutrition: undefined
     });
     setCustomStoreInput('');
@@ -773,6 +808,17 @@ export const AdminDashboard: React.FC = () => {
       ...(prod.storeStocks ? prod.storeStocks.map(s => s.store) : [])
     ]));
 
+    const mappedStocks: StoreStockItem[] = availableStores.map(stName => {
+      const found = prod.storeStocks?.find(s => s.store === stName);
+      return found || {
+        store: stName,
+        status: '입고완료',
+        stockCount: 10,
+        price: prod.price,
+        deliveryTime: '매장 즉시 픽업'
+      };
+    });
+
     setEditingProductId(prod.id);
     setProductForm({
       name: prod.name,
@@ -788,12 +834,16 @@ export const AdminDashboard: React.FC = () => {
       volume: prod.volume || '',
       stores: availableStores.length > 0 ? availableStores : ['CU'],
       storeLinks: initialLinks,
+      storeStocks: mappedStocks,
       isToday: !!prod.isToday,
       isHot: !!prod.isHot,
       ingredients: prod.ingredients || '',
       allergens: prod.allergens ? prod.allergens.join(', ') : '',
       origin: prod.origin || '대한민국',
       manufacturer: prod.manufacturer || '',
+      storageMethod: prod.storageMethod || '실온 보관',
+      shelfLife: prod.shelfLife || '',
+      precautions: prod.precautions || '',
       nutrition: prod.nutrition
     });
     setCustomStoreInput('');
@@ -809,17 +859,20 @@ export const AdminDashboard: React.FC = () => {
     // 선택된 stores 기반으로 storeStocks 매핑 & appLink 반영
     const currentProd = editingProductId ? products.find(p => p.id === editingProductId) : null;
     const updatedStoreStocks: StoreStockItem[] = productForm.stores.map(stName => {
+      const existingInForm = productForm.storeStocks.find(s => s.store === stName);
       const existingStock = currentProd?.storeStocks?.find(s => s.store === stName);
-      const link = (productForm.storeLinks && productForm.storeLinks[stName]) ? productForm.storeLinks[stName].trim() : undefined;
+      const link = (productForm.storeLinks && productForm.storeLinks[stName]) 
+        ? productForm.storeLinks[stName].trim() 
+        : existingInForm?.appLink;
 
       return {
         store: stName,
-        status: existingStock?.status || '입고완료',
-        stockCount: existingStock?.stockCount ?? 10,
-        price: existingStock?.price ?? (Number(productForm.price) || 0),
-        discountPrice: existingStock?.discountPrice,
-        eventBadge: existingStock?.eventBadge || undefined,
-        deliveryTime: existingStock?.deliveryTime || (stName === '온라인' || stName.includes('몰') || stName.includes('쿠팡') || stName.includes('컬리') ? '전국 택배 배송' : '매장 즉시 픽업'),
+        status: existingInForm?.status || existingStock?.status || '입고완료',
+        stockCount: existingInForm?.stockCount ?? existingStock?.stockCount ?? 10,
+        price: existingInForm?.price ?? existingStock?.price ?? (Number(productForm.price) || 0),
+        discountPrice: existingInForm?.discountPrice ?? existingStock?.discountPrice,
+        eventBadge: existingInForm?.eventBadge || existingStock?.eventBadge || undefined,
+        deliveryTime: existingInForm?.deliveryTime || existingStock?.deliveryTime || (stName === '온라인' || stName.includes('몰') || stName.includes('쿠팡') || stName.includes('컬리') ? '전국 택배 배송' : '매장 즉시 픽업'),
         appLink: link || undefined
       };
     });
@@ -844,6 +897,9 @@ export const AdminDashboard: React.FC = () => {
       allergens: productForm.allergens ? productForm.allergens.split(',').map(s => s.trim()).filter(Boolean) : [],
       origin: productForm.origin,
       manufacturer: productForm.manufacturer,
+      storageMethod: productForm.storageMethod,
+      shelfLife: productForm.shelfLife,
+      precautions: productForm.precautions,
       nutrition: productForm.nutrition
     };
 
@@ -1171,6 +1227,106 @@ export const AdminDashboard: React.FC = () => {
               </span>
             </button>
 
+            {/* Brands Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('brands')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'brands'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Building2 className="w-4 h-4 text-indigo-400" />
+                <span>브랜드몰 & 브랜드</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {brands.length}
+              </span>
+            </button>
+
+            {/* Store Channels Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('stores')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'stores'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Store className="w-4 h-4 text-emerald-400" />
+                <span>판매처 & 채널 관리</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {storeChannels.length}
+              </span>
+            </button>
+
+            {/* Sale Promotions Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('sales')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'sales'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Tag className="w-4 h-4 text-rose-400" />
+                <span>1+1 & 행사소식</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {salePromotions.length}
+              </span>
+            </button>
+
+            {/* Drop Calendar Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('calendar')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'calendar'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <CalendarIcon className="w-4 h-4 text-purple-400" />
+                <span>출시 캘린더 관리</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {calendarItems.length}
+              </span>
+            </button>
+
+            {/* Events Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('events')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'events'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Gift className="w-4 h-4 text-amber-400" />
+                <span>이벤트 & 체험단</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600 font-bold'}`}>
+                {events.length}
+              </span>
+            </button>
+
             {/* 4. Points & User Management (NEW) */}
             <button
               onClick={() => setActiveAdminTab('points')}
@@ -1337,6 +1493,11 @@ export const AdminDashboard: React.FC = () => {
               {activeAdminTab === 'collector' && '🎯 브랜드 & 품목 공식홈페이지 제품 자동수집기'}
               {activeAdminTab === 'approval' && '⚡ 신제품 자동 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'products' && '📦 상품 및 신제품 전체 데이터베이스'}
+              {activeAdminTab === 'brands' && '🏢 브랜드 및 공식 브랜드몰 정밀 관리'}
+              {activeAdminTab === 'stores' && '🏪 판매처 및 유통채널 마스터 관리'}
+              {activeAdminTab === 'sales' && '🏷️ 편의점/마트 1+1 & 특가 행사소식 관리'}
+              {activeAdminTab === 'calendar' && '📅 신제품 출시 캘린더 관리'}
+              {activeAdminTab === 'events' && '🎁 이벤트 및 체험단 프로모션 관리'}
               {activeAdminTab === 'points' && '🪙 회원 관리 및 포인트 지급·회수 콘솔'}
               {activeAdminTab === 'reviews' && '💬 사용자 리뷰 및 커뮤니티 피드 모더레이션'}
               {activeAdminTab === 'analytics' && '📈 신상 검색 트렌드 및 카테고리 분석'}
@@ -4295,6 +4456,54 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
+              TAB: BRANDS MANAGEMENT (브랜드몰 & 브랜드 정밀 관리)
+             ======================================================== */}
+          {activeAdminTab === 'brands' && (
+            <BrandManagementTab
+              isDark={isDark}
+              onSelectBrandForProductAdd={(brandName) => {
+                setProductForm(prev => ({
+                  ...prev,
+                  brand: brandName
+                }));
+                setIsProductModalOpen(true);
+              }}
+              onNavigateToProductsWithBrand={(brandName) => {
+                setProductSearch(brandName);
+                setActiveAdminTab('products');
+              }}
+            />
+          )}
+
+          {/* ========================================================
+              TAB: STORE CHANNELS (판매처 & 유통채널 마스터 관리)
+             ======================================================== */}
+          {activeAdminTab === 'stores' && (
+            <StoreManagementTab isDark={isDark} />
+          )}
+
+          {/* ========================================================
+              TAB: SALE PROMOTIONS (1+1 & 특가 행사소식 관리)
+             ======================================================== */}
+          {activeAdminTab === 'sales' && (
+            <SalePromotionManagementTab isDark={isDark} />
+          )}
+
+          {/* ========================================================
+              TAB: DROP CALENDAR (신제품 출시 캘린더 관리)
+             ======================================================== */}
+          {activeAdminTab === 'calendar' && (
+            <CalendarManagementTab isDark={isDark} />
+          )}
+
+          {/* ========================================================
+              TAB: PROMOTION EVENTS (이벤트 & 체험단 관리)
+             ======================================================== */}
+          {activeAdminTab === 'events' && (
+            <EventManagementTab isDark={isDark} />
+          )}
+
+          {/* ========================================================
               TAB 8: DATA & SETTINGS (데이터 백업 & 동기화)
              ======================================================== */}
           {activeAdminTab === 'data' && (
@@ -4768,6 +4977,207 @@ export const AdminDashboard: React.FC = () => {
                       ⚠️ 최소 1개 이상의 판매처를 선택해주세요.
                     </p>
                   )}
+                </div>
+
+                {/* 4. 판매처별 상세 재고·가격·행사배지 정밀 편집기 (NEW) */}
+                {productForm.stores.length > 0 && (
+                  <div className="space-y-2 p-3.5 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200/70 dark:border-indigo-800/50">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-black text-indigo-900 dark:text-indigo-300 flex items-center gap-1.5">
+                        <Store className="w-3.5 h-3.5 text-indigo-600" />
+                        <span>판매처별 실시간 재고 & 가격·행사배지 정밀 설정</span>
+                      </label>
+                      <span className="text-[10px] text-indigo-600 font-bold">
+                        * 앱 내 [상세보기 &gt; 판매처 재고] 탭에 즉시 반영됩니다
+                      </span>
+                    </div>
+
+                    <div className="space-y-2.5 pt-1">
+                      {productForm.stores.map((st) => {
+                        const stockItem = productForm.storeStocks.find(s => s.store === st) || {
+                          store: st,
+                          status: '입고완료',
+                          stockCount: 10,
+                          price: productForm.price,
+                          deliveryTime: '매장 즉시 픽업'
+                        };
+
+                        const updateStockItem = (updated: Partial<StoreStockItem>) => {
+                          const exists = productForm.storeStocks.some(s => s.store === st);
+                          const nextStocks = exists
+                            ? productForm.storeStocks.map(s => s.store === st ? { ...s, ...updated } : s)
+                            : [...productForm.storeStocks, { ...stockItem, ...updated }];
+                          setProductForm({ ...productForm, storeStocks: nextStocks });
+                        };
+
+                        return (
+                          <div key={st} className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900/60 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-black text-indigo-600 flex items-center gap-1">
+                                <span className="w-2 h-2 rounded-full bg-indigo-500" />
+                                <span>{st}</span>
+                              </span>
+                              <div className="flex items-center gap-2">
+                                <select
+                                  value={stockItem.status}
+                                  onChange={e => updateStockItem({ status: e.target.value as any })}
+                                  className={`p-1 rounded-lg text-[11px] font-bold border ${inputBg}`}
+                                >
+                                  <option value="입고완료">🟢 입고완료</option>
+                                  <option value="품절임박">🟡 품절임박</option>
+                                  <option value="일시품절">🔴 일시품절</option>
+                                  <option value="예약가능">🔵 예약가능</option>
+                                  <option value="행사진행">🎁 행사진행</option>
+                                </select>
+                                <div className="flex items-center gap-1 text-[11px]">
+                                  <span className="text-slate-400">재고:</span>
+                                  <input
+                                    type="number"
+                                    value={stockItem.stockCount ?? 10}
+                                    onChange={e => updateStockItem({ stockCount: Number(e.target.value) })}
+                                    className={`w-14 p-1 rounded-lg text-center font-mono font-bold text-xs border ${inputBg}`}
+                                  />
+                                  <span className="text-slate-400">개</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-2 text-[11px]">
+                              <div>
+                                <label className="text-[10px] text-slate-400 font-bold">판매가격 (원)</label>
+                                <input
+                                  type="number"
+                                  value={stockItem.price ?? productForm.price}
+                                  onChange={e => updateStockItem({ price: Number(e.target.value) })}
+                                  className={`w-full p-1.5 rounded-lg font-mono text-xs border ${inputBg}`}
+                                />
+                              </div>
+                              <div>
+                                <label className="text-[10px] text-slate-400 font-bold">할인가격 (선택)</label>
+                                <input
+                                  type="number"
+                                  placeholder="미입력시 정상가"
+                                  value={stockItem.discountPrice ?? ''}
+                                  onChange={e => updateStockItem({ discountPrice: e.target.value ? Number(e.target.value) : undefined })}
+                                  className={`w-full p-1.5 rounded-lg font-mono text-xs border ${inputBg}`}
+                                />
+                              </div>
+                              <div>
+                                <label className="text-[10px] text-slate-400 font-bold">행사 배지 (1+1, 2+1 등)</label>
+                                <input
+                                  type="text"
+                                  placeholder="예: 1+1, 2+1, 특가"
+                                  value={stockItem.eventBadge || ''}
+                                  onChange={e => updateStockItem({ eventBadge: e.target.value || undefined })}
+                                  className={`w-full p-1.5 rounded-lg text-xs border ${inputBg}`}
+                                />
+                              </div>
+                            </div>
+
+                            <div>
+                              <label className="text-[10px] text-slate-400 font-bold">수령/배송 방식 안내문구</label>
+                              <input
+                                type="text"
+                                placeholder="예: 매장 즉시 픽업, 내일 아침 7시 전 도착, 당일 퀵배송"
+                                value={stockItem.deliveryTime || ''}
+                                onChange={e => updateStockItem({ deliveryTime: e.target.value })}
+                                className={`w-full p-1.5 rounded-lg text-xs border ${inputBg}`}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. 식품 상세 스펙 & 안전 보관 정보 */}
+                <div className="space-y-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>원재료, 알레르기 및 보관방법 정밀 스펙</span>
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-500 mb-1">원산지 / 생산지</label>
+                      <input
+                        type="text"
+                        placeholder="예: 국산, 대한민국"
+                        value={productForm.origin}
+                        onChange={e => setProductForm({ ...productForm, origin: e.target.value })}
+                        className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-500 mb-1">제조원 / 유통판매원</label>
+                      <input
+                        type="text"
+                        placeholder="예: (주)오리온 익산공장"
+                        value={productForm.manufacturer}
+                        onChange={e => setProductForm({ ...productForm, manufacturer: e.target.value })}
+                        className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-500 mb-1">보관방법</label>
+                      <input
+                        type="text"
+                        placeholder="예: 실온 보관 (직사광선 및 습기를 피함)"
+                        value={productForm.storageMethod}
+                        onChange={e => setProductForm({ ...productForm, storageMethod: e.target.value })}
+                        className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-500 mb-1">유통 / 소비기한</label>
+                      <input
+                        type="text"
+                        placeholder="예: 제조일로부터 6개월 (별도 표기일까지)"
+                        value={productForm.shelfLife}
+                        onChange={e => setProductForm({ ...productForm, shelfLife: e.target.value })}
+                        className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 mb-1">알레르기 유발물질 (쉼표 구분)</label>
+                    <input
+                      type="text"
+                      placeholder="예: 밀, 대두, 우유, 쇠고기 함유"
+                      value={productForm.allergens}
+                      onChange={e => setProductForm({ ...productForm, allergens: e.target.value })}
+                      className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 mb-1">원재료명 및 함량</label>
+                    <textarea
+                      rows={2}
+                      placeholder="예: 소맥분(미국산), 식물성유지, 옥수수분말, 초코크림 등"
+                      value={productForm.ingredients}
+                      onChange={e => setProductForm({ ...productForm, ingredients: e.target.value })}
+                      className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 mb-1">섭취 시 주의사항</label>
+                    <input
+                      type="text"
+                      placeholder="예: 개봉 후 눅눅해질 수 있으니 밀봉 보관하세요."
+                      value={productForm.precautions}
+                      onChange={e => setProductForm({ ...productForm, precautions: e.target.value })}
+                      className={`w-full p-2 rounded-xl text-xs border ${inputBg}`}
+                    />
+                  </div>
                 </div>
 
                 <div>

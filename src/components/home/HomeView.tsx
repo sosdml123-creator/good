@@ -9,7 +9,6 @@ import {
   formatSearchCount 
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
-import { POPULAR_BRANDS } from '../../utils/brandData';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 
@@ -18,6 +17,7 @@ export const HomeView: React.FC = () => {
     products, 
     reviews, 
     banners,
+    brands,
     battleConfig,
     battleChoice,
     voteBattle,
@@ -217,7 +217,7 @@ export const HomeView: React.FC = () => {
   const quickIcons = [
     { label: '오늘신상', icon: '⚡', color: 'bg-amber-50 text-amber-600', cat: '신제품' as ProductCategory },
     { label: '행사소식', icon: '🏷️', color: 'bg-rose-50 text-rose-600', action: 'calendar' },
-    { label: '브랜드관', icon: '🏢', color: 'bg-blue-50 text-[#0066FF]', action: 'brand' },
+    { label: '브랜드관', icon: '🏢', color: 'bg-slate-100 text-slate-700', action: 'brand' },
     { label: '신상배틀', icon: '⚔️', color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: '🎁', color: 'bg-green-50 text-green-600', action: 'event' },
   ];
@@ -480,8 +480,8 @@ export const HomeView: React.FC = () => {
         <div className="flex items-center justify-between px-4 mb-2.5">
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-extrabold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> NEW 신상
+              <span className="text-[10px] font-black text-gray-900 bg-gray-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-gray-200/80">
+                <Sparkles className="w-3 h-3 text-amber-500" /> NEW 신상
               </span>
               <span className="text-[11px] text-gray-400 font-medium">편의점·마트 실시간 입고</span>
             </div>
@@ -494,7 +494,7 @@ export const HomeView: React.FC = () => {
               setSelectedCategory('신제품');
               setActiveTab('category');
             }}
-            className="text-[12px] text-gray-400 font-medium hover:text-[#0066FF] flex items-center gap-0.5 transition-colors"
+            className="text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
           >
             <span>전체보기</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -511,7 +511,7 @@ export const HomeView: React.FC = () => {
                 onClick={() => setNewProductCategoryFilter(cat)}
                 className={`shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
                   isSelected
-                    ? 'bg-[#0066FF] text-white shadow-xs'
+                    ? 'bg-gray-900 text-white shadow-xs'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -549,7 +549,7 @@ export const HomeView: React.FC = () => {
                           ⚡ 오늘신상
                         </span>
                       ) : (
-                        <span className="text-[10px] font-black bg-[#0066FF] text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                        <span className="text-[10px] font-black bg-gray-900 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                           NEW
                         </span>
                       )}
@@ -584,7 +584,7 @@ export const HomeView: React.FC = () => {
                   {/* Product Details */}
                   <div className="mt-2">
                     <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
-                    <div className="text-[12px] font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-[#0066FF] transition-colors">
+                    <div className="text-[12px] font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-gray-700 transition-colors">
                       {p.name}
                     </div>
 
@@ -602,7 +602,7 @@ export const HomeView: React.FC = () => {
 
                     {/* Release Date info tag */}
                     {p.releaseDate && (
-                      <div className="text-[10px] text-[#0066FF] font-medium mt-1 bg-blue-50/80 px-1.5 py-0.5 rounded w-fit">
+                      <div className="text-[10px] text-gray-600 font-medium mt-1 bg-gray-100 px-1.5 py-0.5 rounded w-fit">
                         {p.releaseDate}
                       </div>
                     )}
@@ -658,7 +658,7 @@ export const HomeView: React.FC = () => {
                         item.dealType === '1+1'
                           ? 'bg-red-500 text-white animate-pulse'
                           : item.dealType === '2+1'
-                          ? 'bg-blue-600 text-white'
+                          ? 'bg-indigo-600 text-white'
                           : 'bg-amber-500 text-white'
                       }`}>
                         {item.badgeText}
@@ -730,13 +730,13 @@ export const HomeView: React.FC = () => {
         <div className="flex items-center justify-between px-4 mb-2">
           <div className="flex items-center gap-1.5">
             <span className="text-[15px] font-bold text-gray-900">🏢 인기 대표 브랜드관</span>
-            <span className="text-[10px] font-bold bg-blue-50 text-[#0066FF] px-2 py-0.5 rounded-full border border-blue-100">
+            <span className="text-[10px] font-bold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border border-gray-200">
               전용관
             </span>
           </div>
           <button
             onClick={() => setActiveTab('brand')}
-            className="text-[13px] text-[#0066FF] font-semibold hover:underline flex items-center"
+            className="text-[13px] text-gray-600 font-semibold hover:text-gray-900 flex items-center"
           >
             전체 브랜드 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
           </button>
@@ -747,13 +747,13 @@ export const HomeView: React.FC = () => {
         </p>
 
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
-          {POPULAR_BRANDS.map((b) => {
+          {(brands.filter(b => b.isPopular).length > 0 ? brands.filter(b => b.isPopular) : brands).map((b) => {
             const count = products.filter(p => p.brand === b.name).length;
             return (
               <div
                 key={b.id}
                 onClick={() => openBrandDetail(b.name)}
-                className="w-32 shrink-0 bg-[#F8F9FA] hover:bg-blue-50/50 rounded-2xl p-3 border border-gray-100 hover:border-blue-200 transition-all cursor-pointer text-center group flex flex-col items-center justify-between space-y-1.5 active:scale-95"
+                className="w-32 shrink-0 bg-[#F8F9FA] hover:bg-gray-100 rounded-2xl p-3 border border-gray-100 hover:border-gray-300 transition-all cursor-pointer text-center group flex flex-col items-center justify-between space-y-1.5 active:scale-95"
               >
                 <div className="flex justify-center">
                   <BrandLogo 
@@ -764,14 +764,14 @@ export const HomeView: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <div className="text-xs font-black text-gray-900 truncate max-w-[100px] group-hover:text-[#0066FF] transition-colors">
+                  <div className="text-xs font-black text-gray-900 truncate max-w-[100px] group-hover:text-gray-700 transition-colors">
                     {b.name}
                   </div>
                   <div className="text-[10px] text-gray-400 font-medium">
                     {count > 0 ? `${count}개 메뉴` : b.category}
                   </div>
                 </div>
-                <span className="text-[9px] font-bold text-[#0066FF] bg-white px-2 py-0.5 rounded-full shadow-2xs border border-blue-50">
+                <span className="text-[9px] font-bold text-gray-700 bg-white px-2 py-0.5 rounded-full shadow-2xs border border-gray-200">
                   모아보기
                 </span>
               </div>
@@ -799,7 +799,7 @@ export const HomeView: React.FC = () => {
         </div>
 
         <p className="px-4 text-[11px] text-gray-400 mb-3 flex items-center gap-1">
-          <Search className="w-3 h-3 text-[#0066FF] shrink-0" />
+          <Search className="w-3 h-3 text-gray-400 shrink-0" />
           사람들이 검색창에서 가장 많이 찾아보고 들어온 인기 순위예요
         </p>
 
@@ -863,12 +863,12 @@ export const HomeView: React.FC = () => {
 
                 <div className="mt-2">
                   <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
-                  <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-[#0066FF] transition-colors">
+                  <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-gray-700 transition-colors">
                     {p.name}
                   </div>
 
                   {/* Search Influx Volume Tag */}
-                  <div className="flex items-center gap-1 mt-1 text-[10px] text-[#0066FF] font-bold bg-blue-50/90 px-1.5 py-0.5 rounded w-fit">
+                  <div className="flex items-center gap-1 mt-1 text-[10px] text-amber-700 font-semibold bg-amber-50/90 px-1.5 py-0.5 rounded w-fit">
                     <Search className="w-2.5 h-2.5 stroke-[2.5]" />
                     <span>검색 유입 {formatSearchCount(searchInflux)}</span>
                   </div>
@@ -898,7 +898,7 @@ export const HomeView: React.FC = () => {
               <span className="text-[15px] font-black text-gray-900">🎁 진행 중인 핫 이벤트 & 체험단</span>
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
             </div>
-            <span className="text-[11px] text-[#0066FF] font-bold">
+            <span className="text-[11px] text-gray-500 font-bold">
               {events.length}개 진행중
             </span>
           </div>
@@ -921,7 +921,7 @@ export const HomeView: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                   
-                  <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-[#0066FF] px-2 py-0.5 rounded-full shadow-xs">
+                  <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-gray-900 px-2 py-0.5 rounded-full shadow-xs">
                     {ev.badge}
                   </span>
 
@@ -945,7 +945,7 @@ export const HomeView: React.FC = () => {
                   </div>
 
                   <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-gray-800 bg-gray-100 px-1.5 py-0.5 rounded">
                       {ev.reward.length > 14 ? ev.reward.slice(0, 14) + '...' : ev.reward}
                     </span>
                     <span className="text-[10px] text-gray-400 font-medium">
@@ -970,7 +970,7 @@ export const HomeView: React.FC = () => {
           </div>
           <button
             onClick={() => setActiveTab('community')}
-            className="text-[13px] text-[#0066FF] font-semibold hover:underline flex items-center"
+            className="text-[13px] text-gray-600 font-semibold hover:text-gray-900 flex items-center"
           >
             수다방 레시피 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
           </button>
@@ -985,7 +985,7 @@ export const HomeView: React.FC = () => {
             <div
               key={recipe.id}
               onClick={() => openRecipeDetail(recipe.id)}
-              className="shrink-0 w-[220px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
+              className="shrink-0 w-[220px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-gray-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
             >
               <div>
                 <div className="relative aspect-16/10 bg-gray-100 overflow-hidden">
@@ -1016,7 +1016,7 @@ export const HomeView: React.FC = () => {
                 </div>
 
                 <div className="p-3">
-                  <h4 className="text-xs font-bold text-gray-900 group-hover:text-[#0066FF] transition-colors line-clamp-1 leading-snug">
+                  <h4 className="text-xs font-bold text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-1 leading-snug">
                     {recipe.title}
                   </h4>
                   <p className="text-[11px] text-gray-500 line-clamp-2 mt-1 leading-relaxed">
@@ -1044,11 +1044,11 @@ export const HomeView: React.FC = () => {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-[15px] font-bold text-gray-900">{battleConfig.title}</span>
-            <span className="text-[11px] font-bold text-white bg-[#0066FF] px-2 py-0.5 rounded-full">VS</span>
+            <span className="text-[11px] font-bold text-white bg-gradient-to-r from-gray-900 to-slate-800 px-2 py-0.5 rounded-full">VS</span>
           </div>
           <button
             onClick={() => setActiveTab('compare')}
-            className="text-[13px] text-gray-400 font-medium hover:text-[#0066FF]"
+            className="text-[13px] text-gray-400 font-medium hover:text-gray-700"
           >
             비교표 보기
           </button>
@@ -1068,7 +1068,7 @@ export const HomeView: React.FC = () => {
               <div
                 onClick={() => voteBattle('A')}
                 className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-                  battleChoice === 'A' ? 'border-[#0066FF] bg-blue-50/20 shadow-xs' : 'border-gray-200'
+                  battleChoice === 'A' ? 'border-slate-800 bg-slate-50/40 shadow-xs' : 'border-gray-200'
                 }`}
               >
                 <SafeImage
@@ -1079,13 +1079,13 @@ export const HomeView: React.FC = () => {
                   className="w-full aspect-square object-cover"
                 />
                 <div className="p-2.5">
-                  <div className="text-[11px] text-[#0066FF] font-bold">{battleConfig.labelA || `${prodA.category} 1위`}</div>
+                  <div className="text-[11px] text-slate-800 font-bold">{battleConfig.labelA || `${prodA.category} 1위`}</div>
                   <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
                   <div className="mt-1.5 flex items-center gap-1">
                     <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-[#0066FF] h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
+                      <div className="bg-slate-800 h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
                     </div>
-                    <span className="text-[11px] font-bold text-[#0066FF]">{percentA}%</span>
+                    <span className="text-[11px] font-bold text-slate-800">{percentA}%</span>
                   </div>
                 </div>
               </div>
@@ -1130,7 +1130,7 @@ export const HomeView: React.FC = () => {
       <div className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[15px] font-bold text-gray-900">🔥 실시간 인기 품목 랭킹</span>
-          <button onClick={() => setActiveTab('ranking')} className="text-[13px] text-[#0066FF] font-semibold">전체보기</button>
+          <button onClick={() => setActiveTab('ranking')} className="text-[13px] text-gray-500 font-semibold hover:text-gray-900">전체보기</button>
         </div>
 
         <div className="space-y-4">
@@ -1140,7 +1140,7 @@ export const HomeView: React.FC = () => {
               onClick={() => openProductDetail(p.id)}
               className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-1 rounded-xl transition-colors"
             >
-              <span className={`w-5 text-[13px] font-black ${i === 0 ? 'text-[#0066FF]' : i === 1 ? 'text-gray-700' : 'text-gray-400'}`}>
+              <span className={`w-5 text-[13px] font-black ${i === 0 ? 'text-amber-500' : i === 1 ? 'text-gray-700' : 'text-gray-400'}`}>
                 {i + 1}
               </span>
               <SafeImage
@@ -1190,7 +1190,7 @@ export const HomeView: React.FC = () => {
               >
                 <div className="flex items-center gap-2">
                   <img
-                    src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+                    src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop&q=80'}
                     alt={r.userName}
                     className="w-8 h-8 rounded-full object-cover"
                     onError={(e) => {
@@ -1212,7 +1212,7 @@ export const HomeView: React.FC = () => {
                   </div>
                 </div>
 
-                <span className="text-[11px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md inline-block">
+                <span className="text-[11px] font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-md inline-block">
                   {r.productName}
                 </span>
 
@@ -1243,7 +1243,7 @@ export const HomeView: React.FC = () => {
             <p className="text-[11px] text-gray-400 mt-1">맛있는 신상을 맛보고 첫 번째 솔직 후기를 남겨보세요!</p>
             <button
               onClick={() => setActiveTab('write')}
-              className="mt-3 px-4 py-1.5 bg-[#0066FF] text-white text-xs font-bold rounded-full shadow-xs hover:bg-blue-600 transition-colors"
+              className="mt-3 px-4 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs transition-colors"
             >
               리뷰 작성하러 가기
             </button>

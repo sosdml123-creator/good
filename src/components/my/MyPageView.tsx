@@ -73,18 +73,18 @@ export const MyPageView: React.FC = () => {
   return (
     <div className="bg-[#F5F5F5] min-h-full pb-14">
       
-      {/* 1. Blue profile header */}
-      <div className="bg-[#0066FF] px-5 pt-6 pb-16 text-white relative">
+      {/* 1. Profile header */}
+      <div className="bg-gradient-to-b from-gray-900 via-slate-900 to-gray-900 px-5 pt-6 pb-16 text-white relative shadow-sm">
         <div className="flex items-center gap-3.5">
           <img
             src={currentUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop&q=80'}
             alt="profile"
-            className="w-14 h-14 rounded-full border-2 border-white/50 object-cover bg-white/20 shrink-0 shadow-sm"
+            className="w-14 h-14 rounded-full border-2 border-white/30 object-cover bg-white/20 shrink-0 shadow-sm"
           />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-[17px] font-extrabold truncate">{currentUser.displayName}</span>
-              <span className="text-[10px] font-bold bg-white/25 px-1.5 py-0.5 rounded-full shrink-0">
+              <span className="text-[10px] font-bold bg-white/20 px-1.5 py-0.5 rounded-full shrink-0">
                 {currentUser.level}
               </span>
               <button
@@ -92,7 +92,7 @@ export const MyPageView: React.FC = () => {
                   setNicknameInput(currentUser.displayName);
                   setIsEditNicknameOpen(true);
                 }}
-                className="p-1 text-white/80 hover:text-white transition-colors"
+                className="p-1 text-white/70 hover:text-white transition-colors"
                 title="닉네임 변경"
               >
                 <Edit3 className="w-3.5 h-3.5" />
@@ -121,19 +121,19 @@ export const MyPageView: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 grid grid-cols-3 divide-x divide-gray-100 py-3.5 text-center">
           <div 
             onClick={() => setIsReviewsOpen(true)}
-            className="cursor-pointer hover:bg-blue-50/40 rounded-l-xl transition-colors py-0.5"
+            className="cursor-pointer hover:bg-gray-50 rounded-l-xl transition-colors py-0.5"
             title="내가 쓴 리뷰 보기"
           >
             <div className="text-[20px] font-black text-gray-900">{myReviewsCount}</div>
             <div className="text-[11px] text-gray-500 font-semibold mt-0.5">내가 쓴 리뷰</div>
           </div>
           <div>
-            <div className="text-[20px] font-black text-[#0066FF]">{userPoints.toLocaleString()}P</div>
+            <div className="text-[20px] font-black text-amber-500">{userPoints.toLocaleString()}P</div>
             <div className="text-[11px] text-gray-400 mt-0.5">보유 포인트</div>
           </div>
           <div 
             onClick={() => setIsBookmarksOpen(true)}
-            className="cursor-pointer hover:bg-rose-50/40 rounded-r-xl transition-colors py-0.5"
+            className="cursor-pointer hover:bg-gray-50 rounded-r-xl transition-colors py-0.5"
             title="찜한 제품 목록 보기"
           >
             <div className="text-[20px] font-black text-gray-900">{bookmarkedIds.length}</div>
@@ -184,7 +184,7 @@ export const MyPageView: React.FC = () => {
                 maxLength={15}
                 autoFocus
                 placeholder="새로운 닉네임을 입력하세요"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-[#0066FF]"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-gray-900"
               />
               <div className="flex gap-2">
                 <button
@@ -196,7 +196,7 @@ export const MyPageView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2 rounded-xl bg-[#0066FF] text-white text-xs font-bold hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
+                  className="flex-1 py-2 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold transition-colors flex items-center justify-center gap-1"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>변경완료</span>

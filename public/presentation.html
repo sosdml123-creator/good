@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>신상픽(SinSangPick) - 서비스 소개서 & 사업 기획서 슬라이드</title>
+  <title>신상픽(SinSangPick) - 서비스 소개서</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
@@ -15,449 +15,189 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col items-center min-h-screen select-none">
+<body class="bg-gray-100 text-gray-900 flex flex-col items-center min-h-screen select-none">
 
-  <!-- Top Global Navigation Bar -->
-  <header class="w-full max-w-7xl px-6 py-4 flex items-center justify-between border-b border-slate-800">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg shadow-md shadow-blue-500/30">
+  <!-- Top Simple Navigation Bar -->
+  <header class="w-full max-w-5xl px-6 py-4 flex items-center justify-between border-b border-gray-200 bg-white">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-black text-white text-base">
         픽
       </div>
       <div>
-        <h1 class="text-base font-bold text-white leading-tight">신상픽 (SinSangPick)</h1>
-        <p class="text-xs text-slate-400">서비스 소개서 & 사업 기획서 프레젠테이션</p>
+        <h1 class="text-sm font-bold text-gray-900 leading-tight">신상픽 (SinSangPick)</h1>
+        <p class="text-xs text-gray-500">신상 먹거리 리뷰 & 포인트 리워드 앱</p>
       </div>
     </div>
 
     <div class="flex items-center gap-3">
-      <span id="slideIndicator" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-        1 / 13
+      <span id="slideIndicator" class="text-xs font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-600 border border-gray-200">
+        1 / 3
       </span>
-      <a href="/docs/sinsangpick_presentation.pptx" download class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+      <a href="/docs/sinsangpick_presentation.pptx" download class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-sm">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
         <span>PPTX 다운로드</span>
       </a>
-      <button id="fullscreenBtn" class="p-2 text-slate-400 hover:text-white bg-slate-900 rounded-lg border border-slate-800 transition-colors" title="전체화면">
+      <button id="fullscreenBtn" class="p-1.5 text-gray-500 hover:text-gray-900 bg-gray-50 rounded-lg border border-gray-200" title="전체화면">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
       </button>
     </div>
   </header>
 
   <!-- Slide Stage Container -->
-  <main class="flex-1 w-full max-w-6xl p-4 sm:p-8 flex flex-col justify-center items-center">
-    <div id="slideViewport" class="w-full slide-aspect bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 overflow-hidden relative flex flex-col">
-      <!-- Slides are injected here dynamically by JavaScript -->
+  <main class="flex-1 w-full max-w-5xl p-4 sm:p-8 flex flex-col justify-center items-center">
+    <!-- White Slide Screen -->
+    <div id="slideViewport" class="w-full slide-aspect bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden relative flex flex-col">
+      <!-- Injected by JS -->
     </div>
 
     <!-- Navigation Controls Bottom -->
-    <div class="w-full mt-6 flex items-center justify-between text-sm">
-      <button id="prevBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium border border-slate-700 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+    <div class="w-full mt-5 flex items-center justify-between text-sm">
+      <button id="prevBtn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-gray-50 text-gray-700 font-medium border border-gray-200 shadow-sm transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        <span>이전 슬라이드</span>
+        <span>이전</span>
       </button>
 
-      <!-- Thumb Dots -->
-      <div id="dotsContainer" class="flex items-center gap-1.5 overflow-x-auto max-w-md py-1">
-        <!-- Dots injected here -->
-      </div>
+      <!-- Dots -->
+      <div id="dotsContainer" class="flex items-center gap-2"></div>
 
-      <button id="nextBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium shadow-lg shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
-        <span>다음 슬라이드</span>
+      <button id="nextBtn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+        <span>다음</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </button>
     </div>
-    <p class="mt-4 text-xs text-slate-500 text-center">
-      💡 키보드 좌우 방향키(← / →) 또는 스페이스바로 슬라이드를 넘길 수 있습니다.
+    <p class="mt-3 text-xs text-gray-400 text-center">
+      키보드 방향키(← / →) 또는 스페이스바로 넘길 수 있습니다.
     </p>
   </main>
 
   <script>
-    const slidesData = [
-      {
-        type: "cover",
-        badge: "APP SERVICE PROPOSAL",
-        title: "신상픽 (SinSangPick)",
-        subtitle: "대한민국 모든 신상 먹거리의 나침반\n실시간 편의점·마트 신제품 정보 & 재고 조회 & 내돈내산 찐리뷰 플랫폼",
-        highlights: [
-          { icon: "⚡", label: "실시간 신상 캘린더" },
-          { icon: "🏪", label: "인근 편의점 재고 연동" },
-          { icon: "🧾", label: "내돈내산 영수증 리뷰" },
-          { icon: "🏷️", label: "1+1 실속 할인 혜택" }
-        ],
-        footer: "플랫폼: iOS App & Web  |  신상픽 기획/개발팀"
-      },
-      {
-        category: "BACKGROUND & PROBLEM",
-        title: "왜 '신상픽'인가? 소비자들의 4가지 핵심 불편함 (Pain Points)",
-        subtitle: "매주 100여 종 이상의 신제품이 쏟아지지만, 정작 소비자는 탐색부터 구매까지 번거로운 문제에 직면해 있습니다.",
-        cards: [
-          {
-            num: "01",
-            tag: "탐색 피로",
-            title: "정보의 극심한 파편화",
-            desc: "CU, GS25, 세븐일레븐, 대형마트, 프랜차이즈 카페 등 신제품 소식이 인스타그램, 블로그, 각종 커뮤니티에 흩어져 매번 찾아다녀야 하는 피로감"
-          },
-          {
-            num: "02",
-            tag: "신뢰 부족",
-            title: "광고·협찬 후기 피로도",
-            desc: "SNS에 넘쳐나는 유료 광고와 바이럴 마케팅으로 인해 '진짜 맛있는지', '돈값 하는지' 신뢰할 수 있는 객관적인 맛 평가 데이터의 부재"
-          },
-          {
-            num: "03",
-            tag: "구매 장벽",
-            title: "매장 헛걸음과 재고 불확실성",
-            desc: "신상 출시 소식을 접해도 정작 내 주변 가까운 매장에 입고가 되었는지 알 수 없어 허탕을 치거나 여러 지점을 헤매는 비효율"
-          },
-          {
-            num: "04",
-            tag: "가격 손실",
-            title: "놓치기 쉬운 실속 할인 혜택",
-            desc: "1+1, 2+1 등 매월 바뀌는 편의점·마트 행사 정보가 제각각이라, 언제 어디서 사야 가장 저렴한지 실질적 혜택을 체감하기 어려움"
-          }
-        ]
-      },
-      {
-        category: "SOLUTION & CORE VALUES",
-        title: "신상픽(SinSangPick)이 제시하는 올인원 푸드 라이프 솔루션",
-        subtitle: "탐색부터 검증, 재고 확인, 실속 구매까지 신상 소비의 모든 여정을 하나로 연결합니다.",
-        cols: [
-          {
-            badge: "SOLUTION 01",
-            icon: "📅",
-            title: "통합 신상 아카이브 & 캘린더",
-            color: "bg-blue-600",
-            items: [
-              "편의점 4사, 카페, 마트 신제품 실시간 수집",
-              "출시 D-Day 카운트다운 및 입고 타임라인",
-              "식약처 9대 영양성분 & 비파괴 당도 규격 제공"
-            ]
-          },
-          {
-            badge: "SOLUTION 02",
-            icon: "🧾",
-            title: "내돈내산 영수증 인증 리뷰",
-            color: "bg-orange-600",
-            items: [
-              "영수증 인증 마크로 허위·바이럴 원천 차단",
-              "맛/가성비/양/재구매 4대 다면 평가 지표",
-              "당도(Brix), 맵기 단계, 식감 미식 프로필"
-            ]
-          },
-          {
-            badge: "SOLUTION 03",
-            icon: "📍",
-            title: "인근 매장 실시간 재고 조회",
-            color: "bg-emerald-600",
-            items: [
-              "내 위치 반경 편의점 매장별 실시간 재고 연동",
-              "여유 / 품절임박 / 품절 상태 한눈에 확인",
-              "허탕 치지 않는 확실한 오프라인 방문 유도"
-            ]
-          },
-          {
-            badge: "SOLUTION 04",
-            icon: "🥪",
-            title: "실속 혜택 & 꿀조합 커뮤니티",
-            color: "bg-purple-600",
-            items: [
-              "1+1, 2+1, 단독특가 행사 모음 및 찜하기",
-              "SNS 화제의 편의점 꿀조합 레시피 & 비용 계산",
-              "A vs B 신상 배틀 투표 및 유저 수다방"
-            ]
-          }
-        ]
-      },
-      {
-        category: "KEY FEATURE 01",
-        title: "실시간 신제품 탐색 & 출시 캘린더 (Discovery & Timeline)",
-        subtitle: "신제품의 사전예약부터 출시 당일 알림, 인기 브랜드 전용관까지 신상 정보를 가장 빠르게 전달합니다.",
-        cards: [
-          {
-            tag: "카테고리 큐레이션",
-            title: "1. 9대 카테고리 실시간 신상 탐색",
-            desc: "과자·스낵, 음료, 빵·디저트, 간편식(HMR), 패스트푸드, 아이스크림, 산지직송 제철 과일 등 전문화된 카테고리별 실시간 신제품 피드 제공"
-          },
-          {
-            tag: "캘린더 & 푸시",
-            title: "2. 신상 출시 캘린더 & D-Day 알림",
-            desc: "출시 예정일 캘린더 타임라인을 통해 'D-3', '오늘출시' 배지 제공 및 관심 상품 사전예약·입고 알림 푸시로 얼리어먹터의 신상 선점 지원"
-          },
-          {
-            tag: "트렌드 감지",
-            title: "3. 실시간 검색 유입 랭킹 알고리즘",
-            desc: "실제 유저들이 검색창에서 가장 많이 찾아보고 유입된 데이터 기반 실시간 먹거리 랭킹 큐레이션으로 '지금 가장 핫한 대란템' 실시간 포착"
-          },
-          {
-            tag: "브랜드 전용관",
-            title: "4. 인기 대표 브랜드 전용관",
-            desc: "스타벅스, 컴포즈커피, 빽다방, 이디야, 투썸플레이스, 맥도날드 등 인기 F&B 프랜차이즈 브랜드별 신메뉴 및 단독 라인업 모아보기"
-          }
-        ]
-      },
-      {
-        category: "KEY FEATURE 02",
-        title: "내돈내산 영수증 인증 리뷰 & 정밀 미식 분석 시스템",
-        subtitle: "광고·협찬을 철저히 배제하고, 맛·가성비·영양성분을 객관적으로 수치화하여 실패 없는 선택을 돕습니다.",
-        twoCol: {
-          left: {
-            title: "📊 4대 다면 평가 & 영수증 인증",
-            items: [
-              { name: "맛 평가 (Taste)", score: "4.8 / 5.0", desc: "단순 별점이 아닌 풍미, 조화, 첫인상 객관 점수화" },
-              { name: "가성비 (Value)", score: "92% 만족", desc: "판매 정가 대비 만족도 및 1+1 행사 시 가격 대비 성능" },
-              { name: "양/용량 (Portion)", score: "적당함 (88%)", desc: "1인분 기준 실제 포만감 및 질소 과다 여부 검증" },
-              { name: "재구매의사 (Repurchase)", score: "재구매율 85%", desc: "'무조건 재구매' vs '한 번으로 만족' 실측 확률 집계" }
-            ]
-          },
-          right: {
-            title: "🔬 디테일 미식 프로필 & 영양성분 DB",
-            items: [
-              { title: "당도(Brix) & 맵기 단계 측정", desc: "과일/디저트의 실제 Brix 당도 등급 및 맵기(안매움/신라면/불닭급) 프로필 제공" },
-              { title: "식약처 9대 영양성분 자동 연동", desc: "칼로리(kcal), 나트륨, 당류, 탄수화물, 지방, 트랜스지방, 포화지방, 콜레스테롤, 단백질 완벽 표기" },
-              { title: "알레르기 유발물질 & 원산지 표기", desc: "밀, 대두, 우유, 견과류 등 알레르기 성분 및 식품 보관방법, 소비기한 안내" },
-              { title: "내돈내산 영수증 인증 배지", desc: "실제 편의점·마트 구매 영수증 인증 유저에게 인증 배지 부여 및 신뢰도 가중치 부여" }
-            ]
-          }
-        }
-      },
-      {
-        category: "KEY FEATURE 03",
-        title: "인근 매장 실시간 재고 확인 & 이달의 행사 큐레이션",
-        subtitle: "헛걸음 없는 100% 성공 쇼핑! 내 주변 편의점 재고 현황과 실속 1+1 할인 혜택을 한눈에 확인합니다.",
-        twoColCards: [
-          {
-            icon: "🏪",
-            title: "📍 인근 매장 실시간 재고 연동",
-            subtitle: "헛걸음 방지 & 매장 거리 안내",
-            bullets: [
-              "CU, GS25, 세븐일레븐, 이마트24 주요 편의점 재고 현황",
-              "내 위치 기준 최단거리 매장 안내 (150m, 320m 등)",
-              "상태별 뱃지: [여유] [품절임박] [일시품절] [예약가능]",
-              "매장 즉시 픽업 링크 및 24시간 영업 여부 안내"
-            ]
-          },
-          {
-            icon: "🔥",
-            title: "🏷️ 이달의 편의점·마트 행사소식",
-            subtitle: "1+1, 2+1, 단독특가 실속 쇼핑",
-            bullets: [
-              "편의점 4사 및 대형마트 이달의 행사 상품 통합 정리",
-              "1+1 특가 적용 시 실질 개당 체감 단가 자동 계산",
-              "관심 행사 상품 찜하기 & 행사 종료 D-Day 카운트다운",
-              "식품/스낵/음료 카테고리별 실속 할인 큐레이션"
-            ]
-          }
-        ]
-      },
-      {
-        category: "KEY FEATURE 04",
-        title: "푸드 커뮤니티 & SNS 화제의 편의점 꿀조합 레시피",
-        subtitle: "신제품 배틀 투표와 유저 창작 레시피를 통해 능동적으로 소통하는 미식 놀이터를 조성합니다.",
-        cards: [
-          {
-            tag: "⚔️ 신상 배틀 (VS)",
-            title: "신상 배틀 (VS Match)",
-            desc: "화제의 신제품 2종 매주 맞대결 투표 및 유저 실시간 투표율(%) 집계, 영양성분·스펙 1:1 비교표 제공"
-          },
-          {
-            tag: "🥪 꿀조합 레시피",
-            title: "SNS 화제의 꿀조합 레시피",
-            desc: "마크정식, 편의점 파스타 등 신상 조합 요리의 상세 조리법, 난이도, 조리시간, 재료별 총비용 자동 계산"
-          },
-          {
-            tag: "💬 수다방 커뮤니티",
-            title: "유저 수다방 & 소통 게시판",
-            desc: "신제품 발굴 자랑, 맛 평가 토론, 질문/답변, 편의점 알바생 꿀팁 공유 등 활발한 푸드 커뮤니티 운영"
-          },
-          {
-            tag: "🎁 포인트 리워드",
-            title: "리워드 포인트 & 뱃지 시스템",
-            desc: "영수증 리뷰 작성, 투표 참여, 레시피 등록 시 리워드 포인트 지급 및 맛잘알 레벨업 뱃지 획득"
-          }
-        ]
-      },
-      {
-        category: "DATA & ADMIN PIPELINE",
-        title: "고도화된 관리자 대시보드 & 데이터 자동화 파이프라인",
-        subtitle: "네이버 쇼핑 트렌드 수집부터 식약처 공공 API 매칭, 품질 검증 큐까지 자동화된 데이터 생태계를 구축했습니다.",
-        steps: [
-          {
-            step: "STEP 01",
-            badge: "Brand Collector",
-            title: "자동 수집 엔진",
-            desc: "네이버 쇼핑 인사이트 검색 트렌드 키워드 및 주요 F&B 브랜드 신제품 데이터 자동 크롤링/수집"
-          },
-          {
-            step: "STEP 02",
-            badge: "Nutrition API",
-            title: "식약처 공공 API 매칭",
-            desc: "식품의약품안전처 영양성분 공공 DB 실시간 검색 연동으로 9대 영양성분 및 규격 자동 추출"
-          },
-          {
-            step: "STEP 03",
-            badge: "Approval Queue",
-            title: "검증 승인 큐 (Quality)",
-            desc: "쇼핑몰 가격/이미지 미매칭 상품 검증 필요 상태(Needs Review) 플래그 및 원클릭 승인/반려"
-          },
-          {
-            step: "STEP 04",
-            badge: "Live Publish",
-            title: "실시간 배포 & 푸시",
-            desc: "승인 완료 즉시 메인 피드 반영, 타겟 푸시 알림 발송 및 홈 배너/신상 배틀 실시간 편성"
-          }
-        ]
-      },
-      {
-        category: "TARGET AUDIENCE & PERSONA",
-        title: "핵심 타겟 고객층 및 3대 사용자 페르소나 (Persona)",
-        subtitle: "트렌드에 민감한 MZ세대부터 알뜰 1인 가구, 건강 식단 관리자까지 명확한 타겟군을 포괄합니다.",
-        personas: [
-          {
-            tag: "PERSONA A",
-            icon: "✨",
-            title: "얼리어먹터 (Early Eater)",
-            profile: "20대 대학생 / 사회초년생",
-            needs: "신제품이 나오면 남들보다 먼저 먹어보고 SNS에 인증하고 싶음. 인근 편의점에 재고가 있는지 즉시 확인 필요.",
-            favorite: "신상 과자, 한정판 음료, 인스타 대란 디저트"
-          },
-          {
-            tag: "PERSONA B",
-            icon: "🎯",
-            title: "알뜰 실속형 (Smart Shopper)",
-            profile: "2030 직장인 / 1인 가구",
-            needs: "물가 부담으로 편의점 1+1, 2+1 행사 소식을 적극 활용하며, 간단하고 맛있는 편의점 꿀조합 레시피를 즐김.",
-            favorite: "1+1 간편식, 삼각김밥, 콤보 특가"
-          },
-          {
-            tag: "PERSONA C",
-            icon: "🥗",
-            title: "헬시플레저 (Health & Fit)",
-            profile: "식단 관리자 / 다이어터",
-            needs: "신제품의 칼로리, 당류, 나트륨, 단백질 함량을 꼼꼼히 확인하고 건강하게 즐길 수 있는 먹거리를 선별 소비.",
-            favorite: "제로 탄산, 단백질 바, 저당 디저트"
-          }
-        ]
-      },
-      {
-        category: "BUSINESS REVENUE MODEL",
-        title: "다각화된 비즈니스 수익 창출 모델 (Business Model)",
-        subtitle: "B2B 식품 제조사 마케팅부터 제휴 커머스 수수료, 트렌드 빅데이터 판매까지 지속 가능한 수익 구조를 확보합니다.",
-        bms: [
-          {
-            num: "01",
-            title: "B2B 신제품 마케팅 & 스폰서십",
-            desc: "식품 대기업 및 F&B 프랜차이즈 대상 신제품 런칭 홈 배너, 브랜드 전용관 입점, 무료 신상 체험단 100명 모집 대행 광고비 수취",
-            target: "식품 제조사 / 프랜차이즈",
-            profit: "스폰서십 광고비"
-          },
-          {
-            num: "02",
-            title: "제휴 커머스 & 픽업 수수료",
-            desc: "쿠팡 파트너스, 마켓컬리, 편의점 공식 앱 픽업 주문 링크 연동을 통한 구매 전환 수수료(Affiliate Commission) 발생",
-            target: "이커머스 / 편의점 픽업",
-            profit: "구매 전환 수수료 (3~8%)"
-          },
-          {
-            num: "03",
-            title: "F&B 트렌드 빅데이터 리포트",
-            desc: "신제품 카테고리별 검색 유입량, 연령/지역별 선호 맛 프로필, 재구매 의향률 등 실측 소비자 행동 인사이트 데이터 판매",
-            target: "식품 연구소 / 상품기획(MD)",
-            profit: "월 구독형 데이터 리포트"
-          },
-          {
-            num: "04",
-            title: "지역 편의점 타겟 입고 알림 광고",
-            desc: "특정 지역(구/동 단위) 편의점 가맹점주 대상, 신제품 입고 시 인근 반경 사용자에게 타겟 푸시 알림을 발송하는 로컬 광고",
-            target: "편의점 점주 / 로컬 상권",
-            profit: "건당 푸시 알림 광고료"
-          }
-        ]
-      },
-      {
-        category: "TECH STACK & ARCHITECTURE",
-        title: "검증된 기술 스택 & 크로스 플랫폼 아키텍처",
-        subtitle: "웹부터 iOS 모바일 네이티브 앱까지 완전한 CI/CD 자동화 배포 파이프라인을 구축했습니다.",
-        stacks: [
-          {
-            category: "프론트엔드 (Frontend)",
-            color: "border-blue-500",
-            techs: ["React 18", "TypeScript", "Tailwind CSS", "Vite", "Lucide React"],
-            desc: "반응형 모바일 퍼스트 UI, 빠르고 가벼운 번들링 및 타입 안정성 보장"
-          },
-          {
-            category: "백엔드 & DB (Backend / DB)",
-            color: "border-emerald-500",
-            techs: ["Supabase", "PostgreSQL", "Realtime WebSocket", "Row Level Security"],
-            desc: "실시간 투표 및 재고 반영, 엔터프라이즈급 DB 무결성 및 강력한 보안"
-          },
-          {
-            category: "모바일 네이티브 (Hybrid Native)",
-            color: "border-purple-500",
-            techs: ["Capacitor 6.0 iOS", "App Store Connect", "Push Notification", "Camera OCR"],
-            desc: "Capacitor 기반 단일 코드베이스로 iOS 네이티브 앱스토어 배포 및 푸시 알림"
-          },
-          {
-            category: "인프라 & CI/CD (DevOps)",
-            color: "border-orange-500",
-            techs: ["Vercel Production", "GitHub Actions", "식약처 공공 API", "네이버 쇼핑 API"],
-            desc: "커밋 시 Vercel 웹 배포 및 iOS TestFlight/App Store 자동 빌드 배포 완비"
-          }
-        ]
-      },
-      {
-        category: "ROADMAP & VISION",
-        title: "서비스 단계별 로드맵 & 미래 비전 (Roadmap)",
-        subtitle: "편의점 신상 정보 아카이브를 시작으로, 대한민국 F&B의 모든 트렌드를 주도하는 메가 플랫폼으로 도약합니다.",
-        roadmap: [
-          {
-            phase: "PHASE 1 (현재)",
-            timeline: "2026 상반기",
-            title: "시장 진입 & 기반 구축",
-            color: "bg-blue-600",
-            items: [
-              "편의점 4사 신제품 데이터베이스 구축",
-              "내돈내산 영수증 인증 리뷰 및 배틀 런칭",
-              "iOS 앱스토어 및 웹 정식 런칭",
-              "얼리어먹터 초기 커뮤니티 1만 명 확보"
-            ]
-          },
-          {
-            phase: "PHASE 2 (확장)",
-            timeline: "2026 하반기",
-            title: "데이터 고도화 & 개인화",
-            color: "bg-emerald-600",
-            items: [
-              "대형마트/백화점 팝업스토어로 영역 확대",
-              "유저 취향 기반 AI 신제품 추천 알고리즘",
-              "B2B 브랜드 전용관 및 스폰서십 활성화",
-              "MAU 10만 명 돌파 및 수익 모델 검증"
-            ]
-          },
-          {
-            phase: "PHASE 3 (도약)",
-            timeline: "2027~",
-            title: "커머스 연동 & F&B 생태계",
-            color: "bg-purple-600",
-            items: [
-              "편의점·마트 다이렉트 픽업 예약 결제 연동",
-              "식품 대기업과 신상픽 단독 한정판 신상 출시",
-              "F&B 상품 기획용 소비자 빅데이터 SaaS 출시",
-              "대한민국 No.1 먹거리 디스커버리 플랫폼 완성"
-            ]
-          }
-        ]
-      },
-      {
-        type: "closing",
-        badge: "THANK YOU FOR LISTENING",
-        title: "가장 맛있는 내일을 고르는 곳,\n신상픽 (SinSangPick)",
-        desc: "대한민국 먹거리 소비의 새로운 기준을 세워가겠습니다.\n궁금하신 점이 있으시면 언제든지 말씀해 주세요.",
-        contacts: [
-          { label: "웹 서비스", value: "sinsangpick.app" },
-          { label: "iOS 앱스토어", value: "'신상픽' 검색" },
-          { label: "제휴 및 문의", value: "contact@sinsangpick.app" }
-        ]
-      }
+    const slides = [
+      // Slide 1
+      `
+      <div class="w-full h-full p-8 sm:p-14 flex flex-col justify-between bg-white">
+        <div>
+          <span class="text-xs sm:text-sm font-bold text-blue-600 block mb-2">신상 먹거리 리뷰 & 리워드 앱</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">신상픽 (SinSangPick)</h2>
+          <p class="mt-4 text-base sm:text-2xl text-gray-700 font-medium leading-relaxed">
+            신제품 먹어보고 리뷰 쓰면 포인트 적립!<br>
+            모은 포인트로 편의점·카페 e쿠폰(기프티콘) 교환
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-gray-100 flex items-center justify-between text-xs sm:text-sm text-gray-400">
+          <span>서비스 소개서</span>
+          <span>신상픽 (SinSangPick)</span>
+        </div>
+      </div>
+      `,
+
+      // Slide 2
+      `
+      <div class="w-full h-full p-8 sm:p-12 flex flex-col justify-between bg-white">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black text-gray-900">서비스 이용 흐름</h3>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">소비자가 신상품을 구매하고 보상을 받는 3단계 구조</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-auto">
+          <!-- Step 1 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl sm:text-3xl font-black text-blue-600 block mb-2">01</span>
+              <h4 class="text-base font-bold text-gray-900 mb-2">신상품 탐색 & 구매</h4>
+              <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                편의점(CU, GS25, 세븐, 이마트24), 마트의 새로 나온 과자, 음료, 디저트 등 신상 먹거리 확인 및 구매
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl sm:text-3xl font-black text-blue-600 block mb-2">02</span>
+              <h4 class="text-base font-bold text-gray-900 mb-2">솔직한 리뷰 등록</h4>
+              <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                직접 먹어본 맛, 가성비, 사진과 함께 솔직 후기 작성<br>
+                <span class="text-blue-600 font-bold mt-1 inline-block">👉 작성 즉시 포인트 적립!</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <span class="text-2xl sm:text-3xl font-black text-blue-600 block mb-2">03</span>
+              <h4 class="text-base font-bold text-gray-900 mb-2">e쿠폰 교환</h4>
+              <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                차곡차곡 모은 포인트로 편의점 모바일 상품권, 스타벅스 커피 쿠폰 등 원하는 e쿠폰 즉시 교환
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+          <span>신상픽 서비스 이용 흐름</span>
+          <span>Slide 2 / 3</span>
+        </div>
+      </div>
+      `,
+
+      // Slide 3
+      `
+      <div class="w-full h-full p-8 sm:p-12 flex flex-col justify-between bg-white">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black text-gray-900">핵심 가치 & 기대효과</h3>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">유저에게는 확실한 혜택을, 플랫폼에는 신뢰할 수 있는 데이터를 만듭니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 my-auto">
+          <!-- User -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <span class="text-xs font-bold text-blue-600 block mb-1">유저 관점 (User)</span>
+            <h4 class="text-lg font-bold text-gray-900 mb-4">실패 없는 소비 & 쏠쏠한 리워드</h4>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>광고·협찬 없는 찐후기 보고 신제품 실패 없이 구매</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>내가 먹은 일상 후기 작성하고 포인트 받는 쏠쏠한 앱테크</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>모은 포인트로 편의점 상품권·커피 e쿠폰 무료 교환</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Platform -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <span class="text-xs font-bold text-blue-600 block mb-1">서비스 관점 (Platform)</span>
+            <h4 class="text-lg font-bold text-gray-900 mb-4">자발적인 찐리뷰 축적 & 활성화</h4>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>포인트 보상 시스템으로 고품질 실구매자 리뷰 자발적 누적</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>신제품 궁금한 유저들의 지속적인 방문 및 커뮤니티 활성화</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span>축적된 리뷰 데이터를 바탕으로 F&B 제휴 및 e쿠폰 커머스 확장</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+          <span>신상픽 핵심 가치 & 기대효과</span>
+          <span>Slide 3 / 3</span>
+        </div>
+      </div>
+      `
     ];
 
     let currentIdx = 0;
@@ -469,308 +209,26 @@
 
     function renderDots() {
       dotsContainer.innerHTML = '';
-      slidesData.forEach((_, i) => {
+      slides.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = `h-2 rounded-full transition-all ${
-          i === currentIdx ? 'w-6 bg-blue-500' : 'w-2 bg-slate-700 hover:bg-slate-600'
+          i === currentIdx ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300 hover:bg-gray-400'
         }`;
-        dot.title = `슬라이드 ${i + 1}`;
         dot.onclick = () => goToSlide(i);
         dotsContainer.appendChild(dot);
       });
     }
 
     function renderSlide(idx) {
-      const data = slidesData[idx];
-      indicator.textContent = `${idx + 1} / ${slidesData.length}`;
+      indicator.textContent = `${idx + 1} / ${slides.length}`;
       prevBtn.disabled = idx === 0;
-      nextBtn.disabled = idx === slidesData.length - 1;
-
+      nextBtn.disabled = idx === slides.length - 1;
+      viewport.innerHTML = slides[idx];
       renderDots();
-
-      if (data.type === 'cover') {
-        viewport.innerHTML = `
-          <div class="w-full h-full bg-slate-950 p-8 sm:p-14 flex flex-col justify-between relative overflow-hidden">
-            <div class="absolute -right-20 -top-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div>
-              <span class="inline-block px-3.5 py-1 rounded-full text-xs font-bold bg-blue-600 text-white tracking-wider mb-4">
-                ${data.badge}
-              </span>
-              <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                ${data.title}
-              </h2>
-              <p class="mt-4 text-base sm:text-xl text-slate-300 font-medium whitespace-pre-line leading-relaxed max-w-3xl">
-                ${data.subtitle}
-              </p>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              ${data.highlights.map(h => `
-                <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3 backdrop-blur-sm">
-                  <span class="text-xl">${h.icon}</span>
-                  <span class="text-xs sm:text-sm font-bold text-white">${h.label}</span>
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-              <span>${data.footer}</span>
-              <span class="text-blue-400 font-semibold">SinSangPick IR & Service Deck</span>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      if (data.type === 'closing') {
-        viewport.innerHTML = `
-          <div class="w-full h-full bg-slate-950 p-8 sm:p-14 flex flex-col justify-center items-center text-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-blue-950/20 to-transparent pointer-events-none"></div>
-            <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-blue-600 text-white tracking-wider mb-5">
-              ${data.badge}
-            </span>
-            <h2 class="text-3xl sm:text-5xl font-black text-white whitespace-pre-line leading-tight mb-4">
-              ${data.title}
-            </h2>
-            <p class="text-slate-400 text-sm sm:text-base max-w-xl whitespace-pre-line leading-relaxed mb-8">
-              ${data.desc}
-            </p>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 flex flex-wrap justify-center gap-6 text-xs sm:text-sm">
-              ${data.contacts.map(c => `
-                <div class="text-center">
-                  <span class="text-slate-400 block text-xs mb-0.5">${c.label}</span>
-                  <span class="text-white font-bold">${c.value}</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      // Standard Content Slide Layout
-      let bodyHtml = '';
-
-      if (data.cards) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-            ${data.cards.map(c => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs font-extrabold text-blue-400 bg-blue-950/80 border border-blue-800/50 px-2 py-0.5 rounded-md">
-                      ${c.num || c.tag}
-                    </span>
-                    ${c.tag && c.num ? `<span class="text-[11px] text-slate-400">${c.tag}</span>` : ''}
-                  </div>
-                  <h4 class="text-sm sm:text-base font-bold text-white mb-1.5">${c.title}</h4>
-                  <p class="text-xs text-slate-400 leading-relaxed">${c.desc}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.cols) {
-        bodyHtml = `
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 flex-1">
-            ${data.cols.map(col => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col">
-                <div class="${col.color} p-2.5 text-center text-xs font-bold text-white flex items-center justify-center gap-1.5">
-                  <span>${col.icon}</span>
-                  <span>${col.badge}</span>
-                </div>
-                <div class="p-3.5 flex-1 flex flex-col justify-between">
-                  <h4 class="text-xs sm:text-sm font-bold text-white mb-3 text-center leading-snug">${col.title}</h4>
-                  <ul class="space-y-2 text-[11px] text-slate-300">
-                    ${col.items.map(it => `<li class="flex items-start gap-1.5"><span class="text-blue-400">•</span><span>${it}</span></li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.twoCol) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-              <h4 class="text-sm font-bold text-white mb-2.5 pb-2 border-b border-slate-800">${data.twoCol.left.title}</h4>
-              <div class="space-y-2">
-                ${data.twoCol.left.items.map(m => `
-                  <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 flex items-center justify-between">
-                    <div>
-                      <div class="text-xs font-bold text-blue-400">${m.name}</div>
-                      <div class="text-[10px] text-slate-400 mt-0.5">${m.desc}</div>
-                    </div>
-                    <span class="text-xs font-extrabold text-orange-400 shrink-0 ml-2">${m.score}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-              <h4 class="text-sm font-bold text-white mb-2.5 pb-2 border-b border-slate-800">${data.twoCol.right.title}</h4>
-              <div class="space-y-2">
-                ${data.twoCol.right.items.map(r => `
-                  <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850">
-                    <div class="text-xs font-bold text-white">✔ ${r.title}</div>
-                    <div class="text-[10px] text-slate-400 mt-0.5">${r.desc}</div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      } else if (data.twoColCards) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-            ${data.twoColCards.map(tc => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2.5 mb-1">
-                    <span class="text-2xl">${tc.icon}</span>
-                    <div>
-                      <h4 class="text-sm sm:text-base font-bold text-white">${tc.title}</h4>
-                      <p class="text-xs text-slate-400">${tc.subtitle}</p>
-                    </div>
-                  </div>
-                  <div class="mt-4 space-y-2">
-                    ${tc.bullets.map(b => `
-                      <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 text-xs text-slate-300 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                        <span>${b}</span>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.steps) {
-        bodyHtml = `
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 flex-1">
-            ${data.steps.map(s => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-                <div>
-                  <span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-600 text-white">${s.step}</span>
-                  <h4 class="text-xs sm:text-sm font-bold text-white mt-2 mb-1">${s.title}</h4>
-                  <span class="inline-block text-[10px] font-semibold text-slate-400 bg-slate-950 px-2 py-0.5 rounded mb-3">⚙ ${s.badge}</span>
-                  <p class="text-xs text-slate-400 leading-relaxed">${s.desc}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.personas) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
-            ${data.personas.map(p => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-                <div>
-                  <span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800/50">${p.tag}</span>
-                  <h4 class="text-sm font-bold text-white mt-2 flex items-center gap-1.5">
-                    <span>${p.icon}</span> <span>${p.title}</span>
-                  </h4>
-                  <p class="text-xs text-slate-400 mb-3">${p.profile}</p>
-                  <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 text-xs text-slate-300 mb-2.5">
-                    <span class="text-blue-400 font-bold block mb-1">📌 핵심 니즈</span>
-                    ${p.needs}
-                  </div>
-                  <div class="bg-emerald-950/40 p-2 rounded-xl border border-emerald-800/40 text-[11px] text-emerald-300">
-                    <span class="font-bold block text-[10px] text-emerald-400">주요 선호 카테고리</span>
-                    ${p.favorite}
-                  </div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.bms) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-            ${data.bms.map(b => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 mb-1.5">
-                    <span class="text-xs font-black text-white bg-blue-600 px-2 py-0.5 rounded">${b.num}</span>
-                    <h4 class="text-sm font-bold text-white">${b.title}</h4>
-                  </div>
-                  <p class="text-xs text-slate-400 leading-relaxed mb-3">${b.desc}</p>
-                </div>
-                <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850 flex items-center justify-between text-[11px]">
-                  <span class="text-slate-400">타겟: <strong class="text-slate-200">${b.target}</strong></span>
-                  <span class="text-blue-400 font-bold">${b.profit}</span>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.stacks) {
-        bodyHtml = `
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 flex-1">
-            ${data.stacks.map(st => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
-                <div>
-                  <h4 class="text-xs font-bold text-white pb-2 border-b border-slate-800 mb-3">${st.category}</h4>
-                  <div class="space-y-1.5 mb-3">
-                    ${st.techs.map(t => `<div class="bg-slate-950 text-center py-1 rounded text-xs font-semibold text-slate-200 border border-slate-850">${t}</div>`).join('')}
-                  </div>
-                  <p class="text-[11px] text-slate-400 leading-relaxed">${st.desc}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (data.roadmap) {
-        bodyHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
-            ${data.roadmap.map(rm => `
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden flex flex-col">
-                <div class="${rm.color} p-2 text-center text-xs font-bold text-white">
-                  ${rm.phase}  |  ${rm.timeline}
-                </div>
-                <div class="p-4 flex-1 flex flex-col justify-between">
-                  <h4 class="text-sm font-bold text-white mb-3 text-center">${rm.title}</h4>
-                  <ul class="space-y-2 text-xs text-slate-300">
-                    ${rm.items.map(it => `<li class="flex items-start gap-1.5"><span class="text-emerald-400">✔</span><span>${it}</span></li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
-
-      viewport.innerHTML = `
-        <div class="w-full h-full bg-slate-950 p-6 sm:p-10 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-blue-950 text-blue-400 border border-blue-800/50">
-                ${data.category}
-              </span>
-              <span class="text-xs font-bold text-slate-500">신상픽 SinSangPick</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-              ${data.title}
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">
-              ${data.subtitle}
-            </p>
-          </div>
-
-          ${bodyHtml}
-
-          <div class="pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500">
-            <span>신상 먹거리 정보 & 큐레이션 플랫폼 「신상픽」 서비스 소개 및 사업 기획서</span>
-            <span>Slide ${idx + 1} / ${slidesData.length}</span>
-          </div>
-        </div>
-      `;
     }
 
     function goToSlide(idx) {
-      if (idx < 0 || idx >= slidesData.length) return;
+      if (idx < 0 || idx >= slides.length) return;
       currentIdx = idx;
       renderSlide(currentIdx);
     }
@@ -791,21 +249,6 @@
       }
     });
 
-    // Touch swipe for mobile
-    let touchStartX = null;
-    viewport.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-    });
-    viewport.addEventListener('touchend', e => {
-      if (touchStartX === null) return;
-      const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchEndX - touchStartX;
-      if (diff > 50) goToSlide(currentIdx - 1);
-      else if (diff < -50) goToSlide(currentIdx + 1);
-      touchStartX = null;
-    });
-
-    // Initial render
     renderSlide(0);
   </script>
 </body>
