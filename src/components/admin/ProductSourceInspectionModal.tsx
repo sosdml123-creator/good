@@ -131,7 +131,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-black flex items-center gap-1.5">
+              <h3 className="text-base font-bold flex items-center gap-1.5">
                 <span>신제품 수집 정보 및 저장 위치 안내</span>
               </h3>
               <p className="text-xs text-slate-400">
@@ -173,11 +173,11 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
             </div>
             <div className="flex-1 min-w-0 space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-black text-indigo-600 dark:text-indigo-400">{product.brand}</span>
+                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400">{product.brand}</span>
                 <span className="text-slate-300 dark:text-slate-600">•</span>
                 <span className="text-[11px] font-bold text-slate-500 font-mono">{product.price > 0 ? `${product.price.toLocaleString()}원` : '가격 미정'}</span>
               </div>
-              <h4 className="text-sm font-black leading-snug truncate" title={product.name}>
+              <h4 className="text-sm font-bold leading-snug truncate" title={product.name}>
                 {product.name}
               </h4>
               <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
@@ -195,11 +195,11 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-base">{sourceMeta.icon}</span>
-                <h4 className="font-black text-xs text-amber-800 dark:text-amber-300 uppercase tracking-wide">
+                <h4 className="font-bold text-xs text-amber-800 dark:text-amber-300 uppercase tracking-wide">
                   어디서 가져왔나요? (수집 출처)
                 </h4>
               </div>
-              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black border ${sourceMeta.channelBadgeColor}`}>
+              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${sourceMeta.channelBadgeColor}`}>
                 {sourceMeta.channelBadge}
               </span>
             </div>
@@ -208,7 +208,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div>
                   <p className="text-[10px] text-slate-400 font-semibold">수집 출처 채널</p>
-                  <p className="font-black text-xs text-slate-900 dark:text-white mt-0.5 flex items-center gap-1">
+                  <p className="font-bold text-xs text-slate-900 dark:text-white mt-0.5 flex items-center gap-1">
                     <span>{sourceMeta.channelTitle}</span>
                   </p>
                 </div>
@@ -246,7 +246,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
                     href={product.sourceUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-black text-indigo-600 dark:text-indigo-400 hover:underline px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800"
                   >
                     <span>공식 원본 페이지 바로가기</span>
                     <ExternalLink className="w-3 h-3" />
@@ -261,11 +261,11 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FolderCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                <h4 className="font-black text-xs text-indigo-800 dark:text-indigo-300 uppercase tracking-wide">
+                <h4 className="font-bold text-xs text-indigo-800 dark:text-indigo-300 uppercase tracking-wide">
                   어디 카테고리에 저장되나요? (저장 위치)
                 </h4>
               </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white shadow-xs">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white shadow-xs">
                 현재 저장 위치: [{product.category}]
               </span>
             </div>
@@ -355,7 +355,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
                   onClose();
                 }}
                 disabled={isRegistered}
-                className="px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 disabled:opacity-40"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 disabled:opacity-40"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>[{product.category}]에 즉시 정식 등록</span>

@@ -214,7 +214,7 @@ export const FoodNutritionSearchModal: React.FC<FoodNutritionSearchModalProps> =
                   <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 grid grid-cols-3 sm:grid-cols-6 gap-2 text-center text-xs">
                     <div className="p-1.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/30">
                       <span className="text-[10px] text-slate-400 block">열량</span>
-                      <strong className="text-emerald-700 dark:text-emerald-300 font-black">
+                      <strong className="text-emerald-700 dark:text-emerald-300 font-bold">
                         {item.calories} kcal
                       </strong>
                     </div>

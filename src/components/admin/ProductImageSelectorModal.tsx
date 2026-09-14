@@ -71,7 +71,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
               <ImageIcon className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-black flex items-center gap-1.5">
+              <h3 className="text-sm font-bold flex items-center gap-1.5">
                 <span>고화질 정품 패키지 이미지 탐색 & 교체</span>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                   {brand || '신제품'}
@@ -107,7 +107,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
             <button
               onClick={() => fetchCandidates(searchQuery)}
               disabled={isLoading}
-              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50 shrink-0"
+              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50 shrink-0"
             >
               {isLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
               <span>패키지 재검색</span>
@@ -171,7 +171,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
 
                       {/* Official badge */}
                       {cand.isOfficial && (
-                        <span className="absolute top-1 left-1 bg-amber-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-xs">
+                        <span className="absolute top-1 left-1 bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
                           정품
                         </span>
                       )}
@@ -234,7 +234,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
             <button
               onClick={() => handleApply(selectedUrl)}
               disabled={!selectedUrl}
-              className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-black shadow-md flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
+              className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
             >
               <Check className="w-3.5 h-3.5" />
               <span>이 이미지로 최종 변경</span>

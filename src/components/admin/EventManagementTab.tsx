@@ -192,7 +192,7 @@ export const EventManagementTab: React.FC<EventManagementTabProps> = ({ isDark }
             <Gift className="w-5 h-5" />
           </div>
           <div>
-            <h2 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               이벤트 & 무료 체험단 정밀 관리
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -203,7 +203,7 @@ export const EventManagementTab: React.FC<EventManagementTabProps> = ({ isDark }
 
         <button
           onClick={handleOpenNewModal}
-          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-md shadow-amber-600/20 active:scale-95 transition-all self-start lg:self-auto"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-amber-600/20 active:scale-95 transition-all self-start lg:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>새 이벤트 등록</span>
@@ -254,7 +254,7 @@ export const EventManagementTab: React.FC<EventManagementTabProps> = ({ isDark }
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 
                 <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500 text-white shadow-xs">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-white shadow-xs">
                     {ev.badge}
                   </span>
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 text-white backdrop-blur-xs">
@@ -509,7 +509,7 @@ export const EventManagementTab: React.FC<EventManagementTabProps> = ({ isDark }
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-black shadow-md shadow-amber-600/20"
+                  className="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold shadow-md shadow-amber-600/20"
                 >
                   {editingEventId ? '수정사항 저장' : '이벤트 등록 완료'}
                 </button>

@@ -23,6 +23,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "과일꾼",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -85,6 +86,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "사과를 반으로 쪼개보니 꿀심이 노랗게 꽉 박혀있고 아삭아삭 씹는 식감이 예술입니다.",
       "네이버쇼핑 구매수 1위답게 흠집 하나 없이 신선하고 당도가 정말 높아요!"
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89999542829&cat_id=50002160&query=%EC%82%AC%EA%B3%BC&t=mu14yuip&h=acb6397f75ddd4c3f68911bf6e08d3e1251523f8&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -100,19 +102,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "당일 새벽 수확 산지직송 에어캡 안심포장",
         "bestReview": "사과를 반으로 쪼개보니 꿀심이 노랗게 꽉 박혀있고 아삭아삭 씹는 식감이 예술입니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89999542829&cat_id=50002160&query=%EC%82%AC%EA%B3%BC&t=mu14yuip&h=acb6397f75ddd4c3f68911bf6e08d3e1251523f8&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "과일꾼 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 28400,
         "discountPrice": 56000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89999542829&cat_id=50002160&query=%EC%82%AC%EA%B3%BC&t=mu14yuip&h=acb6397f75ddd4c3f68911bf6e08d3e1251523f8&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -121,7 +123,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 29252,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%82%AC%EA%B3%BC%20%EA%B2%BD%EB%B6%81%20%EA%B3%A0%EB%8B%B9%EB%8F%84%20%EA%BF%80%EC%82%AC%EA%B3%BC%20(%EB%B6%80%EC%82%AC%C2%B7"
       }
     ]
   },
@@ -143,6 +145,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "청온과",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -205,6 +208,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "한 입 베어물자마자 달콤한 과즙이 뚝뚝 떨어져요. 향긋한 복숭아 향이 집안 가득합니다.",
       "딱딱이와 말랑이 중 취향대로 골라 먹을 수 있어서 온 가족이 대만족했습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=86339020485&cat_id=50002183&query=%EB%B3%B5%EC%88%AD%EC%95%84&t=mu14yvfc&h=c43c99d6dd5a05d0fffc79cb6642db6572f246ce&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -220,19 +224,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "당일 새벽 수확 산지직송 쿨링 시스템 출고",
         "bestReview": "한 입 베어물자마자 달콤한 과즙이 뚝뚝 떨어져요. 향긋한 복숭아 향이 집안 가득합니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=86339020485&cat_id=50002183&query=%EB%B3%B5%EC%88%AD%EC%95%84&t=mu14yvfc&h=c43c99d6dd5a05d0fffc79cb6642db6572f246ce&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "청온과 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 15700,
         "discountPrice": 141000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=86339020485&cat_id=50002183&query=%EB%B3%B5%EC%88%AD%EC%95%84&t=mu14yvfc&h=c43c99d6dd5a05d0fffc79cb6642db6572f246ce&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -241,7 +245,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 16171,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%B3%B5%EC%88%AD%EC%95%84%20%EC%82%B0%EC%A7%80%EC%A7%81%EC%86%A1%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%EA%BF%80%EB%B3%B5%EC%88%AD%EC%95%84%20"
       }
     ]
   },
@@ -262,6 +266,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "농산다팜",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -324,6 +329,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "상자를 열자마자 딸기 향이 방안에 진동을 합니다. 크기도 큼직하고 꼭지까지 신선해요!",
       "물렁거리는 것 하나 없이 단단하고 당도가 꿀을 찍어 먹는 것 같습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84364182477&cat_id=50002164&query=%EB%94%B8%EA%B8%B0&t=mu14ywdz&h=01cc2e9a06fa3bf9f1a33cf9ee426d823a2c4d42&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -339,18 +345,18 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "스마트팜 ICT 당도선별 당일새벽 수확 즉시 배송",
         "bestReview": "상자를 열자마자 딸기 향이 방안에 진동을 합니다. 크기도 큼직하고 꼭지까지 신선해요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84364182477&cat_id=50002164&query=%EB%94%B8%EA%B8%B0&t=mu14ywdz&h=01cc2e9a06fa3bf9f1a33cf9ee426d823a2c4d42&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "농산다팜 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 25400,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84364182477&cat_id=50002164&query=%EB%94%B8%EA%B8%B0&t=mu14ywdz&h=01cc2e9a06fa3bf9f1a33cf9ee426d823a2c4d42&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -359,7 +365,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 26162,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%94%B8%EA%B8%B0%20%EB%85%BC%EC%82%B0%20%EB%AA%85%ED%92%88%20%EC%84%A4%ED%96%A5%20%EA%B3%A0%EB%8B%B9%EB%8F%84%20%EC%83%9D%EB%94%B8"
       }
     ]
   },
@@ -381,6 +387,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "농수산도매시장",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -443,6 +450,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "껍질이 종이처럼 얇고 끝부분까지 설탕을 뿌린 듯 달콤하고 시원해요!",
       "8인 가족이 배부르게 먹을 만큼 크고, 두드렸을 때 맑은 통통 소리가 나는 특품입니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=91059240452&cat_id=50002175&query=%EC%88%98%EB%B0%95&t=mu14yxgz&h=6db715b913c0f0613afd6e29ef0f0c1692566589&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -458,19 +466,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "산지 산물선별기 1등급 통과 정품",
         "bestReview": "껍질이 종이처럼 얇고 끝부분까지 설탕을 뿌린 듯 달콤하고 시원해요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=91059240452&cat_id=50002175&query=%EC%88%98%EB%B0%95&t=mu14yxgz&h=6db715b913c0f0613afd6e29ef0f0c1692566589&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "농수산도매시장 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 28400,
         "discountPrice": 50000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=91059240452&cat_id=50002175&query=%EC%88%98%EB%B0%95&t=mu14yxgz&h=6db715b913c0f0613afd6e29ef0f0c1692566589&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -479,7 +487,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 29252,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%88%98%EB%B0%95%20%EA%B3%A0%EC%B0%BD%C2%B7%EB%A7%B9%EB%8F%99%20%EB%AA%85%ED%92%88%20%ED%95%98%EC%9A%B0%EC%8A%A4%20%EA%BF%80%EC%88%98"
       }
     ]
   },
@@ -501,6 +509,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "인하네",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -563,6 +572,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "껍질이 얇아서 귤 까기가 편하고 속껍질도 연해서 입에 걸리는 것 없이 살살 녹습니다.",
       "새콤한 맛보다 달콤한 맛이 훨씬 진해서 아이들이 한 자리에서 5개씩 먹어요."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84019382571&cat_id=50002163&query=%EC%A0%9C%EC%A3%BC%20%EA%B0%90%EA%B7%A4&t=mu14yyf1&h=e7ab78ee3ffe81cfbc45845c629f8bad0a878609&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -578,19 +588,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "왁스코팅 NO, 강제착색 NO, 당일수확 친환경",
         "bestReview": "껍질이 얇아서 귤 까기가 편하고 속껍질도 연해서 입에 걸리는 것 없이 살살 녹습니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84019382571&cat_id=50002163&query=%EC%A0%9C%EC%A3%BC%20%EA%B0%90%EA%B7%A4&t=mu14yyf1&h=e7ab78ee3ffe81cfbc45845c629f8bad0a878609&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "인하네 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 22900,
         "discountPrice": 46900,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84019382571&cat_id=50002163&query=%EC%A0%9C%EC%A3%BC%20%EA%B0%90%EA%B7%A4&t=mu14yyf1&h=e7ab78ee3ffe81cfbc45845c629f8bad0a878609&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -599,7 +609,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 23587,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EA%B7%A4%20%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%EB%86%8D%ED%95%A020%25%20%EA%B3%A0%EB%8B%B9"
       }
     ]
   },
@@ -621,6 +631,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "과일꾼",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -683,6 +694,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "알이 탱글탱글하고 씹을 때 톡 터지는 아삭한 식감이 일품입니다. 망고 향이 은은해요.",
       "명절 선물용으로 주문했는데 송이도 엄청 크고 알맹이가 꽉 차 있어서 칭찬받았습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=83200591927&cat_id=50002180&query=%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3&t=mu14yzdj&h=9df583e83f10a88fa5266102301bb662ed47baa2&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -698,19 +710,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "에어쿠션 전용 에어캡 3중 충격방지 패키징",
         "bestReview": "알이 탱글탱글하고 씹을 때 톡 터지는 아삭한 식감이 일품입니다. 망고 향이 은은해요.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=83200591927&cat_id=50002180&query=%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3&t=mu14yzdj&h=9df583e83f10a88fa5266102301bb662ed47baa2&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "과일꾼 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 18400,
         "discountPrice": 38000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=83200591927&cat_id=50002180&query=%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3&t=mu14yzdj&h=9df583e83f10a88fa5266102301bb662ed47baa2&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -719,7 +731,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 18952,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%ED%8F%AC%EB%8F%84%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%ED%8A%B9%EB%8B%B9%EB%8F%84%20%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3%20"
       }
     ]
   },
@@ -741,6 +753,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "만복이상회",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -803,6 +816,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "주스용이라고 해서 기대 안 했는데 카페에서 쓰는 것보다 훨씬 크고 달콤해요!",
       "가성비 최강입니다. 껍질 벗겨서 냉동실에 얼려두고 바나나스무디 해먹기 최고입니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89517756039&cat_id=50002188&query=%EB%B0%94%EB%82%98%EB%82%98&t=mu14z0i9&h=5c0c3401c9426b051b2ae56d8bde5d0846df3723&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -818,19 +832,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "신선 그린 바나나 통제 온도 후숙 출고",
         "bestReview": "주스용이라고 해서 기대 안 했는데 카페에서 쓰는 것보다 훨씬 크고 달콤해요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89517756039&cat_id=50002188&query=%EB%B0%94%EB%82%98%EB%82%98&t=mu14z0i9&h=5c0c3401c9426b051b2ae56d8bde5d0846df3723&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "만복이상회 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 19900,
         "discountPrice": 30000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89517756039&cat_id=50002188&query=%EB%B0%94%EB%82%98%EB%82%98&t=mu14z0i9&h=5c0c3401c9426b051b2ae56d8bde5d0846df3723&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -839,7 +853,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 20497,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%B0%94%EB%82%98%EB%82%98%20%EA%B3%A0%EC%82%B0%EC%A7%80%20%EA%B3%A0%EB%8B%B9%EB%8F%84%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%EB%B0%94%EB%82%98"
       }
     ]
   },
@@ -861,6 +875,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "나주청년농부",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -923,6 +938,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "씹는 순간 시원한 배즙이 입안에 폭포수처럼 쏟아집니다. 달고 아삭해요!",
       "배 크기가 어른 두 손으로 쥐어야 할 만큼 크고 과육이 부드럽습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=12248667678&cat_id=50002161&query=%EB%82%98%EC%A3%BC%EB%B0%B0&t=mu14z1f5&h=5e62d660f85e79b01c56714d2db48a9d0bbcc04b&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -938,19 +954,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "비파괴 선별 및 정밀 완충재 개별 포장",
         "bestReview": "씹는 순간 시원한 배즙이 입안에 폭포수처럼 쏟아집니다. 달고 아삭해요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=12248667678&cat_id=50002161&query=%EB%82%98%EC%A3%BC%EB%B0%B0&t=mu14z1f5&h=5e62d660f85e79b01c56714d2db48a9d0bbcc04b&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "나주청년농부 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 26900,
         "discountPrice": 54900,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=12248667678&cat_id=50002161&query=%EB%82%98%EC%A3%BC%EB%B0%B0&t=mu14z1f5&h=5e62d660f85e79b01c56714d2db48a9d0bbcc04b&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -959,7 +975,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 27707,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%B0%B0%20%EB%82%98%EC%A3%BC%20%EB%AA%85%ED%92%88%20%EC%8B%A0%EA%B3%A0%EB%B0%B0%20%EA%B0%80%EC%A0%95%EC%9A%A9%C2%B7%EC%84%A0"
       }
     ]
   },
@@ -981,6 +997,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "오렌지씨",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1043,6 +1060,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "껍질 골이 선명하고 배꼽이 작은 진짜배기 성주 참외입니다. 꿀물이 줄줄 흘러요.",
       "아삭아삭한 씹는 맛이 최고고 씨 부분도 상한 것 없이 싱싱하고 달콤합니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=58685003275&cat_id=50002177&query=%EC%84%B1%EC%A3%BC%20%EC%B0%B8%EC%99%B8&t=mu14z2du&h=2e5db6a7a6ccfff5757f0d95384ed88b3673aa04&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -1058,19 +1076,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "비파괴 당도선별 세척 에어샤워 출고",
         "bestReview": "껍질 골이 선명하고 배꼽이 작은 진짜배기 성주 참외입니다. 꿀물이 줄줄 흘러요.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=58685003275&cat_id=50002177&query=%EC%84%B1%EC%A3%BC%20%EC%B0%B8%EC%99%B8&t=mu14z2du&h=2e5db6a7a6ccfff5757f0d95384ed88b3673aa04&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "오렌지씨 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 7900,
         "discountPrice": 130000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=58685003275&cat_id=50002177&query=%EC%84%B1%EC%A3%BC%20%EC%B0%B8%EC%99%B8&t=mu14z2du&h=2e5db6a7a6ccfff5757f0d95384ed88b3673aa04&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -1079,7 +1097,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 8137,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%B0%B8%EC%99%B8%20%EC%84%B1%EC%A3%BC%20%EB%AA%85%ED%92%88%20%EA%BF%80%EC%B0%B8%EC%99%B8%20(%ED%99%A9%EA%B8%88%EB%B9%9B%20"
       }
     ]
   },
@@ -1101,6 +1119,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "진한우",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1163,6 +1182,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "입에 넣자마자 눈 녹듯이 사르르 녹아내려요. 마블링이 눈꽃처럼 피어있습니다.",
       "식당에서 1인분에 7~8만원씩 내고 먹던 최상급 한우를 집에서 합리적인 가격에 즐겼습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=82968495948&cat_id=50004654&query=%ED%95%9C%EC%9A%B0%20%EA%BD%83%EB%93%B1%EC%8B%AC&t=mu14z3bi&h=4e7e9031303b1aea02ebbde5d642f13e6ce286c1&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -1178,19 +1198,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "도축 후 산소차단 스킨진공포장 당일출고",
         "bestReview": "입에 넣자마자 눈 녹듯이 사르르 녹아내려요. 마블링이 눈꽃처럼 피어있습니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=82968495948&cat_id=50004654&query=%ED%95%9C%EC%9A%B0%20%EA%BD%83%EB%93%B1%EC%8B%AC&t=mu14z3bi&h=4e7e9031303b1aea02ebbde5d642f13e6ce286c1&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "진한우 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 9400,
         "discountPrice": 154600,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=82968495948&cat_id=50004654&query=%ED%95%9C%EC%9A%B0%20%EA%BD%83%EB%93%B1%EC%8B%AC&t=mu14z3bi&h=4e7e9031303b1aea02ebbde5d642f13e6ce286c1&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -1199,7 +1219,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 9682,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%86%8C%EA%B3%A0%EA%B8%B0%201%2B%2B%20No.9%20%ED%88%AC%EB%BF%94%ED%95%9C%EC%9A%B0%20%EB%A7%88"
       }
     ]
   },
@@ -1221,6 +1241,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "유황한돈",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1283,6 +1304,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "잡내가 하나도 안 나고 비계 부분이 쫄깃쫄깃 서걱하게 씹히는 명품 삼겹살입니다.",
       "고기 두께도 딱 알맞고 기름이 맑게 나와서 김치 구워먹기에도 아주 좋았습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89212193699&cat_id=50004651&query=%ED%95%9C%EB%8F%88%20%EC%82%BC%EA%B2%B9%EC%82%B4&t=mu14z4cv&h=61bb00b9500159e1b2b49873692cd8928024f7ae&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -1298,19 +1320,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "HACCP 인증 도축 냉장육 당일 산소포장",
         "bestReview": "잡내가 하나도 안 나고 비계 부분이 쫄깃쫄깃 서걱하게 씹히는 명품 삼겹살입니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89212193699&cat_id=50004651&query=%ED%95%9C%EB%8F%88%20%EC%82%BC%EA%B2%B9%EC%82%B4&t=mu14z4cv&h=61bb00b9500159e1b2b49873692cd8928024f7ae&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "유황한돈 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 26900,
         "discountPrice": 35900,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89212193699&cat_id=50004651&query=%ED%95%9C%EB%8F%88%20%EC%82%BC%EA%B2%B9%EC%82%B4&t=mu14z4cv&h=61bb00b9500159e1b2b49873692cd8928024f7ae&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -1319,7 +1341,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 27707,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%8F%BC%EC%A7%80%EA%B3%A0%EA%B8%B0%20%EA%B5%AD%EB%82%B4%EC%82%B0%201%EB%93%B1%EA%B8%89%20%EC%9C%A0%ED%99%A9%ED%95%9C%EB%8F%88%20%EB%83%89%EC%9E%A5"
       }
     ]
   },
@@ -1340,6 +1362,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "닭장사",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1402,6 +1425,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "뼈 단면이 선홍빛으로 정말 신선하고 살이 퍽퍽하지 않고 엄청 쫄깃쫄깃합니다.",
       "절단 크기가 먹기 딱 좋고 잔뼈나 기름 덩어리가 깔끔하게 손질되어 있어서 조리하기 편해요."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89888388464&cat_id=50004657&query=%EB%8B%AD%EB%B3%B6%EC%9D%8C%ED%83%95%EC%9A%A9%20%EC%83%9D%EB%8B%AD&t=mu14z5as&h=58cef2cd485b8b99dac59cc61ba6d041ecfd0283&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -1417,18 +1441,18 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "무항생제 축산물 인증 및 HACCP 냉장 에어칠링 시스템",
         "bestReview": "뼈 단면이 선홍빛으로 정말 신선하고 살이 퍽퍽하지 않고 엄청 쫄깃쫄깃합니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89888388464&cat_id=50004657&query=%EB%8B%AD%EB%B3%B6%EC%9D%8C%ED%83%95%EC%9A%A9%20%EC%83%9D%EB%8B%AD&t=mu14z5as&h=58cef2cd485b8b99dac59cc61ba6d041ecfd0283&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "닭장사 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 5500,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89888388464&cat_id=50004657&query=%EB%8B%AD%EB%B3%B6%EC%9D%8C%ED%83%95%EC%9A%A9%20%EC%83%9D%EB%8B%AD&t=mu14z5as&h=58cef2cd485b8b99dac59cc61ba6d041ecfd0283&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -1437,7 +1461,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 5665,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%8B%AD%EA%B3%A0%EA%B8%B0%20%EA%B5%AD%EB%82%B4%EC%82%B0%201%EB%93%B1%EA%B8%89%20%EB%AC%B4%ED%95%AD%EC%83%9D%EC%A0%9C%20%EC%83%9D%EB%8B%AD"
       }
     ]
   },
@@ -1459,6 +1483,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "팜스제임",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1521,6 +1546,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "냉동이 아니라 냉장 생오리라 육즙이 살아있고 기름이 맑아서 느끼하지 않아요!",
       "부추 듬뿍 넣고 구워먹었는데 고소하고 담백해서 가족들이 순식간에 다 비웠습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=59899390144&cat_id=50013620&query=%EC%83%9D%EC%98%A4%EB%A6%AC%EB%A1%9C%EC%8A%A4&t=mu14z6d1&h=2cfefcaee3bda61575784d80ecd856faa6ed2582&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -1536,19 +1562,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "냉동 아닌 100% 냉장 생육 당일 포장",
         "bestReview": "냉동이 아니라 냉장 생오리라 육즙이 살아있고 기름이 맑아서 느끼하지 않아요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=59899390144&cat_id=50013620&query=%EC%83%9D%EC%98%A4%EB%A6%AC%EB%A1%9C%EC%8A%A4&t=mu14z6d1&h=2cfefcaee3bda61575784d80ecd856faa6ed2582&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "팜스제임 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 6800,
         "discountPrice": 24000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=59899390144&cat_id=50013620&query=%EC%83%9D%EC%98%A4%EB%A6%AC%EB%A1%9C%EC%8A%A4&t=mu14z6d1&h=2cfefcaee3bda61575784d80ecd856faa6ed2582&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -1557,7 +1583,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 7004,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%98%A4%EB%A6%AC%EA%B3%A0%EA%B8%B0%20%EA%B5%AD%EB%82%B4%EC%82%B0%20%EB%AC%B4%ED%95%AD%EC%83%9D%EC%A0%9C%20%EB%83%89%EC%9E%A5%20%EC%83%9D%EC%98%A4%EB%A6%AC"
       }
     ]
   },
@@ -1579,6 +1605,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "상하농원 공식스토어",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1641,6 +1668,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "깨뜨려보면 노른자가 주황빛으로 쨍하고 탱글탱글하게 서있어요. 비린내가 전혀 안 납니다.",
       "계란 프라이 해먹으면 소금 안 쳐도 고소한 맛이 입안 가득 돕니다. 포장도 1알도 안 깨지고 완벽해요."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89354924996&cat_id=50004658&query=%EB%AC%B4%ED%95%AD%EC%83%9D%EC%A0%9C%20%EB%8F%99%EB%AC%BC%EB%B3%B5%EC%A7%80%20%EA%B3%84%EB%9E%80&t=mu14z7du&h=59bde9b8558c5092e16e49409cabae8a92d1d9a7&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -1656,19 +1684,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "산란일자 표기 / 펄프 난좌 에어팩 2중 안전포장",
         "bestReview": "깨뜨려보면 노른자가 주황빛으로 쨍하고 탱글탱글하게 서있어요. 비린내가 전혀 안 납니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89354924996&cat_id=50004658&query=%EB%AC%B4%ED%95%AD%EC%83%9D%EC%A0%9C%20%EB%8F%99%EB%AC%BC%EB%B3%B5%EC%A7%80%20%EA%B3%84%EB%9E%80&t=mu14z7du&h=59bde9b8558c5092e16e49409cabae8a92d1d9a7&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "상하농원 공식스토어 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 23560,
         "discountPrice": 27000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=89354924996&cat_id=50004658&query=%EB%AC%B4%ED%95%AD%EC%83%9D%EC%A0%9C%20%EB%8F%99%EB%AC%BC%EB%B3%B5%EC%A7%80%20%EA%B3%84%EB%9E%80&t=mu14z7du&h=59bde9b8558c5092e16e49409cabae8a92d1d9a7&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -1677,7 +1705,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 24267,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EA%B3%84%EB%9E%80%20%EC%83%81%ED%95%98%EB%86%8D%EC%9B%90%20%EB%8F%99%EB%AC%BC%EB%B3%B5%EC%A7%80%20%EB%82%9C%EA%B0%81%EB%B2%88%ED%98%B8%20"
       }
     ]
   },
@@ -1699,6 +1727,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "정담 두부집",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1761,6 +1790,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "시중 마트 두부랑은 차원이 달라요. 어릴 적 시골에서 할머니가 가마솥에 쒀주시던 고소한 그 맛입니다.",
       "들기름에 부쳐 먹었는데 겉은 바삭하고 속은 푸딩처럼 부드러워서 밥 한 공기 뚝딱했습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84313201825&cat_id=50011900&query=%EA%B5%AD%EC%82%B0%EC%BD%A9%20%EB%B6%80%EC%B9%A8%EB%91%90%EB%B6%80&t=mu14z8ey&h=9f46b2cb6a7424fa76bfca74fac81123488a40e7&frm=NVSCPRO",
     "brandRankings": [
       {
         "rank": 1,
@@ -1776,19 +1806,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "당일 아침 가마솥 제조 즉시 냉장 출고",
         "bestReview": "시중 마트 두부랑은 차원이 달라요. 어릴 적 시골에서 할머니가 가마솥에 쒀주시던 고소한 그 맛입니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84313201825&cat_id=50011900&query=%EA%B5%AD%EC%82%B0%EC%BD%A9%20%EB%B6%80%EC%B9%A8%EB%91%90%EB%B6%80&t=mu14z8ey&h=9f46b2cb6a7424fa76bfca74fac81123488a40e7&frm=NVSCPRO"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "정담 두부집 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 4000,
         "discountPrice": 5000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84313201825&cat_id=50011900&query=%EA%B5%AD%EC%82%B0%EC%BD%A9%20%EB%B6%80%EC%B9%A8%EB%91%90%EB%B6%80&t=mu14z8ey&h=9f46b2cb6a7424fa76bfca74fac81123488a40e7&frm=NVSCPRO"
       },
       {
         "store": "쿠팡프레시",
@@ -1797,7 +1827,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 4120,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EB%91%90%EB%B6%80%20%EC%A0%95%EB%8B%B4%EB%91%90%EB%B6%80%EC%A7%91%20100%25%20%EA%B5%AD%EC%82%B0%EC%BD%A9%20"
       }
     ]
   },
@@ -1819,6 +1849,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "친환경팔도",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -1881,6 +1912,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "쪄서 한 입 먹자마자 하얗게 분이 팍팍 나면서 입안에서 사르르 녹아내려요!",
       "상처나 썩은 것 하나 없이 뽀송뽀송하고 맑은 감자로 꽉 채워져 왔습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84374707225&cat_id=50002215&query=%EA%B0%95%EC%9B%90%EB%8F%84%20%EC%88%98%EB%AF%B8%20%EA%B0%90%EC%9E%90&t=mu14z9dn&h=0bb8f2218ed5a2d784b87d1b41ef16f536043d43&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -1896,19 +1928,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "비닐하우스 아닌 고랭지 노지 재배 당일 수확",
         "bestReview": "쪄서 한 입 먹자마자 하얗게 분이 팍팍 나면서 입안에서 사르르 녹아내려요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84374707225&cat_id=50002215&query=%EA%B0%95%EC%9B%90%EB%8F%84%20%EC%88%98%EB%AF%B8%20%EA%B0%90%EC%9E%90&t=mu14z9dn&h=0bb8f2218ed5a2d784b87d1b41ef16f536043d43&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "친환경팔도 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 6900,
         "discountPrice": 13500,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=84374707225&cat_id=50002215&query=%EA%B0%95%EC%9B%90%EB%8F%84%20%EC%88%98%EB%AF%B8%20%EA%B0%90%EC%9E%90&t=mu14z9dn&h=0bb8f2218ed5a2d784b87d1b41ef16f536043d43&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -1917,7 +1949,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 7107,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EA%B0%90%EC%9E%90%20%EA%B0%95%EC%9B%90%EB%8F%84%20%ED%8F%89%EC%B0%BD%2F%ED%99%8D%EC%B2%9C%20%ED%96%87%20%EC%88%98%EB%AF%B8%EA%B0%90"
       }
     ]
   },
@@ -1939,6 +1971,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "해들녘고구마",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -2001,6 +2034,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "에어프라이어에 돌렸더니 진짜 꿀물이 줄줄 흘러나옵니다. 설탕을 부어놓은 것 같아요!",
       "세척되어 있어서 흙 털 필요 없이 바로 구울 수 있어서 너무 편하고 맛있습니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=8016453163&cat_id=50002214&query=%EB%B2%A0%EB%8B%88%ED%95%98%EB%A3%A8%EC%B9%B4%20%EA%BF%80%EA%B3%A0%EA%B5%AC%EB%A7%88&t=mu14zadc&h=ca7d4f585bf54d95db85be4763fc84e964087e5c&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -2016,19 +2050,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "무농약 인증 및 지하수 3단계 정밀 세척 완료",
         "bestReview": "에어프라이어에 돌렸더니 진짜 꿀물이 줄줄 흘러나옵니다. 설탕을 부어놓은 것 같아요!",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=8016453163&cat_id=50002214&query=%EB%B2%A0%EB%8B%88%ED%95%98%EB%A3%A8%EC%B9%B4%20%EA%BF%80%EA%B3%A0%EA%B5%AC%EB%A7%88&t=mu14zadc&h=ca7d4f585bf54d95db85be4763fc84e964087e5c&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "해들녘고구마 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 16900,
         "discountPrice": 19000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=8016453163&cat_id=50002214&query=%EB%B2%A0%EB%8B%88%ED%95%98%EB%A3%A8%EC%B9%B4%20%EA%BF%80%EA%B3%A0%EA%B5%AC%EB%A7%88&t=mu14zadc&h=ca7d4f585bf54d95db85be4763fc84e964087e5c&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -2037,7 +2071,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 17407,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EA%B3%A0%EA%B5%AC%EB%A7%88%20%EA%B3%A0%EC%B0%BD%20%ED%99%A9%ED%86%A0%EB%B0%AD%20%EB%AC%B4%EB%86%8D%EC%95%BD%20%EC%84%B8%EC%B2%99%20%EB%B2%A0"
       }
     ]
   },
@@ -2059,6 +2093,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "정가문",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -2121,6 +2156,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "단단해서 무르지 않고 칼질할 때 아삭 소리가 경쾌합니다. 볶으면 설탕 뿌린 듯 달아요.",
       "양파 껍질도 얇고 썩은 알 하나 없이 아주 알차고 싱싱합니다."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=90904291004&cat_id=50002200&query=%EA%B5%AD%EB%82%B4%EC%82%B0%20%ED%96%87%EC%96%91%ED%8C%8C&t=mu14zbb1&h=6e087c3b55561cdf799e9fbe7dbea5636a9dd22c&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -2136,19 +2172,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "게르마늄 황토밭 재배 단단한 육질 산지직송",
         "bestReview": "단단해서 무르지 않고 칼질할 때 아삭 소리가 경쾌합니다. 볶으면 설탕 뿌린 듯 달아요.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=90904291004&cat_id=50002200&query=%EA%B5%AD%EB%82%B4%EC%82%B0%20%ED%96%87%EC%96%91%ED%8C%8C&t=mu14zbb1&h=6e087c3b55561cdf799e9fbe7dbea5636a9dd22c&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "정가문 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 6600,
         "discountPrice": 29000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=90904291004&cat_id=50002200&query=%EA%B5%AD%EB%82%B4%EC%82%B0%20%ED%96%87%EC%96%91%ED%8C%8C&t=mu14zbb1&h=6e087c3b55561cdf799e9fbe7dbea5636a9dd22c&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -2157,7 +2193,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 6798,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%96%91%ED%8C%8C%20%EC%A0%84%EB%82%A8%20%EB%AC%B4%EC%95%88%20%ED%99%A9%ED%86%A0%EB%B0%AD%20%EA%B5%AD%EB%82%B4%EC%82%B0%20%ED%96%87"
       }
     ]
   },
@@ -2179,6 +2215,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
     "isBest": true,
     "isHot": true,
     "stores": [
+      "살레농수산",
       "네이버쇼핑",
       "산지직송"
     ],
@@ -2241,6 +2278,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "밥솥 열자마자 구수한 밥 냄새가 진동하고 밥알에 윤기가 반지르르 흐릅니다.",
       "다른 반찬 없이 김 하나만 싸 먹어도 밥맛이 꿀맛입니다. 당일 도정이라 정말 신선해요."
     ],
+    "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=88159696343&cat_id=50004749&query=%ED%96%85%EC%8C%80%2010kg&t=mu14zc72&h=087af31605e7727101b1beee79dc8eef3c3d272c&frm=NVSCSPN",
     "brandRankings": [
       {
         "rank": 1,
@@ -2256,19 +2294,19 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "tasteDescription": "도정일자 24시간 이내 / 완전미 비율 94% 이상",
         "bestReview": "밥솥 열자마자 구수한 밥 냄새가 진동하고 밥알에 윤기가 반지르르 흐릅니다.",
         "deliveryBadge": "무료배송 🚀",
-        "buyLink": "https://shopping.naver.com"
+        "buyLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=88159696343&cat_id=50004749&query=%ED%96%85%EC%8C%80%2010kg&t=mu14zc72&h=087af31605e7727101b1beee79dc8eef3c3d272c&frm=NVSCSPN"
       }
     ],
     "storeStocks": [
       {
-        "store": "네이버쇼핑",
+        "store": "살레농수산 공식스토어 (네이버쇼핑)",
         "status": "입고완료",
         "stockCount": 99,
         "price": 44900,
         "discountPrice": 88000,
         "eventBadge": "판매1위",
         "deliveryTime": "무료배송 🚀",
-        "appLink": "https://shopping.naver.com"
+        "appLink": "https://cr3.shopping.naver.com/v2/bridge/searchGate?nv_mid=88159696343&cat_id=50004749&query=%ED%96%85%EC%8C%80%2010kg&t=mu14zc72&h=087af31605e7727101b1beee79dc8eef3c3d272c&frm=NVSCSPN"
       },
       {
         "store": "쿠팡프레시",
@@ -2277,7 +2315,7 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "price": 46247,
         "eventBadge": "새벽도착",
         "deliveryTime": "내일 아침 7시 전 도착",
-        "appLink": "https://www.coupang.com"
+        "appLink": "https://www.coupang.com/np/search?component=&q=%EC%8C%80%C2%B7%EC%9E%A1%EA%B3%A1%202026%EB%85%84%20%ED%96%85%EC%8C%80%20%EA%B3%A0%EC%8B%9C%ED%9E%88%EC%B9%B4%EB%A6%AC%20"
       }
     ]
   }

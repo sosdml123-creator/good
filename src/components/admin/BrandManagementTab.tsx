@@ -219,7 +219,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h2 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 브랜드 & 브랜드몰 정밀 관리 콘솔
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -233,7 +233,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
         <div className="flex items-center gap-2.5">
           <button
             onClick={handleOpenNewModal}
-            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
+            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>새 브랜드 등록</span>
@@ -249,7 +249,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
             <Building2 className="w-4 h-4 text-indigo-500" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-black font-mono">{stats.total}</span>
+            <span className="text-2xl font-bold font-mono">{stats.total}</span>
             <span className="text-xs text-slate-400">개사</span>
           </div>
         </div>
@@ -260,7 +260,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
             <Flame className="w-4 h-4 text-orange-500" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-black font-mono text-orange-600">{stats.popular}</span>
+            <span className="text-2xl font-bold font-mono text-orange-600">{stats.popular}</span>
             <span className="text-xs text-slate-400">개사 지정됨</span>
           </div>
         </div>
@@ -271,7 +271,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
             <Globe className="w-4 h-4 text-emerald-500" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-black font-mono text-emerald-600">{stats.withMall}</span>
+            <span className="text-2xl font-bold font-mono text-emerald-600">{stats.withMall}</span>
             <span className="text-xs text-slate-400">개사 연동 ({stats.total > 0 ? Math.round((stats.withMall / stats.total) * 100) : 0}%)</span>
           </div>
         </div>
@@ -378,11 +378,11 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
 
                     {/* Top Badges */}
                     <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-black/60 backdrop-blur-md text-white border border-white/20">
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-black/60 backdrop-blur-md text-white border border-white/20">
                         {brand.category}
                       </span>
                       {brand.badge && (
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-indigo-600/90 text-white shadow-xs">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-600/90 text-white shadow-xs">
                           {brand.badge}
                         </span>
                       )}
@@ -703,7 +703,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
               {/* ⭐ OFFICIAL BRAND MALL URL (HIGHLIGHTED) */}
               <div className="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-black text-indigo-900 dark:text-indigo-300 flex items-center gap-1.5">
+                  <label className="text-xs font-bold text-indigo-900 dark:text-indigo-300 flex items-center gap-1.5">
                     <Globe className="w-3.5 h-3.5 text-indigo-600" />
                     <span>공식 브랜드몰 / 온라인 스토어 바로가기 URL</span>
                   </label>
@@ -845,7 +845,7 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-600/20"
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20"
                 >
                   {editingBrandId ? '수정사항 저장' : '브랜드 등록 완료'}
                 </button>

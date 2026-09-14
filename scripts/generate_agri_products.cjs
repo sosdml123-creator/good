@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const raw = JSON.parse(fs.readFileSync('scripts/naver_agri_best_results.json', 'utf8'));
+const linksData = JSON.parse(fs.readFileSync('scripts/agri_real_links.json', 'utf8'));
 
 // 19개 상품에 대해 고품질 스펙 정의
 const productSpecs = [
@@ -646,6 +647,9 @@ const agriProducts = productSpecs.map((spec, idx) => {
   const catPrefix = resultItem.category === '과일' ? 'fruit' : (resultItem.category === '고기·수산' ? 'meat' : 'ing');
   const productId = `agri-${catPrefix}-${idNum}`;
 
+  const linkInfo = linksData[spec.subCategory] || {};
+  const realBuyLink = linkInfo.primaryBuyLink || linkInfo.directSearchLink || 'https://shopping.naver.com';
+
   return {
     id: productId,
     name: spec.cleanName,
@@ -663,7 +667,7 @@ const agriProducts = productSpecs.map((spec, idx) => {
     isToday: true,
     isBest: true,
     isHot: true,
-    stores: ['네이버쇼핑', '산지직송'],
+    stores: [b.mallName, '네이버쇼핑', '산지직송'],
     volume: spec.volume,
     calories: spec.calories,
     origin: spec.origin,
@@ -680,6 +684,7 @@ const agriProducts = productSpecs.map((spec, idx) => {
     freshMetrics: spec.freshMetrics,
     produceDetails: spec.produceDetails,
     bestQuotes: spec.bestQuotes,
+    buyLink: realBuyLink,
     brandRankings: [
       {
         rank: 1,
@@ -695,19 +700,19 @@ const agriProducts = productSpecs.map((spec, idx) => {
         tasteDescription: spec.produceDetails.freshnessGrade,
         bestReview: spec.bestQuotes[0],
         deliveryBadge: b.deliveryText || '무료배송 🚀',
-        buyLink: 'https://shopping.naver.com'
+        buyLink: realBuyLink
       }
     ],
     storeStocks: [
       {
-        store: '네이버쇼핑',
+        store: `${b.mallName} 공식스토어 (네이버쇼핑)`,
         status: '입고완료',
         stockCount: 99,
         price: b.price,
         discountPrice: b.originalPrice > b.price ? b.originalPrice : undefined,
         eventBadge: '판매1위',
         deliveryTime: b.deliveryText || '산지 당일출고 🚀',
-        appLink: 'https://shopping.naver.com'
+        appLink: realBuyLink
       },
       {
         store: '쿠팡프레시',
@@ -716,7 +721,7 @@ const agriProducts = productSpecs.map((spec, idx) => {
         price: Math.round(b.price * 1.03),
         eventBadge: '새벽도착',
         deliveryTime: '내일 아침 7시 전 도착',
-        appLink: 'https://www.coupang.com'
+        appLink: `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(spec.subCategory + ' ' + spec.cleanName.slice(0, 15))}`
       }
     ]
   };

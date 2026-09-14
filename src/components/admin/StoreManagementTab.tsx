@@ -177,7 +177,7 @@ export const StoreManagementTab: React.FC<StoreManagementTabProps> = ({ isDark }
             <Store className="w-5 h-5" />
           </div>
           <div>
-            <h2 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               판매처 & 유통채널 마스터 관리
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -188,7 +188,7 @@ export const StoreManagementTab: React.FC<StoreManagementTabProps> = ({ isDark }
 
         <button
           onClick={handleOpenNewModal}
-          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-md shadow-indigo-600/20 active:scale-95 transition-all self-start lg:self-auto"
+          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-indigo-600/20 active:scale-95 transition-all self-start lg:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>새 판매처 등록</span>
@@ -199,19 +199,19 @@ export const StoreManagementTab: React.FC<StoreManagementTabProps> = ({ isDark }
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">전체 등록 판매처</div>
-          <div className="mt-2 text-2xl font-black font-mono">{stats.total}개</div>
+          <div className="mt-2 text-2xl font-bold font-mono">{stats.total}개</div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">활성 서비스 중</div>
-          <div className="mt-2 text-2xl font-black font-mono text-emerald-600">{stats.active}개</div>
+          <div className="mt-2 text-2xl font-bold font-mono text-emerald-600">{stats.active}개</div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">편의점 채널</div>
-          <div className="mt-2 text-2xl font-black font-mono text-indigo-600">{stats.convenience}개</div>
+          <div className="mt-2 text-2xl font-bold font-mono text-indigo-600">{stats.convenience}개</div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">새벽/온라인몰</div>
-          <div className="mt-2 text-2xl font-black font-mono text-purple-600">{stats.online}개</div>
+          <div className="mt-2 text-2xl font-bold font-mono text-purple-600">{stats.online}개</div>
         </div>
       </div>
 
@@ -505,7 +505,7 @@ export const StoreManagementTab: React.FC<StoreManagementTabProps> = ({ isDark }
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black"
+                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold"
                 >
                   {editingStoreId ? '수정사항 저장' : '판매처 등록 완료'}
                 </button>

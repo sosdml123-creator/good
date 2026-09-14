@@ -283,7 +283,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-black bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 <span>공식몰·홈페이지 실시간 신제품 자동수집기</span>
               </span>
@@ -292,7 +292,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                 <span>공식 패키지컷 & 실시간 정가 추출</span>
               </span>
             </div>
-            <h2 className={`text-lg font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
               브랜드 & 품목 지정 공식 제품 자동 수집 및 등록
             </h2>
             <p className="text-xs text-slate-500 leading-relaxed max-w-3xl">
@@ -303,7 +303,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           <button
             onClick={handleRunCrawl}
             disabled={isCrawling}
-            className="px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:via-orange-400 hover:to-rose-400 text-white rounded-xl text-xs font-black shadow-md flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 min-w-[190px]"
+            className="px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:via-orange-400 hover:to-rose-400 text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 min-w-[190px]"
           >
             {isCrawling ? (
               <>
@@ -324,10 +324,10 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
       <div className={`p-5 rounded-2xl border shadow-sm ${cardBg} space-y-3`}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-black flex items-center justify-center shadow-xs">
+            <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-bold flex items-center justify-center shadow-xs">
               <Globe className="w-3 h-3" />
             </span>
-            <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               신제품 수집 출처 채널 선택
             </h3>
           </div>
@@ -340,7 +340,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
           <button
             onClick={() => setActiveSourceType('all')}
-            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+            className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'all'
                 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-md ring-2 ring-amber-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -352,7 +352,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
           <button
             onClick={() => setActiveSourceType('official')}
-            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+            className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'official'
                 ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-700 shadow-md ring-2 ring-blue-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -364,7 +364,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
           <button
             onClick={() => setActiveSourceType('instagram')}
-            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+            className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'instagram'
                 ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white border-rose-600 shadow-md ring-2 ring-rose-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -376,7 +376,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
           <button
             onClick={() => setActiveSourceType('convenience')}
-            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+            className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'convenience'
                 ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-700 shadow-md ring-2 ring-emerald-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -388,7 +388,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
           <button
             onClick={() => setActiveSourceType('news')}
-            className={`p-3 rounded-xl text-xs font-black transition-all flex flex-col items-center gap-1.5 border ${
+            className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'news'
                 ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-700 shadow-md ring-2 ring-purple-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
@@ -451,8 +451,8 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-black flex items-center justify-center">1</span>
-              <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <span className="w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-bold flex items-center justify-center">1</span>
+              <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 브랜드 선택 또는 직접 입력
               </h3>
               <span className="text-[11px] text-slate-400 font-normal">
@@ -506,8 +506,8 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-black flex items-center justify-center">2</span>
-              <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <span className="w-5 h-5 rounded-full bg-orange-500 text-white text-[11px] font-bold flex items-center justify-center">2</span>
+              <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 품목 및 제품군 선택 또는 검색어 입력
               </h3>
               <span className="text-[11px] text-slate-400 font-normal">
@@ -574,7 +574,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           <button
             onClick={handleRunCrawl}
             disabled={isCrawling}
-            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-amber-500 dark:hover:bg-amber-400 dark:text-slate-950 rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50"
+            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-amber-500 dark:hover:bg-amber-400 dark:text-slate-950 rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50"
           >
             {isCrawling ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
             <span>이 조건으로 수집하기</span>
@@ -607,7 +607,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
               <button
                 onClick={handleBulkRegisterSelected}
                 disabled={selectedIds.length === 0}
-                className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
+                className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>선택 {selectedIds.length}개 앱에 즉시 정식 등록</span>
@@ -616,7 +616,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
               <button
                 onClick={handleBulkAddToPendingSelected}
                 disabled={selectedIds.length === 0}
-                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
+                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
               >
                 <Layers className="w-3.5 h-3.5" />
                 <span>선택 {selectedIds.length}개 승인 대기함 전송</span>
@@ -655,9 +655,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                   <div className="flex items-center justify-between gap-1 text-[11px] px-3.5 py-2 bg-gradient-to-r from-amber-500/10 via-slate-100 to-indigo-500/10 dark:from-amber-950/30 dark:via-slate-800 dark:to-indigo-950/30 border-b border-slate-200 dark:border-slate-800 font-bold">
                     <span className="truncate flex items-center gap-1.5 text-slate-800 dark:text-slate-200" title={`수집 출처: ${product.mallName}`}>
                       <span className="text-amber-600 dark:text-amber-400">📍 출처:</span>
-                      <span className="font-extrabold truncate max-w-[140px] sm:max-w-[180px]">{product.mallName}</span>
+                      <span className="font-bold truncate max-w-[140px] sm:max-w-[180px]">{product.mallName}</span>
                     </span>
-                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-black bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
+                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
                       <span>📁 저장:</span>
                       <strong className="underline">[{product.category}]</strong>
                     </span>
@@ -674,13 +674,13 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                           onChange={() => handleToggleSelect(product.id)}
                           className="w-4 h-4 text-amber-500 rounded border-slate-300 focus:ring-0 cursor-pointer mt-0.5"
                         />
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                           {product.officialMallBadge}
                         </span>
                       </div>
 
                       {isRegistered && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500 text-white flex items-center gap-0.5">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white flex items-center gap-0.5">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>등록완료</span>
                         </span>
@@ -701,7 +701,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                           }}
                         />
                         {product.isOfficialMall && (
-                          <span className="absolute bottom-1 right-1 bg-slate-950/80 text-white text-[9px] font-black px-1.5 py-0.5 rounded backdrop-blur-xs">
+                          <span className="absolute bottom-1 right-1 bg-slate-950/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs">
                             정품
                           </span>
                         )}
@@ -734,13 +734,13 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                           <span className="text-amber-500 font-semibold">{product.category}</span>
                         </div>
 
-                        <h4 className={`text-xs font-black line-clamp-2 leading-snug group-hover/card:text-amber-600 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`} title={product.name}>
+                        <h4 className={`text-xs font-bold line-clamp-2 leading-snug group-hover/card:text-amber-600 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`} title={product.name}>
                           {product.name}
                         </h4>
 
                         {/* Price Display */}
                         <div className="flex items-baseline gap-1.5 pt-0.5">
-                          <span className="text-base font-black text-rose-600 dark:text-rose-400 font-mono">
+                          <span className="text-base font-bold text-rose-600 dark:text-rose-400 font-mono">
                             {product.price.toLocaleString()}원
                           </span>
                           <span className="text-[10px] text-slate-400">공식 판매가</span>
@@ -862,7 +862,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                           handleRegisterProduct(product);
                         }}
                         disabled={isRegistered}
-                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[11px] font-black shadow-xs transition-all flex items-center gap-1 disabled:opacity-40"
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-[11px] font-bold shadow-xs transition-all flex items-center gap-1 disabled:opacity-40"
                       >
                         <Check className="w-3 h-3" />
                         <span>즉시 정식 등록</span>
@@ -883,7 +883,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             <ShoppingBag className="w-7 h-7" />
           </div>
           <div className="space-y-1 max-w-md mx-auto">
-            <h3 className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               원하는 브랜드와 품목을 선택하여 공식 제품을 수집해보세요
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -892,7 +892,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           </div>
           <button
             onClick={handleRunCrawl}
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-black shadow-sm inline-flex items-center gap-1.5 transition-all"
+            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-bold shadow-sm inline-flex items-center gap-1.5 transition-all"
           >
             <Zap className="w-3.5 h-3.5" />
             <span>현재 설정({effectiveBrand} × {effectiveItem})으로 즉시 수집</span>
@@ -908,7 +908,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             <div className={`p-4 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <div className="flex items-center gap-2">
                 <Edit3 className="w-4 h-4 text-amber-500" />
-                <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   수집 제품 정보 수정
                 </h3>
               </div>

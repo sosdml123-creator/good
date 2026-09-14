@@ -9,8 +9,10 @@ import {
   Edit3, 
   Trash2, 
   Flame, 
-  X
+  X,
+  Zap
 } from 'lucide-react';
+import { DiscountProductAutoCollectorModal } from './DiscountProductAutoCollectorModal';
 
 interface SalePromotionManagementTabProps {
   isDark: boolean;
@@ -32,8 +34,15 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
 
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCollectorOpen, setIsCollectorOpen] = useState(false);
   const [editingSaleId, setEditingSaleId] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+
+  const handleBatchAddSales = (newSales: SalePromotionItem[]) => {
+    newSales.forEach(item => {
+      addSalePromotion(item);
+    });
+  };
 
   // Form state
   const [formData, setFormData] = useState<Omit<SalePromotionItem, 'id' | 'likeCount'> & { id?: string; likeCount?: number }>({
@@ -223,7 +232,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
             <Tag className="w-5 h-5" />
           </div>
           <div>
-            <h2 className={`text-lg font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               편의점 & 마트 1+1 / 특가 할인 행사소식 관리
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -232,36 +241,46 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
           </div>
         </div>
 
-        <button
-          onClick={handleOpenNewModal}
-          className="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-md shadow-rose-600/20 active:scale-95 transition-all self-start lg:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          <span>새 행사소식 등록</span>
-        </button>
+        <div className="flex items-center gap-2 self-start lg:self-auto">
+          <button
+            onClick={() => setIsCollectorOpen(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-rose-600 hover:from-purple-500 hover:to-rose-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20 active:scale-95 transition-all"
+          >
+            <Zap className="w-4 h-4 fill-current" />
+            <span>⚡ 편의점 행사상품 자동 수집기</span>
+          </button>
+
+          <button
+            onClick={handleOpenNewModal}
+            className="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20 active:scale-95 transition-all"
+          >
+            <Plus className="w-4 h-4" />
+            <span>새 행사소식 등록</span>
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">진행 중인 행사</div>
-          <div className="mt-2 text-2xl font-black font-mono">{salePromotions.length}개</div>
+          <div className="mt-2 text-2xl font-bold font-mono">{salePromotions.length}개</div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">🔥 핫딜(HOT) 행사</div>
-          <div className="mt-2 text-2xl font-black font-mono text-orange-600">
+          <div className="mt-2 text-2xl font-bold font-mono text-orange-600">
             {salePromotions.filter(s => s.isHot).length}개
           </div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">1+1 행사</div>
-          <div className="mt-2 text-2xl font-black font-mono text-indigo-600">
+          <div className="mt-2 text-2xl font-bold font-mono text-indigo-600">
             {salePromotions.filter(s => s.dealType === '1+1').length}개
           </div>
         </div>
         <div className={`p-4 rounded-2xl border ${cardBg}`}>
           <div className="text-xs text-slate-500">2+1 행사</div>
-          <div className="mt-2 text-2xl font-black font-mono text-purple-600">
+          <div className="mt-2 text-2xl font-bold font-mono text-purple-600">
             {salePromotions.filter(s => s.dealType === '2+1').length}개
           </div>
         </div>
@@ -354,7 +373,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
                     </span>
                   </td>
                   <td className="p-3">
-                    <span className={`px-2 py-0.5 rounded-full font-black text-[10px] text-white ${
+                    <span className={`px-2 py-0.5 rounded-full font-bold text-[10px] text-white ${
                       item.dealType === '1+1' ? 'bg-rose-500' :
                       item.dealType === '2+1' ? 'bg-orange-500' : 'bg-emerald-600'
                     }`}>
@@ -376,7 +395,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
                   </td>
                   <td className="p-3">
                     <div className="font-mono text-slate-600 dark:text-slate-300">{item.period}</div>
-                    <span className="inline-block px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 text-[9px] font-black mt-0.5">
+                    <span className="inline-block px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 text-[9px] font-bold mt-0.5">
                       {item.dDay}
                     </span>
                   </td>
@@ -623,7 +642,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-black shadow-md shadow-rose-600/20"
+                  className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-md shadow-rose-600/20"
                 >
                   {editingSaleId ? '수정사항 저장' : '행사 등록 완료'}
                 </button>
@@ -658,6 +677,17 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
           </div>
         </div>
       )}
+
+      {/* Auto Collector Modal */}
+      <DiscountProductAutoCollectorModal
+        isOpen={isCollectorOpen}
+        onClose={() => setIsCollectorOpen(false)}
+        isDark={isDark}
+        existingSales={salePromotions}
+        onBatchAddSales={handleBatchAddSales}
+        onAddSingleSale={addSalePromotion}
+        showToast={showToast}
+      />
     </div>
   );
 };

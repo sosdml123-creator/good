@@ -157,6 +157,7 @@ export interface Product {
   spiciness?: string;        // 맵기 단계 (e.g. '안 매워요', '신라면급', '불닭급')
   produceDetails?: ProduceNutritionDetail; // 자연 원물(과일, 채소, 생물 수산물) 영양 성분 & 특성 상세
   searchInfluxCount?: number; // 검색 유입수 (검색 후 상세 방문 및 유입 클릭 수)
+  buyLink?: string;           // 공식 판매처 / 바로구매 링크 (네이버쇼핑/스마트스토어 등)
 }
 
 export interface ReviewComment {

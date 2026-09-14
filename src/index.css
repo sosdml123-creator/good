@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +9,19 @@
     -webkit-tap-highlight-color: transparent;
   }
   
-  body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  html, body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
     user-select: none;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+  }
+
+  input, button, select, textarea {
+    font-family: inherit;
+    letter-spacing: inherit;
   }
 
   /* Custom scrollbar hiding for horizontal scroll areas */

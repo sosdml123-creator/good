@@ -19,7 +19,8 @@ import {
   Flame,
   Layers,
   AlertTriangle,
-  Check
+  Check,
+  Heart
 } from 'lucide-react';
 import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
