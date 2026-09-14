@@ -742,7 +742,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {
       console.warn(e);
     }
-    showToast('투표해주셔서 감사해요! 결과는 주말에 공개됩니다 🎉', 'success');
   };
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
@@ -814,7 +813,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     '두바이 초콜릿',
     '신라면 똠얌',
   ]);
-  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const toasts: ToastMessage[] = [];
 
   // 🏢 Brands Management State
   const [brands, setBrands] = useState<BrandInfo[]>(() => {
@@ -1561,16 +1560,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const showToast = (message: string, type: 'success' | 'info' | 'error' = 'success') => {
-    const id = 't-' + Date.now() + Math.random();
-    setToasts(prev => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id));
-    }, 2800);
+  const showToast = (_message: string, _type: 'success' | 'info' | 'error' = 'success') => {
+    // Disabled all popup notification texts per user request
   };
 
-  const removeToast = (id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
+  const removeToast = (_id: string) => {
+    // No-op
   };
 
   const toggleBookmark = (productId: string, e?: React.MouseEvent) => {
