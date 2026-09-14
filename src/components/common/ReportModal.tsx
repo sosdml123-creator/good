@@ -31,7 +31,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
   onClose,
   onReportSuccess
 }) => {
-  const { showToast } = useApp();
+  const { showToast, submitReport, currentUser } = useApp();
   const [selectedReason, setSelectedReason] = useState<string>(REPORT_REASONS[0]);
   const [customDetail, setCustomDetail] = useState<string>('');
   const [shouldBlockAuthor, setShouldBlockAuthor] = useState<boolean>(true);
@@ -41,19 +41,29 @@ export const ReportModal: React.FC<ReportModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 1. Save report to localStorage for persistent moderation history
+    // 1. Submit through AppContext centralized state and persistence
     try {
-      const existingReports = JSON.parse(localStorage.getItem('sinsangpick_reports') || '[]');
-      existingReports.push({
-        id: 'rep_' + Date.now(),
-        targetType: target.type,
+      const getReasonEnum = (r: string): any => {
+        if (r.includes('스팸') || r.includes('광고')) return 'spam';
+        if (r.includes('욕설') || r.includes('혐오') || r.includes('비하')) return 'abuse';
+        if (r.includes('음란') || r.includes('유해')) return 'inappropriate';
+        if (r.includes('허위') || r.includes('명예훼손')) return 'fraud';
+        return 'other';
+      };
+
+      const mappedTargetType = target.type === 'post' ? 'community_post' : (target.type === 'comment' ? 'comment' : 'review');
+
+      submitReport({
+        targetType: mappedTargetType,
         targetId: target.id,
-        authorName: target.authorName,
-        reason: selectedReason,
-        detail: customDetail.trim(),
-        createdAt: new Date().toISOString()
+        targetContent: target.contentSnippet || '',
+        targetUserId: target.id,
+        targetUserName: target.authorName,
+        reporterId: currentUser?.uid || 'guest_user',
+        reporterName: currentUser?.displayName || '익명 사용자',
+        reason: getReasonEnum(selectedReason),
+        reasonDetail: customDetail.trim()
       });
-      localStorage.setItem('sinsangpick_reports', JSON.stringify(existingReports));
 
       // Mark reported items to hide them immediately for the reporting user
       const hiddenIds = JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]');
@@ -71,7 +81,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         }
       }
     } catch (err) {
-      console.warn('Report persistence error:', err);
+      console.warn('Report submission error:', err);
     }
 
     const blockMsg = shouldBlockAuthor ? ` 및 '${target.authorName}'님 차단` : '';

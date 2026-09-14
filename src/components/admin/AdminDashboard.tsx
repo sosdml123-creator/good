@@ -75,6 +75,8 @@ import { SalePromotionManagementTab } from './SalePromotionManagementTab';
 import { CalendarManagementTab } from './CalendarManagementTab';
 import { EventManagementTab } from './EventManagementTab';
 import { NotificationManagementTab } from './NotificationManagementTab';
+import { UserManagementTab } from './UserManagementTab';
+import { ReportManagementTab } from './ReportManagementTab';
 
 export type AdminTab = 
   | 'overview' 
@@ -87,6 +89,8 @@ export type AdminTab =
   | 'calendar'
   | 'events'
   | 'notifications'
+  | 'users'
+  | 'reports'
   | 'points'
   | 'reviews' 
   | 'analytics' 
@@ -151,7 +155,10 @@ export const AdminDashboard: React.FC = () => {
     batchRevokePoints,
     fetchAllProfiles,
     currentUser,
+    reports,
   } = useApp();
+
+  const pendingReportsCount = reports.filter(r => r.status === 'pending').length;
 
   // Theme mode: Default to 'light' for high readability, with quick toggle to 'dark'
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
@@ -1351,6 +1358,56 @@ export const AdminDashboard: React.FC = () => {
               </span>
             </button>
 
+            {/* 회원 계정 및 상태 관리 */}
+            <button
+              onClick={() => setActiveAdminTab('users')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'users'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Users className="w-4 h-4 text-blue-400" />
+                <span>회원 계정·상태 관리</span>
+              </div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                activeAdminTab === 'users' 
+                  ? 'bg-white/20 text-white font-bold' 
+                  : isDark ? 'bg-slate-800 text-blue-300' : 'bg-blue-50 text-blue-700 font-bold'
+              }`}>
+                {allProfiles.length}명
+              </span>
+            </button>
+
+            {/* 신고 및 모더레이션 관리 */}
+            <button
+              onClick={() => setActiveAdminTab('reports')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'reports'
+                  ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-md shadow-rose-500/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-rose-400" />
+                <span>신고·제재 관리</span>
+              </div>
+              {pendingReportsCount > 0 ? (
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
+                  {pendingReportsCount}건 대기
+                </span>
+              ) : (
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
+                  {reports.length}건
+                </span>
+              )}
+            </button>
+
             {/* 4. Points & User Management (NEW) */}
             <button
               onClick={() => setActiveAdminTab('points')}
@@ -1523,6 +1580,8 @@ export const AdminDashboard: React.FC = () => {
               {activeAdminTab === 'calendar' && '📅 신제품 출시 캘린더 관리'}
               {activeAdminTab === 'events' && '🎁 이벤트 및 체험단 프로모션 관리'}
               {activeAdminTab === 'notifications' && '🔔 알림 및 FCM 디바이스 푸시 발송 관리'}
+              {activeAdminTab === 'users' && '👥 회원 계정 및 제재 상태 정밀 관리'}
+              {activeAdminTab === 'reports' && '🚨 신고 접수 내역 및 모더레이션 조치 콘솔'}
               {activeAdminTab === 'points' && '🪙 회원 관리 및 포인트 지급·회수 콘솔'}
               {activeAdminTab === 'reviews' && '💬 사용자 리뷰 및 커뮤니티 피드 모더레이션'}
               {activeAdminTab === 'analytics' && '📈 신상 검색 트렌드 및 카테고리 분석'}
@@ -4533,6 +4592,20 @@ export const AdminDashboard: React.FC = () => {
              ======================================================== */}
           {activeAdminTab === 'notifications' && (
             <NotificationManagementTab />
+          )}
+
+          {/* ========================================================
+              TAB: USERS & ACCOUNT STATUS (회원 계정 및 제재 상태 관리)
+             ======================================================== */}
+          {activeAdminTab === 'users' && (
+            <UserManagementTab isDark={isDark} />
+          )}
+
+          {/* ========================================================
+              TAB: REPORTS & MODERATION (신고 접수 내역 및 조치)
+             ======================================================== */}
+          {activeAdminTab === 'reports' && (
+            <ReportManagementTab isDark={isDark} />
           )}
 
           {/* ========================================================
