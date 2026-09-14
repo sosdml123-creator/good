@@ -30,10 +30,10 @@ export const BlockedUsersModal: React.FC<BlockedUsersModalProps> = ({
     setBlockedList(updated);
     try {
       localStorage.setItem('sinsangpick_blocked_users', JSON.stringify(updated));
-      showToast(`'${userName}' 님의 차단이 해제되었습니다.`, 'info');
     } catch {
       // ignore
     }
+    showToast(`'${userName}' 님의 차단이 해제되었습니다.`, 'info');
   };
 
   if (!isOpen) return null;
