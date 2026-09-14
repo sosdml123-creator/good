@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, MessageSquare, Send } from 'lucide-react';
+import { Star, Heart, MessageSquare, Send, Flag } from 'lucide-react';
+import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { SafeImage } from '../common/SafeImage';
 
 interface ReviewListProps {
@@ -14,8 +15,18 @@ export const ReviewList: React.FC<ReviewListProps> = ({
   const [sortTab, setSortTab] = useState('최신순');
   const [openCommentReviewId, setOpenCommentReviewId] = useState<string | null>(null);
   const [commentInput, setCommentInput] = useState<{ [reviewId: string]: string }>({});
+  const [reportTarget, setReportTarget] = useState<ReportTarget | null>(null);
+  const [isReportOpen, setIsReportOpen] = useState(false);
 
-  const productReviews = reviews.filter(r => r.productId === productId || !productId);
+  // Filter blocked users and hidden reviews (App Store UGC Requirement)
+  const blockedUsers: string[] = (() => {
+    try { return JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]'); } catch { return []; }
+  })();
+  const hiddenIds: string[] = (() => {
+    try { return JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]'); } catch { return []; }
+  })();
+
+  const productReviews = reviews.filter(r => (r.productId === productId || !productId) && !hiddenIds.includes(r.id) && !blockedUsers.includes(r.userName));
 
   // Apply sorting
   const sortedReviews = [...productReviews].sort((a, b) => {
@@ -90,6 +101,21 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                     </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => {
+                    setReportTarget({
+                      type: 'review',
+                      id: r.id,
+                      authorName: r.userName,
+                      contentSnippet: r.content
+                    });
+                    setIsReportOpen(true);
+                  }}
+                  className="p-1.5 text-gray-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
+                  title="리뷰 신고 및 작성자 차단"
+                >
+                  <Flag className="w-3.5 h-3.5" />
+                </button>
               </div>
 
               {/* Badges: Purchase Place, Verified, Repurchase */}
@@ -249,6 +275,15 @@ export const ReviewList: React.FC<ReviewListProps> = ({
           </button>
         </div>
       )}
+      {/* Store Review UGC Report & Block Modal */}
+      <ReportModal
+        target={reportTarget}
+        isOpen={isReportOpen}
+        onClose={() => {
+          setIsReportOpen(false);
+          setReportTarget(null);
+        }}
+      />
     </div>
   );
 };

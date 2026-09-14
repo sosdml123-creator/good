@@ -21,7 +21,11 @@ import {
   RecipePost,
   WriteRecipeInput,
   BrandInfo,
-  StoreChannelInfo
+  StoreChannelInfo,
+  ReportItem,
+  ReportAction,
+  ReportReason,
+  UserAccountStatus
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
@@ -31,6 +35,7 @@ import { INITIAL_STORE_CHANNELS } from '../data/mockStores';
 import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
+import { INITIAL_REPORTS } from '../data/mockReports';
 import { POPULAR_BRANDS } from '../utils/brandData';
 import {
   fetchDailyNewProducts,
@@ -274,7 +279,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 850,
     email: 'minji.snack@gmail.com',
     provider: 'apple',
-    createdAt: '2025.01.10'
+    createdAt: '2025.01.10',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_junho_02',
@@ -284,7 +292,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 1340,
     email: 'junho_cu@kakao.com',
     provider: 'kakao',
-    createdAt: '2025.01.05'
+    createdAt: '2025.01.05',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_dessert_03',
@@ -294,7 +305,12 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 520,
     email: 'sweet_fairy@naver.com',
     provider: 'google',
-    createdAt: '2025.01.18'
+    createdAt: '2025.01.18',
+    status: 'warned',
+    warningCount: 1,
+    statusReason: '리뷰 내 비속어 사용으로 인한 경고 1회',
+    statusUpdatedAt: '2026-09-12T10:00:00Z',
+    role: 'user'
   },
   {
     uid: 'user_taeyang_04',
@@ -304,7 +320,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 980,
     email: 'sun_night@gmail.com',
     provider: 'google',
-    createdAt: '2025.01.22'
+    createdAt: '2025.01.22',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_jiwoo_05',
@@ -314,7 +333,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 310,
     email: 'jiwoo.snack@gmail.com',
     provider: 'apple',
-    createdAt: '2025.02.01'
+    createdAt: '2025.02.01',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_donghyun_06',
@@ -324,7 +346,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 1620,
     email: 'donghyun@daum.net',
     provider: 'kakao',
-    createdAt: '2024.12.15'
+    createdAt: '2024.12.15',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_hyejin_07',
@@ -334,7 +359,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 730,
     email: 'spicy_queen@gmail.com',
     provider: 'google',
-    createdAt: '2025.01.29'
+    createdAt: '2025.01.29',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_suho_08',
@@ -344,7 +372,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 440,
     email: 'suho_fit@gmail.com',
     provider: 'apple',
-    createdAt: '2025.02.10'
+    createdAt: '2025.02.10',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
   },
   {
     uid: 'user_seoyeon_09',
@@ -354,7 +385,26 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 1950,
     email: 'seoyeon_snack@naver.com',
     provider: 'kakao',
-    createdAt: '2024.11.20'
+    createdAt: '2024.11.20',
+    status: 'active',
+    warningCount: 0,
+    role: 'user'
+  },
+  {
+    uid: 'user_random_99',
+    displayName: '어뷰저_99',
+    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+    level: 'Lv.1',
+    points: 0,
+    email: 'abuser99@trashmail.com',
+    provider: 'anonymous',
+    createdAt: '2026.09.01',
+    status: 'suspended',
+    warningCount: 2,
+    suspendedUntil: '2026-09-17T15:00:00Z',
+    statusReason: '사진 도용 및 허위 리뷰 반복 작성 (7일 이용 정지)',
+    statusUpdatedAt: '2026-09-10T15:00:00Z',
+    role: 'user'
   }
 ];
 
@@ -863,6 +913,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return INITIAL_POINT_TRANSACTIONS;
   });
 
+  // Reports (신고 접수 및 처리 내역) state
+  const [reports, setReports] = useState<ReportItem[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_reports');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {
+      // ignore
+    }
+    return INITIAL_REPORTS;
+  });
+
   // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation & verified healing
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
     try {
@@ -901,6 +965,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // ignore
     }
   }, [pointTransactions]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_reports', JSON.stringify(reports));
+    } catch (e) {
+      // ignore
+    }
+  }, [reports]);
 
   // Sync pending products to localStorage
   useEffect(() => {
@@ -1738,6 +1810,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     tags?: string[],
     extra?: ReviewExtraData
   ) => {
+    // 🚨 활동 정지 계정 검사
+    const suspension = isCurrentUserSuspended();
+    if (suspension.isSuspended) {
+      showToast(`🚨 활동이 제한된 계정입니다. (${suspension.reason} / 기한: ${suspension.until})`, 'error');
+      return;
+    }
+
     const targetProduct = products.find(p => p.id === productId) || selectedProduct;
     const reviewId = 'rev-' + Date.now();
     const createdAt = new Date().toISOString();
@@ -1747,6 +1826,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       productId: targetProduct.id,
       productName: targetProduct.name,
       productImage: targetProduct.image,
+      userId: currentUser.uid,
       userName: currentUser.displayName,
       userAvatar: currentUser.photoURL,
       userLevel: currentUser.level,
@@ -1914,6 +1994,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     content: string,
     images?: string[]
   ) => {
+    // 🚨 활동 정지 계정 검사
+    const suspension = isCurrentUserSuspended();
+    if (suspension.isSuspended) {
+      showToast(`🚨 활동이 제한된 계정입니다. (${suspension.reason} / 기한: ${suspension.until})`, 'error');
+      return;
+    }
+
     const postId = 'post-' + Date.now();
     const createdAt = new Date().toISOString();
 
@@ -3251,6 +3338,218 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(`🔻 총 ${userIds.length}명의 회원으로부터 각 -${amount.toLocaleString()}P가 일괄 회수되었습니다.`, 'info');
   };
 
+  // 🚨 회원 상태 관리 (정상 / 경고 / 기간정지 / 영구정지)
+  const updateUserStatus = async (
+    userId: string,
+    newStatus: UserAccountStatus,
+    options?: { warningDelta?: number; suspendDays?: number; reason?: string; adminMemo?: string }
+  ): Promise<void> => {
+    const now = new Date();
+    let suspendedUntil: string | undefined = undefined;
+
+    if (newStatus === 'suspended') {
+      const days = options?.suspendDays || 7;
+      const untilDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+      suspendedUntil = untilDate.toISOString();
+    } else if (newStatus === 'banned') {
+      suspendedUntil = 'permanent';
+    } else if (newStatus === 'active') {
+      suspendedUntil = undefined;
+    }
+
+    setAllProfiles(prev => prev.map(u => {
+      if (u.uid === userId) {
+        const nextWarningCount = Math.max(0, (u.warningCount || 0) + (options?.warningDelta || 0));
+        return {
+          ...u,
+          status: newStatus,
+          warningCount: newStatus === 'active' && options?.warningDelta === undefined ? 0 : nextWarningCount,
+          suspendedUntil: newStatus === 'active' ? undefined : (suspendedUntil || u.suspendedUntil),
+          statusReason: options?.reason || u.statusReason || (newStatus === 'active' ? undefined : '관리자 제재 조치'),
+          statusUpdatedAt: now.toISOString(),
+        };
+      }
+      return u;
+    }));
+
+    if (currentUser.uid === userId) {
+      setCurrentUser(prev => ({
+        ...prev,
+        status: newStatus,
+        warningCount: newStatus === 'active' && options?.warningDelta === undefined ? 0 : Math.max(0, (prev.warningCount || 0) + (options?.warningDelta || 0)),
+        suspendedUntil: newStatus === 'active' ? undefined : (suspendedUntil || prev.suspendedUntil),
+        statusReason: options?.reason || prev.statusReason,
+        statusUpdatedAt: now.toISOString(),
+      }));
+    }
+
+    const statusLabel = 
+      newStatus === 'active' ? '정상 복원' :
+      newStatus === 'warned' ? '경고 부여' :
+      newStatus === 'suspended' ? `${options?.suspendDays || 7}일 이용 정지` : '영구 이용 정지';
+    
+    showToast(`회원 상태를 [${statusLabel}]으로 업데이트했습니다.`, 'success');
+  };
+
+  const batchUpdateUserStatus = async (
+    userIds: string[],
+    newStatus: UserAccountStatus,
+    options?: { warningDelta?: number; suspendDays?: number; reason?: string; adminMemo?: string }
+  ): Promise<void> => {
+    for (const uid of userIds) {
+      await updateUserStatus(uid, newStatus, options);
+    }
+    showToast(`총 ${userIds.length}명의 회원 상태를 [${newStatus}]으로 일괄 변경했습니다.`, 'info');
+  };
+
+  // 현재 로그인 회원의 제재/정지 여부 조회
+  const isCurrentUserSuspended = (): { isSuspended: boolean; reason: string; until?: string } => {
+    const prof = allProfiles.find(u => u.uid === currentUser.uid) || currentUser;
+    if (prof.status === 'banned') {
+      return {
+        isSuspended: true,
+        reason: prof.statusReason || '운영 정책 위반으로 인한 영구 정지',
+        until: '영구 제한'
+      };
+    }
+    if (prof.status === 'suspended') {
+      if (prof.suspendedUntil && prof.suspendedUntil !== 'permanent') {
+        const untilDate = new Date(prof.suspendedUntil).getTime();
+        if (Date.now() < untilDate) {
+          return {
+            isSuspended: true,
+            reason: prof.statusReason || '운영 정책 위반으로 인한 일시 정지',
+            until: new Date(prof.suspendedUntil).toLocaleDateString('ko-KR')
+          };
+        }
+      } else {
+        return {
+          isSuspended: true,
+          reason: prof.statusReason || '운영 정책 위반으로 인한 이용 정지',
+          until: '관리자 해제 시까지'
+        };
+      }
+    }
+    return { isSuspended: false, reason: '' };
+  };
+
+  // 🚨 신고 접수 액션
+  const submitReport = async (reportData: Omit<ReportItem, 'id' | 'createdAt' | 'status'>): Promise<boolean> => {
+    if (reportData.targetUserId && reportData.targetUserId === currentUser.uid) {
+      showToast('⚠️ 본인이 작성한 콘텐츠는 신고할 수 없습니다.', 'error');
+      return false;
+    }
+
+    const alreadyReported = reports.some(
+      r => r.reporterId === currentUser.uid && r.targetId === reportData.targetId && r.status === 'pending'
+    );
+    if (alreadyReported) {
+      showToast('ℹ️ 이미 접수되어 관리자 검토 대기 중인 신고입니다.', 'info');
+      return false;
+    }
+
+    const newReport: ReportItem = {
+      ...reportData,
+      id: 'rep-' + Date.now(),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+
+    setReports(prev => [newReport, ...prev]);
+
+    if (reportData.targetType === 'review') {
+      setReviews(prev => prev.map(r => r.id === reportData.targetId ? { ...r, isReported: true } : r));
+    }
+
+    showToast('🚨 신고가 정상 접수되었습니다. 관리자 검토 후 신속히 조치됩니다.', 'success');
+    return true;
+  };
+
+  // 🚨 관리자 신고 조치 (제재 및 리뷰 삭제 연동)
+  const resolveReport = async (
+    reportId: string, 
+    action: ReportAction, 
+    actionReason?: string, 
+    adminMemo?: string
+  ): Promise<void> => {
+    const targetReport = reports.find(r => r.id === reportId);
+    if (!targetReport) return;
+
+    const resolvedAt = new Date().toISOString();
+
+    setReports(prev => prev.map(r => {
+      if (r.id === reportId) {
+        return {
+          ...r,
+          status: 'resolved',
+          actionTaken: action,
+          actionReason: actionReason || '운영 규정 위반 제재',
+          adminMemo: adminMemo || r.adminMemo,
+          resolvedAt,
+        };
+      }
+      return r;
+    }));
+
+    // 피신고자 제재 자동 적용
+    if (targetReport.targetUserId) {
+      const uid = targetReport.targetUserId;
+      if (action === 'warning') {
+        await updateUserStatus(uid, 'warned', {
+          warningDelta: 1,
+          reason: actionReason || `신고 접수([${targetReport.reason}])에 따른 경고 조치`,
+          adminMemo: `신고 ${reportId} 처리`
+        });
+      } else if (action === 'suspend_7d') {
+        await updateUserStatus(uid, 'suspended', {
+          suspendDays: 7,
+          reason: actionReason || `신고 접수([${targetReport.reason}])에 따른 7일 이용 정지`,
+          adminMemo: `신고 ${reportId} 처리`
+        });
+      } else if (action === 'suspend_30d') {
+        await updateUserStatus(uid, 'suspended', {
+          suspendDays: 30,
+          reason: actionReason || `신고 접수([${targetReport.reason}])에 따른 30일 이용 정지`,
+          adminMemo: `신고 ${reportId} 처리`
+        });
+      } else if (action === 'permanent_ban') {
+        await updateUserStatus(uid, 'banned', {
+          reason: actionReason || `중대 운영 규정 위반으로 인한 영구 정지`,
+          adminMemo: `신고 ${reportId} 처리`
+        });
+      }
+    }
+
+    // 제재 시 또는 delete_review 액션일 때 해당 리뷰 삭제/숨김
+    if (targetReport.targetType === 'review' && action !== 'none') {
+      await deleteReview(targetReport.targetId);
+    }
+
+    showToast('신고 건을 처리 완료하고 제재 조치를 적용했습니다.', 'success');
+  };
+
+  const dismissReport = async (reportId: string, reason?: string, adminMemo?: string): Promise<void> => {
+    setReports(prev => prev.map(r => {
+      if (r.id === reportId) {
+        return {
+          ...r,
+          status: 'dismissed',
+          actionTaken: 'none',
+          actionReason: reason || '검토 결과 이상 없음 (정상 판정)',
+          adminMemo: adminMemo || r.adminMemo,
+          resolvedAt: new Date().toISOString(),
+        };
+      }
+      return r;
+    }));
+    showToast('신고 건을 반려(이상 없음) 처리했습니다.', 'info');
+  };
+
+  const deleteReport = async (reportId: string): Promise<void> => {
+    setReports(prev => prev.filter(r => r.id !== reportId));
+    showToast('신고 내역을 삭제했습니다.', 'info');
+  };
+
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
     setProducts(INITIAL_PRODUCTS);
@@ -3260,6 +3559,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setNotifications(INITIAL_NOTIFICATIONS);
     setAllProfiles(INITIAL_USER_PROFILES);
     setPointTransactions(INITIAL_POINT_TRANSACTIONS);
+    setReports(INITIAL_REPORTS);
     setPendingProducts([]);
     setBrands(POPULAR_BRANDS);
     setStoreChannels(INITIAL_STORE_CHANNELS);
@@ -3415,6 +3715,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         batchGrantPoints,
         batchRevokePoints,
         fetchAllProfiles,
+        updateUserStatus,
+        batchUpdateUserStatus,
+        isCurrentUserSuspended,
+
+        // 🚨 Reports & Moderation
+        reports,
+        submitReport,
+        resolveReport,
+        dismissReport,
+        deleteReport,
 
         submitReview,
         toggleLikeReview,

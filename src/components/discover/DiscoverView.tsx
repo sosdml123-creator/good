@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { ChevronLeft, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check } from 'lucide-react';
+import { ChevronLeft, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check, ExternalLink } from 'lucide-react';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
 import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
@@ -280,9 +280,24 @@ export const DiscoverView: React.FC = () => {
                       <span className="text-xs font-black text-gray-900">{item.effectiveRating.toFixed(1)}</span>
                       <span className="text-[10px] text-gray-400">({item.totalReviewCount})</span>
                     </div>
-                    <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded mt-0.5">
-                      리뷰점수 {item.reviewScore}점
-                    </span>
+                    <div className="flex items-center gap-1 mt-0.5">
+                      <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded">
+                        점수 {item.reviewScore}
+                      </span>
+                      {p.buyLink && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(p.buyLink, '_blank');
+                          }}
+                          className="px-1.5 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold flex items-center gap-0.5 shadow-2xs"
+                          title="실제 판매처 바로가기"
+                        >
+                          <span>구매</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -397,13 +412,28 @@ export const DiscoverView: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Bookmark Button */}
-                <button
-                  onClick={(e) => toggleBookmark(p.id, e)}
-                  className="text-xl p-1 shrink-0 text-gray-300 hover:text-rose-500 transition-colors"
-                >
-                  <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
-                </button>
+                {/* Action Buttons (Buy Link & Bookmark) */}
+                <div className="flex items-center gap-1 shrink-0">
+                  {p.buyLink && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(p.buyLink, '_blank');
+                      }}
+                      className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-black flex items-center gap-0.5 border border-emerald-200 transition-all active:scale-95 shadow-2xs"
+                      title="실제 판매처 바로가기"
+                    >
+                      <span>구매</span>
+                      <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
+                    </button>
+                  )}
+                  <button
+                    onClick={(e) => toggleBookmark(p.id, e)}
+                    className="text-xl p-1 text-gray-300 hover:text-rose-500 transition-colors"
+                  >
+                    <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
+                  </button>
+                </div>
               </div>
             );
           })

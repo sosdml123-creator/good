@@ -24,6 +24,8 @@ import {
 } from 'lucide-react';
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
+import { BlockedUsersModal } from './BlockedUsersModal';
+import { UserX } from 'lucide-react';
 
 export const SettingsView: React.FC = () => {
   const { 
@@ -39,6 +41,7 @@ export const SettingsView: React.FC = () => {
   // State for modals & editing
   const [selectedPolicyId, setSelectedPolicyId] = useState<string | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBlockedModalOpen, setIsBlockedModalOpen] = useState(false);
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [nicknameInput, setNicknameInput] = useState(currentUser.displayName);
   const [showBusinessInfo, setShowBusinessInfo] = useState(false);
@@ -290,6 +293,32 @@ export const SettingsView: React.FC = () => {
           </div>
 
           <div className="divide-y divide-gray-100">
+
+            {/* Blocked Users Management (Apple Guideline 1.2 UGC Requirement) */}
+            <div
+              onClick={() => setIsBlockedModalOpen(true)}
+              className="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
+                  <UserX className="w-4 h-4 text-gray-700" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-gray-900 truncate">
+                      차단한 사용자 관리
+                    </span>
+                    <span className="text-[9px] font-extrabold bg-gray-100 text-gray-700 px-1.5 py-0.2 rounded">
+                      스토어 심사 기준
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-gray-400 truncate mt-0.5">
+                    내가 차단한 사용자의 글과 댓글 목록 확인 및 해제
+                  </div>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+            </div>
             {policyItems.map((item) => (
               <div
                 key={item.id}
@@ -507,6 +536,12 @@ export const SettingsView: React.FC = () => {
         isOpen={Boolean(selectedPolicyId)}
         onClose={() => setSelectedPolicyId(null)}
         initialPolicyId={selectedPolicyId || 'privacy'}
+      />
+
+      {/* Blocked Users Modal */}
+      <BlockedUsersModal
+        isOpen={isBlockedModalOpen}
+        onClose={() => setIsBlockedModalOpen(false)}
       />
 
       {/* Account Deletion Modal */}

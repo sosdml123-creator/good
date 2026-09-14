@@ -167,8 +167,12 @@ export const ProductDetailModal: React.FC = () => {
 
   const displayedQuotes = showAllQuotes ? quotes : quotes.slice(0, 3);
 
+  const effectiveBuyLink = selectedProduct.buyLink || 
+    selectedProduct.brandRankings?.find(r => r.buyLink)?.buyLink ||
+    selectedProduct.storeStocks?.find(s => s.appLink)?.appLink;
+
   return (
-    <div className="bg-[#F5F5F5] min-h-full pb-16">
+    <div className="bg-[#F5F5F5] min-h-full pb-28">
       
       {/* 1. Header */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">
@@ -295,6 +299,25 @@ export const ProductDetailModal: React.FC = () => {
             <span className="text-xs text-gray-400">/ {selectedProduct.volume}</span>
           )}
         </div>
+
+        {/* 네이버쇼핑 실제 판매처 직통 바로가기 배너 */}
+        {effectiveBuyLink && (
+          <div className="mt-3">
+            <button
+              onClick={() => window.open(effectiveBuyLink, '_blank')}
+              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-between shadow-xs transition-all active:scale-98 cursor-pointer"
+            >
+              <div className="flex items-center gap-2">
+                <span className="bg-white/25 px-2 py-0.5 rounded text-[11px] font-black tracking-tight">네이버쇼핑 1위</span>
+                <span className="font-bold">실제 판매처 바로가기</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs opacity-95">
+                <span>최저가 공식몰 이동</span>
+                <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+              </div>
+            </button>
+          </div>
+        )}
 
         {selectedProduct.description && (
           <p className="text-xs text-gray-600 mt-2.5 bg-gray-50 p-3 rounded-xl leading-relaxed border border-gray-100">
@@ -1206,6 +1229,55 @@ export const ProductDetailModal: React.FC = () => {
         isOpen={isStockAlertModalOpen}
         onClose={() => setIsStockAlertModalOpen(false)}
       />
+
+      {/* 9. Floating Bottom Purchase / Stock Bar */}
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 shadow-lg flex items-center justify-between gap-3">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] text-gray-500 font-medium truncate">
+            {selectedProduct.brand} {selectedProduct.discountRate ? `· ${selectedProduct.discountRate}% 할인` : ''}
+          </span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-base font-black text-gray-900">
+              {selectedProduct.price.toLocaleString()}원
+            </span>
+            {selectedProduct.volume && (
+              <span className="text-[10px] text-gray-400">/{selectedProduct.volume}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={(e) => toggleBookmark(selectedProduct.id, e)}
+            className={`p-2.5 rounded-xl border transition-all ${
+              isBookmarked 
+                ? 'border-rose-200 bg-rose-50 text-rose-600' 
+                : 'border-gray-200 text-gray-400 hover:bg-gray-50'
+            }`}
+            title={isBookmarked ? '찜 취소' : '찜하기'}
+          >
+            <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
+          </button>
+
+          {effectiveBuyLink ? (
+            <button
+              onClick={() => window.open(effectiveBuyLink, '_blank')}
+              className="px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
+            >
+              <span>실제 판매처 바로가기</span>
+              <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsNearbyModalOpen(true)}
+              className="px-4 sm:px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-98 cursor-pointer"
+            >
+              <span>매장 재고확인</span>
+              <MapPin className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
 
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles } from 'lucide-react';
+import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag } from 'lucide-react';
+import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { getPopularCommunityPosts, getPopularProducts } from '../../utils/ranking';
 import { CommunityPost } from '../../types';
 
@@ -31,11 +32,22 @@ export const CommunityView: React.FC = () => {
   // Selected post for comment view
   const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
   const [commentText, setCommentText] = useState('');
+  const [reportTarget, setReportTarget] = useState<ReportTarget | null>(null);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+
+  // Filter blocked users and hidden posts (App Store UGC Requirement)
+  const blockedUsers: string[] = (() => {
+    try { return JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]'); } catch { return []; }
+  })();
+  const hiddenIds: string[] = (() => {
+    try { return JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]'); } catch { return []; }
+  })();
 
   // 1. Get filtered & sorted posts
-  const displayedPosts: CommunityPost[] = activeSubTab === '인기'
-    ? getPopularCommunityPosts(communityPosts)
-    : communityPosts.filter(p => p.category === activeSubTab);
+  const cleanPosts = communityPosts.filter(p => !hiddenIds.includes(p.id) && !blockedUsers.includes(p.author));
+  const displayedPosts: CommunityPost[] = (activeSubTab === '인기'
+    ? getPopularCommunityPosts(cleanPosts)
+    : cleanPosts.filter(p => p.category === activeSubTab));
 
   const popularTopProducts = getPopularProducts(products, 3);
 
@@ -450,9 +462,26 @@ export const CommunityView: React.FC = () => {
               <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded">
                 {selectedPost.category}
               </span>
-              <button onClick={() => setSelectedPost(null)} className="p-1 text-gray-400 hover:text-gray-700">
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => {
+                    setReportTarget({
+                      type: 'post',
+                      id: selectedPost.id,
+                      authorName: selectedPost.author,
+                      contentSnippet: selectedPost.title
+                    });
+                    setIsReportOpen(true);
+                  }}
+                  className="p-1.5 text-gray-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
+                  title="신고 및 차단"
+                >
+                  <Flag className="w-4 h-4" />
+                </button>
+                <button onClick={() => setSelectedPost(null)} className="p-1 text-gray-400 hover:text-gray-700">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <div className="flex-1 overflow-y-auto py-3 space-y-3">
@@ -527,6 +556,18 @@ export const CommunityView: React.FC = () => {
         </div>
       )}
 
+      {/* Store Review UGC Report & Block Modal */}
+      <ReportModal
+        target={reportTarget}
+        isOpen={isReportOpen}
+        onClose={() => {
+          setIsReportOpen(false);
+          setReportTarget(null);
+        }}
+        onReportSuccess={() => {
+          setSelectedPost(null);
+        }}
+      />
     </div>
   );
 };

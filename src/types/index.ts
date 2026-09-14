@@ -191,6 +191,7 @@ export interface Review extends ReviewExtraData {
   productId: string;
   productName: string;
   productImage?: string;
+  userId?: string; // 리뷰 작성자 식별 UID
   userName: string;
   userAvatar: string;
   userLevel: string;
@@ -205,6 +206,8 @@ export interface Review extends ReviewExtraData {
   comments?: ReviewComment[];
   createdAt: string;
   tags?: string[];
+  isReported?: boolean;
+  isHidden?: boolean;
 }
 
 export interface PostComment {
@@ -251,6 +254,8 @@ export interface PointTransaction {
   adminMemo?: string;
 }
 
+export type UserAccountStatus = 'active' | 'warned' | 'suspended' | 'banned';
+
 export interface UserProfile {
   uid: string;
   displayName: string;
@@ -261,6 +266,55 @@ export interface UserProfile {
   email?: string;
   provider?: 'apple' | 'google' | 'kakao' | 'anonymous';
   createdAt?: string;
+  // 회원 계정 관리 및 제재 상태
+  status?: UserAccountStatus; // 'active'(정상) | 'warned'(경고) | 'suspended'(일시정지) | 'banned'(영구정지)
+  warningCount?: number;      // 누적 경고 횟수
+  suspendedUntil?: string;    // 정지 만료 일시 (ISO format) 또는 'permanent'
+  statusReason?: string;      // 제재 / 경고 사유
+  statusUpdatedAt?: string;   // 최근 상태 변경 일시
+  role?: 'admin' | 'user';    // 관리자 권한 여부
+}
+
+// 🚨 신고 시스템 (Report System)
+export type ReportTargetType = 'review' | 'user' | 'comment' | 'community_post';
+
+export type ReportReason = 
+  | 'spam'           // 스팸 / 도배 / 상업적 홍보
+  | 'abuse'          // 욕설 / 비하 / 혐오 발언
+  | 'inappropriate'  // 음란 / 청소년 유해 내용
+  | 'fraud'          // 허위 정보 / 사기 / 낚시성 후기
+  | 'copyright'      // 저작권 침해 / 명예훼손
+  | 'other';         // 기타 사유
+
+export type ReportStatus = 'pending' | 'resolved' | 'dismissed';
+
+export type ReportAction = 
+  | 'none' 
+  | 'warning' 
+  | 'suspend_7d' 
+  | 'suspend_30d' 
+  | 'permanent_ban' 
+  | 'delete_review';
+
+export interface ReportItem {
+  id: string;
+  targetType: ReportTargetType;
+  targetId: string;           // 신고 대상 ID (e.g. reviewId)
+  targetContent: string;      // 신고 당시 대상 내용 (리뷰 본문)
+  targetProductId?: string;   // 연관 상품 ID
+  targetProductName?: string; // 연관 상품명
+  targetUserId?: string;      // 피신고자 UID
+  targetUserName: string;     // 피신고자 닉네임
+  reporterId: string;         // 신고자 UID
+  reporterName: string;       // 신고자 닉네임
+  reason: ReportReason;
+  reasonDetail?: string;      // 구체적 신고 사유 입력 내용
+  status: ReportStatus;       // pending(대기중) | resolved(조치완료) | dismissed(반려/이상없음)
+  actionTaken?: ReportAction; // 관리자가 취한 조치
+  actionReason?: string;      // 조치 사유
+  adminMemo?: string;         // 관리자 내부 메모
+  createdAt: string;          // 신고 접수 일시
+  resolvedAt?: string;        // 조치 처리 일시
 }
 
 export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'none';

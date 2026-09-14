@@ -404,3 +404,47 @@ CREATE POLICY "Pending products are viewable by everyone" ON public.pending_prod
 CREATE POLICY "Anyone can manage pending products in admin" ON public.pending_products FOR ALL USING (true);
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.pending_products;
+
+-- =========================================================
+-- 10. Notifications & Device Tokens Table (실시간 인앱 알림 & FCM 푸시)
+-- =========================================================
+CREATE TABLE IF NOT EXISTS public.notifications (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    type TEXT NOT NULL DEFAULT 'notice',
+    target_id TEXT,
+    image_url TEXT,
+    badge TEXT DEFAULT '알림',
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS public.device_tokens (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    token TEXT UNIQUE NOT NULL,
+    platform TEXT NOT NULL DEFAULT 'web',
+    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    user_name TEXT,
+    device_info JSONB,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON public.notifications (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_device_tokens_platform ON public.device_tokens (platform);
+CREATE INDEX IF NOT EXISTS idx_device_tokens_user_id ON public.device_tokens (user_id);
+
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.device_tokens ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Notifications are viewable by everyone" ON public.notifications FOR SELECT USING (true);
+CREATE POLICY "Anyone can insert notifications" ON public.notifications FOR INSERT WITH CHECK (true);
+CREATE POLICY "Anyone can delete notifications" ON public.notifications FOR DELETE USING (true);
+
+CREATE POLICY "Device tokens are readable by everyone" ON public.device_tokens FOR SELECT USING (true);
+CREATE POLICY "Anyone can upsert device tokens" ON public.device_tokens FOR INSERT WITH CHECK (true);
+CREATE POLICY "Anyone can update own device tokens" ON public.device_tokens FOR UPDATE USING (true);
+CREATE POLICY "Anyone can delete device tokens" ON public.device_tokens FOR DELETE USING (true);
+
+ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
+
