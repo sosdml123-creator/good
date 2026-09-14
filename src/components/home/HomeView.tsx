@@ -281,7 +281,7 @@ export const HomeView: React.FC = () => {
       {/* 1. Main Banner (Dynamic from Admin + Auto-rolling + Touch/Mouse Swiping) */}
       <div 
         className="relative bg-gray-900 overflow-hidden select-none touch-pan-y" 
-        style={{ height: '228px' }}
+        style={{ height: '275px' }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
@@ -676,7 +676,7 @@ export const HomeView: React.FC = () => {
                       className={`p-1.5 rounded-full transition-all active:scale-90 ${
                         isSaved ? 'text-rose-500 bg-white shadow-2xs' : 'text-gray-400 hover:text-rose-500'
                       }`}
-                      title="관심 행사 찜하기"
+                      aria-label="관심 행사 찜하기"
                     >
                       <Heart className={`w-4 h-4 ${isSaved ? 'fill-rose-500' : ''}`} />
                     </button>

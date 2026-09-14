@@ -331,7 +331,7 @@ export const SaleNewsView: React.FC = () => {
                       className={`p-1.5 rounded-full transition-all active:scale-90 ${
                         isSaved ? 'text-rose-500 bg-rose-50' : 'text-gray-400 hover:text-rose-500 hover:bg-gray-100'
                       }`}
-                      title="관심 행사 찜하기"
+                      aria-label="관심 행사 찜하기"
                     >
                       <Heart className={`w-4 h-4 ${isSaved ? 'fill-rose-500' : ''}`} />
                     </button>

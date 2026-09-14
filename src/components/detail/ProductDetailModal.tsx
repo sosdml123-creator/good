@@ -1254,7 +1254,7 @@ export const ProductDetailModal: React.FC = () => {
                 ? 'border-rose-200 bg-rose-50 text-rose-600' 
                 : 'border-gray-200 text-gray-400 hover:bg-gray-50'
             }`}
-            title={isBookmarked ? '찜 취소' : '찜하기'}
+            aria-label={isBookmarked ? '찜 취소' : '찜하기'}
           >
             <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
           </button>

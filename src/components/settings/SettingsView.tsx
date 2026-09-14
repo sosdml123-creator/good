@@ -34,7 +34,6 @@ export const SettingsView: React.FC = () => {
     logout, 
     goBack, 
     setActiveTab, 
-    showToast,
     openLoginModal
   } = useApp();
 
@@ -58,14 +57,12 @@ export const SettingsView: React.FC = () => {
     const next = !pushEnabled;
     setPushEnabled(next);
     localStorage.setItem('sinsangpick_push_enabled', String(next));
-    showToast(next ? '푸시 알림이 활성화되었습니다.' : '푸시 알림이 해제되었습니다.', 'info');
   };
 
   const handleToggleNightPush = () => {
     const next = !nightPushEnabled;
     setNightPushEnabled(next);
     localStorage.setItem('sinsangpick_night_push', String(next));
-    showToast(next ? '야간(21:00~08:00) 혜택 알림이 수신 동의되었습니다.' : '야간 혜택 알림이 해제되었습니다.', 'info');
   };
 
   const handleSaveNickname = (e: React.FormEvent) => {

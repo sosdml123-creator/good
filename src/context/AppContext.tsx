@@ -24,7 +24,6 @@ import {
   StoreChannelInfo,
   ReportItem,
   ReportAction,
-  ReportReason,
   UserAccountStatus
 } from '../types';
 import type { ReviewExtraData } from '../types';
@@ -133,11 +132,15 @@ interface AppContextType {
   completeNicknameSetup: (newNickname: string) => Promise<void>;
 
   // Events & Push Notifications Actions
+  pushPermissionStatus: 'granted' | 'denied' | 'prompt';
+  requestPushPermission: () => Promise<boolean>;
+  refreshNotifications: () => Promise<void>;
+  deleteNotification: (id: string) => void;
   addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
   updateEvent: (id: string, updated: Partial<PromotionEvent>) => void;
   deleteEvent: (id: string) => void;
   participateInEvent: (eventId: string) => void;
-  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string }) => void;
+  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => void;
   dismissIncomingPush: () => void;
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
@@ -218,6 +221,29 @@ interface AppContextType {
   batchGrantPoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   fetchAllProfiles: () => Promise<void>;
+  updateUserStatus: (
+    userId: string,
+    newStatus: UserAccountStatus,
+    options?: { warningDelta?: number; suspendDays?: number; reason?: string; adminMemo?: string }
+  ) => Promise<void>;
+  batchUpdateUserStatus: (
+    userIds: string[],
+    newStatus: UserAccountStatus,
+    options?: { warningDelta?: number; suspendDays?: number; reason?: string; adminMemo?: string }
+  ) => Promise<void>;
+  isCurrentUserSuspended: () => { isSuspended: boolean; reason: string; until?: string };
+
+  // 🚨 Reports & Moderation
+  reports: ReportItem[];
+  submitReport: (reportData: Omit<ReportItem, 'id' | 'createdAt' | 'status'>) => Promise<boolean>;
+  resolveReport: (
+    reportId: string, 
+    action: ReportAction, 
+    actionReason?: string, 
+    adminMemo?: string
+  ) => Promise<void>;
+  dismissReport: (reportId: string, reason?: string, adminMemo?: string) => Promise<void>;
+  deleteReport: (reportId: string) => Promise<void>;
 
   // 🏢 Brands Management (Admin & App)
   brands: BrandInfo[];
@@ -762,6 +788,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
   const [incomingPush, setIncomingPush] = useState<AppNotification | null>(null);
+  const [pushPermissionStatus, setPushPermissionStatus] = useState<'granted' | 'denied' | 'prompt'>(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'granted') return 'granted';
+      if (Notification.permission === 'denied') return 'denied';
+    }
+    return 'prompt';
+  });
 
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
@@ -1422,25 +1455,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // 📅 Calendar Handlers
   const toggleCalendarReminder = (id: string) => {
-    const item = calendarItems.find(c => c.id === id);
     const isAlready = calendarReminders.includes(id);
     let updated: string[];
     if (isAlready) {
       updated = calendarReminders.filter(rId => rId !== id);
-      showToast(`🔕 [${item?.name || '신상'}] 출시 알림이 해제되었습니다.`, 'info');
     } else {
       updated = [...calendarReminders, id];
-      showToast(`🔔 [${item?.name || '신상'}] 출시 알림이 예약되었습니다!`, 'success');
-      if (item) {
-        sendPushNotification({
-          title: `🔔 [출시알림 예약 완료] ${item.brand} ${item.name}`,
-          body: `${item.releaseDateFormatted} 편의점/매장 출시 당일 오전 9시에 가장 먼저 알려드릴게요!`,
-          type: 'notice',
-          targetId: item.productId || item.id,
-          imageUrl: item.image,
-          badge: item.dDay
-        });
-      }
     }
     setCalendarReminders(updated);
     try {
@@ -1452,25 +1472,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // 🏷️ Sale Promotion Handlers
   const toggleSaveSale = (id: string) => {
-    const item = salePromotions.find(s => s.id === id);
     const isAlready = savedSaleIds.includes(id);
     let updated: string[];
     if (isAlready) {
       updated = savedSaleIds.filter(sId => sId !== id);
-      showToast(`🤍 [${item?.title || '행사'}] 관심 행사에서 제외되었습니다.`, 'info');
     } else {
       updated = [...savedSaleIds, id];
-      showToast(`❤️ [${item?.title || '행사'}] 관심 행사로 저장되었습니다!`, 'success');
-      if (item) {
-        sendPushNotification({
-          title: `🏷️ [행사 찜 완료] ${item.store} ${item.badgeText} 특가`,
-          body: `${item.title} - ${item.unitPriceDescription} (${item.period}까지)`,
-          type: 'event',
-          targetId: item.productId || item.id,
-          imageUrl: item.image,
-          badge: item.badgeText
-        });
-      }
     }
     setSavedSaleIds(updated);
     try {
@@ -1571,10 +1578,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const isBookmarked = bookmarkedIds.includes(productId);
     if (isBookmarked) {
       setBookmarkedIds(prev => prev.filter(id => id !== productId));
-      showToast('찜 목록에서 제거되었습니다.', 'info');
     } else {
       setBookmarkedIds(prev => [...prev, productId]);
-      showToast('💖 찜 목록에 저장되었습니다!', 'success');
     }
   };
 
@@ -1583,34 +1588,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const isCompared = comparedIds.includes(productId);
     if (isCompared) {
       setComparedIds(prev => prev.filter(id => id !== productId));
-      showToast('비교함에서 제외되었습니다.', 'info');
     } else {
       if (comparedIds.length >= 3) {
         showToast('비교함에는 최대 3개까지 담을 수 있습니다.', 'error');
         return;
       }
       setComparedIds(prev => [...prev, productId]);
-      showToast('⚖️ 비교함에 담겼습니다!', 'success');
     }
   };
 
   const removeFromCompare = (productId: string) => {
     setComparedIds(prev => prev.filter(id => id !== productId));
-    showToast('비교함에서 삭제되었습니다.', 'info');
   };
 
   const clearCompare = () => {
     setComparedIds([]);
-    showToast('비교함이 모두 비워졌습니다.', 'info');
   };
 
   const toggleAlertCategory = (cat: string) => {
     if (alertCategories.includes(cat)) {
       setAlertCategories(prev => prev.filter(c => c !== cat));
-      showToast(`'${cat}' 알림이 해제되었습니다.`, 'info');
     } else {
       setAlertCategories(prev => [...prev, cat]);
-      showToast(`'${cat}' 신제품 출시 알림이 켜졌습니다! 🔔`, 'success');
     }
   };
 
@@ -1626,7 +1625,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const clearRecentSearches = () => {
     setRecentSearches([]);
-    showToast('최근 검색어가 삭제되었습니다.', 'info');
   };
 
   const recordSearchInflux = (productId: string) => {
@@ -2255,8 +2253,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         Notification.requestPermission();
       }
     }
-
-    showToast(`📢 전체 회원 대상 앱 푸시 알림이 발송되었습니다!`, 'success');
   };
 
   const dismissIncomingPush = () => {
@@ -2265,6 +2261,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const markNotificationAsRead = (id: string) => {
     setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+  };
+
+  const deleteNotification = (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+    showToast('알림 항목이 삭제되었습니다.', 'info');
+  };
+
+  const refreshNotifications = async () => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_notifications');
+      if (stored) {
+        setNotifications(JSON.parse(stored));
+      }
+    } catch {
+      // fallback
+    }
+  };
+
+  const requestPushPermission = async (): Promise<boolean> => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      try {
+        const res = await Notification.requestPermission();
+        if (res === 'granted') {
+          setPushPermissionStatus('granted');
+          showToast('🔔 웹/앱 푸시 알림 수신이 허용되었습니다!', 'success');
+          return true;
+        } else {
+          setPushPermissionStatus('denied');
+          showToast('알림 권한이 거부되었습니다.', 'error');
+          return false;
+        }
+      } catch {
+        return false;
+      }
+    }
+    return false;
   };
 
   const clearAllNotifications = () => {
@@ -3648,6 +3680,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         completeNicknameSetup,
 
         // Events & Push Notifications
+        pushPermissionStatus,
+        requestPushPermission,
+        refreshNotifications,
+        deleteNotification,
         addEvent,
         updateEvent,
         deleteEvent,

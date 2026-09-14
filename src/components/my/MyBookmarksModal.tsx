@@ -88,7 +88,7 @@ export const MyBookmarksModal: React.FC<MyBookmarksModalProps> = ({ isOpen, onCl
                     <button
                       onClick={(e) => toggleBookmark(p.id, e)}
                       className="p-2 rounded-xl border border-rose-100 bg-rose-50 text-rose-500 hover:bg-rose-100 transition-colors"
-                      title="찜 해제"
+                      aria-label="찜 해제"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>

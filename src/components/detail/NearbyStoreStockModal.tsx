@@ -190,7 +190,6 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
                     setCurrentLocation(locInput.trim() + ' 인근');
                     setIsChangingLoc(false);
                     setLocInput('');
-                    showToast('📍 탐색 위치가 변경되었습니다.');
                   }
                 }}
                 className="px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-xl"
@@ -206,7 +205,6 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
                   onClick={() => {
                     setCurrentLocation(`${loc} 인근`);
                     setIsChangingLoc(false);
-                    showToast(`📍 '${loc}' 주변 매장으로 갱신되었습니다.`);
                   }}
                   className="bg-white px-2 py-0.5 rounded-md border border-gray-200 hover:bg-gray-100 text-gray-700"
                 >

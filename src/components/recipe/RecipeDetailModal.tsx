@@ -31,12 +31,10 @@ export const RecipeDetailModal: React.FC = () => {
     showToast('🔗 꿀조합 레시피 링크가 복사되었습니다!');
   };
 
-  const handleIngredientClick = (productId?: string, name?: string) => {
+  const handleIngredientClick = (productId?: string) => {
     if (productId) {
       closeRecipeDetail();
       openProductDetail(productId);
-    } else {
-      showToast(`🛒 [${name || '재료'}] 편의점 매장에서 구매하실 수 있어요!`, 'info');
     }
   };
 
@@ -180,7 +178,7 @@ export const RecipeDetailModal: React.FC = () => {
               {selectedRecipe.ingredients.map((ing, idx) => (
                 <div
                   key={idx}
-                  onClick={() => handleIngredientClick(ing.productId, ing.name)}
+                  onClick={() => handleIngredientClick(ing.productId)}
                   className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50/80 border border-gray-100 hover:border-gray-300 hover:bg-gray-100/50 transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2">

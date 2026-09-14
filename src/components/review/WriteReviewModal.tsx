@@ -820,7 +820,6 @@ export const WriteReviewModal: React.FC = () => {
                       onClick={() => {
                         setCurrentProductId(item.id);
                         setIsSearchModalOpen(false);
-                        showToast(`'${item.name}' 상품이 선택되었습니다.`, 'success');
                       }}
                       className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border ${
                         isCurrent
