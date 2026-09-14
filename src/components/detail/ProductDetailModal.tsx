@@ -24,8 +24,6 @@ import {
 } from 'lucide-react';
 import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
-import { NearbyStoreStockModal } from './NearbyStoreStockModal';
-import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
 
@@ -44,8 +42,6 @@ export const ProductDetailModal: React.FC = () => {
 
   const [detailTab, setDetailTab] = useState<'reviews' | 'info' | 'stores'>('reviews');
   const [showAllQuotes, setShowAllQuotes] = useState(false);
-  const [isNearbyModalOpen, setIsNearbyModalOpen] = useState(false);
-  const [isStockAlertModalOpen, setIsStockAlertModalOpen] = useState(false);
   const [fetchedNutrition, setFetchedNutrition] = useState<NutritionInfo | null>(null);
 
   // 식약처 영양성분 DB 실시간 자동 검증 및 실제 공공데이터 우선 적용
@@ -169,7 +165,8 @@ export const ProductDetailModal: React.FC = () => {
 
   const effectiveBuyLink = selectedProduct.buyLink || 
     selectedProduct.brandRankings?.find(r => r.buyLink)?.buyLink ||
-    selectedProduct.storeStocks?.find(s => s.appLink)?.appLink;
+    selectedProduct.storeStocks?.find(s => s.appLink)?.appLink ||
+    `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(selectedProduct.brand + ' ' + selectedProduct.name)}`;
 
   return (
     <div className="bg-[#F5F5F5] min-h-full pb-28">
@@ -646,7 +643,8 @@ export const ProductDetailModal: React.FC = () => {
                             if (br.buyLink) {
                               window.open(br.buyLink, '_blank');
                             } else {
-                              setIsNearbyModalOpen(true);
+                              const searchUrl = `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(br.brand + ' ' + br.name)}`;
+                              window.open(searchUrl, '_blank');
                             }
                           }}
                           className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 transition-all ${
@@ -1171,43 +1169,18 @@ export const ProductDetailModal: React.FC = () => {
                           </div>
                         </div>
 
-                        <button
-                          onClick={() => {
-                            if (stItem.appLink) {
-                              window.open(stItem.appLink, '_blank');
-                            } else {
-                              setIsNearbyModalOpen(true);
-                            }
-                          }}
-                          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shrink-0 ml-2 shadow-2xs ${
-                            stItem.appLink
-                              ? 'bg-gray-900 text-white hover:bg-black'
-                              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                          }`}
-                        >
-                          <span>{stItem.appLink ? '구매 / 바로가기' : '매장 재고확인'}</span>
-                          {stItem.appLink ? <ExternalLink className="w-3 h-3" /> : <MapPin className="w-3 h-3" />}
-                        </button>
+                        {stItem.appLink && (
+                          <button
+                            onClick={() => window.open(stItem.appLink, '_blank')}
+                            className="px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shrink-0 ml-2 shadow-2xs bg-gray-900 text-white hover:bg-black"
+                          >
+                            <span>구매 / 바로가기</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </button>
+                        )}
                       </div>
                     );
                   })}
-                </div>
-              </div>
-
-
-              {/* Stock Alert Subscription (Now Opens ProductStockAlertModal!) */}
-              <div className="bg-white px-4 py-4">
-                <div className="flex items-center justify-between text-xs">
-                  <div>
-                    <span className="font-bold text-gray-800 block">원하는 매장에 아직 재고가 없나요?</span>
-                    <span className="text-[11px] text-gray-400">입고 즉시 푸시 알림과 알림톡을 보내드립니다.</span>
-                  </div>
-                  <button
-                    onClick={() => setIsStockAlertModalOpen(true)}
-                    className="px-3 py-1.5 rounded-full border border-gray-900 text-gray-900 font-bold text-xs hover:bg-gray-100 transition-colors shrink-0 ml-2"
-                  >
-                    입고 알림 설정
-                  </button>
                 </div>
               </div>
 
@@ -1217,20 +1190,7 @@ export const ProductDetailModal: React.FC = () => {
         </div>
       )}
 
-      {/* Modals for Nearby Store Stock & Stock Alert */}
-      <NearbyStoreStockModal
-        product={selectedProduct}
-        isOpen={isNearbyModalOpen}
-        onClose={() => setIsNearbyModalOpen(false)}
-      />
-
-      <ProductStockAlertModal
-        product={selectedProduct}
-        isOpen={isStockAlertModalOpen}
-        onClose={() => setIsStockAlertModalOpen(false)}
-      />
-
-      {/* 9. Floating Bottom Purchase / Stock Bar */}
+      {/* 9. Floating Bottom Purchase Bar */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 shadow-lg flex items-center justify-between gap-3">
         <div className="flex flex-col min-w-0">
           <span className="text-[11px] text-gray-500 font-medium truncate">
@@ -1259,23 +1219,13 @@ export const ProductDetailModal: React.FC = () => {
             <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
           </button>
 
-          {effectiveBuyLink ? (
-            <button
-              onClick={() => window.open(effectiveBuyLink, '_blank')}
-              className="px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
-            >
-              <span>실제 판매처 바로가기</span>
-              <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
-            </button>
-          ) : (
-            <button
-              onClick={() => setIsNearbyModalOpen(true)}
-              className="px-4 sm:px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-98 cursor-pointer"
-            >
-              <span>매장 재고확인</span>
-              <MapPin className="w-3.5 h-3.5" />
-            </button>
-          )}
+          <button
+            onClick={() => window.open(effectiveBuyLink, '_blank')}
+            className="px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
+          >
+            <span>실제 판매처 바로가기</span>
+            <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+          </button>
         </div>
       </div>
 
