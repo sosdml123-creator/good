@@ -23430,17 +23430,6 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
 
 export const INITIAL_BANNERS: BannerItem[] = [
   {
-    id: 'banner-pizza-01',
-    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&auto=format&fit=crop&q=80',
-    badge: '🍕 전국 피자 브랜드관 공식 오픈',
-    title: '도미노피자 · 파파존스 · 피자헛 · 피자스쿨 · 피자알볼로 · 반올림',
-    subtitle: '블랙타이거슈림프, 씨푸드킹, 수퍼파파스, 포테이토 등 대표 피자 104종 총집합',
-    buttonText: '피자 신메뉴 둘러보기',
-    linkCategory: '패스트푸드',
-    isActive: true,
-    order: 1
-  },
-  {
     id: 'banner-coupang-fresh',
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=80',
     badge: '🚀 쿠팡 로켓프레시 메인특가',
@@ -23450,6 +23439,17 @@ export const INITIAL_BANNERS: BannerItem[] = [
     linkType: 'url',
     linkUrl: 'https://link.coupang.com/a/gYQgcAnmMK',
     disclaimer: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.',
+    isActive: true,
+    order: 1
+  },
+  {
+    id: 'banner-pizza-01',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&auto=format&fit=crop&q=80',
+    badge: '🍕 전국 피자 브랜드관 공식 오픈',
+    title: '도미노피자 · 파파존스 · 피자헛 · 피자스쿨 · 피자알볼로 · 반올림',
+    subtitle: '블랙타이거슈림프, 씨푸드킹, 수퍼파파스, 포테이토 등 대표 피자 104종 총집합',
+    buttonText: '피자 신메뉴 둘러보기',
+    linkCategory: '패스트푸드',
     isActive: true,
     order: 2
   },

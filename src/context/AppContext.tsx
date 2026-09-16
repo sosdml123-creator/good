@@ -506,17 +506,154 @@ export const INITIAL_POINT_TRANSACTIONS: PointTransaction[] = [
   }
 ];
 
+/**
+ * Synchronously resolves or generates an initial sequential unique nickname for instant boot
+ */
+const getInitialSequentialNicknameSync = (): string => {
+  const cachedName = localStorage.getItem('sinsangpick_name');
+  if (
+    cachedName &&
+    !cachedName.includes('사용자') &&
+    cachedName !== '신상러버' &&
+    !/^신상러버_[a-z0-9]{4}$/i.test(cachedName)
+  ) {
+    return cachedName;
+  }
+
+  const existingNumbers = new Set<number>();
+  try {
+    const lastCounter = localStorage.getItem('sinsangpick_last_nickname_seq');
+    if (lastCounter) {
+      const num = parseInt(lastCounter, 10);
+      if (!isNaN(num)) existingNumbers.add(num);
+    }
+    const raw = localStorage.getItem('sinsangpick_all_profiles');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        for (const p of parsed) {
+          const name = p.displayName || p.display_name;
+          if (name) {
+            const match = String(name).match(/^신상러버_(\d+)$/);
+            if (match) {
+              const num = parseInt(match[1], 10);
+              if (!isNaN(num)) existingNumbers.add(num);
+            }
+          }
+        }
+      }
+    }
+  } catch {}
+
+  let nextNum = 1;
+  if (existingNumbers.size > 0) {
+    nextNum = Math.max(...Array.from(existingNumbers)) + 1;
+  }
+  while (existingNumbers.has(nextNum)) {
+    nextNum++;
+  }
+
+  localStorage.setItem('sinsangpick_last_nickname_seq', String(nextNum));
+  const formattedSeq = String(nextNum).padStart(3, '0');
+  const name = `신상러버_${formattedSeq}`;
+  localStorage.setItem('sinsangpick_name', name);
+  return name;
+};
+
+/**
+ * Generates the next sequential, strictly unique nickname (신상러버_001, 신상러버_002, ...)
+ * Scans DB profiles, in-memory profiles, and localStorage to guarantee zero duplication.
+ */
+export const getNextSequentialNickname = async (
+  supabaseClient?: any,
+  localProfiles?: UserProfile[]
+): Promise<string> => {
+  const existingNumbers = new Set<number>();
+
+  // 1. In-memory profile check
+  if (localProfiles && localProfiles.length > 0) {
+    for (const p of localProfiles) {
+      if (p.displayName) {
+        const match = p.displayName.match(/^신상러버_(\d+)$/);
+        if (match) {
+          const num = parseInt(match[1], 10);
+          if (!isNaN(num)) existingNumbers.add(num);
+        }
+      }
+    }
+  }
+
+  // 2. localStorage check
+  try {
+    const raw = localStorage.getItem('sinsangpick_all_profiles');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        for (const p of parsed) {
+          const name = p.displayName || p.display_name;
+          if (name) {
+            const match = String(name).match(/^신상러버_(\d+)$/);
+            if (match) {
+              const num = parseInt(match[1], 10);
+              if (!isNaN(num)) existingNumbers.add(num);
+            }
+          }
+        }
+      }
+    }
+    const lastCounter = localStorage.getItem('sinsangpick_last_nickname_seq');
+    if (lastCounter) {
+      const num = parseInt(lastCounter, 10);
+      if (!isNaN(num)) existingNumbers.add(num);
+    }
+  } catch {}
+
+  // 3. Supabase profiles DB query
+  if (supabaseClient) {
+    try {
+      const { data: dbProfiles } = await supabaseClient
+        .from('profiles')
+        .select('display_name');
+      if (dbProfiles && Array.isArray(dbProfiles)) {
+        for (const p of dbProfiles) {
+          if (p.display_name) {
+            const match = String(p.display_name).match(/^신상러버_(\d+)$/);
+            if (match) {
+              const num = parseInt(match[1], 10);
+              if (!isNaN(num)) existingNumbers.add(num);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[Supabase Profile Nickname Query Error]', e);
+    }
+  }
+
+  // 4. Calculate next strictly unique number
+  let nextNum = 1;
+  if (existingNumbers.size > 0) {
+    nextNum = Math.max(...Array.from(existingNumbers)) + 1;
+  }
+  while (existingNumbers.has(nextNum)) {
+    nextNum++;
+  }
+
+  localStorage.setItem('sinsangpick_last_nickname_seq', String(nextNum));
+  const formattedSeq = String(nextNum).padStart(3, '0');
+  return `신상러버_${formattedSeq}`;
+};
+
 // Initial User Profile
 const createInitialUser = (): UserProfile => {
   const cachedUid = localStorage.getItem('sinsangpick_uid');
-  const cachedName = localStorage.getItem('sinsangpick_name');
   const cachedPoints = localStorage.getItem('sinsangpick_points');
 
   const uid = cachedUid || `anon_${Math.random().toString(36).substring(2, 9)}`;
   if (!cachedUid) localStorage.setItem('sinsangpick_uid', uid);
 
   const points = cachedPoints ? parseInt(cachedPoints, 10) : 100;
-  const displayName = cachedName || `신상러버_${uid.slice(-4)}`;
+  const displayName = getInitialSequentialNicknameSync();
 
   return {
     uid,
@@ -623,7 +760,7 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
   return sorted.map((b, idx) => ({ ...b, order: idx + 1 }));
 };
 
-const DATA_VERSION = 'v22_20260912_clear_store_links';
+const DATA_VERSION = 'v23_20260916_restore_top_banner';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -678,6 +815,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_reviews', JSON.stringify(INITIAL_REVIEWS));
         localStorage.setItem('sinsangpick_banners', JSON.stringify(normalizeBanners(INITIAL_BANNERS)));
         localStorage.setItem('sinsangpick_battle_config', JSON.stringify(INITIAL_BATTLE_CONFIG));
+        localStorage.setItem('sinsangpick_home_sections', JSON.stringify(INITIAL_HOME_SECTIONS));
         return INITIAL_PRODUCTS;
       }
       const stored = localStorage.getItem('sinsangpick_products');
@@ -711,14 +849,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const stored = localStorage.getItem('sinsangpick_banners');
       if (stored) {
         const parsed: BannerItem[] = JSON.parse(stored);
-        const hasCoupang = parsed.some(b => b.id === 'banner-coupang-fresh');
-        if (!hasCoupang) {
-          const coupangBanner = INITIAL_BANNERS.find(b => b.id === 'banner-coupang-fresh');
-          if (coupangBanner) {
-            return normalizeBanners([coupangBanner, ...parsed]);
-          }
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const existingIds = new Set(parsed.map(b => b.id));
+          const missing = INITIAL_BANNERS.filter(b => !existingIds.has(b.id));
+          const merged = [...parsed, ...missing];
+          return normalizeBanners(merged);
         }
-        return normalizeBanners(parsed);
       }
       return normalizeBanners(INITIAL_BANNERS);
     } catch {
@@ -1354,13 +1490,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (session?.user && isMounted) {
           const u = session.user;
           const providerName = (u.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
-          const displayName = u.user_metadata?.full_name || u.user_metadata?.name || (u.email ? u.email.split('@')[0] : '신상러버');
+          
+          let displayName = localStorage.getItem('sinsangpick_name');
+          if (
+            !displayName ||
+            displayName.includes('사용자') ||
+            displayName === '신상러버' ||
+            /^신상러버_[a-z0-9]{4}$/i.test(displayName)
+          ) {
+            try {
+              const { data: dbProfile } = await client
+                .from('profiles')
+                .select('display_name')
+                .eq('id', u.id)
+                .maybeSingle();
+              if (
+                dbProfile?.display_name &&
+                !dbProfile.display_name.includes('사용자') &&
+                dbProfile.display_name !== '신상러버'
+              ) {
+                displayName = dbProfile.display_name;
+              } else {
+                displayName = await getNextSequentialNickname(client);
+              }
+            } catch {
+              displayName = await getNextSequentialNickname(client);
+            }
+          }
+
           const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
           
           setCurrentUser(prev => ({
             ...prev,
             uid: u.id,
-            displayName: prev.displayName && !prev.displayName.startsWith('신상러버_') ? prev.displayName : displayName,
+            displayName: displayName!,
             photoURL: photoURL || prev.photoURL,
             isAnonymous: false,
             email: u.email,
@@ -1368,22 +1531,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }));
 
           localStorage.setItem('sinsangpick_uid', u.id);
-          localStorage.setItem('sinsangpick_name', displayName);
+          localStorage.setItem('sinsangpick_name', displayName!);
+          localStorage.setItem('sinsangpick_nickname_set_' + u.id, 'true');
           setIsLoginModalOpen(false);
           setIsGuestBrowse(true);
+          setIsNicknameModalOpen(false);
 
           if (event === 'SIGNED_IN') {
-            const hasNicknameSet = localStorage.getItem('sinsangpick_nickname_set_' + u.id);
-            if (!hasNicknameSet) {
-              setIsNicknameModalOpen(true);
-            } else {
-              const providerMsg = providerName === 'apple' 
-                ? '🍎 Apple 계정으로 로그인되었습니다!' 
-                : providerName === 'kakao'
-                ? '💬 카카오 계정으로 로그인되었습니다!'
-                : '🌐 Google 계정으로 로그인되었습니다!';
-              showToast(providerMsg, 'success');
-            }
+            const providerMsg = providerName === 'apple' 
+              ? '🍎 Apple 계정으로 로그인되었습니다!' 
+              : providerName === 'kakao'
+              ? '💬 카카오 계정으로 로그인되었습니다!'
+              : '🌐 Google 계정으로 로그인되었습니다!';
+            showToast(providerMsg, 'success');
             if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
               window.history.replaceState(null, '', window.location.pathname);
             }
@@ -1707,9 +1867,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       if (!supabase || !isSupabaseConfigured) {
         const demoUid = 'apple_' + Math.random().toString(36).substring(2, 9);
+        const nextNickname = await getNextSequentialNickname(supabase, allProfiles);
         const demoUser: UserProfile = {
           uid: demoUid,
-          displayName: 'Apple 사용자',
+          displayName: nextNickname,
           photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
           level: 'Lv.2',
           points: 250,
@@ -1721,8 +1882,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
+        setIsNicknameModalOpen(false);
         showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
         return;
       }
@@ -1731,14 +1894,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (res && res.user) {
         const u = res.user;
-        const displayName = res.displayName || u.user_metadata?.full_name || u.user_metadata?.name || (u.email ? u.email.split('@')[0] : 'Apple 사용자');
-        const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
         const uid = u.id || u.uid;
+
+        // Check if user already has an established custom nickname
+        let assignedName = localStorage.getItem('sinsangpick_name');
+        if (
+          !assignedName ||
+          assignedName.includes('사용자') ||
+          assignedName === '신상러버' ||
+          /^신상러버_[a-z0-9]{4}$/i.test(assignedName)
+        ) {
+          try {
+            const { data: dbProfile } = await supabase
+              .from('profiles')
+              .select('display_name')
+              .eq('id', uid)
+              .maybeSingle();
+            if (
+              dbProfile?.display_name &&
+              !dbProfile.display_name.includes('사용자') &&
+              dbProfile.display_name !== '신상러버'
+            ) {
+              assignedName = dbProfile.display_name;
+            } else {
+              assignedName = await getNextSequentialNickname(supabase, allProfiles);
+            }
+          } catch {
+            assignedName = await getNextSequentialNickname(supabase, allProfiles);
+          }
+        }
+
+        const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
 
         setCurrentUser(prev => ({
           ...prev,
           uid,
-          displayName: prev.displayName && !prev.displayName.startsWith('신상러버_') && !prev.displayName.includes('사용자') ? prev.displayName : displayName,
+          displayName: assignedName!,
           photoURL: photoURL || prev.photoURL,
           isAnonymous: false,
           email: u.email,
@@ -1746,21 +1937,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }));
 
         localStorage.setItem('sinsangpick_uid', uid);
-        localStorage.setItem('sinsangpick_name', displayName);
+        localStorage.setItem('sinsangpick_name', assignedName!);
+        localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-
-        const hasNicknameSet = localStorage.getItem('sinsangpick_nickname_set_' + uid);
-        if (!hasNicknameSet) {
-          setIsNicknameModalOpen(true);
-        } else {
-          showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
-        }
+        setIsNicknameModalOpen(false);
+        showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
 
         try {
           await supabase.from('profiles').upsert({
             id: uid,
-            display_name: displayName,
+            display_name: assignedName,
             avatar_url: photoURL,
           }, { onConflict: 'id' });
         } catch (e) {
@@ -1789,9 +1976,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       if (!supabase || !isSupabaseConfigured) {
         const demoUid = 'google_' + Math.random().toString(36).substring(2, 9);
+        const nextNickname = await getNextSequentialNickname(supabase, allProfiles);
         const demoUser: UserProfile = {
           uid: demoUid,
-          displayName: 'Google 사용자',
+          displayName: nextNickname,
           photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
           level: 'Lv.2',
           points: 250,
@@ -1803,6 +1991,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
+        setIsLoginModalOpen(false);
+        setIsGuestBrowse(true);
+        setIsNicknameModalOpen(false);
         showToast('🌐 Google 계정으로 로그인되었습니다!', 'success');
         return;
       }
@@ -1817,9 +2009,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       if (!supabase || !isSupabaseConfigured) {
         const demoUid = 'kakao_' + Math.random().toString(36).substring(2, 9);
+        const nextNickname = await getNextSequentialNickname(supabase, allProfiles);
         const demoUser: UserProfile = {
           uid: demoUid,
-          displayName: '카카오 사용자',
+          displayName: nextNickname,
           photoURL: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
           level: 'Lv.2',
           points: 250,
@@ -1831,6 +2024,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
+        setIsLoginModalOpen(false);
+        setIsGuestBrowse(true);
+        setIsNicknameModalOpen(false);
         showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
         return;
       }
