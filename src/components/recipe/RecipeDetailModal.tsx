@@ -72,7 +72,7 @@ export const RecipeDetailModal: React.FC = () => {
         {/* 2. Scrollable Body */}
         <div className="flex-1 overflow-y-auto no-scrollbar pb-6">
           {/* Hero Banner */}
-          <div className="relative w-full aspect-16/10 bg-gray-900 overflow-hidden">
+          <div className="relative w-full aspect-[16/10] bg-gray-900 overflow-hidden">
             <img 
               src={selectedRecipe.image} 
               alt={selectedRecipe.title} 

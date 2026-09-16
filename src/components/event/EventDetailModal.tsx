@@ -108,7 +108,7 @@ export const EventDetailModal: React.FC = () => {
       </div>
 
       {/* 2. Banner Image */}
-      <div className="relative w-full aspect-16/10 bg-gray-900 overflow-hidden">
+      <div className="relative w-full aspect-[16/10] bg-gray-900 overflow-hidden">
         <img
           src={selectedEvent.bannerImage}
           alt={selectedEvent.title}

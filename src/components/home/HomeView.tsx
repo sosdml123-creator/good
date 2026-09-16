@@ -296,8 +296,14 @@ export const HomeView: React.FC = () => {
     setActiveTab('category');
   };
 
-  // Sort sections by admin configured order
-  const sortedHomeSections = [...homeSections].sort((a, b) => a.order - b.order);
+  // Sort sections by admin configured order, guaranteeing banners is always present
+  const defaultBannerSection: HomeSectionConfig = { id: 'banners', name: '메인 롤링 배너', isVisible: true, order: 1, title: '', subtitle: '', badgeText: '' };
+  const baseSections: HomeSectionConfig[] = homeSections.length > 0 ? homeSections : [defaultBannerSection];
+  const hasBannerSection = baseSections.some(s => s.id === 'banners');
+  const guaranteedSections: HomeSectionConfig[] = hasBannerSection 
+    ? baseSections.map(s => s.id === 'banners' ? { ...s, isVisible: true } : s)
+    : [defaultBannerSection, ...baseSections];
+  const sortedHomeSections = [...guaranteedSections].sort((a, b) => a.order - b.order);
 
   // Render individual sections dynamically
   const renderSection = (section: HomeSectionConfig) => {
@@ -307,9 +313,10 @@ export const HomeView: React.FC = () => {
       // 1. 메인 롤링 배너
       case 'banners':
         return (
-          <div key="banners" className="relative">
+          <div key="banners" className="relative w-full">
             <div
-              className="relative w-full aspect-16/9 md:aspect-21/9 bg-black overflow-hidden flex cursor-grab active:cursor-grabbing select-none"
+              className="relative w-full h-[215px] min-h-[215px] bg-black overflow-hidden flex cursor-grab active:cursor-grabbing select-none"
+              style={{ width: '100%', height: '215px', minHeight: '215px' }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -956,7 +963,7 @@ export const HomeView: React.FC = () => {
                   onClick={() => openEventDetail(ev.id)}
                   className="shrink-0 w-[240px] bg-gradient-to-b from-gray-50 to-white rounded-2xl overflow-hidden border border-gray-200/80 cursor-pointer group shadow-2xs hover:shadow-xs transition-all flex flex-col"
                 >
-                  <div className="relative aspect-16/9 bg-gray-900 overflow-hidden">
+                  <div className="relative aspect-[16/9] bg-gray-900 overflow-hidden">
                     <img
                       src={ev.bannerImage}
                       alt={ev.title}
@@ -1036,7 +1043,7 @@ export const HomeView: React.FC = () => {
                   className="shrink-0 w-[220px] bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-gray-300 hover:shadow-xs transition-all cursor-pointer group flex flex-col justify-between shadow-2xs"
                 >
                   <div>
-                    <div className="relative aspect-16/10 bg-gray-100 overflow-hidden">
+                    <div className="relative aspect-[16/10] bg-gray-100 overflow-hidden">
                       <img
                         src={recipe.image}
                         alt={recipe.title}

@@ -173,7 +173,7 @@ export const CommunityView: React.FC = () => {
                 onClick={() => openEventDetail(ev.id)}
                 className="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
               >
-                <div className="relative aspect-16/8 bg-gray-900 overflow-hidden">
+                <div className="relative aspect-[16/8] bg-gray-900 overflow-hidden">
                   <img
                     src={ev.bannerImage}
                     alt={ev.title}
