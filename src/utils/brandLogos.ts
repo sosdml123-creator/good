@@ -83,6 +83,71 @@ export const BRAND_SVG_LOGOS: Record<string, string> = {
       <text x="60" y="74" font-family="'Arial Black', sans-serif" font-weight="800" font-size="9" fill="#FFEB3B" text-anchor="middle" letter-spacing="1">TTEOKBOKKIDA</text>
     </svg>
   `),
+  // Pizza Brands
+  '도미노피자': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#006491"/>
+      <g transform="translate(60, 52) rotate(45)">
+        <rect x="-24" y="-24" width="22" height="48" rx="5" fill="#E31837"/>
+        <rect x="2" y="-24" width="22" height="48" rx="5" fill="#006491" stroke="#FFFFFF" stroke-width="2"/>
+        <circle cx="-13" cy="-12" r="4" fill="#FFFFFF"/>
+        <circle cx="13" cy="-12" r="4" fill="#FFFFFF"/>
+        <circle cx="13" cy="12" r="4" fill="#FFFFFF"/>
+      </g>
+      <text x="60" y="104" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="13" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.5">도미노피자</text>
+    </svg>
+  `),
+  '파파존스': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#007A3E"/>
+      <path d="M20 30 Q60 18 100 30 L95 76 Q60 88 25 76 Z" fill="#DA291C"/>
+      <text x="60" y="52" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">PAPA JOHNS</text>
+      <text x="60" y="68" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="800" font-size="11" fill="#FFC72C" text-anchor="middle">파파존스</text>
+      <text x="60" y="104" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="700" font-size="9" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">BETTER PIZZA</text>
+    </svg>
+  `),
+  '피자헛': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#EE3124"/>
+      <!-- Pizza Hut Roof Shape -->
+      <path d="M60 22 C42 22 28 32 20 42 L100 42 C92 32 78 22 60 22 Z" fill="#FFC72C"/>
+      <path d="M15 42 L105 42 L100 48 L20 48 Z" fill="#FFC72C"/>
+      <text x="60" y="72" font-family="'Brush Script MT', 'Arial Black', sans-serif" font-weight="900" font-size="18" fill="#FFFFFF" text-anchor="middle">Pizza Hut</text>
+      <text x="60" y="96" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="13" fill="#FFFFFF" text-anchor="middle">피자헛</text>
+    </svg>
+  `),
+  '피자스쿨': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FFA500"/>
+      <circle cx="60" cy="52" r="32" fill="#FFFFFF"/>
+      <path d="M42 56 L60 32 L78 56 Z" fill="#D32F2F"/>
+      <circle cx="54" cy="48" r="3" fill="#FFA500"/>
+      <circle cx="66" cy="48" r="3" fill="#FFA500"/>
+      <circle cx="60" cy="53" r="3" fill="#FFA500"/>
+      <text x="60" y="72" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="9" fill="#D32F2F" text-anchor="middle">PIZZA SCHOOL</text>
+      <text x="60" y="104" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">피자스쿨</text>
+    </svg>
+  `),
+  '피자알볼로': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#2E7D32"/>
+      <circle cx="60" cy="46" r="26" fill="#FFFFFF" opacity="0.15"/>
+      <!-- Airplane icon -->
+      <path d="M60 26 L66 42 L84 48 L66 52 L64 62 L60 58 L56 62 L54 52 L36 48 L54 42 Z" fill="#FFFFFF"/>
+      <text x="60" y="82" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle">피자알볼로</text>
+      <text x="60" y="98" font-family="'Arial', sans-serif" font-weight="700" font-size="8" fill="#A5D6A7" text-anchor="middle" letter-spacing="1">PIZZA ALVOLO</text>
+    </svg>
+  `),
+  '반올림피자': svgToUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <rect width="120" height="120" rx="26" fill="#FF5722"/>
+      <circle cx="60" cy="48" r="26" fill="#FFFFFF"/>
+      <!-- 반올림 샵(#) / 플러스 심볼 -->
+      <text x="60" y="56" font-family="'Arial Black', sans-serif" font-weight="900" font-size="28" fill="#FF5722" text-anchor="middle">#</text>
+      <text x="60" y="92" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">반올림피자</text>
+      <text x="60" y="106" font-family="'Arial', sans-serif" font-weight="700" font-size="7.5" fill="#FFE0B2" text-anchor="middle" letter-spacing="0.5">HANDMADE PIZZA</text>
+    </svg>
+  `),
   // 0. 노브랜드 (No Brand)
   '노브랜드': svgToUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
@@ -753,12 +818,36 @@ export const BRAND_ALIASES: Record<string, string> = {
   'baskinrobbins': '배스킨라빈스',
   'Baskin Robbins': '배스킨라빈스',
   'baskin robbins': '배스킨라빈스',
+  '도미노': '도미노피자',
+  'dominos': '도미노피자',
+  "domino's": '도미노피자',
+  'Domino': '도미노피자',
+  '파파존스피자': '파파존스',
+  'papajohns': '파파존스',
+  "papa john's": '파파존스',
+  'Papa Johns': '파파존스',
+  '피자헛코리아': '피자헛',
+  'pizzahut': '피자헛',
+  'Pizza Hut': '피자헛',
+  '알볼로': '피자알볼로',
+  'alvolo': '피자알볼로',
+  'pizzaalvolo': '피자알볼로',
+  '피자스쿨코리아': '피자스쿨',
+  'pizzaschool': '피자스쿨',
+  '반올림': '반올림피자',
+  '반올림피자샵': '반올림피자',
 };
 
 /**
  * Brand specific primary colors for avatar / badge styling
  */
 export const BRAND_THEME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  '도미노피자': { bg: '#006491', text: '#FFFFFF', border: '#E31837' },
+  '파파존스': { bg: '#007A3E', text: '#FFFFFF', border: '#DA291C' },
+  '피자헛': { bg: '#EE3124', text: '#FFFFFF', border: '#C81B10' },
+  '피자스쿨': { bg: '#FFA500', text: '#FFFFFF', border: '#D32F2F' },
+  '피자알볼로': { bg: '#2E7D32', text: '#FFFFFF', border: '#1B5E20' },
+  '반올림피자': { bg: '#FF5722', text: '#FFFFFF', border: '#E64A19' },
   '배스킨라빈스': { bg: '#FF3E83', text: '#FFFFFF', border: '#0069B4' },
   '노브랜드': { bg: '#FED100', text: '#231F20', border: '#E5BC00' },
   '비비고': { bg: '#1B3A2C', text: '#FFFFFF', border: '#12261D' },

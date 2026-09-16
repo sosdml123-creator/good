@@ -1,6 +1,7 @@
 import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification, HomeSectionConfig } from '../types';
 import { ILLUSTRATION_FRUIT_BANNER } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
+import { PIZZA_BRAND_PRODUCTS } from './pizzaProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
 import { ICE_CREAM_PRODUCTS } from './iceCreamProducts';
@@ -11,6 +12,7 @@ import { CONVENIENCE_EXCLUSIVE_PRODUCTS } from './convenienceProducts';
 import { AGRI_MARINE_PRODUCTS } from './agriMarineProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...PIZZA_BRAND_PRODUCTS,
   ...AGRI_MARINE_PRODUCTS,
   ...CONVENIENCE_EXCLUSIVE_PRODUCTS,
   ...SAMYANG_PRODUCTS,
@@ -23419,7 +23421,7 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
   '음료': ['전체', '커피', '탄산', '차', '에너지', '이온음료', '주스', '생수'],
   '빵·디저트': ['전체', '베이글', '도넛', '식빵', '소금빵', '크루아상', '단팥빵·고로케', '케이크', '디저트'],
   '간편식': ['전체', '냉동식품', '밀키트', '즉석식품', '즉석밥', '컵밥', '만두', '피자', '국·탕'],
-  '패스트푸드': ['전체', '버거', '치킨', '사이드', '세트'],
+  '패스트푸드': ['전체', '피자', '버거', '치킨', '사이드', '세트'],
   '과일': ['전체', '사과', '복숭아', '딸기', '수박', '귤', '포도', '바나나', '배', '참외'],
   '식재료': ['전체', '계란', '두부', '감자', '고구마', '양파', '쌀·잡곡', '치즈', '소스', '조미료', '면', '통조림'],
   '고기·수산': ['전체', '소고기', '돼지고기', '닭고기', '오리고기', '연어', '광어', '오징어', '새우'],
@@ -23427,6 +23429,17 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
 };
 
 export const INITIAL_BANNERS: BannerItem[] = [
+  {
+    id: 'banner-pizza-01',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&auto=format&fit=crop&q=80',
+    badge: '🍕 전국 피자 브랜드관 공식 오픈',
+    title: '도미노피자 · 파파존스 · 피자헛 · 피자스쿨 · 피자알볼로 · 반올림',
+    subtitle: '블랙타이거슈림프, 수퍼파파스, 골드바이트, 포테이토 등 대표 피자 98종 총집합',
+    buttonText: '피자 신메뉴 둘러보기',
+    linkCategory: '패스트푸드',
+    isActive: true,
+    order: 1
+  },
   {
     id: 'banner-coupang-fresh',
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=80',
@@ -23438,7 +23451,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     linkUrl: 'https://link.coupang.com/a/gYQgcAnmMK',
     disclaimer: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.',
     isActive: true,
-    order: 1
+    order: 2
   },
   {
     id: 'banner-bakery-01',
@@ -23449,7 +23462,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '베이커리 메뉴 보러가기',
     linkCategory: '빵·디저트',
     isActive: true,
-    order: 2
+    order: 3
   },
   {
     id: 'banner-1',
@@ -23460,7 +23473,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '버거 신상 둘러보기',
     linkCategory: '패스트푸드',
     isActive: true,
-    order: 3
+    order: 4
   },
   {
     id: 'banner-2',
@@ -23471,7 +23484,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '커피 브랜드 음료 모아보기',
     linkCategory: '음료',
     isActive: true,
-    order: 4
+    order: 5
   },
   {
     id: 'banner-3',
@@ -23482,7 +23495,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '오리온 신상 보러가기',
     linkCategory: '과자',
     isActive: true,
-    order: 5
+    order: 6
   },
   {
     id: 'banner-4',
@@ -23493,18 +23506,18 @@ export const INITIAL_BANNERS: BannerItem[] = [
     buttonText: '과일 랭킹 둘러보기',
     linkCategory: '과일',
     isActive: true,
-    order: 6
+    order: 7
   }
 ];
 
 export const INITIAL_BATTLE_CONFIG: BattleConfig = {
   title: '신상 배틀 투표',
   subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
-  productAId: 'burger-mcd-01', // 빅맥
-  labelA: '맥도날드 빅맥®',
-  productBId: 'burger-bk-11', // 와퍼
-  labelB: '버거킹 와퍼',
-  percentA: 52
+  productAId: 'pizza-domino-01', // 도미노피자
+  labelA: '도미노 치즈폴레 무슈스',
+  productBId: 'pizza-papa-03', // 파파존스 수퍼 파파스
+  labelB: '파파존스 수퍼 파파스',
+  percentA: 51
 };
 
 export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
@@ -23559,7 +23572,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     id: 'brand_hub',
     name: '인기 대표 브랜드관 구좌',
     title: '인기 대표 브랜드관',
-    subtitle: '스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기',
+    subtitle: '도미노, 파파존스, 피자헛, 스타벅스, 컴포즈, 맥도날드 등 브랜드별 제품 모아보기',
     badgeText: '전용관',
     isVisible: true,
     order: 6,
@@ -23625,6 +23638,25 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
 
 export const INITIAL_EVENTS: PromotionEvent[] = [
   {
+    id: 'event-pizza-01',
+    title: '🍕 대표 피자 브랜드 시식 체험단 100인 모집',
+    subtitle: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자 신상 피자를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
+    badge: '체험단 100명',
+    category: '체험단',
+    bannerImage: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1000&auto=format&fit=crop&q=80',
+    startDate: '2026.09.01',
+    endDate: '2026.09.30',
+    dDay: 'D-14',
+    status: 'ongoing',
+    description: '[대표 피자 프랜차이즈 신메뉴 체험단 오픈!]\n도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 대표 시그니처 피자를 무료로 체험하고 리뷰를 작성해보세요!',
+    reward: '피자 L사이즈 모바일 교환권 (총 100명)',
+    targetProductId: 'pizza-domino-01',
+    actionButtonText: '무료 체험단 즉시 신청하기',
+    participantsCount: 820,
+    isParticipated: false,
+    createdAt: '2026-09-01T10:00:00Z'
+  },
+  {
     id: 'event-01',
     title: '5대 햄버거 브랜드 시식 체험단 100인 모집',
     subtitle: '맥도날드, 버거킹, 롯데리아, KFC, 맘스터치 신상 버거를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
@@ -23646,6 +23678,16 @@ export const INITIAL_EVENTS: PromotionEvent[] = [
 ];
 
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
+  {
+    id: 'notif-pizza-01',
+    title: '🍕 도미노 · 파파존스 · 피자헛 등 6대 피자 브랜드 입점!',
+    body: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 공식 대표 시그니처 메뉴 98종이 신규 등록되었습니다.',
+    timestamp: '2026-09-16T19:40:00Z',
+    isRead: false,
+    type: 'product',
+    targetId: 'pizza-domino-01',
+    badge: 'NEW'
+  },
   {
     id: 'notif-bakery-01',
     title: '🥖 파리바게뜨 · 뚜레쥬르 · 성심당 등 7대 베이커리 입점!',
