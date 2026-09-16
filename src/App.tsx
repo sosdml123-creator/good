@@ -26,6 +26,7 @@ import { LoginModal } from './components/common/LoginModal';
 import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
 import { NicknameSetupModal } from './components/auth/NicknameSetupModal';
 import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
+import { AppPermissionModal } from './components/common/AppPermissionModal';
 
 export const App: React.FC = () => {
   const { activeTab, currentUser, isGuestBrowse } = useApp();
@@ -109,10 +110,11 @@ export const App: React.FC = () => {
           {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <SaleNewsView />}
         </main>
 
-        {/* Recipe Modals (Floating Global Modals) */}
+        {/* Modals (Floating Global Modals) */}
         <RecipeDetailModal />
         <WriteRecipeModal />
         <LoginModal />
+        <AppPermissionModal />
         <NicknameSetupModal />
 
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}

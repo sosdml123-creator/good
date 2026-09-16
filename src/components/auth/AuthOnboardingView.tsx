@@ -3,7 +3,15 @@ import { useApp } from '../../context/AppContext';
 import { ArrowRight, ShieldCheck, Flame, Award, Tag } from 'lucide-react';
 
 export const AuthOnboardingView: React.FC = () => {
-  const { loginWithApple, loginWithKakao, loginWithGoogle, setIsGuestBrowse } = useApp();
+  const { loginWithApple, loginWithKakao, loginWithGoogle, setIsGuestBrowse, openPermissionModal } = useApp();
+
+  const handleGuestBrowse = () => {
+    setIsGuestBrowse(true);
+    const reviewed = localStorage.getItem('sinsangpick_permissions_reviewed');
+    if (!reviewed) {
+      openPermissionModal();
+    }
+  };
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
@@ -117,7 +125,7 @@ export const AuthOnboardingView: React.FC = () => {
           {/* Guest Browse Option (Guideline 5.1.1 compliant) */}
           <div className="pt-2 text-center">
             <button
-              onClick={() => setIsGuestBrowse(true)}
+              onClick={handleGuestBrowse}
               className="inline-flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors py-1 cursor-pointer"
             >
               <span>로그인 없이 먼저 둘러보기</span>

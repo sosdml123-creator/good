@@ -135,6 +135,9 @@ interface AppContextType {
   isNicknameModalOpen: boolean;
   setIsNicknameModalOpen: (open: boolean) => void;
   completeNicknameSetup: (newNickname: string) => Promise<void>;
+  isPermissionModalOpen: boolean;
+  setIsPermissionModalOpen: (open: boolean) => void;
+  openPermissionModal: () => void;
 
   // Events & Push Notifications Actions
   pushPermissionStatus: 'granted' | 'denied' | 'prompt';
@@ -779,6 +782,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('sinsangpick_guest_browse', String(val));
   };
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState<boolean>(false);
+  const [isPermissionModalOpen, setIsPermissionModalOpen] = useState<boolean>(false);
+  const openPermissionModal = () => setIsPermissionModalOpen(true);
+
+  const checkAndOpenPostLoginModals = (uid: string) => {
+    const hasReviewedPermissions = localStorage.getItem('sinsangpick_permissions_reviewed') === 'true';
+    if (!hasReviewedPermissions) {
+      setIsPermissionModalOpen(true);
+    } else {
+      const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
+      if (!hasSetNickname) {
+        setIsNicknameModalOpen(true);
+      }
+    }
+  };
 
   const completeNicknameSetup = async (newNickname: string) => {
     const uid = currentUser.uid;
@@ -1541,7 +1558,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           localStorage.setItem('sinsangpick_nickname_set_' + u.id, 'true');
           setIsLoginModalOpen(false);
           setIsGuestBrowse(true);
-          setIsNicknameModalOpen(false);
+          checkAndOpenPostLoginModals(u.id);
 
           if (event === 'SIGNED_IN') {
             const providerMsg = providerName === 'apple' 
@@ -1959,7 +1976,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-        setIsNicknameModalOpen(false);
+        checkAndOpenPostLoginModals(demoUid);
         showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
         return;
       }
@@ -2015,7 +2032,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-        setIsNicknameModalOpen(false);
+        checkAndOpenPostLoginModals(uid);
         showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
 
         try {
@@ -2068,7 +2085,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-        setIsNicknameModalOpen(false);
+        checkAndOpenPostLoginModals(demoUid);
         showToast('🌐 Google 계정으로 로그인되었습니다!', 'success');
         return;
       }
@@ -2101,7 +2118,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-        setIsNicknameModalOpen(false);
+        checkAndOpenPostLoginModals(demoUid);
         showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
         return;
       }
@@ -4083,6 +4100,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isNicknameModalOpen,
         setIsNicknameModalOpen,
         completeNicknameSetup,
+        isPermissionModalOpen,
+        setIsPermissionModalOpen,
+        openPermissionModal,
 
         // Events & Push Notifications
         pushPermissionStatus,

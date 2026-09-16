@@ -18,7 +18,8 @@ import {
   Edit3, 
   ExternalLink, 
   ChevronDown, 
-  ChevronUp
+  ChevronUp,
+  ShieldCheck
 } from 'lucide-react';
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
@@ -33,7 +34,8 @@ export const SettingsView: React.FC = () => {
     logout, 
     goBack, 
     setActiveTab, 
-    openLoginModal
+    openLoginModal,
+    openPermissionModal
   } = useApp();
 
   // State for modals & editing
@@ -268,6 +270,26 @@ export const SettingsView: React.FC = () => {
                 <div>
                   <div className="text-xs font-bold text-gray-900">관심 카테고리 출시알림 설정</div>
                   <div className="text-[11px] text-gray-400">과자, 음료, 디저트 등 선택 알림</div>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-300" />
+            </div>
+
+            {/* App Permission Management */}
+            <div
+              onClick={openPermissionModal}
+              className="px-4 py-3.5 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                    <span>앱 접근 권한 안내 및 설정</span>
+                    <span className="text-[9px] font-extrabold bg-blue-50 text-blue-600 px-1.5 py-0.2 rounded-full">안내</span>
+                  </div>
+                  <div className="text-[11px] text-gray-400">알림, 카메라, 사진, 위치 권한 확인 및 허용</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300" />
