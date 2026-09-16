@@ -346,6 +346,32 @@ export interface BattleConfig {
   percentA: number;
 }
 
+export type HomeSectionId = 
+  | 'banners'
+  | 'quick_menu'
+  | 'categories'
+  | 'new_products'
+  | 'sale_events'
+  | 'brand_hub'
+  | 'search_trending'
+  | 'hot_events'
+  | 'recipes'
+  | 'battle'
+  | 'popular_ranking'
+  | 'reviews';
+
+export interface HomeSectionConfig {
+  id: HomeSectionId;
+  name: string;
+  title: string;
+  subtitle?: string;
+  badgeText?: string;
+  description?: string;
+  isVisible: boolean;
+  order: number;
+  itemLimit?: number;
+}
+
 export type ActiveTab = 
   | 'home' 
   | 'category' 

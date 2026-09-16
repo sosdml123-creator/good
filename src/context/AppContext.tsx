@@ -24,10 +24,12 @@ import {
   StoreChannelInfo,
   ReportItem,
   ReportAction,
-  UserAccountStatus
+  UserAccountStatus,
+  HomeSectionConfig,
+  HomeSectionId
 } from '../types';
 import type { ReviewExtraData } from '../types';
-import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS } from '../data/mockProducts';
+import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
 import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
 import { INITIAL_STORE_CHANNELS } from '../data/mockStores';
@@ -164,6 +166,13 @@ interface AppContextType {
 
   // Admin Battle Actions
   updateBattleConfig: (config: Partial<BattleConfig>) => void;
+
+  // Admin Home Sections Actions
+  homeSections: HomeSectionConfig[];
+  updateHomeSection: (id: HomeSectionId, updates: Partial<HomeSectionConfig>) => void;
+  reorderHomeSections: (sections: HomeSectionConfig[]) => void;
+  toggleHomeSectionVisibility: (id: HomeSectionId) => void;
+  resetHomeSections: () => void;
 
   // Admin Pending Products / Daily Crawler Actions
   pendingProducts: PendingProduct[];
@@ -726,6 +735,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  const [homeSections, setHomeSections] = useState<HomeSectionConfig[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_home_sections');
+      if (stored) {
+        const parsed: HomeSectionConfig[] = JSON.parse(stored);
+        // Merge with initial in case new sections were added
+        const merged: HomeSectionConfig[] = [];
+        // first keep stored that exist in initial
+        parsed.forEach(p => {
+          const match = INITIAL_HOME_SECTIONS.find(init => init.id === p.id);
+          if (match) {
+            merged.push({ ...match, ...p });
+          }
+        });
+        // then append any missing initial sections
+        INITIAL_HOME_SECTIONS.forEach(init => {
+          if (!merged.some(m => m.id === init.id)) {
+            merged.push(init);
+          }
+        });
+        return merged.sort((a, b) => a.order - b.order);
+      }
+      return INITIAL_HOME_SECTIONS;
+    } catch {
+      return INITIAL_HOME_SECTIONS;
+    }
+  });
+
   const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_battle_choice');
@@ -1023,6 +1060,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
   }, [battleConfig]);
+
+  useEffect(() => {
+    localStorage.setItem('sinsangpick_home_sections', JSON.stringify(homeSections));
+  }, [homeSections]);
 
   useEffect(() => {
     localStorage.setItem('sinsangpick_reviews', JSON.stringify(reviews));
@@ -2528,7 +2569,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Update Battle Config
   const updateBattleConfig = (config: Partial<BattleConfig>) => {
     setBattleConfig(prev => ({ ...prev, ...config }));
-    showToast('🥊 신상 배틀 설정이 업데이트되었습니다!', 'success');
+    showToast('신상 배틀 설정이 업데이트되었습니다.', 'success');
+  };
+
+  // Home Sections Management
+  const updateHomeSection = (id: HomeSectionId, updates: Partial<HomeSectionConfig>) => {
+    setHomeSections(prev => prev.map(sec => sec.id === id ? { ...sec, ...updates } : sec));
+    showToast('홈 구좌 설정이 업데이트되었습니다.', 'success');
+  };
+
+  const toggleHomeSectionVisibility = (id: HomeSectionId) => {
+    setHomeSections(prev => prev.map(sec => {
+      if (sec.id === id) {
+        const nextState = !sec.isVisible;
+        showToast(`'${sec.name}' 구좌가 ${nextState ? '활성화' : '비활성화'}되었습니다.`, 'info');
+        return { ...sec, isVisible: nextState };
+      }
+      return sec;
+    }));
+  };
+
+  const reorderHomeSections = (sections: HomeSectionConfig[]) => {
+    const updated = sections.map((s, idx) => ({ ...s, order: idx + 1 }));
+    setHomeSections(updated);
+    showToast('홈 구좌 순서가 변경되었습니다.', 'success');
+  };
+
+  const resetHomeSections = () => {
+    setHomeSections(INITIAL_HOME_SECTIONS);
+    localStorage.removeItem('sinsangpick_home_sections');
+    showToast('홈 구좌 설정이 기본값으로 초기화되었습니다.', 'info');
   };
 
   // --- Admin Brand Actions ---
@@ -3650,9 +3720,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStoreChannels(INITIAL_STORE_CHANNELS);
     setSalePromotions(INITIAL_SALE_PROMOTIONS);
     setCalendarItems(INITIAL_CALENDAR_ITEMS);
+    setHomeSections(INITIAL_HOME_SECTIONS);
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
+    localStorage.removeItem('sinsangpick_home_sections');
     localStorage.removeItem('sinsangpick_events');
     localStorage.removeItem('sinsangpick_notifications');
     localStorage.removeItem('sinsangpick_all_profiles');
@@ -3663,7 +3735,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('sinsangpick_calendar_v1');
     localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
     localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
-    showToast('🔄 모든 데이터가 기본값으로 초기화되었습니다.', 'info');
+    showToast('모든 데이터가 기본값으로 초기화되었습니다.', 'info');
   };
 
   return (
@@ -3697,6 +3769,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toasts,
         currentUser,
         isSupabaseConnected,
+
+        // Home Sections
+        homeSections,
+        updateHomeSection,
+        reorderHomeSections,
+        toggleHomeSectionVisibility,
+        resetHomeSections,
 
         setActiveTab,
         goBack,

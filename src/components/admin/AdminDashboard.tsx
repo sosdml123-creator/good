@@ -55,7 +55,8 @@ import {
   Store,
   Calendar as CalendarIcon,
   Tag,
-  Bell
+  Bell,
+  Sliders
 } from 'lucide-react';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, UserProfile, NutritionInfo, StoreStockItem } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
@@ -77,11 +78,13 @@ import { EventManagementTab } from './EventManagementTab';
 import { NotificationManagementTab } from './NotificationManagementTab';
 import { UserManagementTab } from './UserManagementTab';
 import { ReportManagementTab } from './ReportManagementTab';
+import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 
 export type AdminTab = 
   | 'overview' 
   | 'collector'
   | 'approval' 
+  | 'sections'
   | 'products' 
   | 'brands'
   | 'stores'
@@ -1218,6 +1221,26 @@ export const AdminDashboard: React.FC = () => {
               )}
             </button>
 
+            {/* Home Sections Management (NEW) */}
+            <button
+              onClick={() => setActiveAdminTab('sections')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                activeAdminTab === 'sections'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+                  : isDark 
+                    ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Sliders className="w-4 h-4 text-indigo-400" />
+                <span>홈 구좌(섹션) 관리</span>
+              </div>
+              <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                HOT
+              </span>
+            </button>
+
             {/* 3. Products Management */}
             <button
               onClick={() => setActiveAdminTab('products')}
@@ -1570,24 +1593,25 @@ export const AdminDashboard: React.FC = () => {
             <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>신상픽 관리자 콘솔</span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {activeAdminTab === 'overview' && '📊 대시보드 개요 및 실시간 종합 지표'}
-              {activeAdminTab === 'collector' && '🎯 브랜드 & 품목 공식홈페이지 제품 자동수집기'}
-              {activeAdminTab === 'approval' && '⚡ 신제품 자동 수집 파이프라인 & 승인함'}
-              {activeAdminTab === 'products' && '📦 상품 및 신제품 전체 데이터베이스'}
-              {activeAdminTab === 'brands' && '🏢 브랜드 및 공식 브랜드몰 정밀 관리'}
-              {activeAdminTab === 'stores' && '🏪 판매처 및 유통채널 마스터 관리'}
-              {activeAdminTab === 'sales' && '🏷️ 편의점/마트 1+1 & 특가 행사소식 관리'}
-              {activeAdminTab === 'calendar' && '📅 신제품 출시 캘린더 관리'}
-              {activeAdminTab === 'events' && '🎁 이벤트 및 체험단 프로모션 관리'}
-              {activeAdminTab === 'notifications' && '🔔 알림 및 FCM 디바이스 푸시 발송 관리'}
-              {activeAdminTab === 'users' && '👥 회원 계정 및 제재 상태 정밀 관리'}
-              {activeAdminTab === 'reports' && '🚨 신고 접수 내역 및 모더레이션 조치 콘솔'}
-              {activeAdminTab === 'points' && '🪙 회원 관리 및 포인트 지급·회수 콘솔'}
-              {activeAdminTab === 'reviews' && '💬 사용자 리뷰 및 커뮤니티 피드 모더레이션'}
-              {activeAdminTab === 'analytics' && '📈 신상 검색 트렌드 및 카테고리 분석'}
-              {activeAdminTab === 'banners' && '🖼️ 모바일 메인 홈 배너 관리'}
-              {activeAdminTab === 'battle' && '🥊 신상 배틀 실시간 맞대결 설정'}
-              {activeAdminTab === 'data' && '💾 데이터 백업 및 데이터베이스 설정'}
+              {activeAdminTab === 'overview' && '대시보드 개요 및 실시간 종합 지표'}
+              {activeAdminTab === 'collector' && '브랜드 & 품목 공식홈페이지 제품 자동수집기'}
+              {activeAdminTab === 'approval' && '신제품 자동 수집 파이프라인 & 승인함'}
+              {activeAdminTab === 'sections' && '홈 화면 구좌(섹션) 노출 및 타이틀 관리'}
+              {activeAdminTab === 'products' && '상품 및 신제품 전체 데이터베이스'}
+              {activeAdminTab === 'brands' && '브랜드 및 공식 브랜드몰 정밀 관리'}
+              {activeAdminTab === 'stores' && '판매처 및 유통채널 마스터 관리'}
+              {activeAdminTab === 'sales' && '편의점/마트 1+1 & 특가 행사소식 관리'}
+              {activeAdminTab === 'calendar' && '신제품 출시 캘린더 관리'}
+              {activeAdminTab === 'events' && '이벤트 및 체험단 프로모션 관리'}
+              {activeAdminTab === 'notifications' && '알림 및 FCM 디바이스 푸시 발송 관리'}
+              {activeAdminTab === 'users' && '회원 계정 및 제재 상태 정밀 관리'}
+              {activeAdminTab === 'reports' && '신고 접수 내역 및 모더레이션 조치 콘솔'}
+              {activeAdminTab === 'points' && '회원 관리 및 포인트 지급·회수 콘솔'}
+              {activeAdminTab === 'reviews' && '사용자 리뷰 및 커뮤니티 피드 모더레이션'}
+              {activeAdminTab === 'analytics' && '신상 검색 트렌드 및 카테고리 분석'}
+              {activeAdminTab === 'banners' && '모바일 메인 홈 배너 관리'}
+              {activeAdminTab === 'battle' && '신상 배틀 실시간 맞대결 설정'}
+              {activeAdminTab === 'data' && '데이터 백업 및 데이터베이스 설정'}
             </span>
           </div>
 
@@ -4537,6 +4561,13 @@ export const AdminDashboard: React.FC = () => {
               </div>
 
             </div>
+          )}
+
+          {/* ========================================================
+              TAB: HOME SECTIONS (홈 화면 구좌 및 타이틀 관리 NEW)
+             ======================================================== */}
+          {activeAdminTab === 'sections' && (
+            <HomeSectionsManagementTab isDark={isDark} />
           )}
 
           {/* ========================================================

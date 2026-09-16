@@ -1,4 +1,4 @@
-import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification } from '../types';
+import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification, HomeSectionConfig } from '../types';
 import { ILLUSTRATION_FRUIT_BANNER } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
@@ -23498,7 +23498,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
 ];
 
 export const INITIAL_BATTLE_CONFIG: BattleConfig = {
-  title: '🥊 신상 배틀 투표',
+  title: '신상 배틀 투표',
   subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
   productAId: 'burger-mcd-01', // 빅맥
   labelA: '맥도날드 빅맥®',
@@ -23506,6 +23506,122 @@ export const INITIAL_BATTLE_CONFIG: BattleConfig = {
   labelB: '버거킹 와퍼',
   percentA: 52
 };
+
+export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
+  {
+    id: 'banners',
+    name: '메인 롤링 배너',
+    title: '메인 프로모션 배너',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 1,
+  },
+  {
+    id: 'quick_menu',
+    name: '퀵 바로가기 메뉴',
+    title: '바로가기 메뉴',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 2,
+  },
+  {
+    id: 'categories',
+    name: '카테고리 스크롤 바',
+    title: '식품 카테고리',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 3,
+  },
+  {
+    id: 'new_products',
+    name: '따끈따끈 신제품 구좌',
+    title: '따끈따끈 새로 나온 신제품',
+    subtitle: '편의점·마트 실시간 입고',
+    badgeText: 'NEW 신상',
+    isVisible: true,
+    order: 4,
+    itemLimit: 10,
+  },
+  {
+    id: 'sale_events',
+    name: '이달의 행사소식 구좌',
+    title: '놓치면 손해! 이달의 행사소식',
+    subtitle: '편의점·마트 실속 혜택',
+    badgeText: '1+1 · 할인특가',
+    isVisible: true,
+    order: 5,
+    itemLimit: 8,
+  },
+  {
+    id: 'brand_hub',
+    name: '인기 대표 브랜드관 구좌',
+    title: '인기 대표 브랜드관',
+    subtitle: '스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기',
+    badgeText: '전용관',
+    isVisible: true,
+    order: 6,
+  },
+  {
+    id: 'search_trending',
+    name: '요즘 주목받는 먹거리 구좌',
+    title: '요즘 주목받는 먹거리',
+    subtitle: '사람들이 검색창에서 가장 많이 찾아보고 들어온 인기 순위예요',
+    badgeText: '검색 유입 랭킹',
+    isVisible: true,
+    order: 7,
+    itemLimit: 12,
+  },
+  {
+    id: 'hot_events',
+    name: '진행 중인 핫 이벤트 구좌',
+    title: '진행 중인 핫 이벤트 & 체험단',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 8,
+  },
+  {
+    id: 'recipes',
+    name: '화제의 편의점 꿀조합 구좌',
+    title: '화제의 편의점 꿀조합',
+    subtitle: '신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.',
+    badgeText: '맛잘알 추천',
+    isVisible: true,
+    order: 9,
+  },
+  {
+    id: 'battle',
+    name: '신상 배틀 VS 구좌',
+    title: '신상 배틀',
+    subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
+    badgeText: 'VS',
+    isVisible: true,
+    order: 10,
+  },
+  {
+    id: 'popular_ranking',
+    name: '실시간 인기 품목 랭킹 구좌',
+    title: '실시간 인기 품목 랭킹',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 11,
+    itemLimit: 5,
+  },
+  {
+    id: 'reviews',
+    name: '이번 주 실시간 솔직 후기 구좌',
+    title: '이번 주 실시간 솔직 후기',
+    subtitle: '',
+    badgeText: '',
+    isVisible: true,
+    order: 12,
+    itemLimit: 2,
+  },
+];
 
 export const INITIAL_EVENTS: PromotionEvent[] = [
   {
