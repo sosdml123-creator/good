@@ -316,8 +316,8 @@ export const HomeView: React.FC = () => {
         return (
           <div key="banners" className="relative w-full">
             <div
-              className="relative w-full h-[215px] min-h-[215px] bg-black overflow-hidden flex cursor-grab active:cursor-grabbing select-none"
-              style={{ width: '100%', height: '215px', minHeight: '215px' }}
+              className="relative w-full h-[265px] min-h-[265px] sm:h-[285px] sm:min-h-[285px] bg-black overflow-hidden flex cursor-grab active:cursor-grabbing select-none"
+              style={{ width: '100%', height: '265px', minHeight: '265px' }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -350,20 +350,20 @@ export const HomeView: React.FC = () => {
                       onError={(e) => {
                         e.currentTarget.src = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80';
                       }}
-                      className="absolute inset-0 w-full h-full object-cover opacity-65 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
+                      className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-none">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 pointer-events-none">
                       {banner.badge && (
-                        <div className="inline-block text-[11px] font-bold text-amber-300 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full mb-1.5 border border-amber-300/30">
+                        <div className="inline-block text-xs font-bold text-amber-300 bg-black/50 backdrop-blur-xs px-2.5 py-0.5 rounded-full mb-1.5 border border-amber-300/30">
                           {banner.badge}
                         </div>
                       )}
-                      <div className="text-white font-black text-xl leading-tight drop-shadow-sm">
+                      <div className="text-white font-black text-xl sm:text-2xl leading-tight drop-shadow-md">
                         {banner.title}<br />
-                        <span className="font-medium text-base text-gray-200">{banner.subtitle}</span>
+                        <span className="font-medium text-sm sm:text-base text-gray-200 mt-0.5 inline-block">{banner.subtitle}</span>
                       </div>
-                      <div className="flex items-center gap-2 mt-2">
+                      <div className="flex items-center gap-2 mt-2.5">
                         <button
                           type="button"
                           onClick={(e) => {
@@ -372,14 +372,14 @@ export const HomeView: React.FC = () => {
                               handleBannerClick(banner);
                             }
                           }}
-                          className="text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-3.5 py-1.5 border border-white/30 hover:bg-white/30 transition-colors inline-flex items-center gap-1 pointer-events-auto"
+                          className="text-xs font-bold text-white bg-white/20 backdrop-blur-xs rounded-full px-4 py-1.5 border border-white/35 hover:bg-white/30 transition-colors inline-flex items-center gap-1 pointer-events-auto shadow-xs"
                         >
                           <span>{banner.buttonText || '자세히 보기'}</span>
                           <ChevronRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                       {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
-                        <p className="mt-1.5 text-[9.5px] text-amber-200/90 font-medium tracking-tight bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded max-w-fit pointer-events-none select-none">
+                        <p className="mt-2 text-[10px] text-amber-200/90 font-medium tracking-tight bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded max-w-fit pointer-events-none select-none">
                           ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
                         </p>
                       )}
