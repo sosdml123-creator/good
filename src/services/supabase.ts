@@ -1,6 +1,7 @@
 import { createClient, SupabaseClient, User, Session } from '@supabase/supabase-js';
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lyyzhldazfyrpprdvmeg.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P8eHIISOPV3KKP_l-Gxx_A_cAjfyR-C';
@@ -264,6 +265,31 @@ const startOAuth = async (provider: 'apple' | 'google' | 'kakao') => {
 };
 
 /**
+ * Generates a cryptographically random raw nonce string
+ */
+const generateRawNonce = (): string => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  let result = '';
+  const randomValues = new Uint8Array(32);
+  crypto.getRandomValues(randomValues);
+  for (let i = 0; i < randomValues.length; i++) {
+    result += chars[randomValues[i] % chars.length];
+  }
+  return result;
+};
+
+/**
+ * Computes SHA-256 hex string of the given text for Apple authentication
+ */
+const sha256Hex = async (str: string): Promise<string> => {
+  const buffer = new TextEncoder().encode(str);
+  const digest = await crypto.subtle.digest('SHA-256', buffer);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+};
+
+/**
  * Google OAuth sign-in helper
  */
 export const signInWithGoogle = async () => {
@@ -271,10 +297,58 @@ export const signInWithGoogle = async () => {
 };
 
 /**
- * Apple OAuth sign-in helper (아이폰 / Apple 계정 로그인)
+ * Apple Sign-in helper (아이폰 네이티브 모달 / 웹 OAuth 호환)
+ * - iOS Native (iPhone 앱): @capacitor-community/apple-sign-in 네이티브 시스템 시트를 띄우고 Supabase signInWithIdToken으로 웹 브라우저 전환 없이 즉시 로그인
+ * - Web / 기타 환경: Supabase OAuth 리다이렉트 방식 사용
  */
 export const signInWithApple = async () => {
-  await startOAuth('apple');
+  if (!supabase) return;
+  const isIosNative = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios';
+
+  if (isIosNative) {
+    const rawNonce = generateRawNonce();
+    const hashedNonce = await sha256Hex(rawNonce);
+
+    const res = await SignInWithApple.authorize({
+      clientId: 'com.sinsangpick.app',
+      redirectURI: getAuthRedirectUri(),
+      scopes: 'email name',
+      nonce: hashedNonce,
+    });
+
+    if (!res?.response?.identityToken) {
+      throw new Error('Apple 로그인 토큰을 수신하지 못했습니다.');
+    }
+
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: 'apple',
+      token: res.response.identityToken,
+      nonce: rawNonce,
+    });
+
+    if (error) {
+      console.error('[Supabase Auth] Apple signInWithIdToken error:', error);
+      throw error;
+    }
+
+    // 초기 로그인 시 Apple이 전달한 성/이름 정보 프로필에 저장
+    const givenName = res.response.givenName;
+    const familyName = res.response.familyName;
+    if (givenName || familyName) {
+      const fullName = [familyName, givenName].filter(Boolean).join(' ').trim();
+      if (fullName && data?.user) {
+        await supabase.auth.updateUser({
+          data: { full_name: fullName, name: fullName },
+        }).catch((err) => {
+          console.warn('[Supabase Auth] Failed to update user full_name:', err);
+        });
+      }
+    }
+
+    return data;
+  } else {
+    await startOAuth('apple');
+  }
 };
 
 /**

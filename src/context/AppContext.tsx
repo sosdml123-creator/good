@@ -1680,7 +1680,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return;
       }
       await supabaseSignInWithApple();
-    } catch (err) {
+    } catch (err: any) {
+      const errMsg = err?.message || String(err || '');
+      if (
+        errMsg.includes('1001') ||
+        errMsg.toLowerCase().includes('cancel') ||
+        errMsg.toLowerCase().includes('canceled') ||
+        errMsg.toLowerCase().includes('cancelled')
+      ) {
+        console.log('[Auth] Apple login canceled by user');
+        return;
+      }
       console.error('Apple login error:', err);
       showToast('Apple 로그인 중 오류가 발생했습니다.', 'error');
     }
