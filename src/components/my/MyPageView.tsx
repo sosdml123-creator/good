@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Settings, ChevronRight, Edit3, X, Check } from 'lucide-react';
+import { Settings, ChevronRight, Edit3, Camera } from 'lucide-react';
 import { MyBookmarksModal } from './MyBookmarksModal';
 import { MyReviewsModal } from './MyReviewsModal';
+import { EditProfileModal } from './EditProfileModal';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 
 export const MyPageView: React.FC = () => {
   const { 
@@ -12,23 +14,14 @@ export const MyPageView: React.FC = () => {
     reviews,
     currentUser,
     savedSaleIds,
-    updateUserNickname,
     setActiveTab
   } = useApp();
 
-  const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
-  const [nicknameInput, setNicknameInput] = useState(currentUser.displayName);
 
   const myReviewsCount = reviews.filter(r => r.userName === currentUser.displayName).length;
-
-  const handleSaveNickname = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!nicknameInput.trim()) return;
-    updateUserNickname(nicknameInput.trim());
-    setIsEditNicknameOpen(false);
-  };
 
   const menuItems = [
     { label: '내가 쓴 리뷰', sub: `${myReviewsCount}개`, action: () => setIsReviewsOpen(true) },
@@ -76,11 +69,22 @@ export const MyPageView: React.FC = () => {
       {/* 1. Profile header */}
       <div className="bg-gradient-to-b from-gray-900 via-slate-900 to-gray-900 px-5 pt-6 pb-16 text-white relative shadow-sm">
         <div className="flex items-center gap-3.5">
-          <img
-            src={currentUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop&q=80'}
-            alt="profile"
-            className="w-14 h-14 rounded-full border-2 border-white/30 object-cover bg-white/20 shrink-0 shadow-sm"
-          />
+          {/* Avatar with Camera Overlay */}
+          <div 
+            onClick={() => setIsEditProfileOpen(true)}
+            className="relative cursor-pointer group shrink-0"
+            title="프로필 사진 및 닉네임 변경"
+          >
+            <img
+              src={currentUser.photoURL || DEFAULT_AVATAR}
+              alt="profile"
+              className="w-14 h-14 rounded-full border-2 border-white/30 object-cover bg-slate-950 shrink-0 shadow-md transition-transform group-hover:scale-105"
+            />
+            <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-gray-900 text-white rounded-full border border-white/40 shadow-sm group-hover:bg-amber-500 transition-colors">
+              <Camera className="w-3 h-3" />
+            </div>
+          </div>
+
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-[17px] font-extrabold truncate">{currentUser.displayName}</span>
@@ -88,12 +92,9 @@ export const MyPageView: React.FC = () => {
                 {currentUser.level}
               </span>
               <button
-                onClick={() => {
-                  setNicknameInput(currentUser.displayName);
-                  setIsEditNicknameOpen(true);
-                }}
+                onClick={() => setIsEditProfileOpen(true)}
                 className="p-1 text-white/70 hover:text-white transition-colors"
-                title="닉네임 변경"
+                title="닉네임 / 프로필 변경"
               >
                 <Edit3 className="w-3.5 h-3.5" />
               </button>
@@ -165,47 +166,11 @@ export const MyPageView: React.FC = () => {
         ))}
       </div>
 
-      {/* 6. Edit Nickname Modal */}
-      {isEditNicknameOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-gray-900">닉네임 변경</span>
-              <button onClick={() => setIsEditNicknameOpen(false)} className="p-1 text-gray-400 hover:text-gray-700">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSaveNickname} className="space-y-3">
-              <input
-                type="text"
-                value={nicknameInput}
-                onChange={(e) => setNicknameInput(e.target.value)}
-                maxLength={15}
-                autoFocus
-                placeholder="새로운 닉네임을 입력하세요"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-gray-900"
-              />
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsEditNicknameOpen(false)}
-                  className="flex-1 py-2 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50"
-                >
-                  취소
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-2 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold transition-colors flex items-center justify-center gap-1"
-                >
-                  <Check className="w-3.5 h-3.5" />
-                  <span>변경완료</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Edit Profile & Nickname & Photo Modal */}
+      <EditProfileModal
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
+      />
 
       {/* My Bookmarks & My Reviews Modals */}
       <MyBookmarksModal

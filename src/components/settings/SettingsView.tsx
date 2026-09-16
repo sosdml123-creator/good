@@ -16,21 +16,20 @@ import {
   LogOut, 
   Trash2, 
   Edit3, 
-  Check, 
-  X, 
-  ExternalLink,
-  ChevronDown,
+  ExternalLink, 
+  ChevronDown, 
   ChevronUp
 } from 'lucide-react';
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
 import { BlockedUsersModal } from './BlockedUsersModal';
+import { EditProfileModal } from '../my/EditProfileModal';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
 
 export const SettingsView: React.FC = () => {
   const { 
     currentUser, 
-    updateUserNickname, 
     logout, 
     goBack, 
     setActiveTab, 
@@ -41,8 +40,7 @@ export const SettingsView: React.FC = () => {
   const [selectedPolicyId, setSelectedPolicyId] = useState<string | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isBlockedModalOpen, setIsBlockedModalOpen] = useState(false);
-  const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
-  const [nicknameInput, setNicknameInput] = useState(currentUser.displayName);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [showBusinessInfo, setShowBusinessInfo] = useState(false);
 
   // Notification Toggles (with local persistence)
@@ -63,13 +61,6 @@ export const SettingsView: React.FC = () => {
     const next = !nightPushEnabled;
     setNightPushEnabled(next);
     localStorage.setItem('sinsangpick_night_push', String(next));
-  };
-
-  const handleSaveNickname = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!nicknameInput.trim()) return;
-    updateUserNickname(nicknameInput.trim());
-    setIsEditNicknameOpen(false);
   };
 
   const getProviderBadge = () => {
@@ -165,23 +156,29 @@ export const SettingsView: React.FC = () => {
         {/* 2. Account Profile Card */}
         <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-2xs">
           <div className="flex items-center gap-3.5">
-            <img
-              src={currentUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
-              alt="프로필"
-              className="w-12 h-12 rounded-full border border-gray-200 object-cover bg-gray-100 shrink-0"
-            />
+            <div 
+              onClick={() => setIsEditProfileOpen(true)}
+              className="relative cursor-pointer group shrink-0"
+              title="프로필 사진 및 닉네임 변경"
+            >
+              <img
+                src={currentUser.photoURL || DEFAULT_AVATAR}
+                alt="프로필"
+                className="w-12 h-12 rounded-full border border-gray-200 object-cover bg-slate-950 shrink-0 transition-transform group-hover:scale-105"
+              />
+              <div className="absolute -bottom-0.5 -right-0.5 p-0.5 bg-gray-900 text-white rounded-full border border-white/60 shadow-xs group-hover:bg-amber-500 transition-colors">
+                <Edit3 className="w-2.5 h-2.5" />
+              </div>
+            </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-extrabold text-gray-900 truncate">
                   {currentUser.displayName}
                 </span>
                 <button
-                  onClick={() => {
-                    setNicknameInput(currentUser.displayName);
-                    setIsEditNicknameOpen(true);
-                  }}
+                  onClick={() => setIsEditProfileOpen(true)}
                   className="p-1 text-gray-400 hover:text-gray-700 transition-colors"
-                  title="닉네임 변경"
+                  title="닉네임 / 프로필 변경"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                 </button>
@@ -486,47 +483,11 @@ export const SettingsView: React.FC = () => {
         </div>
       </div>
 
-      {/* Edit Nickname Modal */}
-      {isEditNicknameOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-5 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-gray-900">닉네임 변경</span>
-              <button onClick={() => setIsEditNicknameOpen(false)} className="p-1 text-gray-400 hover:text-gray-700">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSaveNickname} className="space-y-3">
-              <input
-                type="text"
-                value={nicknameInput}
-                onChange={(e) => setNicknameInput(e.target.value)}
-                maxLength={15}
-                autoFocus
-                placeholder="새로운 닉네임을 입력하세요"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 outline-none focus:border-gray-900"
-              />
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsEditNicknameOpen(false)}
-                  className="flex-1 py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50"
-                >
-                  취소
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-gray-900 text-white text-xs font-bold hover:bg-black transition-colors flex items-center justify-center gap-1"
-                >
-                  <Check className="w-3.5 h-3.5" />
-                  <span>변경완료</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Edit Profile & Nickname & Photo Modal */}
+      <EditProfileModal
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
+      />
 
       {/* Policy Reader Modal */}
       <PolicyModal

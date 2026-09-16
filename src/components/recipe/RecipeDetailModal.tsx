@@ -11,6 +11,7 @@ import {
   ShoppingBag,
   Lightbulb
 } from 'lucide-react';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 
 export const RecipeDetailModal: React.FC = () => {
   const { 
@@ -99,7 +100,7 @@ export const RecipeDetailModal: React.FC = () => {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <img 
-                  src={selectedRecipe.authorAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&fit=crop&q=80'} 
+                  src={selectedRecipe.authorAvatar || DEFAULT_AVATAR} 
                   alt={selectedRecipe.author} 
                   className="w-8 h-8 rounded-full object-cover border border-gray-200" 
                 />

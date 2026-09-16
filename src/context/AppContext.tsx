@@ -67,6 +67,7 @@ import { Capacitor } from '@capacitor/core';
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
+import { DEFAULT_AVATAR, AVATAR_PRESETS } from '../utils/avatars';
 
 interface AppContextType {
   products: Product[];
@@ -119,6 +120,8 @@ interface AppContextType {
   showToast: (msg: string, type?: 'success' | 'info' | 'error') => void;
   removeToast: (id: string) => void;
   updateUserNickname: (newName: string) => Promise<void>;
+  updateUserPhoto: (newPhotoURL: string) => Promise<void>;
+  updateUserProfile: (updates: { displayName?: string; photoURL?: string }) => Promise<void>;
   loginWithApple: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithKakao: () => Promise<void>;
@@ -309,7 +312,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_minji_01',
     displayName: '신상탐험가_민지',
-    photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[0].url,
     level: 'Lv.5',
     points: 850,
     email: 'minji.snack@gmail.com',
@@ -322,7 +325,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_junho_02',
     displayName: '편의점고수_준호',
-    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[1].url,
     level: 'Lv.7',
     points: 1340,
     email: 'junho_cu@kakao.com',
@@ -335,7 +338,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_dessert_03',
     displayName: '디저트요정',
-    photoURL: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[2].url,
     level: 'Lv.3',
     points: 520,
     email: 'sweet_fairy@naver.com',
@@ -350,7 +353,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_taeyang_04',
     displayName: '야식러버_태양',
-    photoURL: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[3].url,
     level: 'Lv.5',
     points: 980,
     email: 'sun_night@gmail.com',
@@ -363,7 +366,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_jiwoo_05',
     displayName: '스낵마니아_지우',
-    photoURL: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[0].url,
     level: 'Lv.2',
     points: 310,
     email: 'jiwoo.snack@gmail.com',
@@ -376,7 +379,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_donghyun_06',
     displayName: '맛집탐험대_동현',
-    photoURL: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[1].url,
     level: 'Lv.9',
     points: 1620,
     email: 'donghyun@daum.net',
@@ -389,7 +392,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_hyejin_07',
     displayName: '매운맛도전자_혜진',
-    photoURL: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[2].url,
     level: 'Lv.4',
     points: 730,
     email: 'spicy_queen@gmail.com',
@@ -402,7 +405,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_suho_08',
     displayName: '헬린이식단_수호',
-    photoURL: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[3].url,
     level: 'Lv.3',
     points: 440,
     email: 'suho_fit@gmail.com',
@@ -415,7 +418,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_seoyeon_09',
     displayName: '과자박사_서연',
-    photoURL: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[0].url,
     level: 'Lv.10',
     points: 1950,
     email: 'seoyeon_snack@naver.com',
@@ -428,7 +431,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_random_99',
     displayName: '어뷰저_99',
-    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+    photoURL: AVATAR_PRESETS[1].url,
     level: 'Lv.1',
     points: 0,
     email: 'abuser99@trashmail.com',
@@ -648,17 +651,20 @@ export const getNextSequentialNickname = async (
 const createInitialUser = (): UserProfile => {
   const cachedUid = localStorage.getItem('sinsangpick_uid');
   const cachedPoints = localStorage.getItem('sinsangpick_points');
+  const cachedPhoto = localStorage.getItem('sinsangpick_photo');
+  const cachedName = localStorage.getItem('sinsangpick_name');
 
   const uid = cachedUid || `anon_${Math.random().toString(36).substring(2, 9)}`;
   if (!cachedUid) localStorage.setItem('sinsangpick_uid', uid);
 
   const points = cachedPoints ? parseInt(cachedPoints, 10) : 100;
-  const displayName = getInitialSequentialNicknameSync();
+  const displayName = cachedName || getInitialSequentialNicknameSync();
+  const photoURL = (cachedPhoto && !cachedPhoto.includes('unsplash')) ? cachedPhoto : DEFAULT_AVATAR;
 
   return {
     uid,
     displayName,
-    photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    photoURL,
     level: calculateLevel(points),
     points,
     isAnonymous: true,
@@ -724,7 +730,7 @@ const mapDBReviewToReview = (dbR: DBReview, isLiked: boolean, comments: ReviewCo
   productName: dbR.product_name,
   productImage: dbR.product_image,
   userName: dbR.user_name,
-  userAvatar: dbR.user_avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+  userAvatar: dbR.user_avatar || DEFAULT_AVATAR,
   userLevel: dbR.user_level || 'Lv.1',
   rating: Number(dbR.rating),
   detailedRating: dbR.detailed_rating,
@@ -745,7 +751,7 @@ const mapDBCommunityPostToPost = (dbP: DBCommunityPost, isLiked: boolean, commen
   title: dbP.title,
   content: dbP.content,
   author: dbP.author_name,
-  authorAvatar: dbP.author_avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+  authorAvatar: dbP.author_avatar || DEFAULT_AVATAR,
   authorLevel: dbP.author_level || 'Lv.1',
   likes: dbP.likes_count || 0,
   isLiked,
@@ -1419,7 +1425,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             .map(p => ({
               uid: p.id,
               displayName: p.display_name || '신상러버',
-              photoURL: p.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+              photoURL: p.avatar_url || DEFAULT_AVATAR,
               level: calculateLevel(p.points ?? 100),
               points: p.points ?? 100,
               email: p.email || undefined,
@@ -1518,7 +1524,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
           }
 
-          const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+          const photoURL = u.user_metadata?.avatar_url || DEFAULT_AVATAR;
           
           setCurrentUser(prev => ({
             ...prev,
@@ -1849,6 +1855,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const trimmed = newName.trim();
     if (!trimmed) return;
     setCurrentUser(prev => ({ ...prev, displayName: trimmed }));
+    try {
+      localStorage.setItem('sinsangpick_name', trimmed);
+    } catch (e) {
+      console.warn('Failed to save nickname to localStorage', e);
+    }
 
     if (supabase && isSupabaseConfigured) {
       try {
@@ -1863,6 +1874,69 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('닉네임이 성공적으로 변경되었습니다.', 'success');
   };
 
+  const updateUserPhoto = async (newPhotoURL: string) => {
+    setCurrentUser(prev => ({ ...prev, photoURL: newPhotoURL }));
+    try {
+      localStorage.setItem('sinsangpick_photo', newPhotoURL);
+    } catch (e) {
+      console.warn('Failed to save photo to localStorage', e);
+    }
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ avatar_url: newPhotoURL })
+          .eq('id', currentUser.uid);
+      } catch (err) {
+        console.warn('[Supabase] Failed to update user avatar:', err);
+      }
+    }
+    showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
+  };
+
+  const updateUserProfile = async (updates: { displayName?: string; photoURL?: string }) => {
+    const trimmed = updates.displayName?.trim();
+    const photo = updates.photoURL;
+
+    setCurrentUser(prev => ({
+      ...prev,
+      displayName: trimmed || prev.displayName,
+      photoURL: photo !== undefined ? photo : prev.photoURL,
+    }));
+
+    if (trimmed) {
+      try {
+        localStorage.setItem('sinsangpick_name', trimmed);
+      } catch (e) {
+        console.warn('Failed to save nickname to localStorage', e);
+      }
+    }
+
+    if (photo !== undefined) {
+      try {
+        localStorage.setItem('sinsangpick_photo', photo);
+      } catch (e) {
+        console.warn('Failed to save photo to localStorage', e);
+      }
+    }
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        const dbUpdates: any = {};
+        if (trimmed) dbUpdates.display_name = trimmed;
+        if (photo !== undefined) dbUpdates.avatar_url = photo;
+        await supabase
+          .from('profiles')
+          .update(dbUpdates)
+          .eq('id', currentUser.uid);
+      } catch (err) {
+        console.warn('[Supabase] Failed to update profile:', err);
+      }
+    }
+    showToast('프로필이 성공적으로 변경되었습니다.', 'success');
+  };
+
   const loginWithApple = async () => {
     try {
       if (!supabase || !isSupabaseConfigured) {
@@ -1871,7 +1945,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const demoUser: UserProfile = {
           uid: demoUid,
           displayName: nextNickname,
-          photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+          photoURL: DEFAULT_AVATAR,
           level: 'Lv.2',
           points: 250,
           isAnonymous: false,
@@ -1924,7 +1998,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
         }
 
-        const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+        const photoURL = u.user_metadata?.avatar_url || DEFAULT_AVATAR;
 
         setCurrentUser(prev => ({
           ...prev,
@@ -1980,7 +2054,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const demoUser: UserProfile = {
           uid: demoUid,
           displayName: nextNickname,
-          photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+          photoURL: DEFAULT_AVATAR,
           level: 'Lv.2',
           points: 250,
           isAnonymous: false,
@@ -2013,7 +2087,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const demoUser: UserProfile = {
           uid: demoUid,
           displayName: nextNickname,
-          photoURL: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
+          photoURL: DEFAULT_AVATAR,
           level: 'Lv.2',
           points: 250,
           isAnonymous: false,
@@ -3371,7 +3445,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             .map(p => ({
               uid: p.id,
               displayName: p.display_name || '신상러버',
-              photoURL: p.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+              photoURL: p.avatar_url || DEFAULT_AVATAR,
               level: calculateLevel(p.points ?? 100),
               points: p.points ?? 100,
               email: p.email || undefined,
@@ -3994,6 +4068,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         showToast,
         removeToast,
         updateUserNickname,
+        updateUserPhoto,
+        updateUserProfile,
         loginWithApple,
         loginWithGoogle,
         loginWithKakao,

@@ -14,6 +14,7 @@ import {
   Clock, 
   UserX
 } from 'lucide-react';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 
 interface UserManagementTabProps {
   isDark: boolean;
@@ -429,7 +430,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                       <td className="p-3.5">
                         <div className="flex items-center gap-3">
                           <img
-                            src={user.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'}
+                            src={user.photoURL || DEFAULT_AVATAR}
                             alt={user.displayName}
                             className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700 shrink-0"
                           />
@@ -546,7 +547,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <img
-                  src={selectedUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'}
+                  src={selectedUser.photoURL || DEFAULT_AVATAR}
                   alt={selectedUser.displayName}
                   className="w-12 h-12 rounded-full object-cover border-2 border-blue-500 shrink-0"
                 />

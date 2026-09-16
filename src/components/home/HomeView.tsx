@@ -33,6 +33,7 @@ import {
   formatSearchCount 
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 
@@ -1254,11 +1255,11 @@ export const HomeView: React.FC = () => {
                   >
                     <div className="flex items-center gap-2">
                       <img
-                        src={r.userAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop&q=80'}
+                        src={r.userAvatar || DEFAULT_AVATAR}
                         alt={r.userName}
                         className="w-8 h-8 rounded-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+                          e.currentTarget.src = DEFAULT_AVATAR;
                         }}
                       />
                       <div>
