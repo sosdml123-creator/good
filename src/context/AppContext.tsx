@@ -1336,7 +1336,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             if (!hasNicknameSet) {
               setIsNicknameModalOpen(true);
             } else {
-              const providerMsg = providerName === 'apple' ? '🍎 Apple 계정으로 로그인되었습니다!' : '✨ 소셜 계정으로 로그인되었습니다!';
+              const providerMsg = providerName === 'apple' 
+                ? '🍎 Apple 계정으로 로그인되었습니다!' 
+                : providerName === 'kakao'
+                ? '💬 카카오 계정으로 로그인되었습니다!'
+                : '🌐 Google 계정으로 로그인되었습니다!';
               showToast(providerMsg, 'success');
             }
             if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
