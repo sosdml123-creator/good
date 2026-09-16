@@ -23434,7 +23434,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&auto=format&fit=crop&q=80',
     badge: '🍕 전국 피자 브랜드관 공식 오픈',
     title: '도미노피자 · 파파존스 · 피자헛 · 피자스쿨 · 피자알볼로 · 반올림',
-    subtitle: '블랙타이거슈림프, 수퍼파파스, 골드바이트, 포테이토 등 대표 피자 98종 총집합',
+    subtitle: '블랙타이거슈림프, 씨푸드킹, 수퍼파파스, 포테이토 등 대표 피자 104종 총집합',
     buttonText: '피자 신메뉴 둘러보기',
     linkCategory: '패스트푸드',
     isActive: true,
@@ -23681,7 +23681,7 @@ export const INITIAL_NOTIFICATIONS: AppNotification[] = [
   {
     id: 'notif-pizza-01',
     title: '🍕 도미노 · 파파존스 · 피자헛 등 6대 피자 브랜드 입점!',
-    body: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 공식 대표 시그니처 메뉴 98종이 신규 등록되었습니다.',
+    body: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 공식 대표 시그니처 메뉴 104종이 신규 등록되었습니다.',
     timestamp: '2026-09-16T19:40:00Z',
     isRead: false,
     type: 'product',

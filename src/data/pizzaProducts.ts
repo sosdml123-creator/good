@@ -4948,534 +4948,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "pizza-hut-01",
-    "name": "피자헛 립스테이크 골드바이트",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 35900,
-    "overallRating": 4.9,
-    "ratingCount": 652,
-    "searchInfluxCount": 55822,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 94,
-    "calories": 272,
-    "volume": "L 사이즈 8조각",
-    "isToday": true,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 35900,
-        "eventBadge": "시그니처",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "갈비양념으로 숙성한 두툼한 립스테이크와 고구마무스&치즈가 꽉 찬 골드바이트 엣지의 화려한 만남.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-02",
-    "name": "피자헛 토핑킹",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 35900,
-    "overallRating": 4.8,
-    "ratingCount": 345,
-    "searchInfluxCount": 42241,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 96,
-    "calories": 297,
-    "volume": "L 사이즈 8조각",
-    "isToday": true,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 35900,
-        "eventBadge": "베스트셀러",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "통새우, 베이컨, 스테이크, 소시지까지 피자헛의 가장 맛있는 토핑을 아낌없이 쏟아부은 역대급 토핑킹.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-03",
-    "name": "피자헛 케이준 더블쉬림프",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 35900,
-    "overallRating": 4.8,
-    "ratingCount": 424,
-    "searchInfluxCount": 56873,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 91,
-    "calories": 329,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 35900,
-        "eventBadge": "인기",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "매콤달콤 케이준 시즈닝 통새우와 크런치 쉬림프의 바삭탱글한 더블 식감 피자.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-04",
-    "name": "피자헛 티본스테이크&쉬림프",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 35900,
-    "overallRating": 4.9,
-    "ratingCount": 554,
-    "searchInfluxCount": 56214,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 94,
-    "calories": 279,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 35900,
-        "eventBadge": "프리미엄",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "부드러운 안심과 쫄깃한 등심의 티본스테이크와 감칠맛 가득한 통새우를 한 판에 담은 프리미엄 피자.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-05",
-    "name": "피자헛 슈퍼슈프림",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 29900,
-    "overallRating": 4.9,
-    "ratingCount": 432,
-    "searchInfluxCount": 32796,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 92,
-    "calories": 308,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": true,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 29900,
-        "eventBadge": "스테디셀러",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "신선한 야채와 고기 토핑이 황금비율로 어우러진 정통 오리지널 슈퍼슈프림 피자.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-06",
-    "name": "피자헛 직화불고기",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 29900,
-    "overallRating": 4.9,
-    "ratingCount": 371,
-    "searchInfluxCount": 32411,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 91,
-    "calories": 334,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": false,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 29900,
-        "eventBadge": "남녀노소 인기",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "은은한 숯불향의 달콤짭조름한 정통 불고기와 신선한 피망, 양파, 버섯의 풍성한 맛.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-07",
-    "name": "피자헛 베이컨 포테이토",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 29900,
-    "overallRating": 4.8,
-    "ratingCount": 355,
-    "searchInfluxCount": 37374,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 93,
-    "calories": 305,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": false,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 29900,
-        "eventBadge": "인기",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "포슬포슬한 웨지감자와 훈제 베이컨의 고소함, 부드러운 마요네즈 소스의 꿀조합.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
-    "id": "pizza-hut-08",
-    "name": "피자헛 페페로니 러버",
-    "brand": "피자헛",
-    "category": "패스트푸드",
-    "subCategory": "피자",
-    "itemType": "restaurant",
-    "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800&auto=format&fit=crop&q=80",
-    "releaseDate": "피자헛 공식",
-    "price": 23900,
-    "overallRating": 4.7,
-    "ratingCount": 370,
-    "searchInfluxCount": 45788,
-    "stores": [
-      "피자헛"
-    ],
-    "repurchasePercent": 94,
-    "calories": 291,
-    "volume": "L 사이즈 8조각",
-    "isToday": false,
-    "isHot": false,
-    "detailedRating": {
-      "taste": 4.8,
-      "value": 4.6,
-      "portion": 4.9,
-      "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 290,
-      "sodium": "540mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "13g (24%)",
-      "protein": "13g (24%)"
-    },
-    "ingredients": "피자헛 오리지널 팬/치즈크러스트 도우, 모짜렐라 치즈, 프리미엄 토핑류",
-    "allergens": [
-      "밀",
-      "우유",
-      "대두",
-      "토마토",
-      "쇠고기",
-      "돼지고기"
-    ],
-    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
-    "manufacturer": "한국피자헛 (유)",
-    "storageMethod": "즉시 섭취 권장",
-    "shelfLife": "제조 당일",
-    "precautions": "엣지 선택 시 치즈크러스트 또는 리치골드로 변경 가능합니다.",
-    "storeStocks": [
-      {
-        "store": "피자헛",
-        "status": "입고완료",
-        "stockCount": 45,
-        "price": 23900,
-        "eventBadge": "클래식",
-        "deliveryTime": "포장 15분 / 배달 30분"
-      }
-    ],
-    "description": "짭조름한 정통 페페로니를 빈틈없이 꽉 채워 치즈와 함께 구워낸 클래식 매니아 피자.",
-    "bestQuotes": [
-      "리치골드 엣지의 원조는 역시 피자헛",
-      "팬피자의 바삭하고 기름진 겉바속촉 도우는 독보적",
-      "토핑이 입안 한가득 씹히는 맛이 일품"
-    ]
-  },
-  {
     "id": "pizza-school-01",
     "name": "피자스쿨 포테이토피자",
     "brand": "피자스쿨",
@@ -6725,6 +6197,965 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림 수제 갈릭소스는 다른 어떤 피자집도 못 따라옴",
       "포텐피자 하나 시키면 4가지 맛이라 절대 안 질림",
       "도우 소보로 엣지 변경하면 끝부분이 빵집보다 맛있음"
+    ]
+  },
+  {
+    "id": "pizza-hut-01",
+    "name": "피자헛 씨푸드킹",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 36900,
+    "overallRating": 4.7,
+    "ratingCount": 380,
+    "searchInfluxCount": 28000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 93,
+    "calories": 298,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": true,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 298,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "새우",
+      "조개류(관자, 게)"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 36900,
+        "eventBadge": "프리미엄 1위",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "통관자와 케이준 통새우가 가득! 프레시 스노우 크랩 시즈닝으로 입안 가득 바다의 풍미를 담은 피자헛 1위 프리미엄 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-02",
+    "name": "피자헛 립스테이크",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 36900,
+    "overallRating": 4.8,
+    "ratingCount": 405,
+    "searchInfluxCount": 29500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 94,
+    "calories": 310,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": true,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 310,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 36900,
+        "eventBadge": "시그니처 스테이크",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "달콤 짭조름한 특제 갈비양념으로 마리네이드한 두툼한 립스테이크(180g)와 풍성한 가니쉬의 프리미엄 스테이크 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-03",
+    "name": "피자헛 토핑킹",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 36900,
+    "overallRating": 4.9,
+    "ratingCount": 430,
+    "searchInfluxCount": 31000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 95,
+    "calories": 325,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": true,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 325,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 36900,
+        "eventBadge": "베스트셀러",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "이탈리안 소시지, 베이컨, 직화 불고기, 포크 등 피자헛 최고의 토핑들을 아낌없이 쏟아부은 역대급 토핑의 제왕.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-04",
+    "name": "피자헛 갈릭버터쉬림프",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 36900,
+    "overallRating": 4.7,
+    "ratingCount": 455,
+    "searchInfluxCount": 32500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 96,
+    "calories": 280,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 280,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "새우"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 36900,
+        "eventBadge": "갈릭쉬림프",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "탱글탱글한 통새우에 알싸하고 고소한 갈릭버터 소스와 크림치즈의 깊은 풍미가 어우러진 쉬림프 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-05",
+    "name": "피자헛 치즈킹",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 36900,
+    "overallRating": 4.8,
+    "ratingCount": 480,
+    "searchInfluxCount": 34000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 97,
+    "calories": 295,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 295,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 36900,
+        "eventBadge": "진한 치즈풍미",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "와인에 숙성한 부드러운 비프와 쫀득한 모짜렐라, 부드러운 크림치즈가 통째로 듬뿍 들어간 치즈 매니아 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-06",
+    "name": "피자헛 직화불고기",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 34900,
+    "overallRating": 4.9,
+    "ratingCount": 505,
+    "searchInfluxCount": 35500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 93,
+    "calories": 285,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 285,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 34900,
+        "eventBadge": "남녀노소 1위",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "한국인의 입맛을 사로잡은 달콤하고 은은한 불향 가득 직화 불고기와 신선한 야채의 황금 밸런스.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-07",
+    "name": "피자헛 베이컨 포테이토",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 34900,
+    "overallRating": 4.7,
+    "ratingCount": 530,
+    "searchInfluxCount": 37000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 94,
+    "calories": 290,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 290,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "돼지고기",
+      "계란"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 34900,
+        "eventBadge": "국민인기",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "포슬포슬한 웨지감자와 짭짤한 훈제 베이컨, 부드럽고 달콤한 마요네즈 소스의 절대 실패 없는 꿀조합.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-08",
+    "name": "피자헛 슈퍼슈프림",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 34900,
+    "overallRating": 4.8,
+    "ratingCount": 555,
+    "searchInfluxCount": 38500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 95,
+    "calories": 275,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 275,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "돼지고기",
+      "쇠고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 34900,
+        "eventBadge": "30년 정통",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "피망, 양파, 버섯 등 신선한 야채와 페페로니, 고기 토핑이 완벽하게 어우러진 피자헛 30년 전통의 오리지널 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-09",
+    "name": "피자헛 US 오리진 페페로니",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 26900,
+    "overallRating": 4.9,
+    "ratingCount": 580,
+    "searchInfluxCount": 40000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 96,
+    "calories": 260,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 260,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "돼지고기",
+      "쇠고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 26900,
+        "eventBadge": "US 오리지널",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "바삭하게 구워진 짭짤한 오리지널 페페로니와 고소한 100% 모짜렐라 치즈의 정통 아메리칸 스타일 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-10",
+    "name": "피자헛 US 오리진 멜팅치즈 포테이토",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 28900,
+    "overallRating": 4.7,
+    "ratingCount": 605,
+    "searchInfluxCount": 41500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 97,
+    "calories": 270,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 270,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 28900,
+        "eventBadge": "US 포테이토",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "노릇하게 구워진 겉바속촉 도우 위에 녹아내리는 치즈와 담백한 포테이토의 환상적인 하모니.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-11",
+    "name": "피자헛 US 오리진 LA BBQ 불고기",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 29900,
+    "overallRating": 4.8,
+    "ratingCount": 630,
+    "searchInfluxCount": 43000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 93,
+    "calories": 285,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 285,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 29900,
+        "eventBadge": "LA BBQ",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "스모키한 오리지널 BBQ 소스와 육즙 가득한 불고기가 어우러진 LA 스타일 아메리칸 불고기 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-12",
+    "name": "피자헛 US 오리진 브루클린 버거",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 29900,
+    "overallRating": 4.9,
+    "ratingCount": 655,
+    "searchInfluxCount": 44500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 94,
+    "calories": 295,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 295,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "쇠고기",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 29900,
+        "eventBadge": "브루클린 수제버거",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "육즙 가득한 수제 버거 패티 스타일 토핑과 특제 버거 소스로 뉴욕 브루클린 감성을 그대로 담은 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-13",
+    "name": "피자헛 US 오리진 하와이안",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 26900,
+    "overallRating": 4.7,
+    "ratingCount": 680,
+    "searchInfluxCount": 46000,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 95,
+    "calories": 250,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 250,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토",
+      "돼지고기"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 26900,
+        "eventBadge": "단짠 하와이안",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "달콤한 과즙 가득 파인애플과 짭조름한 햄, 고소한 치즈가 만들어내는 단짠 상큼의 대표 클래식 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
+    ]
+  },
+  {
+    "id": "pizza-hut-14",
+    "name": "피자헛 US 오리진 치즈",
+    "brand": "피자헛",
+    "category": "패스트푸드",
+    "subCategory": "피자",
+    "itemType": "restaurant",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80",
+    "releaseDate": "피자헛 공식",
+    "price": 23900,
+    "overallRating": 4.8,
+    "ratingCount": 705,
+    "searchInfluxCount": 47500,
+    "stores": [
+      "피자헛"
+    ],
+    "repurchasePercent": 96,
+    "calories": 245,
+    "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 245,
+      "sodium": "530mg (27%)",
+      "carbs": "31g (10%)",
+      "sugar": "4g (4%)",
+      "fat": "12g (22%)",
+      "transFat": "0.2g",
+      "satFat": "5g (33%)",
+      "cholesterol": "25mg (8%)",
+      "protein": "13g (24%)"
+    },
+    "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두",
+      "토마토"
+    ],
+    "origin": "치즈: 미국산/뉴질랜드산, 육류: 국내산 및 수입산 배합",
+    "manufacturer": "한국피자헛 (유)",
+    "storageMethod": "수령 후 즉시 취식 권장 (냉장 보관 시 2일 이내 데워 취식)",
+    "shelfLife": "제조 당일",
+    "precautions": "엣지 선택 시 치즈크러스트, 리치골드(고구마무스), 골드바이트로 변경 가능합니다.",
+    "storeStocks": [
+      {
+        "store": "피자헛",
+        "status": "입고완료",
+        "stockCount": 50,
+        "price": 23900,
+        "eventBadge": "순수 치즈",
+        "deliveryTime": "포장 15분 / 배달 30분"
+      }
+    ],
+    "description": "풍성하게 늘어나는 100% 자연산 모짜렐라 치즈와 새콤달콤 토마토 소스 본연의 진한 풍미를 즐기는 피자.",
+    "bestQuotes": [
+      "리치골드 고구마무스 엣지와 통토핑의 궁합은 피자헛이 독보적 1등",
+      "씨푸드킹 관자랑 통새우 식감이 너무 신선하고 꽉 차있음",
+      "팬피자 특유의 바삭하고 고소한 크러스트 식감이 인생 피자"
     ]
   }
 ];
