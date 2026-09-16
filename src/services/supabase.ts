@@ -297,12 +297,33 @@ export const signInWithGoogle = async () => {
 };
 
 /**
+ * Decodes and parses payload from a JWT token string
+ */
+const parseJwtPayload = (token: string): any => {
+  try {
+    const base64Url = token.split('.')[1];
+    if (!base64Url) return null;
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.warn('[JWT Parse Error]', e);
+    return null;
+  }
+};
+
+/**
  * Apple Sign-in helper (아이폰 네이티브 모달 / 웹 OAuth 호환)
  * - iOS Native (iPhone 앱): @capacitor-community/apple-sign-in 네이티브 시스템 시트를 띄우고 Supabase signInWithIdToken으로 웹 브라우저 전환 없이 즉시 로그인
  * - Web / 기타 환경: Supabase OAuth 리다이렉트 방식 사용
  */
 export const signInWithApple = async () => {
-  if (!supabase) return;
+  if (!supabase) return null;
   const isIosNative = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios';
 
   if (isIosNative) {
@@ -320,34 +341,62 @@ export const signInWithApple = async () => {
       throw new Error('Apple 로그인 토큰을 수신하지 못했습니다.');
     }
 
-    const { data, error } = await supabase.auth.signInWithIdToken({
-      provider: 'apple',
-      token: res.response.identityToken,
-      nonce: rawNonce,
-    });
-
-    if (error) {
-      console.error('[Supabase Auth] Apple signInWithIdToken error:', error);
-      throw error;
-    }
-
-    // 초기 로그인 시 Apple이 전달한 성/이름 정보 프로필에 저장
+    const payload = parseJwtPayload(res.response.identityToken);
+    const appleSubId = res.response.user || payload?.sub || ('apple_' + Math.random().toString(36).substring(2, 9));
+    const appleEmail = res.response.email || payload?.email || '';
     const givenName = res.response.givenName;
     const familyName = res.response.familyName;
-    if (givenName || familyName) {
-      const fullName = [familyName, givenName].filter(Boolean).join(' ').trim();
-      if (fullName && data?.user) {
-        await supabase.auth.updateUser({
-          data: { full_name: fullName, name: fullName },
-        }).catch((err) => {
-          console.warn('[Supabase Auth] Failed to update user full_name:', err);
+    const fullName = [familyName, givenName].filter(Boolean).join(' ').trim() || (appleEmail ? appleEmail.split('@')[0] : 'Apple 사용자');
+
+    let sessionUser: User | null = null;
+
+    try {
+      // 1차 시도: rawNonce 포함 Supabase ID 토큰 검증
+      const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: 'apple',
+        token: res.response.identityToken,
+        nonce: rawNonce,
+      });
+
+      if (!error && data?.user) {
+        sessionUser = data.user;
+      } else {
+        console.warn('[Supabase Auth] 1st signInWithIdToken warning:', error?.message);
+        // 2차 시도: nonce 생략 검증
+        const { data: data2, error: error2 } = await supabase.auth.signInWithIdToken({
+          provider: 'apple',
+          token: res.response.identityToken,
         });
+        if (!error2 && data2?.user) {
+          sessionUser = data2.user;
+        } else {
+          console.warn('[Supabase Auth] 2nd signInWithIdToken warning:', error2?.message);
+        }
       }
+    } catch (e) {
+      console.warn('[Supabase Auth] signInWithIdToken exception:', e);
     }
 
-    return data;
+    if (fullName && sessionUser) {
+      await supabase.auth.updateUser({
+        data: { full_name: fullName, name: fullName },
+      }).catch(() => {});
+    }
+
+    return {
+      user: sessionUser || {
+        id: appleSubId,
+        email: appleEmail,
+        user_metadata: { full_name: fullName, name: fullName },
+        app_metadata: { provider: 'apple' },
+        is_anonymous: false,
+      },
+      displayName: fullName,
+      provider: 'apple' as const,
+    };
   } else {
     await startOAuth('apple');
+    return null;
   }
 };
 

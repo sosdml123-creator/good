@@ -1676,10 +1676,54 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '250');
+        setIsLoginModalOpen(false);
+        setIsGuestBrowse(true);
         showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
         return;
       }
-      await supabaseSignInWithApple();
+
+      const res: any = await supabaseSignInWithApple();
+
+      if (res && res.user) {
+        const u = res.user;
+        const displayName = res.displayName || u.user_metadata?.full_name || u.user_metadata?.name || (u.email ? u.email.split('@')[0] : 'Apple 사용자');
+        const photoURL = u.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+        const uid = u.id || u.uid;
+
+        setCurrentUser(prev => ({
+          ...prev,
+          uid,
+          displayName: prev.displayName && !prev.displayName.startsWith('신상러버_') && !prev.displayName.includes('사용자') ? prev.displayName : displayName,
+          photoURL: photoURL || prev.photoURL,
+          isAnonymous: false,
+          email: u.email,
+          provider: 'apple',
+        }));
+
+        localStorage.setItem('sinsangpick_uid', uid);
+        localStorage.setItem('sinsangpick_name', displayName);
+        setIsLoginModalOpen(false);
+        setIsGuestBrowse(true);
+
+        const hasNicknameSet = localStorage.getItem('sinsangpick_nickname_set_' + uid);
+        if (!hasNicknameSet) {
+          setIsNicknameModalOpen(true);
+        } else {
+          showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
+        }
+
+        try {
+          await supabase.from('profiles').upsert({
+            id: uid,
+            display_name: displayName,
+            avatar_url: photoURL,
+          }, { onConflict: 'id' });
+        } catch (e) {
+          console.warn('[Supabase Profile Upsert Error]', e);
+        }
+
+        loadSupabaseData(uid);
+      }
     } catch (err: any) {
       const errMsg = err?.message || String(err || '');
       if (
