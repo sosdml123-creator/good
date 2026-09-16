@@ -57,7 +57,7 @@ export const App: React.FC = () => {
   // PC Admin Dashboard Layout (Full Desktop View without mobile BottomNav)
   if (activeTab === 'admin') {
     return (
-      <div className="h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden antialiased">
+      <div className="h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-hidden antialiased">
         <AuthCallbackBridge />
         <ToastContainer />
         <PushBanner />
