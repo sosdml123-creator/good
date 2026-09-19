@@ -318,6 +318,36 @@ export interface ReportItem {
   resolvedAt?: string;        // 조치 처리 일시
 }
 
+// ✏️ 제품 정보 수정 요청 시스템 (Product Edit Request System)
+export type ProductEditType = 
+  | 'price'          // 가격 오류 (정가/할인가)
+  | 'store_event'    // 판매처 및 1+1/2+1 행사 추가/수정
+  | 'nutrition'      // 영양성분, 칼로리, 알레르기 성분 오류
+  | 'name_brand'     // 상품명, 제조사/브랜드 명칭 오류
+  | 'image'          // 대표 상품 이미지 교체 요청
+  | 'discontinued'   // 단종 또는 판매 중단 제보
+  | 'other';         // 기타 상세 정보 수정
+
+export type ProductEditStatus = 'pending' | 'approved' | 'rejected';
+
+export interface ProductEditRequest {
+  id: string;
+  productId: string;
+  productName: string;
+  productBrand: string;
+  productImage?: string;
+  requestType: ProductEditType;
+  content: string;            // 상세 수정 요청 내용
+  suggestedValue?: string;    // 정정 희망 내용/값 (예: 올바른 가격, 신규 판매처 등)
+  sourceUrl?: string;         // 참고 출처 / 링크
+  requesterId: string;        // 요청자 UID
+  requesterName: string;      // 요청자 닉네임
+  status: ProductEditStatus;  // pending(대기중) | approved(반영완료) | rejected(반려)
+  adminMemo?: string;         // 관리자 처리 메모
+  createdAt: string;          // 요청 접수 일시
+  processedAt?: string;       // 처리 일시
+}
+
 export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'none';
 
 export interface BannerItem {

@@ -27,6 +27,11 @@ import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
 import { getProductCode, getProductShareUrl } from '../../utils/productCode';
+import { ProductActionMenuModal } from './ProductActionMenuModal';
+import { ProductEditRequestModal } from './ProductEditRequestModal';
+import { NearbyStoreStockModal } from './NearbyStoreStockModal';
+import { ProductStockAlertModal } from './ProductStockAlertModal';
+import { ReportModal } from '../common/ReportModal';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -44,6 +49,13 @@ export const ProductDetailModal: React.FC = () => {
   const [detailTab, setDetailTab] = useState<'reviews' | 'info' | 'stores'>('reviews');
   const [showAllQuotes, setShowAllQuotes] = useState(false);
   const [fetchedNutrition, setFetchedNutrition] = useState<NutritionInfo | null>(null);
+
+  // Modals state for Action Menu & Features
+  const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
+  const [isEditRequestModalOpen, setIsEditRequestModalOpen] = useState(false);
+  const [isNearbyStockModalOpen, setIsNearbyStockModalOpen] = useState(false);
+  const [isStockAlertModalOpen, setIsStockAlertModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   // 식약처 영양성분 DB 실시간 자동 검증 및 실제 공공데이터 우선 적용
   useEffect(() => {
@@ -212,8 +224,9 @@ export const ProductDetailModal: React.FC = () => {
             <Share2 className="w-5 h-5" />
           </button>
           <button 
-            onClick={() => showToast('품목 알림 및 공유 옵션을 확인하세요.')}
-            className="p-1 hover:text-gray-900"
+            onClick={() => setIsActionMenuOpen(true)}
+            className="p-1 hover:text-gray-900 transition-colors"
+            title="메뉴 더보기"
           >
             <MoreVertical className="w-5 h-5" />
           </button>
@@ -1258,6 +1271,54 @@ export const ProductDetailModal: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* 10. Product Action Menu Modal (Hamburger / More Actions) */}
+      <ProductActionMenuModal
+        isOpen={isActionMenuOpen}
+        onClose={() => setIsActionMenuOpen(false)}
+        product={selectedProduct}
+        onOpenEditRequest={() => setIsEditRequestModalOpen(true)}
+        onOpenNearbyStock={() => setIsNearbyStockModalOpen(true)}
+        onOpenStockAlert={() => setIsStockAlertModalOpen(true)}
+        onToggleCompare={() => toggleCompare(selectedProduct.id)}
+        isCompared={isCompared}
+        onOpenBrandDetail={openBrandDetail}
+        onOpenReport={() => setIsReportModalOpen(true)}
+        showToast={showToast}
+      />
+
+      {/* 11. Product Edit Request Modal (User reporting errors) */}
+      <ProductEditRequestModal
+        isOpen={isEditRequestModalOpen}
+        onClose={() => setIsEditRequestModalOpen(false)}
+        product={selectedProduct}
+      />
+
+      {/* 12. Nearby Store Stock Modal */}
+      <NearbyStoreStockModal
+        isOpen={isNearbyStockModalOpen}
+        onClose={() => setIsNearbyStockModalOpen(false)}
+        product={selectedProduct}
+      />
+
+      {/* 13. Product Stock & Event Alert Modal */}
+      <ProductStockAlertModal
+        isOpen={isStockAlertModalOpen}
+        onClose={() => setIsStockAlertModalOpen(false)}
+        product={selectedProduct}
+      />
+
+      {/* 14. Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        target={{
+          type: 'review',
+          id: selectedProduct.id,
+          authorName: selectedProduct.brand,
+          contentSnippet: `[상품 신고] ${selectedProduct.name} - 정보 오류 또는 부적절한 게시물`
+        }}
+      />
 
     </div>
   );

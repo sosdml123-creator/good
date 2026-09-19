@@ -26,7 +26,8 @@ import {
   ReportAction,
   UserAccountStatus,
   HomeSectionConfig,
-  HomeSectionId
+  HomeSectionId,
+  ProductEditRequest
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
@@ -37,6 +38,7 @@ import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import { INITIAL_REPORTS } from '../data/mockReports';
+import { INITIAL_PRODUCT_EDIT_REQUESTS } from '../data/mockProductEdits';
 import { POPULAR_BRANDS } from '../utils/brandData';
 import {
   fetchDailyNewProducts,
@@ -266,6 +268,21 @@ interface AppContextType {
   ) => Promise<void>;
   dismissReport: (reportId: string, reason?: string, adminMemo?: string) => Promise<void>;
   deleteReport: (reportId: string) => Promise<void>;
+
+  // ✏️ Product Edit Requests (제품 수정 요청)
+  productEditRequests: ProductEditRequest[];
+  submitProductEditRequest: (
+    requestData: Omit<ProductEditRequest, 'id' | 'createdAt' | 'status'>
+  ) => Promise<boolean>;
+  resolveProductEditRequest: (
+    requestId: string,
+    adminMemo?: string
+  ) => Promise<void>;
+  rejectProductEditRequest: (
+    requestId: string,
+    adminMemo?: string
+  ) => Promise<void>;
+  deleteProductEditRequest: (requestId: string) => Promise<void>;
 
   // 🏢 Brands Management (Admin & App)
   brands: BrandInfo[];
@@ -1257,6 +1274,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return INITIAL_REPORTS;
   });
 
+  // Product Edit Requests (제품 수정 요청) state
+  const [productEditRequests, setProductEditRequests] = useState<ProductEditRequest[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_product_edit_requests');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {
+      // ignore
+    }
+    return INITIAL_PRODUCT_EDIT_REQUESTS;
+  });
+
   // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation & verified healing
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
     try {
@@ -1303,6 +1334,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // ignore
     }
   }, [reports]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sinsangpick_product_edit_requests', JSON.stringify(productEditRequests));
+    } catch (e) {
+      // ignore
+    }
+  }, [productEditRequests]);
 
   // Sync pending products to localStorage
   useEffect(() => {
@@ -3184,7 +3223,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newProduct: Product = {
       id: 'prod-' + Date.now(),
-      code: productData.code || generateNextProductCode(products),
+      code: productData.code || generateNextProductCode(products, productData.category, productData.brand),
       name: productData.name,
       brand: productData.brand,
       category: productData.category,
@@ -3485,7 +3524,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newProduct: Product = {
       id: `prod-appr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-      code: customData?.code || generateNextProductCode(products),
+      code: customData?.code || generateNextProductCode(products, customData?.category || pendingItem.category, customData?.brand || pendingItem.brand),
       name: customData?.name || pendingItem.name,
       brand: customData?.brand || pendingItem.brand,
       category: customData?.category || pendingItem.category,
@@ -4373,6 +4412,90 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('신고 내역을 삭제했습니다.', 'info');
   };
 
+  // ✏️ 제품 정보 수정 요청 접수
+  const submitProductEditRequest = async (
+    requestData: Omit<ProductEditRequest, 'id' | 'createdAt' | 'status'>
+  ): Promise<boolean> => {
+    try {
+      const newRequest: ProductEditRequest = {
+        ...requestData,
+        id: 'edit-req-' + Date.now(),
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+      };
+
+      setProductEditRequests(prev => [newRequest, ...prev]);
+
+      if (supabase && isSupabaseConfigured) {
+        try {
+          await supabase.from('product_edit_requests').insert({
+            id: newRequest.id,
+            product_id: newRequest.productId,
+            product_name: newRequest.productName,
+            product_brand: newRequest.productBrand,
+            product_image: newRequest.productImage,
+            request_type: newRequest.requestType,
+            content: newRequest.content,
+            suggested_value: newRequest.suggestedValue,
+            source_url: newRequest.sourceUrl,
+            requester_id: newRequest.requesterId,
+            requester_name: newRequest.requesterName,
+            status: 'pending',
+            created_at: newRequest.createdAt
+          });
+        } catch (dbErr) {
+          console.warn('Supabase product_edit_requests insert error:', dbErr);
+        }
+      }
+
+      showToast('✨ 제품 정보 수정 요청이 관리자에게 접수되었습니다! 검토 후 신속히 반영하겠습니다.', 'success');
+      return true;
+    } catch (e) {
+      showToast('수정 요청 접수 중 오류가 발생했습니다. 다시 시도해 주세요.', 'error');
+      return false;
+    }
+  };
+
+  // ✏️ 제품 수정 요청 승인 / 반영완료
+  const resolveProductEditRequest = async (requestId: string, adminMemo?: string): Promise<void> => {
+    const processedAt = new Date().toISOString();
+    setProductEditRequests(prev => prev.map(req => {
+      if (req.id === requestId) {
+        return {
+          ...req,
+          status: 'approved',
+          adminMemo: adminMemo || req.adminMemo || '관리자 확인 및 상품 정보 반영 완료',
+          processedAt
+        };
+      }
+      return req;
+    }));
+    showToast('✅ 수정 요청을 [반영 완료]로 승인 처리했습니다.', 'success');
+  };
+
+  // ✏️ 제품 수정 요청 반려
+  const rejectProductEditRequest = async (requestId: string, adminMemo?: string): Promise<void> => {
+    const processedAt = new Date().toISOString();
+    setProductEditRequests(prev => prev.map(req => {
+      if (req.id === requestId) {
+        return {
+          ...req,
+          status: 'rejected',
+          adminMemo: adminMemo || req.adminMemo || '확인 결과 기존 정보가 정확함 (반려)',
+          processedAt
+        };
+      }
+      return req;
+    }));
+    showToast('ℹ️ 수정 요청을 [반려] 처리했습니다.', 'info');
+  };
+
+  // ✏️ 제품 수정 요청 삭제
+  const deleteProductEditRequest = async (requestId: string): Promise<void> => {
+    setProductEditRequests(prev => prev.filter(req => req.id !== requestId));
+    showToast('수정 요청 내역을 삭제했습니다.', 'info');
+  };
+
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
     setProducts(INITIAL_PRODUCTS);
@@ -4569,6 +4692,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         resolveReport,
         dismissReport,
         deleteReport,
+
+        // ✏️ Product Edit Requests
+        productEditRequests,
+        submitProductEditRequest,
+        resolveProductEditRequest,
+        rejectProductEditRequest,
+        deleteProductEditRequest,
 
         submitReview,
         toggleLikeReview,

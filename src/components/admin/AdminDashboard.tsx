@@ -73,10 +73,11 @@ import { SalePromotionManagementTab } from './SalePromotionManagementTab';
 import { CalendarManagementTab } from './CalendarManagementTab';
 import { EventManagementTab } from './EventManagementTab';
 import { NotificationManagementTab } from './NotificationManagementTab';
-import { getProductCode } from '../../utils/productCode';
+import { getProductCode, generateNextProductCode } from '../../utils/productCode';
 import { UserManagementTab } from './UserManagementTab';
 import { ReportManagementTab } from './ReportManagementTab';
 import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
+import { ProductEditManagementTab } from './ProductEditManagementTab';
 
 export type AdminTab = 
   | 'overview' 
@@ -84,6 +85,7 @@ export type AdminTab =
   | 'approval' 
   | 'sections'
   | 'products' 
+  | 'product_edits'
   | 'brands'
   | 'stores'
   | 'sales'
@@ -150,9 +152,11 @@ export const AdminDashboard: React.FC = () => {
     deleteCommunityPost,
     allProfiles,
     reports,
+    productEditRequests,
   } = useApp();
 
   const pendingReportsCount = reports.filter(r => r.status === 'pending').length;
+  const pendingProductEditsCount = productEditRequests.filter(r => r.status === 'pending').length;
 
   // Theme mode: Default to 'light' for high readability, with quick toggle to 'dark'
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
@@ -226,6 +230,7 @@ export const AdminDashboard: React.FC = () => {
 
   // Product Form state
   const [productForm, setProductForm] = useState<{
+    code: string;
     name: string;
     brand: string;
     category: ProductCategory;
@@ -251,6 +256,7 @@ export const AdminDashboard: React.FC = () => {
     precautions: string;
     nutrition?: NutritionInfo;
   }>({
+    code: '',
     name: '',
     brand: '',
     category: '신제품',
@@ -596,10 +602,13 @@ export const AdminDashboard: React.FC = () => {
   // Product modal helpers
   const handleOpenNewProduct = () => {
     setEditingProductId(null);
+    const initialCategory: ProductCategory = '과자';
+    const initialCode = generateNextProductCode(products, initialCategory, '');
     setProductForm({
+      code: initialCode,
       name: '',
       brand: '',
-      category: '신제품',
+      category: initialCategory,
       subCategory: '스낵',
       price: 2000,
       discountRate: 0,
@@ -657,6 +666,7 @@ export const AdminDashboard: React.FC = () => {
 
     setEditingProductId(prod.id);
     setProductForm({
+      code: prod.code || getProductCode(prod),
       name: prod.name,
       brand: prod.brand,
       category: prod.category,
@@ -714,6 +724,7 @@ export const AdminDashboard: React.FC = () => {
     });
 
     const payload = {
+      code: productForm.code.trim() || generateNextProductCode(products, productForm.category, productForm.brand),
       name: productForm.name.trim(),
       brand: productForm.brand.trim(),
       category: productForm.category,
@@ -1081,6 +1092,31 @@ export const AdminDashboard: React.FC = () => {
               </button>
 
               <button
+                onClick={() => setActiveAdminTab('product_edits')}
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'product_edits'
+                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Edit3 className={`w-4 h-4 ${activeAdminTab === 'product_edits' ? 'text-white' : 'text-slate-400'}`} />
+                  <span>제품 정보 수정요청</span>
+                </div>
+                {pendingProductEditsCount > 0 ? (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
+                    {pendingProductEditsCount}건
+                  </span>
+                ) : (
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                    activeAdminTab === 'product_edits' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                  }`}>
+                    {productEditRequests.length}
+                  </span>
+                )}
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('brands')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'brands'
@@ -1395,6 +1431,7 @@ export const AdminDashboard: React.FC = () => {
               {activeAdminTab === 'approval' && '신제품 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'sections' && '홈 화면 구좌(섹션) 노출 및 타이틀 관리'}
               {activeAdminTab === 'products' && '상품 및 신제품 데이터베이스 관리'}
+              {activeAdminTab === 'product_edits' && '사용자 제품 정보 수정 요청 및 검토'}
               {activeAdminTab === 'brands' && '식품 제조사 브랜드 관리'}
               {activeAdminTab === 'stores' && '판매처 및 유통채널 관리'}
               {activeAdminTab === 'sales' && '편의점 행사(1+1/2+1) 소식 관리'}
@@ -3909,6 +3946,23 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {/* ========================================================
+              TAB: PRODUCT EDIT REQUESTS (사용자 제품 정보 수정 요청 관리)
+             ======================================================== */}
+          {activeAdminTab === 'product_edits' && (
+            <ProductEditManagementTab 
+              isDark={isDark} 
+              onEditProductCatalog={(productId) => {
+                const p = products.find(item => item.id === productId);
+                if (p) {
+                  handleOpenEditProduct(p);
+                } else {
+                  showToast('해당 상품을 찾을 수 없습니다.', 'error');
+                }
+              }}
+            />
+          )}
+
+          {/* ========================================================
               TAB: REPORTS & MODERATION (신고 접수 내역 및 조치)
              ======================================================== */}
           {activeAdminTab === 'reports' && (
@@ -4045,8 +4099,32 @@ export const AdminDashboard: React.FC = () => {
               {/* Left 2 Cols: Form Inputs */}
               <div className="lg:col-span-2 space-y-4">
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="col-span-1">
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1 flex items-center justify-between">
+                      <span>고유 상품코드 (숫자 8자리) *</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const autoCode = generateNextProductCode(products, productForm.category, productForm.brand);
+                          setProductForm(prev => ({ ...prev, code: autoCode }));
+                          showToast(`✨ 추천 상품코드 [${autoCode}] 생성 완료`, 'info');
+                        }}
+                        className="text-[10px] text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                      >
+                        자동생성
+                      </button>
+                    </label>
+                    <input
+                      type="text"
+                      value={productForm.code}
+                      onChange={e => setProductForm({ ...productForm, code: e.target.value.replace(/[^0-9]/g, '') })}
+                      placeholder="예: 11102001"
+                      className={`w-full p-2.5 rounded-xl text-xs font-mono font-bold border focus:outline-none focus:border-indigo-500 text-indigo-600 dark:text-indigo-400 ${inputBg}`}
+                    />
+                  </div>
+
+                  <div className="col-span-2">
                     <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">상품명 *</label>
                     <input
                       type="text"
@@ -4056,25 +4134,37 @@ export const AdminDashboard: React.FC = () => {
                       className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-indigo-500 ${inputBg}`}
                     />
                   </div>
+                </div>
 
+                <div className="grid grid-cols-4 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드 *</label>
                     <input
                       type="text"
                       value={productForm.brand}
-                      onChange={e => setProductForm({ ...productForm, brand: e.target.value })}
+                      onChange={e => {
+                        const newBrand = e.target.value;
+                        const newCode = !editingProductId 
+                          ? generateNextProductCode(products, productForm.category, newBrand)
+                          : productForm.code;
+                        setProductForm({ ...productForm, brand: newBrand, code: newCode });
+                      }}
                       placeholder="예: 오리온, 농심, 삼양"
                       className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-indigo-500 ${inputBg}`}
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">카테고리</label>
                     <select
                       value={productForm.category}
-                      onChange={e => setProductForm({ ...productForm, category: e.target.value as ProductCategory })}
+                      onChange={e => {
+                        const newCat = e.target.value as ProductCategory;
+                        const newCode = !editingProductId 
+                          ? generateNextProductCode(products, newCat, productForm.brand)
+                          : productForm.code;
+                        setProductForm({ ...productForm, category: newCat, code: newCode });
+                      }}
                       className={`w-full p-2.5 rounded-xl text-xs border ${inputBg}`}
                     >
                       {CATEGORIES.filter(c => c !== '전체').map(c => (
