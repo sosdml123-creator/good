@@ -65,10 +65,8 @@ jobs:
           security default-keychain -s $KEYCHAIN_PATH
           security list-keychains -d user -s $KEYCHAIN_PATH $(security list-keychains -d user | tr -d '"')
 
-          # Install provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 
-          # Decode provisioning profile plist
           PP_PLIST=$(security cms -D -i $PP_PATH)
 
           PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print UUID" /dev/stdin <<< "$PP_PLIST")
@@ -85,87 +83,52 @@ jobs:
           echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
           echo "TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
 
-          # Detect whether the provisioning profile includes Sign In with Apple entitlement
           if echo "$PP_PLIST" | grep -q "com.apple.developer.applesignin"; then
             echo "HAS_APPLE_SIGNIN=true" >> $GITHUB_ENV
-            echo "✅ Profile includes Sign In with Apple"
+            echo "Profile includes Sign In with Apple"
           else
             echo "HAS_APPLE_SIGNIN=false" >> $GITHUB_ENV
-            echo "⚠️  Profile does NOT include Sign In with Apple"
+            echo "Profile does NOT include Sign In with Apple"
           fi
 
       - name: Generate ExportOptions.plist
         run: |
-          cat > ios/App/ExportOptions.plist <<EOF
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>method</key>
-              <string>app-store</string>
-              <key>teamID</key>
-              <string>${TEAM_ID}</string>
-              <key>signingStyle</key>
-              <string>manual</string>
-              <key>provisioningProfiles</key>
-              <dict>
-                  <key>com.sinsangpick.app</key>
-                  <string>${PROFILE_UUID}</string>
-              </dict>
-              <key>signingCertificate</key>
-              <string>Apple Distribution</string>
-              <key>destination</key>
-              <string>export</string>
-              <key>manageAppVersionAndBuildNumber</key>
-              <false/>
-          </dict>
-          </plist>
-          EOF
+          EXPORT_PLIST="$GITHUB_WORKSPACE/ios/App/ExportOptions.plist"
+          /usr/libexec/PlistBuddy -c "Add :method string app-store" \
+            -c "Add :teamID string $TEAM_ID" \
+            -c "Add :signingStyle string manual" \
+            -c "Add :signingCertificate string 'Apple Distribution'" \
+            -c "Add :destination string export" \
+            -c "Add :manageAppVersionAndBuildNumber bool false" \
+            -c "Add :provisioningProfiles dict" \
+            -c "Add :provisioningProfiles:com.sinsangpick.app string $PROFILE_UUID" \
+            "$EXPORT_PLIST"
           echo "=== ExportOptions.plist ==="
-          cat ios/App/ExportOptions.plist
+          cat "$EXPORT_PLIST"
 
       - name: Build Archive (xcodebuild)
         env:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          # Unlock keychain (each step runs a fresh shell)
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $RUNNER_TEMP/app-signing.keychain-db
           security default-keychain -s $RUNNER_TEMP/app-signing.keychain-db
           security list-keychains -d user -s $RUNNER_TEMP/app-signing.keychain-db \
             $(security list-keychains -d user | tr -d '"')
 
-          # Bump build number
           cd ios/App
           xcrun agvtool new-version -all ${{ github.run_number }} || true
 
-          # ─────────────────────────────────────────────────────────────────
-          # Determine entitlements file.
-          # If the provisioning profile does NOT include Sign In with Apple,
-          # we use an empty entitlements file so Xcode won't demand a
-          # matching capability it can't find.
-          # ─────────────────────────────────────────────────────────────────
           if [ "$HAS_APPLE_SIGNIN" = "true" ]; then
-            ENTITLEMENTS="App/App.entitlements"
-            echo "Using full entitlements (profile supports Sign In with Apple)"
+            ENTITLEMENTS="$GITHUB_WORKSPACE/ios/App/App/App.entitlements"
+            echo "Using full entitlements"
           else
-            ENTITLEMENTS="/tmp/App-CI.entitlements"
-            cat > "$ENTITLEMENTS" << 'ENTEOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict/>
-</plist>
-ENTEOF
-            echo "Using empty entitlements (profile lacks Sign In with Apple)"
+            ENTITLEMENTS="$RUNNER_TEMP/App-CI.entitlements"
+            /usr/libexec/PlistBuddy -c "Add :com.apple.developer.team-identifier string $TEAM_ID" \
+              -c "Add :application-identifier string $TEAM_ID.com.sinsangpick.app" \
+              "$ENTITLEMENTS" || true
+            echo "Using minimal entitlements (no Apple Sign In)"
           fi
 
-          # ─────────────────────────────────────────────────────────────────
-          # xcodebuild archive
-          # All signing settings are passed via CLI args, which override
-          # project.pbxproj and xcconfig files.
-          # CocoaPods targets are safe because Podfile post_install sets
-          # CODE_SIGNING_ALLOWED=NO / CODE_SIGNING_REQUIRED=NO for all Pods.
-          # ─────────────────────────────────────────────────────────────────
           xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
