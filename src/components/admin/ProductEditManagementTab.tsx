@@ -19,7 +19,8 @@ import {
   ChevronRight,
   Check,
   X,
-  PackageCheck
+  PackageCheck,
+  Sparkles
 } from 'lucide-react';
 import { SafeImage } from '../common/SafeImage';
 
@@ -87,6 +88,8 @@ export const ProductEditManagementTab: React.FC<ProductEditManagementTabProps> =
         return { label: '대표 이미지', icon: ImageIcon, color: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20' };
       case 'discontinued':
         return { label: '단종 제보', icon: Ban, color: 'bg-red-500/10 text-red-600 border-red-500/20' };
+      case 'new_product':
+        return { label: '신규 상품 등록', icon: Sparkles, color: 'bg-amber-500/10 text-amber-600 border-amber-500/20' };
       default:
         return { label: '기타 정보', icon: FileText, color: 'bg-slate-500/10 text-slate-600 border-slate-500/20' };
     }
@@ -249,6 +252,7 @@ export const ProductEditManagementTab: React.FC<ProductEditManagementTabProps> =
             }`}
           >
             <option value="all">모든 항목 유형</option>
+            <option value="new_product">✨ 신규 상품 등록</option>
             <option value="price">가격 오류</option>
             <option value="store_event">판매처/행사</option>
             <option value="nutrition">영양성분/칼로리</option>

@@ -328,6 +328,7 @@ export type ProductEditType =
   | 'name_brand'     // 상품명, 제조사/브랜드 명칭 오류
   | 'image'          // 대표 상품 이미지 교체 요청
   | 'discontinued'   // 단종 또는 판매 중단 제보
+  | 'new_product'    // 신규 상품 등록 요청
   | 'other';         // 기타 상세 정보 수정
 
 export type ProductEditStatus = 'pending' | 'approved' | 'rejected';
