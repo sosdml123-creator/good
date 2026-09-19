@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install Dependencies
@@ -60,7 +60,7 @@ jobs:
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
           # 2. Import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T /usr/bin/codesign -T /usr/bin/security -T /usr/bin/xcodebuild
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           
           # Set default keychain and include in search list
@@ -115,28 +115,45 @@ jobs:
           cat ios/App/ExportOptions.plist
 
       - name: Build Archive (xcodebuild)
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           BUILD_NUMBER=${{ github.run_number }}
           cd ios/App
           xcrun agvtool new-version -all $BUILD_NUMBER || true
 
-          # Archive without code signing so CocoaPods targets do not fail with code sign errors
+          # Unlock keychain for this step
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $RUNNER_TEMP/app-signing.keychain-db
+          security default-keychain -s $RUNNER_TEMP/app-signing.keychain-db
+          security list-keychains -d user -s $RUNNER_TEMP/app-signing.keychain-db $(security list-keychains -d user | tr -d '"')
+
+          # Configure signing specifically on the App target via its xcconfig
+          echo "DEVELOPMENT_TEAM = $TEAM_ID" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
+          echo "PROVISIONING_PROFILE_SPECIFIER = $PROFILE_NAME" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
+          echo "CODE_SIGN_IDENTITY = Apple Distribution" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
+          echo "CODE_SIGN_STYLE = Manual" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
+
           xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
             -configuration Release \
             -destination 'generic/platform=iOS' \
-            -archivePath ../../build/App.xcarchive \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            -archivePath "$GITHUB_WORKSPACE/build/App.xcarchive" \
+            -allowProvisioningUpdates
 
       - name: Export IPA
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          # Code signing is performed during exportArchive using ExportOptions.plist
+          # Unlock keychain for this step
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $RUNNER_TEMP/app-signing.keychain-db
+          security default-keychain -s $RUNNER_TEMP/app-signing.keychain-db
+          security list-keychains -d user -s $RUNNER_TEMP/app-signing.keychain-db $(security list-keychains -d user | tr -d '"')
+
           xcodebuild -exportArchive \
-            -archivePath build/App.xcarchive \
-            -exportOptionsPlist ios/App/ExportOptions.plist \
-            -exportPath build/ipa \
+            -archivePath "$GITHUB_WORKSPACE/build/App.xcarchive" \
+            -exportOptionsPlist "$GITHUB_WORKSPACE/ios/App/ExportOptions.plist" \
+            -exportPath "$GITHUB_WORKSPACE/build/ipa" \
             -allowProvisioningUpdates
 
       - name: Upload to App Store Connect
@@ -149,7 +166,7 @@ jobs:
           echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8
           echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8
 
-          IPA_PATH=$(find build/ipa -name "*.ipa" | head -1)
+          IPA_PATH=$(find "$GITHUB_WORKSPACE/build/ipa" -name "*.ipa" | head -1)
           echo "Uploading: $IPA_PATH"
 
           xcrun altool --upload-app \
