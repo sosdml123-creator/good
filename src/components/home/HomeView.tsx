@@ -23,7 +23,8 @@ import {
   Apple,
   Egg,
   Beef,
-  Beer
+  Beer,
+  Plus
 } from 'lucide-react';
 import { ProductCategory, Product, BannerItem, HomeSectionConfig } from '../../types';
 import { 
@@ -585,31 +586,14 @@ export const HomeView: React.FC = () => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
 
-                        {/* Badges without emojis */}
-                        <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
-                          {p.isToday ? (
+                        {/* Badges - Only show today's new item badge if applicable */}
+                        {p.isToday && (
+                          <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
                             <span className="text-[10px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
                               <Zap className="w-2.5 h-2.5 fill-current" /> 오늘신상
                             </span>
-                          ) : (
-                            <span className="text-[10px] font-black bg-gray-900 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                              NEW
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Store or SubCategory Pill */}
-                        <div className="absolute bottom-1.5 left-1.5 flex gap-1">
-                          {p.stores && p.stores.length > 0 ? (
-                            <span className="text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded backdrop-blur-xs">
-                              {p.stores[0]}
-                            </span>
-                          ) : p.subCategory ? (
-                            <span className="text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded backdrop-blur-xs">
-                              {p.subCategory}
-                            </span>
-                          ) : null}
-                        </div>
+                          </div>
+                        )}
 
                         {/* Bookmark Button */}
                         <button
@@ -642,13 +626,6 @@ export const HomeView: React.FC = () => {
                         <div className="flex items-center gap-1 mt-0.5">
                           <span className="text-[13px] font-black text-gray-900">{p.price.toLocaleString()}원</span>
                         </div>
-
-                        {/* Release Date info tag */}
-                        {p.releaseDate && (
-                          <div className="text-[10px] text-gray-600 font-medium mt-1 bg-gray-100 px-1.5 py-0.5 rounded w-fit">
-                            {p.releaseDate}
-                          </div>
-                        )}
                       </div>
                     </div>
                   );
@@ -1323,8 +1300,19 @@ export const HomeView: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F6F7F9] min-h-screen pb-20 select-none">
+    <div className="bg-[#F6F7F9] min-h-screen pb-20 select-none relative">
       {sortedHomeSections.map((section) => renderSection(section))}
+
+      {/* 6. Floating Action Button (+) for Instant Review Writing */}
+      <button
+        type="button"
+        onClick={() => setActiveTab('write')}
+        className="fixed bottom-20 right-5 z-40 w-13 h-13 bg-gray-900 hover:bg-black text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-90 border-2 border-white/20 group"
+        title="신상 리뷰 바로 작성하기"
+        aria-label="리뷰 작성"
+      >
+        <Plus className="w-7 h-7 stroke-[2.8] text-white group-hover:rotate-90 transition-transform duration-300" />
+      </button>
     </div>
   );
 };

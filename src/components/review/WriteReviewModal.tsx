@@ -110,21 +110,55 @@ export const WriteReviewModal: React.FC = () => {
     return products.find(p => p.id === currentProductId) || null;
   }, [products, currentProductId]);
 
-  const isFresh = prod ? (prod.itemType === 'fresh' || ['과일', '고기·수산', '식재료'].includes(prod.category)) : false;
+  // 상품 카테고리별 세부 평가 항목 (수박/과일 -> 신선도, 당도 등 분기 + 별점 지원)
+  const categoryMetrics = useMemo(() => {
+    const cat = prod?.category || '';
+    const name = prod?.name || '';
 
-  const sliderLabels = isFresh
-    ? [
-        { label: '당도·풍미', left: '부족', right: '최고' },
-        { label: '신선도', left: '보통', right: '매우신선' },
-        { label: '식감', left: '물러요', right: '아삭/쫀득' },
-        { label: '가격만족도', left: '비쌈', right: '가성비최고' },
-      ]
-    : [
-        { label: '맛', left: '별로', right: '최고' },
-        { label: '가성비', left: '비쌈', right: '가성비좋음' },
-        { label: '양', left: '적음', right: '푸짐함' },
-        { label: '재구매', left: '안살듯', right: '무조건' },
+    // 과일 / 수박 / 신선식품
+    if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
+      return [
+        { label: '신선도', val: metric1, set: setMetric1, desc: '싱싱하고 신선한가요?' },
+        { label: '당도·풍미', val: metric2, set: setMetric2, desc: '달콤하고 풍미가 풍부한가요?' },
+        { label: '식감', val: metric3, set: setMetric3, desc: '아삭아삭 식감이 좋은가요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 훌륭한가요?' },
       ];
+    }
+    // 음료
+    if (cat === '음료') {
+      return [
+        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
+        { label: '목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
+        { label: '양·용량', val: metric3, set: setMetric3, desc: '마시기에 든든한 용량인가요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만점인가요?' },
+      ];
+    }
+    // 과자 / 빵·디저트
+    if (['과자', '빵·디저트'].includes(cat)) {
+      return [
+        { label: '바삭함·식감', val: metric1, set: setMetric1, desc: '바삭하거나 꾸덕함이 인상적인가요?' },
+        { label: '단짠·풍미', val: metric2, set: setMetric2, desc: '양념과 단짠 밸런스가 최고인가요?' },
+        { label: '양·구성', val: metric3, set: setMetric3, desc: '질소 없이 푸짐하게 들었나요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+      ];
+    }
+    // 간편식 / 패스트푸드
+    if (['간편식', '패스트푸드'].includes(cat)) {
+      return [
+        { label: '맛·양념', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
+        { label: '조리 편의성', val: metric2, set: setMetric2, desc: '데우거나 섭취하기 편리한가요?' },
+        { label: '양·푸짐함', val: metric3, set: setMetric3, desc: '한 끼 식사로 든든한가요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+      ];
+    }
+    // 기본 (기타)
+    return [
+      { label: '맛', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
+      { label: '가성비', val: metric2, set: setMetric2, desc: '가격 대비 만족스럽나요?' },
+      { label: '양', val: metric3, set: setMetric3, desc: '양과 내용물이 푸짐한가요?' },
+      { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶을 정도인가요?' },
+    ];
+  }, [prod, metric1, metric2, metric3, metric4]);
 
   // 검색 결과 필터링
   const filteredProducts = useMemo(() => {
@@ -345,6 +379,57 @@ export const WriteReviewModal: React.FC = () => {
           )}
         </div>
 
+        {/* 4. [요구사항 3] 사진 첨부 섹션 (맨 위 상단 배치) */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+              📸 사진 첨부 (맨 위 배치)
+              <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-bold">
+                +30P 보너스
+              </span>
+            </span>
+            <span className="text-[11px] font-semibold text-gray-400">{images.length}/5장</span>
+          </div>
+
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            accept="image/*" 
+            multiple 
+            onChange={handleImageUpload} 
+            className="hidden" 
+          />
+
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-18 h-18 rounded-xl border-2 border-dashed border-gray-300 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 text-xs gap-1 shrink-0 bg-gray-50 hover:bg-gray-100 transition-colors"
+            >
+              <Camera className="w-5 h-5 text-gray-400" />
+              <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
+            </button>
+
+            {images.map((imgSrc, idx) => (
+              <div key={idx} className="relative w-18 h-18 rounded-xl overflow-hidden border border-gray-200 shrink-0 group">
+                <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
+                {idx === 0 && (
+                  <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] font-bold px-1 rounded">
+                    대표
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => removeImage(idx)}
+                  className="absolute top-1 right-1 w-4.5 h-4.5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* 4. 종합 만족도 별점 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 text-center">
           <div className="text-xs font-bold text-gray-500 mb-1">종합 만족도 평점</div>
@@ -555,36 +640,46 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 9. 세부 항목 평가 슬라이더 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3.5">
-          <div className="text-xs font-bold text-gray-900 flex items-center justify-between">
-            <span>{isFresh ? '🍎 신선식품 세부 항목' : '📊 세부 항목 평가'}</span>
-            <span className="text-[10px] text-gray-400">각 1~5점</span>
+        {/* 9. [요구사항 4] 카테고리별 세부 항목 별점 평가 */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+              ⭐ {prod ? `'${prod.category}'` : '상품'} 카테고리별 세부 별점 평가
+            </span>
+            <span className="text-[10px] text-amber-600 font-semibold">각 1~5점</span>
           </div>
 
-          {[
-            { val: metric1, set: setMetric1, meta: sliderLabels[0] },
-            { val: metric2, set: setMetric2, meta: sliderLabels[1] },
-            { val: metric3, set: setMetric3, meta: sliderLabels[2] },
-            { val: metric4, set: setMetric4, meta: sliderLabels[3] },
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-3 text-xs">
-              <span className="w-18 text-[12px] text-gray-700 font-bold shrink-0">{item.meta.label}</span>
-              <div className="flex-1">
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={item.val}
-                  onChange={(e) => item.set(Number(e.target.value))}
-                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gray-900"
-                />
+          <div className="space-y-3 divide-y divide-gray-50 pt-1">
+            {categoryMetrics.map((item, idx) => (
+              <div key={idx} className={`${idx > 0 ? 'pt-3' : ''} flex flex-col gap-1.5`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-gray-800">{item.label}</span>
+                  <span className="text-[11px] font-black text-amber-500">{item.val}점 / 5점</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400">{item.desc}</span>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => item.set(star)}
+                        className="p-1 transition-transform active:scale-125"
+                      >
+                        <Star
+                          className={`w-5 h-5 ${
+                            star <= item.val
+                              ? 'fill-[#FFC107] text-[#FFC107]'
+                              : 'fill-gray-200 text-gray-200'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <span className="w-16 text-right text-[11px] font-black text-gray-900">
-                {item.val}점 ({item.meta.right})
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* 10. 누구에게 추천하나요? (추천 태그) */}
@@ -636,57 +731,6 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between text-[11px] text-gray-400 pt-0.5">
             <span>정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
             <span>{text.length}/500자</span>
-          </div>
-        </div>
-
-        {/* 12. 사진 첨부 (최대 5장) */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-              📸 사진 첨부
-              <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-bold">
-                +30P 보너스
-              </span>
-            </span>
-            <span className="text-[11px] font-semibold text-gray-400">{images.length}/5장</span>
-          </div>
-
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            accept="image/*" 
-            multiple 
-            onChange={handleImageUpload} 
-            className="hidden" 
-          />
-
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="w-18 h-18 rounded-xl border-2 border-dashed border-gray-300 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 text-xs gap-1 shrink-0 bg-gray-50 hover:bg-gray-100 transition-colors"
-            >
-              <Camera className="w-5 h-5 text-gray-400" />
-              <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
-            </button>
-
-            {images.map((imgSrc, idx) => (
-              <div key={idx} className="relative w-18 h-18 rounded-xl overflow-hidden border border-gray-200 shrink-0 group">
-                <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
-                {idx === 0 && (
-                  <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] font-bold px-1 rounded">
-                    대표
-                  </span>
-                )}
-                <button
-                  type="button"
-                  onClick={() => removeImage(idx)}
-                  className="absolute top-1 right-1 w-4.5 h-4.5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
           </div>
         </div>
 

@@ -9,31 +9,13 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
       {/* 1. Top Search Bar & Action Icons */}
       <div className="flex items-center gap-2 px-3.5 py-2.5">
-        {/* SinSangPick N Brand Logo */}
-        <button
-          onClick={() => setActiveTab('home')}
-          className="flex items-center gap-1.5 shrink-0 hover:opacity-90 active:scale-95 transition-all text-left group"
-          title="신상픽 홈으로 이동"
-        >
-          <div className="w-8 h-8 rounded-xl overflow-hidden shadow-xs border border-gray-200 shrink-0">
-            <img 
-              src="/logo.png" 
-              alt="신상픽" 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform" 
-            />
-          </div>
-          <span className="text-[15px] font-black tracking-tight text-gray-900 hidden min-[370px]:inline">
-            신상픽
-          </span>
-        </button>
-
         <button
           onClick={() => setActiveTab('search')}
-          className="flex-1 flex items-center gap-2 bg-gray-100/90 rounded-full px-3 py-1.5 hover:bg-gray-200/70 transition-colors text-left"
+          className="flex-1 flex items-center gap-2.5 bg-gray-100/90 hover:bg-gray-200/80 rounded-2xl px-3.5 py-2 transition-all text-left shadow-2xs group"
         >
-          <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          <span className="text-xs text-gray-400 font-medium truncate">
-            신상품, 브랜드 검색
+          <Search className="w-4 h-4 text-gray-400 group-hover:text-gray-600 shrink-0 transition-colors" />
+          <span className="text-xs text-gray-500 font-medium truncate">
+            신상품, 편의점 행사, 브랜드 검색...
           </span>
         </button>
 

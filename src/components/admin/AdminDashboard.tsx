@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   BarChart3, 
@@ -212,6 +212,8 @@ export const AdminDashboard: React.FC = () => {
   const [productFilterBadge, setProductFilterBadge] = useState<'all' | 'today' | 'hot'>('all');
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
+  const [productCurrentPage, setProductCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   // Bulk operation states in Products Tab
   const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
@@ -423,17 +425,27 @@ export const AdminDashboard: React.FC = () => {
     return true;
   });
 
-  // Filtered regular products
-  const filteredAdminProducts = products.filter(p => {
-    if (productCategoryFilter !== '전체' && p.category !== productCategoryFilter) return false;
-    if (productFilterBadge === 'today' && !p.isToday) return false;
-    if (productFilterBadge === 'hot' && !p.isHot) return false;
-    if (productSearch.trim()) {
-      const q = productSearch.toLowerCase();
-      return p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q);
-    }
-    return true;
-  });
+  // Filtered regular products with useMemo for performance optimization
+  const filteredAdminProducts = useMemo(() => {
+    return products.filter(p => {
+      if (productCategoryFilter !== '전체' && p.category !== productCategoryFilter) return false;
+      if (productFilterBadge === 'today' && !p.isToday) return false;
+      if (productFilterBadge === 'hot' && !p.isHot) return false;
+      if (productSearch.trim()) {
+        const q = productSearch.toLowerCase();
+        return p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q);
+      }
+      return true;
+    });
+  }, [products, productCategoryFilter, productFilterBadge, productSearch]);
+
+  // Total pages and paginated products slice for instantaneous rendering
+  const totalProductPages = Math.ceil(filteredAdminProducts.length / itemsPerPage) || 1;
+
+  const paginatedAdminProducts = useMemo(() => {
+    const start = (productCurrentPage - 1) * itemsPerPage;
+    return filteredAdminProducts.slice(start, start + itemsPerPage);
+  }, [filteredAdminProducts, productCurrentPage, itemsPerPage]);
 
   // Filtered reviews
   const filteredReviews = reviews.filter(r => {
@@ -524,7 +536,7 @@ export const AdminDashboard: React.FC = () => {
     if (selectedProductIds.length === filteredAdminProducts.length && filteredAdminProducts.length > 0) {
       setSelectedProductIds([]);
     } else {
-      setSelectedProductIds(filteredAdminProducts.map(p => p.id));
+      setSelectedProductIds(filteredAdminProducts.map((p: Product) => p.id));
     }
   };
 
@@ -965,19 +977,20 @@ export const AdminDashboard: React.FC = () => {
           </div>
 
           {/* Categorized Desktop Sidebar Navigation */}
-          <nav className="p-3 space-y-4 overflow-y-auto max-h-[calc(100vh-250px)] text-xs">
+          <nav className="p-3 space-y-3.5 overflow-y-auto max-h-[calc(100vh-250px)] text-xs">
             
-            {/* GROUP 1: 대시보드 */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                대시보드
+            {/* GROUP 1: 📊 대시보드 & 데이터 */}
+            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
+              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                <BarChart3 className="w-3 h-3 text-indigo-500" />
+                <span>대시보드 & 데이터</span>
               </div>
               <button
                 onClick={() => setActiveAdminTab('overview')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'overview'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -992,7 +1005,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'analytics'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1002,10 +1015,11 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            {/* GROUP 2: 상품 & 카탈로그 */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                상품 & 카탈로그
+            {/* GROUP 2: 📦 상품 & 데이터 수집 */}
+            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
+              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                <Package className="w-3 h-3 text-blue-500" />
+                <span>상품 & 데이터 수집</span>
               </div>
               
               <button
@@ -1013,7 +1027,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'collector'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1030,7 +1044,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'approval'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1049,14 +1063,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'products'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Package className="w-4 h-4 text-blue-500" />
                   <span>상품 카탈로그 관리</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {products.length}
                 </span>
               </button>
@@ -1066,14 +1080,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'brands'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Building2 className="w-4 h-4 text-purple-500" />
                   <span>식품 제조사 브랜드</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {brands.length}
                 </span>
               </button>
@@ -1083,23 +1097,24 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'stores'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Store className="w-4 h-4 text-emerald-500" />
                   <span>편의점·판매처 채널</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {storeChannels.length}
                 </span>
               </button>
             </div>
 
-            {/* GROUP 3: 전시 & 홈 구좌 */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                전시 & 홈 구좌
+            {/* GROUP 3: 🎨 전시 & 프로모션 */}
+            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
+              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                <Sliders className="w-3 h-3 text-indigo-400" />
+                <span>전시 & 프로모션</span>
               </div>
 
               <button
@@ -1107,7 +1122,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'sections'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1121,14 +1136,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'banners'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Layers className="w-4 h-4 text-sky-500" />
                   <span>메인 프로모션 배너</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {banners.length}
                 </span>
               </button>
@@ -1138,7 +1153,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'battle'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1146,27 +1161,20 @@ export const AdminDashboard: React.FC = () => {
                   <span>신상 배틀 매치업</span>
                 </div>
               </button>
-            </div>
-
-            {/* GROUP 4: 프로모션 & 마케팅 */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                프로모션 & 마케팅
-              </div>
 
               <button
                 onClick={() => setActiveAdminTab('sales')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'sales'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Tag className="w-4 h-4 text-rose-500" />
                   <span>편의점 행사 (1+1/2+1)</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {salePromotions.length}
                 </span>
               </button>
@@ -1176,14 +1184,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'calendar'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <CalendarIcon className="w-4 h-4 text-blue-500" />
                   <span>신상 출시 캘린더</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {calendarItems.length}
                 </span>
               </button>
@@ -1193,14 +1201,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'events'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Gift className="w-4 h-4 text-amber-500" />
                   <span>이벤트 & 체험단</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {events.length}
                 </span>
               </button>
@@ -1210,23 +1218,24 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'notifications'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Bell className="w-4 h-4 text-rose-500" />
                   <span>알림 & 푸시 발송</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {notifications.length}
                 </span>
               </button>
             </div>
 
-            {/* GROUP 5: 회원 & 커뮤니티 */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                회원 & 커뮤니티
+            {/* GROUP 4: 👥 유저 & 운영 모니터링 */}
+            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
+              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                <Users className="w-3 h-3 text-purple-500" />
+                <span>유저 & 운영 모니터링</span>
               </div>
 
               <button
@@ -1234,7 +1243,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'users' || activeAdminTab === 'points'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1244,7 +1253,7 @@ export const AdminDashboard: React.FC = () => {
                 <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
                   activeAdminTab === 'users' || activeAdminTab === 'points'
                     ? 'bg-white/20 text-white font-bold'
-                    : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'
+                    : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
                 }`}>
                   {allProfiles.length}명
                 </span>
@@ -1255,14 +1264,14 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'reviews'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
                   <MessageSquare className="w-4 h-4 text-emerald-500" />
                   <span>리뷰 & 커뮤니티 관리</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                   {reviews.length}
                 </span>
               </button>
@@ -1272,7 +1281,7 @@ export const AdminDashboard: React.FC = () => {
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'reports'
                     ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1284,7 +1293,7 @@ export const AdminDashboard: React.FC = () => {
                     {pendingReportsCount}건
                   </span>
                 ) : (
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
                     {reports.length}
                   </span>
                 )}
@@ -2438,7 +2447,7 @@ export const AdminDashboard: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody className={`divide-y ${tableRowHover}`}>
-                        {filteredAdminProducts.map(prod => {
+                        {paginatedAdminProducts.map((prod: Product) => {
                           const isSelected = selectedProductIds.includes(prod.id);
                           return (
                             <tr key={prod.id} className={`transition-colors ${isSelected ? (isDark ? 'bg-indigo-950/20' : 'bg-indigo-50/60') : ''}`}>
@@ -2500,18 +2509,19 @@ export const AdminDashboard: React.FC = () => {
                                 ) : null}
                               </td>
                               <td className="py-3 px-4">
-                                <div className="flex items-center gap-1 text-[11px]">
-                                  <span className="text-amber-500 font-bold">★ {prod.overallRating || 0}</span>
-                                  <span className="text-slate-400">({prod.ratingCount || 0})</span>
+                                <div className="flex items-center gap-1 font-bold text-amber-500">
+                                  <span>★</span>
+                                  <span>{prod.overallRating.toFixed(1)}</span>
+                                  <span className="text-slate-400 font-normal">({prod.ratingCount})</span>
                                 </div>
                               </td>
                               <td className="py-3 px-4">
                                 <button
                                   onClick={() => toggleProductToday(prod.id)}
-                                  className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
+                                  className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all flex items-center gap-1 ${
                                     prod.isToday
                                       ? 'bg-indigo-600 text-white shadow-xs'
-                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
+                                      : isDark ? 'bg-slate-800 text-slate-400 hover:text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                                   }`}
                                 >
                                   <Zap className="w-3 h-3" />
@@ -2521,10 +2531,10 @@ export const AdminDashboard: React.FC = () => {
                               <td className="py-3 px-4">
                                 <button
                                   onClick={() => toggleProductHot(prod.id)}
-                                  className={`px-2.5 py-1 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all ${
+                                  className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all flex items-center gap-1 ${
                                     prod.isHot
                                       ? 'bg-orange-600 text-white shadow-xs'
-                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600'
+                                      : isDark ? 'bg-slate-800 text-slate-400 hover:text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                                   }`}
                                 >
                                   <Flame className="w-3 h-3" />
@@ -2534,8 +2544,8 @@ export const AdminDashboard: React.FC = () => {
                               <td className="py-3 px-4">
                                 <div className="space-y-1 max-w-[170px]">
                                   <div className="flex flex-wrap gap-1">
-                                    {prod.stores?.map(st => {
-                                      const stockItem = prod.storeStocks?.find(s => s.store === st);
+                                    {prod.stores?.map((st: string) => {
+                                      const stockItem = prod.storeStocks?.find((s: StoreStockItem) => s.store === st);
                                       const hasLink = !!stockItem?.appLink;
                                       return (
                                         <span
@@ -2561,7 +2571,7 @@ export const AdminDashboard: React.FC = () => {
                                   </div>
                                   {/* 링크 등록 요약 배지 */}
                                   {(() => {
-                                    const linkedCount = prod.storeStocks?.filter(s => !!s.appLink).length || 0;
+                                    const linkedCount = prod.storeStocks?.filter((s: StoreStockItem) => !!s.appLink).length || 0;
                                     return linkedCount > 0 ? (
                                       <div className="flex items-center gap-1">
                                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded border border-emerald-200/60 dark:border-emerald-800/40">
@@ -2581,7 +2591,7 @@ export const AdminDashboard: React.FC = () => {
                                   <button
                                     onClick={() => handleOpenQuickLinks(prod)}
                                     className={`px-2 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
-                                      (prod.storeStocks?.some(s => !!s.appLink))
+                                      (prod.storeStocks?.some((s: StoreStockItem) => !!s.appLink))
                                         ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800'
                                         : 'bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
                                     }`}
@@ -2654,7 +2664,7 @@ export const AdminDashboard: React.FC = () => {
               ) : (
                 /* Card Grid View */
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                  {filteredAdminProducts.map(prod => (
+                  {paginatedAdminProducts.map(prod => (
                     <div key={prod.id} className={`p-4 rounded-2xl border shadow-sm flex flex-col justify-between space-y-3 group ${cardBg}`}>
                       <div>
                         <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-3">
@@ -2733,6 +2743,68 @@ export const AdminDashboard: React.FC = () => {
                   ))}
                 </div>
               )}
+
+              {/* [요구사항 2] 상품 목록 페이지네이션 컨트롤러 (렉 완벽 해결) */}
+              <div className={`mt-6 p-4 rounded-2xl border flex flex-wrap items-center justify-between gap-4 ${cardBg}`}>
+                <div className="text-xs font-semibold text-slate-500">
+                  전체 <span className="font-bold text-slate-900 dark:text-white">{filteredAdminProducts.length}</span>개 중{' '}
+                  <span className="font-bold text-indigo-600">
+                    {filteredAdminProducts.length > 0 ? (productCurrentPage - 1) * itemsPerPage + 1 : 0} - {Math.min(productCurrentPage * itemsPerPage, filteredAdminProducts.length)}
+                  </span>
+                  개 표시 (페이지 {productCurrentPage} / {totalProductPages})
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    disabled={productCurrentPage === 1}
+                    onClick={() => setProductCurrentPage(prev => Math.max(1, prev - 1))}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+                      productCurrentPage === 1
+                        ? 'opacity-40 cursor-not-allowed text-slate-400 bg-slate-100 dark:bg-slate-800'
+                        : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>이전</span>
+                  </button>
+
+                  <div className="flex items-center gap-1 px-1">
+                    {Array.from({ length: totalProductPages }, (_, i) => i + 1)
+                      .filter(p => p === 1 || p === totalProductPages || Math.abs(p - productCurrentPage) <= 2)
+                      .map((p, idx, arr) => {
+                        const showEllipsis = idx > 0 && p - arr[idx - 1] > 1;
+                        return (
+                          <React.Fragment key={p}>
+                            {showEllipsis && <span className="px-1 text-slate-400 text-xs">...</span>}
+                            <button
+                              onClick={() => setProductCurrentPage(p)}
+                              className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
+                                productCurrentPage === p
+                                  ? 'bg-indigo-600 text-white shadow-xs'
+                                  : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100'
+                              }`}
+                            >
+                              {p}
+                            </button>
+                          </React.Fragment>
+                        );
+                      })}
+                  </div>
+
+                  <button
+                    disabled={productCurrentPage >= totalProductPages}
+                    onClick={() => setProductCurrentPage(prev => Math.min(totalProductPages, prev + 1))}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+                      productCurrentPage >= totalProductPages
+                        ? 'opacity-40 cursor-not-allowed text-slate-400 bg-slate-100 dark:bg-slate-800'
+                        : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span>다음</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
 
             </div>
           )}
