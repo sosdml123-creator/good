@@ -414,17 +414,16 @@ export const AdminDashboard: React.FC = () => {
   const filteredPendingProducts = pendingProducts.filter(item => {
     if (item.status !== 'pending') return false;
     if (pendingCategoryFilter !== '전체' && item.category !== pendingCategoryFilter) return false;
-    if (pendingSourceFilter !== '전체') {
+      const srcName = item.sourceName || '';
       if (pendingSourceFilter === '공식몰') {
-        if (!item.sourceName.includes('공식') && !item.sourceName.includes('몰') && !item.sourceName.includes('스토어') && !item.sourceName.includes('마켓')) return false;
+        if (!srcName.includes('공식') && !srcName.includes('몰') && !srcName.includes('스토어') && !srcName.includes('마켓')) return false;
       } else if (pendingSourceFilter === '인스타그램') {
-        if (!item.sourceName.includes('인스타') && !item.sourceName.includes('@')) return false;
+        if (!srcName.includes('인스타') && !srcName.includes('@')) return false;
       } else if (pendingSourceFilter === '보도자료') {
-        if (!item.sourceName.includes('뉴스') && !item.sourceName.includes('보도자료') && !item.sourceName.includes('발표')) return false;
-      } else if (!item.sourceName.includes(pendingSourceFilter)) {
+        if (!srcName.includes('뉴스') && !srcName.includes('보도자료') && !srcName.includes('발표')) return false;
+      } else if (!srcName.includes(pendingSourceFilter)) {
         return false;
       }
-    }
     if (crawlerSearchQuery.trim()) {
       const q = crawlerSearchQuery.toLowerCase();
       return item.name.toLowerCase().includes(q) || item.brand.toLowerCase().includes(q);

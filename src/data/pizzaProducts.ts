@@ -18,7 +18,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 305,
+    "calories": 367,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -29,15 +29,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 367,
+      "sodium": "900mg (45%)",
+      "carbs": "16.7g (5%)",
+      "sugar": "13.3g (13%)",
+      "fat": "33.3g (62%)",
+      "protein": "1g (2%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "17mg (6%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -88,7 +89,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 271,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -99,15 +100,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -158,7 +160,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 96,
-    "calories": 304,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -169,15 +171,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -228,7 +231,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 272,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -239,15 +242,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -298,7 +302,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 328,
+    "calories": 367,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -309,15 +313,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 367,
+      "sodium": "900mg (45%)",
+      "carbs": "16.7g (5%)",
+      "sugar": "13.3g (13%)",
+      "fat": "33.3g (62%)",
+      "protein": "1g (2%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "17mg (6%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -368,7 +373,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 272,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -379,15 +384,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -438,7 +444,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 279,
+    "calories": 308,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -449,15 +455,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 308,
+      "sodium": "544mg (27%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "15.7g (29%)",
+      "transFat": "0g",
+      "satFat": "8.6g (57%)",
+      "saturatedFat": "8.6g (57%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -508,7 +515,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 275,
+    "calories": 233,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -519,15 +526,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 233,
+      "sodium": "373mg (19%)",
+      "carbs": "0g",
+      "sugar": "2g (2%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "2.9g (19%)",
+      "saturatedFat": "2.9g (19%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -578,7 +586,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 275,
+    "calories": 237,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -589,15 +597,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 237,
+      "sodium": "493mg (25%)",
+      "carbs": "0g",
+      "sugar": "2g (2%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -648,7 +657,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 289,
+    "calories": 240,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -659,15 +668,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 240,
+      "sodium": "554mg (28%)",
+      "carbs": "29.7g (9%)",
+      "sugar": "5g (5%)",
+      "fat": "6.3g (12%)",
+      "protein": "11.5g (21%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "32mg (11%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -718,7 +728,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 306,
+    "calories": 218,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -729,15 +739,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
+      "calories": 218,
+      "sodium": "484mg (24%)",
+      "carbs": "21.7g (7%)",
       "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "fat": "9.9g (18%)",
+      "protein": "10g (18%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -788,7 +799,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 272,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -799,15 +810,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -858,7 +870,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 290,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -869,15 +881,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -928,7 +941,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 325,
+    "calories": 450,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -939,15 +952,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 450,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "40g (40%)",
+      "fat": "0g",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13g (87%)",
+      "saturatedFat": "13g (87%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -998,7 +1012,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 328,
+    "calories": 260,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1009,15 +1023,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 260,
+      "sodium": "426mg (21%)",
+      "carbs": "23.8g (7%)",
+      "sugar": "7.3g (7%)",
+      "fat": "14g (26%)",
+      "protein": "9.8g (18%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1068,7 +1083,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 320,
+    "calories": 287,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1079,15 +1094,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 287,
+      "sodium": "473mg (24%)",
+      "carbs": "0g",
+      "sugar": "3.3g (3%)",
+      "fat": "0g",
+      "protein": "14.7g (27%)",
+      "transFat": "0g",
+      "satFat": "6.7g (45%)",
+      "saturatedFat": "6.7g (45%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1138,7 +1154,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 317,
+    "calories": 308,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1149,15 +1165,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 308,
+      "sodium": "567mg (28%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "9.2g (17%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1208,7 +1225,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 325,
+    "calories": 253,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1219,15 +1236,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 253,
+      "sodium": "501mg (25%)",
+      "carbs": "28.8g (9%)",
+      "sugar": "5.6g (6%)",
+      "fat": "9.9g (18%)",
+      "protein": "12.2g (22%)",
+      "transFat": "0.3g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1278,7 +1296,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 289,
+    "calories": 248,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1289,15 +1307,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 248,
+      "sodium": "348mg (17%)",
+      "carbs": "30.4g (9%)",
+      "sugar": "5.7g (6%)",
+      "fat": "9.4g (17%)",
+      "protein": "10.5g (19%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1348,7 +1367,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 286,
+    "calories": 226,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1359,15 +1378,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 226,
+      "sodium": "503mg (25%)",
+      "carbs": "21.7g (7%)",
+      "sugar": "2.4g (2%)",
+      "fat": "10.3g (19%)",
+      "protein": "11.6g (21%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.5g (30%)",
+      "saturatedFat": "4.5g (30%)",
+      "cholesterol": "25mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1418,7 +1438,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 248,
+    "calories": 211,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1429,15 +1449,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 211,
+      "sodium": "466mg (23%)",
+      "carbs": "22.1g (7%)",
+      "sugar": "3.5g (4%)",
+      "fat": "8.9g (16%)",
+      "protein": "10.7g (19%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1488,7 +1509,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 255,
+    "calories": 276,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1499,15 +1520,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 276,
+      "sodium": "508mg (25%)",
+      "carbs": "24.6g (8%)",
+      "sugar": "2.9g (3%)",
+      "fat": "12.6g (23%)",
+      "protein": "15g (27%)",
+      "transFat": "0.4g",
+      "satFat": "6.3g (42%)",
+      "saturatedFat": "6.3g (42%)",
+      "cholesterol": "26mg (9%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1558,7 +1580,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 256,
+    "calories": 282,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1569,15 +1591,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 282,
+      "sodium": "471mg (24%)",
+      "carbs": "0g",
+      "sugar": "4.1g (4%)",
+      "fat": "0g",
+      "protein": "12.4g (23%)",
+      "transFat": "0g",
+      "satFat": "7.7g (51%)",
+      "saturatedFat": "7.7g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1628,7 +1651,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 272,
+    "calories": 208,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1639,15 +1662,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 208,
+      "sodium": "497mg (25%)",
+      "carbs": "22g (7%)",
+      "sugar": "2.6g (3%)",
+      "fat": "0g",
+      "protein": "11g (20%)",
+      "transFat": "0g",
+      "satFat": "3.8g (25%)",
+      "saturatedFat": "3.8g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1698,7 +1722,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 302,
+    "calories": 308,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1709,15 +1733,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 308,
+      "sodium": "567mg (28%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "9.2g (17%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1768,7 +1793,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 294,
+    "calories": 409,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1779,15 +1804,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 409,
+      "sodium": "93mg (5%)",
+      "carbs": "0g",
+      "sugar": "45.2g (45%)",
+      "fat": "0g",
+      "protein": "5.5g (10%)",
+      "transFat": "0g",
+      "satFat": "10.6g (71%)",
+      "saturatedFat": "10.6g (71%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1838,7 +1864,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 95,
-    "calories": 292,
+    "calories": 280,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1849,15 +1875,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 280,
+      "sodium": "887mg (44%)",
+      "carbs": "14.4g (4%)",
+      "sugar": "5.8g (6%)",
+      "fat": "19.4g (36%)",
+      "protein": "11.9g (22%)",
+      "transFat": "0.1g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "28mg (9%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1908,7 +1935,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 314,
+    "calories": 367,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1919,15 +1946,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 367,
+      "sodium": "900mg (45%)",
+      "carbs": "16.7g (5%)",
+      "sugar": "13.3g (13%)",
+      "fat": "33.3g (62%)",
+      "protein": "1g (2%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "17mg (6%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -1978,7 +2006,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 263,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -1989,15 +2017,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2048,7 +2077,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 305,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2059,15 +2088,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2118,7 +2148,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 293,
+    "calories": 89,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2129,15 +2159,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 89,
+      "sodium": "232mg (12%)",
+      "carbs": "2.8g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "2g (4%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2188,7 +2219,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 284,
+    "calories": 308,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2199,15 +2230,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 308,
+      "sodium": "544mg (27%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "15.7g (29%)",
+      "transFat": "0g",
+      "satFat": "8.6g (57%)",
+      "saturatedFat": "8.6g (57%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2258,7 +2290,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 245,
+    "calories": 233,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2269,15 +2301,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 233,
+      "sodium": "373mg (19%)",
+      "carbs": "0g",
+      "sugar": "2g (2%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "2.9g (19%)",
+      "saturatedFat": "2.9g (19%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2328,7 +2361,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 315,
+    "calories": 237,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2339,15 +2372,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 237,
+      "sodium": "493mg (25%)",
+      "carbs": "0g",
+      "sugar": "2g (2%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2398,7 +2432,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 250,
+    "calories": 240,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2409,15 +2443,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 240,
+      "sodium": "554mg (28%)",
+      "carbs": "29.7g (9%)",
+      "sugar": "5g (5%)",
+      "fat": "6.3g (12%)",
+      "protein": "11.5g (21%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "32mg (11%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2468,7 +2503,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 296,
+    "calories": 218,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2479,15 +2514,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
+      "calories": 218,
+      "sodium": "484mg (24%)",
+      "carbs": "21.7g (7%)",
       "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "fat": "9.9g (18%)",
+      "protein": "10g (18%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2538,7 +2574,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 320,
+    "calories": 450,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2549,15 +2585,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 450,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "40g (40%)",
+      "fat": "0g",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13g (87%)",
+      "saturatedFat": "13g (87%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2608,7 +2645,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 301,
+    "calories": 260,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2619,15 +2656,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 260,
+      "sodium": "426mg (21%)",
+      "carbs": "23.8g (7%)",
+      "sugar": "7.3g (7%)",
+      "fat": "14g (26%)",
+      "protein": "9.8g (18%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2678,7 +2716,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 247,
+    "calories": 287,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2689,15 +2727,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 287,
+      "sodium": "473mg (24%)",
+      "carbs": "0g",
+      "sugar": "3.3g (3%)",
+      "fat": "0g",
+      "protein": "14.7g (27%)",
+      "transFat": "0g",
+      "satFat": "6.7g (45%)",
+      "saturatedFat": "6.7g (45%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2748,7 +2787,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 244,
+    "calories": 308,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2759,15 +2798,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 308,
+      "sodium": "567mg (28%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "9.2g (17%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2818,7 +2858,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 93,
-    "calories": 315,
+    "calories": 253,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2829,15 +2869,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 253,
+      "sodium": "501mg (25%)",
+      "carbs": "28.8g (9%)",
+      "sugar": "5.6g (6%)",
+      "fat": "9.9g (18%)",
+      "protein": "12.2g (22%)",
+      "transFat": "0.3g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "24mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2888,7 +2929,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 298,
+    "calories": 248,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2899,15 +2940,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 248,
+      "sodium": "348mg (17%)",
+      "carbs": "30.4g (9%)",
+      "sugar": "5.7g (6%)",
+      "fat": "9.4g (17%)",
+      "protein": "10.5g (19%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -2958,7 +3000,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 96,
-    "calories": 267,
+    "calories": 226,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -2969,15 +3011,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 226,
+      "sodium": "503mg (25%)",
+      "carbs": "21.7g (7%)",
+      "sugar": "2.4g (2%)",
+      "fat": "10.3g (19%)",
+      "protein": "11.6g (21%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.5g (30%)",
+      "saturatedFat": "4.5g (30%)",
+      "cholesterol": "25mg (8%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -3028,7 +3071,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 97,
-    "calories": 247,
+    "calories": 211,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3039,15 +3082,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 211,
+      "sodium": "466mg (23%)",
+      "carbs": "22.1g (7%)",
+      "sugar": "3.5g (4%)",
+      "fat": "8.9g (16%)",
+      "protein": "10.7g (19%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -3098,7 +3142,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 314,
+    "calories": 276,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3109,15 +3153,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 276,
+      "sodium": "508mg (25%)",
+      "carbs": "24.6g (8%)",
+      "sugar": "2.9g (3%)",
+      "fat": "12.6g (23%)",
+      "protein": "15g (27%)",
+      "transFat": "0.4g",
+      "satFat": "6.3g (42%)",
+      "saturatedFat": "6.3g (42%)",
+      "cholesterol": "26mg (9%)"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -3168,7 +3213,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 92,
-    "calories": 309,
+    "calories": 282,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3179,15 +3224,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 282,
+      "sodium": "471mg (24%)",
+      "carbs": "0g",
+      "sugar": "4.1g (4%)",
+      "fat": "0g",
+      "protein": "12.4g (23%)",
+      "transFat": "0g",
+      "satFat": "7.7g (51%)",
+      "saturatedFat": "7.7g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -3238,7 +3284,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "도미노피자"
     ],
     "repurchasePercent": 94,
-    "calories": 249,
+    "calories": 208,
     "volume": "L 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3249,15 +3295,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "520mg (26%)",
-      "carbs": "32g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 208,
+      "sodium": "497mg (25%)",
+      "carbs": "22g (7%)",
+      "sugar": "2.6g (3%)",
+      "fat": "0g",
+      "protein": "11g (20%)",
+      "transFat": "0g",
+      "satFat": "3.8g (25%)",
+      "saturatedFat": "3.8g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "도미노 특제 저온숙성 도우, 100% 미국산 모짜렐라 치즈, 프리미엄 토핑 배합, 특제 토마토 소스",
     "allergens": [
@@ -3308,7 +3355,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 97,
-    "calories": 318,
+    "calories": 198,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -3319,15 +3366,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 198,
+      "sodium": "637mg (32%)",
+      "carbs": "32g (10%)",
+      "sugar": "7.1g (7%)",
+      "fat": "2.9g (5%)",
+      "protein": "10.8g (20%)",
+      "transFat": "0.1g",
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "6mg (2%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3377,7 +3425,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 327,
+    "calories": 314,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -3388,15 +3436,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 314,
+      "sodium": "186mg (9%)",
+      "carbs": "0g",
+      "sugar": "14.3g (14%)",
+      "fat": "0g",
+      "protein": "5.7g (10%)",
+      "transFat": "0g",
+      "satFat": "11.4g (76%)",
+      "saturatedFat": "11.4g (76%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3446,7 +3495,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 287,
+    "calories": 240,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": true,
     "isHot": true,
@@ -3457,15 +3506,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 240,
+      "sodium": "529mg (26%)",
+      "carbs": "0g",
+      "sugar": "3.8g (4%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "3.8g (25%)",
+      "saturatedFat": "3.8g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3515,7 +3565,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 278,
+    "calories": 289,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -3526,15 +3576,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 289,
+      "sodium": "636mg (32%)",
+      "carbs": "0g",
+      "sugar": "4.4g (4%)",
+      "fat": "0g",
+      "protein": "12.3g (22%)",
+      "transFat": "0g",
+      "satFat": "4.4g (29%)",
+      "saturatedFat": "4.4g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3584,7 +3635,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 97,
-    "calories": 289,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -3593,17 +3643,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.9,
       "repurchase": 5
-    },
-    "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3653,7 +3692,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 95,
-    "calories": 316,
+    "calories": 273,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": true,
@@ -3664,15 +3703,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 273,
+      "sodium": "638mg (32%)",
+      "carbs": "0g",
+      "sugar": "4.1g (4%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3722,7 +3762,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 93,
-    "calories": 315,
+    "calories": 241,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3733,15 +3773,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 241,
+      "sodium": "508mg (25%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "9.6g (17%)",
+      "transFat": "0g",
+      "satFat": "3g (20%)",
+      "saturatedFat": "3g (20%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3791,7 +3832,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 97,
-    "calories": 294,
+    "calories": 208,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3802,15 +3843,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 208,
+      "sodium": "267mg (13%)",
+      "carbs": "15.2g (5%)",
+      "sugar": "0.1g (0%)",
+      "fat": "9g (17%)",
+      "protein": "16.5g (30%)",
+      "transFat": "0.1g",
+      "satFat": "2.6g (17%)",
+      "saturatedFat": "2.6g (17%)",
+      "cholesterol": "53mg (18%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3860,7 +3902,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 280,
+    "calories": 450,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3871,15 +3913,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 450,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "40g (40%)",
+      "fat": "0g",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13g (87%)",
+      "saturatedFat": "13g (87%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3929,7 +3972,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 97,
-    "calories": 268,
+    "calories": 241,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -3940,15 +3983,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 241,
+      "sodium": "403mg (20%)",
+      "carbs": "0g",
+      "sugar": "4.3g (4%)",
+      "fat": "0g",
+      "protein": "11.2g (20%)",
+      "transFat": "0g",
+      "satFat": "5.2g (35%)",
+      "saturatedFat": "5.2g (35%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -3998,7 +4042,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 93,
-    "calories": 301,
+    "calories": 284,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4009,15 +4053,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 284,
+      "sodium": "677mg (34%)",
+      "carbs": "0g",
+      "sugar": "1.6g (2%)",
+      "fat": "0g",
+      "protein": "14.1g (26%)",
+      "transFat": "0g",
+      "satFat": "7g (47%)",
+      "saturatedFat": "7g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4067,7 +4112,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 97,
-    "calories": 303,
+    "calories": 450,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4078,15 +4123,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 450,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "40g (40%)",
+      "fat": "0g",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13g (87%)",
+      "saturatedFat": "13g (87%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4136,7 +4182,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 95,
-    "calories": 339,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4145,17 +4190,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.6,
       "portion": 4.8,
       "repurchase": 5
-    },
-    "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4205,7 +4239,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 93,
-    "calories": 306,
+    "calories": 271,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4216,15 +4250,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 271,
+      "sodium": "610mg (31%)",
+      "carbs": "0g",
+      "sugar": "4.6g (5%)",
+      "fat": "0g",
+      "protein": "12g (22%)",
+      "transFat": "0g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4274,7 +4309,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 288,
+    "calories": 273,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4285,15 +4320,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 273,
+      "sodium": "638mg (32%)",
+      "carbs": "0g",
+      "sugar": "4.1g (4%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4343,7 +4379,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 96,
-    "calories": 297,
+    "calories": 342,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4354,15 +4390,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 342,
+      "sodium": "682mg (34%)",
+      "carbs": "0g",
+      "sugar": "2.1g (2%)",
+      "fat": "0g",
+      "protein": "15.9g (29%)",
+      "transFat": "0g",
+      "satFat": "5.6g (37%)",
+      "saturatedFat": "5.6g (37%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4412,7 +4449,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 96,
-    "calories": 337,
+    "calories": 324,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4423,15 +4460,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 324,
+      "sodium": "671mg (34%)",
+      "carbs": "0g",
+      "sugar": "2.4g (2%)",
+      "fat": "0g",
+      "protein": "14.7g (27%)",
+      "transFat": "0g",
+      "satFat": "6.1g (41%)",
+      "saturatedFat": "6.1g (41%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4481,7 +4519,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 95,
-    "calories": 287,
+    "calories": 214,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4492,15 +4530,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 214,
+      "sodium": "387mg (19%)",
+      "carbs": "0g",
+      "sugar": "5.4g (5%)",
+      "fat": "0g",
+      "protein": "10.8g (20%)",
+      "transFat": "0g",
+      "satFat": "2g (13%)",
+      "saturatedFat": "2g (13%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4550,7 +4589,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 309,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4559,17 +4597,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 5,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4619,7 +4646,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 95,
-    "calories": 275,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4628,17 +4654,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4688,7 +4703,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 332,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4697,17 +4711,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.7,
       "portion": 5,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4757,7 +4760,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 93,
-    "calories": 330,
+    "calories": 214,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4768,15 +4771,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 214,
+      "sodium": "468mg (23%)",
+      "carbs": "0g",
+      "sugar": "3.1g (3%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4826,7 +4830,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 276,
+    "calories": 211,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4837,15 +4841,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 211,
+      "sodium": "439mg (22%)",
+      "carbs": "0g",
+      "sugar": "5.7g (6%)",
+      "fat": "0g",
+      "protein": "5.7g (10%)",
+      "transFat": "0g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4895,7 +4900,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "파파존스"
     ],
     "repurchasePercent": 94,
-    "calories": 319,
+    "calories": 211,
     "volume": "Large 기준 8조각 (2~3인용)",
     "isToday": false,
     "isHot": false,
@@ -4906,15 +4911,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "580mg (29%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "14g (26%)",
-      "transFat": "0.3g",
-      "satFat": "6g (40%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "14g (25%)"
+      "calories": 211,
+      "sodium": "439mg (22%)",
+      "carbs": "0g",
+      "sugar": "5.7g (6%)",
+      "fat": "0g",
+      "protein": "5.7g (10%)",
+      "transFat": "0g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "파파존스 오리지널 숙성 도우, 캘리포니아산 프리미엄 토마토 소스, 블렌딩 모짜렐라 치즈, 특제 토핑",
     "allergens": [
@@ -4964,7 +4970,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 276,
+    "calories": 233,
     "volume": "2~3인용 8조각",
     "isToday": true,
     "isHot": true,
@@ -4975,12 +4981,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 233,
+      "sodium": "322mg (16%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "9.5g (17%)",
+      "transFat": "0g",
+      "satFat": "3.8g (25%)",
+      "saturatedFat": "3.8g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5029,7 +5039,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 257,
+    "calories": 249,
     "volume": "2~3인용 8조각",
     "isToday": true,
     "isHot": true,
@@ -5040,12 +5050,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 249,
+      "sodium": "327mg (16%)",
+      "carbs": "0g",
+      "sugar": "5.9g (6%)",
+      "fat": "0g",
+      "protein": "9.2g (17%)",
+      "transFat": "0g",
+      "satFat": "2.9g (19%)",
+      "saturatedFat": "2.9g (19%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5094,7 +5108,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 224,
+    "calories": 247,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": true,
@@ -5105,12 +5119,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 247,
+      "sodium": "382mg (19%)",
+      "carbs": "0g",
+      "sugar": "1.8g (2%)",
+      "fat": "0g",
+      "protein": "13.7g (25%)",
+      "transFat": "0g",
+      "satFat": "4.9g (33%)",
+      "saturatedFat": "4.9g (33%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5159,7 +5177,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 221,
+    "calories": 249,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": true,
@@ -5170,12 +5188,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 249,
+      "sodium": "395mg (20%)",
+      "carbs": "0g",
+      "sugar": "2.5g (3%)",
+      "fat": "0g",
+      "protein": "13.1g (24%)",
+      "transFat": "0g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5224,7 +5246,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 255,
+    "calories": 296,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": false,
@@ -5235,12 +5257,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 296,
+      "sodium": "552mg (28%)",
+      "carbs": "0g",
+      "sugar": "5.2g (5%)",
+      "fat": "0g",
+      "protein": "13.9g (25%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5289,7 +5315,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 256,
+    "calories": 245,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": false,
@@ -5301,11 +5327,15 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "sodium": "457mg (23%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "12.5g (23%)",
+      "transFat": "0g",
+      "satFat": "4.2g (28%)",
+      "saturatedFat": "4.2g (28%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5354,7 +5384,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 271,
+    "calories": 232,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": false,
@@ -5365,12 +5395,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "calories": 232,
+      "sodium": "494mg (25%)",
+      "carbs": "0g",
+      "sugar": "1.9g (2%)",
+      "fat": "0g",
+      "protein": "12.1g (22%)",
+      "transFat": "0g",
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5419,7 +5453,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자스쿨"
     ],
     "repurchasePercent": 96,
-    "calories": 263,
+    "calories": 245,
     "volume": "2~3인용 8조각",
     "isToday": false,
     "isHot": false,
@@ -5431,11 +5465,15 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
     },
     "nutrition": {
       "calories": 245,
-      "sodium": "420mg (21%)",
-      "carbs": "30g (9%)",
-      "sugar": "3g (3%)",
-      "fat": "9g (17%)",
-      "protein": "10g (18%)"
+      "sodium": "571mg (29%)",
+      "carbs": "0g",
+      "sugar": "1.8g (2%)",
+      "fat": "0g",
+      "protein": "10.9g (20%)",
+      "transFat": "0g",
+      "satFat": "3.6g (24%)",
+      "saturatedFat": "3.6g (24%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자스쿨 특제 도우, 자연산 모짜렐라 치즈, 특제 토마토 소스, 시그니처 토핑",
     "allergens": [
@@ -5484,7 +5522,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 251,
+    "calories": 243,
     "volume": "R/L 사이즈 선택",
     "isToday": true,
     "isHot": true,
@@ -5495,12 +5533,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
+      "calories": 243,
+      "sodium": "272mg (14%)",
+      "carbs": "0g",
+      "sugar": "1.4g (1%)",
+      "fat": "0g",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5551,7 +5593,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 309,
+    "calories": 237,
     "volume": "R/L 사이즈 선택",
     "isToday": true,
     "isHot": true,
@@ -5562,12 +5604,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
+      "calories": 237,
+      "sodium": "365mg (18%)",
+      "carbs": "0g",
+      "sugar": "0.8g (1%)",
+      "fat": "0g",
+      "protein": "16g (29%)",
+      "transFat": "0g",
+      "satFat": "4.2g (28%)",
+      "saturatedFat": "4.2g (28%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5618,7 +5664,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 269,
     "volume": "R/L 사이즈 선택",
     "isToday": false,
     "isHot": true,
@@ -5627,14 +5672,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.7,
       "portion": 4.8,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5685,7 +5722,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 296,
     "volume": "R/L 사이즈 선택",
     "isToday": false,
     "isHot": true,
@@ -5694,14 +5730,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.7,
       "portion": 4.8,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5752,7 +5780,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 263,
+    "calories": 237,
     "volume": "R/L 사이즈 선택",
     "isToday": false,
     "isHot": false,
@@ -5763,12 +5791,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
+      "calories": 237,
+      "sodium": "309mg (15%)",
+      "carbs": "0g",
+      "sugar": "3.2g (3%)",
+      "fat": "0g",
+      "protein": "12.4g (23%)",
+      "transFat": "0g",
+      "satFat": "5.9g (39%)",
+      "saturatedFat": "5.9g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5819,7 +5851,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자알볼로"
     ],
     "repurchasePercent": 94,
-    "calories": 306,
+    "calories": 219,
     "volume": "R/L 사이즈 선택",
     "isToday": false,
     "isHot": false,
@@ -5830,12 +5862,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 270,
-      "sodium": "460mg (23%)",
-      "carbs": "33g (10%)",
-      "sugar": "6g (6%)",
-      "fat": "11g (20%)",
-      "protein": "12g (22%)"
+      "calories": 219,
+      "sodium": "335mg (17%)",
+      "carbs": "0g",
+      "sugar": "3.3g (3%)",
+      "fat": "0g",
+      "protein": "10.3g (19%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "진도산 친환경 흑미 72시간 저온숙성 도우, 100% 천연 모짜렐라 치즈, 수제 토마토 소스",
     "allergens": [
@@ -5886,7 +5922,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림피자"
     ],
     "repurchasePercent": 93,
-    "calories": 275,
     "volume": "L 사이즈 8조각",
     "isToday": true,
     "isHot": true,
@@ -5895,14 +5930,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 280,
-      "sodium": "510mg (25%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "12g (22%)",
-      "protein": "12g (22%)"
     },
     "ingredients": "반올림 수제 생도우, 자연산 모짜렐라 치즈, 특제 반올림 갈릭소스",
     "allergens": [
@@ -5952,7 +5979,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림피자"
     ],
     "repurchasePercent": 93,
-    "calories": 324,
     "volume": "L 사이즈 8조각",
     "isToday": true,
     "isHot": true,
@@ -5961,14 +5987,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 280,
-      "sodium": "510mg (25%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "12g (22%)",
-      "protein": "12g (22%)"
     },
     "ingredients": "반올림 수제 생도우, 자연산 모짜렐라 치즈, 특제 반올림 갈릭소스",
     "allergens": [
@@ -6018,7 +6036,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림피자"
     ],
     "repurchasePercent": 93,
-    "calories": 329,
+    "calories": 187,
     "volume": "L 사이즈 8조각",
     "isToday": false,
     "isHot": true,
@@ -6029,12 +6047,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 280,
-      "sodium": "510mg (25%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "12g (22%)",
-      "protein": "12g (22%)"
+      "calories": 187,
+      "sodium": "781mg (39%)",
+      "carbs": "0g",
+      "sugar": "0.6g (1%)",
+      "fat": "0g",
+      "protein": "12.6g (23%)",
+      "transFat": "0g",
+      "satFat": "6g (40%)",
+      "saturatedFat": "6g (40%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "반올림 수제 생도우, 자연산 모짜렐라 치즈, 특제 반올림 갈릭소스",
     "allergens": [
@@ -6084,7 +6106,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림피자"
     ],
     "repurchasePercent": 93,
-    "calories": 285,
     "volume": "L 사이즈 8조각",
     "isToday": false,
     "isHot": false,
@@ -6093,14 +6114,6 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 280,
-      "sodium": "510mg (25%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "12g (22%)",
-      "protein": "12g (22%)"
     },
     "ingredients": "반올림 수제 생도우, 자연산 모짜렐라 치즈, 특제 반올림 갈릭소스",
     "allergens": [
@@ -6150,7 +6163,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "반올림피자"
     ],
     "repurchasePercent": 93,
-    "calories": 292,
+    "calories": 343,
     "volume": "L 사이즈 8조각",
     "isToday": false,
     "isHot": false,
@@ -6161,12 +6174,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 280,
-      "sodium": "510mg (25%)",
-      "carbs": "31g (10%)",
-      "sugar": "5g (5%)",
-      "fat": "12g (22%)",
-      "protein": "12g (22%)"
+      "calories": 343,
+      "sodium": "359mg (18%)",
+      "carbs": "0g",
+      "sugar": "0.8g (1%)",
+      "fat": "0g",
+      "protein": "14.4g (26%)",
+      "transFat": "0g",
+      "satFat": "8.7g (58%)",
+      "saturatedFat": "8.7g (58%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "반올림 수제 생도우, 자연산 모짜렐라 치즈, 특제 반올림 갈릭소스",
     "allergens": [
@@ -6216,7 +6233,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 93,
-    "calories": 298,
+    "calories": 228,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": true,
     "isHot": true,
@@ -6227,15 +6244,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 298,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 228,
+      "sodium": "540mg (27%)",
+      "carbs": "0g",
+      "sugar": "3.5g (4%)",
+      "fat": "0g",
+      "protein": "12.9g (23%)",
+      "transFat": "0g",
+      "satFat": "4.5g (30%)",
+      "saturatedFat": "4.5g (30%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6285,7 +6303,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 94,
-    "calories": 310,
+    "calories": 242,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": true,
     "isHot": true,
@@ -6296,15 +6314,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 310,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 242,
+      "sodium": "483mg (24%)",
+      "carbs": "0g",
+      "sugar": "4.6g (5%)",
+      "fat": "0g",
+      "protein": "11.9g (22%)",
+      "transFat": "0g",
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6354,7 +6373,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 95,
-    "calories": 325,
+    "calories": 257,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": true,
     "isHot": true,
@@ -6365,15 +6384,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 325,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 257,
+      "sodium": "1156mg (58%)",
+      "carbs": "0g",
+      "sugar": "3g (3%)",
+      "fat": "0g",
+      "protein": "14.5g (26%)",
+      "transFat": "0g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6423,7 +6443,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 96,
-    "calories": 280,
+    "calories": 251,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": true,
@@ -6434,15 +6454,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 280,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 251,
+      "sodium": "410mg (21%)",
+      "carbs": "0g",
+      "sugar": "4.3g (4%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "5.1g (34%)",
+      "saturatedFat": "5.1g (34%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6491,7 +6512,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 97,
-    "calories": 295,
+    "calories": 262,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": true,
@@ -6502,15 +6523,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 262,
+      "sodium": "465mg (23%)",
+      "carbs": "0g",
+      "sugar": "3.3g (3%)",
+      "fat": "0g",
+      "protein": "12.4g (23%)",
+      "transFat": "0g",
+      "satFat": "6.6g (44%)",
+      "saturatedFat": "6.6g (44%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6559,7 +6581,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 93,
-    "calories": 285,
+    "calories": 269,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": true,
@@ -6570,15 +6592,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 269,
+      "sodium": "466mg (23%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "12.3g (22%)",
+      "transFat": "0g",
+      "satFat": "5.1g (34%)",
+      "saturatedFat": "5.1g (34%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6628,7 +6651,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 94,
-    "calories": 290,
+    "calories": 253,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6639,15 +6662,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 290,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 253,
+      "sodium": "522mg (26%)",
+      "carbs": "0g",
+      "sugar": "3.6g (4%)",
+      "fat": "0g",
+      "protein": "10.5g (19%)",
+      "transFat": "0g",
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6697,7 +6721,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 95,
-    "calories": 275,
+    "calories": 211,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6708,15 +6732,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 275,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
+      "calories": 211,
+      "sodium": "466mg (23%)",
+      "carbs": "22.1g (7%)",
+      "sugar": "3.5g (4%)",
+      "fat": "8.9g (16%)",
+      "protein": "10.7g (19%)",
       "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6766,7 +6791,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 96,
-    "calories": 260,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6777,15 +6802,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 260,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6835,7 +6861,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 97,
-    "calories": 270,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6846,15 +6872,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 270,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6903,7 +6930,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 93,
-    "calories": 285,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6914,15 +6941,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -6971,7 +6999,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 94,
-    "calories": 295,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -6982,15 +7010,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -7040,7 +7069,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 95,
-    "calories": 250,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -7051,15 +7080,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 250,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [
@@ -7108,7 +7138,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "피자헛"
     ],
     "repurchasePercent": 96,
-    "calories": 245,
+    "calories": 563,
     "volume": "L 사이즈 8조각 (리치골드/치즈크러스트 엣지 선택)",
     "isToday": false,
     "isHot": false,
@@ -7119,15 +7149,16 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "530mg (27%)",
-      "carbs": "31g (10%)",
-      "sugar": "4g (4%)",
-      "fat": "12g (22%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "13g (24%)"
+      "calories": 563,
+      "sodium": "708mg (35%)",
+      "carbs": "55.6g (17%)",
+      "sugar": "1.4g (1%)",
+      "fat": "34.7g (64%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "피자헛 정통 팬/오리지널 도우, 100% 자연산 모짜렐라 치즈, 프리미엄 토핑 배합, 피자헛 시그니처 토마토 소스",
     "allergens": [

@@ -78,7 +78,7 @@ export const searchAndCrawlNewProducts = async (query: string): Promise<PendingP
     item.name.toLowerCase().includes(lowerQ) ||
     item.brand.toLowerCase().includes(lowerQ) ||
     item.category.toLowerCase().includes(lowerQ) ||
-    item.stores.some(s => s.toLowerCase().includes(lowerQ)) ||
+    (item.stores && item.stores.some(s => s.toLowerCase().includes(lowerQ))) ||
     (item.subCategory && item.subCategory.toLowerCase().includes(lowerQ)) ||
     (item.description && item.description.toLowerCase().includes(lowerQ))
   );

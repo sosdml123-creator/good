@@ -1,7 +1,7 @@
 import { Product } from '../types';
 
 export const NO_BRAND_PRODUCTS: Product[] = [
-{
+  {
     "id": "nobrand-001",
     "name": "노브랜드 숯불데리야끼 닭꼬치 (20개입)",
     "brand": "노브랜드",
@@ -21,7 +21,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 98,
-    "calories": 1750,
+    "calories": 146,
     "volume": "800g (20꼬치)",
     "isToday": true,
     "isHot": true,
@@ -32,12 +32,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 1750,
-      "sodium": "1120mg (56%)",
-      "carbs": "22g (7%)",
-      "sugar": "18g (18%)",
-      "fat": "14g (26%)",
-      "protein": "24g (44%)"
+      "calories": 146,
+      "sodium": "526mg (26%)",
+      "carbs": "8g (2%)",
+      "sugar": "5g (5%)",
+      "fat": "6g (11%)",
+      "protein": "15g (27%)",
+      "transFat": "0g",
+      "satFat": "1.8g (12%)",
+      "saturatedFat": "1.8g (12%)",
+      "cholesterol": "18mg (6%)"
     },
     "ingredients": "닭다리살(외국산) 65%, 데리야끼양념소스[물엿, 양조간장, 정백당, 발효식초, 마늘, 생강추출물], 변성전분, 정제소금, 후춧가루",
     "allergens": [
@@ -91,7 +95,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "20꼬치 대용량에 이 가격이라니 노브랜드 가성비의 끝판왕입니다"
     ]
   },
-{
+  {
     "id": "nobrand-002",
     "name": "노브랜드 바삭 칠리새우",
     "brand": "노브랜드",
@@ -110,7 +114,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 95,
-    "calories": 680,
+    "calories": 218,
     "volume": "400g (새우 250g, 칠리소스 150g)",
     "isToday": true,
     "isHot": true,
@@ -121,12 +125,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 680,
-      "sodium": "980mg (49%)",
-      "carbs": "34g (10%)",
-      "sugar": "16g (16%)",
-      "fat": "12g (22%)",
-      "protein": "19g (35%)"
+      "calories": 218,
+      "sodium": "497mg (25%)",
+      "carbs": "0g",
+      "sugar": "3.9g (4%)",
+      "fat": "0g",
+      "protein": "13.9g (25%)",
+      "transFat": "0g",
+      "satFat": "4.4g (29%)",
+      "saturatedFat": "4.4g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "새우(베트남산) 40%, 칠리소스[토마토케첩, 고추장, 설탕, 양파, 식초, 두반장], 찹쌀튀김옷, 옥수수전분, 정제대두유",
     "allergens": [
@@ -164,7 +172,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "에어프라이어에 바삭하게 구워 소스에 버무리면 훌륭한 일품요리 완성"
     ]
   },
-{
+  {
     "id": "nobrand-003",
     "name": "노브랜드 꼬치어묵 (시원한맛)",
     "brand": "노브랜드",
@@ -184,7 +192,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 96,
-    "calories": 615,
+    "calories": 178,
     "volume": "518g (꼬치 14개입 + 비법육수소스 2개입)",
     "isToday": false,
     "isHot": true,
@@ -195,12 +203,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 615,
-      "sodium": "1280mg (64%)",
-      "carbs": "28g (9%)",
-      "sugar": "6g (6%)",
-      "fat": "7g (13%)",
-      "protein": "22g (40%)"
+      "calories": 178,
+      "sodium": "1342mg (67%)",
+      "carbs": "23.1g (7%)",
+      "sugar": "8.5g (9%)",
+      "fat": "4.8g (9%)",
+      "protein": "10.5g (19%)",
+      "transFat": "0g",
+      "satFat": "1g (7%)",
+      "saturatedFat": "1g (7%)",
+      "cholesterol": "22mg (7%)"
     },
     "ingredients": "연육(어육 70%이상, 베트남산), 소맥분, 비법어묵육수농축액[가쓰오부시추출물, 다시마추출액, 멸치액젓, 대파엑기스], 정제소금",
     "allergens": [
@@ -229,7 +241,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "14꼬치나 들어있는데 4천원대라니 가성비 믿기지 않음"
     ]
   },
-{
+  {
     "id": "nobrand-004",
     "name": "노브랜드 크리스피 모짜렐라 치즈 핫도그",
     "brand": "노브랜드",
@@ -248,7 +260,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 93,
-    "calories": 1250,
+    "calories": 316,
     "volume": "500g (100g x 5개입)",
     "detailedRating": {
       "taste": 4.8,
@@ -257,12 +269,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 1250,
-      "sodium": "840mg (42%)",
-      "carbs": "38g (12%)",
-      "sugar": "10g (10%)",
-      "fat": "14g (26%)",
-      "protein": "16g (29%)"
+      "calories": 316,
+      "sodium": "476mg (24%)",
+      "carbs": "40.3g (12%)",
+      "sugar": "10.5g (11%)",
+      "fat": "13.5g (25%)",
+      "protein": "8.2g (15%)",
+      "transFat": "0.3g",
+      "satFat": "7.8g (52%)",
+      "saturatedFat": "7.8g (52%)",
+      "cholesterol": "11mg (4%)"
     },
     "ingredients": "모짜렐라치즈(자연치즈 99%) 25%, 돈육 소시지 25%, 쌀가루 크리스피 믹스, 빵가루, 정백당, 계란",
     "allergens": [
@@ -293,7 +309,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "핫도그 전문점 1개 가격에 5개를 먹을 수 있는 가성비"
     ]
   },
-{
+  {
     "id": "nobrand-005",
     "name": "노브랜드 쫀득한 더블 치즈스틱 (1kg)",
     "brand": "노브랜드",
@@ -312,7 +328,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 94,
-    "calories": 2850,
+    "calories": 373,
     "volume": "1000g (1kg 대용량)",
     "detailedRating": {
       "taste": 4.9,
@@ -321,12 +337,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 2850,
-      "sodium": "690mg (35%)",
-      "carbs": "26g (8%)",
-      "sugar": "2g (2%)",
-      "fat": "16g (30%)",
-      "protein": "14g (25%)"
+      "calories": 373,
+      "sodium": "664mg (33%)",
+      "carbs": "63.6g (20%)",
+      "sugar": "7.3g (7%)",
+      "fat": "12.7g (24%)",
+      "protein": "3.6g (7%)",
+      "transFat": "0g",
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "77mg (26%)"
     },
     "ingredients": "자연치즈(모짜렐라 70%, 체다치즈 30%), 소맥분, 빵가루, 옥수수전분, 파슬리가루, 정제소금",
     "allergens": [
@@ -355,7 +375,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "체다치즈가 섞여있어서 짭조름하고 치즈 풍미가 훨씬 진해요"
     ]
   },
-{
+  {
     "id": "nobrand-006",
     "name": "노브랜드 냉동 우삼겹 바로구이 (600g)",
     "brand": "노브랜드",
@@ -374,21 +394,12 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 96,
-    "calories": 1950,
     "volume": "600g",
     "detailedRating": {
       "taste": 4.8,
       "value": 5,
       "portion": 4.9,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 1950,
-      "sodium": "110mg (6%)",
-      "carbs": "0g (0%)",
-      "sugar": "0g (0%)",
-      "fat": "45g (83%)",
-      "protein": "18g (33%)"
     },
     "ingredients": "소고기 우삼겹 100% (미국산)",
     "allergens": [
@@ -415,7 +426,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "숙주 한 봉지 사다가 굴소스 넣고 볶으면 5분 만에 훌륭한 요리 완성"
     ]
   },
-{
+  {
     "id": "nobrand-007",
     "name": "노브랜드 냉동 차돌박이 바로구이 (600g)",
     "brand": "노브랜드",
@@ -434,21 +445,12 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 95,
-    "calories": 2100,
     "volume": "600g",
     "detailedRating": {
       "taste": 4.9,
       "value": 4.8,
       "portion": 4.9,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 2100,
-      "sodium": "95mg (5%)",
-      "carbs": "0g (0%)",
-      "sugar": "0g (0%)",
-      "fat": "48g (89%)",
-      "protein": "19g (35%)"
     },
     "ingredients": "소고기 차돌박이 100% (미국산)",
     "allergens": [
@@ -475,7 +477,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "식당에서 1인분에 1만5천원인데 600g이 1만5천원대라니 갓성비"
     ]
   },
-{
+  {
     "id": "nobrand-008",
     "name": "노브랜드 든든한 교자만두 (1kg)",
     "brand": "노브랜드",
@@ -494,7 +496,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 92,
-    "calories": 1950,
+    "calories": 276,
     "volume": "1000g (1kg)",
     "detailedRating": {
       "taste": 4.6,
@@ -503,12 +505,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 1950,
-      "sodium": "680mg (34%)",
-      "carbs": "32g (10%)",
-      "sugar": "3g (3%)",
-      "fat": "12g (22%)",
-      "protein": "11g (20%)"
+      "calories": 276,
+      "sodium": "541mg (27%)",
+      "carbs": "0g",
+      "sugar": "5.3g (5%)",
+      "fat": "0g",
+      "protein": "8.8g (16%)",
+      "transFat": "0g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "돼지고기(국산) 20%, 소맥분, 부추, 양배추, 당면, 두부, 대파, 마늘, 양조간장, 참기름",
     "allergens": [
@@ -537,7 +543,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "가격 대비 고기 함량도 준수하고 만두피가 쫄깃합니다"
     ]
   },
-{
+  {
     "id": "nobrand-009",
     "name": "노브랜드 라면한그릇 얼큰한맛 (5개입)",
     "brand": "노브랜드",
@@ -557,7 +563,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 94,
-    "calories": 495,
+    "calories": 362,
     "volume": "115g x 5개입 (575g)",
     "detailedRating": {
       "taste": 4.7,
@@ -566,12 +572,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 495,
-      "sodium": "1790mg (90%)",
-      "carbs": "74g (23%)",
-      "sugar": "4g (4%)",
-      "fat": "16g (30%)",
-      "protein": "11g (20%)"
+      "calories": 362,
+      "sodium": "1777mg (89%)",
+      "carbs": "76.6g (24%)",
+      "sugar": "3.2g (3%)",
+      "fat": "2.5g (5%)",
+      "protein": "9.6g (17%)",
+      "transFat": "0g",
+      "satFat": "0.6g (4%)",
+      "saturatedFat": "0.6g (4%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "소맥분(호주산), 팜유, 감자전분, 고춧가루, 사골엑기스분말, 소고기맛분말, 건미역, 건파",
     "allergens": [
@@ -600,7 +610,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "요즘 라면값 비싼데 5개입 2천원대라 비상식량으로 필수"
     ]
   },
-{
+  {
     "id": "nobrand-011",
     "name": "노브랜드 고소한 버터쿠키 (400g 버킷통)",
     "brand": "노브랜드",
@@ -619,7 +629,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 95,
-    "calories": 1980,
+    "calories": 329,
     "volume": "400g (소포장 14봉지)",
     "detailedRating": {
       "taste": 4.8,
@@ -628,12 +638,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 495,
-      "sodium": "490mg (25%)",
-      "carbs": "71g (22%)",
-      "sugar": "26g (26%)",
-      "fat": "21g (39%)",
-      "protein": "6g (11%)"
+      "calories": 329,
+      "sodium": "571mg (29%)",
+      "carbs": "0g",
+      "sugar": "5.7g (6%)",
+      "fat": "0g",
+      "protein": "2.9g (5%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "소맥분(밀), 가공버터(유지방, 수분, 야자경화유), 설탕, 전란액, 유청분말, 버터향",
     "allergens": [
@@ -662,7 +676,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "통이 튼튼해서 다 먹고 장난감이나 소품 보관함으로 쓰기 좋아요"
     ]
   },
-{
+  {
     "id": "nobrand-012",
     "name": "노브랜드 자색고구마칩 (110g)",
     "brand": "노브랜드",
@@ -682,7 +696,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 97,
-    "calories": 550,
+    "calories": 459,
     "volume": "110g",
     "isToday": true,
     "isHot": true,
@@ -693,12 +707,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 550,
-      "sodium": "320mg (16%)",
-      "carbs": "74g (23%)",
-      "sugar": "19g (19%)",
-      "fat": "26g (48%)",
-      "protein": "4g (7%)"
+      "calories": 459,
+      "sodium": "436mg (22%)",
+      "carbs": "61.8g (19%)",
+      "sugar": "8.2g (8%)",
+      "fat": "20.9g (39%)",
+      "protein": "5.5g (10%)",
+      "transFat": "0g",
+      "satFat": "10g (67%)",
+      "saturatedFat": "10g (67%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "자색고구마분말 22%, 감자플레이크, 팜올레인유, 정백당, 복합조미식품, 정제소금",
     "allergens": [
@@ -726,7 +744,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "색감도 너무 예쁘고 바삭바삭해서 영화 볼 때 한 캔 순삭"
     ]
   },
-{
+  {
     "id": "nobrand-013",
     "name": "노브랜드 감자칩 오리지널 (110g)",
     "brand": "노브랜드",
@@ -746,7 +764,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 94,
-    "calories": 545,
+    "calories": 491,
     "volume": "110g",
     "detailedRating": {
       "taste": 4.7,
@@ -755,12 +773,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 545,
-      "sodium": "490mg (25%)",
-      "carbs": "68g (21%)",
-      "sugar": "2g (2%)",
-      "fat": "28g (52%)",
-      "protein": "5g (9%)"
+      "calories": 491,
+      "sodium": "890mg (45%)",
+      "carbs": "57g (18%)",
+      "sugar": "1g (1%)",
+      "fat": "27g (50%)",
+      "protein": "5g (9%)",
+      "transFat": "0g",
+      "satFat": "13g (87%)",
+      "saturatedFat": "13g (87%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "건조감자플레이크 58%, 팜올레인유, 타피오카전분, 덱스트로스, 정제소금",
     "allergens": [
@@ -787,7 +809,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "짜지 않고 바삭해서 맥주 안주로 언제나 쟁여둡니다"
     ]
   },
-{
+  {
     "id": "nobrand-014",
     "name": "노브랜드 대용량 체다치즈볼 (370g)",
     "brand": "노브랜드",
@@ -806,7 +828,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 95,
-    "calories": 1980,
+    "calories": 586,
     "volume": "370g 대용량 버킷",
     "detailedRating": {
       "taste": 4.9,
@@ -815,12 +837,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 535,
-      "sodium": "780mg (39%)",
-      "carbs": "62g (19%)",
+      "calories": 586,
+      "sodium": "600mg (30%)",
+      "carbs": "53g (16%)",
       "sugar": "5g (5%)",
-      "fat": "30g (56%)",
-      "protein": "5g (9%)"
+      "fat": "40g (74%)",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "19g (127%)",
+      "saturatedFat": "19g (127%)",
+      "cholesterol": "3mg (1%)"
     },
     "ingredients": "옥수수가루 62%, 식물성유지, 체다치즈맛시즈닝[체다치즈분말, 유청분말, 가공소금], 파프리카추출색소",
     "allergens": [
@@ -848,7 +874,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "거대한 통에 가득 들어있어 친구들과 홈파티할 때 필수"
     ]
   },
-{
+  {
     "id": "nobrand-015",
     "name": "노브랜드 고르곤졸라치즈 소프트콘 (150g)",
     "brand": "노브랜드",
@@ -868,7 +894,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 97,
-    "calories": 840,
+    "calories": 690,
     "volume": "150g",
     "isToday": true,
     "isHot": true,
@@ -879,12 +905,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 5
     },
     "nutrition": {
-      "calories": 560,
-      "sodium": "360mg (18%)",
-      "carbs": "60g (19%)",
-      "sugar": "18g (18%)",
-      "fat": "34g (63%)",
-      "protein": "4g (7%)"
+      "calories": 690,
+      "sodium": "350mg (18%)",
+      "carbs": "37g (11%)",
+      "sugar": "5g (5%)",
+      "fat": "59g (109%)",
+      "protein": "3g (5%)",
+      "transFat": "0g",
+      "satFat": "25g (167%)",
+      "saturatedFat": "25g (167%)",
+      "cholesterol": "3mg (1%)"
     },
     "ingredients": "옥수수(외국산) 51%, 팜올레인유, 고르곤졸라치즈시즈닝[블루치즈분말, 백설탕, 포도당, 버터혼합분말], 정제소금",
     "allergens": [
@@ -912,7 +942,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "냉동실에 넣어 차갑게 얼려 먹으면 바삭함과 시원함이 두 배입니다"
     ]
   },
-{
+  {
     "id": "nobrand-016",
     "name": "노브랜드 다크 초콜릿 70% (100g)",
     "brand": "노브랜드",
@@ -932,7 +962,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 95,
-    "calories": 550,
+    "calories": 463,
     "volume": "100g",
     "detailedRating": {
       "taste": 4.9,
@@ -941,12 +971,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 550,
-      "sodium": "15mg (1%)",
-      "carbs": "38g (12%)",
-      "sugar": "28g (28%)",
-      "fat": "41g (76%)",
-      "protein": "8g (15%)"
+      "calories": 463,
+      "sodium": "46mg (2%)",
+      "carbs": "0g",
+      "sugar": "45.7g (46%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
+      "transFat": "0g",
+      "satFat": "9.1g (61%)",
+      "saturatedFat": "9.1g (61%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "코코아매스 60%, 설탕, 저지방코코아분말 10%, 코코아버터, 레시틴(대두), 천연바닐라향 (총 카카오 함량 70%)",
     "allergens": [
@@ -974,7 +1008,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "홈베이킹용으로도 너무 좋고 다이어트 중 달콤함 채우기 최고"
     ]
   },
-{
+  {
     "id": "nobrand-017",
     "name": "노브랜드 정통 포르투갈식 에그타르트 (6개입)",
     "brand": "노브랜드",
@@ -993,7 +1027,7 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "SSG.COM"
     ],
     "repurchasePercent": 94,
-    "calories": 890,
+    "calories": 280,
     "volume": "420g (70g x 6개입)",
     "detailedRating": {
       "taste": 4.9,
@@ -1002,12 +1036,16 @@ export const NO_BRAND_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 148,
-      "sodium": "95mg (5%)",
-      "carbs": "18g (6%)",
-      "sugar": "9g (9%)",
-      "fat": "7g (13%)",
-      "protein": "3g (5%)"
+      "calories": 280,
+      "sodium": "220mg (11%)",
+      "carbs": "0g",
+      "sugar": "10g (10%)",
+      "fat": "0g",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "9.2g (61%)",
+      "saturatedFat": "9.2g (61%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "커스터드크림 55%[우유, 설탕, 계란노른자, 생크림, 바닐라향], 페이스트리도우[밀가루, 가공버터, 정제수, 식염]",
     "allergens": [

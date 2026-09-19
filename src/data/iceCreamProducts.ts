@@ -22,7 +22,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 120,
+    "calories": 156,
     "volume": "75ml",
     "isToday": true,
     "isHot": true,
@@ -33,15 +33,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 120,
-      "sodium": "50mg (3%)",
-      "carbs": "18g (6%)",
-      "sugar": "13g (13%)",
-      "fat": "5g (9%)",
-      "satFat": "3.2g (21%)",
-      "transFat": "0.5g 미만",
-      "cholesterol": "15mg (5%)",
-      "protein": "1g (2%)"
+      "calories": 156,
+      "sodium": "69mg (3%)",
+      "carbs": "25g (8%)",
+      "sugar": "20g (20%)",
+      "fat": "6.3g (12%)",
+      "protein": "1.3g (2%)",
+      "transFat": "0.6g",
+      "satFat": "4.8g (32%)",
+      "saturatedFat": "4.8g (32%)",
+      "cholesterol": "19mg (6%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -98,7 +99,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 100,
+    "calories": 86,
     "volume": "100ml",
     "isToday": true,
     "isHot": true,
@@ -109,15 +110,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 100,
-      "sodium": "45mg (2%)",
-      "carbs": "11g (3%)",
-      "sugar": "10g (10%)",
-      "fat": "5g (9%)",
-      "satFat": "3.5g (23%)",
+      "calories": 86,
+      "sodium": "31mg (2%)",
+      "carbs": "11.3g (3%)",
+      "sugar": "11.3g (11%)",
+      "fat": "3.3g (6%)",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "cholesterol": "20mg (7%)",
-      "protein": "2g (4%)"
+      "satFat": "2.1g (14%)",
+      "saturatedFat": "2.1g (14%)",
+      "cholesterol": "12mg (4%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -174,7 +176,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 220,
+    "calories": 143,
     "volume": "150ml",
     "isToday": true,
     "isHot": true,
@@ -185,15 +187,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 220,
-      "sodium": "80mg (4%)",
-      "carbs": "37g (11%)",
-      "sugar": "24g (24%)",
-      "fat": "7g (13%)",
-      "satFat": "6g (40%)",
+      "calories": 143,
+      "sodium": "53mg (3%)",
+      "carbs": "24.7g (8%)",
+      "sugar": "16.7g (17%)",
+      "fat": "4g (7%)",
+      "protein": "2g (4%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "2g (4%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -250,7 +253,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 290,
+    "calories": 105,
     "volume": "160ml",
     "isToday": true,
     "isHot": true,
@@ -261,15 +264,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 290,
-      "sodium": "100mg (5%)",
-      "carbs": "40g (12%)",
-      "sugar": "22g (22%)",
-      "fat": "12g (22%)",
-      "satFat": "6g (40%)",
+      "calories": 105,
+      "sodium": "35mg (2%)",
+      "carbs": "14g (4%)",
+      "sugar": "11g (11%)",
+      "fat": "4.6g (9%)",
+      "protein": "2g (4%)",
       "transFat": "0g",
-      "cholesterol": "20mg (7%)",
-      "protein": "5g (9%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -326,7 +330,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 120,
+    "calories": 163,
     "volume": "100ml",
     "isToday": true,
     "isHot": true,
@@ -337,15 +341,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 120,
-      "sodium": "50mg (3%)",
-      "carbs": "16g (5%)",
-      "sugar": "13g (13%)",
-      "fat": "6g (11%)",
-      "satFat": "4g (27%)",
-      "transFat": "0.5g 미만",
-      "cholesterol": "15mg (5%)",
-      "protein": "1g (2%)"
+      "calories": 163,
+      "sodium": "53mg (3%)",
+      "carbs": "22g (7%)",
+      "sugar": "14g (14%)",
+      "fat": "7.3g (14%)",
+      "protein": "2g (4%)",
+      "transFat": "0g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -402,7 +407,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 190,
+    "calories": 185,
     "volume": "90ml",
     "isToday": false,
     "isHot": true,
@@ -413,15 +418,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 190,
-      "sodium": "120mg (6%)",
-      "carbs": "18g (6%)",
-      "sugar": "14g (14%)",
-      "fat": "12g (22%)",
-      "satFat": "9g (60%)",
-      "transFat": "0.4g",
-      "cholesterol": "12mg (4%)",
-      "protein": "2g (4%)"
+      "calories": 185,
+      "sodium": "70mg (4%)",
+      "carbs": "19g (6%)",
+      "sugar": "17g (17%)",
+      "fat": "11g (20%)",
+      "protein": "4g (7%)",
+      "transFat": "0.3g",
+      "satFat": "6g (40%)",
+      "saturatedFat": "6g (40%)",
+      "cholesterol": "50mg (17%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -478,7 +484,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 150,
+    "calories": 439,
     "volume": "70ml",
     "isToday": false,
     "isHot": true,
@@ -489,15 +495,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 150,
-      "sodium": "75mg (4%)",
-      "carbs": "13g (4%)",
-      "sugar": "12g (12%)",
-      "fat": "10g (19%)",
-      "satFat": "6.5g (43%)",
+      "calories": 439,
+      "sodium": "40mg (2%)",
+      "carbs": "81.3g (25%)",
+      "sugar": "69.3g (69%)",
+      "fat": "12g (22%)",
+      "protein": "1.3g (2%)",
       "transFat": "0g",
-      "cholesterol": "20mg (7%)",
-      "protein": "2g (4%)"
+      "satFat": "9.3g (62%)",
+      "saturatedFat": "9.3g (62%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -554,7 +561,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 135,
+    "calories": 186,
     "volume": "70ml",
     "isToday": false,
     "isHot": true,
@@ -565,15 +572,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 135,
-      "sodium": "65mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "15g (15%)",
-      "fat": "1.3g (2%)",
-      "satFat": "1.1g (7%)",
+      "calories": 186,
+      "sodium": "100mg (5%)",
+      "carbs": "32.9g (10%)",
+      "sugar": "22.9g (23%)",
+      "fat": "5.1g (9%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "2.3g (4%)"
+      "satFat": "3.4g (23%)",
+      "saturatedFat": "3.4g (23%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -630,7 +638,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 200,
+    "calories": 111,
     "volume": "180ml",
     "isToday": false,
     "isHot": true,
@@ -641,15 +649,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 200,
-      "sodium": "115mg (6%)",
-      "carbs": "35g (11%)",
-      "sugar": "24g (24%)",
-      "fat": "5g (9%)",
-      "satFat": "4g (27%)",
+      "calories": 111,
+      "sodium": "83mg (4%)",
+      "carbs": "18.3g (6%)",
+      "sugar": "13.7g (14%)",
+      "fat": "3.3g (6%)",
+      "protein": "1.7g (3%)",
       "transFat": "0g",
-      "cholesterol": "20mg (7%)",
-      "protein": "3g (5%)"
+      "satFat": "2.8g (19%)",
+      "saturatedFat": "2.8g (19%)",
+      "cholesterol": "17mg (6%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -706,7 +715,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 75,
+    "calories": 113,
     "volume": "75ml",
     "isToday": false,
     "isHot": true,
@@ -717,15 +726,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 75,
-      "sodium": "20mg (1%)",
-      "carbs": "19g (6%)",
-      "sugar": "16g (16%)",
-      "fat": "0g (0%)",
-      "satFat": "0g (0%)",
+      "calories": 113,
+      "sodium": "27mg (1%)",
+      "carbs": "26.7g (8%)",
+      "sugar": "22.7g (23%)",
+      "fat": "0.7g (1%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (-%)",
-      "protein": "0g (0%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -782,7 +792,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 140,
+    "calories": 179,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -793,15 +803,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 140,
-      "sodium": "80mg (4%)",
-      "carbs": "20g (6%)",
-      "sugar": "19g (19%)",
-      "fat": "6g (11%)",
-      "satFat": "4g (27%)",
+      "calories": 179,
+      "sodium": "52mg (3%)",
+      "carbs": "25.4g (8%)",
+      "sugar": "23.9g (24%)",
+      "fat": "7.2g (13%)",
+      "protein": "3g (5%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "2g (4%)"
+      "satFat": "5.2g (35%)",
+      "saturatedFat": "5.2g (35%)",
+      "cholesterol": "15mg (5%)"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -858,7 +869,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 100,
+    "calories": 236,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -869,15 +880,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 100,
-      "sodium": "45mg (2%)",
-      "carbs": "18g (6%)",
-      "sugar": "13g (13%)",
-      "fat": "2.8g (5%)",
-      "satFat": "2.5g (17%)",
+      "calories": 236,
+      "sodium": "64mg (3%)",
+      "carbs": "27.1g (8%)",
+      "sugar": "24.3g (24%)",
+      "fat": "12.9g (24%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "1g 미만 (1%)"
+      "satFat": "10g (67%)",
+      "saturatedFat": "10g (67%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -934,7 +946,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 115,
+    "calories": 248,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -945,15 +957,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 115,
-      "sodium": "70mg (4%)",
-      "carbs": "14g (4%)",
-      "sugar": "13g (13%)",
-      "fat": "6g (11%)",
-      "satFat": "3.6g (24%)",
+      "calories": 248,
+      "sodium": "549mg (27%)",
+      "carbs": "0g",
+      "sugar": "4.3g (4%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "1g (2%)"
+      "satFat": "3.8g (25%)",
+      "saturatedFat": "3.8g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1010,7 +1023,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 75,
+    "calories": 58,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -1021,15 +1034,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 75,
-      "sodium": "70mg (4%)",
-      "carbs": "17g (5%)",
-      "sugar": "13g (13%)",
-      "fat": "0.7g (1%)",
-      "satFat": "0.5g (3%)",
+      "calories": 58,
+      "sodium": "21mg (1%)",
+      "carbs": "13.3g (4%)",
+      "sugar": "9.2g (9%)",
+      "fat": "0.3g (1%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "0.3g (2%)",
+      "saturatedFat": "0.3g (2%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1086,7 +1100,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 125,
+    "calories": 123,
     "volume": "140ml",
     "isToday": false,
     "isHot": false,
@@ -1097,15 +1111,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 125,
-      "sodium": "65mg (3%)",
-      "carbs": "25g (8%)",
-      "sugar": "16g (16%)",
-      "fat": "2.5g (5%)",
-      "satFat": "2.3g (15%)",
+      "calories": 123,
+      "sodium": "64mg (3%)",
+      "carbs": "17.3g (5%)",
+      "sugar": "13.6g (14%)",
+      "fat": "4.8g (9%)",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0.5g (1%)"
+      "satFat": "3.6g (24%)",
+      "saturatedFat": "3.6g (24%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1162,7 +1177,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 135,
+    "calories": 155,
     "volume": "100ml",
     "isToday": false,
     "isHot": false,
@@ -1173,15 +1188,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 135,
-      "sodium": "50mg (3%)",
-      "carbs": "12g (4%)",
-      "sugar": "12g (12%)",
-      "fat": "9g (17%)",
-      "satFat": "6g (40%)",
-      "transFat": "0.4g",
-      "cholesterol": "40mg (13%)",
-      "protein": "2g (4%)"
+      "calories": 155,
+      "sodium": "59mg (3%)",
+      "carbs": "13.6g (4%)",
+      "sugar": "12.7g (13%)",
+      "fat": "10g (19%)",
+      "protein": "2.5g (5%)",
+      "transFat": "0.5g",
+      "satFat": "6.4g (43%)",
+      "saturatedFat": "6.4g (43%)",
+      "cholesterol": "55mg (18%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1238,7 +1254,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 140,
+    "calories": 435,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -1249,15 +1265,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 140,
-      "sodium": "95mg (5%)",
-      "carbs": "19g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "6g (11%)",
-      "satFat": "3.8g (25%)",
+      "calories": 435,
+      "sodium": "185mg (9%)",
+      "carbs": "0g",
+      "sugar": "25g (25%)",
+      "fat": "1.9g (4%)",
+      "protein": "4.2g (8%)",
       "transFat": "0g",
-      "cholesterol": "3mg (1%)",
-      "protein": "2g (4%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1314,7 +1331,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 310,
+    "calories": 324,
     "volume": "85ml",
     "isToday": false,
     "isHot": false,
@@ -1325,15 +1342,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 310,
-      "sodium": "60mg (3%)",
-      "carbs": "21g (6%)",
-      "sugar": "16g (16%)",
-      "fat": "24g (44%)",
-      "satFat": "15g (100%)",
-      "transFat": "0.5g 미만",
-      "cholesterol": "10mg (3%)",
-      "protein": "2.5g (5%)"
+      "calories": 324,
+      "sodium": "66mg (3%)",
+      "carbs": "23.1g (7%)",
+      "sugar": "17.6g (18%)",
+      "fat": "24.2g (45%)",
+      "protein": "3.3g (6%)",
+      "transFat": "0g",
+      "satFat": "9.9g (66%)",
+      "saturatedFat": "9.9g (66%)",
+      "cholesterol": "5mg (2%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1390,7 +1408,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 90,
+    "calories": 79,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -1401,15 +1419,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 90,
-      "sodium": "55mg (3%)",
-      "carbs": "21g (6%)",
-      "sugar": "16g (16%)",
-      "fat": "0.9g (2%)",
-      "satFat": "0.8g (5%)",
+      "calories": 79,
+      "sodium": "17mg (1%)",
+      "carbs": "16.7g (5%)",
+      "sugar": "10.8g (11%)",
+      "fat": "1.3g (2%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1466,7 +1485,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 115,
+    "calories": 92,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -1477,15 +1496,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 115,
-      "sodium": "50mg (3%)",
-      "carbs": "22g (7%)",
-      "sugar": "16g (16%)",
-      "fat": "3.2g (6%)",
-      "satFat": "3g (20%)",
+      "calories": 92,
+      "sodium": "19mg (1%)",
+      "carbs": "21.5g (7%)",
+      "sugar": "18.5g (19%)",
+      "fat": "0.5g (1%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "0.5g (3%)",
+      "saturatedFat": "0.5g (3%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1542,7 +1562,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 330,
+    "calories": 136,
     "volume": "240ml",
     "isToday": false,
     "isHot": false,
@@ -1553,15 +1573,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 330,
-      "sodium": "90mg (5%)",
-      "carbs": "74g (23%)",
-      "sugar": "55g (55%)",
-      "fat": "1.3g (2%)",
-      "satFat": "0.3g (2%)",
+      "calories": 136,
+      "sodium": "62mg (3%)",
+      "carbs": "0g",
+      "sugar": "18.4g (18%)",
+      "fat": "0g",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "6g (11%)"
+      "satFat": "1.2g (8%)",
+      "saturatedFat": "1.2g (8%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1631,13 +1652,14 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
     "nutrition": {
       "calories": 150,
       "sodium": "80mg (4%)",
-      "carbs": "18g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "8g (15%)",
-      "satFat": "5g (33%)",
+      "carbs": "19g (6%)",
+      "sugar": "16g (16%)",
+      "fat": "7.5g (14%)",
+      "protein": "1.5g (3%)",
       "transFat": "0g",
-      "cholesterol": "20mg (7%)",
-      "protein": "1.8g (3%)"
+      "satFat": "5.5g (37%)",
+      "saturatedFat": "5.5g (37%)",
+      "cholesterol": "10mg (3%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1694,7 +1716,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 10,
+    "calories": 100,
     "volume": "200ml",
     "isToday": false,
     "isHot": false,
@@ -1705,15 +1727,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 10,
-      "sodium": "80mg (4%)",
-      "carbs": "2g (1%)",
-      "sugar": "2g (2%)",
-      "fat": "0g (0%)",
-      "satFat": "0g (0%)",
+      "calories": 100,
+      "sodium": "36mg (2%)",
+      "carbs": "22.9g (7%)",
+      "sugar": "21.4g (21%)",
+      "fat": "0.9g (2%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "0.7g (5%)",
+      "saturatedFat": "0.7g (5%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1770,7 +1793,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 75,
+    "calories": 100,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -1781,15 +1804,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 75,
-      "sodium": "40mg (2%)",
-      "carbs": "14g (4%)",
-      "sugar": "13g (13%)",
-      "fat": "1.5g (3%)",
-      "satFat": "0.9g (6%)",
+      "calories": 100,
+      "sodium": "53mg (3%)",
+      "carbs": "18.7g (6%)",
+      "sugar": "17.3g (17%)",
+      "fat": "2g (4%)",
+      "protein": "1.3g (2%)",
       "transFat": "0g",
-      "cholesterol": "5mg (2%)",
-      "protein": "1g (2%)"
+      "satFat": "1.2g (8%)",
+      "saturatedFat": "1.2g (8%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1846,7 +1870,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 55,
+    "calories": 79,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -1857,15 +1881,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 55,
-      "sodium": "10mg (1%)",
-      "carbs": "14g (4%)",
-      "sugar": "12g (12%)",
-      "fat": "0g (0%)",
-      "satFat": "0g (0%)",
+      "calories": 79,
+      "sodium": "14mg (1%)",
+      "carbs": "20g (6%)",
+      "sugar": "17.1g (17%)",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1922,7 +1947,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 153,
+    "calories": 61,
     "volume": "90ml",
     "isToday": false,
     "isHot": false,
@@ -1933,15 +1958,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 153,
-      "sodium": "40mg (2%)",
-      "carbs": "19g (6%)",
-      "sugar": "2.4g (2%)",
-      "fat": "12.5g (23%)",
-      "satFat": "8g (53%)",
-      "transFat": "0g",
-      "cholesterol": "40mg (13%)",
-      "protein": "3g (5%)"
+      "calories": 61,
+      "sodium": "34mg (2%)",
+      "carbs": "13.1g (4%)",
+      "sugar": "2.5g (3%)",
+      "fat": "4.1g (8%)",
+      "protein": "0.9g (2%)",
+      "transFat": "0.1g",
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -1998,7 +2024,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 70,
+    "calories": 100,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -2009,15 +2035,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 70,
-      "sodium": "15mg (1%)",
-      "carbs": "14g (4%)",
-      "sugar": "13g (13%)",
-      "fat": "1.8g (3%)",
-      "satFat": "1.5g (10%)",
+      "calories": 100,
+      "sodium": "36mg (2%)",
+      "carbs": "22.9g (7%)",
+      "sugar": "21.4g (21%)",
+      "fat": "0.9g (2%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "0.7g (5%)",
+      "saturatedFat": "0.7g (5%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2074,7 +2101,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 135,
+    "calories": 180,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -2085,15 +2112,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 135,
-      "sodium": "60mg (3%)",
-      "carbs": "14g (4%)",
-      "sugar": "12g (12%)",
-      "fat": "8g (15%)",
-      "satFat": "6g (40%)",
+      "calories": 180,
+      "sodium": "80mg (4%)",
+      "carbs": "18.7g (6%)",
+      "sugar": "16g (16%)",
+      "fat": "10.7g (20%)",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "cholesterol": "5mg (1%)",
-      "protein": "1g (2%)"
+      "satFat": "8g (53%)",
+      "saturatedFat": "8g (53%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2150,7 +2178,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 165,
+    "calories": 125,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -2161,15 +2189,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 165,
-      "sodium": "120mg (6%)",
-      "carbs": "27g (8%)",
-      "sugar": "15g (15%)",
-      "fat": "4.8g (9%)",
-      "satFat": "3.5g (23%)",
+      "calories": 125,
+      "sodium": "63mg (3%)",
+      "carbs": "20.8g (6%)",
+      "sugar": "11.7g (12%)",
+      "fat": "3.6g (7%)",
+      "protein": "2.5g (5%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "2.6g (17%)",
+      "saturatedFat": "2.6g (17%)",
+      "cholesterol": "8mg (3%)"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2226,7 +2255,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 245,
+    "calories": 107,
     "volume": "240ml",
     "isToday": false,
     "isHot": false,
@@ -2237,15 +2266,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "95mg (5%)",
-      "carbs": "27g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "0g (-%)",
-      "satFat": "2.9g (19%)",
+      "calories": 107,
+      "sodium": "68mg (3%)",
+      "carbs": "19.3g (6%)",
+      "sugar": "12.9g (13%)",
+      "fat": "2.3g (4%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "2.1g (14%)",
+      "saturatedFat": "2.1g (14%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2302,7 +2332,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 100,
+    "calories": 83,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -2313,15 +2343,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 100,
-      "sodium": "20mg (1%)",
-      "carbs": "19g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "2.8g (5%)",
-      "satFat": "2.4g (16%)",
+      "calories": 83,
+      "sodium": "13mg (1%)",
+      "carbs": "17.5g (5%)",
+      "sugar": "12.5g (13%)",
+      "fat": "1.3g (2%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2378,7 +2409,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 105,
+    "calories": 88,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -2389,15 +2420,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 105,
-      "sodium": "50mg (3%)",
-      "carbs": "24g (7%)",
-      "sugar": "16g (16%)",
-      "fat": "1.2g (2%)",
-      "satFat": "0.9g (6%)",
+      "calories": 88,
+      "sodium": "25mg (1%)",
+      "carbs": "16.7g (5%)",
+      "sugar": "13.3g (13%)",
+      "fat": "2.1g (4%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "1.8g (12%)",
+      "saturatedFat": "1.8g (12%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2454,7 +2486,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 55,
+    "calories": 200,
     "volume": "50ml",
     "isToday": false,
     "isHot": false,
@@ -2465,15 +2497,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 55,
-      "sodium": "15mg (1%)",
-      "carbs": "14g (4%)",
-      "sugar": "10g (10%)",
-      "fat": "0g (0%)",
-      "satFat": "0g (0%)",
+      "calories": 200,
+      "sodium": "40mg (2%)",
+      "carbs": "26g (8%)",
+      "sugar": "24g (24%)",
+      "fat": "8.6g (16%)",
+      "protein": "4g (7%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "6g (40%)",
+      "saturatedFat": "6g (40%)",
+      "cholesterol": "30mg (10%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2530,7 +2563,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 145,
+    "calories": 373,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -2541,15 +2574,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 145,
-      "sodium": "50mg (3%)",
-      "carbs": "18g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "7g (13%)",
-      "satFat": "5g (33%)",
+      "calories": 373,
+      "sodium": "664mg (33%)",
+      "carbs": "63.6g (20%)",
+      "sugar": "7.3g (7%)",
+      "fat": "12.7g (24%)",
+      "protein": "3.6g (7%)",
       "transFat": "0g",
-      "cholesterol": "5mg 미만 (1%)",
-      "protein": "2g (4%)"
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "77mg (26%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2606,7 +2640,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 140,
+    "calories": 107,
     "volume": "150ml",
     "isToday": false,
     "isHot": false,
@@ -2617,15 +2651,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 140,
-      "sodium": "70mg (4%)",
-      "carbs": "27g (8%)",
-      "sugar": "25g (25%)",
-      "fat": "3g (6%)",
-      "satFat": "2.8g (19%)",
-      "transFat": "0.2g",
-      "cholesterol": "2mg (1%)",
-      "protein": "1.4g (3%)"
+      "calories": 107,
+      "sodium": "27mg (1%)",
+      "carbs": "25.3g (8%)",
+      "sugar": "21.3g (21%)",
+      "fat": "0.7g (1%)",
+      "protein": "0g",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2682,7 +2717,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 70,
+    "calories": 220,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -2693,15 +2728,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 70,
-      "sodium": "25mg (1%)",
-      "carbs": "17g (5%)",
-      "sugar": "13g (13%)",
-      "fat": "0.4g (1%)",
-      "satFat": "0.3g (2%)",
-      "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "calories": 220,
+      "sodium": "38mg (2%)",
+      "carbs": "24.8g (8%)",
+      "sugar": "21.6g (22%)",
+      "fat": "12g (22%)",
+      "protein": "3.2g (6%)",
+      "transFat": "0.2g",
+      "satFat": "7.2g (48%)",
+      "saturatedFat": "7.2g (48%)",
+      "cholesterol": "50mg (17%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2758,7 +2794,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 85,
+    "calories": 67,
     "volume": "120ml",
     "isToday": false,
     "isHot": false,
@@ -2769,15 +2805,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 85,
-      "sodium": "35mg (2%)",
-      "carbs": "18g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "1.5g (3%)",
-      "satFat": "1.5g (10%)",
+      "calories": 67,
+      "sodium": "21mg (1%)",
+      "carbs": "14.2g (4%)",
+      "sugar": "11.7g (12%)",
+      "fat": "1.1g (2%)",
+      "protein": "0g",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
+      "satFat": "1.1g (7%)",
+      "saturatedFat": "1.1g (7%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2834,7 +2871,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 535,
+    "calories": 134,
     "volume": "400ml",
     "isToday": false,
     "isHot": false,
@@ -2845,15 +2882,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 535,
-      "sodium": "150mg (8%)",
-      "carbs": "50g (15%)",
-      "sugar": "33.5g (34%)",
-      "fat": "0g (-%)",
-      "satFat": "5.5g (37%)",
+      "calories": 134,
+      "sodium": "75mg (4%)",
+      "carbs": "25g (8%)",
+      "sugar": "9.3g (9%)",
+      "fat": "3.4g (6%)",
+      "protein": "1g (2%)",
       "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "2g (4%)"
+      "satFat": "2.8g (19%)",
+      "saturatedFat": "2.8g (19%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "해태아이스 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2910,7 +2948,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 725,
+    "calories": 191,
     "volume": "420ml",
     "isToday": false,
     "isHot": false,
@@ -2921,15 +2959,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 725,
-      "sodium": "315mg (16%)",
-      "carbs": "87g (27%)",
-      "sugar": "84g (84%)",
-      "fat": "35g (65%)",
-      "satFat": "20g (133%)",
-      "transFat": "1.2g",
-      "cholesterol": "111mg (37%)",
-      "protein": "16g (29%)"
+      "calories": 191,
+      "sodium": "106mg (5%)",
+      "carbs": "31.2g (10%)",
+      "sugar": "22.6g (23%)",
+      "fat": "6.5g (12%)",
+      "protein": "2.8g (5%)",
+      "transFat": "0g",
+      "satFat": "5.1g (34%)",
+      "saturatedFat": "5.1g (34%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -2986,7 +3025,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 100,
+    "calories": 143,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -2997,15 +3036,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 100,
-      "sodium": "30mg (2%)",
-      "carbs": "17g (5%)",
-      "sugar": "17g (17%)",
-      "fat": "3.3g (6%)",
-      "satFat": "2.4g (16%)",
+      "calories": 143,
+      "sodium": "43mg (2%)",
+      "carbs": "24.3g (8%)",
+      "sugar": "24.3g (24%)",
+      "fat": "4.7g (9%)",
+      "protein": "1.4g (3%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "1g (2%)"
+      "satFat": "3.4g (23%)",
+      "saturatedFat": "3.4g (23%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3062,7 +3102,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 100,
+    "calories": 143,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -3073,15 +3113,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 100,
-      "sodium": "40mg (2%)",
-      "carbs": "16g (5%)",
-      "sugar": "13g (13%)",
-      "fat": "3.5g (6%)",
-      "satFat": "2.8g (19%)",
+      "calories": 143,
+      "sodium": "57mg (3%)",
+      "carbs": "22.9g (7%)",
+      "sugar": "18.6g (19%)",
+      "fat": "5g (9%)",
+      "protein": "1.4g (3%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "1g (2%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3138,7 +3179,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 120,
+    "calories": 171,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -3149,15 +3190,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 120,
-      "sodium": "70mg (4%)",
-      "carbs": "20g (6%)",
-      "sugar": "15g (15%)",
-      "fat": "3.5g (6%)",
-      "satFat": "2.3g (15%)",
+      "calories": 171,
+      "sodium": "100mg (5%)",
+      "carbs": "28.6g (9%)",
+      "sugar": "21.4g (21%)",
+      "fat": "5g (9%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "cholesterol": "10mg (3%)",
-      "protein": "2g (4%)"
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3214,7 +3256,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 180,
     "volume": "180ml",
     "isToday": false,
     "isHot": false,
@@ -3223,17 +3264,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.7,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 180,
-      "sodium": "30mg (2%)",
-      "carbs": "41g (13%)",
-      "sugar": "27g (27%)",
-      "fat": "1.9g (4%)",
-      "satFat": "1.9g (13%)",
-      "transFat": "0g",
-      "cholesterol": "0mg (0%)",
-      "protein": "0g (0%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3290,7 +3320,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 170,
+    "calories": 63,
     "volume": "85ml",
     "isToday": false,
     "isHot": false,
@@ -3301,15 +3331,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 170,
-      "sodium": "85mg (4%)",
-      "carbs": "34g (10%)",
-      "sugar": "21g (21%)",
-      "fat": "2.9g (5%)",
-      "satFat": "2g (13%)",
+      "calories": 63,
+      "sodium": "423mg (21%)",
+      "carbs": "5.3g (2%)",
+      "sugar": "0.5g (1%)",
+      "fat": "1.8g (3%)",
+      "protein": "6.6g (12%)",
       "transFat": "0g",
-      "cholesterol": "5mg 미만 (1%)",
-      "protein": "2g (4%)"
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "23mg (8%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3366,7 +3397,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 120,
+    "calories": 171,
     "volume": "70ml",
     "isToday": false,
     "isHot": false,
@@ -3377,15 +3408,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 120,
-      "sodium": "95mg (5%)",
-      "carbs": "17g (5%)",
-      "sugar": "13g (13%)",
-      "fat": "5g (9%)",
-      "satFat": "3g (20%)",
+      "calories": 171,
+      "sodium": "136mg (7%)",
+      "carbs": "24.3g (8%)",
+      "sugar": "18.6g (19%)",
+      "fat": "7.1g (13%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "cholesterol": "15mg (5%)",
-      "protein": "2g (4%)"
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "빙그레 고유 원료 배합, 국산 원유 및 정제수, 백설탕, 천연향료",
     "allergens": [
@@ -3442,7 +3474,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 250,
+    "calories": 169,
     "volume": "160ml",
     "isToday": true,
     "isHot": true,
@@ -3453,15 +3485,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 250,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 169,
+      "sodium": "59mg (3%)",
+      "carbs": "21.9g (7%)",
+      "sugar": "15.6g (16%)",
+      "fat": "7.5g (14%)",
+      "protein": "3.1g (6%)",
+      "transFat": "0.3g",
+      "satFat": "4.4g (29%)",
+      "saturatedFat": "4.4g (29%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3520,7 +3553,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 180,
+    "calories": 189,
     "volume": "130ml",
     "isToday": true,
     "isHot": true,
@@ -3531,15 +3564,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 189,
+      "sodium": "93mg (5%)",
+      "carbs": "26.7g (8%)",
+      "sugar": "26.7g (27%)",
+      "fat": "8g (15%)",
+      "protein": "2.7g (5%)",
+      "transFat": "0.7g",
+      "satFat": "5.9g (39%)",
+      "saturatedFat": "5.9g (39%)",
+      "cholesterol": "33mg (11%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3598,7 +3632,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 130,
+    "calories": 498,
     "volume": "75ml",
     "isToday": true,
     "isHot": true,
@@ -3609,15 +3643,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 498,
+      "sodium": "36mg (2%)",
+      "carbs": "0g",
+      "sugar": "25g (25%)",
+      "fat": "0g",
+      "protein": "5g (9%)",
       "transFat": "0g",
       "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3676,7 +3711,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 180,
+    "calories": 430,
     "volume": "130ml",
     "isToday": true,
     "isHot": true,
@@ -3687,15 +3722,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 430,
+      "sodium": "291mg (15%)",
+      "carbs": "73.4g (23%)",
+      "sugar": "55.1g (55%)",
+      "fat": "13.3g (25%)",
+      "protein": "4.4g (8%)",
+      "transFat": "0.1g",
+      "satFat": "10.1g (67%)",
+      "saturatedFat": "10.1g (67%)",
+      "cholesterol": "15mg (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3754,7 +3790,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 180,
+    "calories": 518,
     "volume": "130ml",
     "isToday": true,
     "isHot": true,
@@ -3765,15 +3801,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 518,
+      "sodium": "238mg (12%)",
+      "carbs": "67.7g (21%)",
+      "sugar": "27g (27%)",
+      "fat": "25.6g (47%)",
+      "protein": "4.3g (8%)",
+      "transFat": "0.4g",
+      "satFat": "13.2g (88%)",
+      "saturatedFat": "13.2g (88%)",
+      "cholesterol": "5mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3832,7 +3869,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 180,
+    "calories": 189,
     "volume": "130ml",
     "isToday": false,
     "isHot": true,
@@ -3843,15 +3880,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 189,
+      "sodium": "44mg (2%)",
+      "carbs": "37.8g (12%)",
+      "sugar": "35.6g (36%)",
+      "fat": "3g (6%)",
+      "protein": "2.2g (4%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "2.1g (14%)",
+      "saturatedFat": "2.1g (14%)",
+      "cholesterol": "6mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3910,7 +3948,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 180,
+    "calories": 212,
     "volume": "130ml",
     "isToday": false,
     "isHot": true,
@@ -3921,15 +3959,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 212,
+      "sodium": "44mg (2%)",
+      "carbs": "17.7g (5%)",
+      "sugar": "14.7g (15%)",
+      "fat": "14.7g (27%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "10.9g (73%)",
+      "saturatedFat": "10.9g (73%)",
+      "cholesterol": "15mg (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -3988,7 +4027,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 180,
+    "calories": 155,
     "volume": "130ml",
     "isToday": false,
     "isHot": true,
@@ -3999,15 +4038,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 155,
+      "sodium": "80mg (4%)",
+      "carbs": "20g (6%)",
+      "sugar": "20g (20%)",
+      "fat": "7g (13%)",
+      "protein": "3g (5%)",
+      "transFat": "0.2g",
+      "satFat": "4.7g (31%)",
+      "saturatedFat": "4.7g (31%)",
+      "cholesterol": "15mg (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4066,7 +4106,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 130,
+    "calories": 102,
     "volume": "75ml",
     "isToday": false,
     "isHot": true,
@@ -4077,15 +4117,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 102,
+      "sodium": "12mg (1%)",
+      "carbs": "23.9g (7%)",
+      "sugar": "15.4g (15%)",
+      "fat": "0.7g (1%)",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0.4g (3%)",
+      "saturatedFat": "0.4g (3%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4144,7 +4185,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 180,
+    "calories": 17,
     "volume": "130ml",
     "isToday": false,
     "isHot": true,
@@ -4155,15 +4196,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 17,
+      "sodium": "51mg (3%)",
+      "carbs": "4g (1%)",
+      "sugar": "1.8g (2%)",
+      "fat": "0g",
+      "protein": "0.2g (0%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4222,7 +4264,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 180,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -4231,17 +4272,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.7,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4300,7 +4330,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 180,
+    "calories": 175,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -4311,15 +4341,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 175,
+      "sodium": "50mg (3%)",
+      "carbs": "31.4g (10%)",
+      "sugar": "20.7g (21%)",
+      "fat": "4.3g (8%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "3.1g (21%)",
+      "saturatedFat": "3.1g (21%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4378,7 +4409,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 180,
+    "calories": 322,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -4389,15 +4420,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 322,
+      "sodium": "85mg (4%)",
+      "carbs": "79.7g (25%)",
+      "sugar": "50.9g (51%)",
+      "fat": "0g",
+      "protein": "5.1g (9%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4456,7 +4488,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 180,
+    "calories": 8,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -4467,15 +4499,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 8,
+      "sodium": "45mg (2%)",
+      "carbs": "2g (1%)",
+      "sugar": "2g (2%)",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4534,7 +4567,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 130,
+    "calories": 229,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -4545,15 +4578,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 229,
+      "sodium": "29mg (1%)",
+      "carbs": "20g (6%)",
+      "sugar": "15.7g (16%)",
+      "fat": "14.3g (26%)",
+      "protein": "4.3g (8%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "8.6g (57%)",
+      "saturatedFat": "8.6g (57%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4612,7 +4646,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 130,
+    "calories": 147,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -4623,15 +4657,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 147,
+      "sodium": "47mg (2%)",
+      "carbs": "29.3g (9%)",
+      "sugar": "22.7g (23%)",
+      "fat": "2g (4%)",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4690,7 +4725,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 130,
+    "calories": 131,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -4701,15 +4736,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 131,
+      "sodium": "69mg (3%)",
+      "carbs": "22.5g (7%)",
+      "sugar": "16.3g (16%)",
+      "fat": "4.3g (8%)",
+      "protein": "1.3g (2%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "2.8g (19%)",
+      "saturatedFat": "2.8g (19%)",
+      "cholesterol": "4mg (1%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4768,7 +4804,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 180,
+    "calories": 217,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -4779,15 +4815,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 217,
+      "sodium": "79mg (4%)",
+      "carbs": "35.7g (11%)",
+      "sugar": "24.3g (24%)",
+      "fat": "7g (13%)",
+      "protein": "2.9g (5%)",
+      "transFat": "0.7g",
+      "satFat": "4.4g (29%)",
+      "saturatedFat": "4.4g (29%)",
+      "cholesterol": "29mg (10%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4846,7 +4883,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 130,
+    "calories": 113,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -4857,15 +4894,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 113,
+      "sodium": "20mg (1%)",
+      "carbs": "25.3g (8%)",
+      "sugar": "20g (20%)",
+      "fat": "1.5g (3%)",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0.5g (3%)",
+      "saturatedFat": "0.5g (3%)",
+      "cholesterol": "1mg (0%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -4924,7 +4962,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 130,
+    "calories": 133,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -4935,15 +4973,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
+      "calories": 133,
       "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "carbs": "22.7g (7%)",
+      "sugar": "18.7g (19%)",
+      "fat": "4.1g (8%)",
+      "protein": "1.3g (2%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "3.2g (21%)",
+      "saturatedFat": "3.2g (21%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5002,7 +5041,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 180,
+    "calories": 497,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5013,15 +5052,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 497,
+      "sodium": "225mg (11%)",
+      "carbs": "62.9g (19%)",
+      "sugar": "39.3g (39%)",
+      "fat": "22.9g (42%)",
+      "protein": "7.3g (13%)",
+      "transFat": "0.1g",
+      "satFat": "11.5g (77%)",
+      "saturatedFat": "11.5g (77%)",
+      "cholesterol": "45mg (15%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5080,7 +5120,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 130,
+    "calories": 214,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5091,15 +5131,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 214,
+      "sodium": "57mg (3%)",
+      "carbs": "32.9g (10%)",
+      "sugar": "24.3g (24%)",
+      "fat": "8.6g (16%)",
+      "protein": "1.4g (3%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "4.9g (33%)",
+      "saturatedFat": "4.9g (33%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5158,7 +5199,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 130,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5167,17 +5207,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.7,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5236,7 +5265,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 180,
+    "calories": 140,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5247,15 +5276,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
+      "calories": 140,
+      "sodium": "40mg (2%)",
+      "carbs": "19g (6%)",
+      "sugar": "10g (10%)",
       "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "protein": "2g (4%)",
+      "transFat": "0.5g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5314,7 +5344,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 130,
+    "calories": 0,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5325,15 +5355,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 0,
+      "sodium": "7mg (0%)",
+      "carbs": "24g (7%)",
+      "sugar": "0g",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5392,7 +5423,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 130,
+    "calories": 0,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5403,15 +5434,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 0,
+      "sodium": "7mg (0%)",
+      "carbs": "24g (7%)",
+      "sugar": "0g",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5470,7 +5502,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 130,
+    "calories": 0,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5481,15 +5513,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 0,
+      "sodium": "47mg (2%)",
+      "carbs": "18.7g (6%)",
+      "sugar": "0g",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5548,7 +5581,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 180,
+    "calories": 193,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5559,15 +5592,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 193,
+      "sodium": "86mg (4%)",
+      "carbs": "42.9g (13%)",
+      "sugar": "31.4g (31%)",
+      "fat": "1g (2%)",
+      "protein": "2.9g (5%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0.7g (5%)",
+      "saturatedFat": "0.7g (5%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5626,7 +5660,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 130,
+    "calories": 100,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -5637,15 +5671,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 100,
+      "sodium": "19mg (1%)",
+      "carbs": "22.5g (7%)",
+      "sugar": "18.8g (19%)",
+      "fat": "1.1g (2%)",
+      "protein": "0.9g (2%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5704,7 +5739,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 180,
+    "calories": 92,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5715,15 +5750,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 92,
+      "sodium": "24mg (1%)",
+      "carbs": "17.3g (5%)",
+      "sugar": "15.7g (16%)",
+      "fat": "2.1g (4%)",
+      "protein": "1.1g (2%)",
+      "transFat": "0.3g",
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "8mg (3%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5782,7 +5818,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 180,
+    "calories": 402,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5793,15 +5829,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 402,
+      "sodium": "189mg (9%)",
+      "carbs": "79.9g (25%)",
+      "sugar": "0.5g (1%)",
+      "fat": "5g (9%)",
+      "protein": "10.4g (19%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "1g (7%)",
+      "saturatedFat": "1g (7%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5860,7 +5897,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 180,
+    "calories": 88,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5871,15 +5908,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 88,
+      "sodium": "6mg (0%)",
+      "carbs": "21.3g (7%)",
+      "sugar": "21.3g (21%)",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -5938,7 +5976,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 180,
+    "calories": 555,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -5949,15 +5987,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 555,
+      "sodium": "330mg (17%)",
+      "carbs": "64g (20%)",
+      "sugar": "39g (39%)",
+      "fat": "31g (57%)",
+      "protein": "5g (9%)",
+      "transFat": "0.5g",
+      "satFat": "21g (140%)",
+      "saturatedFat": "21g (140%)",
+      "cholesterol": "55mg (18%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6016,7 +6055,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 180,
+    "calories": 229,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6027,15 +6066,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 229,
+      "sodium": "71mg (4%)",
+      "carbs": "28.6g (9%)",
+      "sugar": "22.9g (23%)",
+      "fat": "11.4g (21%)",
+      "protein": "2.9g (5%)",
+      "transFat": "0.7g",
+      "satFat": "8.6g (57%)",
+      "saturatedFat": "8.6g (57%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6094,7 +6134,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 98,
-    "calories": 180,
+    "calories": 337,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6105,15 +6145,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 337,
+      "sodium": "212mg (11%)",
+      "carbs": "40.1g (12%)",
+      "sugar": "3.2g (3%)",
+      "fat": "12.2g (23%)",
+      "protein": "30.8g (56%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "8.7g (58%)",
+      "saturatedFat": "8.7g (58%)",
+      "cholesterol": "6mg (2%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6172,7 +6213,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 92,
-    "calories": 180,
+    "calories": 524,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6183,15 +6224,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 524,
+      "sodium": "305mg (15%)",
+      "carbs": "66.7g (21%)",
+      "sugar": "30.5g (31%)",
+      "fat": "26.7g (49%)",
+      "protein": "3.8g (7%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "13.3g (89%)",
+      "saturatedFat": "13.3g (89%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6250,7 +6292,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 93,
-    "calories": 180,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6259,17 +6300,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.7,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6328,7 +6358,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 94,
-    "calories": 180,
+    "calories": 71,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6339,15 +6369,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 71,
+      "sodium": "17mg (1%)",
+      "carbs": "8.3g (3%)",
+      "sugar": "5g (5%)",
+      "fat": "3.5g (6%)",
+      "protein": "1.7g (3%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "2.3g (15%)",
+      "saturatedFat": "2.3g (15%)",
+      "cholesterol": "8mg (3%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6406,7 +6437,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 95,
-    "calories": 130,
+    "calories": 217,
     "volume": "75ml",
     "isToday": false,
     "isHot": false,
@@ -6417,15 +6448,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 130,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 217,
+      "sodium": "86mg (4%)",
+      "carbs": "25.7g (8%)",
+      "sugar": "25.7g (26%)",
+      "fat": "11.4g (21%)",
+      "protein": "2.9g (5%)",
+      "transFat": "0.7g",
+      "satFat": "8.6g (57%)",
+      "saturatedFat": "8.6g (57%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6484,7 +6516,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 96,
-    "calories": 180,
+    "calories": 8,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6495,15 +6527,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
+      "calories": 8,
+      "sodium": "15mg (1%)",
+      "carbs": "2g (1%)",
+      "sugar": "1.5g (2%)",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6562,7 +6595,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "대형마트"
     ],
     "repurchasePercent": 97,
-    "calories": 180,
+    "calories": 529,
     "volume": "130ml",
     "isToday": false,
     "isHot": false,
@@ -6573,15 +6606,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "60mg (3%)",
-      "carbs": "26g (8%)",
-      "sugar": "18g (18%)",
-      "fat": "6g (11%)",
-      "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "10mg (3%)",
-      "protein": "3g (5%)"
+      "calories": 529,
+      "sodium": "216mg (11%)",
+      "carbs": "67.2g (21%)",
+      "sugar": "33.2g (33%)",
+      "fat": "25.1g (46%)",
+      "protein": "8.3g (15%)",
+      "transFat": "0.1g",
+      "satFat": "14.5g (97%)",
+      "saturatedFat": "14.5g (97%)",
+      "cholesterol": "4mg (1%)"
     },
     "ingredients": "롯데웰푸드 고유 배합 원료, 국산 원유, 설탕, 가공버터, 혼합제제",
     "allergens": [
@@ -6637,7 +6671,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 242,
+    "calories": 210,
     "volume": "싱글레귤러 115g 기준",
     "isToday": true,
     "isHot": true,
@@ -6648,15 +6682,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 242,
-      "sodium": "84mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "27g (27%)",
-      "fat": "12g (22%)",
+      "calories": 210,
+      "sodium": "68mg (3%)",
+      "carbs": "0g",
+      "sugar": "25.2g (25%)",
+      "fat": "0g",
+      "protein": "3.5g (6%)",
       "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "satFat": "6.1g (41%)",
+      "saturatedFat": "6.1g (41%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 도쿄바나나 크렘브륄레 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6704,7 +6739,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 297,
+    "calories": 219,
     "volume": "싱글레귤러 115g 기준",
     "isToday": true,
     "isHot": true,
@@ -6715,15 +6750,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 297,
-      "sodium": "140mg (7%)",
-      "carbs": "28g (9%)",
-      "sugar": "25g (25%)",
-      "fat": "12g (22%)",
+      "calories": 219,
+      "sodium": "73mg (4%)",
+      "carbs": "0g",
+      "sugar": "18.4g (18%)",
+      "fat": "0g",
+      "protein": "2.7g (5%)",
       "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "satFat": "6.4g (43%)",
+      "saturatedFat": "6.4g (43%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 비스코프 에스프레소 크런치 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6770,7 +6806,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 189,
     "volume": "싱글레귤러 115g 기준",
     "isToday": true,
     "isHot": true,
@@ -6779,17 +6814,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.7,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 189,
-      "sodium": "38mg (2%)",
-      "carbs": "28g (9%)",
-      "sugar": "26g (26%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "3.1g (21%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "2g (4%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 산딸기가 끌리는 연유 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6834,7 +6858,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 301,
+    "calories": 246,
     "volume": "싱글레귤러 115g 기준",
     "isToday": true,
     "isHot": true,
@@ -6845,15 +6869,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 301,
-      "sodium": "118mg (6%)",
-      "carbs": "28g (9%)",
-      "sugar": "23g (23%)",
-      "fat": "12g (22%)",
+      "calories": 246,
+      "sodium": "184mg (9%)",
+      "carbs": "0g",
+      "sugar": "22.6g (23%)",
+      "fat": "0g",
+      "protein": "3.5g (6%)",
       "transFat": "0g",
-      "satFat": "11g (73%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "satFat": "7.8g (52%)",
+      "saturatedFat": "7.8g (52%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 솔티 조청 뉴욕치즈케이크 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6900,7 +6925,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 243,
+    "calories": 179,
     "volume": "싱글레귤러 115g 기준",
     "isToday": true,
     "isHot": true,
@@ -6911,15 +6936,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 243,
-      "sodium": "67mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "28g (28%)",
-      "fat": "12g (22%)",
+      "calories": 179,
+      "sodium": "20mg (1%)",
+      "carbs": "42g (13%)",
+      "sugar": "37g (37%)",
+      "fat": "0g",
+      "protein": "0g",
       "transFat": "0g",
-      "satFat": "6g (40%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 고무고무 블루베리 마카롱 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -6965,7 +6991,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 238,
+    "calories": 113,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": true,
@@ -6976,15 +7002,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 238,
-      "sodium": "37mg (2%)",
-      "carbs": "28g (9%)",
-      "sugar": "27g (27%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "6g (40%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
+      "calories": 113,
+      "sodium": "18mg (1%)",
+      "carbs": "16.3g (5%)",
+      "sugar": "13.1g (13%)",
+      "fat": "4.7g (9%)",
+      "protein": "1.6g (3%)",
+      "transFat": "0.1g",
+      "satFat": "2.8g (19%)",
+      "saturatedFat": "2.8g (19%)",
+      "cholesterol": "14mg (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 망고 탱고 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7029,7 +7056,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 177,
+    "calories": 110,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": true,
@@ -7040,15 +7067,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 177,
-      "sodium": "16mg (1%)",
-      "carbs": "28g (9%)",
-      "sugar": "26g (26%)",
-      "fat": "12g (22%)",
+      "calories": 110,
+      "sodium": "13mg (1%)",
+      "carbs": "0g",
+      "sugar": "13.9g (14%)",
+      "fat": "0g",
+      "protein": "0.9g (2%)",
       "transFat": "0g",
-      "satFat": "1.2g (8%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "1g (2%)"
+      "satFat": "0.9g (6%)",
+      "saturatedFat": "0.9g (6%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 트로피컬 콜라다 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7093,7 +7121,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 162,
+    "calories": 111,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": true,
@@ -7104,15 +7132,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 162,
-      "sodium": "11mg (1%)",
-      "carbs": "28g (9%)",
-      "sugar": "28g (28%)",
-      "fat": "12g (22%)",
+      "calories": 111,
+      "sodium": "7mg (0%)",
+      "carbs": "26.3g (8%)",
+      "sugar": "18.9g (19%)",
+      "fat": "0.5g (1%)",
+      "protein": "0.3g (1%)",
       "transFat": "0g",
-      "satFat": "0.4g (3%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "0g (0%)"
+      "satFat": "0.3g (2%)",
+      "saturatedFat": "0.3g (2%)",
+      "cholesterol": "1mg (0%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 우디의 후르츠 어드벤처 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7158,7 +7187,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 295,
+    "calories": 143,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": true,
@@ -7169,15 +7198,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 295,
-      "sodium": "153mg (8%)",
-      "carbs": "28g (9%)",
-      "sugar": "24g (24%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "calories": 143,
+      "sodium": "74mg (4%)",
+      "carbs": "16.8g (5%)",
+      "sugar": "11.9g (12%)",
+      "fat": "7.4g (14%)",
+      "protein": "2.4g (4%)",
+      "transFat": "0.1g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "8mg (3%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 두바이에서 온 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7224,7 +7254,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 163,
+    "calories": 145,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": true,
@@ -7235,15 +7265,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 163,
-      "sodium": "15mg (1%)",
-      "carbs": "28g (9%)",
-      "sugar": "25g (25%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
+      "calories": 145,
+      "sodium": "18mg (1%)",
+      "carbs": "31g (10%)",
+      "sugar": "20g (20%)",
+      "fat": "1.9g (4%)",
+      "protein": "1g (2%)",
+      "transFat": "0.1g",
       "satFat": "1.2g (8%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "1g (2%)"
+      "saturatedFat": "1.2g (8%)",
+      "cholesterol": "4mg (1%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 레인보우 샤베트 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7288,7 +7319,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 250,
+    "calories": 213,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7299,15 +7330,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 250,
-      "sodium": "73mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "22g (22%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "calories": 213,
+      "sodium": "63mg (3%)",
+      "carbs": "23.5g (7%)",
+      "sugar": "17.4g (17%)",
+      "fat": "11.3g (21%)",
+      "protein": "4.4g (8%)",
+      "transFat": "0.3g",
+      "satFat": "7g (47%)",
+      "saturatedFat": "7g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 그린티 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7352,7 +7384,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 218,
+    "calories": 190,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7363,15 +7395,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 218,
-      "sodium": "41mg (2%)",
-      "carbs": "28g (9%)",
-      "sugar": "25g (25%)",
-      "fat": "12g (22%)",
+      "calories": 190,
+      "sodium": "36mg (2%)",
+      "carbs": "0g",
+      "sugar": "21.7g (22%)",
+      "fat": "0g",
+      "protein": "1.7g (3%)",
       "transFat": "0g",
-      "satFat": "3.8g (25%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "2g (4%)"
+      "satFat": "3.5g (23%)",
+      "saturatedFat": "3.5g (23%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 메롱 멜론 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7416,7 +7449,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 135,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7425,17 +7457,6 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "value": 4.7,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 135,
-      "sodium": "45mg (2%)",
-      "carbs": "28g (9%)",
-      "sugar": "17g (17%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "1.7g (11%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, (Lessly Edition) 바 베 바 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7480,7 +7501,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 156,
+    "calories": 136,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7491,15 +7512,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 156,
-      "sodium": "57mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "14g (14%)",
-      "fat": "12g (22%)",
+      "calories": 136,
+      "sodium": "50mg (3%)",
+      "carbs": "0g",
+      "sugar": "12.2g (12%)",
+      "fat": "0g",
+      "protein": "4.4g (8%)",
       "transFat": "0g",
-      "satFat": "3.8g (25%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, (Lessly Edition) 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7546,7 +7568,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 292,
+    "calories": 254,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7557,15 +7579,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 292,
-      "sodium": "103mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "26g (26%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "calories": 254,
+      "sodium": "90mg (5%)",
+      "carbs": "28.7g (9%)",
+      "sugar": "22.6g (23%)",
+      "fat": "13.9g (26%)",
+      "protein": "3.5g (6%)",
+      "transFat": "0.3g",
+      "satFat": "7g (47%)",
+      "saturatedFat": "7g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 사랑에 빠진 딸기 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7614,7 +7637,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 296,
+    "calories": 136,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7625,15 +7648,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 296,
-      "sodium": "114mg (6%)",
-      "carbs": "28g (9%)",
-      "sugar": "23g (23%)",
-      "fat": "12g (22%)",
+      "calories": 136,
+      "sodium": "50mg (3%)",
+      "carbs": "0g",
+      "sugar": "12.2g (12%)",
+      "fat": "0g",
+      "protein": "4.4g (8%)",
       "transFat": "0g",
-      "satFat": "11g (73%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 엄마는 외계인 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7680,7 +7704,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 259,
+    "calories": 117,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7691,15 +7715,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 259,
-      "sodium": "81mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "23g (23%)",
-      "fat": "12g (22%)",
+      "calories": 117,
+      "sodium": "53mg (3%)",
+      "carbs": "0g",
+      "sugar": "12.2g (12%)",
+      "fat": "0g",
+      "protein": "3.5g (6%)",
       "transFat": "0g",
-      "satFat": "9g (60%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "satFat": "2.7g (18%)",
+      "saturatedFat": "2.7g (18%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 민트 초콜릿 칩 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7745,7 +7770,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 275,
+    "calories": 369,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7756,15 +7781,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 275,
-      "sodium": "105mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "21g (21%)",
-      "fat": "12g (22%)",
+      "calories": 369,
+      "sodium": "167mg (8%)",
+      "carbs": "0g",
+      "sugar": "20g (20%)",
+      "fat": "0g",
+      "protein": "5.6g (10%)",
       "transFat": "0g",
-      "satFat": "10g (67%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "satFat": "6.7g (45%)",
+      "saturatedFat": "6.7g (45%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 뉴욕 치즈케이크 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7811,7 +7837,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 239,
+    "calories": 185,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7822,15 +7848,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 239,
-      "sodium": "48mg (2%)",
-      "carbs": "28g (9%)",
-      "sugar": "28g (28%)",
-      "fat": "12g (22%)",
+      "calories": 185,
+      "sodium": "41mg (2%)",
+      "carbs": "0g",
+      "sugar": "21.9g (22%)",
+      "fat": "0g",
+      "protein": "2.5g (5%)",
       "transFat": "0g",
-      "satFat": "7g (47%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
+      "satFat": "5.6g (37%)",
+      "saturatedFat": "5.6g (37%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 체리쥬빌레 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7875,7 +7902,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 260,
+    "calories": 207,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7886,15 +7913,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 260,
-      "sodium": "65mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "27g (27%)",
-      "fat": "12g (22%)",
+      "calories": 207,
+      "sodium": "46mg (2%)",
+      "carbs": "0g",
+      "sugar": "21.8g (22%)",
+      "fat": "0g",
+      "protein": "2.5g (5%)",
       "transFat": "0g",
-      "satFat": "7g (47%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
+      "satFat": "5.7g (38%)",
+      "saturatedFat": "5.7g (38%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 슈팅스타 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -7941,7 +7969,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 254,
+    "calories": 265,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -7952,15 +7980,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 254,
-      "sodium": "92mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "20g (20%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "calories": 265,
+      "sodium": "131mg (7%)",
+      "carbs": "28.7g (9%)",
+      "sugar": "16.5g (17%)",
+      "fat": "14.8g (27%)",
+      "protein": "4.4g (8%)",
+      "transFat": "0.2g",
+      "satFat": "9.6g (64%)",
+      "saturatedFat": "9.6g (64%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 오레오 쿠키 앤 크림 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8007,7 +8036,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 228,
+    "calories": 168,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8018,15 +8047,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 228,
-      "sodium": "69mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "24g (24%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "7g (47%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "3g (5%)"
+      "calories": 168,
+      "sodium": "42mg (2%)",
+      "carbs": "21g (6%)",
+      "sugar": "18g (18%)",
+      "fat": "8g (15%)",
+      "protein": "3g (5%)",
+      "transFat": "0.2g",
+      "satFat": "4.7g (31%)",
+      "saturatedFat": "4.7g (31%)",
+      "cholesterol": "15mg (5%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 베리베리 스트로베리 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8071,7 +8101,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 198,
+    "calories": 172,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8082,15 +8112,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 198,
-      "sodium": "67mg (3%)",
-      "carbs": "28g (9%)",
-      "sugar": "26g (26%)",
-      "fat": "12g (22%)",
+      "calories": 172,
+      "sodium": "58mg (3%)",
+      "carbs": "27g (8%)",
+      "sugar": "22.6g (23%)",
+      "fat": "5.2g (10%)",
+      "protein": "4.4g (8%)",
       "transFat": "0g",
-      "satFat": "4g (27%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "3.5g (23%)",
+      "saturatedFat": "3.5g (23%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 31요거트 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8136,7 +8167,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 269,
+    "calories": 199,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8147,15 +8178,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 269,
-      "sodium": "95mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "25g (25%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "calories": 199,
+      "sodium": "74mg (4%)",
+      "carbs": "24.6g (8%)",
+      "sugar": "18.2g (18%)",
+      "fat": "10g (19%)",
+      "protein": "2.7g (5%)",
+      "transFat": "0.2g",
+      "satFat": "5.5g (37%)",
+      "saturatedFat": "5.5g (37%)",
+      "cholesterol": "21mg (7%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 바람과 함께 사라지다 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8203,7 +8235,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 302,
+    "calories": 263,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8214,15 +8246,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 302,
-      "sodium": "72mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "27g (27%)",
-      "fat": "12g (22%)",
+      "calories": 263,
+      "sodium": "63mg (3%)",
+      "carbs": "0g",
+      "sugar": "23.5g (24%)",
+      "fat": "0g",
+      "protein": "6.1g (11%)",
       "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "7g (13%)"
+      "satFat": "7g (47%)",
+      "saturatedFat": "7g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 피스타치오 아몬드 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8267,7 +8300,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 318,
+    "calories": 174,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8278,15 +8311,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 318,
-      "sodium": "96mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "27g (27%)",
-      "fat": "12g (22%)",
+      "calories": 174,
+      "sodium": "35mg (2%)",
+      "carbs": "20.7g (6%)",
+      "sugar": "17.3g (17%)",
+      "fat": "8.7g (16%)",
+      "protein": "3.3g (6%)",
       "transFat": "0g",
-      "satFat": "12g (80%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "8mg (3%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 초콜릿 무스 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8332,7 +8366,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 274,
+    "calories": 463,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8343,15 +8377,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 274,
-      "sodium": "85mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "24g (24%)",
-      "fat": "12g (22%)",
+      "calories": 463,
+      "sodium": "46mg (2%)",
+      "carbs": "0g",
+      "sugar": "45.7g (46%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
       "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "9.1g (61%)",
+      "saturatedFat": "9.1g (61%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 초콜릿 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8396,7 +8431,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 273,
+    "calories": 185,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8407,15 +8442,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 273,
-      "sodium": "82mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "25g (25%)",
-      "fat": "12g (22%)",
+      "calories": 185,
+      "sodium": "57mg (3%)",
+      "carbs": "23g (7%)",
+      "sugar": "17g (17%)",
+      "fat": "9g (17%)",
+      "protein": "3g (5%)",
       "transFat": "0g",
-      "satFat": "7g (47%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 자모카 아몬드 훠지 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8460,7 +8496,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 312,
+    "calories": 268,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8471,15 +8507,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 312,
-      "sodium": "94mg (5%)",
-      "carbs": "28g (9%)",
-      "sugar": "26g (26%)",
-      "fat": "12g (22%)",
-      "transFat": "0g",
-      "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "calories": 268,
+      "sodium": "100mg (5%)",
+      "carbs": "30.4g (9%)",
+      "sugar": "22.6g (23%)",
+      "fat": "13.9g (26%)",
+      "protein": "5.2g (9%)",
+      "transFat": "0.4g",
+      "satFat": "9.6g (64%)",
+      "saturatedFat": "9.6g (64%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 아몬드 봉봉 고유 부재료 및 플레이버 리본",
     "allergens": [
@@ -8525,7 +8562,7 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "해피포인트앱"
     ],
     "repurchasePercent": 96,
-    "calories": 246,
+    "calories": 400,
     "volume": "싱글레귤러 115g 기준",
     "isToday": false,
     "isHot": false,
@@ -8536,15 +8573,16 @@ export const ICE_CREAM_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 246,
-      "sodium": "74mg (4%)",
-      "carbs": "28g (9%)",
-      "sugar": "21g (21%)",
-      "fat": "12g (22%)",
+      "calories": 400,
+      "sodium": "60mg (3%)",
+      "carbs": "0g",
+      "sugar": "40g (40%)",
+      "fat": "0g",
+      "protein": "4g (7%)",
       "transFat": "0g",
       "satFat": "8g (53%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "4g (7%)"
+      "saturatedFat": "8g (53%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "배스킨라빈스 프리미엄 유크림, 원유, 설탕, 바닐라 고유 부재료 및 플레이버 리본",
     "allergens": [

@@ -1,10 +1,5 @@
 import { Product } from '../types';
 
-/**
- * 뚜레쥬르(Tous Les Jours) 공식 빵 라인업
- * 공식 웹사이트(https://www.tlj.co.kr:7008/product/list.asp?ref=2) 실시간 데이터
- * - 식빵, 건강빵, 간식빵, 파이/패스트리, 도넛/고로케 전 품목 수록
- */
 export const TLJ_PRODUCTS: Product[] = [
   {
     "id": "tlj-bread-5467",
@@ -23,7 +18,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 290,
+    "calories": 287,
     "volume": "400g",
     "isToday": true,
     "isHot": true,
@@ -34,11 +29,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 290,
-      "sodium": "550mg (28%)",
-      "sugar": "9g (9%)",
-      "protein": "8g (15%)",
-      "satFat": "4.0g (27%)"
+      "calories": 287,
+      "sodium": "498mg (25%)",
+      "carbs": "46.7g (14%)",
+      "sugar": "8g (8%)",
+      "fat": "7.1g (13%)",
+      "protein": "9.1g (17%)",
+      "transFat": "0.1g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "4mg (1%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 데일리 우유식빵 고유 배합",
     "allergens": [
@@ -83,7 +83,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 310,
+    "calories": 417,
     "volume": "400g",
     "isToday": true,
     "isHot": true,
@@ -94,11 +94,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 310,
-      "sodium": "410mg (21%)",
-      "sugar": "9g (9%)",
-      "protein": "8g (15%)",
-      "satFat": "3.8g (25%)"
+      "calories": 417,
+      "sodium": "50mg (3%)",
+      "carbs": "83.3g (26%)",
+      "sugar": "0g",
+      "fat": "3.7g (7%)",
+      "protein": "11.7g (21%)",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 그대로 구워먹는 꿀 토스트 식빵 고유 배합",
     "allergens": [
@@ -145,7 +150,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 290,
+    "calories": 299,
     "volume": "260g",
     "isToday": true,
     "isHot": true,
@@ -156,11 +161,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 290,
-      "sodium": "470mg (24%)",
-      "sugar": "6g (6%)",
-      "protein": "11g (20%)",
-      "satFat": "3.2g (21%)"
+      "calories": 299,
+      "sodium": "473mg (24%)",
+      "carbs": "42.7g (13%)",
+      "sugar": "6.3g (6%)",
+      "fat": "9.2g (17%)",
+      "protein": "11.4g (21%)",
+      "transFat": "0g",
+      "satFat": "3.2g (21%)",
+      "saturatedFat": "3.2g (21%)",
+      "cholesterol": "5mg (2%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 고단백 현미식빵 고유 배합",
     "allergens": [
@@ -207,7 +217,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 275,
     "volume": "400g",
     "isToday": true,
     "isHot": true,
@@ -216,13 +225,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.9,
       "portion": 4.7,
       "repurchase": 4.5
-    },
-    "nutrition": {
-      "calories": 275,
-      "sodium": "460mg (23%)",
-      "sugar": "2g (2%)",
-      "protein": "9g (16%)",
-      "satFat": "3g (20%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 고식이섬유&저당 곡물식빵 고유 배합",
     "allergens": [
@@ -267,7 +269,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 1285,
+    "calories": 293,
     "volume": "439g",
     "isToday": true,
     "isHot": true,
@@ -278,11 +280,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 1285,
-      "sodium": "1910mg (96%)",
-      "sugar": "41g (41%)",
-      "protein": "37g (67%)",
-      "satFat": "15g (100%)"
+      "calories": 293,
+      "sodium": "435mg (22%)",
+      "carbs": "0g",
+      "sugar": "9.3g (9%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "3.4g (23%)",
+      "saturatedFat": "3.4g (23%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 2배 더 진한 우유 식빵 고유 배합",
     "allergens": [
@@ -327,7 +334,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 640,
+    "calories": 293,
     "volume": "219g",
     "isToday": true,
     "isHot": true,
@@ -338,11 +345,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 640,
-      "sodium": "950mg (48%)",
-      "sugar": "21g (21%)",
-      "protein": "19g (35%)",
-      "satFat": "8g (53%)"
+      "calories": 293,
+      "sodium": "435mg (22%)",
+      "carbs": "0g",
+      "sugar": "9.3g (9%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "3.4g (23%)",
+      "saturatedFat": "3.4g (23%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 2배 더 진한 우유 식빵(Half) 고유 배합",
     "allergens": [
@@ -387,7 +399,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 1270,
+    "calories": 249,
     "volume": "470g",
     "isToday": true,
     "isHot": true,
@@ -398,11 +410,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 1270,
-      "sodium": "2060mg (103%)",
-      "sugar": "29g (29%)",
-      "protein": "39g (71%)",
-      "satFat": "8g (53%)"
+      "calories": 249,
+      "sodium": "421mg (21%)",
+      "carbs": "0g",
+      "sugar": "6g (6%)",
+      "fat": "0g",
+      "protein": "7.7g (14%)",
+      "transFat": "0g",
+      "satFat": "1.5g (10%)",
+      "saturatedFat": "1.5g (10%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 촉촉 쫄깃 탕종식빵 고유 배합",
     "allergens": [
@@ -447,7 +464,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1285,
+    "calories": 305,
     "volume": "422g",
     "isToday": true,
     "isHot": true,
@@ -458,11 +475,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 1285,
-      "sodium": "1800mg (90%)",
-      "sugar": "47g (47%)",
-      "protein": "36g (65%)",
-      "satFat": "20g (133%)"
+      "calories": 305,
+      "sodium": "427mg (21%)",
+      "carbs": "0g",
+      "sugar": "11.1g (11%)",
+      "fat": "0g",
+      "protein": "8.5g (15%)",
+      "transFat": "0g",
+      "satFat": "4.7g (31%)",
+      "saturatedFat": "4.7g (31%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 生生 생크림 식빵 고유 배합",
     "allergens": [
@@ -508,7 +530,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 1495,
+    "calories": 291,
     "volume": "513g",
     "isToday": true,
     "isHot": true,
@@ -519,11 +541,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 1495,
-      "sodium": "1910mg (96%)",
-      "sugar": "42g (42%)",
-      "protein": "43g (78%)",
-      "satFat": "16g (107%)"
+      "calories": 291,
+      "sodium": "374mg (19%)",
+      "carbs": "0g",
+      "sugar": "8.2g (8%)",
+      "fat": "0g",
+      "protein": "8.5g (15%)",
+      "transFat": "0g",
+      "satFat": "3.2g (21%)",
+      "saturatedFat": "3.2g (21%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, TLJ 옥수수식빵 고유 배합",
     "allergens": [
@@ -569,7 +596,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 995,
+    "calories": 291,
     "volume": "342g",
     "isToday": true,
     "isHot": true,
@@ -580,11 +607,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 995,
-      "sodium": "1280mg (64%)",
-      "sugar": "28g (28%)",
-      "protein": "29g (53%)",
-      "satFat": "11g (73%)"
+      "calories": 291,
+      "sodium": "374mg (19%)",
+      "carbs": "0g",
+      "sugar": "8.2g (8%)",
+      "fat": "0g",
+      "protein": "8.5g (15%)",
+      "transFat": "0g",
+      "satFat": "3.2g (21%)",
+      "saturatedFat": "3.2g (21%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, TLJ 옥수수 듬뿍 옥수수식빵 고유 배합",
     "allergens": [
@@ -630,7 +662,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 645,
+    "calories": 319,
     "volume": "202g",
     "isToday": true,
     "isHot": true,
@@ -641,11 +673,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 645,
-      "sodium": "1230mg (62%)",
-      "sugar": "8g (8%)",
-      "protein": "16g (29%)",
-      "satFat": "15g (100%)"
+      "calories": 319,
+      "sodium": "609mg (30%)",
+      "carbs": "0g",
+      "sugar": "4g (4%)",
+      "fat": "0g",
+      "protein": "7.9g (14%)",
+      "transFat": "0g",
+      "satFat": "7.4g (49%)",
+      "saturatedFat": "7.4g (49%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 기본좋은 소금버터식빵 고유 배합",
     "allergens": [
@@ -690,7 +727,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1430,
+    "calories": 292,
     "volume": "489g",
     "isToday": true,
     "isHot": true,
@@ -701,11 +738,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 1430,
-      "sodium": "1850mg (93%)",
-      "sugar": "59g (59%)",
-      "protein": "41g (75%)",
-      "satFat": "16g (107%)"
+      "calories": 292,
+      "sodium": "378mg (19%)",
+      "carbs": "0g",
+      "sugar": "12.1g (12%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 착한빵식 통밀식빵 고유 배합",
     "allergens": [
@@ -751,7 +793,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 840,
+    "calories": 281,
     "volume": "299g",
     "isToday": true,
     "isHot": false,
@@ -762,11 +804,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 840,
-      "sodium": "1010mg (51%)",
-      "sugar": "14g (14%)",
-      "protein": "25g (45%)",
-      "satFat": "6g (40%)"
+      "calories": 281,
+      "sodium": "338mg (17%)",
+      "carbs": "0g",
+      "sugar": "4.7g (5%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "2g (13%)",
+      "saturatedFat": "2g (13%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 슬로우 오트 식빵 고유 배합",
     "allergens": [
@@ -812,7 +859,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1060,
+    "calories": 364,
     "volume": "291g",
     "isToday": true,
     "isHot": false,
@@ -823,11 +870,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 1060,
-      "sodium": "1240mg (62%)",
-      "sugar": "26g (26%)",
-      "protein": "27g (49%)",
-      "satFat": "28g (187%)"
+      "calories": 364,
+      "sodium": "426mg (21%)",
+      "carbs": "0g",
+      "sugar": "8.9g (9%)",
+      "fat": "0g",
+      "protein": "9.3g (17%)",
+      "transFat": "0g",
+      "satFat": "9.6g (64%)",
+      "saturatedFat": "9.6g (64%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 고메 버터 식빵 고유 배합",
     "allergens": [
@@ -874,7 +926,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 1160,
+    "calories": 345,
     "volume": "341g",
     "isToday": true,
     "isHot": false,
@@ -885,11 +937,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 1160,
-      "sodium": "1710mg (86%)",
-      "sugar": "37g (37%)",
-      "protein": "28g (51%)",
-      "satFat": "31g (207%)"
+      "calories": 345,
+      "sodium": "528mg (26%)",
+      "carbs": "0g",
+      "sugar": "11.2g (11%)",
+      "fat": "0g",
+      "protein": "8.7g (16%)",
+      "transFat": "0g",
+      "satFat": "10.1g (67%)",
+      "saturatedFat": "10.1g (67%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 호박 패스트리 식빵 고유 배합",
     "allergens": [
@@ -937,7 +994,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1620,
+    "calories": 280,
     "volume": "576g",
     "isToday": true,
     "isHot": false,
@@ -948,11 +1005,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 1620,
-      "sodium": "1630mg (82%)",
-      "sugar": "95g (95%)",
-      "protein": "36g (65%)",
-      "satFat": "17g (113%)"
+      "calories": 280,
+      "sodium": "286mg (14%)",
+      "carbs": "0g",
+      "sugar": "16.6g (17%)",
+      "fat": "0g",
+      "protein": "6.4g (12%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 마구마구 밤식빵(대) 고유 배합",
     "allergens": [
@@ -1000,7 +1062,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 85,
-    "calories": 810,
+    "calories": 280,
     "volume": "269g",
     "isToday": true,
     "isHot": false,
@@ -1011,11 +1073,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 810,
-      "sodium": "810mg (41%)",
-      "sugar": "48g (48%)",
-      "protein": "18g (33%)",
-      "satFat": "9g (60%)"
+      "calories": 280,
+      "sodium": "286mg (14%)",
+      "carbs": "0g",
+      "sugar": "16.6g (17%)",
+      "fat": "0g",
+      "protein": "6.4g (12%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 마구마구 밤식빵(소) 고유 배합",
     "allergens": [
@@ -1064,7 +1131,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 385,
+    "calories": 440,
     "volume": "132g",
     "isToday": true,
     "isHot": true,
@@ -1075,11 +1142,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "610mg (31%)",
-      "sugar": "15g (15%)",
-      "protein": "10g (18%)",
-      "satFat": "4.4g (29%)"
+      "calories": 440,
+      "sodium": "120mg (6%)",
+      "carbs": "0g",
+      "sugar": "32g (32%)",
+      "fat": "0g",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "15.2g (101%)",
+      "saturatedFat": "15.2g (101%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 더블 초코 바게트 고유 배합",
     "allergens": [
@@ -1126,7 +1198,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 445,
     "volume": "157g",
     "isToday": true,
     "isHot": true,
@@ -1135,13 +1206,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.6,
       "portion": 4.5,
       "repurchase": 4.6
-    },
-    "nutrition": {
-      "calories": 445,
-      "sodium": "1090mg (55%)",
-      "sugar": "6g (6%)",
-      "protein": "18g (33%)",
-      "satFat": "7g (47%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 소시지&불고기 라우겐 고유 배합",
     "allergens": [
@@ -1190,7 +1254,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 620,
+    "calories": 303,
     "volume": "234g",
     "isToday": true,
     "isHot": false,
@@ -1201,11 +1265,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 620,
-      "sodium": "1220mg (61%)",
-      "sugar": "15g (15%)",
-      "protein": "20g (36%)",
-      "satFat": "1.2g (8%)"
+      "calories": 303,
+      "sodium": "50mg (3%)",
+      "carbs": "0g",
+      "sugar": "29g (29%)",
+      "fat": "0g",
+      "protein": "2.6g (5%)",
+      "transFat": "0g",
+      "satFat": "10g (67%)",
+      "saturatedFat": "10g (67%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 후르츠 호밀 사워도우 고유 배합",
     "allergens": [
@@ -1250,7 +1319,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 450,
+    "calories": 271,
     "volume": "152g",
     "isToday": false,
     "isHot": false,
@@ -1261,11 +1330,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 450,
-      "sodium": "830mg (42%)",
-      "sugar": "7g (7%)",
-      "protein": "14g (25%)",
-      "satFat": "3.7g (25%)"
+      "calories": 271,
+      "sodium": "475mg (24%)",
+      "carbs": "0g",
+      "sugar": "5.1g (5%)",
+      "fat": "0g",
+      "protein": "7.6g (14%)",
+      "transFat": "0g",
+      "satFat": "2.6g (17%)",
+      "saturatedFat": "2.6g (17%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 올리브 치즈 롱파뉴 고유 배합",
     "allergens": [
@@ -1312,7 +1386,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 325,
+    "calories": 277,
     "volume": "118g",
     "isToday": false,
     "isHot": false,
@@ -1323,11 +1397,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 325,
-      "sodium": "480mg (24%)",
-      "sugar": "9g (9%)",
-      "protein": "10g (18%)",
-      "satFat": "3g (20%)"
+      "calories": 277,
+      "sodium": "395mg (20%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "8.4g (15%)",
+      "transFat": "0g",
+      "satFat": "2.5g (17%)",
+      "saturatedFat": "2.5g (17%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 기본좋은 쌀 베이글 고유 배합",
     "allergens": [
@@ -1372,7 +1451,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 195,
+    "calories": 573,
     "volume": "40g",
     "isToday": false,
     "isHot": false,
@@ -1383,11 +1462,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 195,
-      "sodium": "140mg (7%)",
-      "sugar": "10g (10%)",
-      "protein": "3g (5%)",
-      "satFat": "7g (47%)"
+      "calories": 573,
+      "sodium": "247mg (12%)",
+      "carbs": "46.7g (14%)",
+      "sugar": "20g (20%)",
+      "fat": "40g (74%)",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.3g (89%)",
+      "saturatedFat": "13.3g (89%)",
+      "cholesterol": "33mg (11%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 바삭 마늘빵(5개입) 고유 배합",
     "allergens": [
@@ -1434,7 +1518,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 325,
+    "calories": 271,
     "volume": "118g",
     "isToday": false,
     "isHot": false,
@@ -1445,11 +1529,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 325,
-      "sodium": "520mg (26%)",
-      "sugar": "9g (9%)",
-      "protein": "9g (16%)",
-      "satFat": "2.9g (19%)"
+      "calories": 271,
+      "sodium": "475mg (24%)",
+      "carbs": "0g",
+      "sugar": "5.1g (5%)",
+      "fat": "0g",
+      "protein": "7.6g (14%)",
+      "transFat": "0g",
+      "satFat": "2.6g (17%)",
+      "saturatedFat": "2.6g (17%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 기본좋은 올리브 베이글 고유 배합",
     "allergens": [
@@ -1494,7 +1583,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 310,
+    "calories": 288,
     "volume": "110g",
     "isToday": false,
     "isHot": false,
@@ -1505,11 +1594,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 310,
-      "sodium": "460mg (23%)",
-      "sugar": "12g (12%)",
-      "protein": "12g (22%)",
-      "satFat": "1.5g (10%)"
+      "calories": 288,
+      "sodium": "331mg (17%)",
+      "carbs": "0g",
+      "sugar": "9.5g (10%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
+      "transFat": "0g",
+      "satFat": "0.3g (2%)",
+      "saturatedFat": "0.3g (2%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 데일리 베이글 고유 배합",
     "allergens": [
@@ -1554,7 +1648,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 302,
+    "calories": 288,
     "volume": "105g",
     "isToday": false,
     "isHot": false,
@@ -1565,11 +1659,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 302,
-      "sodium": "348mg (17%)",
-      "sugar": "10g (10%)",
-      "protein": "9g (16%)",
-      "satFat": "0.3g (2%)"
+      "calories": 288,
+      "sodium": "331mg (17%)",
+      "carbs": "0g",
+      "sugar": "9.5g (10%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
+      "transFat": "0g",
+      "satFat": "0.3g (2%)",
+      "saturatedFat": "0.3g (2%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 데일리 블루베리 베이글 고유 배합",
     "allergens": [
@@ -1614,7 +1713,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 715,
+    "calories": 292,
     "volume": "245g",
     "isToday": false,
     "isHot": false,
@@ -1625,11 +1724,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 715,
-      "sodium": "930mg (47%)",
-      "sugar": "29g (29%)",
-      "protein": "21g (38%)",
-      "satFat": "8g (53%)"
+      "calories": 292,
+      "sodium": "380mg (19%)",
+      "carbs": "0g",
+      "sugar": "11.8g (12%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 착한빵식 통밀빵 고유 배합",
     "allergens": [
@@ -1675,7 +1779,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 955,
+    "calories": 360,
     "volume": "265g",
     "isToday": false,
     "isHot": false,
@@ -1686,11 +1790,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 955,
-      "sodium": "670mg (34%)",
-      "sugar": "21g (21%)",
-      "protein": "32g (58%)",
-      "satFat": "5g (33%)"
+      "calories": 360,
+      "sodium": "253mg (13%)",
+      "carbs": "0g",
+      "sugar": "7.9g (8%)",
+      "fat": "0g",
+      "protein": "12.1g (22%)",
+      "transFat": "0g",
+      "satFat": "1.9g (13%)",
+      "saturatedFat": "1.9g (13%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 고단백 하루견과 곡물브레드 고유 배합",
     "allergens": [
@@ -1736,7 +1845,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 730,
     "volume": "180g",
     "isToday": false,
     "isHot": false,
@@ -1745,13 +1853,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.9,
       "portion": 4.7,
       "repurchase": 4.7
-    },
-    "nutrition": {
-      "calories": 730,
-      "sodium": "640mg (32%)",
-      "sugar": "22g (22%)",
-      "protein": "11g (20%)",
-      "satFat": "18g (120%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 더 진해진 마늘 퐁당 바게트 고유 배합",
     "allergens": [
@@ -1798,7 +1899,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 445,
+    "calories": 318,
     "volume": "140g",
     "isToday": false,
     "isHot": false,
@@ -1809,11 +1910,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 445,
-      "sodium": "630mg (32%)",
-      "sugar": "2g (2%)",
-      "protein": "15g (27%)",
-      "satFat": "1.4g (9%)"
+      "calories": 318,
+      "sodium": "450mg (23%)",
+      "carbs": "0g",
+      "sugar": "1.4g (1%)",
+      "fat": "0g",
+      "protein": "10.7g (19%)",
+      "transFat": "0g",
+      "satFat": "1g (7%)",
+      "saturatedFat": "1g (7%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 호두 바게트 고유 배합",
     "allergens": [
@@ -1858,7 +1964,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 830,
+    "calories": 384,
     "volume": "216g",
     "isToday": false,
     "isHot": false,
@@ -1869,11 +1975,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 830,
-      "sodium": "730mg (37%)",
-      "sugar": "23g (23%)",
-      "protein": "16g (29%)",
-      "satFat": "20g (133%)"
+      "calories": 384,
+      "sodium": "338mg (17%)",
+      "carbs": "0g",
+      "sugar": "10.7g (11%)",
+      "fat": "0g",
+      "protein": "7.4g (13%)",
+      "transFat": "0g",
+      "satFat": "9.3g (62%)",
+      "saturatedFat": "9.3g (62%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 호두 연유 바게트 고유 배합",
     "allergens": [
@@ -1920,7 +2031,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 685,
+    "calories": 208,
     "volume": "250g",
     "isToday": false,
     "isHot": false,
@@ -1931,11 +2042,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 685,
-      "sodium": "1400mg (70%)",
-      "sugar": "3g (3%)",
-      "protein": "27g (49%)",
-      "satFat": "0.7g (5%)"
+      "calories": 208,
+      "sodium": "414mg (21%)",
+      "carbs": "44.5g (14%)",
+      "sugar": "0g",
+      "fat": "0.7g (1%)",
+      "protein": "7.5g (14%)",
+      "transFat": "0g",
+      "satFat": "0.2g (1%)",
+      "saturatedFat": "0.2g (1%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 프랑스 바게트 고유 배합",
     "allergens": [
@@ -1979,7 +2095,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 475,
+    "calories": 239,
     "volume": "199g",
     "isToday": false,
     "isHot": false,
@@ -1990,11 +2106,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 475,
-      "sodium": "560mg (28%)",
-      "sugar": "10g (10%)",
-      "protein": "8g (15%)",
-      "satFat": "17g (113%)"
+      "calories": 239,
+      "sodium": "281mg (14%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "8.5g (57%)",
+      "saturatedFat": "8.5g (57%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 연유 버터 라우겐 고유 배합",
     "allergens": [
@@ -2039,7 +2160,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 520,
+    "calories": 387,
     "volume": "147g",
     "isToday": false,
     "isHot": false,
@@ -2050,11 +2171,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 520,
-      "sodium": "600mg (30%)",
-      "sugar": "18g (18%)",
-      "protein": "9g (16%)",
-      "satFat": "16g (107%)"
+      "calories": 387,
+      "sodium": "407mg (20%)",
+      "carbs": "0g",
+      "sugar": "14.7g (15%)",
+      "fat": "0g",
+      "protein": "7.3g (13%)",
+      "transFat": "0g",
+      "satFat": "11.3g (75%)",
+      "saturatedFat": "11.3g (75%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 앙버터 라우겐 고유 배합",
     "allergens": [
@@ -2099,7 +2225,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 86,
-    "calories": 430,
+    "calories": 239,
     "volume": "156g",
     "isToday": false,
     "isHot": false,
@@ -2110,11 +2236,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 430,
-      "sodium": "1070mg (54%)",
-      "sugar": "6g (6%)",
-      "protein": "13g (24%)",
-      "satFat": "0.8g (5%)"
+      "calories": 239,
+      "sodium": "281mg (14%)",
+      "carbs": "0g",
+      "sugar": "5g (5%)",
+      "fat": "0g",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "8.5g (57%)",
+      "saturatedFat": "8.5g (57%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 라우겐(2개입) 고유 배합",
     "allergens": [
@@ -2158,7 +2289,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 450,
+    "calories": 296,
     "volume": "170g",
     "isToday": false,
     "isHot": true,
@@ -2169,11 +2300,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 450,
-      "sodium": "880mg (44%)",
-      "sugar": "6g (6%)",
-      "protein": "12g (22%)",
-      "satFat": "6g (40%)"
+      "calories": 296,
+      "sodium": "772mg (39%)",
+      "carbs": "36g (11%)",
+      "sugar": "3.5g (4%)",
+      "fat": "12.8g (24%)",
+      "protein": "9.4g (17%)",
+      "transFat": "0g",
+      "satFat": "5.9g (39%)",
+      "saturatedFat": "5.9g (39%)",
+      "cholesterol": "23mg (8%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 오지치즈 포테이토 포카치아 고유 배합",
     "allergens": [
@@ -2221,7 +2357,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 410,
+    "calories": 171,
     "volume": "138g",
     "isToday": false,
     "isHot": true,
@@ -2232,11 +2368,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 410,
-      "sodium": "670mg (34%)",
-      "sugar": "4g (4%)",
-      "protein": "14g (25%)",
-      "satFat": "6g (40%)"
+      "calories": 171,
+      "sodium": "229mg (11%)",
+      "carbs": "21.3g (7%)",
+      "sugar": "1.1g (1%)",
+      "fat": "7.4g (14%)",
+      "protein": "4.8g (9%)",
+      "transFat": "0g",
+      "satFat": "1g (7%)",
+      "saturatedFat": "1g (7%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 감바스 포카치아 고유 배합",
     "allergens": [
@@ -2285,7 +2426,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 250,
+    "calories": 313,
     "volume": "102g",
     "isToday": false,
     "isHot": false,
@@ -2296,11 +2437,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 250,
-      "sodium": "310mg (16%)",
-      "sugar": "16g (16%)",
-      "protein": "5g (9%)",
-      "satFat": "6g (40%)"
+      "calories": 313,
+      "sodium": "280mg (14%)",
+      "carbs": "0g",
+      "sugar": "15.2g (15%)",
+      "fat": "0g",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "5.5g (37%)",
+      "saturatedFat": "5.5g (37%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 쫀득 딸기우유 크림빵 고유 배합",
     "allergens": [
@@ -2347,7 +2493,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 285,
+    "calories": 294,
     "volume": "111g",
     "isToday": false,
     "isHot": false,
@@ -2358,11 +2504,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 285,
-      "sodium": "310mg (16%)",
-      "sugar": "4g (4%)",
-      "protein": "8g (15%)",
-      "satFat": "1g (7%)"
+      "calories": 294,
+      "sodium": "181mg (9%)",
+      "carbs": "0g",
+      "sugar": "13.1g (13%)",
+      "fat": "0g",
+      "protein": "6.9g (13%)",
+      "transFat": "0g",
+      "satFat": "4.8g (32%)",
+      "saturatedFat": "4.8g (32%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 쫀득 쑥 단팥빵 고유 배합",
     "allergens": [
@@ -2407,7 +2558,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 840,
     "volume": "202g",
     "isToday": false,
     "isHot": false,
@@ -2416,13 +2566,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.3,
       "portion": 4.5,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 840,
-      "sodium": "820mg (41%)",
-      "sugar": "35g (35%)",
-      "protein": "13g (24%)",
-      "satFat": "22g (147%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 더 촉촉해진 연유 퐁당 밀크브레드 고유 배합",
     "allergens": [
@@ -2469,7 +2612,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 385,
+    "calories": 166,
     "volume": "99g",
     "isToday": false,
     "isHot": false,
@@ -2480,11 +2623,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "530mg (27%)",
-      "sugar": "7g (7%)",
-      "protein": "3g (5%)",
-      "satFat": "6g (40%)"
+      "calories": 166,
+      "sodium": "352mg (18%)",
+      "carbs": "0g",
+      "sugar": "4g (4%)",
+      "fat": "0g",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "2.8g (19%)",
+      "saturatedFat": "2.8g (19%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 매콤 떡볶이볼 고유 배합",
     "allergens": [
@@ -2531,7 +2679,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 180,
+    "calories": 375,
     "volume": "48g",
     "isToday": false,
     "isHot": false,
@@ -2542,11 +2690,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 180,
-      "sodium": "210mg (11%)",
-      "sugar": "2g (2%)",
-      "protein": "2g (4%)",
-      "satFat": "3.1g (21%)"
+      "calories": 375,
+      "sodium": "437mg (22%)",
+      "carbs": "0g",
+      "sugar": "4.2g (4%)",
+      "fat": "0g",
+      "protein": "4.2g (8%)",
+      "transFat": "0g",
+      "satFat": "6.5g (43%)",
+      "saturatedFat": "6.5g (43%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 깨찰빵 고유 배합",
     "allergens": [
@@ -2592,7 +2745,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 265,
+    "calories": 407,
     "volume": "86g",
     "isToday": false,
     "isHot": false,
@@ -2603,11 +2756,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 265,
-      "sodium": "260mg (13%)",
-      "sugar": "17g (17%)",
-      "protein": "8g (15%)",
-      "satFat": "2.5g (17%)"
+      "calories": 407,
+      "sodium": "280mg (14%)",
+      "carbs": "0g",
+      "sugar": "26.2g (26%)",
+      "fat": "0g",
+      "protein": "10.3g (19%)",
+      "transFat": "0g",
+      "satFat": "3.6g (24%)",
+      "saturatedFat": "3.6g (24%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 단팥빵 고유 배합",
     "allergens": [
@@ -2654,7 +2812,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 365,
+    "calories": 348,
     "volume": "105g",
     "isToday": false,
     "isHot": false,
@@ -2665,11 +2823,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 365,
-      "sodium": "250mg (13%)",
-      "sugar": "23g (23%)",
-      "protein": "8g (15%)",
-      "satFat": "7g (47%)"
+      "calories": 348,
+      "sodium": "238mg (12%)",
+      "carbs": "0g",
+      "sugar": "21.9g (22%)",
+      "fat": "0g",
+      "protein": "7.6g (14%)",
+      "transFat": "0g",
+      "satFat": "6.7g (45%)",
+      "saturatedFat": "6.7g (45%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 연유크림 만난 단팥빵 고유 배합",
     "allergens": [
@@ -2716,7 +2879,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 320,
+    "calories": 466,
     "volume": "76g",
     "isToday": false,
     "isHot": false,
@@ -2727,11 +2890,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 320,
-      "sodium": "270mg (14%)",
-      "sugar": "15g (15%)",
-      "protein": "7g (13%)",
-      "satFat": "7g (47%)"
+      "calories": 466,
+      "sodium": "275mg (14%)",
+      "carbs": "0g",
+      "sugar": "19.6g (20%)",
+      "fat": "0g",
+      "protein": "8.8g (16%)",
+      "transFat": "0g",
+      "satFat": "13.7g (91%)",
+      "saturatedFat": "13.7g (91%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 소보로빵 고유 배합",
     "allergens": [
@@ -2779,7 +2947,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 385,
+    "calories": 414,
     "volume": "93g",
     "isToday": false,
     "isHot": false,
@@ -2790,11 +2958,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "270mg (14%)",
-      "sugar": "16g (16%)",
-      "protein": "8g (15%)",
-      "satFat": "12g (80%)"
+      "calories": 414,
+      "sodium": "290mg (14%)",
+      "carbs": "0g",
+      "sugar": "17.2g (17%)",
+      "fat": "0g",
+      "protein": "8.6g (16%)",
+      "transFat": "0g",
+      "satFat": "12.9g (86%)",
+      "saturatedFat": "12.9g (86%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 생크림 소보로 고유 배합",
     "allergens": [
@@ -2842,7 +3015,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 430,
+    "calories": 386,
     "volume": "110g",
     "isToday": false,
     "isHot": false,
@@ -2853,11 +3026,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 430,
-      "sodium": "300mg (15%)",
-      "sugar": "31g (31%)",
-      "protein": "11g (20%)",
-      "satFat": "4.2g (28%)"
+      "calories": 386,
+      "sodium": "245mg (12%)",
+      "carbs": "0g",
+      "sugar": "27.3g (27%)",
+      "fat": "0g",
+      "protein": "10g (18%)",
+      "transFat": "0g",
+      "satFat": "5.5g (37%)",
+      "saturatedFat": "5.5g (37%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, NEW 단팥 소보로 고유 배합",
     "allergens": [
@@ -2905,7 +3083,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 455,
+    "calories": 456,
     "volume": "102g",
     "isToday": false,
     "isHot": false,
@@ -2916,11 +3094,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 455,
-      "sodium": "310mg (16%)",
-      "sugar": "20g (20%)",
-      "protein": "8g (15%)",
-      "satFat": "14g (93%)"
+      "calories": 456,
+      "sodium": "275mg (14%)",
+      "carbs": "0g",
+      "sugar": "19.6g (20%)",
+      "fat": "0g",
+      "protein": "8.8g (16%)",
+      "transFat": "0g",
+      "satFat": "14.7g (98%)",
+      "saturatedFat": "14.7g (98%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 땅콩크림소보로 고유 배합",
     "allergens": [
@@ -2968,7 +3151,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 265,
+    "calories": 299,
     "volume": "85g",
     "isToday": false,
     "isHot": false,
@@ -2979,11 +3162,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 265,
-      "sodium": "220mg (11%)",
-      "sugar": "13g (13%)",
-      "protein": "7g (13%)",
-      "satFat": "5g (33%)"
+      "calories": 299,
+      "sodium": "260mg (13%)",
+      "carbs": "0g",
+      "sugar": "15.6g (16%)",
+      "fat": "0g",
+      "protein": "7.8g (14%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 슈크림빵 고유 배합",
     "allergens": [
@@ -3030,7 +3218,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 245,
+    "calories": 306,
     "volume": "80g",
     "isToday": false,
     "isHot": false,
@@ -3041,11 +3229,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "250mg (13%)",
-      "sugar": "21g (21%)",
-      "protein": "6g (11%)",
-      "satFat": "2.4g (16%)"
+      "calories": 306,
+      "sodium": "313mg (16%)",
+      "carbs": "0g",
+      "sugar": "26.3g (26%)",
+      "fat": "0g",
+      "protein": "7.5g (14%)",
+      "transFat": "0g",
+      "satFat": "3g (20%)",
+      "saturatedFat": "3g (20%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 완두앙금빵 고유 배합",
     "allergens": [
@@ -3092,7 +3285,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 315,
+    "calories": 386,
     "volume": "78g",
     "isToday": false,
     "isHot": false,
@@ -3103,11 +3296,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 315,
-      "sodium": "270mg (14%)",
-      "sugar": "14g (14%)",
-      "protein": "5g (9%)",
-      "satFat": "9g (60%)"
+      "calories": 386,
+      "sodium": "375mg (19%)",
+      "carbs": "0g",
+      "sugar": "13g (13%)",
+      "fat": "0g",
+      "protein": "6.2g (11%)",
+      "transFat": "0g",
+      "satFat": "12.4g (83%)",
+      "saturatedFat": "12.4g (83%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 후레쉬 크림빵 고유 배합",
     "allergens": [
@@ -3154,7 +3352,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 330,
+    "calories": 407,
     "volume": "81g",
     "isToday": false,
     "isHot": false,
@@ -3165,11 +3363,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 330,
-      "sodium": "270mg (14%)",
-      "sugar": "12g (12%)",
-      "protein": "6g (11%)",
-      "satFat": "10g (67%)"
+      "calories": 407,
+      "sodium": "333mg (17%)",
+      "carbs": "0g",
+      "sugar": "14.8g (15%)",
+      "fat": "0g",
+      "protein": "7.4g (13%)",
+      "transFat": "0g",
+      "satFat": "12.4g (83%)",
+      "saturatedFat": "12.4g (83%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 까까웨뜨 고유 배합",
     "allergens": [
@@ -3217,7 +3420,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 87,
-    "calories": 205,
+    "calories": 301,
     "volume": "68g",
     "isToday": false,
     "isHot": false,
@@ -3228,11 +3431,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 205,
-      "sodium": "230mg (12%)",
-      "sugar": "11g (11%)",
-      "protein": "4g (7%)",
-      "satFat": "4.2g (28%)"
+      "calories": 301,
+      "sodium": "338mg (17%)",
+      "carbs": "0g",
+      "sugar": "16.2g (16%)",
+      "fat": "0g",
+      "protein": "5.9g (11%)",
+      "transFat": "0g",
+      "satFat": "6.2g (41%)",
+      "saturatedFat": "6.2g (41%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 리얼 초코 소라빵 고유 배합",
     "allergens": [
@@ -3279,7 +3487,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 245,
+    "calories": 329,
     "volume": "76g",
     "isToday": false,
     "isHot": false,
@@ -3290,11 +3498,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "270mg (14%)",
-      "sugar": "13g (13%)",
-      "protein": "6g (11%)",
-      "satFat": "6g (40%)"
+      "calories": 329,
+      "sodium": "276mg (14%)",
+      "carbs": "0g",
+      "sugar": "17.1g (17%)",
+      "fat": "0g",
+      "protein": "7.9g (14%)",
+      "transFat": "0g",
+      "satFat": "7.9g (53%)",
+      "saturatedFat": "7.9g (53%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 빵 속에 리얼 초코 고유 배합",
     "allergens": [
@@ -3341,7 +3554,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 190,
+    "calories": 271,
     "volume": "70g",
     "isToday": false,
     "isHot": false,
@@ -3352,11 +3565,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 190,
-      "sodium": "160mg (8%)",
-      "sugar": "10g (10%)",
-      "protein": "5g (9%)",
-      "satFat": "3.7g (25%)"
+      "calories": 271,
+      "sodium": "229mg (11%)",
+      "carbs": "0g",
+      "sugar": "14.3g (14%)",
+      "fat": "0g",
+      "protein": "7.1g (13%)",
+      "transFat": "0g",
+      "satFat": "5.3g (35%)",
+      "saturatedFat": "5.3g (35%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 진한 우유 크림빵 고유 배합",
     "allergens": [
@@ -3402,7 +3620,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 280,
+    "calories": 346,
     "volume": "81g",
     "isToday": false,
     "isHot": false,
@@ -3413,11 +3631,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 280,
-      "sodium": "270mg (14%)",
-      "sugar": "13g (13%)",
-      "protein": "6g (11%)",
-      "satFat": "8g (53%)"
+      "calories": 346,
+      "sodium": "333mg (17%)",
+      "carbs": "0g",
+      "sugar": "16.1g (16%)",
+      "fat": "0g",
+      "protein": "7.4g (13%)",
+      "transFat": "0g",
+      "satFat": "9.9g (66%)",
+      "saturatedFat": "9.9g (66%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 진한 크림치즈빵 고유 배합",
     "allergens": [
@@ -3462,7 +3685,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 385,
+    "calories": 311,
     "volume": "124g",
     "isToday": false,
     "isHot": false,
@@ -3473,11 +3696,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "310mg (16%)",
-      "sugar": "25g (25%)",
-      "protein": "7g (13%)",
-      "satFat": "11g (73%)"
+      "calories": 311,
+      "sodium": "250mg (13%)",
+      "carbs": "0g",
+      "sugar": "20.2g (20%)",
+      "fat": "0g",
+      "protein": "5.7g (10%)",
+      "transFat": "0g",
+      "satFat": "8.9g (59%)",
+      "saturatedFat": "8.9g (59%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 사르르 고구마케이크 빵 고유 배합",
     "allergens": [
@@ -3524,7 +3752,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 575,
+    "calories": 329,
     "volume": "120g",
     "isToday": false,
     "isHot": false,
@@ -3535,11 +3763,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 575,
-      "sodium": "360mg (18%)",
-      "sugar": "21g (21%)",
-      "protein": "7g (13%)",
-      "satFat": "18g (120%)"
+      "calories": 329,
+      "sodium": "500mg (25%)",
+      "carbs": "0g",
+      "sugar": "12.9g (13%)",
+      "fat": "0g",
+      "protein": "4.3g (8%)",
+      "transFat": "0g",
+      "satFat": "18.6g (124%)",
+      "saturatedFat": "18.6g (124%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 메이플피칸 쿠키번 고유 배합",
     "allergens": [
@@ -3586,7 +3819,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 405,
+    "calories": 335,
     "volume": "100g",
     "isToday": false,
     "isHot": false,
@@ -3597,11 +3830,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 405,
-      "sodium": "330mg (17%)",
-      "sugar": "16g (16%)",
-      "protein": "7g (13%)",
-      "satFat": "15g (100%)"
+      "calories": 335,
+      "sodium": "263mg (13%)",
+      "carbs": "45g (14%)",
+      "sugar": "8.8g (9%)",
+      "fat": "15g (28%)",
+      "protein": "5g (9%)",
+      "transFat": "0g",
+      "satFat": "8.8g (59%)",
+      "saturatedFat": "8.8g (59%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 오리지널 커피번 고유 배합",
     "allergens": [
@@ -3648,7 +3886,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 665,
+    "calories": 185,
     "volume": "161g",
     "isToday": false,
     "isHot": false,
@@ -3659,11 +3897,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 665,
-      "sodium": "370mg (19%)",
-      "sugar": "26g (26%)",
-      "protein": "8g (15%)",
-      "satFat": "30g (200%)"
+      "calories": 185,
+      "sodium": "217mg (11%)",
+      "carbs": "0g",
+      "sugar": "1.7g (2%)",
+      "fat": "0g",
+      "protein": "6.2g (11%)",
+      "transFat": "0g",
+      "satFat": "4.9g (33%)",
+      "saturatedFat": "4.9g (33%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 크림 가득 모카번 고유 배합",
     "allergens": [
@@ -3710,7 +3953,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 225,
+    "calories": 387,
     "volume": "62g",
     "isToday": false,
     "isHot": false,
@@ -3721,11 +3964,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 225,
-      "sodium": "310mg (16%)",
-      "sugar": "5g (5%)",
-      "protein": "5g (9%)",
-      "satFat": "6g (40%)"
+      "calories": 387,
+      "sodium": "435mg (22%)",
+      "carbs": "0g",
+      "sugar": "8.1g (8%)",
+      "fat": "0g",
+      "protein": "8.1g (15%)",
+      "transFat": "0g",
+      "satFat": "9.7g (65%)",
+      "saturatedFat": "9.7g (65%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 소금버터롤 고유 배합",
     "allergens": [
@@ -3771,7 +4019,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 425,
+    "calories": 406,
     "volume": "112g",
     "isToday": false,
     "isHot": false,
@@ -3782,11 +4030,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 425,
-      "sodium": "370mg (19%)",
-      "sugar": "19g (19%)",
-      "protein": "7g (13%)",
-      "satFat": "14g (93%)"
+      "calories": 406,
+      "sodium": "330mg (17%)",
+      "carbs": "0g",
+      "sugar": "18.8g (19%)",
+      "fat": "0g",
+      "protein": "7.1g (13%)",
+      "transFat": "0g",
+      "satFat": "13.4g (89%)",
+      "saturatedFat": "13.4g (89%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 앙버터 소금버터롤 고유 배합",
     "allergens": [
@@ -3832,7 +4085,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 735,
+    "calories": 662,
     "volume": "111g",
     "isToday": false,
     "isHot": false,
@@ -3843,11 +4096,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 735,
-      "sodium": "400mg (20%)",
-      "sugar": "31g (31%)",
-      "protein": "9g (16%)",
-      "satFat": "31g (207%)"
+      "calories": 662,
+      "sodium": "360mg (18%)",
+      "carbs": "0g",
+      "sugar": "27.9g (28%)",
+      "fat": "0g",
+      "protein": "8.1g (15%)",
+      "transFat": "0g",
+      "satFat": "27.9g (186%)",
+      "saturatedFat": "27.9g (186%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 러스크가 달구나 고유 배합",
     "allergens": [
@@ -3906,9 +4164,14 @@ export const TLJ_PRODUCTS: Product[] = [
     "nutrition": {
       "calories": 395,
       "sodium": "250mg (13%)",
+      "carbs": "0g",
       "sugar": "18g (18%)",
+      "fat": "0g",
       "protein": "9g (16%)",
-      "satFat": "14g (93%)"
+      "transFat": "0g",
+      "satFat": "14g (93%)",
+      "saturatedFat": "14g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 마담 얼그레이 크림번 고유 배합",
     "allergens": [
@@ -3955,7 +4218,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 505,
+    "calories": 297,
     "volume": "170g",
     "isToday": false,
     "isHot": false,
@@ -3966,11 +4229,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 505,
-      "sodium": "580mg (29%)",
-      "sugar": "17g (17%)",
-      "protein": "16g (29%)",
-      "satFat": "7g (47%)"
+      "calories": 297,
+      "sodium": "341mg (17%)",
+      "carbs": "0g",
+      "sugar": "10g (10%)",
+      "fat": "0g",
+      "protein": "9.4g (17%)",
+      "transFat": "0g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 폭신폭신 우유브레드 고유 배합",
     "allergens": [
@@ -4015,7 +4283,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 700,
+    "calories": 250,
     "volume": "213g",
     "isToday": false,
     "isHot": false,
@@ -4026,11 +4294,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 700,
-      "sodium": "520mg (26%)",
-      "sugar": "28g (28%)",
-      "protein": "12g (22%)",
-      "satFat": "24g (160%)"
+      "calories": 250,
+      "sodium": "225mg (11%)",
+      "carbs": "42.5g (13%)",
+      "sugar": "7.5g (8%)",
+      "fat": "7.3g (14%)",
+      "protein": "2.5g (5%)",
+      "transFat": "0g",
+      "satFat": "5g (33%)",
+      "saturatedFat": "5g (33%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카스테라 우유크림볼 고유 배합",
     "allergens": [
@@ -4077,7 +4350,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 485,
+    "calories": 211,
     "volume": "159g",
     "isToday": false,
     "isHot": false,
@@ -4088,11 +4361,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 485,
-      "sodium": "660mg (33%)",
-      "sugar": "13g (13%)",
-      "protein": "7g (13%)",
-      "satFat": "12g (80%)"
+      "calories": 211,
+      "sodium": "357mg (18%)",
+      "carbs": "0g",
+      "sugar": "11.9g (12%)",
+      "fat": "0g",
+      "protein": "7.2g (13%)",
+      "transFat": "0g",
+      "satFat": "3g (20%)",
+      "saturatedFat": "3g (20%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 치즈 방앗간(3개입) 고유 배합",
     "allergens": [
@@ -4139,7 +4417,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 605,
+    "calories": 288,
     "volume": "198g",
     "isToday": false,
     "isHot": false,
@@ -4150,11 +4428,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 605,
-      "sodium": "1190mg (60%)",
-      "sugar": "6g (6%)",
-      "protein": "25g (45%)",
-      "satFat": "10g (67%)"
+      "calories": 288,
+      "sodium": "470mg (24%)",
+      "carbs": "0g",
+      "sugar": "3g (3%)",
+      "fat": "0g",
+      "protein": "11.6g (21%)",
+      "transFat": "0g",
+      "satFat": "5.1g (34%)",
+      "saturatedFat": "5.1g (34%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 미니치즈롤 고유 배합",
     "allergens": [
@@ -4200,7 +4483,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 695,
+    "calories": 323,
     "volume": "208g",
     "isToday": false,
     "isHot": false,
@@ -4211,11 +4494,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 695,
-      "sodium": "930mg (47%)",
-      "sugar": "20g (20%)",
-      "protein": "17g (31%)",
-      "satFat": "11g (73%)"
+      "calories": 323,
+      "sodium": "375mg (19%)",
+      "carbs": "0g",
+      "sugar": "7.6g (8%)",
+      "fat": "0g",
+      "protein": "9.2g (17%)",
+      "transFat": "0g",
+      "satFat": "8.7g (58%)",
+      "saturatedFat": "8.7g (58%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 순수한맛 순우유롤(봉) 고유 배합",
     "allergens": [
@@ -4262,7 +4550,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 510,
+    "calories": 288,
     "volume": "177g",
     "isToday": false,
     "isHot": false,
@@ -4273,11 +4561,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 510,
-      "sodium": "770mg (39%)",
-      "sugar": "17g (17%)",
-      "protein": "13g (24%)",
-      "satFat": "3.1g (21%)"
+      "calories": 288,
+      "sodium": "435mg (22%)",
+      "carbs": "0g",
+      "sugar": "9.6g (10%)",
+      "fat": "0g",
+      "protein": "7.4g (13%)",
+      "transFat": "0g",
+      "satFat": "1.8g (12%)",
+      "saturatedFat": "1.8g (12%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 슬로우 오트 모닝롤 고유 배합",
     "allergens": [
@@ -4321,7 +4614,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 88,
-    "calories": 505,
+    "calories": 332,
     "volume": "178g",
     "isToday": false,
     "isHot": false,
@@ -4332,11 +4625,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 505,
-      "sodium": "450mg (23%)",
-      "sugar": "25g (25%)",
-      "protein": "14g (25%)",
-      "satFat": "3g (20%)"
+      "calories": 332,
+      "sodium": "296mg (15%)",
+      "carbs": "0g",
+      "sugar": "17.9g (18%)",
+      "fat": "0g",
+      "protein": "6.6g (12%)",
+      "transFat": "0g",
+      "satFat": "7.7g (51%)",
+      "saturatedFat": "7.7g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 고구마 누룽지 고유 배합",
     "allergens": [
@@ -4384,7 +4682,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 705,
+    "calories": 336,
     "volume": "210g",
     "isToday": false,
     "isHot": false,
@@ -4395,11 +4693,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 705,
-      "sodium": "620mg (31%)",
-      "sugar": "35g (35%)",
-      "protein": "15g (27%)",
-      "satFat": "12g (80%)"
+      "calories": 336,
+      "sodium": "295mg (15%)",
+      "carbs": "0g",
+      "sugar": "16.7g (17%)",
+      "fat": "0g",
+      "protein": "7.1g (13%)",
+      "transFat": "0g",
+      "satFat": "5.7g (38%)",
+      "saturatedFat": "5.7g (38%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 달콩 찹쌀 브레드 고유 배합",
     "allergens": [
@@ -4448,7 +4751,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 1085,
+    "calories": 286,
     "volume": "380g",
     "isToday": false,
     "isHot": false,
@@ -4459,11 +4762,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 1085,
-      "sodium": "1270mg (64%)",
-      "sugar": "70g (70%)",
-      "protein": "31g (56%)",
-      "satFat": "6g (40%)"
+      "calories": 286,
+      "sodium": "334mg (17%)",
+      "carbs": "0g",
+      "sugar": "18.4g (18%)",
+      "fat": "0g",
+      "protein": "8.2g (15%)",
+      "transFat": "0g",
+      "satFat": "1.6g (11%)",
+      "saturatedFat": "1.6g (11%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 콩팥 담뿍 브레드 고유 배합",
     "allergens": [
@@ -4509,7 +4817,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 545,
+    "calories": 286,
     "volume": "190g",
     "isToday": false,
     "isHot": false,
@@ -4520,11 +4828,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 545,
-      "sodium": "630mg (32%)",
-      "sugar": "35g (35%)",
-      "protein": "15g (27%)",
-      "satFat": "2.8g (19%)"
+      "calories": 286,
+      "sodium": "334mg (17%)",
+      "carbs": "0g",
+      "sugar": "18.4g (18%)",
+      "fat": "0g",
+      "protein": "8.2g (15%)",
+      "transFat": "0g",
+      "satFat": "1.6g (11%)",
+      "saturatedFat": "1.6g (11%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 콩팥 담뿍 브레드(Half) 고유 배합",
     "allergens": [
@@ -4570,7 +4883,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 630,
+    "calories": 318,
     "volume": "167g",
     "isToday": false,
     "isHot": false,
@@ -4581,11 +4894,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 630,
-      "sodium": "800mg (40%)",
-      "sugar": "18g (18%)",
-      "protein": "15g (27%)",
-      "satFat": "14g (93%)"
+      "calories": 318,
+      "sodium": "322mg (16%)",
+      "carbs": "0g",
+      "sugar": "7.8g (8%)",
+      "fat": "0g",
+      "protein": "12.1g (22%)",
+      "transFat": "0g",
+      "satFat": "8.5g (57%)",
+      "saturatedFat": "8.5g (57%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 크림치즈 월넛 브레드 고유 배합",
     "allergens": [
@@ -4633,7 +4951,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1010,
+    "calories": 381,
     "volume": "265g",
     "isToday": false,
     "isHot": false,
@@ -4644,11 +4962,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 1010,
-      "sodium": "810mg (41%)",
-      "sugar": "56g (56%)",
-      "protein": "23g (42%)",
-      "satFat": "20g (133%)"
+      "calories": 381,
+      "sodium": "306mg (15%)",
+      "carbs": "0g",
+      "sugar": "21.1g (21%)",
+      "fat": "0g",
+      "protein": "8.7g (16%)",
+      "transFat": "0g",
+      "satFat": "7.6g (51%)",
+      "saturatedFat": "7.6g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카페모카빵(대) 고유 배합",
     "allergens": [
@@ -4695,7 +5018,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 500,
+    "calories": 381,
     "volume": "132g",
     "isToday": false,
     "isHot": false,
@@ -4706,11 +5029,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 500,
-      "sodium": "400mg (20%)",
-      "sugar": "28g (28%)",
-      "protein": "12g (22%)",
-      "satFat": "10g (67%)"
+      "calories": 381,
+      "sodium": "306mg (15%)",
+      "carbs": "0g",
+      "sugar": "21.1g (21%)",
+      "fat": "0g",
+      "protein": "8.7g (16%)",
+      "transFat": "0g",
+      "satFat": "7.6g (51%)",
+      "saturatedFat": "7.6g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카페모카빵(소) 고유 배합",
     "allergens": [
@@ -4757,7 +5085,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1355,
+    "calories": 420,
     "volume": "326g",
     "isToday": false,
     "isHot": false,
@@ -4768,11 +5096,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 1355,
-      "sodium": "860mg (43%)",
-      "sugar": "70g (70%)",
-      "protein": "23g (42%)",
-      "satFat": "41g (273%)"
+      "calories": 420,
+      "sodium": "264mg (13%)",
+      "carbs": "0g",
+      "sugar": "21.5g (22%)",
+      "fat": "0g",
+      "protein": "7.1g (13%)",
+      "transFat": "0g",
+      "satFat": "12.6g (84%)",
+      "saturatedFat": "12.6g (84%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카페 모카 크림빵(대) 고유 배합",
     "allergens": [
@@ -4819,7 +5152,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 630,
+    "calories": 420,
     "volume": "155g",
     "isToday": false,
     "isHot": false,
@@ -4830,11 +5163,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 630,
-      "sodium": "420mg (21%)",
-      "sugar": "33g (33%)",
-      "protein": "12g (22%)",
-      "satFat": "18g (120%)"
+      "calories": 420,
+      "sodium": "264mg (13%)",
+      "carbs": "0g",
+      "sugar": "21.5g (22%)",
+      "fat": "0g",
+      "protein": "7.1g (13%)",
+      "transFat": "0g",
+      "satFat": "12.6g (84%)",
+      "saturatedFat": "12.6g (84%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카페 모카 크림빵(소) 고유 배합",
     "allergens": [
@@ -4881,7 +5219,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1445,
+    "calories": 423,
     "volume": "342g",
     "isToday": false,
     "isHot": false,
@@ -4892,11 +5230,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 1445,
-      "sodium": "870mg (44%)",
-      "sugar": "73g (73%)",
-      "protein": "23g (42%)",
-      "satFat": "46g (307%)"
+      "calories": 423,
+      "sodium": "254mg (13%)",
+      "carbs": "0g",
+      "sugar": "21.4g (21%)",
+      "fat": "0g",
+      "protein": "6.7g (12%)",
+      "transFat": "0g",
+      "satFat": "13.5g (90%)",
+      "saturatedFat": "13.5g (90%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 매직모카크림빵 고유 배합",
     "allergens": [
@@ -4943,7 +5286,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 1145,
+    "calories": 342,
     "volume": "335g",
     "isToday": false,
     "isHot": false,
@@ -4954,11 +5297,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 1145,
-      "sodium": "760mg (38%)",
-      "sugar": "102g (102%)",
-      "protein": "17g (31%)",
-      "satFat": "24g (160%)"
+      "calories": 342,
+      "sodium": "227mg (11%)",
+      "carbs": "0g",
+      "sugar": "30.5g (31%)",
+      "fat": "0g",
+      "protein": "5.1g (9%)",
+      "transFat": "0g",
+      "satFat": "7.2g (48%)",
+      "saturatedFat": "7.2g (48%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 밤이 듬뿍 맘모스(대) 고유 배합",
     "allergens": [
@@ -5006,7 +5354,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 1490,
+    "calories": 401,
     "volume": "370g",
     "isToday": false,
     "isHot": false,
@@ -5017,11 +5365,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 1490,
-      "sodium": "1250mg (63%)",
-      "sugar": "78g (78%)",
-      "protein": "24g (44%)",
-      "satFat": "44g (293%)"
+      "calories": 401,
+      "sodium": "338mg (17%)",
+      "carbs": "0g",
+      "sugar": "21.1g (21%)",
+      "fat": "0g",
+      "protein": "6.5g (12%)",
+      "transFat": "0g",
+      "satFat": "11.9g (79%)",
+      "saturatedFat": "11.9g (79%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 클래식 딸기잼 맘모스 고유 배합",
     "allergens": [
@@ -5069,7 +5422,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 1350,
+    "calories": 386,
     "volume": "323g",
     "isToday": false,
     "isHot": false,
@@ -5080,11 +5433,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 1350,
-      "sodium": "1160mg (58%)",
-      "sugar": "54g (54%)",
-      "protein": "19g (35%)",
-      "satFat": "43g (287%)"
+      "calories": 386,
+      "sodium": "375mg (19%)",
+      "carbs": "0g",
+      "sugar": "13g (13%)",
+      "fat": "0g",
+      "protein": "6.2g (11%)",
+      "transFat": "0g",
+      "satFat": "12.4g (83%)",
+      "saturatedFat": "12.4g (83%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 부드러운 후레쉬크림 샌드빵 고유 배합",
     "allergens": [
@@ -5131,7 +5489,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 310,
+    "calories": 384,
     "volume": "86g",
     "isToday": false,
     "isHot": false,
@@ -5142,11 +5500,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 310,
-      "sodium": "280mg (14%)",
-      "sugar": "25g (25%)",
-      "protein": "8g (15%)",
-      "satFat": "2.4g (16%)"
+      "calories": 384,
+      "sodium": "326mg (16%)",
+      "carbs": "69.8g (22%)",
+      "sugar": "30.2g (30%)",
+      "fat": "7g (13%)",
+      "protein": "10.5g (19%)",
+      "transFat": "0g",
+      "satFat": "4.7g (31%)",
+      "saturatedFat": "4.7g (31%)",
+      "cholesterol": "29mg (10%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 팥이 빵빵 단팥빵 고유 배합",
     "allergens": [
@@ -5193,7 +5556,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 241,
+    "calories": 379,
     "volume": "66g",
     "isToday": false,
     "isHot": false,
@@ -5204,11 +5567,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 241,
-      "sodium": "177mg (9%)",
-      "sugar": "12g (12%)",
-      "protein": "5g (9%)",
-      "satFat": "3.3g (22%)"
+      "calories": 379,
+      "sodium": "333mg (17%)",
+      "carbs": "40.9g (13%)",
+      "sugar": "15.2g (15%)",
+      "fat": "21.2g (39%)",
+      "protein": "6.1g (11%)",
+      "transFat": "0g",
+      "satFat": "12.1g (81%)",
+      "saturatedFat": "12.1g (81%)",
+      "cholesterol": "76mg (25%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 맛보로 소보로빵 고유 배합",
     "allergens": [
@@ -5256,7 +5624,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 235,
+    "calories": 345,
     "volume": "74g",
     "isToday": false,
     "isHot": false,
@@ -5267,11 +5635,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 235,
-      "sodium": "260mg (13%)",
-      "sugar": "16g (16%)",
-      "protein": "6g (11%)",
-      "satFat": "3.4g (23%)"
+      "calories": 345,
+      "sodium": "365mg (18%)",
+      "carbs": "51.4g (16%)",
+      "sugar": "23g (23%)",
+      "fat": "12.2g (23%)",
+      "protein": "8.1g (15%)",
+      "transFat": "0g",
+      "satFat": "6.8g (45%)",
+      "saturatedFat": "6.8g (45%)",
+      "cholesterol": "41mg (14%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 크림듬뿍 슈크림빵 고유 배합",
     "allergens": [
@@ -5318,7 +5691,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 360,
+    "calories": 400,
     "volume": "90g",
     "isToday": false,
     "isHot": false,
@@ -5329,11 +5702,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 360,
-      "sodium": "270mg (14%)",
-      "sugar": "16g (16%)",
-      "protein": "9g (16%)",
-      "satFat": "8g (53%)"
+      "calories": 400,
+      "sodium": "300mg (15%)",
+      "carbs": "54.4g (17%)",
+      "sugar": "17.8g (18%)",
+      "fat": "15.6g (29%)",
+      "protein": "10g (18%)",
+      "transFat": "0.6g",
+      "satFat": "8.9g (59%)",
+      "saturatedFat": "8.9g (59%)",
+      "cholesterol": "122mg (41%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 포키와 캐런의 우유 스틱 브레드 고유 배합",
     "allergens": [
@@ -5380,7 +5758,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 235,
+    "calories": 313,
     "volume": "75g",
     "isToday": false,
     "isHot": false,
@@ -5391,11 +5769,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 235,
-      "sodium": "270mg (14%)",
-      "sugar": "14g (14%)",
-      "protein": "6g (11%)",
-      "satFat": "2.4g (16%)"
+      "calories": 313,
+      "sodium": "360mg (18%)",
+      "carbs": "52g (16%)",
+      "sugar": "18.7g (19%)",
+      "fat": "8g (15%)",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "3.2g (21%)",
+      "saturatedFat": "3.2g (21%)",
+      "cholesterol": "27mg (9%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 버즈와 함께 출동! 완두앙금빵 고유 배합",
     "allergens": [
@@ -5442,7 +5825,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 89,
-    "calories": 275,
+    "calories": 403,
     "volume": "62g",
     "isToday": false,
     "isHot": false,
@@ -5453,11 +5836,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 275,
-      "sodium": "250mg (13%)",
-      "sugar": "12g (12%)",
-      "protein": "4g (7%)",
-      "satFat": "9g (60%)"
+      "calories": 403,
+      "sodium": "355mg (18%)",
+      "carbs": "43.6g (13%)",
+      "sugar": "16.1g (16%)",
+      "fat": "22.6g (42%)",
+      "protein": "6.5g (12%)",
+      "transFat": "0g",
+      "satFat": "12.9g (86%)",
+      "saturatedFat": "12.9g (86%)",
+      "cholesterol": "81mg (27%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 신선해 고소해 후레쉬크림빵 고유 배합",
     "allergens": [
@@ -5504,7 +5892,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 97,
-    "calories": 345,
+    "calories": 348,
     "volume": "67g",
     "isToday": false,
     "isHot": false,
@@ -5515,11 +5903,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 345,
-      "sodium": "240mg (12%)",
-      "sugar": "8g (8%)",
-      "protein": "8g (15%)",
-      "satFat": "10g (67%)"
+      "calories": 348,
+      "sodium": "191mg (10%)",
+      "carbs": "0g",
+      "sugar": "22.6g (23%)",
+      "fat": "0g",
+      "protein": "6.1g (11%)",
+      "transFat": "0g",
+      "satFat": "9.6g (64%)",
+      "saturatedFat": "9.6g (64%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 진짜 고소한 땅콩크림빵 고유 배합",
     "allergens": [
@@ -5567,7 +5960,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 65,
+    "calories": 394,
     "volume": "160g",
     "isToday": false,
     "isHot": false,
@@ -5578,11 +5971,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 65,
-      "sodium": "60mg (3%)",
-      "sugar": "3g (3%)",
-      "protein": "2g (4%)",
-      "satFat": "0.6g (4%)"
+      "calories": 394,
+      "sodium": "298mg (15%)",
+      "carbs": "0g",
+      "sugar": "20.2g (20%)",
+      "fat": "0g",
+      "protein": "6.4g (12%)",
+      "transFat": "0g",
+      "satFat": "12.8g (85%)",
+      "saturatedFat": "12.8g (85%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 겹겹이 밀크롤인 고유 배합",
     "allergens": [
@@ -5630,7 +6028,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 65,
+    "calories": 394,
     "volume": "120g",
     "isToday": false,
     "isHot": false,
@@ -5641,11 +6039,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 65,
-      "sodium": "70mg (4%)",
-      "sugar": "3g (3%)",
-      "protein": "2g (4%)",
-      "satFat": "0.6g (4%)"
+      "calories": 394,
+      "sodium": "298mg (15%)",
+      "carbs": "0g",
+      "sugar": "20.2g (20%)",
+      "fat": "0g",
+      "protein": "6.4g (12%)",
+      "transFat": "0g",
+      "satFat": "12.8g (85%)",
+      "saturatedFat": "12.8g (85%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 겹겹이 치즈스틱(6개입) 고유 배합",
     "allergens": [
@@ -5693,7 +6096,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 492,
+    "calories": 148,
     "volume": "160g",
     "isToday": false,
     "isHot": false,
@@ -5704,11 +6107,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 492,
-      "sodium": "423mg (21%)",
-      "sugar": "42g (42%)",
-      "protein": "13g (24%)",
-      "satFat": "2.5g (17%)"
+      "calories": 148,
+      "sodium": "441mg (22%)",
+      "carbs": "0g",
+      "sugar": "7.3g (7%)",
+      "fat": "0g",
+      "protein": "11.9g (22%)",
+      "transFat": "0g",
+      "satFat": "1.6g (11%)",
+      "saturatedFat": "1.6g (11%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 한입 두입 미니 단팥빵 고유 배합",
     "allergens": [
@@ -5756,7 +6164,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 680,
+    "calories": 279,
     "volume": "180g",
     "isToday": false,
     "isHot": false,
@@ -5767,11 +6175,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 680,
-      "sodium": "920mg (46%)",
-      "sugar": "28g (28%)",
-      "protein": "18g (33%)",
-      "satFat": "10g (67%)"
+      "calories": 279,
+      "sodium": "341mg (17%)",
+      "carbs": "0g",
+      "sugar": "9.4g (9%)",
+      "fat": "0g",
+      "protein": "9.4g (17%)",
+      "transFat": "0g",
+      "satFat": "4.1g (27%)",
+      "saturatedFat": "4.1g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 폭신폭신 모닝롤 고유 배합",
     "allergens": [
@@ -5818,7 +6231,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 205,
     "volume": "65g",
     "isToday": false,
     "isHot": false,
@@ -5827,13 +6239,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.9,
       "portion": 4.5,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 205,
-      "sodium": "250mg (13%)",
-      "sugar": "11g (11%)",
-      "protein": "3g (5%)",
-      "satFat": "4.4g (29%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 아름핑이 좋아하는 미니샌드 스트로베리 고유 배합",
     "allergens": [
@@ -5879,7 +6284,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 226,
     "volume": "65g",
     "isToday": false,
     "isHot": false,
@@ -5888,13 +6292,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.6,
       "portion": 4.8,
       "repurchase": 4.5
-    },
-    "nutrition": {
-      "calories": 226,
-      "sodium": "290mg (15%)",
-      "sugar": "11g (11%)",
-      "protein": "4g (7%)",
-      "satFat": "5g (33%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 사뿐핑이 좋아하는 미니샌드 연유 고유 배합",
     "allergens": [
@@ -5940,7 +6337,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 380,
+    "calories": 287,
     "volume": "136g",
     "isToday": false,
     "isHot": false,
@@ -5951,11 +6348,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 380,
-      "sodium": "720mg (36%)",
-      "sugar": "11g (11%)",
-      "protein": "9g (16%)",
-      "satFat": "7g (47%)"
+      "calories": 287,
+      "sodium": "559mg (28%)",
+      "carbs": "0g",
+      "sugar": "7.4g (7%)",
+      "fat": "0g",
+      "protein": "8.1g (15%)",
+      "transFat": "0g",
+      "satFat": "5.9g (39%)",
+      "saturatedFat": "5.9g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 낙엽 소시지 브레드 고유 배합",
     "allergens": [
@@ -6006,7 +6408,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 300,
+    "calories": 327,
     "volume": "98g",
     "isToday": false,
     "isHot": false,
@@ -6017,11 +6419,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 300,
-      "sodium": "580mg (29%)",
-      "sugar": "7g (7%)",
-      "protein": "12g (22%)",
-      "satFat": "7g (47%)"
+      "calories": 327,
+      "sodium": "694mg (35%)",
+      "carbs": "0g",
+      "sugar": "9.2g (9%)",
+      "fat": "0g",
+      "protein": "12.3g (22%)",
+      "transFat": "0g",
+      "satFat": "7.1g (47%)",
+      "saturatedFat": "7.1g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, NEW 고소한 후랑크 소시지 고유 배합",
     "allergens": [
@@ -6068,7 +6475,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 370,
+    "calories": 336,
     "volume": "110g",
     "isToday": false,
     "isHot": false,
@@ -6079,11 +6486,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 370,
-      "sodium": "690mg (35%)",
-      "sugar": "4g (4%)",
-      "protein": "13g (24%)",
-      "satFat": "8g (53%)"
+      "calories": 336,
+      "sodium": "582mg (29%)",
+      "carbs": "0g",
+      "sugar": "3.6g (4%)",
+      "fat": "0g",
+      "protein": "11.8g (21%)",
+      "transFat": "0g",
+      "satFat": "7.3g (49%)",
+      "saturatedFat": "7.3g (49%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, NEW 어니언 소시지 포카치아 고유 배합",
     "allergens": [
@@ -6132,7 +6544,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 300,
+    "calories": 259,
     "volume": "116g",
     "isToday": false,
     "isHot": false,
@@ -6143,11 +6555,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 300,
-      "sodium": "740mg (37%)",
-      "sugar": "6g (6%)",
-      "protein": "14g (25%)",
-      "satFat": "8g (53%)"
+      "calories": 259,
+      "sodium": "636mg (32%)",
+      "carbs": "0g",
+      "sugar": "5.5g (6%)",
+      "fat": "0g",
+      "protein": "12.7g (23%)",
+      "transFat": "0g",
+      "satFat": "7.3g (49%)",
+      "saturatedFat": "7.3g (49%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 피자토스트 고유 배합",
     "allergens": [
@@ -6196,7 +6613,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 490,
+    "calories": 338,
     "volume": "145g",
     "isToday": false,
     "isHot": false,
@@ -6207,11 +6624,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 490,
-      "sodium": "830mg (42%)",
-      "sugar": "10g (10%)",
-      "protein": "16g (29%)",
-      "satFat": "12g (80%)"
+      "calories": 338,
+      "sodium": "777mg (39%)",
+      "carbs": "28.5g (9%)",
+      "sugar": "6.2g (6%)",
+      "fat": "20g (37%)",
+      "protein": "10.8g (20%)",
+      "transFat": "0.2g",
+      "satFat": "10.8g (72%)",
+      "saturatedFat": "10.8g (72%)",
+      "cholesterol": "58mg (19%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 크로크무슈 고유 배합",
     "allergens": [
@@ -6258,7 +6680,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 435,
+    "calories": 251,
     "volume": "173g",
     "isToday": false,
     "isHot": false,
@@ -6269,11 +6691,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 435,
-      "sodium": "830mg (42%)",
-      "sugar": "9g (9%)",
-      "protein": "15g (27%)",
-      "satFat": "10g (67%)"
+      "calories": 251,
+      "sodium": "480mg (24%)",
+      "carbs": "0g",
+      "sugar": "5.2g (5%)",
+      "fat": "0g",
+      "protein": "8.7g (16%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 새우오믈렛 토스트 고유 배합",
     "allergens": [
@@ -6322,7 +6749,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 590,
+    "calories": 361,
     "volume": "186g",
     "isToday": false,
     "isHot": false,
@@ -6333,11 +6760,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 590,
-      "sodium": "1820mg (91%)",
-      "sugar": "9g (9%)",
-      "protein": "16g (29%)",
-      "satFat": "5g (33%)"
+      "calories": 361,
+      "sodium": "414mg (21%)",
+      "carbs": "0g",
+      "sugar": "8.6g (9%)",
+      "fat": "0g",
+      "protein": "10.1g (18%)",
+      "transFat": "0g",
+      "satFat": "7.6g (51%)",
+      "saturatedFat": "7.6g (51%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 그냥 먹어도 맛있는 햄야채롤(6개입) 고유 배합",
     "allergens": [
@@ -6386,7 +6818,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 565,
+    "calories": 400,
     "volume": "210g",
     "isToday": false,
     "isHot": false,
@@ -6397,11 +6829,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 565,
-      "sodium": "1270mg (64%)",
-      "sugar": "6g (6%)",
-      "protein": "23g (42%)",
-      "satFat": "9g (60%)"
+      "calories": 400,
+      "sodium": "294mg (15%)",
+      "carbs": "0g",
+      "sugar": "12.8g (13%)",
+      "fat": "0g",
+      "protein": "8.9g (16%)",
+      "transFat": "0g",
+      "satFat": "10.6g (71%)",
+      "saturatedFat": "10.6g (71%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 미니 햄 치즈롤(10개입) 고유 배합",
     "allergens": [
@@ -6449,7 +6886,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 625,
+    "calories": 232,
     "volume": "256g",
     "isToday": false,
     "isHot": false,
@@ -6460,11 +6897,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 625,
-      "sodium": "1420mg (71%)",
-      "sugar": "14g (14%)",
-      "protein": "27g (49%)",
-      "satFat": "14g (93%)"
+      "calories": 232,
+      "sodium": "453mg (23%)",
+      "carbs": "0g",
+      "sugar": "5.8g (6%)",
+      "fat": "0g",
+      "protein": "9.5g (17%)",
+      "transFat": "0g",
+      "satFat": "8.4g (56%)",
+      "saturatedFat": "8.4g (56%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 뚜쥬맘 계란 토스트 고유 배합",
     "allergens": [
@@ -6513,7 +6955,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 695,
+    "calories": 485,
     "volume": "147g",
     "isToday": false,
     "isHot": true,
@@ -6524,11 +6966,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 695,
-      "sodium": "870mg (44%)",
-      "sugar": "17g (17%)",
-      "protein": "13g (24%)",
-      "satFat": "17g (113%)"
+      "calories": 485,
+      "sodium": "1043mg (52%)",
+      "carbs": "71.2g (22%)",
+      "sugar": "10.6g (11%)",
+      "fat": "21.4g (40%)",
+      "protein": "2g (4%)",
+      "transFat": "0g",
+      "satFat": "11.6g (77%)",
+      "saturatedFat": "11.6g (77%)",
+      "cholesterol": "7mg (2%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 행복한 에스끼떼 패스트리 고유 배합",
     "allergens": [
@@ -6576,7 +7023,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 475,
+    "calories": 467,
     "volume": "137g",
     "isToday": false,
     "isHot": true,
@@ -6587,11 +7034,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 475,
-      "sodium": "310mg (16%)",
-      "sugar": "27g (27%)",
-      "protein": "7g (13%)",
-      "satFat": "19g (127%)"
+      "calories": 467,
+      "sodium": "144mg (7%)",
+      "carbs": "40g (12%)",
+      "sugar": "26.7g (27%)",
+      "fat": "33.3g (62%)",
+      "protein": "4.4g (8%)",
+      "transFat": "0g",
+      "satFat": "11.1g (74%)",
+      "saturatedFat": "11.1g (74%)",
+      "cholesterol": "33mg (11%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 왁뿌 탱글탱귤 브레드 고유 배합",
     "allergens": [
@@ -6639,7 +7091,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 390,
     "volume": "128g",
     "isToday": false,
     "isHot": false,
@@ -6648,13 +7099,6 @@ export const TLJ_PRODUCTS: Product[] = [
       "value": 4.9,
       "portion": 4.7,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 390,
-      "sodium": "310mg (16%)",
-      "sugar": "14g (14%)",
-      "protein": "7g (13%)",
-      "satFat": "16g (107%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 한 컵의 얼그레이&레몬 고유 배합",
     "allergens": [
@@ -6702,7 +7146,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 90,
-    "calories": 620,
+    "calories": 242,
     "volume": "169g",
     "isToday": false,
     "isHot": false,
@@ -6713,11 +7157,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 620,
-      "sodium": "670mg (34%)",
-      "sugar": "28g (28%)",
-      "protein": "10g (18%)",
-      "satFat": "21g (140%)"
+      "calories": 242,
+      "sodium": "297mg (15%)",
+      "carbs": "50.1g (15%)",
+      "sugar": "6.4g (6%)",
+      "fat": "2.2g (4%)",
+      "protein": "5.6g (10%)",
+      "transFat": "0g",
+      "satFat": "0.2g (1%)",
+      "saturatedFat": "0.2g (1%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 인절미 패스트리 고유 배합",
     "allergens": [
@@ -6764,7 +7213,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 590,
+    "calories": 374,
     "volume": "152g",
     "isToday": false,
     "isHot": false,
@@ -6775,11 +7224,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 590,
-      "sodium": "490mg (25%)",
-      "sugar": "31g (31%)",
-      "protein": "9g (16%)",
-      "satFat": "20g (133%)"
+      "calories": 374,
+      "sodium": "337mg (17%)",
+      "carbs": "0g",
+      "sugar": "21.1g (21%)",
+      "fat": "0g",
+      "protein": "6.3g (11%)",
+      "transFat": "0g",
+      "satFat": "8.4g (56%)",
+      "saturatedFat": "8.4g (56%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 시나몬 데니쉬 롤 고유 배합",
     "allergens": [
@@ -6827,7 +7281,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 385,
+    "calories": 269,
     "volume": "89g",
     "isToday": false,
     "isHot": true,
@@ -6838,11 +7292,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "650mg (33%)",
-      "sugar": "7g (7%)",
+      "calories": 269,
+      "sodium": "605mg (30%)",
+      "carbs": "0g",
+      "sugar": "2.9g (3%)",
+      "fat": "0g",
       "protein": "11g (20%)",
-      "satFat": "14g (93%)"
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 한 입 햄치즈 패스트리(4개입) 고유 배합",
     "allergens": [
@@ -6891,7 +7350,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 95,
+    "calories": 269,
     "volume": "22g",
     "isToday": false,
     "isHot": true,
@@ -6902,11 +7361,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 95,
-      "sodium": "160mg (8%)",
-      "sugar": "2g (2%)",
-      "protein": "3g (5%)",
-      "satFat": "3.4g (23%)"
+      "calories": 269,
+      "sodium": "605mg (30%)",
+      "carbs": "0g",
+      "sugar": "2.9g (3%)",
+      "fat": "0g",
+      "protein": "11g (20%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 한 입 햄치즈 패스트리(1개입) 고유 배합",
     "allergens": [
@@ -6955,7 +7419,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 595,
+    "calories": 319,
     "volume": "145g",
     "isToday": false,
     "isHot": false,
@@ -6966,11 +7430,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 595,
-      "sodium": "460mg (23%)",
-      "sugar": "26g (26%)",
-      "protein": "10g (18%)",
-      "satFat": "21g (140%)"
+      "calories": 319,
+      "sodium": "215mg (11%)",
+      "carbs": "51.8g (16%)",
+      "sugar": "9.3g (9%)",
+      "fat": "10.9g (20%)",
+      "protein": "3.3g (6%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 초코 시나몬 데니쉬 롤 고유 배합",
     "allergens": [
@@ -7017,7 +7486,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 320,
+    "calories": 238,
     "volume": "96g",
     "isToday": false,
     "isHot": false,
@@ -7028,11 +7497,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 320,
-      "sodium": "330mg (17%)",
-      "sugar": "17g (17%)",
-      "protein": "6g (11%)",
-      "satFat": "10g (67%)"
+      "calories": 238,
+      "sodium": "200mg (10%)",
+      "carbs": "45g (14%)",
+      "sugar": "7.5g (8%)",
+      "fat": "5.3g (10%)",
+      "protein": "2.5g (5%)",
+      "transFat": "0g",
+      "satFat": "2.5g (17%)",
+      "saturatedFat": "2.5g (17%)",
+      "cholesterol": "13mg (4%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 딸기 피스타치오 패스트리 고유 배합",
     "allergens": [
@@ -7080,7 +7554,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 255,
+    "calories": 222,
     "volume": "58g",
     "isToday": false,
     "isHot": false,
@@ -7091,11 +7565,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 255,
-      "sodium": "240mg (12%)",
-      "sugar": "8g (8%)",
-      "protein": "4g (7%)",
-      "satFat": "9g (60%)"
+      "calories": 222,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "24.4g (24%)",
+      "fat": "0g",
+      "protein": "4.4g (8%)",
+      "transFat": "0g",
+      "satFat": "4.2g (28%)",
+      "saturatedFat": "4.2g (28%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 오리지널 크라상 고유 배합",
     "allergens": [
@@ -7142,7 +7621,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 335,
+    "calories": 222,
     "volume": "78g",
     "isToday": false,
     "isHot": false,
@@ -7153,11 +7632,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 335,
-      "sodium": "230mg (12%)",
-      "sugar": "9g (9%)",
-      "protein": "5g (9%)",
-      "satFat": "14g (93%)"
+      "calories": 222,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "24.4g (24%)",
+      "fat": "0g",
+      "protein": "4.4g (8%)",
+      "transFat": "0g",
+      "satFat": "4.2g (28%)",
+      "saturatedFat": "4.2g (28%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 오리지널 생크림 크라상 고유 배합",
     "allergens": [
@@ -7205,7 +7689,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 520,
+    "calories": 441,
     "volume": "118g",
     "isToday": false,
     "isHot": false,
@@ -7216,11 +7700,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 520,
-      "sodium": "330mg (17%)",
-      "sugar": "25g (25%)",
-      "protein": "9g (16%)",
-      "satFat": "14g (93%)"
+      "calories": 441,
+      "sodium": "280mg (14%)",
+      "carbs": "0g",
+      "sugar": "21.2g (21%)",
+      "fat": "0g",
+      "protein": "7.6g (14%)",
+      "transFat": "0g",
+      "satFat": "11.9g (79%)",
+      "saturatedFat": "11.9g (79%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 아몬드 크라상 고유 배합",
     "allergens": [
@@ -7266,7 +7755,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 300,
+    "calories": 537,
     "volume": "78g",
     "isToday": false,
     "isHot": false,
@@ -7277,11 +7766,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 300,
-      "sodium": "180mg (9%)",
-      "sugar": "13g (13%)",
+      "calories": 537,
+      "sodium": "131mg (7%)",
+      "carbs": "57.3g (18%)",
+      "sugar": "31.9g (32%)",
+      "fat": "32.3g (60%)",
       "protein": "4g (7%)",
-      "satFat": "12g (80%)"
+      "transFat": "0.2g",
+      "satFat": "16.4g (109%)",
+      "saturatedFat": "16.4g (109%)",
+      "cholesterol": "68mg (23%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카라멜 러스크 고유 배합",
     "allergens": [
@@ -7329,7 +7823,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 145,
+    "calories": 272,
     "volume": "54g",
     "isToday": false,
     "isHot": false,
@@ -7340,11 +7834,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 145,
-      "sodium": "130mg (7%)",
-      "sugar": "7g (7%)",
-      "protein": "2g (4%)",
-      "satFat": "6g (40%)"
+      "calories": 272,
+      "sodium": "202mg (10%)",
+      "carbs": "0g",
+      "sugar": "12.3g (12%)",
+      "fat": "0g",
+      "protein": "3.5g (6%)",
+      "transFat": "0g",
+      "satFat": "12.3g (82%)",
+      "saturatedFat": "12.3g (82%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 크림코르네 고유 배합",
     "allergens": [
@@ -7391,7 +7890,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 740,
+    "calories": 409,
     "volume": "187g",
     "isToday": false,
     "isHot": false,
@@ -7402,11 +7901,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 740,
-      "sodium": "630mg (32%)",
-      "sugar": "19g (19%)",
-      "protein": "13g (24%)",
-      "satFat": "30g (200%)"
+      "calories": 409,
+      "sodium": "326mg (16%)",
+      "carbs": "0g",
+      "sugar": "10.7g (11%)",
+      "fat": "0g",
+      "protein": "7g (13%)",
+      "transFat": "0g",
+      "satFat": "20.3g (135%)",
+      "saturatedFat": "20.3g (135%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 겹겹이 데니쉬 고유 배합",
     "allergens": [
@@ -7454,7 +7958,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 975,
+    "calories": 496,
     "volume": "228g",
     "isToday": false,
     "isHot": false,
@@ -7465,11 +7969,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 975,
-      "sodium": "690mg (35%)",
-      "sugar": "36g (36%)",
-      "protein": "13g (24%)",
-      "satFat": "41g (273%)"
+      "calories": 496,
+      "sodium": "276mg (14%)",
+      "carbs": "0g",
+      "sugar": "16.7g (17%)",
+      "fat": "0g",
+      "protein": "6.1g (11%)",
+      "transFat": "0g",
+      "satFat": "20.6g (137%)",
+      "saturatedFat": "20.6g (137%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 겹겹이 연유크림 데니쉬 고유 배합",
     "allergens": [
@@ -7517,7 +8026,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 820,
+    "calories": 466,
     "volume": "176g",
     "isToday": false,
     "isHot": false,
@@ -7528,11 +8037,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 820,
-      "sodium": "700mg (35%)",
-      "sugar": "19g (19%)",
-      "protein": "15g (27%)",
-      "satFat": "30g (200%)"
+      "calories": 466,
+      "sodium": "398mg (20%)",
+      "carbs": "0g",
+      "sugar": "10.8g (11%)",
+      "fat": "0g",
+      "protein": "8.5g (15%)",
+      "transFat": "0g",
+      "satFat": "17.1g (114%)",
+      "saturatedFat": "17.1g (114%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 한 장씩 뜯어먹는 32겹 브레드 고유 배합",
     "allergens": [
@@ -7580,7 +8094,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 885,
+    "calories": 420,
     "volume": "244g",
     "isToday": false,
     "isHot": false,
@@ -7591,11 +8105,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 885,
-      "sodium": "890mg (45%)",
-      "sugar": "39g (39%)",
-      "protein": "18g (33%)",
-      "satFat": "33g (220%)"
+      "calories": 420,
+      "sodium": "312mg (16%)",
+      "carbs": "0g",
+      "sugar": "16g (16%)",
+      "fat": "0g",
+      "protein": "7.4g (13%)",
+      "transFat": "0g",
+      "satFat": "13.3g (89%)",
+      "saturatedFat": "13.3g (89%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 몽블랑의 정석 고유 배합",
     "allergens": [
@@ -7642,7 +8161,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 600,
+    "calories": 462,
     "volume": "130g",
     "isToday": false,
     "isHot": false,
@@ -7653,11 +8172,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 600,
-      "sodium": "400mg (20%)",
-      "sugar": "29g (29%)",
-      "protein": "10g (18%)",
-      "satFat": "18g (120%)"
+      "calories": 462,
+      "sodium": "308mg (15%)",
+      "carbs": "0g",
+      "sugar": "22.3g (22%)",
+      "fat": "0g",
+      "protein": "7.7g (14%)",
+      "transFat": "0g",
+      "satFat": "13.9g (93%)",
+      "saturatedFat": "13.9g (93%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 바통쉬크레 고유 배합",
     "allergens": [
@@ -7703,7 +8227,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 230,
+    "calories": 397,
     "volume": "58g",
     "isToday": false,
     "isHot": false,
@@ -7714,11 +8238,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 230,
-      "sodium": "150mg (8%)",
-      "sugar": "13g (13%)",
-      "protein": "4g (7%)",
-      "satFat": "8g (53%)"
+      "calories": 397,
+      "sodium": "259mg (13%)",
+      "carbs": "0g",
+      "sugar": "22.4g (22%)",
+      "fat": "0g",
+      "protein": "6.9g (13%)",
+      "transFat": "0g",
+      "satFat": "13.8g (92%)",
+      "saturatedFat": "13.8g (92%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 황금 파이만주 고유 배합",
     "allergens": [
@@ -7765,7 +8294,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 390,
+    "calories": 364,
     "volume": "107g",
     "isToday": false,
     "isHot": false,
@@ -7776,11 +8305,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 390,
-      "sodium": "350mg (18%)",
-      "sugar": "18g (18%)",
-      "protein": "6g (11%)",
-      "satFat": "17g (113%)"
+      "calories": 364,
+      "sodium": "327mg (16%)",
+      "carbs": "0g",
+      "sugar": "16.8g (17%)",
+      "fat": "0g",
+      "protein": "5.6g (10%)",
+      "transFat": "0g",
+      "satFat": "15.9g (106%)",
+      "saturatedFat": "15.9g (106%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 새콤달콤 유자파이 고유 배합",
     "allergens": [
@@ -7826,7 +8360,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 325,
+    "calories": 400,
     "volume": "94g",
     "isToday": false,
     "isHot": false,
@@ -7837,11 +8371,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 325,
-      "sodium": "230mg (12%)",
-      "sugar": "14g (14%)",
-      "protein": "4g (7%)",
-      "satFat": "10g (67%)"
+      "calories": 400,
+      "sodium": "120mg (6%)",
+      "carbs": "0g",
+      "sugar": "36g (36%)",
+      "fat": "0g",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "13.2g (88%)",
+      "saturatedFat": "13.2g (88%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 카라멜 애플파이 고유 배합",
     "allergens": [
@@ -7887,7 +8426,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 96,
-    "calories": 405,
+    "calories": 220,
     "volume": "121g",
     "isToday": false,
     "isHot": false,
@@ -7898,11 +8437,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 405,
-      "sodium": "750mg (38%)",
-      "sugar": "9g (9%)",
-      "protein": "13g (24%)",
-      "satFat": "14g (93%)"
+      "calories": 220,
+      "sodium": "518mg (26%)",
+      "carbs": "0g",
+      "sugar": "3.7g (4%)",
+      "fat": "0g",
+      "protein": "7.9g (14%)",
+      "transFat": "0g",
+      "satFat": "4.3g (29%)",
+      "saturatedFat": "4.3g (29%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 핫도그 패스트리 고유 배합",
     "allergens": [
@@ -7950,7 +8494,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 91,
-    "calories": 500,
+    "calories": 369,
     "volume": "126g",
     "isToday": false,
     "isHot": false,
@@ -7961,11 +8505,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 500,
-      "sodium": "480mg (24%)",
-      "sugar": "16g (16%)",
-      "protein": "9g (16%)",
-      "satFat": "20g (133%)"
+      "calories": 369,
+      "sodium": "245mg (12%)",
+      "carbs": "44.9g (14%)",
+      "sugar": "15.3g (15%)",
+      "fat": "17.8g (33%)",
+      "protein": "7.3g (13%)",
+      "transFat": "0.2g",
+      "satFat": "10.6g (71%)",
+      "saturatedFat": "10.6g (71%)",
+      "cholesterol": "37mg (12%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 초코뺑스위스 고유 배합",
     "allergens": [
@@ -8013,7 +8562,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 480,
+    "calories": 560,
     "volume": "106g",
     "isToday": false,
     "isHot": true,
@@ -8024,11 +8573,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 480,
-      "sodium": "590mg (30%)",
-      "sugar": "7g (7%)",
-      "protein": "10g (18%)",
-      "satFat": "6g (40%)"
+      "calories": 560,
+      "sodium": "580mg (29%)",
+      "carbs": "54g (17%)",
+      "sugar": "4.6g (5%)",
+      "fat": "36g (67%)",
+      "protein": "5.2g (9%)",
+      "transFat": "0g",
+      "satFat": "12g (80%)",
+      "saturatedFat": "12g (80%)",
+      "cholesterol": "6mg (2%)"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 올디스 타코 고로케 고유 배합",
     "allergens": [
@@ -8078,7 +8632,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 245,
+    "calories": 344,
     "volume": "77g",
     "isToday": false,
     "isHot": false,
@@ -8089,11 +8643,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 245,
-      "sodium": "300mg (15%)",
-      "sugar": "18g (18%)",
-      "protein": "4g (7%)",
-      "satFat": "1.8g (12%)"
+      "calories": 344,
+      "sodium": "403mg (20%)",
+      "carbs": "0g",
+      "sugar": "26g (26%)",
+      "fat": "0g",
+      "protein": "6.5g (12%)",
+      "transFat": "0g",
+      "satFat": "2.3g (15%)",
+      "saturatedFat": "2.3g (15%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 쫄깃한 찹쌀도넛 고유 배합",
     "allergens": [
@@ -8138,7 +8697,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 445,
+    "calories": 380,
     "volume": "120g",
     "isToday": false,
     "isHot": false,
@@ -8149,11 +8708,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 445,
-      "sodium": "400mg (20%)",
-      "sugar": "20g (20%)",
-      "protein": "7g (13%)",
-      "satFat": "5g (33%)"
+      "calories": 380,
+      "sodium": "0mg",
+      "carbs": "89g (27%)",
+      "sugar": "26g (26%)",
+      "fat": "1g (2%)",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 조청 왕꽈배기 고유 배합",
     "allergens": [
@@ -8199,7 +8763,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 385,
+    "calories": 325,
     "volume": "131g",
     "isToday": false,
     "isHot": false,
@@ -8210,11 +8774,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "710mg (36%)",
-      "sugar": "21g (21%)",
-      "protein": "6g (11%)",
-      "satFat": "3.3g (22%)"
+      "calories": 325,
+      "sodium": "94mg (5%)",
+      "carbs": "75g (23%)",
+      "sugar": "56.3g (56%)",
+      "fat": "0g",
+      "protein": "6.3g (11%)",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 더 쫄깃해진 그때 그 도나쓰(5개입) 고유 배합",
     "allergens": [
@@ -8259,7 +8828,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 350,
+    "calories": 300,
     "volume": "117g",
     "isToday": false,
     "isHot": false,
@@ -8270,11 +8839,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 350,
-      "sodium": "470mg (24%)",
+      "calories": 300,
+      "sodium": "400mg (20%)",
+      "carbs": "0g",
       "sugar": "5g (5%)",
-      "protein": "9g (16%)",
-      "satFat": "4g (27%)"
+      "fat": "0g",
+      "protein": "8.3g (15%)",
+      "transFat": "0g",
+      "satFat": "3.6g (24%)",
+      "saturatedFat": "3.6g (24%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, NEW 정통 고로케 고유 배합",
     "allergens": [
@@ -8321,7 +8895,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 240,
+    "calories": 407,
     "volume": "59g",
     "isToday": false,
     "isHot": false,
@@ -8332,11 +8906,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 240,
-      "sodium": "200mg (10%)",
-      "sugar": "7g (7%)",
-      "protein": "4g (7%)",
-      "satFat": "4g (27%)"
+      "calories": 407,
+      "sodium": "288mg (14%)",
+      "carbs": "0g",
+      "sugar": "11.9g (12%)",
+      "fat": "0g",
+      "protein": "6.8g (12%)",
+      "transFat": "0g",
+      "satFat": "7.1g (47%)",
+      "saturatedFat": "7.1g (47%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 옛날 꽈배기 도넛 고유 배합",
     "allergens": [
@@ -8383,7 +8962,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 345,
+    "calories": 386,
     "volume": "101g",
     "isToday": false,
     "isHot": false,
@@ -8394,11 +8973,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 345,
-      "sodium": "250mg (13%)",
-      "sugar": "22g (22%)",
-      "protein": "6g (11%)",
-      "satFat": "4g (27%)"
+      "calories": 386,
+      "sodium": "228mg (11%)",
+      "carbs": "0g",
+      "sugar": "25.7g (26%)",
+      "fat": "0g",
+      "protein": "7.9g (14%)",
+      "transFat": "0g",
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 옛날 단팥 도넛 고유 배합",
     "allergens": [
@@ -8445,7 +9029,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 185,
+    "calories": 370,
     "volume": "50g",
     "isToday": false,
     "isHot": false,
@@ -8456,11 +9040,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 185,
-      "sodium": "105mg (5%)",
-      "sugar": "10g (10%)",
-      "protein": "4g (7%)",
-      "satFat": "2.9g (19%)"
+      "calories": 370,
+      "sodium": "210mg (11%)",
+      "carbs": "0g",
+      "sugar": "20g (20%)",
+      "fat": "0g",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "5.8g (39%)",
+      "saturatedFat": "5.8g (39%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 슈거 글레이즈 도넛 고유 배합",
     "allergens": [
@@ -8507,7 +9096,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 225,
+    "calories": 433,
     "volume": "52g",
     "isToday": false,
     "isHot": false,
@@ -8518,11 +9107,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 225,
-      "sodium": "160mg (8%)",
-      "sugar": "3g (3%)",
-      "protein": "4g (7%)",
-      "satFat": "7g (47%)"
+      "calories": 433,
+      "sodium": "308mg (15%)",
+      "carbs": "0g",
+      "sugar": "5.8g (6%)",
+      "fat": "0g",
+      "protein": "7.7g (14%)",
+      "transFat": "0g",
+      "satFat": "13.5g (90%)",
+      "saturatedFat": "13.5g (90%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 딸기 마카롱 도넛 고유 배합",
     "allergens": [
@@ -8569,7 +9163,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 215,
+    "calories": 418,
     "volume": "52g",
     "isToday": false,
     "isHot": false,
@@ -8580,11 +9174,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 215,
-      "sodium": "170mg (9%)",
-      "sugar": "3g (3%)",
-      "protein": "4g (7%)",
-      "satFat": "6g (40%)"
+      "calories": 418,
+      "sodium": "314mg (16%)",
+      "carbs": "0g",
+      "sugar": "5.9g (6%)",
+      "fat": "0g",
+      "protein": "5.9g (11%)",
+      "transFat": "0g",
+      "satFat": "11.8g (79%)",
+      "saturatedFat": "11.8g (79%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 초코 마카롱 도넛 고유 배합",
     "allergens": [
@@ -8630,7 +9229,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 95,
-    "calories": 320,
+    "calories": 275,
     "volume": "120g",
     "isToday": false,
     "isHot": false,
@@ -8641,11 +9240,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 320,
-      "sodium": "510mg (26%)",
-      "sugar": "5g (5%)",
-      "protein": "7g (13%)",
-      "satFat": "4.2g (28%)"
+      "calories": 275,
+      "sodium": "383mg (19%)",
+      "carbs": "0g",
+      "sugar": "4.2g (4%)",
+      "fat": "0g",
+      "protein": "5.8g (11%)",
+      "transFat": "0g",
+      "satFat": "3.3g (22%)",
+      "saturatedFat": "3.3g (22%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, NEW 김치 고로케 고유 배합",
     "allergens": [
@@ -8693,7 +9297,7 @@ export const TLJ_PRODUCTS: Product[] = [
       "뚜레쥬르"
     ],
     "repurchasePercent": 92,
-    "calories": 385,
+    "calories": 296,
     "volume": "130g",
     "isToday": false,
     "isHot": false,
@@ -8704,11 +9308,16 @@ export const TLJ_PRODUCTS: Product[] = [
       "repurchase": 4.5
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "420mg (21%)",
-      "sugar": "6g (6%)",
-      "protein": "6g (11%)",
-      "satFat": "6g (40%)"
+      "calories": 296,
+      "sodium": "292mg (15%)",
+      "carbs": "0g",
+      "sugar": "3.9g (4%)",
+      "fat": "0g",
+      "protein": "4.6g (8%)",
+      "transFat": "0g",
+      "satFat": "4.6g (31%)",
+      "saturatedFat": "4.6g (31%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "밀가루, 효모, 정제소금, 가공버터, 추억의 사라다 고로케 고유 배합",
     "allergens": [
