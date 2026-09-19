@@ -149,7 +149,7 @@ export const ProductDetailModal: React.FC = () => {
       case 'CU':
         return { text: '1+1 행사중', color: 'bg-purple-50 text-purple-600 border-purple-200' };
       case 'GS25':
-        return { text: '재고여유', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+        return { text: '입고완료', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
       case '세븐일레븐':
         return { text: '입고완료', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' };
       case '이마트24':
@@ -1179,7 +1179,7 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
                     <Store className="w-4 h-4 text-gray-900" />
-                    <span className="text-[14px] font-bold text-gray-900">판매처별 실시간 입고 & 재고 현황</span>
+                    <span className="text-[14px] font-bold text-gray-900">판매처별 실시간 입고 현황</span>
                   </div>
                   <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">실시간 연동</span>
                 </div>
@@ -1208,11 +1208,6 @@ export const ProductDetailModal: React.FC = () => {
                               <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${badge.color}`}>
                                 {stItem.eventBadge || badge.text}
                               </span>
-                              {stItem.stockCount !== undefined && stItem.stockCount > 0 && (
-                                <span className="text-[10px] text-emerald-600 font-semibold">
-                                  재고 {stItem.stockCount}개
-                                </span>
-                              )}
                             </div>
                             <div className="flex items-center gap-1.5 mt-1">
                               <span className="text-xs font-black text-gray-900">

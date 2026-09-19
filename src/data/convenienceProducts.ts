@@ -1,11 +1,5 @@
 import { Product } from '../types';
 
-/**
- * 대한민국 편의점 4사(CU, GS25, 세븐일레븐, 이마트24) 공식 홈페이지 전용 상품 데이터베이스
- * - CU: https://cu.bgfretail.com/product/product.do?category=product&depth2=4&sf=N 공식 직영 상품 100% 매칭
- * - GS25, 세븐일레븐, 이마트24 공식 직영 CDN 정품 패키지 이미지 매칭
- * - 식품의약품안전처 영양성분DB 및 편의점 공식 상세 규격 일치
- */
 export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
   {
     "id": "cvs-cu-001",
@@ -24,7 +18,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 95,
-    "calories": 402,
+    "calories": 309,
     "volume": "130g",
     "isToday": true,
     "isHot": true,
@@ -36,16 +30,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 402,
-      "sodium": "200mg (10%)",
-      "carbs": "36g (11%)",
-      "sugar": "11g (11%)",
-      "fat": "26g (48%)",
-      "transFat": "0.4g",
-      "satFat": "12g (80%)",
-      "saturatedFat": "12g (80%)",
-      "cholesterol": "65mg (22%)",
-      "protein": "6g (11%)"
+      "calories": 309,
+      "sodium": "154mg (8%)",
+      "carbs": "27.7g (9%)",
+      "sugar": "8.5g (9%)",
+      "fat": "20g (37%)",
+      "protein": "4.6g (8%)",
+      "transFat": "0.3g",
+      "satFat": "9.2g (61%)",
+      "saturatedFat": "9.2g (61%)",
+      "cholesterol": "50mg (17%)"
     },
     "ingredients": "식물성크림, 가공유크림(국산 원유), 연세우유(국산 100%), 밀가루(밀: 미국산, 캐나다산), 백설탕, 전란액(국산), 마가린, 효모, 정제소금",
     "allergens": [
@@ -93,7 +87,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 94,
-    "calories": 423,
+    "calories": 330,
     "volume": "135g",
     "isToday": true,
     "isHot": true,
@@ -105,16 +99,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 423,
-      "sodium": "230mg (12%)",
-      "carbs": "44g (14%)",
+      "calories": 330,
+      "sodium": "211mg (11%)",
+      "carbs": "43g (13%)",
       "sugar": "18g (18%)",
-      "fat": "25g (46%)",
-      "transFat": "0.3g",
-      "satFat": "14g (93%)",
-      "saturatedFat": "14g (93%)",
-      "cholesterol": "45mg (15%)",
-      "protein": "7g (13%)"
+      "fat": "14.9g (28%)",
+      "protein": "6.3g (11%)",
+      "transFat": "0.1g",
+      "satFat": "11.7g (78%)",
+      "saturatedFat": "11.7g (78%)",
+      "cholesterol": "16mg (5%)"
     },
     "ingredients": "식물성크림, 초코커스터드, 가공유크림(국산 원유), 초콜릿칩, 연세우유(국산), 코코아분말, 밀가루, 백설탕, 전란액",
     "allergens": [
@@ -161,7 +155,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 91,
-    "calories": 479,
+    "calories": 417,
     "volume": "115g",
     "isToday": false,
     "isHot": true,
@@ -173,16 +167,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 479,
-      "sodium": "190mg (10%)",
-      "carbs": "68g (21%)",
-      "sugar": "31g (31%)",
-      "fat": "21g (39%)",
+      "calories": 417,
+      "sodium": "92mg (5%)",
+      "carbs": "72.2g (22%)",
+      "sugar": "30.4g (30%)",
+      "fat": "12.2g (23%)",
+      "protein": "4.4g (8%)",
       "transFat": "0.2g",
-      "satFat": "9g (60%)",
-      "saturatedFat": "9g (60%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "5g (9%)"
+      "satFat": "4g (27%)",
+      "saturatedFat": "4g (27%)",
+      "cholesterol": "20mg (7%)"
     },
     "ingredients": "미니약과(물엿, 밀가루, 옥수수기름), 밀가루(밀: 미국산), 버터(가공버터), 흑당시럽, 계피분말, 베이킹파우더",
     "allergens": [
@@ -228,7 +222,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 93,
-    "calories": 780,
+    "calories": 181,
     "volume": "440g",
     "isToday": true,
     "isHot": true,
@@ -240,16 +234,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 780,
-      "sodium": "1280mg (64%)",
-      "carbs": "98g (30%)",
-      "sugar": "12g (12%)",
-      "fat": "32g (59%)",
-      "transFat": "0.2g",
-      "satFat": "8g (53%)",
-      "saturatedFat": "8g (53%)",
-      "cholesterol": "85mg (28%)",
-      "protein": "25g (45%)"
+      "calories": 181,
+      "sodium": "289mg (14%)",
+      "carbs": "23.4g (7%)",
+      "sugar": "3.9g (4%)",
+      "fat": "6.1g (11%)",
+      "protein": "8g (15%)",
+      "transFat": "0g",
+      "satFat": "1.6g (11%)",
+      "saturatedFat": "1.6g (11%)",
+      "cholesterol": "16mg (5%)"
     },
     "ingredients": "쌀(국산 신동진미), 간장불고기(돼지고기 국산), 계란말이, 치킨너겟, 볶음김치, 햄소시지, 분홍소시지, 시금치나물, 간장, 고추장양념",
     "allergens": [
@@ -299,7 +293,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 92,
-    "calories": 820,
+    "calories": 414,
     "volume": "460g",
     "isToday": false,
     "isHot": true,
@@ -311,16 +305,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 820,
-      "sodium": "1340mg (67%)",
-      "carbs": "102g (31%)",
-      "sugar": "14g (14%)",
-      "fat": "34g (63%)",
-      "transFat": "0.3g",
-      "satFat": "9g (60%)",
-      "saturatedFat": "9g (60%)",
-      "cholesterol": "95mg (32%)",
-      "protein": "28g (51%)"
+      "calories": 414,
+      "sodium": "1705mg (85%)",
+      "carbs": "63.8g (20%)",
+      "sugar": "3.8g (4%)",
+      "fat": "13.3g (25%)",
+      "protein": "9.5g (17%)",
+      "transFat": "0g",
+      "satFat": "6.7g (45%)",
+      "saturatedFat": "6.7g (45%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "쌀(국산), 한돈간장제육(국산 돼지고기), 한돈고추장제육, 소불고기(쇠고기), 계란말이, 어묵볶음, 볶음김치",
     "allergens": [
@@ -368,7 +362,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 95,
-    "calories": 795,
+    "calories": 242,
     "volume": "460g",
     "isToday": true,
     "isHot": true,
@@ -380,16 +374,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 795,
-      "sodium": "1350mg (68%)",
-      "carbs": "102g (31%)",
-      "sugar": "14g (14%)",
-      "fat": "31g (57%)",
-      "transFat": "0.2g",
-      "satFat": "9g (60%)",
-      "saturatedFat": "9g (60%)",
-      "cholesterol": "90mg (30%)",
-      "protein": "27g (49%)"
+      "calories": 242,
+      "sodium": "284mg (14%)",
+      "carbs": "53.8g (17%)",
+      "sugar": "7g (7%)",
+      "fat": "1.1g (2%)",
+      "protein": "4.1g (7%)",
+      "transFat": "0g",
+      "satFat": "0.3g (2%)",
+      "saturatedFat": "0.3g (2%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "쌀(국산), 매콤닭볶음, 돼지고기간장불고기, 깻잎계란말이, 미역줄기볶음, 볶음김치, 멸치볶음, 고추장양념장",
     "allergens": [
@@ -438,7 +432,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 91,
-    "calories": 890,
+    "calories": 243,
     "volume": "480g",
     "isToday": false,
     "isHot": true,
@@ -450,16 +444,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 890,
-      "sodium": "1420mg (71%)",
-      "carbs": "105g (32%)",
-      "sugar": "15g (15%)",
-      "fat": "38g (70%)",
-      "transFat": "0.4g",
-      "satFat": "14g (93%)",
-      "saturatedFat": "14g (93%)",
-      "cholesterol": "90mg (30%)",
-      "protein": "32g (58%)"
+      "calories": 243,
+      "sodium": "401mg (20%)",
+      "carbs": "17.1g (5%)",
+      "sugar": "7.2g (7%)",
+      "fat": "12.8g (24%)",
+      "protein": "15g (27%)",
+      "transFat": "0.1g",
+      "satFat": "3.6g (24%)",
+      "saturatedFat": "3.6g (24%)",
+      "cholesterol": "23mg (8%)"
     },
     "ingredients": "쌀(국산), 통모짜렐라치즈돈까스(돼지등심 국산 50%, 자연모짜렐라치즈 35%), 특제돈까스소스, 양배추샐러드, 피클, 볶음김치",
     "allergens": [
@@ -508,7 +502,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 93,
-    "calories": 185,
+    "calories": 222,
     "volume": "210g",
     "isToday": false,
     "isHot": true,
@@ -520,16 +514,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 185,
-      "sodium": "460mg (23%)",
-      "carbs": "12g (4%)",
-      "sugar": "5g (5%)",
-      "fat": "4.2g (8%)",
+      "calories": 222,
+      "sodium": "33mg (2%)",
+      "carbs": "0g",
+      "sugar": "24.4g (24%)",
+      "fat": "0g",
+      "protein": "4.4g (8%)",
       "transFat": "0g",
-      "satFat": "0.8g (5%)",
-      "saturatedFat": "0.8g (5%)",
-      "cholesterol": "45mg (15%)",
-      "protein": "22g (40%)"
+      "satFat": "4.2g (28%)",
+      "saturatedFat": "4.2g (28%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "닭가슴살(국산 100%), 양상추, 로메인, 치커리, 방울토마토, 블랙올리브, 오리엔탈드레싱(간장, 발사믹식초, 올리브유)",
     "allergens": [
@@ -575,7 +569,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 94,
-    "calories": 345,
+    "calories": 180,
     "volume": "180g",
     "isToday": false,
     "isHot": true,
@@ -587,16 +581,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 345,
-      "sodium": "620mg (31%)",
-      "carbs": "54g (17%)",
-      "sugar": "3g (3%)",
-      "fat": "11g (20%)",
+      "calories": 180,
+      "sodium": "471mg (24%)",
+      "carbs": "26.7g (8%)",
+      "sugar": "1.3g (1%)",
+      "fat": "6.3g (12%)",
+      "protein": "4.2g (8%)",
       "transFat": "0g",
-      "satFat": "2.5g (17%)",
-      "saturatedFat": "2.5g (17%)",
-      "cholesterol": "30mg (10%)",
-      "protein": "9g (16%)"
+      "satFat": "1.2g (8%)",
+      "saturatedFat": "1.2g (8%)",
+      "cholesterol": "5mg (2%)"
     },
     "ingredients": "쌀(국산), 참치마요토핑(다랑어 60%, 마요네즈, 양파, 흑후추), 조미김가루, 참기름, 통깨",
     "allergens": [
@@ -642,7 +636,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 92,
-    "calories": 420,
+    "calories": 486,
     "volume": "255g",
     "isToday": false,
     "isHot": true,
@@ -654,16 +648,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 420,
-      "sodium": "890mg (45%)",
-      "carbs": "64g (20%)",
-      "sugar": "7g (7%)",
-      "fat": "12g (22%)",
-      "transFat": "0.1g",
-      "satFat": "3.8g (25%)",
-      "saturatedFat": "3.8g (25%)",
-      "cholesterol": "45mg (15%)",
-      "protein": "14g (25%)"
+      "calories": 486,
+      "sodium": "327mg (16%)",
+      "carbs": "62.5g (19%)",
+      "sugar": "11.8g (12%)",
+      "fat": "19.5g (36%)",
+      "protein": "15.2g (28%)",
+      "transFat": "0g",
+      "satFat": "10.6g (71%)",
+      "saturatedFat": "10.6g (71%)",
+      "cholesterol": "2mg (1%)"
     },
     "ingredients": "쌀(국산), 불고기토핑(국산 돼지고기 70%, 특제간장소스), 계란지단, 단무지, 당근채, 시금치, 조미김, 참기름",
     "allergens": [
@@ -711,7 +705,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 91,
-    "calories": 590,
+    "calories": 302,
     "volume": "230g",
     "isToday": false,
     "isHot": true,
@@ -723,16 +717,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 590,
-      "sodium": "1150mg (58%)",
-      "carbs": "62g (19%)",
-      "sugar": "11g (11%)",
-      "fat": "28g (52%)",
-      "transFat": "0.3g",
-      "satFat": "9g (60%)",
-      "saturatedFat": "9g (60%)",
-      "cholesterol": "65mg (22%)",
-      "protein": "22g (40%)"
+      "calories": 302,
+      "sodium": "415mg (21%)",
+      "carbs": "48g (15%)",
+      "sugar": "0g",
+      "fat": "8g (15%)",
+      "protein": "9g (16%)",
+      "transFat": "0g",
+      "satFat": "1.1g (7%)",
+      "saturatedFat": "1.1g (7%)",
+      "cholesterol": "1mg (0%)"
     },
     "ingredients": "참깨번(밀가루), 직화불고기패티 3장(돼지고기, 닭고기), 숯불갈릭소스, 체다슬라이스치즈, 피클, 양파",
     "allergens": [
@@ -781,7 +775,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "CU"
     ],
     "repurchasePercent": 91,
-    "calories": 380,
+    "calories": 312,
     "volume": "165g",
     "isToday": false,
     "isHot": true,
@@ -793,16 +787,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 380,
-      "sodium": "790mg (40%)",
-      "carbs": "42g (13%)",
-      "sugar": "7g (7%)",
-      "fat": "17g (31%)",
-      "transFat": "0.1g",
-      "satFat": "5g (33%)",
-      "saturatedFat": "5g (33%)",
-      "cholesterol": "40mg (13%)",
-      "protein": "15g (27%)"
+      "calories": 312,
+      "sodium": "383mg (19%)",
+      "carbs": "0g",
+      "sugar": "8.3g (8%)",
+      "fat": "0g",
+      "protein": "7.3g (13%)",
+      "transFat": "0g",
+      "satFat": "3.7g (25%)",
+      "saturatedFat": "3.7g (25%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "식빵, 케이준치킨샐러드(닭가슴살 45%, 케이준마요드레싱), 파마산치즈, 슬라이스햄, 양상추, 토마토",
     "allergens": [
@@ -851,7 +845,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "GS25"
     ],
     "repurchasePercent": 88,
-    "calories": 3160,
+    "calories": 327,
     "volume": "648g",
     "isToday": true,
     "isHot": true,
@@ -863,16 +857,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.6
     },
     "nutrition": {
-      "calories": 3160,
-      "sodium": "11200mg (560%)",
-      "carbs": "424g (131%)",
-      "sugar": "24g (24%)",
-      "fat": "136g (252%)",
+      "calories": 327,
+      "sodium": "1247mg (62%)",
+      "carbs": "45.3g (14%)",
+      "sugar": "1.3g (1%)",
+      "fat": "13.3g (25%)",
+      "protein": "6g (11%)",
       "transFat": "0g",
-      "satFat": "64g (427%)",
-      "saturatedFat": "64g (427%)",
-      "cholesterol": "40mg (13%)",
-      "protein": "64g (116%)"
+      "satFat": "7.3g (49%)",
+      "saturatedFat": "7.3g (49%)",
+      "cholesterol": "2mg (1%)"
     },
     "ingredients": "면(소맥분, 팜유, 감자전분, 정제염), 분말스프, 건더기스프",
     "allergens": [
@@ -917,7 +911,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "GS25"
     ],
     "repurchasePercent": 89,
-    "calories": 3915,
+    "calories": 415,
     "volume": "940g",
     "isToday": false,
     "isHot": true,
@@ -929,16 +923,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 3915,
-      "sodium": "9800mg (490%)",
-      "carbs": "540g (167%)",
-      "sugar": "48g (48%)",
-      "fat": "155g (287%)",
-      "transFat": "0g",
-      "satFat": "70g (467%)",
-      "saturatedFat": "70g (467%)",
-      "cholesterol": "55mg (18%)",
-      "protein": "88g (160%)"
+      "calories": 415,
+      "sodium": "1184mg (59%)",
+      "carbs": "56.6g (17%)",
+      "sugar": "7.1g (7%)",
+      "fat": "17.6g (33%)",
+      "protein": "7.7g (14%)",
+      "transFat": "0.1g",
+      "satFat": "7.6g (51%)",
+      "saturatedFat": "7.6g (51%)",
+      "cholesterol": "1mg (0%)"
     },
     "ingredients": "공화춘 자장소스, 틈새라면 매운양념스프, 면 8개입",
     "allergens": [
@@ -984,7 +978,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "GS25"
     ],
     "repurchasePercent": 96,
-    "calories": 723,
+    "calories": 180,
     "volume": "410g",
     "isToday": true,
     "isHot": true,
@@ -996,16 +990,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.9
     },
     "nutrition": {
-      "calories": 723,
-      "sodium": "1190mg (60%)",
-      "carbs": "95g (29%)",
-      "sugar": "10g (10%)",
-      "fat": "27g (50%)",
-      "transFat": "0.2g",
-      "satFat": "7g (47%)",
-      "saturatedFat": "7g (47%)",
-      "cholesterol": "80mg (27%)",
-      "protein": "25g (45%)"
+      "calories": 180,
+      "sodium": "313mg (16%)",
+      "carbs": "21.9g (7%)",
+      "sugar": "3.5g (4%)",
+      "fat": "7.3g (14%)",
+      "protein": "6.6g (12%)",
+      "transFat": "0g",
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "80mg (27%)"
     },
     "ingredients": "쌀(국산), 제육볶음(돼지고기 국산), 계란후라이, 떡갈비, 어묵볶음, 볶음김치, 참기름",
     "allergens": [
@@ -1052,7 +1046,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "GS25"
     ],
     "repurchasePercent": 92,
-    "calories": 365,
     "volume": "125g",
     "isToday": false,
     "isHot": true,
@@ -1062,18 +1055,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 365,
-      "sodium": "210mg (11%)",
-      "carbs": "38g (12%)",
-      "sugar": "12g (12%)",
-      "fat": "21g (39%)",
-      "transFat": "0.3g",
-      "satFat": "11g (73%)",
-      "saturatedFat": "11g (73%)",
-      "cholesterol": "45mg (15%)",
-      "protein": "6g (11%)"
     },
     "ingredients": "우유(국산 100%), 식물성유크림, 유크림(국산), 밀가루, 백설탕",
     "allergens": [
@@ -1119,7 +1100,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "GS25"
     ],
     "repurchasePercent": 91,
-    "calories": 2040,
+    "calories": 531,
     "volume": "400g",
     "isToday": false,
     "isHot": true,
@@ -1131,16 +1112,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 2040,
-      "sodium": "1600mg (80%)",
-      "carbs": "268g (83%)",
-      "sugar": "84g (84%)",
-      "fat": "96g (178%)",
+      "calories": 531,
+      "sodium": "350mg (18%)",
+      "carbs": "62g (19%)",
+      "sugar": "2g (2%)",
+      "fat": "29g (54%)",
+      "protein": "6g (11%)",
       "transFat": "0g",
-      "satFat": "40g (267%)",
-      "saturatedFat": "40g (267%)",
-      "cholesterol": "12mg (4%)",
-      "protein": "24g (44%)"
+      "satFat": "10g (67%)",
+      "saturatedFat": "10g (67%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "옥수수, 팜올레인유, 캐러멜시럽, 버터솔트시즈닝",
     "allergens": [
@@ -1184,7 +1165,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "세븐일레븐"
     ],
     "repurchasePercent": 93,
-    "calories": 685,
     "volume": "420g",
     "isToday": true,
     "isHot": true,
@@ -1194,18 +1174,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "value": 4.8,
       "portion": 4.8,
       "repurchase": 4.8
-    },
-    "nutrition": {
-      "calories": 685,
-      "sodium": "1180mg (59%)",
-      "carbs": "94g (29%)",
-      "sugar": "11g (11%)",
-      "fat": "23g (43%)",
-      "transFat": "0.2g",
-      "satFat": "5g (33%)",
-      "saturatedFat": "5g (33%)",
-      "cholesterol": "65mg (22%)",
-      "protein": "22g (40%)"
     },
     "ingredients": "쌀(국산), 양념소고기볶음, 가을무생채, 콩나물, 당근채, 표고버섯, 애호박볶음, 계란지단, 비법간장양념장, 들기름",
     "allergens": [
@@ -1251,7 +1219,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "세븐일레븐"
     ],
     "repurchasePercent": 90,
-    "calories": 385,
+    "calories": 412,
     "volume": "235g",
     "isToday": false,
     "isHot": true,
@@ -1263,16 +1231,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.7
     },
     "nutrition": {
-      "calories": 385,
-      "sodium": "890mg (45%)",
-      "carbs": "54g (17%)",
-      "sugar": "6g (6%)",
-      "fat": "14g (26%)",
-      "transFat": "0.1g",
-      "satFat": "4.5g (30%)",
-      "saturatedFat": "4.5g (30%)",
-      "cholesterol": "60mg (20%)",
-      "protein": "11g (20%)"
+      "calories": 412,
+      "sodium": "0mg",
+      "carbs": "86g (27%)",
+      "sugar": "82.5g (83%)",
+      "fat": "7.5g (14%)",
+      "protein": "0g",
+      "transFat": "0g",
+      "satFat": "7.4g (49%)",
+      "saturatedFat": "7.4g (49%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "쌀(국산), 짜장소스, 체다슬라이스치즈, 두툼에그말이지단, 단무지, 조미김",
     "allergens": [
@@ -1319,7 +1287,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 92,
-    "calories": 215,
+    "calories": 118,
     "volume": "115g",
     "isToday": true,
     "isHot": true,
@@ -1331,16 +1299,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 215,
-      "sodium": "490mg (25%)",
-      "carbs": "37g (11%)",
-      "sugar": "3g (3%)",
-      "fat": "5.5g (10%)",
+      "calories": 118,
+      "sodium": "886mg (44%)",
+      "carbs": "13.5g (4%)",
+      "sugar": "5.5g (6%)",
+      "fat": "6.7g (12%)",
+      "protein": "1.1g (2%)",
       "transFat": "0g",
-      "satFat": "1.8g (12%)",
-      "saturatedFat": "1.8g (12%)",
-      "cholesterol": "25mg (8%)",
-      "protein": "6g (11%)"
+      "satFat": "0.7g (5%)",
+      "saturatedFat": "0.7g (5%)",
+      "cholesterol": "0mg"
     },
     "ingredients": "쌀(국산), 오리고기볶음(훈제오리 60%, 사천식두반장양념), 조미김, 정제염",
     "allergens": [
@@ -1386,7 +1354,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 95,
-    "calories": 550,
     "volume": "110g",
     "isToday": false,
     "isHot": true,
@@ -1396,18 +1363,6 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "value": 4.9,
       "portion": 4.8,
       "repurchase": 4.9
-    },
-    "nutrition": {
-      "calories": 550,
-      "sodium": "260mg (13%)",
-      "carbs": "74g (23%)",
-      "sugar": "19g (19%)",
-      "fat": "26g (48%)",
-      "transFat": "0g",
-      "satFat": "12g (80%)",
-      "saturatedFat": "12g (80%)",
-      "cholesterol": "0mg (0%)",
-      "protein": "4g (7%)"
     },
     "ingredients": "건조자색고구마플레이크(35%), 식물성유지, 타피오카전분, 설탕",
     "allergens": [
@@ -1450,7 +1405,7 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "이마트24"
     ],
     "repurchasePercent": 91,
-    "calories": 510,
+    "calories": 126,
     "volume": "115g",
     "isToday": false,
     "isHot": true,
@@ -1462,16 +1417,16 @@ export const CONVENIENCE_EXCLUSIVE_PRODUCTS: Product[] = [
       "repurchase": 4.8
     },
     "nutrition": {
-      "calories": 510,
-      "sodium": "1790mg (90%)",
-      "carbs": "72g (22%)",
-      "sugar": "6g (6%)",
-      "fat": "20g (37%)",
+      "calories": 126,
+      "sodium": "768mg (38%)",
+      "carbs": "11.6g (4%)",
+      "sugar": "7.1g (7%)",
+      "fat": "6.5g (12%)",
+      "protein": "5.2g (9%)",
       "transFat": "0g",
-      "satFat": "9g (60%)",
-      "saturatedFat": "9g (60%)",
-      "cholesterol": "15mg (5%)",
-      "protein": "11g (20%)"
+      "satFat": "1.3g (9%)",
+      "saturatedFat": "1.3g (9%)",
+      "cholesterol": "16mg (5%)"
     },
     "ingredients": "면: 소맥분, 팜유, 감자전분. 스프: 불맛짬뽕농축액, 오징어조미분말, 고춧가루",
     "allergens": [
