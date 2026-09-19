@@ -84,6 +84,15 @@ jobs:
           echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
           echo "TEAM_ID=$TEAM_ID" >> $GITHUB_ENV
 
+          # 5. Check if provisioning profile contains Sign In with Apple capability
+          if /usr/libexec/PlistBuddy -c "Print Entitlements:com.apple.developer.applesignin" /dev/stdin <<< $(security cms -D -i $PP_PATH) >/dev/null 2>&1; then
+            echo "HAS_APPLE_SIGNIN=true" >> $GITHUB_ENV
+            echo "✅ Sign In with Apple is supported by this Provisioning Profile."
+          else
+            echo "HAS_APPLE_SIGNIN=false" >> $GITHUB_ENV
+            echo "⚠️ Provisioning Profile does NOT contain Sign In with Apple capability."
+          fi
+
       - name: Generate ExportOptions.plist
         run: |
           cat <<EOF > ios/App/ExportOptions.plist
@@ -127,11 +136,8 @@ jobs:
           security default-keychain -s $RUNNER_TEMP/app-signing.keychain-db
           security list-keychains -d user -s $RUNNER_TEMP/app-signing.keychain-db $(security list-keychains -d user | tr -d '"')
 
-          # Configure signing specifically on the App target via its xcconfig
-          echo "DEVELOPMENT_TEAM = $TEAM_ID" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
-          echo "PROVISIONING_PROFILE_SPECIFIER = $PROFILE_NAME" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
-          echo "CODE_SIGN_IDENTITY = Apple Distribution" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
-          echo "CODE_SIGN_STYLE = Manual" >> "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"
+          # Run configuration script to inject Team ID and Profile into App.xcodeproj
+          node "$GITHUB_WORKSPACE/scripts/configure-ios-signing.cjs"
 
           xcodebuild archive \
             -workspace App.xcworkspace \
