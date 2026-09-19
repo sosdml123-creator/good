@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, MessageSquare, Send, Flag } from 'lucide-react';
+import { Star, Heart, MessageSquare, Send, Flag, ZoomIn } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { SafeImage } from '../common/SafeImage';
+import { ImageViewerModal } from '../common/ImageViewerModal';
 
 interface ReviewListProps {
   productId?: string;
@@ -17,6 +18,33 @@ export const ReviewList: React.FC<ReviewListProps> = ({
   const [commentInput, setCommentInput] = useState<{ [reviewId: string]: string }>({});
   const [reportTarget, setReportTarget] = useState<ReportTarget | null>(null);
   const [isReportOpen, setIsReportOpen] = useState(false);
+
+  // Photo viewer state
+  const [viewerState, setViewerState] = useState<{
+    isOpen: boolean;
+    images: string[];
+    initialIndex: number;
+    title?: string;
+    author?: string;
+  }>({
+    isOpen: false,
+    images: [],
+    initialIndex: 0,
+  });
+
+  const handleOpenViewer = (images: string[], index: number, title?: string, author?: string) => {
+    setViewerState({
+      isOpen: true,
+      images,
+      initialIndex: index,
+      title,
+      author,
+    });
+  };
+
+  const handleCloseViewer = () => {
+    setViewerState(prev => ({ ...prev, isOpen: false }));
+  };
 
   // Filter blocked users and hidden reviews (App Store UGC Requirement)
   const blockedUsers: string[] = (() => {
@@ -181,21 +209,40 @@ export const ReviewList: React.FC<ReviewListProps> = ({
               )}
 
               {/* Photos Gallery */}
-              {r.images && r.images.length > 0 && (
-                <div className="flex gap-2 mt-2.5 overflow-x-auto no-scrollbar">
-                  {r.images.map((imgSrc, imgIdx) => (
-                    <SafeImage 
-                      key={imgIdx} 
-                      src={imgSrc} 
-                      alt="review" 
-                      fallbackName={r.productName || '리뷰 사진'}
-                      className={`rounded-xl object-cover border border-gray-100 ${
-                        r.images && r.images.length > 1 ? 'w-40 h-32 shrink-0' : 'w-full h-44'
-                      }`} 
-                    />
-                  ))}
-                </div>
-              )}
+              {r.images && r.images.length > 0 && (() => {
+                const imgList = r.images;
+                return (
+                  <div className="flex gap-2 mt-2.5 overflow-x-auto no-scrollbar py-0.5">
+                    {imgList.map((imgSrc, imgIdx) => (
+                      <div
+                        key={imgIdx}
+                        onClick={() => handleOpenViewer(imgList, imgIdx, r.productName, r.userName)}
+                        className={`relative group rounded-xl overflow-hidden border border-gray-200/80 cursor-pointer shrink-0 bg-gray-50 transition-all duration-200 hover:shadow-md hover:border-gray-400 active:scale-[0.98] ${
+                          imgList.length > 1 ? 'w-36 h-28' : 'w-full max-w-sm h-48'
+                        }`}
+                        title="클릭하여 사진 크게보기"
+                      >
+                        <SafeImage 
+                          src={imgSrc} 
+                          alt="review" 
+                          fallbackName={r.productName || '리뷰 사진'}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center">
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 backdrop-blur-xs shadow-sm">
+                            <ZoomIn className="w-3 h-3" /> 크게보기
+                          </span>
+                        </div>
+                        {imgList.length > 1 && (
+                          <div className="absolute bottom-1.5 right-1.5 bg-black/60 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs">
+                            {imgIdx + 1}/{imgList.length}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
 
               <div className="flex items-center gap-4 mt-2.5 text-[12px] text-gray-400">
                 <button
@@ -283,6 +330,16 @@ export const ReviewList: React.FC<ReviewListProps> = ({
           setIsReportOpen(false);
           setReportTarget(null);
         }}
+      />
+
+      {/* Fullscreen Photo Viewer Modal */}
+      <ImageViewerModal
+        isOpen={viewerState.isOpen}
+        images={viewerState.images}
+        initialIndex={viewerState.initialIndex}
+        title={viewerState.title}
+        author={viewerState.author}
+        onClose={handleCloseViewer}
       />
     </div>
   );

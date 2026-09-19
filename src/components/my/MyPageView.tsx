@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { Settings, ChevronRight, Edit3, Camera } from 'lucide-react';
 import { MyBookmarksModal } from './MyBookmarksModal';
 import { MyReviewsModal } from './MyReviewsModal';
+import { PointHistoryModal } from './PointHistoryModal';
 import { EditProfileModal } from './EditProfileModal';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 
@@ -22,6 +23,7 @@ export const MyPageView: React.FC = () => {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
+  const [isPointHistoryOpen, setIsPointHistoryOpen] = useState(false);
 
   const myReviewsCount = reviews.filter(r => r.userName === currentUser.displayName).length;
 
@@ -32,7 +34,7 @@ export const MyPageView: React.FC = () => {
     { label: '🏷️ 편의점·마트 행사소식', sub: `${savedSaleIds.length}개 찜`, hi: true, action: () => setActiveTab('calendar') },
     { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
     { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
-    { label: '포인트', sub: `${userPoints.toLocaleString()}P`, hi: true },
+    { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
     { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },
     { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
   ];
@@ -131,9 +133,16 @@ export const MyPageView: React.FC = () => {
             <div className="text-[20px] font-black text-gray-900">{myReviewsCount}</div>
             <div className="text-[11px] text-gray-500 font-semibold mt-0.5">내가 쓴 리뷰</div>
           </div>
-          <div>
+          <div 
+            onClick={() => setIsPointHistoryOpen(true)}
+            className="cursor-pointer hover:bg-gray-50 transition-colors py-0.5"
+            title="포인트 적립 및 사용 내역 보기"
+          >
             <div className="text-[20px] font-black text-amber-500">{userPoints.toLocaleString()}P</div>
-            <div className="text-[11px] text-gray-400 mt-0.5">보유 포인트</div>
+            <div className="text-[11px] text-gray-500 font-semibold mt-0.5 flex items-center justify-center gap-0.5">
+              <span>보유 포인트</span>
+              <ChevronRight className="w-3 h-3 text-gray-400" />
+            </div>
           </div>
           <div 
             onClick={() => setIsBookmarksOpen(true)}
@@ -184,6 +193,12 @@ export const MyPageView: React.FC = () => {
       <MyReviewsModal
         isOpen={isReviewsOpen}
         onClose={() => setIsReviewsOpen(false)}
+      />
+
+      {/* Point History Modal */}
+      <PointHistoryModal
+        isOpen={isPointHistoryOpen}
+        onClose={() => setIsPointHistoryOpen(false)}
       />
 
     </div>

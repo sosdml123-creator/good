@@ -16,10 +16,14 @@ import {
   LayoutGrid,
   List,
   Sparkles,
-  PlusCircle
+  PlusCircle,
+  Loader2,
+  ZoomIn
 } from 'lucide-react';
 import { ProductCategory } from '../../types';
 import { NewProductRequestModal } from './NewProductRequestModal';
+import { compressAndResizeImage } from '../../utils/imageCompressor';
+import { ImageViewerModal } from '../common/ImageViewerModal';
 
 // 구매처 목록 & 브랜드 디테일
 const PURCHASE_PLACES = [
@@ -158,8 +162,21 @@ export const WriteReviewModal: React.FC = () => {
   // 4. 본문 & 사진
   const [text, setText] = useState('');
   const [images, setImages] = useState<string[]>([]);
+  const [isCompressing, setIsCompressing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Photo viewer state for write modal preview
+  const [viewerState, setViewerState] = useState<{
+    isOpen: boolean;
+    images: string[];
+    initialIndex: number;
+    title?: string;
+  }>({
+    isOpen: false,
+    images: [],
+    initialIndex: 0,
+  });
 
   // 현재 선택된 상품 객체
   const prod = useMemo(() => {
@@ -237,29 +254,43 @@ export const WriteReviewModal: React.FC = () => {
     return filteredProducts.slice(0, displayLimit);
   }, [filteredProducts, displayLimit]);
 
-  // 사진 업로드 핸들러
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 사진 업로드 핸들러 (Canvas 기반 자동 리사이징 & 압축 최적화 적용)
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
     const remainingSlots = 5 - images.length;
     if (remainingSlots <= 0) {
       showToast('사진은 최대 5장까지 등록 가능합니다.', 'info');
+      e.target.value = '';
       return;
     }
 
     const filesToRead = Array.from(files).slice(0, remainingSlots);
+    setIsCompressing(true);
 
-    filesToRead.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setImages(prev => [...prev, event.target!.result as string].slice(0, 5));
-          showToast('📸 사진이 첨부되었습니다.', 'success');
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+    try {
+      // 리사이징 및 압축 (최대 1024px, 80% 퀄리티 최적화)
+      const compressedUrls = await Promise.all(
+        filesToRead.map(file => 
+          compressAndResizeImage(file, {
+            maxWidth: 1024,
+            maxHeight: 1024,
+            quality: 0.8,
+            mimeType: 'image/jpeg'
+          })
+        )
+      );
+
+      setImages(prev => [...prev, ...compressedUrls].slice(0, 5));
+      showToast(`📸 사진 ${compressedUrls.length}장이 최적화되어 첨부되었습니다.`, 'success');
+    } catch (err) {
+      console.error('Image compression failed:', err);
+      showToast('사진을 처리하는 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsCompressing(false);
+      e.target.value = '';
+    }
   };
 
   const removeImage = (idx: number) => {
@@ -435,16 +466,38 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
             <button
               type="button"
+              disabled={isCompressing}
               onClick={() => fileInputRef.current?.click()}
-              className="w-20 h-20 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-1 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
+              className="w-20 h-20 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-1 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95 disabled:opacity-60"
             >
-              <Camera className="w-5 h-5 text-gray-400" />
-              <span className="text-[11px] font-black text-gray-600">사진 추가</span>
+              {isCompressing ? (
+                <>
+                  <Loader2 className="w-5 h-5 text-amber-500 animate-spin" />
+                  <span className="text-[10px] font-black text-amber-600">압축중...</span>
+                </>
+              ) : (
+                <>
+                  <Camera className="w-5 h-5 text-gray-400" />
+                  <span className="text-[11px] font-black text-gray-600">사진 추가</span>
+                </>
+              )}
             </button>
 
             {images.map((imgSrc, idx) => (
-              <div key={idx} className="relative w-20 h-20 rounded-2xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
-                <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
+              <div 
+                key={idx} 
+                className="relative w-20 h-20 rounded-2xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group cursor-pointer"
+                onClick={() => setViewerState({
+                  isOpen: true,
+                  images,
+                  initialIndex: idx,
+                  title: prod?.name || '리뷰 첨부 사진 미리보기'
+                })}
+              >
+                <img src={imgSrc} alt="preview" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-colors">
+                  <ZoomIn className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                </div>
                 {idx === 0 && (
                   <span className="absolute bottom-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md">
                     대표
@@ -452,8 +505,12 @@ export const WriteReviewModal: React.FC = () => {
                 )}
                 <button
                   type="button"
-                  onClick={() => removeImage(idx)}
-                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeImage(idx);
+                  }}
+                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs z-10"
+                  title="사진 삭제"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -1163,6 +1220,15 @@ export const WriteReviewModal: React.FC = () => {
         onClose={() => setIsNewProductModalOpen(false)}
         initialProductName={searchQuery}
         initialCategory={selectedSearchCategory}
+      />
+
+      {/* 첨부 사진 확대 미리보기 모달 */}
+      <ImageViewerModal
+        isOpen={viewerState.isOpen}
+        images={viewerState.images}
+        initialIndex={viewerState.initialIndex}
+        title={viewerState.title}
+        onClose={() => setViewerState(prev => ({ ...prev, isOpen: false }))}
       />
 
     </div>

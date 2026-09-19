@@ -869,6 +869,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       level: calculateLevel(nextPoints),
     }));
 
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId: uid,
+      userName: newNickname,
+      userAvatar: currentUser.photoURL,
+      type: 'reward',
+      amount: bonus,
+      balanceAfter: nextPoints,
+      reason: '신규 가입 & 닉네임 설정 웰컴 보너스',
+      createdAt: new Date().toLocaleString('ko-KR', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }),
+      adminMemo: '신규 회원 닉네임 설정 보너스'
+    };
+    setPointTransactions(prev => [newTx, ...prev]);
+
     setIsNicknameModalOpen(false);
     setIsGuestBrowse(true);
     showToast(`🎉 닉네임이 설정되었습니다! 웰컴 ${bonus}P가 지급되었어요!`, 'success');
@@ -2671,6 +2692,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       points: nextPoints,
       level: calculateLevel(nextPoints),
     }));
+
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId: currentUser.uid,
+      userName: currentUser.displayName,
+      userAvatar: currentUser.photoURL,
+      type: 'reward',
+      amount: earnedPoints,
+      balanceAfter: nextPoints,
+      reason: `신제품 리뷰 작성 보너스 (${targetProduct.name})`,
+      createdAt: new Date().toLocaleString('ko-KR', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }),
+      adminMemo: `리뷰 작성 (${rating}점${images && images.length > 0 ? ', 사진 포함' : ''})`
+    };
+    setPointTransactions(prev => [newTx, ...prev]);
 
     showToast(`🎉 정성 가득 리뷰 등록 완료! (+${earnedPoints}P 적립)`, 'success');
     setActiveTabState('detail');

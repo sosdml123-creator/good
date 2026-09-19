@@ -1,6 +1,7 @@
-import React from 'react';
-import { X, PenSquare, Star, Heart, MessageSquare, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, PenSquare, Star, Heart, MessageSquare, ExternalLink, ZoomIn } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { ImageViewerModal } from '../common/ImageViewerModal';
 
 interface MyReviewsModalProps {
   isOpen: boolean;
@@ -9,6 +10,16 @@ interface MyReviewsModalProps {
 
 export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose }) => {
   const { reviews, currentUser, openProductDetail, setActiveTab } = useApp();
+  const [viewerState, setViewerState] = useState<{
+    isOpen: boolean;
+    images: string[];
+    initialIndex: number;
+    title?: string;
+  }>({
+    isOpen: false,
+    images: [],
+    initialIndex: 0,
+  });
 
   if (!isOpen) return null;
 
@@ -116,12 +127,26 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                 {r.images && r.images.length > 0 && (
                   <div className="flex gap-2 overflow-x-auto no-scrollbar pt-1">
                     {r.images.map((img, idx) => (
-                      <img 
-                        key={idx} 
-                        src={img} 
-                        alt="review" 
-                        className="w-20 h-20 rounded-xl object-cover border border-gray-100 shrink-0" 
-                      />
+                      <div
+                        key={idx}
+                        onClick={() => setViewerState({
+                          isOpen: true,
+                          images: r.images || [],
+                          initialIndex: idx,
+                          title: r.productName,
+                        })}
+                        className="relative group w-20 h-20 rounded-xl overflow-hidden border border-gray-200 cursor-pointer shrink-0 bg-gray-50 transition-all hover:border-gray-400 active:scale-95"
+                        title="사진 크게보기"
+                      >
+                        <img 
+                          src={img} 
+                          alt="review" 
+                          className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-colors">
+                          <ZoomIn className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md" />
+                        </div>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -161,6 +186,15 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
         </div>
 
       </div>
+
+      {/* Fullscreen Photo Viewer */}
+      <ImageViewerModal
+        isOpen={viewerState.isOpen}
+        images={viewerState.images}
+        initialIndex={viewerState.initialIndex}
+        title={viewerState.title}
+        onClose={() => setViewerState(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };
