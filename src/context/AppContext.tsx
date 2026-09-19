@@ -948,29 +948,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [banners, setBanners] = useState<BannerItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_banners');
-      if (stored) {
+      if (stored !== null) {
         const parsed: BannerItem[] = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const updatedParsed = parsed.map(b => {
-            if (b.id === 'banner-coupang-fresh') {
-              const freshInit = INITIAL_BANNERS.find(ib => ib.id === 'banner-coupang-fresh');
-              if (freshInit) {
-                return {
-                  ...b,
-                  image: freshInit.image,
-                  badge: freshInit.badge,
-                  title: freshInit.title,
-                  subtitle: freshInit.subtitle,
-                  buttonText: freshInit.buttonText
-                };
-              }
-            }
-            return b;
-          });
-          const existingIds = new Set(updatedParsed.map(b => b.id));
-          const missing = INITIAL_BANNERS.filter(b => !existingIds.has(b.id));
-          const merged = [...updatedParsed, ...missing];
-          return normalizeBanners(merged);
+        if (Array.isArray(parsed)) {
+          return normalizeBanners(parsed);
         }
       }
       return normalizeBanners(INITIAL_BANNERS);
@@ -3158,7 +3139,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } else {
         list.push(newBanner);
       }
-      return normalizeBanners(list);
+      const normalized = normalizeBanners(list);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
     });
     showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다!', 'success');
   };
@@ -3175,20 +3162,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           next.splice(insertIdx, 0, item);
         }
       }
-      return normalizeBanners(next);
+      const normalized = normalizeBanners(next);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
     });
     showToast('배너 구좌 정보가 수정되었습니다.', 'success');
   };
 
-  // Delete Banner (남은 구좌 번호 1부터 자동 재배열)
+  // Delete Banner (남은 구좌 번호 1부터 자동 재배열 및 즉시 영구 저장)
   const deleteBanner = (id: string) => {
-    setBanners(prev => normalizeBanners(prev.filter(b => b.id !== id)));
+    setBanners(prev => {
+      const normalized = normalizeBanners(prev.filter(b => b.id !== id));
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
+    });
     showToast('배너 구좌가 삭제되었습니다.', 'info');
   };
 
   // Toggle Banner Active
   const toggleBannerActive = (id: string) => {
-    setBanners(prev => prev.map(b => b.id === id ? { ...b, isActive: !b.isActive } : b));
+    setBanners(prev => {
+      const next = prev.map(b => b.id === id ? { ...b, isActive: !b.isActive } : b);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(next));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return next;
+    });
   };
 
   // Move Banner Order (▲ 위로 / ▼ 아래로 한 단계 이동)
@@ -3205,7 +3214,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       newBanners[index] = newBanners[targetIndex];
       newBanners[targetIndex] = temp;
       
-      return normalizeBanners(newBanners);
+      const normalized = normalizeBanners(newBanners);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
     });
     showToast(`배너 구좌 순서가 ${direction === 'up' ? '상위' : '하위'}로 변경되었습니다.`, 'info');
   };
@@ -3221,7 +3236,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const insertIndex = Math.max(0, Math.min(sorted.length, targetOrder - 1));
       sorted.splice(insertIndex, 0, item);
       
-      return normalizeBanners(sorted);
+      const normalized = normalizeBanners(sorted);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
     });
     showToast(`배너가 ${targetOrder}구좌로 이동되었습니다.`, 'success');
   };
@@ -3242,14 +3263,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       
       const targetIndex = sorted.findIndex(b => b.id === id);
       sorted.splice(targetIndex + 1, 0, duplicated);
-      return normalizeBanners(sorted);
+      const normalized = normalizeBanners(sorted);
+      try {
+        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+      } catch (e) {
+        console.error('Failed to save banners:', e);
+      }
+      return normalized;
     });
     showToast('배너 구좌가 성공적으로 복제되었습니다!', 'success');
   };
 
   // Reorder Banners (일괄 순서 저장)
   const reorderBanners = (newBanners: BannerItem[]) => {
-    setBanners(normalizeBanners(newBanners));
+    const normalized = normalizeBanners(newBanners);
+    try {
+      localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
+    } catch (e) {
+      console.error('Failed to save banners:', e);
+    }
+    setBanners(normalized);
     showToast('배너 구좌 순서가 저장되었습니다.', 'success');
   };
 
