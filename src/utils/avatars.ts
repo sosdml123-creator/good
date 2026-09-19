@@ -46,23 +46,16 @@ const createLightningNSVG = (
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 };
 
-// Default Avatar: 번개 모양 영어 N (Classic Gold / Amber)
-export const DEFAULT_AVATAR = createLightningNSVG(
-  '#0F172A',
-  '#1E293B',
-  '#FDE047',
-  '#F59E0B',
-  '#EF4444',
-  '#F59E0B'
-);
+// Default Avatar: 신상픽 공식 옐로우 NEW 로고
+export const DEFAULT_AVATAR = '/logo.png';
 
 // Preset Avatar Options
 export const AVATAR_PRESETS = [
   {
-    id: 'lightning-gold',
-    name: '골드 썬더 N (기본)',
-    url: DEFAULT_AVATAR,
-    themeColor: '#F59E0B',
+    id: 'official-new-logo',
+    name: '신상픽 공식 로고 (기본)',
+    url: '/logo.png',
+    themeColor: '#EAB308',
   },
   {
     id: 'lightning-blue',

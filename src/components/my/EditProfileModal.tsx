@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Check, Camera, Zap, Sparkles } from 'lucide-react';
+import { X, Check, Camera, Sparkles } from 'lucide-react';
 import { DEFAULT_AVATAR, AVATAR_PRESETS, compressImageFile } from '../../utils/avatars';
 
 interface EditProfileModalProps {
@@ -113,7 +113,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
         {/* Profile Avatar Section */}
         <div className="flex flex-col items-center space-y-3 pt-1">
           <div className="relative group">
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-200 shadow-md bg-slate-900 flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-200 shadow-md bg-white flex items-center justify-center">
               <img
                 src={selectedPhoto || DEFAULT_AVATAR}
                 alt="Profile Preview"
@@ -156,9 +156,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
               type="button"
               onClick={handleResetToDefault}
               className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 active:scale-95"
-              title="번개 N 기본 프로필로 초기화"
+              title="공식 로고 기본 프로필로 초기화"
             >
-              <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
               <span>기본 프로필</span>
             </button>
           </div>
@@ -168,7 +168,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
             <div className="flex items-center justify-between px-1">
               <span className="text-[11px] font-bold text-gray-500 flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-500" />
-                번개 N 캐릭터 테마
+                프로필 테마 선택
               </span>
             </div>
             <div className="flex items-center justify-center gap-2.5 pt-1">

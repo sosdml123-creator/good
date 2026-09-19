@@ -1809,11 +1809,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             displayName = dbDisplayName;
           }
 
-          const isKakao = providerName === 'kakao' || u.identities?.some((i: any) => i.provider === 'kakao');
           const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
-          const rawUserAvatar = u.user_metadata?.avatar_url;
 
-          // 카카오 로그인은 내 프로필 사진을 가져오지 않고 기본 아바타(DEFAULT_AVATAR)를 적용
+          // 신규 계정 생성 및 로그인 시 기본 프로필 사진은 항상 공식 로고(DEFAULT_AVATAR)를 적용
           let photoURL = DEFAULT_AVATAR;
           if (isCustomPhoto) {
             const cachedPhoto = localStorage.getItem('sinsangpick_photo');
@@ -1822,8 +1820,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             } else if (dbAvatarUrl && !isKakaoAvatarUrl(dbAvatarUrl)) {
               photoURL = dbAvatarUrl;
             }
-          } else if (!isKakao && rawUserAvatar && !isKakaoAvatarUrl(rawUserAvatar)) {
-            photoURL = rawUserAvatar;
+          } else if (dbAvatarUrl && !isKakaoAvatarUrl(dbAvatarUrl) && !dbAvatarUrl.includes('unsplash') && (dbAvatarUrl.startsWith('data:image') || dbAvatarUrl === DEFAULT_AVATAR)) {
+            photoURL = dbAvatarUrl;
           }
 
           localStorage.setItem('sinsangpick_photo', photoURL);
@@ -2455,7 +2453,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
         }
 
-        const photoURL = u.user_metadata?.avatar_url || DEFAULT_AVATAR;
+        const photoURL = DEFAULT_AVATAR;
 
         setCurrentUser(prev => ({
           ...prev,
