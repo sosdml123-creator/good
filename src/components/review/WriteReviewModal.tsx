@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   ChevronLeft, 
@@ -8,12 +8,15 @@ import {
   Check, 
   Search, 
   Store, 
+  Sparkles, 
   ShieldCheck, 
   AlertCircle,
   Tag,
   ShoppingBag,
   Heart,
-  Award
+  Award,
+  LayoutGrid,
+  List
 } from 'lucide-react';
 import { ProductCategory } from '../../types';
 
@@ -30,7 +33,7 @@ const PURCHASE_PLACES = [
   { id: '동네슈퍼/기타', name: '동네/기타', badge: '기타', bgActive: 'bg-slate-100 border-slate-600 text-slate-900 ring-2 ring-slate-400/30', badgeBg: 'bg-slate-700 text-white' },
 ];
 
-// 구매 혜택 / 행사 조건 (이모지 포함)
+// 구매 혜택 / 행사 조건
 const PURCHASE_EVENTS = [
   { id: '정가 구매', label: '정가 구매', icon: '🏷️' },
   { id: '1+1 행사', label: '1+1 득템', icon: '🎁' },
@@ -39,7 +42,7 @@ const PURCHASE_EVENTS = [
   { id: '무료체험/선물', label: '무료/선물', icon: '✨' }
 ];
 
-// 재구매 의사 5단계 (이모지 & 컬러 테마 감성)
+// 재구매 의사 5단계
 const REPURCHASE_OPTIONS = [
   { 
     value: '무조건 또 사먹어요!', 
@@ -78,7 +81,7 @@ const REPURCHASE_OPTIONS = [
   },
 ];
 
-// 맛 프로필 옵션 (이모지 & 단계별)
+// 맛 프로필 옵션
 const FLAVOR_OPTIONS = {
   sweetness: [
     { label: '안 달아요', icon: '🍃' },
@@ -101,7 +104,7 @@ const FLAVOR_OPTIONS = {
   ],
 };
 
-// 추천 대상 태그 (이모지 매핑)
+// 추천 대상 태그
 const RECOMMEND_TARGET_TAGS = [
   { tag: '#단짠러버', emoji: '🍿' },
   { tag: '#야식혼술족', emoji: '🍺' },
@@ -127,6 +130,10 @@ export const WriteReviewModal: React.FC = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(!selectedProductId);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSearchCategory, setSelectedSearchCategory] = useState<string>('전체');
+  
+  // 모달 성능 렉 방지용 페이지네이션 & 뷰 모드
+  const [displayLimit, setDisplayLimit] = useState<number>(24);
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
   // 2. 리뷰 평가 데이터
   const [rating, setRating] = useState(5);
@@ -159,12 +166,16 @@ export const WriteReviewModal: React.FC = () => {
     return products.find(p => p.id === currentProductId) || null;
   }, [products, currentProductId]);
 
+  // 검색 필터 변경 시 표시 제한 초기화 (성능 최적화)
+  useEffect(() => {
+    setDisplayLimit(24);
+  }, [searchQuery, selectedSearchCategory]);
+
   // 상품 카테고리별 세부 평가 항목
   const categoryMetrics = useMemo(() => {
     const cat = prod?.category || '';
     const name = prod?.name || '';
 
-    // 과일 / 수박 / 신선식품
     if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
       return [
         { label: '신선도', val: metric1, set: setMetric1, desc: '싱싱하고 신선한가요?' },
@@ -173,7 +184,6 @@ export const WriteReviewModal: React.FC = () => {
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 훌륭한가요?' },
       ];
     }
-    // 음료
     if (cat === '음료') {
       return [
         { label: '맛·풍미', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
@@ -182,7 +192,6 @@ export const WriteReviewModal: React.FC = () => {
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만점인가요?' },
       ];
     }
-    // 과자 / 빵·디저트
     if (['과자', '빵·디저트'].includes(cat)) {
       return [
         { label: '바삭함·식감', val: metric1, set: setMetric1, desc: '바삭하거나 꾸덕함이 인상적인가요?' },
@@ -191,7 +200,6 @@ export const WriteReviewModal: React.FC = () => {
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
       ];
     }
-    // 간편식 / 패스트푸드
     if (['간편식', '패스트푸드'].includes(cat)) {
       return [
         { label: '맛·양념', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
@@ -200,7 +208,6 @@ export const WriteReviewModal: React.FC = () => {
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
       ];
     }
-    // 기본 (기타)
     return [
       { label: '맛', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
       { label: '가성비', val: metric2, set: setMetric2, desc: '가격 대비 만족스럽나요?' },
@@ -224,7 +231,12 @@ export const WriteReviewModal: React.FC = () => {
     });
   }, [products, searchQuery, selectedSearchCategory]);
 
-  // 사진 업로드 핸들러 (최대 5장)
+  // 성능 최적화된 렌더링 목록 (slice 적용)
+  const visibleProducts = useMemo(() => {
+    return filteredProducts.slice(0, displayLimit);
+  }, [filteredProducts, displayLimit]);
+
+  // 사진 업로드 핸들러
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -265,7 +277,13 @@ export const WriteReviewModal: React.FC = () => {
     }
   };
 
-
+  // 실시간 적립 포인트 계산
+  const earnedPoints = useMemo(() => {
+    let p = 50;
+    if (images.length > 0) p += 30;
+    if (text.trim().length >= 30) p += 20;
+    return p;
+  }, [images.length, text]);
 
   // 제출 처리
   const handleSubmit = async () => {
@@ -333,6 +351,9 @@ export const WriteReviewModal: React.FC = () => {
         </button>
         <div className="text-center">
           <span className="text-[15px] font-black text-gray-900 block leading-tight tracking-tight">신상 솔직 리뷰 작성</span>
+          <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full inline-block mt-0.5">
+            ✨ 최대 +100P 혜택!
+          </span>
         </div>
         <button 
           onClick={handleSubmit} 
@@ -345,6 +366,35 @@ export const WriteReviewModal: React.FC = () => {
         >
           {isSubmitting ? '등록중' : '등록 완료'}
         </button>
+      </div>
+
+      {/* 2. 포인트 적립 게이지 배너 */}
+      <div className="bg-slate-900 text-white px-4 py-3.5 shadow-xs relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
+        <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
+          <span className="flex items-center gap-1.5 text-slate-100">
+            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+            리뷰 작성 적립 포인트
+          </span>
+          <span className="text-amber-300 text-sm font-black">+{earnedPoints}P / 100P</span>
+        </div>
+        <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden p-0.5 border border-slate-700/50">
+          <div 
+            className="bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 h-full rounded-full transition-all duration-500 ease-out shadow-xs"
+            style={{ width: `${earnedPoints}%` }}
+          />
+        </div>
+        <div className="flex justify-between items-center text-[10px] text-slate-400 mt-2 font-medium">
+          <span className={earnedPoints >= 50 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {earnedPoints >= 50 && '✓ '}기본 +50P
+          </span>
+          <span className={images.length > 0 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {images.length > 0 && '✓ '}사진 첨부 +30P
+          </span>
+          <span className={text.trim().length >= 30 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {text.trim().length >= 30 && '✓ '}30자 이상 +20P
+          </span>
+        </div>
       </div>
 
       <div className="p-4 space-y-4 max-w-lg mx-auto">
@@ -372,7 +422,7 @@ export const WriteReviewModal: React.FC = () => {
               <img 
                 src={prod.image} 
                 alt={prod.name} 
-                className="w-16 h-16 rounded-xl object-cover shrink-0 border border-gray-200 bg-white shadow-2xs" 
+                className="w-14 h-14 rounded-xl object-cover shrink-0 border border-gray-200 bg-white shadow-2xs" 
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
@@ -381,7 +431,7 @@ export const WriteReviewModal: React.FC = () => {
                   </span>
                   <span className="text-[11px] text-gray-500 font-medium truncate">{prod.brand}</span>
                 </div>
-                <div className="text-sm font-black text-gray-900 mt-1 truncate group-hover:text-amber-600 transition-colors">
+                <div className="text-xs font-black text-gray-900 mt-1 truncate group-hover:text-amber-600 transition-colors">
                   {prod.name}
                 </div>
                 <div className="text-xs font-bold text-slate-700 mt-0.5">
@@ -409,6 +459,9 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               📸 생생한 사진 첨부
+              <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200/60">
+                +30P 혜택
+              </span>
             </span>
             <span className="text-xs font-bold text-gray-400">{images.length} / 5장</span>
           </div>
@@ -422,30 +475,30 @@ export const WriteReviewModal: React.FC = () => {
             className="hidden" 
           />
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-14 h-14 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-0.5 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
+              className="w-20 h-20 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-1 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
             >
-              <Camera className="w-4 h-4 text-gray-400" />
-              <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
+              <Camera className="w-5 h-5 text-gray-400" />
+              <span className="text-[11px] font-black text-gray-600">사진 추가</span>
             </button>
 
             {images.map((imgSrc, idx) => (
-              <div key={idx} className="relative w-14 h-14 rounded-xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
+              <div key={idx} className="relative w-20 h-20 rounded-2xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
                 <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
                 {idx === 0 && (
-                  <span className="absolute bottom-1 left-1 bg-black/75 backdrop-blur-xs text-amber-300 text-[8px] font-black px-1 py-0.2 rounded">
+                  <span className="absolute bottom-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md">
                     대표
                   </span>
                 )}
                 <button
                   type="button"
                   onClick={() => removeImage(idx)}
-                  className="absolute top-1 right-1 w-4 h-4 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-rose-500 transition-colors shadow-xs"
+                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs"
                 >
-                  <X className="w-2.5 h-2.5" />
+                  <X className="w-3 h-3" />
                 </button>
               </div>
             ))}
@@ -481,7 +534,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 6. 어디서 구매하셨나요? (개편된 모던 브랜드 카탈로그 선택 UI) */}
+        {/* 6. 어디서 구매하셨나요? */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
@@ -564,7 +617,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 7. 재구매 의사 (개편된 감정 카드 토글 UI) */}
+        {/* 7. 재구매 의사 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
@@ -621,7 +674,7 @@ export const WriteReviewModal: React.FC = () => {
           />
         </div>
 
-        {/* 9. 맛 & 식감 디테일 프로필 (개편된 레벨 게이지 칩 UI) */}
+        {/* 9. 맛 & 식감 디테일 프로필 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3.5">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
@@ -759,7 +812,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 11. 누구에게 추천하나요? (개편된 이모지 태그 선택 UI) */}
+        {/* 11. 누구에게 추천하나요? */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
@@ -797,8 +850,8 @@ export const WriteReviewModal: React.FC = () => {
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               📝 솔직한 상세 맛 후기
             </span>
-            <span className={`text-[10px] font-bold ${text.trim().length >= 30 ? 'text-emerald-600' : 'text-gray-400'}`}>
-              {text.trim().length >= 30 ? '✓ 30자 달성' : `${text.length}/30자`}
+            <span className={`text-[10px] font-bold ${text.trim().length >= 30 ? 'text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full' : 'text-gray-400'}`}>
+              {text.trim().length >= 30 ? '✓ 30자 달성 (+20P)' : `${text.length}/30자`}
             </span>
           </div>
           <textarea
@@ -811,33 +864,35 @@ export const WriteReviewModal: React.FC = () => {
               }
             }}
             placeholder="포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최대 300자, 최소 5자 이상)"
-            className="w-full bg-gray-50 rounded-xl p-3 text-xs text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-gray-900 focus:bg-white transition-colors break-words break-all"
+            className="w-full bg-slate-50/70 rounded-xl p-3 text-xs font-medium text-gray-900 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-slate-900 focus:bg-white transition-colors break-words break-all"
           />
           <div className="flex items-center justify-between text-[11px] pt-0.5">
             <span className="text-gray-400">정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
-            <span className={`font-medium ${text.length >= 300 ? 'text-rose-500 font-bold' : text.length >= 250 ? 'text-amber-600 font-semibold' : 'text-gray-400'}`}>
+            <span className={`font-bold ${text.length >= 300 ? 'text-rose-500' : text.length >= 250 ? 'text-amber-600' : 'text-gray-400'}`}>
               {text.length}/300자
             </span>
           </div>
         </div>
 
         {/* 13. 내돈내산 영수증 인증 토글 */}
-        <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-gray-100 flex items-center justify-between cursor-pointer"
-             onClick={() => setIsReceiptVerified(!isReceiptVerified)}>
-          <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+        <div 
+          className="bg-white rounded-2xl p-3.5 shadow-xs border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-slate-50/50 transition-colors"
+          onClick={() => setIsReceiptVerified(!isReceiptVerified)}
+        >
+          <div className="flex items-center gap-3">
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
               isReceiptVerified ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
             }`}>
-              <ShieldCheck className="w-4 h-4" />
+              <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
-              <div className="text-xs font-bold text-gray-900 flex items-center gap-1">
+              <div className="text-xs font-black text-gray-900 flex items-center gap-1.5">
                 내돈내산 영수증 인증 마크 달기
                 <span className="text-[9px] bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded font-bold border border-emerald-200">
                   신뢰도 UP
                 </span>
               </div>
-              <p className="text-[10px] text-gray-400">직접 구매하여 체험한 솔직 후기임을 인증합니다.</p>
+              <p className="text-[10px] text-gray-500 mt-0.5">직접 구매하여 체험한 솔직 후기임을 인증합니다.</p>
             </div>
           </div>
           <input
@@ -853,29 +908,32 @@ export const WriteReviewModal: React.FC = () => {
           <button
             onClick={handleSubmit}
             disabled={isSubmitting || !prod}
-            className={`w-full py-4 font-black text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 ${
+            className={`w-full py-4 font-black text-sm rounded-2xl shadow-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-98 ${
               isSubmitting || !prod
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-gray-900 hover:bg-black active:scale-98 text-white shadow-md'
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-slate-900 hover:bg-black text-white shadow-slate-900/20 shadow-lg'
             }`}
           >
-            <span>리뷰 등록하기</span>
+            <span>리뷰 등록하고 +{earnedPoints}P 즉시 받기</span>
           </button>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* 15. 상품 검색 전용 모달 (Product Search Picker Modal)                     */}
+      {/* 15. 상품 검색 전용 모달 (개편된 콤팩트 & 렉 제로 UI)                       */}
       {/* ========================================================================= */}
       {isSearchModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end sm:justify-center sm:p-4 animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end sm:justify-center sm:p-4 animate-in fade-in duration-150">
+          <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[85vh] h-[85vh] flex flex-col shadow-2xl overflow-hidden">
             
             {/* Modal Header */}
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
+            <div className="px-4 py-3.5 border-b border-gray-100 flex items-center justify-between shrink-0 bg-white">
               <div>
-                <h3 className="text-base font-black text-gray-900">리뷰할 상품 검색</h3>
-                <p className="text-xs text-gray-500 mt-0.5">원하시는 신상품 또는 먹거리를 검색해보세요</p>
+                <h3 className="text-sm font-black text-gray-900 flex items-center gap-1.5">
+                  <Store className="w-4 h-4 text-emerald-600" />
+                  리뷰할 상품 선택
+                </h3>
+                <p className="text-[11px] text-gray-500 mt-0.5">원하는 먹거리나 신상품을 검색해보세요</p>
               </div>
               <button
                 onClick={() => {
@@ -890,112 +948,209 @@ export const WriteReviewModal: React.FC = () => {
               </button>
             </div>
 
-            {/* Search Input Bar */}
-            <div className="p-4 pb-2 shrink-0">
-              <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-3.5 py-2.5 border border-transparent focus-within:border-slate-900 focus-within:bg-white transition-all">
+            {/* Search Input Bar & Category Filters */}
+            <div className="p-3.5 pb-2 shrink-0 bg-slate-50/50 border-b border-gray-100 space-y-2">
+              <div className="flex items-center gap-2 bg-white rounded-xl px-3 py-2 border border-gray-200 focus-within:border-slate-900 focus-within:ring-2 focus-within:ring-slate-900/10 transition-all shadow-2xs">
                 <Search className="w-4 h-4 text-gray-400 shrink-0" />
                 <input
                   type="text"
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="상품명, 브랜드(오리온, 농심 등), 편의점 신상 검색..."
-                  className="w-full bg-transparent text-xs text-gray-900 outline-none font-medium placeholder-gray-400"
+                  placeholder="상품명, 브랜드(오리온, 농심 등) 검색..."
+                  className="w-full bg-transparent text-xs text-gray-900 outline-none font-bold placeholder-gray-400"
                 />
                 {searchQuery && (
                   <button 
                     onClick={() => setSearchQuery('')}
-                    className="w-4 h-4 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-[10px]"
+                    className="w-4 h-4 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-[10px]"
                   >
                     <X className="w-2.5 h-2.5" />
                   </button>
                 )}
               </div>
 
-              {/* Category Filter Chips */}
-              <div className="flex items-center gap-1.5 overflow-x-auto py-2.5 no-scrollbar">
-                {SEARCH_CATEGORIES.map((cat) => {
-                  const isSelected = selectedSearchCategory === cat;
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedSearchCategory(cat)}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                        isSelected
-                          ? 'bg-slate-900 text-white shadow-2xs'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
+              {/* Category Filter Chips & View Mode Toggle */}
+              <div className="flex items-center justify-between gap-2 pt-0.5">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar flex-1 py-0.5">
+                  {SEARCH_CATEGORIES.map((cat) => {
+                    const isSelected = selectedSearchCategory === cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setSelectedSearchCategory(cat)}
+                        className={`px-2.5 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition-all ${
+                          isSelected
+                            ? 'bg-slate-900 text-white shadow-2xs'
+                            : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center bg-gray-200/80 p-0.5 rounded-lg shrink-0">
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={`p-1 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white text-gray-900 shadow-2xs' : 'text-gray-500 hover:text-gray-700'}`}
+                    title="리스트 뷰"
+                  >
+                    <List className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={`p-1 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-white text-gray-900 shadow-2xs' : 'text-gray-500 hover:text-gray-700'}`}
+                    title="2열 그리드 뷰"
+                  >
+                    <LayoutGrid className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Search Results List */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 no-scrollbar">
-              <div className="flex items-center justify-between text-[11px] font-bold text-gray-400 px-1">
-                <span>
-                  {searchQuery ? `검색 결과 (${filteredProducts.length}개)` : `인기 신상품 (${filteredProducts.length}개)`}
-                </span>
-                <span className="text-gray-500">터치하여 선택</span>
-              </div>
+            {/* Results Count Header */}
+            <div className="px-4 py-2 flex items-center justify-between text-[11px] font-bold text-gray-400 bg-white shrink-0 border-b border-gray-50">
+              <span>
+                {searchQuery ? `검색 결과 (${filteredProducts.length}개)` : `전체 상품 (${filteredProducts.length}개)`}
+              </span>
+              <span className="text-emerald-600 font-extrabold">터치하여 선택</span>
+            </div>
 
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((item) => {
-                  const isCurrent = item.id === currentProductId;
-                  return (
-                    <div
-                      key={item.id}
-                      onClick={() => {
-                        setCurrentProductId(item.id);
-                        setIsSearchModalOpen(false);
-                      }}
-                      className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border ${
-                        isCurrent
-                          ? 'bg-slate-50 border-slate-900 shadow-xs'
-                          : 'bg-white hover:bg-gray-50 border-gray-100'
-                      }`}
-                    >
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
-                        className="w-13 h-13 rounded-xl object-cover shrink-0 border border-gray-100 bg-gray-50" 
-                      />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
-                            {item.category}
-                          </span>
-                          <span className="text-[11px] text-gray-400 truncate">{item.brand}</span>
-                        </div>
-                        <div className="text-xs font-bold text-gray-900 mt-0.5 truncate">
-                          {item.name}
-                        </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs font-black text-gray-800">
-                            {item.price.toLocaleString()}원
-                          </span>
-                          <span className="text-[10px] text-amber-500 font-bold flex items-center">
-                            ★ {item.overallRating?.toFixed(1) || '5.0'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="shrink-0 pl-1">
-                        {isCurrent ? (
-                          <div className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center">
-                            <Check className="w-3.5 h-3.5 stroke-[3]" />
+            {/* Search Results List / Grid */}
+            <div className="flex-1 overflow-y-auto p-3 no-scrollbar">
+              {visibleProducts.length > 0 ? (
+                <>
+                  {viewMode === 'list' ? (
+                    <div className="space-y-2">
+                      {visibleProducts.map((item) => {
+                        const isCurrent = item.id === currentProductId;
+                        return (
+                          <div
+                            key={item.id}
+                            onClick={() => {
+                              setCurrentProductId(item.id);
+                              setIsSearchModalOpen(false);
+                            }}
+                            className={`p-2.5 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border active:scale-[0.99] ${
+                              isCurrent
+                                ? 'bg-emerald-50/60 border-emerald-500 shadow-xs ring-1 ring-emerald-400/30'
+                                : 'bg-white hover:bg-slate-50 border-gray-100 hover:border-gray-200'
+                            }`}
+                          >
+                            {/* 고정 썸네일 규격: w-12 h-12 (48px x 48px) */}
+                            <img 
+                              src={item.image} 
+                              alt={item.name} 
+                              className="w-12 h-12 rounded-xl object-cover shrink-0 border border-gray-100 bg-gray-50" 
+                              loading="lazy"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[9px] font-extrabold text-slate-700 bg-slate-100 px-1.5 py-0.2 rounded">
+                                  {item.category}
+                                </span>
+                                <span className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</span>
+                              </div>
+                              <div className="text-xs font-bold text-gray-900 mt-0.5 truncate leading-tight">
+                                {item.name}
+                              </div>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[11px] font-black text-slate-800">
+                                  {item.price.toLocaleString()}원
+                                </span>
+                                <span className="text-[10px] text-amber-500 font-black flex items-center">
+                                  ★ {item.overallRating?.toFixed(1) || '5.0'}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="shrink-0 pl-1">
+                              {isCurrent ? (
+                                <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+                                  <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                </div>
+                              ) : (
+                                <span className="text-[11px] font-extrabold text-gray-700 bg-gray-100 hover:bg-slate-900 hover:text-white px-2.5 py-1 rounded-full border border-gray-200 transition-colors">
+                                  선택
+                                </span>
+                              )}
+                            </div>
                           </div>
-                        ) : (
-                          <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-full border border-gray-200">
-                            선택
-                          </span>
-                        )}
-                      </div>
+                        );
+                      })}
                     </div>
-                  );
-                })
+                  ) : (
+                    /* 2열 콤팩트 카드 그리드 뷰 */
+                    <div className="grid grid-cols-2 gap-2">
+                      {visibleProducts.map((item) => {
+                        const isCurrent = item.id === currentProductId;
+                        return (
+                          <div
+                            key={item.id}
+                            onClick={() => {
+                              setCurrentProductId(item.id);
+                              setIsSearchModalOpen(false);
+                            }}
+                            className={`p-2.5 rounded-2xl flex flex-col justify-between cursor-pointer transition-all border active:scale-[0.98] ${
+                              isCurrent
+                                ? 'bg-emerald-50/60 border-emerald-500 shadow-xs ring-1 ring-emerald-400/30'
+                                : 'bg-white hover:bg-slate-50 border-gray-100 hover:border-gray-200'
+                            }`}
+                          >
+                            <div className="space-y-2">
+                              {/* 그리드 뷰 고정 규격: 높이 h-24 */}
+                              <div className="relative w-full h-24 rounded-xl overflow-hidden bg-gray-50 border border-gray-100">
+                                <img 
+                                  src={item.image} 
+                                  alt={item.name} 
+                                  className="w-full h-full object-cover" 
+                                  loading="lazy"
+                                />
+                                <span className="absolute top-1 left-1 text-[9px] font-extrabold text-slate-800 bg-white/90 backdrop-blur-xs px-1.5 py-0.2 rounded shadow-2xs">
+                                  {item.category}
+                                </span>
+                                {isCurrent && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+                                    <Check className="w-3 h-3 stroke-[3]" />
+                                  </div>
+                                )}
+                              </div>
+                              <div>
+                                <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
+                                <div className="text-xs font-bold text-gray-900 truncate leading-tight mt-0.5">
+                                  {item.name}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between mt-2 pt-1 border-t border-gray-50">
+                              <span className="text-xs font-black text-slate-900">
+                                {item.price.toLocaleString()}원
+                              </span>
+                              <span className="text-[10px] text-amber-500 font-black">
+                                ★ {item.overallRating?.toFixed(1) || '5.0'}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* 더보기 버튼 (성능 최적화 스크롤) */}
+                  {filteredProducts.length > displayLimit && (
+                    <div className="pt-3 pb-2 text-center">
+                      <button
+                        type="button"
+                        onClick={() => setDisplayLimit(prev => prev + 24)}
+                        className="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-full border border-gray-200 transition-all active:scale-95"
+                      >
+                        상품 더보기 ({visibleProducts.length} / {filteredProducts.length})
+                      </button>
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="text-center py-12 px-4 space-y-2">
                   <AlertCircle className="w-8 h-8 text-gray-300 mx-auto" />
@@ -1014,11 +1169,17 @@ export const WriteReviewModal: React.FC = () => {
               )}
             </div>
 
-            {/* Modal Bottom Close */}
-            <div className="p-3 border-t border-gray-100 bg-gray-50 shrink-0 text-center">
-              <p className="text-[11px] text-gray-400">
-                찾으시는 상품을 탭하면 바로 리뷰 작성이 시작됩니다.
-              </p>
+            {/* Modal Bottom Close Bar */}
+            <div className="p-3 border-t border-gray-100 bg-slate-50 shrink-0 text-center flex items-center justify-between">
+              <span className="text-[11px] text-gray-400 font-medium">
+                탭하면 바로 리뷰 상품으로 등록됩니다.
+              </span>
+              <button
+                onClick={() => setIsSearchModalOpen(false)}
+                className="text-xs font-bold text-gray-700 bg-white hover:bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 transition-colors"
+              >
+                닫기
+              </button>
             </div>
 
           </div>
