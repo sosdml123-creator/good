@@ -8,14 +8,11 @@ import {
   Check, 
   Search, 
   Store, 
-  Sparkles, 
   ShieldCheck, 
   AlertCircle,
   Tag,
   ShoppingBag,
   Heart,
-  Smile,
-  Flame,
   Award
 } from 'lucide-react';
 import { ProductCategory } from '../../types';
@@ -466,30 +463,30 @@ export const WriteReviewModal: React.FC = () => {
             className="hidden" 
           />
 
-          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-20 h-20 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-1 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
+              className="w-14 h-14 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-0.5 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
             >
-              <Camera className="w-5 h-5 text-gray-400" />
-              <span className="text-[11px] font-black text-gray-600">사진 추가</span>
+              <Camera className="w-4 h-4 text-gray-400" />
+              <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
             </button>
 
             {images.map((imgSrc, idx) => (
-              <div key={idx} className="relative w-20 h-20 rounded-2xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
+              <div key={idx} className="relative w-14 h-14 rounded-xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
                 <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
                 {idx === 0 && (
-                  <span className="absolute bottom-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md">
+                  <span className="absolute bottom-1 left-1 bg-black/75 backdrop-blur-xs text-amber-300 text-[8px] font-black px-1 py-0.2 rounded">
                     대표
                   </span>
                 )}
                 <button
                   type="button"
                   onClick={() => removeImage(idx)}
-                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs"
+                  className="absolute top-1 right-1 w-4 h-4 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-rose-500 transition-colors shadow-xs"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-2.5 h-2.5" />
                 </button>
               </div>
             ))}
