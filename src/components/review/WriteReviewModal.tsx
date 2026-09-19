@@ -8,7 +8,6 @@ import {
   Check, 
   Search, 
   Store, 
-  Sparkles, 
   AlertCircle,
   Tag,
   ShoppingBag,
@@ -252,7 +251,7 @@ export const WriteReviewModal: React.FC = () => {
       reader.onload = (event) => {
         if (event.target?.result) {
           setImages(prev => [...prev, event.target!.result as string].slice(0, 5));
-          showToast('📸 사진이 첨부되었습니다! (+30P 보너스)', 'success');
+          showToast('📸 사진이 첨부되었습니다.', 'success');
         }
       };
       reader.readAsDataURL(file);
@@ -274,14 +273,6 @@ export const WriteReviewModal: React.FC = () => {
       setSelectedTargets(prev => [...prev, tag]);
     }
   };
-
-  // 실시간 적립 포인트 계산
-  const earnedPoints = useMemo(() => {
-    let p = 50;
-    if (images.length > 0) p += 30;
-    if (text.trim().length >= 30) p += 20;
-    return p;
-  }, [images.length, text]);
 
   // 제출 처리
   const handleSubmit = async () => {
@@ -348,9 +339,6 @@ export const WriteReviewModal: React.FC = () => {
         </button>
         <div className="text-center">
           <span className="text-[15px] font-black text-gray-900 block leading-tight tracking-tight">신상 솔직 리뷰 작성</span>
-          <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full inline-block mt-0.5">
-            ✨ 최대 +100P 혜택!
-          </span>
         </div>
         <button 
           onClick={handleSubmit} 
@@ -363,35 +351,6 @@ export const WriteReviewModal: React.FC = () => {
         >
           {isSubmitting ? '등록중' : '등록 완료'}
         </button>
-      </div>
-
-      {/* 2. 포인트 적립 게이지 배너 */}
-      <div className="bg-slate-900 text-white px-4 py-3.5 shadow-xs relative overflow-hidden">
-        <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
-        <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
-          <span className="flex items-center gap-1.5 text-slate-100">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            리뷰 작성 적립 포인트
-          </span>
-          <span className="text-amber-300 text-sm font-black">+{earnedPoints}P / 100P</span>
-        </div>
-        <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden p-0.5 border border-slate-700/50">
-          <div 
-            className="bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 h-full rounded-full transition-all duration-500 ease-out shadow-xs"
-            style={{ width: `${earnedPoints}%` }}
-          />
-        </div>
-        <div className="flex justify-between items-center text-[10px] text-slate-400 mt-2 font-medium">
-          <span className={earnedPoints >= 50 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
-            {earnedPoints >= 50 && '✓ '}기본 +50P
-          </span>
-          <span className={images.length > 0 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
-            {images.length > 0 && '✓ '}사진 첨부 +30P
-          </span>
-          <span className={text.trim().length >= 30 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
-            {text.trim().length >= 30 && '✓ '}30자 이상 +20P
-          </span>
-        </div>
       </div>
 
       <div className="p-4 space-y-4 max-w-lg mx-auto">
@@ -456,9 +415,6 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               📸 생생한 사진 첨부
-              <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200/60">
-                +30P 혜택
-              </span>
             </span>
             <span className="text-xs font-bold text-gray-400">{images.length} / 5장</span>
           </div>
@@ -848,7 +804,7 @@ export const WriteReviewModal: React.FC = () => {
               📝 솔직한 상세 맛 후기
             </span>
             <span className={`text-[10px] font-bold ${text.trim().length >= 30 ? 'text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full' : 'text-gray-400'}`}>
-              {text.trim().length >= 30 ? '✓ 30자 달성 (+20P)' : `${text.length}/30자`}
+              {text.trim().length >= 30 ? '✓ 30자 달성' : `${text.length}/30자`}
             </span>
           </div>
           <textarea
@@ -882,7 +838,7 @@ export const WriteReviewModal: React.FC = () => {
                 : 'bg-slate-900 hover:bg-black text-white shadow-slate-900/20 shadow-lg'
             }`}
           >
-            <span>리뷰 등록하고 +{earnedPoints}P 즉시 받기</span>
+            <span>리뷰 등록하기</span>
           </button>
         </div>
       </div>
