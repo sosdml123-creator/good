@@ -1,4 +1,4 @@
-﻿import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer-core';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -11,6 +11,7 @@ const desktopDir = 'C:\\Users\\did\\Desktop';
 const repoScreenshotsDir = path.resolve(__dirname, '..', 'public', 'screenshots');
 
 if (!fs.existsSync(desktopDir)) fs.mkdirSync(desktopDir, { recursive: true });
+if (!fs.existsSync(repoScreenshotsDir)) fs.mkdirSync(repoScreenshotsDir, { recursive: true });
 
 function getBase64Image(filename) {
   const filePath = path.join(repoScreenshotsDir, filename);
@@ -18,44 +19,53 @@ function getBase64Image(filename) {
   return `data:image/png;base64,${data.toString('base64')}`;
 }
 
-console.log('Loading real captured screens...');
+console.log('Loading real captured screens (1 to 5)...');
 const img1 = getBase64Image('real_screen_safe_01.png');
 const img2 = getBase64Image('real_screen_safe_02.png');
 const img3 = getBase64Image('real_screen_safe_03.png');
 const img4 = getBase64Image('real_screen_safe_04.png');
+const img5 = getBase64Image('real_screen_safe_05.png');
 
 const screensData = [
   {
-    id: '1_실시간신상',
+    id: '01_실시간신상',
     engName: 'AppStore_01_Discover',
-    badge: '✨ NEW IN · 실시간 신상 탐색',
+    badge: '✨ NEW IN · 실시간 신상',
     title: '매일 쏟아지는 먹거리 신상<br><span class="highlight">가장 빠르게 발견해요</span>',
-    subtitle: '편의점·마트 신상품부터 전국 브랜드관 신메뉴까지',
+    subtitle: '편의점·마트 신상품부터 전국 브랜드 신메뉴까지',
     image: img1
   },
   {
-    id: '2_행사캘린더',
+    id: '02_편의점행사',
     engName: 'AppStore_02_SaleEvents',
-    badge: '🏷️ 1+1 & 2+1 · 편의점 행사 소식',
+    badge: '🏷️ SALE & EVENT · 편의점 행사',
     title: '편의점 4사 1+1 · 2+1 행사<br><span class="highlight">놓치지 말고 한눈에 확인</span>',
     subtitle: 'CU · GS25 · 세븐일레븐 · 이마트24 매달 실시간 업데이트',
     image: img2
   },
   {
-    id: '3_솔직리뷰',
+    id: '03_솔직리뷰',
     engName: 'AppStore_03_Reviews',
-    badge: '⭐ 100% REAL REVIEW · 솔직 별점 검증',
+    badge: '⭐ 100% REAL REVIEW · 솔직 리뷰',
     title: '실패 없는 내돈내산 소비<br><span class="highlight">직접 먹어본 솔직 리뷰</span>',
-    subtitle: '맛 · 가성비 · 양 세부 지표와 생생한 100% 소비자 평가',
+    subtitle: '맛 · 가성비 · 양 세부 지표와 생생한 소비자 평가',
     image: img3
   },
   {
-    id: '4_랭킹꿀조합',
+    id: '04_실시간랭킹',
     engName: 'AppStore_04_RankingRecipes',
-    badge: '🏆 REAL-TIME RANKING · 신상 랭킹 LIVE',
+    badge: '🏆 REAL-TIME RANKING · 신상 랭킹',
     title: '요즘 가장 핫한 신상은?<br><span class="highlight">실시간 랭킹 LIVE</span>',
     subtitle: '소비자 리뷰와 인기도를 실시간 집계한 TOP 3 명예의 전당',
     image: img4
+  },
+  {
+    id: '05_브랜드관',
+    engName: 'AppStore_05_Brands',
+    badge: '🍔 BRAND HUB · 인기 브랜드관',
+    title: '내가 좋아하는 브랜드의<br><span class="highlight">모든 신메뉴를 한눈에</span>',
+    subtitle: '버거 · 치킨 · 피자 · 베이커리 · 카페 66개 공식 브랜드관',
+    image: img5
   }
 ];
 
@@ -81,12 +91,10 @@ function generateHTML(data) {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #F8FAFC;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(0, 102, 255, 0.09) 0%, rgba(248, 250, 252, 0) 55%),
-        radial-gradient(rgba(15, 23, 42, 0.04) 1.5px, transparent 1.5px);
-      background-size: 100% 100%, 36px 36px;
+        radial-gradient(circle at 50% 0%, rgba(0, 102, 255, 0.07) 0%, rgba(248, 250, 252, 0) 50%);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -96,12 +104,12 @@ function generateHTML(data) {
     /* Ambient glow */
     .ambient-glow {
       position: absolute;
-      top: 360px;
+      top: 320px;
       left: 50%;
       transform: translateX(-50%);
-      width: 900px;
+      width: 960px;
       height: 700px;
-      background: radial-gradient(circle, rgba(0, 102, 255, 0.12) 0%, rgba(0, 102, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, rgba(0, 102, 255, 0) 70%);
       pointer-events: none;
       z-index: 1;
     }
@@ -121,15 +129,16 @@ function generateHTML(data) {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: rgba(0, 102, 255, 0.08);
-      border: 1.5px solid rgba(0, 102, 255, 0.22);
+      background: #EFF6FF;
+      border: 1.5px solid #DBEAFE;
       color: #0066FF;
       font-size: 27px;
       font-weight: 700;
-      padding: 12px 34px;
+      padding: 13px 36px;
       border-radius: 9999px;
-      margin-bottom: 22px;
-      box-shadow: 0 4px 16px rgba(0, 102, 255, 0.08);
+      margin-bottom: 24px;
+      letter-spacing: -0.4px;
+      box-shadow: 0 4px 14px rgba(0, 102, 255, 0.06);
     }
 
     .main-title {
@@ -152,18 +161,18 @@ function generateHTML(data) {
       letter-spacing: -0.6px;
     }
 
-    /* iPhone 16 Pro Mockup Frame */
+    /* iPhone 16 Pro Max Mockup Frame */
     .device-mockup {
       position: absolute;
-      top: 540px;
-      width: 1040px;
-      height: 2221px;
-      background: #111827;
+      top: 535px;
+      width: 1050px;
+      height: 2226px;
+      background: #0F172A;
       border-radius: 68px;
       padding: 14px;
       box-shadow: 
-        0 50px 120px -20px rgba(15, 23, 42, 0.38),
-        0 25px 60px -15px rgba(0, 102, 255, 0.18),
+        0 45px 110px -20px rgba(15, 23, 42, 0.35),
+        0 20px 50px -15px rgba(0, 102, 255, 0.16),
         inset 0 0 0 2px rgba(255, 255, 255, 0.14);
       border: 3.5px solid #334155;
       z-index: 10;
@@ -324,11 +333,11 @@ async function run() {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
   });
 
-  console.log('Rendering all 4 final Apple App Store Screenshots (1290 x 2796 px)...');
+  console.log('Rendering all 5 final Apple App Store Screenshots (1290 x 2796 px)...');
 
   for (let i = 0; i < screensData.length; i++) {
     const s = screensData[i];
-    console.log(`[${i + 1}/4] Generating: ${s.id} (${s.engName})...`);
+    console.log(`[${i + 1}/5] Generating: ${s.id} (${s.engName})...`);
 
     const page = await browser.newPage();
     await page.setViewport({
@@ -340,6 +349,7 @@ async function run() {
     const html = generateHTML(s);
     await page.setContent(html, { waitUntil: 'networkidle0' });
 
+    // Save to Desktop with clean Korean and English names
     const desktopKorPath = path.join(desktopDir, `신상픽_앱스토어_${s.id}.png`);
     const desktopEngPath = path.join(desktopDir, `${s.engName}.png`);
     const repoPath = path.join(repoScreenshotsDir, `${s.engName}.png`);
@@ -356,7 +366,7 @@ async function run() {
   }
 
   await browser.close();
-  console.log('All 4 App Store screenshots generated successfully with real app screens!');
+  console.log('All 5 App Store screenshots generated successfully with real app screens!');
 }
 
 run().catch(console.error);
