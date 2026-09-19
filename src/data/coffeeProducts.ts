@@ -1,347 +1,615 @@
 import { Product } from '../types';
 
 export const COFFEE_BRAND_BEVERAGES: Product[] = [
-  // =========================================================================
-  // 1. 컴포즈커피 (COMPOSE COFFEE)
-  // =========================================================================
   {
-    id: 'coffee-compose-01',
-    name: '컴포즈커피 아메리카노 (ICED / HOT)',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/753/303/6a917242a4ea3de7dca9b126c8c31262.jpg',
-    releaseDate: '2026.09 공식',
-    price: 1500,
-    overallRating: 4.8,
-    ratingCount: 680,
-    searchInfluxCount: 54000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 96,
-    calories: 15,
-    volume: 'Venti 591ml (20oz)',
-    isToday: true,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 5.0, portion: 4.9, repurchase: 4.9 },
-    nutrition: { calories: 15, sodium: "5mg (0%)", carbs: "2g (1%)", sugar: "0g (0%)", fat: "0g (0%)", protein: "1g (2%)" },
-    ingredients: '정제수, 에스프레소 원두 추출액(브라질, 콜롬비아산 아라비카 100%)',
-    allergens: [],
-    origin: '원두: 브라질, 콜롬비아',
-    manufacturer: '컴포즈커피 (주)JM스마트커피',
-    storageMethod: '구입 후 즉시 음용 권장',
-    shelfLife: '제조 당일 음용',
-    precautions: '고카페인 함유 (어린이, 임산부 섭취 주의)',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 30, price: 1500, eventBadge: '베스트셀러', deliveryTime: '매장 즉시 픽업 / 배달' }
+    "id": "coffee-compose-01",
+    "name": "컴포즈커피 아메리카노 (ICED / HOT)",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "커피",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/753/303/6a917242a4ea3de7dca9b126c8c31262.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 1500,
+    "overallRating": 4.8,
+    "ratingCount": 680,
+    "searchInfluxCount": 54000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '컴포즈커피의 시그니처 비터홀릭(Bitter Holic) 블렌딩 원두로 내린 대용량 아메리카노. 다크 로스팅 특유의 묵직한 바디감과 고소한 견과류 풍미, 은은한 다크초콜릿 여운이 일품입니다.',
-    bestQuotes: ['가성비 커피 중 크레마와 바디감이 가장 훌륭함', '매일 출근길 필수 코스, 벤티 사이즈라 든든해요']
+    "repurchasePercent": 96,
+    "calories": 31,
+    "volume": "Venti 591ml (20oz)",
+    "isToday": true,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.8,
+      "value": 5,
+      "portion": 4.9,
+      "repurchase": 4.9
+    },
+    "nutrition": {
+      "calories": 31,
+      "sodium": "1mg (0%)",
+      "carbs": "0g",
+      "sugar": "4.2g (4%)",
+      "fat": "0g",
+      "protein": "0.2g (0%)",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "정제수, 에스프레소 원두 추출액(브라질, 콜롬비아산 아라비카 100%)",
+    "allergens": [],
+    "origin": "원두: 브라질, 콜롬비아",
+    "manufacturer": "컴포즈커피 (주)JM스마트커피",
+    "storageMethod": "구입 후 즉시 음용 권장",
+    "shelfLife": "제조 당일 음용",
+    "precautions": "고카페인 함유 (어린이, 임산부 섭취 주의)",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 30,
+        "price": 1500,
+        "eventBadge": "베스트셀러",
+        "deliveryTime": "매장 즉시 픽업 / 배달"
+      }
+    ],
+    "description": "컴포즈커피의 시그니처 비터홀릭(Bitter Holic) 블렌딩 원두로 내린 대용량 아메리카노. 다크 로스팅 특유의 묵직한 바디감과 고소한 견과류 풍미, 은은한 다크초콜릿 여운이 일품입니다.",
+    "bestQuotes": [
+      "가성비 커피 중 크레마와 바디감이 가장 훌륭함",
+      "매일 출근길 필수 코스, 벤티 사이즈라 든든해요"
+    ]
   },
   {
-    id: 'coffee-compose-02',
-    name: '컴포즈커피 아인슈페너',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/790/303/06244ab1a18b65448c99099738a18cf4.jpg',
-    releaseDate: '2026.09 공식',
-    price: 4200,
-    overallRating: 4.9,
-    ratingCount: 430,
-    searchInfluxCount: 42000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 94,
-    calories: 220,
-    volume: 'Standard 480ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 5.0, value: 4.8, portion: 4.8, repurchase: 4.9 },
-    nutrition: { calories: 220, sodium: "45mg (2%)", carbs: "28g (9%)", sugar: "22g (22%)", fat: "11g (20%)", protein: "3g (5%)" },
-    ingredients: '에스프레소 추출액, 시그니처 동물성 생크림 폼, 바닐라 시럽, 정제수',
-    allergens: ['우유'],
-    origin: '원두: 외국산(브라질, 콜롬비아), 유크림: 국산',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '생크림 층과 커피를 섞지 않고 입을 대고 함께 드실 때 가장 맛있습니다.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '시그니처', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-02",
+    "name": "컴포즈커피 아인슈페너",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "커피",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/790/303/06244ab1a18b65448c99099738a18cf4.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 4200,
+    "overallRating": 4.9,
+    "ratingCount": 430,
+    "searchInfluxCount": 42000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '쌉싸름하고 진한 롱블랙 에스프레소 위에 컴포즈만의 쫀쫀하고 달콤한 특제 수제 생크림을 풍성하게 얹은 정통 비엔나 스타일 아인슈페너.',
-    bestQuotes: ['크림이 묵직하고 쫀쫀해서 카페 전문점 퀄리티', '크림과 커피가 함께 넘어오는 첫 모금이 환상']
+    "repurchasePercent": 94,
+    "calories": 217,
+    "volume": "Standard 480ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 5,
+      "value": 4.8,
+      "portion": 4.8,
+      "repurchase": 4.9
+    },
+    "nutrition": {
+      "calories": 217,
+      "sodium": "95mg (5%)",
+      "carbs": "0g",
+      "sugar": "22.6g (23%)",
+      "fat": "0g",
+      "protein": "3.5g (6%)",
+      "transFat": "0g",
+      "satFat": "6.1g (41%)",
+      "saturatedFat": "6.1g (41%)",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "에스프레소 추출액, 시그니처 동물성 생크림 폼, 바닐라 시럽, 정제수",
+    "allergens": [
+      "우유"
+    ],
+    "origin": "원두: 외국산(브라질, 콜롬비아), 유크림: 국산",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "생크림 층과 커피를 섞지 않고 입을 대고 함께 드실 때 가장 맛있습니다.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 18,
+        "price": 4200,
+        "eventBadge": "시그니처",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "쌉싸름하고 진한 롱블랙 에스프레소 위에 컴포즈만의 쫀쫀하고 달콤한 특제 수제 생크림을 풍성하게 얹은 정통 비엔나 스타일 아인슈페너.",
+    "bestQuotes": [
+      "크림이 묵직하고 쫀쫀해서 카페 전문점 퀄리티",
+      "크림과 커피가 함께 넘어오는 첫 모금이 환상"
+    ]
   },
   {
-    id: 'coffee-compose-03',
-    name: '컴포즈커피 벨지움 생초콜릿 라떼',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '라떼',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/762/303/b30fef7930874d1423505d89d153c3aa.jpg',
-    releaseDate: '2026.09 시즌재출시',
-    price: 4500,
-    overallRating: 4.9,
-    ratingCount: 820,
-    searchInfluxCount: 67000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 97,
-    calories: 490,
-    volume: 'Venti 591ml',
-    isToday: true,
-    isHot: false,
-    detailedRating: { taste: 5.0, value: 4.9, portion: 5.0, repurchase: 4.9 },
-    nutrition: { calories: 490, sodium: "120mg (6%)", carbs: "68g (21%)", sugar: "52g (52%)", fat: "20g (37%)", protein: "8g (15%)" },
-    ingredients: '벨기에산 프리미엄 다크 생초콜릿 큐브, 1A등급 우유, 초콜릿 베이스 파우더',
-    allergens: ['우유', '대두'],
-    origin: '초콜릿: 벨기에/프랑스산, 원유: 국산 100%',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '생초콜릿 토핑을 먼저 스푼으로 떠먹은 뒤 음료와 함께 즐겨보세요.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4500, eventBadge: 'SNS 품절대란', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-03",
+    "name": "컴포즈커피 벨지움 생초콜릿 라떼",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "라떼",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/762/303/b30fef7930874d1423505d89d153c3aa.jpg",
+    "releaseDate": "2026.09 시즌재출시",
+    "price": 4500,
+    "overallRating": 4.9,
+    "ratingCount": 820,
+    "searchInfluxCount": 67000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '고객들의 빗발치는 요청으로 재출시된 컴포즈의 전설적 메뉴! 정통 벨기에산 다크 생초콜릿 덩어리가 통째로 듬뿍 올라가 꾸덕꾸덕하고 극강의 달콤함을 선사합니다.',
-    bestQuotes: ['진짜 생초콜릿이 숟가락 가득 퍼질 정도로 푸짐함', '당 충전 필요할 때 무조건 이거 마셔야 함']
+    "repurchasePercent": 97,
+    "calories": 369,
+    "volume": "Venti 591ml",
+    "isToday": true,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 5,
+      "value": 4.9,
+      "portion": 5,
+      "repurchase": 4.9
+    },
+    "nutrition": {
+      "calories": 369,
+      "sodium": "163mg (8%)",
+      "carbs": "0g",
+      "sugar": "41.3g (41%)",
+      "fat": "0g",
+      "protein": "6.3g (11%)",
+      "transFat": "0g",
+      "satFat": "8.8g (59%)",
+      "saturatedFat": "8.8g (59%)",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "벨기에산 프리미엄 다크 생초콜릿 큐브, 1A등급 우유, 초콜릿 베이스 파우더",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "origin": "초콜릿: 벨기에/프랑스산, 원유: 국산 100%",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "생초콜릿 토핑을 먼저 스푼으로 떠먹은 뒤 음료와 함께 즐겨보세요.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 15,
+        "price": 4500,
+        "eventBadge": "SNS 품절대란",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "고객들의 빗발치는 요청으로 재출시된 컴포즈의 전설적 메뉴! 정통 벨기에산 다크 생초콜릿 덩어리가 통째로 듬뿍 올라가 꾸덕꾸덕하고 극강의 달콤함을 선사합니다.",
+    "bestQuotes": [
+      "진짜 생초콜릿이 숟가락 가득 퍼질 정도로 푸짐함",
+      "당 충전 필요할 때 무조건 이거 마셔야 함"
+    ]
   },
   {
-    id: 'coffee-compose-04',
-    name: '컴포즈커피 카페라떼',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/768/303/05097606453a6d12a08b1074d140b5a0.jpg',
-    releaseDate: '2026.09 공식',
-    price: 2900,
-    overallRating: 4.7,
-    ratingCount: 390,
-    searchInfluxCount: 31000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 93,
-    calories: 195,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: true,
-    detailedRating: { taste: 4.8, value: 4.9, portion: 4.9, repurchase: 4.8 },
-    nutrition: { calories: 195, sodium: "110mg (6%)", carbs: "14g (4%)", sugar: "12g (12%)", fat: "10g (19%)", protein: "8g (15%)" },
-    ingredients: '1A등급 신선 원유, 에스프레소 원두 추출액',
-    allergens: ['우유'],
-    origin: '원유: 국산 100%, 원두: 브라질, 콜롬비아',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '우유 함유 제품입니다.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 25, price: 2900, eventBadge: '인기', deliveryTime: '매장 즉시 픽업 / 배달' }
+    "id": "coffee-compose-04",
+    "name": "컴포즈커피 카페라떼",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "커피",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/768/303/05097606453a6d12a08b1074d140b5a0.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 2900,
+    "overallRating": 4.7,
+    "ratingCount": 390,
+    "searchInfluxCount": 31000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '1A등급 프리미엄 신선 원유와 갓 로스팅한 비터홀릭 에스프레소가 만나 고소함과 부드러움의 극대화를 이룬 스테디셀러 라떼.',
-    bestQuotes: ['우유가 고소하고 커피가 밍밍하지 않아서 딱 좋음', '가성비 최고의 데일리 라떼']
+    "repurchasePercent": 93,
+    "calories": 26,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": true,
+    "detailedRating": {
+      "taste": 4.8,
+      "value": 4.9,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 26,
+      "sodium": "18mg (1%)",
+      "carbs": "2.2g (1%)",
+      "sugar": "1.7g (2%)",
+      "fat": "1.4g (3%)",
+      "protein": "1g (2%)",
+      "transFat": "0g",
+      "satFat": "0.9g (6%)",
+      "saturatedFat": "0.9g (6%)",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "1A등급 신선 원유, 에스프레소 원두 추출액",
+    "allergens": [
+      "우유"
+    ],
+    "origin": "원유: 국산 100%, 원두: 브라질, 콜롬비아",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "우유 함유 제품입니다.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 25,
+        "price": 2900,
+        "eventBadge": "인기",
+        "deliveryTime": "매장 즉시 픽업 / 배달"
+      }
+    ],
+    "description": "1A등급 프리미엄 신선 원유와 갓 로스팅한 비터홀릭 에스프레소가 만나 고소함과 부드러움의 극대화를 이룬 스테디셀러 라떼.",
+    "bestQuotes": [
+      "우유가 고소하고 커피가 밍밍하지 않아서 딱 좋음",
+      "가성비 최고의 데일리 라떼"
+    ]
   },
   {
-    id: 'coffee-compose-05',
-    name: '컴포즈커피 돌체라떼',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '커피',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/776/303/63414f6d2c02c97181f5f6c7ab494b31.jpg',
-    releaseDate: '2026.09 공식',
-    price: 3800,
-    overallRating: 4.8,
-    ratingCount: 510,
-    searchInfluxCount: 38000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 95,
-    calories: 320,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.9, portion: 4.8, repurchase: 4.9 },
-    nutrition: { calories: 320, sodium: "135mg (7%)", carbs: "45g (14%)", sugar: "40g (40%)", fat: "11g (20%)", protein: "7g (13%)" },
-    ingredients: '에스프레소 추출액, 무지방 연유 베이스, 1A등급 원유',
-    allergens: ['우유'],
-    origin: '원유 및 연유: 국산, 원두: 브라질/콜롬비아',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '달콤한 연유와 커피를 고루 저어 드세요.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 22, price: 3800, eventBadge: '달콤추천', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-05",
+    "name": "컴포즈커피 돌체라떼",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "커피",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/776/303/63414f6d2c02c97181f5f6c7ab494b31.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 3800,
+    "overallRating": 4.8,
+    "ratingCount": 510,
+    "searchInfluxCount": 38000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '부드러운 연유의 은은하고 깊은 달콤함에 에스프레소 샷이 어우러져 한 모금마다 행복한 당 충전을 선사하는 달콤 시그니처 라떼.',
-    bestQuotes: ['스타벅스 돌체라떼 못지않게 달콤하고 부드러워요', '피곤한 오후에 마시면 눈이 번쩍 뜨임']
+    "repurchasePercent": 95,
+    "calories": 46,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.9,
+      "portion": 4.8,
+      "repurchase": 4.9
+    },
+    "nutrition": {
+      "calories": 46,
+      "sodium": "22mg (1%)",
+      "carbs": "5.7g (2%)",
+      "sugar": "5.1g (5%)",
+      "fat": "1.8g (3%)",
+      "protein": "1.4g (3%)",
+      "transFat": "0g",
+      "satFat": "1.2g (8%)",
+      "saturatedFat": "1.2g (8%)",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "에스프레소 추출액, 무지방 연유 베이스, 1A등급 원유",
+    "allergens": [
+      "우유"
+    ],
+    "origin": "원유 및 연유: 국산, 원두: 브라질/콜롬비아",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "달콤한 연유와 커피를 고루 저어 드세요.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 22,
+        "price": 3800,
+        "eventBadge": "달콤추천",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "부드러운 연유의 은은하고 깊은 달콤함에 에스프레소 샷이 어우러져 한 모금마다 행복한 당 충전을 선사하는 달콤 시그니처 라떼.",
+    "bestQuotes": [
+      "스타벅스 돌체라떼 못지않게 달콤하고 부드러워요",
+      "피곤한 오후에 마시면 눈이 번쩍 뜨임"
+    ]
   },
   {
-    id: 'coffee-compose-06',
-    name: '컴포즈커피 자몽허니블랙티',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '티',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/904/303/6914993a5c5dfab6ad405c407e47b2c1.jpg',
-    releaseDate: '2026.09 공식',
-    price: 3800,
-    overallRating: 4.9,
-    ratingCount: 460,
-    searchInfluxCount: 39000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 96,
-    calories: 180,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 5.0, value: 4.8, portion: 4.9, repurchase: 5.0 },
-    nutrition: { calories: 180, sodium: "15mg (1%)", carbs: "44g (14%)", sugar: "38g (38%)", fat: "0g (0%)", protein: "0.5g (1%)" },
-    ingredients: '레드 자몽 과육 농축액, 국산 벌꿀 시럽, 프리미엄 스리랑카 홍차 침출액',
-    allergens: [],
-    origin: '홍차: 스리랑카산, 자몽: 미국/이스라엘산',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '자몽 알갱이가 가라앉아 있으므로 빨대로 잘 섞어 드세요.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '여성인기 1위', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-06",
+    "name": "컴포즈커피 자몽허니블랙티",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "티",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/904/303/6914993a5c5dfab6ad405c407e47b2c1.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 3800,
+    "overallRating": 4.9,
+    "ratingCount": 460,
+    "searchInfluxCount": 39000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '쌉싸름하고 상큼한 자몽 생과육에 달콤한 아카시아 꿀과 깊고 그윽한 스리랑카 블랙티의 조화가 완벽한 티 블렌딩 음료.',
-    bestQuotes: ['자몽 알갱이가 톡톡 씹히고 적당히 달아서 인생 자허블 등극', '커피 못 마실 때 대체불가 음료']
+    "repurchasePercent": 96,
+    "calories": 40,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 5,
+      "value": 4.8,
+      "portion": 4.9,
+      "repurchase": 5
+    },
+    "nutrition": {
+      "calories": 40,
+      "sodium": "5mg (0%)",
+      "carbs": "9.6g (3%)",
+      "sugar": "9.4g (9%)",
+      "fat": "0.2g (0%)",
+      "protein": "0.1g (0%)",
+      "transFat": "0g",
+      "satFat": "0g",
+      "saturatedFat": "0g",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "레드 자몽 과육 농축액, 국산 벌꿀 시럽, 프리미엄 스리랑카 홍차 침출액",
+    "allergens": [],
+    "origin": "홍차: 스리랑카산, 자몽: 미국/이스라엘산",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "자몽 알갱이가 가라앉아 있으므로 빨대로 잘 섞어 드세요.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 20,
+        "price": 3800,
+        "eventBadge": "여성인기 1위",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "쌉싸름하고 상큼한 자몽 생과육에 달콤한 아카시아 꿀과 깊고 그윽한 스리랑카 블랙티의 조화가 완벽한 티 블렌딩 음료.",
+    "bestQuotes": [
+      "자몽 알갱이가 톡톡 씹히고 적당히 달아서 인생 자허블 등극",
+      "커피 못 마실 때 대체불가 음료"
+    ]
   },
   {
-    id: 'coffee-compose-07',
-    name: '컴포즈커피 쿠키 밀크쉐이크',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '스무디·프라페',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/880/303/3f9ccf73ceea290fca94da08967d165c.jpg',
-    releaseDate: '2026.09 공식',
-    price: 4500,
-    overallRating: 4.8,
-    ratingCount: 380,
-    searchInfluxCount: 29000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 94,
-    calories: 560,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 5.0, repurchase: 4.8 },
-    nutrition: { calories: 560, sodium: "190mg (10%)", carbs: "75g (23%)", sugar: "58g (58%)", fat: "24g (44%)", protein: "9g (16%)" },
-    ingredients: '상하목장 베이스 밀크 쉐이크 믹스, 로투스 카라멜 쿠키 크럼블, 초콜릿 시럽',
-    allergens: ['우유', '밀', '대두'],
-    origin: '원유: 국산 상하목장 유기농, 쿠키: 벨기에산',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '바삭한 쿠키 토핑을 먼저 즐겨보세요.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 16, price: 4500, eventBadge: '디저트쉐이크', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-07",
+    "name": "컴포즈커피 쿠키 밀크쉐이크",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "스무디·프라페",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/880/303/3f9ccf73ceea290fca94da08967d165c.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 4500,
+    "overallRating": 4.8,
+    "ratingCount": 380,
+    "searchInfluxCount": 29000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '상하목장 프리미엄 원유로 만든 부드러운 밀크쉐이크에 바삭바삭한 시나몬 카라멜 쿠키 크런치가 듬뿍 블렌딩된 마성의 디저트 쉐이크.',
-    bestQuotes: ['쿠키가 눅눅하지 않고 끝까지 바삭해서 대박', '맥플러리보다 훨씬 고급진 맛']
+    "repurchasePercent": 94,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 5,
+      "repurchase": 4.8
+    },
+    "ingredients": "상하목장 베이스 밀크 쉐이크 믹스, 로투스 카라멜 쿠키 크럼블, 초콜릿 시럽",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "origin": "원유: 국산 상하목장 유기농, 쿠키: 벨기에산",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "바삭한 쿠키 토핑을 먼저 즐겨보세요.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 16,
+        "price": 4500,
+        "eventBadge": "디저트쉐이크",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "상하목장 프리미엄 원유로 만든 부드러운 밀크쉐이크에 바삭바삭한 시나몬 카라멜 쿠키 크런치가 듬뿍 블렌딩된 마성의 디저트 쉐이크.",
+    "bestQuotes": [
+      "쿠키가 눅눅하지 않고 끝까지 바삭해서 대박",
+      "맥플러리보다 훨씬 고급진 맛"
+    ]
   },
   {
-    id: 'coffee-compose-08',
-    name: '컴포즈커피 논산 딸기 라떼',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '라떼',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/968/303/c5414f13d33172da20c1dc5492c1ef51.jpg',
-    releaseDate: '2026.09 신선과육',
-    price: 3800,
-    overallRating: 4.9,
-    ratingCount: 570,
-    searchInfluxCount: 45000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 95,
-    calories: 275,
-    volume: 'Venti 591ml',
-    isToday: true,
-    isHot: false,
-    detailedRating: { taste: 5.0, value: 4.8, portion: 4.9, repurchase: 4.9 },
-    nutrition: { calories: 275, sodium: "95mg (5%)", carbs: "50g (15%)", sugar: "42g (42%)", fat: "6g (11%)", protein: "5g (9%)" },
-    ingredients: '국산 논산 설향딸기 과육 다이스, 딸기 퓨레, 1A등급 신선 우유',
-    allergens: ['우유'],
-    origin: '딸기: 대한민국 논산 100%, 우유: 국산',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '생딸기 과육이 듬뿍 들어있어 굵은 빨대로 드시길 권장합니다.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 20, price: 3800, eventBadge: '생과육 듬뿍', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-08",
+    "name": "컴포즈커피 논산 딸기 라떼",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "라떼",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/968/303/c5414f13d33172da20c1dc5492c1ef51.jpg",
+    "releaseDate": "2026.09 신선과육",
+    "price": 3800,
+    "overallRating": 4.9,
+    "ratingCount": 570,
+    "searchInfluxCount": 45000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '대한민국 대표 딸기 산지 논산 설향딸기 과육을 아낌없이 넣어, 신선한 딸기의 새콤달콤함과 우유의 부드러움이 입안 가득 터지는 딸기 라떼.',
-    bestQuotes: ['딸기 씹히는 식감이 너무 좋고 시럽맛만 나는 싸구려 라떼가 아님', '매 시즌마다 무조건 챙겨 마셔요']
+    "repurchasePercent": 95,
+    "calories": 121,
+    "volume": "Venti 591ml",
+    "isToday": true,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 5,
+      "value": 4.8,
+      "portion": 4.9,
+      "repurchase": 4.9
+    },
+    "nutrition": {
+      "calories": 121,
+      "sodium": "24mg (1%)",
+      "carbs": "0g",
+      "sugar": "25.2g (25%)",
+      "fat": "0g",
+      "protein": "1.6g (3%)",
+      "transFat": "0g",
+      "satFat": "0.9g (6%)",
+      "saturatedFat": "0.9g (6%)",
+      "cholesterol": "0mg"
+    },
+    "ingredients": "국산 논산 설향딸기 과육 다이스, 딸기 퓨레, 1A등급 신선 우유",
+    "allergens": [
+      "우유"
+    ],
+    "origin": "딸기: 대한민국 논산 100%, 우유: 국산",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "생딸기 과육이 듬뿍 들어있어 굵은 빨대로 드시길 권장합니다.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 20,
+        "price": 3800,
+        "eventBadge": "생과육 듬뿍",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "대한민국 대표 딸기 산지 논산 설향딸기 과육을 아낌없이 넣어, 신선한 딸기의 새콤달콤함과 우유의 부드러움이 입안 가득 터지는 딸기 라떼.",
+    "bestQuotes": [
+      "딸기 씹히는 식감이 너무 좋고 시럽맛만 나는 싸구려 라떼가 아님",
+      "매 시즌마다 무조건 챙겨 마셔요"
+    ]
   },
   {
-    id: 'coffee-compose-09',
-    name: '컴포즈커피 그린티 프라페',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '스무디·프라페',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/920/303/51555ccf6f9089226b2f823b016c2599.jpg',
-    releaseDate: '2026.09 공식',
-    price: 4200,
-    overallRating: 4.8,
-    ratingCount: 340,
-    searchInfluxCount: 27000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 93,
-    calories: 430,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.8, value: 4.9, portion: 4.9, repurchase: 4.8 },
-    nutrition: { calories: 430, sodium: "110mg (6%)", carbs: "62g (19%)", sugar: "48g (48%)", fat: "16g (30%)", protein: "7g (13%)" },
-    ingredients: '국산 유기농 말차 가루, 1A등급 원유, 휘핑크림',
-    allergens: ['우유'],
-    origin: '녹차: 국산(보성/제주), 우유: 국산',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '녹차 본연의 진한 쌉싸름함이 살아있습니다.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 18, price: 4200, eventBadge: '진한녹차', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-09",
+    "name": "컴포즈커피 그린티 프라페",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "스무디·프라페",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/920/303/51555ccf6f9089226b2f823b016c2599.jpg",
+    "releaseDate": "2026.09 공식",
+    "price": 4200,
+    "overallRating": 4.8,
+    "ratingCount": 340,
+    "searchInfluxCount": 27000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '청정 보성과 제주의 엄선된 햇녹차를 곱게 갈아 넣어, 쌉싸름한 녹차 특유의 그윽한 향과 부드러운 우유 크림의 달콤함이 완벽한 앙상블을 이루는 프라페.',
-    bestQuotes: ['녹차 맛이 아주 진하고 달지 않아서 좋아요', '스타벅스 그린티 프라푸치노 못지않은 완성도']
+    "repurchasePercent": 93,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.8,
+      "value": 4.9,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "ingredients": "국산 유기농 말차 가루, 1A등급 원유, 휘핑크림",
+    "allergens": [
+      "우유"
+    ],
+    "origin": "녹차: 국산(보성/제주), 우유: 국산",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "녹차 본연의 진한 쌉싸름함이 살아있습니다.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 18,
+        "price": 4200,
+        "eventBadge": "진한녹차",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "청정 보성과 제주의 엄선된 햇녹차를 곱게 갈아 넣어, 쌉싸름한 녹차 특유의 그윽한 향과 부드러운 우유 크림의 달콤함이 완벽한 앙상블을 이루는 프라페.",
+    "bestQuotes": [
+      "녹차 맛이 아주 진하고 달지 않아서 좋아요",
+      "스타벅스 그린티 프라푸치노 못지않은 완성도"
+    ]
   },
   {
-    id: 'coffee-compose-10',
-    name: '컴포즈커피 샤인머스캣 케일 주스',
-    brand: '컴포즈커피',
-    category: '음료',
-    subCategory: '에이드·주스',
-    itemType: 'restaurant',
-    image: 'https://composecoffee.com/files/attach/images/272857/918/303/f5b3989e310d81d2ea1a9059da856ab1.jpg',
-    releaseDate: '2026.09 헬시주스',
-    price: 4000,
-    overallRating: 4.8,
-    ratingCount: 310,
-    searchInfluxCount: 26000,
-    stores: ['컴포즈커피'],
-    repurchasePercent: 94,
-    calories: 160,
-    volume: 'Venti 591ml',
-    isToday: false,
-    isHot: false,
-    detailedRating: { taste: 4.9, value: 4.7, portion: 4.9, repurchase: 4.8 },
-    nutrition: { calories: 160, sodium: "12mg (1%)", carbs: "39g (12%)", sugar: "32g (32%)", fat: "0.2g (0%)", protein: "1.2g (2%)" },
-    ingredients: '샤인머스캣 착즙액, 국산 유기농 케일 잎 생즙, 사과 농축액',
-    allergens: [],
-    origin: '케일/샤인머스캣: 국산 100%',
-    manufacturer: '컴포즈커피',
-    storageMethod: '구입 후 즉시 음용',
-    shelfLife: '제조 당일',
-    precautions: '무색소, 무방부제 클렌즈 헬시 음료입니다.',
-    storeStocks: [
-      { store: '컴포즈커피', status: '입고완료', stockCount: 15, price: 4000, eventBadge: '건강클렌즈', deliveryTime: '매장 즉시 픽업' }
+    "id": "coffee-compose-10",
+    "name": "컴포즈커피 샤인머스캣 케일 주스",
+    "brand": "컴포즈커피",
+    "category": "음료",
+    "subCategory": "에이드·주스",
+    "itemType": "restaurant",
+    "image": "https://composecoffee.com/files/attach/images/272857/918/303/f5b3989e310d81d2ea1a9059da856ab1.jpg",
+    "releaseDate": "2026.09 헬시주스",
+    "price": 4000,
+    "overallRating": 4.8,
+    "ratingCount": 310,
+    "searchInfluxCount": 26000,
+    "stores": [
+      "컴포즈커피"
     ],
-    description: '달콤한 샤인머스캣과 영양 가득 신선한 생케일을 황금 비율로 착즙하여, 쓴맛 전혀 없이 청량하고 상쾌하게 비타민을 채워주는 웰빙 클렌즈 주스.',
-    bestQuotes: ['케일 냄새 전혀 안 나고 샤인머스캣의 달달함이 대박', '아침 대용으로 상쾌하게 마시기 최고']
+    "repurchasePercent": 94,
+    "calories": 226,
+    "volume": "Venti 591ml",
+    "isToday": false,
+    "isHot": false,
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.7,
+      "portion": 4.9,
+      "repurchase": 4.8
+    },
+    "nutrition": {
+      "calories": 226,
+      "sodium": "155mg (8%)",
+      "carbs": "21.2g (7%)",
+      "sugar": "9g (9%)",
+      "fat": "14g (26%)",
+      "protein": "4g (7%)",
+      "transFat": "0g",
+      "satFat": "10g (67%)",
+      "saturatedFat": "10g (67%)",
+      "cholesterol": "14mg (5%)"
+    },
+    "ingredients": "샤인머스캣 착즙액, 국산 유기농 케일 잎 생즙, 사과 농축액",
+    "allergens": [],
+    "origin": "케일/샤인머스캣: 국산 100%",
+    "manufacturer": "컴포즈커피",
+    "storageMethod": "구입 후 즉시 음용",
+    "shelfLife": "제조 당일",
+    "precautions": "무색소, 무방부제 클렌즈 헬시 음료입니다.",
+    "storeStocks": [
+      {
+        "store": "컴포즈커피",
+        "status": "입고완료",
+        "stockCount": 15,
+        "price": 4000,
+        "eventBadge": "건강클렌즈",
+        "deliveryTime": "매장 즉시 픽업"
+      }
+    ],
+    "description": "달콤한 샤인머스캣과 영양 가득 신선한 생케일을 황금 비율로 착즙하여, 쓴맛 전혀 없이 청량하고 상쾌하게 비타민을 채워주는 웰빙 클렌즈 주스.",
+    "bestQuotes": [
+      "케일 냄새 전혀 안 나고 샤인머스캣의 달달함이 대박",
+      "아침 대용으로 상쾌하게 마시기 최고"
+    ]
   }
 ];

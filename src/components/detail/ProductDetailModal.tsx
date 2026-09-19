@@ -905,6 +905,19 @@ export const ProductDetailModal: React.FC = () => {
               const displayCalories = (fetchedNutrition && fetchedNutrition.calories) || selectedProduct.calories;
               const isOfficialVerified = Boolean(fetchedNutrition);
 
+              if (!activeNutrition) {
+                return (
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-center text-slate-500 text-xs space-y-1 border border-slate-100 dark:border-slate-700">
+                    <p className="font-bold text-slate-700 dark:text-slate-300">
+                      식약처 DB 미등록 상품 (영양성분 미표기)
+                    </p>
+                    <p className="text-[11px] text-slate-400">
+                      식품의약품안전처 공공데이터에서 검색되지 않는 상품은 규정에 따라 영양성분을 표기하지 않습니다.
+                    </p>
+                  </div>
+                );
+              }
+
               return (
                 <div className="space-y-2">
                   {isOfficialVerified ? (
@@ -927,29 +940,29 @@ export const ProductDetailModal: React.FC = () => {
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
                       <span className="text-gray-600">나트륨</span>
-                      <span className="font-semibold text-gray-900">{activeNutrition?.sodium || '표기 기준 준수'}</span>
+                      <span className="font-semibold text-gray-900">{activeNutrition.sodium || '-'}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
                       <span className="text-gray-600">탄수화물 / 당류</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition?.carbs || '균형 함유'} {activeNutrition?.sugar ? `(당류 ${activeNutrition.sugar})` : ''}
+                        {activeNutrition.carbs || '-'} {activeNutrition.sugar ? `(당류 ${activeNutrition.sugar})` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
                       <span className="text-gray-600">지방 / 트랜스지방</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition?.fat || '균형 함유'} {activeNutrition?.transFat ? `(트랜스 ${activeNutrition.transFat})` : ''}
+                        {activeNutrition.fat || '-'} {activeNutrition.transFat ? `(트랜스 ${activeNutrition.transFat})` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
                       <span className="text-gray-600">포화지방 / 콜레스테롤</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition?.satFat ? `포화 ${activeNutrition.satFat}` : '0g'} {activeNutrition?.cholesterol ? `· 콜레스테롤 ${activeNutrition.cholesterol}` : ''}
+                        {activeNutrition.satFat ? `포화 ${activeNutrition.satFat}` : '-'} {activeNutrition.cholesterol ? `· 콜레스테롤 ${activeNutrition.cholesterol}` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
                       <span className="text-gray-600">단백질</span>
-                      <span className="font-bold text-gray-900">{activeNutrition?.protein || '균형 함유'}</span>
+                      <span className="font-bold text-gray-900">{activeNutrition.protein || '-'}</span>
                     </div>
                   </div>
                 </div>

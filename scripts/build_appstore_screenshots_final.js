@@ -30,40 +30,40 @@ const screensData = [
   {
     id: '01_신상탐색',
     engName: 'AppStore_01_Discover',
-    tag: '신상 탐색',
-    title: '편의점·마트 신상품,<br>가장 먼저 만나보세요',
-    sub: '매일 업데이트되는 실시간 먹거리 신상',
+    titleLine1: '오늘 출시된 모든 신상,',
+    titleLine2: '<span class="highlight">가장 먼저</span> 만나보세요',
+    sub: '편의점부터 마트까지 매일 실시간 업데이트',
     image: img1
   },
   {
     id: '02_편의점행사',
     engName: 'AppStore_02_SaleEvents',
-    tag: '편의점 행사',
-    title: 'CU · GS25 · 세븐 · 이마트24<br>이번 달 1+1 · 2+1 행사',
-    sub: '놓치기 아쉬운 편의점 할인 혜택을 한눈에',
+    titleLine1: '이번 달 편의점 1+1,',
+    titleLine2: '<span class="highlight">놓치지 말고</span> 알뜰하게',
+    sub: 'CU · GS25 · 세븐 · 이마트24 전국 행사 총정리',
     image: img2
   },
   {
     id: '03_솔직리뷰',
     engName: 'AppStore_03_Reviews',
-    tag: '솔직 리뷰',
-    title: '실패 없는 내돈내산 소비,<br>맛·가성비 세부 평점',
-    sub: '직접 먹어본 소비자들의 100% 솔직한 후기',
+    titleLine1: '광고 없이 솔직한',
+    titleLine2: '<span class="highlight">내돈내산 찐리뷰</span>',
+    sub: '맛·가성비·양 세부 지표부터 영양정보까지',
     image: img3
   },
   {
     id: '04_실시간랭킹',
     engName: 'AppStore_04_RankingRecipes',
-    tag: '실시간 랭킹',
-    title: '요즘 어떤 게 제일 핫할까?<br>실시간 신상 랭킹',
-    sub: '리뷰와 만족도로 검증된 인기 순위',
+    titleLine1: '지금 가장 인기 있는',
+    titleLine2: '<span class="highlight">실시간 랭킹 & 꿀조합</span>',
+    sub: '실시간 반응 좋은 대세 메뉴와 편의점 레시피',
     image: img4
   },
   {
     id: '05_브랜드관',
     engName: 'AppStore_05_Brands',
-    tag: '브랜드관',
-    title: '좋아하는 브랜드의 신메뉴만<br>한곳에서 모아보기',
+    titleLine1: '좋아하는 브랜드 신메뉴만',
+    titleLine2: '<span class="highlight">한곳에 모아보기</span>',
     sub: '전국 인기 브랜드 66개 공식 신메뉴 총집합',
     image: img5
   }
@@ -92,17 +92,19 @@ function generateHTML(data) {
       padding: 0;
       overflow: hidden;
       font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, sans-serif;
-      background-color: #F8F9FA;
+      background-color: #FFFFFF;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Top Typography Area (오늘의집 / 쿠팡 / 토스 style) */
+    /* Top Typography Area (당근 / 알바몬 / 오늘의집 Style) */
     .header-area {
       width: 100%;
-      padding-top: 150px;
+      padding-top: 175px;
+      padding-left: 60px;
+      padding-right: 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -110,201 +112,93 @@ function generateHTML(data) {
       z-index: 10;
     }
 
-    .kicker-tag {
-      font-size: 26px;
-      font-weight: 700;
-      color: #0066FF;
-      letter-spacing: -0.4px;
-      margin-bottom: 16px;
-    }
-
     .headline {
-      font-size: 68px;
+      font-size: 76px;
       font-weight: 800;
       color: #191F28;
-      line-height: 1.28;
+      line-height: 1.32;
       letter-spacing: -2px;
-      margin-bottom: 18px;
+      word-break: keep-all;
+    }
+
+    .headline .highlight {
+      color: #0066FF;
     }
 
     .sub-copy {
+      margin-top: 22px;
       font-size: 32px;
       font-weight: 500;
-      color: #6B7684;
+      color: #8B95A1;
       letter-spacing: -0.6px;
+      line-height: 1.4;
+      word-break: keep-all;
     }
 
-    /* iPhone 16 Pro Precision Titanium Chassis */
-    .iphone-wrapper {
+    /* Phone Screen Card Container (심플한 폰 화면 형태) */
+    .screen-card-wrapper {
       position: absolute;
-      top: 525px;
+      top: 500px;
       left: 50%;
       transform: translateX(-50%);
-      width: 1020px;
-      height: 2271px;
-      display: flex;
-      justify-content: center;
+      width: 1050px;
+      height: 2296px;
+      background: #FFFFFF;
+      border-radius: 56px 56px 0 0;
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
+      border-bottom: none;
+      box-shadow: 
+        0 24px 60px -10px rgba(0, 0, 0, 0.08),
+        0 10px 24px -6px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
       z-index: 20;
     }
 
-    /* Natural Titanium Side Hardware Buttons */
-    .btn-action {
-      position: absolute;
-      left: 3px;
-      top: 260px;
-      width: 5px;
-      height: 54px;
-      background: #94A3B8;
-      border-radius: 4px 0 0 4px;
-    }
-
-    .btn-vol-up {
-      position: absolute;
-      left: 3px;
-      top: 345px;
-      width: 5px;
-      height: 105px;
-      background: #94A3B8;
-      border-radius: 4px 0 0 4px;
-    }
-
-    .btn-vol-down {
-      position: absolute;
-      left: 3px;
-      top: 475px;
-      width: 5px;
-      height: 105px;
-      background: #94A3B8;
-      border-radius: 4px 0 0 4px;
-    }
-
-    .btn-power {
-      position: absolute;
-      right: 3px;
-      top: 380px;
-      width: 5px;
-      height: 150px;
-      background: #94A3B8;
-      border-radius: 0 4px 4px 0;
-    }
-
-    /* Outer Titanium Chassis Frame */
-    .iphone-body {
-      width: 1000px;
-      height: 2271px;
-      background: linear-gradient(145deg, #CBD5E1 0%, #94A3B8 50%, #64748B 100%);
-      border-radius: 64px;
-      padding: 5px;
-      box-shadow: 
-        0 40px 90px -20px rgba(15, 23, 42, 0.22),
-        0 20px 40px -15px rgba(15, 23, 42, 0.12),
-        0 0 0 1px rgba(0, 0, 0, 0.08);
-      position: relative;
-    }
-
-    /* Inner Ultra-slim Black Bezel Rim */
-    .iphone-inner-rim {
-      width: 100%;
-      height: 100%;
-      background: #000000;
-      border-radius: 60px;
-      padding: 10px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Top Speaker Earpiece Slit */
-    .speaker-slit {
-      position: absolute;
-      top: 4px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90px;
-      height: 4px;
-      background: #1E293B;
-      border-radius: 2px;
-      z-index: 40;
-    }
-
-    /* Inner Screen */
-    .iphone-screen {
-      width: 100%;
-      height: 100%;
-      background: #FFFFFF;
-      border-radius: 50px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* iOS 18 Dynamic Island Pill */
-    .dynamic-island-pill {
-      position: absolute;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 240px;
-      height: 56px;
-      background: #000000;
-      border-radius: 28px;
-      z-index: 60;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .camera-lens {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #0D1322;
-      border: 1px solid #1E293B;
-      position: relative;
-    }
-    .camera-lens::after {
-      content: '';
-      position: absolute;
-      top: 3.5px;
-      left: 3.5px;
-      width: 6.5px;
-      height: 6.5px;
-      border-radius: 50%;
-      background: #1E3A8A;
-      opacity: 0.9;
-    }
-
-    /* Authentic iOS Status Bar */
+    /* iOS Authentic Status Bar */
     .status-bar {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 140px;
+      height: 130px;
       pointer-events: none;
       z-index: 50;
       display: flex;
       justify-content: space-between;
-      padding: 34px 58px 0 58px;
+      align-items: flex-start;
+      padding: 36px 56px 0 56px;
     }
 
     .status-time {
-      font-size: 29px;
+      font-size: 28px;
       font-weight: 700;
-      color: #111827;
-      letter-spacing: -0.4px;
+      color: #191F28;
+      letter-spacing: -0.3px;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+    }
+
+    /* Clean Dynamic Island */
+    .dynamic-island-pill {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 52px;
+      background: #000000;
+      border-radius: 26px;
+      z-index: 60;
     }
 
     .status-right-icons {
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: #111827;
+      gap: 10px;
+      color: #191F28;
+      padding-top: 2px;
     }
 
-    /* Real App Screenshot */
+    /* Real App Screenshot Image */
     .screen-img {
       width: 100%;
       height: 100%;
@@ -316,116 +210,112 @@ function generateHTML(data) {
     /* iOS Home Indicator Bar */
     .home-indicator {
       position: absolute;
-      bottom: 18px;
+      bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
       width: 280px;
-      height: 8px;
-      background: #191F28;
+      height: 7px;
+      background: #000000;
       border-radius: 9999px;
       z-index: 50;
-      opacity: 0.8;
+      opacity: 0.65;
     }
   </style>
 </head>
 <body>
+  <!-- Clean Header -->
   <div class="header-area">
-    <div class="kicker-tag">${data.tag}</div>
-    <h1 class="headline">${data.title}</h1>
+    <h1 class="headline">
+      ${data.titleLine1}<br>${data.titleLine2}
+    </h1>
     <p class="sub-copy">${data.sub}</p>
   </div>
 
-  <div class="iphone-wrapper">
-    <!-- Physical Side Buttons -->
-    <div class="btn-action"></div>
-    <div class="btn-vol-up"></div>
-    <div class="btn-vol-down"></div>
-    <div class="btn-power"></div>
+  <!-- Screen Card (No bulky phone frame, purely screen-shaped) -->
+  <div class="screen-card-wrapper">
+    <!-- Dynamic Island -->
+    <div class="dynamic-island-pill"></div>
 
-    <div class="iphone-body">
-      <div class="iphone-inner-rim">
-        <div class="speaker-slit"></div>
-
-        <div class="iphone-screen">
-          <!-- Dynamic Island -->
-          <div class="dynamic-island-pill">
-            <div class="camera-lens"></div>
-          </div>
-
-          <!-- iOS Status Bar -->
-          <div class="status-bar">
-            <div class="status-time">9:41</div>
-            <div class="status-right-icons">
-              <!-- Cellular -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="3" y="16" width="3" height="5" rx="1"/>
-                <rect x="8" y="12" width="3" height="9" rx="1"/>
-                <rect x="13" y="8" width="3" height="13" rx="1"/>
-                <rect x="18" y="4" width="3" height="17" rx="1"/>
-              </svg>
-              <!-- Wi-Fi -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21L24 8.98C20.93 5.9 16.69 4 12 4ZM12 8C15.11 8 17.96 9.17 20.15 11.12L12 19.34L3.85 11.12C6.04 9.17 8.89 8 12 8Z"/>
-              </svg>
-              <!-- Battery -->
-              <svg width="36" height="24" viewBox="0 0 28 16" fill="currentColor">
-                <rect x="1" y="1" width="22" height="14" rx="3.5" stroke="currentColor" stroke-width="1.8" fill="none"/>
-                <rect x="3.5" y="3.5" width="17" height="9" rx="2" fill="currentColor"/>
-                <path d="M25 5.5C25.55 5.95 26 6.9 26 8C26 9.1 25.55 10.05 25 10.5V5.5Z"/>
-              </svg>
-            </div>
-          </div>
-
-          <img class="screen-img" src="${data.image}" alt="App Screen" />
-          <div class="home-indicator"></div>
-        </div>
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-time">9:41</div>
+      <div class="status-right-icons">
+        <!-- Cellular -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="3" y="16" width="3" height="5" rx="1"/>
+          <rect x="8" y="12" width="3" height="9" rx="1"/>
+          <rect x="13" y="8" width="3" height="13" rx="1"/>
+          <rect x="18" y="4" width="3" height="17" rx="1"/>
+        </svg>
+        <!-- Wi-Fi -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21L24 8.98C20.93 5.9 16.69 4 12 4ZM12 8C15.11 8 17.96 9.17 20.15 11.12L12 19.34L3.85 11.12C6.04 9.17 8.89 8 12 8Z"/>
+        </svg>
+        <!-- Battery -->
+        <svg width="34" height="20" viewBox="0 0 28 16" fill="none">
+          <rect x="1" y="1" width="22" height="14" rx="4" stroke="currentColor" stroke-width="2"/>
+          <rect x="3" y="3" width="16" height="10" rx="2" fill="currentColor"/>
+          <path d="M25 5.5C25.8 6.2 26 7 26 8C26 9 25.8 9.8 25 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </div>
     </div>
+
+    <!-- Real App Screen -->
+    <img src="${data.image}" class="screen-img" alt="Screen Content">
+
+    <!-- Home Indicator -->
+    <div class="home-indicator"></div>
   </div>
 </body>
 </html>`;
 }
 
 async function run() {
+  console.log('Launching browser to render 5 clean app store screenshots...');
   const browser = await puppeteer.launch({
     executablePath: chromePath,
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
-  console.log('Rendering 5 App Store Screenshots (iPhone 16 Pro Chassis, Minimal Ohouse/Coupang style)...');
+  const page = await browser.newPage();
+  await page.setViewport({
+    width: 1290,
+    height: 2796,
+    deviceScaleFactor: 1
+  });
 
   for (let i = 0; i < screensData.length; i++) {
-    const s = screensData[i];
-    console.log(`[${i + 1}/5] Generating: ${s.id} (${s.engName})...`);
+    const data = screensData[i];
+    console.log(`[${i + 1}/5] Rendering ${data.id}...`);
 
-    const page = await browser.newPage();
-    await page.setViewport({
-      width: 1290,
-      height: 2796,
-      deviceScaleFactor: 1
+    const html = generateHTML(data);
+    await page.setContent(html, { waitUntil: 'domcontentloaded' });
+
+    // Wait a brief moment for fonts and rendering to settle
+    await new Promise(resolve => setTimeout(resolve, 600));
+
+    const desktopKrPath = path.join(desktopDir, `신상픽_앱스토어_${data.id}.png`);
+    const desktopEngPath = path.join(desktopDir, `${data.engName}.png`);
+    const repoPath = path.join(repoScreenshotsDir, `${data.engName}.png`);
+
+    await page.screenshot({
+      path: desktopKrPath,
+      type: 'png'
     });
 
-    const html = generateHTML(s);
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    // Copy to English filename on Desktop and Repo
+    fs.copyFileSync(desktopKrPath, desktopEngPath);
+    fs.copyFileSync(desktopKrPath, repoPath);
 
-    const desktopKorPath = path.join(desktopDir, `신상픽_앱스토어_${s.id}.png`);
-    const desktopEngPath = path.join(desktopDir, `${s.engName}.png`);
-    const repoPath = path.join(repoScreenshotsDir, `${s.engName}.png`);
-
-    await page.screenshot({ path: desktopKorPath, type: 'png' });
-    fs.copyFileSync(desktopKorPath, desktopEngPath);
-    fs.copyFileSync(desktopKorPath, repoPath);
-
-    console.log(` -> Saved to Desktop: ${desktopKorPath}`);
-    console.log(` -> Saved to Desktop: ${desktopEngPath}`);
-    console.log(` -> Saved to Repo: ${repoPath}`);
-
-    await page.close();
+    console.log(` -> Saved: ${desktopKrPath}`);
   }
 
   await browser.close();
-  console.log('All 5 App Store screenshots re-rendered successfully!');
+  console.log('All 5 screenshots successfully generated!');
 }
 
-run().catch(console.error);
+run().catch(err => {
+  console.error('Error generating screenshots:', err);
+  process.exit(1);
+});

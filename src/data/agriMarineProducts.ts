@@ -1,9 +1,5 @@
 import { Product } from '../types';
 
-/**
- * 네이버쇼핑 농축산물 각 카테고리별 실시간 최다 판매 1위 공식 등록 상품 데이터 (총 19종)
- * 산지직송, 실시간 판매량/리뷰 수, 검증된 당도 및 규격 스펙 반영
- */
 export const AGRI_MARINE_PRODUCTS: Product[] = [
   {
     "id": "agri-fruit-01",
@@ -28,7 +24,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "3kg / 5kg (10~18과)",
-    "calories": 52,
     "origin": "국내산 (경북 청송·문경·영주)",
     "manufacturer": "과일꾼 산지직송 협동조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -150,7 +145,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "2kg / 4kg (8~14과)",
-    "calories": 39,
     "origin": "국내산 (경북 청도·영천)",
     "manufacturer": "청온과 영농조합법인",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -271,7 +265,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "400g (특과 12~16입)",
-    "calories": 32,
     "origin": "국내산 (충남 논산)",
     "manufacturer": "농산다팜 스마트팜영농조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -392,7 +385,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "6kg ~ 8kg (대과 1통)",
-    "calories": 30,
     "origin": "국내산 (전북 고창 / 충북 음성 맹동)",
     "manufacturer": "농수산도매시장 산지유통센터",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -514,7 +506,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "3kg / 5kg (로열과 2S~M)",
-    "calories": 47,
     "origin": "국내산 (제주도 서귀포시 남원읍)",
     "manufacturer": "인하네 영농조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -636,7 +627,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "2kg (2~3송이, 송이당 700g 이상)",
-    "calories": 67,
     "origin": "국내산 (경북 김천·상주)",
     "manufacturer": "과일꾼 산지직송 협동조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -758,7 +748,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "13kg 대용량 / 1박스 (약 60~70개)",
-    "calories": 89,
     "origin": "필리핀 고산지 (정식 수입 검역완료)",
     "manufacturer": "만복이상회 수입청과",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -880,7 +869,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "5kg / 7.5kg (7~12과)",
-    "calories": 51,
     "origin": "국내산 (전남 나주시)",
     "manufacturer": "나주청년농부 영농조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1002,7 +990,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "2kg / 3kg / 5kg (8~18과)",
-    "calories": 31,
     "origin": "국내산 (경북 성주군)",
     "manufacturer": "오렌지씨 산지직송 유통",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1124,7 +1111,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "300g / 500g (냉장 진공포장)",
-    "calories": 250,
     "origin": "국내산 한우 1++ 등급 (BMS No.9)",
     "manufacturer": "진한우 마장동 축산유통",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1246,7 +1232,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "1kg (구이용 1.2cm 황금두께)",
-    "calories": 330,
     "origin": "국내산 한돈 1등급",
     "manufacturer": "유황한돈 농축산가공협동조합",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1367,7 +1352,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "1kg (11~12호 닭도리용 절단)",
-    "calories": 190,
     "origin": "국내산 (전북 익산·김제)",
     "manufacturer": "닭장사 신선축산",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1488,7 +1472,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "500g / 1kg (냉장 진공팩)",
-    "calories": 220,
     "origin": "국내산 (전남 나주/영암)",
     "manufacturer": "팜스제임 오리농장",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1610,7 +1593,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "30구 (대란 52~60g x 30알)",
-    "calories": 72,
     "origin": "국내산 (전북 고창 상하농원 지정농가)",
     "manufacturer": "상하농원 공식스토어",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1732,7 +1714,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "700g (묵직한 대용량)",
-    "calories": 84,
     "origin": "국내산 백태 100%",
     "manufacturer": "정담 두부집",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1854,7 +1835,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "3kg / 5kg / 10kg (중·대·특대 선별)",
-    "calories": 66,
     "origin": "국내산 (강원도 평창·홍천 고랭지)",
     "manufacturer": "친환경팔도 산지유통",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -1976,7 +1956,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "3kg / 5kg (특상·중상 선별)",
-    "calories": 128,
     "origin": "국내산 (전북 고창군 황토밭)",
     "manufacturer": "해들녘고구마 농장",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -2098,7 +2077,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "3kg / 5kg / 10kg (중·대과 선별)",
-    "calories": 40,
     "origin": "국내산 (전남 무안군 황토밭)",
     "manufacturer": "정가문 청년농부",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
@@ -2220,7 +2198,6 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
       "산지직송"
     ],
     "volume": "10kg / 20kg (단일품종 고시히카리)",
-    "calories": 130,
     "origin": "국내산 100% (경기·충남)",
     "manufacturer": "살레농수산 정미소",
     "shelfLife": "신선식품 (수령 후 가급적 빠른 섭취 권장)",
