@@ -729,7 +729,7 @@ export const CompareModal: React.FC = () => {
                 </div>
 
                 {/* 댓글 본문 */}
-                <p className="text-xs text-gray-800 font-medium mt-2 leading-relaxed whitespace-pre-wrap pl-9">
+                <p className="text-xs text-gray-800 font-medium mt-2 leading-relaxed whitespace-pre-wrap pl-9 break-words break-all [overflow-wrap:anywhere]">
                   {comment.content}
                 </p>
 
@@ -770,7 +770,7 @@ export const CompareModal: React.FC = () => {
                           <span className="font-bold text-gray-700">{rep.userName}</span>
                           <span>{rep.createdAt}</span>
                         </div>
-                        <p className="text-gray-700 text-xs">{rep.content}</p>
+                        <p className="text-gray-700 text-xs break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">{rep.content}</p>
                       </div>
                     ))}
 

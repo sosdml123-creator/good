@@ -256,11 +256,23 @@ FOR EACH ROW EXECUTE FUNCTION public.fn_sync_post_comments_count();
 -- F. Auto create profile when new auth user signs up
 CREATE OR REPLACE FUNCTION public.fn_handle_new_user()
 RETURNS TRIGGER AS $$
+DECLARE
+    v_provider TEXT;
+    v_display_name TEXT;
 BEGIN
+    v_provider := COALESCE(NEW.raw_app_meta_data->>'provider', 'email');
+
+    -- 애플 및 카카오 로그인은 개인정보 보호 및 실명 노출 방지를 위해 무작위 닉네임 부여
+    IF v_provider IN ('kakao', 'apple') THEN
+        v_display_name := '신상러버_' || LPAD((FLOOR(RANDOM() * 900) + 100)::TEXT, 3, '0');
+    ELSE
+        v_display_name := COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name', '신상러버_' || LPAD((FLOOR(RANDOM() * 900) + 100)::TEXT, 3, '0'));
+    END IF;
+
     INSERT INTO public.profiles (id, display_name, avatar_url, level, points)
     VALUES (
         NEW.id,
-        COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name', '신상러버_' || SUBSTRING(NEW.id::text, 1, 4)),
+        v_display_name,
         COALESCE(NEW.raw_user_meta_data->>'avatar_url', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'),
         'Lv.1',
         100

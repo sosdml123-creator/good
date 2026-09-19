@@ -239,6 +239,11 @@ export const WriteReviewModal: React.FC = () => {
       return;
     }
 
+    if (text.length > 300) {
+      showToast('리뷰는 최대 300자까지 작성 가능합니다.', 'info');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const extraTags = [
@@ -251,7 +256,7 @@ export const WriteReviewModal: React.FC = () => {
         prod.id,
         rating,
         { taste: metric1, value: metric2, portion: metric3, repurchase: metric4 },
-        text.trim(),
+        text.trim().slice(0, 300),
         images.length > 0 ? images : [prod.image],
         extraTags,
         {
@@ -723,14 +728,21 @@ export const WriteReviewModal: React.FC = () => {
           </div>
           <textarea
             rows={5}
+            maxLength={300}
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최소 5자 이상)"
-            className="w-full bg-gray-50 rounded-xl p-3 text-xs text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-gray-900 focus:bg-white transition-colors"
+            onChange={(e) => {
+              if (e.target.value.length <= 300) {
+                setText(e.target.value);
+              }
+            }}
+            placeholder="포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최대 300자, 최소 5자 이상)"
+            className="w-full bg-gray-50 rounded-xl p-3 text-xs text-gray-800 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-gray-900 focus:bg-white transition-colors break-words break-all"
           />
-          <div className="flex items-center justify-between text-[11px] text-gray-400 pt-0.5">
-            <span>정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
-            <span>{text.length}/500자</span>
+          <div className="flex items-center justify-between text-[11px] pt-0.5">
+            <span className="text-gray-400">정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
+            <span className={`font-medium ${text.length >= 300 ? 'text-rose-500 font-bold' : text.length >= 250 ? 'text-amber-600 font-semibold' : 'text-gray-400'}`}>
+              {text.length}/300자
+            </span>
           </div>
         </div>
 

@@ -491,7 +491,7 @@ export const CommunityView: React.FC = () => {
                 <span>·</span>
                 <span>{typeof selectedPost.createdAt === 'string' && selectedPost.createdAt.includes('T') ? new Date(selectedPost.createdAt).toLocaleDateString() : selectedPost.createdAt}</span>
               </div>
-              <p className="text-xs text-gray-800 whitespace-pre-wrap leading-relaxed">
+              <p className="text-xs text-gray-800 whitespace-pre-wrap leading-relaxed break-words break-all [overflow-wrap:anywhere]">
                 {selectedPost.content}
               </p>
 
@@ -521,7 +521,7 @@ export const CommunityView: React.FC = () => {
                           <span className="font-bold text-gray-800">{cm.userName}</span>
                           <span>{cm.createdAt}</span>
                         </div>
-                        <p className="text-gray-700">{cm.content}</p>
+                        <p className="text-gray-700 break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">{cm.content}</p>
                       </div>
                     ))
                   ) : (

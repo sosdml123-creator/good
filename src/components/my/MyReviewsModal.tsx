@@ -44,7 +44,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
         <div className="flex-1 overflow-y-auto p-4 divide-y divide-gray-100">
           {myReviews.length > 0 ? (
             myReviews.map((r) => (
-              <div key={r.id} className="py-4 first:pt-0 last:pb-0 space-y-2.5">
+              <div key={r.id} className="py-4 first:pt-0 last:pb-0 space-y-2.5 min-w-0 w-full">
                 
                 {/* Product link header */}
                 <div 
@@ -102,13 +102,13 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
 
                 {/* Headline */}
                 {r.headline && (
-                  <div className="text-xs font-black text-gray-900 leading-snug">
+                  <div className="text-xs font-black text-gray-900 leading-snug break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">
                     "{r.headline}"
                   </div>
                 )}
 
                 {/* Review Content */}
-                <p className="text-xs text-gray-700 leading-relaxed bg-white">
+                <p className="text-xs text-gray-700 leading-relaxed bg-white break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">
                   {r.content}
                 </p>
 

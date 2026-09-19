@@ -656,6 +656,23 @@ export const getNextSequentialNickname = async (
   return `신상러버_${formattedSeq}`;
 };
 
+/**
+ * Extracts all potential real names/nicknames provided by OAuth (Kakao, Google, etc.)
+ * to prevent real name leakage and enforce random nicknames like Apple login
+ */
+const getSocialRealNames = (user: any): string[] => {
+  if (!user) return [];
+  const meta = user.user_metadata || {};
+  return [
+    meta.full_name,
+    meta.name,
+    meta.nickname,
+    meta.preferred_username,
+    meta.user_name,
+    user.email ? user.email.split('@')[0] : null,
+  ].filter((n): n is string => Boolean(n && typeof n === 'string' && n.trim().length > 0));
+};
+
 // Initial User Profile
 const createInitialUser = (): UserProfile => {
   const cachedUid = localStorage.getItem('sinsangpick_uid');
@@ -816,6 +833,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const nextPoints = currentUser.points + bonus;
     localStorage.setItem('sinsangpick_points', nextPoints.toString());
     localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
+    localStorage.setItem('sinsangpick_custom_nickname_' + uid, 'true');
     localStorage.setItem('sinsangpick_name', newNickname);
 
     setCurrentUser(prev => ({
@@ -1414,13 +1432,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         .single();
 
       if (profile) {
-        setCurrentUser(prev => ({
-          ...prev,
-          displayName: profile.display_name || prev.displayName,
-          photoURL: profile.avatar_url || prev.photoURL,
-          points: profile.points ?? prev.points,
-          level: calculateLevel(profile.points ?? prev.points),
-        }));
+        setCurrentUser(prev => {
+          const isKakao = prev.provider === 'kakao';
+          const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
+          let finalDisplayName = prev.displayName;
+
+          if (profile.display_name && !profile.display_name.includes('사용자') && profile.display_name !== '신상러버') {
+            if (isCustomized || !isKakao || /^신상러버_\d+$/.test(profile.display_name)) {
+              finalDisplayName = profile.display_name;
+            }
+          }
+
+          return {
+            ...prev,
+            displayName: finalDisplayName,
+            photoURL: profile.avatar_url || prev.photoURL,
+            points: profile.points ?? prev.points,
+            level: calculateLevel(profile.points ?? prev.points),
+          };
+        });
       }
 
       // 6. Fetch All Profiles (for Admin Points & Member Management)
@@ -1500,13 +1530,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       setIsSupabaseConnected(true);
       const uid = user.id;
+      const providerName = (user.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
+      const socialNames = getSocialRealNames(user);
+      const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
+
+      let resolvedDisplayName = localStorage.getItem('sinsangpick_name');
+      const isSocialRealName = resolvedDisplayName && socialNames.includes(resolvedDisplayName);
+
+      // 카카오 및 소셜 로그인 시 계정 실명 노출 방지:
+      // provider가 kakao이거나 apple일 때 user_metadata의 실명을 바로 displayName으로 쓰지 않고 무작위 닉네임 적용
+      if (
+        !resolvedDisplayName ||
+        resolvedDisplayName.includes('사용자') ||
+        resolvedDisplayName === '신상러버' ||
+        /^신상러버_[a-z0-9]{4}$/i.test(resolvedDisplayName) ||
+        isSocialRealName ||
+        (providerName === 'kakao' && !isCustomized)
+      ) {
+        resolvedDisplayName = getInitialSequentialNicknameSync();
+        localStorage.setItem('sinsangpick_name', resolvedDisplayName);
+      }
 
       setCurrentUser(prev => ({
         ...prev,
         uid,
-        displayName: user.user_metadata?.full_name || prev.displayName,
+        displayName: resolvedDisplayName || prev.displayName,
         photoURL: user.user_metadata?.avatar_url || prev.photoURL,
         isAnonymous: user.is_anonymous || false,
+        provider: providerName,
+        email: user.email || prev.email,
       }));
 
       await loadSupabaseData(uid);
@@ -1539,32 +1591,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (session?.user && isMounted) {
           const u = session.user;
           const providerName = (u.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
-          
+          const socialNames = getSocialRealNames(u);
+          const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + u.id) === 'true';
+
           let displayName = localStorage.getItem('sinsangpick_name');
-          if (
+          const isLocalSocialName = displayName && socialNames.includes(displayName);
+
+          // Fetch DB profile to check if valid custom nickname already exists
+          let dbDisplayName: string | null = null;
+          try {
+            const { data: dbProfile } = await client
+              .from('profiles')
+              .select('display_name')
+              .eq('id', u.id)
+              .maybeSingle();
+            if (dbProfile?.display_name) {
+              dbDisplayName = dbProfile.display_name;
+            }
+          } catch (e) {
+            console.warn('[Supabase Profile Check Error]', e);
+          }
+
+          const isDbSocialName = dbDisplayName && socialNames.includes(dbDisplayName);
+
+          // 카카오/애플 로그인 시 닉네임 무작위화 로직 (실명 노출 철저 방지):
+          // 1) 사용자가 직접 수정한 커스텀 닉네임(isCustomized)이 있고, DB에 저장된 이름이 실명이 아니며 유효한 경우 유지
+          // 2) 그 외(신규 가입, 카카오 실명이 노출되어 있는 경우, 기본값 '신상러버' 등)에는 애플 로그인처럼 getNextSequentialNickname으로 무작위 닉네임 발급!
+          const needsRandomNickname =
             !displayName ||
             displayName.includes('사용자') ||
             displayName === '신상러버' ||
-            /^신상러버_[a-z0-9]{4}$/i.test(displayName)
-          ) {
-            try {
-              const { data: dbProfile } = await client
-                .from('profiles')
-                .select('display_name')
-                .eq('id', u.id)
-                .maybeSingle();
-              if (
-                dbProfile?.display_name &&
-                !dbProfile.display_name.includes('사용자') &&
-                dbProfile.display_name !== '신상러버'
-              ) {
-                displayName = dbProfile.display_name;
-              } else {
-                displayName = await getNextSequentialNickname(client);
-              }
-            } catch {
-              displayName = await getNextSequentialNickname(client);
+            /^신상러버_[a-z0-9]{4}$/i.test(displayName) ||
+            isLocalSocialName ||
+            isDbSocialName ||
+            ((providerName === 'kakao' || providerName === 'apple') && !isCustomized);
+
+          if (needsRandomNickname) {
+            if (
+              isCustomized &&
+              dbDisplayName &&
+              !isDbSocialName &&
+              !dbDisplayName.includes('사용자') &&
+              dbDisplayName !== '신상러버' &&
+              !/^신상러버_[a-z0-9]{4}$/i.test(dbDisplayName)
+            ) {
+              displayName = dbDisplayName;
+            } else {
+              // 애플 로그인처럼 카카오 로그인 시에도 고유한 무작위 순번 닉네임(신상러버_XXX) 자동 생성
+              displayName = await getNextSequentialNickname(client, allProfiles);
             }
+          } else if (dbDisplayName && !isDbSocialName && !dbDisplayName.includes('사용자')) {
+            displayName = dbDisplayName;
           }
 
           const photoURL = u.user_metadata?.avatar_url || DEFAULT_AVATAR;
@@ -1951,6 +2028,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (trimmed) {
       try {
         localStorage.setItem('sinsangpick_name', trimmed);
+        localStorage.setItem('sinsangpick_custom_nickname_' + currentUser.uid, 'true');
       } catch (e) {
         console.warn('Failed to save nickname to localStorage', e);
       }
@@ -2238,7 +2316,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       userLevel: currentUser.level,
       rating,
       detailedRating,
-      content: content || '맛있게 잘 먹었습니다! 적극 추천합니다.',
+      content: content ? content.slice(0, 300) : '맛있게 잘 먹었습니다! 적극 추천합니다.',
       images: images && images.length > 0 ? images : [targetProduct.image],
       likes: 0,
       isLiked: false,

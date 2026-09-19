@@ -117,7 +117,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
               작성자: <strong className="text-gray-800 font-bold">{target.authorName}</strong>
             </div>
             {target.contentSnippet && (
-              <p className="text-[11px] text-gray-600 line-clamp-2 italic">
+              <p className="text-[11px] text-gray-600 line-clamp-2 italic break-words break-all [overflow-wrap:anywhere]">
                 "{target.contentSnippet}"
               </p>
             )}

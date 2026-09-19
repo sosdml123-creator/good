@@ -73,7 +73,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
       {sortedReviews.length > 0 ? (
         <div className="space-y-4">
           {sortedReviews.map((r) => (
-            <div key={r.id} className="border-b border-gray-100 pb-4 last:border-0">
+            <div key={r.id} className="border-b border-gray-100 pb-4 last:border-0 min-w-0 w-full">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-xs text-gray-700">
@@ -139,7 +139,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
 
               {/* Headline */}
               {r.headline && (
-                <div className="text-[13px] font-black text-gray-900 mb-1 leading-snug">
+                <div className="text-[13px] font-black text-gray-900 mb-1 leading-snug break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">
                   "{r.headline}"
                 </div>
               )}
@@ -165,7 +165,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 </div>
               )}
 
-              <p className="text-[13px] text-gray-700 leading-relaxed whitespace-pre-line">
+              <p className="text-[13px] text-gray-700 leading-relaxed whitespace-pre-wrap break-words break-all [overflow-wrap:anywhere]">
                 {r.content}
               </p>
 
@@ -226,7 +226,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                           <span className="font-bold text-gray-800">{cm.userName}</span>
                           <span>{cm.createdAt}</span>
                         </div>
-                        <p className="text-gray-700">{cm.content}</p>
+                        <p className="text-gray-700 break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere]">{cm.content}</p>
                       </div>
                     ))
                   ) : (

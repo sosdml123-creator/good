@@ -1233,7 +1233,7 @@ export const HomeView: React.FC = () => {
                       {r.productName}
                     </span>
 
-                    <p className="text-[13px] text-gray-700 leading-relaxed">
+                    <p className="text-[13px] text-gray-700 leading-relaxed whitespace-pre-wrap break-words break-all [overflow-wrap:anywhere]">
                       {r.content}
                     </p>
 

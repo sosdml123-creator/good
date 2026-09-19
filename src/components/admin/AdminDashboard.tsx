@@ -2909,7 +2909,7 @@ export const AdminDashboard: React.FC = () => {
                                 <span className="text-xs font-bold">{r.userName}</span>
                                 <span className="text-[10px] text-indigo-500 font-semibold">{r.userLevel}</span>
                               </div>
-                              <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                              <p className={`text-xs leading-relaxed break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere] ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                                 {r.content}
                               </p>
                               {r.images && r.images.length > 0 && (
