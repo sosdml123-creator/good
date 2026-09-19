@@ -323,9 +323,9 @@ export interface BannerItem {
   id: string;
   image: string;
   badge?: string;
-  title: string;
-  subtitle: string;
-  buttonText: string;
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
   linkType?: BannerLinkType;
   linkUrl?: string;
   linkEventId?: string;

@@ -851,10 +851,6 @@ export const AdminDashboard: React.FC = () => {
   };
 
   const handleSaveBanner = () => {
-    if (!bannerForm.title.trim()) {
-      showToast('배너 제목을 입력해주세요.', 'error');
-      return;
-    }
     if (!bannerForm.image.trim()) {
       showToast('배너 이미지 파일을 선택해주세요.', 'error');
       return;
@@ -867,9 +863,9 @@ export const AdminDashboard: React.FC = () => {
     const payload: Omit<BannerItem, 'id' | 'order'> & { badge?: string; order?: number } = {
       image: bannerForm.image,
       badge: bannerForm.badge?.trim() || undefined,
-      title: bannerForm.title.trim(),
-      subtitle: bannerForm.subtitle.trim(),
-      buttonText: bannerForm.buttonText.trim() || '바로가기',
+      title: bannerForm.title?.trim() || `${bannerForm.order}구좌 배너`,
+      subtitle: bannerForm.subtitle?.trim() || '',
+      buttonText: bannerForm.buttonText?.trim() || '',
       linkType: bannerForm.linkType,
       linkUrl: bannerForm.linkType === 'url' ? bannerForm.linkUrl?.trim() : undefined,
       linkEventId: bannerForm.linkType === 'event' ? bannerForm.linkEventId : undefined,
@@ -3401,27 +3397,11 @@ export const AdminDashboard: React.FC = () => {
 
                     {/* Preview Card Showcase */}
                     <div className="relative aspect-[21/9] sm:aspect-[24/9] md:aspect-[30/9] max-h-[160px] w-full rounded-2xl overflow-hidden bg-slate-900 shadow-md">
-                      <img src={currentPreview.image} alt={currentPreview.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent p-5 flex flex-col justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white font-mono shadow-sm">
-                            {currentPreview.order}구좌 노출 중
-                          </span>
-                          {currentPreview.badge && (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30">
-                              {currentPreview.badge}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-end justify-between">
-                          <div>
-                            <h4 className="text-sm md:text-base font-black text-white leading-tight">{currentPreview.title}</h4>
-                            <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">{currentPreview.subtitle}</p>
-                          </div>
-                          <span className="px-3 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-bold shrink-0 shadow-sm">
-                            {currentPreview.buttonText} →
-                          </span>
-                        </div>
+                      <img src={currentPreview.image} alt={currentPreview.title || '배너 프리뷰'} className="w-full h-full object-cover" />
+                      <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600/90 backdrop-blur-xs text-white font-mono shadow-sm">
+                          {currentPreview.order}구좌 노출 중 (클릭 시 이동)
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -3520,41 +3500,21 @@ export const AdminDashboard: React.FC = () => {
 
                             {/* Banner Live Card Look */}
                             <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
-                              <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 flex flex-col justify-between">
-                                <div className="flex items-center justify-between">
-                                  <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1">
-                                    {banner.linkUrl ? (
-                                      <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
-                                    ) : banner.linkEventId ? (
-                                      <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
-                                    ) : banner.linkProductId ? (
-                                      <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
-                                    ) : banner.linkCategory ? (
-                                      <><Layers className="w-3 h-3 text-indigo-300" /><span>카테고리: {banner.linkCategory}</span></>
-                                    ) : (
-                                      <span>기본 배너</span>
-                                    )}
-                                  </span>
-
-                                  {banner.badge && (
-                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/80 text-white">
-                                      {banner.badge}
-                                    </span>
+                              <img src={banner.image} alt={banner.title || '배너 이미지'} className="w-full h-full object-cover" />
+                              <div className="absolute top-2.5 left-2.5 z-10">
+                                <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-black/70 backdrop-blur-md text-white border border-white/20 flex items-center gap-1 shadow-sm">
+                                  {banner.linkUrl ? (
+                                    <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
+                                  ) : banner.linkEventId ? (
+                                    <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
+                                  ) : banner.linkProductId ? (
+                                    <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
+                                  ) : banner.linkCategory ? (
+                                    <><Layers className="w-3 h-3 text-indigo-300" /><span>카테고리: {banner.linkCategory}</span></>
+                                  ) : (
+                                    <span>연결 없음</span>
                                   )}
-                                </div>
-                                <div>
-                                  <h3 className="text-sm font-black text-white leading-tight">{banner.title}</h3>
-                                  <p className="text-xs text-slate-300 mt-0.5 line-clamp-1">{banner.subtitle}</p>
-                                  <span className="inline-block mt-2 px-3 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-bold">
-                                    {banner.buttonText} →
-                                  </span>
-                                  {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
-                                    <p className="mt-1.5 text-[9px] text-amber-200/90 font-medium tracking-tight bg-black/60 px-2 py-0.5 rounded max-w-fit line-clamp-1">
-                                      ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
-                                    </p>
-                                  )}
-                                </div>
+                                </span>
                               </div>
                             </div>
 
@@ -5186,7 +5146,7 @@ export const AdminDashboard: React.FC = () => {
                   <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     {editingBannerId ? '홈 배너 수정' : '새 홈 배너 추가'}
                   </h3>
-                  <p className="text-xs text-slate-400">모바일 홈 화면 상단 캐러셀에 표시될 배너 콘텐츠입니다.</p>
+                  <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">✨ 순수 이미지 배너 모드: 홈 화면에는 텍스트 없이 이미지만 표시되며 클릭 시 원하는 곳으로 이동합니다.</p>
                 </div>
               </div>
               <button onClick={() => setIsBannerModalOpen(false)} className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600">
@@ -5198,7 +5158,7 @@ export const AdminDashboard: React.FC = () => {
               
               {/* Left Form */}
               <div className="space-y-4 text-xs">
-                {/* 0. Slot Order & Badge */}
+                {/* 0. Slot Order & Management Name */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">
@@ -5218,40 +5178,16 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                   <div>
                     <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">
-                      상단 뱃지 문구 (선택)
+                      배너 관리용 식별명 (선택)
                     </label>
                     <input
                       type="text"
-                      value={bannerForm.badge || ''}
-                      onChange={e => setBannerForm({ ...bannerForm, badge: e.target.value })}
-                      placeholder="예: 🥖 빵지순례 오픈"
+                      value={bannerForm.title || ''}
+                      onChange={e => setBannerForm({ ...bannerForm, title: e.target.value })}
+                      placeholder="예: 꼬북칩 이벤트 배너"
                       className={`w-full p-2.5 rounded-xl border ${inputBg}`}
                     />
                   </div>
-                </div>
-
-                {/* 1. Title */}
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">배너 메인 제목 *</label>
-                  <input
-                    type="text"
-                    value={bannerForm.title}
-                    onChange={e => setBannerForm({ ...bannerForm, title: e.target.value })}
-                    placeholder="예: 꼬북칩 신상 100인 체험단 모집"
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
-                </div>
-
-                {/* 2. Subtitle */}
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">서브 설명 문구</label>
-                  <input
-                    type="text"
-                    value={bannerForm.subtitle}
-                    onChange={e => setBannerForm({ ...bannerForm, subtitle: e.target.value })}
-                    placeholder="예: 벨기에산 리얼 초콜릿의 깊고 진한 맛을 가장 먼저 만나보세요"
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
                 </div>
 
                 {/* 3. Image File Upload (User Request: 파일로 선택하게 해줘) */}
