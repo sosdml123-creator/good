@@ -10,60 +10,112 @@ import {
   Store, 
   Sparkles, 
   ShieldCheck, 
-  AlertCircle
+  AlertCircle,
+  Tag,
+  ShoppingBag,
+  Heart,
+  Smile,
+  Flame,
+  Award
 } from 'lucide-react';
 import { ProductCategory } from '../../types';
 
-// 구매처 목록
+// 구매처 목록 & 브랜드 디테일
 const PURCHASE_PLACES = [
-  { id: 'GS25', name: 'GS25' },
-  { id: 'CU', name: 'CU' },
-  { id: '세븐일레븐', name: '세븐일레븐' },
-  { id: '이마트24', name: '이마트24' },
-  { id: '마켓컬리', name: '마켓컬리' },
-  { id: '쿠팡', name: '쿠팡' },
-  { id: '대형마트', name: '대형마트' },
-  { id: '배민B마트', name: '배민B마트' },
-  { id: '동네슈퍼/기타', name: '동네슈퍼/기타' },
+  { id: 'GS25', name: 'GS25', badge: 'GS25', bgActive: 'bg-cyan-50 border-cyan-500 text-cyan-800 ring-2 ring-cyan-400/30', badgeBg: 'bg-cyan-500 text-white' },
+  { id: 'CU', name: 'CU', badge: 'CU', bgActive: 'bg-purple-50 border-purple-500 text-purple-800 ring-2 ring-purple-400/30', badgeBg: 'bg-purple-600 text-white' },
+  { id: '세븐일레븐', name: '7-11', badge: '7-11', bgActive: 'bg-emerald-50 border-emerald-500 text-emerald-800 ring-2 ring-emerald-400/30', badgeBg: 'bg-emerald-600 text-white' },
+  { id: '이마트24', name: 'emart24', badge: 'e24', bgActive: 'bg-amber-50 border-amber-500 text-amber-800 ring-2 ring-amber-400/30', badgeBg: 'bg-amber-500 text-white' },
+  { id: '마켓컬리', name: '마켓컬리', badge: '컬리', bgActive: 'bg-fuchsia-50 border-fuchsia-500 text-fuchsia-800 ring-2 ring-fuchsia-400/30', badgeBg: 'bg-fuchsia-600 text-white' },
+  { id: '쿠팡', name: '쿠팡', badge: '쿠팡', bgActive: 'bg-rose-50 border-rose-500 text-rose-800 ring-2 ring-rose-400/30', badgeBg: 'bg-rose-500 text-white' },
+  { id: '대형마트', name: '대형마트', badge: '마트', bgActive: 'bg-blue-50 border-blue-500 text-blue-800 ring-2 ring-blue-400/30', badgeBg: 'bg-blue-600 text-white' },
+  { id: '배민B마트', name: '배민B마트', badge: 'B마트', bgActive: 'bg-teal-50 border-teal-500 text-teal-800 ring-2 ring-teal-400/30', badgeBg: 'bg-teal-600 text-white' },
+  { id: '동네슈퍼/기타', name: '동네/기타', badge: '기타', bgActive: 'bg-slate-100 border-slate-600 text-slate-900 ring-2 ring-slate-400/30', badgeBg: 'bg-slate-700 text-white' },
 ];
 
-// 구매 혜택 / 행사 조건
+// 구매 혜택 / 행사 조건 (이모지 포함)
 const PURCHASE_EVENTS = [
-  '정가 구매',
-  '1+1 행사',
-  '2+1 행사',
-  '깜짝할인/특가',
-  '무료체험/선물'
+  { id: '정가 구매', label: '정가 구매', icon: '🏷️' },
+  { id: '1+1 행사', label: '1+1 득템', icon: '🎁' },
+  { id: '2+1 행사', label: '2+1 행사', icon: '✌️' },
+  { id: '깜짝할인/특가', label: '특가 타임', icon: '🔥' },
+  { id: '무료체험/선물', label: '무료/선물', icon: '✨' }
 ];
 
-// 재구매 의사 5단계
+// 재구매 의사 5단계 (이모지 & 컬러 테마 감성)
 const REPURCHASE_OPTIONS = [
-  { value: '무조건 또 사먹어요!', emoji: '🤩', label: '적극추천' },
-  { value: '행사/할인하면 살래요', emoji: '😊', label: '만족' },
-  { value: '한 번 먹어본 걸로 만족', emoji: '😐', label: '보통' },
-  { value: '누가 주면 먹을듯', emoji: '💧', label: '아쉬움' },
-  { value: '다시는 안 사먹을래요', emoji: '👎', label: '비추천' },
+  { 
+    value: '무조건 또 사먹어요!', 
+    emoji: '🤩', 
+    label: '적극추천',
+    desc: '매일 사먹고 싶어요!',
+    theme: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-200'
+  },
+  { 
+    value: '행사/할인하면 살래요', 
+    emoji: '😊', 
+    label: '할인추천',
+    desc: '세일하면 꼭 살래요',
+    theme: 'border-teal-500 bg-teal-500 text-white shadow-teal-200'
+  },
+  { 
+    value: '한 번 먹어본 걸로 만족', 
+    emoji: '😐', 
+    label: '보통',
+    desc: '한 번쯤 경험으로!',
+    theme: 'border-amber-500 bg-amber-500 text-white shadow-amber-200'
+  },
+  { 
+    value: '누가 주면 먹을듯', 
+    emoji: '💧', 
+    label: '글쎄요',
+    desc: '내 돈 내고는 음...',
+    theme: 'border-orange-500 bg-orange-500 text-white shadow-orange-200'
+  },
+  { 
+    value: '다시는 안 사먹을래요', 
+    emoji: '👎', 
+    label: '비추천',
+    desc: '제 입맛엔 안맞아요',
+    theme: 'border-rose-500 bg-rose-500 text-white shadow-rose-200'
+  },
 ];
 
-// 맛 프로필 옵션
+// 맛 프로필 옵션 (이모지 & 단계별)
 const FLAVOR_OPTIONS = {
-  sweetness: ['안 달아요', '은은한 단맛', '적당한 달콤함', '아주 달아요'],
-  spiciness: ['안 매워요', '살짝 매콤', '신라면 수준', '불닭급 매움'],
-  texture: ['바삭바삭', '쫀득/꾸덕', '부드러움', '아삭아삭', '촉촉함'],
+  sweetness: [
+    { label: '안 달아요', icon: '🍃' },
+    { label: '은은한 단맛', icon: '🍵' },
+    { label: '적당한 달콤함', icon: '🍯' },
+    { label: '아주 달아요', icon: '🍰' },
+  ],
+  spiciness: [
+    { label: '안 매워요', icon: '🥛' },
+    { label: '살짝 매콤', icon: '🌱' },
+    { label: '신라면 수준', icon: '🌶️' },
+    { label: '불닭급 매움', icon: '🔥' },
+  ],
+  texture: [
+    { label: '바삭바삭', icon: '🥨' },
+    { label: '쫀득/꾸덕', icon: '🍮' },
+    { label: '부드러움', icon: '🍦' },
+    { label: '아삭아삭', icon: '🍎' },
+    { label: '촉촉함', icon: '💧' },
+  ],
 };
 
-// 추천 대상 태그
+// 추천 대상 태그 (이모지 매핑)
 const RECOMMEND_TARGET_TAGS = [
-  '#단짠러버',
-  '#야식혼술족',
-  '#다이어터/저당',
-  '#아이들간식',
-  '#가성비족',
-  '#맵부심',
-  '#홈카페디저트',
-  '#신상얼리어답터',
-  '#단백질충전',
-  '#칼로리폭탄'
+  { tag: '#단짠러버', emoji: '🍿' },
+  { tag: '#야식혼술족', emoji: '🍺' },
+  { tag: '#다이어터/저당', emoji: '🥗' },
+  { tag: '#아이들간식', emoji: '👧' },
+  { tag: '#가성비족', emoji: '💰' },
+  { tag: '#맵부심', emoji: '🔥' },
+  { tag: '#홈카페디저트', emoji: '☕' },
+  { tag: '#신상얼리어답터', emoji: '⚡' },
+  { tag: '#단백질충전', emoji: '💪' },
+  { tag: '#칼로리폭탄', emoji: '💣' }
 ];
 
 const SEARCH_CATEGORIES: (ProductCategory | '전체')[] = [
@@ -110,7 +162,7 @@ export const WriteReviewModal: React.FC = () => {
     return products.find(p => p.id === currentProductId) || null;
   }, [products, currentProductId]);
 
-  // 상품 카테고리별 세부 평가 항목 (수박/과일 -> 신선도, 당도 등 분기 + 별점 지원)
+  // 상품 카테고리별 세부 평가 항목
   const categoryMetrics = useMemo(() => {
     const cat = prod?.category || '';
     const name = prod?.name || '';
@@ -216,7 +268,7 @@ export const WriteReviewModal: React.FC = () => {
     }
   };
 
-  // 실시간 적립 포인트 계산 (기본 50P + 사진 30P + 30자 이상 20P = 최대 100P)
+  // 실시간 적립 포인트 계산
   const earnedPoints = useMemo(() => {
     let p = 50;
     if (images.length > 0) p += 30;
@@ -282,118 +334,127 @@ export const WriteReviewModal: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-full pb-24">
+    <div className="bg-gray-50 min-h-full pb-24 font-sans text-gray-900">
       {/* 1. Header */}
-      <div className="sticky top-0 z-30 bg-white border-b border-gray-100 flex items-center justify-between px-4 py-3 shadow-2xs">
-        <button onClick={goBack} className="p-1 -ml-1 text-gray-700 hover:text-gray-900 active:scale-95 transition-transform">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 py-3 shadow-2xs">
+        <button onClick={goBack} className="p-1.5 -ml-1.5 text-gray-700 hover:text-gray-900 rounded-full hover:bg-gray-100 active:scale-95 transition-all">
           <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
         </button>
         <div className="text-center">
-          <span className="text-[15px] font-black text-gray-900 block leading-tight">신상 솔직 리뷰 작성</span>
-          <span className="text-[10px] text-amber-600 font-semibold">최대 +100P 적립 기회!</span>
+          <span className="text-[15px] font-black text-gray-900 block leading-tight tracking-tight">신상 솔직 리뷰 작성</span>
+          <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full inline-block mt-0.5">
+            ✨ 최대 +100P 혜택!
+          </span>
         </div>
         <button 
           onClick={handleSubmit} 
           disabled={isSubmitting || !prod}
-          className={`text-[13px] font-black px-3 py-1 rounded-full transition-all ${
+          className={`text-xs font-black px-4 py-1.5 rounded-full transition-all duration-200 ${
             isSubmitting || !prod
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-900 text-white shadow-xs hover:bg-black active:scale-95'
+              : 'bg-gray-900 text-white shadow-sm hover:bg-black active:scale-95'
           }`}
         >
-          {isSubmitting ? '등록중' : '등록'}
+          {isSubmitting ? '등록중' : '등록 완료'}
         </button>
       </div>
 
       {/* 2. 포인트 적립 게이지 배너 */}
-      <div className="bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 text-white px-4 py-3 shadow-xs">
+      <div className="bg-slate-900 text-white px-4 py-3.5 shadow-xs relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
         <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 text-slate-100">
             <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            작성 혜택 포인트
+            리뷰 작성 적립 포인트
           </span>
           <span className="text-amber-300 text-sm font-black">+{earnedPoints}P / 100P</span>
         </div>
-        <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+        <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden p-0.5 border border-slate-700/50">
           <div 
-            className="bg-amber-300 h-full rounded-full transition-all duration-500 ease-out"
+            className="bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 h-full rounded-full transition-all duration-500 ease-out shadow-xs"
             style={{ width: `${earnedPoints}%` }}
           />
         </div>
-        <div className="flex justify-between items-center text-[10px] text-white/80 mt-1.5 font-medium">
-          <span className={earnedPoints >= 50 ? 'text-amber-200 font-bold' : ''}>기본 +50P</span>
-          <span className={images.length > 0 ? 'text-amber-200 font-bold' : ''}>사진 첨부 +30P</span>
-          <span className={text.trim().length >= 30 ? 'text-amber-200 font-bold' : ''}>30자 이상 +20P</span>
+        <div className="flex justify-between items-center text-[10px] text-slate-400 mt-2 font-medium">
+          <span className={earnedPoints >= 50 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {earnedPoints >= 50 && '✓ '}기본 +50P
+          </span>
+          <span className={images.length > 0 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {images.length > 0 && '✓ '}사진 첨부 +30P
+          </span>
+          <span className={text.trim().length >= 30 ? 'text-amber-300 font-bold flex items-center gap-0.5' : ''}>
+            {text.trim().length >= 30 && '✓ '}30자 이상 +20P
+          </span>
         </div>
       </div>
 
-      <div className="p-4 space-y-3.5 max-w-lg mx-auto">
+      <div className="p-4 space-y-4 max-w-lg mx-auto">
         {/* 3. 상품 선택 / 검색 섹션 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-gray-500 flex items-center gap-1">
-              <Store className="w-3.5 h-3.5 text-gray-700" />
+            <span className="text-xs font-black text-gray-700 flex items-center gap-1.5">
+              <Store className="w-4 h-4 text-gray-900" />
               리뷰 대상 상품
             </span>
             <button
               onClick={() => setIsSearchModalOpen(true)}
-              className="text-[11px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-2.5 py-1 rounded-full flex items-center gap-1 transition-colors"
+              className="text-[11px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full flex items-center gap-1 transition-colors active:scale-95"
             >
-              <Search className="w-3 h-3" />
-              {prod ? '상품 다시 검색' : '상품 검색하기'}
+              <Search className="w-3 h-3 text-gray-500" />
+              {prod ? '상품 변경' : '상품 선택'}
             </button>
           </div>
 
           {prod ? (
             <div 
               onClick={() => setIsSearchModalOpen(true)}
-              className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-100 cursor-pointer transition-colors group"
+              className="flex items-center gap-3.5 p-3 rounded-xl bg-slate-50/80 hover:bg-slate-100 border border-slate-200/80 cursor-pointer transition-all group active:scale-[0.99]"
             >
               <img 
                 src={prod.image} 
                 alt={prod.name} 
-                className="w-14 h-14 rounded-xl object-cover shrink-0 border border-gray-200 bg-white" 
+                className="w-16 h-16 rounded-xl object-cover shrink-0 border border-gray-200 bg-white shadow-2xs" 
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-bold text-gray-700 bg-white border border-gray-200 px-1.5 py-0.5 rounded">
+                  <span className="text-[10px] font-bold text-slate-700 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs">
                     {prod.category}
                   </span>
                   <span className="text-[11px] text-gray-500 font-medium truncate">{prod.brand}</span>
                 </div>
-                <div className="text-[13px] font-bold text-gray-900 mt-1 truncate group-hover:text-gray-900 transition-colors">
+                <div className="text-sm font-black text-gray-900 mt-1 truncate group-hover:text-amber-600 transition-colors">
                   {prod.name}
                 </div>
-                <div className="text-[11px] font-semibold text-gray-600 mt-0.5">
+                <div className="text-xs font-bold text-slate-700 mt-0.5">
                   {prod.price.toLocaleString()}원
                 </div>
               </div>
-              <span className="text-[11px] text-gray-400 font-bold group-hover:text-gray-900 shrink-0">
+              <span className="text-xs text-slate-400 font-bold group-hover:text-slate-900 shrink-0">
                 변경 &gt;
               </span>
             </div>
           ) : (
             <div 
               onClick={() => setIsSearchModalOpen(true)}
-              className="border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl p-5 text-center cursor-pointer hover:bg-gray-100 transition-colors"
+              className="border-2 border-dashed border-gray-200 bg-slate-50/50 rounded-xl p-5 text-center cursor-pointer hover:bg-slate-100/80 hover:border-gray-300 transition-all active:scale-[0.99]"
             >
-              <Search className="w-7 h-7 text-gray-400 mx-auto mb-1.5" />
-              <div className="text-xs font-bold text-gray-900">어떤 상품을 드셔보셨나요?</div>
-              <p className="text-[11px] text-gray-500 mt-0.5">터치하여 리뷰할 상품을 검색해 선택해주세요</p>
+              <Search className="w-8 h-8 text-gray-400 mx-auto mb-2 stroke-[1.5]" />
+              <div className="text-xs font-black text-gray-900">어떤 신상품을 드셔보셨나요?</div>
+              <p className="text-[11px] text-gray-500 mt-1">터치하여 리뷰할 상품을 검색해 선택해주세요</p>
             </div>
           )}
         </div>
 
-        {/* 4. [요구사항 3] 사진 첨부 섹션 (맨 위 상단 배치) */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
+        {/* 4. 사진 첨부 섹션 */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-              📸 사진 첨부 (맨 위 배치)
-              <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-bold">
-                +30P 보너스
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+              📸 생생한 사진 첨부
+              <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200/60">
+                +30P 혜택
               </span>
             </span>
-            <span className="text-[11px] font-semibold text-gray-400">{images.length}/5장</span>
+            <span className="text-xs font-bold text-gray-400">{images.length} / 5장</span>
           </div>
 
           <input 
@@ -405,28 +466,28 @@ export const WriteReviewModal: React.FC = () => {
             className="hidden" 
           />
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-18 h-18 rounded-xl border-2 border-dashed border-gray-300 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 text-xs gap-1 shrink-0 bg-gray-50 hover:bg-gray-100 transition-colors"
+              className="w-20 h-20 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-400 flex flex-col items-center justify-center text-gray-500 gap-1 shrink-0 bg-slate-50/60 hover:bg-slate-100 transition-all active:scale-95"
             >
               <Camera className="w-5 h-5 text-gray-400" />
-              <span className="text-[10px] font-bold text-gray-600">사진 추가</span>
+              <span className="text-[11px] font-black text-gray-600">사진 추가</span>
             </button>
 
             {images.map((imgSrc, idx) => (
-              <div key={idx} className="relative w-18 h-18 rounded-xl overflow-hidden border border-gray-200 shrink-0 group">
+              <div key={idx} className="relative w-20 h-20 rounded-2xl overflow-hidden border border-gray-200 shrink-0 shadow-2xs group">
                 <img src={imgSrc} alt="preview" className="w-full h-full object-cover" />
                 {idx === 0 && (
-                  <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] font-bold px-1 rounded">
+                  <span className="absolute bottom-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md">
                     대표
                   </span>
                 )}
                 <button
                   type="button"
                   onClick={() => removeImage(idx)}
-                  className="absolute top-1 right-1 w-4.5 h-4.5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors"
+                  className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -435,45 +496,48 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 4. 종합 만족도 별점 */}
+        {/* 5. 종합 만족도 별점 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 text-center">
-          <div className="text-xs font-bold text-gray-500 mb-1">종합 만족도 평점</div>
-          <div className="flex items-center justify-center gap-2 py-1">
+          <div className="text-xs font-black text-gray-500 mb-1">종합 만족도 평점</div>
+          <div className="flex items-center justify-center gap-2 py-1.5">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
                 type="button"
                 onClick={() => setRating(star)}
-                className="p-1 transition-transform active:scale-110"
+                className="p-1 transition-all duration-150 hover:scale-115 active:scale-125 focus:outline-none"
               >
                 <Star
-                  className={`w-9 h-9 ${
+                  className={`w-9 h-9 transition-colors ${
                     star <= rating
-                      ? 'fill-[#FFC107] text-[#FFC107] drop-shadow-xs'
-                      : 'fill-gray-200 text-gray-200'
+                      ? 'fill-amber-400 text-amber-400 drop-shadow-sm'
+                      : 'fill-gray-100 text-gray-200'
                   }`}
                 />
               </button>
             ))}
           </div>
-          <div className="text-center text-[13px] font-black text-gray-900 mt-1">
-            {rating === 5 ? '정말 최고예요! 무조건 추천 ⭐⭐⭐⭐⭐' : 
+          <div className="text-center text-xs font-black text-gray-900 mt-1 bg-amber-50/70 text-amber-900 py-1.5 px-3 rounded-full inline-block border border-amber-200/50">
+            {rating === 5 ? '정말 최고예요! 무조건 강력 추천 ⭐⭐⭐⭐⭐' : 
              rating === 4 ? '맛있고 기대 이상이에요 👍' : 
              rating === 3 ? '무난하고 평범해요 😐' : 
              rating === 2 ? '기대에는 조금 못 미쳐요 💦' : '많이 아쉬워요 😢'}
           </div>
         </div>
 
-        {/* 5. 어디서 어떻게 구매하셨나요? (구매처 & 행사 정보) */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3.5">
+        {/* 6. 어디서 구매하셨나요? (개편된 모던 브랜드 카탈로그 선택 UI) */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-              🏪 어디서 구매하셨나요?
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+              <ShoppingBag className="w-4 h-4 text-emerald-600" />
+              어디서 구매하셨나요?
             </span>
-            <span className="text-[10px] text-gray-400">필수 선택</span>
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+              필수 선택
+            </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-1.5">
+          <div className="grid grid-cols-3 gap-2">
             {PURCHASE_PLACES.map((place) => {
               const isSelected = purchasePlace === place.id;
               return (
@@ -481,57 +545,79 @@ export const WriteReviewModal: React.FC = () => {
                   type="button"
                   key={place.id}
                   onClick={() => setPurchasePlace(place.id)}
-                  className={`py-2 px-2 rounded-xl text-xs font-bold border transition-all text-center ${
+                  className={`relative py-2.5 px-2 rounded-xl text-xs font-black border transition-all duration-200 flex flex-col items-center justify-center gap-1.5 active:scale-95 ${
                     isSelected
-                      ? 'bg-gray-900 text-white border-gray-900 shadow-xs scale-[1.02]'
-                      : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+                      ? `${place.bgActive} shadow-xs font-black scale-[1.02]`
+                      : 'bg-slate-50/70 text-gray-600 border-gray-200/80 hover:bg-slate-100 hover:border-gray-300'
                   }`}
                 >
-                  {place.name}
+                  {isSelected && (
+                    <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center">
+                      <Check className="w-2.5 h-2.5 stroke-[3]" />
+                    </span>
+                  )}
+                  <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${isSelected ? place.badgeBg : 'bg-gray-200 text-gray-700'}`}>
+                    {place.badge}
+                  </span>
+                  <span className="text-xs">{place.name}</span>
                 </button>
               );
             })}
           </div>
 
           {/* 구매 행사 & 구매 가격 */}
-          <div className="pt-2 border-t border-gray-100 space-y-2">
-            <div className="text-[11px] font-bold text-gray-600">구매 조건 / 혜택</div>
+          <div className="pt-3 border-t border-gray-100 space-y-2.5">
+            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
+              <Tag className="w-3.5 h-3.5 text-gray-500" />
+              구매 조건 / 혜택
+            </div>
             <div className="flex flex-wrap gap-1.5">
-              {PURCHASE_EVENTS.map((evt) => (
-                <button
-                  type="button"
-                  key={evt}
-                  onClick={() => setPurchaseEvent(evt)}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
-                    purchaseEvent === evt
-                      ? 'bg-gray-900 text-white border-gray-900 font-bold'
-                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
-                  }`}
-                >
-                  {evt}
-                </button>
-              ))}
+              {PURCHASE_EVENTS.map((evt) => {
+                const isSelected = purchaseEvent === evt.id;
+                return (
+                  <button
+                    type="button"
+                    key={evt.id}
+                    onClick={() => setPurchaseEvent(evt.id)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 flex items-center gap-1 active:scale-95 ${
+                      isSelected
+                        ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-slate-900/20'
+                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span>{evt.icon}</span>
+                    <span>{evt.label}</span>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="flex items-center gap-2 pt-1">
-              <span className="text-[11px] text-gray-500 font-medium shrink-0">실제 구매가</span>
-              <input
-                type="text"
-                placeholder={prod ? `${prod.price.toLocaleString()} (선택입력)` : '구매금액 (선택입력)'}
-                value={purchasePrice}
-                onChange={(e) => setPurchasePrice(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1 text-xs text-gray-800 outline-none focus:border-gray-900 focus:bg-white"
-              />
-              <span className="text-xs text-gray-500 shrink-0">원</span>
+              <span className="text-[11px] text-gray-500 font-bold shrink-0">실제 구매가</span>
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  placeholder={prod ? `${prod.price.toLocaleString()} (선택입력)` : '구매금액 (선택입력)'}
+                  value={purchasePrice}
+                  onChange={(e) => setPurchasePrice(e.target.value)}
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-900 outline-none focus:border-slate-900 focus:bg-white transition-colors"
+                />
+              </div>
+              <span className="text-xs text-gray-600 font-bold shrink-0">원</span>
             </div>
           </div>
         </div>
 
-        {/* 6. 재구매 의사 (5단계 감정 이모지) */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
-          <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-            💖 다시 구매하시겠어요?
+        {/* 7. 재구매 의사 (개편된 감정 카드 토글 UI) */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+              <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+              다시 구매하시겠어요?
+            </span>
+            <span className="text-[10px] text-gray-400 font-medium">솔직한 평가</span>
           </div>
+
           <div className="grid grid-cols-5 gap-1.5">
             {REPURCHASE_OPTIONS.map((opt) => {
               const isSelected = repurchaseIntent === opt.value;
@@ -540,30 +626,34 @@ export const WriteReviewModal: React.FC = () => {
                   type="button"
                   key={opt.value}
                   onClick={() => setRepurchaseIntent(opt.value)}
-                  className={`p-2 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all ${
+                  className={`p-2 rounded-xl flex flex-col items-center justify-between gap-1 border transition-all duration-200 active:scale-95 min-h-[76px] ${
                     isSelected
-                      ? 'bg-rose-50 border-rose-400 shadow-xs text-rose-600'
-                      : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
+                      ? `${opt.theme} ring-2 ring-slate-900/10 scale-[1.04] shadow-md`
+                      : 'bg-slate-50/60 border-gray-200/80 text-gray-600 hover:bg-slate-100 hover:border-gray-300'
                   }`}
                 >
-                  <span className="text-2xl">{opt.emoji}</span>
-                  <span className="text-[10px] font-bold text-center leading-tight">{opt.label}</span>
+                  <span className="text-2xl drop-shadow-2xs transition-transform duration-200">{opt.emoji}</span>
+                  <span className="text-[10px] font-black text-center leading-tight">
+                    {opt.label}
+                  </span>
                 </button>
               );
             })}
           </div>
-          <div className="text-center text-[11px] font-semibold text-gray-500 bg-gray-50 py-1.5 rounded-lg">
-            선택: <span className="text-rose-600 font-bold">{repurchaseIntent}</span>
+
+          <div className="text-center text-xs font-bold text-gray-700 bg-slate-50 py-2 px-3 rounded-xl border border-slate-100 flex items-center justify-center gap-1.5">
+            <span>선택한 의견:</span>
+            <span className="text-slate-900 font-black underline underline-offset-2">{repurchaseIntent}</span>
           </div>
         </div>
 
-        {/* 7. 핵심 한 줄 요약평 */}
+        {/* 8. 핵심 한 줄 요약평 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               ✍️ 핵심 한 줄 평
             </span>
-            <span className="text-[10px] text-gray-400">피드 강조 문구</span>
+            <span className="text-[10px] text-gray-400 font-medium">피드 강조 문구</span>
           </div>
           <input
             type="text"
@@ -571,111 +661,137 @@ export const WriteReviewModal: React.FC = () => {
             value={headline}
             onChange={(e) => setHeadline(e.target.value)}
             placeholder="예: 크림이 진짜 가득 차있어서 인생 빵 등극!"
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 font-bold outline-none placeholder-gray-400 focus:border-gray-900 focus:bg-white transition-colors"
+            className="w-full bg-slate-50/70 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 font-bold outline-none placeholder-gray-400 focus:border-slate-900 focus:bg-white transition-colors"
           />
         </div>
 
-        {/* 8. 맛 & 식감 디테일 프로필 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
-          <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-            👅 맛 & 식감 상세 프로필
+        {/* 9. 맛 & 식감 디테일 프로필 (개편된 레벨 게이지 칩 UI) */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+              👅 맛 & 식감 상세 프로필
+            </span>
+            <span className="text-[10px] text-gray-400 font-medium">선택사항</span>
           </div>
 
           {/* 단맛 */}
-          <div className="space-y-1">
-            <div className="text-[11px] font-semibold text-gray-500">단맛의 정도</div>
-            <div className="flex flex-wrap gap-1.5">
-              {FLAVOR_OPTIONS.sweetness.map((s) => (
-                <button
-                  type="button"
-                  key={s}
-                  onClick={() => setSelectedSweetness(selectedSweetness === s ? '' : s)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-all ${
-                    selectedSweetness === s
-                      ? 'bg-amber-50 text-amber-800 border-amber-300 font-bold'
-                      : 'bg-gray-50 text-gray-600 border-gray-200'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
+          <div className="space-y-1.5">
+            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
+              <span>🍯</span> 단맛의 정도
+            </div>
+            <div className="grid grid-cols-4 gap-1.5">
+              {FLAVOR_OPTIONS.sweetness.map((s) => {
+                const isSelected = selectedSweetness === s.label;
+                return (
+                  <button
+                    type="button"
+                    key={s.label}
+                    onClick={() => setSelectedSweetness(isSelected ? '' : s.label)}
+                    className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center justify-center gap-1 active:scale-95 ${
+                      isSelected
+                        ? 'bg-amber-500 text-white border-amber-600 shadow-xs font-black ring-2 ring-amber-400/30'
+                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span className="text-xs">{s.icon}</span>
+                    <span className="text-[11px] truncate">{s.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* 매운맛 */}
-          <div className="space-y-1">
-            <div className="text-[11px] font-semibold text-gray-500">매운맛의 정도</div>
-            <div className="flex flex-wrap gap-1.5">
-              {FLAVOR_OPTIONS.spiciness.map((sp) => (
-                <button
-                  type="button"
-                  key={sp}
-                  onClick={() => setSelectedSpiciness(selectedSpiciness === sp ? '' : sp)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-all ${
-                    selectedSpiciness === sp
-                      ? 'bg-red-50 text-red-700 border-red-300 font-bold'
-                      : 'bg-gray-50 text-gray-600 border-gray-200'
-                  }`}
-                >
-                  {sp}
-                </button>
-              ))}
+          <div className="space-y-1.5">
+            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
+              <span>🌶️</span> 매운맛의 정도
+            </div>
+            <div className="grid grid-cols-4 gap-1.5">
+              {FLAVOR_OPTIONS.spiciness.map((sp) => {
+                const isSelected = selectedSpiciness === sp.label;
+                return (
+                  <button
+                    type="button"
+                    key={sp.label}
+                    onClick={() => setSelectedSpiciness(isSelected ? '' : sp.label)}
+                    className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center justify-center gap-1 active:scale-95 ${
+                      isSelected
+                        ? 'bg-rose-600 text-white border-rose-700 shadow-xs font-black ring-2 ring-rose-400/30'
+                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span className="text-xs">{sp.icon}</span>
+                    <span className="text-[11px] truncate">{sp.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* 식감 */}
-          <div className="space-y-1">
-            <div className="text-[11px] font-semibold text-gray-500">식감</div>
+          <div className="space-y-1.5">
+            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
+              <span>🥨</span> 식감 특징
+            </div>
             <div className="flex flex-wrap gap-1.5">
-              {FLAVOR_OPTIONS.texture.map((tx) => (
-                <button
-                  type="button"
-                  key={tx}
-                  onClick={() => setSelectedTexture(selectedTexture === tx ? '' : tx)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-all ${
-                    selectedTexture === tx
-                      ? 'bg-emerald-50 text-emerald-800 border-emerald-300 font-bold'
-                      : 'bg-gray-50 text-gray-600 border-gray-200'
-                  }`}
-                >
-                  {tx}
-                </button>
-              ))}
+              {FLAVOR_OPTIONS.texture.map((tx) => {
+                const isSelected = selectedTexture === tx.label;
+                return (
+                  <button
+                    type="button"
+                    key={tx.label}
+                    onClick={() => setSelectedTexture(isSelected ? '' : tx.label)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center gap-1 active:scale-95 ${
+                      isSelected
+                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs font-black ring-2 ring-emerald-400/30'
+                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span>{tx.icon}</span>
+                    <span>{tx.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* 9. [요구사항 4] 카테고리별 세부 항목 별점 평가 */}
+        {/* 10. 카테고리별 세부 항목 별점 평가 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-              ⭐ {prod ? `'${prod.category}'` : '상품'} 카테고리별 세부 별점 평가
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-amber-500" />
+              {prod ? `'${prod.category}'` : '상품'} 카테고리 세부 별점
             </span>
-            <span className="text-[10px] text-amber-600 font-semibold">각 1~5점</span>
+            <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full">
+              항목별 1~5점
+            </span>
           </div>
 
-          <div className="space-y-3 divide-y divide-gray-50 pt-1">
+          <div className="space-y-3 divide-y divide-gray-100 pt-1">
             {categoryMetrics.map((item, idx) => (
               <div key={idx} className={`${idx > 0 ? 'pt-3' : ''} flex flex-col gap-1.5`}>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-gray-800">{item.label}</span>
-                  <span className="text-[11px] font-black text-amber-500">{item.val}점 / 5점</span>
+                  <span className="text-xs font-black text-gray-800">{item.label}</span>
+                  <span className="text-xs font-black text-amber-500 bg-amber-50 px-2 py-0.5 rounded-md">
+                    {item.val}점 / 5점
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-gray-400">{item.desc}</span>
+                  <span className="text-[10px] text-gray-400 font-medium">{item.desc}</span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
                         type="button"
                         onClick={() => item.set(star)}
-                        className="p-1 transition-transform active:scale-125"
+                        className="p-1 transition-transform hover:scale-125 active:scale-130 focus:outline-none"
                       >
                         <Star
-                          className={`w-5 h-5 ${
+                          className={`w-5 h-5 transition-colors ${
                             star <= item.val
-                              ? 'fill-[#FFC107] text-[#FFC107]'
-                              : 'fill-gray-200 text-gray-200'
+                              ? 'fill-amber-400 text-amber-400'
+                              : 'fill-gray-100 text-gray-200'
                           }`}
                         />
                       </button>
@@ -687,43 +803,46 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 10. 누구에게 추천하나요? (추천 태그) */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2">
+        {/* 11. 누구에게 추천하나요? (개편된 이모지 태그 선택 UI) */}
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               🎯 누구에게 추천하나요?
             </span>
-            <span className="text-[10px] text-gray-400">최대 4개</span>
+            <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+              {selectedTargets.length} / 4개 선택
+            </span>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {RECOMMEND_TARGET_TAGS.map((tag) => {
-              const isSelected = selectedTargets.includes(tag);
+            {RECOMMEND_TARGET_TAGS.map((item) => {
+              const isSelected = selectedTargets.includes(item.tag);
               return (
                 <button
                   type="button"
-                  key={tag}
-                  onClick={() => toggleTarget(tag)}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                  key={item.tag}
+                  onClick={() => toggleTarget(item.tag)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 flex items-center gap-1 active:scale-95 ${
                     isSelected
-                      ? 'bg-gray-900 text-white shadow-2xs font-bold'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-slate-900/20'
+                      : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
                   }`}
                 >
-                  {tag}
+                  <span>{item.emoji}</span>
+                  <span>{item.tag}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* 11. 솔직한 맛 후기 본문 */}
+        {/* 12. 솔직한 맛 후기 본문 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               📝 솔직한 상세 맛 후기
             </span>
             <span className={`text-[10px] font-bold ${text.trim().length >= 30 ? 'text-emerald-600' : 'text-gray-400'}`}>
-              {text.trim().length >= 30 ? '✓ 30자 달성 (+20P)' : `${text.length}/30자`}
+              {text.trim().length >= 30 ? '✓ 30자 달성' : `${text.length}/30자`}
             </span>
           </div>
           <textarea
@@ -784,7 +903,7 @@ export const WriteReviewModal: React.FC = () => {
                 : 'bg-gray-900 hover:bg-black active:scale-98 text-white shadow-md'
             }`}
           >
-            <span>리뷰 등록하고 +{earnedPoints}P 즉시 받기</span>
+            <span>리뷰 등록하기</span>
           </button>
         </div>
       </div>
@@ -817,7 +936,7 @@ export const WriteReviewModal: React.FC = () => {
 
             {/* Search Input Bar */}
             <div className="p-4 pb-2 shrink-0">
-              <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-3.5 py-2.5 border border-transparent focus-within:border-gray-900 focus-within:bg-white transition-all">
+              <div className="flex items-center gap-2 bg-gray-100 rounded-2xl px-3.5 py-2.5 border border-transparent focus-within:border-slate-900 focus-within:bg-white transition-all">
                 <Search className="w-4 h-4 text-gray-400 shrink-0" />
                 <input
                   type="text"
@@ -847,7 +966,7 @@ export const WriteReviewModal: React.FC = () => {
                       onClick={() => setSelectedSearchCategory(cat)}
                       className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
                         isSelected
-                          ? 'bg-gray-900 text-white shadow-2xs'
+                          ? 'bg-slate-900 text-white shadow-2xs'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       }`}
                     >
@@ -879,7 +998,7 @@ export const WriteReviewModal: React.FC = () => {
                       }}
                       className={`p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition-all border ${
                         isCurrent
-                          ? 'bg-slate-50 border-gray-900 shadow-xs'
+                          ? 'bg-slate-50 border-slate-900 shadow-xs'
                           : 'bg-white hover:bg-gray-50 border-gray-100'
                       }`}
                     >
@@ -909,7 +1028,7 @@ export const WriteReviewModal: React.FC = () => {
                       </div>
                       <div className="shrink-0 pl-1">
                         {isCurrent ? (
-                          <div className="w-6 h-6 rounded-full bg-gray-900 text-white flex items-center justify-center">
+                          <div className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         ) : (
@@ -931,7 +1050,7 @@ export const WriteReviewModal: React.FC = () => {
                       setSearchQuery('');
                       setSelectedSearchCategory('전체');
                     }}
-                    className="mt-2 text-xs font-bold text-gray-900 underline"
+                    className="mt-2 text-xs font-bold text-slate-900 underline"
                   >
                     전체 상품 보기
                   </button>
@@ -953,5 +1072,3 @@ export const WriteReviewModal: React.FC = () => {
     </div>
   );
 };
-
-

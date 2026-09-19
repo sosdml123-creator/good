@@ -773,7 +773,7 @@ export const ProductDetailModal: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-900">이 먹거리 직접 맛보셨나요?</div>
-                  <div className="text-[11px] text-amber-600 font-semibold mt-0.5">솔직한 후기 남기고 +50P 적립받기</div>
+                  <div className="text-[11px] text-gray-500 font-semibold mt-0.5">솔직한 생생 후기를 남겨주세요</div>
                 </div>
               </div>
               <button className="px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs">
