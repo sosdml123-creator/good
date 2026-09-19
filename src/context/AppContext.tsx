@@ -967,10 +967,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // then append any missing initial sections
         INITIAL_HOME_SECTIONS.forEach(init => {
           if (!merged.some(m => m.id === init.id)) {
+            if (init.id === 'ad_banner') {
+              const catIndex = merged.findIndex(m => m.id === 'categories');
+              if (catIndex !== -1) {
+                merged.splice(catIndex + 1, 0, init);
+                return;
+              }
+            }
             merged.push(init);
           }
         });
-        return merged.sort((a, b) => a.order - b.order);
+        // re-assign sequential orders
+        return merged.map((s, idx) => ({ ...s, order: idx + 1 }));
       }
       return INITIAL_HOME_SECTIONS;
     } catch {

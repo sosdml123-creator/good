@@ -23549,13 +23549,22 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     order: 3,
   },
   {
+    id: 'ad_banner',
+    name: '스폰서드 광고 구좌 (Google AdMob)',
+    title: '스폰서드 맞춤 혜택',
+    subtitle: '구글 애드몹 맞춤 광고 및 혜택',
+    badgeText: 'AD',
+    isVisible: true,
+    order: 4,
+  },
+  {
     id: 'new_products',
     name: '따끈따끈 신제품 구좌',
     title: '따끈따끈 새로 나온 신제품',
     subtitle: '편의점·마트 실시간 입고',
     badgeText: 'NEW 신상',
     isVisible: true,
-    order: 4,
+    order: 5,
     itemLimit: 10,
   },
   {
@@ -23565,7 +23574,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '편의점·마트 실속 혜택',
     badgeText: '1+1 · 할인특가',
     isVisible: true,
-    order: 5,
+    order: 6,
     itemLimit: 8,
   },
   {
@@ -23575,7 +23584,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '도미노, 파파존스, 피자헛, 스타벅스, 컴포즈, 맥도날드 등 브랜드별 제품 모아보기',
     badgeText: '전용관',
     isVisible: true,
-    order: 6,
+    order: 7,
   },
   {
     id: 'search_trending',
@@ -23584,7 +23593,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '사람들이 검색창에서 가장 많이 찾아보고 들어온 인기 순위예요',
     badgeText: '검색 유입 랭킹',
     isVisible: true,
-    order: 7,
+    order: 8,
     itemLimit: 12,
   },
   {
@@ -23594,7 +23603,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '',
     badgeText: '',
     isVisible: true,
-    order: 8,
+    order: 9,
   },
   {
     id: 'recipes',
@@ -23603,7 +23612,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.',
     badgeText: '맛잘알 추천',
     isVisible: true,
-    order: 9,
+    order: 10,
   },
   {
     id: 'battle',
@@ -23612,7 +23621,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '지금 가장 핫한 대결! 당신의 선택은?',
     badgeText: 'VS',
     isVisible: true,
-    order: 10,
+    order: 11,
   },
   {
     id: 'popular_ranking',
@@ -23621,7 +23630,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '',
     badgeText: '',
     isVisible: true,
-    order: 11,
+    order: 12,
     itemLimit: 5,
   },
   {
@@ -23631,7 +23640,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     subtitle: '',
     badgeText: '',
     isVisible: true,
-    order: 12,
+    order: 13,
     itemLimit: 2,
   },
 ];

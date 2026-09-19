@@ -37,6 +37,7 @@ import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
+import { AdMobBannerSection } from './AdMobBannerSection';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -490,6 +491,12 @@ export const HomeView: React.FC = () => {
               ))}
             </div>
           </div>
+        );
+
+      // 구글 애드몹 광고 구좌 (카테고리와 따끈따끈 신제품 사이)
+      case 'ad_banner':
+        return (
+          <AdMobBannerSection key="ad_banner" section={section} />
         );
 
       // 4. 따끈따끈 새로 나온 신제품 구좌

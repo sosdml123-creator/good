@@ -22,7 +22,8 @@ import {
   Award,
   MessageSquare,
   LayoutGrid,
-  Info
+  Info,
+  Megaphone
 } from 'lucide-react';
 
 interface HomeSectionsManagementTabProps {
@@ -100,6 +101,7 @@ export const HomeSectionsManagementTab: React.FC<HomeSectionsManagementTabProps>
       case 'banners': return <Layers className="w-4 h-4 text-indigo-500" />;
       case 'quick_menu': return <LayoutGrid className="w-4 h-4 text-emerald-500" />;
       case 'categories': return <Sliders className="w-4 h-4 text-cyan-500" />;
+      case 'ad_banner': return <Megaphone className="w-4 h-4 text-amber-600" />;
       case 'new_products': return <Sparkles className="w-4 h-4 text-amber-500" />;
       case 'sale_events': return <Tag className="w-4 h-4 text-rose-500" />;
       case 'brand_hub': return <Building2 className="w-4 h-4 text-blue-500" />;

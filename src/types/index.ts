@@ -351,6 +351,7 @@ export type HomeSectionId =
   | 'banners'
   | 'quick_menu'
   | 'categories'
+  | 'ad_banner'
   | 'new_products'
   | 'sale_events'
   | 'brand_hub'
