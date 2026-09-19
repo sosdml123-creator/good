@@ -237,6 +237,46 @@ export const checkPushPermissionStatus = async (): Promise<'granted' | 'denied' 
 };
 
 /**
+ * Open device system settings (iOS / Android)
+ */
+export const openDeviceSettings = async (): Promise<void> => {
+  if (Capacitor.isNativePlatform()) {
+    try {
+      if (Capacitor.getPlatform() === 'ios') {
+        window.location.href = 'app-settings:';
+      }
+    } catch (e) {
+      console.warn('[Push Notification] Failed to open device settings:', e);
+    }
+  }
+};
+
+/**
+ * Get stored marketing notification consent status
+ */
+export const getMarketingConsentStatus = (): boolean => {
+  try {
+    return localStorage.getItem('sinsangpick_marketing_agreed') === 'true';
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Update marketing notification consent status with timestamp
+ */
+export const setMarketingConsentStatus = (agreed: boolean): void => {
+  try {
+    localStorage.setItem('sinsangpick_marketing_agreed', String(agreed));
+    if (agreed) {
+      localStorage.setItem('sinsangpick_marketing_agreed_date', new Date().toISOString());
+    }
+  } catch {
+    // ignore
+  }
+};
+
+/**
  * Fetch remote notifications from Supabase
  */
 export const fetchNotificationsFromSupabase = async (): Promise<AppNotification[]> => {

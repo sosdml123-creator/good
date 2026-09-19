@@ -64,6 +64,9 @@ import {
 } from '../services/supabase';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
+import { 
+  requestPushPermission as requestPushPermissionService 
+} from '../services/notificationService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
@@ -150,6 +153,9 @@ interface AppContextType {
   participateInEvent: (eventId: string) => void;
   sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => void;
   dismissIncomingPush: () => void;
+  alertCenterSubTab: 'inbox' | 'settings';
+  setAlertCenterSubTab: (tab: 'inbox' | 'settings') => void;
+  openNotificationCenter: (tab?: 'inbox' | 'settings') => void;
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
 
@@ -784,6 +790,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState<boolean>(false);
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState<boolean>(false);
   const openPermissionModal = () => setIsPermissionModalOpen(true);
+
+  // Notification Center SubTab Navigation ('inbox' | 'settings')
+  const [alertCenterSubTab, setAlertCenterSubTab] = useState<'inbox' | 'settings'>('inbox');
+  const openNotificationCenter = (subTab: 'inbox' | 'settings' = 'inbox') => {
+    setAlertCenterSubTab(subTab);
+    setActiveTabState('alert_settings');
+  };
 
   const checkAndOpenPostLoginModals = (uid: string) => {
     const hasReviewedPermissions = localStorage.getItem('sinsangpick_permissions_reviewed') === 'true';
@@ -2675,23 +2688,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const requestPushPermission = async (): Promise<boolean> => {
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      try {
-        const res = await Notification.requestPermission();
-        if (res === 'granted') {
-          setPushPermissionStatus('granted');
-          showToast('🔔 웹/앱 푸시 알림 수신이 허용되었습니다!', 'success');
-          return true;
-        } else {
-          setPushPermissionStatus('denied');
-          showToast('알림 권한이 거부되었습니다.', 'error');
-          return false;
-        }
-      } catch {
+    try {
+      const ok = await requestPushPermissionService();
+      if (ok) {
+        setPushPermissionStatus('granted');
+        localStorage.setItem('sinsangpick_push_enabled', 'true');
+        showToast('🔔 알림 수신이 허용되었습니다!', 'success');
+        return true;
+      } else {
+        setPushPermissionStatus('denied');
+        showToast('기기 알림 허용이 필요합니다.', 'info');
         return false;
       }
+    } catch {
+      return false;
     }
-    return false;
   };
 
   const clearAllNotifications = () => {
@@ -4128,6 +4139,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         participateInEvent,
         sendPushNotification,
         dismissIncomingPush,
+        alertCenterSubTab,
+        setAlertCenterSubTab,
+        openNotificationCenter,
         markNotificationAsRead,
         clearAllNotifications,
 

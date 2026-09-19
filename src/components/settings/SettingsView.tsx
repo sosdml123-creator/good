@@ -33,9 +33,9 @@ export const SettingsView: React.FC = () => {
     currentUser, 
     logout, 
     goBack, 
-    setActiveTab, 
     openLoginModal,
-    openPermissionModal
+    openPermissionModal,
+    openNotificationCenter
   } = useApp();
 
   // State for modals & editing
@@ -260,7 +260,7 @@ export const SettingsView: React.FC = () => {
 
             {/* Alert Categories Navigation */}
             <div
-              onClick={() => setActiveTab('alert_settings')}
+              onClick={() => openNotificationCenter('settings')}
               className="px-4 py-3.5 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors"
             >
               <div className="flex items-center gap-3">
@@ -286,10 +286,10 @@ export const SettingsView: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                    <span>앱 접근 권한 안내 및 설정</span>
+                    <span>마케팅 알림 &amp; 앱 접근 권한 안내</span>
                     <span className="text-[9px] font-extrabold bg-blue-50 text-blue-600 px-1.5 py-0.2 rounded-full">안내</span>
                   </div>
-                  <div className="text-[11px] text-gray-400">알림, 카메라, 사진, 위치 권한 확인 및 허용</div>
+                  <div className="text-[11px] text-gray-400">신제품·할인 알림, 카메라, 위치 권한 확인 및 동의</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300" />

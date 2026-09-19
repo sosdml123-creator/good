@@ -15,7 +15,8 @@ export const MyPageView: React.FC = () => {
     currentUser,
     savedSaleIds,
     setActiveTab,
-    openPermissionModal
+    openPermissionModal,
+    openNotificationCenter
   } = useApp();
 
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
@@ -29,8 +30,8 @@ export const MyPageView: React.FC = () => {
     { label: '찜한 제품', sub: `${bookmarkedIds.length}개`, action: () => setIsBookmarksOpen(true) },
     { label: '비교함', sub: `${comparedIds.length}개`, action: () => setActiveTab('compare') },
     { label: '🏷️ 편의점·마트 행사소식', sub: `${savedSaleIds.length}개 찜`, hi: true, action: () => setActiveTab('calendar') },
-    { label: '출시알림 설정', sub: '', action: () => setActiveTab('alert_settings') },
-    { label: '🛡️ 앱 접근 권한 안내', sub: '알림·카메라·위치', action: () => openPermissionModal() },
+    { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
+    { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
     { label: '포인트', sub: `${userPoints.toLocaleString()}P`, hi: true },
     { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },
     { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
