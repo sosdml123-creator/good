@@ -15,7 +15,6 @@ import {
 import { Product, ProductEditType } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { SafeImage } from '../common/SafeImage';
-import { getProductCode } from '../../utils/productCode';
 
 interface ProductEditRequestModalProps {
   isOpen: boolean;
@@ -91,7 +90,6 @@ export const ProductEditRequestModal: React.FC<ProductEditRequestModalProps> = (
   if (!isOpen) return null;
 
   const currentOption = EDIT_TYPE_OPTIONS.find(o => o.type === selectedType) || EDIT_TYPE_OPTIONS[0];
-  const productCode = getProductCode(product);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,9 +160,6 @@ export const ProductEditRequestModal: React.FC<ProductEditRequestModalProps> = (
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-[11px] font-bold text-indigo-600">{product.brand}</span>
-              <span className="text-[10px] font-mono text-slate-500 bg-white px-1.5 py-0.2 rounded border border-slate-200">
-                {productCode}
-              </span>
             </div>
             <p className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</p>
           </div>

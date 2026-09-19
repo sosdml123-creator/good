@@ -26,7 +26,7 @@ import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
-import { getProductCode, getProductShareUrl } from '../../utils/productCode';
+import { getProductShareUrl } from '../../utils/productCode';
 import { ProductActionMenuModal } from './ProductActionMenuModal';
 import { ProductEditRequestModal } from './ProductEditRequestModal';
 import { NearbyStoreStockModal } from './NearbyStoreStockModal';
@@ -205,7 +205,7 @@ export const ProductDetailModal: React.FC = () => {
                 try {
                   await navigator.share({
                     title: `신상픽 | ${selectedProduct.name}`,
-                    text: `[신상픽] ${selectedProduct.brand} - ${selectedProduct.name} (상품코드: ${getProductCode(selectedProduct)})`,
+                    text: `[신상픽] ${selectedProduct.brand} - ${selectedProduct.name}`,
                     url: shareUrl,
                   });
                   return;
@@ -265,22 +265,7 @@ export const ProductDetailModal: React.FC = () => {
                 브랜드관 →
               </span>
             </button>
-            {/* 고유 상품 코드 뱃지 및 간편 복사 버튼 */}
-            <button
-              onClick={() => {
-                const code = getProductCode(selectedProduct);
-                if (navigator.clipboard) {
-                  navigator.clipboard.writeText(code);
-                }
-                showToast(`📋 상품코드 [${code}]가 복사되었습니다!`);
-              }}
-              title="클릭하여 상품코드 복사"
-              className="text-[10px] font-mono font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md border border-slate-300 transition-all flex items-center gap-1 cursor-pointer active:scale-95"
-            >
-              <span>코드</span>
-              <span className="text-indigo-600 font-black">{getProductCode(selectedProduct)}</span>
-              <span className="text-[9px] text-slate-600">복사</span>
-            </button>
+            {/* 브랜드관 이동 버튼 */}
           </div>
           <button
             onClick={(e) => toggleBookmark(selectedProduct.id, e)}
@@ -338,25 +323,6 @@ export const ProductDetailModal: React.FC = () => {
             {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{selectedProduct.price.toLocaleString()}원
           </span>
         </div>
-
-        {/* 네이버쇼핑 실제 판매처 직통 바로가기 배너 */}
-        {effectiveBuyLink && (
-          <div className="mt-3">
-            <button
-              onClick={() => window.open(effectiveBuyLink, '_blank')}
-              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-between shadow-xs transition-all active:scale-98 cursor-pointer"
-            >
-              <div className="flex items-center gap-2">
-                <span className="bg-white/25 px-2 py-0.5 rounded text-[11px] font-black tracking-tight">네이버쇼핑 1위</span>
-                <span className="font-bold">실제 판매처 바로가기</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs opacity-95">
-                <span>최저가 공식몰 이동</span>
-                <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
-              </div>
-            </button>
-          </div>
-        )}
 
         {selectedProduct.description && (
           <p className="text-xs text-gray-600 mt-2.5 bg-gray-50 p-3 rounded-xl leading-relaxed border border-gray-100">
@@ -806,10 +772,6 @@ export const ProductDetailModal: React.FC = () => {
             </div>
 
             <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
-              <div className="flex py-2.5 px-3 bg-indigo-50/50">
-                <span className="w-24 text-indigo-700 font-bold shrink-0">고유 상품코드</span>
-                <span className="text-indigo-900 font-mono font-black">{getProductCode(selectedProduct)}</span>
-              </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">품목 / 분류</span>
                 <span className="text-gray-900 font-bold">{selectedProduct.category} {selectedProduct.subCategory ? `> ${selectedProduct.subCategory}` : ''}</span>

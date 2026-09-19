@@ -7,14 +7,13 @@ import {
   Bell, 
   Building2, 
   Share2, 
-  Copy, 
   ShieldAlert, 
   ChevronRight,
   Sparkles
 } from 'lucide-react';
 import { Product } from '../../types';
 import { SafeImage } from '../common/SafeImage';
-import { getProductCode, getProductShareUrl } from '../../utils/productCode';
+import { getProductShareUrl } from '../../utils/productCode';
 
 interface ProductActionMenuModalProps {
   isOpen: boolean;
@@ -45,15 +44,13 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const productCode = getProductCode(product);
-
   const handleShare = async () => {
     const shareUrl = getProductShareUrl(product);
     if (navigator.share) {
       try {
         await navigator.share({
           title: `신상픽 | ${product.name}`,
-          text: `[신상픽] ${product.brand} - ${product.name} (상품코드: ${productCode})`,
+          text: `[신상픽] ${product.brand} - ${product.name}`,
           url: shareUrl,
         });
         onClose();
@@ -66,14 +63,6 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       navigator.clipboard.writeText(shareUrl);
     }
     showToast(`🔗 상품 링크가 복사되었습니다!\n(${shareUrl})`, 'success');
-    onClose();
-  };
-
-  const handleCopyCode = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(productCode);
-    }
-    showToast(`📋 상품코드 [${productCode}]가 복사되었습니다!`, 'success');
     onClose();
   };
 
@@ -155,16 +144,6 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       onClick: handleShare
     },
     {
-      id: 'copy_code',
-      icon: Copy,
-      iconBg: 'bg-slate-100 text-slate-700 border-slate-200',
-      title: '고유 상품코드 복사',
-      description: `코드: ${productCode} (고객센터 및 리뷰 문의용)`,
-      badge: '코드복사',
-      badgeColor: 'bg-slate-100 text-slate-700 border-slate-200 border',
-      onClick: handleCopyCode
-    },
-    {
       id: 'report',
       icon: ShieldAlert,
       iconBg: 'bg-rose-50 text-rose-600 border-rose-100',
@@ -213,9 +192,6 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-[11px] font-bold text-indigo-600">{product.brand}</span>
-              <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.2 rounded border border-slate-200">
-                {productCode}
-              </span>
             </div>
             <p className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</p>
             <p className="text-[11px] font-semibold text-rose-600">
