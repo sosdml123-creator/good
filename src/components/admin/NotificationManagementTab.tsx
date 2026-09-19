@@ -190,19 +190,19 @@ export const NotificationManagementTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* 1. Header Banner */}
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-indigo-950 text-white rounded-2xl p-6 shadow-md border border-gray-700/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-sm border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">
               <Bell className="w-5 h-5" />
             </span>
-            <h2 className="text-xl font-black tracking-tight text-white">알림 & FCM 디바이스 푸시 관리</h2>
+            <h2 className="text-xl font-bold tracking-tight text-white">알림 & FCM 디바이스 푸시 관리</h2>
             <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               실시간 연동 활성화
             </span>
           </div>
-          <p className="text-xs text-gray-300 max-w-2xl leading-relaxed">
+          <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
             신제품 출시 소식, 할인 프로모션, 전체 공지를 스마트폰 디바이스 푸시(FCM/APNs) 및 인앱 알림함으로 즉시 발송합니다.
           </p>
         </div>
@@ -537,7 +537,7 @@ export const NotificationManagementTab: React.FC = () => {
             </div>
 
             {/* Smartphone Mockup */}
-            <div className="relative mx-auto w-full max-w-[320px] aspect-[9/16] bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 rounded-[38px] p-3.5 shadow-xl border-4 border-gray-800 text-white flex flex-col justify-between overflow-hidden">
+            <div className="relative mx-auto w-full max-w-[320px] aspect-[9/16] bg-slate-900 rounded-[38px] p-3.5 shadow-xl border-4 border-slate-800 text-white flex flex-col justify-between overflow-hidden">
               {/* Top Notch / Dynamic Island */}
               <div className="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center">
                 <div className="w-2 h-2 rounded-full bg-gray-900"></div>

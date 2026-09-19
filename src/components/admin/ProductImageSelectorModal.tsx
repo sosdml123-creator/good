@@ -67,13 +67,13 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
         {/* Header */}
         <div className={`p-4 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-xs">
+            <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
               <ImageIcon className="w-4 h-4" />
             </div>
             <div>
               <h3 className="text-sm font-bold flex items-center gap-1.5">
                 <span>고화질 정품 패키지 이미지 탐색 & 교체</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                   {brand || '신제품'}
                 </span>
               </h3>
@@ -101,13 +101,13 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
                 onChange={e => setSearchQuery(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && fetchCandidates(searchQuery)}
                 placeholder="검색할 상품명 또는 키워드 (예: 신라면 툼바, 비쵸비 딸기)"
-                className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 focus:ring-amber-500/30 ${inputBg}`}
+                className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 focus:ring-indigo-500/30 ${inputBg}`}
               />
             </div>
             <button
               onClick={() => fetchCandidates(searchQuery)}
               disabled={isLoading}
-              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50 shrink-0"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50 shrink-0"
             >
               {isLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
               <span>패키지 재검색</span>
@@ -122,7 +122,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
               value={directUrlInput}
               onChange={e => setDirectUrlInput(e.target.value)}
               placeholder="https://... 직접 이미지 링크 붙여넣기"
-              className={`flex-1 px-2.5 py-1 rounded-lg text-[11px] border focus:outline-none focus:ring-1 focus:ring-amber-500 ${inputBg}`}
+              className={`flex-1 px-2.5 py-1 rounded-lg text-[11px] border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputBg}`}
             />
             {directUrlInput && (
               <button
@@ -139,7 +139,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
         <div className="p-4 overflow-y-auto flex-1 space-y-3 min-h-[280px]">
           {isLoading ? (
             <div className="py-16 text-center space-y-3">
-              <RefreshCw className="w-8 h-8 text-amber-500 animate-spin mx-auto" />
+              <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin mx-auto" />
               <p className="text-xs text-slate-400 font-bold">네이버 쇼핑 공식 카탈로그 및 실물 패키지 컷을 검색 중입니다...</p>
             </div>
           ) : candidates.length > 0 ? (
@@ -153,7 +153,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
                     onClick={() => setSelectedUrl(cand.url)}
                     className={`group relative rounded-xl border p-2 flex flex-col justify-between transition-all cursor-pointer hover:shadow-md ${
                       isChosen
-                        ? (isDark ? 'border-amber-500 bg-amber-500/10 ring-2 ring-amber-500/30' : 'border-amber-500 bg-amber-50 ring-2 ring-amber-500/20')
+                        ? (isDark ? 'border-indigo-500 bg-indigo-500/10 ring-2 ring-indigo-500/30' : 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-500/20')
                         : (isDark ? 'border-slate-800 bg-slate-800/40 hover:border-slate-700' : 'border-slate-200 bg-white hover:border-slate-300')
                     }`}
                   >
@@ -171,15 +171,15 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
 
                       {/* Official badge */}
                       {cand.isOfficial && (
-                        <span className="absolute top-1 left-1 bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                        <span className="absolute top-1 left-1 bg-indigo-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
                           정품
                         </span>
                       )}
 
                       {/* Check icon if chosen */}
                       {isChosen && (
-                        <div className="absolute inset-0 bg-amber-500/20 backdrop-blur-[1px] flex items-center justify-center">
-                          <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg">
+                        <div className="absolute inset-0 bg-indigo-500/20 backdrop-blur-[1px] flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg">
                             <Check className="w-4 h-4 stroke-[3]" />
                           </div>
                         </div>
@@ -234,7 +234,7 @@ export const ProductImageSelectorModal: React.FC<ProductImageSelectorModalProps>
             <button
               onClick={() => handleApply(selectedUrl)}
               disabled={!selectedUrl}
-              className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-40"
             >
               <Check className="w-3.5 h-3.5" />
               <span>이 이미지로 최종 변경</span>

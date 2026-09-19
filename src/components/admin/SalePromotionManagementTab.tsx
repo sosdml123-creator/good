@@ -244,7 +244,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
         <div className="flex items-center gap-2 self-start lg:self-auto">
           <button
             onClick={() => setIsCollectorOpen(true)}
-            className="px-4 py-2.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-rose-600 hover:from-purple-500 hover:to-rose-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-600/20 active:scale-95 transition-all"
+            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm active:scale-95 transition-all"
           >
             <Zap className="w-4 h-4 fill-current" />
             <span>⚡ 편의점 행사상품 자동 수집기</span>
@@ -252,7 +252,9 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
 
           <button
             onClick={handleOpenNewModal}
-            className="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-rose-600/20 active:scale-95 transition-all"
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 border shadow-2xs transition-all active:scale-95 ${
+              isDark ? 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200'
+            }`}
           >
             <Plus className="w-4 h-4" />
             <span>새 행사소식 등록</span>

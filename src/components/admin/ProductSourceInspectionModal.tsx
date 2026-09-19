@@ -127,7 +127,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
         {/* Modal Header */}
         <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800 bg-slate-900' : 'border-slate-100 bg-slate-50/70'}`}>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-md shadow-orange-500/20">
+            <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -355,7 +355,7 @@ export const ProductSourceInspectionModal: React.FC<ProductSourceInspectionModal
                   onClose();
                 }}
                 disabled={isRegistered}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 disabled:opacity-40"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs transition-all flex items-center gap-1.5 disabled:opacity-40"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>[{product.category}]에 즉시 정식 등록</span>

@@ -947,12 +947,12 @@ export const AdminDashboard: React.FC = () => {
         <div>
           <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-md shadow-indigo-500/20 ring-1 ring-white/20">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-sm ring-1 ring-white/20">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h1 className={`font-black text-sm tracking-tight flex items-center gap-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  신상픽 <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 uppercase font-mono font-bold">Admin Pro</span>
+                  신상픽 <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 uppercase font-mono font-bold">Admin Pro</span>
                 </h1>
                 <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>통합 관리자 콘솔</p>
               </div>
@@ -978,7 +978,7 @@ export const AdminDashboard: React.FC = () => {
             {/* GROUP 1: 📊 대시보드 & 데이터 */}
             <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
               <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <BarChart3 className="w-3 h-3 text-indigo-500" />
+                <BarChart3 className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                 <span>대시보드 & 데이터</span>
               </div>
               <button
@@ -990,7 +990,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <BarChart3 className="w-4 h-4" />
+                  <BarChart3 className={`w-4 h-4 ${activeAdminTab === 'overview' ? 'text-white' : 'text-slate-400'}`} />
                   <span>대시보드 개요</span>
                 </div>
                 <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeAdminTab === 'overview' ? 'rotate-90 text-white' : 'text-slate-400'}`} />
@@ -1005,7 +1005,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <TrendingUp className="w-4 h-4 text-emerald-500" />
+                  <TrendingUp className={`w-4 h-4 ${activeAdminTab === 'analytics' ? 'text-white' : 'text-slate-400'}`} />
                   <span>실시간 쇼핑 트렌드</span>
                 </div>
               </button>
@@ -1014,7 +1014,7 @@ export const AdminDashboard: React.FC = () => {
             {/* GROUP 2: 📦 상품 & 데이터 수집 */}
             <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
               <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Package className="w-3 h-3 text-blue-500" />
+                <Package className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                 <span>상품 & 데이터 수집</span>
               </div>
               
@@ -1027,10 +1027,14 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Target className="w-4 h-4 text-amber-500" />
+                  <Target className={`w-4 h-4 ${activeAdminTab === 'collector' ? 'text-white' : 'text-slate-400'}`} />
                   <span>브랜드·품목 공식 수집</span>
                 </div>
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500/20 text-amber-600 dark:text-amber-400">
+                <span className={`px-1.5 py-0.2 rounded text-[9px] font-bold ${
+                  activeAdminTab === 'collector'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
+                }`}>
                   수집기
                 </span>
               </button>
@@ -1044,11 +1048,13 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-rose-500" />
+                  <Sparkles className={`w-4 h-4 ${activeAdminTab === 'approval' ? 'text-white' : 'text-slate-400'}`} />
                   <span>수집 신제품 승인함</span>
                 </div>
                 {pendingCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold">
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    activeAdminTab === 'approval' ? 'bg-white/20 text-white' : 'bg-rose-500 text-white'
+                  }`}>
                     {pendingCount}
                   </span>
                 )}
@@ -1063,10 +1069,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Package className="w-4 h-4 text-blue-500" />
+                  <Package className={`w-4 h-4 ${activeAdminTab === 'products' ? 'text-white' : 'text-slate-400'}`} />
                   <span>상품 카탈로그 관리</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'products' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {products.length}
                 </span>
               </button>
@@ -1080,10 +1088,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Building2 className="w-4 h-4 text-purple-500" />
+                  <Building2 className={`w-4 h-4 ${activeAdminTab === 'brands' ? 'text-white' : 'text-slate-400'}`} />
                   <span>식품 제조사 브랜드</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'brands' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {brands.length}
                 </span>
               </button>
@@ -1097,10 +1107,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Store className="w-4 h-4 text-emerald-500" />
+                  <Store className={`w-4 h-4 ${activeAdminTab === 'stores' ? 'text-white' : 'text-slate-400'}`} />
                   <span>편의점·판매처 채널</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'stores' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {storeChannels.length}
                 </span>
               </button>
@@ -1109,7 +1121,7 @@ export const AdminDashboard: React.FC = () => {
             {/* GROUP 3: 🎨 전시 & 프로모션 */}
             <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
               <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Sliders className="w-3 h-3 text-indigo-400" />
+                <Sliders className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                 <span>전시 & 프로모션</span>
               </div>
 
@@ -1122,7 +1134,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Sliders className="w-4 h-4 text-indigo-400" />
+                  <Sliders className={`w-4 h-4 ${activeAdminTab === 'sections' ? 'text-white' : 'text-slate-400'}`} />
                   <span>홈 섹션 순서·배치</span>
                 </div>
               </button>
@@ -1136,10 +1148,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Layers className="w-4 h-4 text-sky-500" />
+                  <Layers className={`w-4 h-4 ${activeAdminTab === 'banners' ? 'text-white' : 'text-slate-400'}`} />
                   <span>메인 프로모션 배너</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'banners' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {banners.length}
                 </span>
               </button>
@@ -1153,7 +1167,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Swords className="w-4 h-4 text-rose-500" />
+                  <Swords className={`w-4 h-4 ${activeAdminTab === 'battle' ? 'text-white' : 'text-slate-400'}`} />
                   <span>신상 배틀 매치업</span>
                 </div>
               </button>
@@ -1167,10 +1181,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Tag className="w-4 h-4 text-rose-500" />
+                  <Tag className={`w-4 h-4 ${activeAdminTab === 'sales' ? 'text-white' : 'text-slate-400'}`} />
                   <span>편의점 행사 (1+1/2+1)</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'sales' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {salePromotions.length}
                 </span>
               </button>
@@ -1184,10 +1200,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CalendarIcon className="w-4 h-4 text-blue-500" />
+                  <CalendarIcon className={`w-4 h-4 ${activeAdminTab === 'calendar' ? 'text-white' : 'text-slate-400'}`} />
                   <span>신상 출시 캘린더</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'calendar' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {calendarItems.length}
                 </span>
               </button>
@@ -1201,10 +1219,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Gift className="w-4 h-4 text-amber-500" />
+                  <Gift className={`w-4 h-4 ${activeAdminTab === 'events' ? 'text-white' : 'text-slate-400'}`} />
                   <span>이벤트 & 체험단</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'events' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {events.length}
                 </span>
               </button>
@@ -1218,10 +1238,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bell className="w-4 h-4 text-rose-500" />
+                  <Bell className={`w-4 h-4 ${activeAdminTab === 'notifications' ? 'text-white' : 'text-slate-400'}`} />
                   <span>알림 & 푸시 발송</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'notifications' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {notifications.length}
                 </span>
               </button>
@@ -1230,7 +1252,7 @@ export const AdminDashboard: React.FC = () => {
             {/* GROUP 4: 👥 유저 & 운영 모니터링 */}
             <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
               <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Users className="w-3 h-3 text-purple-500" />
+                <Users className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                 <span>유저 & 운영 모니터링</span>
               </div>
 
@@ -1243,7 +1265,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Users className="w-4 h-4 text-indigo-500" />
+                  <Users className={`w-4 h-4 ${activeAdminTab === 'users' || activeAdminTab === 'points' ? 'text-white' : 'text-slate-400'}`} />
                   <span>회원·포인트 통합 관리</span>
                 </div>
                 <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
@@ -1264,10 +1286,12 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <MessageSquare className="w-4 h-4 text-emerald-500" />
+                  <MessageSquare className={`w-4 h-4 ${activeAdminTab === 'reviews' ? 'text-white' : 'text-slate-400'}`} />
                   <span>리뷰 & 커뮤니티 관리</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                  activeAdminTab === 'reviews' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                }`}>
                   {reviews.length}
                 </span>
               </button>
@@ -1281,7 +1305,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-rose-500" />
+                  <ShieldCheck className={`w-4 h-4 ${activeAdminTab === 'reports' ? 'text-white' : 'text-slate-400'}`} />
                   <span>신고 접수·제재</span>
                 </div>
                 {pendingReportsCount > 0 ? (
@@ -1289,7 +1313,9 @@ export const AdminDashboard: React.FC = () => {
                     {pendingReportsCount}건
                   </span>
                 ) : (
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'}`}>
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                    activeAdminTab === 'reports' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                  }`}>
                     {reports.length}
                   </span>
                 )}
@@ -1311,7 +1337,7 @@ export const AdminDashboard: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Database className="w-4 h-4 text-emerald-500" />
+                  <Database className={`w-4 h-4 ${activeAdminTab === 'data' ? 'text-white' : 'text-slate-400'}`} />
                   <span>데이터 백업 & 복구</span>
                 </div>
               </button>
@@ -1326,13 +1352,13 @@ export const AdminDashboard: React.FC = () => {
           {/* Direct Switcher back to User Mobile App View */}
           <button
             onClick={() => setActiveTab('home')}
-            className={`w-full py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all active:scale-98 ${
+            className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-98 ${
               isDark 
-                ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30' 
-                : 'bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100'
+                ? 'bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white' 
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 shadow-2xs'
             }`}
           >
-            <Smartphone className="w-4 h-4 text-indigo-500" />
+            <Smartphone className="w-4 h-4 text-slate-500" />
             <span>📱 모바일 앱 화면으로 이동</span>
           </button>
 
@@ -1470,8 +1496,8 @@ export const AdminDashboard: React.FC = () => {
                 {/* Total Products */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
-                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center border border-blue-500/20">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
                       <Package className="w-4 h-4" />
                     </div>
                   </div>
@@ -1481,7 +1507,7 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>식품사 카탈로그</span>
-                    <button onClick={() => setActiveAdminTab('products')} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
+                    <button onClick={() => setActiveAdminTab('products')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
                       관리 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1490,18 +1516,18 @@ export const AdminDashboard: React.FC = () => {
                 {/* Today's New Products */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">오늘의 출시 신상</span>
-                    <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center border border-indigo-500/20">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">오늘의 출시 신상</span>
+                    <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
                       <Zap className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>{todayProductsCount}</span>
-                    <span className="text-xs text-indigo-500">개 활성</span>
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{todayProductsCount}</span>
+                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">개 활성</span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>홈 피드 노출</span>
-                    <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 hover:underline flex items-center gap-0.5 font-semibold">
+                    <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1510,18 +1536,18 @@ export const AdminDashboard: React.FC = () => {
                 {/* Hot Products */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-orange-500 uppercase tracking-wider">인기 HOT 신상</span>
-                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center border border-orange-500/20">
-                      <Flame className="w-4 h-4" />
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">인기 HOT 신상</span>
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                      <Flame className="w-4 h-4 text-orange-500" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-orange-200' : 'text-orange-600'}`}>{hotProductsCount}</span>
-                    <span className="text-xs text-orange-500">개</span>
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{hotProductsCount}</span>
+                    <span className="text-xs text-slate-500">개</span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>평점 우수 먹거리</span>
-                    <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-orange-600 hover:underline flex items-center gap-0.5 font-semibold">
+                    <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
                       보기 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1530,18 +1556,18 @@ export const AdminDashboard: React.FC = () => {
                 {/* Reviews & Satisfaction */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">누적 리뷰</span>
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">누적 리뷰</span>
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-emerald-200' : 'text-emerald-600'}`}>{reviews.length}</span>
-                    <span className="text-xs text-emerald-600 font-bold">★ {avgReviewRating}</span>
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{reviews.length}</span>
+                    <span className="text-xs text-slate-600 dark:text-slate-300 font-bold">★ {avgReviewRating}</span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>커뮤니티 {communityPosts.length}건</span>
-                    <button onClick={() => setActiveAdminTab('reviews')} className="text-emerald-600 hover:underline flex items-center gap-0.5 font-semibold">
+                    <button onClick={() => setActiveAdminTab('reviews')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
                       검토 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1550,18 +1576,18 @@ export const AdminDashboard: React.FC = () => {
                 {/* Pending Approval */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">신제품 수집 대기</span>
-                    <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center border border-rose-500/20">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">신제품 수집 대기</span>
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
                       <Sparkles className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-rose-200' : 'text-rose-600'}`}>{pendingCount}</span>
-                    <span className="text-xs text-rose-500 font-semibold">개 대기</span>
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{pendingCount}</span>
+                    <span className="text-xs text-slate-500 font-semibold">개 대기</span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>크롤러 수집함</span>
-                    <button onClick={() => setActiveAdminTab('approval')} className="text-rose-600 hover:underline flex items-center gap-0.5 font-bold">
+                    <button onClick={() => setActiveAdminTab('approval')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-bold">
                       승인 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -1570,18 +1596,18 @@ export const AdminDashboard: React.FC = () => {
                 {/* NEW: 6. Members & Total Points */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">회원 & 포인트</span>
-                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-500/20">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">회원 & 포인트</span>
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
                       <Coins className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-amber-200' : 'text-amber-600'}`}>{allProfiles.length}</span>
-                    <span className="text-xs text-amber-500 font-bold">명 / {totalMemberPoints.toLocaleString()}P</span>
+                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{allProfiles.length}</span>
+                    <span className="text-xs text-slate-500 font-semibold">명 / {totalMemberPoints.toLocaleString()}P</span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
                     <span>포인트 지급·회수</span>
-                    <button onClick={() => setActiveAdminTab('users')} className="text-amber-600 hover:underline flex items-center gap-0.5 font-bold">
+                    <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-bold">
                       관리 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -3083,10 +3109,10 @@ export const AdminDashboard: React.FC = () => {
               {/* 2. NAVER DataLab Shopping Category Click Share Cards */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { name: '과자/베이커리', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20', defaultRatio: 84 },
-                  { name: '음료', color: 'text-blue-500', bg: 'bg-blue-500/10 border-blue-500/20', defaultRatio: 78 },
-                  { name: '가공/간편식품', color: 'text-purple-500', bg: 'bg-purple-500/10 border-purple-500/20', defaultRatio: 92 },
-                  { name: '신선식품', color: 'text-emerald-500', bg: 'bg-emerald-500/10 border-emerald-500/20', defaultRatio: 65 },
+                  { name: '과자/베이커리', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 84 },
+                  { name: '음료', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 78 },
+                  { name: '가공/간편식품', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 92 },
+                  { name: '신선식품', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 65 },
                 ].map((cat) => {
                   const matchedResult = shoppingCategoryTrends?.results?.find(r => r.title.includes(cat.name) || cat.name.includes(r.title));
                   const currentRatio = matchedResult && matchedResult.data && matchedResult.data.length > 0
@@ -3111,7 +3137,7 @@ export const AdminDashboard: React.FC = () => {
                       </div>
                       <div className="mt-3 w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                         <div
-                          className={`h-full rounded-full bg-gradient-to-r from-indigo-500 to-amber-500`}
+                          className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500"
                           style={{ width: `${currentRatio}%` }}
                         />
                       </div>
@@ -3124,7 +3150,7 @@ export const AdminDashboard: React.FC = () => {
               <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-rose-500 animate-pulse" />
+                    <Activity className="w-4 h-4 text-indigo-500 animate-pulse" />
                     <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>네이버 쇼핑인사이트 실시간 급상승 신제품 키워드 TOP 8</h3>
                   </div>
                   <span className="text-[11px] text-slate-400">※ 키워드를 클릭하면 즉시 신제품을 자동 수집합니다</span>
@@ -3175,23 +3201,23 @@ export const AdminDashboard: React.FC = () => {
                             <div className="space-y-1 max-w-[130px]">
                               <div className="flex justify-between text-[10px] font-mono">
                                 <span className="text-slate-400">지수</span>
-                                <span className="font-bold text-indigo-500">{item.score} / 100</span>
+                                <span className="font-bold text-indigo-600 dark:text-indigo-400">{item.score} / 100</span>
                               </div>
                               <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                 <div
-                                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                                  className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500"
                                   style={{ width: `${item.score}%` }}
                                 />
                               </div>
                             </div>
                           </td>
-                          <td className="py-3 px-3 font-mono font-bold text-emerald-500">
+                          <td className="py-3 px-3 font-mono font-bold text-emerald-600 dark:text-emerald-400">
                             {item.growthRate}
                           </td>
                           <td className="py-3 px-3 text-right">
                             <button
                               onClick={() => handleCollectByInsightKeyword(item.keyword)}
-                              className="px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto"
+                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto"
                             >
                               <Zap className="w-3 h-3" />
                               <span>신제품 자동 수집</span>
@@ -3223,7 +3249,7 @@ export const AdminDashboard: React.FC = () => {
                           </div>
                           <div className="w-full h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-500"
+                              className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500 transition-all duration-500"
                               style={{ width: `${percent}%` }}
                             />
                           </div>
@@ -3735,7 +3761,7 @@ export const AdminDashboard: React.FC = () => {
 
                     <button
                       onClick={handleSaveBattle}
-                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 text-white rounded-xl text-xs font-black shadow-md transition-all active:scale-98"
+                      className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-98"
                     >
                       배틀 매치업 즉시 저장 & 반영
                     </button>
@@ -4888,14 +4914,14 @@ export const AdminDashboard: React.FC = () => {
               )}
 
               {/* Source & Destination Category Guide Banner */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-indigo-500/10 border border-amber-500/30 space-y-2.5">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2.5">
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="flex items-center gap-2">
                     <span className="text-base">📍</span>
-                    <span className="text-xs font-black text-amber-800 dark:text-amber-300">
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
                       어디서 가져왔나요? (수집 출처):
                     </span>
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300/60 dark:border-slate-700">
                       {editingPendingItem.sourceName || '공식 채널'}
                     </span>
                   </div>
@@ -4912,10 +4938,10 @@ export const AdminDashboard: React.FC = () => {
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                   <FolderCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>
-                    어디 카테고리에 저장되나요?: 승인 시 앱의 <strong className="text-indigo-600 dark:text-indigo-400 underline font-black">[{editingPendingItem.category}]</strong> 카테고리 탭 및 메인 홈에 등록됩니다. (아래 선택창에서 변경 가능)
+                    어디 카테고리에 저장되나요?: 승인 시 앱의 <strong className="text-indigo-600 dark:text-indigo-400 font-bold">[{editingPendingItem.category}]</strong> 카테고리 탭 및 메인 홈에 등록됩니다. (아래 선택창에서 변경 가능)
                   </span>
                 </div>
               </div>

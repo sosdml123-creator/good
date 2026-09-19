@@ -192,13 +192,13 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
         {/* Header */}
         <div className={`p-4 sm:p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-rose-500 to-purple-600 text-white flex items-center justify-center font-bold shadow-md shadow-rose-500/20">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
               <Zap className="w-5 h-5 fill-current" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-sm sm:text-base">편의점 할인 행사상품 자동 수집기</h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 border border-rose-500/20">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                   실시간 연동 & 식품 전용
                 </span>
               </div>
@@ -233,7 +233,7 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
                     onClick={() => handleStoreChange(preset.key)}
                     className={`p-3 rounded-2xl border text-left transition-all relative overflow-hidden ${
                       isSelected
-                        ? 'border-rose-500 bg-rose-50/50 dark:bg-rose-950/20 shadow-sm ring-1 ring-rose-500'
+                        ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/20 shadow-xs ring-1 ring-indigo-500'
                         : `${subCardBg} hover:border-slate-300 dark:hover:border-slate-700`
                     }`}
                   >
@@ -246,7 +246,7 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
                     <div className="font-bold text-xs">{preset.name}</div>
                     <div className="text-[10px] text-slate-400 mt-0.5 truncate">{preset.badgeText}</div>
                     {isSelected && (
-                      <div className="absolute right-2 bottom-2 text-rose-500">
+                      <div className="absolute right-2 bottom-2 text-indigo-600 dark:text-indigo-400">
                         <CheckCircle2 className="w-4 h-4 fill-current" />
                       </div>
                     )}
@@ -371,7 +371,7 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
               type="button"
               onClick={handleStartCrawl}
               disabled={isCrawling}
-              className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-600 to-purple-600 hover:from-rose-500 hover:to-purple-500 disabled:opacity-50 text-white rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-rose-600/25 active:scale-95 transition-all"
+              className="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all"
             >
               {isCrawling ? (
                 <>

@@ -283,12 +283,12 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center gap-1.5 shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
                 <span>공식몰·홈페이지 실시간 신제품 자동수집기</span>
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold flex items-center gap-1 ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
-                <Store className="w-3 h-3 text-indigo-500" />
+                <Store className="w-3 h-3 text-slate-500" />
                 <span>공식 패키지컷 & 실시간 정가 추출</span>
               </span>
             </div>
@@ -303,7 +303,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           <button
             onClick={handleRunCrawl}
             disabled={isCrawling}
-            className="px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:via-orange-400 hover:to-rose-400 text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 min-w-[190px]"
+            className="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 min-w-[190px]"
           >
             {isCrawling ? (
               <>
@@ -312,7 +312,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
               </>
             ) : (
               <>
-                <Zap className="w-4 h-4 fill-current text-yellow-200" />
+                <Zap className="w-4 h-4 fill-current text-white" />
                 <span>공식 제품 실시간 자동 수집</span>
               </>
             )}
@@ -324,7 +324,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
       <div className={`p-5 rounded-2xl border shadow-sm ${cardBg} space-y-3`}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-bold flex items-center justify-center shadow-xs">
+            <span className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[11px] font-bold flex items-center justify-center shadow-xs">
               <Globe className="w-3 h-3" />
             </span>
             <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -342,7 +342,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             onClick={() => setActiveSourceType('all')}
             className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'all'
-                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-md ring-2 ring-amber-500/20'
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -354,7 +354,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             onClick={() => setActiveSourceType('official')}
             className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'official'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-700 shadow-md ring-2 ring-blue-500/20'
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -366,7 +366,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             onClick={() => setActiveSourceType('instagram')}
             className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'instagram'
-                ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white border-rose-600 shadow-md ring-2 ring-rose-500/20'
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -378,7 +378,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             onClick={() => setActiveSourceType('convenience')}
             className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'convenience'
-                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-700 shadow-md ring-2 ring-emerald-500/20'
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -390,7 +390,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             onClick={() => setActiveSourceType('news')}
             className={`p-3 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1.5 border ${
               activeSourceType === 'news'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-700 shadow-md ring-2 ring-purple-500/20'
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-500/20'
                 : isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -401,9 +401,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
         {/* Channel Special Assist Banner */}
         {activeSourceType === 'official' && (
-          <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-between text-xs text-blue-600 dark:text-blue-400">
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-700 dark:text-slate-300">
             <div className="flex items-center gap-2">
-              <Store className="w-4 h-4 shrink-0" />
+              <Store className="w-4 h-4 shrink-0 text-indigo-500" />
               <span>
                 <strong>농심몰, 오뚜기몰, CJ더마켓, 롯데스위트몰, 삼양몰, 서울우유 나100샵</strong> 등 각 제조사 본사 공식 홈페이지 및 직영 브랜드스토어에 정식 출시된 정품 정보를 수집합니다.
               </span>
@@ -412,10 +412,10 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
         )}
 
         {activeSourceType === 'instagram' && (
-          <div className="p-3 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 space-y-2">
-            <div className="flex items-center justify-between text-xs text-rose-600 dark:text-rose-400">
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300">
               <span className="font-bold flex items-center gap-1.5">
-                <Camera className="w-4 h-4" />
+                <Camera className="w-4 h-4 text-indigo-500" />
                 <span>인기 인스타그램 신제품 큐레이션 채널 빠른 타겟팅:</span>
               </span>
               <span className="text-[11px] text-slate-400">클릭 시 해당 채널 타겟팅</span>
@@ -652,9 +652,9 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                   } ${isRegistered ? 'opacity-70 bg-emerald-500/5' : ''} ${cardBg}`}
                 >
                   {/* Top Source & Destination Category Banner */}
-                  <div className="flex items-center justify-between gap-1 text-[11px] px-3.5 py-2 bg-gradient-to-r from-amber-500/10 via-slate-100 to-indigo-500/10 dark:from-amber-950/30 dark:via-slate-800 dark:to-indigo-950/30 border-b border-slate-200 dark:border-slate-800 font-bold">
+                  <div className="flex items-center justify-between gap-1 text-[11px] px-3.5 py-2 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 font-bold">
                     <span className="truncate flex items-center gap-1.5 text-slate-800 dark:text-slate-200" title={`수집 출처: ${product.mallName}`}>
-                      <span className="text-amber-600 dark:text-amber-400">📍 출처:</span>
+                      <span className="text-slate-500">📍 출처:</span>
                       <span className="font-bold truncate max-w-[140px] sm:max-w-[180px]">{product.mallName}</span>
                     </span>
                     <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
@@ -892,7 +892,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           </div>
           <button
             onClick={handleRunCrawl}
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-bold shadow-sm inline-flex items-center gap-1.5 transition-all"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm inline-flex items-center gap-1.5 transition-all"
           >
             <Zap className="w-3.5 h-3.5" />
             <span>현재 설정({effectiveBrand} × {effectiveItem})으로 즉시 수집</span>
@@ -907,7 +907,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
             {/* Modal Header */}
             <div className={`p-4 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
               <div className="flex items-center gap-2">
-                <Edit3 className="w-4 h-4 text-amber-500" />
+                <Edit3 className="w-4 h-4 text-indigo-500" />
                 <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   수집 제품 정보 수정
                 </h3>
@@ -990,7 +990,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
                       name: editingItem.name,
                       currentImage: editingItem.image
                     })}
-                    className="px-3 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-bold shrink-0 flex items-center gap-1 shadow-xs cursor-pointer"
+                    className="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shrink-0 flex items-center gap-1 shadow-xs cursor-pointer"
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
                     <span>고화질 검색</span>
