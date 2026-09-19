@@ -1469,6 +1469,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     let isMounted = true;
 
     const init = async () => {
+      // 1. Process OAuth callback if returning from web OAuth redirect (Kakao, Google, etc.)
+      const currentUrl = window.location.href;
+      if (!Capacitor.isNativePlatform() && (currentUrl.includes('code=') || currentUrl.includes('access_token=') || currentUrl.includes('error='))) {
+        try {
+          await handleAuthCallbackUrl(currentUrl);
+          if (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error=')) {
+            window.history.replaceState(null, '', window.location.pathname);
+          }
+        } catch (e) {
+          console.warn('[Web Auth Callback] Exception processing URL callback:', e);
+        }
+      }
+
       const { user } = await ensureSupabaseAuth();
       if (!isMounted || !user) return;
 

@@ -15,13 +15,10 @@ export const AuthCallbackBridge: React.FC = () => {
     const hash = window.location.hash || '';
     const search = window.location.search || '';
 
-    const hasAuthPayload = 
-      hash.includes('access_token=') || 
-      search.includes('code=') ||
-      search.includes('app_redirect=') ||
-      window.location.pathname.includes('auth-callback');
+    // Only activate bridge if explicitly requested via query parameter (e.g. app_redirect=true or target=native)
+    const explicitAppRedirect = search.includes('app_redirect=true') || search.includes('target=native');
 
-    if (!hasAuthPayload) {
+    if (!explicitAppRedirect) {
       return;
     }
 
@@ -35,7 +32,7 @@ export const AuthCallbackBridge: React.FC = () => {
     if (isMobileDevice) {
       setShouldShow(true);
 
-      // Attempt immediate redirection to the native app scheme
+      // Attempt redirection to the native app scheme
       const timer = setTimeout(() => {
         try {
           window.location.href = fullTarget;

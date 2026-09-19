@@ -174,7 +174,7 @@ export const handleAuthCallbackUrl = async (url: string): Promise<boolean> => {
   if (!supabase) return false;
   
   try {
-    // Close in-app browser sheet if open
+    // Close in-app browser sheet if open on native
     if (Capacitor.isNativePlatform()) {
       await Browser.close().catch(() => {});
     }
@@ -183,41 +183,75 @@ export const handleAuthCallbackUrl = async (url: string): Promise<boolean> => {
   }
 
   try {
-    // 1. PKCE flow with authorization code: ?code=xxx
+    // Check for OAuth errors in URL (e.g., user cancelled login)
+    if (url.includes('error=') || url.includes('error_description=')) {
+      const parsedUrl = new URL(url.startsWith('http') ? url : `https://dummy.com/${url.replace(/^[a-zA-Z0-9_-]+:\/\//, '')}`);
+      const errorDesc = parsedUrl.searchParams.get('error_description') || parsedUrl.searchParams.get('error');
+      console.warn('[Supabase Auth] OAuth redirect error:', errorDesc);
+      return false;
+    }
+
+    // 1. PKCE flow with authorization code: ?code=xxx or #code=xxx
+    let code: string | null = null;
     if (url.includes('code=')) {
-      const searchPart = url.includes('?') ? url.split('?')[1].split('#')[0] : '';
-      if (searchPart) {
-        const params = new URLSearchParams(searchPart);
-        const code = params.get('code');
-        if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(code);
-          if (!error) {
-            console.log('[Supabase Auth] PKCE session exchange successful');
-            return true;
-          }
-          console.warn('[Supabase Auth] PKCE exchange error:', error);
+      try {
+        const parsedUrl = new URL(url.startsWith('http') ? url : `https://dummy.com/${url.replace(/^[a-zA-Z0-9_-]+:\/\//, '')}`);
+        code = parsedUrl.searchParams.get('code');
+        if (!code && parsedUrl.hash) {
+          const hashParams = new URLSearchParams(parsedUrl.hash.replace(/^#/, ''));
+          code = hashParams.get('code');
+        }
+      } catch (e) {
+        // Fallback manual regex match
+        const codeMatch = url.match(/[?&#]code=([^&#]+)/);
+        if (codeMatch) {
+          code = decodeURIComponent(codeMatch[1]);
+        }
+      }
+
+      if (code) {
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error && data?.session) {
+          console.log('[Supabase Auth] PKCE session exchange successful');
+          return true;
+        }
+        if (error) {
+          console.warn('[Supabase Auth] PKCE exchange warning:', error.message);
+          // If exchange failed, check if session already exists
+          const { data: currentSession } = await supabase.auth.getSession();
+          if (currentSession?.session) return true;
         }
       }
     }
 
     // 2. Implicit flow with access_token and refresh_token in hash: #access_token=xxx&refresh_token=yyy
     if (url.includes('access_token=') && url.includes('refresh_token=')) {
-      const hashPart = url.includes('#') ? url.split('#')[1] : '';
-      if (hashPart) {
-        const params = new URLSearchParams(hashPart);
-        const accessToken = params.get('access_token');
-        const refreshToken = params.get('refresh_token');
-        if (accessToken && refreshToken) {
-          const { error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
-          if (!error) {
-            console.log('[Supabase Auth] SetSession from token successful');
-            return true;
-          }
-          console.warn('[Supabase Auth] SetSession error:', error);
+      let accessToken: string | null = null;
+      let refreshToken: string | null = null;
+
+      try {
+        const parsedUrl = new URL(url.startsWith('http') ? url : `https://dummy.com/${url.replace(/^[a-zA-Z0-9_-]+:\/\//, '')}`);
+        const hashStr = parsedUrl.hash ? parsedUrl.hash.replace(/^#/, '') : '';
+        const params = new URLSearchParams(hashStr || parsedUrl.search);
+        accessToken = params.get('access_token');
+        refreshToken = params.get('refresh_token');
+      } catch (e) {
+        const tokenMatch = url.match(/[?&#]access_token=([^&#]+)/);
+        const refreshMatch = url.match(/[?&#]refresh_token=([^&#]+)/);
+        if (tokenMatch) accessToken = decodeURIComponent(tokenMatch[1]);
+        if (refreshMatch) refreshToken = decodeURIComponent(refreshMatch[1]);
+      }
+
+      if (accessToken && refreshToken) {
+        const { data, error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (!error && data?.session) {
+          console.log('[Supabase Auth] SetSession from token successful');
+          return true;
         }
+        console.warn('[Supabase Auth] SetSession error:', error);
       }
     }
   } catch (err) {
