@@ -406,9 +406,6 @@ export const DiscoverView: React.FC = () => {
                     <span className="text-[13px] font-bold text-gray-900">
                       {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
                     </span>
-                    {p.volume && (
-                      <span className="text-[10px] text-gray-400">({p.volume})</span>
-                    )}
                   </div>
                 </div>
 

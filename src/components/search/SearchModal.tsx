@@ -193,9 +193,6 @@ export const SearchModal: React.FC = () => {
                               <span className="text-xs font-black text-gray-900">
                                 {p.price.toLocaleString()}원
                               </span>
-                              {p.volume && (
-                                <span className="text-[10px] text-gray-400">/ {p.volume}</span>
-                              )}
                             </div>
                             <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
                               <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />

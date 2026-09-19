@@ -292,9 +292,6 @@ export const ProductDetailModal: React.FC = () => {
           <span className="text-[20px] font-black text-gray-900">
             {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{selectedProduct.price.toLocaleString()}원
           </span>
-          {selectedProduct.volume && (
-            <span className="text-xs text-gray-400">/ {selectedProduct.volume}</span>
-          )}
         </div>
 
         {/* 네이버쇼핑 실제 판매처 직통 바로가기 배너 */}
@@ -1200,9 +1197,6 @@ export const ProductDetailModal: React.FC = () => {
             <span className="text-base font-black text-gray-900">
               {selectedProduct.price.toLocaleString()}원
             </span>
-            {selectedProduct.volume && (
-              <span className="text-[10px] text-gray-400">/{selectedProduct.volume}</span>
-            )}
           </div>
         </div>
 
