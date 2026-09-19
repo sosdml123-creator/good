@@ -9,7 +9,6 @@ import {
   Search, 
   Store, 
   Sparkles, 
-  ShieldCheck, 
   AlertCircle,
   Tag,
   ShoppingBag,
@@ -152,7 +151,6 @@ export const WriteReviewModal: React.FC = () => {
   const [selectedSpiciness, setSelectedSpiciness] = useState<string>('');
   const [selectedTexture, setSelectedTexture] = useState<string>('');
   const [selectedTargets, setSelectedTargets] = useState<string[]>(['#신상얼리어답터']);
-  const [isReceiptVerified, setIsReceiptVerified] = useState<boolean>(false);
 
   // 4. 본문 & 사진
   const [text, setText] = useState('');
@@ -332,7 +330,6 @@ export const WriteReviewModal: React.FC = () => {
             texture: selectedTexture || undefined,
           },
           recommendTargets: selectedTargets,
-          isReceiptVerified,
         }
       );
     } catch (err) {
@@ -874,36 +871,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 13. 내돈내산 영수증 인증 토글 */}
-        <div 
-          className="bg-white rounded-2xl p-3.5 shadow-xs border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-slate-50/50 transition-colors"
-          onClick={() => setIsReceiptVerified(!isReceiptVerified)}
-        >
-          <div className="flex items-center gap-3">
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
-              isReceiptVerified ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
-            }`}>
-              <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-                내돈내산 영수증 인증 마크 달기
-                <span className="text-[9px] bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded font-bold border border-emerald-200">
-                  신뢰도 UP
-                </span>
-              </div>
-              <p className="text-[10px] text-gray-500 mt-0.5">직접 구매하여 체험한 솔직 후기임을 인증합니다.</p>
-            </div>
-          </div>
-          <input
-            type="checkbox"
-            checked={isReceiptVerified}
-            onChange={(e) => setIsReceiptVerified(e.target.checked)}
-            className="w-4 h-4 accent-emerald-600 rounded cursor-pointer"
-          />
-        </div>
-
-        {/* 14. 하단 등록 버튼 */}
+        {/* 하단 등록 버튼 */}
         <div className="pt-2">
           <button
             onClick={handleSubmit}
