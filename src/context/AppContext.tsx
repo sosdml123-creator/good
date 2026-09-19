@@ -71,6 +71,7 @@ import {
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
 import { DEFAULT_AVATAR, AVATAR_PRESETS } from '../utils/avatars';
+import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 
 interface AppContextType {
   products: Product[];
@@ -1013,11 +1014,47 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  const [activeTab, setActiveTabState] = useState<ActiveTab>('home');
+  // Initial URL Query Param Parsing for Web Deep Linking
+  const initialUrlParams = React.useMemo(() => {
+    if (typeof window === 'undefined') return {};
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('p') || params.get('product') || params.get('pid') || params.get('code');
+    const tab = params.get('tab') as ActiveTab | null;
+    const cat = params.get('cat') || params.get('category');
+    const brand = params.get('b') || params.get('brand');
+    const event = params.get('event') || params.get('eventId');
+    const search = params.get('search') || params.get('q');
+    return { p, tab, cat, brand, event, search };
+  }, []);
+
+  const [activeTab, setActiveTabState] = useState<ActiveTab>(() => {
+    if (initialUrlParams.p) return 'detail';
+    if (initialUrlParams.event) return 'event_detail';
+    if (initialUrlParams.search) return 'search';
+    if (initialUrlParams.tab) {
+      if ((initialUrlParams.tab as string) === 'sale') return 'calendar';
+      return initialUrlParams.tab;
+    }
+    return 'home';
+  });
+
   const [previousTab, setPreviousTab] = useState<ActiveTab>('home');
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('전체');
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const [selectedProductId, setSelectedProductId] = useState<string>('snack-01');
+  const [selectedCategory, setSelectedCategoryState] = useState<ProductCategory>(() => {
+    if (initialUrlParams.cat) return initialUrlParams.cat as ProductCategory;
+    return '전체';
+  });
+
+  const [selectedBrand, setSelectedBrandState] = useState<string | null>(() => {
+    return initialUrlParams.brand || null;
+  });
+
+  const [selectedProductId, setSelectedProductId] = useState<string>(() => {
+    if (initialUrlParams.p) {
+      const match = findProductByCodeOrId(INITIAL_PRODUCTS, initialUrlParams.p);
+      return match ? match.id : initialUrlParams.p;
+    }
+    return 'snack-01';
+  });
 
   const [events, setEvents] = useState<PromotionEvent[]>(() => {
     try {
@@ -1027,7 +1064,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return INITIAL_EVENTS;
     }
   });
-  const [selectedEventId, setSelectedEventId] = useState<string>('event-01');
+  const [selectedEventId, setSelectedEventId] = useState<string>(() => {
+    return initialUrlParams.event || 'event-01';
+  });
 
   const [notifications, setNotifications] = useState<AppNotification[]>(() => {
     try {
@@ -1819,26 +1858,173 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const selectedEvent = events.find(e => e.id === selectedEventId) || events[0] || INITIAL_EVENTS[0];
   const unreadNotificationCount = notifications.filter(n => !n.isRead).length;
 
+  const isPopStateRef = React.useRef(false);
+
+  // URL Browser History Sync Helper
+  const updateBrowserUrl = (
+    tab: ActiveTab,
+    prodId?: string,
+    category?: ProductCategory,
+    brand?: string | null,
+    eventId?: string | null,
+    replace: boolean = false
+  ) => {
+    if (typeof window === 'undefined') return;
+    if (isPopStateRef.current) {
+      isPopStateRef.current = false;
+      return;
+    }
+
+    // Preserve policy / legal paths like /privacy
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/' && currentPath !== '' && currentPath !== '/index.html') {
+      return;
+    }
+
+    const params = new URLSearchParams();
+
+    if (tab === 'detail' && prodId) {
+      const prod = findProductByCodeOrId(products, prodId);
+      const code = prod ? getProductCode(prod) : prodId;
+      params.set('p', code);
+    } else if (tab === 'event_detail' && eventId) {
+      params.set('event', eventId);
+    } else if (tab === 'brand') {
+      params.set('tab', 'brand');
+      if (brand) params.set('b', brand);
+    } else if (tab === 'category') {
+      params.set('tab', 'category');
+      if (category && category !== '전체') params.set('cat', category);
+    } else if (tab === 'ranking') {
+      params.set('tab', 'ranking');
+    } else if (tab === 'calendar' || (tab as string) === 'sale') {
+      params.set('tab', 'sale');
+    } else if (tab === 'community') {
+      params.set('tab', 'community');
+    } else if (tab === 'my') {
+      params.set('tab', 'my');
+    } else if (tab === 'search') {
+      params.set('tab', 'search');
+    } else if (tab === 'alert_settings') {
+      params.set('tab', 'alert_settings');
+    } else if (tab === 'settings') {
+      params.set('tab', 'settings');
+    } else if (tab === 'compare') {
+      params.set('tab', 'compare');
+    } else if (tab === 'write') {
+      params.set('tab', 'write');
+    } else if (tab === 'admin') {
+      params.set('tab', 'admin');
+    } else {
+      // Home tab - clean URL
+    }
+
+    const query = params.toString();
+    const targetUrl = query ? `${currentPath || '/'}?${query}` : (currentPath || '/');
+    const currentFull = window.location.pathname + window.location.search;
+
+    if (currentFull !== targetUrl) {
+      if (replace) {
+        window.history.replaceState({ tab, prodId, category, brand, eventId }, '', targetUrl);
+      } else {
+        window.history.pushState({ tab, prodId, category, brand, eventId }, '', targetUrl);
+      }
+    }
+  };
+
+  // Listen to browser Back/Forward (popstate)
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window === 'undefined') return;
+      isPopStateRef.current = true;
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get('p') || params.get('product') || params.get('code');
+      const tab = params.get('tab') as ActiveTab | null;
+      const cat = params.get('cat') || params.get('category');
+      const brand = params.get('b') || params.get('brand');
+      const event = params.get('event') || params.get('eventId');
+
+      if (p) {
+        const matched = findProductByCodeOrId(products, p);
+        if (matched) {
+          setSelectedProductId(matched.id);
+        } else {
+          setSelectedProductId(p);
+        }
+        setActiveTabState('detail');
+      } else if (event) {
+        setSelectedEventId(event);
+        setActiveTabState('event_detail');
+      } else if (tab) {
+        if (tab === 'brand') {
+          setSelectedBrandState(brand || null);
+        }
+        if (tab === 'category') {
+          setSelectedCategoryState((cat as ProductCategory) || '전체');
+        }
+        setActiveTabState((tab as string) === 'sale' ? 'calendar' : tab);
+      } else {
+        setActiveTabState('home');
+        setSelectedBrandState(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [products]);
+
+  // Initial URL deep link resolution on products load
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('p') || params.get('product') || params.get('code');
+    if (p && products.length > 0) {
+      const matched = findProductByCodeOrId(products, p);
+      if (matched && matched.id !== selectedProductId) {
+        setSelectedProductId(matched.id);
+      }
+    }
+  }, [products]);
+
   const setActiveTab = (tab: ActiveTab) => {
     setPreviousTab(activeTab);
     setActiveTabState(tab);
+    updateBrowserUrl(tab, undefined, selectedCategory, selectedBrand, selectedEventId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const setSelectedCategory = (cat: ProductCategory) => {
+    setSelectedCategoryState(cat);
+    if (activeTab === 'category') {
+      updateBrowserUrl('category', undefined, cat, selectedBrand, selectedEventId);
+    }
+  };
+
+  const setSelectedBrand = (brand: string | null) => {
+    setSelectedBrandState(brand);
+    if (activeTab === 'brand') {
+      updateBrowserUrl('brand', undefined, selectedCategory, brand, selectedEventId);
+    }
+  };
+
   const openBrandDetail = (brand: string) => {
-    setSelectedBrand(brand);
+    setSelectedBrandState(brand);
     setPreviousTab(activeTab);
     setActiveTabState('brand');
+    updateBrowserUrl('brand', undefined, selectedCategory, brand, selectedEventId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const goBack = () => {
     if (activeTab === 'brand') {
       if (selectedBrand) {
-        setSelectedBrand(null);
+        setSelectedBrandState(null);
+        updateBrowserUrl('brand', undefined, selectedCategory, null, selectedEventId);
         return;
       }
-      setActiveTabState(previousTab === activeTab ? 'home' : previousTab);
+      const target = previousTab === activeTab ? 'home' : previousTab;
+      setActiveTabState(target);
+      updateBrowserUrl(target, undefined, selectedCategory, null, selectedEventId);
       return;
     }
 
@@ -1852,9 +2038,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       activeTab === 'write' ||
       activeTab === 'calendar'
     ) {
-      setActiveTabState(previousTab === activeTab ? 'home' : previousTab);
+      const target = previousTab === activeTab ? 'home' : previousTab;
+      setActiveTabState(target);
+      updateBrowserUrl(target, undefined, selectedCategory, selectedBrand, null);
     } else {
       setActiveTabState('home');
+      updateBrowserUrl('home', undefined, selectedCategory, selectedBrand, null);
     }
   };
 
@@ -1957,12 +2146,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSelectedProductId(productId);
     setPreviousTab(activeTab);
     setActiveTabState('detail');
+    updateBrowserUrl('detail', productId, selectedCategory, selectedBrand, selectedEventId);
   };
 
   const openEventDetail = (eventId: string) => {
     setSelectedEventId(eventId);
     setPreviousTab(activeTab);
     setActiveTabState('event_detail');
+    updateBrowserUrl('event_detail', undefined, selectedCategory, selectedBrand, eventId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -2985,6 +3176,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newProduct: Product = {
       id: 'prod-' + Date.now(),
+      code: productData.code || generateNextProductCode(products),
       name: productData.name,
       brand: productData.brand,
       category: productData.category,
@@ -3285,6 +3477,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const newProduct: Product = {
       id: `prod-appr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      code: customData?.code || generateNextProductCode(products),
       name: customData?.name || pendingItem.name,
       brand: customData?.brand || pendingItem.brand,
       category: customData?.category || pendingItem.category,

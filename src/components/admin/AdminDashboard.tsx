@@ -73,6 +73,7 @@ import { SalePromotionManagementTab } from './SalePromotionManagementTab';
 import { CalendarManagementTab } from './CalendarManagementTab';
 import { EventManagementTab } from './EventManagementTab';
 import { NotificationManagementTab } from './NotificationManagementTab';
+import { getProductCode } from '../../utils/productCode';
 import { UserManagementTab } from './UserManagementTab';
 import { ReportManagementTab } from './ReportManagementTab';
 import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
@@ -2514,8 +2515,13 @@ export const AdminDashboard: React.FC = () => {
                                     </button>
                                   </div>
                                   <div className="min-w-0">
-                                    <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
-                                    <p className="text-[11px] text-slate-400">{prod.brand} · {prod.releaseDate}</p>
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="font-mono text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
+                                        {getProductCode(prod)}
+                                      </span>
+                                      <p className={`font-bold text-xs truncate max-w-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
+                                    </div>
+                                    <p className="text-[11px] text-slate-400 mt-0.5">{prod.brand} · {prod.releaseDate}</p>
                                   </div>
                                 </div>
                               </td>

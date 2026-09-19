@@ -26,6 +26,7 @@ import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
+import { getProductCode, getProductShareUrl } from '../../utils/productCode';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -186,11 +187,24 @@ export const ProductDetailModal: React.FC = () => {
 
         <div className="flex items-center gap-2 text-gray-700">
           <button 
-            onClick={() => {
-              if (navigator.clipboard) {
-                navigator.clipboard.writeText(window.location.href);
+            onClick={async () => {
+              const shareUrl = getProductShareUrl(selectedProduct);
+              if (navigator.share) {
+                try {
+                  await navigator.share({
+                    title: `신상픽 | ${selectedProduct.name}`,
+                    text: `[신상픽] ${selectedProduct.brand} - ${selectedProduct.name} (상품코드: ${getProductCode(selectedProduct)})`,
+                    url: shareUrl,
+                  });
+                  return;
+                } catch (e) {
+                  // Fallback to clipboard if share was cancelled or failed
+                }
               }
-              showToast('🔗 품목 링크가 복사되었습니다!');
+              if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareUrl);
+              }
+              showToast(`🔗 상품 링크가 복사되었습니다!\n(${shareUrl})`);
             }}
             className="p-1 hover:text-gray-900 transition-colors"
             title="공유하기"
@@ -228,15 +242,33 @@ export const ProductDetailModal: React.FC = () => {
       {/* 3. Info Header Card */}
       <div className="bg-white px-4 pb-4 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => openBrandDetail(selectedProduct.brand)}
-            className="text-[12px] text-gray-900 font-bold hover:underline flex items-center gap-1.5 mb-1 group"
-          >
-            <span>{selectedProduct.brand}</span>
-            <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200 group-hover:bg-gray-200 transition-colors">
-              브랜드관 바로가기 →
-            </span>
-          </button>
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <button
+              onClick={() => openBrandDetail(selectedProduct.brand)}
+              className="text-[12px] text-gray-900 font-bold hover:underline flex items-center gap-1.5 group"
+            >
+              <span>{selectedProduct.brand}</span>
+              <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200 group-hover:bg-gray-200 transition-colors">
+                브랜드관 →
+              </span>
+            </button>
+            {/* 고유 상품 코드 뱃지 및 간편 복사 버튼 */}
+            <button
+              onClick={() => {
+                const code = getProductCode(selectedProduct);
+                if (navigator.clipboard) {
+                  navigator.clipboard.writeText(code);
+                }
+                showToast(`📋 상품코드 [${code}]가 복사되었습니다!`);
+              }}
+              title="클릭하여 상품코드 복사"
+              className="text-[10px] font-mono font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md border border-slate-300 transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+            >
+              <span>코드</span>
+              <span className="text-indigo-600 font-black">{getProductCode(selectedProduct)}</span>
+              <span className="text-[9px] text-slate-600">복사</span>
+            </button>
+          </div>
           <button
             onClick={(e) => toggleBookmark(selectedProduct.id, e)}
             className={`text-xs font-semibold flex items-center gap-1 border px-2.5 py-1 rounded-full transition-all ${
@@ -761,6 +793,10 @@ export const ProductDetailModal: React.FC = () => {
             </div>
 
             <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
+              <div className="flex py-2.5 px-3 bg-indigo-50/50">
+                <span className="w-24 text-indigo-700 font-bold shrink-0">고유 상품코드</span>
+                <span className="text-indigo-900 font-mono font-black">{getProductCode(selectedProduct)}</span>
+              </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">품목 / 분류</span>
                 <span className="text-gray-900 font-bold">{selectedProduct.category} {selectedProduct.subCategory ? `> ${selectedProduct.subCategory}` : ''}</span>

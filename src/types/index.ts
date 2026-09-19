@@ -121,6 +121,7 @@ export type StoreStock = StoreStockItem;
 
 export interface Product {
   id: string;
+  code?: string; // 고유 상품 코드 (e.g. 'SP-001', 'SP-2026-0001')
   name: string;
   brand: string;
   category: ProductCategory;
