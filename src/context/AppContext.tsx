@@ -673,6 +673,14 @@ const getSocialRealNames = (user: any): string[] => {
   ].filter((n): n is string => Boolean(n && typeof n === 'string' && n.trim().length > 0));
 };
 
+/**
+ * Checks if a given avatar URL originates from Kakao CDN or is a Kakao social profile image
+ */
+const isKakaoAvatarUrl = (url?: string | null): boolean => {
+  if (!url || typeof url !== 'string') return false;
+  return /kakaocdn\.net|kakao\.com|daumcdn\.net/i.test(url);
+};
+
 // Initial User Profile
 const createInitialUser = (): UserProfile => {
   const cachedUid = localStorage.getItem('sinsangpick_uid');
@@ -685,7 +693,7 @@ const createInitialUser = (): UserProfile => {
 
   const points = cachedPoints ? parseInt(cachedPoints, 10) : 100;
   const displayName = cachedName || getInitialSequentialNicknameSync();
-  const photoURL = (cachedPhoto && !cachedPhoto.includes('unsplash')) ? cachedPhoto : DEFAULT_AVATAR;
+  const photoURL = (cachedPhoto && !cachedPhoto.includes('unsplash') && !isKakaoAvatarUrl(cachedPhoto)) ? cachedPhoto : DEFAULT_AVATAR;
 
   return {
     uid,
@@ -792,7 +800,7 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
   return sorted.map((b, idx) => ({ ...b, order: idx + 1 }));
 };
 
-const DATA_VERSION = 'v23_20260916_restore_top_banner';
+const DATA_VERSION = 'v24_20260919_chuseok_banner';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -904,9 +912,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (stored) {
         const parsed: BannerItem[] = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const existingIds = new Set(parsed.map(b => b.id));
+          const updatedParsed = parsed.map(b => {
+            if (b.id === 'banner-coupang-fresh') {
+              const freshInit = INITIAL_BANNERS.find(ib => ib.id === 'banner-coupang-fresh');
+              if (freshInit) {
+                return {
+                  ...b,
+                  image: freshInit.image,
+                  badge: freshInit.badge,
+                  title: freshInit.title,
+                  subtitle: freshInit.subtitle,
+                  buttonText: freshInit.buttonText
+                };
+              }
+            }
+            return b;
+          });
+          const existingIds = new Set(updatedParsed.map(b => b.id));
           const missing = INITIAL_BANNERS.filter(b => !existingIds.has(b.id));
-          const merged = [...parsed, ...missing];
+          const merged = [...updatedParsed, ...missing];
           return normalizeBanners(merged);
         }
       }
@@ -1434,19 +1458,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (profile) {
         setCurrentUser(prev => {
           const isKakao = prev.provider === 'kakao';
-          const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
+          const isCustomizedName = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
+          const isCustomizedPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
           let finalDisplayName = prev.displayName;
+          let finalPhotoURL = prev.photoURL;
 
           if (profile.display_name && !profile.display_name.includes('사용자') && profile.display_name !== '신상러버') {
-            if (isCustomized || !isKakao || /^신상러버_\d+$/.test(profile.display_name)) {
+            if (isCustomizedName || !isKakao || /^신상러버_\d+$/.test(profile.display_name)) {
               finalDisplayName = profile.display_name;
+            }
+          }
+
+          // 카카오 프로필 사진 노출 차단: 사용자가 직접 앱에서 변경한 사진이 아니거나 카카오 CDN URL이면 기본 아바타 적용
+          if (profile.avatar_url) {
+            if (isKakaoAvatarUrl(profile.avatar_url)) {
+              finalPhotoURL = DEFAULT_AVATAR;
+              if (supabase) {
+                supabase.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', uid).then(() => {});
+              }
+              localStorage.setItem('sinsangpick_photo', DEFAULT_AVATAR);
+            } else if (isCustomizedPhoto || !isKakao) {
+              finalPhotoURL = profile.avatar_url;
             }
           }
 
           return {
             ...prev,
             displayName: finalDisplayName,
-            photoURL: profile.avatar_url || prev.photoURL,
+            photoURL: finalPhotoURL,
             points: profile.points ?? prev.points,
             level: calculateLevel(profile.points ?? prev.points),
           };
@@ -1551,11 +1590,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_name', resolvedDisplayName);
       }
 
+      const isKakao = providerName === 'kakao' || user.identities?.some((i: any) => i.provider === 'kakao');
+      const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
+      const rawUserAvatar = user.user_metadata?.avatar_url;
+
+      let resolvedPhotoURL = DEFAULT_AVATAR;
+      const cachedPhoto = localStorage.getItem('sinsangpick_photo');
+
+      if (isCustomPhoto && cachedPhoto && !isKakaoAvatarUrl(cachedPhoto)) {
+        resolvedPhotoURL = cachedPhoto;
+      } else if (!isKakao && rawUserAvatar && !isKakaoAvatarUrl(rawUserAvatar)) {
+        resolvedPhotoURL = rawUserAvatar;
+      }
+
+      localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
+
       setCurrentUser(prev => ({
         ...prev,
         uid,
         displayName: resolvedDisplayName || prev.displayName,
-        photoURL: user.user_metadata?.avatar_url || prev.photoURL,
+        photoURL: resolvedPhotoURL,
         isAnonymous: user.is_anonymous || false,
         provider: providerName,
         email: user.email || prev.email,
@@ -1599,14 +1653,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
           // Fetch DB profile to check if valid custom nickname already exists
           let dbDisplayName: string | null = null;
+          let dbAvatarUrl: string | null = null;
           try {
-            const { data: dbProfile } = await client
+            const { data: profileData } = await client
               .from('profiles')
-              .select('display_name')
+              .select('display_name, avatar_url')
               .eq('id', u.id)
               .maybeSingle();
-            if (dbProfile?.display_name) {
-              dbDisplayName = dbProfile.display_name;
+            if (profileData?.display_name) {
+              dbDisplayName = profileData.display_name;
+            }
+            if (profileData?.avatar_url) {
+              dbAvatarUrl = profileData.avatar_url;
             }
           } catch (e) {
             console.warn('[Supabase Profile Check Error]', e);
@@ -1644,13 +1702,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             displayName = dbDisplayName;
           }
 
-          const photoURL = u.user_metadata?.avatar_url || DEFAULT_AVATAR;
+          const isKakao = providerName === 'kakao' || u.identities?.some((i: any) => i.provider === 'kakao');
+          const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
+          const rawUserAvatar = u.user_metadata?.avatar_url;
+
+          // 카카오 로그인은 내 프로필 사진을 가져오지 않고 기본 아바타(DEFAULT_AVATAR)를 적용
+          let photoURL = DEFAULT_AVATAR;
+          if (isCustomPhoto) {
+            const cachedPhoto = localStorage.getItem('sinsangpick_photo');
+            if (cachedPhoto && !isKakaoAvatarUrl(cachedPhoto)) {
+              photoURL = cachedPhoto;
+            } else if (dbAvatarUrl && !isKakaoAvatarUrl(dbAvatarUrl)) {
+              photoURL = dbAvatarUrl;
+            }
+          } else if (!isKakao && rawUserAvatar && !isKakaoAvatarUrl(rawUserAvatar)) {
+            photoURL = rawUserAvatar;
+          }
+
+          localStorage.setItem('sinsangpick_photo', photoURL);
           
           setCurrentUser(prev => ({
             ...prev,
             uid: u.id,
             displayName: displayName!,
-            photoURL: photoURL || prev.photoURL,
+            photoURL: photoURL,
             isAnonymous: false,
             email: u.email,
             provider: providerName,
@@ -1998,6 +2073,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCurrentUser(prev => ({ ...prev, photoURL: newPhotoURL }));
     try {
       localStorage.setItem('sinsangpick_photo', newPhotoURL);
+      localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
     } catch (e) {
       console.warn('Failed to save photo to localStorage', e);
     }
@@ -2037,6 +2113,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (photo !== undefined) {
       try {
         localStorage.setItem('sinsangpick_photo', photo);
+        localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
       } catch (e) {
         console.warn('Failed to save photo to localStorage', e);
       }

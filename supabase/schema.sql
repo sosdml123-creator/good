@@ -259,21 +259,29 @@ RETURNS TRIGGER AS $$
 DECLARE
     v_provider TEXT;
     v_display_name TEXT;
+    v_avatar_url TEXT;
 BEGIN
     v_provider := COALESCE(NEW.raw_app_meta_data->>'provider', 'email');
 
-    -- 애플 및 카카오 로그인은 개인정보 보호 및 실명 노출 방지를 위해 무작위 닉네임 부여
+    -- 애플 및 카카오 로그인은 개인정보 보호 및 실명/프로필 사진 노출 방지를 위해 무작위 닉네임 및 기본 아바타 부여
     IF v_provider IN ('kakao', 'apple') THEN
         v_display_name := '신상러버_' || LPAD((FLOOR(RANDOM() * 900) + 100)::TEXT, 3, '0');
+        v_avatar_url := 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
     ELSE
         v_display_name := COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name', '신상러버_' || LPAD((FLOOR(RANDOM() * 900) + 100)::TEXT, 3, '0'));
+        v_avatar_url := COALESCE(NEW.raw_user_meta_data->>'avatar_url', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80');
+    END IF;
+
+    -- 카카오 CDN 프로필 사진 차단
+    IF v_avatar_url LIKE '%kakaocdn.net%' OR v_avatar_url LIKE '%daumcdn.net%' OR v_avatar_url LIKE '%kakao.com%' THEN
+        v_avatar_url := 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
     END IF;
 
     INSERT INTO public.profiles (id, display_name, avatar_url, level, points)
     VALUES (
         NEW.id,
         v_display_name,
-        COALESCE(NEW.raw_user_meta_data->>'avatar_url', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'),
+        v_avatar_url,
         'Lv.1',
         100
     )

@@ -23431,11 +23431,11 @@ export const SUBCATEGORIES_MAP: { [key in ProductCategory]?: string[] } = {
 export const INITIAL_BANNERS: BannerItem[] = [
   {
     id: 'banner-coupang-fresh',
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=80',
-    badge: '🚀 쿠팡 로켓프레시 메인특가',
-    title: '로켓프레시 추석 메인특가 & 신선 먹거리',
-    subtitle: '과일·정육·간편식 새벽배송 최대 혜택 기획전',
-    buttonText: '쿠팡 특가 바로가기',
+    image: '/banners/banner-chuseok-2026.jpg',
+    badge: '🚀 로켓프레시 2026 한가위 대축제',
+    title: '2026 한가위 풍성한 추석 선물특가',
+    subtitle: '차례로 마음을 차려냅니다 · 한우·과일·송편·선물세트 로켓프레시 새벽배송',
+    buttonText: '추석 기획전 바로가기',
     linkType: 'url',
     linkUrl: 'https://link.coupang.com/a/gYQgcAnmMK',
     disclaimer: '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.',
