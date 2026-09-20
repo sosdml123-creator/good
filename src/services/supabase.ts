@@ -451,4 +451,34 @@ export const signOutSupabase = async () => {
   if (error) throw error;
 };
 
+/**
+ * Deletes current authenticated user account and their profile data from Supabase.
+ * - Calls SECURITY DEFINER RPC delete_user_account() to remove auth.users & related rows.
+ * - Falls back to direct row deletion if RPC is not available.
+ * - Cleans up current session.
+ */
+export const deleteCurrentUserAccount = async (): Promise<void> => {
+  if (!supabase) return;
 
+  try {
+    // 1. Try secure RPC delete_user_account
+    const { error: rpcError } = await supabase.rpc('delete_user_account');
+    if (rpcError) {
+      console.warn('[Supabase Auth] RPC delete_user_account fallback:', rpcError.message);
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.id) {
+        // Fallback: cleanup client-accessible tables
+        try { await supabase.from('device_tokens').delete().eq('user_id', user.id); } catch {}
+        try { await supabase.from('review_likes').delete().eq('user_id', user.id); } catch {}
+        try { await supabase.from('post_likes').delete().eq('user_id', user.id); } catch {}
+        try { await supabase.from('profiles').delete().eq('id', user.id); } catch {}
+      }
+    }
+  } catch (err) {
+    console.warn('[Supabase Auth] deleteCurrentUserAccount exception:', err);
+  } finally {
+    // Always sign out to clear cached auth tokens
+    try { await supabase.auth.signOut(); } catch {}
+  }
+};

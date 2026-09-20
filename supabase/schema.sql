@@ -343,6 +343,7 @@ ALTER TABLE public.post_comments ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles FOR SELECT USING (true);
 CREATE POLICY "Users can update own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
+CREATE POLICY "Users can delete own profile" ON public.profiles FOR DELETE USING (auth.uid() = id);
 
 -- 2. Products
 CREATE POLICY "Products are viewable by everyone" ON public.products FOR SELECT USING (true);
@@ -468,3 +469,47 @@ CREATE POLICY "Anyone can delete device tokens" ON public.device_tokens FOR DELE
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
 
+-- =========================================================
+-- 11. User Account Deletion RPC (Apple App Store Guideline 5.1.1(v) & GDPR)
+-- =========================================================
+CREATE OR REPLACE FUNCTION public.delete_user_account()
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, auth
+AS $$
+DECLARE
+    current_user_id UUID;
+BEGIN
+    current_user_id := auth.uid();
+    IF current_user_id IS NULL THEN
+        RAISE EXCEPTION 'Not authenticated';
+    END IF;
+
+    -- 1. 푸시 알림 디바이스 토큰 삭제
+    DELETE FROM public.device_tokens WHERE user_id = current_user_id;
+
+    -- 2. 사용자 좋아요 삭제
+    DELETE FROM public.review_likes WHERE user_id = current_user_id;
+    DELETE FROM public.post_likes WHERE user_id = current_user_id;
+
+    -- 3. 작성한 리뷰 & 커뮤니티 글은 작성자를 '탈퇴한 회원'으로 익명 처리 (리뷰 데이터 보존 정책)
+    UPDATE public.reviews 
+    SET user_name = '탈퇴한 회원', 
+        user_avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
+    WHERE user_id = current_user_id;
+
+    UPDATE public.community_posts 
+    SET author_name = '탈퇴한 회원', 
+        author_avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
+    WHERE author_id = current_user_id;
+
+    -- 4. 프로필 정보 영구 파기
+    DELETE FROM public.profiles WHERE id = current_user_id;
+
+    -- 5. Supabase Auth 사용자 계정 영구 파기
+    DELETE FROM auth.users WHERE id = current_user_id;
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION public.delete_user_account() TO authenticated;

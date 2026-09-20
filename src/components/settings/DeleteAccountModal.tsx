@@ -15,13 +15,15 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({ isOpen, 
   if (!isOpen) return null;
 
   const handleDelete = async () => {
-    if (!agreed) return;
+    if (!agreed || isDeleting) return;
     setIsDeleting(true);
     try {
       await deleteAccount();
       onClose();
+      alert('회원 탈퇴 및 계정 삭제가 정상적으로 완료되었습니다.');
     } catch (err) {
       console.error(err);
+      alert('회원 탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     } finally {
       setIsDeleting(false);
     }

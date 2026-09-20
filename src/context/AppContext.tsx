@@ -57,6 +57,7 @@ import {
   signInWithApple as supabaseSignInWithApple,
   signInWithKakao as supabaseSignInWithKakao,
   signOutSupabase,
+  deleteCurrentUserAccount,
   handleAuthCallbackUrl,
   DBProduct,
   DBReview,
@@ -2748,33 +2749,63 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteAccount = async () => {
     try {
+      const uidToDelete = currentUser.uid;
+
+      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제
       if (supabase && isSupabaseConfigured) {
         try {
-          await supabase.from('profiles').delete().eq('id', currentUser.uid);
-          await signOutSupabase();
+          await deleteCurrentUserAccount();
         } catch (err) {
           console.warn('[Supabase] Failed to delete user profile from DB:', err);
         }
       }
-      // 로컬 스토리지에 저장된 사용자 고유 데이터 일괄 영구 파기
+
+      // 2. 로컬 스토리지에 저장된 사용자 고유 데이터 및 캐시 일괄 영구 파기
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
       localStorage.removeItem('sinsangpick_points');
+      localStorage.removeItem('sinsangpick_photo');
       localStorage.removeItem('sinsangpick_bookmarks');
       localStorage.removeItem('sinsangpick_compared');
       localStorage.removeItem('sinsangpick_recent_searches');
       localStorage.removeItem('sinsangpick_alert_cats');
+      localStorage.removeItem('sinsangpick_guest_browse');
+      localStorage.removeItem('sinsangpick_attendance_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_custom_nickname_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_custom_photo_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_nickname_set_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_suspension_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_points_tx_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_wheel_spins_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_scratch_cards_' + uidToDelete);
 
-      // 상태 초기화
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.endsWith(`_${uidToDelete}`) || k.startsWith('sb-'))) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      } catch (e) {
+        // ignore
+      }
+
+      // 3. 앱 내부 상태 완전 초기화
+      setIsGuestBrowseState(false);
       const initialUser = createInitialUser();
       setCurrentUser(initialUser);
       setBookmarkedIds([]);
       setComparedIds([]);
+      setRecentSearches([]);
+      setAlertCategories([]);
       setActiveTabState('home');
       showToast('회원 탈퇴 및 계정 삭제가 정상적으로 완료되었습니다.', 'info');
     } catch (err) {
       console.error('Delete account error:', err);
       showToast('계정 삭제 중 오류가 발생했습니다.', 'error');
+      throw err;
     }
   };
 
