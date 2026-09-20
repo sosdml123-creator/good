@@ -64,6 +64,13 @@ import {
   DBReviewComment,
   DBPostComment
 } from '../services/supabase';
+import {
+  fetchRemoteContent,
+  saveRemoteBannersAndSections,
+  saveRemoteProduct,
+  deleteRemoteProduct,
+  SYSTEM_BANNER_RECORD_ID
+} from '../services/siteContentService';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { 
@@ -325,6 +332,11 @@ interface AppContextType {
   closeWriteRecipe: () => void;
   toggleRecipeLike: (recipeId: string) => void;
   addRecipePost: (recipeData: WriteRecipeInput) => Promise<void>;
+
+  // Global Remote Content Sync
+  isContentSyncing: boolean;
+  syncAllContentToCloud: () => Promise<void>;
+  refreshRemoteContent: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -818,7 +830,125 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
   return sorted.map((b, idx) => ({ ...b, order: idx + 1 }));
 };
 
-const DATA_VERSION = 'v24_20260919_chuseok_banner';
+/**
+ * Smart merge function for banners:
+ * Guarantees that official INITIAL_BANNERS are always fresh with latest title, image, links, order,
+ * while preserving any custom banners created by the admin.
+ */
+export const smartMergeBanners = (
+  storedBanners: BannerItem[] | null,
+  initialBanners: BannerItem[]
+): BannerItem[] => {
+  if (!storedBanners || !Array.isArray(storedBanners) || storedBanners.length === 0) {
+    return normalizeBanners(initialBanners);
+  }
+
+  const initialMap = new Map<string, BannerItem>();
+  initialBanners.forEach(b => initialMap.set(b.id, b));
+
+  const storedMap = new Map<string, BannerItem>();
+  storedBanners.forEach(b => storedMap.set(b.id, b));
+
+  // 1. For each official initial banner, preserve its existence with the latest code updates
+  // (title, subtitle, image, link, buttonText, badge), while retaining admin's active state if customized
+  const mergedOfficial: BannerItem[] = initialBanners.map(initB => {
+    const stored = storedMap.get(initB.id);
+    if (stored) {
+      return {
+        ...initB,
+        isActive: stored.isActive ?? initB.isActive,
+        order: stored.order ?? initB.order,
+      };
+    }
+    return initB;
+  });
+
+  // 2. Preserve any custom banners added by admin (IDs not present in INITIAL_BANNERS)
+  const customBanners: BannerItem[] = storedBanners.filter(b => !initialMap.has(b.id));
+
+  // 3. Combine and sort
+  const combined = [...mergedOfficial, ...customBanners];
+  return normalizeBanners(combined);
+};
+
+/**
+ * Smart merge function for products:
+ * Guarantees that official INITIAL_PRODUCTS are always up-to-date with latest metadata
+ * (image, price, releaseDate, description, stores, calories, volume, nutrition, isToday, isHot),
+ * while preserving any custom products created or approved by admin.
+ */
+export const smartMergeProducts = (
+  storedProducts: Product[] | null,
+  initialProducts: Product[]
+): Product[] => {
+  if (!storedProducts || !Array.isArray(storedProducts) || storedProducts.length === 0) {
+    return initialProducts;
+  }
+
+  const initialMap = new Map<string, Product>();
+  initialProducts.forEach(p => initialMap.set(p.id, p));
+
+  const storedMap = new Map<string, Product>();
+  storedProducts.forEach(p => storedMap.set(p.id, p));
+
+  // 1. Update all official products with latest code updates while preserving ratings if available
+  const mergedOfficial: Product[] = initialProducts.map(initP => {
+    const stored = storedMap.get(initP.id);
+    if (stored) {
+      return {
+        ...initP,
+        overallRating: stored.overallRating ?? initP.overallRating,
+        ratingCount: Math.max(stored.ratingCount ?? 0, initP.ratingCount ?? 0),
+        detailedRating: stored.detailedRating || initP.detailedRating,
+      };
+    }
+    return initP;
+  });
+
+  // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS)
+  const customProducts = storedProducts.filter(p => !initialMap.has(p.id));
+
+  return [...customProducts, ...mergedOfficial];
+};
+
+/**
+ * Smart merge function for home sections
+ */
+export const smartMergeHomeSections = (
+  storedSections: HomeSectionConfig[] | null,
+  initialSections: HomeSectionConfig[]
+): HomeSectionConfig[] => {
+  if (!storedSections || !Array.isArray(storedSections) || storedSections.length === 0) {
+    return initialSections;
+  }
+
+  const initialMap = new Map<string, HomeSectionConfig>();
+  initialSections.forEach(s => initialMap.set(s.id, s));
+
+  const merged: HomeSectionConfig[] = [];
+  storedSections.forEach(stored => {
+    const init = initialMap.get(stored.id);
+    if (init) {
+      merged.push({
+        ...init,
+        ...stored,
+        title: init.title,
+        subtitle: init.subtitle,
+      });
+    }
+  });
+
+  // Append any missing initial sections
+  initialSections.forEach(init => {
+    if (!merged.some(m => m.id === init.id)) {
+      merged.push(init);
+    }
+  });
+
+  return merged.map((s, idx) => ({ ...s, order: idx + 1 }));
+};
+
+export const DATA_VERSION = 'v25_20260920_sync_engine';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
@@ -907,30 +1037,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const [isContentSyncing, setIsContentSyncing] = useState<boolean>(false);
+
   const [products, setProducts] = useState<Product[]>(() => {
     try {
-      const currentVer = localStorage.getItem('sinsangpick_data_version');
-      if (currentVer !== DATA_VERSION) {
-        localStorage.setItem('sinsangpick_data_version', DATA_VERSION);
-        localStorage.setItem('sinsangpick_products', JSON.stringify(INITIAL_PRODUCTS));
-        localStorage.setItem('sinsangpick_reviews', JSON.stringify(INITIAL_REVIEWS));
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalizeBanners(INITIAL_BANNERS)));
-        localStorage.setItem('sinsangpick_battle_config', JSON.stringify(INITIAL_BATTLE_CONFIG));
-        localStorage.setItem('sinsangpick_home_sections', JSON.stringify(INITIAL_HOME_SECTIONS));
-        return INITIAL_PRODUCTS;
-      }
       const stored = localStorage.getItem('sinsangpick_products');
-      if (stored) {
-        const parsed: Product[] = JSON.parse(stored);
-        const existingIds = new Set(parsed.map(p => p.id));
-        const missing = INITIAL_PRODUCTS.filter(p => !existingIds.has(p.id));
-        return missing.length > 0 ? [...parsed, ...missing] : parsed;
-      }
-      return INITIAL_PRODUCTS;
+      const parsed: Product[] | null = stored ? JSON.parse(stored) : null;
+      return smartMergeProducts(parsed, INITIAL_PRODUCTS);
     } catch {
       return INITIAL_PRODUCTS;
     }
   });
+
   const [reviews, setReviews] = useState<Review[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_reviews');
@@ -948,13 +1066,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [banners, setBanners] = useState<BannerItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_banners');
-      if (stored !== null) {
-        const parsed: BannerItem[] = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          return normalizeBanners(parsed);
-        }
-      }
-      return normalizeBanners(INITIAL_BANNERS);
+      const parsed: BannerItem[] | null = stored ? JSON.parse(stored) : null;
+      return smartMergeBanners(parsed, INITIAL_BANNERS);
     } catch {
       return normalizeBanners(INITIAL_BANNERS);
     }
@@ -972,34 +1085,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [homeSections, setHomeSections] = useState<HomeSectionConfig[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_home_sections');
-      if (stored) {
-        const parsed: HomeSectionConfig[] = JSON.parse(stored);
-        // Merge with initial in case new sections were added
-        const merged: HomeSectionConfig[] = [];
-        // first keep stored that exist in initial
-        parsed.forEach(p => {
-          const match = INITIAL_HOME_SECTIONS.find(init => init.id === p.id);
-          if (match) {
-            merged.push({ ...match, ...p });
-          }
-        });
-        // then append any missing initial sections
-        INITIAL_HOME_SECTIONS.forEach(init => {
-          if (!merged.some(m => m.id === init.id)) {
-            if (init.id === 'ad_banner') {
-              const catIndex = merged.findIndex(m => m.id === 'categories');
-              if (catIndex !== -1) {
-                merged.splice(catIndex + 1, 0, init);
-                return;
-              }
-            }
-            merged.push(init);
-          }
-        });
-        // re-assign sequential orders
-        return merged.map((s, idx) => ({ ...s, order: idx + 1 }));
-      }
-      return INITIAL_HOME_SECTIONS;
+      const parsed: HomeSectionConfig[] | null = stored ? JSON.parse(stored) : null;
+      return smartMergeHomeSections(parsed, INITIAL_HOME_SECTIONS);
     } catch {
       return INITIAL_HOME_SECTIONS;
     }
@@ -1346,55 +1433,64 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [productEditRequests]);
 
   // Sync pending products to localStorage
+  // Safe localStorage helper to prevent QuotaExceededError crashes
+  const safeSetItem = (key: string, value: string) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      console.warn(`[LocalStorage Quota Exceeded] Failed to save key: ${key}`, e);
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(pendingProducts));
+    safeSetItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(pendingProducts));
   }, [pendingProducts]);
 
   // Sync state to localStorage
   useEffect(() => {
-    localStorage.setItem('sinsangpick_products', JSON.stringify(products));
+    safeSetItem('sinsangpick_products', JSON.stringify(products));
   }, [products]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_banners', JSON.stringify(banners));
+    safeSetItem('sinsangpick_banners', JSON.stringify(banners));
   }, [banners]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
+    safeSetItem('sinsangpick_battle_config', JSON.stringify(battleConfig));
   }, [battleConfig]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_home_sections', JSON.stringify(homeSections));
+    safeSetItem('sinsangpick_home_sections', JSON.stringify(homeSections));
   }, [homeSections]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_reviews', JSON.stringify(reviews));
+    safeSetItem('sinsangpick_reviews', JSON.stringify(reviews));
   }, [reviews]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_events', JSON.stringify(events));
+    safeSetItem('sinsangpick_events', JSON.stringify(events));
   }, [events]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_notifications', JSON.stringify(notifications));
+    safeSetItem('sinsangpick_notifications', JSON.stringify(notifications));
   }, [notifications]);
 
   // Sync state to localStorage
   useEffect(() => {
-    localStorage.setItem('sinsangpick_review_likes', JSON.stringify(likedReviewIds));
+    safeSetItem('sinsangpick_review_likes', JSON.stringify(likedReviewIds));
   }, [likedReviewIds]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_post_likes', JSON.stringify(likedPostIds));
+    safeSetItem('sinsangpick_post_likes', JSON.stringify(likedPostIds));
   }, [likedPostIds]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_bookmarks', JSON.stringify(bookmarkedIds));
+    safeSetItem('sinsangpick_bookmarks', JSON.stringify(bookmarkedIds));
   }, [bookmarkedIds]);
 
   useEffect(() => {
-    localStorage.setItem('sinsangpick_points', currentUser.points.toString());
-    localStorage.setItem('sinsangpick_name', currentUser.displayName);
+    safeSetItem('sinsangpick_points', currentUser.points.toString());
+    safeSetItem('sinsangpick_name', currentUser.displayName);
   }, [currentUser]);
 
   // Auto-fetch daily new products on app start if today hasn't crawled or pending is empty
@@ -1422,12 +1518,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     checkAndAutoCrawl();
   }, []);
 
+  // Global Remote Content Sync Handlers
+  const refreshRemoteContent = async () => {
+    setIsContentSyncing(true);
+    try {
+      const remote = await fetchRemoteContent();
+      if (remote.banners && remote.banners.length > 0) {
+        const mergedBanners = smartMergeBanners(remote.banners, INITIAL_BANNERS);
+        setBanners(mergedBanners);
+        safeSetItem('sinsangpick_banners', JSON.stringify(mergedBanners));
+      }
+      if (remote.homeSections && remote.homeSections.length > 0) {
+        const mergedSections = smartMergeHomeSections(remote.homeSections, INITIAL_HOME_SECTIONS);
+        setHomeSections(mergedSections);
+        safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
+      }
+    } catch (e) {
+      console.warn('[refreshRemoteContent Warning]', e);
+    } finally {
+      setIsContentSyncing(false);
+    }
+  };
+
+  const syncAllContentToCloud = async () => {
+    setIsContentSyncing(true);
+    try {
+      await saveRemoteBannersAndSections(banners, homeSections);
+      showToast('☁️ 배너 및 홈 구좌 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
+    } catch (e) {
+      showToast('동기화 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsContentSyncing(false);
+    }
+  };
+
   // Fetch all initial data from Supabase
   const loadSupabaseData = async (uid: string) => {
     if (!supabase) return;
 
     try {
-      // 1. Fetch Products
+      // 1. Fetch Products & System Records
       const { data: dbProducts, error: prodErr } = await supabase
         .from('products')
         .select('*')
@@ -1443,6 +1573,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         dbProducts.forEach(p => {
           if (p.id) dbProductMap.set(p.id, p);
         });
+
+        // Check for system banner/settings record
+        const systemBannerRecord = dbProductMap.get(SYSTEM_BANNER_RECORD_ID);
+        if (systemBannerRecord && systemBannerRecord.nutrition) {
+          if (Array.isArray(systemBannerRecord.nutrition.banners) && systemBannerRecord.nutrition.banners.length > 0) {
+            const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS);
+            setBanners(merged);
+            safeSetItem('sinsangpick_banners', JSON.stringify(merged));
+          }
+          if (Array.isArray(systemBannerRecord.nutrition.homeSections) && systemBannerRecord.nutrition.homeSections.length > 0) {
+            const mergedSec = smartMergeHomeSections(systemBannerRecord.nutrition.homeSections, INITIAL_HOME_SECTIONS);
+            setHomeSections(mergedSec);
+            safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
+          }
+        }
 
         // Always preserve all 100 INITIAL_PRODUCTS, merging DB fields where applicable
         const mergedInitial = INITIAL_PRODUCTS.map(initial => {
@@ -1468,10 +1613,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           return initial;
         });
 
-        // Also append any extra custom products from Supabase that are not in INITIAL_PRODUCTS
+        // Also append any extra custom products from Supabase (excluding system container)
         const initialIdSet = new Set(INITIAL_PRODUCTS.map(p => p.id));
         const extraDbProducts = dbProducts
-          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id))
+          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID)
           .map(dbP => mapDBProductToProduct(dbP));
 
         setProducts([...mergedInitial, ...extraDbProducts]);
@@ -1885,6 +2030,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isMounted = false;
     };
   }, []);
+
+  // 🔄 Automatic Remote Content Sync on Mount & App Foreground Resume
+  useEffect(() => {
+    refreshRemoteContent();
+
+    let stateSub: any = null;
+    if (Capacitor.isNativePlatform()) {
+      CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+        if (isActive) {
+          refreshRemoteContent();
+          if (currentUser.uid) {
+            loadSupabaseData(currentUser.uid);
+          }
+        }
+      }).then(sub => {
+        stateSub = sub;
+      }).catch(() => {});
+    }
+
+    const handleFocus = () => {
+      refreshRemoteContent();
+      if (currentUser.uid) {
+        loadSupabaseData(currentUser.uid);
+      }
+    };
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      if (stateSub && typeof stateSub.remove === 'function') {
+        stateSub.remove();
+      }
+    };
+  }, [currentUser.uid]);
 
   // Recalculate isLiked states when local like lists change
   useEffect(() => {
@@ -2694,7 +2873,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setPointTransactions(prev => [newTx, ...prev]);
 
     showToast(`🎉 정성 가득 리뷰 등록 완료! (+${earnedPoints}P 적립)`, 'success');
+    setSelectedProductId(targetProduct.id);
+    setPreviousTab(activeTab);
     setActiveTabState('detail');
+    updateBrowserUrl('detail', targetProduct.id, selectedCategory, selectedBrand, selectedEventId);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
 
     // 2. Supabase Insert (Server-side Trigger automatically updates products.overall_rating & rating_count!)
     if (supabase && isSupabaseConfigured) {
@@ -3140,14 +3325,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         list.push(newBanner);
       }
       const normalized = normalizeBanners(list);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
-    showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다!', 'success');
+    showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다! (클라우드 동기화 완료)', 'success');
   };
 
   // Update Banner
@@ -3163,40 +3346,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       }
       const normalized = normalizeBanners(next);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
-    showToast('배너 구좌 정보가 수정되었습니다.', 'success');
+    showToast('배너 구좌 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   // Delete Banner (남은 구좌 번호 1부터 자동 재배열 및 즉시 영구 저장)
   const deleteBanner = (id: string) => {
     setBanners(prev => {
       const normalized = normalizeBanners(prev.filter(b => b.id !== id));
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
-    showToast('배너 구좌가 삭제되었습니다.', 'info');
+    showToast('배너 구좌가 삭제되었습니다. (클라우드 동기화 완료)', 'info');
   };
 
   // Toggle Banner Active
   const toggleBannerActive = (id: string) => {
     setBanners(prev => {
       const next = prev.map(b => b.id === id ? { ...b, isActive: !b.isActive } : b);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(next));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
-      return next;
+      const normalized = normalizeBanners(next);
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      return normalized;
     });
   };
 
@@ -3215,11 +3393,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       newBanners[targetIndex] = temp;
       
       const normalized = normalizeBanners(newBanners);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
     showToast(`배너 구좌 순서가 ${direction === 'up' ? '상위' : '하위'}로 변경되었습니다.`, 'info');
@@ -3237,11 +3413,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       sorted.splice(insertIndex, 0, item);
       
       const normalized = normalizeBanners(sorted);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
     showToast(`배너가 ${targetOrder}구좌로 이동되었습니다.`, 'success');
@@ -3264,11 +3438,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const targetIndex = sorted.findIndex(b => b.id === id);
       sorted.splice(targetIndex + 1, 0, duplicated);
       const normalized = normalizeBanners(sorted);
-      try {
-        localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-      } catch (e) {
-        console.error('Failed to save banners:', e);
-      }
+      safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
+      // Cloud sync
+      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
       return normalized;
     });
     showToast('배너 구좌가 성공적으로 복제되었습니다!', 'success');
@@ -3277,13 +3449,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Reorder Banners (일괄 순서 저장)
   const reorderBanners = (newBanners: BannerItem[]) => {
     const normalized = normalizeBanners(newBanners);
-    try {
-      localStorage.setItem('sinsangpick_banners', JSON.stringify(normalized));
-    } catch (e) {
-      console.error('Failed to save banners:', e);
-    }
+    safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
     setBanners(normalized);
-    showToast('배너 구좌 순서가 저장되었습니다.', 'success');
+    // Cloud sync
+    saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+    showToast('배너 구좌 순서가 저장되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   // Add Product
@@ -3318,30 +3488,50 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isHot: productData.isHot ?? false,
     };
     setProducts(prev => [newProduct, ...prev]);
-    showToast(`📦 '${newProduct.name}' 상품이 등록되었습니다!`, 'success');
+    saveRemoteProduct(newProduct).catch(() => {});
+    showToast(`📦 '${newProduct.name}' 상품이 등록되었습니다! (클라우드 동기화 완료)`, 'success');
   };
 
   // Update Product
   const updateProduct = (id: string, updated: Partial<Product>) => {
     setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p));
-    showToast('상품 정보가 수정되었습니다.', 'success');
+    const target = products.find(p => p.id === id);
+    if (target) {
+      saveRemoteProduct({ ...target, ...updated }).catch(() => {});
+    }
+    showToast('상품 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   // Delete Product
   const deleteProduct = (id: string) => {
     setProducts(prev => prev.filter(p => p.id !== id));
-    showToast('상품이 삭제되었습니다.', 'info');
+    deleteRemoteProduct(id).catch(() => {});
+    showToast('상품이 삭제되었습니다. (클라우드 동기화 완료)', 'info');
   };
 
   // Toggle Product Today
   const toggleProductToday = (id: string) => {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, isToday: !p.isToday } : p));
+    setProducts(prev => prev.map(p => {
+      if (p.id === id) {
+        const nextToday = !p.isToday;
+        saveRemoteProduct({ ...p, isToday: nextToday }).catch(() => {});
+        return { ...p, isToday: nextToday };
+      }
+      return p;
+    }));
     showToast('오늘의 신상 상태가 변경되었습니다.', 'info');
   };
 
   // Toggle Product Hot
   const toggleProductHot = (id: string) => {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, isHot: !p.isHot } : p));
+    setProducts(prev => prev.map(p => {
+      if (p.id === id) {
+        const nextHot = !p.isHot;
+        saveRemoteProduct({ ...p, isHot: nextHot }).catch(() => {});
+        return { ...p, isHot: nextHot };
+      }
+      return p;
+    }));
     showToast('인기 상품 상태가 변경되었습니다.', 'info');
   };
 
@@ -3353,31 +3543,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Home Sections Management
   const updateHomeSection = (id: HomeSectionId, updates: Partial<HomeSectionConfig>) => {
-    setHomeSections(prev => prev.map(sec => sec.id === id ? { ...sec, ...updates } : sec));
-    showToast('홈 구좌 설정이 업데이트되었습니다.', 'success');
+    setHomeSections(prev => {
+      const next = prev.map(sec => sec.id === id ? { ...sec, ...updates } : sec);
+      saveRemoteBannersAndSections(banners, next).catch(() => {});
+      return next;
+    });
+    showToast('홈 구좌 설정이 업데이트되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   const toggleHomeSectionVisibility = (id: HomeSectionId) => {
-    setHomeSections(prev => prev.map(sec => {
-      if (sec.id === id) {
-        const nextState = !sec.isVisible;
-        showToast(`'${sec.name}' 구좌가 ${nextState ? '활성화' : '비활성화'}되었습니다.`, 'info');
-        return { ...sec, isVisible: nextState };
-      }
-      return sec;
-    }));
+    setHomeSections(prev => {
+      const next = prev.map(sec => {
+        if (sec.id === id) {
+          const nextState = !sec.isVisible;
+          showToast(`'${sec.name}' 구좌가 ${nextState ? '활성화' : '비활성화'}되었습니다.`, 'info');
+          return { ...sec, isVisible: nextState };
+        }
+        return sec;
+      });
+      saveRemoteBannersAndSections(banners, next).catch(() => {});
+      return next;
+    });
   };
 
   const reorderHomeSections = (sections: HomeSectionConfig[]) => {
     const updated = sections.map((s, idx) => ({ ...s, order: idx + 1 }));
     setHomeSections(updated);
-    showToast('홈 구좌 순서가 변경되었습니다.', 'success');
+    saveRemoteBannersAndSections(banners, updated).catch(() => {});
+    showToast('홈 구좌 순서가 변경되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   const resetHomeSections = () => {
     setHomeSections(INITIAL_HOME_SECTIONS);
     localStorage.removeItem('sinsangpick_home_sections');
-    showToast('홈 구좌 설정이 기본값으로 초기화되었습니다.', 'info');
+    saveRemoteBannersAndSections(banners, INITIAL_HOME_SECTIONS).catch(() => {});
+    showToast('홈 구좌 설정이 기본값으로 초기화되었습니다. (클라우드 동기화 완료)', 'info');
   };
 
   // --- Admin Brand Actions ---
@@ -4808,6 +5008,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         closeWriteRecipe,
         toggleRecipeLike,
         addRecipePost,
+
+        // Global Remote Content Sync
+        isContentSyncing,
+        syncAllContentToCloud,
+        refreshRemoteContent,
       }}
     >
       {children}

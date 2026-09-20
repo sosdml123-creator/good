@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useApp } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { BottomNav } from './components/common/BottomNav';
@@ -30,6 +30,17 @@ import { AppPermissionModal } from './components/common/AppPermissionModal';
 
 export const App: React.FC = () => {
   const { activeTab, currentUser, isGuestBrowse } = useApp();
+  const mainRef = useRef<HTMLElement>(null);
+
+  // 탭 변경 시 main 스크롤 컨테이너를 맨 위로 리셋하여 빈 화면 노출 방지
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }, [activeTab]);
 
   // Check URL parameters or pathname for public web policy viewer (Store Review Requirement)
   const urlParams = new URLSearchParams(window.location.search);
@@ -87,7 +98,7 @@ export const App: React.FC = () => {
         <PushBanner />
 
         {/* Scrollable Main Content Area */}
-        <main className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
+        <main ref={mainRef} className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
           {/* Dynamic Route/Tab Display */}
           {activeTab === 'home' && (
             <>

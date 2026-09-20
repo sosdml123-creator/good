@@ -309,6 +309,17 @@ export const WriteReviewModal: React.FC = () => {
     }
   };
 
+  // 실제 구매가 자동 콤마(,) 서식 처리
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    if (!raw) {
+      setPurchasePrice('');
+      return;
+    }
+    const num = parseInt(raw, 10);
+    setPurchasePrice(isNaN(num) ? '' : num.toLocaleString());
+  };
+
   // 제출 처리
   const handleSubmit = async () => {
     if (isSubmitting) return;
@@ -620,9 +631,10 @@ export const WriteReviewModal: React.FC = () => {
               <div className="relative flex-1">
                 <input
                   type="text"
+                  inputMode="numeric"
                   placeholder={prod ? `${prod.price.toLocaleString()} (선택입력)` : '구매금액 (선택입력)'}
                   value={purchasePrice}
-                  onChange={(e) => setPurchasePrice(e.target.value)}
+                  onChange={handlePriceChange}
                   className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-900 outline-none focus:border-slate-900 focus:bg-white transition-colors"
                 />
               </div>

@@ -1,0 +1,162 @@
+/**
+ * Vercel Serverless Function for Synchronizing Banners, Products, and Home Sections
+ * Endpoint: /api/site-content
+ * 
+ * Supports both GET (fetching latest remote content) and POST (updating content from admin)
+ * Allows web browsers and native apps (iOS / Android Capacitor) to share identical state in real-time.
+ */
+
+export default async function handler(req, res) {
+  // Enable CORS for web and Capacitor native apps (capacitor://localhost, ionic://localhost, etc.)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://lyyzhldazfyrpprdvmeg.supabase.co';
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 
+                      process.env.VITE_SUPABASE_ANON_KEY || 
+                      'sb_publishable_P8eHIISOPV3KKP_l-Gxx_A_cAjfyR-C';
+
+  const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
+
+  const headers = {
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+    'Content-Type': 'application/json',
+  };
+
+  // GET: Fetch latest remote banners, homeSections, and custom products
+  if (req.method === 'GET') {
+    try {
+      // 1. Fetch system banners and settings record
+      const sysRes = await fetch(`${supabaseUrl}/rest/v1/products?id=eq.${SYSTEM_RECORD_ID}&select=*`, {
+        headers
+      });
+
+      let systemData = null;
+      if (sysRes.ok) {
+        const rows = await sysRes.json();
+        if (rows && rows.length > 0) {
+          systemData = rows[0];
+        }
+      }
+
+      const banners = systemData?.nutrition?.banners || null;
+      const homeSections = systemData?.nutrition?.homeSections || null;
+      const lastUpdated = systemData?.updated_at || null;
+
+      // 2. Fetch active products from Supabase
+      const prodRes = await fetch(`${supabaseUrl}/rest/v1/products?id=neq.${SYSTEM_RECORD_ID}&select=*&order=created_at.desc`, {
+        headers
+      });
+
+      let products = [];
+      if (prodRes.ok) {
+        products = await prodRes.json();
+      }
+
+      return res.status(200).json({
+        success: true,
+        banners,
+        homeSections,
+        products,
+        lastUpdated,
+        serverTime: new Date().toISOString()
+      });
+    } catch (err) {
+      console.error('[site-content GET error]', err);
+      return res.status(500).json({ success: false, error: err.message });
+    }
+  }
+
+  // POST: Update banners, homeSections, or sync data from Admin
+  if (req.method === 'POST') {
+    try {
+      const { banners, homeSections, products } = req.body || {};
+
+      // 1. Save banners and homeSections in system record inside products table
+      if (banners || homeSections) {
+        const payload = {
+          id: SYSTEM_RECORD_ID,
+          name: 'SYSTEM_SETTINGS_CONTAINER',
+          brand: '신상픽_시스템',
+          category: '시스템',
+          price: 0,
+          image: '',
+          description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
+          is_today: false,
+          is_hot: false,
+          nutrition: {
+            banners: banners || undefined,
+            homeSections: homeSections || undefined,
+            updatedAt: new Date().toISOString()
+          },
+          updated_at: new Date().toISOString()
+        };
+
+        const upsertRes = await fetch(`${supabaseUrl}/rest/v1/products?on_conflict=id`, {
+          method: 'POST',
+          headers: {
+            ...headers,
+            Prefer: 'resolution=merge-duplicates,return=representation',
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!upsertRes.ok) {
+          const errMsg = await upsertRes.text();
+          console.warn('[site-content system record upsert warning]', errMsg);
+        }
+      }
+
+      // 2. If single product or products array provided, upsert to products table
+      if (products && Array.isArray(products) && products.length > 0) {
+        const formattedProducts = products.map(p => ({
+          id: p.id,
+          name: p.name,
+          brand: p.brand,
+          category: p.category,
+          sub_category: p.subCategory || p.sub_category,
+          item_type: p.itemType || p.item_type || 'packaged',
+          image: p.image,
+          release_date: p.releaseDate || p.release_date,
+          price: p.price || 0,
+          discount_rate: p.discountRate || p.discount_rate || 0,
+          overall_rating: p.overallRating || p.overall_rating || 5.0,
+          rating_count: p.ratingCount || p.rating_count || 1,
+          description: p.description || '',
+          stores: p.stores || [],
+          calories: p.calories,
+          volume: p.volume,
+          is_today: p.isToday ?? p.is_today ?? false,
+          is_hot: p.isHot ?? p.is_hot ?? false,
+          updated_at: new Date().toISOString()
+        }));
+
+        await fetch(`${supabaseUrl}/rest/v1/products?on_conflict=id`, {
+          method: 'POST',
+          headers: {
+            ...headers,
+            Prefer: 'resolution=merge-duplicates',
+          },
+          body: JSON.stringify(formattedProducts)
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: '콘텐츠가 클라우드에 성공적으로 동기화되었습니다.',
+        timestamp: new Date().toISOString()
+      });
+    } catch (err) {
+      console.error('[site-content POST error]', err);
+      return res.status(500).json({ success: false, error: err.message });
+    }
+  }
+
+  return res.status(405).json({ error: 'Method not allowed. Use GET or POST.' });
+}

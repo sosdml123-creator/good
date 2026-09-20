@@ -71,6 +71,7 @@ export interface DBProduct {
   precautions?: string;
   store_stocks?: any;
   created_at?: string;
+  updated_at?: string;
 }
 
 export interface DBReview {

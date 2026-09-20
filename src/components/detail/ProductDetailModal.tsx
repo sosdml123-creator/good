@@ -36,6 +36,7 @@ import { ReportModal } from '../common/ReportModal';
 export const ProductDetailModal: React.FC = () => {
   const {
     selectedProduct,
+    products,
     goBack,
     toggleCompare,
     setActiveTab,
@@ -113,28 +114,29 @@ export const ProductDetailModal: React.FC = () => {
     return () => { isMounted = false; };
   }, [selectedProduct?.id, selectedProduct?.name]);
 
-  if (!selectedProduct) return null;
+  const prod = selectedProduct || (products && products.length > 0 ? products[0] : null);
+  if (!prod) return null;
 
-  const isBookmarked = bookmarkedIds.includes(selectedProduct.id);
-  const isCompared = comparedIds.includes(selectedProduct.id);
+  const isBookmarked = bookmarkedIds.includes(prod.id);
+  const isCompared = comparedIds.includes(prod.id);
 
   const isNaturalProduce = 
-    selectedProduct.itemType === 'fresh' || 
-    selectedProduct.category === '과일' || 
-    Boolean(selectedProduct.produceDetails);
+    prod.itemType === 'fresh' || 
+    prod.category === '과일' || 
+    Boolean(prod.produceDetails);
 
-  const metrics = selectedProduct.freshMetrics
+  const metrics = prod.freshMetrics
     ? [
-        { label: '당도 (Brix)', val: selectedProduct.freshMetrics.sweetness },
-        { label: '신선도', val: selectedProduct.freshMetrics.freshness },
-        { label: '식감', val: selectedProduct.freshMetrics.texture },
-        { label: '가격 만족도', val: selectedProduct.freshMetrics.value },
+        { label: '당도 (Brix)', val: prod.freshMetrics.sweetness ?? 5 },
+        { label: '신선도', val: prod.freshMetrics.freshness ?? 5 },
+        { label: '식감', val: prod.freshMetrics.texture ?? 5 },
+        { label: '가격 만족도', val: prod.freshMetrics.value ?? 5 },
       ]
     : [
-        { label: '맛', val: selectedProduct.detailedRating?.taste || 5 },
-        { label: '가성비', val: selectedProduct.detailedRating?.value || 5 },
-        { label: '양', val: selectedProduct.detailedRating?.portion || 4.5 },
-        { label: '재구매 의사', val: selectedProduct.detailedRating?.repurchase || 4.8 },
+        { label: '맛', val: prod.detailedRating?.taste ?? 5 },
+        { label: '가성비', val: prod.detailedRating?.value ?? 5 },
+        { label: '양', val: prod.detailedRating?.portion ?? 4.5 },
+        { label: '재구매 의사', val: prod.detailedRating?.repurchase ?? 4.8 },
       ];
 
   // Default stores if none specified
@@ -309,8 +311,8 @@ export const ProductDetailModal: React.FC = () => {
           <div className="flex items-center gap-0.5">
             <Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
           </div>
-          <span className="text-[15px] font-bold text-gray-800">{selectedProduct.overallRating.toFixed(1)}</span>
-          <span className="text-[12px] text-gray-400">({selectedProduct.ratingCount}명 평가)</span>
+          <span className="text-[15px] font-bold text-gray-800">{(selectedProduct.overallRating ?? 5).toFixed(1)}</span>
+          <span className="text-[12px] text-gray-400">({selectedProduct.ratingCount ?? 0}명 평가)</span>
           {selectedProduct.repurchasePercent && (
             <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
               재구매율 {selectedProduct.repurchasePercent}%
@@ -320,7 +322,7 @@ export const ProductDetailModal: React.FC = () => {
 
         <div className="flex items-center gap-2 mt-2">
           <span className="text-[20px] font-black text-gray-900">
-            {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{selectedProduct.price.toLocaleString()}원
+            {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{(selectedProduct.price ?? 0).toLocaleString()}원
           </span>
         </div>
 
@@ -695,7 +697,7 @@ export const ProductDetailModal: React.FC = () => {
                       style={{ width: `${(m.val / 5) * 100}%` }}
                     />
                   </div>
-                  <span className="w-8 text-right text-[12px] font-bold text-gray-700">{m.val.toFixed(1)}</span>
+                  <span className="w-8 text-right text-[12px] font-bold text-gray-700">{(m.val ?? 5).toFixed(1)}</span>
                 </div>
               ))}
             </div>
@@ -1185,7 +1187,7 @@ export const ProductDetailModal: React.FC = () => {
           </span>
           <div className="flex items-baseline gap-1">
             <span className="text-base font-black text-gray-900">
-              {selectedProduct.price.toLocaleString()}원
+              {(selectedProduct.price ?? 0).toLocaleString()}원
             </span>
           </div>
         </div>

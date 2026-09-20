@@ -153,6 +153,8 @@ export const AdminDashboard: React.FC = () => {
     allProfiles,
     reports,
     productEditRequests,
+    isContentSyncing,
+    syncAllContentToCloud,
   } = useApp();
 
   const pendingReportsCount = reports.filter(r => r.status === 'pending').length;
@@ -1484,6 +1486,23 @@ export const AdminDashboard: React.FC = () => {
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
               <span className="hidden sm:inline">{isDark ? '라이트 모드' : '다크 모드'}</span>
+            </button>
+
+            {/* ☁️ Global Sync Button */}
+            <button
+              onClick={() => syncAllContentToCloud()}
+              disabled={isContentSyncing}
+              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border transition-all ${
+                isContentSyncing
+                  ? 'bg-indigo-100 text-indigo-400 border-indigo-200 cursor-not-allowed'
+                  : isDark
+                  ? 'bg-slate-800 border-indigo-900/60 text-indigo-400 hover:bg-indigo-950/50'
+                  : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100 shadow-xs'
+              }`}
+              title="현재 배너 및 구좌 설정을 모바일 앱과 웹 전체에 즉시 동기화합니다."
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isContentSyncing ? 'animate-spin text-indigo-500' : 'text-indigo-600'}`} />
+              <span>{isContentSyncing ? '클라우드 동기화 중...' : '웹/앱 실시간 동기화'}</span>
             </button>
 
             {/* Quick Action Button */}
