@@ -86,19 +86,19 @@ const REPURCHASE_OPTIONS = [
   },
 ];
 
-// 맛 프로필 옵션
+// 맛 프로필 옵션 (모바일 화면 짤림 방지 및 상세 카드 지원)
 const FLAVOR_OPTIONS = {
   sweetness: [
-    { label: '안 달아요', icon: '🍃' },
-    { label: '은은한 단맛', icon: '🍵' },
-    { label: '적당한 달콤함', icon: '🍯' },
-    { label: '아주 달아요', icon: '🍰' },
+    { stage: '1단계', label: '안 달아요', desc: '담백한 맛', icon: '🍃' },
+    { stage: '2단계', label: '은은한 단맛', desc: '은은한 감미', icon: '🍵' },
+    { stage: '3단계', label: '적당한 달콤함', desc: '달달한 맛', icon: '🍯' },
+    { stage: '4단계', label: '아주 달아요', desc: '진한 단맛', icon: '🍰' },
   ],
   spiciness: [
-    { label: '안 매워요', icon: '🥛' },
-    { label: '살짝 매콤', icon: '🌱' },
-    { label: '신라면 수준', icon: '🌶️' },
-    { label: '불닭급 매움', icon: '🔥' },
+    { stage: '1단계', label: '안 매워요', desc: '순한맛', icon: '🥛' },
+    { stage: '2단계', label: '살짝 매콤', desc: '은근 매콤', icon: '🌱' },
+    { stage: '3단계', label: '신라면 수준', desc: '얼큰 칼칼', icon: '🌶️' },
+    { stage: '4단계', label: '불닭급 매움', desc: '화끈 매움', icon: '🔥' },
   ],
   texture: [
     { label: '바삭바삭', icon: '🥨' },
@@ -141,12 +141,18 @@ export const WriteReviewModal: React.FC = () => {
   const [displayLimit, setDisplayLimit] = useState<number>(24);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
-  // 2. 리뷰 평가 데이터
+  // 2. 리뷰 평가 데이터 (초기값 모두 0점으로 시작)
   const [rating, setRating] = useState(5);
-  const [metric1, setMetric1] = useState(5);
-  const [metric2, setMetric2] = useState(5);
-  const [metric3, setMetric3] = useState(4);
-  const [metric4, setMetric4] = useState(5);
+  const [metric1, setMetric1] = useState(0);
+  const [metric2, setMetric2] = useState(0);
+  const [metric3, setMetric3] = useState(0);
+  const [metric4, setMetric4] = useState(0);
+
+  // 미입력 필드 안내 및 자동 스크롤/하이라이트용 ref & 상태
+  const productSectionRef = useRef<HTMLDivElement>(null);
+  const metricsSectionRef = useRef<HTMLDivElement>(null);
+  const textSectionRef = useRef<HTMLTextAreaElement>(null);
+  const [highlightedSection, setHighlightedSection] = useState<'product' | 'metrics' | 'text' | null>(null);
 
   // 3. 확장 메타데이터
   const [purchasePlace, setPurchasePlace] = useState<string>('GS25');
@@ -320,18 +326,53 @@ export const WriteReviewModal: React.FC = () => {
     setPurchasePrice(isNaN(num) ? '' : num.toLocaleString());
   };
 
-  // 제출 처리
+  // 필수 입력 완료 여부 확인
+  const isProductSelected = !!prod;
+  const unratedMetrics = categoryMetrics.filter(m => m.val === 0);
+  const isMetricsValid = unratedMetrics.length === 0;
+  const isTextValid = text.trim().length >= 5;
+  const isFormValid = isProductSelected && isMetricsValid && isTextValid;
+
+  // 제출 처리 (미선택/미입력 항목 친절 안내 및 자동 스크롤)
   const handleSubmit = async () => {
     if (isSubmitting) return;
 
+    // 1. 상품 선택 여부 검사
     if (!prod) {
-      showToast('리뷰를 작성할 상품을 먼저 검색해서 선택해주세요.', 'info');
+      showToast('⚠️ 먼저 리뷰를 작성할 상품을 검색해 선택해주세요!', 'error');
+      productSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setHighlightedSection('product');
+      setTimeout(() => setHighlightedSection(null), 2500);
       setIsSearchModalOpen(true);
       return;
     }
 
-    if (!text.trim() || text.trim().length < 5) {
-      showToast('솔직한 맛 후기를 최소 5자 이상 작성해주세요.', 'info');
+    // 2. 카테고리 세부 별점 평가 여부 검사 (초기 0점에서 모두 선택했는지)
+    if (unratedMetrics.length > 0) {
+      const missingLabels = unratedMetrics.map(m => m.label).join(', ');
+      showToast(`⭐ 세부 별점을 모두 선택해주세요! (${missingLabels})`, 'error');
+      metricsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setHighlightedSection('metrics');
+      setTimeout(() => setHighlightedSection(null), 2500);
+      return;
+    }
+
+    // 3. 맛 후기 본문 검사
+    if (!text.trim()) {
+      showToast('📝 솔직한 맛 후기 본문을 작성해주세요! (최소 5자 이상)', 'error');
+      textSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      textSectionRef.current?.focus();
+      setHighlightedSection('text');
+      setTimeout(() => setHighlightedSection(null), 2500);
+      return;
+    }
+
+    if (text.trim().length < 5) {
+      showToast(`📝 맛 후기가 너무 짧아요! 최소 5자 이상 작성해주세요. (현재 ${text.trim().length}자)`, 'error');
+      textSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      textSectionRef.current?.focus();
+      setHighlightedSection('text');
+      setTimeout(() => setHighlightedSection(null), 2500);
       return;
     }
 
@@ -388,11 +429,13 @@ export const WriteReviewModal: React.FC = () => {
         </div>
         <button 
           onClick={handleSubmit} 
-          disabled={isSubmitting || !prod}
+          disabled={isSubmitting}
           className={`text-xs font-black px-4 py-1.5 rounded-full transition-all duration-200 ${
-            isSubmitting || !prod
+            isSubmitting
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-900 text-white shadow-sm hover:bg-black active:scale-95'
+              : isFormValid
+                ? 'bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 active:scale-95'
+                : 'bg-gray-900 text-white shadow-sm hover:bg-black active:scale-95'
           }`}
         >
           {isSubmitting ? '등록중' : '등록 완료'}
@@ -401,7 +444,14 @@ export const WriteReviewModal: React.FC = () => {
 
       <div className="p-4 space-y-4 max-w-lg mx-auto">
         {/* 3. 상품 선택 / 검색 섹션 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100">
+        <div 
+          ref={productSectionRef}
+          className={`bg-white rounded-2xl p-4 shadow-xs border transition-all duration-300 ${
+            highlightedSection === 'product'
+              ? 'border-rose-500 ring-4 ring-rose-400/20 shadow-rose-100 animate-pulse'
+              : 'border-gray-100'
+          }`}
+        >
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-black text-gray-700 flex items-center gap-1.5">
               <Store className="w-4 h-4 text-gray-900" />
@@ -701,7 +751,7 @@ export const WriteReviewModal: React.FC = () => {
         </div>
 
         {/* 9. 맛 & 식감 디테일 프로필 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3.5">
+        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               👅 맛 & 식감 상세 프로필
@@ -709,12 +759,19 @@ export const WriteReviewModal: React.FC = () => {
             <span className="text-[10px] text-gray-400 font-medium">선택사항</span>
           </div>
 
-          {/* 단맛 */}
-          <div className="space-y-1.5">
-            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
-              <span>🍯</span> 단맛의 정도
+          {/* 단맛 (2열 카드 그리드로 글자 짤림 방지) */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-black text-gray-700 flex items-center gap-1">
+                <span>🍯</span> 단맛의 정도
+              </div>
+              {selectedSweetness && (
+                <span className="text-[10px] font-black text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                  선택: {selectedSweetness}
+                </span>
+              )}
             </div>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {FLAVOR_OPTIONS.sweetness.map((s) => {
                 const isSelected = selectedSweetness === s.label;
                 return (
@@ -722,26 +779,43 @@ export const WriteReviewModal: React.FC = () => {
                     type="button"
                     key={s.label}
                     onClick={() => setSelectedSweetness(isSelected ? '' : s.label)}
-                    className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center justify-center gap-1 active:scale-95 ${
+                    className={`p-2.5 rounded-xl border text-left transition-all duration-150 flex items-center justify-between active:scale-98 ${
                       isSelected
-                        ? 'bg-amber-500 text-white border-amber-600 shadow-xs font-black ring-2 ring-amber-400/30'
-                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
+                        ? 'bg-amber-50/80 border-amber-500 ring-2 ring-amber-400/30 text-amber-900 shadow-2xs font-black'
+                        : 'bg-slate-50/70 border-gray-200 text-gray-700 hover:bg-slate-100 hover:border-gray-300'
                     }`}
                   >
-                    <span className="text-xs">{s.icon}</span>
-                    <span className="text-[11px] truncate">{s.label}</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-lg shrink-0">{s.icon}</span>
+                      <div className="min-w-0">
+                        <div className="text-[9px] text-gray-400 font-bold leading-none mb-1">{s.stage}</div>
+                        <div className="text-xs font-black text-gray-900 truncate">{s.label}</div>
+                      </div>
+                    </div>
+                    {isSelected && (
+                      <span className="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 ml-1 shadow-2xs">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </span>
+                    )}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* 매운맛 */}
-          <div className="space-y-1.5">
-            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
-              <span>🌶️</span> 매운맛의 정도
+          {/* 매운맛 (2열 카드 그리드로 글자 짤림 방지) */}
+          <div className="space-y-2 pt-1 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-black text-gray-700 flex items-center gap-1">
+                <span>🌶️</span> 매운맛의 정도
+              </div>
+              {selectedSpiciness && (
+                <span className="text-[10px] font-black text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">
+                  선택: {selectedSpiciness}
+                </span>
+              )}
             </div>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {FLAVOR_OPTIONS.spiciness.map((sp) => {
                 const isSelected = selectedSpiciness === sp.label;
                 return (
@@ -749,14 +823,24 @@ export const WriteReviewModal: React.FC = () => {
                     type="button"
                     key={sp.label}
                     onClick={() => setSelectedSpiciness(isSelected ? '' : sp.label)}
-                    className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center justify-center gap-1 active:scale-95 ${
+                    className={`p-2.5 rounded-xl border text-left transition-all duration-150 flex items-center justify-between active:scale-98 ${
                       isSelected
-                        ? 'bg-rose-600 text-white border-rose-700 shadow-xs font-black ring-2 ring-rose-400/30'
-                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
+                        ? 'bg-rose-50/80 border-rose-500 ring-2 ring-rose-400/30 text-rose-900 shadow-2xs font-black'
+                        : 'bg-slate-50/70 border-gray-200 text-gray-700 hover:bg-slate-100 hover:border-gray-300'
                     }`}
                   >
-                    <span className="text-xs">{sp.icon}</span>
-                    <span className="text-[11px] truncate">{sp.label}</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-lg shrink-0">{sp.icon}</span>
+                      <div className="min-w-0">
+                        <div className="text-[9px] text-gray-400 font-bold leading-none mb-1">{sp.stage}</div>
+                        <div className="text-xs font-black text-gray-900 truncate">{sp.label}</div>
+                      </div>
+                    </div>
+                    {isSelected && (
+                      <span className="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 ml-1 shadow-2xs">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -764,7 +848,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
 
           {/* 식감 */}
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 pt-1 border-t border-gray-100">
             <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
               <span>🥨</span> 식감 특징
             </div>
@@ -792,14 +876,25 @@ export const WriteReviewModal: React.FC = () => {
         </div>
 
         {/* 10. 카테고리별 세부 항목 별점 평가 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-4">
+        <div 
+          ref={metricsSectionRef}
+          className={`bg-white rounded-2xl p-4 shadow-xs border transition-all duration-300 ${
+            highlightedSection === 'metrics'
+              ? 'border-rose-500 ring-4 ring-rose-400/20 shadow-rose-100 animate-pulse'
+              : 'border-gray-100'
+          } space-y-4`}
+        >
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-500" />
               {prod ? `'${prod.category}'` : '상품'} 카테고리 세부 별점
             </span>
-            <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full">
-              항목별 1~5점
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              unratedMetrics.length === 0
+                ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                : 'text-rose-600 bg-rose-50 border border-rose-200 animate-pulse'
+            }`}>
+              {unratedMetrics.length === 0 ? '✓ 4개 평가 완료' : `필수 선택 (${unratedMetrics.length}개 남음)`}
             </span>
           </div>
 
@@ -808,8 +903,12 @@ export const WriteReviewModal: React.FC = () => {
               <div key={idx} className={`${idx > 0 ? 'pt-3' : ''} flex flex-col gap-1.5`}>
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-black text-gray-800">{item.label}</span>
-                  <span className="text-xs font-black text-amber-500 bg-amber-50 px-2 py-0.5 rounded-md">
-                    {item.val}점 / 5점
+                  <span className={`text-xs font-black px-2 py-0.5 rounded-md border ${
+                    item.val === 0 
+                      ? 'text-rose-500 bg-rose-50/70 border-rose-200' 
+                      : 'text-amber-600 bg-amber-50 border-amber-200/50'
+                  }`}>
+                    {item.val === 0 ? '별점 선택 필요 (0/5)' : `${item.val}점 / 5점`}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -819,14 +918,17 @@ export const WriteReviewModal: React.FC = () => {
                       <button
                         key={star}
                         type="button"
-                        onClick={() => item.set(star)}
+                        onClick={() => {
+                          // 이미 선택된 별점을 다시 누르면 0점으로 리셋 가능
+                          item.set(item.val === star ? 0 : star);
+                        }}
                         className="p-1 transition-transform hover:scale-125 active:scale-130 focus:outline-none"
                       >
                         <Star
                           className={`w-5 h-5 transition-colors ${
                             star <= item.val
-                              ? 'fill-amber-400 text-amber-400'
-                              : 'fill-gray-100 text-gray-200'
+                              ? 'fill-amber-400 text-amber-400 drop-shadow-xs'
+                              : 'fill-gray-100 text-gray-200 hover:text-amber-200'
                           }`}
                         />
                       </button>
@@ -871,7 +973,13 @@ export const WriteReviewModal: React.FC = () => {
         </div>
 
         {/* 12. 솔직한 맛 후기 본문 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2">
+        <div 
+          className={`bg-white rounded-2xl p-4 shadow-xs border transition-all duration-300 ${
+            highlightedSection === 'text'
+              ? 'border-rose-500 ring-4 ring-rose-400/20 shadow-rose-100 animate-pulse'
+              : 'border-gray-100'
+          } space-y-2`}
+        >
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               📝 솔직한 상세 맛 후기
@@ -881,6 +989,7 @@ export const WriteReviewModal: React.FC = () => {
             </span>
           </div>
           <textarea
+            ref={textSectionRef}
             rows={5}
             maxLength={300}
             value={text}
@@ -900,18 +1009,85 @@ export const WriteReviewModal: React.FC = () => {
           </div>
         </div>
 
-        {/* 하단 등록 버튼 */}
-        <div className="pt-2">
+        {/* 하단 등록 버튼 및 필수 작성 안내 가이드 */}
+        <div className="pt-2 space-y-2.5">
+          {!isFormValid ? (
+            <div className="p-3.5 bg-amber-50/90 border border-amber-200/80 rounded-2xl flex items-start gap-2.5 text-xs text-amber-900 shadow-2xs">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="flex-1 space-y-1.5">
+                <div className="font-black text-[12px] text-amber-950">
+                  리뷰 등록을 위해 아래 필수 항목을 작성해주세요:
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {!isProductSelected && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSearchModalOpen(true);
+                        setHighlightedSection('product');
+                      }}
+                      className="cursor-pointer bg-white text-rose-600 border border-rose-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-rose-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
+                    >
+                      <span>⚠️</span>
+                      <span>상품 선택 필요</span>
+                    </button>
+                  )}
+                  {!isMetricsValid && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        metricsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setHighlightedSection('metrics');
+                      }}
+                      className="cursor-pointer bg-white text-rose-600 border border-rose-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-rose-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
+                    >
+                      <span>⭐</span>
+                      <span>세부 별점 ({unratedMetrics.length}개 남음)</span>
+                    </button>
+                  )}
+                  {!isTextValid && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        textSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        textSectionRef.current?.focus();
+                        setHighlightedSection('text');
+                      }}
+                      className="cursor-pointer bg-white text-amber-700 border border-amber-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-amber-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
+                    >
+                      <span>📝</span>
+                      <span>맛 후기 최소 5자 ({text.trim().length}/5자)</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-center gap-2 text-xs font-black text-emerald-800 shadow-2xs">
+              <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
+              <span>모든 필수 항목 작성이 완료되었습니다! 지금 등록해보세요.</span>
+            </div>
+          )}
+
           <button
             onClick={handleSubmit}
-            disabled={isSubmitting || !prod}
+            disabled={isSubmitting}
             className={`w-full py-4 font-black text-sm rounded-2xl shadow-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-98 ${
-              isSubmitting || !prod
+              isSubmitting
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-slate-900 hover:bg-black text-white shadow-slate-900/20 shadow-lg'
+                : isFormValid
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-900/20 shadow-lg'
+                  : 'bg-slate-900 hover:bg-black text-white shadow-slate-900/20 shadow-lg'
             }`}
           >
-            <span>리뷰 등록하기</span>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>리뷰 등록중...</span>
+              </>
+            ) : (
+              <span>리뷰 등록하기</span>
+            )}
           </button>
         </div>
       </div>
