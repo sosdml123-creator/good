@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { 
   Product, 
   Review, 
@@ -71,6 +71,8 @@ import {
   saveRemoteProduct,
   deleteRemoteProduct,
   deleteRemoteProducts,
+  deleteRemoteReview,
+  deleteRemoteCommunityPost,
   saveRemoteDeletedProducts,
   SYSTEM_BANNER_RECORD_ID
 } from '../services/siteContentService';
@@ -82,7 +84,7 @@ import {
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
-import { DEFAULT_AVATAR, AVATAR_PRESETS } from '../utils/avatars';
+import { DEFAULT_AVATAR, isValidCustomPhoto } from '../utils/avatars';
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 
 interface AppContextType {
@@ -356,7 +358,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_minji_01',
     displayName: '신상탐험가_민지',
-    photoURL: AVATAR_PRESETS[0].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.5',
     points: 850,
     email: 'minji.snack@gmail.com',
@@ -369,7 +371,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_junho_02',
     displayName: '편의점고수_준호',
-    photoURL: AVATAR_PRESETS[1].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.7',
     points: 1340,
     email: 'junho_cu@kakao.com',
@@ -382,7 +384,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_dessert_03',
     displayName: '디저트요정',
-    photoURL: AVATAR_PRESETS[2].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.3',
     points: 520,
     email: 'sweet_fairy@naver.com',
@@ -397,7 +399,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_taeyang_04',
     displayName: '야식러버_태양',
-    photoURL: AVATAR_PRESETS[3].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.5',
     points: 980,
     email: 'sun_night@gmail.com',
@@ -410,7 +412,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_jiwoo_05',
     displayName: '스낵마니아_지우',
-    photoURL: AVATAR_PRESETS[0].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.2',
     points: 310,
     email: 'jiwoo.snack@gmail.com',
@@ -423,7 +425,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_donghyun_06',
     displayName: '맛집탐험대_동현',
-    photoURL: AVATAR_PRESETS[1].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.9',
     points: 1620,
     email: 'donghyun@daum.net',
@@ -436,7 +438,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_hyejin_07',
     displayName: '매운맛도전자_혜진',
-    photoURL: AVATAR_PRESETS[2].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.4',
     points: 730,
     email: 'spicy_queen@gmail.com',
@@ -449,7 +451,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_suho_08',
     displayName: '헬린이식단_수호',
-    photoURL: AVATAR_PRESETS[3].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.3',
     points: 440,
     email: 'suho_fit@gmail.com',
@@ -462,7 +464,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_seoyeon_09',
     displayName: '과자박사_서연',
-    photoURL: AVATAR_PRESETS[0].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.10',
     points: 1950,
     email: 'seoyeon_snack@naver.com',
@@ -475,7 +477,7 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_random_99',
     displayName: '어뷰저_99',
-    photoURL: AVATAR_PRESETS[1].url,
+    photoURL: DEFAULT_AVATAR,
     level: 'Lv.1',
     points: 0,
     email: 'abuser99@trashmail.com',
@@ -711,7 +713,7 @@ const getSocialRealNames = (user: any): string[] => {
 /**
  * Checks if a given avatar URL originates from Kakao CDN or is a Kakao social profile image
  */
-const isKakaoAvatarUrl = (url?: string | null): boolean => {
+export const isKakaoAvatarUrl = (url?: string | null): boolean => {
   if (!url || typeof url !== 'string') return false;
   return /kakaocdn\.net|kakao\.com|daumcdn\.net/i.test(url);
 };
@@ -728,7 +730,8 @@ const createInitialUser = (): UserProfile => {
 
   const points = cachedPoints ? parseInt(cachedPoints, 10) : 100;
   const displayName = cachedName || getInitialSequentialNicknameSync();
-  const photoURL = (cachedPhoto && !cachedPhoto.includes('unsplash') && !isKakaoAvatarUrl(cachedPhoto)) ? cachedPhoto : DEFAULT_AVATAR;
+  const isCustom = cachedUid ? localStorage.getItem('sinsangpick_custom_photo_' + cachedUid) === 'true' : false;
+  const photoURL = (isCustom && cachedPhoto && isValidCustomPhoto(cachedPhoto, cachedUid)) ? cachedPhoto : DEFAULT_AVATAR;
 
   return {
     uid,
@@ -838,42 +841,43 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
 /**
  * Smart merge function for banners:
  * Guarantees that official INITIAL_BANNERS are always fresh with latest title, image, links, order,
- * while preserving any custom banners created by the admin.
+ * while respecting admin deletions (deletedBannerIds) and preserving any custom banners created by the admin.
  */
 export const smartMergeBanners = (
   storedBanners: BannerItem[] | null,
-  initialBanners: BannerItem[]
+  initialBanners: BannerItem[],
+  deletedBannerIds: string[] = []
 ): BannerItem[] => {
+  const deletedSet = new Set(deletedBannerIds);
+  const validInitial = initialBanners.filter(b => !deletedSet.has(b.id));
+
   if (!storedBanners || !Array.isArray(storedBanners) || storedBanners.length === 0) {
-    return normalizeBanners(initialBanners);
+    return normalizeBanners(validInitial);
   }
 
   const initialMap = new Map<string, BannerItem>();
-  initialBanners.forEach(b => initialMap.set(b.id, b));
+  validInitial.forEach(b => initialMap.set(b.id, b));
 
+  // Filter stored banners by deletedSet
+  const filteredStored = storedBanners.filter(b => !deletedSet.has(b.id));
   const storedMap = new Map<string, BannerItem>();
-  storedBanners.forEach(b => storedMap.set(b.id, b));
+  filteredStored.forEach(b => storedMap.set(b.id, b));
 
-  // 1. For each official initial banner, preserve its existence with the latest code updates
-  // (title, subtitle, image, link, buttonText, badge), while retaining admin's active state if customized
-  const mergedOfficial: BannerItem[] = initialBanners.map(initB => {
-    const stored = storedMap.get(initB.id);
-    if (stored) {
+  // 1. Prioritize stored banners order and configuration
+  const mergedFromStored: BannerItem[] = filteredStored.map(stored => {
+    const initB = initialMap.get(stored.id);
+    if (initB) {
       return {
         ...initB,
+        ...stored,
         isActive: stored.isActive ?? initB.isActive,
         order: stored.order ?? initB.order,
       };
     }
-    return initB;
+    return stored;
   });
 
-  // 2. Preserve any custom banners added by admin (IDs not present in INITIAL_BANNERS)
-  const customBanners: BannerItem[] = storedBanners.filter(b => !initialMap.has(b.id));
-
-  // 3. Combine and sort
-  const combined = [...mergedOfficial, ...customBanners];
-  return normalizeBanners(combined);
+  return normalizeBanners(mergedFromStored);
 };
 
 /**
@@ -922,6 +926,7 @@ export const smartMergeProducts = (
 
 /**
  * Smart merge function for home sections
+ * Preserves admin custom titles, subtitles, badge texts, item limits, and visibility states!
  */
 export const smartMergeHomeSections = (
   storedSections: HomeSectionConfig[] | null,
@@ -941,13 +946,18 @@ export const smartMergeHomeSections = (
       merged.push({
         ...init,
         ...stored,
-        title: init.title,
-        subtitle: init.subtitle,
+        title: stored.title || init.title,
+        subtitle: stored.subtitle !== undefined ? stored.subtitle : init.subtitle,
+        badgeText: stored.badgeText !== undefined ? stored.badgeText : init.badgeText,
+        itemLimit: stored.itemLimit !== undefined ? stored.itemLimit : init.itemLimit,
+        isVisible: stored.isVisible !== undefined ? stored.isVisible : init.isVisible,
       });
+    } else {
+      merged.push(stored);
     }
   });
 
-  // Append any missing initial sections
+  // Append any genuinely missing initial sections (e.g., brand-new sections added in app updates)
   initialSections.forEach(init => {
     if (!merged.some(m => m.id === init.id)) {
       merged.push(init);
@@ -1048,9 +1058,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [isContentSyncing, setIsContentSyncing] = useState<boolean>(false);
 
+  // 1. Deleted Product IDs Master Tracking
   const [deletedProductIds, setDeletedProductIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_deleted_products');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const deletedProductIdsRef = useRef<string[]>(deletedProductIds);
+  useEffect(() => {
+    deletedProductIdsRef.current = deletedProductIds;
+  }, [deletedProductIds]);
+
+  // 2. Deleted Banner IDs Master Tracking
+  const [deletedBannerIds, setDeletedBannerIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_deleted_banners');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const deletedBannerIdsRef = useRef<string[]>(deletedBannerIds);
+  useEffect(() => {
+    deletedBannerIdsRef.current = deletedBannerIds;
+  }, [deletedBannerIds]);
+
+  // 3. Deleted Reviews & Posts Tracking (Prevents Supabase Realtime resurrection)
+  const [deletedReviewIds, setDeletedReviewIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_deleted_reviews');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [deletedPostIds, setDeletedPostIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_deleted_posts');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // 4. Rejected Pending Product Names Tracking (Prevents crawler re-importing discarded items)
+  const [rejectedPendingProductNames, setRejectedPendingProductNames] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_rejected_pending_names');
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -1071,23 +1129,38 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [reviews, setReviews] = useState<Review[]>(() => {
     try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_reviews');
+      const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
       const stored = localStorage.getItem('sinsangpick_reviews');
       if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        const parsed: Review[] = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter(r => !delSet.has(r.id));
+        }
       }
-      return INITIAL_REVIEWS;
+      return INITIAL_REVIEWS.filter(r => !delSet.has(r.id));
     } catch {
       return INITIAL_REVIEWS;
     }
   });
-  const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>(INITIAL_COMMUNITY_POSTS);
+
+  const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>(() => {
+    try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_posts');
+      const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
+      return INITIAL_COMMUNITY_POSTS.filter(p => !delSet.has(p.id));
+    } catch {
+      return INITIAL_COMMUNITY_POSTS;
+    }
+  });
 
   const [banners, setBanners] = useState<BannerItem[]>(() => {
     try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_banners');
+      const parsedDel: string[] = storedDel ? JSON.parse(storedDel) : [];
       const stored = localStorage.getItem('sinsangpick_banners');
       const parsed: BannerItem[] | null = stored ? JSON.parse(stored) : null;
-      return smartMergeBanners(parsed, INITIAL_BANNERS);
+      return smartMergeBanners(parsed, INITIAL_BANNERS, parsedDel);
     } catch {
       return normalizeBanners(INITIAL_BANNERS);
     }
@@ -1517,19 +1590,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_name', currentUser.displayName);
   }, [currentUser]);
 
-  // Auto-fetch daily new products on app start if today hasn't crawled or pending is empty
+  // Auto-fetch daily new products on app start only when needed, respecting admin rejections and manual clearance
   useEffect(() => {
     const checkAndAutoCrawl = async () => {
       const today = new Date().toISOString().split('T')[0];
       const needsCrawl = isDailyCrawlNeeded();
-      const isEmpty = pendingProducts.length === 0;
 
-      if (needsCrawl || isEmpty) {
+      // Do NOT auto re-crawl if admin deliberately cleared the pending list and today is already marked crawled
+      if (needsCrawl) {
         try {
           const crawled = await fetchDailyNewProducts(today);
           setPendingProducts(prev => {
-            const existingNames = new Set(prev.map(p => p.name.trim()));
-            const newItems = crawled.filter(item => !existingNames.has(item.name.trim()));
+            const existingNames = new Set(prev.map(p => p.name.trim().toLowerCase()));
+            const rejectedSet = new Set(rejectedPendingProductNames.map(n => n.trim().toLowerCase()));
+            const newItems = crawled.filter(item => {
+              const clean = item.name.trim().toLowerCase();
+              return !existingNames.has(clean) && !rejectedSet.has(clean);
+            });
             return newItems.length > 0 ? [...newItems, ...prev] : prev;
           });
           markDailyCrawlDone();
@@ -1540,15 +1617,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     };
     checkAndAutoCrawl();
-  }, []);
+  }, [rejectedPendingProductNames]);
 
   // Global Remote Content Sync Handlers
   const refreshRemoteContent = async () => {
     setIsContentSyncing(true);
     try {
       const remote = await fetchRemoteContent();
+      let curDeletedBanners = deletedBannerIdsRef.current;
+      if (remote.deletedBannerIds && Array.isArray(remote.deletedBannerIds)) {
+        curDeletedBanners = Array.from(new Set([...curDeletedBanners, ...remote.deletedBannerIds]));
+        deletedBannerIdsRef.current = curDeletedBanners;
+        setDeletedBannerIds(curDeletedBanners);
+        safeSetItem('sinsangpick_deleted_banners', JSON.stringify(curDeletedBanners));
+      }
       if (remote.banners && remote.banners.length > 0) {
-        const mergedBanners = smartMergeBanners(remote.banners, INITIAL_BANNERS);
+        const mergedBanners = smartMergeBanners(remote.banners, INITIAL_BANNERS, curDeletedBanners);
         setBanners(mergedBanners);
         safeSetItem('sinsangpick_banners', JSON.stringify(mergedBanners));
       }
@@ -1558,12 +1642,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
       }
       if (remote.deletedProductIds && Array.isArray(remote.deletedProductIds)) {
-        setDeletedProductIds(prev => {
-          const next = Array.from(new Set([...prev, ...remote.deletedProductIds!]));
-          safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
-          return next;
-        });
-        const remoteDelSet = new Set(remote.deletedProductIds);
+        const nextDel = Array.from(new Set([...deletedProductIdsRef.current, ...remote.deletedProductIds]));
+        deletedProductIdsRef.current = nextDel;
+        setDeletedProductIds(nextDel);
+        safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDel));
+        const remoteDelSet = new Set(nextDel);
         setProducts(prev => prev.filter(p => !remoteDelSet.has(p.id)));
       }
     } catch (e) {
@@ -1576,7 +1659,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const syncAllContentToCloud = async () => {
     setIsContentSyncing(true);
     try {
-      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIds);
+      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current);
       showToast('☁️ 배너 및 홈 구좌 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
     } catch (e) {
       showToast('동기화 중 오류가 발생했습니다.', 'error');
@@ -1608,10 +1691,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       // Check for system banner/settings record
       let remoteDeleted: string[] = [];
+      let remoteDeletedBanners: string[] = [];
       const systemBannerRecord = dbProductMap.get(SYSTEM_BANNER_RECORD_ID);
       if (systemBannerRecord && systemBannerRecord.nutrition) {
+        if (Array.isArray(systemBannerRecord.nutrition.deletedBannerIds)) {
+          remoteDeletedBanners = systemBannerRecord.nutrition.deletedBannerIds;
+          const mergedDeletedBanners = Array.from(new Set([...deletedBannerIdsRef.current, ...remoteDeletedBanners]));
+          deletedBannerIdsRef.current = mergedDeletedBanners;
+          setDeletedBannerIds(mergedDeletedBanners);
+          safeSetItem('sinsangpick_deleted_banners', JSON.stringify(mergedDeletedBanners));
+        }
         if (Array.isArray(systemBannerRecord.nutrition.banners) && systemBannerRecord.nutrition.banners.length > 0) {
-          const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS);
+          const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS, deletedBannerIdsRef.current);
           setBanners(merged);
           safeSetItem('sinsangpick_banners', JSON.stringify(merged));
         }
@@ -1625,12 +1716,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       }
 
-      // Merge deleted product IDs
-      const mergedDeletedIds = Array.from(new Set([...deletedProductIds, ...remoteDeleted]));
-      if (mergedDeletedIds.length !== deletedProductIds.length) {
-        setDeletedProductIds(mergedDeletedIds);
-        safeSetItem('sinsangpick_deleted_products', JSON.stringify(mergedDeletedIds));
-      }
+      // Merge deleted product IDs safely using ref and localStorage to avoid race conditions
+      let localDel: string[] = [];
+      try {
+        const s = localStorage.getItem('sinsangpick_deleted_products');
+        if (s) localDel = JSON.parse(s);
+      } catch {}
+      const mergedDeletedIds = Array.from(new Set([
+        ...deletedProductIdsRef.current,
+        ...localDel,
+        ...remoteDeleted
+      ]));
+      deletedProductIdsRef.current = mergedDeletedIds;
+      setDeletedProductIds(mergedDeletedIds);
+      safeSetItem('sinsangpick_deleted_products', JSON.stringify(mergedDeletedIds));
       const deletedSet = new Set(mergedDeletedIds);
 
       if (!dbProducts || dbProducts.length === 0) {
@@ -1686,47 +1785,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const userPostLikes = pLikes ? pLikes.map(p => p.post_id) : [];
       setLikedPostIds(userPostLikes);
 
-      // 3. Fetch Reviews with Comments
+      // 3. Fetch Reviews with Comments (Respecting admin deleted reviews)
+      let localDelRev: string[] = [];
+      try {
+        const s = localStorage.getItem('sinsangpick_deleted_reviews');
+        if (s) localDelRev = JSON.parse(s);
+      } catch {}
+      const delRevSet = new Set([...deletedReviewIds, ...localDelRev]);
+
       const { data: dbReviews, error: revErr } = await supabase
         .from('reviews')
         .select('*, review_comments(*)')
         .order('created_at', { ascending: false });
 
       if (!revErr && dbReviews) {
-        const parsedReviews: Review[] = dbReviews.map((r: any) => {
-          const isLiked = userRevLikes.includes(r.id);
-          const comments: ReviewComment[] = (r.review_comments || []).map((c: DBReviewComment) => ({
-            id: c.id,
-            userName: c.user_name,
-            userAvatar: c.user_avatar || '',
-            userLevel: c.user_level || 'Lv.1',
-            content: c.content,
-            createdAt: c.created_at,
-          }));
-          return mapDBReviewToReview(r, isLiked, comments);
-        });
+        const parsedReviews: Review[] = dbReviews
+          .filter((r: any) => !delRevSet.has(r.id))
+          .map((r: any) => {
+            const isLiked = userRevLikes.includes(r.id);
+            const comments: ReviewComment[] = (r.review_comments || []).map((c: DBReviewComment) => ({
+              id: c.id,
+              userName: c.user_name,
+              userAvatar: c.user_avatar || '',
+              userLevel: c.user_level || 'Lv.1',
+              content: c.content,
+              createdAt: c.created_at,
+            }));
+            return mapDBReviewToReview(r, isLiked, comments);
+          });
         setReviews(parsedReviews);
       }
 
-      // 4. Fetch Community Posts with Comments
+      // 4. Fetch Community Posts with Comments (Respecting admin deleted posts)
+      let localDelPost: string[] = [];
+      try {
+        const s = localStorage.getItem('sinsangpick_deleted_posts');
+        if (s) localDelPost = JSON.parse(s);
+      } catch {}
+      const delPostSet = new Set([...deletedPostIds, ...localDelPost]);
+
       const { data: dbPosts, error: postErr } = await supabase
         .from('community_posts')
         .select('*, post_comments(*)')
         .order('created_at', { ascending: false });
 
       if (!postErr && dbPosts) {
-        const parsedPosts: CommunityPost[] = dbPosts.map((p: any) => {
-          const isLiked = userPostLikes.includes(p.id);
-          const comments: PostComment[] = (p.post_comments || []).map((c: DBPostComment) => ({
-            id: c.id,
-            userName: c.user_name,
-            userAvatar: c.user_avatar || '',
-            userLevel: c.user_level || 'Lv.1',
-            content: c.content,
-            createdAt: c.created_at,
-          }));
-          return mapDBCommunityPostToPost(p, isLiked, comments);
-        });
+        const parsedPosts: CommunityPost[] = dbPosts
+          .filter((p: any) => !delPostSet.has(p.id))
+          .map((p: any) => {
+            const isLiked = userPostLikes.includes(p.id);
+            const comments: PostComment[] = (p.post_comments || []).map((c: DBPostComment) => ({
+              id: c.id,
+              userName: c.user_name,
+              userAvatar: c.user_avatar || '',
+              userLevel: c.user_level || 'Lv.1',
+              content: c.content,
+              createdAt: c.created_at,
+            }));
+            return mapDBCommunityPostToPost(p, isLiked, comments);
+          });
         setCommunityPosts(parsedPosts);
       }
 
@@ -1751,17 +1868,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
           }
 
-          // 카카오 프로필 사진 노출 차단: 사용자가 직접 앱에서 변경한 사진이 아니거나 카카오 CDN URL이면 기본 아바타 적용
-          if (profile.avatar_url) {
-            if (isKakaoAvatarUrl(profile.avatar_url)) {
-              finalPhotoURL = DEFAULT_AVATAR;
-              if (supabase) {
-                supabase.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', uid).then(() => {});
-              }
-              localStorage.setItem('sinsangpick_photo', DEFAULT_AVATAR);
-            } else if (isCustomizedPhoto || !isKakao) {
-              finalPhotoURL = profile.avatar_url;
+          // 기본 프로필 사진: 사용자가 앱 내에서 직접 등록한 커스텀 사진이 아니면 무조건 공식 로고(DEFAULT_AVATAR) 적용
+          if (isCustomizedPhoto && profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
+            finalPhotoURL = profile.avatar_url;
+          } else {
+            finalPhotoURL = DEFAULT_AVATAR;
+            if (supabase && profile.avatar_url !== DEFAULT_AVATAR) {
+              supabase.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', uid).then(() => {});
             }
+            localStorage.setItem('sinsangpick_photo', DEFAULT_AVATAR);
+            localStorage.removeItem('sinsangpick_custom_photo_' + uid);
           }
 
           return {
@@ -1872,17 +1988,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_name', resolvedDisplayName);
       }
 
-      const isKakao = providerName === 'kakao' || user.identities?.some((i: any) => i.provider === 'kakao');
       const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
-      const rawUserAvatar = user.user_metadata?.avatar_url;
-
-      let resolvedPhotoURL = DEFAULT_AVATAR;
       const cachedPhoto = localStorage.getItem('sinsangpick_photo');
 
-      if (isCustomPhoto && cachedPhoto && !isKakaoAvatarUrl(cachedPhoto)) {
+      let resolvedPhotoURL = DEFAULT_AVATAR;
+      if (isCustomPhoto && cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
         resolvedPhotoURL = cachedPhoto;
-      } else if (!isKakao && rawUserAvatar && !isKakaoAvatarUrl(rawUserAvatar)) {
-        resolvedPhotoURL = rawUserAvatar;
+      } else {
+        resolvedPhotoURL = DEFAULT_AVATAR;
+        localStorage.removeItem('sinsangpick_custom_photo_' + uid);
       }
 
       localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
@@ -1986,17 +2100,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
           const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
 
-          // 신규 계정 생성 및 로그인 시 기본 프로필 사진은 항상 공식 로고(DEFAULT_AVATAR)를 적용
+          // 로그인 시 기본 프로필 사진은 항상 공식 로고(DEFAULT_AVATAR)를 적용
+          // 사용자가 직접 앱에서 등록한 유효한 커스텀 사진인 경우에만 커스텀 사진 유지
           let photoURL = DEFAULT_AVATAR;
           if (isCustomPhoto) {
             const cachedPhoto = localStorage.getItem('sinsangpick_photo');
-            if (cachedPhoto && !isKakaoAvatarUrl(cachedPhoto)) {
+            if (cachedPhoto && isValidCustomPhoto(cachedPhoto, u.id)) {
               photoURL = cachedPhoto;
-            } else if (dbAvatarUrl && !isKakaoAvatarUrl(dbAvatarUrl)) {
+            } else if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
               photoURL = dbAvatarUrl;
             }
-          } else if (dbAvatarUrl && !isKakaoAvatarUrl(dbAvatarUrl) && !dbAvatarUrl.includes('unsplash') && (dbAvatarUrl.startsWith('data:image') || dbAvatarUrl === DEFAULT_AVATAR)) {
-            photoURL = dbAvatarUrl;
+          }
+
+          if (!isValidCustomPhoto(photoURL, u.id)) {
+            photoURL = DEFAULT_AVATAR;
+            localStorage.removeItem('sinsangpick_custom_photo_' + u.id);
+            if (dbAvatarUrl && dbAvatarUrl !== DEFAULT_AVATAR && client) {
+              client.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', u.id).then(() => {});
+            }
           }
 
           localStorage.setItem('sinsangpick_photo', photoURL);
@@ -2579,7 +2700,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (photo !== undefined) {
       try {
         localStorage.setItem('sinsangpick_photo', photo);
-        localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
+        if (photo === DEFAULT_AVATAR || photo === '/logo.png') {
+          localStorage.removeItem('sinsangpick_custom_photo_' + currentUser.uid);
+        } else {
+          localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
+        }
       } catch (e) {
         console.warn('Failed to save photo to localStorage', e);
       }
@@ -3221,28 +3346,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ================= ADMIN MODERATION FUNCTIONS =================
   // Delete Review
   const deleteReview = async (reviewId: string) => {
+    setDeletedReviewIds(prev => {
+      const next = Array.from(new Set([...prev, reviewId]));
+      safeSetItem('sinsangpick_deleted_reviews', JSON.stringify(next));
+      return next;
+    });
     setReviews(prev => prev.filter(r => r.id !== reviewId));
+    deleteRemoteReview(reviewId).catch(() => {});
     showToast('리뷰가 정상적으로 삭제되었습니다.', 'info');
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase.from('reviews').delete().eq('id', reviewId);
-      } catch (err) {
-        console.error('[Supabase] Delete review error:', err);
-      }
-    }
   };
 
   // Delete Community Post
   const deleteCommunityPost = async (postId: string) => {
+    setDeletedPostIds(prev => {
+      const next = Array.from(new Set([...prev, postId]));
+      safeSetItem('sinsangpick_deleted_posts', JSON.stringify(next));
+      return next;
+    });
     setCommunityPosts(prev => prev.filter(p => p.id !== postId));
+    deleteRemoteCommunityPost(postId).catch(() => {});
     showToast('커뮤니티 게시글이 삭제되었습니다.', 'info');
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase.from('community_posts').delete().eq('id', postId);
-      } catch (err) {
-        console.error('[Supabase] Delete post error:', err);
-      }
-    }
   };
 
   // ================= EVENTS & PUSH NOTIFICATIONS =================
@@ -3433,13 +3556,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('배너 구좌 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
-  // Delete Banner (남은 구좌 번호 1부터 자동 재배열 및 즉시 영구 저장)
+  // Delete Banner (남은 구좌 번호 1부터 자동 재배열 및 즉시 영구 저장, deletedBannerIds 등록)
   const deleteBanner = (id: string) => {
+    const nextDeletedBanners = Array.from(new Set([...deletedBannerIdsRef.current, id]));
+    deletedBannerIdsRef.current = nextDeletedBanners;
+    setDeletedBannerIds(nextDeletedBanners);
+    safeSetItem('sinsangpick_deleted_banners', JSON.stringify(nextDeletedBanners));
+
     setBanners(prev => {
       const normalized = normalizeBanners(prev.filter(b => b.id !== id));
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
-      // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      // Cloud sync with both deletedProductIds and deletedBannerIds
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, nextDeletedBanners).catch(() => {});
       return normalized;
     });
     showToast('배너 구좌가 삭제되었습니다. (클라우드 동기화 완료)', 'info');
@@ -3452,7 +3580,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(next);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
   };
@@ -3474,7 +3602,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(newBanners);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
     showToast(`배너 구좌 순서가 ${direction === 'up' ? '상위' : '하위'}로 변경되었습니다.`, 'info');
@@ -3494,7 +3622,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(sorted);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
     showToast(`배너가 ${targetOrder}구좌로 이동되었습니다.`, 'success');
@@ -3519,7 +3647,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(sorted);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
     showToast('배너 구좌가 성공적으로 복제되었습니다!', 'success');
@@ -3531,7 +3659,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
     setBanners(normalized);
     // Cloud sync
-    saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+    saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
     showToast('배너 구좌 순서가 저장되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
@@ -3581,14 +3709,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('상품 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
-  // Delete Product
+  // Delete Product (Race-condition proof via ref and immediate cloud sync)
   const deleteProduct = (id: string) => {
-    setDeletedProductIds(prev => {
-      const next = Array.from(new Set([...prev, id]));
-      safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
-      saveRemoteDeletedProducts(next).catch(() => {});
-      return next;
-    });
+    const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, id]));
+    deletedProductIdsRef.current = nextDeleted;
+    setDeletedProductIds(nextDeleted);
+    safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
+    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
+
     setProducts(prev => prev.filter(p => p.id !== id));
     deleteRemoteProduct(id).catch(() => {});
     showToast('상품이 삭제되었습니다. (클라우드 동기화 완료)', 'info');
@@ -3597,12 +3725,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Bulk Delete Products
   const deleteProducts = (ids: string[]) => {
     if (!ids || ids.length === 0) return;
-    setDeletedProductIds(prev => {
-      const next = Array.from(new Set([...prev, ...ids]));
-      safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
-      saveRemoteDeletedProducts(next).catch(() => {});
-      return next;
-    });
+    const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, ...ids]));
+    deletedProductIdsRef.current = nextDeleted;
+    setDeletedProductIds(nextDeleted);
+    safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
+    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
+
     const idSet = new Set(ids);
     setProducts(prev => prev.filter(p => !idSet.has(p.id)));
     deleteRemoteProducts(ids).catch(() => {});
@@ -3808,14 +3936,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const today = new Date().toISOString().split('T')[0];
       const crawled = await fetchDailyNewProducts(today);
       
-      // 기존 대기목록 및 이미 출시된 제품(이름 기준) 중복 필터링
-      const existingProductNames = new Set(products.map(p => p.name.trim()));
-      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim()));
+      // 기존 대기목록, 이미 출시된 제품, 관리자가 반려한 제품(이름 기준) 중복 필터링
+      const existingProductNames = new Set(products.map(p => p.name.trim().toLowerCase()));
+      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim().toLowerCase()));
+      const rejectedSet = new Set(rejectedPendingProductNames.map(n => n.trim().toLowerCase()));
 
-      const uniqueNewItems = crawled.filter(item => 
-        !existingProductNames.has(item.name.trim()) &&
-        !existingPendingNames.has(item.name.trim())
-      );
+      const uniqueNewItems = crawled.filter(item => {
+        const clean = item.name.trim().toLowerCase();
+        return !existingProductNames.has(clean) &&
+               !existingPendingNames.has(clean) &&
+               !rejectedSet.has(clean);
+      });
 
       if (uniqueNewItems.length > 0) {
         setPendingProducts(prev => [...uniqueNewItems, ...prev]);
@@ -4030,11 +4161,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(`🎉 총 ${approvedList.length}건의 실제 신제품이 일괄 승인되어 서비스에 업로드되었습니다!`, 'success');
   };
 
-  // 5. 신제품 반려(거절)
+  // 5. 신제품 반려(거절) - 영구 기억하여 재크롤링 방지
   const rejectPendingProduct = (pendingId: string) => {
     const item = pendingProducts.find(p => p.id === pendingId);
+    if (item && item.name) {
+      setRejectedPendingProductNames(prev => {
+        const next = Array.from(new Set([...prev, item.name.trim()]));
+        safeSetItem('sinsangpick_rejected_pending_names', JSON.stringify(next));
+        return next;
+      });
+    }
     setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
-    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다.`, 'info');
+    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다. (재수집 차단 완료)`, 'info');
   };
 
   // 5-1. 대기 중인 모든 신제품 일괄 승인 취소 (일괄 반려)
@@ -4044,8 +4182,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       showToast('대기 중인 신제품이 없습니다.', 'info');
       return;
     }
+    const names = pendingProducts.map(p => p.name.trim()).filter(Boolean);
+    setRejectedPendingProductNames(prev => {
+      const next = Array.from(new Set([...prev, ...names]));
+      safeSetItem('sinsangpick_rejected_pending_names', JSON.stringify(next));
+      return next;
+    });
     setPendingProducts([]);
-    showToast(`총 ${count}건의 대기 상품이 일괄 승인 취소(반려)되었습니다.`, 'info');
+    showToast(`총 ${count}건의 대기 상품이 일괄 반려되었습니다.`, 'info');
   };
 
   // 5-2. 이미 승인된 개별 상품 승인 취소 (products에서 제거 후 pendingProducts 대기함으로 복원)
@@ -4053,8 +4197,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
+    // Mark as deleted in products master to prevent cloud re-sync from reviving it into products table
+    const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, productId]));
+    deletedProductIdsRef.current = nextDeleted;
+    setDeletedProductIds(nextDeleted);
+    safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
+    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
+
     // Remove from products
     setProducts(prev => prev.filter(p => p.id !== productId));
+    deleteRemoteProduct(productId).catch(() => {});
 
     // Restore to pendingProducts
     const restoredPending: PendingProduct = {
@@ -4087,13 +4239,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     setPendingProducts(prev => [restoredPending, ...prev]);
-
-    if (supabase) {
-      supabase.from('products').delete().eq('id', productId).then(({ error }) => {
-        if (error) console.warn('[Supabase Delete on Revoke Warning]', error.message);
-      });
-    }
-
     showToast(`↩️ [${product.name}] 승인이 취소되어 다시 승인 대기함으로 이동되었습니다.`, 'info');
   };
 
@@ -4108,8 +4253,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return;
     }
 
+    const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, ...targetIds]));
+    deletedProductIdsRef.current = nextDeleted;
+    setDeletedProductIds(nextDeleted);
+    safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
+    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
+
     const revokedProducts = products.filter(p => targetIds.includes(p.id));
     setProducts(prev => prev.filter(p => !targetIds.includes(p.id)));
+    deleteRemoteProducts(targetIds).catch(() => {});
 
     const dateStr = new Date().toISOString().split('T')[0];
     const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
@@ -4144,16 +4296,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
 
     setPendingProducts(prev => [...restoredList, ...prev]);
-
-    const client = supabase;
-    if (client) {
-      targetIds.forEach(id => {
-        client.from('products').delete().eq('id', id).then(({ error }) => {
-          if (error) console.warn('[Supabase Delete on Bulk Revoke Warning]', error.message);
-        });
-      });
-    }
-
     showToast(`↩️ 총 ${revokedProducts.length}건의 상품이 일괄 승인 취소되어 대기함으로 복원되었습니다!`, 'success');
   };
 

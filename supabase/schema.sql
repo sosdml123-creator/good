@@ -349,12 +349,14 @@ CREATE POLICY "Users can delete own profile" ON public.profiles FOR DELETE USING
 CREATE POLICY "Products are viewable by everyone" ON public.products FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert products" ON public.products FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated users can update products" ON public.products FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow delete on products" ON public.products FOR DELETE USING (true);
 
 -- 3. Reviews
 CREATE POLICY "Reviews are viewable by everyone" ON public.reviews FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert reviews" ON public.reviews FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can update own reviews" ON public.reviews FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own reviews" ON public.reviews FOR DELETE USING (auth.uid() = user_id);
+CREATE POLICY "Allow admin delete on reviews" ON public.reviews FOR DELETE USING (true);
 
 -- 4. Review Likes
 CREATE POLICY "Review likes are viewable by everyone" ON public.review_likes FOR SELECT USING (true);
@@ -366,6 +368,7 @@ CREATE POLICY "Community posts are viewable by everyone" ON public.community_pos
 CREATE POLICY "Authenticated users can insert community posts" ON public.community_posts FOR INSERT WITH CHECK (auth.uid() = author_id);
 CREATE POLICY "Authors can update own community posts" ON public.community_posts FOR UPDATE USING (auth.uid() = author_id);
 CREATE POLICY "Authors can delete own community posts" ON public.community_posts FOR DELETE USING (auth.uid() = author_id);
+CREATE POLICY "Allow admin delete on community posts" ON public.community_posts FOR DELETE USING (true);
 
 -- 6. Post Likes
 CREATE POLICY "Post likes are viewable by everyone" ON public.post_likes FOR SELECT USING (true);

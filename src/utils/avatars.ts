@@ -1,6 +1,6 @@
 // Default Lightning 'N' Avatar and Presets
 
-const createLightningNSVG = (
+export const createLightningNSVG = (
   bgGradStart: string,
   bgGradEnd: string,
   boltGradStart: string,
@@ -49,54 +49,47 @@ const createLightningNSVG = (
 // Default Avatar: 신상픽 공식 옐로우 NEW 로고
 export const DEFAULT_AVATAR = '/logo.png';
 
-// Preset Avatar Options
+// Preset Avatar Options (공식 기본 로고)
 export const AVATAR_PRESETS = [
   {
     id: 'official-new-logo',
-    name: '신상픽 공식 로고 (기본)',
+    name: '신상픽 공식 로고',
     url: '/logo.png',
     themeColor: '#EAB308',
   },
-  {
-    id: 'lightning-blue',
-    name: '일렉트릭 블루 N',
-    url: createLightningNSVG(
-      '#082F49',
-      '#0F172A',
-      '#7DD3FC',
-      '#38BDF8',
-      '#2563EB',
-      '#38BDF8'
-    ),
-    themeColor: '#38BDF8',
-  },
-  {
-    id: 'lightning-purple',
-    name: '네온 사이버 N',
-    url: createLightningNSVG(
-      '#2E1065',
-      '#0F172A',
-      '#F472B6',
-      '#C084FC',
-      '#8B5CF6',
-      '#C084FC'
-    ),
-    themeColor: '#C084FC',
-  },
-  {
-    id: 'lightning-green',
-    name: '네온 에메랄드 N',
-    url: createLightningNSVG(
-      '#064E3B',
-      '#0F172A',
-      '#A7F3D0',
-      '#34D399',
-      '#059669',
-      '#34D399'
-    ),
-    themeColor: '#34D399',
-  },
 ];
+
+/**
+ * Checks if a given URL is a default logo, legacy SVG, or social login avatar (Kakao, Google, Apple, etc.)
+ */
+export const isDefaultOrSocialAvatar = (url?: string | null): boolean => {
+  if (!url || typeof url !== 'string') return true;
+  if (url === DEFAULT_AVATAR || url === '/logo.png') return true;
+  // Legacy lightning SVG avatar
+  if (url.startsWith('data:image/svg+xml')) return true;
+  // Social provider avatar domains or placeholder images
+  if (/kakaocdn\.net|kakao\.com|daumcdn\.net|googleusercontent\.com|apple\.com|unsplash\.com/i.test(url)) return true;
+  return false;
+};
+
+/**
+ * Checks if a user's avatar is a valid custom photo uploaded by the user
+ */
+export const isValidCustomPhoto = (url?: string | null, uid?: string | null): boolean => {
+  if (!url || typeof url !== 'string') return false;
+  if (uid) {
+    const isMarkedCustom = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
+    if (!isMarkedCustom) return false;
+  }
+  if (isDefaultOrSocialAvatar(url)) return false;
+  // Valid uploaded image data URL (jpeg/png/webp) or Supabase storage URL
+  return (
+    url.startsWith('data:image/jpeg') ||
+    url.startsWith('data:image/png') ||
+    url.startsWith('data:image/webp') ||
+    url.includes('/storage/v1/object/public/')
+  );
+};
 
 /**
  * Compresses an uploaded image file on the client side using HTML Canvas.

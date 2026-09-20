@@ -2728,6 +2728,7 @@ export const AdminDashboard: React.FC = () => {
                                     onClick={() => {
                                       if (confirm(`'${prod.name}' 상품을 정말 삭제하시겠습니까?`)) {
                                         deleteProduct(prod.id);
+                                        setSelectedProductIds(prev => prev.filter(id => id !== prod.id));
                                       }
                                     }}
                                     className="p-1 hover:bg-rose-100 text-slate-400 hover:text-rose-600 rounded transition-all"
@@ -2813,6 +2814,7 @@ export const AdminDashboard: React.FC = () => {
                             onClick={() => {
                               if (confirm(`'${prod.name}' 상품을 삭제하시겠습니까?`)) {
                                 deleteProduct(prod.id);
+                                setSelectedProductIds(prev => prev.filter(id => id !== prod.id));
                               }
                             }}
                             className="p-1.5 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600"

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { X, Check, Camera, Sparkles } from 'lucide-react';
-import { DEFAULT_AVATAR, AVATAR_PRESETS, compressImageFile } from '../../utils/avatars';
+import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -56,11 +56,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
 
   const handleResetToDefault = () => {
     setSelectedPhoto(DEFAULT_AVATAR);
-    setErrorMessage('');
-  };
-
-  const handleSelectPreset = (url: string) => {
-    setSelectedPhoto(url);
     setErrorMessage('');
   };
 
@@ -161,45 +156,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
               <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
               <span>기본 프로필</span>
             </button>
-          </div>
-
-          {/* Preset Avatar Selection */}
-          <div className="w-full bg-gray-50/80 rounded-2xl p-2.5 border border-gray-100 space-y-1.5">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-[11px] font-bold text-gray-500 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-500" />
-                프로필 테마 선택
-              </span>
-            </div>
-            <div className="flex items-center justify-center gap-2.5 pt-1">
-              {AVATAR_PRESETS.map((preset) => {
-                const isSelected = selectedPhoto === preset.url;
-                return (
-                  <button
-                    key={preset.id}
-                    type="button"
-                    onClick={() => handleSelectPreset(preset.url)}
-                    className={`relative rounded-full p-0.5 transition-all ${
-                      isSelected
-                        ? 'ring-2 ring-gray-900 scale-110 shadow-sm'
-                        : 'opacity-70 hover:opacity-100 hover:scale-105'
-                    }`}
-                    title={preset.name}
-                  >
-                    <img
-                      src={preset.url}
-                      alt={preset.name}
-                      className="w-8 h-8 rounded-full bg-slate-900 border border-white/20 object-cover"
-                    />
-                    {isSelected && (
-                      <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-gray-900 rounded-full flex items-center justify-center border border-white text-white">
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
           </div>
         </div>
 

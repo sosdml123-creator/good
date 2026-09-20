@@ -48,6 +48,7 @@ export default async function handler(req, res) {
       const banners = systemData?.nutrition?.banners || null;
       const homeSections = systemData?.nutrition?.homeSections || null;
       const deletedProductIds = systemData?.nutrition?.deletedProductIds || null;
+      const deletedBannerIds = systemData?.nutrition?.deletedBannerIds || null;
       const lastUpdated = systemData?.updated_at || null;
 
       // 2. Fetch active products from Supabase
@@ -65,6 +66,7 @@ export default async function handler(req, res) {
         banners,
         homeSections,
         deletedProductIds,
+        deletedBannerIds,
         products,
         lastUpdated,
         serverTime: new Date().toISOString()
@@ -75,13 +77,73 @@ export default async function handler(req, res) {
     }
   }
 
-  // POST: Update banners, homeSections, or sync data from Admin
+  // POST: Update banners, homeSections, handle deletions, or sync data from Admin
   if (req.method === 'POST') {
     try {
-      const { banners, homeSections, deletedProductIds, products } = req.body || {};
+      const { action, id, ids, banners, homeSections, deletedProductIds, deletedBannerIds, products } = req.body || {};
 
-      // 1. Save banners and homeSections in system record inside products table
-      if (banners || homeSections || deletedProductIds) {
+      // 0-A. Handle Direct Product Deletion via Serverless Service Role
+      if (action === 'delete_products' || action === 'delete_product') {
+        const targetIds = ids || (id ? [id] : []);
+        if (targetIds.length > 0) {
+          const inQuery = targetIds.map(t => `"${t}"`).join(',');
+          const delRes = await fetch(`${supabaseUrl}/rest/v1/products?id=in.(${inQuery})`, {
+            method: 'DELETE',
+            headers
+          });
+          if (!delRes.ok) {
+            const errTxt = await delRes.text();
+            console.warn('[site-content DELETE products warning]', errTxt);
+          }
+        }
+      }
+
+      // 0-B. Handle Direct Review Deletion via Serverless Service Role
+      if (action === 'delete_review' && (id || ids)) {
+        const targetIds = ids || (id ? [id] : []);
+        const inQuery = targetIds.map(t => `"${t}"`).join(',');
+        await fetch(`${supabaseUrl}/rest/v1/reviews?id=in.(${inQuery})`, {
+          method: 'DELETE',
+          headers
+        });
+      }
+
+      // 0-C. Handle Direct Community Post Deletion via Serverless Service Role
+      if (action === 'delete_post' && (id || ids)) {
+        const targetIds = ids || (id ? [id] : []);
+        const inQuery = targetIds.map(t => `"${t}"`).join(',');
+        await fetch(`${supabaseUrl}/rest/v1/community_posts?id=in.(${inQuery})`, {
+          method: 'DELETE',
+          headers
+        });
+      }
+
+      // 1. Save banners, homeSections, and deleted IDs in system record inside products table
+      if (banners || homeSections || deletedProductIds || deletedBannerIds) {
+        // Fetch existing record first to merge safely
+        let existingNutrition = {};
+        try {
+          const curRes = await fetch(`${supabaseUrl}/rest/v1/products?id=eq.${SYSTEM_RECORD_ID}&select=nutrition`, { headers });
+          if (curRes.ok) {
+            const curRows = await curRes.json();
+            if (curRows && curRows.length > 0 && curRows[0].nutrition) {
+              existingNutrition = curRows[0].nutrition;
+            }
+          }
+        } catch {
+          // ignore
+        }
+
+        const mergedDeletedProductIds = Array.from(new Set([
+          ...(existingNutrition.deletedProductIds || []),
+          ...(deletedProductIds || [])
+        ]));
+
+        const mergedDeletedBannerIds = Array.from(new Set([
+          ...(existingNutrition.deletedBannerIds || []),
+          ...(deletedBannerIds || [])
+        ]));
+
         const payload = {
           id: SYSTEM_RECORD_ID,
           name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -93,9 +155,11 @@ export default async function handler(req, res) {
           is_today: false,
           is_hot: false,
           nutrition: {
-            banners: banners || undefined,
-            homeSections: homeSections || undefined,
-            deletedProductIds: deletedProductIds || undefined,
+            ...existingNutrition,
+            banners: banners !== undefined ? banners : existingNutrition.banners,
+            homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
+            deletedProductIds: mergedDeletedProductIds,
+            deletedBannerIds: mergedDeletedBannerIds,
             updatedAt: new Date().toISOString()
           },
           updated_at: new Date().toISOString()
@@ -152,7 +216,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         success: true,
-        message: '콘텐츠가 클라우드에 성공적으로 동기화되었습니다.',
+        message: '클라우드 동기화 및 삭제 처리가 성공적으로 완료되었습니다.',
         timestamp: new Date().toISOString()
       });
     } catch (err) {

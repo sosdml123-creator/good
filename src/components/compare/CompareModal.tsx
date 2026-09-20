@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { 
   ChevronLeft, 
   Star, 
@@ -41,7 +42,7 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
   {
     id: 'b-cmt-1',
     userName: '편의점탐험가',
-    userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
+    userAvatar: DEFAULT_AVATAR,
     userLevel: 4,
     choice: 'A',
     content: '이번 신상은 국물이 진짜 깊고 진해요 ㅋㅋㅋ 특유의 불향이 살아있어서 밥까지 말아먹었습니다. 완전 강추!',
@@ -52,7 +53,7 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
       {
         id: 'b-rep-1',
         userName: '라면마스터',
-        userAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&auto=format&fit=crop&q=80',
+        userAvatar: DEFAULT_AVATAR,
         content: '인정합니다! 어제 GS25에서 사먹어봤는데 면발 탄력도 역대급이더라고요.',
         createdAt: '10분 전'
       }
@@ -178,7 +179,7 @@ export const CompareModal: React.FC = () => {
       id: `b-cmt-${Date.now()}`,
       userId: currentUser.uid || 'user_me',
       userName: currentUser.displayName || '신상러버',
-      userAvatar: currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
+      userAvatar: currentUser.photoURL || DEFAULT_AVATAR,
       userLevel: currentUser.level ? parseInt(currentUser.level.replace(/[^0-9]/g, '')) || 3 : 3,
       choice: selectedChoice,
       content: inputText.trim(),
@@ -680,7 +681,7 @@ export const CompareModal: React.FC = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
                     <img
-                      src={comment.userAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'}
+                      src={comment.userAvatar || DEFAULT_AVATAR}
                       alt={comment.userName}
                       className="w-7 h-7 rounded-full object-cover border border-gray-200 shrink-0"
                     />
