@@ -30,7 +30,8 @@ import {
   getPopularProducts, 
   getSearchTrendingProducts, 
   getSearchInfluxCount, 
-  formatSearchCount 
+  formatSearchCount,
+  isRealNewProduct
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
@@ -76,13 +77,7 @@ export const HomeView: React.FC = () => {
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
 
-  const isProductNew = (p: Product) =>
-    Boolean(
-      p.isToday ||
-      p.isHot ||
-      p.category === '신제품' ||
-      (p.releaseDate && (p.releaseDate.includes('출시') || p.releaseDate.includes('신상') || p.releaseDate.includes('2026') || p.releaseDate.includes('2025')))
-    );
+  const isProductNew = (p: Product) => isRealNewProduct(p);
 
   const allNewProducts = products.filter(isProductNew);
   const baseNewProducts = allNewProducts.length > 0 ? allNewProducts : products.slice(0, 10);

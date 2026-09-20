@@ -1272,7 +1272,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [previousTab, setPreviousTab] = useState<ActiveTab>('home');
   const [selectedCategory, setSelectedCategoryState] = useState<ProductCategory>(() => {
     if (initialUrlParams.cat) return initialUrlParams.cat as ProductCategory;
-    return '전체';
+    return '신제품';
   });
 
   const [selectedBrand, setSelectedBrandState] = useState<string | null>(() => {

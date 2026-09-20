@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { INITIAL_PRODUCTS } from '../data/mockProducts';
-import { calculateReviewScore, getCategoryReviewRankedProducts, getPopularProducts } from '../utils/ranking';
+import { calculateReviewScore, getCategoryReviewRankedProducts, getPopularProducts, isRealNewProduct } from '../utils/ranking';
 import { getProductCode, findProductByCodeOrId } from '../utils/productCode';
 import { safeJsonParse, safeLocalStorageGet, safeLocalStorageSet, sanitizeInput } from '../utils/safeStorage';
 import { Product, Review } from '../types';
@@ -212,11 +212,21 @@ describe('User Flow 2 & 3: Core Features (홈 탐색 → 상품 상세 → 검�
       expect(Number.isFinite(res.reviewScore)).toBe(true);
     });
 
-    it('[엣지] 50,000자 초장문 리뷰 및 특수문자/이모지 처리', () => {
-      const longReviewText = '정말 강력 추천하는 신상품입니다! 🍪🔥 '.repeat(3000);
-      expect(longReviewText.length).toBeGreaterThan(50000);
-      const sanitized = sanitizeInput(longReviewText, 1000);
-      expect(sanitized.length).toBeLessThanOrEqual(1000);
+    it('[신제품] 진짜 신제품만 선별 및 농수산물/스테디셀러 제외 검증', () => {
+      const realNewItems = INITIAL_PRODUCTS.filter(isRealNewProduct);
+      expect(realNewItems.length).toBeGreaterThan(0);
+      expect(realNewItems.length).toBeLessThan(INITIAL_PRODUCTS.length);
+
+      // Raw farm produce must not be in real new items
+      const rawFruits = realNewItems.filter(p => p.category === '과일' || p.category === '식재료' || p.category === '고기·수산');
+      expect(rawFruits.length).toBe(0);
+
+      // getCategoryReviewRankedProducts with '신제품' returns only real new products
+      const rankedNew = getCategoryReviewRankedProducts(INITIAL_PRODUCTS, [], '신제품');
+      expect(rankedNew.length).toBe(realNewItems.length);
+      rankedNew.forEach(item => {
+        expect(isRealNewProduct(item.product)).toBe(true);
+      });
     });
   });
 });

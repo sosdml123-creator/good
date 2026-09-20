@@ -312,6 +312,82 @@ export const calculateProductReviewScore = (
 };
 
 /**
+ * Accurately determines if a product is a real new product (신제품).
+ * Filters out raw agricultural/marine fresh ingredients, steady-sellers,
+ * and classic items that do not represent newly launched food items.
+ */
+export const isRealNewProduct = (p: Product): boolean => {
+  if (!p) return false;
+
+  // 1. Exclude natural fresh farm/marine produce (fruits, veggies, raw meats/fish) unless specifically a new processed item
+  const isFreshFarmProduce = 
+    (p.category === '과일' || p.category === '식재료' || p.category === '고기·수산' || p.itemType === 'fresh' || Boolean(p.produceDetails)) &&
+    !p.name.includes('신제품') && !p.name.includes('신상') && p.category !== '신제품';
+  if (isFreshFarmProduce) return false;
+
+  // 2. Exclude steady-seller / classic popular banner strings
+  if (p.releaseDate) {
+    const rd = p.releaseDate;
+    const isExcluded = 
+      (rd.includes('스테디셀러') || 
+       rd.includes('베스트셀러') || 
+       rd.includes('판매 1위') || 
+       rd.includes('공식 인기') || 
+       rd.includes('원조') || 
+       rd.includes('대표메뉴') ||
+       rd.includes('공식 전통') ||
+       rd.includes('산지직송')) &&
+      !rd.includes('신제품') && !rd.includes('신상') && !rd.includes('신규') && !rd.includes('2026') && !rd.includes('리뉴얼');
+    if (isExcluded) return false;
+  }
+
+  // 3. Category is explicitly 신제품
+  if (p.category === '신제품') return true;
+
+  // 4. Added via crawler / today's new items with isToday flag (and not excluded above)
+  if (p.isToday) {
+    if (p.releaseDate) {
+      const rd = p.releaseDate;
+      if (
+        rd.includes('출시') || 
+        rd.includes('신상') || 
+        rd.includes('신제품') || 
+        rd.includes('신메뉴') ||
+        rd.includes('한정판') ||
+        /\d{4}[.-]\d{1,2}/.test(rd)
+      ) {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  // 5. Release date keywords
+  if (p.releaseDate) {
+    const rd = p.releaseDate;
+    if (
+      rd.includes('신규 출시') ||
+      rd.includes('오늘 출시') ||
+      rd.includes('신제품') ||
+      rd.includes('신상') ||
+      rd.includes('단독 출시') ||
+      rd.includes('신메뉴 출시') ||
+      rd.includes('한정 출시')
+    ) {
+      return true;
+    }
+  }
+
+  // 6. Name indicates newly launched product
+  if (p.name.includes('신상') || p.name.includes('신제품') || p.name.includes('단독출시')) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
  * Returns products in a category ranked and sorted by review evaluations.
  * Supports both signatures:
  * (products, reviews, category, subCategory, sortBy)
@@ -345,8 +421,7 @@ export const getCategoryReviewRankedProducts = (
   const filtered = products.filter((p) => {
     if (category !== '전체') {
       if (category === '신제품') {
-        const isNew = p.isToday || p.isHot || p.category === '신제품' || Boolean(p.releaseDate && (p.releaseDate.includes('출시') || p.releaseDate.includes('신상') || p.releaseDate.includes('2026') || p.releaseDate.includes('2025')));
-        if (!isNew) return false;
+        if (!isRealNewProduct(p)) return false;
       } else if (p.category !== category) {
         return false;
       }
@@ -355,7 +430,10 @@ export const getCategoryReviewRankedProducts = (
     // SubCategory check
     if (subCategory && subCategory !== '전체') {
       if (category === '신제품') {
-        if (p.category !== subCategory && p.subCategory !== subCategory) return false;
+        const matchesCategory = p.category === subCategory;
+        const matchesSubCategory = p.subCategory === subCategory;
+        const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());
+        if (!matchesCategory && !matchesSubCategory && !matchesName) return false;
       } else {
         const matchesSub = p.subCategory === subCategory;
         const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());

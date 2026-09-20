@@ -4,7 +4,7 @@ import { Home, Compass, Trophy, MessageSquare, User } from 'lucide-react';
 import { ActiveTab } from '../../types';
 
 export const BottomNav: React.FC = () => {
-  const { activeTab, setActiveTab } = useApp();
+  const { activeTab, setActiveTab, setSelectedCategory } = useApp();
 
   const navItems = [
     { id: 'home' as ActiveTab, label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
@@ -13,6 +13,13 @@ export const BottomNav: React.FC = () => {
     { id: 'community' as ActiveTab, label: '수다방', icon: <MessageSquare className="w-5 h-5 stroke-[2]" /> },
     { id: 'my' as ActiveTab, label: '마이', icon: <User className="w-5 h-5 stroke-[2]" /> },
   ];
+
+  const handleTabClick = (tabId: ActiveTab) => {
+    if (tabId === 'category') {
+      setSelectedCategory('신제품');
+    }
+    setActiveTab(tabId);
+  };
 
   return (
     <nav className="w-full shrink-0 z-40 bg-white border-t border-gray-200 select-none pb-1">
@@ -23,7 +30,7 @@ export const BottomNav: React.FC = () => {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => handleTabClick(item.id)}
               className={`flex-1 flex flex-col items-center py-1 transition-colors focus:outline-none ${
                 isActive ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-600'
               }`}

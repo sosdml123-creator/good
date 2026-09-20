@@ -35316,8 +35316,8 @@ export const INITIAL_PRODUCTS: Product[] = [
   }];
 
 export const CATEGORIES: ProductCategory[] = [
-  '전체',
   '신제품',
+  '전체',
   '과자',
   '음료',
   '빵·디저트',
