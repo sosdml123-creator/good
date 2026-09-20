@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const clientId = env.VITE_NAVER_CLIENT_ID || 'ha89ylxb53';
-  const clientSecret = env.VITE_NAVER_CLIENT_SECRET || '4hm7znMnOmGyvtw2xnvEjTWoRG1UZeLqlccI7b4p';
+  const clientId = env.NAVER_CLIENT_ID || env.VITE_NAVER_CLIENT_ID || '';
+  const clientSecret = env.NAVER_CLIENT_SECRET || env.VITE_NAVER_CLIENT_SECRET || '';
 
   return {
     plugins: [

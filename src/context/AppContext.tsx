@@ -855,7 +855,8 @@ export const smartMergeBanners = (
   const deletedSet = new Set(deletedBannerIds);
   const validInitial = initialBanners.filter(b => !deletedSet.has(b.id));
 
-  if (!storedBanners || !Array.isArray(storedBanners) || storedBanners.length === 0) {
+  // If storedBanners is completely null/undefined (first run or offline fallback), return valid initial banners
+  if (!storedBanners || !Array.isArray(storedBanners)) {
     return normalizeBanners(validInitial);
   }
 
@@ -864,8 +865,6 @@ export const smartMergeBanners = (
 
   // Filter stored banners by deletedSet
   const filteredStored = storedBanners.filter(b => !deletedSet.has(b.id));
-  const storedMap = new Map<string, BannerItem>();
-  filteredStored.forEach(b => storedMap.set(b.id, b));
 
   // 1. Prioritize stored banners order and configuration
   const mergedFromStored: BannerItem[] = filteredStored.map(stored => {
@@ -1637,12 +1636,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setDeletedBannerIds(curDeletedBanners);
         safeSetItem('sinsangpick_deleted_banners', JSON.stringify(curDeletedBanners));
       }
-      if (remote.banners && remote.banners.length > 0) {
+      if (remote.banners !== null && Array.isArray(remote.banners)) {
         const mergedBanners = smartMergeBanners(remote.banners, INITIAL_BANNERS, curDeletedBanners);
         setBanners(mergedBanners);
         safeSetItem('sinsangpick_banners', JSON.stringify(mergedBanners));
       }
-      if (remote.homeSections && remote.homeSections.length > 0) {
+      if (remote.homeSections !== null && Array.isArray(remote.homeSections)) {
         const mergedSections = smartMergeHomeSections(remote.homeSections, INITIAL_HOME_SECTIONS);
         setHomeSections(mergedSections);
         safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
@@ -1715,12 +1714,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setDeletedBannerIds(mergedDeletedBanners);
           safeSetItem('sinsangpick_deleted_banners', JSON.stringify(mergedDeletedBanners));
         }
-        if (Array.isArray(systemBannerRecord.nutrition.banners) && systemBannerRecord.nutrition.banners.length > 0) {
+        if (systemBannerRecord.nutrition.banners !== undefined && Array.isArray(systemBannerRecord.nutrition.banners)) {
           const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS, deletedBannerIdsRef.current);
           setBanners(merged);
           safeSetItem('sinsangpick_banners', JSON.stringify(merged));
         }
-        if (Array.isArray(systemBannerRecord.nutrition.homeSections) && systemBannerRecord.nutrition.homeSections.length > 0) {
+        if (systemBannerRecord.nutrition.homeSections !== undefined && Array.isArray(systemBannerRecord.nutrition.homeSections)) {
           const mergedSec = smartMergeHomeSections(systemBannerRecord.nutrition.homeSections, INITIAL_HOME_SECTIONS);
           setHomeSections(mergedSec);
           safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
@@ -1894,14 +1893,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             localStorage.removeItem('sinsangpick_custom_photo_' + uid);
           }
 
+          const userPoints = typeof profile.points === 'number' ? profile.points : 100;
           return {
             ...prev,
             displayName: finalDisplayName,
             photoURL: finalPhotoURL,
-            points: profile.points ?? prev.points,
-            level: calculateLevel(profile.points ?? prev.points),
+            points: userPoints,
+            level: calculateLevel(userPoints),
           };
         });
+      } else {
+        // 프로필이 없는 경우 (탈퇴 후 재가입 / 신규 가입)
+        setCurrentUser(prev => ({
+          ...prev,
+          points: 100,
+          level: 'Lv.1',
+        }));
       }
 
       // 6. Fetch All Profiles (for Admin Points & Member Management)
@@ -2049,6 +2056,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const channel = client.channel('public:db-changes')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
           loadSupabaseData(uid);
+          refreshRemoteContent();
         })
         .on('postgres_changes', { event: '*', schema: 'public', table: 'reviews' }, () => {
           loadSupabaseData(uid);
@@ -2068,6 +2076,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
           loadSupabaseData(uid);
         })
+        .subscribe((status) => {
+          console.info('[Supabase Realtime] Channel status:', status);
+        });
       // 6. Listen for Auth State Changes (Apple / Google / Kakao OAuth redirect)
       const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (event, session) => {
         if (session?.user && isMounted) {
@@ -2257,10 +2268,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         loadSupabaseData(currentUser.uid);
       }
     };
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        handleFocus();
+      }
+    };
+
     window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibility);
       if (stateSub && typeof stateSub.remove === 'function') {
         stateSub.remove();
       }
@@ -2956,9 +2975,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const uidToDelete = currentUser.uid;
 
-      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제
+      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제 (테이블 직접 삭제 + RPC)
       if (supabase && isSupabaseConfigured) {
         try {
+          try { await supabase.from('device_tokens').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('review_likes').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('post_likes').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('point_transactions').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('bookmarks').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('profiles').delete().eq('id', uidToDelete); } catch {}
           await deleteCurrentUserAccount();
         } catch (err) {
           console.warn('[Supabase] Failed to delete user profile from DB:', err);
@@ -2975,20 +3000,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_recent_searches');
       localStorage.removeItem('sinsangpick_alert_cats');
       localStorage.removeItem('sinsangpick_guest_browse');
-      localStorage.removeItem('sinsangpick_attendance_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_custom_nickname_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_custom_photo_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_nickname_set_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_suspension_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_points_tx_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_wheel_spins_' + uidToDelete);
-      localStorage.removeItem('sinsangpick_scratch_cards_' + uidToDelete);
+      localStorage.removeItem('sinsangpick_permissions_reviewed');
+      localStorage.removeItem('sinsangpick_battle_choice');
+      localStorage.removeItem('sinsangpick_review_likes');
+      localStorage.removeItem('sinsangpick_post_likes');
 
       try {
         const keysToRemove: string[] = [];
         for (let i = 0; i < localStorage.length; i++) {
           const k = localStorage.key(i);
-          if (k && (k.endsWith(`_${uidToDelete}`) || k.startsWith('sb-'))) {
+          if (
+            k &&
+            (k.includes(uidToDelete) ||
+              k.endsWith(`_${uidToDelete}`) ||
+              k.startsWith('sb-') ||
+              k.startsWith('sinsangpick_attendance_') ||
+              k.startsWith('sinsangpick_wheel_spins_') ||
+              k.startsWith('sinsangpick_scratch_cards_') ||
+              k.startsWith('sinsangpick_custom_') ||
+              k.startsWith('sinsangpick_nickname_set_') ||
+              k.startsWith('sinsangpick_suspension_') ||
+              k.startsWith('sinsangpick_points_tx_'))
+          ) {
             keysToRemove.push(k);
           }
         }
@@ -2997,7 +3030,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // ignore
       }
 
-      // 3. 앱 내부 상태 완전 초기화
+      // 3. allProfiles 및 pointTransactions 목록에서 탈퇴 유저 제거 및 로컬 스토리지 동기화
+      setAllProfiles(prev => {
+        const updated = prev.filter(p => p.uid !== uidToDelete);
+        try {
+          localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      setPointTransactions(prev => {
+        const updated = prev.filter(t => t.userId !== uidToDelete);
+        try {
+          localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      // 4. 앱 내부 상태 완전 초기화 (새로운 익명 유저, 기본 100P)
       setIsGuestBrowseState(false);
       const initialUser = createInitialUser();
       setCurrentUser(initialUser);
@@ -3005,6 +3055,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setComparedIds([]);
       setRecentSearches([]);
       setAlertCategories([]);
+      setReviewLikes([]);
+      setPostLikes([]);
       setActiveTabState('home');
       showToast('회원 탈퇴 및 계정 삭제가 정상적으로 완료되었습니다.', 'info');
     } catch (err) {

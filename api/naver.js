@@ -14,22 +14,39 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const clientId = process.env.NAVER_CLIENT_ID || process.env.VITE_NAVER_CLIENT_ID || 'ha89ylxb53';
-  const clientSecret = process.env.NAVER_CLIENT_SECRET || process.env.VITE_NAVER_CLIENT_SECRET || '4hm7znMnOmGyvtw2xnvEjTWoRG1UZeLqlccI7b4p';
+  const clientId = process.env.NAVER_CLIENT_ID || process.env.VITE_NAVER_CLIENT_ID;
+  const clientSecret = process.env.NAVER_CLIENT_SECRET || process.env.VITE_NAVER_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    return res.status(500).json({ error: 'NAVER API credentials are not configured in environment variables.' });
+  }
 
   const { type = 'news', query = '', sort = 'sim', display = '10', start = '1' } = req.query;
 
+  // Input Sanitization & Range Validation
+  const ALLOWED_TYPES = [
+    'news', 'image', 'blog', 'shop', 'webkr',
+    'datalab_categories', 'datalab_keywords', 'datalab_age', 'datalab_gender', 'datalab_device',
+    'shopping_keywords', 'shopping_age', 'shopping_gender', 'shopping_device'
+  ];
+
+  const safeType = ALLOWED_TYPES.includes(String(type)) ? String(type) : 'news';
+  const safeDisplay = Math.max(1, Math.min(100, parseInt(String(display), 10) || 10));
+  const safeStart = Math.max(1, Math.min(1000, parseInt(String(start), 10) || 1));
+  const safeSort = ['sim', 'date', 'asc', 'dsc'].includes(String(sort)) ? String(sort) : 'sim';
+  const cleanQuery = String(query || '').trim().slice(0, 100);
+
   try {
     // 1. DataLab Shopping Insight APIs (POST)
-    if (req.method === 'POST' || type.startsWith('datalab') || type.startsWith('shopping')) {
+    if (req.method === 'POST' || safeType.startsWith('datalab') || safeType.startsWith('shopping')) {
       let endpoint = 'categories';
-      if (type === 'datalab_keywords' || type === 'shopping_keywords') {
+      if (safeType === 'datalab_keywords' || safeType === 'shopping_keywords') {
         endpoint = 'category/keywords';
-      } else if (type === 'datalab_age' || type === 'shopping_age') {
+      } else if (safeType === 'datalab_age' || safeType === 'shopping_age') {
         endpoint = 'category/age';
-      } else if (type === 'datalab_gender' || type === 'shopping_gender') {
+      } else if (safeType === 'datalab_gender' || safeType === 'shopping_gender') {
         endpoint = 'category/gender';
-      } else if (type === 'datalab_device' || type === 'shopping_device') {
+      } else if (safeType === 'datalab_device' || safeType === 'shopping_device') {
         endpoint = 'category/device';
       }
 
@@ -51,13 +68,13 @@ export default async function handler(req, res) {
     }
 
     // 2. NAVER Search APIs (GET: news, image, blog, shop)
-    if (!query) {
+    if (!cleanQuery) {
       return res.status(400).json({ error: 'query parameter is required' });
     }
 
     // Attempt NAVER API HUB first
-    const searchType = type === 'shop' ? 'shop' : type;
-    const naverHubUrl = `https://naverapihub.apigw.ntruss.com/search/v1/${searchType}?query=${encodeURIComponent(String(query))}&display=${display}&start=${start}${sort ? `&sort=${sort}` : ''}`;
+    const searchType = safeType === 'shop' ? 'shop' : safeType;
+    const naverHubUrl = `https://naverapihub.apigw.ntruss.com/search/v1/${searchType}?query=${encodeURIComponent(cleanQuery)}&display=${safeDisplay}&start=${safeStart}${safeSort ? `&sort=${safeSort}` : ''}`;
 
     let response = await fetch(naverHubUrl, {
       method: 'GET',
@@ -69,7 +86,7 @@ export default async function handler(req, res) {
 
     // If API Hub returned 404 or unsupported endpoint, fallback to Open API
     if (!response.ok && (response.status === 404 || response.status === 401)) {
-      const openApiUrl = `https://openapi.naver.com/v1/search/${searchType}.json?query=${encodeURIComponent(String(query))}&display=${display}&start=${start}${sort ? `&sort=${sort}` : ''}`;
+      const openApiUrl = `https://openapi.naver.com/v1/search/${searchType}.json?query=${encodeURIComponent(cleanQuery)}&display=${safeDisplay}&start=${safeStart}${safeSort ? `&sort=${safeSort}` : ''}`;
       response = await fetch(openApiUrl, {
         method: 'GET',
         headers: {

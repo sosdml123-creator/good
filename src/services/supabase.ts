@@ -472,24 +472,28 @@ export const deleteCurrentUserAccount = async (): Promise<void> => {
   if (!supabase) return;
 
   try {
-    // 1. Try secure RPC delete_user_account
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.id;
+
+    if (userId) {
+      // 1. Direct cleanup client-accessible tables first
+      try { await supabase.from('device_tokens').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('review_likes').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('post_likes').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('point_transactions').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('bookmarks').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('profiles').delete().eq('id', userId); } catch {}
+    }
+
+    // 2. Try secure RPC delete_user_account for complete database & auth wipe
     const { error: rpcError } = await supabase.rpc('delete_user_account');
     if (rpcError) {
-      console.warn('[Supabase Auth] RPC delete_user_account fallback:', rpcError.message);
-      
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user?.id) {
-        // Fallback: cleanup client-accessible tables
-        try { await supabase.from('device_tokens').delete().eq('user_id', user.id); } catch {}
-        try { await supabase.from('review_likes').delete().eq('user_id', user.id); } catch {}
-        try { await supabase.from('post_likes').delete().eq('user_id', user.id); } catch {}
-        try { await supabase.from('profiles').delete().eq('id', user.id); } catch {}
-      }
+      console.warn('[Supabase Auth] RPC delete_user_account fallback/warning:', rpcError.message);
     }
   } catch (err) {
     console.warn('[Supabase Auth] deleteCurrentUserAccount exception:', err);
   } finally {
-    // Always sign out to clear cached auth tokens
+    // Always sign out to clear cached auth tokens and sessions
     try { await supabase.auth.signOut(); } catch {}
   }
 };

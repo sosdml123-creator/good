@@ -128,6 +128,16 @@ export const saveRemoteBannersAndSections = async (
 
       const existingNutrition = existing?.nutrition || {};
 
+      const mergedDeletedBannerIds = Array.from(new Set([
+        ...(existingNutrition.deletedBannerIds || []),
+        ...(deletedBannerIds || [])
+      ]));
+
+      const mergedDeletedProductIds = Array.from(new Set([
+        ...(existingNutrition.deletedProductIds || []),
+        ...(deletedProductIds || [])
+      ]));
+
       const payload: any = {
         id: SYSTEM_BANNER_RECORD_ID,
         name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -140,10 +150,10 @@ export const saveRemoteBannersAndSections = async (
         is_hot: false,
         nutrition: {
           ...existingNutrition,
-          banners: banners || existingNutrition.banners,
+          banners: banners !== undefined ? banners : (existingNutrition.banners || []),
           homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
-          deletedProductIds: deletedProductIds !== undefined ? deletedProductIds : (existingNutrition.deletedProductIds || []),
-          deletedBannerIds: deletedBannerIds !== undefined ? deletedBannerIds : (existingNutrition.deletedBannerIds || []),
+          deletedProductIds: mergedDeletedProductIds,
+          deletedBannerIds: mergedDeletedBannerIds,
           updatedAt: new Date().toISOString()
         },
         updated_at: new Date().toISOString()

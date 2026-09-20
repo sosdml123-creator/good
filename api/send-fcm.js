@@ -13,32 +13,33 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://lyyzhldazfyrpprdvmeg.supabase.co';
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 
-                      process.env.VITE_SUPABASE_ANON_KEY || 
-                      'sb_publishable_P8eHIISOPV3KKP_l-Gxx_A_cAjfyR-C';
+  const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+  const adminSecret = process.env.ADMIN_API_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   // GET: Health check and token count info
   if (req.method === 'GET') {
     let tokenCount = 0;
     let tokensByPlatform = { ios: 0, android: 0, web: 0 };
-    try {
-      const tokenRes = await fetch(`${supabaseUrl}/rest/v1/device_tokens?select=platform`, {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`
-        }
-      });
-      if (tokenRes.ok) {
-        const tokenList = await tokenRes.json();
-        tokenCount = tokenList.length;
-        tokenList.forEach(t => {
-          const p = t.platform || 'web';
-          tokensByPlatform[p] = (tokensByPlatform[p] || 0) + 1;
+    if (supabaseUrl && supabaseKey) {
+      try {
+        const tokenRes = await fetch(`${supabaseUrl}/rest/v1/device_tokens?select=platform`, {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`
+          }
         });
+        if (tokenRes.ok) {
+          const tokenList = await tokenRes.json();
+          tokenCount = tokenList.length;
+          tokenList.forEach(t => {
+            const p = t.platform || 'web';
+            tokensByPlatform[p] = (tokensByPlatform[p] || 0) + 1;
+          });
+        }
+      } catch (e) {
+        // Ignore Supabase query error
       }
-    } catch (e) {
-      // Ignore Supabase query error
     }
 
     const hasFcmKey = Boolean(
@@ -60,6 +61,16 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
   }
 
+  // Admin / Service Authentication Check
+  const authHeader = req.headers['authorization'] || '';
+  const xAdminKey = req.headers['x-admin-key'] || '';
+  const tokenFromHeader = authHeader.startsWith('Bearer ') ? authHeader.substring(7).trim() : authHeader.trim();
+  const providedSecret = tokenFromHeader || xAdminKey;
+
+  if (adminSecret && (!providedSecret || (providedSecret !== adminSecret && providedSecret !== process.env.VITE_SUPABASE_ANON_KEY))) {
+    return res.status(401).json({ error: 'Unauthorized: Valid admin credentials required to dispatch push notifications.' });
+  }
+
   try {
     const {
       title,
@@ -72,9 +83,17 @@ export default async function handler(req, res) {
       saveToDb = true
     } = req.body || {};
 
-    if (!title || !body) {
+    const cleanTitle = String(title || '').trim().slice(0, 100);
+    const cleanBody = String(body || '').trim().slice(0, 500);
+
+    if (!cleanTitle || !cleanBody) {
       return res.status(400).json({ error: 'title and body are required' });
     }
+
+    const safeType = ['notice', 'product', 'event'].includes(type) ? type : 'notice';
+    const safeTargetId = String(targetId || '').slice(0, 100);
+    const safeImageUrl = imageUrl && typeof imageUrl === 'string' && imageUrl.startsWith('http') ? imageUrl.slice(0, 500) : '';
+    const safeBadge = String(badge || '알림').slice(0, 20);
 
     const notifId = 'notif-' + Date.now();
 

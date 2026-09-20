@@ -13,8 +13,11 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.FOOD_NUTRITION_API_KEY || 
-                 process.env.VITE_FOOD_NUTRITION_API_KEY || 
-                 'w%2FCsXqTtdtaxy830ZTaXQVsrrqV17MzgYoVVwpbcy6SDFSOCyE5iYsp1bNS%2BjgOsooBEE%2BsZYOa%2BEJ6NDk7hHQ%3D%3D';
+                 process.env.VITE_FOOD_NUTRITION_API_KEY;
+
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Food Nutrition API key is not configured in environment variables.' });
+  }
 
   const {
     query = '',
@@ -24,14 +27,18 @@ export default async function handler(req, res) {
     numOfRows = '20'
   } = req.query;
 
-  const searchQuery = query || foodName || name;
+  const rawQuery = query || foodName || name;
+  const searchQuery = String(rawQuery || '').trim().slice(0, 100);
 
   if (!searchQuery) {
     return res.status(400).json({ error: 'Search query parameter (query, foodName, or name) is required' });
   }
 
+  const safePageNo = Math.max(1, parseInt(String(pageNo), 10) || 1);
+  const safeNumOfRows = Math.max(1, Math.min(100, parseInt(String(numOfRows), 10) || 20));
+
   try {
-    const targetUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(String(searchQuery).trim())}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
+    const targetUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(searchQuery)}&pageNo=${safePageNo}&numOfRows=${safeNumOfRows}`;
 
     const response = await fetch(targetUrl, {
       method: 'GET',

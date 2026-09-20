@@ -35,28 +35,32 @@ CREATE INDEX IF NOT EXISTS idx_device_tokens_user_id ON public.device_tokens (us
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.device_tokens ENABLE ROW LEVEL SECURITY;
 
--- Notifications RLS Policies
+-- Notifications RLS Policies (조회는 전체 공개, 발송/삭제는 Service Role 전용)
 CREATE POLICY "Notifications are viewable by everyone" 
     ON public.notifications FOR SELECT USING (true);
 
-CREATE POLICY "Anyone can insert notifications" 
-    ON public.notifications FOR INSERT WITH CHECK (true);
+CREATE POLICY "Only service role can manage notifications" 
+    ON public.notifications FOR ALL 
+    USING (auth.role() = 'service_role')
+    WITH CHECK (auth.role() = 'service_role');
 
-CREATE POLICY "Anyone can delete notifications" 
-    ON public.notifications FOR DELETE USING (true);
+-- Device Tokens RLS Policies (본인 토큰만 조회/수정/삭제 가능, 타인 토큰 열람 전면 차단)
+CREATE POLICY "Users can only view own device tokens" 
+    ON public.device_tokens FOR SELECT 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
--- Device Tokens RLS Policies
-CREATE POLICY "Device tokens are readable by everyone" 
-    ON public.device_tokens FOR SELECT USING (true);
+CREATE POLICY "Users can insert own device tokens" 
+    ON public.device_tokens FOR INSERT 
+    WITH CHECK (auth.uid() = user_id OR user_id IS NULL OR auth.role() = 'service_role');
 
-CREATE POLICY "Anyone can upsert device tokens" 
-    ON public.device_tokens FOR INSERT WITH CHECK (true);
+CREATE POLICY "Users can update own device tokens" 
+    ON public.device_tokens FOR UPDATE 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
-CREATE POLICY "Anyone can update own device tokens" 
-    ON public.device_tokens FOR UPDATE USING (true);
-
-CREATE POLICY "Anyone can delete device tokens" 
-    ON public.device_tokens FOR DELETE USING (true);
+CREATE POLICY "Users can delete own device tokens" 
+    ON public.device_tokens FOR DELETE 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
 -- Enable Supabase Realtime for Notifications
 ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
+

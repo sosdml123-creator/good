@@ -37,8 +37,6 @@ export interface FoodNutritionData {
   raw: any;
 }
 
-const DEFAULT_API_KEY = 'w%2FCsXqTtdtaxy830ZTaXQVsrrqV17MzgYoVVwpbcy6SDFSOCyE5iYsp1bNS%2BjgOsooBEE%2BsZYOa%2BEJ6NDk7hHQ%3D%3D';
-
 /**
  * 숫자 파싱 헬퍼 (쉼표 제거 및 유효 숫자 추출)
  */
@@ -152,8 +150,12 @@ export async function searchFoodNutrition(
   // 2차 시도: Direct API Call (모바일 앱 또는 프록시 미작동 시)
   try {
     const apiKey = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_FOOD_NUTRITION_API_KEY) ||
-                   (typeof process !== 'undefined' && process.env && (process.env.VITE_FOOD_NUTRITION_API_KEY || process.env.FOOD_NUTRITION_API_KEY)) ||
-                   DEFAULT_API_KEY;
+                   (typeof process !== 'undefined' && process.env && (process.env.VITE_FOOD_NUTRITION_API_KEY || process.env.FOOD_NUTRITION_API_KEY));
+    if (!apiKey) {
+      console.warn('[NutritionAPI] Food nutrition API key not configured.');
+      return { totalCount: 0, items: [] };
+    }
+
     const directUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
 
     const res = await fetchWithTimeout(directUrl, undefined, 8000);
