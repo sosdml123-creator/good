@@ -47,6 +47,7 @@ export default async function handler(req, res) {
 
       const banners = systemData?.nutrition?.banners || null;
       const homeSections = systemData?.nutrition?.homeSections || null;
+      const deletedProductIds = systemData?.nutrition?.deletedProductIds || null;
       const lastUpdated = systemData?.updated_at || null;
 
       // 2. Fetch active products from Supabase
@@ -63,6 +64,7 @@ export default async function handler(req, res) {
         success: true,
         banners,
         homeSections,
+        deletedProductIds,
         products,
         lastUpdated,
         serverTime: new Date().toISOString()
@@ -76,10 +78,10 @@ export default async function handler(req, res) {
   // POST: Update banners, homeSections, or sync data from Admin
   if (req.method === 'POST') {
     try {
-      const { banners, homeSections, products } = req.body || {};
+      const { banners, homeSections, deletedProductIds, products } = req.body || {};
 
       // 1. Save banners and homeSections in system record inside products table
-      if (banners || homeSections) {
+      if (banners || homeSections || deletedProductIds) {
         const payload = {
           id: SYSTEM_RECORD_ID,
           name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -93,6 +95,7 @@ export default async function handler(req, res) {
           nutrition: {
             banners: banners || undefined,
             homeSections: homeSections || undefined,
+            deletedProductIds: deletedProductIds || undefined,
             updatedAt: new Date().toISOString()
           },
           updated_at: new Date().toISOString()

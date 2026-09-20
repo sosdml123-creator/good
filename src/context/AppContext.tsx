@@ -70,6 +70,8 @@ import {
   saveRemoteBannersAndSections,
   saveRemoteProduct,
   deleteRemoteProduct,
+  deleteRemoteProducts,
+  saveRemoteDeletedProducts,
   SYSTEM_BANNER_RECORD_ID
 } from '../services/siteContentService';
 import { App as CapacitorApp } from '@capacitor/app';
@@ -184,6 +186,8 @@ interface AppContextType {
   addProduct: (product: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => void;
   updateProduct: (id: string, updated: Partial<Product>) => void;
   deleteProduct: (id: string) => void;
+  deleteProducts: (ids: string[]) => void;
+  deletedProductIds: string[];
   toggleProductToday: (id: string) => void;
   toggleProductHot: (id: string) => void;
 
@@ -880,20 +884,24 @@ export const smartMergeBanners = (
  */
 export const smartMergeProducts = (
   storedProducts: Product[] | null,
-  initialProducts: Product[]
+  initialProducts: Product[],
+  deletedProductIds: string[] = []
 ): Product[] => {
+  const deletedSet = new Set(deletedProductIds);
+  const validInitial = initialProducts.filter(p => !deletedSet.has(p.id));
+
   if (!storedProducts || !Array.isArray(storedProducts) || storedProducts.length === 0) {
-    return initialProducts;
+    return validInitial;
   }
 
   const initialMap = new Map<string, Product>();
-  initialProducts.forEach(p => initialMap.set(p.id, p));
+  validInitial.forEach(p => initialMap.set(p.id, p));
 
   const storedMap = new Map<string, Product>();
-  storedProducts.forEach(p => storedMap.set(p.id, p));
+  storedProducts.filter(p => !deletedSet.has(p.id)).forEach(p => storedMap.set(p.id, p));
 
   // 1. Update all official products with latest code updates while preserving ratings if available
-  const mergedOfficial: Product[] = initialProducts.map(initP => {
+  const mergedOfficial: Product[] = validInitial.map(initP => {
     const stored = storedMap.get(initP.id);
     if (stored) {
       return {
@@ -906,8 +914,8 @@ export const smartMergeProducts = (
     return initP;
   });
 
-  // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS)
-  const customProducts = storedProducts.filter(p => !initialMap.has(p.id));
+  // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS and not deleted)
+  const customProducts = storedProducts.filter(p => !initialMap.has(p.id) && !deletedSet.has(p.id));
 
   return [...customProducts, ...mergedOfficial];
 };
@@ -1040,11 +1048,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [isContentSyncing, setIsContentSyncing] = useState<boolean>(false);
 
+  const [deletedProductIds, setDeletedProductIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_deleted_products');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [products, setProducts] = useState<Product[]>(() => {
     try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_products');
+      const parsedDel: string[] = storedDel ? JSON.parse(storedDel) : [];
       const stored = localStorage.getItem('sinsangpick_products');
       const parsed: Product[] | null = stored ? JSON.parse(stored) : null;
-      return smartMergeProducts(parsed, INITIAL_PRODUCTS);
+      return smartMergeProducts(parsed, INITIAL_PRODUCTS, parsedDel);
     } catch {
       return INITIAL_PRODUCTS;
     }
@@ -1453,6 +1472,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [products]);
 
   useEffect(() => {
+    safeSetItem('sinsangpick_deleted_products', JSON.stringify(deletedProductIds));
+  }, [deletedProductIds]);
+
+  useEffect(() => {
     safeSetItem('sinsangpick_banners', JSON.stringify(banners));
   }, [banners]);
 
@@ -1534,6 +1557,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setHomeSections(mergedSections);
         safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
       }
+      if (remote.deletedProductIds && Array.isArray(remote.deletedProductIds)) {
+        setDeletedProductIds(prev => {
+          const next = Array.from(new Set([...prev, ...remote.deletedProductIds!]));
+          safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
+          return next;
+        });
+        const remoteDelSet = new Set(remote.deletedProductIds);
+        setProducts(prev => prev.filter(p => !remoteDelSet.has(p.id)));
+      }
     } catch (e) {
       console.warn('[refreshRemoteContent Warning]', e);
     } finally {
@@ -1544,7 +1576,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const syncAllContentToCloud = async () => {
     setIsContentSyncing(true);
     try {
-      await saveRemoteBannersAndSections(banners, homeSections);
+      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIds);
       showToast('☁️ 배너 및 홈 구좌 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
     } catch (e) {
       showToast('동기화 중 오류가 발생했습니다.', 'error');
@@ -1566,58 +1598,74 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (prodErr) throw prodErr;
 
-      if (!dbProducts || dbProducts.length === 0) {
-        setProducts(INITIAL_PRODUCTS);
-      } else {
-        // Create lookup map of DB products
-        const dbProductMap = new Map<string, DBProduct>();
+      // Create lookup map of DB products
+      const dbProductMap = new Map<string, DBProduct>();
+      if (dbProducts) {
         dbProducts.forEach(p => {
           if (p.id) dbProductMap.set(p.id, p);
         });
+      }
 
-        // Check for system banner/settings record
-        const systemBannerRecord = dbProductMap.get(SYSTEM_BANNER_RECORD_ID);
-        if (systemBannerRecord && systemBannerRecord.nutrition) {
-          if (Array.isArray(systemBannerRecord.nutrition.banners) && systemBannerRecord.nutrition.banners.length > 0) {
-            const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS);
-            setBanners(merged);
-            safeSetItem('sinsangpick_banners', JSON.stringify(merged));
-          }
-          if (Array.isArray(systemBannerRecord.nutrition.homeSections) && systemBannerRecord.nutrition.homeSections.length > 0) {
-            const mergedSec = smartMergeHomeSections(systemBannerRecord.nutrition.homeSections, INITIAL_HOME_SECTIONS);
-            setHomeSections(mergedSec);
-            safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
-          }
+      // Check for system banner/settings record
+      let remoteDeleted: string[] = [];
+      const systemBannerRecord = dbProductMap.get(SYSTEM_BANNER_RECORD_ID);
+      if (systemBannerRecord && systemBannerRecord.nutrition) {
+        if (Array.isArray(systemBannerRecord.nutrition.banners) && systemBannerRecord.nutrition.banners.length > 0) {
+          const merged = smartMergeBanners(systemBannerRecord.nutrition.banners, INITIAL_BANNERS);
+          setBanners(merged);
+          safeSetItem('sinsangpick_banners', JSON.stringify(merged));
         }
+        if (Array.isArray(systemBannerRecord.nutrition.homeSections) && systemBannerRecord.nutrition.homeSections.length > 0) {
+          const mergedSec = smartMergeHomeSections(systemBannerRecord.nutrition.homeSections, INITIAL_HOME_SECTIONS);
+          setHomeSections(mergedSec);
+          safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
+        }
+        if (Array.isArray(systemBannerRecord.nutrition.deletedProductIds)) {
+          remoteDeleted = systemBannerRecord.nutrition.deletedProductIds;
+        }
+      }
 
-        // Always preserve all 100 INITIAL_PRODUCTS, merging DB fields where applicable
-        const mergedInitial = INITIAL_PRODUCTS.map(initial => {
-          const dbP = dbProductMap.get(initial.id);
-          if (dbP) {
-            const mapped = mapDBProductToProduct(dbP);
-            return {
-              ...initial,
-              ...mapped,
-              discountRate: undefined,
-              image: isAgriMarineProduct(initial) ? initial.image : (mapped.image && !mapped.image.includes('unsplash') ? mapped.image : initial.image),
-              nutrition: mapped.nutrition || initial.nutrition,
-              ingredients: mapped.ingredients || initial.ingredients,
-              allergens: mapped.allergens || initial.allergens,
-              origin: mapped.origin || initial.origin,
-              manufacturer: mapped.manufacturer || initial.manufacturer,
-              storageMethod: mapped.storageMethod || initial.storageMethod,
-              shelfLife: mapped.shelfLife || initial.shelfLife,
-              precautions: mapped.precautions || initial.precautions,
-              storeStocks: mapped.storeStocks && mapped.storeStocks.length > 0 ? mapped.storeStocks : initial.storeStocks,
-            };
-          }
-          return initial;
-        });
+      // Merge deleted product IDs
+      const mergedDeletedIds = Array.from(new Set([...deletedProductIds, ...remoteDeleted]));
+      if (mergedDeletedIds.length !== deletedProductIds.length) {
+        setDeletedProductIds(mergedDeletedIds);
+        safeSetItem('sinsangpick_deleted_products', JSON.stringify(mergedDeletedIds));
+      }
+      const deletedSet = new Set(mergedDeletedIds);
 
-        // Also append any extra custom products from Supabase (excluding system container)
+      if (!dbProducts || dbProducts.length === 0) {
+        setProducts(INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)));
+      } else {
+        // Filter INITIAL_PRODUCTS by deletedSet and merge DB fields
+        const mergedInitial = INITIAL_PRODUCTS
+          .filter(initial => !deletedSet.has(initial.id))
+          .map(initial => {
+            const dbP = dbProductMap.get(initial.id);
+            if (dbP) {
+              const mapped = mapDBProductToProduct(dbP);
+              return {
+                ...initial,
+                ...mapped,
+                discountRate: undefined,
+                image: isAgriMarineProduct(initial) ? initial.image : (mapped.image && !mapped.image.includes('unsplash') ? mapped.image : initial.image),
+                nutrition: mapped.nutrition || initial.nutrition,
+                ingredients: mapped.ingredients || initial.ingredients,
+                allergens: mapped.allergens || initial.allergens,
+                origin: mapped.origin || initial.origin,
+                manufacturer: mapped.manufacturer || initial.manufacturer,
+                storageMethod: mapped.storageMethod || initial.storageMethod,
+                shelfLife: mapped.shelfLife || initial.shelfLife,
+                precautions: mapped.precautions || initial.precautions,
+                storeStocks: mapped.storeStocks && mapped.storeStocks.length > 0 ? mapped.storeStocks : initial.storeStocks,
+              };
+            }
+            return initial;
+          });
+
+        // Also append any extra custom products from Supabase (excluding system container & deleted products)
         const initialIdSet = new Set(INITIAL_PRODUCTS.map(p => p.id));
         const extraDbProducts = dbProducts
-          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID)
+          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
           .map(dbP => mapDBProductToProduct(dbP));
 
         setProducts([...mergedInitial, ...extraDbProducts]);
@@ -3535,9 +3583,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Delete Product
   const deleteProduct = (id: string) => {
+    setDeletedProductIds(prev => {
+      const next = Array.from(new Set([...prev, id]));
+      safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
+      saveRemoteDeletedProducts(next).catch(() => {});
+      return next;
+    });
     setProducts(prev => prev.filter(p => p.id !== id));
     deleteRemoteProduct(id).catch(() => {});
     showToast('상품이 삭제되었습니다. (클라우드 동기화 완료)', 'info');
+  };
+
+  // Bulk Delete Products
+  const deleteProducts = (ids: string[]) => {
+    if (!ids || ids.length === 0) return;
+    setDeletedProductIds(prev => {
+      const next = Array.from(new Set([...prev, ...ids]));
+      safeSetItem('sinsangpick_deleted_products', JSON.stringify(next));
+      saveRemoteDeletedProducts(next).catch(() => {});
+      return next;
+    });
+    const idSet = new Set(ids);
+    setProducts(prev => prev.filter(p => !idSet.has(p.id)));
+    deleteRemoteProducts(ids).catch(() => {});
+    showToast(`선택한 ${ids.length}개의 상품이 삭제되었습니다. (클라우드 동기화 완료)`, 'info');
   };
 
   // Toggle Product Today
@@ -4940,6 +5009,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addProduct,
         updateProduct,
         deleteProduct,
+        deleteProducts,
+        deletedProductIds,
         toggleProductToday,
         toggleProductHot,
         updateBattleConfig,

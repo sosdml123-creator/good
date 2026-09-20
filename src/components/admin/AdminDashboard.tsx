@@ -124,6 +124,7 @@ export const AdminDashboard: React.FC = () => {
     addProduct, 
     updateProduct, 
     deleteProduct, 
+    deleteProducts,
     toggleProductToday, 
     toggleProductHot,
     updateBattleConfig,
@@ -580,9 +581,8 @@ export const AdminDashboard: React.FC = () => {
   const handleBulkDeleteProducts = () => {
     if (selectedProductIds.length === 0) return;
     if (confirm(`선택한 ${selectedProductIds.length}개의 상품을 정말 삭제하시겠습니까?`)) {
-      selectedProductIds.forEach(id => deleteProduct(id));
+      deleteProducts(selectedProductIds);
       setSelectedProductIds([]);
-      showToast('선택한 상품이 모두 삭제되었습니다.', 'info');
     }
   };
 

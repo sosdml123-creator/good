@@ -8,12 +8,14 @@ export interface RemoteContentPayload {
   banners?: BannerItem[];
   homeSections?: HomeSectionConfig[];
   products?: Product[];
+  deletedProductIds?: string[];
 }
 
 export interface RemoteContentResult {
   banners: BannerItem[] | null;
   homeSections: HomeSectionConfig[] | null;
   products: Product[];
+  deletedProductIds: string[] | null;
   lastUpdated: string | null;
 }
 
@@ -25,6 +27,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   let banners: BannerItem[] | null = null;
   let homeSections: HomeSectionConfig[] | null = null;
   let products: Product[] = [];
+  let deletedProductIds: string[] | null = null;
   let lastUpdated: string | null = null;
 
   // 1. Direct Supabase Query (Fastest and works identically on both Web & Native App)
@@ -43,6 +46,9 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         }
         if (Array.isArray(sysData.nutrition.homeSections) && sysData.nutrition.homeSections.length > 0) {
           homeSections = sysData.nutrition.homeSections;
+        }
+        if (Array.isArray(sysData.nutrition.deletedProductIds)) {
+          deletedProductIds = sysData.nutrition.deletedProductIds;
         }
         lastUpdated = sysData.updated_at || null;
       }
@@ -65,6 +71,9 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (json.homeSections && Array.isArray(json.homeSections)) {
           homeSections = json.homeSections;
         }
+        if (json.deletedProductIds && Array.isArray(json.deletedProductIds)) {
+          deletedProductIds = json.deletedProductIds;
+        }
         if (json.lastUpdated) {
           lastUpdated = json.lastUpdated;
         }
@@ -74,22 +83,32 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  return { banners, homeSections, products, lastUpdated };
+  return { banners, homeSections, products, deletedProductIds, lastUpdated };
 };
 
 /**
- * Save updated banners and home sections to remote cloud
+ * Save updated banners, home sections, and deleted product IDs to remote cloud
  * Updates both Supabase system record and Vercel serverless function
  */
 export const saveRemoteBannersAndSections = async (
   banners: BannerItem[],
-  homeSections?: HomeSectionConfig[]
+  homeSections?: HomeSectionConfig[],
+  deletedProductIds?: string[]
 ): Promise<boolean> => {
   let saved = false;
 
   // 1. Save to Supabase system record
   if (supabase) {
     try {
+      // Read existing system container record to avoid overwriting existing fields
+      const { data: existing } = await supabase
+        .from('products')
+        .select('nutrition')
+        .eq('id', SYSTEM_BANNER_RECORD_ID)
+        .maybeSingle();
+
+      const existingNutrition = existing?.nutrition || {};
+
       const payload: any = {
         id: SYSTEM_BANNER_RECORD_ID,
         name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -101,8 +120,10 @@ export const saveRemoteBannersAndSections = async (
         is_today: false,
         is_hot: false,
         nutrition: {
-          banners,
-          homeSections: homeSections || undefined,
+          ...existingNutrition,
+          banners: banners || existingNutrition.banners,
+          homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
+          deletedProductIds: deletedProductIds !== undefined ? deletedProductIds : (existingNutrition.deletedProductIds || []),
           updatedAt: new Date().toISOString()
         },
         updated_at: new Date().toISOString()
@@ -125,7 +146,7 @@ export const saveRemoteBannersAndSections = async (
       await fetch('/api/site-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ banners, homeSections })
+        body: JSON.stringify({ banners, homeSections, deletedProductIds })
       });
       saved = true;
     } catch (e) {
@@ -134,6 +155,46 @@ export const saveRemoteBannersAndSections = async (
   }
 
   return saved;
+};
+
+/**
+ * Save updated deleted product IDs to Supabase system record
+ */
+export const saveRemoteDeletedProducts = async (deletedProductIds: string[]): Promise<boolean> => {
+  if (!supabase) return false;
+  try {
+    const { data: existing } = await supabase
+      .from('products')
+      .select('nutrition')
+      .eq('id', SYSTEM_BANNER_RECORD_ID)
+      .maybeSingle();
+
+    const existingNutrition = existing?.nutrition || {};
+
+    const payload: any = {
+      id: SYSTEM_BANNER_RECORD_ID,
+      name: 'SYSTEM_SETTINGS_CONTAINER',
+      brand: '신상픽_시스템',
+      category: '시스템',
+      price: 0,
+      image: '',
+      description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
+      is_today: false,
+      is_hot: false,
+      nutrition: {
+        ...existingNutrition,
+        deletedProductIds,
+        updatedAt: new Date().toISOString()
+      },
+      updated_at: new Date().toISOString()
+    };
+
+    const { error } = await supabase.from('products').upsert(payload, { onConflict: 'id' });
+    return !error;
+  } catch (e) {
+    console.warn('[saveRemoteDeletedProducts] Error:', e);
+    return false;
+  }
 };
 
 /**
@@ -184,8 +245,31 @@ export const deleteRemoteProduct = async (productId: string): Promise<boolean> =
   if (!supabase) return false;
   try {
     const { error } = await supabase.from('products').delete().eq('id', productId);
-    return !error;
-  } catch {
+    if (error) {
+      console.warn('[deleteRemoteProduct] Supabase error:', error.message);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.warn('[deleteRemoteProduct] Catch:', e);
+    return false;
+  }
+};
+
+/**
+ * Delete multiple products from Supabase
+ */
+export const deleteRemoteProducts = async (productIds: string[]): Promise<boolean> => {
+  if (!supabase || productIds.length === 0) return false;
+  try {
+    const { error } = await supabase.from('products').delete().in('id', productIds);
+    if (error) {
+      console.warn('[deleteRemoteProducts] Supabase error:', error.message);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.warn('[deleteRemoteProducts] Catch:', e);
     return false;
   }
 };
