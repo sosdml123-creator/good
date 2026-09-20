@@ -14,7 +14,6 @@ import {
   Swords,
   Gift,
   Clock,
-  Megaphone,
   Cookie,
   Coffee,
   Croissant,
@@ -416,16 +415,6 @@ export const HomeView: React.FC = () => {
                 </div>
               )}
             </div>
-
-            {/* 공정위 고지 문구 (이모티콘 대신 Lucide Megaphone 적용) */}
-            {(displayBanners[currentBannerIdx]?.disclaimer || (displayBanners[currentBannerIdx]?.linkUrl && displayBanners[currentBannerIdx]?.linkUrl?.includes('coupang.com'))) && (
-              <div className="bg-amber-50/95 border-b border-amber-200/80 px-4 py-1.5 flex items-center gap-1.5 text-[11px] text-amber-900 transition-all shadow-xs">
-                <Megaphone className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-                <span className="font-medium truncate">
-                  {displayBanners[currentBannerIdx]?.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
-                </span>
-              </div>
-            )}
           </div>
         );
 
