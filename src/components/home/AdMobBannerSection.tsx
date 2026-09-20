@@ -11,9 +11,13 @@ interface AdMobBannerSectionProps {
 export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section }) => {
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
-      initAdMob().catch((err) => {
-        console.error('[AdMobBannerSection] init error:', err);
-      });
+      // Non-blocking initialization in background after first paint
+      const timer = setTimeout(() => {
+        initAdMob().catch((err) => {
+          console.warn('[AdMobBannerSection] Non-critical init notice:', err);
+        });
+      }, 1200);
+      return () => clearTimeout(timer);
     }
   }, []);
 

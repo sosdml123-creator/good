@@ -44,20 +44,28 @@ export const AppPermissionModal: React.FC = () => {
 
     // 2. Geolocation Permission Check
     if (typeof navigator !== 'undefined' && 'permissions' in navigator) {
-      navigator.permissions?.query({ name: 'geolocation' as PermissionName })
-        .then(result => {
-          setLocationGranted(result.state === 'granted');
-        })
-        .catch(() => {});
+      try {
+        navigator.permissions?.query({ name: 'geolocation' as PermissionName })
+          .then(result => {
+            setLocationGranted(result.state === 'granted');
+          })
+          .catch(() => {});
+      } catch (e) {
+        // WebKit / Safari synchronous exception fallback
+      }
     }
 
     // 3. Camera Check
     if (typeof navigator !== 'undefined' && 'permissions' in navigator) {
-      navigator.permissions?.query({ name: 'camera' as PermissionName })
-        .then(result => {
-          setCameraGranted(result.state === 'granted');
-        })
-        .catch(() => {});
+      try {
+        navigator.permissions?.query({ name: 'camera' as PermissionName })
+          .then(result => {
+            setCameraGranted(result.state === 'granted');
+          })
+          .catch(() => {});
+      } catch (e) {
+        // WebKit / Safari synchronous exception fallback
+      }
     }
   }, [isPermissionModalOpen]);
 

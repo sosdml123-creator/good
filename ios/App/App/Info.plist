@@ -10,6 +10,10 @@
 	<string>신제품 솔직 후기 및 커뮤니티 수다방 글 작성 시 사진 첨부를 위해 사진 보관함 접근 권한이 필요합니다.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>후기 및 신제품 이미지를 보관함에 저장하기 위해 권한이 필요합니다.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>맞춤형 혜택 및 신제품 이벤트 정보를 안내해 드리기 위해 권한을 요청합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>내 주변 편의점 및 마트의 신제품 재고 위치를 확인하기 위해 위치 권한이 필요합니다.</string>
 	<key>CFBundleDisplayName</key>
         <string>신상픽</string>
 	<key>CFBundleExecutable</key>

@@ -26,25 +26,28 @@ export const initAdMob = async (): Promise<boolean> => {
       initializeForTesting: false,
     };
     await AdMob.initialize(initOptions);
-    
-    // iOS 추적 권한(ATT) 요청 (선택 사항)
-    try {
-      if (Capacitor.getPlatform() === 'ios') {
-        const trackingInfo = await AdMob.trackingAuthorizationStatus();
-        if (trackingInfo.status === 'notDetermined') {
-          await AdMob.requestTrackingAuthorization();
-        }
-      }
-    } catch (e) {
-      console.warn('[AdMob] Tracking authorization check skipped:', e);
-    }
 
     isAdMobInitialized = true;
     console.log('[AdMob] Successfully initialized with App ID:', ADMOB_CONFIG.appId);
     return true;
   } catch (error) {
-    console.error('[AdMob] Initialization failed:', error);
+    console.warn('[AdMob] Initialization skipped/failed (non-critical):', error);
     return false;
+  }
+};
+
+/**
+ * Request tracking authorization explicitly when requested (Optional)
+ */
+export const requestAdMobTrackingAuthorization = async (): Promise<void> => {
+  if (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'ios') return;
+  try {
+    const trackingInfo = await AdMob.trackingAuthorizationStatus();
+    if (trackingInfo.status === 'notDetermined') {
+      await AdMob.requestTrackingAuthorization();
+    }
+  } catch (e) {
+    console.warn('[AdMob] Tracking authorization check skipped:', e);
   }
 };
 
