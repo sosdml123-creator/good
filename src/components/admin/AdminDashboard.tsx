@@ -78,9 +78,11 @@ import { UserManagementTab } from './UserManagementTab';
 import { ReportManagementTab } from './ReportManagementTab';
 import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 import { ProductEditManagementTab } from './ProductEditManagementTab';
+import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 
 export type AdminTab = 
   | 'overview' 
+  | 'kamis'
   | 'collector'
   | 'approval' 
   | 'sections'
@@ -1093,6 +1095,25 @@ export const AdminDashboard: React.FC = () => {
               </button>
 
               <button
+                onClick={() => setActiveAdminTab('kamis')}
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'kamis'
+                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm">🌾</span>
+                  <span>농수산물 KAMIS 시세</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                  activeAdminTab === 'kamis' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800'
+                }`}>
+                  실시간
+                </span>
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('product_edits')}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'product_edits'
@@ -1428,6 +1449,7 @@ export const AdminDashboard: React.FC = () => {
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {activeAdminTab === 'overview' && '대시보드 개요 및 실시간 종합 지표'}
+              {activeAdminTab === 'kamis' && 'KAMIS 농수산물 오픈 API 실시간 시세 관리'}
               {activeAdminTab === 'collector' && '브랜드 & 품목 공식 제품 수집기'}
               {activeAdminTab === 'approval' && '신제품 수집 파이프라인 & 승인함'}
               {activeAdminTab === 'sections' && '홈 화면 구좌(섹션) 노출 및 타이틀 관리'}
@@ -1858,6 +1880,13 @@ export const AdminDashboard: React.FC = () => {
               </div>
 
             </div>
+          )}
+
+          {/* ========================================================
+              TAB: KAMIS AGRICULTURAL & MARINE PRODUCE LIVE PRICES
+             ======================================================== */}
+          {activeAdminTab === 'kamis' && (
+            <KamisPriceManagementTab />
           )}
 
           {/* ========================================================

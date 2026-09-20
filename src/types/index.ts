@@ -60,6 +60,37 @@ export interface ProduceNutritionDetail {
   textureScore?: number;       // 식감 지수 (5점 만점)
 }
 
+/**
+ * KAMIS (농수산물유통정보 - aT 한국농수산식품유통공사) 공시 일별 가격 변동 데이터
+ */
+export interface KamisPriceTrendItem {
+  period: string;       // '당일' | '1일전' | '1주일전' | '2주일전' | '1개월전' | '1년전' | '평년'
+  dateLabel?: string;   // '09/18'
+  price: number;        // 해당 시점 가격
+}
+
+export interface KamisPriceInfo {
+  itemCode: string;             // 품목코드 (e.g. "411")
+  itemName: string;             // 품목명 (e.g. "사과")
+  kindCode?: string;            // 품종코드 (e.g. "07")
+  kindName?: string;            // 품종명 (e.g. "홍로(10개)")
+  rank?: string;                // 등급 (e.g. "상품", "1++등급")
+  unit: string;                 // 단위 (e.g. "10개", "1kg", "100g")
+  todayPrice: number;           // 당일 공시가 (원)
+  prevDayPrice: number;         // 1일전 공시가 (원)
+  priceChange: number;          // 전일 대비 등락폭 (당일 - 전일)
+  changeRate: number;           // 전일 대비 등락률 (%)
+  trend: 'up' | 'down' | 'same';// 'up'(상승) | 'down'(하락) | 'same'(보합)
+  monthAgoPrice?: number;       // 1개월전 가격
+  monthAgoChangeRate?: number;  // 1개월전 대비 변동률 (%)
+  yearAgoPrice?: number;        // 1년전 가격
+  averageYearPrice?: number;    // 평년 가격
+  latestDate: string;           // 공시 기준일자 (e.g. "2026-09-18")
+  trends: KamisPriceTrendItem[];// 일자별 가격 변동 추이
+  marketType?: '소매' | '도매'; // 유통 시장 구분
+  updatedAt: string;            // 데이터 갱신 시각 (ISO)
+}
+
 export interface RegionRankingItem {
   rank: number;
   restaurantName: string;
@@ -157,6 +188,7 @@ export interface Product {
   precautions?: string;       // 섭취 시 주의사항
   spiciness?: string;        // 맵기 단계 (e.g. '안 매워요', '신라면급', '불닭급')
   produceDetails?: ProduceNutritionDetail; // 자연 원물(과일, 채소, 생물 수산물) 영양 성분 & 특성 상세
+  kamisPriceInfo?: KamisPriceInfo; // KAMIS 농수산물유통정보 실시간/일별 공시 시세 & 가격 변동
   searchInfluxCount?: number; // 검색 유입수 (검색 후 상세 방문 및 유입 클릭 수)
   buyLink?: string;           // 공식 판매처 / 바로구매 링크 (네이버쇼핑/스마트스토어 등)
   sourceName?: string;

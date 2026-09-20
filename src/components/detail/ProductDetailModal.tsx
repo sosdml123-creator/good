@@ -18,7 +18,9 @@ import {
   Sparkles,
   Flame,
   Layers,
-  Heart
+  Heart,
+  TrendingUp,
+  TrendingDown
 } from 'lucide-react';
 import { StoreStockItem, NutritionInfo } from '../../types';
 import { ReviewList } from './ReviewList';
@@ -344,6 +346,85 @@ export const ProductDetailModal: React.FC = () => {
             {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{(selectedProduct.price ?? 0).toLocaleString()}원
           </span>
         </div>
+
+        {/* 🌾 KAMIS 농수산물 실시간 공시 시세 & 가격 변동 배너 */}
+        {selectedProduct.kamisPriceInfo && (
+          <div className="mt-3 p-3.5 rounded-2xl bg-gradient-to-br from-emerald-50 via-teal-50/50 to-amber-50/40 border border-emerald-200/80 shadow-xs">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="text-base">🌾</span>
+                <span className="text-xs font-black text-emerald-950">KAMIS 농수산물유통정보 공시 시세</span>
+              </div>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-full">
+                {selectedProduct.kamisPriceInfo.latestDate} 기준
+              </span>
+            </div>
+
+            <div className="mt-2 flex items-baseline justify-between flex-wrap gap-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[20px] font-black text-gray-900">
+                  {selectedProduct.kamisPriceInfo.todayPrice.toLocaleString()}원
+                </span>
+                <span className="text-xs font-bold text-gray-500">
+                  / {selectedProduct.kamisPriceInfo.unit} {selectedProduct.kamisPriceInfo.rank ? `(${selectedProduct.kamisPriceInfo.rank})` : ''}
+                </span>
+              </div>
+
+              {/* 등락률 배지 */}
+              <div className="flex items-center gap-1">
+                {selectedProduct.kamisPriceInfo.trend === 'up' && (
+                  <span className="text-xs font-black text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                    <TrendingUp className="w-3 h-3" />
+                    <span>▲ +{selectedProduct.kamisPriceInfo.priceChange.toLocaleString()}원 (+{selectedProduct.kamisPriceInfo.changeRate}%)</span>
+                  </span>
+                )}
+                {selectedProduct.kamisPriceInfo.trend === 'down' && (
+                  <span className="text-xs font-black text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                    <TrendingDown className="w-3 h-3" />
+                    <span>▼ {Math.abs(selectedProduct.kamisPriceInfo.priceChange).toLocaleString()}원 ({selectedProduct.kamisPriceInfo.changeRate}%)</span>
+                  </span>
+                )}
+                {selectedProduct.kamisPriceInfo.trend === 'same' && (
+                  <span className="text-xs font-black text-gray-600 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full">
+                    - 전일 동일 (보합)
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* 1개월 전 대비 코멘트 */}
+            {selectedProduct.kamisPriceInfo.monthAgoChangeRate !== undefined && (
+              <div className="mt-2 pt-2 border-t border-emerald-100 flex items-center justify-between text-[11px]">
+                <span className="text-gray-500">1개월 전 대비</span>
+                <span className={`font-bold ${
+                  selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? 'text-blue-600' : 'text-rose-600'
+                }`}>
+                  {selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? '▼ ' : '▲ +'}
+                  {selectedProduct.kamisPriceInfo.monthAgoChangeRate}%
+                  {selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? ' (한 달 전보다 저렴해요! 🛒)' : ''}
+                </span>
+              </div>
+            )}
+
+            {/* 최근 기간별 가격 변동 추이 타임라인 */}
+            {selectedProduct.kamisPriceInfo.trends && selectedProduct.kamisPriceInfo.trends.length > 1 && (
+              <div className="mt-2.5 pt-2 border-t border-emerald-100">
+                <div className="text-[10px] font-bold text-gray-500 mb-1.5 flex items-center justify-between">
+                  <span>공시 기간별 시세 추이</span>
+                  <span className="text-[9px] text-gray-400">aT 한국농수산식품유통공사</span>
+                </div>
+                <div className="grid grid-cols-4 gap-1.5 text-center">
+                  {selectedProduct.kamisPriceInfo.trends.slice(0, 4).map((t, idx) => (
+                    <div key={idx} className="bg-white/90 p-1.5 rounded-lg border border-emerald-100 shadow-2xs">
+                      <div className="text-[10px] text-gray-500">{t.period}</div>
+                      <div className="text-[11px] font-black text-gray-900 mt-0.5">{t.price.toLocaleString()}원</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {selectedProduct.description && (
           <p className="text-xs text-gray-600 mt-2.5 bg-gray-50 p-3 rounded-xl leading-relaxed border border-gray-100">

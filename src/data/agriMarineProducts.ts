@@ -2295,5 +2295,200 @@ export const AGRI_MARINE_PRODUCTS: Product[] = [
         "appLink": "https://www.coupang.com/np/search?component=&q=%EC%8C%80%C2%B7%EC%9E%A1%EA%B3%A1%202026%EB%85%84%20%ED%96%85%EC%8C%80%20%EA%B3%A0%EC%8B%9C%ED%9E%88%EC%B9%B4%EB%A6%AC%20"
       }
     ]
+  },
+  {
+    "id": "agri-sea-20",
+    "name": "부산공동어시장 당일경매 가시제거 순살 고등어 (국내산 특대 800g/1.6kg)",
+    "brand": "바다소반",
+    "category": "고기·수산",
+    "subCategory": "고등어",
+    "itemType": "fresh",
+    "image": "https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=500&auto=format&fit=crop&q=80",
+    "releaseDate": "수산물 베스트",
+    "price": 14900,
+    "discountRate": 25,
+    "overallRating": 4.85,
+    "ratingCount": 1820,
+    "searchInfluxCount": 24500,
+    "isToday": true,
+    "isBest": true,
+    "stores": ["바다소반", "쿠팡프레시", "마켓컬리"],
+    "volume": "800g (개별 진공포장 5~6쪽)",
+    "origin": "국내산 (부산 연근해 조업)",
+    "manufacturer": "바다소반 수산물유통",
+    "shelfLife": "냉동보관 12개월 (해동 후 재냉동 금지)",
+    "storageMethod": "-18℃ 이하 냉동 보관",
+    "description": "부산 공동어시장에서 당일 새벽 경매 낙찰받은 싱싱한 국내산 고등어! 99% 잔가시를 깔끔하게 제거하고 저염 천일염으로 섶간하여 비린내 없이 고소한 감칠맛이 일품입니다.",
+    "detailedRating": {
+      "taste": 4.9,
+      "value": 4.8,
+      "portion": 4.8,
+      "repurchase": 4.9
+    },
+    "freshMetrics": {
+      "sweetness": 4.6,
+      "freshness": 5.0,
+      "texture": 4.9,
+      "value": 4.8
+    },
+    "produceDetails": {
+      "sizeGrade": "손질 후 쪽당 140g~180g (특대형 선별)",
+      "freshnessGrade": "당일 새벽 조업 급속 에어블라스트 급랭",
+      "fleshYield": "가시/내장 100% 제거 순살 95%",
+      "waterContent": "65%",
+      "keyNutrients": [
+        { "name": "오메가3 (DHA/EPA)", "value": "1,850mg", "desc": "뇌 건강 및 혈행 개선" },
+        { "name": "비타민 D", "value": "11㎍", "desc": "칼슘 흡수 및 면역력 강화" }
+      ],
+      "healthBenefits": ["혈관 건강 증진", "두뇌 발달 및 기억력 개선", "면역력 강화"],
+      "seasonalPeak": "9월 ~ 2월 가을·겨울 제철 (지방 함량 극대화)",
+      "tasteTip": "해동하지 않고 에어프라이어 180도에서 15~18분간 구우시면 겉바속촉 육즙이 가득합니다."
+    }
+  },
+  {
+    "id": "agri-sea-21",
+    "name": "제주 한림 위판장 당일 조업 은갈치 (왕특대 3미 세트/토막 손질)",
+    "brand": "제주해송",
+    "category": "고기·수산",
+    "subCategory": "갈치",
+    "itemType": "fresh",
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&auto=format&fit=crop&q=80",
+    "releaseDate": "제주 산지직송",
+    "price": 38900,
+    "discountRate": 20,
+    "overallRating": 4.9,
+    "ratingCount": 940,
+    "searchInfluxCount": 18900,
+    "isBest": true,
+    "stores": ["제주해송", "네이버쇼핑", "산지직송"],
+    "volume": "1.2kg 내외 (3미 세트)",
+    "origin": "국내산 (제주 연근해 채낚기)",
+    "manufacturer": "제주해송 수산영어조합",
+    "shelfLife": "냉동보관 6개월",
+    "storageMethod": "-18℃ 이하 냉동 보관",
+    "description": "은빛 비늘이 살아있는 제주 청정 바다 채낚기 은갈치! 그물 조업이 아닌 낚시로 한 마리씩 건져올려 상처 없이 은백색 광택과 부드러운 살코기 결이 살아있습니다.",
+    "detailedRating": {
+      "taste": 5.0,
+      "value": 4.7,
+      "portion": 4.8,
+      "repurchase": 4.9
+    },
+    "freshMetrics": {
+      "sweetness": 4.7,
+      "freshness": 5.0,
+      "texture": 5.0,
+      "value": 4.7
+    },
+    "produceDetails": {
+      "sizeGrade": "4지 이상 (마리당 폭 8cm 이상, 전장 85cm급 대갈치)",
+      "freshnessGrade": "당일 채낚기 어획 후 선상 빙장 직송",
+      "fleshYield": "살코기 수율 88% 이상",
+      "waterContent": "73%",
+      "keyNutrients": [
+        { "name": "단백질", "value": "18.5g", "desc": "필수 아미노산 풍부" },
+        { "name": "칼슘", "value": "28mg", "desc": "뼈 건강 및 골다공증 예방" }
+      ],
+      "healthBenefits": ["성장기 발육 촉진", "위장 보호 및 소화 촉진", "피부 미용"],
+      "seasonalPeak": "7월 ~ 11월 가을 제철",
+      "tasteTip": "굵은 천일염을 솔솔 뿌려 노릇하게 구워드시거나, 무와 감자를 넉넉히 깔고 갈치조림으로 드시면 일품입니다."
+    }
+  },
+  {
+    "id": "agri-sea-22",
+    "name": "동해 묵호항 당일바리 생물 물오징어 (초신선 손질오징어 1kg/4~5미)",
+    "brand": "동해바다몰",
+    "category": "고기·수산",
+    "subCategory": "오징어",
+    "itemType": "fresh",
+    "image": "https://images.unsplash.com/photo-1559847844-5315695dadae?w=500&auto=format&fit=crop&q=80",
+    "releaseDate": "동해 당일바리",
+    "price": 22800,
+    "discountRate": 18,
+    "overallRating": 4.8,
+    "ratingCount": 650,
+    "searchInfluxCount": 15400,
+    "isToday": true,
+    "stores": ["동해바다몰", "쿠팡프레시"],
+    "volume": "1kg (손질 후 4~5미)",
+    "origin": "국내산 (동해 연근해)",
+    "manufacturer": "동해바다몰 산지직송",
+    "shelfLife": "냉장 2일 / 냉동 6개월",
+    "storageMethod": "0~4℃ 냉장 또는 -18℃ 이하 냉동",
+    "description": "동해 묵호항에서 갓 잡아 올린 당일바리 생물 물오징어! 내장과 눈, 입을 말끔히 손질하여 세척 후 진공 포장되어 바로 요리할 수 있습니다.",
+    "detailedRating": {
+      "taste": 4.8,
+      "value": 4.8,
+      "portion": 4.7,
+      "repurchase": 4.8
+    },
+    "freshMetrics": {
+      "sweetness": 4.5,
+      "freshness": 5.0,
+      "texture": 5.0,
+      "value": 4.8
+    },
+    "produceDetails": {
+      "sizeGrade": "몸통 길이 22~25cm (중대과 선별)",
+      "freshnessGrade": "당일 어획 해수 냉장 순환 포장",
+      "fleshYield": "손질 후 가식부 비율 90%",
+      "waterContent": "78%",
+      "keyNutrients": [
+        { "name": "타우린", "value": "1,200mg", "desc": "피로 회복 및 간 해독 지원" },
+        { "name": "단백질", "value": "19g", "desc": "고단백 저칼로리 영양" }
+      ],
+      "healthBenefits": ["만성 피로 회복", "간 기능 개선", "다이어트 단백질 공급"],
+      "seasonalPeak": "8월 ~ 12월 가을철",
+      "tasteTip": "끓는 물에 1분간 살짝 데쳐 초고추장에 찍어드시거나, 매콤한 오징어 볶음으로 조리하시면 쫄깃함이 극대화됩니다."
+    }
+  },
+  {
+    "id": "agri-sea-23",
+    "name": "완도 청정해역 산지직송 활전복 (특대 1kg 10~11미 선물용/몸보신용)",
+    "brand": "완도바다마을",
+    "category": "고기·수산",
+    "subCategory": "전복",
+    "itemType": "fresh",
+    "image": "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?w=500&auto=format&fit=crop&q=80",
+    "releaseDate": "완도 산지직송",
+    "price": 35800,
+    "discountRate": 28,
+    "overallRating": 4.92,
+    "ratingCount": 1450,
+    "searchInfluxCount": 21300,
+    "isBest": true,
+    "isHot": true,
+    "stores": ["완도바다마을", "네이버쇼핑", "산지직송"],
+    "volume": "1kg (10~11미 대과)",
+    "origin": "국내산 (전남 완도군)",
+    "manufacturer": "완도바다마을 수산협동조합",
+    "shelfLife": "수령 후 냉장 2일 (이후 냉동 보관)",
+    "storageMethod": "해수 산소팩 포장 상태로 1~5℃ 냉장 보관",
+    "description": "미역과 다시마만 먹고 자란 청정 완도 참전복! 살아있는 활전복을 해수와 산소를 듬뿍 넣은 안심팩으로 포장하여 집 앞까지 살아서 도착합니다.",
+    "detailedRating": {
+      "taste": 5.0,
+      "value": 4.9,
+      "portion": 4.9,
+      "repurchase": 5.0
+    },
+    "freshMetrics": {
+      "sweetness": 4.8,
+      "freshness": 5.0,
+      "texture": 5.0,
+      "value": 4.9
+    },
+    "produceDetails": {
+      "sizeGrade": "미당 90g ~ 105g (특대 로열 사이즈)",
+      "freshnessGrade": "당일 출하 100% 활어 해수 산소팩 포장",
+      "fleshYield": "살 수율 85% 이상",
+      "waterContent": "76%",
+      "keyNutrients": [
+        { "name": "아르기닌", "value": "1,100mg", "desc": "활력 증진 및 피로 회복" },
+        { "name": "타우린", "value": "1,500mg", "desc": "간 기능 보호 및 기력 보충" }
+      ],
+      "healthBenefits": ["기력 보강 및 자양강장", "환자 회복기 영양식", "면역력 증진"],
+      "seasonalPeak": "연중 최상급 출하 (8~11월 최고 영양)",
+      "tasteTip": "첫날은 오독오독한 활전복회로, 둘째 날은 게우(내장)를 듬뿍 넣은 녹진한 전복죽이나 버터구이로 즐겨보세요."
+    }
   }
 ];
+

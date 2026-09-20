@@ -50,6 +50,47 @@ export default defineConfig(({ mode }) => {
             }
           });
         }
+      },
+      {
+        name: 'kamis-api-middleware',
+        configureServer(server) {
+          server.middlewares.use('/api/kamis', async (req, res) => {
+            try {
+              const handlerModule = await import('./api/kamis.js');
+              const handler = handlerModule.default;
+              const url = new URL(req.url || '', `http://${req.headers.host}`);
+              const query = Object.fromEntries(url.searchParams.entries());
+
+              const fakeRes = {
+                statusCode: 200,
+                headers: {},
+                setHeader(name, val) {
+                  this.headers[name] = val;
+                  res.setHeader(name, val);
+                },
+                status(code) {
+                  this.statusCode = code;
+                  res.statusCode = code;
+                  return this;
+                },
+                json(data) {
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify(data));
+                },
+                end(data) {
+                  res.end(data);
+                }
+              };
+
+              await handler({ query, method: req.method, headers: req.headers }, fakeRes);
+            } catch (err) {
+              console.error('KAMIS middleware error:', err);
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+        }
       }
     ],
     server: {

@@ -48,6 +48,7 @@ import {
   PENDING_PRODUCTS_STORAGE_KEY,
   LAST_CRAWL_STORAGE_KEY
 } from '../services/productCrawler';
+import { fetchKamisDailyPrices, applyKamisPricesToProducts } from '../services/kamisApi';
 import { revalidatePendingProductList } from '../services/naverApi';
 import {
   supabase,
@@ -229,6 +230,15 @@ interface AppContextType {
   updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
   clearAllPendingProducts: () => void;
   addPendingProduct: (item: PendingProduct) => void;
+
+  // KAMIS Agricultural & Marine Product Live Prices Actions
+  kamisPriceStatus: {
+    lastUpdated: string | null;
+    isUpdating: boolean;
+    count: number;
+    latestDate: string | null;
+  };
+  refreshKamisPrices: (force?: boolean) => Promise<{ count: number; latestDate: string }>;
 
   // Admin Reset Action
   resetAllDataToDefaults: () => void;
@@ -902,6 +912,7 @@ export const smartMergeProducts = (
         overallRating: stored.overallRating ?? initP.overallRating,
         ratingCount: Math.max(stored.ratingCount ?? 0, initP.ratingCount ?? 0),
         detailedRating: stored.detailedRating || initP.detailedRating,
+        kamisPriceInfo: stored.kamisPriceInfo || initP.kamisPriceInfo,
       };
     }
     return initP;
@@ -1115,6 +1126,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return smartMergeProducts(parsed, INITIAL_PRODUCTS, parsedDel);
     } catch {
       return INITIAL_PRODUCTS;
+    }
+  });
+
+  // KAMIS Agricultural & Marine Product Live Prices Status
+  const [kamisPriceStatus, setKamisPriceStatus] = useState<{
+    lastUpdated: string | null;
+    isUpdating: boolean;
+    count: number;
+    latestDate: string | null;
+  }>(() => {
+    try {
+      const storedLast = localStorage.getItem('sinsangpick_kamis_last_update');
+      const storedCache = localStorage.getItem('sinsangpick_kamis_cache_v2');
+      const parsed = storedCache ? JSON.parse(storedCache) : null;
+      return {
+        lastUpdated: storedLast || null,
+        isUpdating: false,
+        count: Array.isArray(parsed?.items) ? parsed.items.length : 0,
+        latestDate: parsed?.latestDate || null
+      };
+    } catch {
+      return { lastUpdated: null, isUpdating: false, count: 0, latestDate: null };
     }
   });
 
@@ -1609,6 +1642,78 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     checkAndAutoCrawl();
   }, [rejectedPendingProductNames]);
+
+  // KAMIS Agricultural & Marine Produce Live Prices Sync Handler
+  const refreshKamisPrices = async (force: boolean = false): Promise<{ count: number; latestDate: string }> => {
+    setKamisPriceStatus(prev => ({ ...prev, isUpdating: true }));
+    try {
+      const res = await fetchKamisDailyPrices(force);
+      if (res.success && res.items.length > 0) {
+        setProducts(prevProducts => {
+          const { updatedProducts } = applyKamisPricesToProducts(prevProducts, res.items, res.latestDate);
+          safeSetItem('sinsangpick_products', JSON.stringify(updatedProducts));
+          return updatedProducts;
+        });
+
+        const nowIso = new Date().toISOString();
+        const todayStr = nowIso.split('T')[0];
+        safeSetItem('sinsangpick_kamis_last_daily_sync', todayStr);
+
+        setKamisPriceStatus({
+          lastUpdated: nowIso,
+          isUpdating: false,
+          count: res.count,
+          latestDate: res.latestDate
+        });
+
+        return { count: res.count, latestDate: res.latestDate };
+      }
+    } catch (err) {
+      console.warn('[KAMIS Produce Price Sync Warning]', err);
+    } finally {
+      setKamisPriceStatus(prev => ({ ...prev, isUpdating: false }));
+    }
+    return { count: 0, latestDate: '' };
+  };
+
+  // Daily auto-refresh of KAMIS produce prices
+  useEffect(() => {
+    let timerId: any = null;
+    const checkAndSyncKamis = async () => {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const lastSync = localStorage.getItem('sinsangpick_kamis_last_daily_sync');
+
+      // 1. If cache exists in localStorage, immediately apply it to in-memory products on startup
+      try {
+        const cachedRaw = localStorage.getItem('sinsangpick_kamis_cache_v2');
+        if (cachedRaw) {
+          const parsed = JSON.parse(cachedRaw);
+          if (Array.isArray(parsed?.items) && parsed.items.length > 0) {
+            setProducts(prev => {
+              const hasAny = prev.some(p => p.kamisPriceInfo);
+              if (!hasAny) {
+                const { updatedProducts } = applyKamisPricesToProducts(prev, parsed.items, parsed.latestDate);
+                return updatedProducts;
+              }
+              return prev;
+            });
+          }
+        }
+      } catch {}
+
+      // 2. If daily sync hasn't run today, fetch latest KAMIS prices in background
+      if (lastSync !== todayStr) {
+        timerId = setTimeout(() => {
+          refreshKamisPrices(false);
+        }, 2000);
+      }
+    };
+
+    checkAndSyncKamis();
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
+  }, []);
 
   // Global Remote Content Sync Handlers
   const refreshRemoteContent = async () => {
@@ -5421,6 +5526,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isContentSyncing,
         syncAllContentToCloud,
         refreshRemoteContent,
+
+        // KAMIS Agricultural & Marine Product Live Prices
+        kamisPriceStatus,
+        refreshKamisPrices,
       }}
     >
       {children}

@@ -372,6 +372,14 @@ export const DiscoverView: React.FC = () => {
                             🍯 {p.produceDetails.brixGrade.split(' ')[0]}
                           </span>
                         )}
+                        {p.kamisPriceInfo && (
+                          <span className={`text-[9px] font-black px-1.5 py-0.2 rounded ${
+                            p.kamisPriceInfo.trend === 'up' ? 'text-rose-600 bg-rose-50' : p.kamisPriceInfo.trend === 'down' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 bg-gray-100'
+                          }`}>
+                            KAMIS {p.kamisPriceInfo.trend === 'up' ? '▲' : p.kamisPriceInfo.trend === 'down' ? '▼' : '-'}
+                            {p.kamisPriceInfo.changeRate !== 0 ? `${Math.abs(p.kamisPriceInfo.changeRate)}%` : ''}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -504,11 +512,27 @@ export const DiscoverView: React.FC = () => {
                       </div>
                     )}
 
-                    {/* Price */}
-                    <div className="flex items-center gap-1.5 mt-1">
+                    {/* Price & KAMIS Trend */}
+                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                       <span className="text-[13px] font-bold text-gray-900">
                         {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
                       </span>
+
+                      {p.kamisPriceInfo && (
+                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5 ${
+                          p.kamisPriceInfo.trend === 'up' 
+                            ? 'bg-rose-50 text-rose-600 border border-rose-100' 
+                            : p.kamisPriceInfo.trend === 'down' 
+                            ? 'bg-blue-50 text-blue-600 border border-blue-100' 
+                            : 'bg-gray-100 text-gray-600'
+                        }`}>
+                          <span>KAMIS</span>
+                          <span>
+                            {p.kamisPriceInfo.trend === 'up' ? '▲' : p.kamisPriceInfo.trend === 'down' ? '▼' : '-'} 
+                            {p.kamisPriceInfo.changeRate !== 0 ? `${Math.abs(p.kamisPriceInfo.changeRate)}%` : '보합'}
+                          </span>
+                        </span>
+                      )}
                     </div>
                   </div>
 
