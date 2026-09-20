@@ -36,19 +36,52 @@ export const getHoursSinceCreated = (createdAt?: string | number): number => {
 };
 
 /**
+ * Helper to build Map of productId -> Review[] for O(1) lookups
+ */
+export const buildReviewsByProductId = (reviews: Review[]): Map<string, Review[]> => {
+  const map = new Map<string, Review[]>();
+  if (!reviews || reviews.length === 0) return map;
+  for (let i = 0; i < reviews.length; i++) {
+    const r = reviews[i];
+    if (!r || !r.productId) continue;
+    const list = map.get(r.productId);
+    if (list) {
+      list.push(r);
+    } else {
+      map.set(r.productId, [r]);
+    }
+  }
+  return map;
+};
+
+/**
  * Calculates a product's real-time popularity score based on:
  * - Overall Rating / Posted Reviews (weight 20)
  * - Rating Count / Posted Reviews (weight 5)
  * - Repurchase Percent (weight 0.3)
  * - Badges: isToday (+35), isHot (+25)
  */
-export const calculateProductPopularity = (product: Product, reviews?: Review[]): number => {
+export const calculateProductPopularity = (
+  product: Product, 
+  reviewsOrProductReviews?: Review[] | Map<string, Review[]>
+): number => {
   let effectiveRating = product.overallRating || 0;
   let postedBonus = 0;
   let totalCount = product.ratingCount || 0;
 
-  if (reviews && reviews.length > 0) {
-    const posted = reviews.filter((r) => r.productId === product.id);
+  if (reviewsOrProductReviews) {
+    let posted: Review[] = [];
+    if (reviewsOrProductReviews instanceof Map) {
+      posted = reviewsOrProductReviews.get(product.id) || [];
+    } else if (Array.isArray(reviewsOrProductReviews)) {
+      // If it's already filtered for this product or the whole list
+      if (reviewsOrProductReviews.length > 0 && reviewsOrProductReviews[0]?.productId === product.id) {
+        posted = reviewsOrProductReviews;
+      } else {
+        posted = reviewsOrProductReviews.filter((r) => r.productId === product.id);
+      }
+    }
+
     if (posted.length > 0) {
       const sumRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
       effectiveRating = (product.overallRating * 5 + sumRating) / (5 + posted.length);
@@ -69,8 +102,9 @@ export const calculateProductPopularity = (product: Product, reviews?: Review[])
  * Returns products sorted by real-time popularity ranking.
  */
 export const getPopularProducts = (products: Product[], limit?: number, reviews?: Review[]): Product[] => {
+  const reviewsMap = reviews ? buildReviewsByProductId(reviews) : undefined;
   const sorted = [...products].sort((a, b) => {
-    return calculateProductPopularity(b, reviews) - calculateProductPopularity(a, reviews);
+    return calculateProductPopularity(b, reviewsMap) - calculateProductPopularity(a, reviewsMap);
   });
   return limit ? sorted.slice(0, limit) : sorted;
 };
@@ -189,7 +223,7 @@ export interface ProductReviewEvaluation {
  */
 export const calculateProductReviewScore = (
   product: Product,
-  reviews: Review[]
+  reviewsOrProductReviews: Review[] | Map<string, Review[]>
 ): {
   reviewScore: number;
   postedReviewCount: number;
@@ -198,7 +232,17 @@ export const calculateProductReviewScore = (
   positiveRate: number;
   topKeyword?: string;
 } => {
-  const posted = reviews.filter((r) => r.productId === product.id);
+  let posted: Review[] = [];
+  if (reviewsOrProductReviews instanceof Map) {
+    posted = reviewsOrProductReviews.get(product.id) || [];
+  } else if (Array.isArray(reviewsOrProductReviews)) {
+    if (reviewsOrProductReviews.length > 0 && reviewsOrProductReviews[0]?.productId === product.id) {
+      posted = reviewsOrProductReviews;
+    } else {
+      posted = reviewsOrProductReviews.filter((r) => r.productId === product.id);
+    }
+  }
+
   const postedCount = posted.length;
   const baseCount = product.ratingCount || 0;
   const totalReviewCount = baseCount + postedCount;
@@ -212,11 +256,12 @@ export const calculateProductReviewScore = (
     // Bayesian blend: 5 prior units with product.overallRating
     effectiveRating = Number(((product.overallRating * 5 + sumPostedRating) / (5 + postedCount)).toFixed(1));
 
-    posted.forEach((r) => {
+    for (let i = 0; i < posted.length; i++) {
+      const r = posted[i];
       if (r.rating >= 4) positiveCount++;
       likesBonus += (r.likes || 0) * 0.5;
       if (r.images && r.images.length > 0) likesBonus += 1.5; // Photo review bonus
-    });
+    }
   }
 
   const positiveRate = postedCount > 0 
@@ -244,9 +289,11 @@ export const calculateProductReviewScore = (
   
   let metricPart = 0;
   if (product.freshMetrics) {
-    metricPart = (product.freshMetrics.sweetness + product.freshMetrics.freshness) * 1.5;
+    const sweetness = Number(product.freshMetrics.sweetness) || 5;
+    const freshness = Number(product.freshMetrics.freshness) || 5;
+    metricPart = (sweetness + freshness) * 1.5;
   } else if (product.detailedRating) {
-    metricPart = ((product.detailedRating.taste || 4.5) + (product.detailedRating.repurchase || 4.5)) * 1.5;
+    metricPart = ((Number(product.detailedRating.taste) || 4.5) + (Number(product.detailedRating.repurchase) || 4.5)) * 1.5;
   }
 
   const repurchasePart = (product.repurchasePercent || 90) * 0.1;
@@ -266,14 +313,34 @@ export const calculateProductReviewScore = (
 
 /**
  * Returns products in a category ranked and sorted by review evaluations.
+ * Supports both signatures:
+ * (products, reviews, category, subCategory, sortBy)
+ * (products, category, reviews)
  */
 export const getCategoryReviewRankedProducts = (
   products: Product[],
-  reviews: Review[],
-  category: ProductCategory,
-  subCategory: string = '전체',
-  sortBy: 'review_rank' | 'rating' | 'review_count' | 'newest' = 'review_rank'
+  arg2: Review[] | ProductCategory | string,
+  arg3?: ProductCategory | Review[] | string,
+  arg4: string = '전체',
+  arg5: 'review_rank' | 'rating' | 'review_count' | 'newest' = 'review_rank'
 ): ProductReviewEvaluation[] => {
+  let reviews: Review[] = [];
+  let category: ProductCategory | string = '전체';
+  let subCategory: string = arg4;
+  let sortBy: 'review_rank' | 'rating' | 'review_count' | 'newest' = arg5;
+
+  if (Array.isArray(arg2)) {
+    reviews = arg2;
+    category = (typeof arg3 === 'string' ? arg3 : '전체') as ProductCategory;
+  } else if (typeof arg2 === 'string') {
+    category = arg2 as ProductCategory;
+    if (Array.isArray(arg3)) {
+      reviews = arg3;
+    }
+  }
+
+  const reviewsMap = buildReviewsByProductId(reviews);
+
   // 1. Filter by category
   const filtered = products.filter((p) => {
     if (category !== '전체') {
@@ -299,9 +366,9 @@ export const getCategoryReviewRankedProducts = (
     return true;
   });
 
-  // 2. Calculate review evaluation for each product
+  // 2. Calculate review evaluation for each product with O(1) lookup
   const evaluated = filtered.map((p) => {
-    const metrics = calculateProductReviewScore(p, reviews);
+    const metrics = calculateProductReviewScore(p, reviewsMap);
     return {
       product: p,
       ...metrics,
@@ -338,4 +405,7 @@ export const getCategoryReviewRankedProducts = (
     reviewRank: index + 1,
   }));
 };
+
+export const calculateReviewScore = calculateProductReviewScore;
+
 

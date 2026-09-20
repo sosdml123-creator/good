@@ -17,6 +17,7 @@ import { BrandView } from './components/brand/BrandView';
 import { SettingsView } from './components/settings/SettingsView';
 import { WebPolicyPage } from './components/settings/WebPolicyPage';
 import { PushBanner } from './components/common/PushBanner';
+import { NetworkStatusBar } from './components/common/NetworkStatusBar';
 import { ToastContainer } from './components/common/Toast';
 import { SaleNewsView } from './components/sale/SaleNewsView';
 import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
@@ -70,6 +71,7 @@ export const App: React.FC = () => {
     return (
       <div className="h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-hidden antialiased">
         <AuthCallbackBridge />
+        <NetworkStatusBar />
         <ToastContainer />
         <PushBanner />
         <AdminDashboard />
@@ -82,6 +84,7 @@ export const App: React.FC = () => {
     return (
       <>
         <AuthCallbackBridge />
+        <NetworkStatusBar />
         <ToastContainer />
         <AuthOnboardingView />
       </>
@@ -93,6 +96,7 @@ export const App: React.FC = () => {
       <AuthCallbackBridge />
       <div className="w-full max-w-[430px] h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-sm">
 
+        <NetworkStatusBar />
         <ToastContainer />
         {/* Floating Top In-App Push Notification Banner */}
         <PushBanner />

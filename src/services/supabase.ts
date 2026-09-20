@@ -2,6 +2,7 @@ import { createClient, SupabaseClient, User, Session } from '@supabase/supabase-
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import { SignInWithApple } from '@capacitor-community/apple-sign-in';
+import { withTimeout } from '../utils/networkUtils';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://lyyzhldazfyrpprdvmeg.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P8eHIISOPV3KKP_l-Gxx_A_cAjfyR-C';
@@ -138,13 +139,23 @@ export const ensureSupabaseAuth = async (): Promise<{ user: User | null; session
   if (!supabase) return { user: null, session: null };
 
   try {
-    const { data: { session } } = await supabase.auth.getSession();
+    const sessionRes = await withTimeout(
+      supabase.auth.getSession(),
+      5000,
+      { data: { session: null }, error: null } as any
+    );
+    const session = sessionRes?.data?.session;
     if (session?.user) {
       return { user: session.user, session };
     }
 
     // Try anonymous sign in if supported
-    const { data, error } = await supabase.auth.signInAnonymously();
+    const anonRes = await withTimeout(
+      supabase.auth.signInAnonymously(),
+      5000,
+      { data: { user: null, session: null }, error: new Error('Auth Timeout') } as any
+    );
+    const { data, error } = anonRes;
     if (error) {
       console.warn('[Supabase Auth] Anonymous sign-in warning:', error.message);
       return { user: null, session: null };

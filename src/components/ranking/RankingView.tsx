@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   Trophy, 
@@ -13,7 +13,7 @@ import {
   ArrowUp
 } from 'lucide-react';
 import { Product } from '../../types';
-import { calculateProductPopularity } from '../../utils/ranking';
+import { calculateProductPopularity, buildReviewsByProductId } from '../../utils/ranking';
 
 type RankingSortType = 'popular' | 'rating' | 'reviews' | 'repurchase';
 
@@ -35,9 +35,10 @@ export const RankingView: React.FC = () => {
 
   const [sortType, setSortType] = useState<RankingSortType>('popular');
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [selectedStore, setSelectedStore] = useState<string>('전체');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [displayLimit, setDisplayLimit] = useState<number>(30);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const sortTabs: SortTabItem[] = [
     { id: 'popular', label: '실시간 급상승', icon: <Flame className="w-3.5 h-3.5 text-amber-500" /> },
@@ -57,11 +58,17 @@ export const RankingView: React.FC = () => {
     '기타',
   ];
 
-  const stores = ['전체', 'CU', 'GS25', '세븐일레븐', '이마트24'];
+  // Reset display limit on filter/sort change
+  useEffect(() => {
+    setDisplayLimit(30);
+  }, [sortType, selectedCategory, searchQuery]);
 
-  // Calculate sorted rankings
+  // Pre-index reviews by productId for fast O(1) lookup
+  const reviewsMap = useMemo(() => buildReviewsByProductId(reviews), [reviews]);
+
+  // Calculate sorted rankings efficiently
   const rankedItems = useMemo(() => {
-    let list = [...products];
+    let list = products;
 
     // 1. Search filter
     if (searchQuery.trim()) {
@@ -74,17 +81,7 @@ export const RankingView: React.FC = () => {
       );
     }
 
-    // 2. Store filter
-    if (selectedStore !== '전체') {
-      list = list.filter((p) => {
-        if (p.stores && p.stores.includes(selectedStore as any)) return true;
-        if (p.brand.toLowerCase().includes(selectedStore.toLowerCase())) return true;
-        if (p.storeStocks && p.storeStocks.some((s) => s.store.includes(selectedStore))) return true;
-        return false;
-      });
-    }
-
-    // 3. Category filter
+    // 2. Category filter
     if (selectedCategory !== '전체') {
       list = list.filter((p) => {
         if (selectedCategory === '과자') return p.category === '과자' || p.subCategory === '스낵';
@@ -92,18 +89,21 @@ export const RankingView: React.FC = () => {
       });
     }
 
-    // 4. Calculate metrics and sort
+    // 3. Calculate metrics and sort using indexed reviews
     const mapped = list.map((product) => {
-      const prodReviews = reviews.filter((r) => r.productId === product.id);
+      const prodReviews = reviewsMap.get(product.id) || [];
       const totalReviews = (product.ratingCount || 0) + prodReviews.length;
       
       let effectiveRating = product.overallRating || 4.5;
       if (prodReviews.length > 0) {
-        const sumR = prodReviews.reduce((acc, r) => acc + (r.rating || 5), 0);
+        let sumR = 0;
+        for (let i = 0; i < prodReviews.length; i++) {
+          sumR += prodReviews[i].rating || 5;
+        }
         effectiveRating = Number(((product.overallRating * 5 + sumR) / (5 + prodReviews.length)).toFixed(1));
       }
 
-      const popularityScore = calculateProductPopularity(product, reviews);
+      const popularityScore = calculateProductPopularity(product, reviewsMap);
       const repurchaseScore = product.repurchasePercent || 85;
 
       return {
@@ -141,10 +141,29 @@ export const RankingView: React.FC = () => {
       ...item,
       rank: index + 1,
     }));
-  }, [products, reviews, sortType, selectedCategory, selectedStore, searchQuery]);
+  }, [products, reviewsMap, sortType, selectedCategory, searchQuery]);
 
-  const top3 = rankedItems.slice(0, 3);
-  const others = rankedItems.slice(3);
+  const top3 = useMemo(() => rankedItems.slice(0, 3), [rankedItems]);
+  const others = useMemo(() => rankedItems.slice(3), [rankedItems]);
+  const visibleOthers = useMemo(() => others.slice(0, displayLimit), [others, displayLimit]);
+
+  // Infinite scroll observer
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el || displayLimit >= others.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setDisplayLimit((prev) => Math.min(prev + 30, others.length));
+        }
+      },
+      { threshold: 0.1, rootMargin: '200px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [others.length, displayLimit]);
 
   return (
     <div className="flex-1 flex flex-col bg-[#F8F9FA] pb-20 select-none">
@@ -223,48 +242,24 @@ export const RankingView: React.FC = () => {
           })}
         </div>
 
-        {/* 3. Category & Store Chips */}
-        <div className="flex flex-col gap-1.5 mt-2.5">
-          {/* Category Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-            {categories.map((cat) => {
-              const active = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors focus:outline-none ${
-                    active
-                      ? 'bg-gray-900 text-white font-semibold shadow-xs'
-                      : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-300'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Store Chips */}
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
-            <span className="text-[10px] text-gray-400 font-bold px-1 shrink-0">편의점:</span>
-            {stores.map((st) => {
-              const active = selectedStore === st;
-              return (
-                <button
-                  key={st}
-                  onClick={() => setSelectedStore(st)}
-                  className={`shrink-0 px-2 py-0.5 rounded text-[10px] font-medium transition-colors focus:outline-none ${
-                    active
-                      ? 'bg-amber-500 text-white font-bold'
-                      : 'bg-gray-50 border border-gray-150 text-gray-500 hover:bg-gray-100'
-                  }`}
-                >
-                  {st}
-                </button>
-              );
-            })}
-          </div>
+        {/* 3. Category Chips */}
+        <div className="flex items-center gap-1.5 mt-2.5 overflow-x-auto no-scrollbar py-0.5">
+          {categories.map((cat) => {
+            const active = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors focus:outline-none ${
+                  active
+                    ? 'bg-gray-900 text-white font-semibold shadow-xs'
+                    : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-300'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
       </header>
 
@@ -354,7 +349,7 @@ export const RankingView: React.FC = () => {
                 </span>
               </div>
 
-              {others.map((item) => {
+              {visibleOthers.map((item) => {
                 const isBookmarked = bookmarkedIds.includes(item.product.id);
                 return (
                   <div
@@ -458,6 +453,18 @@ export const RankingView: React.FC = () => {
                   </div>
                 );
               })}
+
+              {/* Scroll Trigger Sensor */}
+              {displayLimit < others.length && (
+                <div ref={loadMoreRef} className="py-4 flex items-center justify-center">
+                  <button
+                    onClick={() => setDisplayLimit((prev) => prev + 30)}
+                    className="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-4 py-2 rounded-xl shadow-2xs hover:bg-gray-50 active:scale-95 transition-all"
+                  >
+                    랭킹 더보기 ({visibleOthers.length} / {others.length})
+                  </button>
+                </div>
+              )}
             </div>
           </>
         )}

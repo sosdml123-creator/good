@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserX, X, UserCheck } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { safeLocalStorageGet, safeLocalStorageSet } from '../../utils/safeStorage';
 
 interface BlockedUsersModalProps {
   isOpen: boolean;
@@ -16,23 +17,15 @@ export const BlockedUsersModal: React.FC<BlockedUsersModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      try {
-        const list = JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]');
-        setBlockedList(list);
-      } catch {
-        setBlockedList([]);
-      }
+      const list = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
+      setBlockedList(Array.isArray(list) ? list : []);
     }
   }, [isOpen]);
 
   const handleUnblock = (userName: string) => {
     const updated = blockedList.filter(u => u !== userName);
     setBlockedList(updated);
-    try {
-      localStorage.setItem('sinsangpick_blocked_users', JSON.stringify(updated));
-    } catch {
-      // ignore
-    }
+    safeLocalStorageSet('sinsangpick_blocked_users', updated);
     showToast(`'${userName}' 님의 차단이 해제되었습니다.`, 'info');
   };
 
@@ -57,7 +50,7 @@ export const BlockedUsersModal: React.FC<BlockedUsersModalProps> = ({
               <div key={user} className="py-2.5 flex items-center justify-between">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">
-                    {user[0] || 'U'}
+                    {(user && typeof user === 'string' ? user.charAt(0) : '') || 'U'}
                   </div>
                   <span className="text-xs font-bold text-gray-800 truncate">{user}</span>
                 </div>

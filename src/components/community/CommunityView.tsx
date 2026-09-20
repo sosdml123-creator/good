@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag } from 'lucide-react';
+import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag, Loader2, RefreshCw } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { getPopularCommunityPosts, getPopularProducts } from '../../utils/ranking';
 import { CommunityPost } from '../../types';
+import { safeLocalStorageGet } from '../../utils/safeStorage';
 
 export const CommunityView: React.FC = () => {
   const { 
-    products, 
     communityPosts, 
+    products, 
     events,
-    recipes,
-    openRecipeDetail,
-    openWriteRecipe,
-    toggleRecipeLike,
-    openEventDetail,
+    recipes, 
+    openRecipeDetail, 
+    openWriteRecipe, 
+    toggleRecipeLike, 
+    openEventDetail, 
     openProductDetail, 
-    setActiveTab,
-    toggleLikePost,
-    addCommunityPost,
-    addPostComment,
-    showToast 
+    setActiveTab, 
+    toggleLikePost, 
+    addCommunityPost, 
+    addPostComment, 
+    showToast,
+    retrySync,
+    isDataLoading
   } = useApp();
 
   const [activeSubTab, setActiveSubTab] = useState<'인기' | '꿀조합' | '자유게시판' | '질문/답변' | '이벤트'>('인기');
@@ -28,6 +31,7 @@ export const CommunityView: React.FC = () => {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newCategory, setNewCategory] = useState<'자유게시판' | '질문/답변' | '이벤트'>('자유게시판');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Selected post for comment view
   const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
@@ -36,12 +40,8 @@ export const CommunityView: React.FC = () => {
   const [isReportOpen, setIsReportOpen] = useState(false);
 
   // Filter blocked users and hidden posts (App Store UGC Requirement)
-  const blockedUsers: string[] = (() => {
-    try { return JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]'); } catch { return []; }
-  })();
-  const hiddenIds: string[] = (() => {
-    try { return JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]'); } catch { return []; }
-  })();
+  const blockedUsers: string[] = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
+  const hiddenIds: string[] = safeLocalStorageGet<string[]>('sinsangpick_hidden_ids', []);
 
   // 1. Get filtered & sorted posts
   const cleanPosts = communityPosts.filter(p => !hiddenIds.includes(p.id) && !blockedUsers.includes(p.author));
@@ -53,6 +53,7 @@ export const CommunityView: React.FC = () => {
 
   const handleCreatePost = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (!newTitle.trim()) {
       showToast('제목을 입력해주세요.', 'error');
       return;
@@ -62,25 +63,42 @@ export const CommunityView: React.FC = () => {
       return;
     }
 
-    let finalContent = newContent.trim();
-    if (finalContent.includes('coupang.com') && !finalContent.includes('쿠팡 파트너스 활동의 일환')) {
-      finalContent += '\n\n이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
-    }
+    try {
+      setIsSubmitting(true);
+      let finalContent = newContent.trim();
+      if (finalContent.includes('coupang.com') && !finalContent.includes('쿠팡 파트너스 활동의 일환')) {
+        finalContent += '\n\n이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+      }
 
-    await addCommunityPost(newCategory, newTitle, finalContent);
-    setNewTitle('');
-    setNewContent('');
-    setIsWriteModalOpen(false);
+      await addCommunityPost(newCategory, newTitle, finalContent);
+      setNewTitle('');
+      setNewContent('');
+      setIsWriteModalOpen(false);
+      showToast('🎉 수다글이 성공적으로 등록되었습니다!', 'success');
+    } catch (err: any) {
+      console.error('[Community Post Error]', err);
+      showToast('글 등록 중 오류가 발생했습니다. 네트워크를 확인하고 다시 시도해 주세요.', 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleAddComment = async (postId: string) => {
-    if (!commentText.trim()) return;
-    await addPostComment(postId, commentText);
-    setCommentText('');
-    // Update active modal selectedPost comments
-    const updated = communityPosts.find(p => p.id === postId);
-    if (updated) {
-      setSelectedPost(updated);
+    if (!commentText.trim() || isSubmitting) return;
+    try {
+      setIsSubmitting(true);
+      await addPostComment(postId, commentText.trim());
+      setCommentText('');
+      // Update active modal selectedPost comments
+      const updated = communityPosts.find(p => p.id === postId);
+      if (updated) {
+        setSelectedPost(updated);
+      }
+    } catch (err: any) {
+      console.error('[Comment Error]', err);
+      showToast('댓글 등록에 실패했습니다. 다시 시도해 주세요.', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -343,12 +361,22 @@ export const CommunityView: React.FC = () => {
             <p className="text-xs text-gray-400 max-w-xs mx-auto">
               새로 나온 신상 먹거리 후기나 질문, 자유로운 잡담을 회원들과 함께 나누어보세요. (+20P 적립)
             </p>
-            <button
-              onClick={() => setIsWriteModalOpen(true)}
-              className="mt-2 px-5 py-2 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-sm transition-all"
-            >
-              글 작성하기
-            </button>
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <button
+                onClick={() => retrySync()}
+                disabled={isDataLoading}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-full transition-all flex items-center gap-1.5"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isDataLoading ? 'animate-spin' : ''}`} />
+                <span>{isDataLoading ? '불러오는 중...' : '새로고침'}</span>
+              </button>
+              <button
+                onClick={() => setIsWriteModalOpen(true)}
+                className="px-5 py-2 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-sm transition-all"
+              >
+                글 작성하기
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -437,16 +465,25 @@ export const CommunityView: React.FC = () => {
               <div className="pt-2 flex gap-2">
                 <button
                   type="button"
+                  disabled={isSubmitting}
                   onClick={() => setIsWriteModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50"
+                  className="flex-1 py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50 disabled:opacity-50"
                 >
                   취소
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-gray-900 text-white text-xs font-bold shadow-sm hover:bg-black transition-colors"
+                  disabled={isSubmitting}
+                  className="flex-1 py-2.5 rounded-xl bg-gray-900 text-white text-xs font-bold shadow-sm hover:bg-black transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
                 >
-                  등록 (+20P)
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>등록 중...</span>
+                    </>
+                  ) : (
+                    <span>등록 (+20P)</span>
+                  )}
                 </button>
               </div>
             </form>
@@ -547,9 +584,14 @@ export const CommunityView: React.FC = () => {
               />
               <button
                 onClick={() => handleAddComment(selectedPost.id)}
-                className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center shrink-0 hover:bg-black"
+                disabled={isSubmitting || !commentText.trim()}
+                className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center shrink-0 hover:bg-black disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <Send className="w-4 h-4" />
+                {isSubmitting ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>

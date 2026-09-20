@@ -1,4 +1,5 @@
 import { PendingProduct, ProductCategory } from '../types';
+import { fetchWithTimeout } from '../utils/networkUtils';
 import { REAL_NEW_PRODUCTS_DATABASE } from '../data/realNewProducts';
 import {
   ILLUSTRATION_PEACH,
@@ -632,7 +633,7 @@ export const callNaverApi = async (
 ): Promise<NaverSearchResponse> => {
   const apiUrl = `/api/naver?type=${type}&query=${encodeURIComponent(query)}&display=${display}${sort ? `&sort=${sort}` : ''}`;
   
-  const res = await fetch(apiUrl);
+  const res = await fetchWithTimeout(apiUrl, undefined, 10000);
   if (!res.ok) {
     throw new Error(`Naver API (${type}) failed with status: ${res.status}`);
   }
@@ -647,13 +648,13 @@ export const callNaverDataLabApi = async (
   payload: any
 ): Promise<ShoppingInsightResponse> => {
   const apiUrl = `/api/naver?type=${type}`;
-  const res = await fetch(apiUrl, {
+  const res = await fetchWithTimeout(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
-  });
+  }, 10000);
 
   if (!res.ok) {
     throw new Error(`Naver DataLab API (${type}) failed with status: ${res.status}`);

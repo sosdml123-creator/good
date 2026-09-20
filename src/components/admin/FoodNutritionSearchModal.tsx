@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, Loader2, Sparkles, AlertCircle, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Search, X, Loader2, Sparkles, AlertCircle, CheckCircle2, ShieldCheck, RefreshCw } from 'lucide-react';
 import { searchFoodNutrition, FoodNutritionData } from '../../services/nutritionApi';
 
 interface FoodNutritionSearchModalProps {
@@ -157,9 +157,17 @@ export const FoodNutritionSearchModal: React.FC<FoodNutritionSearchModalProps> =
               </p>
             </div>
           ) : errorMsg ? (
-            <div className="py-12 px-6 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 text-center">
-              <AlertCircle className="w-8 h-8 text-rose-500 mx-auto mb-2" />
+            <div className="py-12 px-6 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 text-center space-y-3">
+              <AlertCircle className="w-8 h-8 text-rose-500 mx-auto" />
               <p className="text-xs font-bold text-rose-700 dark:text-rose-300">{errorMsg}</p>
+              <button
+                type="button"
+                onClick={() => handleSearch(query)}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-sm inline-flex items-center gap-1.5 transition-all active:scale-95"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>다시 시도</span>
+              </button>
             </div>
           ) : results.length > 0 ? (
             <>

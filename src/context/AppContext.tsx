@@ -86,6 +86,7 @@ import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
 import { DEFAULT_AVATAR, isValidCustomPhoto } from '../utils/avatars';
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
+import { withTimeout, parseNetworkError } from '../utils/networkUtils';
 
 interface AppContextType {
   products: Product[];
@@ -116,6 +117,9 @@ interface AppContextType {
   toasts: ToastMessage[];
   currentUser: UserProfile;
   isSupabaseConnected: boolean;
+  networkError: string | null;
+  isDataLoading: boolean;
+  retrySync: () => Promise<void>;
 
   // Actions
   setActiveTab: (tab: ActiveTab) => void;
@@ -972,6 +976,8 @@ export const DATA_VERSION = 'v25_20260920_sync_engine';
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>(createInitialUser);
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
+  const [networkError, setNetworkError] = useState<string | null>(null);
+  const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const openLoginModal = () => setIsLoginModalOpen(true);
   const [isGuestBrowse, setIsGuestBrowseState] = useState<boolean>(() => localStorage.getItem('sinsangpick_guest_browse') === 'true');
@@ -1672,19 +1678,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const loadSupabaseData = async (uid: string) => {
     if (!supabase) return;
 
+    setIsDataLoading(true);
     try {
-      // 1. Fetch Products & System Records
-      const { data: dbProducts, error: prodErr } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // 1. Fetch Products & System Records with timeout
+      const { data: dbProducts, error: prodErr } = await withTimeout(
+        supabase
+          .from('products')
+          .select('*')
+          .order('created_at', { ascending: false }),
+        8000,
+        { data: null, error: null } as any
+      );
 
       if (prodErr) throw prodErr;
+
+      // Reset network error on successful retrieval
+      setNetworkError(null);
 
       // Create lookup map of DB products
       const dbProductMap = new Map<string, DBProduct>();
       if (dbProducts) {
-        dbProducts.forEach(p => {
+        dbProducts.forEach((p: any) => {
           if (p.id) dbProductMap.set(p.id, p);
         });
       }
@@ -1764,8 +1778,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // Also append any extra custom products from Supabase (excluding system container & deleted products)
         const initialIdSet = new Set(INITIAL_PRODUCTS.map(p => p.id));
         const extraDbProducts = dbProducts
-          .filter(dbP => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
-          .map(dbP => mapDBProductToProduct(dbP));
+          .filter((dbP: any) => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
+          .map((dbP: any) => mapDBProductToProduct(dbP));
 
         setProducts([...mergedInitial, ...extraDbProducts]);
       }
@@ -1933,8 +1947,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         });
       }
 
-    } catch (err) {
+    } catch (err: any) {
       console.warn('[Supabase] Failed to load data:', err);
+      const parsed = parseNetworkError(err);
+      setNetworkError(parsed.message);
+    } finally {
+      setIsDataLoading(false);
+    }
+  };
+
+  // Comprehensive retry sync for user or network status recovery
+  const retrySync = async () => {
+    setIsDataLoading(true);
+    setNetworkError(null);
+    try {
+      await Promise.allSettled([
+        loadSupabaseData(currentUser.uid),
+        refreshRemoteContent()
+      ]);
+    } finally {
+      setIsDataLoading(false);
     }
   };
 
@@ -5075,6 +5107,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toasts,
         currentUser,
         isSupabaseConnected,
+        networkError,
+        isDataLoading,
+        retrySync,
 
         // Home Sections
         homeSections,

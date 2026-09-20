@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { ChevronLeft, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check, ExternalLink } from 'lucide-react';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
@@ -32,40 +32,70 @@ export const DiscoverView: React.FC = () => {
   const [sortBy, setSortBy] = useState<SortOption>('review_rank');
   const [isSortMenuOpen, setIsSortMenuOpen] = useState<boolean>(false);
   const [promoFilter, setPromoFilter] = useState<'all' | '1+1' | '2+1'>('all');
+  const [displayLimit, setDisplayLimit] = useState<number>(30);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const subCats = SUBCATEGORIES_MAP[selectedCategory] || [];
 
-  // Review-based ranked products
-  const baseRankedItems = getCategoryReviewRankedProducts(
-    products,
-    reviews,
-    selectedCategory,
-    selectedSubCategory,
-    sortBy
-  );
+  // Reset displayLimit on category or filter change
+  useEffect(() => {
+    setDisplayLimit(30);
+  }, [selectedCategory, selectedSubCategory, sortBy, promoFilter]);
 
-  const rankedItems = baseRankedItems.filter(item => {
-    const p = item.product;
-    if (promoFilter === 'all') return true;
-    if (promoFilter === '1+1') {
-      return (
-        p.storeStocks?.some(s => s.eventBadge?.includes('1+1')) ||
-        p.name.includes('1+1') ||
-        (p.stores && p.stores.includes('CU') && (p.price <= 2000 || p.isHot))
-      );
-    }
-    if (promoFilter === '2+1') {
-      return (
-        p.storeStocks?.some(s => s.eventBadge?.includes('2+1')) ||
-        p.name.includes('2+1') ||
-        (p.stores && p.stores.includes('GS25') && (p.price > 1500 || p.isToday))
-      );
-    }
-    return true;
-  });
+  // Review-based ranked products with useMemo
+  const baseRankedItems = useMemo(() => {
+    return getCategoryReviewRankedProducts(
+      products,
+      reviews,
+      selectedCategory,
+      selectedSubCategory,
+      sortBy
+    );
+  }, [products, reviews, selectedCategory, selectedSubCategory, sortBy]);
+
+  const rankedItems = useMemo(() => {
+    return baseRankedItems.filter(item => {
+      const p = item.product;
+      if (promoFilter === 'all') return true;
+      if (promoFilter === '1+1') {
+        return (
+          p.storeStocks?.some(s => s.eventBadge?.includes('1+1')) ||
+          p.name.includes('1+1') ||
+          (p.stores && p.stores.includes('CU') && (p.price <= 2000 || p.isHot))
+        );
+      }
+      if (promoFilter === '2+1') {
+        return (
+          p.storeStocks?.some(s => s.eventBadge?.includes('2+1')) ||
+          p.name.includes('2+1') ||
+          (p.stores && p.stores.includes('GS25') && (p.price > 1500 || p.isToday))
+        );
+      }
+      return true;
+    });
+  }, [baseRankedItems, promoFilter]);
 
   // Top 3 ranked items based on review evaluation
-  const top3Ranked = rankedItems.slice(0, 3);
+  const top3Ranked = useMemo(() => rankedItems.slice(0, 3), [rankedItems]);
+  const visibleRankedItems = useMemo(() => rankedItems.slice(0, displayLimit), [rankedItems, displayLimit]);
+
+  // Infinite scroll observer
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el || displayLimit >= rankedItems.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setDisplayLimit((prev) => Math.min(prev + 30, rankedItems.length));
+        }
+      },
+      { threshold: 0.1, rootMargin: '200px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [rankedItems.length, displayLimit]);
 
   const isProduce = (p: Product) =>
     p.category === '과일' ||
@@ -309,131 +339,145 @@ export const DiscoverView: React.FC = () => {
       {/* 3. Product & Item List */}
       <div className="bg-white divide-y divide-gray-100">
         {rankedItems.length > 0 ? (
-          rankedItems.map((item) => {
-            const p = item.product;
-            const isBookmarked = bookmarkedIds.includes(p.id);
+          <>
+            {visibleRankedItems.map((item) => {
+              const p = item.product;
+              const isBookmarked = bookmarkedIds.includes(p.id);
 
-            return (
-              <div
-                key={p.id}
-                onClick={() => openProductDetail(p.id)}
-                className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:bg-gray-50 hover:bg-gray-50/60 transition-colors"
-              >
-                {/* Image & Rank Badge */}
-                <div className="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-gray-100 shadow-2xs">
-                  <SafeImage
-                    src={p.image}
-                    alt={p.name}
-                    fallbackCategory={p.category}
-                    fallbackName={p.name}
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  {/* 순위 뱃지 */}
-                  <span className={`absolute top-1 left-1 w-5 h-5 rounded-md text-[11px] font-black flex items-center justify-center shadow-xs ${
-                    item.reviewRank === 1
-                      ? 'bg-amber-500 text-white'
-                      : item.reviewRank === 2
-                      ? 'bg-slate-400 text-white'
-                      : item.reviewRank === 3
-                      ? 'bg-amber-700 text-white'
-                      : 'bg-black/60 text-white backdrop-blur-xs'
-                  }`}>
-                    {item.reviewRank}
-                  </span>
-
-                  {p.subCategory && (
-                    <span className="absolute bottom-1 left-1 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.2 rounded backdrop-blur-xs">
-                      {p.subCategory}
+              return (
+                <div
+                  key={p.id}
+                  onClick={() => openProductDetail(p.id)}
+                  className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:bg-gray-50 hover:bg-gray-50/60 transition-colors"
+                >
+                  {/* Image & Rank Badge */}
+                  <div className="relative shrink-0 w-[84px] h-[84px] rounded-xl overflow-hidden bg-gray-100 shadow-2xs">
+                    <SafeImage
+                      src={p.image}
+                      alt={p.name}
+                      fallbackCategory={p.category}
+                      fallbackName={p.name}
+                      className="w-full h-full object-cover"
+                    />
+                    
+                    {/* 순위 뱃지 */}
+                    <span className={`absolute top-1 left-1 w-5 h-5 rounded-md text-[11px] font-black flex items-center justify-center shadow-xs ${
+                      item.reviewRank === 1
+                        ? 'bg-amber-500 text-white'
+                        : item.reviewRank === 2
+                        ? 'bg-slate-400 text-white'
+                        : item.reviewRank === 3
+                        ? 'bg-amber-700 text-white'
+                        : 'bg-black/60 text-white backdrop-blur-xs'
+                    }`}>
+                      {item.reviewRank}
                     </span>
-                  )}
-                </div>
 
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-gray-400">{p.brand}</span>
-                    {item.reviewRank === 1 && (
-                      <span className="text-[9px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">
-                        리뷰 1위 👑
+                    {p.subCategory && (
+                      <span className="absolute bottom-1 left-1 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.2 rounded backdrop-blur-xs">
+                        {p.subCategory}
                       </span>
                     )}
                   </div>
 
-                  <div className="text-[13px] font-semibold text-gray-900 leading-snug truncate mt-0.5">
-                    {p.name}
-                  </div>
-
-                  {/* Rating & Review Score Preview */}
-                  <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                    <div className="flex items-center gap-0.5">
-                      <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                      <span className="text-[12px] font-black text-gray-800">{item.effectiveRating.toFixed(1)}</span>
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px] text-gray-400">{p.brand}</span>
+                      {item.reviewRank === 1 && (
+                        <span className="text-[9px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">
+                          리뷰 1위 👑
+                        </span>
+                      )}
                     </div>
-                    <span className="text-[11px] text-gray-400">({item.totalReviewCount}명 리뷰)</span>
 
-                    {/* 실시간 리뷰 반영 점수 배지 */}
-                    <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">
-                      점수 {item.reviewScore}점
-                    </span>
-                  </div>
+                    <div className="text-[13px] font-semibold text-gray-900 leading-snug truncate mt-0.5">
+                      {p.name}
+                    </div>
 
-                  {/* 📐 농수산물 전용: 사이즈 평균 & 당도 배지 */}
-                  {isProduce(p) && (
+                    {/* Rating & Review Score Preview */}
                     <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                      {p.produceDetails?.sizeGrade && (
-                        <span className="text-[10px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
-                          <span>📐</span>
-                          <span>{p.produceDetails.sizeGrade.split(' ')[0]}</span>
-                        </span>
-                      )}
-                      {p.produceDetails?.brixGrade && (
-                        <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
-                          <span>🍯</span>
-                          <span>{p.produceDetails.brixGrade.split(' ')[0]}</span>
-                        </span>
-                      )}
-                      {p.freshMetrics && !p.produceDetails?.brixGrade && (
-                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded">
-                          당도 {p.freshMetrics.sweetness} / 신선 {p.freshMetrics.freshness}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                      <div className="flex items-center gap-0.5">
+                        <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                        <span className="text-[12px] font-black text-gray-800">{item.effectiveRating.toFixed(1)}</span>
+                      </div>
+                      <span className="text-[11px] text-gray-400">({item.totalReviewCount}명 리뷰)</span>
 
-                  {/* Price */}
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <span className="text-[13px] font-bold text-gray-900">
-                      {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
-                    </span>
+                      {/* 실시간 리뷰 반영 점수 배지 */}
+                      <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">
+                        점수 {item.reviewScore}점
+                      </span>
+                    </div>
+
+                    {/* 📐 농수산물 전용: 사이즈 평균 & 당도 배지 */}
+                    {isProduce(p) && (
+                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                        {p.produceDetails?.sizeGrade && (
+                          <span className="text-[10px] font-bold text-gray-700 bg-gray-100 border border-gray-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
+                            <span>📐</span>
+                            <span>{p.produceDetails.sizeGrade.split(' ')[0]}</span>
+                          </span>
+                        )}
+                        {p.produceDetails?.brixGrade && (
+                          <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded flex items-center gap-0.5">
+                            <span>🍯</span>
+                            <span>{p.produceDetails.brixGrade.split(' ')[0]}</span>
+                          </span>
+                        )}
+                        {p.freshMetrics && !p.produceDetails?.brixGrade && (
+                          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded">
+                            당도 {p.freshMetrics.sweetness} / 신선 {p.freshMetrics.freshness}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Price */}
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span className="text-[13px] font-bold text-gray-900">
+                        {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons (Buy Link & Bookmark) */}
+                  <div className="flex items-center gap-1 shrink-0">
+                    {p.buyLink && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(p.buyLink, '_blank');
+                        }}
+                        className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-black flex items-center gap-0.5 border border-emerald-200 transition-all active:scale-95 shadow-2xs"
+                        title="실제 판매처 바로가기"
+                      >
+                        <span>구매</span>
+                        <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
+                      </button>
+                    )}
+                    <button
+                      onClick={(e) => toggleBookmark(p.id, e)}
+                      className="text-xl p-1 text-gray-300 hover:text-rose-500 transition-colors"
+                    >
+                      <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
+                    </button>
                   </div>
                 </div>
+              );
+            })}
 
-                {/* Action Buttons (Buy Link & Bookmark) */}
-                <div className="flex items-center gap-1 shrink-0">
-                  {p.buyLink && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(p.buyLink, '_blank');
-                      }}
-                      className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-black flex items-center gap-0.5 border border-emerald-200 transition-all active:scale-95 shadow-2xs"
-                      title="실제 판매처 바로가기"
-                    >
-                      <span>구매</span>
-                      <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
-                    </button>
-                  )}
-                  <button
-                    onClick={(e) => toggleBookmark(p.id, e)}
-                    className="text-xl p-1 text-gray-300 hover:text-rose-500 transition-colors"
-                  >
-                    <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-300'}`} />
-                  </button>
-                </div>
+            {/* Scroll Trigger Sensor */}
+            {displayLimit < rankedItems.length && (
+              <div ref={loadMoreRef} className="py-4 flex items-center justify-center bg-gray-50/50">
+                <button
+                  onClick={() => setDisplayLimit((prev) => prev + 30)}
+                  className="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-4 py-2 rounded-xl shadow-2xs hover:bg-gray-50 active:scale-95 transition-all"
+                >
+                  신제품 더보기 ({visibleRankedItems.length} / {rankedItems.length})
+                </button>
               </div>
-            );
-          })
+            )}
+          </>
         ) : (
           <div className="text-center py-16 px-4 space-y-2 text-gray-400">
             <span className="text-3xl block">🍽️</span>

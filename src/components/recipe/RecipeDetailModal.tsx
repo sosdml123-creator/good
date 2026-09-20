@@ -23,7 +23,25 @@ export const RecipeDetailModal: React.FC = () => {
     showToast 
   } = useApp();
 
-  if (!isRecipeDetailOpen || !selectedRecipe) return null;
+  if (!isRecipeDetailOpen) return null;
+
+  if (!selectedRecipe) {
+    return (
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex justify-center items-center p-4 animate-in fade-in duration-200">
+        <div className="w-full max-w-[360px] bg-white rounded-3xl p-6 text-center shadow-2xl space-y-3">
+          <div className="text-3xl">🥪</div>
+          <h3 className="text-base font-bold text-gray-900">레시피를 찾을 수 없습니다</h3>
+          <p className="text-xs text-gray-500">삭제되었거나 잘못된 링크입니다.</p>
+          <button
+            onClick={closeRecipeDetail}
+            className="w-full py-2.5 bg-gray-900 text-white rounded-xl text-xs font-bold shadow-sm hover:bg-black transition-all"
+          >
+            확인
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleShare = () => {
     if (navigator.clipboard) {

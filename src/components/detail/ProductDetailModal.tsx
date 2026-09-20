@@ -115,7 +115,28 @@ export const ProductDetailModal: React.FC = () => {
   }, [selectedProduct?.id, selectedProduct?.name]);
 
   const prod = selectedProduct || (products && products.length > 0 ? products[0] : null);
-  if (!prod) return null;
+  if (!prod) {
+    return (
+      <div className="bg-[#F8F9FA] min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-3xl mb-4 shadow-sm">
+          🔍
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-1.5">
+          상품 정보를 찾을 수 없습니다
+        </h3>
+        <p className="text-xs text-gray-500 max-w-[280px] mb-6 leading-relaxed">
+          삭제되었거나 잘못된 링크입니다.<br />
+          홈 화면으로 이동하여 다른 신상품을 둘러보세요.
+        </p>
+        <button
+          onClick={() => setActiveTab('home')}
+          className="px-6 py-2.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 cursor-pointer"
+        >
+          홈으로 돌아가기
+        </button>
+      </div>
+    );
+  }
 
   const isBookmarked = bookmarkedIds.includes(prod.id);
   const isCompared = comparedIds.includes(prod.id);

@@ -4,6 +4,7 @@ import { Star, Heart, MessageSquare, Send, Flag, ZoomIn } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { SafeImage } from '../common/SafeImage';
 import { ImageViewerModal } from '../common/ImageViewerModal';
+import { safeLocalStorageGet } from '../../utils/safeStorage';
 
 interface ReviewListProps {
   productId?: string;
@@ -47,12 +48,8 @@ export const ReviewList: React.FC<ReviewListProps> = ({
   };
 
   // Filter blocked users and hidden reviews (App Store UGC Requirement)
-  const blockedUsers: string[] = (() => {
-    try { return JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]'); } catch { return []; }
-  })();
-  const hiddenIds: string[] = (() => {
-    try { return JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]'); } catch { return []; }
-  })();
+  const blockedUsers: string[] = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
+  const hiddenIds: string[] = safeLocalStorageGet<string[]>('sinsangpick_hidden_ids', []);
 
   const productReviews = reviews.filter(r => (r.productId === productId || !productId) && !hiddenIds.includes(r.id) && !blockedUsers.includes(r.userName));
 

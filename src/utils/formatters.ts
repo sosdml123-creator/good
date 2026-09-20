@@ -1,19 +1,22 @@
 export const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat('ko-KR').format(price) + '원';
+  const safe = typeof price === 'number' && !isNaN(price) ? price : 0;
+  return new Intl.NumberFormat('ko-KR').format(safe) + '원';
 };
 
 export const formatCount = (count: number): string => {
-  if (count >= 10000) {
-    return (count / 10000).toFixed(1).replace(/\.0$/, '') + '만';
+  const safe = typeof count === 'number' && !isNaN(count) ? count : 0;
+  if (safe >= 10000) {
+    return (safe / 10000).toFixed(1).replace(/\.0$/, '') + '만';
   }
-  if (count >= 1000) {
-    return (count / 1000).toFixed(1).replace(/\.0$/, '') + '천';
+  if (safe >= 1000) {
+    return (safe / 1000).toFixed(1).replace(/\.0$/, '') + '천';
   }
-  return count.toString();
+  return safe.toString();
 };
 
 export const formatRating = (rating: number): string => {
-  return rating.toFixed(1);
+  const safe = typeof rating === 'number' && !isNaN(rating) ? rating : 0;
+  return safe.toFixed(1);
 };
 
 export const getStoreBadgeStyle = (store: string) => {

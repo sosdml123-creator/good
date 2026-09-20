@@ -17,7 +17,8 @@ import {
   Camera,
   Image as ImageIcon,
   ChevronRight,
-  Info
+  Info,
+  AlertCircle
 } from 'lucide-react';
 import { ProductCategory, Product, PendingProduct } from '../../types';
 import {
@@ -55,6 +56,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
 
   // Crawler Action States
   const [isCrawling, setIsCrawling] = useState<boolean>(false);
+  const [crawlError, setCrawlError] = useState<string | null>(null);
   const [collectedProducts, setCollectedProducts] = useState<OfficialCollectedProduct[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [registeredIds, setRegisteredIds] = useState<Set<string>>(new Set());
@@ -82,6 +84,7 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
   // Run Crawl
   const handleRunCrawl = async () => {
     setIsCrawling(true);
+    setCrawlError(null);
 
     const sourceLabel = 
       activeSourceType === 'official' ? '제조사 공식 홈페이지/직영몰' :
@@ -102,8 +105,10 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
       } else {
         showToast('검색 조건에 맞는 공식 제품을 찾지 못했습니다. 키워드를 변경해보세요.', 'info');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Crawl Error:', err);
+      const errMsg = err?.message || '네트워크 응답 지연 또는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+      setCrawlError(errMsg);
       showToast('제품 수집 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'error');
     } finally {
       setIsCrawling(false);
@@ -581,6 +586,27 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
           </button>
         </div>
       </div>
+
+      {/* Crawl Error & Retry Banner */}
+      {crawlError && (
+        <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 flex items-center justify-between gap-3 animate-in fade-in">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+            <div className="text-xs">
+              <p className="font-bold text-rose-800 dark:text-rose-200">수집 중 오류 발생</p>
+              <p className="text-[11px] text-rose-600 dark:text-rose-400 truncate">{crawlError}</p>
+            </div>
+          </div>
+          <button
+            onClick={handleRunCrawl}
+            disabled={isCrawling}
+            className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shrink-0 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all"
+          >
+            <RefreshCw className={`w-3 h-3 ${isCrawling ? 'animate-spin' : ''}`} />
+            <span>다시 시도</span>
+          </button>
+        </div>
+      )}
 
       {/* 3. Collected Products Management & Bulk Action Bar */}
       {collectedProducts.length > 0 && (

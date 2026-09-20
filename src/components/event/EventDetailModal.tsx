@@ -32,7 +32,25 @@ export const EventDetailModal: React.FC = () => {
     { id: 'c-3', user: '단짠요정', text: '주변 친구들한테도 바로 공유했음! 다들 신상픽 알림 켜두세요 🚀', time: '5시간 전' },
   ]);
 
-  if (!selectedEvent) return null;
+  if (!selectedEvent) {
+    return (
+      <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-3xl mb-4 shadow-sm">
+          🎉
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-1.5">이벤트를 찾을 수 없습니다</h3>
+        <p className="text-xs text-gray-500 max-w-[280px] mb-6 leading-relaxed">
+          종료되었거나 유효하지 않은 이벤트 주소입니다.
+        </p>
+        <button
+          onClick={goBack}
+          className="px-6 py-2.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+        >
+          돌아가기
+        </button>
+      </div>
+    );
+  }
 
   const targetProduct = selectedEvent.targetProductId 
     ? products.find(p => p.id === selectedEvent.targetProductId) 

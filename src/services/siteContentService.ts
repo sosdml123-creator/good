@@ -1,6 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import { supabase, DBProduct } from './supabase';
 import { BannerItem, Product, HomeSectionConfig } from '../types';
+import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -36,12 +37,16 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   // 1. Direct Supabase Query (Fastest and works identically on both Web & Native App)
   if (supabase) {
     try {
-      // Query system banners record
-      const { data: sysData, error: sysErr } = await supabase
-        .from('products')
-        .select('*')
-        .eq('id', SYSTEM_BANNER_RECORD_ID)
-        .maybeSingle();
+      // Query system banners record with 7-second timeout
+      const { data: sysData, error: sysErr } = await withTimeout(
+        supabase
+          .from('products')
+          .select('*')
+          .eq('id', SYSTEM_BANNER_RECORD_ID)
+          .maybeSingle(),
+        7000,
+        { data: null, error: null } as any
+      );
 
       if (!sysErr && sysData && sysData.nutrition) {
         if (Array.isArray(sysData.nutrition.banners) && sysData.nutrition.banners.length > 0) {
@@ -66,9 +71,9 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   // 2. Fallback to /api/site-content if Supabase didn't return banners
   if (!banners && !Capacitor.isNativePlatform()) {
     try {
-      const apiRes = await fetch('/api/site-content', {
+      const apiRes = await fetchWithTimeout('/api/site-content', {
         headers: { 'Accept': 'application/json' }
-      });
+      }, 5000);
       if (apiRes.ok) {
         const json = await apiRes.json();
         if (json.banners && Array.isArray(json.banners)) {
@@ -110,12 +115,16 @@ export const saveRemoteBannersAndSections = async (
   // 1. Save to Supabase system record
   if (supabase) {
     try {
-      // Read existing system container record to avoid overwriting existing fields
-      const { data: existing } = await supabase
-        .from('products')
-        .select('nutrition')
-        .eq('id', SYSTEM_BANNER_RECORD_ID)
-        .maybeSingle();
+      // Read existing system container record with timeout
+      const { data: existing } = await withTimeout(
+        supabase
+          .from('products')
+          .select('nutrition')
+          .eq('id', SYSTEM_BANNER_RECORD_ID)
+          .maybeSingle(),
+        6000,
+        { data: null, error: null } as any
+      );
 
       const existingNutrition = existing?.nutrition || {};
 
@@ -140,7 +149,11 @@ export const saveRemoteBannersAndSections = async (
         updated_at: new Date().toISOString()
       };
 
-      const { error } = await supabase.from('products').upsert(payload, { onConflict: 'id' });
+      const { error } = await withTimeout(
+        supabase.from('products').upsert(payload, { onConflict: 'id' }),
+        7000,
+        { error: null } as any
+      );
       if (!error) {
         saved = true;
       } else {
@@ -154,11 +167,17 @@ export const saveRemoteBannersAndSections = async (
   // 2. Also send to /api/site-content if on Web
   if (!Capacitor.isNativePlatform()) {
     try {
-      await fetch('/api/site-content', {
+      await fetchWithTimeout('/api/site-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ banners, homeSections, deletedProductIds, deletedBannerIds })
-      });
+        body: JSON.stringify({
+          banners,
+          homeSections,
+          deletedProductIds,
+          deletedBannerIds,
+          timestamp: new Date().toISOString()
+        })
+      }, 5000);
       saved = true;
     } catch (e) {
       // ignore

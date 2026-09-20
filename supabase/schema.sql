@@ -345,45 +345,43 @@ CREATE POLICY "Users can update own profile" ON public.profiles FOR UPDATE USING
 CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
 CREATE POLICY "Users can delete own profile" ON public.profiles FOR DELETE USING (auth.uid() = id);
 
--- 2. Products
+-- 2. Products (일반 사용자는 조회만 가능, 수정/삭제/삽입은 Service Role 또는 관리자만 가능)
 CREATE POLICY "Products are viewable by everyone" ON public.products FOR SELECT USING (true);
-CREATE POLICY "Authenticated users can insert products" ON public.products FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated users can update products" ON public.products FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow delete on products" ON public.products FOR DELETE USING (true);
+CREATE POLICY "Only service role or admin can modify products" ON public.products FOR ALL 
+    USING (auth.role() = 'service_role' OR (auth.jwt() ->> 'role') = 'service_role')
+    WITH CHECK (auth.role() = 'service_role' OR (auth.jwt() ->> 'role') = 'service_role');
 
--- 3. Reviews
+-- 3. Reviews (조회는 전체 공개, 작성/수정/삭제는 본인 데이터만 가능)
 CREATE POLICY "Reviews are viewable by everyone" ON public.reviews FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert reviews" ON public.reviews FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update own reviews" ON public.reviews FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete own reviews" ON public.reviews FOR DELETE USING (auth.uid() = user_id);
-CREATE POLICY "Allow admin delete on reviews" ON public.reviews FOR DELETE USING (true);
+CREATE POLICY "Users can update own reviews" ON public.reviews FOR UPDATE USING (auth.uid() = user_id OR auth.role() = 'service_role');
+CREATE POLICY "Users can delete own reviews" ON public.reviews FOR DELETE USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
--- 4. Review Likes
+-- 4. Review Likes (본인 좋아요만 토글/삭제 가능)
 CREATE POLICY "Review likes are viewable by everyone" ON public.review_likes FOR SELECT USING (true);
 CREATE POLICY "Users can toggle own review likes" ON public.review_likes FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can delete own review likes" ON public.review_likes FOR DELETE USING (auth.uid() = user_id);
 
--- 5. Community Posts
+-- 5. Community Posts (조회는 전체 공개, 작성/수정/삭제는 본인 데이터만 가능)
 CREATE POLICY "Community posts are viewable by everyone" ON public.community_posts FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert community posts" ON public.community_posts FOR INSERT WITH CHECK (auth.uid() = author_id);
-CREATE POLICY "Authors can update own community posts" ON public.community_posts FOR UPDATE USING (auth.uid() = author_id);
-CREATE POLICY "Authors can delete own community posts" ON public.community_posts FOR DELETE USING (auth.uid() = author_id);
-CREATE POLICY "Allow admin delete on community posts" ON public.community_posts FOR DELETE USING (true);
+CREATE POLICY "Authors can update own community posts" ON public.community_posts FOR UPDATE USING (auth.uid() = author_id OR auth.role() = 'service_role');
+CREATE POLICY "Authors can delete own community posts" ON public.community_posts FOR DELETE USING (auth.uid() = author_id OR auth.role() = 'service_role');
 
--- 6. Post Likes
+-- 6. Post Likes (본인 좋아요만 토글/삭제 가능)
 CREATE POLICY "Post likes are viewable by everyone" ON public.post_likes FOR SELECT USING (true);
 CREATE POLICY "Users can toggle own post likes" ON public.post_likes FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can delete own post likes" ON public.post_likes FOR DELETE USING (auth.uid() = user_id);
 
--- 7. Review Comments
+-- 7. Review Comments (본인 댓글만 작성/삭제 가능)
 CREATE POLICY "Review comments are viewable by everyone" ON public.review_comments FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert review comments" ON public.review_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can delete own review comments" ON public.review_comments FOR DELETE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own review comments" ON public.review_comments FOR DELETE USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
--- 8. Post Comments
+-- 8. Post Comments (본인 댓글만 작성/삭제 가능)
 CREATE POLICY "Post comments are viewable by everyone" ON public.post_comments FOR SELECT USING (true);
 CREATE POLICY "Authenticated users can insert post comments" ON public.post_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can delete own post comments" ON public.post_comments FOR DELETE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own post comments" ON public.post_comments FOR DELETE USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
 -- Enable Realtime
 ALTER PUBLICATION supabase_realtime ADD TABLE public.products;
@@ -425,7 +423,9 @@ CREATE TABLE IF NOT EXISTS public.pending_products (
 
 ALTER TABLE public.pending_products ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Pending products are viewable by everyone" ON public.pending_products FOR SELECT USING (true);
-CREATE POLICY "Anyone can manage pending products in admin" ON public.pending_products FOR ALL USING (true);
+CREATE POLICY "Only service role can manage pending products" ON public.pending_products FOR ALL 
+    USING (auth.role() = 'service_role') 
+    WITH CHECK (auth.role() = 'service_role');
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.pending_products;
 
@@ -461,14 +461,21 @@ CREATE INDEX IF NOT EXISTS idx_device_tokens_user_id ON public.device_tokens (us
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.device_tokens ENABLE ROW LEVEL SECURITY;
 
+-- Notifications: 전체 조회 가능, 발송 및 삭제는 Service Role 전용
 CREATE POLICY "Notifications are viewable by everyone" ON public.notifications FOR SELECT USING (true);
-CREATE POLICY "Anyone can insert notifications" ON public.notifications FOR INSERT WITH CHECK (true);
-CREATE POLICY "Anyone can delete notifications" ON public.notifications FOR DELETE USING (true);
+CREATE POLICY "Only service role can manage notifications" ON public.notifications FOR ALL 
+    USING (auth.role() = 'service_role') 
+    WITH CHECK (auth.role() = 'service_role');
 
-CREATE POLICY "Device tokens are readable by everyone" ON public.device_tokens FOR SELECT USING (true);
-CREATE POLICY "Anyone can upsert device tokens" ON public.device_tokens FOR INSERT WITH CHECK (true);
-CREATE POLICY "Anyone can update own device tokens" ON public.device_tokens FOR UPDATE USING (true);
-CREATE POLICY "Anyone can delete device tokens" ON public.device_tokens FOR DELETE USING (true);
+-- Device Tokens: 사용자 본인 기기 토큰만 조회/수정/삭제 가능 (타인 토큰 열람 차단)
+CREATE POLICY "Users can only view own device tokens" ON public.device_tokens FOR SELECT 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
+CREATE POLICY "Users can insert own device tokens" ON public.device_tokens FOR INSERT 
+    WITH CHECK (auth.uid() = user_id OR user_id IS NULL OR auth.role() = 'service_role');
+CREATE POLICY "Users can update own device tokens" ON public.device_tokens FOR UPDATE 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
+CREATE POLICY "Users can delete own device tokens" ON public.device_tokens FOR DELETE 
+    USING (auth.uid() = user_id OR auth.role() = 'service_role');
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
 
@@ -516,3 +523,24 @@ END;
 $$;
 
 GRANT EXECUTE ON FUNCTION public.delete_user_account() TO authenticated;
+
+-- =========================================================
+-- 12. Supabase Storage Security Policies (Avatars & Review Images)
+-- =========================================================
+
+-- Public read access for avatars and review images
+-- INSERT/UPDATE/DELETE allowed only for authenticated user in their own folder
+CREATE POLICY "Public Read Avatars" ON storage.objects FOR SELECT USING (bucket_id = 'avatars');
+CREATE POLICY "Users can upload own avatar" ON storage.objects FOR INSERT 
+    WITH CHECK (bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can update own avatar" ON storage.objects FOR UPDATE 
+    USING (bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can delete own avatar" ON storage.objects FOR DELETE 
+    USING (bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]);
+
+CREATE POLICY "Public Read Reviews Images" ON storage.objects FOR SELECT USING (bucket_id = 'reviews');
+CREATE POLICY "Users can upload review images" ON storage.objects FOR INSERT 
+    WITH CHECK (bucket_id = 'reviews' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can delete own review images" ON storage.objects FOR DELETE 
+    USING (bucket_id = 'reviews' AND auth.uid()::text = (storage.foldername(name))[1]);
+

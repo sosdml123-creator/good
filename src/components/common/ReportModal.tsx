@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldAlert, UserX, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { safeLocalStorageGet, safeLocalStorageSet } from '../../utils/safeStorage';
 
 export interface ReportTarget {
   type: 'post' | 'review' | 'comment';
@@ -66,18 +67,18 @@ export const ReportModal: React.FC<ReportModalProps> = ({
       });
 
       // Mark reported items to hide them immediately for the reporting user
-      const hiddenIds = JSON.parse(localStorage.getItem('sinsangpick_hidden_ids') || '[]');
+      const hiddenIds = safeLocalStorageGet<string[]>('sinsangpick_hidden_ids', []);
       if (!hiddenIds.includes(target.id)) {
         hiddenIds.push(target.id);
-        localStorage.setItem('sinsangpick_hidden_ids', JSON.stringify(hiddenIds));
+        safeLocalStorageSet('sinsangpick_hidden_ids', hiddenIds);
       }
 
       // 2. Block author if checked
       if (shouldBlockAuthor && target.authorName) {
-        const blockedUsers = JSON.parse(localStorage.getItem('sinsangpick_blocked_users') || '[]');
+        const blockedUsers = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
         if (!blockedUsers.includes(target.authorName)) {
           blockedUsers.push(target.authorName);
-          localStorage.setItem('sinsangpick_blocked_users', JSON.stringify(blockedUsers));
+          safeLocalStorageSet('sinsangpick_blocked_users', blockedUsers);
         }
       }
     } catch (err) {

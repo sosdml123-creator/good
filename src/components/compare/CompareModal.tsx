@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
+import { safeLocalStorageGet, safeLocalStorageSet } from '../../utils/safeStorage';
 import { 
   ChevronLeft, 
   Star, 
@@ -141,12 +142,7 @@ export const CompareModal: React.FC = () => {
 
   // 댓글 목록 상태 (localStorage 연동)
   const [comments, setComments] = useState<BattleComment[]>(() => {
-    try {
-      const stored = localStorage.getItem('sinsangpick_battle_comments');
-      return stored ? JSON.parse(stored) : INITIAL_BATTLE_COMMENTS;
-    } catch {
-      return INITIAL_BATTLE_COMMENTS;
-    }
+    return safeLocalStorageGet<BattleComment[]>('sinsangpick_battle_comments', INITIAL_BATTLE_COMMENTS);
   });
 
   // 댓글 작성 관련 상태
@@ -160,11 +156,7 @@ export const CompareModal: React.FC = () => {
   const [replyTextMap, setReplyTextMap] = useState<{ [id: string]: string }>({});
 
   useEffect(() => {
-    try {
-      localStorage.setItem('sinsangpick_battle_comments', JSON.stringify(comments));
-    } catch (e) {
-      console.warn('Failed to save battle comments to localStorage:', e);
-    }
+    safeLocalStorageSet('sinsangpick_battle_comments', comments);
   }, [comments]);
 
   // 댓글 등록 핸들러

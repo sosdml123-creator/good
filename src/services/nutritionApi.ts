@@ -1,4 +1,5 @@
 import { NutritionInfo } from '../types';
+import { fetchWithTimeout } from '../utils/networkUtils';
 
 /**
  * 대한민국 식품의약품안전처 1일 영양성분 기준치 (2,000 kcal 기준)
@@ -133,7 +134,7 @@ export async function searchFoodNutrition(
   if (typeof window !== 'undefined') {
     try {
       const proxyUrl = `/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
-      const res = await fetch(proxyUrl);
+      const res = await fetchWithTimeout(proxyUrl, undefined, 8000);
       if (res.ok) {
         const data = await res.json();
         if (data?.body?.items && Array.isArray(data.body.items)) {
@@ -155,9 +156,9 @@ export async function searchFoodNutrition(
                    DEFAULT_API_KEY;
     const directUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
 
-    const res = await fetch(directUrl);
+    const res = await fetchWithTimeout(directUrl, undefined, 8000);
     if (!res.ok) {
-      throw new Error(`Direct API returned HTTP status ${res.status}`);
+      throw new Error(`식약처 API 응답 오류 (HTTP ${res.status})`);
     }
 
     const data = await res.json();

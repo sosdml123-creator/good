@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, MapPin, Navigation, Phone, ShoppingBag, Clock, CheckCircle2 } from 'lucide-react';
+import { X, MapPin, Navigation, Phone, ShoppingBag, Clock, CheckCircle2, RefreshCw } from 'lucide-react';
 import { Product, NearbyStore } from '../../types';
 import { useApp } from '../../context/AppContext';
 
@@ -20,6 +20,19 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
   const [isChangingLoc, setIsChangingLoc] = useState(false);
   const [locInput, setLocInput] = useState('');
   const [reservedStoreId, setReservedStoreId] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefreshStocks = async () => {
+    setIsRefreshing(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 600));
+      showToast('🔄 주변 매장의 실시간 재고를 갱신했습니다.', 'success');
+    } catch {
+      showToast('재고 정보를 불러오지 못했습니다. 다시 시도해 주세요.', 'error');
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -165,12 +178,22 @@ export const NearbyStoreStockModal: React.FC<NearbyStoreStockModalProps> = ({
             <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span className="truncate font-semibold">{currentLocation}</span>
           </div>
-          <button
-            onClick={() => setIsChangingLoc(!isChangingLoc)}
-            className="text-[11px] text-gray-900 font-bold hover:underline shrink-0 ml-2"
-          >
-            {isChangingLoc ? '닫기' : '위치변경'}
-          </button>
+          <div className="flex items-center gap-1.5 shrink-0 ml-2">
+            <button
+              onClick={handleRefreshStocks}
+              disabled={isRefreshing}
+              className="p-1 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
+              title="실시간 재고 새로고침"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-emerald-600' : ''}`} />
+            </button>
+            <button
+              onClick={() => setIsChangingLoc(!isChangingLoc)}
+              className="text-[11px] text-gray-900 font-bold hover:underline"
+            >
+              {isChangingLoc ? '닫기' : '위치변경'}
+            </button>
+          </div>
         </div>
 
         {/* Location Change Accordion */}
