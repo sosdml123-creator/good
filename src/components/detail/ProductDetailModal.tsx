@@ -18,8 +18,6 @@ import {
   Sparkles,
   Flame,
   Layers,
-  AlertTriangle,
-  Check,
   Heart
 } from 'lucide-react';
 import { StoreStockItem, NutritionInfo } from '../../types';
@@ -955,51 +953,6 @@ export const ProductDetailModal: React.FC = () => {
             </p>
           </div>
 
-          {/* 3. Ingredients & Allergen Warning */}
-          <div className="bg-white px-4 py-4 border-b border-gray-100 space-y-3">
-            <div className="flex items-center gap-1.5">
-              <AlertTriangle className="w-4 h-4 text-amber-500" />
-              <span className="text-[14px] font-bold text-gray-900">원재료명 및 알레르기 유발물질</span>
-            </div>
-
-            {/* Allergen Badges */}
-            <div>
-              <span className="text-[11px] font-bold text-gray-600 block mb-1.5">알레르기 유발 물질 안내</span>
-              {selectedProduct.allergens && selectedProduct.allergens.length > 0 ? (
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedProduct.allergens.map((alg) => (
-                    <span 
-                      key={alg} 
-                      className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1"
-                    >
-                      <span>⚠️</span>
-                      <span>{alg} 함유</span>
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <Check className="w-3.5 h-3.5" />
-                  주요 알레르기 유발물질 없음 (순수 원물)
-                </span>
-              )}
-            </div>
-
-            {/* Ingredients full text */}
-            <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 text-xs">
-              <span className="font-bold text-gray-700 block mb-1">원재료명 및 함량</span>
-              <p className="text-gray-600 leading-relaxed">
-                {selectedProduct.ingredients || `${selectedProduct.name} 고유 성분 및 원재료 (제품 후면 표기 참조)`}
-              </p>
-            </div>
-
-            {selectedProduct.precautions && (
-              <div className="p-2.5 bg-rose-50/50 rounded-xl border border-rose-100 text-[11px] text-rose-800">
-                <span className="font-bold">섭취 시 주의사항: </span>
-                <span>{selectedProduct.precautions}</span>
-              </div>
-            )}
-          </div>
 
           {/* 4. Brand Rankings (if available) */}
           {selectedProduct.brandRankings && selectedProduct.brandRankings.length > 0 && (
