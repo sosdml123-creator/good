@@ -394,7 +394,7 @@ export const WriteReviewModal: React.FC = () => {
         rating,
         { taste: metric1, value: metric2, portion: metric3, repurchase: metric4 },
         text.trim().slice(0, 300),
-        images.length > 0 ? images : [prod.image],
+        images.length > 0 ? images : [],
         extraTags,
         {
           purchasePlace,

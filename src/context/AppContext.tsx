@@ -3088,7 +3088,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       rating,
       detailedRating,
       content: content ? content.slice(0, 300) : '맛있게 잘 먹었습니다! 적극 추천합니다.',
-      images: images && images.length > 0 ? images : [targetProduct.image],
+      images: images && images.length > 0 ? images : [],
       likes: 0,
       isLiked: false,
       commentsCount: 0,
