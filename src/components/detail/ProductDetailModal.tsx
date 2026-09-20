@@ -781,28 +781,24 @@ export const ProductDetailModal: React.FC = () => {
                 <span className="text-gray-900 font-bold">{selectedProduct.brand}</span>
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">원산지 / 생산지</span>
-                <span className="text-gray-900 font-medium">{selectedProduct.origin || (selectedProduct.itemType === 'fresh' ? '국내산 산지직송' : '대한민국')}</span>
-              </div>
-              <div className="flex py-2.5 px-3">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">제조원 / 유통원</span>
                 <span className="text-gray-900">{selectedProduct.manufacturer || `${selectedProduct.brand} 공식 파트너`}</span>
               </div>
-              <div className="flex py-2.5 px-3 bg-gray-50/60">
+              <div className="flex py-2.5 px-3">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">출시 / 제철</span>
                 <span className="text-gray-900">{selectedProduct.releaseDate || '상시 판매'}</span>
               </div>
-              <div className="flex py-2.5 px-3">
+              <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">규격 / 내용량</span>
                 <span className="text-gray-900">{selectedProduct.volume || '상세 규격 참조'}</span>
               </div>
-              <div className="flex py-2.5 px-3 bg-gray-50/60">
+              <div className="flex py-2.5 px-3">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">총 열량(칼로리)</span>
                 <span className="text-gray-900 font-bold">
                   {selectedProduct.calories ? `${selectedProduct.calories} kcal` : (selectedProduct.itemType === 'fresh' ? '신선 자연식품' : '상세 표기 참조')}
                 </span>
               </div>
-              <div className="flex py-2.5 px-3">
+              <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">보관 방법</span>
                 <span className="text-gray-900">
                   {selectedProduct.storageMethod || (
@@ -814,11 +810,11 @@ export const ProductDetailModal: React.FC = () => {
                   )}
                 </span>
               </div>
-              <div className="flex py-2.5 px-3 bg-gray-50/60">
+              <div className="flex py-2.5 px-3">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">소비 / 유통기한</span>
                 <span className="text-gray-900">{selectedProduct.shelfLife || '제품 후면 별도 표기일까지'}</span>
               </div>
-              <div className="flex py-2.5 px-3">
+              <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">소비자 재구매율</span>
                 <span className="text-emerald-700 font-black">{selectedProduct.repurchasePercent || 95}% 추천</span>
               </div>
