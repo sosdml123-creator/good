@@ -86,6 +86,38 @@ export const saveDeviceToken = async (record: DeviceTokenRecord): Promise<boolea
 };
 
 /**
+ * Delete device token from Supabase and local storage
+ */
+export const deleteDeviceToken = async (token?: string): Promise<boolean> => {
+  const tokenToDelete = token || currentDeviceToken;
+  currentDeviceToken = null;
+  try {
+    localStorage.removeItem('sinsangpick_device_token');
+    localStorage.removeItem('sinsangpick_device_platform');
+  } catch (e) {
+    // ignore
+  }
+
+  if (!tokenToDelete || !supabase) return false;
+
+  try {
+    const { error } = await supabase
+      .from('device_tokens')
+      .delete()
+      .eq('token', tokenToDelete);
+
+    if (error) {
+      console.warn('[Notification Service] Device token delete warning:', error.message);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('[Notification Service] Failed to delete device token:', err);
+    return false;
+  }
+};
+
+/**
  * Initialize Push Notifications for Native iOS/Android and Web
  */
 export const initPushNotifications = async (callbacks: {
@@ -474,16 +506,15 @@ export const getFcmStatus = async (): Promise<FcmStatusInfo> => {
   };
 };
 
-/**
- * Helper to format relative time
- */
-function formatRelativeTime(dateStr: string): string {
+export function formatRelativeTime(dateStr?: string | null): string {
   try {
+    if (!dateStr) return '방금 전';
     const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return '방금 전';
     const now = new Date();
     const diffSec = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    if (diffSec < 60) return '방금 전';
+    if (diffSec < 0 || diffSec < 60) return '방금 전';
     if (diffSec < 3600) return `${Math.floor(diffSec / 60)}분 전`;
     if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}시간 전`;
     if (diffSec < 604800) return `${Math.floor(diffSec / 86400)}일 전`;

@@ -111,12 +111,12 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             id: notifId,
-            title,
-            body,
-            type,
-            target_id: targetId || null,
-            image_url: imageUrl || null,
-            badge
+            title: cleanTitle,
+            body: cleanBody,
+            type: safeType,
+            target_id: safeTargetId || null,
+            image_url: safeImageUrl || null,
+            badge: safeBadge
           })
         });
         if (insertRes.ok) {
@@ -166,18 +166,18 @@ export default async function handler(req, res) {
           const fcmPayload = {
             registration_ids: chunk,
             notification: {
-              title: title,
-              body: body,
-              image: imageUrl || undefined,
+              title: cleanTitle,
+              body: cleanBody,
+              image: safeImageUrl || undefined,
               sound: 'default'
             },
             data: {
-              title: title,
-              body: body,
-              type: type,
-              targetId: String(targetId || ''),
-              imageUrl: String(imageUrl || ''),
-              badge: String(badge || '')
+              title: cleanTitle,
+              body: cleanBody,
+              type: safeType,
+              targetId: safeTargetId,
+              imageUrl: safeImageUrl,
+              badge: safeBadge
             },
             priority: 'high'
           };
@@ -216,12 +216,12 @@ export default async function handler(req, res) {
       success: true,
       notification: {
         id: notifId,
-        title,
-        body,
-        type,
-        targetId,
-        imageUrl,
-        badge,
+        title: cleanTitle,
+        body: cleanBody,
+        type: safeType,
+        targetId: safeTargetId,
+        imageUrl: safeImageUrl,
+        badge: safeBadge,
         createdAt: new Date().toISOString()
       },
       dbSaved,

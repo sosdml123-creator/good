@@ -84,7 +84,8 @@ import {
   initPushNotifications,
   subscribeToNotifications,
   fetchNotificationsFromSupabase,
-  sendAdminPushNotification
+  sendAdminPushNotification,
+  deleteDeviceToken
 } from '../services/notificationService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
@@ -3051,9 +3052,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (supabase && isSupabaseConfigured) {
         await signOutSupabase();
       }
+      deleteDeviceToken().catch(() => {});
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
       localStorage.removeItem('sinsangpick_points');
+      localStorage.removeItem('sinsangpick_photo');
+      localStorage.removeItem('sinsangpick_user_profile');
       localStorage.removeItem('sinsangpick_guest_browse');
       setIsGuestBrowseState(false);
       const initialUser = createInitialUser();
@@ -3084,11 +3088,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       }
 
+      // 디바이스 푸시 토큰 레코드 및 로컬 저장소 완전 파기
+      try {
+        await deleteDeviceToken();
+      } catch {}
+
       // 2. 로컬 스토리지에 저장된 사용자 고유 데이터 및 캐시 일괄 영구 파기
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
       localStorage.removeItem('sinsangpick_points');
       localStorage.removeItem('sinsangpick_photo');
+      localStorage.removeItem('sinsangpick_user_profile');
       localStorage.removeItem('sinsangpick_bookmarks');
       localStorage.removeItem('sinsangpick_compared');
       localStorage.removeItem('sinsangpick_recent_searches');
@@ -3098,6 +3108,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_battle_choice');
       localStorage.removeItem('sinsangpick_review_likes');
       localStorage.removeItem('sinsangpick_post_likes');
+      localStorage.removeItem('sinsangpick_push_enabled');
+      localStorage.removeItem('sinsangpick_marketing_agreed');
+      localStorage.removeItem('sinsangpick_marketing_agreed_date');
+      localStorage.removeItem('sinsangpick_nickname_onboarded');
 
       try {
         const keysToRemove: string[] = [];
