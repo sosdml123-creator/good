@@ -79,7 +79,11 @@ import {
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { 
-  requestPushPermission as requestPushPermissionService 
+  requestPushPermission as requestPushPermissionService,
+  initPushNotifications,
+  subscribeToNotifications,
+  fetchNotificationsFromSupabase,
+  sendAdminPushNotification
 } from '../services/notificationService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
@@ -3484,14 +3488,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('🎁 이벤트 신청이 완료되었습니다! (+50P 적립)', 'success');
   };
 
-  // Send Push Notification
-  const sendPushNotification = (notif: {
+  // Send Push Notification (Dispatches to Supabase Realtime & Device Push)
+  const sendPushNotification = async (notif: {
     title: string;
     body: string;
     type: 'event' | 'product' | 'notice';
     targetId: string;
     imageUrl?: string;
     badge?: string;
+    tokens?: string[];
   }) => {
     const newNotif: AppNotification = {
       id: 'notif-' + Date.now(),
@@ -3502,9 +3507,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       imageUrl: notif.imageUrl,
       timestamp: '방금 전',
       isRead: false,
-      badge: notif.badge || (notif.type === 'event' ? '이벤트' : '알림'),
+      badge: notif.badge || (notif.type === 'event' ? '이벤트' : notif.type === 'product' ? '신제품' : '알림'),
     };
 
+    // 로컬 상태 즉시 반영 (관리자 본인 화면에 즉각 표시)
     setNotifications(prev => [newNotif, ...prev]);
     setIncomingPush(newNotif);
 
@@ -3531,6 +3537,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         Notification.requestPermission();
       }
     }
+
+    // 🚀 Supabase Realtime 및 디바이스 푸시로 전체 기기 브로드캐스트 전송
+    try {
+      const res = await sendAdminPushNotification({
+        title: notif.title,
+        body: notif.body,
+        type: notif.type,
+        targetId: notif.targetId,
+        imageUrl: notif.imageUrl,
+        badge: newNotif.badge,
+        tokens: notif.tokens
+      });
+      if (res && res.success) {
+        showToast('📢 푸시 알림이 모든 사용자 기기로 실시간 발송되었습니다!', 'success');
+      }
+    } catch (err) {
+      console.warn('[AppContext] sendPushNotification broadcast warning:', err);
+    }
   };
 
   const dismissIncomingPush = () => {
@@ -3548,6 +3572,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const refreshNotifications = async () => {
     try {
+      const remote = await fetchNotificationsFromSupabase();
+      if (remote && remote.length > 0) {
+        setNotifications(remote);
+        localStorage.setItem('sinsangpick_notifications', JSON.stringify(remote));
+        return;
+      }
       const stored = localStorage.getItem('sinsangpick_notifications');
       if (stored) {
         setNotifications(JSON.parse(stored));
@@ -3556,6 +3586,68 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // fallback
     }
   };
+
+  // 🔔 Supabase Realtime 알림 구독 및 디바이스 푸시 등록 초기화
+  useEffect(() => {
+    let channel: any = null;
+
+    // 1. Supabase에서 최신 알림 내역 동기화
+    fetchNotificationsFromSupabase().then(remoteNotifs => {
+      if (remoteNotifs && remoteNotifs.length > 0) {
+        setNotifications(prev => {
+          const existingIds = new Set(prev.map(n => n.id));
+          const newOnes = remoteNotifs.filter(n => !existingIds.has(n.id));
+          return newOnes.length > 0 ? [...newOnes, ...prev] : prev;
+        });
+      }
+    }).catch(err => {
+      console.warn('[AppContext] fetchNotificationsFromSupabase warning:', err);
+    });
+
+    // 2. Supabase Realtime 채널 구독 (다른 기기나 관리자가 보낸 알림을 실시간 수신)
+    channel = subscribeToNotifications((newNotif) => {
+      console.log('[AppContext] Realtime notification received:', newNotif);
+      setNotifications(prev => {
+        if (prev.some(n => n.id === newNotif.id)) return prev;
+        return [newNotif, ...prev];
+      });
+      setIncomingPush(newNotif);
+
+      // 모바일 진동 햅틱 지원 시 실행
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        try {
+          navigator.vibrate([100, 50, 100]);
+        } catch {}
+      }
+    });
+
+    // 3. 디바이스 푸시 초기화 (권한 확인, APNs/FCM 토큰 발급 및 Supabase device_tokens 저장)
+    initPushNotifications({
+      userId: currentUser?.uid,
+      userName: currentUser?.displayName,
+      onNotificationReceived: (notif) => {
+        console.log('[AppContext] Push notification received foreground:', notif);
+        setNotifications(prev => {
+          if (prev.some(n => n.id === notif.id)) return prev;
+          return [notif, ...prev];
+        });
+        setIncomingPush(notif);
+      },
+      onNotificationActionPerformed: (targetId, type) => {
+        if (type === 'event') {
+          openEventDetail(targetId);
+        } else if (type === 'product') {
+          openProductDetail(targetId);
+        }
+      }
+    });
+
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
+  }, [currentUser?.uid, currentUser?.displayName]);
 
   const requestPushPermission = async (): Promise<boolean> => {
     try {
