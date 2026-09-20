@@ -1,17 +1,8 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { ArrowRight } from 'lucide-react';
 
 export const AuthOnboardingView: React.FC = () => {
-  const { loginWithApple, loginWithKakao, setIsGuestBrowse, openPermissionModal } = useApp();
-
-  const handleGuestBrowse = () => {
-    setIsGuestBrowse(true);
-    const reviewed = localStorage.getItem('sinsangpick_permissions_reviewed');
-    if (!reviewed) {
-      openPermissionModal();
-    }
-  };
+  const { loginWithApple, loginWithKakao } = useApp();
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
@@ -66,17 +57,6 @@ export const AuthOnboardingView: React.FC = () => {
               </svg>
               <span>카카오로 시작하기</span>
             </button>
-
-            {/* Guest Browse Option */}
-            <div className="pt-2 text-center">
-              <button
-                onClick={handleGuestBrowse}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-gray-400 hover:text-gray-700 transition-colors py-1 cursor-pointer"
-              >
-                <span>로그인 없이 둘러보기</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
           </div>
         </div>
 
