@@ -94,13 +94,12 @@ export function mapToKamisPriceInfo(item: RawKamisItem, latestDateStr?: string):
   const trend: 'up' | 'down' | 'same' = priceChange > 0 ? 'up' : priceChange < 0 ? 'down' : 'same';
 
   const trends: KamisPriceTrendItem[] = [
-    { period: '당일', dateLabel: item.day1 || '당일', price: todayPrice },
-    { period: '1일전', dateLabel: item.day2 || '1일전', price: prevDayPrice },
-    { period: '1주일전', dateLabel: item.day3 || '1주일전', price: weekAgoPrice },
-    { period: '2주일전', dateLabel: item.day4 || '2주일전', price: twoWeeksAgoPrice },
-    { period: '1개월전', dateLabel: item.day5 || '1달전', price: monthAgoPrice },
     { period: '1년전', dateLabel: item.day6 || '1년전', price: yearAgoPrice },
-    { period: '평년', dateLabel: item.day7 || '평년', price: averageYearPrice }
+    { period: '1개월전', dateLabel: item.day5 || '1달전', price: monthAgoPrice },
+    { period: '2주일전', dateLabel: item.day4 || '2주일전', price: twoWeeksAgoPrice },
+    { period: '1주일전', dateLabel: item.day3 || '1주일전', price: weekAgoPrice },
+    { period: '1일전', dateLabel: item.day2 || '1일전', price: prevDayPrice },
+    { period: '당일', dateLabel: item.day1 || '당일', price: todayPrice }
   ].filter(t => t.price > 0);
 
   return {

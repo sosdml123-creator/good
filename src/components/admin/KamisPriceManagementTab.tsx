@@ -7,10 +7,12 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { SafeImage } from '../common/SafeImage';
+import { KamisPriceTrendChart } from '../detail/KamisPriceTrendChart';
 
 export const KamisPriceManagementTab: React.FC = () => {
   const { products, kamisPriceStatus, refreshKamisPrices, showToast } = useApp();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   // 농수산물 품목들만 필터링
   const agriProducts = products.filter(p => 
@@ -115,67 +117,85 @@ export const KamisPriceManagementTab: React.FC = () => {
             return (
               <div 
                 key={prod.id} 
-                className="p-3.5 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-white hover:border-emerald-200 transition-all shadow-2xs flex gap-3"
+                className={`p-3.5 rounded-xl border transition-all shadow-2xs flex flex-col gap-3 ${
+                  expandedId === prod.id 
+                    ? 'border-emerald-300 bg-white ring-2 ring-emerald-100' 
+                    : 'border-gray-100 bg-gray-50/50 hover:bg-white hover:border-emerald-200'
+                }`}
               >
-                <SafeImage
-                  src={prod.image}
-                  alt={prod.name}
-                  fallbackCategory={prod.category}
-                  fallbackName={prod.name}
-                  className="w-16 h-16 rounded-lg object-cover bg-white shrink-0 border border-gray-100"
-                />
+                <div className="flex gap-3 items-start cursor-pointer" onClick={() => setExpandedId(prev => prev === prod.id ? null : prod.id)}>
+                  <SafeImage
+                    src={prod.image}
+                    alt={prod.name}
+                    fallbackCategory={prod.category}
+                    fallbackName={prod.name}
+                    className="w-16 h-16 rounded-lg object-cover bg-white shrink-0 border border-gray-100"
+                  />
 
-                <div className="min-w-0 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.2 rounded">
-                        {prod.category} · {prod.subCategory || '원물'}
-                      </span>
-                      {prod.origin && (
-                        <span className="text-[10px] text-gray-500">{prod.origin.split(' ')[0]}</span>
-                      )}
+                  <div className="min-w-0 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.2 rounded">
+                          {prod.category} · {prod.subCategory || '원물'}
+                        </span>
+                        {prod.origin && (
+                          <span className="text-[10px] text-gray-500">{prod.origin.split(' ')[0]}</span>
+                        )}
+                        {kamis && (
+                          <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100/70 px-1.5 py-0.2 rounded ml-auto">
+                            {expandedId === prod.id ? '그래프 접기 ▲' : '그래프 보기 ▼'}
+                          </span>
+                        )}
+                      </div>
+                      <h4 className="text-xs font-bold text-gray-900 truncate mt-0.5">{prod.name}</h4>
                     </div>
-                    <h4 className="text-xs font-bold text-gray-900 truncate mt-0.5">{prod.name}</h4>
+
+                    {kamis ? (
+                      <div className="mt-2 pt-2 border-t border-gray-100 flex items-end justify-between flex-wrap gap-1">
+                        <div>
+                          <div className="text-[10px] text-gray-400">
+                            KAMIS 공시 ({kamis.itemName} / {kamis.kindName || kamis.unit})
+                          </div>
+                          <div className="text-xs font-black text-gray-900">
+                            {kamis.todayPrice.toLocaleString()}원 <span className="text-[10px] text-gray-500 font-normal">/ {kamis.unit}</span>
+                          </div>
+                        </div>
+
+                        <div className="text-right">
+                          {kamis.trend === 'up' && (
+                            <span className="text-[11px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                              <TrendingUp className="w-3 h-3" />
+                              <span>▲ +{kamis.priceChange.toLocaleString()}원 (+{kamis.changeRate}%)</span>
+                            </span>
+                          )}
+                          {kamis.trend === 'down' && (
+                            <span className="text-[11px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                              <TrendingDown className="w-3 h-3" />
+                              <span>▼ {Math.abs(kamis.priceChange).toLocaleString()}원 ({kamis.changeRate}%)</span>
+                            </span>
+                          )}
+                          {kamis.trend === 'same' && (
+                            <span className="text-[11px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">
+                              - 보합
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                        <span>KAMIS 시세 대기 중</span>
+                        <span className="text-[11px] font-bold text-gray-700">판매가 {(prod.price || 0).toLocaleString()}원</span>
+                      </div>
+                    )}
                   </div>
-
-                  {kamis ? (
-                    <div className="mt-2 pt-2 border-t border-gray-100 flex items-end justify-between flex-wrap gap-1">
-                      <div>
-                        <div className="text-[10px] text-gray-400">
-                          KAMIS 공시 ({kamis.itemName} / {kamis.kindName || kamis.unit})
-                        </div>
-                        <div className="text-xs font-black text-gray-900">
-                          {kamis.todayPrice.toLocaleString()}원 <span className="text-[10px] text-gray-500 font-normal">/ {kamis.unit}</span>
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        {kamis.trend === 'up' && (
-                          <span className="text-[11px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full flex items-center gap-0.5">
-                            <TrendingUp className="w-3 h-3" />
-                            <span>▲ +{kamis.priceChange.toLocaleString()}원 (+{kamis.changeRate}%)</span>
-                          </span>
-                        )}
-                        {kamis.trend === 'down' && (
-                          <span className="text-[11px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full flex items-center gap-0.5">
-                            <TrendingDown className="w-3 h-3" />
-                            <span>▼ {Math.abs(kamis.priceChange).toLocaleString()}원 ({kamis.changeRate}%)</span>
-                          </span>
-                        )}
-                        {kamis.trend === 'same' && (
-                          <span className="text-[11px] font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">
-                            - 보합
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
-                      <span>KAMIS 시세 대기 중</span>
-                      <span className="text-[11px] font-bold text-gray-700">판매가 {(prod.price || 0).toLocaleString()}원</span>
-                    </div>
-                  )}
                 </div>
+
+                {/* Expandable Trend Chart */}
+                {expandedId === prod.id && kamis && (
+                  <div className="pt-2 border-t border-gray-100 animate-in fade-in duration-200">
+                    <KamisPriceTrendChart priceInfo={kamis} />
+                  </div>
+                )}
               </div>
             );
           })}

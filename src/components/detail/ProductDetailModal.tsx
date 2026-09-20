@@ -32,6 +32,7 @@ import { ProductEditRequestModal } from './ProductEditRequestModal';
 import { NearbyStoreStockModal } from './NearbyStoreStockModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { ReportModal } from '../common/ReportModal';
+import { KamisPriceTrendChart } from './KamisPriceTrendChart';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -406,22 +407,9 @@ export const ProductDetailModal: React.FC = () => {
               </div>
             )}
 
-            {/* 최근 기간별 가격 변동 추이 타임라인 */}
+            {/* 📈 공시 기간별 시세 변동 인터랙티브 그래프 */}
             {selectedProduct.kamisPriceInfo.trends && selectedProduct.kamisPriceInfo.trends.length > 1 && (
-              <div className="mt-2.5 pt-2 border-t border-emerald-100">
-                <div className="text-[10px] font-bold text-gray-500 mb-1.5 flex items-center justify-between">
-                  <span>공시 기간별 시세 추이</span>
-                  <span className="text-[9px] text-gray-400">aT 한국농수산식품유통공사</span>
-                </div>
-                <div className="grid grid-cols-4 gap-1.5 text-center">
-                  {selectedProduct.kamisPriceInfo.trends.slice(0, 4).map((t, idx) => (
-                    <div key={idx} className="bg-white/90 p-1.5 rounded-lg border border-emerald-100 shadow-2xs">
-                      <div className="text-[10px] text-gray-500">{t.period}</div>
-                      <div className="text-[11px] font-black text-gray-900 mt-0.5">{t.price.toLocaleString()}원</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <KamisPriceTrendChart priceInfo={selectedProduct.kamisPriceInfo} className="mt-3" />
             )}
           </div>
         )}

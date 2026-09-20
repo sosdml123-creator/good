@@ -45,6 +45,8 @@ describe('KAMIS API & Produce Price Fluctuation Service', () => {
     expect(info.monthAgoPrice).toBe(30232);
     expect(info.monthAgoChangeRate).toBe(-24.1);
     expect(info.trends.length).toBeGreaterThanOrEqual(4);
+    expect(info.trends[info.trends.length - 1].period).toBe('당일');
+    expect(info.trends[0].period).toBe('1개월전');
   });
 
   it('matchProductToKamisPrice should match apple, beef, and seafood products to respective KAMIS items', () => {
