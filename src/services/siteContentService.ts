@@ -69,9 +69,12 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   }
 
   // 2. Fallback to /api/site-content if Supabase didn't return banners
-  if (!banners && !Capacitor.isNativePlatform()) {
+  if (!banners) {
     try {
-      const apiRes = await fetchWithTimeout('/api/site-content', {
+      const apiEndpoint = Capacitor.isNativePlatform() 
+        ? 'https://sinsangpick.vercel.app/api/site-content' 
+        : '/api/site-content';
+      const apiRes = await fetchWithTimeout(apiEndpoint, {
         headers: { 'Accept': 'application/json' }
       }, 5000);
       if (apiRes.ok) {

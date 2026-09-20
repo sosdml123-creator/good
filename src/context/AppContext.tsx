@@ -844,8 +844,8 @@ export const normalizeBanners = (bannerList: BannerItem[]): BannerItem[] => {
 
 /**
  * Smart merge function for banners:
- * Guarantees that official INITIAL_BANNERS are always fresh with latest title, image, links, order,
- * while respecting admin deletions (deletedBannerIds) and preserving any custom banners created by the admin.
+ * When remote/stored banners exist (from server DB or admin action), they represent the single source of truth.
+ * INITIAL_BANNERS is only used as an offline/first-install fallback when no stored banners exist.
  */
 export const smartMergeBanners = (
   storedBanners: BannerItem[] | null,
@@ -853,34 +853,16 @@ export const smartMergeBanners = (
   deletedBannerIds: string[] = []
 ): BannerItem[] => {
   const deletedSet = new Set(deletedBannerIds);
-  const validInitial = initialBanners.filter(b => !deletedSet.has(b.id));
 
-  // If storedBanners is completely null/undefined (first run or offline fallback), return valid initial banners
-  if (!storedBanners || !Array.isArray(storedBanners)) {
-    return normalizeBanners(validInitial);
+  // If storedBanners is explicitly provided (from server DB or user admin), that is the source of truth!
+  if (storedBanners && Array.isArray(storedBanners)) {
+    const validStored = storedBanners.filter(b => !deletedSet.has(b.id));
+    return normalizeBanners(validStored);
   }
 
-  const initialMap = new Map<string, BannerItem>();
-  validInitial.forEach(b => initialMap.set(b.id, b));
-
-  // Filter stored banners by deletedSet
-  const filteredStored = storedBanners.filter(b => !deletedSet.has(b.id));
-
-  // 1. Prioritize stored banners order and configuration
-  const mergedFromStored: BannerItem[] = filteredStored.map(stored => {
-    const initB = initialMap.get(stored.id);
-    if (initB) {
-      return {
-        ...initB,
-        ...stored,
-        isActive: stored.isActive ?? initB.isActive,
-        order: stored.order ?? initB.order,
-      };
-    }
-    return stored;
-  });
-
-  return normalizeBanners(mergedFromStored);
+  // Fallback: only when there is no remote/stored banners at all (pure initial offline state)
+  const validInitial = initialBanners.filter(b => !deletedSet.has(b.id));
+  return normalizeBanners(validInitial);
 };
 
 /**
@@ -2000,6 +1982,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           console.warn('[Web Auth Callback] Exception processing URL callback:', e);
         }
       }
+
+      // Fetch remote banners and sections immediately without waiting for auth
+      refreshRemoteContent().catch(() => {});
 
       const { user } = await ensureSupabaseAuth();
       if (!isMounted || !user) return;
@@ -3613,7 +3598,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(list);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
     showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다! (클라우드 동기화 완료)', 'success');
@@ -3634,7 +3619,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(next);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections).catch(() => {});
+      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
       return normalized;
     });
     showToast('배너 구좌 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
