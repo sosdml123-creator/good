@@ -982,32 +982,7 @@ export const ProductDetailModal: React.FC = () => {
             )}
           </div>
 
-          {/* 4. Certification / Safety Standards */}
-          <div className="bg-white px-4 py-4 border-b border-gray-100">
-            <div className="flex items-center gap-1.5 mb-3">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span className="text-[14px] font-bold text-gray-900">안심 인증 및 검증</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2 text-center text-xs">
-              <div className="p-2.5 rounded-xl border border-gray-100 bg-gray-50">
-                <span className="text-lg block">🏅</span>
-                <span className="font-bold text-gray-800 block mt-1">HACCP 인증</span>
-                <span className="text-[10px] text-gray-400">위생안전 검증</span>
-              </div>
-              <div className="p-2.5 rounded-xl border border-gray-100 bg-gray-50">
-                <span className="text-lg block">🌱</span>
-                <span className="font-bold text-gray-800 block mt-1">품질보증</span>
-                <span className="text-[10px] text-gray-400">엄선된 원재료</span>
-              </div>
-              <div className="p-2.5 rounded-xl border border-gray-100 bg-gray-50">
-                <span className="text-lg block">❄️</span>
-                <span className="font-bold text-gray-800 block mt-1">콜드체인</span>
-                <span className="text-[10px] text-gray-400">신선온도 유지</span>
-              </div>
-            </div>
-          </div>
-
-          {/* 5. Brand Rankings (if available) */}
+          {/* 4. Brand Rankings (if available) */}
           {selectedProduct.brandRankings && selectedProduct.brandRankings.length > 0 && (
             <div className="bg-white px-4 py-4 border-b border-gray-100">
               <div className="flex items-center justify-between mb-3">
