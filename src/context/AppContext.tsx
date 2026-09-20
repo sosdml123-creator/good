@@ -2786,8 +2786,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           uid: demoUid,
           displayName: nextNickname,
           photoURL: DEFAULT_AVATAR,
-          level: 'Lv.2',
-          points: 250,
+          level: 'Lv.1',
+          points: 100,
           isAnonymous: false,
           provider: 'apple',
           email: 'user@icloud.com',
@@ -2795,7 +2795,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentUser(demoUser);
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
-        localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
@@ -2895,8 +2895,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           uid: demoUid,
           displayName: nextNickname,
           photoURL: DEFAULT_AVATAR,
-          level: 'Lv.2',
-          points: 250,
+          level: 'Lv.1',
+          points: 100,
           isAnonymous: false,
           provider: 'google',
           email: 'user@gmail.com',
@@ -2904,7 +2904,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentUser(demoUser);
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
-        localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
@@ -2928,8 +2928,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           uid: demoUid,
           displayName: nextNickname,
           photoURL: DEFAULT_AVATAR,
-          level: 'Lv.2',
-          points: 250,
+          level: 'Lv.1',
+          points: 100,
           isAnonymous: false,
           provider: 'kakao',
           email: 'user@kakao.com',
@@ -2937,7 +2937,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentUser(demoUser);
         localStorage.setItem('sinsangpick_uid', demoUid);
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
-        localStorage.setItem('sinsangpick_points', '250');
+        localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
@@ -3055,8 +3055,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setComparedIds([]);
       setRecentSearches([]);
       setAlertCategories([]);
-      setReviewLikes([]);
-      setPostLikes([]);
+      setLikedReviewIds([]);
+      setLikedPostIds([]);
       setActiveTabState('home');
       showToast('회원 탈퇴 및 계정 삭제가 정상적으로 완료되었습니다.', 'info');
     } catch (err) {
