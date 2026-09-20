@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { ChevronLeft, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check, ExternalLink } from 'lucide-react';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
 import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
 import { SafeImage } from '../common/SafeImage';
+import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 
@@ -36,6 +37,18 @@ export const DiscoverView: React.FC = () => {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const subCats = SUBCATEGORIES_MAP[selectedCategory] || [];
+
+  const categoryScroll = useHorizontalScroll<HTMLDivElement>();
+  const subCategoryScroll = useHorizontalScroll<HTMLDivElement>();
+  const categoryBtnRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  // Auto-scroll active category button into view when selectedCategory changes
+  useEffect(() => {
+    const activeBtn = categoryBtnRefs.current[selectedCategory];
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [selectedCategory]);
 
   // Reset displayLimit on category or filter change
   useEffect(() => {
@@ -134,44 +147,103 @@ export const DiscoverView: React.FC = () => {
         </div>
 
         {/* 1차 Category horizontal scroll tabs */}
-        <div className="flex overflow-x-auto no-scrollbar px-2 pb-0.5 border-b border-gray-100">
-          {CATEGORIES.map((c) => (
+        <div className="relative group/cat border-b border-gray-100 bg-white">
+          {categoryScroll.canScrollLeft && (
             <button
-              key={c}
-              onClick={() => {
-                setSelectedCategory(c as ProductCategory);
-                setSelectedSubCategory('전체');
-              }}
-              className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
-                selectedCategory === c
-                  ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
+              type="button"
+              onClick={() => categoryScroll.scrollToLeft(160)}
+              className="absolute left-0 top-0 bottom-0 z-10 w-7 flex items-center justify-center bg-gradient-to-r from-white via-white/95 to-transparent text-gray-500 hover:text-gray-900 transition-opacity"
+              aria-label="이전 카테고리"
             >
-              {c}
+              <ChevronLeft className="w-4 h-4 drop-shadow-xs" />
             </button>
-          ))}
+          )}
+
+          <div
+            ref={categoryScroll.scrollRef}
+            className="flex overflow-x-auto no-scrollbar px-2 pb-0.5 scroll-smooth cursor-grab active:cursor-grabbing select-none"
+          >
+            {CATEGORIES.map((c) => (
+              <button
+                key={c}
+                ref={(el) => { categoryBtnRefs.current[c] = el; }}
+                onClick={(e) => {
+                  setSelectedCategory(c as ProductCategory);
+                  setSelectedSubCategory('전체');
+                  e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }}
+                className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
+                  selectedCategory === c
+                    ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
+                    : 'text-gray-500 hover:text-gray-900'
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          {categoryScroll.canScrollRight && (
+            <button
+              type="button"
+              onClick={() => categoryScroll.scrollToRight(160)}
+              className="absolute right-0 top-0 bottom-0 z-10 w-7 flex items-center justify-center bg-gradient-to-l from-white via-white/95 to-transparent text-gray-500 hover:text-gray-900 transition-opacity"
+              aria-label="다음 카테고리"
+            >
+              <ChevronRight className="w-4 h-4 drop-shadow-xs" />
+            </button>
+          )}
         </div>
 
         {/* 2차 Subcategory horizontal scroll pills (if available) */}
         {subCats.length > 0 && (
-          <div className="flex overflow-x-auto no-scrollbar px-3 py-2 gap-1.5 bg-gray-50/70 border-b border-gray-100">
-            {subCats.map((sub) => {
-              const isSelected = selectedSubCategory === sub;
-              return (
-                <button
-                  key={sub}
-                  onClick={() => setSelectedSubCategory(sub)}
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    isSelected
-                      ? 'bg-gray-900 text-white shadow-xs'
-                      : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  {sub}
-                </button>
-              );
-            })}
+          <div className="relative group/sub border-b border-gray-100 bg-gray-50/70">
+            {subCategoryScroll.canScrollLeft && (
+              <button
+                type="button"
+                onClick={() => subCategoryScroll.scrollToLeft(140)}
+                className="absolute left-0 top-0 bottom-0 z-10 w-6 flex items-center justify-center bg-gradient-to-r from-gray-50 via-gray-50/95 to-transparent text-gray-500 hover:text-gray-900"
+                aria-label="이전 서브카테고리"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            <div
+              ref={subCategoryScroll.scrollRef}
+              className="flex overflow-x-auto no-scrollbar px-3 py-2 gap-1.5 scroll-smooth cursor-grab active:cursor-grabbing select-none"
+            >
+              {subCats.map((sub) => {
+                const isSelected = selectedSubCategory === sub;
+                return (
+                  <button
+                    key={sub}
+                    onClick={(e) => {
+                      setSelectedSubCategory(sub);
+                      e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }}
+                    className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                      isSelected
+                        ? 'bg-gray-900 text-white shadow-xs'
+                        : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    {sub}
+                  </button>
+                );
+              })}
+            </div>
+
+            {subCategoryScroll.canScrollRight && (
+              <button
+                type="button"
+                onClick={() => subCategoryScroll.scrollToRight(140)}
+                className="absolute right-0 top-0 bottom-0 z-10 w-6 flex items-center justify-center bg-gradient-to-l from-gray-50 via-gray-50/95 to-transparent text-gray-500 hover:text-gray-900"
+                aria-label="다음 서브카테고리"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         )}
 

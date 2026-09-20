@@ -15,6 +15,7 @@ import {
 import { getAggregatedBrands, getBrandLogo, ProcessedBrand } from '../../utils/brandData';
 import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
+import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
 
@@ -44,6 +45,7 @@ export const BrandView: React.FC = () => {
   const [directorySearchQuery, setDirectorySearchQuery] = useState('');
   const [brandItemSearchQuery, setBrandItemSearchQuery] = useState('');
   const [selectedCategoryTab, setSelectedCategoryTab] = useState('전체');
+  const brandCategoryScroll = useHorizontalScroll<HTMLDivElement>();
   const [selectedSubCategory, setSelectedSubCategory] = useState('전체');
   const [sortBy, setSortBy] = useState<SortOption>('popular');
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -582,20 +584,50 @@ export const BrandView: React.FC = () => {
         </div>
 
         {/* Brand Category Filter Tabs */}
-        <div className="flex overflow-x-auto no-scrollbar px-2 pb-0.5 border-t border-gray-50">
-          {BRAND_CATEGORIES.map((cat) => (
+        <div className="relative group/bcat border-t border-gray-50 bg-white">
+          {brandCategoryScroll.canScrollLeft && (
             <button
-              key={cat}
-              onClick={() => setSelectedCategoryTab(cat)}
-              className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
-                selectedCategoryTab === cat
-                  ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
+              type="button"
+              onClick={() => brandCategoryScroll.scrollToLeft(140)}
+              className="absolute left-0 top-0 bottom-0 z-10 w-7 flex items-center justify-center bg-gradient-to-r from-white via-white/95 to-transparent text-gray-500 hover:text-gray-900"
+              aria-label="이전 카테고리"
             >
-              {cat}
+              <ChevronLeft className="w-4 h-4 drop-shadow-xs" />
             </button>
-          ))}
+          )}
+
+          <div
+            ref={brandCategoryScroll.scrollRef}
+            className="flex overflow-x-auto no-scrollbar px-2 pb-0.5 scroll-smooth cursor-grab active:cursor-grabbing select-none"
+          >
+            {BRAND_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={(e) => {
+                  setSelectedCategoryTab(cat);
+                  e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }}
+                className={`shrink-0 px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors ${
+                  selectedCategoryTab === cat
+                    ? 'text-gray-900 border-b-2 border-gray-900 font-bold'
+                    : 'text-gray-500 hover:text-gray-900'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {brandCategoryScroll.canScrollRight && (
+            <button
+              type="button"
+              onClick={() => brandCategoryScroll.scrollToRight(140)}
+              className="absolute right-0 top-0 bottom-0 z-10 w-7 flex items-center justify-center bg-gradient-to-l from-white via-white/95 to-transparent text-gray-500 hover:text-gray-900"
+              aria-label="다음 카테고리"
+            >
+              <ChevronRight className="w-4 h-4 drop-shadow-xs" />
+            </button>
+          )}
         </div>
       </div>
 

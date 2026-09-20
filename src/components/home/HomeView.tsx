@@ -523,7 +523,10 @@ export const HomeView: React.FC = () => {
                 return (
                   <button
                     key={cat}
-                    onClick={() => setNewProductCategoryFilter(cat)}
+                    onClick={(e) => {
+                      setNewProductCategoryFilter(cat);
+                      e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }}
                     className={`shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
                       isSelected
                         ? 'bg-gray-900 text-white shadow-xs'
