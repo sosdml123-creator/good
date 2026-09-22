@@ -24,13 +24,13 @@ import { RecipeDetailModal } from './components/recipe/RecipeDetailModal';
 import { WriteRecipeModal } from './components/recipe/WriteRecipeModal';
 import { RankingView } from './components/ranking/RankingView';
 import { LoginModal } from './components/common/LoginModal';
-import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
+// import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
 import { NicknameSetupModal } from './components/auth/NicknameSetupModal';
 import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
 import { AppPermissionModal } from './components/common/AppPermissionModal';
 
 export const App: React.FC = () => {
-  const { activeTab, currentUser, isGuestBrowse } = useApp();
+  const { activeTab /*, currentUser, isGuestBrowse */ } = useApp();
   const mainRef = useRef<HTMLElement>(null);
 
   // 탭 변경 시 main 스크롤 컨테이너를 맨 위로 리셋하여 빈 화면 노출 방지
@@ -79,7 +79,8 @@ export const App: React.FC = () => {
     );
   }
 
-  // First-time Launch / Unauthenticated Onboarding Auth View
+  // First-time Launch / Unauthenticated Onboarding Auth View (잠시 비활성화: 추후 복구 시 주석 해제)
+  /*
   if (currentUser.isAnonymous && !isGuestBrowse) {
     return (
       <>
@@ -90,6 +91,7 @@ export const App: React.FC = () => {
       </>
     );
   }
+  */
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
