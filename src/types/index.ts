@@ -261,6 +261,7 @@ export interface CommunityPost {
   content: string;
   author: string;
   authorAvatar?: string;
+  userId?: string;
   authorLevel?: string;
   likes: number;
   isLiked?: boolean;
@@ -299,8 +300,9 @@ export interface UserProfile {
   points: number;
   isAnonymous?: boolean;
   email?: string;
-  provider?: 'apple' | 'google' | 'kakao' | 'anonymous';
+  provider?: 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' | string;
   createdAt?: string;
+  lastActiveAt?: string;      // 최근 활동/접속 일시 (ISO format)
   // 회원 계정 관리 및 제재 상태
   status?: UserAccountStatus; // 'active'(정상) | 'warned'(경고) | 'suspended'(일시정지) | 'banned'(영구정지)
   warningCount?: number;      // 누적 경고 횟수

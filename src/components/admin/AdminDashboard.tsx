@@ -53,8 +53,10 @@ import {
   Calendar as CalendarIcon,
   Tag,
   Bell,
-  Sliders
+  Sliders,
+  LogOut
 } from 'lucide-react';
+import { clearAdminAuthenticated } from './AdminLoginView';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, NutritionInfo, StoreStockItem } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
@@ -103,7 +105,11 @@ export type AdminTab =
   | 'battle' 
   | 'data';
 
-export const AdminDashboard: React.FC = () => {
+export interface AdminDashboardProps {
+  onLogout?: () => void;
+}
+
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const { 
     banners, 
     products, 
@@ -160,6 +166,13 @@ export const AdminDashboard: React.FC = () => {
     syncAllContentToCloud,
   } = useApp();
 
+  const handleAdminLogout = () => {
+    clearAdminAuthenticated();
+    if (onLogout) onLogout();
+    setActiveTab('home');
+    showToast('🔒 최고관리자 세션이 안전하게 종료되었습니다.', 'info');
+  };
+
   const pendingReportsCount = reports.filter(r => r.status === 'pending').length;
   const pendingProductEditsCount = productEditRequests.filter(r => r.status === 'pending').length;
 
@@ -171,7 +184,6 @@ export const AdminDashboard: React.FC = () => {
 
   // Total points for overview KPI summary
   const totalMemberPoints = allProfiles.reduce((acc, u) => acc + (u.points || 0), 0);
-
 
   // Approval / Crawler tab states
   const [crawlerSearchQuery, setCrawlerSearchQuery] = useState('');
@@ -1421,7 +1433,7 @@ export const AdminDashboard: React.FC = () => {
             <span>📱 모바일 앱 화면으로 이동</span>
           </button>
 
-          {/* Admin User Info */}
+          {/* Admin User Info & Logout */}
           <div className="flex items-center justify-between px-1">
             <div className="flex items-center gap-2.5 truncate">
               <div className={`w-8 h-8 rounded-full border flex items-center justify-center font-black text-xs ${isDark ? 'bg-slate-800 border-slate-700 text-indigo-400' : 'bg-indigo-100 border-indigo-200 text-indigo-600'}`}>
@@ -1432,6 +1444,13 @@ export const AdminDashboard: React.FC = () => {
                 <p className="text-[10px] text-slate-400 truncate">master@sinsangpick.com</p>
               </div>
             </div>
+            <button
+              onClick={handleAdminLogout}
+              className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 transition-colors shrink-0 ml-2"
+              title="관리자 로그아웃 (인증 해제)"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
@@ -1556,6 +1575,16 @@ export const AdminDashboard: React.FC = () => {
               </button>
             )}
 
+            {/* Admin Logout Button */}
+            <button
+              onClick={handleAdminLogout}
+              className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-all shadow-xs cursor-pointer"
+              title="관리자 세션을 안전하게 종료하고 일반 화면으로 복귀합니다."
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>로그아웃</span>
+            </button>
+
           </div>
         </header>
 
@@ -1671,22 +1700,43 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* NEW: 6. Members & Total Points */}
+                {/* 6. Members & Activity Status (DAU & Signups) */}
                 <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">회원 & 포인트</span>
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                      <Coins className="w-4 h-4" />
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">회원 & 오늘 활동 (DAU)</span>
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
+                      <Users className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="mt-2.5 flex items-baseline gap-1.5">
                     <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{allProfiles.length}</span>
-                    <span className="text-xs text-slate-500 font-semibold">명 / {totalMemberPoints.toLocaleString()}P</span>
+                    <span className="text-xs text-slate-500 font-semibold flex items-center gap-0.5">
+                      명 등록 (<Coins className="w-3 h-3 text-amber-500 inline" /> {totalMemberPoints.toLocaleString()}P)
+                    </span>
+                    <span className="ml-auto text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      오늘 활동 {allProfiles.filter(u => {
+                        const now = new Date();
+                        const isTodayDate = (d?: string) => {
+                          if (!d) return false;
+                          const t = new Date(d);
+                          return t.getFullYear() === now.getFullYear() && t.getMonth() === now.getMonth() && t.getDate() === now.getDate();
+                        };
+                        return isTodayDate(u.lastActiveAt) || isTodayDate(u.createdAt);
+                      }).length}명
+                    </span>
                   </div>
                   <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>포인트 지급·회수</span>
+                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">
+                      오늘 신규 +{allProfiles.filter(u => {
+                        if (!u.createdAt) return false;
+                        const now = new Date();
+                        const t = new Date(u.createdAt);
+                        return t.getFullYear() === now.getFullYear() && t.getMonth() === now.getMonth() && t.getDate() === now.getDate();
+                      }).length}명
+                    </span>
                     <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-bold">
-                      관리 <ChevronRight className="w-3 h-3" />
+                      상세 모니터링 <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>

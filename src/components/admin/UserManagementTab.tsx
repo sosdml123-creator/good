@@ -16,13 +16,67 @@ import {
   History,
   Download,
   PlusCircle,
-  MinusCircle
+  MinusCircle,
+  Activity,
+  Sparkles,
+  ShieldAlert,
+  BarChart2,
+  Calendar,
+  Filter
 } from 'lucide-react';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 
 interface UserManagementTabProps {
   isDark: boolean;
 }
+
+// Date helpers
+const isSameDay = (d1: Date, d2: Date) => {
+  return d1.getFullYear() === d2.getFullYear() &&
+         d1.getMonth() === d2.getMonth() &&
+         d1.getDate() === d2.getDate();
+};
+
+const isToday = (dateStr?: string) => {
+  if (!dateStr) return false;
+  return isSameDay(new Date(dateStr), new Date());
+};
+
+const isYesterday = (dateStr?: string) => {
+  if (!dateStr) return false;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return isSameDay(new Date(dateStr), yesterday);
+};
+
+const formatFullDateTime = (dateStr?: string) => {
+  if (!dateStr) return '-';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const year = d.getFullYear();
+  const month = pad(d.getMonth() + 1);
+  const day = pad(d.getDate());
+  const hours = pad(d.getHours());
+  const minutes = pad(d.getMinutes());
+  return `${year}.${month}.${day} ${hours}:${minutes}`;
+};
+
+const getRelativeTime = (dateStr?: string) => {
+  if (!dateStr) return '-';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const diffMs = Date.now() - d.getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+  if (diffMinutes < 1) return '방금 전';
+  if (diffMinutes < 60) return `${diffMinutes}분 전`;
+  const diffHours = Math.floor(diffMinutes / 60);
+  if (diffHours < 24) return `${diffHours}시간 전`;
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays < 7) return `${diffDays}일 전`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)}주 전`;
+  return `${Math.floor(diffDays / 30)}달 전`;
+};
 
 export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) => {
   const { 
@@ -46,8 +100,11 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [providerFilter, setProviderFilter] = useState<string>('all');
-  const [sortBy, setSortBy] = useState<'newest' | 'points_desc' | 'warning_desc'>('points_desc');
+  const [activityFilter, setActivityFilter] = useState<'all' | 'active_today' | 'active_7d' | 'inactive_30d'>('all');
+  const [selectedDateFilter, setSelectedDateFilter] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'newest' | 'active_desc' | 'points_desc' | 'warning_desc'>('newest');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+  const [isTrendExpanded, setIsTrendExpanded] = useState<boolean>(true);
 
   const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -77,6 +134,16 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
   const tableHeaderBg = isDark ? 'bg-slate-950/80 text-slate-400 border-slate-800' : 'bg-slate-100/70 text-slate-600 border-slate-200';
   const tableRowHover = isDark ? 'hover:bg-slate-800/40 divide-slate-800/60' : 'hover:bg-slate-50/80 divide-slate-100';
 
+  // Check if user was active today
+  const checkIsUserActiveToday = (user: UserProfile) => {
+    if (user.lastActiveAt && isToday(user.lastActiveAt)) return true;
+    if (user.createdAt && isToday(user.createdAt)) return true;
+    // Check if posted review today
+    const userReviews = reviews.filter(r => r.userId === user.uid || r.userName === user.displayName);
+    if (userReviews.some(r => isToday(r.createdAt))) return true;
+    return false;
+  };
+
   // Overall Statistics
   const stats = useMemo(() => {
     const total = allProfiles.length;
@@ -86,8 +153,66 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
     const banned = allProfiles.filter(u => u.status === 'banned').length;
     const totalPoints = allProfiles.reduce((sum, u) => sum + (u.points || 0), 0);
     const avgPoints = total > 0 ? Math.round(totalPoints / total) : 0;
-    return { total, active, warned, suspended, banned, totalPoints, avgPoints };
+
+    // Today signups
+    const signedUpToday = allProfiles.filter(u => isToday(u.createdAt)).length;
+
+    // Active Today (DAU)
+    const activeToday = allProfiles.filter(checkIsUserActiveToday).length;
+
+    return { 
+      total, 
+      active, 
+      warned, 
+      suspended, 
+      banned, 
+      totalPoints, 
+      avgPoints,
+      signedUpToday,
+      activeToday
+    };
+  }, [allProfiles, reviews]);
+
+  // Provider Distribution
+  const providerStats = useMemo(() => {
+    const counts = { apple: 0, kakao: 0, google: 0, email: 0, anonymous: 0 };
+    allProfiles.forEach(u => {
+      const p = (u.provider || '').toLowerCase();
+      if (p.includes('apple')) counts.apple++;
+      else if (p.includes('kakao')) counts.kakao++;
+      else if (p.includes('google')) counts.google++;
+      else if (p.includes('email') || (u.email && !p.includes('anon'))) counts.email++;
+      else counts.anonymous++;
+    });
+    return counts;
   }, [allProfiles]);
+
+  // Daily Signups for the past 14 days
+  const dailySignups = useMemo(() => {
+    const days: { date: string; dayOfWeek: string; count: number }[] = [];
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    const now = new Date();
+
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      const pad = (n: number) => String(n).padStart(2, '0');
+      const dateKey = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      const dayOfWeek = dayNames[d.getDay()];
+
+      const count = allProfiles.filter(u => {
+        if (!u.createdAt) return false;
+        return isSameDay(new Date(u.createdAt), d);
+      }).length;
+
+      days.push({ date: dateKey, dayOfWeek, count });
+    }
+    return days;
+  }, [allProfiles]);
+
+  const maxDailyCount = useMemo(() => {
+    return Math.max(...dailySignups.map(d => d.count), 1);
+  }, [dailySignups]);
 
   // Point Transactions Statistics
   const txStats = useMemo(() => {
@@ -118,14 +243,40 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
         statusFilter === 'suspended' ? userStatus === 'suspended' :
         statusFilter === 'banned' ? userStatus === 'banned' : true;
 
+      // Provider filter
+      const p = (u.provider || '').toLowerCase();
       const matchProvider = 
-        providerFilter === 'all' ? true : 
-        u.provider === providerFilter;
+        providerFilter === 'all' ? true :
+        providerFilter === 'apple' ? p.includes('apple') :
+        providerFilter === 'kakao' ? p.includes('kakao') :
+        providerFilter === 'google' ? p.includes('google') :
+        providerFilter === 'email' ? (p.includes('email') || (Boolean(u.email) && !p.includes('anon'))) :
+        providerFilter === 'anonymous' ? (!p || p === 'anonymous' || (!u.email && !p.includes('apple') && !p.includes('kakao') && !p.includes('google'))) : true;
 
-      return matchSearch && matchStatus && matchProvider;
+      // Specific Date Filter (Clicked on chart bar)
+      const matchDate = !selectedDateFilter || (u.createdAt && u.createdAt.slice(0, 10) === selectedDateFilter);
+
+      // Activity (DAU) filter
+      let matchActivity = true;
+      if (activityFilter === 'active_today') {
+        matchActivity = checkIsUserActiveToday(u);
+      } else if (activityFilter === 'active_7d') {
+        const lastTime = u.lastActiveAt ? new Date(u.lastActiveAt).getTime() : (u.createdAt ? new Date(u.createdAt).getTime() : 0);
+        matchActivity = (Date.now() - lastTime) <= 7 * 24 * 60 * 60 * 1000;
+      } else if (activityFilter === 'inactive_30d') {
+        const lastTime = u.lastActiveAt ? new Date(u.lastActiveAt).getTime() : (u.createdAt ? new Date(u.createdAt).getTime() : 0);
+        matchActivity = (Date.now() - lastTime) > 30 * 24 * 60 * 60 * 1000;
+      }
+
+      return matchSearch && matchStatus && matchProvider && matchDate && matchActivity;
     }).sort((a, b) => {
       if (sortBy === 'points_desc') return (b.points || 0) - (a.points || 0);
       if (sortBy === 'warning_desc') return (b.warningCount || 0) - (a.warningCount || 0);
+      if (sortBy === 'active_desc') {
+        const timeA = a.lastActiveAt ? new Date(a.lastActiveAt).getTime() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+        const timeB = b.lastActiveAt ? new Date(b.lastActiveAt).getTime() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+        return timeB - timeA;
+      }
       if (sortBy === 'newest') {
         const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
         const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
@@ -133,7 +284,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
       }
       return 0;
     });
-  }, [allProfiles, searchQuery, statusFilter, providerFilter, sortBy]);
+  }, [allProfiles, searchQuery, statusFilter, providerFilter, selectedDateFilter, activityFilter, sortBy, reviews]);
 
   // Filtered Transactions
   const filteredTransactions = useMemo(() => {
@@ -282,17 +433,41 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
     }
   };
 
-  const getProviderBadge = (provider?: string) => {
-    switch (provider) {
-      case 'apple':
-        return <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-black text-white">Apple</span>;
-      case 'kakao':
-        return <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#FEE500] text-slate-900">Kakao</span>;
-      case 'google':
-        return <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Google</span>;
-      default:
-        return <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">게스트</span>;
+  const getProviderBadge = (provider?: string, email?: string) => {
+    const p = (provider || '').toLowerCase();
+    if (p.includes('apple')) {
+      return (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-black text-white shadow-xs">
+          <span></span> Apple
+        </span>
+      );
     }
+    if (p.includes('kakao')) {
+      return (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-[#FEE500] text-slate-900 shadow-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-900" /> Kakao
+        </span>
+      );
+    }
+    if (p.includes('google')) {
+      return (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 shadow-xs">
+          <span className="font-serif font-black">G</span> Google
+        </span>
+      );
+    }
+    if (p.includes('email') || (email && !p.includes('anon'))) {
+      return (
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span>✉</span> 이메일
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+        <span>👤</span> 게스트
+      </span>
+    );
   };
 
   return (

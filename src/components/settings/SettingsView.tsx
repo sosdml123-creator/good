@@ -33,6 +33,7 @@ export const SettingsView: React.FC = () => {
     currentUser, 
     logout, 
     goBack, 
+    setActiveTab,
     openLoginModal,
     openPermissionModal,
     openNotificationCenter
@@ -502,6 +503,18 @@ export const SettingsView: React.FC = () => {
               <ChevronRight className="w-4 h-4 text-rose-300" />
             </button>
           </div>
+        </div>
+
+        {/* Secret Admin Entry Link (Protected by ID 8648 / PW 8648 Authentication) */}
+        <div className="pt-2 pb-6 text-center">
+          <button
+            onClick={() => setActiveTab('admin')}
+            className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-gray-600 transition-colors py-1.5 px-3 rounded-xl hover:bg-gray-100"
+            title="관리자 전용 콘솔 로그인"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-gray-400" />
+            <span>최고관리자 콘솔 접속</span>
+          </button>
         </div>
       </div>
 

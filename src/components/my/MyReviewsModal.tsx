@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { X, PenSquare, Star, Heart, MessageSquare, ExternalLink, ZoomIn } from 'lucide-react';
+import { X, PenSquare, Star, Heart, MessageSquare, ExternalLink, ZoomIn, Pencil, Trash2 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ImageViewerModal } from '../common/ImageViewerModal';
+import { EditReviewModal } from '../review/EditReviewModal';
+import { Review } from '../../types';
 
 interface MyReviewsModalProps {
   isOpen: boolean;
@@ -9,7 +11,8 @@ interface MyReviewsModalProps {
 }
 
 export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose }) => {
-  const { reviews, currentUser, openProductDetail, setActiveTab } = useApp();
+  const { reviews, currentUser, openProductDetail, deleteReview, setActiveTab } = useApp();
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [viewerState, setViewerState] = useState<{
     isOpen: boolean;
     images: string[];
@@ -23,7 +26,16 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
 
   if (!isOpen) return null;
 
-  const myReviews = reviews.filter(r => r.userName === currentUser.displayName);
+  const myReviews = reviews.filter(r => 
+    (r.userName && currentUser.displayName && r.userName.trim() === currentUser.displayName.trim()) ||
+    (r.userId && currentUser.uid && r.userId === currentUser.uid)
+  );
+
+  const handleDeleteReview = (reviewId: string) => {
+    if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?\n삭제된 리뷰는 복구할 수 없습니다.')) {
+      deleteReview(reviewId);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
@@ -77,7 +89,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                   </span>
                 </div>
 
-                {/* Rating & Date */}
+                {/* Rating & Date & Action Buttons */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="flex items-center">
@@ -85,9 +97,27 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
                     </div>
                     <span className="text-xs font-bold text-gray-900">{r.rating.toFixed(1)}</span>
                   </div>
-                  <span className="text-[11px] text-gray-400">
-                    {typeof r.createdAt === 'string' && r.createdAt.includes('T') ? new Date(r.createdAt).toLocaleDateString() : r.createdAt}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-gray-400">
+                      {typeof r.createdAt === 'string' && r.createdAt.includes('T') ? new Date(r.createdAt).toLocaleDateString() : r.createdAt}
+                    </span>
+                    <div className="flex items-center gap-1 pl-1 border-l border-gray-200">
+                      <button
+                        onClick={() => setEditingReview(r)}
+                        className="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+                        title="리뷰 수정"
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteReview(r.id)}
+                        className="p-1 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded transition-colors"
+                        title="리뷰 삭제"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Badges: Purchase Place, Verified, Repurchase */}
@@ -195,6 +225,15 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
         title={viewerState.title}
         onClose={() => setViewerState(prev => ({ ...prev, isOpen: false }))}
       />
+
+      {/* Edit Review Modal */}
+      {editingReview && (
+        <EditReviewModal
+          review={editingReview}
+          isOpen={!!editingReview}
+          onClose={() => setEditingReview(null)}
+        />
+      )}
     </div>
   );
 };

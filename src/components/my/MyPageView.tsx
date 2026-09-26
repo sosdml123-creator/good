@@ -35,7 +35,6 @@ export const MyPageView: React.FC = () => {
     { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
     { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
-    { label: '⚙️ 서비스 관리자 (Admin)', sub: '배너/상품/배틀 관리', hi: true, action: () => setActiveTab('admin') },
     { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
   ];
 

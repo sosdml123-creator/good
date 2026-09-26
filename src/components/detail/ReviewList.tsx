@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Star, Heart, MessageSquare, Send, Flag, ZoomIn } from 'lucide-react';
+import { Star, Heart, MessageSquare, Send, Flag, ZoomIn, Menu, Pencil, Trash2 } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { SafeImage } from '../common/SafeImage';
 import { ImageViewerModal } from '../common/ImageViewerModal';
+import { EditReviewModal } from '../review/EditReviewModal';
+import { DEFAULT_AVATAR } from '../../utils/avatars';
+import { Review } from '../../types';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
 
 interface ReviewListProps {
@@ -13,12 +16,14 @@ interface ReviewListProps {
 export const ReviewList: React.FC<ReviewListProps> = ({
   productId = 'snack-01',
 }) => {
-  const { reviews, toggleLikeReview, addReviewComment, setActiveTab } = useApp();
+  const { reviews, currentUser, toggleLikeReview, addReviewComment, deleteReview, setActiveTab } = useApp();
   const [sortTab, setSortTab] = useState('최신순');
   const [openCommentReviewId, setOpenCommentReviewId] = useState<string | null>(null);
   const [commentInput, setCommentInput] = useState<{ [reviewId: string]: string }>({});
   const [reportTarget, setReportTarget] = useState<ReportTarget | null>(null);
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [openMenuReviewId, setOpenMenuReviewId] = useState<string | null>(null);
+  const [editingReview, setEditingReview] = useState<Review | null>(null);
 
   // Photo viewer state
   const [viewerState, setViewerState] = useState<{
@@ -77,6 +82,12 @@ export const ReviewList: React.FC<ReviewListProps> = ({
     setCommentInput(prev => ({ ...prev, [reviewId]: '' }));
   };
 
+  const handleDeleteReview = (reviewId: string) => {
+    if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?\n삭제된 리뷰는 복구할 수 없습니다.')) {
+      deleteReview(reviewId);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex border-b border-gray-100 mb-2">
@@ -97,12 +108,42 @@ export const ReviewList: React.FC<ReviewListProps> = ({
 
       {sortedReviews.length > 0 ? (
         <div className="space-y-4">
-          {sortedReviews.map((r) => (
+          {sortedReviews.map((r) => {
+            const isMine = Boolean(
+              currentUser && (
+                (r.userId && currentUser.uid && r.userId === currentUser.uid) ||
+                (r.userName && currentUser.displayName && r.userName.trim() === currentUser.displayName.trim())
+              )
+            );
+            const avatarSrc = isMine
+              ? (currentUser?.photoURL || r.userAvatar || DEFAULT_AVATAR)
+              : (r.userAvatar || DEFAULT_AVATAR);
+
+            return (
             <div key={r.id} className="border-b border-gray-100 pb-4 last:border-0 min-w-0 w-full">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-xs text-gray-700">
-                    {r.userName ? r.userName[0] : 'U'}
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden shrink-0 border border-gray-200/80">
+                    <img
+                      src={avatarSrc}
+                      alt={r.userName || '리뷰 작성자'}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const img = e.currentTarget as HTMLImageElement;
+                        if (img.src !== DEFAULT_AVATAR && !img.src.includes('logo.png')) {
+                          img.src = DEFAULT_AVATAR;
+                        } else {
+                          img.style.display = 'none';
+                          const parent = img.parentElement;
+                          if (parent && !parent.querySelector('.avatar-fallback-text')) {
+                            const span = document.createElement('span');
+                            span.className = 'avatar-fallback-text font-bold text-xs text-gray-700';
+                            span.innerText = r.userName ? r.userName[0] : 'U';
+                            parent.appendChild(span);
+                          }
+                        }
+                      }}
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
@@ -110,6 +151,11 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                       {r.userLevel && (
                         <span className="text-[10px] bg-amber-50 text-amber-600 font-bold px-1 rounded">
                           Lv.{r.userLevel}
+                        </span>
+                      )}
+                      {isMine && (
+                        <span className="text-[9px] bg-gray-900 text-white font-bold px-1.5 py-0.5 rounded-full">
+                          내 글
                         </span>
                       )}
                     </div>
@@ -126,21 +172,76 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    setReportTarget({
-                      type: 'review',
-                      id: r.id,
-                      authorName: r.userName,
-                      contentSnippet: r.content
-                    });
-                    setIsReportOpen(true);
-                  }}
-                  className="p-1.5 text-gray-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
-                  title="리뷰 신고 및 작성자 차단"
-                >
-                  <Flag className="w-3.5 h-3.5" />
-                </button>
+
+                {/* Right side: Hamburger menu for author, Flag for others */}
+                {isMine ? (
+                  <div className="relative">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenMenuReviewId(openMenuReviewId === r.id ? null : r.id);
+                      }}
+                      className="p-1.5 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
+                      title="리뷰 관리 메뉴"
+                      aria-label="리뷰 관리 메뉴"
+                    >
+                      <Menu className="w-4 h-4" />
+                    </button>
+
+                    {openMenuReviewId === r.id && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-40"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenuReviewId(null);
+                          }}
+                        />
+                        <div
+                          className="absolute right-0 top-full mt-1 w-28 bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            onClick={() => {
+                              setOpenMenuReviewId(null);
+                              setEditingReview(r);
+                            }}
+                            className="w-full px-3 py-2 text-left text-xs font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                          >
+                            <Pencil className="w-3.5 h-3.5 text-gray-500" />
+                            <span>수정하기</span>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setOpenMenuReviewId(null);
+                              handleDeleteReview(r.id);
+                            }}
+                            className="w-full px-3 py-2 text-left text-xs font-semibold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5 text-rose-500" />
+                            <span>삭제하기</span>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setReportTarget({
+                        type: 'review',
+                        id: r.id,
+                        authorName: r.userName,
+                        contentSnippet: r.content
+                      });
+                      setIsReportOpen(true);
+                    }}
+                    className="p-1.5 text-gray-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
+                    title="리뷰 신고 및 작성자 차단"
+                  >
+                    <Flag className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
 
               {/* Badges: Purchase Place, Verified, Repurchase */}
@@ -299,7 +400,8 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 </div>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         /* Empty State */
@@ -338,6 +440,15 @@ export const ReviewList: React.FC<ReviewListProps> = ({
         author={viewerState.author}
         onClose={handleCloseViewer}
       />
+
+      {/* Edit Review Modal */}
+      {editingReview && (
+        <EditReviewModal
+          review={editingReview}
+          isOpen={!!editingReview}
+          onClose={() => setEditingReview(null)}
+        />
+      )}
     </div>
   );
 };

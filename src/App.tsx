@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { BottomNav } from './components/common/BottomNav';
@@ -12,6 +12,7 @@ import { NotificationModal } from './components/notification/NotificationModal';
 import { ProductDetailModal } from './components/detail/ProductDetailModal';
 import { SearchModal } from './components/search/SearchModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AdminLoginView, checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
 import { EventDetailModal } from './components/event/EventDetailModal';
 import { BrandView } from './components/brand/BrandView';
 import { SettingsView } from './components/settings/SettingsView';
@@ -30,7 +31,8 @@ import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
 import { AppPermissionModal } from './components/common/AppPermissionModal';
 
 export const App: React.FC = () => {
-  const { activeTab, currentUser, isGuestBrowse } = useApp();
+  const { activeTab, setActiveTab, currentUser, isGuestBrowse } = useApp();
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
   const mainRef = useRef<HTMLElement>(null);
 
   // 탭 변경 시 main 스크롤 컨테이너를 맨 위로 리셋하여 빈 화면 노출 방지
@@ -66,15 +68,29 @@ export const App: React.FC = () => {
     );
   }
 
-  // PC Admin Dashboard Layout (Full Desktop View without mobile BottomNav)
+  // PC Admin Dashboard Layout (Protected by Admin Auth Guard)
   if (activeTab === 'admin') {
+    if (!isAdminAuthenticated) {
+      return (
+        <div className="h-screen w-full bg-slate-950 flex flex-col justify-center items-center overflow-hidden antialiased">
+          <AuthCallbackBridge />
+          <NetworkStatusBar />
+          <ToastContainer />
+          <AdminLoginView 
+            onSuccess={() => setIsAdminAuthenticated(true)}
+            onCancel={() => setActiveTab('home')}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-hidden antialiased">
         <AuthCallbackBridge />
         <NetworkStatusBar />
         <ToastContainer />
         <PushBanner />
-        <AdminDashboard />
+        <AdminDashboard onLogout={() => setIsAdminAuthenticated(false)} />
       </div>
     );
   }

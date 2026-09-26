@@ -12,9 +12,17 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     avatar_url TEXT DEFAULT 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
     level TEXT DEFAULT 'Lv.1',
     points INT DEFAULT 100,
+    email TEXT,
+    provider TEXT DEFAULT 'anonymous',
+    last_active_at TIMESTAMPTZ DEFAULT NOW(),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Ensure columns exist in existing Supabase instances
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS provider TEXT DEFAULT 'anonymous';
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS last_active_at TIMESTAMPTZ DEFAULT NOW();
 
 -- 2. Products Table (상품 카탈로그 및 실시간 집계 평점)
 CREATE TABLE IF NOT EXISTS public.products (
@@ -277,15 +285,21 @@ BEGIN
         v_avatar_url := 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
     END IF;
 
-    INSERT INTO public.profiles (id, display_name, avatar_url, level, points)
+    INSERT INTO public.profiles (id, display_name, avatar_url, level, points, email, provider, last_active_at)
     VALUES (
         NEW.id,
         v_display_name,
         v_avatar_url,
         'Lv.1',
-        100
+        100,
+        NEW.email,
+        COALESCE(NEW.raw_app_meta_data->>'provider', 'anonymous'),
+        NOW()
     )
-    ON CONFLICT (id) DO NOTHING;
+    ON CONFLICT (id) DO UPDATE SET
+        email = COALESCE(EXCLUDED.email, public.profiles.email),
+        provider = COALESCE(EXCLUDED.provider, public.profiles.provider),
+        last_active_at = NOW();
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

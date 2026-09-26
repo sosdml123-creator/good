@@ -90,7 +90,7 @@ import {
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
-import { DEFAULT_AVATAR, isValidCustomPhoto } from '../utils/avatars';
+import { DEFAULT_AVATAR, isValidCustomPhoto, isKakaoOrSocialRawAvatar } from '../utils/avatars';
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 import { withTimeout, parseNetworkError } from '../utils/networkUtils';
 
@@ -266,8 +266,10 @@ interface AppContextType {
   toggleLikePost: (postId: string) => Promise<void>;
   addPostComment: (postId: string, text: string) => Promise<void>;
 
-  // Admin Moderation Actions
+  // User & Moderation Actions
+  updateReview: (reviewId: string, updatedData: Partial<Review>) => Promise<void>;
   deleteReview: (reviewId: string) => Promise<void>;
+  updateCommunityPost: (postId: string, updatedData: Partial<CommunityPost>) => Promise<void>;
   deleteCommunityPost: (postId: string) => Promise<void>;
 
   // User & Points Management (Admin & App)
@@ -278,6 +280,7 @@ interface AppContextType {
   batchGrantPoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   fetchAllProfiles: () => Promise<void>;
+  recordUserActivity: (uid?: string) => void;
   updateUserStatus: (
     userId: string,
     newStatus: UserAccountStatus,
@@ -373,6 +376,33 @@ export const calculateLevel = (points: number): string => {
   return `Lv.${levelNum}`;
 };
 
+/**
+ * 유저의 로그인 제공자(Provider)를 스마트하게 판별하는 헬퍼 함수
+ */
+export const inferUserProvider = (user: { provider?: string; email?: string; uid?: string; id?: string; app_metadata?: any }): 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' => {
+  if (user.provider && ['apple', 'google', 'kakao', 'email', 'anonymous'].includes(user.provider)) {
+    return user.provider as any;
+  }
+  const appProvider = user.app_metadata?.provider;
+  if (appProvider && ['apple', 'google', 'kakao', 'email'].includes(appProvider)) {
+    return appProvider as any;
+  }
+  const email = (user.email || '').toLowerCase();
+  if (email.includes('privaterelay.appleid.com') || email.includes('@apple.')) return 'apple';
+  if (email.includes('kakao.com') || email.includes('daum.net')) return 'kakao';
+  if (email.includes('gmail.com') || email.includes('google')) return 'google';
+  if (email.includes('@')) return 'email';
+  const idStr = user.uid || user.id || '';
+  if (idStr.startsWith('apple_')) return 'apple';
+  if (idStr.startsWith('kakao_')) return 'kakao';
+  if (idStr.startsWith('google_')) return 'google';
+  return 'anonymous';
+};
+
+const now = Date.now();
+const oneHour = 60 * 60 * 1000;
+const oneDay = 24 * oneHour;
+
 export const INITIAL_USER_PROFILES: UserProfile[] = [
   {
     uid: 'user_minji_01',
@@ -380,9 +410,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.5',
     points: 850,
-    email: 'minji.snack@gmail.com',
+    email: 'minji.snack@appleid.com',
     provider: 'apple',
-    createdAt: '2025.01.10',
+    createdAt: new Date(now - 2 * oneHour).toISOString(),
+    lastActiveAt: new Date(now - 15 * 60 * 1000).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -395,7 +426,8 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 1340,
     email: 'junho_cu@kakao.com',
     provider: 'kakao',
-    createdAt: '2025.01.05',
+    createdAt: new Date(now - 5 * oneHour).toISOString(),
+    lastActiveAt: new Date(now - 25 * 60 * 1000).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -406,13 +438,14 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.3',
     points: 520,
-    email: 'sweet_fairy@naver.com',
+    email: 'sweet_fairy@gmail.com',
     provider: 'google',
-    createdAt: '2025.01.18',
+    createdAt: new Date(now - 1 * oneDay - 3 * oneHour).toISOString(),
+    lastActiveAt: new Date(now - 45 * 60 * 1000).toISOString(),
     status: 'warned',
     warningCount: 1,
     statusReason: '리뷰 내 비속어 사용으로 인한 경고 1회',
-    statusUpdatedAt: '2026-09-12T10:00:00Z',
+    statusUpdatedAt: new Date(now - 1 * oneDay).toISOString(),
     role: 'user'
   },
   {
@@ -423,7 +456,8 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 980,
     email: 'sun_night@gmail.com',
     provider: 'google',
-    createdAt: '2025.01.22',
+    createdAt: new Date(now - 2 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 1 * oneDay - 2 * oneHour).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -434,9 +468,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.2',
     points: 310,
-    email: 'jiwoo.snack@gmail.com',
+    email: 'jiwoo.snack@appleid.com',
     provider: 'apple',
-    createdAt: '2025.02.01',
+    createdAt: new Date(now - 3 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 5 * 60 * 1000).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -447,9 +482,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.9',
     points: 1620,
-    email: 'donghyun@daum.net',
+    email: 'donghyun@kakao.com',
     provider: 'kakao',
-    createdAt: '2024.12.15',
+    createdAt: new Date(now - 4 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 2 * oneHour).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -462,7 +498,8 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 730,
     email: 'spicy_queen@gmail.com',
     provider: 'google',
-    createdAt: '2025.01.29',
+    createdAt: new Date(now - 5 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 2 * oneDay).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -473,9 +510,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.3',
     points: 440,
-    email: 'suho_fit@gmail.com',
+    email: 'suho_fit@privaterelay.appleid.com',
     provider: 'apple',
-    createdAt: '2025.02.10',
+    createdAt: new Date(now - 6 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 10 * 60 * 1000).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -486,9 +524,10 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     photoURL: DEFAULT_AVATAR,
     level: 'Lv.10',
     points: 1950,
-    email: 'seoyeon_snack@naver.com',
+    email: 'seoyeon_snack@kakao.com',
     provider: 'kakao',
-    createdAt: '2024.11.20',
+    createdAt: new Date(now - 8 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 2 * 60 * 1000).toISOString(),
     status: 'active',
     warningCount: 0,
     role: 'user'
@@ -501,12 +540,13 @@ export const INITIAL_USER_PROFILES: UserProfile[] = [
     points: 0,
     email: 'abuser99@trashmail.com',
     provider: 'anonymous',
-    createdAt: '2026.09.01',
+    createdAt: new Date(now - 12 * oneDay).toISOString(),
+    lastActiveAt: new Date(now - 5 * oneDay).toISOString(),
     status: 'suspended',
     warningCount: 2,
-    suspendedUntil: '2026-09-17T15:00:00Z',
+    suspendedUntil: new Date(now + 3 * oneDay).toISOString(),
     statusReason: '사진 도용 및 허위 리뷰 반복 작성 (7일 이용 정지)',
-    statusUpdatedAt: '2026-09-10T15:00:00Z',
+    statusUpdatedAt: new Date(now - 4 * oneDay).toISOString(),
     role: 'user'
   }
 ];
@@ -749,8 +789,7 @@ const createInitialUser = (): UserProfile => {
 
   const points = cachedPoints ? parseInt(cachedPoints, 10) : 100;
   const displayName = cachedName || getInitialSequentialNicknameSync();
-  const isCustom = cachedUid ? localStorage.getItem('sinsangpick_custom_photo_' + cachedUid) === 'true' : false;
-  const photoURL = (isCustom && cachedPhoto && isValidCustomPhoto(cachedPhoto, cachedUid)) ? cachedPhoto : DEFAULT_AVATAR;
+  const photoURL = (cachedPhoto && isValidCustomPhoto(cachedPhoto, cachedUid)) ? cachedPhoto : DEFAULT_AVATAR;
 
   return {
     uid,
@@ -1963,7 +2002,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentUser(prev => {
           const isKakao = prev.provider === 'kakao';
           const isCustomizedName = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
-          const isCustomizedPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
           let finalDisplayName = prev.displayName;
           let finalPhotoURL = prev.photoURL;
 
@@ -1973,16 +2011,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
           }
 
-          // 기본 프로필 사진: 사용자가 앱 내에서 직접 등록한 커스텀 사진이 아니면 무조건 공식 로고(DEFAULT_AVATAR) 적용
-          if (isCustomizedPhoto && profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
+          // 프로필 사진 결정:
+          // 1) DB에 저장된 아바타가 유효한 커스텀 사진 또는 프리셋인 경우 유지
+          // 2) 카카오 CDN 등 소셜 원본 사진이거나 비어있으면 DEFAULT_AVATAR 적용 (개인정보 보호)
+          if (profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
             finalPhotoURL = profile.avatar_url;
+            localStorage.setItem('sinsangpick_photo', finalPhotoURL);
+            localStorage.setItem('sinsangpick_custom_photo_' + uid, 'true');
           } else {
             finalPhotoURL = DEFAULT_AVATAR;
-            if (supabase && profile.avatar_url !== DEFAULT_AVATAR) {
+            if (supabase && profile.avatar_url && isKakaoOrSocialRawAvatar(profile.avatar_url)) {
               supabase.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', uid).then(() => {});
             }
             localStorage.setItem('sinsangpick_photo', DEFAULT_AVATAR);
-            localStorage.removeItem('sinsangpick_custom_photo_' + uid);
           }
 
           const userPoints = typeof profile.points === 'number' ? profile.points : 100;
@@ -2017,13 +2058,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const updated = prev.map(p => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
+              const inferredProv = dbP.provider || inferUserProvider(dbP) || p.provider || 'anonymous';
               return {
                 ...p,
                 displayName: dbP.display_name || p.displayName,
                 photoURL: dbP.avatar_url || p.photoURL,
                 points: dbP.points ?? p.points,
                 level: calculateLevel(dbP.points ?? p.points),
-                createdAt: dbP.created_at ? new Date(dbP.created_at).toLocaleDateString('ko-KR') : p.createdAt
+                email: dbP.email || p.email,
+                provider: inferredProv,
+                createdAt: dbP.created_at || p.createdAt,
+                lastActiveAt: dbP.last_active_at || dbP.updated_at || p.lastActiveAt,
               };
             }
             return p;
@@ -2032,15 +2077,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const existingUids = new Set(prev.map(p => p.uid));
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
-            .map(p => ({
-              uid: p.id,
-              displayName: p.display_name || '신상러버',
-              photoURL: p.avatar_url || DEFAULT_AVATAR,
-              level: calculateLevel(p.points ?? 100),
-              points: p.points ?? 100,
-              email: p.email || undefined,
-              createdAt: p.created_at ? new Date(p.created_at).toLocaleDateString('ko-KR') : '2025.01.01'
-            }));
+            .map(p => {
+              const inferredProv = p.provider || inferUserProvider(p) || 'anonymous';
+              return {
+                uid: p.id,
+                displayName: p.display_name || '신상러버',
+                photoURL: p.avatar_url || DEFAULT_AVATAR,
+                level: calculateLevel(p.points ?? 100),
+                points: p.points ?? 100,
+                email: p.email || undefined,
+                provider: inferredProv,
+                createdAt: p.created_at || new Date().toISOString(),
+                lastActiveAt: p.last_active_at || p.updated_at || undefined,
+                status: 'active',
+                warningCount: 0,
+                role: 'user'
+              };
+            });
 
           return [...updated, ...extraUsers];
         });
@@ -2122,15 +2175,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_name', resolvedDisplayName);
       }
 
-      const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
       const cachedPhoto = localStorage.getItem('sinsangpick_photo');
 
       let resolvedPhotoURL = DEFAULT_AVATAR;
-      if (isCustomPhoto && cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
+      if (cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
         resolvedPhotoURL = cachedPhoto;
       } else {
         resolvedPhotoURL = DEFAULT_AVATAR;
-        localStorage.removeItem('sinsangpick_custom_photo_' + uid);
       }
 
       localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
@@ -2236,26 +2287,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             displayName = dbDisplayName;
           }
 
-          const isCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
-
-          // 로그인 시 기본 프로필 사진은 항상 공식 로고(DEFAULT_AVATAR)를 적용
-          // 사용자가 직접 앱에서 등록한 유효한 커스텀 사진인 경우에만 커스텀 사진 유지
+          // 로그인 시 프로필 사진 결정:
+          // 1) DB에 이미 유효한 커스텀 아바타 또는 프리셋이 저장되어 있다면 최우선 적용
+          // 2) 로컬 스토리지에 유효한 사진이 있다면 적용
+          // 3) 둘 다 없거나 소셜 원본 사진(kakaocdn 등)이면 DEFAULT_AVATAR 적용
           let photoURL = DEFAULT_AVATAR;
-          if (isCustomPhoto) {
+          if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
+            photoURL = dbAvatarUrl;
+            localStorage.setItem('sinsangpick_custom_photo_' + u.id, 'true');
+          } else {
             const cachedPhoto = localStorage.getItem('sinsangpick_photo');
             if (cachedPhoto && isValidCustomPhoto(cachedPhoto, u.id)) {
               photoURL = cachedPhoto;
-            } else if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
-              photoURL = dbAvatarUrl;
+              localStorage.setItem('sinsangpick_custom_photo_' + u.id, 'true');
+            } else {
+              photoURL = DEFAULT_AVATAR;
             }
           }
 
-          if (!isValidCustomPhoto(photoURL, u.id)) {
-            photoURL = DEFAULT_AVATAR;
-            localStorage.removeItem('sinsangpick_custom_photo_' + u.id);
-            if (dbAvatarUrl && dbAvatarUrl !== DEFAULT_AVATAR && client) {
-              client.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', u.id).then(() => {});
-            }
+          // 소셜 원본 프로필 사진(개인 실명/얼굴 사진)인 경우에만 기본 아바타로 안전하게 동기화
+          if (dbAvatarUrl && isKakaoOrSocialRawAvatar(dbAvatarUrl) && client) {
+            client.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', u.id).then(() => {});
           }
 
           localStorage.setItem('sinsangpick_photo', photoURL);
@@ -2294,9 +2346,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               id: u.id,
               display_name: displayName,
               avatar_url: photoURL,
+              provider: providerName,
+              email: u.email || undefined,
+              last_active_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
             }, { onConflict: 'id' });
           } catch (e) {
-            console.warn('[Supabase Profile Upsert Error]', e);
+            console.warn('[Supabase Profile Upsert Error, attempting fallback]', e);
+            try {
+              await client.from('profiles').upsert({
+                id: u.id,
+                display_name: displayName,
+                avatar_url: photoURL,
+              }, { onConflict: 'id' });
+            } catch (err2) {
+              console.warn('[Supabase Profile Fallback Error]', err2);
+            }
           }
 
           loadSupabaseData(u.id);
@@ -2821,6 +2886,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         console.warn('[Supabase] Failed to update user avatar:', err);
       }
     }
+    setAllProfiles(prev =>
+      prev.map(p => p.uid === currentUser.uid ? { ...p, photoURL: newPhotoURL } : p)
+    );
     showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
   };
 
@@ -2833,6 +2901,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       displayName: trimmed || prev.displayName,
       photoURL: photo !== undefined ? photo : prev.photoURL,
     }));
+
+    // Synchronize local reviews and community posts with updated profile
+    if (trimmed || photo !== undefined) {
+      setReviews(prev => prev.map(r => {
+        const isMine = (r.userId && r.userId === currentUser.uid) || (r.userName === currentUser.displayName);
+        if (isMine) {
+          return {
+            ...r,
+            userName: trimmed || r.userName,
+            userAvatar: photo !== undefined ? photo : r.userAvatar,
+          };
+        }
+        return r;
+      }));
+
+      setCommunityPosts(prev => prev.map(p => {
+        const isMine = ((p as any).userId && (p as any).userId === currentUser.uid) || (p.author === currentUser.displayName);
+        if (isMine) {
+          return {
+            ...p,
+            author: trimmed || p.author,
+            authorAvatar: photo !== undefined ? photo : p.authorAvatar,
+          };
+        }
+        return p;
+      }));
+    }
 
     if (trimmed) {
       try {
@@ -2869,6 +2964,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         console.warn('[Supabase] Failed to update profile:', err);
       }
     }
+
+    setAllProfiles(prev =>
+      prev.map(p => {
+        if (p.uid === currentUser.uid) {
+          return {
+            ...p,
+            ...(trimmed ? { displayName: trimmed } : {}),
+            ...(photo !== undefined ? { photoURL: photo } : {}),
+          };
+        }
+        return p;
+      })
+    );
     showToast('프로필이 성공적으로 변경되었습니다.', 'success');
   };
 
@@ -3535,17 +3643,115 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  // ================= ADMIN MODERATION FUNCTIONS =================
+  // ================= USER & ADMIN MODERATION FUNCTIONS =================
+  // Update Review
+  const updateReview = async (reviewId: string, updatedData: Partial<Review>) => {
+    const target = reviews.find(r => r.id === reviewId);
+
+    // 1. Local state update
+    setReviews(prev => prev.map(r => {
+      if (r.id === reviewId) {
+        return {
+          ...r,
+          ...updatedData,
+        };
+      }
+      return r;
+    }));
+
+    // 2. Adjust overallRating if rating changed
+    if (target && updatedData.rating !== undefined && updatedData.rating !== target.rating) {
+      const diff = updatedData.rating - target.rating;
+      setProducts(prev => prev.map(p => {
+        if (p.id === target.productId) {
+          const count = p.ratingCount || 1;
+          const currentTotal = (p.overallRating || 0) * count;
+          const newRating = Number(((currentTotal + diff) / count).toFixed(1));
+          return { ...p, overallRating: newRating };
+        }
+        return p;
+      }));
+    }
+
+    // 3. Supabase update
+    if (supabase && isSupabaseConfigured) {
+      try {
+        const dbUpdates: any = {};
+        if (updatedData.content !== undefined) dbUpdates.content = updatedData.content;
+        if (updatedData.rating !== undefined) dbUpdates.rating = updatedData.rating;
+        if (updatedData.detailedRating !== undefined) dbUpdates.detailed_rating = updatedData.detailedRating;
+        if (updatedData.images !== undefined) dbUpdates.images = updatedData.images;
+        if (updatedData.tags !== undefined) dbUpdates.tags = updatedData.tags;
+        if (updatedData.headline !== undefined) dbUpdates.headline = updatedData.headline;
+        if (updatedData.purchasePlace !== undefined) dbUpdates.purchase_place = updatedData.purchasePlace;
+        if (updatedData.purchaseEvent !== undefined) dbUpdates.purchase_event = updatedData.purchaseEvent;
+        if (updatedData.repurchaseIntent !== undefined) dbUpdates.repurchase_intent = updatedData.repurchaseIntent;
+
+        await supabase.from('reviews').update(dbUpdates).eq('id', reviewId);
+      } catch (err) {
+        console.warn('[Supabase] Review update error:', err);
+      }
+    }
+
+    showToast('리뷰가 성공적으로 수정되었습니다.', 'success');
+  };
+
   // Delete Review
   const deleteReview = async (reviewId: string) => {
+    const target = reviews.find(r => r.id === reviewId);
+
     setDeletedReviewIds(prev => {
       const next = Array.from(new Set([...prev, reviewId]));
       safeSetItem('sinsangpick_deleted_reviews', JSON.stringify(next));
       return next;
     });
     setReviews(prev => prev.filter(r => r.id !== reviewId));
+
+    // Recalculate product rating & count
+    if (target) {
+      setProducts(prev => prev.map(p => {
+        if (p.id === target.productId) {
+          const count = Math.max(0, (p.ratingCount || 1) - 1);
+          let newRating = 0;
+          if (count > 0) {
+            const currentTotal = (p.overallRating || 0) * (p.ratingCount || 1);
+            newRating = Number((Math.max(0, currentTotal - target.rating) / count).toFixed(1));
+          }
+          return {
+            ...p,
+            ratingCount: count,
+            overallRating: newRating,
+          };
+        }
+        return p;
+      }));
+    }
+
     deleteRemoteReview(reviewId).catch(() => {});
     showToast('리뷰가 정상적으로 삭제되었습니다.', 'info');
+  };
+
+  // Update Community Post
+  const updateCommunityPost = async (postId: string, updatedData: Partial<CommunityPost>) => {
+    setCommunityPosts(prev => prev.map(p => {
+      if (p.id === postId) {
+        return { ...p, ...updatedData };
+      }
+      return p;
+    }));
+
+    if (supabase && isSupabaseConfigured) {
+      try {
+        const dbUpdates: any = {};
+        if (updatedData.title !== undefined) dbUpdates.title = updatedData.title;
+        if (updatedData.content !== undefined) dbUpdates.content = updatedData.content;
+        if (updatedData.category !== undefined) dbUpdates.category = updatedData.category;
+        await supabase.from('community_posts').update(dbUpdates).eq('id', postId);
+      } catch (err) {
+        console.warn('[Supabase] Community post update error:', err);
+      }
+    }
+    showToast('게시글이 성공적으로 수정되었습니다.', 'success');
   };
 
   // Delete Community Post
@@ -4658,13 +4864,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const updated = prev.map(p => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
+              const inferredProv = dbP.provider || inferUserProvider(dbP) || p.provider || 'anonymous';
               return {
                 ...p,
                 displayName: dbP.display_name || p.displayName,
                 photoURL: dbP.avatar_url || p.photoURL,
                 points: dbP.points ?? p.points,
                 level: calculateLevel(dbP.points ?? p.points),
-                createdAt: dbP.created_at ? new Date(dbP.created_at).toLocaleDateString('ko-KR') : p.createdAt
+                email: dbP.email || p.email,
+                provider: inferredProv,
+                createdAt: dbP.created_at || p.createdAt,
+                lastActiveAt: dbP.last_active_at || dbP.updated_at || p.lastActiveAt,
               };
             }
             return p;
@@ -4673,21 +4883,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const existingUids = new Set(prev.map(p => p.uid));
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
-            .map(p => ({
-              uid: p.id,
-              displayName: p.display_name || '신상러버',
-              photoURL: p.avatar_url || DEFAULT_AVATAR,
-              level: calculateLevel(p.points ?? 100),
-              points: p.points ?? 100,
-              email: p.email || undefined,
-              createdAt: p.created_at ? new Date(p.created_at).toLocaleDateString('ko-KR') : '2025.01.01'
-            }));
+            .map(p => {
+              const inferredProv = p.provider || inferUserProvider(p) || 'anonymous';
+              return {
+                uid: p.id,
+                displayName: p.display_name || '신상러버',
+                photoURL: p.avatar_url || DEFAULT_AVATAR,
+                level: calculateLevel(p.points ?? 100),
+                points: p.points ?? 100,
+                email: p.email || undefined,
+                provider: inferredProv,
+                createdAt: p.created_at || new Date().toISOString(),
+                lastActiveAt: p.last_active_at || p.updated_at || undefined,
+                status: 'active',
+                warningCount: 0,
+                role: 'user'
+              };
+            });
 
           return [...updated, ...extraUsers];
         });
       }
     } catch (e) {
       console.warn('[Supabase fetchAllProfiles error]', e);
+    }
+  };
+
+  // 사용자 최근 활동/접속 일시 갱신 (DAU 및 최근 활동 통계)
+  const recordUserActivity = (uid?: string) => {
+    const targetUid = uid || currentUser.uid;
+    if (!targetUid || targetUid === 'guest_anonymous') return;
+    const nowIso = new Date().toISOString();
+    setAllProfiles(prev => prev.map(p => p.uid === targetUid ? { ...p, lastActiveAt: nowIso } : p));
+    if (currentUser.uid === targetUid) {
+      setCurrentUser(prev => ({ ...prev, lastActiveAt: nowIso }));
+    }
+    try {
+      localStorage.setItem('sinsangpick_last_active_' + targetUid, nowIso);
+    } catch {}
+    if (supabase && isSupabaseConfigured) {
+      Promise.resolve(supabase.from('profiles').update({ last_active_at: nowIso, updated_at: nowIso }).eq('id', targetUid)).catch(() => {});
     }
   };
 
@@ -5482,6 +5717,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         batchGrantPoints,
         batchRevokePoints,
         fetchAllProfiles,
+        recordUserActivity,
         updateUserStatus,
         batchUpdateUserStatus,
         isCurrentUserSuspended,
@@ -5501,9 +5737,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteProductEditRequest,
 
         submitReview,
+        updateReview,
         toggleLikeReview,
         addReviewComment,
         addCommunityPost,
+        updateCommunityPost,
         toggleLikePost,
         addPostComment,
         deleteReview,

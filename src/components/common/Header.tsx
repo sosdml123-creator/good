@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Settings } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { setActiveTab, openNotificationCenter, unreadNotificationCount } = useApp();
@@ -28,14 +28,6 @@ export const Header: React.FC = () => {
           {unreadNotificationCount > 0 && (
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
           )}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('admin')}
-          className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
-          title="서비스 관리자 (Admin)"
-        >
-          <Settings className="w-5 h-5 stroke-[2]" />
         </button>
       </div>
     </header>
