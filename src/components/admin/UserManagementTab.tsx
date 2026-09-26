@@ -184,12 +184,11 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
 
   // Provider Distribution (using smart inferUserProvider)
   const providerStats = useMemo(() => {
-    const counts = { apple: 0, kakao: 0, google: 0, email: 0, anonymous: 0 };
+    const counts = { kakao: 0, apple: 0, email: 0, anonymous: 0 };
     allProfiles.forEach(u => {
       const prov = inferUserProvider(u);
-      if (prov === 'apple') counts.apple++;
-      else if (prov === 'kakao') counts.kakao++;
-      else if (prov === 'google') counts.google++;
+      if (prov === 'kakao') counts.kakao++;
+      else if (prov === 'apple') counts.apple++;
       else if (prov === 'email') counts.email++;
       else counts.anonymous++;
     });
@@ -256,9 +255,8 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
       const prov = inferUserProvider(u);
       const matchProvider = 
         providerFilter === 'all' ? true :
-        providerFilter === 'apple' ? prov === 'apple' :
         providerFilter === 'kakao' ? prov === 'kakao' :
-        providerFilter === 'google' ? prov === 'google' :
+        providerFilter === 'apple' ? prov === 'apple' :
         providerFilter === 'email' ? prov === 'email' :
         providerFilter === 'anonymous' ? prov === 'anonymous' : true;
 
@@ -461,13 +459,6 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
       return (
         <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-[#FEE500] text-slate-900 shadow-xs font-sans">
           <span className="w-1.5 h-1.5 rounded-full bg-slate-900" /> Kakao
-        </span>
-      );
-    }
-    if (prov === 'google') {
-      return (
-        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 shadow-xs">
-          <span className="font-serif font-black">G</span> Google
         </span>
       );
     }
@@ -720,11 +711,10 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
             </div>
 
             {/* Provider Breakdown Summary Pills */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1 pb-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 pb-3">
               {[
                 { label: '카카오', provider: 'kakao', count: providerStats.kakao, color: 'bg-amber-400/15 text-amber-800 dark:text-amber-300 border-amber-300/40' },
                 { label: 'Apple', provider: 'apple', count: providerStats.apple, color: 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-300/60' },
-                { label: 'Google', provider: 'google', count: providerStats.google, color: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200/60' },
                 { label: '이메일', provider: 'email', count: providerStats.email, color: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/60' },
                 { label: '게스트', provider: 'anonymous', count: providerStats.anonymous, color: 'bg-slate-50 dark:bg-slate-900 text-slate-500 border-slate-200/50' },
               ].map(p => {
@@ -884,7 +874,6 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                   <option value="all">로그인 수단: 전체</option>
                   <option value="kakao">카카오 (Kakao)</option>
                   <option value="apple">Apple</option>
-                  <option value="google">Google</option>
                   <option value="email">이메일 가입</option>
                   <option value="anonymous">게스트</option>
                 </select>

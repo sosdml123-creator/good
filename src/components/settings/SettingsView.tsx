@@ -81,13 +81,6 @@ export const SettingsView: React.FC = () => {
         </span>
       );
     }
-    if (currentUser.provider === 'google') {
-      return (
-        <span className="text-[11px] bg-white border border-gray-200 text-gray-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
-          🌐 Google 연동
-        </span>
-      );
-    }
     return (
       <span className="text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-semibold">
         신상픽 회원
@@ -454,7 +447,7 @@ export const SettingsView: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-xs font-bold text-gray-900 group-hover:text-gray-600 transition-colors">
-                      소셜 계정 연결 (Apple / 카카오 / Google)
+                      소셜 계정 연결 (Apple / 카카오)
                     </div>
                     <div className="text-[11px] text-gray-400">
                       계정을 연결하여 활동 내역을 영구 보관하세요
@@ -470,7 +463,7 @@ export const SettingsView: React.FC = () => {
                 <div className="flex items-center gap-2.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                   <span className="text-xs font-bold text-gray-700">
-                    {currentUser.provider === 'apple' ? '🍎 Apple 계정 연동됨' : (currentUser.provider === 'kakao' ? '💬 카카오 계정 연동됨' : '🌐 Google 계정 연동됨')}
+                    {currentUser.provider === 'apple' ? '🍎 Apple 계정 연동됨' : (currentUser.provider === 'kakao' ? '💬 카카오 계정 연동됨' : '🔐 계정 연동됨')}
                   </span>
                 </div>
                 <span className="text-[11px] text-gray-400 font-mono">
