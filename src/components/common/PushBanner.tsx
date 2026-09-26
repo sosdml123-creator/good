@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { X, Bell, ChevronRight } from 'lucide-react';
+import { formatRelativeTime } from '../../services/notificationService';
 
 export const PushBanner: React.FC = () => {
   const { 
@@ -61,7 +62,7 @@ export const PushBanner: React.FC = () => {
                 신상픽 {incomingPush.badge || '알림'}
               </span>
               <span className="text-[10px] text-gray-400 shrink-0 font-medium">
-                {incomingPush.timestamp}
+                {formatRelativeTime(incomingPush.createdAt || incomingPush.timestamp, incomingPush.id)}
               </span>
             </div>
           </div>

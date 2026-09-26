@@ -4,7 +4,7 @@ import { Sparkles, Check, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export const NicknameSetupModal: React.FC = () => {
-  const { isNicknameModalOpen, completeNicknameSetup, currentUser } = useApp();
+  const { isNicknameModalOpen, completeNicknameSetup, currentUser, isNicknameTaken } = useApp();
   const [nickname, setNickname] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,6 +31,10 @@ export const NicknameSetupModal: React.FC = () => {
     }
     if (!/^[a-zA-Z0-9가-힣_\s]+$/.test(trimmed)) {
       setErrorMsg('한글, 영문, 숫자, 밑줄(_)만 사용 가능합니다.');
+      return;
+    }
+    if (isNicknameTaken(trimmed, currentUser.uid)) {
+      setErrorMsg('이미 다른 회원이 사용 중인 닉네임입니다. 다른 닉네임을 입력해 주세요.');
       return;
     }
 

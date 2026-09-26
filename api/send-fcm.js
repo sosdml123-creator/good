@@ -116,7 +116,8 @@ export default async function handler(req, res) {
             type: safeType,
             target_id: safeTargetId || null,
             image_url: safeImageUrl || null,
-            badge: safeBadge
+            badge: safeBadge,
+            created_at: new Date().toISOString()
           })
         });
         if (insertRes.ok) {

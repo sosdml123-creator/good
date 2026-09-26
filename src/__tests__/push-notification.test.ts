@@ -168,6 +168,19 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
       const futureDate = new Date(Date.now() + 1000000).toISOString();
       expect(formatRelativeTime(futureDate)).toBe('방금 전');
     });
+
+    it('[정상] 잘못된 dateStr이라도 fallbackId(notif-타임스탬프)가 제공되면 정상 시간 계산', () => {
+      const fiveMinAgoTs = Date.now() - 5 * 60 * 1000;
+      expect(formatRelativeTime('방금 전', `notif-${fiveMinAgoTs}`)).toBe('5분 전');
+      expect(formatRelativeTime('', `notif-${fiveMinAgoTs}`)).toBe('5분 전');
+      expect(formatRelativeTime(null, `notif-${fiveMinAgoTs}`)).toBe('5분 전');
+    });
+
+    it('[정상] 이미 상대 시간 문자열인 경우 원본 유지', () => {
+      expect(formatRelativeTime('10분 전')).toBe('10분 전');
+      expect(formatRelativeTime('3일 전')).toBe('3일 전');
+      expect(formatRelativeTime('9월 16일')).toBe('9월 16일');
+    });
   });
 
   describe('4. 관리자 푸시 발송 및 페이로드 검증 (sendAdminPushNotification)', () => {

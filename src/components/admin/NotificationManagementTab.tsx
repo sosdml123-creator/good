@@ -20,7 +20,7 @@ import {
   Check,
   ChevronRight
 } from 'lucide-react';
-import { getFcmStatus, getStoredDeviceToken, FcmStatusInfo } from '../../services/notificationService';
+import { getFcmStatus, getStoredDeviceToken, FcmStatusInfo, formatRelativeTime } from '../../services/notificationService';
 
 export const NotificationManagementTab: React.FC = () => {
   const { 
@@ -679,7 +679,9 @@ export const NotificationManagementTab: React.FC = () => {
                       <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 text-gray-700">
                         {n.badge || '알림'}
                       </span>
-                      <span className="text-[10px] text-gray-400">{n.timestamp}</span>
+                      <span className="text-[10px] text-gray-400">
+                        {formatRelativeTime(n.createdAt || n.timestamp, n.id)}
+                      </span>
                       {n.targetId && (
                         <span className="text-[10px] font-mono text-indigo-600 bg-indigo-50 px-1 rounded">
                           ID: {n.targetId}

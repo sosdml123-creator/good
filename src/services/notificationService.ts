@@ -169,6 +169,7 @@ export const initPushNotifications = async (callbacks: {
       PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
         console.log('[Push Notification] Received in foreground:', notification);
         const data = notification.data || {};
+        const nowIso = new Date().toISOString();
         const appNotif: AppNotification = {
           id: 'notif-' + (notification.id || Date.now()),
           title: notification.title || '신상픽 알림',
@@ -176,7 +177,8 @@ export const initPushNotifications = async (callbacks: {
           type: (data.type as 'event' | 'product' | 'notice') || 'notice',
           targetId: data.targetId || '',
           imageUrl: (notification as any).largeBody || data.imageUrl || undefined,
-          timestamp: '방금 전',
+          timestamp: data.createdAt || data.timestamp || nowIso,
+          createdAt: data.createdAt || data.timestamp || nowIso,
           isRead: false,
           badge: data.badge || '알림'
         };
@@ -336,7 +338,8 @@ export const fetchNotificationsFromSupabase = async (): Promise<AppNotification[
       type: row.type || 'notice',
       targetId: row.target_id || '',
       imageUrl: row.image_url || undefined,
-      timestamp: formatRelativeTime(row.created_at),
+      timestamp: row.created_at || new Date().toISOString(),
+      createdAt: row.created_at || new Date().toISOString(),
       isRead: false,
       badge: row.badge || '알림'
     }));
@@ -361,6 +364,7 @@ export const subscribeToNotifications = (onNotification: (notif: AppNotification
         (payload) => {
           const newRow = payload.new;
           if (newRow && newRow.title) {
+            const timeIso = newRow.created_at || new Date().toISOString();
             const notif: AppNotification = {
               id: newRow.id,
               title: newRow.title,
@@ -368,7 +372,8 @@ export const subscribeToNotifications = (onNotification: (notif: AppNotification
               type: newRow.type || 'notice',
               targetId: newRow.target_id || '',
               imageUrl: newRow.image_url || undefined,
-              timestamp: '방금 전',
+              timestamp: timeIso,
+              createdAt: timeIso,
               isRead: false,
               badge: newRow.badge || '알림'
             };
@@ -396,6 +401,7 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
   error?: string;
 }> => {
   const notifId = 'notif-' + Date.now();
+  const nowIso = new Date().toISOString();
   const createdNotif: AppNotification = {
     id: notifId,
     title: payload.title,
@@ -403,7 +409,8 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
     type: payload.type,
     targetId: payload.targetId,
     imageUrl: payload.imageUrl,
-    timestamp: '방금 전',
+    timestamp: nowIso,
+    createdAt: nowIso,
     isRead: false,
     badge: payload.badge || (payload.type === 'event' ? '이벤트' : payload.type === 'product' ? '신제품' : '알림')
   };
@@ -419,7 +426,8 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
         type: payload.type,
         target_id: payload.targetId || null,
         image_url: payload.imageUrl || null,
-        badge: createdNotif.badge
+        badge: createdNotif.badge,
+        created_at: nowIso
       });
       if (!dbError) {
         dbSaved = true;
@@ -506,19 +514,55 @@ export const getFcmStatus = async (): Promise<FcmStatusInfo> => {
   };
 };
 
-export function formatRelativeTime(dateStr?: string | null): string {
+export function formatRelativeTime(dateStr?: string | null, fallbackId?: string): string {
   try {
-    if (!dateStr) return '방금 전';
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return '방금 전';
+    if (!dateStr && !fallbackId) return '방금 전';
+
+    let date: Date | null = null;
+    if (dateStr) {
+      const parsed = new Date(dateStr);
+      if (!isNaN(parsed.getTime())) {
+        date = parsed;
+      } else {
+        const num = Number(dateStr);
+        if (!isNaN(num) && num > 1000000000000) {
+          date = new Date(num);
+        }
+      }
+    }
+
+    // Fallback: If dateStr is invalid (e.g. legacy static '방금 전'), try parsing epoch timestamp from id (e.g., 'notif-1727330000000')
+    if (!date && fallbackId) {
+      if (fallbackId.startsWith('notif-')) {
+        const idPart = fallbackId.replace('notif-', '');
+        const num = Number(idPart);
+        if (!isNaN(num) && num > 1000000000000) {
+          date = new Date(num);
+        }
+      }
+    }
+
+    if (!date) {
+      if (dateStr && (dateStr.includes('전') || dateStr.includes('월') || dateStr.includes('.'))) {
+        return dateStr;
+      }
+      return '방금 전';
+    }
+
     const now = new Date();
     const diffSec = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    if (diffSec < 0 || diffSec < 60) return '방금 전';
+    if (diffSec < 60) return '방금 전';
     if (diffSec < 3600) return `${Math.floor(diffSec / 60)}분 전`;
     if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}시간 전`;
     if (diffSec < 604800) return `${Math.floor(diffSec / 86400)}일 전`;
-    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    if (date.getFullYear() === now.getFullYear()) {
+      return `${month}월 ${day}일`;
+    }
+    return `${date.getFullYear()}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
   } catch (e) {
     return '방금 전';
   }

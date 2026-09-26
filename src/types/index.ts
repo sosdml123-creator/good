@@ -515,6 +515,7 @@ export interface AppNotification {
   targetId: string; // eventId or productId
   imageUrl?: string;
   timestamp: string;
+  createdAt?: string;
   isRead: boolean;
   badge?: string;
 }

@@ -18,7 +18,8 @@ import { AppNotification } from '../../types';
 import { 
   checkPushPermissionStatus, 
   openDeviceSettings,
-  setMarketingConsentStatus 
+  setMarketingConsentStatus,
+  formatRelativeTime
 } from '../../services/notificationService';
 import { Capacitor } from '@capacitor/core';
 
@@ -250,7 +251,9 @@ export const NotificationModal: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                         )}
                       </div>
-                      <span className="text-[10px] text-gray-400 font-medium">{n.timestamp}</span>
+                      <span className="text-[10px] text-gray-400 font-medium">
+                        {formatRelativeTime(n.createdAt || n.timestamp, n.id)}
+                      </span>
                     </div>
 
                     <h4 className="text-xs font-bold text-gray-900 line-clamp-1 mt-0.5">

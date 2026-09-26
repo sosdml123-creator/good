@@ -282,6 +282,9 @@ interface AppContextType {
   batchRevokePoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
   fetchAllProfiles: () => Promise<void>;
   recordUserActivity: (uid?: string) => void;
+  deleteUserByAdmin: (userId: string) => Promise<void>;
+  batchDeleteUsersByAdmin: (userIds: string[]) => Promise<void>;
+  isNicknameTaken: (nickname: string, excludeUid?: string) => boolean;
   updateUserStatus: (
     userId: string,
     newStatus: UserAccountStatus,
@@ -380,23 +383,72 @@ export const calculateLevel = (points: number): string => {
 /**
  * 유저의 로그인 제공자(Provider)를 스마트하게 판별하는 헬퍼 함수
  */
-export const inferUserProvider = (user: { provider?: string; email?: string; uid?: string; id?: string; app_metadata?: any }): 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' => {
-  if (user.provider && ['apple', 'google', 'kakao', 'email', 'anonymous'].includes(user.provider)) {
+export const inferUserProvider = (user?: { 
+  provider?: string; 
+  email?: string; 
+  uid?: string; 
+  id?: string; 
+  app_metadata?: any;
+  user_metadata?: any;
+  identities?: any[];
+  is_anonymous?: boolean;
+} | null): 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' => {
+  if (!user) return 'anonymous';
+
+  // 1. 이미 명확한 소셜/이메일 프로바이더가 지정되어 있는 경우 (anonymous 제외 우선 판별)
+  if (user.provider && ['apple', 'google', 'kakao', 'email'].includes(user.provider)) {
     return user.provider as any;
   }
+
+  // 2. app_metadata 확인
   const appProvider = user.app_metadata?.provider;
   if (appProvider && ['apple', 'google', 'kakao', 'email'].includes(appProvider)) {
     return appProvider as any;
   }
+  const appProviders = user.app_metadata?.providers;
+  if (Array.isArray(appProviders)) {
+    if (appProviders.includes('kakao')) return 'kakao';
+    if (appProviders.includes('apple')) return 'apple';
+    if (appProviders.includes('google')) return 'google';
+    if (appProviders.includes('email')) return 'email';
+  }
+
+  // 3. identities 확인 (Supabase OAuth identities)
+  if (Array.isArray(user.identities) && user.identities.length > 0) {
+    const identProviders = user.identities.map(i => (i.provider || '').toLowerCase());
+    if (identProviders.some(p => p.includes('kakao'))) return 'kakao';
+    if (identProviders.some(p => p.includes('apple'))) return 'apple';
+    if (identProviders.some(p => p.includes('google'))) return 'google';
+    if (identProviders.some(p => p.includes('email'))) return 'email';
+  }
+
+  // 4. user_metadata 확인 (OAuth 제공자 식별자 및 issuer)
+  const userMeta = user.user_metadata;
+  if (userMeta) {
+    const metaProvider = (userMeta.provider || userMeta.iss || '').toLowerCase();
+    if (metaProvider.includes('kakao')) return 'kakao';
+    if (metaProvider.includes('apple')) return 'apple';
+    if (metaProvider.includes('google')) return 'google';
+  }
+
+  // 5. 이메일 주소 도메인 분석
   const email = (user.email || '').toLowerCase();
-  if (email.includes('privaterelay.appleid.com') || email.includes('@apple.')) return 'apple';
-  if (email.includes('kakao.com') || email.includes('daum.net')) return 'kakao';
+  if (email.includes('privaterelay.appleid.com') || email.includes('@apple.') || email.includes('appleid')) return 'apple';
+  if (email.includes('kakao.com') || email.includes('daum.net') || email.includes('kakao')) return 'kakao';
   if (email.includes('gmail.com') || email.includes('google')) return 'google';
   if (email.includes('@')) return 'email';
-  const idStr = user.uid || user.id || '';
-  if (idStr.startsWith('apple_')) return 'apple';
-  if (idStr.startsWith('kakao_')) return 'kakao';
-  if (idStr.startsWith('google_')) return 'google';
+
+  // 6. ID 접두사 분석 (apple_xxx, kakao_xxx, google_xxx 등)
+  const idStr = (user.uid || user.id || '').toLowerCase();
+  if (idStr.startsWith('apple_') || idStr.includes('apple')) return 'apple';
+  if (idStr.startsWith('kakao_') || idStr.includes('kakao')) return 'kakao';
+  if (idStr.startsWith('google_') || idStr.includes('google')) return 'google';
+
+  // 7. Explicit Anonymous user
+  if (user.is_anonymous === true || user.provider === 'anonymous') {
+    return 'anonymous';
+  }
+
   return 'anonymous';
 };
 
@@ -2159,7 +2211,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       setIsSupabaseConnected(true);
       const uid = user.id;
-      const providerName = (user.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
+      const providerName = inferUserProvider(user);
       const socialNames = getSocialRealNames(user);
       const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
 
@@ -2234,7 +2286,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (event, session) => {
         if (session?.user && isMounted) {
           const u = session.user;
-          const providerName = (u.app_metadata?.provider || 'apple') as 'apple' | 'google' | 'kakao' | 'anonymous';
+          const providerName = inferUserProvider(u);
           const socialNames = getSocialRealNames(u);
           const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + u.id) === 'true';
 
@@ -2285,7 +2337,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             ) {
               displayName = dbDisplayName;
             } else {
-              // 애플 로그인처럼 카카오 로그인 시에도 고유한 무작위 순번 닉네임(신상러버_XXX) 자동 생성
+              // 애플 및 카카오 로그인 시 고유한 무작위 순번 닉네임(신상러버_XXX) 자동 생성
               displayName = await getNextSequentialNickname(client, allProfiles);
             }
           } else if (dbDisplayName && !isDbSocialName && !dbDisplayName.includes('사용자')) {
@@ -2363,6 +2415,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 id: u.id,
                 display_name: displayName,
                 avatar_url: photoURL,
+                provider: providerName,
               }, { onConflict: 'id' });
             } catch (err2) {
               console.warn('[Supabase Profile Fallback Error]', err2);
@@ -3869,6 +3922,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     badge?: string;
     tokens?: string[];
   }) => {
+    const nowIso = new Date().toISOString();
     const newNotif: AppNotification = {
       id: 'notif-' + Date.now(),
       title: notif.title,
@@ -3876,7 +3930,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       type: notif.type,
       targetId: notif.targetId,
       imageUrl: notif.imageUrl,
-      timestamp: '방금 전',
+      timestamp: nowIso,
+      createdAt: nowIso,
       isRead: false,
       badge: notif.badge || (notif.type === 'event' ? '이벤트' : notif.type === 'product' ? '신제품' : '알림'),
     };
@@ -5371,6 +5426,105 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return { isSuspended: false, reason: '' };
   };
 
+  // 닉네임 중복 여부 확인
+  const isNicknameTaken = (nickname: string, excludeUid?: string): boolean => {
+    const trimmed = nickname.trim().toLowerCase();
+    if (!trimmed) return false;
+    return allProfiles.some(
+      p => p.uid !== excludeUid && (p.displayName || '').trim().toLowerCase() === trimmed
+    );
+  };
+
+  // 🗑️ 관리자 회원 강제 영구 삭제 (개별)
+  const deleteUserByAdmin = async (userId: string): Promise<void> => {
+    try {
+      const targetUser = allProfiles.find(p => p.uid === userId);
+      const userName = targetUser?.displayName || userId;
+
+      if (supabase && isSupabaseConfigured) {
+        try {
+          await supabase.from('device_tokens').delete().eq('user_id', userId);
+          await supabase.from('review_likes').delete().eq('user_id', userId);
+          await supabase.from('post_likes').delete().eq('user_id', userId);
+          await supabase.from('point_transactions').delete().eq('user_id', userId);
+          await supabase.from('bookmarks').delete().eq('user_id', userId);
+          await supabase.from('reviews').delete().eq('user_id', userId);
+          await supabase.from('community_posts').delete().eq('author_id', userId);
+          await supabase.from('profiles').delete().eq('id', userId);
+        } catch (err) {
+          console.warn('[Supabase Admin Delete Error]', err);
+        }
+      }
+
+      setAllProfiles(prev => {
+        const updated = prev.filter(p => p.uid !== userId);
+        try {
+          localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      setPointTransactions(prev => {
+        const updated = prev.filter(t => t.userId !== userId);
+        try {
+          localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      showToast(`'${userName}' 회원이 정상적으로 삭제(탈퇴 처리)되었습니다.`, 'info');
+    } catch (e) {
+      console.error('Failed to delete user by admin:', e);
+      showToast('회원 삭제 처리 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
+  // 🗑️ 관리자 회원 일괄 영구 삭제 (선택 삭제)
+  const batchDeleteUsersByAdmin = async (userIds: string[]): Promise<void> => {
+    if (!userIds || userIds.length === 0) {
+      showToast('삭제할 회원을 선택해주세요.', 'error');
+      return;
+    }
+    try {
+      if (supabase && isSupabaseConfigured) {
+        try {
+          await supabase.from('device_tokens').delete().in('user_id', userIds);
+          await supabase.from('review_likes').delete().in('user_id', userIds);
+          await supabase.from('post_likes').delete().in('user_id', userIds);
+          await supabase.from('point_transactions').delete().in('user_id', userIds);
+          await supabase.from('bookmarks').delete().in('user_id', userIds);
+          await supabase.from('reviews').delete().in('user_id', userIds);
+          await supabase.from('community_posts').delete().in('author_id', userIds);
+          await supabase.from('profiles').delete().in('id', userIds);
+        } catch (err) {
+          console.warn('[Supabase Admin Batch Delete Error]', err);
+        }
+      }
+
+      const idSet = new Set(userIds);
+      setAllProfiles(prev => {
+        const updated = prev.filter(p => !idSet.has(p.uid));
+        try {
+          localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      setPointTransactions(prev => {
+        const updated = prev.filter(t => !idSet.has(t.userId));
+        try {
+          localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      showToast(`총 ${userIds.length}명의 회원이 성공적으로 삭제되었습니다.`, 'info');
+    } catch (e) {
+      console.error('Failed to batch delete users by admin:', e);
+      showToast('회원 일괄 삭제 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
   // 🚨 신고 접수 액션
   const submitReport = async (reportData: Omit<ReportItem, 'id' | 'createdAt' | 'status'>): Promise<boolean> => {
     if (reportData.targetUserId && reportData.targetUserId === currentUser.uid) {
@@ -5764,6 +5918,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         batchRevokePoints,
         fetchAllProfiles,
         recordUserActivity,
+        deleteUserByAdmin,
+        batchDeleteUsersByAdmin,
+        isNicknameTaken,
         updateUserStatus,
         batchUpdateUserStatus,
         isCurrentUserSuspended,

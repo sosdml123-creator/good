@@ -269,9 +269,20 @@ DECLARE
     v_display_name TEXT;
     v_avatar_url TEXT;
 BEGIN
-    v_provider := COALESCE(NEW.raw_app_meta_data->>'provider', 'email');
+    -- Determine provider safely
+    v_provider := COALESCE(
+        NEW.raw_app_meta_data->>'provider',
+        (NEW.raw_app_meta_data->'providers'->>0),
+        CASE 
+            WHEN NEW.email LIKE '%kakao%' OR NEW.email LIKE '%daum%' THEN 'kakao'
+            WHEN NEW.email LIKE '%apple%' OR NEW.email LIKE '%privaterelay%' THEN 'apple'
+            WHEN NEW.email LIKE '%google%' OR NEW.email LIKE '%gmail%' THEN 'google'
+            WHEN NEW.is_anonymous IS TRUE THEN 'anonymous'
+            ELSE 'email'
+        END
+    );
 
-    -- 애플 및 카카오 로그인은 개인정보 보호 및 실명/프로필 사진 노출 방지를 위해 무작위 닉네임 및 기본 아바타 부여
+    -- 카카오 및 애플(아이폰) 소셜 로그인은 기본 프사와 무작위 고유 닉네임 통일 적용
     IF v_provider IN ('kakao', 'apple') THEN
         v_display_name := '신상러버_' || LPAD((FLOOR(RANDOM() * 900) + 100)::TEXT, 3, '0');
         v_avatar_url := 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
@@ -293,12 +304,16 @@ BEGIN
         'Lv.1',
         100,
         NEW.email,
-        COALESCE(NEW.raw_app_meta_data->>'provider', 'anonymous'),
+        v_provider,
         NOW()
     )
     ON CONFLICT (id) DO UPDATE SET
         email = COALESCE(EXCLUDED.email, public.profiles.email),
-        provider = COALESCE(EXCLUDED.provider, public.profiles.provider),
+        provider = CASE 
+            WHEN EXCLUDED.provider IS NOT NULL AND EXCLUDED.provider <> 'anonymous' THEN EXCLUDED.provider
+            WHEN public.profiles.provider IS NOT NULL AND public.profiles.provider <> 'anonymous' THEN public.profiles.provider
+            ELSE COALESCE(EXCLUDED.provider, public.profiles.provider, 'anonymous')
+        END,
         last_active_at = NOW();
     RETURN NEW;
 END;

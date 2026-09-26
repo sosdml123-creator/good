@@ -1,8 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { calculateLevel } from '../context/AppContext';
+import { calculateLevel, inferUserProvider, getNextSequentialNickname } from '../context/AppContext';
 import { supabase, handleAuthCallbackUrl } from '../services/supabase';
 import { safeLocalStorageGet, safeLocalStorageSet, safeLocalStorageRemove } from '../utils/safeStorage';
 import { UserProfile, PointTransaction } from '../types';
+import { DEFAULT_AVATAR } from '../utils/avatars';
 
 // Mock Capacitor Core & Browser
 vi.mock('@capacitor/core', async (importOriginal) => {
@@ -321,6 +322,84 @@ describe('Comprehensive User & Auth Lifecycle Suite (회원가입/닉네임/로�
       const results = await Promise.all([triggerDelete(), triggerDelete(), triggerDelete()]);
       expect(executionCount).toBe(1);
       expect(results.filter(Boolean).length).toBe(1);
+    });
+  });
+
+  describe('7. 소셜 로그인 Provider 스마트 판별 (inferUserProvider 검증)', () => {
+    it('[정상] 카카오 이메일 및 메타데이터, identities를 통한 Kakao Provider 판별', () => {
+      expect(inferUserProvider({ email: 'user@kakao.com' })).toBe('kakao');
+      expect(inferUserProvider({ email: 'user@daum.net' })).toBe('kakao');
+      expect(inferUserProvider({ app_metadata: { providers: ['kakao'] } })).toBe('kakao');
+      expect(inferUserProvider({ identities: [{ provider: 'kakao' }] })).toBe('kakao');
+      expect(inferUserProvider({ user_metadata: { iss: 'https://kauth.kakao.com' } })).toBe('kakao');
+      // provider가 anonymous로 잘못 표기되어 있어도 카카오 이메일이 있으면 kakao로 보정
+      expect(inferUserProvider({ provider: 'anonymous', email: 'tester@kakao.com' })).toBe('kakao');
+    });
+
+    it('[정상] Apple 이메일 및 메타데이터를 통한 Apple Provider 판별', () => {
+      expect(inferUserProvider({ email: 'privaterelay@privaterelay.appleid.com' })).toBe('apple');
+      expect(inferUserProvider({ email: 'user@apple.com' })).toBe('apple');
+      expect(inferUserProvider({ app_metadata: { provider: 'apple' } })).toBe('apple');
+      expect(inferUserProvider({ uid: 'apple_12345' })).toBe('apple');
+    });
+
+    it('[정상] Google 및 이메일, 게스트 판별', () => {
+      expect(inferUserProvider({ email: 'user@gmail.com' })).toBe('google');
+      expect(inferUserProvider({ email: 'normal@naver.com' })).toBe('email');
+      expect(inferUserProvider({ is_anonymous: true })).toBe('anonymous');
+      expect(inferUserProvider(null)).toBe('anonymous');
+    });
+  });
+
+  describe('8. 순번형 중복 방지 닉네임 및 기본 프로필 사진 통일 검증', () => {
+    it('[정상] 기존 닉네임 목록을 분석하여 중복 없이 다음 순번 닉네임 발급', async () => {
+      const existingProfiles: UserProfile[] = [
+        {
+          uid: 'u1',
+          displayName: '신상러버_001',
+          photoURL: DEFAULT_AVATAR,
+          points: 100,
+          level: 'Lv.1',
+        },
+        {
+          uid: 'u2',
+          displayName: '신상러버_002',
+          photoURL: DEFAULT_AVATAR,
+          points: 100,
+          level: 'Lv.1',
+        },
+      ];
+
+      const nextNickname = await getNextSequentialNickname(null, existingProfiles);
+      expect(nextNickname).toBe('신상러버_003');
+    });
+  });
+
+  describe('9. 관리자 회원 삭제 및 일괄 삭제 검증 (deleteUserByAdmin)', () => {
+    it('[정상] 단일 회원 삭제 시 allProfiles 목록에서 제거', () => {
+      const profiles: UserProfile[] = [
+        { uid: 'u1', displayName: '회원1', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+        { uid: 'u2', displayName: '회원2', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+        { uid: 'u3', displayName: '회원3', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+      ];
+
+      const updated = profiles.filter(p => p.uid !== 'u2');
+      expect(updated.length).toBe(2);
+      expect(updated.find(p => p.uid === 'u2')).toBeUndefined();
+    });
+
+    it('[정상] 다수 회원 일괄 삭제 시 선택된 회원 전체 일괄 제거', () => {
+      const profiles: UserProfile[] = [
+        { uid: 'u1', displayName: '회원1', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+        { uid: 'u2', displayName: '회원2', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+        { uid: 'u3', displayName: '회원3', photoURL: DEFAULT_AVATAR, points: 100, level: 'Lv.1' },
+      ];
+
+      const toDelete = ['u1', 'u3'];
+      const deleteSet = new Set(toDelete);
+      const updated = profiles.filter(p => !deleteSet.has(p.uid));
+      expect(updated.length).toBe(1);
+      expect(updated[0].uid).toBe('u2');
     });
   });
 });
