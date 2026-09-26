@@ -292,6 +292,23 @@ const startOAuth = async (provider: 'apple' | 'google' | 'kakao') => {
     });
     if (error) throw error;
     if (data?.url) {
+      let browserFinishedSub: any = null;
+      try {
+        browserFinishedSub = await Browser.addListener('browserFinished', async () => {
+          try {
+            if (browserFinishedSub && typeof browserFinishedSub.remove === 'function') {
+              browserFinishedSub.remove();
+            }
+          } catch (e) {}
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user && !session.user.is_anonymous) {
+              console.log('[Supabase Auth] Session verified after browser finished');
+            }
+          } catch (e) {}
+        });
+      } catch (e) {}
+
       await Browser.open({
         url: data.url,
         windowName: '_self',

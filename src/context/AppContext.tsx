@@ -78,6 +78,7 @@ import {
   SYSTEM_BANNER_RECORD_ID
 } from '../services/siteContentService';
 import { App as CapacitorApp } from '@capacitor/app';
+import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import { 
   requestPushPermission as requestPushPermissionService,
@@ -2134,11 +2135,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const init = async () => {
       // 1. Process OAuth callback if returning from web OAuth redirect (Kakao, Google, etc.)
+      const isMobileDevice = typeof navigator !== 'undefined' && (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+        (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent)));
+
       const currentUrl = window.location.href;
       if (!Capacitor.isNativePlatform() && (currentUrl.includes('code=') || currentUrl.includes('access_token=') || currentUrl.includes('error='))) {
         try {
           await handleAuthCallbackUrl(currentUrl);
-          if (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error=')) {
+          // On mobile, keep URL params for AuthCallbackBridge to hand off to native scheme, clean up on desktop
+          if (!isMobileDevice && (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error='))) {
             window.history.replaceState(null, '', window.location.pathname);
           }
         } catch (e) {
@@ -2368,39 +2373,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       });
 
-      // 7. Listen for Capacitor App URL Open (Native Deep Link: sinsangpick://auth-callback)
-      let appUrlSub: any = null;
-      if (Capacitor.isNativePlatform()) {
-        CapacitorApp.addListener('appUrlOpen', async (data) => {
-          console.log('[Capacitor App] Deep link received:', data.url);
-          if (data.url && (data.url.includes('auth-callback') || data.url.includes('access_token') || data.url.includes('code='))) {
-            const success = await handleAuthCallbackUrl(data.url);
-            if (success && isMounted) {
-              setIsLoginModalOpen(false);
-              setIsGuestBrowse(true);
-            }
-          }
-        }).then(sub => {
-          appUrlSub = sub;
-        }).catch(err => {
-          console.warn('[Capacitor App] addListener appUrlOpen error:', err);
-        });
-      }
-
       return () => {
         client.removeChannel(channel);
         authSub.unsubscribe();
-        if (appUrlSub && typeof appUrlSub.remove === 'function') {
-          appUrlSub.remove();
-        }
       };
     };
 
     init();
 
-
     return () => {
       isMounted = false;
+    };
+  }, []);
+
+  // 🔗 Immediate Deep Link Listener (Capacitor Native: sinsangpick://auth-callback)
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    let appUrlSub: any = null;
+    CapacitorApp.addListener('appUrlOpen', async (data) => {
+      console.log('[Capacitor App] Deep link received:', data?.url);
+      if (!data?.url) return;
+
+      if (
+        data.url.includes('auth-callback') ||
+        data.url.includes('access_token') ||
+        data.url.includes('code=')
+      ) {
+        try {
+          const success = await handleAuthCallbackUrl(data.url);
+          // Always ensure in-app browser sheet is closed
+          await Browser.close().catch(() => {});
+
+          if (success) {
+            setIsLoginModalOpen(false);
+            setIsGuestBrowse(true);
+            showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
+
+            // Sync user data
+            if (supabase) {
+              const { data: { user } } = await supabase.auth.getUser();
+              if (user) {
+                await loadSupabaseData(user.id);
+              }
+            }
+          }
+        } catch (err) {
+          console.warn('[Capacitor App] Error processing deep link:', err);
+        }
+      }
+    }).then(sub => {
+      appUrlSub = sub;
+    }).catch(err => {
+      console.warn('[Capacitor App] addListener appUrlOpen error:', err);
+    });
+
+    return () => {
+      if (appUrlSub && typeof appUrlSub.remove === 'function') {
+        appUrlSub.remove();
+      }
     };
   }, []);
 
@@ -2410,9 +2441,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     let stateSub: any = null;
     if (Capacitor.isNativePlatform()) {
-      CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+      CapacitorApp.addListener('appStateChange', async ({ isActive }) => {
         if (isActive) {
           refreshRemoteContent();
+
+          // Check if user authenticated while in browser sheet
+          if (supabase && isSupabaseConfigured) {
+            try {
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session?.user && !session.user.is_anonymous && session.user.id !== currentUser.uid) {
+                await Browser.close().catch(() => {});
+                setIsLoginModalOpen(false);
+                setIsGuestBrowse(true);
+                showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
+                await loadSupabaseData(session.user.id);
+              }
+            } catch (e) {}
+          }
+
           if (currentUser.uid) {
             loadSupabaseData(currentUser.uid);
           }

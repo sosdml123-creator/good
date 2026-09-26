@@ -16,10 +16,14 @@
         try {
           var hash = window.location.hash || '';
           var search = window.location.search || '';
-          if ((hash.indexOf('access_token=') !== -1 || search.indexOf('code=') !== -1) && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+          var hasAuth = (hash.indexOf('access_token=') !== -1 || search.indexOf('code=') !== -1 || window.location.pathname.indexOf('auth-callback') !== -1);
+          if (hasAuth && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+            var fullUrl = 'sinsangpick://auth-callback' + search + hash;
+            window.__SINSANGPICK_AUTH_URL__ = fullUrl;
+            try { sessionStorage.setItem('sinsangpick_auth_callback_url', fullUrl); } catch(e) {}
             var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent));
             if (isMobile) {
-              window.location.href = 'sinsangpick://auth-callback' + search + hash;
+              window.location.href = fullUrl;
             }
           }
         } catch(e) {}

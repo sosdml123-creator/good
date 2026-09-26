@@ -15,31 +15,40 @@ export const AuthCallbackBridge: React.FC = () => {
     const hash = window.location.hash || '';
     const search = window.location.search || '';
 
-    // Only activate bridge if explicitly requested via query parameter (e.g. app_redirect=true or target=native)
-    const explicitAppRedirect = search.includes('app_redirect=true') || search.includes('target=native');
-
-    if (!explicitAppRedirect) {
-      return;
-    }
-
     // Check if user is on mobile (iOS or Android)
     const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
       (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent)); // iPadOS
 
-    const fullTarget = `sinsangpick://auth-callback${search}${hash}`;
+    // Stored target from index.html head script or sessionStorage
+    const storedTarget = (typeof window !== 'undefined' && ((window as any).__SINSANGPICK_AUTH_URL__ || sessionStorage.getItem('sinsangpick_auth_callback_url'))) || '';
+
+    const hasAuthPayload = 
+      hash.includes('access_token=') || 
+      hash.includes('refresh_token=') ||
+      search.includes('code=') ||
+      search.includes('app_redirect=') ||
+      search.includes('target=native') ||
+      window.location.pathname.includes('auth-callback') ||
+      Boolean(storedTarget);
+
+    if (!hasAuthPayload) {
+      return;
+    }
+
+    const fullTarget = storedTarget || `sinsangpick://auth-callback${search}${hash}`;
     setDeepLinkUrl(fullTarget);
 
     if (isMobileDevice) {
       setShouldShow(true);
 
-      // Attempt redirection to the native app scheme
+      // Attempt immediate redirection to the native app scheme
       const timer = setTimeout(() => {
         try {
           window.location.href = fullTarget;
         } catch (e) {
           console.warn('Failed auto-redirect to native app:', e);
         }
-      }, 300);
+      }, 150);
 
       return () => clearTimeout(timer);
     }
@@ -57,6 +66,15 @@ export const AuthCallbackBridge: React.FC = () => {
 
   const handleStayOnWeb = () => {
     setShouldShow(false);
+    try {
+      sessionStorage.removeItem('sinsangpick_auth_callback_url');
+      if (typeof window !== 'undefined') {
+        (window as any).__SINSANGPICK_AUTH_URL__ = null;
+      }
+      if (window.location.search || window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    } catch (e) {}
   };
 
   return (
