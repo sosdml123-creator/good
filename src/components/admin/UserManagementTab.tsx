@@ -542,48 +542,230 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
       {subTab === 'users' && (
         <div className="space-y-6 animate-in fade-in">
           {/* Stats KPI Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className={`p-4 rounded-xl border ${cardBg}`}>
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">전체 등록 회원</span>
-              <div className="mt-1 flex items-baseline gap-1">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
+            <div className={`p-4 rounded-2xl border transition-all ${cardBg}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">전체 가입 회원</span>
+                <Users className="w-4 h-4 text-indigo-500" />
+              </div>
+              <div className="mt-2 flex items-baseline gap-1">
                 <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{stats.total}</span>
                 <span className="text-xs text-slate-400">명</span>
               </div>
+              <p className="text-[10px] text-slate-400 mt-1 font-medium">서비스 누적 회원수</p>
             </div>
 
-            <div className={`p-4 rounded-xl border ${cardBg}`}>
-              <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">정상 활동 회원</span>
-              <div className="mt-1 flex items-baseline gap-1">
-                <span className="text-2xl font-black font-mono text-emerald-600">{stats.active}</span>
-                <span className="text-xs text-emerald-500">명</span>
+            <div className={`p-4 rounded-2xl border transition-all ${cardBg}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">오늘 활동 인원 (DAU)</span>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
               </div>
-            </div>
-
-            <div className={`p-4 rounded-xl border ${cardBg}`}>
-              <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">경고 부여자</span>
-              <div className="mt-1 flex items-baseline gap-1">
-                <span className="text-2xl font-black font-mono text-amber-500">{stats.warned}</span>
-                <span className="text-xs text-amber-500">명</span>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-2xl font-black font-mono text-emerald-600">{stats.activeToday}</span>
+                <span className="text-xs text-emerald-500 font-bold">명</span>
               </div>
+              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 font-semibold flex items-center gap-1">
+                <Activity className="w-3 h-3" />
+                <span>오늘 방문/리뷰/상호작용</span>
+              </p>
             </div>
 
-            <div className={`p-4 rounded-xl border ${cardBg}`}>
-              <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">이용 정지 / 제재</span>
-              <div className="mt-1 flex items-baseline gap-1">
+            <div className={`p-4 rounded-2xl border transition-all ${cardBg}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-sky-500 uppercase tracking-wider">오늘 신규 가입</span>
+                <Sparkles className="w-4 h-4 text-sky-500" />
+              </div>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-2xl font-black font-mono text-sky-600 dark:text-sky-400">{stats.signedUpToday}</span>
+                <span className="text-xs text-sky-500 font-bold">명</span>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1 font-medium">
+                {stats.signedUpToday > 0 ? '오늘 새로운 회원이 합류했습니다' : '오늘 아직 신규 가입이 없습니다'}
+              </p>
+            </div>
+
+            <div className={`p-4 rounded-2xl border transition-all ${cardBg}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-rose-500 uppercase tracking-wider">제재/정지 회원</span>
+                <ShieldAlert className="w-4 h-4 text-rose-500" />
+              </div>
+              <div className="mt-2 flex items-baseline gap-1">
                 <span className="text-2xl font-black font-mono text-rose-600">{stats.suspended + stats.banned}</span>
                 <span className="text-xs text-rose-500">명</span>
               </div>
+              <p className="text-[10px] text-slate-400 mt-1 font-medium">경고 보유자 {stats.warned}명</p>
             </div>
 
-            <div className={`p-4 rounded-xl border col-span-2 lg:col-span-1 ${cardBg}`}>
-              <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">총 보유 포인트</span>
-              <div className="mt-1 flex items-baseline gap-1">
-                <span className="text-xl font-black font-mono text-indigo-600">
+            <div className={`p-4 rounded-2xl border col-span-2 lg:col-span-1 transition-all ${cardBg}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-amber-500 uppercase tracking-wider">총 보유 포인트</span>
+                <Coins className="w-4 h-4 text-amber-500" />
+              </div>
+              <div className="mt-2 flex items-baseline gap-1">
+                <span className="text-xl font-black font-mono text-amber-600 dark:text-amber-400">
                   {stats.totalPoints.toLocaleString()}
                 </span>
-                <span className="text-xs text-indigo-500 font-bold">P</span>
+                <span className="text-xs text-amber-500 font-bold">P</span>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1 font-medium">회원 잔여 총 리워드</p>
+            </div>
+          </div>
+
+          {/* Daily Signup Trend Chart & Provider Breakdown Section */}
+          <div className={`p-4 sm:p-5 rounded-2xl border transition-all ${cardBg}`}>
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-900/50">
+                  <BarChart2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h4 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      최근 14일 일별 신규 가입 추이
+                    </h4>
+                    {selectedDateFilter && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white animate-in fade-in">
+                        <Calendar className="w-2.5 h-2.5" />
+                        <span>{selectedDateFilter} 필터 중</span>
+                        <button
+                          onClick={() => setSelectedDateFilter(null)}
+                          className="hover:text-rose-200 ml-0.5"
+                          title="필터 해제"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    막대를 클릭하면 해당 날짜에 가입한 회원만 테이블에서 모아볼 수 있습니다.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {selectedDateFilter && (
+                  <button
+                    onClick={() => setSelectedDateFilter(null)}
+                    className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+                  >
+                    날짜 필터 초기화
+                  </button>
+                )}
+                <button
+                  onClick={() => setIsTrendExpanded(!isTrendExpanded)}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                    isDark ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-600'
+                  }`}
+                >
+                  {isTrendExpanded ? '차트 접기' : '차트 펼치기'}
+                </button>
               </div>
             </div>
+
+            {/* Provider Breakdown Summary Pills */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1 pb-3">
+              {[
+                { label: '카카오', provider: 'kakao', count: providerStats.kakao, color: 'bg-amber-400/15 text-amber-800 dark:text-amber-300 border-amber-300/40' },
+                { label: 'Apple', provider: 'apple', count: providerStats.apple, color: 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-300/60' },
+                { label: 'Google', provider: 'google', count: providerStats.google, color: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200/60' },
+                { label: '이메일', provider: 'email', count: providerStats.email, color: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/60' },
+                { label: '게스트', provider: 'anonymous', count: providerStats.anonymous, color: 'bg-slate-50 dark:bg-slate-900 text-slate-500 border-slate-200/50' },
+              ].map(p => {
+                const isSelected = providerFilter === p.provider;
+                const ratio = stats.total > 0 ? Math.round((p.count / stats.total) * 100) : 0;
+                return (
+                  <button
+                    key={p.provider}
+                    onClick={() => setProviderFilter(providerFilter === p.provider ? 'all' : p.provider)}
+                    className={`p-2 rounded-xl border text-left transition-all ${p.color} ${
+                      isSelected ? 'ring-2 ring-indigo-500 shadow-xs' : 'hover:opacity-90'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between text-[11px] font-bold">
+                      <span>{p.label}</span>
+                      <span className="text-[10px] opacity-75">{ratio}%</span>
+                    </div>
+                    <div className="text-base font-black font-mono mt-0.5">
+                      {p.count}<span className="text-[10px] font-normal ml-0.5">명</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Daily Bar Chart */}
+            {isTrendExpanded && (
+              <div className="mt-3 pt-3 border-t border-slate-200/70 dark:border-slate-800">
+                <div className="h-32 flex items-end gap-1.5 sm:gap-2 justify-between pt-4 pb-1 overflow-x-auto">
+                  {dailySignups.map((day) => {
+                    const isSelected = selectedDateFilter === day.date;
+                    const heightPercent = maxDailyCount > 0 ? Math.max((day.count / maxDailyCount) * 100, 8) : 8;
+                    const isDayToday = isToday(day.date);
+
+                    return (
+                      <div
+                        key={day.date}
+                        onClick={() => setSelectedDateFilter(isSelected ? null : day.date)}
+                        className={`group relative flex-1 min-w-[28px] max-w-[48px] h-full flex flex-col justify-end items-center cursor-pointer transition-all rounded-lg p-1 ${
+                          isSelected 
+                            ? 'bg-indigo-500/15 ring-2 ring-indigo-500' 
+                            : 'hover:bg-slate-100 dark:hover:bg-slate-800/60'
+                        }`}
+                        title={`${day.date} (${day.dayOfWeek}): ${day.count}명 가입`}
+                      >
+                        {/* Tooltip on hover */}
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 px-2 py-0.5 rounded-md bg-slate-900 text-white text-[10px] font-bold font-mono pointer-events-none whitespace-nowrap z-10 shadow-lg">
+                          {day.date.slice(5)} · {day.count}명
+                        </div>
+
+                        {/* Bar Count label */}
+                        <span className={`text-[10px] font-black font-mono mb-1 transition-colors ${
+                          day.count > 0 
+                            ? isDayToday ? 'text-indigo-600 font-extrabold' : (isDark ? 'text-slate-200' : 'text-slate-800')
+                            : 'text-slate-300 dark:text-slate-600'
+                        }`}>
+                          {day.count > 0 ? day.count : ''}
+                        </span>
+
+                        {/* Bar */}
+                        <div
+                          style={{ height: `${heightPercent}%` }}
+                          className={`w-full rounded-t-md transition-all duration-300 ${
+                            isSelected
+                              ? 'bg-indigo-600 shadow-md shadow-indigo-500/40'
+                              : isDayToday
+                              ? 'bg-gradient-to-t from-indigo-600 to-indigo-400'
+                              : day.count > 0
+                              ? 'bg-indigo-300 dark:bg-indigo-800 group-hover:bg-indigo-500'
+                              : 'bg-slate-200 dark:bg-slate-800'
+                          }`}
+                        />
+
+                        {/* Date label */}
+                        <div className="mt-1.5 text-center leading-none">
+                          <span className={`block text-[9px] font-mono ${
+                            isDayToday 
+                              ? 'text-indigo-600 dark:text-indigo-400 font-bold' 
+                              : 'text-slate-400'
+                          }`}>
+                            {day.date.slice(5)}
+                          </span>
+                          <span className={`block text-[8px] mt-0.5 ${
+                            isDayToday ? 'text-indigo-600 font-bold' : 'text-slate-400'
+                          }`}>
+                            {isDayToday ? '오늘' : day.dayOfWeek}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Search & Filter Toolbar */}
@@ -609,6 +791,21 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
               </div>
 
               <div className="flex items-center gap-2 flex-wrap text-xs">
+                {/* Activity (DAU) Filter */}
+                <select
+                  value={activityFilter}
+                  onChange={(e) => setActivityFilter(e.target.value as any)}
+                  className={`px-3 py-2 rounded-xl font-semibold border outline-none cursor-pointer ${
+                    isDark ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-700'
+                  }`}
+                >
+                  <option value="all">활동 주기: 전체</option>
+                  <option value="active_today">🔥 오늘 활동한 회원 (DAU)</option>
+                  <option value="active_7d">최근 7일 이내 활동</option>
+                  <option value="inactive_30d">30일 이상 미활동</option>
+                </select>
+
+                {/* Account Status Filter */}
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
@@ -623,6 +820,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                   <option value="banned">영구 정지 회원</option>
                 </select>
 
+                {/* Login Provider Filter */}
                 <select
                   value={providerFilter}
                   onChange={(e) => setProviderFilter(e.target.value)}
@@ -630,13 +828,15 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     isDark ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-700'
                   }`}
                 >
-                  <option value="all">가입 유형: 전체</option>
+                  <option value="all">로그인 수단: 전체</option>
+                  <option value="kakao">카카오 (Kakao)</option>
                   <option value="apple">Apple</option>
-                  <option value="kakao">Kakao</option>
                   <option value="google">Google</option>
+                  <option value="email">이메일 가입</option>
                   <option value="anonymous">게스트</option>
                 </select>
 
+                {/* Sort Order */}
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
@@ -644,12 +844,59 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     isDark ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-700'
                   }`}
                 >
+                  <option value="newest">가입일 최신순</option>
+                  <option value="active_desc">최근 활동순 (DAU)</option>
                   <option value="points_desc">포인트 높은순</option>
                   <option value="warning_desc">경고 횟수순</option>
-                  <option value="newest">최근 가입순</option>
                 </select>
               </div>
             </div>
+
+            {/* Quick Active Filter Chips */}
+            {(selectedDateFilter || providerFilter !== 'all' || activityFilter !== 'all' || statusFilter !== 'all' || searchQuery) && (
+              <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-slate-200/60 dark:border-slate-800 text-[11px]">
+                <span className="text-slate-400 flex items-center gap-1 mr-1">
+                  <Filter className="w-3 h-3" />
+                  <span>적용 필터:</span>
+                </span>
+                {selectedDateFilter && (
+                  <span className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 flex items-center gap-1 font-semibold">
+                    가입일: {selectedDateFilter}
+                    <button onClick={() => setSelectedDateFilter(null)} className="hover:text-rose-500"><X className="w-3 h-3" /></button>
+                  </span>
+                )}
+                {activityFilter !== 'all' && (
+                  <span className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 flex items-center gap-1 font-semibold">
+                    활동: {activityFilter === 'active_today' ? '오늘 활동 (DAU)' : activityFilter === 'active_7d' ? '최근 7일' : '30일 이상 미활동'}
+                    <button onClick={() => setActivityFilter('all')} className="hover:text-rose-500"><X className="w-3 h-3" /></button>
+                  </span>
+                )}
+                {providerFilter !== 'all' && (
+                  <span className="px-2 py-0.5 rounded-md bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200/50 flex items-center gap-1 font-semibold">
+                    수단: {providerFilter}
+                    <button onClick={() => setProviderFilter('all')} className="hover:text-rose-500"><X className="w-3 h-3" /></button>
+                  </span>
+                )}
+                {statusFilter !== 'all' && (
+                  <span className="px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/50 flex items-center gap-1 font-semibold">
+                    상태: {statusFilter}
+                    <button onClick={() => setStatusFilter('all')} className="hover:text-rose-500"><X className="w-3 h-3" /></button>
+                  </span>
+                )}
+                <button
+                  onClick={() => {
+                    setSelectedDateFilter(null);
+                    setActivityFilter('all');
+                    setProviderFilter('all');
+                    setStatusFilter('all');
+                    setSearchQuery('');
+                  }}
+                  className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1 underline cursor-pointer"
+                >
+                  전체 초기화
+                </button>
+              </div>
+            )}
 
             {/* Bulk Action Bar for Selected Users */}
             {selectedUserIds.length > 0 && (
@@ -721,11 +968,13 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                         className="rounded border-slate-300 text-indigo-600 cursor-pointer"
                       />
                     </th>
-                    <th className="p-3.5">회원 닉네임 / 계정</th>
-                    <th className="p-3.5">가입 유형</th>
+                    <th className="p-3.5">회원 닉네임 / 식별값</th>
+                    <th className="p-3.5">로그인 수단</th>
+                    <th className="p-3.5">가입 일시</th>
+                    <th className="p-3.5">최근 활동 (DAU)</th>
                     <th className="p-3.5">보유 포인트 / 등급</th>
                     <th className="p-3.5">계정 상태</th>
-                    <th className="p-3.5">누적 경고 / 제재 사유</th>
+                    <th className="p-3.5">누적 경고 / 제재</th>
                     <th className="p-3.5 text-right">포인트 & 상태 관리</th>
                   </tr>
                 </thead>
@@ -734,6 +983,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     filteredUsers.map((user) => {
                       const isSelected = selectedUserIds.includes(user.uid);
                       const userReviewsCount = reviews.filter(r => r.userId === user.uid || r.userName === user.displayName).length;
+                      const isUserActiveToday = checkIsUserActiveToday(user);
 
                       return (
                         <tr 
@@ -753,38 +1003,84 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                             />
                           </td>
 
+                          {/* Profile */}
                           <td className="p-3.5">
                             <div className="flex items-center gap-3">
-                              <img
-                                src={user.photoURL || DEFAULT_AVATAR}
-                                alt={user.displayName}
-                                className="w-8 h-8 rounded-full object-cover border border-slate-200 dark:border-slate-700 shrink-0"
-                              />
+                              <div className="relative">
+                                <img
+                                  src={user.photoURL || DEFAULT_AVATAR}
+                                  alt={user.displayName}
+                                  className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700 shrink-0"
+                                />
+                                {isUserActiveToday && (
+                                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900" title="오늘 활동함" />
+                                )}
+                              </div>
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5 font-bold truncate">
                                   <span className={isDark ? 'text-white' : 'text-slate-900'}>{user.displayName}</span>
                                   {user.role === 'admin' && (
-                                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-indigo-600 text-white">
+                                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-indigo-600 text-white">
                                       ADMIN
                                     </span>
                                   )}
                                 </div>
-                                <div className="text-[11px] text-slate-400 font-mono truncate">
+                                <div className="text-[11px] text-slate-400 font-mono truncate max-w-[180px]">
                                   {user.email || user.uid}
                                 </div>
                               </div>
                             </div>
                           </td>
 
+                          {/* Login Provider */}
                           <td className="p-3.5">
-                            <div className="space-y-1">
-                              <div>{getProviderBadge(user.provider)}</div>
-                              <div className="text-[10px] text-slate-400 font-mono">
-                                {user.createdAt ? user.createdAt.slice(0, 10) : '2025.01.01'}
+                            <div>{getProviderBadge(user.provider, user.email)}</div>
+                          </td>
+
+                          {/* Sign-up Date/Time */}
+                          <td className="p-3.5">
+                            <div className="space-y-0.5 font-mono">
+                              <div className="flex items-center gap-1.5">
+                                <span className={`text-xs font-semibold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                                  {user.createdAt ? user.createdAt.slice(0, 10) : '2025.01.01'}
+                                </span>
+                                {user.createdAt && isToday(user.createdAt) && (
+                                  <span className="px-1.5 py-0.2 text-[9px] font-bold rounded bg-sky-500/20 text-sky-600 dark:text-sky-400">
+                                    오늘 가입
+                                  </span>
+                                )}
+                                {user.createdAt && isYesterday(user.createdAt) && (
+                                  <span className="px-1.5 py-0.2 text-[9px] font-bold rounded bg-slate-500/10 text-slate-500">
+                                    어제
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[10px] text-slate-400">
+                                {formatFullDateTime(user.createdAt)}
                               </div>
                             </div>
                           </td>
 
+                          {/* Recent Activity (DAU) */}
+                          <td className="p-3.5">
+                            <div className="space-y-0.5">
+                              {isUserActiveToday ? (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  <span>오늘 활동 (DAU)</span>
+                                </span>
+                              ) : (
+                                <span className="text-[11px] text-slate-400 font-medium">
+                                  {getRelativeTime(user.lastActiveAt || user.createdAt)}
+                                </span>
+                              )}
+                              <div className="text-[10px] text-slate-400 font-mono">
+                                {formatFullDateTime(user.lastActiveAt || user.createdAt)}
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Points & Level */}
                           <td className="p-3.5">
                             <div className="space-y-0.5">
                               <div className="font-bold font-mono text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
@@ -799,10 +1095,12 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                             </div>
                           </td>
 
+                          {/* Account Status */}
                           <td className="p-3.5">
                             {getStatusBadge(user.status)}
                           </td>
 
+                          {/* Warnings & Penalty */}
                           <td className="p-3.5">
                             <div className="space-y-0.5 max-w-xs">
                               <div className="flex items-center gap-1.5">
@@ -826,6 +1124,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                             </div>
                           </td>
 
+                          {/* Actions */}
                           <td className="p-3.5 text-right">
                             <div className="flex items-center justify-end gap-1.5">
                               <button
@@ -855,7 +1154,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     })
                   ) : (
                     <tr>
-                      <td colSpan={7} className="p-12 text-center text-slate-400">
+                      <td colSpan={9} className="p-12 text-center text-slate-400">
                         <Users className="w-8 h-8 mx-auto text-slate-300 dark:text-slate-700 mb-2" />
                         <p className="font-bold text-sm">일치하는 회원 정보가 없습니다.</p>
                         <p className="text-xs mt-1">검색어나 필터 조건을 변경해보세요.</p>
