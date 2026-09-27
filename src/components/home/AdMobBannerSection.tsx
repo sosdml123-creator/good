@@ -143,11 +143,11 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
         </div>
       )}
 
-      {/* 네이티브 광고 카드 컨테이너 (AdMob Unit ID: ca-app-pub-3878859120989916/3915377976) */}
+      {/* 배너 광고 카드 컨테이너 (Google AdMob 배너 광고 단위: ca-app-pub-3878859120989916/6084323850) */}
       <div
-        id="admob-native-container"
+        id="admob-banner-container"
         data-admob-app-id={ADMOB_CONFIG.appId}
-        data-ad-unit={ADMOB_CONFIG.nativeAdUnitId}
+        data-ad-unit={ADMOB_CONFIG.bannerAdUnitId}
         onClick={() => handleAdClick(currentAd)}
         className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-amber-500/10 p-3.5 border border-amber-200/80 shadow-2xs hover:shadow-xs transition-all cursor-pointer active:scale-[0.99]"
       >
