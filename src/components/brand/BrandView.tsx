@@ -259,7 +259,7 @@ export const BrandView: React.FC = () => {
   // =========================================================================
   if (selectedBrand && currentBrand) {
     return (
-      <div className="pb-16 bg-[#F8F9FA] min-h-full">
+      <div className="pb-20 bg-[#F8F9FA] min-h-full">
         {/* 1. Sticky Header */}
         <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">
           <button
@@ -555,7 +555,7 @@ export const BrandView: React.FC = () => {
   // VIEW 2: BRAND DIRECTORY & SHOWCASE (브랜드관 메인 둘러보기)
   // =========================================================================
   return (
-    <div className="pb-16 bg-[#F8F9FA] min-h-full">
+    <div className="pb-20 bg-[#F8F9FA] min-h-full">
       {/* 1. Sticky Header with Search */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
         <div className="flex items-center gap-2 px-4 py-2.5">

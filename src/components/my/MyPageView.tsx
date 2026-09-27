@@ -68,7 +68,7 @@ export const MyPageView: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5] min-h-full pb-14">
+    <div className="bg-[#F5F5F5] min-h-full pb-20">
       
       {/* 1. Profile header */}
       <div className="bg-gradient-to-b from-gray-900 via-slate-900 to-gray-900 px-5 pt-6 pb-16 text-white relative shadow-sm">

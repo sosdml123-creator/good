@@ -6,6 +6,11 @@ import { ActiveTab } from '../../types';
 export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, setSelectedCategory } = useApp();
 
+  const hiddenTabs: ActiveTab[] = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
+  if (hiddenTabs.includes(activeTab)) {
+    return null;
+  }
+
   const navItems = [
     { id: 'home' as ActiveTab, label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
     { id: 'category' as ActiveTab, label: '신제품', icon: <Compass className="w-5 h-5 stroke-[2]" /> },
@@ -22,8 +27,8 @@ export const BottomNav: React.FC = () => {
   };
 
   return (
-    <nav className="w-full shrink-0 z-40 bg-white border-t border-gray-200 select-none pb-1">
-      <div className="w-full px-2 py-1 flex items-center justify-around">
+    <nav className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 select-none pb-[max(env(safe-area-inset-bottom),6px)] pt-1 shadow-lg shadow-gray-900/5">
+      <div className="w-full px-2 py-0.5 flex items-center justify-around">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
 

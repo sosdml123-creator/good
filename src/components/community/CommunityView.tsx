@@ -103,7 +103,7 @@ export const CommunityView: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-full pb-12 relative">
+    <div className="bg-white min-h-full pb-20 relative">
       
       {/* 1. Header */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">

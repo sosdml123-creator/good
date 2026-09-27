@@ -95,7 +95,7 @@ export const DiscoverView: React.FC = () => {
     Boolean(p.produceDetails);
 
   return (
-    <div className="pb-12 bg-white min-h-full">
+    <div className="pb-20 bg-white min-h-full">
       
       {/* 1. Header with Search Bar */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
