@@ -775,18 +775,12 @@ export const HomeView: React.FC = () => {
           </div>
         );
 
-      // 7. 요즘 주목받는 먹거리 (네이버 검색 기준)
+      // 7. 요즘 주목받는 먹거리 (네이버 검색량 기준)
       case 'search_trending':
         return (
           <div key="search_trending" className="bg-white mt-2 py-4 border-b border-gray-100">
             <div className="flex items-center justify-between px-4 mb-1">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[15px] font-bold text-gray-900">{section.title || '요즘 주목받는 먹거리'}</span>
-                <span className="text-[10px] font-black bg-[#03C75A] text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
-                  <span className="font-extrabold text-[9px] bg-white text-[#03C75A] w-3.5 h-3.5 rounded-xs flex items-center justify-center font-mono">N</span>
-                  <span>{section.badgeText && section.badgeText !== '검색 유입 랭킹' ? section.badgeText : '네이버 검색 랭킹'}</span>
-                </span>
-              </div>
+              <span className="text-[15px] font-bold text-gray-900">{section.title || '요즘 주목받는 먹거리'}</span>
               <button
                 onClick={() => setActiveTab('category')}
                 className="text-[13px] text-gray-400 font-medium hover:text-gray-700"

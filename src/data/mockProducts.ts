@@ -35508,7 +35508,7 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
     name: '요즘 주목받는 먹거리 구좌',
     title: '요즘 주목받는 먹거리',
     subtitle: '네이버 쇼핑·트렌드 검색 빅데이터 기반 인기 먹거리 순위예요',
-    badgeText: '네이버 검색 랭킹',
+    badgeText: '',
     isVisible: true,
     order: 8,
     itemLimit: 12,
