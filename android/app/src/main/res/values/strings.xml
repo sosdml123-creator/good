@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">신상픽</string>
+    <string name="title_activity_main">신상픽</string>
+    <string name="package_name">com.sinsangpick.app</string>
+    <string name="custom_url_scheme">com.sinsangpick.app</string>
+</resources>
