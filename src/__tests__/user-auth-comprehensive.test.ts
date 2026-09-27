@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { calculateLevel, inferUserProvider, getNextSequentialNickname } from '../context/AppContext';
+import { calculateLevel, inferUserProvider, resolveUserProfileProvider, getNextSequentialNickname } from '../context/AppContext';
 import { supabase, handleAuthCallbackUrl } from '../services/supabase';
 import { safeLocalStorageGet, safeLocalStorageSet, safeLocalStorageRemove } from '../utils/safeStorage';
 import { UserProfile, PointTransaction } from '../types';
@@ -348,6 +348,40 @@ describe('Comprehensive User & Auth Lifecycle Suite (회원가입/닉네임/로�
       expect(inferUserProvider({ email: 'normal@naver.com' })).toBe('email');
       expect(inferUserProvider({ is_anonymous: true })).toBe('anonymous');
       expect(inferUserProvider(null)).toBe('anonymous');
+    });
+
+    it('[핵심 방어] resolveUserProfileProvider: DB에 anonymous로 저장되어 있어도 소셜 로그인 세션 및 기존 정보를 최우선 복원', () => {
+      const currentAppleUser: UserProfile = {
+        uid: 'user_apple_123',
+        displayName: '사과유저',
+        photoURL: DEFAULT_AVATAR,
+        level: 'Lv.1',
+        points: 100,
+        provider: 'apple',
+      };
+
+      // 1. DB에는 provider가 anonymous로 잘못 들어가 있는 경우에도 현재 세션이 Apple이면 apple로 복원
+      const dbProfileWithAnonymous = { id: 'user_apple_123', provider: 'anonymous' };
+      expect(resolveUserProfileProvider(dbProfileWithAnonymous, undefined, currentAppleUser)).toBe('apple');
+
+      // 2. 기존 allProfiles에 kakao로 기록되어 있고 DB에는 anonymous로 되어있는 경우 kakao 유지 (덮어씌움 방지)
+      const prevKakaoProfile: UserProfile = {
+        uid: 'user_kakao_456',
+        displayName: '카카오유저',
+        photoURL: DEFAULT_AVATAR,
+        level: 'Lv.1',
+        points: 100,
+        provider: 'kakao',
+      };
+      const dbKakaoProfile = { id: 'user_kakao_456', provider: 'anonymous' };
+      expect(resolveUserProfileProvider(dbKakaoProfile, prevKakaoProfile)).toBe('kakao');
+
+      // 3. DB에 정상적으로 provider가 있는 경우
+      expect(resolveUserProfileProvider({ id: 'u3', provider: 'apple' })).toBe('apple');
+      expect(resolveUserProfileProvider({ id: 'u4', provider: 'kakao' })).toBe('kakao');
+
+      // 4. 순수 익명 게스트 유저인 경우 anonymous
+      expect(resolveUserProfileProvider({ id: 'u5', provider: 'anonymous' })).toBe('anonymous');
     });
   });
 

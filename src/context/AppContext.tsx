@@ -431,6 +431,7 @@ export const inferUserProvider = (user?: {
     if (metaProvider.includes('kakao')) return 'kakao';
     if (metaProvider.includes('apple')) return 'apple';
     if (metaProvider.includes('google')) return 'google';
+    if (userMeta.kakao_account || (userMeta.avatar_url && String(userMeta.avatar_url).includes('kakaocdn.net'))) return 'kakao';
   }
 
   // 5. 이메일 주소 도메인 분석
@@ -449,6 +450,51 @@ export const inferUserProvider = (user?: {
   // 7. Explicit Anonymous user
   if (user.is_anonymous === true || user.provider === 'anonymous') {
     return 'anonymous';
+  }
+
+  return 'anonymous';
+};
+
+/**
+ * DB profiles 레코드와 기존 메모리 상태, 현재 로그인 유저 상태를 종합하여
+ * 정확한 Provider를 도출하는 헬퍼 함수
+ */
+export const resolveUserProfileProvider = (
+  dbItem: any,
+  prevProfile?: UserProfile,
+  currentLoggedInUser?: UserProfile
+): 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' => {
+  const targetUid = dbItem?.id || dbItem?.uid || prevProfile?.uid;
+
+  // 1. 현재 로그인 세션 사용자 본인이고, 소셜 로그인이 되어 있는 경우 최우선 보장
+  if (currentLoggedInUser && currentLoggedInUser.uid === targetUid) {
+    if (currentLoggedInUser.provider && ['apple', 'kakao', 'google', 'email'].includes(currentLoggedInUser.provider)) {
+      return currentLoggedInUser.provider as any;
+    }
+  }
+
+  // 2. DB 레코드의 provider가 소셜/이메일 프로바이더인 경우
+  if (dbItem?.provider && ['apple', 'kakao', 'google', 'email'].includes(dbItem.provider)) {
+    return dbItem.provider as any;
+  }
+
+  // 3. 기존 allProfiles 메모리에 유효한 소셜 프로바이더가 기록되어 있던 경우 (DB 기본값 anonymous로 인한 덮어씌움 방지)
+  if (prevProfile?.provider && ['apple', 'kakao', 'google', 'email'].includes(prevProfile.provider)) {
+    return prevProfile.provider as any;
+  }
+
+  // 4. dbItem 객체에 포함된 단서(이메일, id 접두사 등)로 스마트 추론
+  const inferredFromDb = inferUserProvider(dbItem);
+  if (inferredFromDb && inferredFromDb !== 'anonymous') {
+    return inferredFromDb;
+  }
+
+  // 5. prevProfile 객체에 포함된 단서로 스마트 추론
+  if (prevProfile) {
+    const inferredFromPrev = inferUserProvider(prevProfile);
+    if (inferredFromPrev && inferredFromPrev !== 'anonymous') {
+      return inferredFromPrev;
+    }
   }
 
   return 'anonymous';
@@ -2127,7 +2173,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const updated = prev.map(p => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
-              const inferredProv = dbP.provider || inferUserProvider(dbP) || p.provider || 'anonymous';
+              const inferredProv = resolveUserProfileProvider(dbP, p, currentUser);
               return {
                 ...p,
                 displayName: dbP.display_name || p.displayName,
@@ -2147,7 +2193,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
             .map(p => {
-              const inferredProv = p.provider || inferUserProvider(p) || 'anonymous';
+              const inferredProv = resolveUserProfileProvider(p, undefined, currentUser);
               return {
                 uid: p.id,
                 displayName: p.display_name || '신상러버',
@@ -2166,6 +2212,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
           return [...updated, ...extraUsers];
         });
+
+        // 🩺 Self-Healing: 현재 로그인 세션이 소셜(Apple/Kakao)인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
+        if (currentUser?.uid && ['apple', 'kakao', 'google'].includes(currentUser.provider || '')) {
+          const myDbProfile = dbAllProfiles.find(p => p.id === currentUser.uid);
+          if (myDbProfile && myDbProfile.provider === 'anonymous') {
+            Promise.resolve(
+              supabase.from('profiles').update({
+                provider: currentUser.provider,
+                email: currentUser.email || myDbProfile.email || undefined,
+                last_active_at: new Date().toISOString(),
+              }).eq('id', currentUser.uid)
+            ).then(() => {
+              console.log(`[Supabase Auth Sync] Repaired DB provider to ${currentUser.provider} for user ${currentUser.uid}`);
+            }).catch(() => {});
+          }
+        }
       }
 
     } catch (err: any) {
@@ -2268,6 +2330,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         provider: providerName,
         email: user.email || prev.email,
       }));
+
+      // 소셜 로그인 계정의 경우 profiles DB와 allProfiles 메모리에 provider 보정 동기화
+      if (providerName && ['apple', 'kakao', 'google'].includes(providerName)) {
+        Promise.resolve(
+          client.from('profiles').update({
+            provider: providerName,
+            email: user.email || undefined,
+            last_active_at: new Date().toISOString(),
+          }).eq('id', uid)
+        ).catch(() => {});
+
+        setAllProfiles(prev => prev.map(p => p.uid === uid ? {
+          ...p,
+          provider: providerName,
+          email: user.email || p.email,
+          lastActiveAt: new Date().toISOString(),
+        } : p));
+      }
 
       await loadSupabaseData(uid);
 
@@ -2438,6 +2518,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
           }
 
+          // allProfiles 메모리 상태에도 즉시 provider 동기화
+          setAllProfiles(prev => {
+            const exists = prev.some(p => p.uid === u.id);
+            if (exists) {
+              return prev.map(p => p.uid === u.id ? {
+                ...p,
+                displayName: displayName!,
+                photoURL: photoURL,
+                provider: providerName,
+                email: u.email || p.email,
+                lastActiveAt: new Date().toISOString(),
+              } : p);
+            }
+            return [{
+              uid: u.id,
+              displayName: displayName!,
+              photoURL: photoURL,
+              level: 'Lv.1',
+              points: 100,
+              isAnonymous: false,
+              provider: providerName,
+              email: u.email || undefined,
+              createdAt: new Date().toISOString(),
+              lastActiveAt: new Date().toISOString(),
+              status: 'active',
+              warningCount: 0,
+              role: 'user',
+            }, ...prev];
+          });
+
           loadSupabaseData(u.id);
         }
       });
@@ -2479,10 +2589,44 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setIsGuestBrowse(true);
             showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
 
-            // Sync user data
+            // Sync user data & provider
             if (supabase) {
               const { data: { user } } = await supabase.auth.getUser();
               if (user) {
+                const pName = inferUserProvider(user) || 'kakao';
+                setCurrentUser(prev => ({
+                  ...prev,
+                  uid: user.id,
+                  provider: pName,
+                  email: user.email || prev.email,
+                  isAnonymous: false,
+                }));
+
+                try {
+                  await supabase.from('profiles').upsert({
+                    id: user.id,
+                    provider: pName,
+                    email: user.email || undefined,
+                    last_active_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                  }, { onConflict: 'id' });
+                } catch (e) {
+                  try {
+                    await supabase.from('profiles').update({
+                      provider: pName,
+                      email: user.email || undefined,
+                      last_active_at: new Date().toISOString(),
+                    }).eq('id', user.id);
+                  } catch {}
+                }
+
+                setAllProfiles(prev => prev.map(p => p.uid === user.id ? {
+                  ...p,
+                  provider: pName,
+                  email: user.email || p.email,
+                  lastActiveAt: new Date().toISOString(),
+                } : p));
+
                 await loadSupabaseData(user.id);
               }
             }
@@ -3115,6 +3259,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
+        setAllProfiles(prev => [demoUser, ...prev.filter(p => p.uid !== demoUid)]);
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
         checkAndOpenPostLoginModals(demoUid);
@@ -3181,10 +3326,53 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             id: uid,
             display_name: assignedName,
             avatar_url: photoURL,
+            provider: 'apple',
+            email: u.email || undefined,
+            last_active_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
           }, { onConflict: 'id' });
         } catch (e) {
-          console.warn('[Supabase Profile Upsert Error]', e);
+          console.warn('[Supabase Profile Upsert Error, attempting fallback]', e);
+          try {
+            await supabase.from('profiles').upsert({
+              id: uid,
+              display_name: assignedName,
+              avatar_url: photoURL,
+              provider: 'apple',
+            }, { onConflict: 'id' });
+          } catch (err2) {
+            console.warn('[Supabase Profile Fallback Error]', err2);
+          }
         }
+
+        setAllProfiles(prev => {
+          const exists = prev.some(p => p.uid === uid);
+          if (exists) {
+            return prev.map(p => p.uid === uid ? {
+              ...p,
+              displayName: assignedName!,
+              photoURL: photoURL,
+              provider: 'apple',
+              email: u.email || p.email,
+              lastActiveAt: new Date().toISOString(),
+            } : p);
+          }
+          return [{
+            uid,
+            displayName: assignedName!,
+            photoURL: photoURL,
+            level: 'Lv.1',
+            points: 100,
+            isAnonymous: false,
+            provider: 'apple',
+            email: u.email || undefined,
+            createdAt: new Date().toISOString(),
+            lastActiveAt: new Date().toISOString(),
+            status: 'active',
+            warningCount: 0,
+            role: 'user',
+          }, ...prev];
+        });
 
         loadSupabaseData(uid);
       }
@@ -3257,6 +3445,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem('sinsangpick_name', demoUser.displayName);
         localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_nickname_set_' + demoUid, 'true');
+        setAllProfiles(prev => [demoUser, ...prev.filter(p => p.uid !== demoUid)]);
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
         checkAndOpenPostLoginModals(demoUid);
@@ -5011,7 +5200,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const updated = prev.map(p => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
-              const inferredProv = dbP.provider || inferUserProvider(dbP) || p.provider || 'anonymous';
+              const inferredProv = resolveUserProfileProvider(dbP, p, currentUser);
               return {
                 ...p,
                 displayName: dbP.display_name || p.displayName,
@@ -5031,7 +5220,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
             .map(p => {
-              const inferredProv = p.provider || inferUserProvider(p) || 'anonymous';
+              const inferredProv = resolveUserProfileProvider(p, undefined, currentUser);
               return {
                 uid: p.id,
                 displayName: p.display_name || '신상러버',
@@ -5050,6 +5239,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
           return [...updated, ...extraUsers];
         });
+
+        // 🩺 Self-Healing: 어드민에서 유저 목록 조회 시, 현재 로그인된 세션이 소셜인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
+        if (currentUser?.uid && ['apple', 'kakao', 'google'].includes(currentUser.provider || '')) {
+          const myDbProfile = dbAllProfiles.find(p => p.id === currentUser.uid);
+          if (myDbProfile && myDbProfile.provider === 'anonymous') {
+            Promise.resolve(
+              supabase.from('profiles').update({
+                provider: currentUser.provider,
+                email: currentUser.email || myDbProfile.email || undefined,
+                last_active_at: new Date().toISOString(),
+              }).eq('id', currentUser.uid)
+            ).then(() => {
+              console.log(`[Supabase fetchAllProfiles Sync] Repaired DB provider to ${currentUser.provider} for user ${currentUser.uid}`);
+            }).catch(() => {});
+          }
+        }
       }
     } catch (e) {
       console.warn('[Supabase fetchAllProfiles error]', e);

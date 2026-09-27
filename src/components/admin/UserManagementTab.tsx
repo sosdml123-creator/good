@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useApp, inferUserProvider } from '../../context/AppContext';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useApp, resolveUserProfileProvider } from '../../context/AppContext';
 import { UserProfile, UserAccountStatus } from '../../types';
 import { 
   Users, 
@@ -82,6 +82,7 @@ const getRelativeTime = (dateStr?: string) => {
 export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) => {
   const { 
     allProfiles, 
+    currentUser,
     updateUserStatus, 
     batchUpdateUserStatus, 
     grantUserPoints, 
@@ -95,6 +96,11 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
     showToast,
     reviews
   } = useApp();
+
+  // Load latest member profiles from Supabase on mount
+  useEffect(() => {
+    fetchAllProfiles().catch(() => {});
+  }, []);
 
   // Sub Tab: 'users' (회원 관리) | 'transactions' (포인트 내역 로그)
   const [subTab, setSubTab] = useState<'users' | 'transactions'>('users');
@@ -182,18 +188,18 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
     };
   }, [allProfiles, reviews]);
 
-  // Provider Distribution (using smart inferUserProvider)
+  // Provider Distribution (using smart resolveUserProfileProvider)
   const providerStats = useMemo(() => {
     const counts = { kakao: 0, apple: 0, email: 0, anonymous: 0 };
     allProfiles.forEach(u => {
-      const prov = inferUserProvider(u);
+      const prov = resolveUserProfileProvider(u, u, currentUser);
       if (prov === 'kakao') counts.kakao++;
       else if (prov === 'apple') counts.apple++;
       else if (prov === 'email') counts.email++;
       else counts.anonymous++;
     });
     return counts;
-  }, [allProfiles]);
+  }, [allProfiles, currentUser]);
 
   // Daily Signups for the past 14 days
   const dailySignups = useMemo(() => {
@@ -252,7 +258,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
         statusFilter === 'banned' ? userStatus === 'banned' : true;
 
       // Provider filter (smart infer)
-      const prov = inferUserProvider(u);
+      const prov = resolveUserProfileProvider(u, u, currentUser);
       const matchProvider = 
         providerFilter === 'all' ? true :
         providerFilter === 'kakao' ? prov === 'kakao' :
@@ -443,9 +449,9 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
   const getProviderBadge = (userOrProvider?: any, email?: string) => {
     let prov: string = 'anonymous';
     if (typeof userOrProvider === 'object' && userOrProvider !== null) {
-      prov = inferUserProvider(userOrProvider);
+      prov = resolveUserProfileProvider(userOrProvider, userOrProvider, currentUser);
     } else {
-      prov = inferUserProvider({ provider: userOrProvider, email });
+      prov = resolveUserProfileProvider({ provider: userOrProvider, email }, undefined, currentUser);
     }
 
     if (prov === 'apple') {
@@ -1385,9 +1391,10 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                   className="w-11 h-11 rounded-full object-cover border-2 border-indigo-500 shrink-0"
                 />
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="font-black text-base">{selectedUser.displayName}</h3>
                     {getStatusBadge(selectedUser.status)}
+                    {getProviderBadge(selectedUser)}
                   </div>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">
                     {selectedUser.email || selectedUser.uid} · {selectedUser.level} · {(selectedUser.points || 0).toLocaleString()}P
