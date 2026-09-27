@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
-  BarChart3, 
   Layers, 
   Package, 
   Swords, 
@@ -39,7 +38,6 @@ import {
   Link2,
   ExternalLink,
   Gift,
-  Coins,
   Users,
   ShieldCheck,
   Copy,
@@ -50,11 +48,14 @@ import {
   ChevronLeft,
   Building2,
   Store,
-  Calendar as CalendarIcon,
-  Tag,
   Bell,
   Sliders,
-  LogOut
+  LogOut,
+  LayoutDashboard,
+  UserPlus,
+  UserCheck,
+  ShieldAlert,
+  Ban
 } from 'lucide-react';
 import { clearAdminAuthenticated } from './AdminLoginView';
 import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, NutritionInfo, StoreStockItem } from '../../types';
@@ -117,11 +118,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     reviews,
     communityPosts,
     events,
-    notifications,
     brands,
     storeChannels,
-    salePromotions,
-    calendarItems,
     addBanner, 
     updateBanner, 
     deleteBanner, 
@@ -429,6 +427,138 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const avgReviewRating = reviews.length > 0 
     ? (reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length).toFixed(1)
     : '0.0';
+
+  // Computed statistics for clean Admin Dashboard
+  const todaySignupsCount = useMemo(() => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    const d = now.getDate();
+    return allProfiles.filter(u => {
+      if (!u.createdAt) return false;
+      const t = new Date(u.createdAt);
+      return t.getFullYear() === y && t.getMonth() === m && t.getDate() === d;
+    }).length;
+  }, [allProfiles]);
+
+  const todayReportsCount = useMemo(() => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    const d = now.getDate();
+    return reports.filter(r => {
+      if (!r.createdAt) return false;
+      const t = new Date(r.createdAt);
+      return t.getFullYear() === y && t.getMonth() === m && t.getDate() === d;
+    }).length;
+  }, [reports]);
+
+  const bannedMembersCount = useMemo(() => {
+    return allProfiles.filter(u => u.status === 'banned').length;
+  }, [allProfiles]);
+
+  const activeMembersCount = useMemo(() => {
+    const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+    return allProfiles.filter(u => {
+      if (u.lastActiveAt) {
+        return new Date(u.lastActiveAt).getTime() >= oneDayAgo;
+      }
+      if (u.createdAt) {
+        return new Date(u.createdAt).getTime() >= oneDayAgo;
+      }
+      return false;
+    }).length;
+  }, [allProfiles]);
+
+  // 14-Day Activity Trend Data for SVG Chart
+  const trendDays = useMemo(() => {
+    const days: { dateStr: string; label: string; signups: number; products: number; reports: number }[] = [];
+    const now = new Date();
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().slice(0, 10);
+      const month = d.getMonth() + 1;
+      const day = d.getDate();
+      const label = `${month}/${day}`;
+
+      const signups = allProfiles.filter(u => u.createdAt && u.createdAt.slice(0, 10) === dateStr).length;
+      const prods = products.filter(p => p.releaseDate && p.releaseDate.slice(0, 10) === dateStr).length;
+      const rep = reports.filter(r => r.createdAt && r.createdAt.slice(0, 10) === dateStr).length;
+
+      days.push({ dateStr, label, signups, products: prods, reports: rep });
+    }
+    return days;
+  }, [allProfiles, products, reports]);
+
+  const chartDimensions = { width: 800, height: 180, padX: 30, padY: 20 };
+  const maxTrendVal = useMemo(() => {
+    const m = Math.max(
+      ...trendDays.map(d => Math.max(d.signups, d.products, d.reports)),
+      4
+    );
+    return Math.ceil(m * 1.25);
+  }, [trendDays]);
+
+  const trendPoints = useMemo(() => {
+    const { width, height, padX, padY } = chartDimensions;
+    const plotW = width - padX * 2;
+    const plotH = height - padY * 2;
+    const count = trendDays.length;
+
+    return trendDays.map((d, i) => {
+      const x = padX + (i / (count - 1)) * plotW;
+      const ySignups = padY + plotH - (d.signups / maxTrendVal) * plotH;
+      const yProducts = padY + plotH - (d.products / maxTrendVal) * plotH;
+      const yReports = padY + plotH - (d.reports / maxTrendVal) * plotH;
+      return { x, ySignups, yProducts, yReports, ...d };
+    });
+  }, [trendDays, maxTrendVal]);
+
+  const createSmoothPath = (pts: { x: number; y: number }[]) => {
+    if (pts.length === 0) return '';
+    if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
+    let path = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[Math.max(i - 1, 0)];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[Math.min(i + 2, pts.length - 1)];
+
+      const cp1x = p1.x + (p2.x - p0.x) / 6;
+      const cp1y = p1.y + (p2.y - p0.y) / 6;
+      const cp2x = p2.x - (p3.x - p1.x) / 6;
+      const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+      path += ` C ${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+    }
+    return path;
+  };
+
+  const signupsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.ySignups }))), [trendPoints]);
+  const signupsAreaPath = useMemo(() => {
+    if (trendPoints.length === 0) return '';
+    const line = signupsLinePath;
+    const bottomY = chartDimensions.height - chartDimensions.padY;
+    const first = trendPoints[0];
+    const last = trendPoints[trendPoints.length - 1];
+    return `${line} L ${last.x.toFixed(1)} ${bottomY} L ${first.x.toFixed(1)} ${bottomY} Z`;
+  }, [signupsLinePath, trendPoints]);
+
+  const productsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.yProducts }))), [trendPoints]);
+  const reportsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.yReports }))), [trendPoints]);
+
+  const recentReportsList = useMemo(() => {
+    return [...reports]
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .slice(0, 5);
+  }, [reports]);
+
+  const recentUsersList = useMemo(() => {
+    return [...allProfiles]
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .slice(0, 5);
+  }, [allProfiles]);
 
   // Filtered pending products
   const filteredPendingProducts = pendingProducts.filter(item => {
@@ -959,7 +1089,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   // Helper theme classes
   const isDark = themeMode === 'dark';
   const mainBg = isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800';
-  const sidebarBg = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200';
   const headerBg = isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white/90 border-slate-200';
   const cardBg = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-xs';
   const subCardBg = isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-slate-50/80 border-slate-200/70';
@@ -971,381 +1100,82 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     <div className={`flex h-screen w-full antialiased overflow-hidden font-sans transition-colors duration-200 ${mainBg}`}>
       
       {/* ================= DESKTOP LEFT SIDEBAR ================= */}
-      <aside className={`w-64 border-r flex flex-col justify-between shrink-0 select-none z-20 transition-colors ${sidebarBg}`}>
+      <aside className="w-64 bg-[#111827] border-r border-gray-800 flex flex-col justify-between shrink-0 select-none z-20">
         
-        {/* Top Branding & Nav */}
+        {/* Top Branding */}
         <div>
-          <div className={`p-5 border-b flex items-center justify-between ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-sm ring-1 ring-white/20">
+          <div className="p-5 flex items-center justify-between border-b border-gray-800/80">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-600/30 ring-1 ring-white/10">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className={`font-black text-sm tracking-tight flex items-center gap-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  신상픽 <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 uppercase font-mono font-bold">Admin Pro</span>
-                </h1>
-                <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>통합 관리자 콘솔</p>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-base tracking-tight text-white">신상픽</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-mono">PRO</span>
+                </div>
+                <p className="text-[11px] text-gray-400 font-medium">Admin Console</p>
               </div>
             </div>
           </div>
 
-          {/* Database Connection Status Card */}
-          <div className={`px-4 py-3 border-b ${isDark ? 'border-slate-800/80 bg-slate-900/50' : 'border-slate-100 bg-slate-50/50'}`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-amber-500 shadow-[0_0_8px_#f59e0b]'}`} />
-                <span className={`text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                  {isSupabaseConnected ? 'Supabase 실시간 클라우드' : '로컬 스토리지 모드'}
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-400 font-mono">v2.5</span>
-            </div>
-          </div>
-
-          {/* Categorized Desktop Sidebar Navigation */}
-          <nav className="p-3 space-y-3.5 overflow-y-auto max-h-[calc(100vh-250px)] text-xs">
+          {/* Clean Flat Navigation List */}
+          <nav className="p-3 space-y-4 overflow-y-auto max-h-[calc(100vh-190px)] text-xs">
             
-            {/* GROUP 1: 📊 대시보드 & 데이터 */}
-            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
-              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <BarChart3 className="w-3 h-3 text-slate-400 dark:text-slate-500" />
-                <span>대시보드 & 데이터</span>
+            {/* 1. 대시보드 */}
+            <div className="space-y-1">
+              <div className="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                대시보드
               </div>
               <button
                 onClick={() => setActiveAdminTab('overview')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'overview'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <BarChart3 className={`w-4 h-4 ${activeAdminTab === 'overview' ? 'text-white' : 'text-slate-400'}`} />
+                <div className="flex items-center gap-3">
+                  <LayoutDashboard className={`w-4 h-4 ${activeAdminTab === 'overview' ? 'text-white' : 'text-gray-400'}`} />
                   <span>대시보드 개요</span>
                 </div>
-                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeAdminTab === 'overview' ? 'rotate-90 text-white' : 'text-slate-400'}`} />
               </button>
 
               <button
                 onClick={() => setActiveAdminTab('analytics')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'analytics'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <TrendingUp className={`w-4 h-4 ${activeAdminTab === 'analytics' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>실시간 쇼핑 트렌드</span>
+                <div className="flex items-center gap-3">
+                  <TrendingUp className={`w-4 h-4 ${activeAdminTab === 'analytics' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>쇼핑 트렌드 분석</span>
                 </div>
               </button>
             </div>
 
-            {/* GROUP 2: 📦 상품 & 데이터 수집 */}
-            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
-              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Package className="w-3 h-3 text-slate-400 dark:text-slate-500" />
-                <span>상품 & 데이터 수집</span>
+            {/* 2. 사용자 및 제재 */}
+            <div className="space-y-1">
+              <div className="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                사용자 및 제재
               </div>
               
               <button
-                onClick={() => setActiveAdminTab('collector')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'collector'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Target className={`w-4 h-4 ${activeAdminTab === 'collector' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>브랜드·품목 공식 수집</span>
-                </div>
-                <span className={`px-1.5 py-0.2 rounded text-[9px] font-bold ${
-                  activeAdminTab === 'collector'
-                    ? 'bg-white/20 text-white'
-                    : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
-                }`}>
-                  수집기
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('approval')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'approval'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Sparkles className={`w-4 h-4 ${activeAdminTab === 'approval' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>수집 신제품 승인함</span>
-                </div>
-                {pendingCount > 0 && (
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                    activeAdminTab === 'approval' ? 'bg-white/20 text-white' : 'bg-rose-500 text-white'
-                  }`}>
-                    {pendingCount}
-                  </span>
-                )}
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('products')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'products'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Package className={`w-4 h-4 ${activeAdminTab === 'products' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>상품 카탈로그 관리</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'products' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {products.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('kamis')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'kamis'
-                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="text-sm">🌾</span>
-                  <span>농수산물 KAMIS 시세</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                  activeAdminTab === 'kamis' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800'
-                }`}>
-                  실시간
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('product_edits')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'product_edits'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Edit3 className={`w-4 h-4 ${activeAdminTab === 'product_edits' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>제품 정보 수정요청</span>
-                </div>
-                {pendingProductEditsCount > 0 ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
-                    {pendingProductEditsCount}건
-                  </span>
-                ) : (
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                    activeAdminTab === 'product_edits' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                  }`}>
-                    {productEditRequests.length}
-                  </span>
-                )}
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('brands')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'brands'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Building2 className={`w-4 h-4 ${activeAdminTab === 'brands' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>식품 제조사 브랜드</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'brands' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {brands.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('stores')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'stores'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Store className={`w-4 h-4 ${activeAdminTab === 'stores' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>편의점·판매처 채널</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'stores' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {storeChannels.length}
-                </span>
-              </button>
-            </div>
-
-            {/* GROUP 3: 🎨 전시 & 프로모션 */}
-            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
-              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Sliders className="w-3 h-3 text-slate-400 dark:text-slate-500" />
-                <span>전시 & 프로모션</span>
-              </div>
-
-              <button
-                onClick={() => setActiveAdminTab('sections')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'sections'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Sliders className={`w-4 h-4 ${activeAdminTab === 'sections' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>홈 섹션 순서·배치</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('banners')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'banners'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Layers className={`w-4 h-4 ${activeAdminTab === 'banners' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>메인 프로모션 배너</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'banners' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {banners.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('battle')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'battle'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Swords className={`w-4 h-4 ${activeAdminTab === 'battle' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>신상 배틀 매치업</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('sales')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'sales'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Tag className={`w-4 h-4 ${activeAdminTab === 'sales' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>편의점 행사 (1+1/2+1)</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'sales' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {salePromotions.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('calendar')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'calendar'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <CalendarIcon className={`w-4 h-4 ${activeAdminTab === 'calendar' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>신상 출시 캘린더</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'calendar' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {calendarItems.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('events')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'events'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Gift className={`w-4 h-4 ${activeAdminTab === 'events' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>이벤트 & 체험단</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'events' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {events.length}
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('notifications')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'notifications'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Bell className={`w-4 h-4 ${activeAdminTab === 'notifications' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>알림 & 푸시 발송</span>
-                </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'notifications' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
-                }`}>
-                  {notifications.length}
-                </span>
-              </button>
-            </div>
-
-            {/* GROUP 4: 👥 유저 & 운영 모니터링 */}
-            <div className={`p-2 rounded-2xl border ${isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50/80 border-slate-200/60'} space-y-1`}>
-              <div className="px-2.5 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Users className="w-3 h-3 text-slate-400 dark:text-slate-500" />
-                <span>유저 & 운영 모니터링</span>
-              </div>
-
-              <button
                 onClick={() => setActiveAdminTab('users')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'users' || activeAdminTab === 'points'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'users'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <Users className={`w-4 h-4 ${activeAdminTab === 'users' || activeAdminTab === 'points' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>회원·포인트 통합 관리</span>
+                <div className="flex items-center gap-3">
+                  <Users className={`w-4 h-4 ${activeAdminTab === 'users' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>회원·포인트 관리</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'users' || activeAdminTab === 'points'
-                    ? 'bg-white/20 text-white font-bold'
-                    : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'users' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
                 }`}>
                   {allProfiles.length}명
                 </span>
@@ -1353,18 +1183,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
               <button
                 onClick={() => setActiveAdminTab('reviews')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'reviews'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <MessageSquare className={`w-4 h-4 ${activeAdminTab === 'reviews' ? 'text-white' : 'text-slate-400'}`} />
-                  <span>리뷰 & 커뮤니티 관리</span>
+                <div className="flex items-center gap-3">
+                  <MessageSquare className={`w-4 h-4 ${activeAdminTab === 'reviews' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>리뷰 & 커뮤니티</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                  activeAdminTab === 'reviews' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'reviews' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
                 }`}>
                   {reviews.length}
                 </span>
@@ -1372,23 +1202,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
               <button
                 onClick={() => setActiveAdminTab('reports')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'reports'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-white'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <ShieldCheck className={`w-4 h-4 ${activeAdminTab === 'reports' ? 'text-white' : 'text-slate-400'}`} />
+                <div className="flex items-center gap-3">
+                  <ShieldAlert className={`w-4 h-4 ${activeAdminTab === 'reports' ? 'text-white' : 'text-gray-400'}`} />
                   <span>신고 접수·제재</span>
                 </div>
                 {pendingReportsCount > 0 ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
                     {pendingReportsCount}건
                   </span>
                 ) : (
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono ${
-                    activeAdminTab === 'reports' ? 'bg-white/20 text-white font-bold' : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200/70 text-slate-700'
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                    activeAdminTab === 'reports' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
                   }`}>
                     {reports.length}
                   </span>
@@ -1396,22 +1226,223 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </button>
             </div>
 
-            {/* GROUP 6: 운영 & 시스템 */}
+            {/* 3. 상품 & 카탈로그 */}
             <div className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                운영 & 시스템
+              <div className="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                상품 & 카탈로그
+              </div>
+
+              <button
+                onClick={() => setActiveAdminTab('products')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'products'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Package className={`w-4 h-4 ${activeAdminTab === 'products' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>상품 카탈로그</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'products' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                }`}>
+                  {products.length}
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('approval')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'approval'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Sparkles className={`w-4 h-4 ${activeAdminTab === 'approval' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>수집 신제품 승인함</span>
+                </div>
+                {pendingCount > 0 && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold">
+                    {pendingCount}건
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('collector')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'collector'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Target className={`w-4 h-4 ${activeAdminTab === 'collector' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>브랜드 공식 수집기</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('product_edits')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'product_edits'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Edit3 className={`w-4 h-4 ${activeAdminTab === 'product_edits' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>제품 정보 수정요청</span>
+                </div>
+                {pendingProductEditsCount > 0 && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
+                    {pendingProductEditsCount}건
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('brands')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'brands'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Building2 className={`w-4 h-4 ${activeAdminTab === 'brands' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>식품 제조사 브랜드</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'brands' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                }`}>
+                  {brands.length}
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('stores')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'stores'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Store className={`w-4 h-4 ${activeAdminTab === 'stores' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>편의점·판매처 채널</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'stores' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                }`}>
+                  {storeChannels.length}
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('kamis')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'kamis'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Activity className={`w-4 h-4 ${activeAdminTab === 'kamis' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>농수산물 KAMIS 시세</span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">
+                  실시간
+                </span>
+              </button>
+            </div>
+
+            {/* 4. 전시 & 프로모션 */}
+            <div className="space-y-1">
+              <div className="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                전시 & 프로모션
+              </div>
+
+              <button
+                onClick={() => setActiveAdminTab('banners')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'banners'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Layers className={`w-4 h-4 ${activeAdminTab === 'banners' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>메인 프로모션 배너</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'banners' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                }`}>
+                  {banners.length}
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('battle')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'battle'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Swords className={`w-4 h-4 ${activeAdminTab === 'battle' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>신상 배틀 매치업</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('sections')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'sections'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Sliders className={`w-4 h-4 ${activeAdminTab === 'sections' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>홈 섹션 순서·배치</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('sales')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'sales'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Flame className={`w-4 h-4 ${activeAdminTab === 'sales' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>편의점 특가·행사</span>
+                </div>
+              </button>
+            </div>
+
+            {/* 5. 시스템 설정 */}
+            <div className="space-y-1">
+              <div className="px-3 py-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                시스템 설정
               </div>
 
               <button
                 onClick={() => setActiveAdminTab('data')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'data'
-                    ? 'bg-indigo-600 text-white font-bold shadow-xs'
-                    : isDark ? 'text-slate-300 hover:text-white hover:bg-slate-800/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <Database className={`w-4 h-4 ${activeAdminTab === 'data' ? 'text-white' : 'text-slate-400'}`} />
+                <div className="flex items-center gap-3">
+                  <Database className={`w-4 h-4 ${activeAdminTab === 'data' ? 'text-white' : 'text-gray-400'}`} />
                   <span>데이터 백업 & 복구</span>
                 </div>
               </button>
@@ -1420,41 +1451,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           </nav>
         </div>
 
-        {/* Sidebar Bottom: Return to Mobile Service & Theme Switcher */}
-        <div className={`p-4 border-t space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/70' : 'border-slate-200 bg-slate-50/70'}`}>
+        {/* Sidebar Bottom: Status & Back to App */}
+        <div className="p-4 border-t border-gray-800 space-y-3">
+          <div className="flex items-center justify-between px-2 text-[11px] text-gray-400">
+            <div className="flex items-center gap-2">
+              <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-amber-500'}`} />
+              <span>{isSupabaseConnected ? 'Supabase 클라우드' : '로컬 모드'}</span>
+            </div>
+            <span className="text-[10px] font-mono text-gray-500">v2.5</span>
+          </div>
           
-          {/* Direct Switcher back to User Mobile App View */}
           <button
             onClick={() => setActiveTab('home')}
-            className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-98 ${
-              isDark 
-                ? 'bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white' 
-                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 shadow-2xs'
-            }`}
+            className="w-full py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700/60 transition-colors"
           >
-            <Smartphone className="w-4 h-4 text-slate-500" />
-            <span>📱 모바일 앱 화면으로 이동</span>
+            <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
+            <span>앱 화면 바로가기</span>
           </button>
-
-          {/* Admin User Info & Logout */}
-          <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-2.5 truncate">
-              <div className={`w-8 h-8 rounded-full border flex items-center justify-center font-black text-xs ${isDark ? 'bg-slate-800 border-slate-700 text-indigo-400' : 'bg-indigo-100 border-indigo-200 text-indigo-600'}`}>
-                AD
-              </div>
-              <div className="truncate">
-                <p className={`text-xs font-bold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>신상픽 최고관리자</p>
-                <p className="text-[10px] text-slate-400 truncate">master@sinsangpick.com</p>
-              </div>
-            </div>
-            <button
-              onClick={handleAdminLogout}
-              className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 transition-colors shrink-0 ml-2"
-              title="관리자 로그아웃 (인증 해제)"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
-          </div>
         </div>
 
       </aside>
@@ -1584,186 +1597,441 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               TAB 1: OVERVIEW (대시보드 개요)
              ======================================================== */}
           {activeAdminTab === 'overview' && (
-            <div className="space-y-8">
+            <div className="space-y-6">
               
-              {/* 1. 6-Column Large KPI Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+              {/* 1. 8-Stat KPI Cards (2 Rows of 4 Columns - Clean Minimalist Style) */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 
-                {/* Total Products */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 1. 전체 회원 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">전체 등록 상품</span>
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                      <Package className="w-4 h-4" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">전체 회원</span>
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-100 dark:border-blue-900/40">
+                      <Users className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</span>
-                    <span className="text-xs text-slate-400">개 등록</span>
-                  </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>식품사 카탈로그</span>
-                    <button onClick={() => setActiveAdminTab('products')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
-                      관리 <ChevronRight className="w-3 h-3" />
-                    </button>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {allProfiles.length.toLocaleString()}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">명</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>포인트 {totalMemberPoints.toLocaleString()}P</span>
+                      <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        관리 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* Today's New Products */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 2. 오늘 가입 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">오늘의 출시 신상</span>
-                    <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
-                      <Zap className="w-4 h-4" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">오늘 가입</span>
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-100 dark:border-emerald-900/40">
+                      <UserPlus className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{todayProductsCount}</span>
-                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">개 활성</span>
-                  </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>홈 피드 노출</span>
-                    <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
-                      보기 <ChevronRight className="w-3 h-3" />
-                    </button>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      +{todaySignupsCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">명</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span className="text-emerald-600 dark:text-emerald-400 font-semibold">신규 회원 유입</span>
+                      <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        목록 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* Hot Products */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 3. 오늘 신상품 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">인기 HOT 신상</span>
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                      <Flame className="w-4 h-4 text-orange-500" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">오늘 신상</span>
+                    <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 flex items-center justify-center border border-violet-100 dark:border-violet-900/40">
+                      <Zap className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{hotProductsCount}</span>
-                    <span className="text-xs text-slate-500">개</span>
-                  </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>평점 우수 먹거리</span>
-                    <button onClick={() => { setProductFilterBadge('hot'); setActiveAdminTab('products'); }} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
-                      보기 <ChevronRight className="w-3 h-3" />
-                    </button>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {todayProductsCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">개</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>평점 ★ {avgReviewRating}</span>
+                      <button onClick={() => { setProductFilterBadge('today'); setActiveAdminTab('products'); }} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        보기 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* Reviews & Satisfaction */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 4. 오늘 신고 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">누적 리뷰</span>
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                      <MessageSquare className="w-4 h-4" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">오늘 신고</span>
+                    <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center border border-amber-100 dark:border-amber-900/40">
+                      <AlertTriangle className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{reviews.length}</span>
-                    <span className="text-xs text-slate-600 dark:text-slate-300 font-bold">★ {avgReviewRating}</span>
-                  </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>커뮤니티 {communityPosts.length}건</span>
-                    <button onClick={() => setActiveAdminTab('reviews')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-semibold">
-                      검토 <ChevronRight className="w-3 h-3" />
-                    </button>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {todayReportsCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">건</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span className={pendingReportsCount > 0 ? "text-rose-500 font-semibold" : ""}>신고 대기 {pendingReportsCount}건</span>
+                      <button onClick={() => setActiveAdminTab('reports')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        검토 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* Pending Approval */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 5. 수집 대기 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">신제품 수집 대기</span>
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                      <Sparkles className="w-4 h-4" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">수집 신제품 승인</span>
+                    <div className="w-10 h-10 rounded-xl bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 flex items-center justify-center border border-pink-100 dark:border-pink-900/40">
+                      <Sparkles className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{pendingCount}</span>
-                    <span className="text-xs text-slate-500 font-semibold">개 대기</span>
-                  </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span>크롤러 수집함</span>
-                    <button onClick={() => setActiveAdminTab('approval')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-bold">
-                      승인 <ChevronRight className="w-3 h-3" />
-                    </button>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {pendingCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">개</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>자동 수집 대기</span>
+                      <button onClick={() => setActiveAdminTab('approval')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        승인 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* 6. Members & Activity Status (DAU & Signups) */}
-                <div className={`p-4 rounded-2xl border transition-all hover:shadow-md ${cardBg}`}>
+                {/* 6. 정지 회원 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">회원 & 오늘 활동 (DAU)</span>
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center border border-emerald-500/20">
-                      <Users className="w-4 h-4" />
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">정지 회원</span>
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                      <Ban className="w-5 h-5" />
                     </div>
                   </div>
-                  <div className="mt-2.5 flex items-baseline gap-1.5">
-                    <span className={`text-2xl font-black font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{allProfiles.length}</span>
-                    <span className="text-xs text-slate-500 font-semibold flex items-center gap-0.5">
-                      명 등록 (<Coins className="w-3 h-3 text-amber-500 inline" /> {totalMemberPoints.toLocaleString()}P)
-                    </span>
-                    <span className="ml-auto text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      오늘 활동 {allProfiles.filter(u => {
-                        const now = new Date();
-                        const isTodayDate = (d?: string) => {
-                          if (!d) return false;
-                          const t = new Date(d);
-                          return t.getFullYear() === now.getFullYear() && t.getMonth() === now.getMonth() && t.getDate() === now.getDate();
-                        };
-                        return isTodayDate(u.lastActiveAt) || isTodayDate(u.createdAt);
-                      }).length}명
-                    </span>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {bannedMembersCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">명</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>이용 제한 계정</span>
+                      <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        관리 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
-                  <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">
-                      오늘 신규 +{allProfiles.filter(u => {
-                        if (!u.createdAt) return false;
-                        const now = new Date();
-                        const t = new Date(u.createdAt);
-                        return t.getFullYear() === now.getFullYear() && t.getMonth() === now.getMonth() && t.getDate() === now.getDate();
-                      }).length}명
-                    </span>
-                    <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5 font-bold">
-                      상세 모니터링 <ChevronRight className="w-3 h-3" />
-                    </button>
+                </div>
+
+                {/* 7. 정보 수정요청 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">정보 수정요청</span>
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center border border-orange-100 dark:border-orange-900/40">
+                      <Edit3 className="w-5 h-5" />
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {pendingProductEditsCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">건</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>유저 제보 대기</span>
+                      <button onClick={() => setActiveAdminTab('product_edits')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        검토 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 8. 활성 회원 (DAU) */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">활성 회원 (DAU)</span>
+                    <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 flex items-center justify-center border border-teal-100 dark:border-teal-900/40">
+                      <UserCheck className="w-5 h-5" />
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <div className="text-2xl font-black font-mono tracking-tight text-slate-900 dark:text-white">
+                      {activeMembersCount}
+                      <span className="text-xs font-semibold text-slate-400 ml-1">명</span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
+                      <span className="flex items-center gap-1 text-teal-600 dark:text-teal-400 font-semibold">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
+                        최근 24시간 활동
+                      </span>
+                      <button onClick={() => setActiveAdminTab('users')} className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold flex items-center">
+                        현황 <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
               </div>
 
-              {/* 2. Middle Row: Battle Arena Live Card + Pending Quick Action */}
+              {/* 2. 14-Day Activity Trend Chart (Smooth Bezier Area/Line SVG Chart) */}
+              <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <span>최근 14일 활동 트렌드</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">실제 데이터</span>
+                    </h2>
+                    <p className="text-xs text-slate-400 mt-0.5">신규 가입자, 등록 신상품, 신고 접수 건수의 일별 추이를 시각화합니다.</p>
+                  </div>
+                  
+                  {/* Legend */}
+                  <div className="flex items-center gap-4 text-xs font-semibold">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                      <span className="text-slate-600 dark:text-slate-300">신규 가입</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-violet-500"></span>
+                      <span className="text-slate-600 dark:text-slate-300">등록 상품</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                      <span className="text-slate-600 dark:text-slate-300">신고 접수</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SVG Area Chart */}
+                <div className="relative w-full h-52 select-none pt-2">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 800 180" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="signupsAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#6366f1" stopOpacity="0.22" />
+                        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Horizontal Grid lines */}
+                    <line x1="30" y1="20" x2="770" y2="20" stroke="currentColor" className="text-slate-100 dark:text-slate-800" strokeDasharray="3 3" />
+                    <line x1="30" y1="90" x2="770" y2="90" stroke="currentColor" className="text-slate-100 dark:text-slate-800" strokeDasharray="3 3" />
+                    <line x1="30" y1="160" x2="770" y2="160" stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+
+                    {/* Shaded Area for Signups */}
+                    {signupsAreaPath && (
+                      <path d={signupsAreaPath} fill="url(#signupsAreaGrad)" />
+                    )}
+
+                    {/* Smooth Lines */}
+                    {signupsLinePath && (
+                      <path d={signupsLinePath} fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    )}
+                    {productsLinePath && (
+                      <path d={productsLinePath} fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 2" />
+                    )}
+                    {reportsLinePath && (
+                      <path d={reportsLinePath} fill="none" stroke="#f43f5e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    )}
+
+                    {/* Data Points */}
+                    {trendPoints.map((pt, i) => (
+                      <g key={i}>
+                        {pt.signups > 0 && (
+                          <circle cx={pt.x} cy={pt.ySignups} r="3.5" fill="#6366f1" className="stroke-white dark:stroke-slate-900 stroke-2" />
+                        )}
+                        {pt.products > 0 && (
+                          <circle cx={pt.x} cy={pt.yProducts} r="3" fill="#8b5cf6" className="stroke-white dark:stroke-slate-900 stroke-1.5" />
+                        )}
+                        {pt.reports > 0 && (
+                          <circle cx={pt.x} cy={pt.yReports} r="3" fill="#f43f5e" className="stroke-white dark:stroke-slate-900 stroke-1.5" />
+                        )}
+                      </g>
+                    ))}
+                  </svg>
+                </div>
+
+                {/* X-Axis Day Labels */}
+                <div className="flex justify-between px-2 text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2">
+                  {trendDays.map((d, idx) => (
+                    <span key={idx} className={idx % 2 === 0 ? "font-semibold" : "hidden sm:inline"}>
+                      {d.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* 3. 2-Column Section: 최근 접수된 신고 & 최근 가입한 회원 */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                {/* Column 1: 최근 접수된 신고 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center">
+                        <ShieldAlert className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                          최근 접수된 신고
+                          {pendingReportsCount > 0 && (
+                            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-500 text-white font-bold">
+                              {pendingReportsCount}건 대기
+                            </span>
+                          )}
+                        </h3>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveAdminTab('reports')}
+                      className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5"
+                    >
+                      신고 관리로 이동 <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {recentReportsList.length === 0 ? (
+                      <div className="text-center py-8 text-xs text-slate-400">
+                        접수된 신고 내역이 없습니다.
+                      </div>
+                    ) : (
+                      recentReportsList.map(rep => (
+                        <div
+                          key={rep.id}
+                          className="p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 flex items-start justify-between gap-3 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-colors"
+                        >
+                          <div className="min-w-0 flex-1 space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                rep.status === 'pending'
+                                  ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                                  : rep.status === 'resolved'
+                                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                              }`}>
+                                {rep.status === 'pending' ? '처리대기' : rep.status === 'resolved' ? '처리완료' : '기각'}
+                              </span>
+                              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{rep.reason}</span>
+                            </div>
+                            <p className="text-xs text-slate-600 dark:text-slate-400 truncate">{rep.targetContent || '내용 없음'}</p>
+                            <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                              <span>신고자: {rep.reporterName || '익명'}</span>
+                              <span>•</span>
+                              <span>대상: {rep.targetUserName || '사용자'}</span>
+                            </div>
+                          </div>
+                          <span className="text-[10px] text-slate-400 font-mono whitespace-nowrap">
+                            {rep.createdAt ? rep.createdAt.slice(5, 16).replace('T', ' ') : ''}
+                          </span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Column 2: 최근 가입한 회원 */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                        <Users className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                          최근 가입한 회원
+                          <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-500 font-bold">
+                            총 {allProfiles.length}명
+                          </span>
+                        </h3>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveAdminTab('users')}
+                      className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5"
+                    >
+                      회원 관리로 이동 <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {recentUsersList.length === 0 ? (
+                      <div className="text-center py-8 text-xs text-slate-400">
+                        가입 회원이 없습니다.
+                      </div>
+                    ) : (
+                      recentUsersList.map(u => (
+                        <div
+                          key={u.uid}
+                          className="p-3 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 flex items-center justify-between gap-3 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 transition-colors"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold flex items-center justify-center text-xs shrink-0 shadow-xs">
+                              {u.photoURL ? (
+                                <img src={u.photoURL} alt="" className="w-full h-full rounded-full object-cover" />
+                              ) : (
+                                (u.displayName || 'U').slice(0, 1).toUpperCase()
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{u.displayName || '익명회원'}</p>
+                                {u.status === 'banned' && (
+                                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20">정지</span>
+                                )}
+                              </div>
+                              <p className="text-[11px] text-slate-400 truncate">{u.email || '이메일 미등록'}</p>
+                            </div>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <span className="text-xs font-bold font-mono text-indigo-600 dark:text-indigo-400">{(u.points || 0).toLocaleString()}P</span>
+                            <p className="text-[10px] text-slate-400">{u.createdAt ? u.createdAt.slice(5, 10) : ''}</p>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* 4. Secondary Row: 배틀 매치업 & 배너 현황 */}
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 
-                {/* Battle Matchup Status Card */}
-                <div className={`xl:col-span-2 p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                {/* Battle Matchup Preview */}
+                <div className="xl:col-span-2 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500">
+                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center">
                         <Swords className="w-4 h-4" />
                       </div>
                       <div>
-                        <h2 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>{battleConfig.title}</h2>
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white">{battleConfig.title}</h3>
                         <p className="text-xs text-slate-400">{battleConfig.subtitle}</p>
                       </div>
                     </div>
                     <button
                       onClick={() => setActiveAdminTab('battle')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold border flex items-center gap-1 transition-colors ${
-                        isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                      }`}
+                      className="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-200 transition-colors flex items-center gap-1"
                     >
-                      배틀 매치업 수정 <ChevronRight className="w-3.5 h-3.5" />
+                      배틀 설정 <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  {/* VS Preview Mini */}
-                  <div className={`p-4 rounded-xl border flex items-center justify-between gap-4 ${subCardBg}`}>
+                  <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3 flex-1 min-w-0">
                       <img src={prodA?.image} alt={prodA?.name} className="w-12 h-12 object-cover rounded-xl border border-blue-500/30 shrink-0" />
                       <div className="truncate">
                         <span className="text-[10px] font-bold text-blue-600 bg-blue-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelA}</span>
-                        <p className={`text-xs font-bold truncate mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodA?.name}</p>
+                        <p className="text-xs font-bold truncate mt-0.5 text-slate-900 dark:text-white">{prodA?.name}</p>
                         <p className="text-xs font-mono font-bold text-blue-600">{battlePercentA}%</p>
                       </div>
                     </div>
@@ -1775,7 +2043,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     <div className="flex items-center justify-end gap-3 flex-1 min-w-0 text-right">
                       <div className="truncate">
                         <span className="text-[10px] font-bold text-rose-600 bg-rose-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelB}</span>
-                        <p className={`text-xs font-bold truncate mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodB?.name}</p>
+                        <p className="text-xs font-bold truncate mt-0.5 text-slate-900 dark:text-white">{prodB?.name}</p>
                         <p className="text-xs font-mono font-bold text-rose-600">{100 - battlePercentA}%</p>
                       </div>
                       <img src={prodB?.image} alt={prodB?.name} className="w-12 h-12 object-cover rounded-xl border border-rose-500/30 shrink-0" />
@@ -1783,30 +2051,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </div>
                 </div>
 
-                {/* Quick Banner Status Card */}
-                <div className={`p-6 rounded-2xl border shadow-sm flex flex-col justify-between space-y-4 ${cardBg}`}>
+                {/* Banner Summary */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
                   <div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Layers className="w-4 h-4 text-indigo-500" />
-                        <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>활성 프로모션 배너</h3>
+                        <h3 className="text-sm font-bold text-slate-900 dark:text-white">활성 배너 구좌</h3>
                       </div>
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600">
                         {activeBannersCount}개 노출중
                       </span>
                     </div>
 
-                    <div className="mt-4 space-y-2">
+                    <div className="mt-3.5 space-y-2">
                       {banners.slice(0, 3).map((b, idx) => (
-                        <div key={b.id} className={`p-2.5 rounded-xl border flex items-center justify-between text-xs ${subCardBg}`}>
+                        <div key={b.id} className="p-2.5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between text-xs">
                           <div className="flex items-center gap-2 truncate">
-                            <span className="w-5 h-5 rounded bg-slate-200/60 dark:bg-slate-800 flex items-center justify-center font-mono font-bold text-[10px] text-slate-500">
+                            <span className="w-5 h-5 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-mono font-bold text-[10px] text-slate-500">
                               {idx + 1}
                             </span>
-                            <span className={`font-semibold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{b.title}</span>
+                            <span className="font-semibold truncate text-slate-800 dark:text-slate-200">{b.title}</span>
                           </div>
-                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${b.isActive ? 'bg-emerald-500/10 text-emerald-600' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'}`}>
-                            {b.isActive ? '노출중' : '숨김'}
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${b.isActive ? 'bg-emerald-500/10 text-emerald-600' : 'bg-slate-200 dark:bg-slate-700 text-slate-400'}`}>
+                            {b.isActive ? '노출' : '숨김'}
                           </span>
                         </div>
                       ))}
@@ -1815,37 +2083,35 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
                   <button
                     onClick={() => setActiveAdminTab('banners')}
-                    className={`w-full py-2.5 rounded-xl text-xs font-bold transition-all border ${
-                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                    }`}
+                    className="w-full py-2.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-200 transition-colors"
                   >
-                    배너 관리로 이동 ({banners.length})
+                    배너 전체 관리 ({banners.length})
                   </button>
                 </div>
 
               </div>
 
-              {/* 3. Recent Products Snapshot Table */}
-              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+              {/* 5. Recent Products Snapshot Table */}
+              <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className={`text-sm font-black flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <Package className="w-4 h-4 text-indigo-500" />
                       <span>최근 등록된 신상품 요약</span>
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">새로 입고되었거나 관리자가 승인한 최신 먹거리 목록입니다.</p>
+                    <p className="text-xs text-slate-400 mt-0.5">승인 완료된 최신 먹거리 카탈로그 목록입니다.</p>
                   </div>
                   <button
                     onClick={() => setActiveAdminTab('products')}
-                    className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
                   >
-                    전체 {products.length}개 상품 관리로 이동 <ChevronRight className="w-3.5 h-3.5" />
+                    전체 {products.length}개 상품 보기 <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
+                    <thead className="uppercase font-bold text-[11px] border-b border-slate-100 dark:border-slate-800 text-slate-400 bg-slate-50/50 dark:bg-slate-800/30">
                       <tr>
                         <th className="py-3 px-4">상품명 / 브랜드</th>
                         <th className="py-3 px-4">카테고리</th>
@@ -1856,24 +2122,24 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <th className="py-3 px-4 text-right">관리</th>
                       </tr>
                     </thead>
-                    <tbody className={`divide-y ${tableRowHover}`}>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                       {products.slice(0, 5).map(prod => (
-                        <tr key={prod.id} className="transition-colors">
+                        <tr key={prod.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-3">
                               <img src={prod.image} alt={prod.name} className="w-10 h-10 object-cover rounded-lg border border-slate-200 dark:border-slate-800 shrink-0" />
                               <div>
-                                <p className={`font-bold text-xs ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
+                                <p className="font-bold text-xs text-slate-900 dark:text-white">{prod.name}</p>
                                 <p className="text-[11px] text-slate-400">{prod.brand}</p>
                               </div>
                             </div>
                           </td>
                           <td className="py-3 px-4">
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                               {prod.category}
                             </span>
                           </td>
-                          <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                          <td className="py-3 px-4 font-mono font-bold text-slate-900 dark:text-white">
                             {prod.price.toLocaleString()}원
                           </td>
                           <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
@@ -1904,9 +2170,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                           <td className="py-3 px-4 text-right">
                             <button
                               onClick={() => { handleOpenEditProduct(prod); setActiveAdminTab('products'); }}
-                              className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border ${
-                                isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                              }`}
+                              className="px-2.5 py-1 rounded text-[11px] font-bold border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 transition-colors"
                             >
                               수정
                             </button>
@@ -1920,6 +2184,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
             </div>
           )}
+
 
           {/* ========================================================
               TAB: KAMIS AGRICULTURAL & MARINE PRODUCE LIVE PRICES
