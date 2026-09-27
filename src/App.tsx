@@ -29,11 +29,19 @@ import { AuthOnboardingView } from './components/auth/AuthOnboardingView';
 import { NicknameSetupModal } from './components/auth/NicknameSetupModal';
 import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
 import { AppPermissionModal } from './components/common/AppPermissionModal';
+import { initAdMob } from './services/admobService';
 
 export const App: React.FC = () => {
   const { activeTab, setActiveTab, currentUser, isGuestBrowse } = useApp();
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
   const mainRef = useRef<HTMLElement>(null);
+
+  // App Mount: Initialize AdMob in background
+  useEffect(() => {
+    initAdMob().catch((err) => {
+      console.warn('[App] AdMob initialization notice:', err);
+    });
+  }, []);
 
   // 탭 변경 시 main 스크롤 컨테이너를 맨 위로 리셋하여 빈 화면 노출 방지
   useEffect(() => {

@@ -1,11 +1,11 @@
 import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, AdMobInitializationOptions } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
-// AdMob App ID & Ad Unit IDs
+// AdMob App ID & Ad Unit IDs (Google AdMob 승인 완료 실서버 ID)
 export const ADMOB_CONFIG = {
   appId: 'ca-app-pub-3878859120989916~2898554632',
   nativeAdUnitId: 'ca-app-pub-3878859120989916/3915377976',
-  bannerAdUnitId: 'ca-app-pub-3878859120989916/3915377976', // 사용자 지정 광고 단위 ID
+  bannerAdUnitId: 'ca-app-pub-3878859120989916/3915377976',
   // 테스트용 ID (AdMob 테스트 가이드)
   testBannerAdUnitId: 'ca-app-pub-3940256099942544/2934735716',
 };
@@ -29,15 +29,21 @@ export const initAdMob = async (): Promise<boolean> => {
 
     isAdMobInitialized = true;
     console.log('[AdMob] Successfully initialized with App ID:', ADMOB_CONFIG.appId);
+    
+    // iOS 플랫폼의 경우 추적 권한(ATT) 상태 점검
+    if (Capacitor.getPlatform() === 'ios') {
+      await requestAdMobTrackingAuthorization();
+    }
+
     return true;
   } catch (error) {
-    console.warn('[AdMob] Initialization skipped/failed (non-critical):', error);
+    console.warn('[AdMob] Initialization notice (non-critical):', error);
     return false;
   }
 };
 
 /**
- * Request tracking authorization explicitly when requested (Optional)
+ * iOS App Tracking Transparency (ATT) 권한 요청
  */
 export const requestAdMobTrackingAuthorization = async (): Promise<void> => {
   if (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'ios') return;
@@ -47,7 +53,7 @@ export const requestAdMobTrackingAuthorization = async (): Promise<void> => {
       await AdMob.requestTrackingAuthorization();
     }
   } catch (e) {
-    console.warn('[AdMob] Tracking authorization check skipped:', e);
+    console.warn('[AdMob] Tracking authorization check notice:', e);
   }
 };
 
@@ -63,14 +69,14 @@ export const showHomeBannerAd = async (adUnitId?: string): Promise<boolean> => {
       adId: adUnitId || ADMOB_CONFIG.bannerAdUnitId,
       adSize: BannerAdSize.BANNER,
       position: BannerAdPosition.BOTTOM_CENTER,
-      margin: 60, // 탭바 위 마진
+      margin: 60, // 하단 탭바 위 마진
       isTesting: false,
     };
 
     await AdMob.showBanner(options);
     return true;
   } catch (error) {
-    console.error('[AdMob] Show banner failed:', error);
+    console.warn('[AdMob] Show banner notice:', error);
     return false;
   }
 };
@@ -80,7 +86,7 @@ export const hideHomeBannerAd = async (): Promise<void> => {
   try {
     await AdMob.hideBanner();
   } catch (error) {
-    console.error('[AdMob] Hide banner failed:', error);
+    console.warn('[AdMob] Hide banner notice:', error);
   }
 };
 
@@ -89,6 +95,7 @@ export const removeHomeBannerAd = async (): Promise<void> => {
   try {
     await AdMob.removeBanner();
   } catch (error) {
-    console.error('[AdMob] Remove banner failed:', error);
+    console.warn('[AdMob] Remove banner notice:', error);
   }
 };
+
