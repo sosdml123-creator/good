@@ -482,6 +482,19 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     isPopular: true
   },
   {
+    id: 'sungsimdang',
+    name: '성심당',
+    engName: 'Sungsimdang',
+    logo: BRAND_LOGOS_MAP['성심당'] || '/brands/성심당.png',
+    bannerImage: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1000&auto=format&fit=crop&q=80',
+    category: '베이커리·디저트',
+    slogan: '모든 이가 다 좋게 여기는 일을 하도록 하십시오 - 1956 대전의 자부심',
+    description: '튀김소보로, 판타롱부추빵, 보문산메아리, 명란바게트 등 1956년부터 이어온 대한민국 대표 베이커리 성심당 공식 전메뉴.',
+    officialUrl: 'https://www.sungsimdangmall.co.kr',
+    badge: '대한민국 No.1 명품 베이커리',
+    isPopular: true
+  },
+  {
     id: 'cocacola',
     name: '코카콜라',
     engName: 'Coca-Cola',

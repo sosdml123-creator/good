@@ -10,8 +10,10 @@ import { RAMEN_PRODUCTS } from './ramenProducts';
 import { SAMYANG_PRODUCTS } from './samyangProducts';
 import { CONVENIENCE_EXCLUSIVE_PRODUCTS } from './convenienceProducts';
 import { AGRI_MARINE_PRODUCTS } from './agriMarineProducts';
+import { SUNGSIMDANG_PRODUCTS } from './sungsimdangProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...SUNGSIMDANG_PRODUCTS,
   ...PIZZA_BRAND_PRODUCTS,
   ...AGRI_MARINE_PRODUCTS,
   ...CONVENIENCE_EXCLUSIVE_PRODUCTS,
