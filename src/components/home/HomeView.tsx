@@ -7,7 +7,6 @@ import {
   ChevronRight, 
   ChevronLeft, 
   Search, 
-  Flame, 
   Tag,
   Zap,
   Building2,
@@ -776,16 +775,16 @@ export const HomeView: React.FC = () => {
           </div>
         );
 
-      // 7. 요즘 주목받는 먹거리
+      // 7. 요즘 주목받는 먹거리 (네이버 검색 기준)
       case 'search_trending':
         return (
           <div key="search_trending" className="bg-white mt-2 py-4 border-b border-gray-100">
             <div className="flex items-center justify-between px-4 mb-1">
               <div className="flex items-center gap-1.5">
                 <span className="text-[15px] font-bold text-gray-900">{section.title || '요즘 주목받는 먹거리'}</span>
-                <span className="text-[10px] font-black bg-gradient-to-r from-red-500 to-amber-500 text-white px-2 py-0.5 rounded-full flex items-center gap-0.5 shadow-xs">
-                  <Flame className="w-3 h-3 fill-current" />
-                  {section.badgeText || '검색 유입 랭킹'}
+                <span className="text-[10px] font-black bg-[#03C75A] text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+                  <span className="font-extrabold text-[9px] bg-white text-[#03C75A] w-3.5 h-3.5 rounded-xs flex items-center justify-center font-mono">N</span>
+                  <span>{section.badgeText && section.badgeText !== '검색 유입 랭킹' ? section.badgeText : '네이버 검색 랭킹'}</span>
                 </span>
               </div>
               <button
@@ -797,8 +796,10 @@ export const HomeView: React.FC = () => {
             </div>
 
             <p className="px-4 text-[11px] text-gray-400 mb-3 flex items-center gap-1">
-              <Search className="w-3 h-3 text-gray-400 shrink-0" />
-              {section.subtitle || '사람들이 검색창에서 가장 많이 찾아보고 들어온 인기 순위예요'}
+              <Search className="w-3 h-3 text-[#03C75A] shrink-0" />
+              {section.subtitle && !section.subtitle.includes('사람들이 검색창에서')
+                ? section.subtitle
+                : '네이버 쇼핑·트렌드 검색 빅데이터 기반 인기 먹거리 순위예요'}
             </p>
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
@@ -825,7 +826,7 @@ export const HomeView: React.FC = () => {
                       {/* Rank Badge without emojis */}
                       <div className="absolute top-1.5 left-1.5">
                         {rank === 1 && (
-                          <span className="text-[10px] font-black bg-gradient-to-r from-amber-500 to-rose-500 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          <span className="text-[10px] font-black bg-gradient-to-r from-[#03C75A] to-emerald-600 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                             1위
                           </span>
                         )}
@@ -865,10 +866,10 @@ export const HomeView: React.FC = () => {
                         {p.name}
                       </div>
 
-                      {/* Search Influx Volume Tag */}
-                      <div className="flex items-center gap-1 mt-1 text-[10px] text-amber-700 font-semibold bg-amber-50/90 px-1.5 py-0.5 rounded w-fit">
-                        <Search className="w-2.5 h-2.5 stroke-[2.5]" />
-                        <span>검색 유입 {formatSearchCount(searchInflux)}</span>
+                      {/* Naver Search Influx Volume Tag */}
+                      <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-800 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded w-fit border border-emerald-100/60">
+                        <span className="font-black text-[9px] text-[#03C75A]">N</span>
+                        <span>검색 {formatSearchCount(searchInflux)}</span>
                       </div>
 
                       {/* Yellow Star Rating */}
