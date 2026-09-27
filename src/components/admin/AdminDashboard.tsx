@@ -182,6 +182,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   // Desktop active tab
   const [activeAdminTab, setActiveAdminTab] = useState<AdminTab>('overview');
 
+  // Header Global Search state
+  const [globalSearchQuery, setGlobalSearchQuery] = useState('');
+
   // Total points for overview KPI summary
   const totalMemberPoints = allProfiles.reduce((acc, u) => acc + (u.points || 0), 0);
 
@@ -1459,137 +1462,123 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       {/* ================= DESKTOP MAIN CONTENT AREA ================= */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         
-        {/* Desktop Sticky Header Bar */}
-        <header className={`h-16 px-8 border-b backdrop-blur-md flex items-center justify-between shrink-0 z-10 transition-colors ${headerBg}`}>
+        {/* Desktop Sticky Header Bar (Sleek Clean Style) */}
+        <header className={`h-16 px-8 border-b flex items-center justify-between shrink-0 z-10 transition-colors ${headerBg}`}>
           
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs">
-            <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>신상픽 관리자 콘솔</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {activeAdminTab === 'overview' && '대시보드 개요 및 실시간 종합 지표'}
-              {activeAdminTab === 'kamis' && 'KAMIS 농수산물 오픈 API 실시간 시세 관리'}
-              {activeAdminTab === 'collector' && '브랜드 & 품목 공식 제품 수집기'}
-              {activeAdminTab === 'approval' && '신제품 수집 파이프라인 & 승인함'}
-              {activeAdminTab === 'sections' && '홈 화면 구좌(섹션) 노출 및 타이틀 관리'}
-              {activeAdminTab === 'products' && '상품 및 신제품 데이터베이스 관리'}
-              {activeAdminTab === 'product_edits' && '사용자 제품 정보 수정 요청 및 검토'}
-              {activeAdminTab === 'brands' && '식품 제조사 브랜드 관리'}
-              {activeAdminTab === 'stores' && '판매처 및 유통채널 관리'}
-              {activeAdminTab === 'sales' && '편의점 행사(1+1/2+1) 소식 관리'}
-              {activeAdminTab === 'calendar' && '신제품 출시 캘린더 관리'}
-              {activeAdminTab === 'events' && '이벤트 및 체험단 프로모션 관리'}
-              {activeAdminTab === 'notifications' && '알림 및 푸시 발송 관리'}
-              {(activeAdminTab === 'users' || activeAdminTab === 'points') && '회원 계정 및 포인트 거래 통합 관리'}
-              {activeAdminTab === 'reports' && '신고 접수 내역 및 모더레이션 조치'}
-              {activeAdminTab === 'reviews' && '사용자 리뷰 및 커뮤니티 모더레이션'}
-              {activeAdminTab === 'analytics' && '쇼핑인사이트 트렌드 & 카테고리 분석'}
-              {activeAdminTab === 'banners' && '메인 프로모션 배너 관리'}
-              {activeAdminTab === 'battle' && '신상 배틀 매치업 설정'}
-              {activeAdminTab === 'data' && '데이터 백업 및 복구'}
-            </span>
+          {/* Active Tab Title */}
+          <div>
+            <h1 className={`text-xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-800'}`}>
+              {activeAdminTab === 'overview' ? 'Dashboard' :
+               activeAdminTab === 'users' ? '회원관리' :
+               activeAdminTab === 'reports' ? '신고관리' :
+               activeAdminTab === 'product_edits' ? '수정요청' :
+               activeAdminTab === 'reviews' ? (moderationSubTab === 'community' ? '게시글관리' : '댓글관리') :
+               activeAdminTab === 'products' ? '신상품관리' :
+               activeAdminTab === 'approval' ? '수집·승인함' :
+               activeAdminTab === 'collector' ? '자동수집기' :
+               activeAdminTab === 'brands' ? '제조사브랜드' :
+               activeAdminTab === 'stores' ? '판매처채널' :
+               activeAdminTab === 'banners' ? '배너관리' :
+               activeAdminTab === 'sections' ? '홈섹션관리' :
+               activeAdminTab === 'sales' ? '편의점행사' :
+               activeAdminTab === 'battle' ? '신상배틀' :
+               activeAdminTab === 'calendar' ? '출시캘린더' :
+               activeAdminTab === 'events' ? '이벤트관리' :
+               activeAdminTab === 'notifications' ? '푸시관리' :
+               activeAdminTab === 'analytics' ? '통계' :
+               activeAdminTab === 'kamis' ? 'KAMIS시세' : '설정'}
+            </h1>
           </div>
 
-          {/* Quick Metrics Bar, Theme Switcher & Actions */}
-          <div className="flex items-center gap-3">
+          {/* Right Header Controls: Search, Sync, Bell, Theme, Profile, Logout */}
+          <div className="flex items-center gap-3.5">
             
-            {/* Live Stats Chips */}
-            <div className="hidden xl:flex items-center gap-2 text-xs">
-              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-slate-800/80 border-slate-700/60 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'}`}>
-                총 상품 <strong className={`font-mono ${isDark ? 'text-white' : 'text-slate-900'}`}>{products.length}</strong>
-              </span>
-              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-indigo-950/60 border-indigo-800/50 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-700'}`}>
-                오늘신상 <strong className="font-mono">{todayProductsCount}</strong>
-              </span>
-              <span className={`px-2.5 py-1 rounded-lg border font-medium ${isDark ? 'bg-orange-950/60 border-orange-800/50 text-orange-300' : 'bg-orange-50 border-orange-200 text-orange-700'}`}>
-                인기HOT <strong className="font-mono">{hotProductsCount}</strong>
-              </span>
-              {pendingCount > 0 && (
-                <span className="px-2.5 py-1 rounded-lg bg-rose-500 text-white animate-pulse font-bold">
-                  승인대기 <strong className="font-mono">{pendingCount}</strong>
-                </span>
+            {/* Global Search Capsule */}
+            <div className="relative w-56 sm:w-64">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="통합 검색..."
+                value={globalSearchQuery}
+                onChange={(e) => setGlobalSearchQuery(e.target.value)}
+                className={`w-full pl-9 pr-4 py-1.5 rounded-full text-xs transition-all border outline-none ${
+                  isDark 
+                    ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder:text-slate-500 focus:border-indigo-500' 
+                    : 'bg-slate-50 border-slate-200 text-slate-700 placeholder:text-slate-400 focus:bg-white focus:border-indigo-400'
+                }`}
+              />
+            </div>
+
+            {/* Cloud Sync Icon Button */}
+            <button
+              onClick={() => syncAllContentToCloud()}
+              disabled={isContentSyncing}
+              className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+              }`}
+              title="클라우드 실시간 동기화"
+            >
+              <RefreshCw className={`w-4 h-4 ${isContentSyncing ? 'animate-spin text-indigo-500' : ''}`} />
+            </button>
+
+            {/* Notification Bell */}
+            <div
+              onClick={() => setActiveAdminTab(pendingReportsCount > 0 ? 'reports' : 'approval')}
+              className={`relative p-2 rounded-lg cursor-pointer transition-colors ${
+                isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+              }`}
+              title={pendingReportsCount > 0 ? `신고 대기 ${pendingReportsCount}건` : '알림'}
+            >
+              <Bell className="w-4 h-4" />
+              {(pendingReportsCount > 0 || pendingCount > 0) && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-900" />
               )}
             </div>
 
-            {/* ☀️ / 🌙 THEME TOGGLE BUTTON */}
+            {/* Theme Toggle Button */}
             <button
               onClick={() => {
                 const nextMode = isDark ? 'light' : 'dark';
                 setThemeMode(nextMode);
-                showToast(nextMode === 'light' ? '☀️ 밝고 보기 편한 라이트 모드로 전환되었습니다.' : '🌙 다크 모드로 전환되었습니다.', 'info');
+                showToast(nextMode === 'light' ? '☀️ 라이트 모드로 전환되었습니다.' : '🌙 다크 모드로 전환되었습니다.', 'info');
               }}
-              className={`p-2 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all ${
-                isDark 
-                  ? 'bg-slate-800 border-slate-700 text-amber-300 hover:bg-slate-700' 
-                  : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+              className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
               }`}
               title="테마 모드 전환 (라이트/다크)"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-              <span className="hidden sm:inline">{isDark ? '라이트 모드' : '다크 모드'}</span>
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
             </button>
 
-            {/* ☁️ Global Sync Button */}
-            <button
-              onClick={() => syncAllContentToCloud()}
-              disabled={isContentSyncing}
-              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border transition-all ${
-                isContentSyncing
-                  ? 'bg-indigo-100 text-indigo-400 border-indigo-200 cursor-not-allowed'
-                  : isDark
-                  ? 'bg-slate-800 border-indigo-900/60 text-indigo-400 hover:bg-indigo-950/50'
-                  : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100 shadow-xs'
-              }`}
-              title="현재 배너 및 구좌 설정을 모바일 앱과 웹 전체에 즉시 동기화합니다."
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isContentSyncing ? 'animate-spin text-indigo-500' : 'text-indigo-600'}`} />
-              <span>{isContentSyncing ? '클라우드 동기화 중...' : '웹/앱 실시간 동기화'}</span>
-            </button>
+            {/* Master Admin Profile Pill (Matching Screenshot) */}
+            <div className={`flex items-center gap-2.5 pl-3 border-l ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+              <div className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+                isDark ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-600'
+              }`}>
+                <Users className="w-4 h-4" />
+              </div>
+              <div className="text-left leading-tight hidden md:block">
+                <div className={`text-xs font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>마스터 관리자</div>
+                <div className="text-[10px] text-slate-400 font-mono">admin@sinsangpick.app</div>
+              </div>
+            </div>
 
-            {/* Quick Action Button */}
-            {activeAdminTab === 'products' ? (
-              <button
-                onClick={handleOpenNewProduct}
-                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>상품 직접 등록</span>
-              </button>
-            ) : activeAdminTab === 'banners' ? (
-              <button
-                onClick={() => handleOpenNewBanner()}
-                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>새 배너 구좌 추가</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => setActiveTab('home')}
-                className={`px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
-                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200 shadow-xs'
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5 text-indigo-500" />
-                <span>앱 화면 미리보기</span>
-              </button>
-            )}
-
-            {/* Admin Logout Button */}
+            {/* Logout Button */}
             <button
               onClick={handleAdminLogout}
-              className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-all shadow-xs cursor-pointer"
-              title="관리자 세션을 안전하게 종료하고 일반 화면으로 복귀합니다."
+              className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors ml-1"
+              title="관리자 로그아웃"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>로그아웃</span>
+              <LogOut className="w-4 h-4" />
             </button>
 
           </div>
         </header>
 
         {/* Desktop Scrollable Main Canvas */}
-        <main className="flex-1 overflow-y-auto p-8 max-w-[1700px] w-full mx-auto space-y-8">
+        <main className={`flex-1 overflow-y-auto p-6 md:p-8 space-y-6 ${
+          isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#f8fafc] text-slate-800'
+        }`}>
           
           {/* ========================================================
               TAB 1: OVERVIEW (대시보드 개요)
