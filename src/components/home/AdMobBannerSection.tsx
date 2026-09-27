@@ -93,7 +93,7 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
 
   const currentAd = SPONSORED_ADS[currentAdIndex];
 
-  const handleAdClick = (ad: typeof SPONSORED_ADS[0]) => {
+  const handleAdClick = (ad: SponsoredAdItem) => {
     if (ad.targetCategory) {
       setSelectedCategory(ad.targetCategory);
       setActiveTab('category');
@@ -215,5 +215,3 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
     </div>
   );
 };
-
-
