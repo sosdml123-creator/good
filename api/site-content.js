@@ -50,6 +50,7 @@ export default async function handler(req, res) {
 
       const banners = systemData?.nutrition?.banners || null;
       const homeSections = systemData?.nutrition?.homeSections || null;
+      const salePromotions = systemData?.nutrition?.salePromotions || null;
       const deletedProductIds = systemData?.nutrition?.deletedProductIds || null;
       const deletedBannerIds = systemData?.nutrition?.deletedBannerIds || null;
       const lastUpdated = systemData?.updated_at || null;
@@ -68,6 +69,7 @@ export default async function handler(req, res) {
         success: true,
         banners,
         homeSections,
+        salePromotions,
         deletedProductIds,
         deletedBannerIds,
         products,
@@ -93,7 +95,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      const { action, id, ids, banners, homeSections, deletedProductIds, deletedBannerIds, products } = req.body || {};
+      const { action, id, ids, banners, homeSections, salePromotions, deletedProductIds, deletedBannerIds, products } = req.body || {};
 
       // 0-A. Handle Direct Product Deletion via Serverless Service Role
       if (action === 'delete_products' || action === 'delete_product') {
@@ -131,8 +133,8 @@ export default async function handler(req, res) {
         });
       }
 
-      // 1. Save banners, homeSections, and deleted IDs in system record inside products table
-      if (banners !== undefined || homeSections !== undefined || deletedProductIds !== undefined || deletedBannerIds !== undefined) {
+      // 1. Save banners, homeSections, salePromotions, and deleted IDs in system record inside products table
+      if (banners !== undefined || homeSections !== undefined || salePromotions !== undefined || deletedProductIds !== undefined || deletedBannerIds !== undefined) {
         // Fetch existing record first to merge safely
         let existingNutrition = {};
         try {
@@ -171,6 +173,7 @@ export default async function handler(req, res) {
             ...existingNutrition,
             banners: banners !== undefined ? banners : existingNutrition.banners,
             homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
+            salePromotions: salePromotions !== undefined ? salePromotions : existingNutrition.salePromotions,
             deletedProductIds: mergedDeletedProductIds,
             deletedBannerIds: mergedDeletedBannerIds,
             updatedAt: new Date().toISOString()

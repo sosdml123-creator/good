@@ -10,7 +10,8 @@ import {
   Trash2, 
   Flame, 
   X,
-  Zap
+  Zap,
+  RotateCcw
 } from 'lucide-react';
 import { DiscountProductAutoCollectorModal } from './DiscountProductAutoCollectorModal';
 
@@ -22,9 +23,11 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
   const { 
     salePromotions, 
     addSalePromotion, 
+    addSalePromotionsBatch,
     updateSalePromotion, 
     deleteSalePromotion, 
     toggleSaleHot,
+    resetSalePromotionsToDefault,
     showToast 
   } = useApp();
 
@@ -39,9 +42,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const handleBatchAddSales = (newSales: SalePromotionItem[]) => {
-    newSales.forEach(item => {
-      addSalePromotion(item);
-    });
+    addSalePromotionsBatch(newSales);
   };
 
   // Form state
@@ -248,6 +249,21 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
           >
             <Zap className="w-4 h-4 fill-current" />
             <span>⚡ 편의점 행사상품 자동 수집기</span>
+          </button>
+
+          <button
+            onClick={() => {
+              if (window.confirm('1+1 및 할인특가 행사 데이터를 기본 초기값(코카콜라 등 16개)으로 초기화하고 클라우드에 즉시 동기화하시겠습니까?')) {
+                resetSalePromotionsToDefault();
+              }
+            }}
+            className={`px-3 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border shadow-2xs transition-all active:scale-95 ${
+              isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
+            }`}
+            title="기본 1+1 행사 데이터로 복원 및 클라우드 동기화"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>기본값 복원</span>
           </button>
 
           <button

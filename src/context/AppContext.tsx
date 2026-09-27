@@ -351,9 +351,11 @@ interface AppContextType {
   savedSaleIds: string[];
   toggleSaveSale: (saleId: string) => void;
   addSalePromotion: (item: Omit<SalePromotionItem, 'id' | 'likeCount'> & { id?: string; likeCount?: number }) => void;
+  addSalePromotionsBatch: (items: SalePromotionItem[]) => void;
   updateSalePromotion: (id: string, updated: Partial<SalePromotionItem>) => void;
   deleteSalePromotion: (id: string) => void;
   toggleSaleHot: (id: string) => void;
+  resetSalePromotionsToDefault: () => void;
 
   recipes: RecipePost[];
   selectedRecipe: RecipePost | null;
@@ -1496,7 +1498,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [salePromotions, setSalePromotions] = useState<SalePromotionItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_sales_v1');
-      return stored ? JSON.parse(stored) : INITIAL_SALE_PROMOTIONS;
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+      return INITIAL_SALE_PROMOTIONS;
     } catch {
       return INITIAL_SALE_PROMOTIONS;
     }
@@ -1830,6 +1838,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setHomeSections(mergedSections);
         safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
       }
+      if (remote.salePromotions !== null && Array.isArray(remote.salePromotions) && remote.salePromotions.length > 0) {
+        setSalePromotions(remote.salePromotions);
+        safeSetItem('sinsangpick_sales_v1', JSON.stringify(remote.salePromotions));
+      }
       if (remote.deletedProductIds && Array.isArray(remote.deletedProductIds)) {
         const nextDel = Array.from(new Set([...deletedProductIdsRef.current, ...remote.deletedProductIds]));
         deletedProductIdsRef.current = nextDel;
@@ -1848,8 +1860,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const syncAllContentToCloud = async () => {
     setIsContentSyncing(true);
     try {
-      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current);
-      showToast('☁️ 배너 및 홈 구좌 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
+      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions);
+      showToast('☁️ 배너, 홈 구좌 및 1+1 행사 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
     } catch (e) {
       showToast('동기화 중 오류가 발생했습니다.', 'error');
     } finally {
@@ -1907,6 +1919,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const mergedSec = smartMergeHomeSections(systemBannerRecord.nutrition.homeSections, INITIAL_HOME_SECTIONS);
           setHomeSections(mergedSec);
           safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
+        }
+        if (systemBannerRecord.nutrition.salePromotions !== undefined && Array.isArray(systemBannerRecord.nutrition.salePromotions) && systemBannerRecord.nutrition.salePromotions.length > 0) {
+          setSalePromotions(systemBannerRecord.nutrition.salePromotions);
+          safeSetItem('sinsangpick_sales_v1', JSON.stringify(systemBannerRecord.nutrition.salePromotions));
         }
         if (Array.isArray(systemBannerRecord.nutrition.deletedProductIds)) {
           remoteDeleted = systemBannerRecord.nutrition.deletedProductIds;
@@ -4458,7 +4474,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('판매처 노출 상태가 변경되었습니다.', 'info');
   };
 
-  // --- Admin Sale Promotion Actions ---
+  // --- Admin Sale Promotion Actions (with Cloud Sync) ---
   const addSalePromotion = (itemData: Omit<SalePromotionItem, 'id' | 'likeCount'> & { id?: string; likeCount?: number }) => {
     const newId = itemData.id?.trim() || `sale_${Date.now()}`;
     const newSale: SalePromotionItem = {
@@ -4469,24 +4485,54 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       dDay: itemData.dDay || '상시',
       description: itemData.description || '',
     };
-    setSalePromotions(prev => [newSale, ...prev]);
+    const next = [newSale, ...salePromotions];
+    setSalePromotions(next);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
     showToast(`🏷️ '${newSale.title}' 행사 소식이 등록되었습니다.`, 'success');
   };
 
+  const addSalePromotionsBatch = (newItems: SalePromotionItem[]) => {
+    if (!newItems || newItems.length === 0) return;
+    const existingIds = new Set(salePromotions.map(s => s.id));
+    const toAdd = newItems.filter(item => !existingIds.has(item.id));
+    const next = [...toAdd, ...salePromotions];
+    setSalePromotions(next);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    showToast(`🏷️ 총 ${toAdd.length}건의 행사가 클라우드에 일괄 등록되었습니다.`, 'success');
+  };
+
   const updateSalePromotion = (id: string, updated: Partial<SalePromotionItem>) => {
-    setSalePromotions(prev => prev.map(s => s.id === id ? { ...s, ...updated } : s));
+    const next = salePromotions.map(s => s.id === id ? { ...s, ...updated } : s);
+    setSalePromotions(next);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
     showToast('🏷️ 행사 소식이 업데이트되었습니다.', 'success');
   };
 
   const deleteSalePromotion = (id: string) => {
     const target = salePromotions.find(s => s.id === id);
-    setSalePromotions(prev => prev.filter(s => s.id !== id));
+    const next = salePromotions.filter(s => s.id !== id);
+    setSalePromotions(next);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
     showToast(`🏷️ '${target?.title || ''}' 행사가 삭제되었습니다.`, 'info');
   };
 
   const toggleSaleHot = (id: string) => {
-    setSalePromotions(prev => prev.map(s => s.id === id ? { ...s, isHot: !s.isHot } : s));
+    const next = salePromotions.map(s => s.id === id ? { ...s, isHot: !s.isHot } : s);
+    setSalePromotions(next);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
     showToast('🔥 핫딜 상태가 변경되었습니다.', 'info');
+  };
+
+  const resetSalePromotionsToDefault = () => {
+    setSalePromotions(INITIAL_SALE_PROMOTIONS);
+    safeSetItem('sinsangpick_sales_v1', JSON.stringify(INITIAL_SALE_PROMOTIONS));
+    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, INITIAL_SALE_PROMOTIONS).catch(() => {});
+    showToast('🏷️ 행사 소식이 기본 데이터로 초기화 및 클라우드에 동기화되었습니다.', 'success');
   };
 
   // --- Admin Calendar Actions ---
@@ -5962,9 +6008,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         savedSaleIds,
         toggleSaveSale,
         addSalePromotion,
+        addSalePromotionsBatch,
         updateSalePromotion,
         deleteSalePromotion,
         toggleSaleHot,
+        resetSalePromotionsToDefault,
 
         recipes,
         selectedRecipe,

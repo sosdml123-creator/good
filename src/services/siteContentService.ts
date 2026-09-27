@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { supabase, DBProduct } from './supabase';
-import { BannerItem, Product, HomeSectionConfig } from '../types';
+import { BannerItem, Product, HomeSectionConfig, SalePromotionItem } from '../types';
 import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
@@ -8,6 +8,7 @@ export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
 export interface RemoteContentPayload {
   banners?: BannerItem[];
   homeSections?: HomeSectionConfig[];
+  salePromotions?: SalePromotionItem[];
   products?: Product[];
   deletedProductIds?: string[];
   deletedBannerIds?: string[];
@@ -16,6 +17,7 @@ export interface RemoteContentPayload {
 export interface RemoteContentResult {
   banners: BannerItem[] | null;
   homeSections: HomeSectionConfig[] | null;
+  salePromotions: SalePromotionItem[] | null;
   products: Product[];
   deletedProductIds: string[] | null;
   deletedBannerIds: string[] | null;
@@ -29,6 +31,7 @@ export interface RemoteContentResult {
 export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   let banners: BannerItem[] | null = null;
   let homeSections: HomeSectionConfig[] | null = null;
+  let salePromotions: SalePromotionItem[] | null = null;
   let products: Product[] = [];
   let deletedProductIds: string[] | null = null;
   let deletedBannerIds: string[] | null = null;
@@ -54,6 +57,9 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         }
         if (Array.isArray(sysData.nutrition.homeSections) && sysData.nutrition.homeSections.length > 0) {
           homeSections = sysData.nutrition.homeSections;
+        }
+        if (Array.isArray(sysData.nutrition.salePromotions) && sysData.nutrition.salePromotions.length > 0) {
+          salePromotions = sysData.nutrition.salePromotions;
         }
         if (Array.isArray(sysData.nutrition.deletedProductIds)) {
           deletedProductIds = sysData.nutrition.deletedProductIds;
@@ -85,6 +91,9 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (json.homeSections && Array.isArray(json.homeSections)) {
           homeSections = json.homeSections;
         }
+        if (json.salePromotions && Array.isArray(json.salePromotions)) {
+          salePromotions = json.salePromotions;
+        }
         if (json.deletedProductIds && Array.isArray(json.deletedProductIds)) {
           deletedProductIds = json.deletedProductIds;
         }
@@ -100,7 +109,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  return { banners, homeSections, products, deletedProductIds, deletedBannerIds, lastUpdated };
+  return { banners, homeSections, salePromotions, products, deletedProductIds, deletedBannerIds, lastUpdated };
 };
 
 /**
@@ -111,7 +120,8 @@ export const saveRemoteBannersAndSections = async (
   banners: BannerItem[],
   homeSections?: HomeSectionConfig[],
   deletedProductIds?: string[],
-  deletedBannerIds?: string[]
+  deletedBannerIds?: string[],
+  salePromotions?: SalePromotionItem[]
 ): Promise<boolean> => {
   let saved = false;
 
@@ -155,6 +165,7 @@ export const saveRemoteBannersAndSections = async (
           ...existingNutrition,
           banners: banners !== undefined ? banners : (existingNutrition.banners || []),
           homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
+          salePromotions: salePromotions !== undefined ? salePromotions : (existingNutrition.salePromotions || []),
           deletedProductIds: mergedDeletedProductIds,
           deletedBannerIds: mergedDeletedBannerIds,
           updatedAt: new Date().toISOString()
@@ -186,6 +197,7 @@ export const saveRemoteBannersAndSections = async (
         body: JSON.stringify({
           banners,
           homeSections,
+          salePromotions,
           deletedProductIds,
           deletedBannerIds,
           timestamp: new Date().toISOString()
