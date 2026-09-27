@@ -5,16 +5,7 @@ const config: CapacitorConfig = {
   appName: '신상픽',
   webDir: 'dist',
   server: {
-    url: 'https://sinsangpick.vercel.app',
-    cleartext: true,
-    androidScheme: 'https',
-    allowNavigation: [
-      'sinsangpick.vercel.app',
-      '*.supabase.co',
-      'accounts.google.com',
-      'appleid.apple.com',
-      'kauth.kakao.com'
-    ]
+    androidScheme: 'https'
   },
   ios: {
     contentInset: 'always'

@@ -395,7 +395,7 @@ export const SettingsView: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-900">신상픽 공식 앱 버전</div>
-                  <div className="text-[11px] text-gray-400">최신 정식 릴리즈 v1.0.2</div>
+                  <div className="text-[11px] text-gray-400">최신 정식 릴리즈 v1.0.3</div>
                 </div>
               </div>
               <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-full">
