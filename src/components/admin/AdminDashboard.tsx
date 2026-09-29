@@ -2938,8 +2938,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-1 font-bold text-amber-500">
                                   <span>★</span>
-                                  <span>{prod.overallRating.toFixed(1)}</span>
-                                  <span className="text-slate-400 font-normal">({prod.ratingCount})</span>
+                                  <span>{(prod.overallRating || 0).toFixed(1)}</span>
+                                  <span className="text-slate-400 font-normal">({prod.ratingCount || 0})</span>
                                 </div>
                               </td>
                               <td className="py-3 px-4">
@@ -3730,7 +3730,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <div>
                           <p className="text-[10px] text-slate-400">{prod.brand}</p>
                           <p className={`text-xs font-bold truncate max-w-[140px] mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prod.name}</p>
-                          <p className="text-xs font-bold text-amber-500 mt-1">★ {prod.overallRating || 0} <span className="text-[10px] text-slate-400">({prod.ratingCount}개)</span></p>
+                          <p className="text-xs font-bold text-amber-500 mt-1">★ {prod.overallRating || 0} <span className="text-[10px] text-slate-400">({prod.ratingCount || 0}개)</span></p>
                         </div>
                       </div>
                     ))}
