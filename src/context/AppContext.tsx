@@ -1213,11 +1213,13 @@ export const smartMergeHomeSections = (
   storedSections.forEach(stored => {
     const init = initialMap.get(stored.id);
     if (init) {
+      const isLegacyAdSubtitle = stored.id === 'ad_banner' && (stored.subtitle?.includes('애드몹') || stored.name?.includes('애드몹'));
       merged.push({
         ...init,
         ...stored,
+        name: isLegacyAdSubtitle ? init.name : (stored.name || init.name),
         title: stored.title || init.title,
-        subtitle: stored.subtitle !== undefined ? stored.subtitle : init.subtitle,
+        subtitle: isLegacyAdSubtitle ? '' : (stored.subtitle !== undefined ? stored.subtitle : init.subtitle),
         badgeText: stored.badgeText !== undefined ? stored.badgeText : init.badgeText,
         itemLimit: stored.itemLimit !== undefined ? stored.itemLimit : init.itemLimit,
         isVisible: stored.isVisible !== undefined ? stored.isVisible : init.isVisible,

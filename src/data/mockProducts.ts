@@ -35467,9 +35467,9 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
   },
   {
     id: 'ad_banner',
-    name: '스폰서드 광고 구좌 (Google AdMob)',
+    name: '스폰서드 광고 구좌',
     title: '스폰서드 맞춤 혜택',
-    subtitle: '구글 애드몹 맞춤 광고 및 혜택',
+    subtitle: '',
     badgeText: 'AD',
     isVisible: true,
     order: 4,
