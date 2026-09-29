@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HomeSectionConfig } from '../../types';
 import { ADMOB_CONFIG, initAdMob, removeHomeBannerAd } from '../../services/admobService';
 import { Megaphone, Info } from 'lucide-react';
@@ -16,8 +16,7 @@ declare global {
 
 export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const [showInfo, setShowInfo] = React.useState(false);
-  const isPushedRef = useRef(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     // 1. Native platform: Remove bottom floating overlay banner to ensure in-feed placement
@@ -39,17 +38,21 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
     }
 
     // 3. Request Google AdMob Banner ad (Unit: ca-app-pub-3878859120989916/9433572199)
-    if (!isPushedRef.current && typeof window !== 'undefined') {
-      const timer = setTimeout(() => {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          isPushedRef.current = true;
-        } catch (e) {
-          console.warn('[AdMobBannerSection] adsbygoogle push notice:', e);
-        }
-      }, 250);
-
-      return () => clearTimeout(timer);
+    try {
+      if (typeof window !== 'undefined') {
+        const timer = setTimeout(() => {
+          try {
+            if (adRef.current && !adRef.current.getAttribute('data-adsbygoogle-status')) {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            }
+          } catch (e) {
+            console.warn('[AdMobBannerSection] adsbygoogle push notice:', e);
+          }
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    } catch (e) {
+      console.warn('[AdMobBannerSection] init error:', e);
     }
   }, []);
 
@@ -114,15 +117,12 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
           style={{
             display: 'block',
             width: '100%',
-            minWidth: '320px',
-            maxWidth: '360px',
-            height: '90px',
             textAlign: 'center',
             margin: '0 auto',
           }}
           data-ad-client="ca-pub-3878859120989916"
           data-ad-slot="9433572199"
-          data-ad-format="auto"
+          data-ad-format="horizontal"
           data-full-width-responsive="true"
         />
       </div>

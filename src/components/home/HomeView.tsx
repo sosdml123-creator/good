@@ -6,7 +6,6 @@ import {
   Sparkles, 
   ChevronRight, 
   ChevronLeft, 
-  Search, 
   Tag,
   Zap,
   Building2,
@@ -22,15 +21,15 @@ import {
   Egg,
   Beef,
   Beer,
-  Plus
+  Plus,
+  RotateCw
 } from 'lucide-react';
 import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
   getSearchTrendingProducts, 
-  getSearchInfluxCount, 
-  formatSearchCount,
-  isRealNewProduct
+  isRealNewProduct,
+  getBalancedShuffledNewProducts
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
@@ -65,6 +64,8 @@ export const HomeView: React.FC = () => {
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
+  const [shuffleKey, setShuffleKey] = useState<number>(() => Math.floor(Math.random() * 100000));
+  const [isRefreshingNew, setIsRefreshingNew] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -76,24 +77,19 @@ export const HomeView: React.FC = () => {
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
 
-  // products 배열이 변경될 때만 재계산 (useMemo로 렌더 비용 최적화)
-  const baseNewProducts = useMemo(() => {
-    const allNew = products.filter(p => isRealNewProduct(p));
-    return allNew.length > 0 ? allNew : products.slice(0, 10);
-  }, [products]);
-
+  // 접속할 때마다 및 셔플 요청 시 신제품들을 카테고리/브랜드별로 골고루 랜덤하게 섞어 다양한 제품 노출
   const displayedNewProducts = useMemo(() => {
-    if (newProductCategoryFilter === '전체') return baseNewProducts;
-    return baseNewProducts.filter((p) => {
-      if (newProductCategoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
-      if (newProductCategoryFilter === '음료') return p.category === '음료';
-      if (newProductCategoryFilter === '빵·디저트') return p.category === '빵·디저트';
-      if (newProductCategoryFilter === '간편식') return p.category === '간편식';
-      if (newProductCategoryFilter === '패스트푸드') return p.category === '패스트푸드';
-      if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
-      return p.category === newProductCategoryFilter;
-    });
-  }, [baseNewProducts, newProductCategoryFilter]);
+    if (!products || products.length === 0) return [];
+    return getBalancedShuffledNewProducts(products, newProductCategoryFilter);
+  }, [products, newProductCategoryFilter, shuffleKey]);
+
+  const handleRefreshNewProducts = () => {
+    setIsRefreshingNew(true);
+    setShuffleKey(prev => prev + 1);
+    setTimeout(() => {
+      setIsRefreshingNew(false);
+    }, 400);
+  };
 
   const displayBanners = useMemo(() => {
     const active = [...banners]
@@ -504,16 +500,29 @@ export const HomeView: React.FC = () => {
                   {section.title || '따끈따끈 새로 나온 신제품'}
                 </h3>
               </div>
-              <button
-                onClick={() => {
-                  setSelectedCategory('신제품');
-                  setActiveTab('category');
-                }}
-                className="text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
-              >
-                <span>전체보기</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleRefreshNewProducts}
+                  disabled={isRefreshingNew}
+                  className="flex items-center gap-1 text-[11px] font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 active:scale-95 px-2 py-1 rounded-full transition-all"
+                  title="다른 신제품 랜덤 추천"
+                  aria-label="신제품 새로고침"
+                >
+                  <RotateCw className={`w-3 h-3 text-gray-600 ${isRefreshingNew ? 'animate-spin text-amber-600' : ''}`} />
+                  <span className="hidden xs:inline">새로고침</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedCategory('신제품');
+                    setActiveTab('category');
+                  }}
+                  className="text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
+                >
+                  <span>전체보기</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
             {/* Subcategory Filter Pills */}
@@ -785,7 +794,7 @@ export const HomeView: React.FC = () => {
       case 'search_trending':
         return (
           <div key="search_trending" className="bg-white mt-2 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-1">
+            <div className="flex items-center justify-between px-4 mb-3">
               <span className="text-[15px] font-bold text-gray-900">{section.title || '요즘 주목받는 먹거리'}</span>
               <button
                 onClick={() => setActiveTab('category')}
@@ -795,18 +804,16 @@ export const HomeView: React.FC = () => {
               </button>
             </div>
 
-            <p className="px-4 text-[11px] text-gray-400 mb-3 flex items-center gap-1">
-              <Search className="w-3 h-3 text-[#03C75A] shrink-0" />
-              {section.subtitle && !section.subtitle.includes('사람들이 검색창에서')
-                ? section.subtitle
-                : '네이버 쇼핑·트렌드 검색 빅데이터 기반 인기 먹거리 순위예요'}
-            </p>
+            {section.subtitle ? (
+              <p className="px-4 text-[11px] text-gray-400 mb-3">
+                {section.subtitle}
+              </p>
+            ) : null}
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
               {getSearchTrendingProducts(products, section.itemLimit || 12).map((p, index) => {
                 const isBookmarked = bookmarkedIds.includes(p.id);
                 const rank = index + 1;
-                const searchInflux = getSearchInfluxCount(p);
 
                 return (
                   <div
@@ -864,12 +871,6 @@ export const HomeView: React.FC = () => {
                       <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
                       <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-gray-700 transition-colors">
                         {p.name}
-                      </div>
-
-                      {/* Naver Search Influx Volume Tag */}
-                      <div className="flex items-center gap-1 mt-1 text-[10px] text-emerald-800 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded w-fit border border-emerald-100/60">
-                        <span className="font-black text-[9px] text-[#03C75A]">N</span>
-                        <span>검색 {formatSearchCount(searchInflux)}</span>
                       </div>
 
                       {/* Yellow Star Rating */}
@@ -1065,8 +1066,19 @@ export const HomeView: React.FC = () => {
             )}
 
             {(() => {
-              const prodA = products.find(p => p.id === battleConfig.productAId) || products[0];
-              const prodB = products.find(p => p.id === battleConfig.productBId) || products[1] || products[0];
+              const allNew = products.filter(p => isRealNewProduct(p));
+              const candidatePool = allNew.length >= 2 ? allNew : products;
+              // If admin configured specific product IDs, respect them. Otherwise, pick random products for fresh battle.
+              const prodA = (battleConfig.productAId && products.find(p => p.id === battleConfig.productAId)) 
+                || candidatePool[shuffleKey % candidatePool.length] 
+                || products[0];
+              const prodB = (battleConfig.productBId && products.find(p => p.id === battleConfig.productBId)) 
+                || candidatePool.find(p => p.id !== prodA?.id) 
+                || candidatePool[(shuffleKey + 1) % candidatePool.length] 
+                || products[1] 
+                || products[0];
+
+              if (!prodA || !prodB) return null;
 
               return (
                 <div className="flex items-center gap-3">
@@ -1085,7 +1097,7 @@ export const HomeView: React.FC = () => {
                       className="w-full aspect-square object-cover"
                     />
                     <div className="p-2.5">
-                      <div className="text-[11px] text-slate-800 font-bold">{battleConfig.labelA || `${prodA.category} 1위`}</div>
+                      <div className="text-[11px] text-slate-800 font-bold">{battleConfig.labelA || `${prodA.category || '인기'} 신상`}</div>
                       <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
                       <div className="mt-1.5 flex items-center gap-1">
                         <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
@@ -1113,7 +1125,7 @@ export const HomeView: React.FC = () => {
                       className="w-full aspect-square object-cover"
                     />
                     <div className="p-2.5">
-                      <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category} 1위`}</div>
+                      <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category || '대세'} 신상`}</div>
                       <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
                       <div className="mt-1.5 flex items-center gap-1">
                         <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">

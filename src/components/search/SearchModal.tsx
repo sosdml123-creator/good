@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, ChevronLeft, X, Star, Flame, ArrowRight, MapPin } from 'lucide-react';
+import { Search, ChevronLeft, X, Star, Flame, ArrowRight, Sparkles, MapPin } from 'lucide-react';
 import { Product } from '../../types';
-import { AdBanner } from '../common/AdBanner';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -288,8 +287,30 @@ export const SearchModal: React.FC = () => {
         </div>
       ) : (
         <div className="flex-1 p-4 space-y-6">
-          {/* 상단 스폰서드 / Google AdMob 배너 광고 슬롯 */}
-          <AdBanner className="shadow-2xs" />
+          {/* Quick produce search tags */}
+          <div className="p-3 bg-gradient-to-r from-gray-50 to-slate-100 rounded-2xl border border-gray-200">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-gray-900" />
+              <span>원물 vs 관련제품 추천 검색</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { tag: '🦐 생물 새우', query: '새우' },
+                { tag: '🍑 산지 복숭아', query: '복숭아' },
+                { tag: '🍉 꿀수박', query: '수박' },
+                { tag: '🍣 생연어', query: '연어' },
+                { tag: '🍎 청송 사과', query: '사과' }
+              ].map((item) => (
+                <button
+                  key={item.tag}
+                  onClick={() => handleSearch(item.query)}
+                  className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs font-semibold border border-gray-200 hover:border-gray-900 hover:text-gray-900 transition-all shadow-2xs"
+                >
+                  {item.tag}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Recent Searches */}
           {recentSearches.length > 0 && (

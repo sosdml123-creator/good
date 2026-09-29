@@ -356,42 +356,27 @@ export const isRealNewProduct = (p: Product): boolean => {
     !p.name.includes('신제품') && !p.name.includes('신상') && p.category !== '신제품';
   if (isFreshFarmProduce) return false;
 
-  // 2. Exclude steady-seller / classic popular banner strings
+  // 2. Exclude steady-seller / classic popular banner strings unless specifically new
   if (p.releaseDate) {
     const rd = p.releaseDate;
     const isExcluded = 
       (rd.includes('스테디셀러') || 
        rd.includes('베스트셀러') || 
        rd.includes('판매 1위') || 
-       rd.includes('공식 인기') || 
        rd.includes('원조') || 
        rd.includes('대표메뉴') ||
        rd.includes('공식 전통') ||
        rd.includes('산지직송')) &&
-      !rd.includes('신제품') && !rd.includes('신상') && !rd.includes('신규') && !rd.includes('2026') && !rd.includes('리뉴얼');
+      !rd.includes('신제품') && !rd.includes('신상') && !rd.includes('신규') && !rd.includes('2026') && !rd.includes('2025') && !rd.includes('리뉴얼') && !rd.includes('출시');
     if (isExcluded) return false;
   }
 
   // 3. Category is explicitly 신제품
   if (p.category === '신제품') return true;
 
-  // 4. Added via crawler / today's new items with isToday flag (and not excluded above)
-  if (p.isToday) {
-    if (p.releaseDate) {
-      const rd = p.releaseDate;
-      if (
-        rd.includes('출시') || 
-        rd.includes('신상') || 
-        rd.includes('신제품') || 
-        rd.includes('신메뉴') ||
-        rd.includes('한정판') ||
-        /\d{4}[.-]\d{1,2}/.test(rd)
-      ) {
-        return true;
-      }
-    } else {
-      return true;
-    }
+  // 4. Added via crawler / today's new items with isToday or isHot flag
+  if (p.isToday || p.isHot) {
+    return true;
   }
 
   // 5. Release date keywords
@@ -404,18 +389,101 @@ export const isRealNewProduct = (p: Product): boolean => {
       rd.includes('신상') ||
       rd.includes('단독 출시') ||
       rd.includes('신메뉴 출시') ||
-      rd.includes('한정 출시')
+      rd.includes('한정 출시') ||
+      rd.includes('한정판') ||
+      rd.includes('공식') ||
+      /\d{4}[.-]\d{1,2}/.test(rd)
     ) {
       return true;
     }
   }
 
   // 6. Name indicates newly launched product
-  if (p.name.includes('신상') || p.name.includes('신제품') || p.name.includes('단독출시')) {
+  if (
+    p.name.includes('신상') || 
+    p.name.includes('신제품') || 
+    p.name.includes('단독출시') ||
+    p.name.includes('신메뉴') ||
+    p.name.includes('한정판') ||
+    p.name.includes('시즌한정')
+  ) {
     return true;
   }
 
   return false;
+};
+
+/**
+ * Standard Fisher-Yates shuffle algorithm.
+ */
+export const shuffleArray = <T>(array: T[]): T[] => {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+};
+
+/**
+ * Returns a balanced, randomly shuffled list of new products.
+ * Prevents monochromatic grouping (e.g. 10 bakery items in a row) by grouping
+ * products across various categories/brands and interleaving them in a round-robin order.
+ */
+export const getBalancedShuffledNewProducts = (
+  products: Product[],
+  categoryFilter: string = '전체'
+): Product[] => {
+  const allNew = products.filter(p => isRealNewProduct(p));
+  const pool = allNew.length >= 10 ? allNew : products;
+
+  // Filter if category is specified
+  const filtered = categoryFilter === '전체'
+    ? pool
+    : pool.filter((p) => {
+        if (categoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
+        if (categoryFilter === '음료') return p.category === '음료';
+        if (categoryFilter === '빵·디저트') return p.category === '빵·디저트';
+        if (categoryFilter === '간편식') return p.category === '간편식';
+        if (categoryFilter === '패스트푸드') return p.category === '패스트푸드';
+        if (categoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
+        return p.category === categoryFilter;
+      });
+
+  if (filtered.length <= 1) return filtered;
+
+  // Group by category to achieve rich diversity
+  const groups: Record<string, Product[]> = {};
+  for (const p of filtered) {
+    const cat = p.category || '기타';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(p);
+  }
+
+  // Shuffle each category group independently
+  const shuffledGroupKeys = shuffleArray(Object.keys(groups));
+  for (const key of shuffledGroupKeys) {
+    groups[key] = shuffleArray(groups[key]);
+  }
+
+  // Interleave round-robin across categories
+  const interleaved: Product[] = [];
+  let hasMore = true;
+  let round = 0;
+
+  while (hasMore) {
+    hasMore = false;
+    for (const key of shuffledGroupKeys) {
+      const group = groups[key];
+      if (round < group.length) {
+        interleaved.push(group[round]);
+        hasMore = true;
+      }
+    }
+    round++;
+  }
+
+  return interleaved;
 };
 
 /**
@@ -475,8 +543,13 @@ export const getCategoryReviewRankedProducts = (
     return true;
   });
 
+  // Pre-shuffle for diverse brand representation if viewing new products or default list
+  const diversifiedList = category === '신제품' || sortBy === 'newest'
+    ? shuffleArray(filtered)
+    : filtered;
+
   // 2. Calculate review evaluation for each product with O(1) lookup
-  const evaluated = filtered.map((p) => {
+  const evaluated = diversifiedList.map((p) => {
     const metrics = calculateProductReviewScore(p, reviewsMap);
     return {
       product: p,
