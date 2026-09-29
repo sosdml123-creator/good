@@ -423,12 +423,22 @@ export const extractProductName = (
                .replace(/\s+/g, ' ')
                .trim();
 
+// Helper to safely strip trailing particles without corrupting nouns ending in '이' (초코파이, 떡볶이, 송이 등)
+export const stripTrailingKoreanParticle = (text: string): string => {
+  const clean = text.trim();
+  const preserveSuffixes = /(?:파이|볶이|구이|송이|피스타치오|소시지|소세지|마요|초코|라떼|쿠키|젤리|카레|짜장|김밥|유부|모나카|젤라또|쇼콜라)$/;
+  if (preserveSuffixes.test(clean)) {
+    return clean.replace(/(?:를|을|은|는|와|과|도)$/, '').trim();
+  }
+  return clean.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+};
+
   // 2. Priority a & b: Extract from Title Quotes: '신라면 툼바', "연세우유 밤티라미수", ‘비쵸비 딸기’
   const titleQuotes = title.match(/['‘"“]([^'’”"]{2,30})['’”"]/g);
   if (titleQuotes && titleQuotes.length > 0) {
     for (const q of titleQuotes) {
       let clean = q.replace(/['‘"“”]/g, '').trim();
-      clean = clean.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+      clean = stripTrailingKoreanParticle(clean);
       const check = isClickbaitOrInvalidName(clean);
       if (!check.isInvalid) {
         return { name: clean, isValid: true };
@@ -443,7 +453,7 @@ export const extractProductName = (
     let candidate = matchAction[1].trim();
     candidate = candidate.replace(/^[가-힣A-Za-z0-9]+\s*,\s*/, '').trim();
     candidate = candidate.replace(/^(?:신제품|신상|가을 신메뉴|겨울 신메뉴|여름 신상|인기|단독)\s+/, '').trim();
-    candidate = candidate.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+    candidate = stripTrailingKoreanParticle(candidate);
     
     const check = isClickbaitOrInvalidName(candidate);
     if (!check.isInvalid && !candidate.endsWith('점') && !candidate.endsWith('사') && !candidate.endsWith('일')) {
@@ -455,7 +465,7 @@ export const extractProductName = (
   const prefixRegex = /(?:신제품|신상품|신메뉴|신상)\s+['‘"“]?([가-힣A-Za-z0-9\s·\-\+]{2,22})['‘"”]?(?:\s|$|,)/;
   const matchPrefix = title.match(prefixRegex);
   if (matchPrefix) {
-    let candidate = matchPrefix[1].trim().replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+    let candidate = stripTrailingKoreanParticle(matchPrefix[1].trim());
     const check = isClickbaitOrInvalidName(candidate);
     if (!check.isInvalid) {
       return { name: candidate, isValid: true };
@@ -1037,10 +1047,10 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
   const nowTime = new Date().toTimeString().split(' ')[0].substring(0, 5);
 
   for (const item of items) {
-    // 1. 날짜 필터링: 최근 3일 이내에 발행된 최신 기사만 통과
-    const isRecent = isRecentNewsArticle(item.pubDate, 3);
+    // 1. 날짜 필터링: 최근 7일 이내에 발행된 최신 기사 통과
+    const isRecent = isRecentNewsArticle(item.pubDate, 7);
     if (!isRecent) {
-      continue; // 오래된 기사는 엄격히 제외
+      continue; // 오래된 기사는 제외
     }
 
     const rawTitle = cleanHtml(item.title);
