@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Search, ChevronLeft, X, Star, Flame, ArrowRight, Sparkles, MapPin } from 'lucide-react';
 import { Product } from '../../types';
+import { showSearchBannerAd, removeBannerAd } from '../../services/admobService';
+import { Capacitor } from '@capacitor/core';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -16,6 +18,15 @@ export const SearchModal: React.FC = () => {
   } = useApp();
 
   const [inputQuery, setInputQuery] = useState('');
+
+  // 검색 모달 진입 시 AdMob 배너 광고 표출 및 이탈 시 정리
+  useEffect(() => {
+    showSearchBannerAd();
+
+    return () => {
+      removeBannerAd();
+    };
+  }, []);
 
   const popularKeywords = [
     '새우',
@@ -380,6 +391,27 @@ export const SearchModal: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* 3. 하단 AdMob 배너 광고 영역 */}
+      <div className="mt-auto pt-6 px-4 pb-2">
+        {!Capacitor.isNativePlatform() ? (
+          <div className="w-full bg-gradient-to-r from-gray-50 via-slate-100 to-gray-50 border border-dashed border-gray-300 rounded-xl p-3 text-center flex items-center justify-between shadow-2xs">
+            <div className="flex items-center gap-2 text-left">
+              <span className="px-1.5 py-0.5 bg-gray-900 text-[9px] font-bold text-white rounded">
+                AD
+              </span>
+              <div>
+                <p className="text-xs font-bold text-gray-800">신상픽 스폰서드 파트너스</p>
+                <p className="text-[10px] text-gray-500">지금 가장 주목받는 신제품 특가 혜택</p>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-400 font-medium">Google AdMob</span>
+          </div>
+        ) : (
+          /* 네이티브 AdMob 배너가 BOTTOM_CENTER에 오버레이될 때 컨텐츠 겹침 방지 여백 */
+          <div className="h-14 w-full" />
+        )}
+      </div>
     </div>
   );
 };

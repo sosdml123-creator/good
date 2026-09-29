@@ -4,7 +4,7 @@ import { Capacitor } from '@capacitor/core';
 // AdMob App ID & Ad Unit IDs (Google AdMob 배너 광고 실서버 ID)
 export const ADMOB_CONFIG = {
   appId: 'ca-app-pub-3878859120989916~2898554632',
-  bannerAdUnitId: 'ca-app-pub-3878859120989916/6084323850',
+  bannerAdUnitId: 'ca-app-pub-3878859120989916/1040251860',
   // 테스트용 ID (AdMob 테스트 가이드)
   testBannerAdUnitId: 'ca-app-pub-3940256099942544/2934735716',
 };
@@ -56,7 +56,7 @@ export const requestAdMobTrackingAuthorization = async (): Promise<void> => {
   }
 };
 
-export const showHomeBannerAd = async (adUnitId?: string): Promise<boolean> => {
+export const showSearchBannerAd = async (adUnitId?: string): Promise<boolean> => {
   if (!Capacitor.isNativePlatform()) {
     return false;
   }
@@ -68,19 +68,19 @@ export const showHomeBannerAd = async (adUnitId?: string): Promise<boolean> => {
       adId: adUnitId || ADMOB_CONFIG.bannerAdUnitId,
       adSize: BannerAdSize.BANNER,
       position: BannerAdPosition.BOTTOM_CENTER,
-      margin: 60, // 하단 탭바 위 마진
+      margin: 0,
       isTesting: false,
     };
 
     await AdMob.showBanner(options);
     return true;
   } catch (error) {
-    console.warn('[AdMob] Show banner notice:', error);
+    console.warn('[AdMob] Show search banner notice:', error);
     return false;
   }
 };
 
-export const hideHomeBannerAd = async (): Promise<void> => {
+export const hideBannerAd = async (): Promise<void> => {
   if (!Capacitor.isNativePlatform()) return;
   try {
     await AdMob.hideBanner();
@@ -89,7 +89,7 @@ export const hideHomeBannerAd = async (): Promise<void> => {
   }
 };
 
-export const removeHomeBannerAd = async (): Promise<void> => {
+export const removeBannerAd = async (): Promise<void> => {
   if (!Capacitor.isNativePlatform()) return;
   try {
     await AdMob.removeBanner();
@@ -97,4 +97,9 @@ export const removeHomeBannerAd = async (): Promise<void> => {
     console.warn('[AdMob] Remove banner notice:', error);
   }
 };
+
+// 하위 호환성 유지
+export const showHomeBannerAd = showSearchBannerAd;
+export const hideHomeBannerAd = hideBannerAd;
+export const removeHomeBannerAd = removeBannerAd;
 
