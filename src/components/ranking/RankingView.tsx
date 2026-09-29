@@ -92,15 +92,17 @@ export const RankingView: React.FC = () => {
     // 3. Calculate metrics and sort using indexed reviews
     const mapped = list.map((product) => {
       const prodReviews = reviewsMap.get(product.id) || [];
-      const totalReviews = (product.ratingCount || 0) + prodReviews.length;
+      const totalReviews = prodReviews.length || (product.ratingCount || 0);
       
-      let effectiveRating = product.overallRating || 4.5;
+      let effectiveRating = 0;
       if (prodReviews.length > 0) {
         let sumR = 0;
         for (let i = 0; i < prodReviews.length; i++) {
           sumR += prodReviews[i].rating || 5;
         }
-        effectiveRating = Number(((product.overallRating * 5 + sumR) / (5 + prodReviews.length)).toFixed(1));
+        effectiveRating = Number((sumR / prodReviews.length).toFixed(1));
+      } else {
+        effectiveRating = product.overallRating || 0;
       }
 
       const popularityScore = calculateProductPopularity(product, reviewsMap);

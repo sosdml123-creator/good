@@ -404,8 +404,8 @@ export const CompareModal: React.FC = () => {
             <span className="text-[11px] text-gray-400 block mt-0.5">{p1.brand}</span>
             <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-amber-500 mt-1">
               <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span>{p1.overallRating.toFixed(1)}</span>
-              <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount})</span>
+              <span>{(p1.overallRating || 0).toFixed(1)}</span>
+              <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount || 0})</span>
             </div>
             <button
               onClick={(e) => {
@@ -446,8 +446,8 @@ export const CompareModal: React.FC = () => {
             <span className="text-[11px] text-gray-400 block mt-0.5">{p2.brand}</span>
             <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-orange-500 mt-1">
               <Star className="w-3.5 h-3.5 fill-orange-500" />
-              <span>{p2.overallRating.toFixed(1)}</span>
-              <span className="text-gray-400 font-normal text-[11px]">({p2.ratingCount})</span>
+              <span>{(p2.overallRating || 0).toFixed(1)}</span>
+              <span className="text-gray-400 font-normal text-[11px]">({p2.ratingCount || 0})</span>
             </div>
             <button
               onClick={(e) => {

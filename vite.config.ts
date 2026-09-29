@@ -93,6 +93,57 @@ export default defineConfig(({ mode }) => {
         }
       }
     ],
+    build: {
+      // 청크 경고 임계값 상향 (대형 mock 데이터 파일 고려)
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          // 벤더 라이브러리를 별도 청크로 분리 (장기 캐시 활용)
+          manualChunks: (id) => {
+            // React 코어 (가장 안정적, 장기 캐시)
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+              return 'vendor-react';
+            }
+            // Supabase SDK (업데이트 빈도 낮음)
+            if (id.includes('node_modules/@supabase/')) {
+              return 'vendor-supabase';
+            }
+            // Capacitor 플러그인 (업데이트 빈도 낮음)
+            if (id.includes('node_modules/@capacitor/') || id.includes('node_modules/@capacitor-community/')) {
+              return 'vendor-capacitor';
+            }
+            // lucide-react 아이콘 라이브러리
+            if (id.includes('node_modules/lucide-react/')) {
+              return 'vendor-lucide';
+            }
+            // Admin 전용 컴포넌트 (일반 유저 불필요)
+            if (id.includes('/components/admin/')) {
+              return 'chunk-admin';
+            }
+            // 대용량 Mock 데이터 파일들 (별도 청크로 분리)
+            if (
+              id.includes('/data/mockProducts') ||
+              id.includes('/data/samyangProducts') ||
+              id.includes('/data/tljProducts') ||
+              id.includes('/data/sungsimdangProducts') ||
+              id.includes('/data/iceCreamProducts') ||
+              id.includes('/data/pizzaProducts') ||
+              id.includes('/data/agriMarineProducts')
+            ) {
+              return 'data-products';
+            }
+            // 나머지 data 파일
+            if (id.includes('/src/data/')) {
+              return 'data-misc';
+            }
+          },
+        },
+      },
+      // 소스맵 (production에서 불필요하므로 비활성화로 번들 크기 감소)
+      sourcemap: false,
+      // 최적화 타겟
+      target: 'es2020',
+    },
     server: {
       port: 3000,
       host: true,

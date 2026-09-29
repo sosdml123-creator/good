@@ -23,6 +23,7 @@ import {
   TrendingDown
 } from 'lucide-react';
 import { StoreStockItem, NutritionInfo } from '../../types';
+import { safeLocalStorageGet } from '../../utils/safeStorage';
 import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
@@ -38,6 +39,7 @@ export const ProductDetailModal: React.FC = () => {
   const {
     selectedProduct,
     products,
+    reviews,
     goBack,
     toggleCompare,
     setActiveTab,
@@ -147,6 +149,48 @@ export const ProductDetailModal: React.FC = () => {
     prod.category === '과일' || 
     Boolean(prod.produceDetails);
 
+  // Filter blocked users and hidden reviews (UGC Policy)
+  const blockedUsers: string[] = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
+  const hiddenIds: string[] = safeLocalStorageGet<string[]>('sinsangpick_hidden_ids', []);
+
+  const productReviews = reviews.filter(
+    r => (r.productId === selectedProduct.id || !selectedProduct.id) &&
+    !hiddenIds.includes(r.id) &&
+    !blockedUsers.includes(r.userName)
+  );
+
+  const actualReviewCount = productReviews.length;
+  const actualOverallRating = actualReviewCount > 0
+    ? Number((productReviews.reduce((sum, r) => sum + (r.rating || 5), 0) / actualReviewCount).toFixed(1))
+    : 0;
+
+  // 가짜 리뷰 및 허위 한줄평 방지: 실제 등록된 리뷰가 있을 때만 한줄평 노출
+  const quotes = actualReviewCount > 0
+    ? (selectedProduct.bestQuotes && selectedProduct.bestQuotes.length > 0
+        ? selectedProduct.bestQuotes
+        : productReviews.map(r => r.content).filter(Boolean).slice(0, 5))
+    : [];
+
+  const displayedQuotes = showAllQuotes ? quotes : quotes.slice(0, 3);
+
+  // 세부 평점 지표: 실제 리뷰의 세부 점수 기반 계산
+  const hasDetailedInReviews = actualReviewCount > 0 && productReviews.some(r => r.detailedRating);
+  const avgDetailed = hasDetailedInReviews
+    ? productReviews.reduce(
+        (acc, r) => {
+          if (r.detailedRating) {
+            acc.taste += r.detailedRating.taste || 0;
+            acc.value += r.detailedRating.value || 0;
+            acc.portion += r.detailedRating.portion || 0;
+            acc.repurchase += r.detailedRating.repurchase || 0;
+            acc.count += 1;
+          }
+          return acc;
+        },
+        { taste: 0, value: 0, portion: 0, repurchase: 0, count: 0 }
+      )
+    : null;
+
   const metrics = prod.freshMetrics
     ? [
         { label: '당도 (Brix)', val: prod.freshMetrics.sweetness ?? 5 },
@@ -154,12 +198,19 @@ export const ProductDetailModal: React.FC = () => {
         { label: '식감', val: prod.freshMetrics.texture ?? 5 },
         { label: '가격 만족도', val: prod.freshMetrics.value ?? 5 },
       ]
-    : [
-        { label: '맛', val: prod.detailedRating?.taste ?? 5 },
-        { label: '가성비', val: prod.detailedRating?.value ?? 5 },
-        { label: '양', val: prod.detailedRating?.portion ?? 4.5 },
-        { label: '재구매 의사', val: prod.detailedRating?.repurchase ?? 4.8 },
-      ];
+    : avgDetailed && avgDetailed.count > 0
+      ? [
+          { label: '맛', val: Number((avgDetailed.taste / avgDetailed.count).toFixed(1)) },
+          { label: '가성비', val: Number((avgDetailed.value / avgDetailed.count).toFixed(1)) },
+          { label: '양', val: Number((avgDetailed.portion / avgDetailed.count).toFixed(1)) },
+          { label: '재구매 의사', val: Number((avgDetailed.repurchase / avgDetailed.count).toFixed(1)) },
+        ]
+      : [
+          { label: '맛', val: actualReviewCount > 0 ? (prod.detailedRating?.taste ?? 5) : 0 },
+          { label: '가성비', val: actualReviewCount > 0 ? (prod.detailedRating?.value ?? 5) : 0 },
+          { label: '양', val: actualReviewCount > 0 ? (prod.detailedRating?.portion ?? 4.5) : 0 },
+          { label: '재구매 의사', val: actualReviewCount > 0 ? (prod.detailedRating?.repurchase ?? 4.8) : 0 },
+        ];
 
   // Default stores if none specified
   const storeList = selectedProduct.stores && selectedProduct.stores.length > 0
@@ -193,12 +244,6 @@ export const ProductDetailModal: React.FC = () => {
     if (['대형마트', '이마트', '홈플러스', '롯데마트'].includes(storeName)) return '🛒';
     return '🏬';
   };
-
-  const quotes = selectedProduct.bestQuotes && selectedProduct.bestQuotes.length > 0
-    ? selectedProduct.bestQuotes
-    : ['진짜 맛있어요! 강력 추천합니다 👍', '품질이 기대 이상이라 만족스러워요', '재구매 의사 100% 입니다!'];
-
-  const displayedQuotes = showAllQuotes ? quotes : quotes.slice(0, 3);
 
   const effectiveBuyLink = selectedProduct.buyLink || 
     selectedProduct.brandRankings?.find(r => r.buyLink)?.buyLink ||
@@ -333,9 +378,11 @@ export const ProductDetailModal: React.FC = () => {
           <div className="flex items-center gap-0.5">
             <Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
           </div>
-          <span className="text-[15px] font-bold text-gray-800">{(selectedProduct.overallRating ?? 5).toFixed(1)}</span>
-          <span className="text-[12px] text-gray-400">({selectedProduct.ratingCount ?? 0}명 평가)</span>
-          {selectedProduct.repurchasePercent && (
+          <span className="text-[15px] font-bold text-gray-800">
+            {actualReviewCount > 0 ? actualOverallRating.toFixed(1) : '0.0'}
+          </span>
+          <span className="text-[12px] text-gray-400">({actualReviewCount}명 평가)</span>
+          {selectedProduct.repurchasePercent && actualReviewCount > 0 && (
             <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
               재구매율 {selectedProduct.repurchasePercent}%
             </span>
@@ -461,7 +508,7 @@ export const ProductDetailModal: React.FC = () => {
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
-            소비자 리뷰 ({selectedProduct.ratingCount})
+            소비자 리뷰 ({actualReviewCount})
             {detailTab === 'reviews' && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
@@ -762,60 +809,62 @@ export const ProductDetailModal: React.FC = () => {
             </div>
           )}
 
-          {/* Score breakdown */}
-          <div className="bg-white px-4 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[14px] font-bold text-gray-900">
-                {selectedProduct.freshMetrics ? '🍎 신선식품 품질 평가 지표' : '세부 평점 지표'}
-              </span>
-              {selectedProduct.freshMetrics && (
+          {/* Score breakdown - 신선식품 품질지표 또는 실제 소비자 리뷰가 등록된 경우에만 표시 */}
+          {(Boolean(selectedProduct.freshMetrics) || actualReviewCount > 0) && (
+            <div className="bg-white px-4 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[14px] font-bold text-gray-900">
+                  {selectedProduct.freshMetrics ? '🍎 신선식품 품질 평가 지표' : '세부 평점 지표'}
+                </span>
                 <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">
                   소비자 실측 기준
                 </span>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              {metrics.map((m) => (
-                <div key={m.label} className="flex items-center gap-3">
-                  <span className="w-24 text-[12px] text-gray-600 font-medium shrink-0">{m.label}</span>
-                  <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full rounded-full transition-all duration-500 ${selectedProduct.freshMetrics ? 'bg-emerald-500' : 'bg-gray-900'}`} 
-                      style={{ width: `${(m.val / 5) * 100}%` }}
-                    />
-                  </div>
-                  <span className="w-8 text-right text-[12px] font-bold text-gray-700">{(m.val ?? 5).toFixed(1)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 한줄평 BEST */}
-          <div className="bg-white px-4 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                <span className="text-[14px] font-bold text-gray-900">한줄평 BEST</span>
               </div>
-              {quotes.length > 2 && (
-                <button 
-                  onClick={() => setShowAllQuotes(!showAllQuotes)}
-                  className="text-[12px] text-gray-700 hover:text-gray-900 font-semibold hover:underline"
-                >
-                  {showAllQuotes ? '접기' : '더보기'}
-                </button>
-              )}
+
+              <div className="space-y-3">
+                {metrics.map((m) => (
+                  <div key={m.label} className="flex items-center gap-3">
+                    <span className="w-24 text-[12px] text-gray-600 font-medium shrink-0">{m.label}</span>
+                    <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full transition-all duration-500 ${selectedProduct.freshMetrics ? 'bg-emerald-500' : 'bg-gray-900'}`} 
+                        style={{ width: `${(m.val / 5) * 100}%` }}
+                      />
+                    </div>
+                    <span className="w-8 text-right text-[12px] font-bold text-gray-700">{(m.val ?? 0).toFixed(1)}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-2">
-              {displayedQuotes.map((q, idx) => (
-                <div key={idx} className="flex items-start gap-2 py-1.5 bg-gray-50/70 px-3 rounded-xl border border-gray-100">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="text-[13px] text-gray-700 font-medium">{q}</span>
+          )}
+
+          {/* 한줄평 BEST - 가짜 리뷰 방지: 실제 리뷰가 존재할 때만 표시 */}
+          {actualReviewCount > 0 && quotes.length > 0 && (
+            <div className="bg-white px-4 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span className="text-[14px] font-bold text-gray-900">한줄평 BEST</span>
                 </div>
-              ))}
+                {quotes.length > 2 && (
+                  <button 
+                    onClick={() => setShowAllQuotes(!showAllQuotes)}
+                    className="text-[12px] text-gray-700 hover:text-gray-900 font-semibold hover:underline"
+                  >
+                    {showAllQuotes ? '접기' : '더보기'}
+                  </button>
+                )}
+              </div>
+              <div className="space-y-2">
+                {displayedQuotes.map((q, idx) => (
+                  <div key={idx} className="flex items-start gap-2 py-1.5 bg-gray-50/70 px-3 rounded-xl border border-gray-100">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span className="text-[13px] text-gray-700 font-medium">{q}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Quick Write Review Banner Button */}
           <div className="bg-white px-4 py-3 border-b border-gray-100">
@@ -842,7 +891,7 @@ export const ProductDetailModal: React.FC = () => {
           <div className="bg-white px-4 py-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[14px] font-bold text-gray-900">전체 리뷰 목록</span>
-              <span className="text-[12px] text-gray-400">총 {selectedProduct.ratingCount}개</span>
+              <span className="text-[12px] text-gray-400">총 {actualReviewCount}개</span>
             </div>
             <ReviewList productId={selectedProduct.id} />
           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp, resolveUserProfileProvider } from '../../context/AppContext';
 import {
   Layers, 
   Package, 
@@ -112,6 +112,7 @@ export interface AdminDashboardProps {
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const { 
+    currentUser,
     banners, 
     products, 
     battleConfig,
@@ -1982,8 +1983,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                               )}
                             </div>
                             <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
+                              <div className="flex items-center gap-1.5 flex-wrap">
                                 <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{u.displayName || '익명회원'}</p>
+                                {(() => {
+                                  const prov = resolveUserProfileProvider(u, u, currentUser);
+                                  if (prov === 'apple') {
+                                    return <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1.5 py-0.2 rounded bg-black text-white shrink-0"> Apple</span>;
+                                  }
+                                  if (prov === 'kakao') {
+                                    return <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1.5 py-0.2 rounded bg-[#FEE500] text-slate-900 font-sans shrink-0">Kakao</span>;
+                                  }
+                                  return null;
+                                })()}
                                 {u.status === 'banned' && (
                                   <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20">정지</span>
                                 )}

@@ -472,12 +472,12 @@ export const AVATAR_PRESETS: AvatarPreset[] = [
 ];
 
 /**
- * Checks if a given avatar URL originates from Kakao or other social CDNs
+ * Checks if a given avatar URL originates from Kakao or other social CDNs or dummy Unsplash URLs
  * (Used to prevent real face photos from being leaked automatically upon social login)
  */
 export const isKakaoOrSocialRawAvatar = (url?: string | null): boolean => {
   if (!url || typeof url !== 'string') return false;
-  return /kakaocdn\.net|kakao\.com|daumcdn\.net|googleusercontent\.com|apple\.com/i.test(url);
+  return /kakaocdn\.net|kakao\.com|daumcdn\.net|googleusercontent\.com|apple\.com|unsplash\.com/i.test(url);
 };
 
 /**
@@ -485,21 +485,21 @@ export const isKakaoOrSocialRawAvatar = (url?: string | null): boolean => {
  */
 export const isDefaultOrSocialAvatar = (url?: string | null): boolean => {
   if (!url || typeof url !== 'string') return true;
-  if (url === DEFAULT_AVATAR || url === '/logo.png') return true;
+  if (url === DEFAULT_AVATAR || url.startsWith('/logo.png')) return true;
   return isKakaoOrSocialRawAvatar(url);
 };
 
 /**
  * Checks if a user's avatar is a valid custom photo or preset.
  * Any valid data URL, preset SVG, logo, or public image URL is valid,
- * as long as it does not originate from raw social CDNs.
+ * as long as it does not originate from raw social CDNs or dummy photos.
  */
 export const isValidCustomPhoto = (url?: string | null, _uid?: string | null): boolean => {
   if (!url || typeof url !== 'string') return false;
   const trimmed = url.trim();
   if (!trimmed) return false;
 
-  // Raw social CDN avatars are filtered out for privacy
+  // Raw social CDN avatars and dummy Unsplash photos are filtered out
   if (isKakaoOrSocialRawAvatar(trimmed)) return false;
 
   // Data URLs (SVG preset, uploaded JPEG/PNG/WebP)
@@ -508,12 +508,37 @@ export const isValidCustomPhoto = (url?: string | null, _uid?: string | null): b
   // Local assets (logo, etc.)
   if (trimmed.startsWith('/') || trimmed.startsWith('./')) return true;
 
-  // Valid external image URLs (Supabase storage or hosted images)
+  // Valid external image URLs (Supabase storage or custom hosted images)
   if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    // Specifically block unsplash photos that were placed as database defaults
+    if (trimmed.includes('unsplash.com')) return false;
     return true;
   }
 
   return false;
+};
+
+/**
+ * Generates official SinSangPick logo URL with embedded provider hint query parameter.
+ * e.g., '/logo.png?prov=apple', '/logo.png?prov=kakao'
+ * Ensures 100% reliable provider detection even without a 'provider' DB column.
+ */
+export const getProviderLogoUrl = (provider?: string | null): string => {
+  if (!provider || provider === 'anonymous' || provider === 'email') return '/logo.png';
+  return `/logo.png?prov=${provider}`;
+};
+
+/**
+ * Extracts login provider from avatar URL parameter or characteristics.
+ */
+export const extractProviderFromAvatar = (url?: string | null): 'apple' | 'kakao' | 'google' | null => {
+  if (!url || typeof url !== 'string') return null;
+  if (url.includes('prov=apple')) return 'apple';
+  if (url.includes('prov=kakao')) return 'kakao';
+  if (url.includes('prov=google')) return 'google';
+  if (/kakaocdn\.net|kakao\.com|daumcdn\.net/i.test(url)) return 'kakao';
+  if (/unsplash\.com/i.test(url)) return 'kakao'; // Legacy Kakao accounts that received DB unsplash placeholder
+  return null;
 };
 
 /**

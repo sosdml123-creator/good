@@ -196,8 +196,8 @@ export const SearchModal: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
                               <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
-                              <span>{p.overallRating.toFixed(1)}</span>
-                              <span className="text-gray-400 font-normal">({p.ratingCount})</span>
+                              <span>{(p.overallRating || 0).toFixed(1)}</span>
+                              <span className="text-gray-400 font-normal">({p.ratingCount || 0})</span>
                             </div>
                           </div>
                         </div>
@@ -266,8 +266,8 @@ export const SearchModal: React.FC = () => {
                             </span>
                             <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
                               <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
-                              <span>{p.overallRating.toFixed(1)}</span>
-                              <span className="text-gray-400 font-normal">({p.ratingCount})</span>
+                              <span>{(p.overallRating || 0).toFixed(1)}</span>
+                              <span className="text-gray-400 font-normal">({p.ratingCount || 0})</span>
                             </div>
                           </div>
                         </div>

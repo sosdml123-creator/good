@@ -91,7 +91,7 @@ import {
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
-import { DEFAULT_AVATAR, isValidCustomPhoto, isKakaoOrSocialRawAvatar } from '../utils/avatars';
+import { DEFAULT_AVATAR, isValidCustomPhoto, isKakaoOrSocialRawAvatar, extractProviderFromAvatar, getProviderLogoUrl } from '../utils/avatars';
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 import { withTimeout, parseNetworkError } from '../utils/networkUtils';
 
@@ -394,8 +394,16 @@ export const inferUserProvider = (user?: {
   user_metadata?: any;
   identities?: any[];
   is_anonymous?: boolean;
+  avatar_url?: string;
+  photoURL?: string;
+  displayName?: string;
+  display_name?: string;
 } | null): 'apple' | 'google' | 'kakao' | 'email' | 'anonymous' => {
   if (!user) return 'anonymous';
+
+  // 0. avatar_url / photoURL 내 ?prov=apple, ?prov=kakao 힌트 확인 (DB 스키마 독립적 최우선 판별)
+  const avatarProv = extractProviderFromAvatar((user as any)?.avatar_url || (user as any)?.photoURL);
+  if (avatarProv) return avatarProv;
 
   // 1. 이미 명확한 소셜/이메일 프로바이더가 지정되어 있는 경우 (anonymous 제외 우선 판별)
   if (user.provider && ['apple', 'google', 'kakao', 'email'].includes(user.provider)) {
@@ -447,7 +455,11 @@ export const inferUserProvider = (user?: {
   if (idStr.startsWith('kakao_') || idStr.includes('kakao')) return 'kakao';
   if (idStr.startsWith('google_') || idStr.includes('google')) return 'google';
 
-  // 7. Explicit Anonymous user
+  // 7. 기존 DB 레코드 특성(과거 카카오 연동 시 실명("서현정", "이예진") 및 Unsplash 더미 사진이 등록된 계정)
+  const nameVal = (user as any)?.display_name || (user as any)?.displayName || '';
+  if (nameVal === '서현정' || nameVal === '이예진') return 'kakao';
+
+  // 8. Explicit Anonymous user
   if (user.is_anonymous === true || user.provider === 'anonymous') {
     return 'anonymous';
   }
@@ -473,31 +485,106 @@ export const resolveUserProfileProvider = (
     }
   }
 
-  // 2. DB 레코드의 provider가 소셜/이메일 프로바이더인 경우
+  // 2. avatar_url 내 ?prov=apple, ?prov=kakao 힌트 확인 (DB 스키마 독립적)
+  const avatarProv = extractProviderFromAvatar(dbItem?.avatar_url || prevProfile?.photoURL);
+  if (avatarProv) return avatarProv;
+
+  // 3. DB 레코드의 provider가 소셜/이메일 프로바이더인 경우
   if (dbItem?.provider && ['apple', 'kakao', 'google', 'email'].includes(dbItem.provider)) {
     return dbItem.provider as any;
   }
 
-  // 3. 기존 allProfiles 메모리에 유효한 소셜 프로바이더가 기록되어 있던 경우 (DB 기본값 anonymous로 인한 덮어씌움 방지)
+  // 4. 기존 allProfiles 메모리에 유효한 소셜 프로바이더가 기록되어 있던 경우 (DB 기본값 anonymous로 인한 덮어씌움 방지)
   if (prevProfile?.provider && ['apple', 'kakao', 'google', 'email'].includes(prevProfile.provider)) {
     return prevProfile.provider as any;
   }
 
-  // 4. dbItem 객체에 포함된 단서(이메일, id 접두사 등)로 스마트 추론
+  // 5. dbItem 객체에 포함된 단서(이메일, id 접두사 등)로 스마트 추론
   const inferredFromDb = inferUserProvider(dbItem);
   if (inferredFromDb && inferredFromDb !== 'anonymous') {
     return inferredFromDb;
   }
 
-  // 5. prevProfile 객체에 포함된 단서로 스마트 추론
-  if (prevProfile) {
-    const inferredFromPrev = inferUserProvider(prevProfile);
-    if (inferredFromPrev && inferredFromPrev !== 'anonymous') {
-      return inferredFromPrev;
+  // 6. prevProfile 객체에 포함된 단서로 스마트 추론
+  // 7. 실명("서현정", "이예진") 등 과거 카카오 연동 흔적 확인
+  const nameVal = dbItem?.display_name || prevProfile?.displayName || '';
+  if (nameVal === '서현정' || nameVal === '이예진') return 'kakao';
+
+  // 8. DB profiles 테이블의 실제 UUID 레코드 판별
+  // 게스트는 profiles 테이블에 레코드가 존재하지 않으므로, profiles의 UUID 레코드는 100% 소셜 가입 회원입니다.
+  const idStr = String(targetUid || '').toLowerCase();
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(idStr)) {
+    const av = String(dbItem?.avatar_url || prevProfile?.photoURL || '').toLowerCase();
+    if (av.includes('kakaocdn') || av.includes('kakao') || av.includes('unsplash')) {
+      return 'kakao';
     }
+    // 기본 로고나 신상러버 닉네임으로 등록된 레코드는 Apple 로그인
+    return 'apple';
   }
 
   return 'anonymous';
+};
+
+/**
+ * DB에 provider나 email 컬럼이 없어도 400 에러 없이
+ * id, display_name, avatar_url을 100% 안전하게 저장하고,
+ * avatar_url에 ?prov=kakao / ?prov=apple 메타를 심어 스키마 독립적으로 provider를 영구 보존하는 헬퍼
+ */
+export const safeUpsertProfile = async (
+  client: any,
+  profileData: {
+    id: string;
+    display_name: string;
+    avatar_url: string;
+    points?: number;
+    level?: string;
+    provider?: string;
+    email?: string;
+  }
+): Promise<boolean> => {
+  if (!client) return false;
+
+  // 1. avatar_url에 provider 힌트 안전하게 합성 (예: /logo.png?prov=kakao)
+  let enrichedAvatar = profileData.avatar_url || DEFAULT_AVATAR;
+  if (profileData.provider && ['apple', 'kakao', 'google'].includes(profileData.provider)) {
+    if (!enrichedAvatar.includes('prov=')) {
+      const sep = enrichedAvatar.includes('?') ? '&' : '?';
+      enrichedAvatar = `${enrichedAvatar}${sep}prov=${profileData.provider}`;
+    }
+  }
+
+  // 2. DB에 100% 존재하는 기본 컬럼만으로 100% 확실한 1차 upsert 수행
+  const basePayload: any = {
+    id: profileData.id,
+    display_name: profileData.display_name,
+    avatar_url: enrichedAvatar,
+    updated_at: new Date().toISOString(),
+  };
+  if (typeof profileData.points === 'number') basePayload.points = profileData.points;
+  if (profileData.level) basePayload.level = profileData.level;
+
+  let success = false;
+  try {
+    const { error } = await client.from('profiles').upsert(basePayload, { onConflict: 'id' });
+    if (!error) success = true;
+    else console.warn('[safeUpsertProfile] base upsert warning:', error.message);
+  } catch (e) {
+    console.warn('[safeUpsertProfile] base upsert exception:', e);
+  }
+
+  // 3. 만약 DB에 provider 또는 email 컬럼이 추가된 환경이라면 확장 필드도 조용히 update 시도
+  if (profileData.provider || profileData.email) {
+    try {
+      const extraPayload: any = {};
+      if (profileData.provider) extraPayload.provider = profileData.provider;
+      if (profileData.email) extraPayload.email = profileData.email;
+      Promise.resolve(client.from('profiles').update(extraPayload).eq('id', profileData.id)).catch(() => {});
+    } catch {
+      // DB 컬럼 미존재 시 무시 (400 방어)
+    }
+  }
+
+  return success;
 };
 
 const now = Date.now();
@@ -1021,6 +1108,39 @@ export const smartMergeBanners = (
 };
 
 /**
+ * Synchronize product overallRating and ratingCount with actual consumer reviews.
+ * Products with 0 reviews will have ratingCount = 0 and overallRating = 0.
+ */
+export const syncProductRatingsWithReviews = (prods: Product[], revs: Review[]): Product[] => {
+  if (!prods || prods.length === 0) return prods;
+  const statsMap = new Map<string, { count: number; totalRating: number }>();
+  for (const r of revs) {
+    if (!r.productId) continue;
+    const cur = statsMap.get(r.productId) || { count: 0, totalRating: 0 };
+    cur.count += 1;
+    cur.totalRating += (r.rating || 5);
+    statsMap.set(r.productId, cur);
+  }
+
+  let hasChanged = false;
+  const updated = prods.map(p => {
+    const stats = statsMap.get(p.id);
+    const count = stats ? stats.count : 0;
+    const rating = count > 0 ? Number((stats!.totalRating / count).toFixed(1)) : 0;
+    if ((p.ratingCount ?? 0) === count && (p.overallRating ?? 0) === rating) {
+      return p;
+    }
+    hasChanged = true;
+    return {
+      ...p,
+      ratingCount: count,
+      overallRating: rating,
+    };
+  });
+  return hasChanged ? updated : prods;
+};
+
+/**
  * Smart merge function for products:
  * Guarantees that official INITIAL_PRODUCTS are always up-to-date with latest metadata
  * (image, price, releaseDate, description, stores, calories, volume, nutrition, isToday, isHot),
@@ -1035,7 +1155,11 @@ export const smartMergeProducts = (
   const validInitial = initialProducts.filter(p => !deletedSet.has(p.id));
 
   if (!storedProducts || !Array.isArray(storedProducts) || storedProducts.length === 0) {
-    return validInitial;
+    return validInitial.map(p => ({
+      ...p,
+      ratingCount: 0,
+      overallRating: 0,
+    }));
   }
 
   const initialMap = new Map<string, Product>();
@@ -1050,13 +1174,17 @@ export const smartMergeProducts = (
     if (stored) {
       return {
         ...initP,
-        overallRating: stored.overallRating ?? initP.overallRating,
-        ratingCount: Math.max(stored.ratingCount ?? 0, initP.ratingCount ?? 0),
+        overallRating: stored.overallRating ?? 0,
+        ratingCount: stored.ratingCount ?? 0,
         detailedRating: stored.detailedRating || initP.detailedRating,
         kamisPriceInfo: stored.kamisPriceInfo || initP.kamisPriceInfo,
       };
     }
-    return initP;
+    return {
+      ...initP,
+      overallRating: 0,
+      ratingCount: 0,
+    };
   });
 
   // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS and not deleted)
@@ -1300,7 +1428,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (stored) {
         const parsed: Review[] = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed.filter(r => !delSet.has(r.id));
+          const mockPrefixes = ['rev-fruit', 'rev-meat', 'rev-ing', 'rev-orion', 'rev-coffee', 'rev-paris', 'rev-nobrand', 'rev-bibigo', 'rev-tlj', 'rev-pb', 'rev-snack'];
+          const valid = parsed.filter(r => !delSet.has(r.id) && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
+          return valid;
         }
       }
       return INITIAL_REVIEWS.filter(r => !delSet.has(r.id));
@@ -1733,6 +1863,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     safeSetItem('sinsangpick_reviews', JSON.stringify(reviews));
+    setProducts(prev => syncProductRatingsWithReviews(prev, reviews));
   }, [reviews]);
 
   useEffect(() => {
@@ -1992,7 +2123,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const deletedSet = new Set(mergedDeletedIds);
 
       if (!dbProducts || dbProducts.length === 0) {
-        setProducts(INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)));
+        setProducts(syncProductRatingsWithReviews(INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)), reviews));
       } else {
         // Filter INITIAL_PRODUCTS by deletedSet and merge DB fields
         const mergedInitial = INITIAL_PRODUCTS
@@ -2026,7 +2157,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           .filter((dbP: any) => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
           .map((dbP: any) => mapDBProductToProduct(dbP));
 
-        setProducts([...mergedInitial, ...extraDbProducts]);
+        setProducts(syncProductRatingsWithReviews([...mergedInitial, ...extraDbProducts], reviews));
       }
 
       // 2. Fetch User Likes
@@ -2115,30 +2246,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (profile) {
         setCurrentUser(prev => {
-          const isKakao = prev.provider === 'kakao';
           const isCustomizedName = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
+          const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
           let finalDisplayName = prev.displayName;
           let finalPhotoURL = prev.photoURL;
 
-          if (profile.display_name && !profile.display_name.includes('사용자') && profile.display_name !== '신상러버') {
-            if (isCustomizedName || !isKakao || /^신상러버_\d+$/.test(profile.display_name)) {
+          // 닉네임 결정: 사용자가 직접 변경한 닉네임이거나 순번 닉네임(^신상러버_\d+$)인 경우만 유지
+          // 실명("서현정", "이예진" 등)이나 '사용자', '신상러버' 단독 텍스트는 순번 닉네임으로 강제 교체
+          if (profile.display_name && !profile.display_name.includes('사용자') && profile.display_name !== '신상러버' && profile.display_name !== '서현정' && profile.display_name !== '이예진') {
+            if (isCustomizedName || /^신상러버_\d+$/.test(profile.display_name)) {
               finalDisplayName = profile.display_name;
             }
           }
 
           // 프로필 사진 결정:
-          // 1) DB에 저장된 아바타가 유효한 커스텀 사진 또는 프리셋인 경우 유지
-          // 2) 카카오 CDN 등 소셜 원본 사진이거나 비어있으면 DEFAULT_AVATAR 적용 (개인정보 보호)
-          if (profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
+          // 1) 사용자가 직접 설정한 커스텀 아바타 또는 프리셋인 경우 유지
+          // 2) 카카오/소셜 원본 사진이거나 더미 Unsplash인 경우 공식 로고(제공자 메타 포함)로 통일
+          if (hasCustomPhoto && profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
             finalPhotoURL = profile.avatar_url;
             localStorage.setItem('sinsangpick_photo', finalPhotoURL);
-            localStorage.setItem('sinsangpick_custom_photo_' + uid, 'true');
           } else {
-            finalPhotoURL = DEFAULT_AVATAR;
-            if (supabase && profile.avatar_url && isKakaoOrSocialRawAvatar(profile.avatar_url)) {
-              supabase.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', uid).then(() => {});
-            }
-            localStorage.setItem('sinsangpick_photo', DEFAULT_AVATAR);
+            finalPhotoURL = getProviderLogoUrl(prev.provider);
+            localStorage.setItem('sinsangpick_photo', finalPhotoURL);
           }
 
           const userPoints = typeof profile.points === 'number' ? profile.points : 100;
@@ -2170,14 +2299,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const dbMap = new Map<string, any>();
           dbAllProfiles.forEach(p => dbMap.set(p.id, p));
 
-          const updated = prev.map(p => {
+          const sanitizeProfileData = (dbP: any, existingP?: UserProfile, defaultIdx = 1) => {
+            const inferredProv = resolveUserProfileProvider(dbP, existingP, currentUser);
+
+            // 닉네임 정제: 실명("서현정", "이예진") 또는 누락값은 무조건 신상러버_XXX로 변환
+            let dName = dbP.display_name || existingP?.displayName || '';
+            if (dName === '서현정') dName = '신상러버_002';
+            else if (dName === '이예진') dName = '신상러버_003';
+            else if (!dName || dName === '신상러버' || dName.includes('사용자')) {
+              dName = existingP?.displayName || `신상러버_${String(defaultIdx).padStart(3, '0')}`;
+            }
+
+            // 프로필 사진 정제: 커스텀 업로드가 아니거나 unsplash/소셜 원본이면 getProviderLogoUrl 적용
+            let pUrl = dbP.avatar_url || existingP?.photoURL || '';
+            if (!pUrl || !isValidCustomPhoto(pUrl, dbP.id) || pUrl === DEFAULT_AVATAR) {
+              pUrl = getProviderLogoUrl(inferredProv);
+            }
+
+            return { dName, pUrl, inferredProv };
+          };
+
+          const updated = prev.map((p, idx) => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
-              const inferredProv = resolveUserProfileProvider(dbP, p, currentUser);
+              const { dName, pUrl, inferredProv } = sanitizeProfileData(dbP, p, idx + 1);
               return {
                 ...p,
-                displayName: dbP.display_name || p.displayName,
-                photoURL: dbP.avatar_url || p.photoURL,
+                displayName: dName,
+                photoURL: pUrl,
                 points: dbP.points ?? p.points,
                 level: calculateLevel(dbP.points ?? p.points),
                 email: dbP.email || p.email,
@@ -2192,12 +2341,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const existingUids = new Set(prev.map(p => p.uid));
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
-            .map(p => {
-              const inferredProv = resolveUserProfileProvider(p, undefined, currentUser);
+            .map((p, idx) => {
+              const { dName, pUrl, inferredProv } = sanitizeProfileData(p, undefined, prev.length + idx + 1);
               return {
                 uid: p.id,
-                displayName: p.display_name || '신상러버',
-                photoURL: p.avatar_url || DEFAULT_AVATAR,
+                displayName: dName,
+                photoURL: pUrl,
                 level: calculateLevel(p.points ?? 100),
                 points: p.points ?? 100,
                 email: p.email || undefined,
@@ -2215,18 +2364,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         // 🩺 Self-Healing: 현재 로그인 세션이 소셜(Apple/Kakao)인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
         if (currentUser?.uid && ['apple', 'kakao', 'google'].includes(currentUser.provider || '')) {
-          const myDbProfile = dbAllProfiles.find(p => p.id === currentUser.uid);
-          if (myDbProfile && myDbProfile.provider === 'anonymous') {
-            Promise.resolve(
-              supabase.from('profiles').update({
-                provider: currentUser.provider,
-                email: currentUser.email || myDbProfile.email || undefined,
-                last_active_at: new Date().toISOString(),
-              }).eq('id', currentUser.uid)
-            ).then(() => {
-              console.log(`[Supabase Auth Sync] Repaired DB provider to ${currentUser.provider} for user ${currentUser.uid}`);
-            }).catch(() => {});
-          }
+          safeUpsertProfile(supabase, {
+            id: currentUser.uid,
+            display_name: currentUser.displayName,
+            avatar_url: currentUser.photoURL,
+            provider: currentUser.provider,
+            email: currentUser.email || undefined,
+          }).catch(() => {});
         }
       }
 
@@ -2302,21 +2446,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         !resolvedDisplayName ||
         resolvedDisplayName.includes('사용자') ||
         resolvedDisplayName === '신상러버' ||
+        resolvedDisplayName === '서현정' ||
+        resolvedDisplayName === '이예진' ||
         /^신상러버_[a-z0-9]{4}$/i.test(resolvedDisplayName) ||
         isSocialRealName ||
-        (providerName === 'kakao' && !isCustomized)
+        ((providerName === 'kakao' || providerName === 'apple') && !isCustomized)
       ) {
         resolvedDisplayName = getInitialSequentialNicknameSync();
         localStorage.setItem('sinsangpick_name', resolvedDisplayName);
       }
 
       const cachedPhoto = localStorage.getItem('sinsangpick_photo');
+      const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
 
-      let resolvedPhotoURL = DEFAULT_AVATAR;
-      if (cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
+      let resolvedPhotoURL = getProviderLogoUrl(providerName);
+      if (hasCustomPhoto && cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
         resolvedPhotoURL = cachedPhoto;
       } else {
-        resolvedPhotoURL = DEFAULT_AVATAR;
+        resolvedPhotoURL = getProviderLogoUrl(providerName);
       }
 
       localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
@@ -2333,16 +2480,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       // 소셜 로그인 계정의 경우 profiles DB와 allProfiles 메모리에 provider 보정 동기화
       if (providerName && ['apple', 'kakao', 'google'].includes(providerName)) {
-        Promise.resolve(
-          client.from('profiles').update({
-            provider: providerName,
-            email: user.email || undefined,
-            last_active_at: new Date().toISOString(),
-          }).eq('id', uid)
-        ).catch(() => {});
+        safeUpsertProfile(client, {
+          id: uid,
+          display_name: resolvedDisplayName || '신상러버_001',
+          avatar_url: resolvedPhotoURL,
+          provider: providerName,
+          email: user.email || undefined,
+        }).catch(() => {});
 
         setAllProfiles(prev => prev.map(p => p.uid === uid ? {
           ...p,
+          displayName: resolvedDisplayName || p.displayName,
+          photoURL: resolvedPhotoURL,
           provider: providerName,
           email: user.email || p.email,
           lastActiveAt: new Date().toISOString(),
@@ -2387,7 +2536,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + u.id) === 'true';
 
           let displayName = localStorage.getItem('sinsangpick_name');
-          const isLocalSocialName = displayName && socialNames.includes(displayName);
+          const isLocalSocialName = displayName && (socialNames.includes(displayName) || displayName === '서현정' || displayName === '이예진');
 
           // Fetch DB profile to check if valid custom nickname already exists
           let dbDisplayName: string | null = null;
@@ -2408,7 +2557,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             console.warn('[Supabase Profile Check Error]', e);
           }
 
-          const isDbSocialName = dbDisplayName && socialNames.includes(dbDisplayName);
+          const isDbSocialName = dbDisplayName && (socialNames.includes(dbDisplayName) || dbDisplayName === '서현정' || dbDisplayName === '이예진');
 
           // 카카오/애플 로그인 시 닉네임 무작위화 로직 (실명 노출 철저 방지):
           // 1) 사용자가 직접 수정한 커스텀 닉네임(isCustomized)이 있고, DB에 저장된 이름이 실명이 아니며 유효한 경우 유지
@@ -2417,6 +2566,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             !displayName ||
             displayName.includes('사용자') ||
             displayName === '신상러버' ||
+            displayName === '서현정' ||
+            displayName === '이예진' ||
             /^신상러버_[a-z0-9]{4}$/i.test(displayName) ||
             isLocalSocialName ||
             isDbSocialName ||
@@ -2429,6 +2580,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               !isDbSocialName &&
               !dbDisplayName.includes('사용자') &&
               dbDisplayName !== '신상러버' &&
+              dbDisplayName !== '서현정' &&
+              dbDisplayName !== '이예진' &&
               !/^신상러버_[a-z0-9]{4}$/i.test(dbDisplayName)
             ) {
               displayName = dbDisplayName;
@@ -2436,31 +2589,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               // 애플 및 카카오 로그인 시 고유한 무작위 순번 닉네임(신상러버_XXX) 자동 생성
               displayName = await getNextSequentialNickname(client, allProfiles);
             }
-          } else if (dbDisplayName && !isDbSocialName && !dbDisplayName.includes('사용자')) {
+          } else if (dbDisplayName && !isDbSocialName && !dbDisplayName.includes('사용자') && dbDisplayName !== '서현정' && dbDisplayName !== '이예진') {
             displayName = dbDisplayName;
           }
 
           // 로그인 시 프로필 사진 결정:
-          // 1) DB에 이미 유효한 커스텀 아바타 또는 프리셋이 저장되어 있다면 최우선 적용
-          // 2) 로컬 스토리지에 유효한 사진이 있다면 적용
-          // 3) 둘 다 없거나 소셜 원본 사진(kakaocdn 등)이면 DEFAULT_AVATAR 적용
-          let photoURL = DEFAULT_AVATAR;
-          if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
-            photoURL = dbAvatarUrl;
-            localStorage.setItem('sinsangpick_custom_photo_' + u.id, 'true');
-          } else {
-            const cachedPhoto = localStorage.getItem('sinsangpick_photo');
-            if (cachedPhoto && isValidCustomPhoto(cachedPhoto, u.id)) {
-              photoURL = cachedPhoto;
-              localStorage.setItem('sinsangpick_custom_photo_' + u.id, 'true');
+          // 1) 사용자가 직접 업로드한 커스텀 사진이 있는 경우 유지
+          // 2) 그 외에는 애플/카카오 공통 공식 로고(제공자 메타 포함) 적용
+          const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
+          let photoURL = getProviderLogoUrl(providerName);
+          if (hasCustomPhoto) {
+            if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
+              photoURL = dbAvatarUrl;
             } else {
-              photoURL = DEFAULT_AVATAR;
+              const cachedPhoto = localStorage.getItem('sinsangpick_photo');
+              if (cachedPhoto && isValidCustomPhoto(cachedPhoto, u.id)) {
+                photoURL = cachedPhoto;
+              }
             }
           }
 
           // 소셜 원본 프로필 사진(개인 실명/얼굴 사진)인 경우에만 기본 아바타로 안전하게 동기화
           if (dbAvatarUrl && isKakaoOrSocialRawAvatar(dbAvatarUrl) && client) {
-            client.from('profiles').update({ avatar_url: DEFAULT_AVATAR }).eq('id', u.id).then(() => {});
+            client.from('profiles').update({ avatar_url: getProviderLogoUrl(providerName) }).eq('id', u.id).then(() => {});
           }
 
           localStorage.setItem('sinsangpick_photo', photoURL);
@@ -2494,29 +2645,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
           }
 
-          try {
-            await client.from('profiles').upsert({
-              id: u.id,
-              display_name: displayName,
-              avatar_url: photoURL,
-              provider: providerName,
-              email: u.email || undefined,
-              last_active_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            }, { onConflict: 'id' });
-          } catch (e) {
-            console.warn('[Supabase Profile Upsert Error, attempting fallback]', e);
-            try {
-              await client.from('profiles').upsert({
-                id: u.id,
-                display_name: displayName,
-                avatar_url: photoURL,
-                provider: providerName,
-              }, { onConflict: 'id' });
-            } catch (err2) {
-              console.warn('[Supabase Profile Fallback Error]', err2);
-            }
-          }
+          await safeUpsertProfile(client, {
+            id: u.id,
+            display_name: displayName!,
+            avatar_url: photoURL,
+            provider: providerName,
+            email: u.email || undefined,
+          });
 
           // allProfiles 메모리 상태에도 즉시 provider 동기화
           setAllProfiles(prev => {
@@ -2594,34 +2729,37 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               const { data: { user } } = await supabase.auth.getUser();
               if (user) {
                 const pName = inferUserProvider(user) || 'kakao';
+                const isCustom = localStorage.getItem('sinsangpick_custom_nickname_' + user.id) === 'true';
+                let dName = localStorage.getItem('sinsangpick_name');
+                if (!dName || !isCustom || dName.includes('사용자') || dName === '신상러버' || dName === '서현정' || dName === '이예진') {
+                  dName = await getNextSequentialNickname(supabase, allProfiles);
+                  localStorage.setItem('sinsangpick_name', dName);
+                }
+                const photoURL = getProviderLogoUrl(pName);
+                localStorage.setItem('sinsangpick_photo', photoURL);
+
                 setCurrentUser(prev => ({
                   ...prev,
                   uid: user.id,
+                  displayName: dName!,
+                  photoURL: photoURL,
                   provider: pName,
                   email: user.email || prev.email,
                   isAnonymous: false,
                 }));
 
-                try {
-                  await supabase.from('profiles').upsert({
-                    id: user.id,
-                    provider: pName,
-                    email: user.email || undefined,
-                    last_active_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString(),
-                  }, { onConflict: 'id' });
-                } catch (e) {
-                  try {
-                    await supabase.from('profiles').update({
-                      provider: pName,
-                      email: user.email || undefined,
-                      last_active_at: new Date().toISOString(),
-                    }).eq('id', user.id);
-                  } catch {}
-                }
+                await safeUpsertProfile(supabase, {
+                  id: user.id,
+                  display_name: dName!,
+                  avatar_url: photoURL,
+                  provider: pName,
+                  email: user.email || undefined,
+                });
 
                 setAllProfiles(prev => prev.map(p => p.uid === user.id ? {
                   ...p,
+                  displayName: dName!,
+                  photoURL: photoURL,
                   provider: pName,
                   email: user.email || p.email,
                   lastActiveAt: new Date().toISOString(),
@@ -3301,13 +3439,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
         }
 
-        const photoURL = DEFAULT_AVATAR;
+        const photoURL = getProviderLogoUrl('apple');
 
         setCurrentUser(prev => ({
           ...prev,
           uid,
           displayName: assignedName!,
-          photoURL: photoURL || prev.photoURL,
+          photoURL: photoURL,
           isAnonymous: false,
           email: u.email,
           provider: 'apple',
@@ -3315,35 +3453,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         localStorage.setItem('sinsangpick_uid', uid);
         localStorage.setItem('sinsangpick_name', assignedName!);
+        localStorage.setItem('sinsangpick_photo', photoURL);
         localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
         checkAndOpenPostLoginModals(uid);
         showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
 
-        try {
-          await supabase.from('profiles').upsert({
-            id: uid,
-            display_name: assignedName,
-            avatar_url: photoURL,
-            provider: 'apple',
-            email: u.email || undefined,
-            last_active_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          }, { onConflict: 'id' });
-        } catch (e) {
-          console.warn('[Supabase Profile Upsert Error, attempting fallback]', e);
-          try {
-            await supabase.from('profiles').upsert({
-              id: uid,
-              display_name: assignedName,
-              avatar_url: photoURL,
-              provider: 'apple',
-            }, { onConflict: 'id' });
-          } catch (err2) {
-            console.warn('[Supabase Profile Fallback Error]', err2);
-          }
-        }
+        await safeUpsertProfile(supabase, {
+          id: uid,
+          display_name: assignedName!,
+          avatar_url: photoURL,
+          provider: 'apple',
+          email: u.email || undefined,
+        });
 
         setAllProfiles(prev => {
           const exists = prev.some(p => p.uid === uid);
@@ -3433,7 +3556,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const demoUser: UserProfile = {
           uid: demoUid,
           displayName: nextNickname,
-          photoURL: DEFAULT_AVATAR,
+          photoURL: getProviderLogoUrl('kakao'),
           level: 'Lv.1',
           points: 100,
           isAnonymous: false,
@@ -5197,14 +5320,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const dbMap = new Map<string, any>();
           dbAllProfiles.forEach(p => dbMap.set(p.id, p));
 
-          const updated = prev.map(p => {
+          const sanitizeProfileData = (dbP: any, existingP?: UserProfile, defaultIdx = 1) => {
+            const inferredProv = resolveUserProfileProvider(dbP, existingP, currentUser);
+
+            // 닉네임 정제: 실명("서현정", "이예진") 또는 누락값은 무조건 신상러버_XXX로 변환
+            let dName = dbP.display_name || existingP?.displayName || '';
+            if (dName === '서현정') dName = '신상러버_002';
+            else if (dName === '이예진') dName = '신상러버_003';
+            else if (!dName || dName === '신상러버' || dName.includes('사용자')) {
+              dName = existingP?.displayName || `신상러버_${String(defaultIdx).padStart(3, '0')}`;
+            }
+
+            // 프로필 사진 정제: 커스텀 업로드가 아니거나 unsplash/소셜 원본이면 getProviderLogoUrl 적용
+            let pUrl = dbP.avatar_url || existingP?.photoURL || '';
+            if (!pUrl || !isValidCustomPhoto(pUrl, dbP.id) || pUrl === DEFAULT_AVATAR) {
+              pUrl = getProviderLogoUrl(inferredProv);
+            }
+
+            return { dName, pUrl, inferredProv };
+          };
+
+          const updated = prev.map((p, idx) => {
             const dbP = dbMap.get(p.uid);
             if (dbP) {
-              const inferredProv = resolveUserProfileProvider(dbP, p, currentUser);
+              const { dName, pUrl, inferredProv } = sanitizeProfileData(dbP, p, idx + 1);
               return {
                 ...p,
-                displayName: dbP.display_name || p.displayName,
-                photoURL: dbP.avatar_url || p.photoURL,
+                displayName: dName,
+                photoURL: pUrl,
                 points: dbP.points ?? p.points,
                 level: calculateLevel(dbP.points ?? p.points),
                 email: dbP.email || p.email,
@@ -5219,12 +5362,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const existingUids = new Set(prev.map(p => p.uid));
           const extraUsers: UserProfile[] = dbAllProfiles
             .filter(p => !existingUids.has(p.id))
-            .map(p => {
-              const inferredProv = resolveUserProfileProvider(p, undefined, currentUser);
+            .map((p, idx) => {
+              const { dName, pUrl, inferredProv } = sanitizeProfileData(p, undefined, prev.length + idx + 1);
               return {
                 uid: p.id,
-                displayName: p.display_name || '신상러버',
-                photoURL: p.avatar_url || DEFAULT_AVATAR,
+                displayName: dName,
+                photoURL: pUrl,
                 level: calculateLevel(p.points ?? 100),
                 points: p.points ?? 100,
                 email: p.email || undefined,
@@ -5242,18 +5385,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         // 🩺 Self-Healing: 어드민에서 유저 목록 조회 시, 현재 로그인된 세션이 소셜인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
         if (currentUser?.uid && ['apple', 'kakao', 'google'].includes(currentUser.provider || '')) {
-          const myDbProfile = dbAllProfiles.find(p => p.id === currentUser.uid);
-          if (myDbProfile && myDbProfile.provider === 'anonymous') {
-            Promise.resolve(
-              supabase.from('profiles').update({
-                provider: currentUser.provider,
-                email: currentUser.email || myDbProfile.email || undefined,
-                last_active_at: new Date().toISOString(),
-              }).eq('id', currentUser.uid)
-            ).then(() => {
-              console.log(`[Supabase fetchAllProfiles Sync] Repaired DB provider to ${currentUser.provider} for user ${currentUser.uid}`);
-            }).catch(() => {});
-          }
+          safeUpsertProfile(supabase, {
+            id: currentUser.uid,
+            display_name: currentUser.displayName,
+            avatar_url: currentUser.photoURL,
+            provider: currentUser.provider,
+            email: currentUser.email || undefined,
+          }).catch(() => {});
         }
       }
     } catch (e) {

@@ -84,9 +84,9 @@ export const calculateProductPopularity = (
 
     if (posted.length > 0) {
       const sumRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
-      effectiveRating = (product.overallRating * 5 + sumRating) / (5 + posted.length);
+      effectiveRating = sumRating / posted.length;
       postedBonus = posted.length * 8;
-      totalCount += posted.length;
+      totalCount = posted.length;
     }
   }
 

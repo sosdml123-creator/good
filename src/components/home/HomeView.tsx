@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   Star, 
@@ -24,7 +24,7 @@ import {
   Beer,
   Plus
 } from 'lucide-react';
-import { ProductCategory, Product, BannerItem, HomeSectionConfig } from '../../types';
+import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
   getSearchTrendingProducts, 
@@ -76,36 +76,42 @@ export const HomeView: React.FC = () => {
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
 
-  const isProductNew = (p: Product) => isRealNewProduct(p);
+  // products 배열이 변경될 때만 재계산 (useMemo로 렌더 비용 최적화)
+  const baseNewProducts = useMemo(() => {
+    const allNew = products.filter(p => isRealNewProduct(p));
+    return allNew.length > 0 ? allNew : products.slice(0, 10);
+  }, [products]);
 
-  const allNewProducts = products.filter(isProductNew);
-  const baseNewProducts = allNewProducts.length > 0 ? allNewProducts : products.slice(0, 10);
+  const displayedNewProducts = useMemo(() => {
+    if (newProductCategoryFilter === '전체') return baseNewProducts;
+    return baseNewProducts.filter((p) => {
+      if (newProductCategoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
+      if (newProductCategoryFilter === '음료') return p.category === '음료';
+      if (newProductCategoryFilter === '빵·디저트') return p.category === '빵·디저트';
+      if (newProductCategoryFilter === '간편식') return p.category === '간편식';
+      if (newProductCategoryFilter === '패스트푸드') return p.category === '패스트푸드';
+      if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
+      return p.category === newProductCategoryFilter;
+    });
+  }, [baseNewProducts, newProductCategoryFilter]);
 
-  const displayedNewProducts = baseNewProducts.filter((p) => {
-    if (newProductCategoryFilter === '전체') return true;
-    if (newProductCategoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
-    if (newProductCategoryFilter === '음료') return p.category === '음료';
-    if (newProductCategoryFilter === '빵·디저트') return p.category === '빵·디저트';
-    if (newProductCategoryFilter === '간편식') return p.category === '간편식';
-    if (newProductCategoryFilter === '패스트푸드') return p.category === '패스트푸드';
-    if (newProductCategoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
-    return p.category === newProductCategoryFilter;
-  });
-
-  const activeBanners = [...banners]
-    .filter(b => b.isActive)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  const displayBanners = activeBanners.length > 0 ? activeBanners : [{
-    id: 'default',
-    image: ILLUSTRATION_FRUIT_BANNER,
-    badge: '먹거리 전체 탐색 & 평가',
-    title: '신제품부터 산지직송 제철 먹거리까지',
-    subtitle: '솔직한 먹거리 품목별 랭킹',
-    buttonText: '인기 품목 둘러보기',
-    linkCategory: '과일' as ProductCategory,
-    isActive: true,
-    order: 1,
-  }];
+  const displayBanners = useMemo(() => {
+    const active = [...banners]
+      .filter(b => b.isActive)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    if (active.length > 0) return active;
+    return [{
+      id: 'default',
+      image: ILLUSTRATION_FRUIT_BANNER,
+      badge: '먹거리 전체 탐색 & 평가',
+      title: '신제품부터 산지직송 제철 먹거리까지',
+      subtitle: '솔직한 먹거리 품목별 랭킹',
+      buttonText: '인기 품목 둘러보기',
+      linkCategory: '과일' as ProductCategory,
+      isActive: true,
+      order: 1,
+    }];
+  }, [banners]);
   const totalBanners = displayBanners.length;
 
   // Safe current index clamp
@@ -586,8 +592,8 @@ export const HomeView: React.FC = () => {
                         {/* Star Rating */}
                         <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
                           <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                          <span>{p.overallRating.toFixed(1)}</span>
-                          <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
+                          <span>{(p.overallRating || 0).toFixed(1)}</span>
+                          <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount || 0})</span>
                         </div>
 
                         {/* Price */}
@@ -869,8 +875,8 @@ export const HomeView: React.FC = () => {
                       {/* Yellow Star Rating */}
                       <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
                         <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{p.overallRating.toFixed(1)}</span>
-                        <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
+                        <span>{(p.overallRating || 0).toFixed(1)}</span>
+                        <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount || 0})</span>
                       </div>
 
                       <div className="flex items-center gap-1 mt-0.5">
@@ -1159,9 +1165,9 @@ export const HomeView: React.FC = () => {
                     <div className="flex items-center gap-2 mt-0.5">
                       <div className="flex items-center gap-0.5 text-[11px] font-semibold text-gray-700">
                         <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{p.overallRating.toFixed(1)}</span>
+                        <span>{(p.overallRating || 0).toFixed(1)}</span>
                       </div>
-                      <span className="text-[11px] text-gray-400">({p.ratingCount})</span>
+                      <span className="text-[11px] text-gray-400">({p.ratingCount || 0})</span>
                     </div>
                   </div>
 
