@@ -1,6 +1,7 @@
 import { Product, ProductCategory, BannerItem, BattleConfig, PromotionEvent, AppNotification, HomeSectionConfig } from '../types';
 import { ILLUSTRATION_FRUIT_BANNER } from '../utils/productIllustrations';
 import { COFFEE_BRAND_BEVERAGES } from './coffeeProducts';
+import { MEGA_COFFEE_BEVERAGES } from './megaCoffeeProducts';
 import { PIZZA_BRAND_PRODUCTS } from './pizzaProducts';
 import { BIBIGO_PRODUCTS } from './bibigoProducts';
 import { NO_BRAND_PRODUCTS } from './noBrandProducts';
@@ -13,6 +14,7 @@ import { AGRI_MARINE_PRODUCTS } from './agriMarineProducts';
 import { SUNGSIMDANG_PRODUCTS } from './sungsimdangProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
+  ...MEGA_COFFEE_BEVERAGES,
   ...SUNGSIMDANG_PRODUCTS,
   ...PIZZA_BRAND_PRODUCTS,
   ...AGRI_MARINE_PRODUCTS,

@@ -9,6 +9,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Initialize Google Mobile Ads SDK as per official AdMob iOS guide
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+
         DispatchQueue.main.async {
             if let bridgeVC = self.window?.rootViewController as? CAPBridgeViewController,
                let webView = bridgeVC.webView {

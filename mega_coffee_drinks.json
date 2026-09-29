@@ -1,0 +1,3255 @@
+[
+  {
+    "name": "하우스밀크 라떼",
+    "nameEn": "House Milk Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg",
+    "volume": "591ml",
+    "calories": 328,
+    "description": "메가MGC커피만의 하우스밀크로 고소하고 부드러운 맛과 은은한 단맛은 더하고 깊은 풍미의 에스프레소 샷을 블렌딩해 더욱 조화로운 밸런스를 완성한 카페라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 328,
+      "satFat": "19.8g",
+      "sugar": "15g",
+      "sodium": "180mg",
+      "protein": "6g",
+      "caffeine": "118mg"
+    }
+  },
+  {
+    "name": "무카페인 오르조라떼",
+    "nameEn": "Caffeine-Free Orzo Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203238_1788348758239_bicMYSpckp.jpg",
+    "volume": "591ml",
+    "calories": 238,
+    "description": "이탈리아산 크라스탄 오르조와 고소하고 부드러운 우유가 만나 카페라떼 그대로의 깊은 풍미를 부담없이 무카페인으로 즐길 수 있는 라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 238,
+      "satFat": "4g",
+      "sugar": "21g",
+      "sodium": "93mg",
+      "protein": "8g",
+      "caffeine": "0mg"
+    }
+  },
+  {
+    "name": "저당 골든애플 블랙티",
+    "nameEn": "Low-Sugar Golden Apple Black Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260916234952_1789570192916_xCpTUY41pJ.jpg",
+    "volume": "710ml",
+    "calories": 123.4,
+    "description": "저당으로 부담없는 달콤상큼한 사과와 깊고 깔끔한 블랙티의 조화로 더욱 풍부하고 산뜻하게 즐길 수 있는 티플레져 *대체당(알룰로스)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 123.4,
+      "satFat": "0.1g",
+      "sugar": "13.2g",
+      "sodium": "8.6mg",
+      "protein": "0.6g",
+      "caffeine": "68.0mg"
+    }
+  },
+  {
+    "name": "자몽 톡톡 스무디",
+    "nameEn": "Grapefruit Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260429173124_1777451484221_DbGYiTq_EF.png",
+    "volume": "591ml",
+    "calories": 342.3,
+    "description": "톡톡 터지는 자몽 과육을 듬뿍 담아, 자몽 한 알을 그대로 베어 문 듯 상큼함이 입안 가득 퍼지는 자몽 스무디",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 342.3,
+      "satFat": "0.1g",
+      "sugar": "70.6g",
+      "sodium": "36.2mg",
+      "protein": "0.7g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "제로 레몬말차 아이스티",
+    "nameEn": "Zero Lemon Matcha Iced Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260429173244_1777451564019_W1OpjQHJz4.png",
+    "volume": "710ml",
+    "calories": 20.2,
+    "description": "말차와 레몬의 상큼한 조화에 식이섬유 '알파CD'를 더해 부담 없이 산뜻하고 가볍게 즐기는 제로 칼로리, 제로 슈가 아이스티 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 20.2,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "203.9mg",
+      "protein": "0.2g",
+      "caffeine": "0.4mg"
+    }
+  },
+  {
+    "name": "ARIH 듀얼바이오틱 소다 레드 루비 갈로어",
+    "nameEn": "ARIH DUAL BIOTIC SODA RED RUBY",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260604210115_1780574475408_4CvZdY5F9E.png",
+    "volume": "355ml",
+    "calories": 20,
+    "description": "4가지 식물성 바이오틱스와 5가지 포스트바이오틱스를 더한 저당·저칼로리 듀얼 바이오틱 소다 자몽 맛 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두",
+      "복숭아 함유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 20,
+      "satFat": "0g",
+      "sugar": "2g",
+      "sodium": "110mg",
+      "protein": "0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "ARIH 듀얼바이오틱 소다 포지티브 오렌지",
+    "nameEn": "ARIH DUAL BIOTIC SODA ORANGE",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260604210526_1780574726295_ldS4q_W8ek.png",
+    "volume": "355ml",
+    "calories": 20,
+    "description": "4가지 식물성 바이오틱스와 5가지 포스트바이오틱스를 더한 저당·저칼로리 듀얼 바이오틱 소다 오렌지 향 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두 함유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 20,
+      "satFat": "0g",
+      "sugar": "2g",
+      "sodium": "110mg",
+      "protein": "0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "ARIH 듀얼바이오틱 소다 클리어레몬",
+    "nameEn": "ARIH DUAL BIOTIC SODA CLEAR LEMON",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260605000738_1780585658684_eFPxfdhaWp.png",
+    "volume": "355ml",
+    "calories": 20,
+    "description": "4가지 식물성 바이오틱스와 5가지 포스트바이오틱스를 더한 저당·저칼로리 듀얼 바이오틱 소다 레몬 향 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두 함유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 20,
+      "satFat": "0g",
+      "sugar": "2g",
+      "sodium": "130mg",
+      "protein": "0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "ARIH 듀얼바이오틱 소다 피치망고 호라이즌",
+    "nameEn": "ARIH DUAL BIOTIC SODA PEACH & MANGO",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260604210410_1780574650849_ge2Rbb2mCd.png",
+    "volume": "355ml",
+    "calories": 20,
+    "description": "4가지 식물성 바이오틱스와 5가지 포스트바이오틱스를 더한 저당·저칼로리 듀얼 바이오틱 소다 복숭아와 달콤한 망고 맛 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두",
+      "복숭아 함유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 20,
+      "satFat": "0g",
+      "sugar": "2g",
+      "sodium": "70mg",
+      "protein": "0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "ARIH 포스트바이오틱 에너지 드링크 레몬크레스트",
+    "nameEn": "ARIH POSTBIOTIC ENERGY DRINK LEMON CREST",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260604205718_1780574238227_vre8909Ms_.png",
+    "volume": "355ml",
+    "calories": 10,
+    "description": "자연에서 온 카페인과 포스트바이오틱스를 더한 당류 ZERO, 칼로리 ZERO 에너지 드링크 시트러스 *대체당을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두 함유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 10,
+      "satFat": "0g",
+      "sugar": "0g",
+      "sodium": "280mg",
+      "protein": "1g",
+      "caffeine": "100mg"
+    }
+  },
+  {
+    "name": "ARIH 포스트바이오틱 에너지 드링크 오렌지아워",
+    "nameEn": "ARIH POSTBIOTIC ENERGY DRINK ORANGE HOUR",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260604205615_1780574175202_LHw12vYQ6H.png",
+    "volume": "355ml",
+    "calories": 10,
+    "description": "자연에서 온 카페인과 포스트바이오틱스를 더한 당류 ZERO, 칼로리 ZERO 에너지 드링크 오렌지 *대체당을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두 함유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 10,
+      "satFat": "0g",
+      "sugar": "0g",
+      "sodium": "280mg",
+      "protein": "1g",
+      "caffeine": "100mg"
+    }
+  },
+  {
+    "name": "ARIH 포스트바이오틱 에너지 드링크 트로피칼웨이브",
+    "nameEn": "ARIH POSTBIOTIC ENERGY DRINK TROPICAL WAVE",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260605103322_1780623202696_F8N06YR5cD.png",
+    "volume": "355ml",
+    "calories": 10,
+    "description": "자연에서 온 카페인과 포스트바이오틱스를 더한 당류 ZERO, 칼로리 ZERO 에너지 드링크 리치 *대체당을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두 함유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 10,
+      "satFat": "0g",
+      "sugar": "0g",
+      "sodium": "280mg",
+      "protein": "1g",
+      "caffeine": "100mg"
+    }
+  },
+  {
+    "name": "저당 꿀배 XO야쿠르트",
+    "nameEn": "XO",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260401192153_1775038913170_2UFRSEFHv0.png",
+    "volume": "710ml",
+    "calories": 25.4,
+    "description": "저당으로 부담은 덜고, 새콤달콤한 맛은 더 풍부하게! 꿀처럼 달콤한 배의 시원하고 깨끗한 단맛에 설탕·당류·지방 3 ZERO 야쿠르트 XO 2병이 들어간 리프레쉬 한 잔 *대체당(알룰로스, 에리스리톨 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 25.4,
+      "satFat": "0.1g",
+      "sugar": "1.1g",
+      "sodium": "67.8mg",
+      "protein": "3.6g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "딸기라떼",
+    "nameEn": "Strawberry Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250116001724_1736954244791_8qDsY0gj14.jpg",
+    "volume": "591ml",
+    "calories": 366.4,
+    "description": "딸기과육이 풍부히 느껴지는 스테디 셀러 산뜻하고 달콤한 딸기가 가득해 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 366.4,
+      "satFat": "3.0g",
+      "sugar": "47.3g",
+      "sodium": "50.0mg",
+      "protein": "5.8g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "밀크쉐이크",
+    "nameEn": "Milkshake",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20251210220621_1765371981583_lnOltIAEKR.png",
+    "volume": "591ml",
+    "calories": 401,
+    "description": "우유 그대로의 부드러움에 달콤함을 더해 꾸덕하고 진~한 풍미를 느낄 수 있는 겨울시즌 한정 밀크쉐이크",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 401,
+      "satFat": "4.1g",
+      "sugar": "62.4g",
+      "sodium": "308.2mg",
+      "protein": "8.9g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "유자생강차",
+    "nameEn": "Citron Ginger Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20251106022624_1762363584516_gmIV9uXczk.png",
+    "volume": "591ml",
+    "calories": 389.4,
+    "description": "상큼달콤한 유자청과 은은하게 매콤한 생강의 풍미를 조화롭게 담아낸 겨울 한정 과일 티",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 389.4,
+      "satFat": "0.0g",
+      "sugar": "88.7g",
+      "sodium": "90.7mg",
+      "protein": "0.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "초코젤라또 말차라떼",
+    "nameEn": "Choco-gelato Matcha Tea Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20251210155814_1765349894904_ps9wkFJ_kA.jpg",
+    "volume": "591ml",
+    "calories": 326.8,
+    "description": "진하고 꾸덕한 초코 젤라또를 제주산 고품질 말차, 쌉싸름한 블렌딩 커피와 함께 즐기는 말차 에스프레소 라떼",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 326.8,
+      "satFat": "5.1g",
+      "sugar": "46.8g",
+      "sodium": "82.4mg",
+      "protein": "10.1g",
+      "caffeine": "153.8mg"
+    }
+  },
+  {
+    "name": "(HOT)헛개리카노",
+    "nameEn": "Oriental Raisin-Tea Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320000737_1742396857693_ngpZI3EbLM.jpg",
+    "volume": "591ml",
+    "calories": 36.1,
+    "description": "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 36.1,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "11.7mg",
+      "protein": "1.3g",
+      "caffeine": "181.6g"
+    }
+  },
+  {
+    "name": "(ICE)헛개리카노",
+    "nameEn": "Oriental Raisin-Tea Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320000925_1742396965069_ekSqAIVc1L.jpg",
+    "volume": "710ml",
+    "calories": 34.7,
+    "description": "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 블렌딩 커피",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 34.7,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "8.4mg",
+      "protein": "1.0g",
+      "caffeine": "181.2mg"
+    }
+  },
+  {
+    "name": "제로 부스트 에이드",
+    "nameEn": "ZERO SUGAR Energy-Drink Ade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002931_1742398171188_QX5SewCVs4.jpg",
+    "volume": "710ml",
+    "calories": 11.7,
+    "description": "지친 현대인들에게 필요한 한 잔의 에너지! 타우린 1,000mg이 들어가 활력이 충전되는 에너지드링크맛 제로 칼로리 에이드 *대체당(알룰로스 등)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 11.7,
+      "satFat": "0.1g",
+      "sugar": "0.3g",
+      "sodium": "152mg",
+      "protein": "0.7g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "블루베리요거트스무디",
+    "nameEn": "Blueberry Yogurt Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003134_1742398294871_z9t_oXfbA6.jpg",
+    "volume": "591ml",
+    "calories": 531.8,
+    "description": "새콤달콤한 블루베리와 산뜻한 요거트가 만나 조화로운 스무디",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 531.8,
+      "satFat": "2.5",
+      "sugar": "109.3g",
+      "sodium": "133.5mg",
+      "protein": "6.0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "블루베리플럼주스",
+    "nameEn": "Blueberry Plum Juice",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003308_1742398388471_NLtoviExwY.jpg",
+    "volume": "591ml",
+    "calories": 257.2,
+    "description": "새콤달콤한 블루베리와 식이섬유가 풍부한 플럼, 프리바이오틱스를 더해 건강한 블렌딩 주스",
+    "allergens": [
+      "복숭아"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 257.2,
+      "satFat": "0.1g",
+      "sugar": "35.7g",
+      "sodium": "62.6mg",
+      "protein": "0.7g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "골드키위주스",
+    "nameEn": "Gold Kiwi Juice",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003451_1742398491079_wWQva965Sn.jpg",
+    "volume": "591ml",
+    "calories": 202.8,
+    "description": "상큼달콤한 프리미엄 골드키위에 밀크씨슬을 더해 일상의 활력을 선사하는 건강한 블렌딩 주스",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 202.8,
+      "satFat": "0.1g",
+      "sugar": "43.1g",
+      "sodium": "15.0mg",
+      "protein": "1.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "귤 톡톡 젤리스무디",
+    "nameEn": "Tangerine Jelly Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003615_1742398575781_Dy89tEHQTL.jpg",
+    "volume": "591ml",
+    "calories": 364.3,
+    "description": "톡톡 터지는 상큼한 귤의 과육과 몽글한 젤리식감이 매력적인 스무디",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 364.3,
+      "satFat": "0.0g",
+      "sugar": "89.2g",
+      "sodium": "81.4mg",
+      "protein": "0.5g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "왕메가카페라떼",
+    "nameEn": "BIG MEGA Caffe Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320004326_1742399006488_yI4cvwXy6N.jpg",
+    "volume": "946ml",
+    "calories": 269.4,
+    "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 269.4,
+      "satFat": "7.1g",
+      "sugar": "28.4g",
+      "sodium": "136.2mg",
+      "protein": "15g",
+      "caffeine": "347.1mg"
+    }
+  },
+  {
+    "name": "디카페인 왕메가카페라떼",
+    "nameEn": "Decaf BIG MEGA Caffe Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320004527_1742399127150_aZXw3Wbf4H.jpg",
+    "volume": "946ml",
+    "calories": 278.7,
+    "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 메가MGC커피만의 왕메가사이즈 라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 278.7,
+      "satFat": "7.2g",
+      "sugar": "26.4g",
+      "sodium": "136.4mg",
+      "protein": "10.6g",
+      "caffeine": "11.2mg"
+    }
+  },
+  {
+    "name": "디카페인 라이트 바닐라 아몬드라떼",
+    "nameEn": "Decaf Light vanilla almond latte",
+    "tempLabel": "",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250402185107_1743587467742_jeeQmgRshX.jpg",
+    "volume": "591ml",
+    "calories": 65.9,
+    "description": "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 디카페인 라떼",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 65.9,
+      "satFat": "0.4g",
+      "sugar": "4.1g",
+      "sodium": "120.4mg",
+      "protein": "1.8g",
+      "caffeine": "9.5mg"
+    }
+  },
+  {
+    "name": "왕메가사과유자",
+    "nameEn": "BIG MEGA Apple Citron Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320004730_1742399250273_UPT0oK5fSb.jpg",
+    "volume": "946ml",
+    "calories": 313.3,
+    "description": "애플티의 향긋함과 유자청의 상큼달콤함을 느낄 수 있는 메가MGC커피만의 왕메가사이즈 과일티",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 313.3,
+      "satFat": "0.1g",
+      "sugar": "76.7g",
+      "sodium": "120.4mg",
+      "protein": "0.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "왕메가헛개리카노",
+    "nameEn": "BIG MEGA Oriental Raisin-Tea Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320001838_1742397518902_MCGDHqjxXi.jpg",
+    "volume": "946ml",
+    "calories": 55.7,
+    "description": "국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 커피",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 55.7,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "12.2mg",
+      "protein": "0.9g",
+      "caffeine": "234.6mg"
+    }
+  },
+  {
+    "name": "(HOT)디카페인 헛개리카노",
+    "nameEn": "Decaf Oriental Raisin-Tea Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002019_1742397619030_g5iEBTRsp7.jpg",
+    "volume": "591ml",
+    "calories": 34.2,
+    "description": "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 34.2,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "10.2mg",
+      "protein": "0.6g",
+      "caffeine": "9.1mg"
+    }
+  },
+  {
+    "name": "(ICE)디카페인 헛개리카노",
+    "nameEn": "Decaf Oriental Raisin-Tea Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002154_1742397714997_gJNgLAlBgB.jpg",
+    "volume": "710ml",
+    "calories": 33.3,
+    "description": "국내산 헛개수와 메가MGC커피만의 아메리카노를 더해 고소한 맛이 조화로운 디카페인 블렌딩 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 33.3,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "8.3mg",
+      "protein": "0.8g",
+      "caffeine": "5.3mg"
+    }
+  },
+  {
+    "name": "디카페인 왕메가헛개리카노",
+    "nameEn": "Decaf BIG MEGA Oriental Raisin-Tea Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320002658_1742398018940_tQcZf5VEmt.jpg",
+    "volume": "946ml",
+    "calories": 55.5,
+    "description": "국내산 헛개수와 아메리카노를 블렌딩해 고소한 맛이 더욱 커진 왕메가사이즈 디카페인 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 55.5,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "12.1mg",
+      "protein": "0.6g",
+      "caffeine": "13.1mg"
+    }
+  },
+  {
+    "name": "(HOT)상큼 리치티",
+    "nameEn": "(HOT) Zesty Lychee Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20241106234009_1730904009276_fu30eMash6.jpg",
+    "volume": "591ml",
+    "calories": 274.8,
+    "description": "리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티",
+    "allergens": [
+      "복숭아"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 274.8,
+      "satFat": "0.1g",
+      "sugar": "64.1g",
+      "sodium": "10.1mg",
+      "protein": "0.7g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "(ICE)상큼 리치티",
+    "nameEn": "(ICE) Zesty Lychee Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20241106234210_1730904130583_8wBT7nkLrL.jpg",
+    "volume": "710ml",
+    "calories": 260.1,
+    "description": "리치, 라임, 망고스틴 베이스에 레드 커런트, 로즈마리를 더한 상큼한 과일티",
+    "allergens": [
+      "복숭아"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 260.1,
+      "satFat": "0.0g",
+      "sugar": "61.9g",
+      "sodium": "8.0mg",
+      "protein": "0.7g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "할메가미숫커피",
+    "nameEn": "MEGA MGC Mix Coffee Blend with Grain Powder",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240904234012_1725460812247_PgldrBOdUW.jpg",
+    "volume": "591ml",
+    "calories": 427.9,
+    "description": "곡물의 향이 고소한 미숫가루와 달달한 믹스커피의 황금비율 조합",
+    "allergens": [
+      "밀",
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 427.9,
+      "satFat": "6.8g",
+      "sugar": "45.2g",
+      "sodium": "23.9mg",
+      "protein": "6.5g",
+      "caffeine": "180.1mg"
+    }
+  },
+  {
+    "name": "라이트 바닐라 아몬드라떼",
+    "nameEn": "Light vanilla almond latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240703154302_1719988982437_ZzHlEUdQwF.jpg",
+    "volume": "591ml",
+    "calories": 75.3,
+    "description": "비건 음료 아몬드브리즈와 칼로리를 낮춘 라이트 바닐라 시럽이 만나 가볍지만 부드~러워진 라떼",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 75.3,
+      "satFat": "0.2g",
+      "sugar": "3.1g",
+      "sodium": "119mg",
+      "protein": "2.1g",
+      "caffeine": "206.2mg"
+    }
+  },
+  {
+    "name": "왕메가초코",
+    "nameEn": "32oz MEGA Chocolate",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114853_1717987733636_Uq2ZKYINXZ.jpg",
+    "volume": "946ml",
+    "calories": 574.2,
+    "description": "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 왕 메가 사이즈 초코음료",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 574.2,
+      "satFat": "6.7g",
+      "sugar": "77.3g",
+      "sodium": "267.1mg",
+      "protein": "11.9g",
+      "caffeine": "35.6mg"
+    }
+  },
+  {
+    "name": "왕메가아이스티",
+    "nameEn": "32oz MEGA Peach Iced Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113625_1717986985834_J_PTjRFq7P.jpg",
+    "volume": "946ml",
+    "calories": 474.8,
+    "description": "깊은 맛의 홍차와 달콤한 복숭아의 은은한 향이 어우러진 왕 메가 사이즈 아이스티",
+    "allergens": [
+      "복숭아",
+      "아황산류"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 474.8,
+      "satFat": "0.0g",
+      "sugar": "96.6g",
+      "sodium": "119.2mg",
+      "protein": "0.4g",
+      "caffeine": "41.2mg"
+    }
+  },
+  {
+    "name": "제로 복숭아 아이스티",
+    "nameEn": "ZERO Sugar Peach Iced Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113548_1717986948917_wK8B5fR4h5.jpg",
+    "volume": "710ml",
+    "calories": 26.1,
+    "description": "깊게 우려진 홍차와 은은한 복숭아향의 아이스티를 제로슈가, 제로칼로리로 즐길 수 있는 음료 *대체당(알룰로스,에리스리톨)을 과도하게 섭취 시 개인에 따라 복통 및 설사 등을 유발 할 수 있으니 주의하세요.",
+    "allergens": [
+      "복숭아",
+      "아황산류"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 26.1,
+      "satFat": "0.0g",
+      "sugar": "0.7g",
+      "sodium": "5.3mg",
+      "protein": "0.1g",
+      "caffeine": "14.5mg"
+    }
+  },
+  {
+    "name": "연유라떼",
+    "nameEn": "Condensed Milk Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132459_1717993499610_KiXcTR2q5P.jpg",
+    "volume": "591ml",
+    "calories": 351.5,
+    "description": "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 351.5,
+      "satFat": "8.5g",
+      "sugar": "31.9g",
+      "sodium": "123.6mg",
+      "protein": "11.8g",
+      "caffeine": "165.9mg"
+    }
+  },
+  {
+    "name": "골드망고스무디",
+    "nameEn": "Gold Mango Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112826_1717986506337_AauGwyguRG.jpg",
+    "volume": "591ml",
+    "calories": 209.5,
+    "description": "황금빛 골드망고가 진하게 느껴지는 부드럽고 상큼 달콤한 스무디",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 209.5,
+      "satFat": "0.1g",
+      "sugar": "38.4g",
+      "sodium": "20.7mg",
+      "protein": "0.8g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "할메가커피",
+    "nameEn": "MEGA Mix Coffee",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113252_1717986772176_6c36zo5yuf.jpg",
+    "volume": "591ml",
+    "calories": 281.9,
+    "description": "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 시원한 커피 음료",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 281.9,
+      "satFat": "7.7g",
+      "sugar": "30.3g",
+      "sodium": "22.5mg",
+      "protein": "1.9g",
+      "caffeine": "99.6mg"
+    }
+  },
+  {
+    "name": "왕할메가커피",
+    "nameEn": "BIG MEGA Mix Coffee",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114915_1717987755314_1rAv8UqZUm.jpg",
+    "volume": "946ml",
+    "calories": 468.7,
+    "description": "우리 할머니께서 즐겨드시던 달달한 믹스 커피 스타일로 만든 메가MGC커피만의 메가사이즈 커피 음료",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 468.7,
+      "satFat": "12.3g",
+      "sugar": "48.5g",
+      "sodium": "36.8mg",
+      "protein": "3.1g",
+      "caffeine": "196.4mg"
+    }
+  },
+  {
+    "name": "코코넛 커피 스무디",
+    "nameEn": "Coconut Coffee Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132830_1717993710301_PxTeTM9Suh.jpg",
+    "volume": "591ml",
+    "calories": 746.5,
+    "description": "바삭하고 고소한 코코넛 칩을 올리고 쌉싸름한 커피와 달콤한 코코넛이 조화로운 스무디",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 746.5,
+      "satFat": "29.3g",
+      "sugar": "61.4g",
+      "sodium": "347.1mg",
+      "protein": "9.4g",
+      "caffeine": "173.8mg"
+    }
+  },
+  {
+    "name": "딸기주스",
+    "nameEn": "Strawberry Juice",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114741_1717987661472_LqJw6WITHO.jpg",
+    "volume": "591ml",
+    "calories": 228,
+    "description": "새콤달콤한 딸기주스에 피쉬 콜라겐을 더해 건강한 블렌딩 주스",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 228,
+      "satFat": "0.0g",
+      "sugar": "54.0g",
+      "sodium": "11.0mg",
+      "protein": "1.5g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "딸기바나나주스",
+    "nameEn": "Strawberry-Banana Juice",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114817_1717987697259_APSvRawmJi.jpg",
+    "volume": "591ml",
+    "calories": 268.5,
+    "description": "상큼한 딸기와 부드러운 바나나가 만나, 새콤달콤한 매력이 살아 있는 과일 음료.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 268.5,
+      "satFat": "1.5g",
+      "sugar": "42.2g",
+      "sodium": "41.1mg",
+      "protein": "4.1g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "디카페인 에스프레소",
+    "nameEn": "Decaf Espresso",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110159_1717984919074_jg4RYBdr_J.jpg",
+    "volume": "59ml",
+    "calories": 6.2,
+    "description": "디카페인으로 만나는 메가MGC커피 에스프레소",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 6.2,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "0.6mg",
+      "protein": "0.2g",
+      "caffeine": "4.9mg"
+    }
+  },
+  {
+    "name": "디카페인 아메리카노",
+    "nameEn": "Decaf Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105207_1717984327186_Sgj9kfKYCi.jpg",
+    "volume": "591ml",
+    "calories": 8.4,
+    "description": "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 8.4,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "8.4mg",
+      "protein": "0.5g",
+      "caffeine": "11.4mg"
+    }
+  },
+  {
+    "name": "디카페인 꿀아메리카노",
+    "nameEn": "Decaf Honey Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104414_1717983854651_gNaXxjR35W.jpg",
+    "volume": "591ml",
+    "calories": 149.3,
+    "description": "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 149.3,
+      "satFat": "0.1g",
+      "sugar": "26.2g",
+      "sodium": "7.5mg",
+      "protein": "0.5g",
+      "caffeine": "11.3mg"
+    }
+  },
+  {
+    "name": "디카페인 헤이즐넛 아메리카노",
+    "nameEn": "Decaf Hazelnut Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105046_1717984246492_KeavFH2VTO.jpg",
+    "volume": "591ml",
+    "calories": 84.2,
+    "description": "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 84.2,
+      "satFat": "0.0g",
+      "sugar": "10.3g",
+      "sodium": "5.3mg",
+      "protein": "0.5g",
+      "caffeine": "6.9mg"
+    }
+  },
+  {
+    "name": "디카페인 바닐라 아메리카노",
+    "nameEn": "Decaf Vanilla Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104650_1717984010944__Ck8jyuaDL.jpg",
+    "volume": "591ml",
+    "calories": 86.9,
+    "description": "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 86.9,
+      "satFat": "0.1g",
+      "sugar": "16.9g",
+      "sodium": "5.1mg",
+      "protein": "0.5g",
+      "caffeine": "9.1mg"
+    }
+  },
+  {
+    "name": "디카페인 카페라떼",
+    "nameEn": "Decaf Cafe Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105117_1717984277710_7BjonXSBFE.jpg",
+    "volume": "591ml",
+    "calories": 178.5,
+    "description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 178.5,
+      "satFat": "4.8g",
+      "sugar": "11.4g",
+      "sodium": "102.1mg",
+      "protein": "10.0g",
+      "caffeine": "17.0mg"
+    }
+  },
+  {
+    "name": "디카페인 카푸치노",
+    "nameEn": "Decaf Cappuccino",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105545_1717984545629_CaGhOpvAnm.jpg",
+    "volume": "591ml",
+    "calories": 152.9,
+    "description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 카푸치노.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 152.9,
+      "satFat": "4.5g",
+      "sugar": "10.4g",
+      "sodium": "80.6mg",
+      "protein": "8.1g",
+      "caffeine": "11.3mg"
+    }
+  },
+  {
+    "name": "디카페인 바닐라라떼",
+    "nameEn": "Decaf Vanilla Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104630_1717983990934_v3HPYN93uK.jpg",
+    "volume": "591ml",
+    "calories": 219.5,
+    "description": "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 219.5,
+      "satFat": "4.7g",
+      "sugar": "29.1g",
+      "sodium": "85.8mg",
+      "protein": "8.1g",
+      "caffeine": "8.9mg"
+    }
+  },
+  {
+    "name": "디카페인 헤이즐넛 라떼",
+    "nameEn": "Decaf Hazelnut Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105007_1717984207073_HqCto2mw3y.jpg",
+    "volume": "591ml",
+    "calories": 240,
+    "description": "부드러��� 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 240,
+      "satFat": "4.3g",
+      "sugar": "18.2g",
+      "sodium": "81.4mg",
+      "protein": "8.9g",
+      "caffeine": "9.4mg"
+    }
+  },
+  {
+    "name": "디카페인 카라멜마끼아또",
+    "nameEn": "Decaf Caramel Macchiato",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105238_1717984358779_MvgzcNlZdI.jpg",
+    "volume": "591ml",
+    "calories": 239.5,
+    "description": "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 239.5,
+      "satFat": "4.2g",
+      "sugar": "26.3g",
+      "sodium": "89.3mg",
+      "protein": "8.9g",
+      "caffeine": "6.5mg"
+    }
+  },
+  {
+    "name": "디카페인 연유라떼",
+    "nameEn": "Decaf Condensed Milk Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105224_1717984344775_9iKsKownRh.jpg",
+    "volume": "591ml",
+    "calories": 301.5,
+    "description": "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 301.5,
+      "satFat": "6.4g",
+      "sugar": "27.3g",
+      "sodium": "127.1mg",
+      "protein": "12.3g",
+      "caffeine": "9.8mg"
+    }
+  },
+  {
+    "name": "디카페인 카페모카",
+    "nameEn": "Decaf Cafe Mocha",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105145_1717984305671_2_yE7sXma9.jpg",
+    "volume": "591ml",
+    "calories": 360.3,
+    "description": "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 360.3,
+      "satFat": "10.3g",
+      "sugar": "39.2g",
+      "sodium": "153.2mg",
+      "protein": "10.8g",
+      "caffeine": "26.8mg"
+    }
+  },
+  {
+    "name": "디카페인 아메리카노",
+    "nameEn": "Decaf Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101052_1718154652699_a0ElVTNb16.jpg",
+    "volume": "710ml",
+    "calories": 9.5,
+    "description": "향과 풍미 그대로 카페인만을 낮춰 민감한 분들도 안심하고 매일매일 즐길 수 있는 디카페인 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 9.5,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "4.4mg",
+      "protein": "0.5g",
+      "caffeine": "10.8mg"
+    }
+  },
+  {
+    "name": "디카페인 메가리카노",
+    "nameEn": "Decaf Megaricano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115001_1717987801368_av938eflM8.jpg",
+    "volume": "946ml",
+    "calories": 17.1,
+    "description": "메가MGC커피 디카페인 아메리카노를 '960ml' 더 크고 가볍게 즐길 수 있는 대용량 커피",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 17.1,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "7.9mg",
+      "protein": "0.9g",
+      "caffeine": "10.9mg"
+    }
+  },
+  {
+    "name": "디카페인 꿀아메리카노",
+    "nameEn": "Decaf Honey Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131949_1717993189396_pb_H77_7AM.jpg",
+    "volume": "710ml",
+    "calories": 137.4,
+    "description": "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 137.4,
+      "satFat": "0.1g",
+      "sugar": "21.5g",
+      "sodium": "5.0mg",
+      "protein": "0.6g",
+      "caffeine": "8.7mg"
+    }
+  },
+  {
+    "name": "디카페인 헤이즐넛 아메리카노",
+    "nameEn": "Decaf Hazelnut Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131835_1717993115036_XaPndW7UkR.jpg",
+    "volume": "710ml",
+    "calories": 108.7,
+    "description": "디카페인 아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 108.7,
+      "satFat": "0.0g",
+      "sugar": "15.8g",
+      "sodium": "5.2mg",
+      "protein": "0.6g",
+      "caffeine": "11.2mg"
+    }
+  },
+  {
+    "name": "디카페인 바닐라 아메리카노",
+    "nameEn": "Decaf Vanilla Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131932_1717993172929_VUtwLd_LyN.jpg",
+    "volume": "710ml",
+    "calories": 112.4,
+    "description": "디카페인 아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 112.4,
+      "satFat": "0.1g",
+      "sugar": "21.6g",
+      "sodium": "3.3mg",
+      "protein": "0.4g",
+      "caffeine": "8.8mg"
+    }
+  },
+  {
+    "name": "디카페인 카페라떼",
+    "nameEn": "Decaf Cafe Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132005_1717993205762_9xKCxaSb9P.jpg",
+    "volume": "591ml",
+    "calories": 147.7,
+    "description": "디카페인 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 147.7,
+      "satFat": "4.5g",
+      "sugar": "9.3g",
+      "sodium": "78.0mg",
+      "protein": "8.2g",
+      "caffeine": "14.4mg"
+    }
+  },
+  {
+    "name": "디카페인 카푸치노",
+    "nameEn": "Decaf Cappuccino",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132018_1717993218605_64Ij4AhmCE.jpg",
+    "volume": "591ml",
+    "calories": 127,
+    "description": "디카페인 에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 127,
+      "satFat": "3.7g",
+      "sugar": "10.1g",
+      "sodium": "68.3mg",
+      "protein": "0.9g",
+      "caffeine": "11.4mg"
+    }
+  },
+  {
+    "name": "디카페인 바닐라라떼",
+    "nameEn": "Decaf Vanilla Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113234_1717986754069_tSPQqoiPj6.jpg",
+    "volume": "591ml",
+    "calories": 225.3,
+    "description": "디카페인으로 즐기는 바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 225.3,
+      "satFat": "3.9g",
+      "sugar": "29.0g",
+      "sodium": "71.4mg",
+      "protein": "6.8g",
+      "caffeine": "8.4mg"
+    }
+  },
+  {
+    "name": "디카페인 헤이즐넛 라떼",
+    "nameEn": "Decaf Hazelnut Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132034_1717993234457_aGDHQ0U0Ap.jpg",
+    "volume": "591ml",
+    "calories": 237,
+    "description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 디카페인 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 237,
+      "satFat": "4.0g",
+      "sugar": "23.4g",
+      "sodium": "70.7mg",
+      "protein": "7.4g",
+      "caffeine": "4.8mg"
+    }
+  },
+  {
+    "name": "디카페인 카라멜마끼아또",
+    "nameEn": "Decaf Caramel Macchiato",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131917_1717993157515_k1yeakRwwv.jpg",
+    "volume": "591ml",
+    "calories": 210.1,
+    "description": "폼 밀크 속에 진한 디카페인 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 210.1,
+      "satFat": "2.9g",
+      "sugar": "29.5g",
+      "sodium": "62.1mg",
+      "protein": "5.7g",
+      "caffeine": "6.5mg"
+    }
+  },
+  {
+    "name": "디카페인 연유라떼",
+    "nameEn": "Decaf Condensed Milk Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131759_1717993079921_A7Gr7qp0g2.jpg",
+    "volume": "591ml",
+    "calories": 305.4,
+    "description": "디카페인 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 305.4,
+      "satFat": "7.0g",
+      "sugar": "35.1g",
+      "sodium": "117.7mg",
+      "protein": "10.8g",
+      "caffeine": "14.9mg"
+    }
+  },
+  {
+    "name": "디카페인 카페모카",
+    "nameEn": "Decaf Cafe Mocha",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101114_1718154674451_BGo4AZa57r.jpg",
+    "volume": "591ml",
+    "calories": 319.7,
+    "description": "초코를 만나 풍부해진 디카페인 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 319.7,
+      "satFat": "8.7g",
+      "sugar": "33.3g",
+      "sodium": "113.1mg",
+      "protein": "6.3g",
+      "caffeine": "22.5mg"
+    }
+  },
+  {
+    "name": "딸기쿠키프라페",
+    "nameEn": "Strawberry Cookie Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132048_1717993248890_NW1QEUmFtQ.jpg",
+    "volume": "591ml",
+    "calories": 583.3,
+    "description": "부드러운 바닐라와 달달한 딸기, 바삭한 오레오 쿠키가 달콤한 하모니를 선물하는 프라페.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 583.3,
+      "satFat": "12.5g",
+      "sugar": "65.4g",
+      "sodium": "247.7mg",
+      "protein": "7.7g",
+      "caffeine": "2.6mg"
+    }
+  },
+  {
+    "name": "콜드브루디카페인",
+    "nameEn": "Decaf Coldbrew",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132920_1717993760751_69WHioWjnb.jpg",
+    "volume": "710ml",
+    "calories": 7.7,
+    "description": "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 7.7,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "0.1mg",
+      "protein": "0.5g",
+      "caffeine": "8.7mg"
+    }
+  },
+  {
+    "name": "콜드브루디카페인",
+    "nameEn": "Decaf Coldbrew",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105522_1717984522154_Wf1ds9riaV.jpg",
+    "volume": "591ml",
+    "calories": 9.4,
+    "description": "카페인을 줄였지만, 원두 본연의 향미를 풍부하게 살려 맛을 잡은 디카페인 콜드브루.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 9.4,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "1.9mg",
+      "protein": "0.6g",
+      "caffeine": "13.1mg"
+    }
+  },
+  {
+    "name": "콜드브루디카페인라떼",
+    "nameEn": "Decaf Coldbrew Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132902_1717993742550_EBciHOxu2w.jpg",
+    "volume": "591ml",
+    "calories": 140.8,
+    "description": "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 140.8,
+      "satFat": "4.0g",
+      "sugar": "0.0g",
+      "sodium": "45.6mg",
+      "protein": "7.9g",
+      "caffeine": "9.9mg"
+    }
+  },
+  {
+    "name": "콜드브루디카페인라떼",
+    "nameEn": "Decaf Coldbrew Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105453_1717984493950_uK1VQNQ6kc.jpg",
+    "volume": "591ml",
+    "calories": 153.8,
+    "description": "우유와 만나 부드럽고 고소한 풍미가 더해진 콜드브루 디카페인 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 153.8,
+      "satFat": "3.8g",
+      "sugar": "0.0g",
+      "sodium": "55.2mg",
+      "protein": "8.6g",
+      "caffeine": "14.0mg"
+    }
+  },
+  {
+    "name": "에스프레소",
+    "nameEn": "Espresso",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105357_1717984437294_AduuhU3VyW.jpg",
+    "volume": "59ml",
+    "calories": 7.6,
+    "description": "메가MGC커피 원두의 향미를 온전히 즐길 수 있는 에스프레소",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 7.6,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "0.2mg",
+      "protein": "0.5g",
+      "caffeine": "104.8mg"
+    }
+  },
+  {
+    "name": "에스프레소 도피오",
+    "nameEn": "Espresso doppio",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105413_1717984453131_1es5v0RxH2.jpg",
+    "volume": "147ml",
+    "calories": 15.2,
+    "description": "더블샷으로 더욱 진하게 즐길 수 있는 에스프레소",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 15.2,
+      "satFat": "0.1g",
+      "sugar": "0.0g",
+      "sodium": "0.4mg",
+      "protein": "1.0g",
+      "caffeine": "184.7mg"
+    }
+  },
+  {
+    "name": "쿠키프라페",
+    "nameEn": "Cookie Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115315_1717987995816_oiPZ2u5dJr.jpg",
+    "volume": "591ml",
+    "calories": 697.8,
+    "description": "바삭하고 달콤한 오레오와 고소한 우유, 부드러운 바닐라향의 조화를 느낄 수 있는 프라페.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 697.8,
+      "satFat": "15.6g",
+      "sugar": "59.7g",
+      "sodium": "411.7mg",
+      "protein": "9.8g",
+      "caffeine": "6.8mg"
+    }
+  },
+  {
+    "name": "고구마라떼",
+    "nameEn": "Sweet Potato Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104240_1717983760778_agCooQEUb4.jpg",
+    "volume": "591ml",
+    "calories": 310.5,
+    "description": "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
+    "allergens": [
+      "우유",
+      "아몬드"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 310.5,
+      "satFat": "5.0g",
+      "sugar": "18.8g",
+      "sodium": "96.5mg",
+      "protein": "9.5g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "곡물라떼",
+    "nameEn": "Grain Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104323_1717983803197_Dpwa_RK4_F.jpg",
+    "volume": "591ml",
+    "calories": 420,
+    "description": "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 420,
+      "satFat": "5.2g",
+      "sugar": "38.8g",
+      "sodium": "94.0mg",
+      "protein": "14.9g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "토피넛라떼",
+    "nameEn": "Toffeenut Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105954_1717984794244_2JeEMNYiCL.jpg",
+    "volume": "591ml",
+    "calories": 373.1,
+    "description": "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 373.1,
+      "satFat": "8.1g",
+      "sugar": "38.3g",
+      "sodium": "182.0mg",
+      "protein": "9.6g",
+      "caffeine": "46.4mg"
+    }
+  },
+  {
+    "name": "고구마라떼",
+    "nameEn": "Sweet Potato Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112707_1717986427949_WKHpsJWXlk.jpg",
+    "volume": "591ml",
+    "calories": 248.8,
+    "description": "달콤하고 고소한 고구마와 부드러운 우유가 만나 누구나 즐기기 좋은 든든한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 248.8,
+      "satFat": "3.8g",
+      "sugar": "21.6g",
+      "sodium": "72.8mg",
+      "protein": "6.5g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "곡물라떼",
+    "nameEn": "Grain Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112734_1717986454714_tTXJ2aV1O8.jpg",
+    "volume": "591ml",
+    "calories": 402,
+    "description": "우유에 곡물을 더해 고소하고 든든하게 즐기는 라떼.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 402,
+      "satFat": "4.6g",
+      "sugar": "34.5g",
+      "sodium": "84.8mg",
+      "protein": "8.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "오레오초코라떼",
+    "nameEn": "Oreo Chocolate Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132638_1717993598875_AQ4q6GUaJD.jpg",
+    "volume": "591ml",
+    "calories": 475.1,
+    "description": "진한 초코와 리얼 오레오를 블렌딩해 씹는 맛을 더한 달콤한 아이스 라떼.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 475.1,
+      "satFat": "10.4g",
+      "sugar": "30.1g",
+      "sodium": "258.2mg",
+      "protein": "9.7g",
+      "caffeine": "11.1mg"
+    }
+  },
+  {
+    "name": "토피넛라떼",
+    "nameEn": "Toffeenut Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132535_1717993535868_Dk0SpiNnAo.jpg",
+    "volume": "591ml",
+    "calories": 364.5,
+    "description": "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 364.5,
+      "satFat": "8.3g",
+      "sugar": "22.5g",
+      "sodium": "172.7mg",
+      "protein": "9.2g",
+      "caffeine": "54.0mg"
+    }
+  },
+  {
+    "name": "흑당버블밀크티라떼",
+    "nameEn": "Brown Sugar Bubble Milktea Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112956_1717986596859_dSAYDVVaV2.jpg",
+    "volume": "591ml",
+    "calories": 330.2,
+    "description": "타바론 얼그레이 홍차의 깊은 맛을 살린 밀크티 라떼에 진한 흑당과 흑당 버블의 달콤함을 채운 음료.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 330.2,
+      "satFat": "4.3g",
+      "sugar": "24.4g",
+      "sodium": "106.7mg",
+      "protein": "7.6g",
+      "caffeine": "14.3mg"
+    }
+  },
+  {
+    "name": "핫초코",
+    "nameEn": "Hot Chocolate",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110045_1717984845295_sGoEnUlQpO.jpg",
+    "volume": "591ml",
+    "calories": 383.4,
+    "description": "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 초콜릿 음료.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 383.4,
+      "satFat": "5.3g",
+      "sugar": "53.2g",
+      "sodium": "177.3mg",
+      "protein": "10.9g",
+      "caffeine": "21.9mg"
+    }
+  },
+  {
+    "name": "녹차라떼",
+    "nameEn": "Green Tea Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104456_1717983896154_TxgXQHRHiM.jpg",
+    "volume": "591ml",
+    "calories": 264.4,
+    "description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 264.4,
+      "satFat": "4.1g",
+      "sugar": "36.6g",
+      "sodium": "85.2mg",
+      "protein": "8.3g",
+      "caffeine": "57.0mg"
+    }
+  },
+  {
+    "name": "로얄밀크티라떼",
+    "nameEn": "Royal Milk Tea Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105616_1717984576627_IStTaWZY3_.jpg",
+    "volume": "591ml",
+    "calories": 232,
+    "description": "우유와 은은한 홍차가 어우러져 부드럽고 향긋한 한 모금을 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 232,
+      "satFat": "4.5g",
+      "sugar": "14.7g",
+      "sodium": "85.2mg",
+      "protein": "8.3g",
+      "caffeine": "106.2mg"
+    }
+  },
+  {
+    "name": "흑당라떼",
+    "nameEn": "Brown Sugar Latte (No Pearls)",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113159_1717986719673_UjpcQYhtmh.jpg",
+    "volume": "591ml",
+    "calories": 322,
+    "description": "모리셔스의 진한 흑당과 부드러운 우유가 달콤하게 조화를 이루는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 322,
+      "satFat": "5.2g",
+      "sugar": "33.6g",
+      "sodium": "107.6mg",
+      "protein": "8.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "흑당밀크티라떼",
+    "nameEn": "Brown Sugar Milk tea Latte (No pearls)",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113123_1717986683549_Q8E9tuNYJL.jpg",
+    "volume": "591ml",
+    "calories": 300.5,
+    "description": "타바론 얼그레이 홍차의 깊은 맛을 살린 밀크티 라떼에 진한 흑당의 달콤함을 채운 음료.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 300.5,
+      "satFat": "4.5g",
+      "sugar": "22.6g",
+      "sodium": "104.4mg",
+      "protein": "8.4g",
+      "caffeine": "30.6mg"
+    }
+  },
+  {
+    "name": "흑당버블라떼",
+    "nameEn": "Brown Sugar Bubble Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113023_1717986623453_FuG0kt97Jg.jpg",
+    "volume": "591ml",
+    "calories": 320.3,
+    "description": "모리셔스의 진한 흑당과 부드러운 우유가 달콤한 조화에 흑당 버블을 함께 즐기는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 320.3,
+      "satFat": "4.1g",
+      "sugar": "27.2g",
+      "sodium": "104.9mg",
+      "protein": "7.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "아이스초코",
+    "nameEn": "Ice Choco",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132420_1717993460739_Yi5zAd90Og.jpg",
+    "volume": "591ml",
+    "calories": 369.2,
+    "description": "부드러운 우유에 진한 초코소스가 어우러져 달콤하게 입맛을 깨우는 초콜릿 음료.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 369.2,
+      "satFat": "4.4g",
+      "sugar": "33.5g",
+      "sodium": "163.0mg",
+      "protein": "9.0g",
+      "caffeine": "21.3mg"
+    }
+  },
+  {
+    "name": "녹차라떼",
+    "nameEn": "Green Tea Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112917_1717986557781__XIcwRbg0h.jpg",
+    "volume": "591ml",
+    "calories": 271.5,
+    "description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 271.5,
+      "satFat": "4.3g",
+      "sugar": "40.7g",
+      "sodium": "81.1mg",
+      "protein": "7.9g",
+      "caffeine": "72.5mg"
+    }
+  },
+  {
+    "name": "로얄밀크티라떼",
+    "nameEn": "Royal Milk Tea Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115251_1717987971895_crJlbiHg7t.jpg",
+    "volume": "591ml",
+    "calories": 254.6,
+    "description": "우유와 은은한 홍차가 어우러져 부드럽고 향긋한 한 모금을 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 254.6,
+      "satFat": "4.2g",
+      "sugar": "20.2g",
+      "sodium": "68.4mg",
+      "protein": "6.6g",
+      "caffeine": "118.1mg"
+    }
+  },
+  {
+    "name": "아메리카노",
+    "nameEn": "Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105645_1717984605982_8i5CoHU2NV.jpg",
+    "volume": "591ml",
+    "calories": 12.2,
+    "description": "[기본2샷]메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 12.2,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "2.4mg",
+      "protein": "0.9g",
+      "caffeine": "204.2mg"
+    }
+  },
+  {
+    "name": "메가리카노",
+    "nameEn": "32oz Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132223_1717993343456_4KESgpG57t.jpg",
+    "volume": "946ml",
+    "calories": 16.7,
+    "description": "깊고 진한 메가MGC커피 아메리카노를 '960ml' 더 큼직하게 즐길 수 있는 대용량 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 16.7,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "0.7mg",
+      "protein": "1.5g",
+      "caffeine": "290.8mg"
+    }
+  },
+  {
+    "name": "꿀아메리카노",
+    "nameEn": "Honey Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104349_1717983829122_YzOyiQAOOg.jpg",
+    "volume": "591ml",
+    "calories": 172.4,
+    "description": "아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 172.4,
+      "satFat": "0.1g",
+      "sugar": "30.4g",
+      "sodium": "12.7mg",
+      "protein": "0.9g",
+      "caffeine": "199.4mg"
+    }
+  },
+  {
+    "name": "바닐라라떼",
+    "nameEn": "Vanilla Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104603_1717983963750_lApih2z1h0.jpg",
+    "volume": "591ml",
+    "calories": 235.2,
+    "description": "바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 235.2,
+      "satFat": "4.7g",
+      "sugar": "29.6g",
+      "sodium": "86.9mg",
+      "protein": "8.7g",
+      "caffeine": "189.9mg"
+    }
+  },
+  {
+    "name": "바닐라아메리카노",
+    "nameEn": "Vanilla Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104740_1717984060714__tk3s9Kb_s.jpg",
+    "volume": "591ml",
+    "calories": 97.8,
+    "description": "아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 97.8,
+      "satFat": "0.1g",
+      "sugar": "15.7g",
+      "sodium": "5.3mg",
+      "protein": "1.4g",
+      "caffeine": "220.7mg"
+    }
+  },
+  {
+    "name": "연유라떼",
+    "nameEn": "Condensed milk Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105712_1717984632188_Lqh27degWu.jpg",
+    "volume": "591ml",
+    "calories": 321.6,
+    "description": "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 321.6,
+      "satFat": "6.4g",
+      "sugar": "32.8g",
+      "sodium": "144.6mg",
+      "protein": "13.0g",
+      "caffeine": "194.2mg"
+    }
+  },
+  {
+    "name": "카라멜마끼아또",
+    "nameEn": "Caramel Macchiato",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105805_1717984685954_T1qos0ocDV.jpg",
+    "volume": "591ml",
+    "calories": 243.3,
+    "description": "폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 243.3,
+      "satFat": "4.1g",
+      "sugar": "26.1g",
+      "sodium": "90.7mg",
+      "protein": "8.9g",
+      "caffeine": "203.4mg"
+    }
+  },
+  {
+    "name": "카페라떼",
+    "nameEn": "Caffe Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105821_1717984701991_RUKCqSZ_HO.jpg",
+    "volume": "591ml",
+    "calories": 175.4,
+    "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 175.4,
+      "satFat": "5.2g",
+      "sugar": "10.8g",
+      "sodium": "101.5mg",
+      "protein": "10.0g",
+      "caffeine": "189.9mg"
+    }
+  },
+  {
+    "name": "카페모카",
+    "nameEn": "Caffe Mocha",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105838_1717984718108_ZB6aalHqIU.jpg",
+    "volume": "591ml",
+    "calories": 359.6,
+    "description": "초코를 만나 풍부해진 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 359.6,
+      "satFat": "10.6g",
+      "sugar": "40.8g",
+      "sodium": "159.8mg",
+      "protein": "11.2g",
+      "caffeine": "233.2mg"
+    }
+  },
+  {
+    "name": "카푸치노",
+    "nameEn": "Cappuccino",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105852_1717984732750_WEt0KXVcnQ.jpg",
+    "volume": "591ml",
+    "calories": 145.5,
+    "description": "에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 145.5,
+      "satFat": "4.1g",
+      "sugar": "3.4g",
+      "sodium": "60.7mg",
+      "protein": "8.2g",
+      "caffeine": "201.4mg"
+    }
+  },
+  {
+    "name": "콜드브루라떼",
+    "nameEn": "Coldbrew Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105923_1717984763591_cKSGllWUzt.jpg",
+    "volume": "591ml",
+    "calories": 164.2,
+    "description": "콜드브루에 고소한 우유를 섞어, 깔끔함과 부드러움을 잡은 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 164.2,
+      "satFat": "5.2g",
+      "sugar": "2.1g",
+      "sodium": "54.4mg",
+      "protein": "9.0g",
+      "caffeine": "216.7mg"
+    }
+  },
+  {
+    "name": "콜드브루오리지널",
+    "nameEn": "Coldbrew",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105941_1717984781078_rdCUXhwycL.jpg",
+    "volume": "591ml",
+    "calories": 10.6,
+    "description": "차가운 물에 장시간 우려내 깔끔한 목넘김을 느낄 수 있는 콜드브루.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 10.6,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "1.5mg",
+      "protein": "1.0g",
+      "caffeine": "217.0mg"
+    }
+  },
+  {
+    "name": "헤이즐넛라떼",
+    "nameEn": "Hazelnut Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110117_1717984877061_sLiVRNPq6J.jpg",
+    "volume": "591ml",
+    "calories": 240.5,
+    "description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 240.5,
+      "satFat": "5.1g",
+      "sugar": "9.7g",
+      "sodium": "63.1mg",
+      "protein": "9.1g",
+      "caffeine": "204.6mg"
+    }
+  },
+  {
+    "name": "헤이즐넛아메리카노",
+    "nameEn": "Hazelnut Americano",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110133_1717984893137_AqJAuHaq0t.jpg",
+    "volume": "591ml",
+    "calories": 82.7,
+    "description": "아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 82.7,
+      "satFat": "0.0g",
+      "sugar": "9.5g",
+      "sodium": "2.6mg",
+      "protein": "0.9g",
+      "caffeine": "209.8mg"
+    }
+  },
+  {
+    "name": "꿀아메리카노",
+    "nameEn": "Honey Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610133054_1717993854434_bTty_9u3br.jpg",
+    "volume": "710ml",
+    "calories": 162.2,
+    "description": "아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 162.2,
+      "satFat": "0.1g",
+      "sugar": "30.6g",
+      "sodium": "7.2mg",
+      "protein": "0.9g",
+      "caffeine": "198.6mg"
+    }
+  },
+  {
+    "name": "바닐라라떼",
+    "nameEn": "Vanilla Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132249_1717993369864_VIG6IR2byt.jpg",
+    "volume": "591ml",
+    "calories": 239.2,
+    "description": "바닐라의 짙은 향과 풍부한 폼 밀크의 조화가 인상적인 달콤한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 239.2,
+      "satFat": "3.9g",
+      "sugar": "23.7g",
+      "sodium": "74.1mg",
+      "protein": "7.1g",
+      "caffeine": "195.1mg"
+    }
+  },
+  {
+    "name": "바닐라아메리카노",
+    "nameEn": "Vanilla Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610133038_1717993838652__Ax_Xwuz6T.jpg",
+    "volume": "710ml",
+    "calories": 122.7,
+    "description": "아메리카노에 바닐라의 부드러운 향과 달콤함을 조화롭게 담아낸 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 122.7,
+      "satFat": "0.1g",
+      "sugar": "20.2g",
+      "sodium": "3.6mg",
+      "protein": "1.1g",
+      "caffeine": "211.5mg"
+    }
+  },
+  {
+    "name": "카라멜마끼아또",
+    "nameEn": "Caramel Macchiato",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132714_1717993634339_dshEGyCDsC.jpg",
+    "volume": "591ml",
+    "calories": 205,
+    "description": "폼 밀크 속에 진한 에스프레소와 달콤한 카라멜을 가미해 부드럽게 즐기는 커피.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 205,
+      "satFat": "2.9g",
+      "sugar": "27.5g",
+      "sodium": "59.7mg",
+      "protein": "5.0g",
+      "caffeine": "200.0mg"
+    }
+  },
+  {
+    "name": "카페라떼",
+    "nameEn": "Caffe Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132819_1717993699956_cEyZRaBZh5.jpg",
+    "volume": "591ml",
+    "calories": 145.1,
+    "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 145.1,
+      "satFat": "3.8g",
+      "sugar": "9.2g",
+      "sodium": "88.5mg",
+      "protein": "8.5g",
+      "caffeine": "199.1mg"
+    }
+  },
+  {
+    "name": "카페모카",
+    "nameEn": "Caffe Mocha",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132727_1717993647297_GiQ8g7jOCk.jpg",
+    "volume": "591ml",
+    "calories": 0,
+    "description": "초코를 만나 풍부해진 에스프레소와 고소한 우유, 부드러운 휘핑크림까지 더해 달콤하게 즐기는 커피.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 0,
+      "satFat": "8.8g",
+      "sugar": "33.9g",
+      "sodium": "113.3mg",
+      "protein": "7.1g",
+      "caffeine": "232.5mg"
+    }
+  },
+  {
+    "name": "카푸치노",
+    "nameEn": "Cappuccino",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132739_1717993659672_JFeCQ5qV53.jpg",
+    "volume": "591ml",
+    "calories": 132.4,
+    "description": "에스프레소 위에 올려진 우유 거품, 그리고 시나몬 파우더로 완성한 조화로운 맛의 커피.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 132.4,
+      "satFat": "4.2g",
+      "sugar": "1.1g",
+      "sodium": "54.8mg",
+      "protein": "7.0g",
+      "caffeine": "192.3mg"
+    }
+  },
+  {
+    "name": "콜드브루라떼",
+    "nameEn": "Coldbrew Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132935_1717993775051_eflW8NpTDq.jpg",
+    "volume": "591ml",
+    "calories": 167.6,
+    "description": "콜드브루에 고소한 우유를 섞어, 깔끔함과 부드러움을 잡은 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 167.6,
+      "satFat": "4.1g",
+      "sugar": "2.3g",
+      "sodium": "35.4mg",
+      "protein": "7.0g",
+      "caffeine": "131.7mg"
+    }
+  },
+  {
+    "name": "콜드브루오리지널",
+    "nameEn": "Coldbrew",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132948_1717993788811_j_eYzA1Esd.jpg",
+    "volume": "591ml",
+    "calories": 7.2,
+    "description": "차가운 물에 장시간 우려내 깔끔한 목넘김을 느낄 수 있는 콜드브루.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 7.2,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "0.4mg",
+      "protein": "0.8g",
+      "caffeine": "156.4mg"
+    }
+  },
+  {
+    "name": "헤이즐넛라떼",
+    "nameEn": "Hazelnut Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240430104100_1714441260123_buRoeWVyce.jpg",
+    "volume": "591ml",
+    "calories": 237.4,
+    "description": "부드러운 카페라떼에 헤이즐넛의 풍부한 향과 달콤함을 담아 향긋하게 즐길 수 있는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 237.4,
+      "satFat": "4.6g",
+      "sugar": "10.8g",
+      "sodium": "57.0mg",
+      "protein": "7.3g",
+      "caffeine": "216.9mg"
+    }
+  },
+  {
+    "name": "헤이즐넛아메리카노",
+    "nameEn": "Hazelnut Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610133023_1717993823204_vNvExvVODX.jpg",
+    "volume": "710ml",
+    "calories": 113.6,
+    "description": "아메리카노에 헤이즐넛의 풍성한 향과 달콤함을 담아 향긋하고 부드럽게 즐기는 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 113.6,
+      "satFat": "0.0g",
+      "sugar": "15.8g",
+      "sodium": "0.6mg",
+      "protein": "1.0g",
+      "caffeine": "196.7mg"
+    }
+  },
+  {
+    "name": "큐브라떼",
+    "nameEn": "Cube Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132523_1717993523193_4mNdkfnxvz.jpg",
+    "volume": "591ml",
+    "calories": 304.4,
+    "description": "연유를 섞은 라떼에 에스프레소를 얼린 커피큐브를 올려, 녹을수록 더 진한 커피가 느껴지는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 304.4,
+      "satFat": "7.8g",
+      "sugar": "15.0g",
+      "sodium": "72.1mg",
+      "protein": "11.2g",
+      "caffeine": "313.4mg"
+    }
+  },
+  {
+    "name": "아메리카노",
+    "nameEn": "Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610133007_1717993807130_nwB5CATOJJ.jpg",
+    "volume": "710ml",
+    "calories": 12.2,
+    "description": "[기본2샷]메가MGC커피 블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 12.2,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "1.5mg",
+      "protein": "1.0g",
+      "caffeine": "199.7mg"
+    }
+  },
+  {
+    "name": "녹차프라페",
+    "nameEn": "Green Tea Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260318150847_1773814127229_oIDmdAQwND.png",
+    "volume": "591ml",
+    "calories": 521.7,
+    "description": "향긋한 녹차 위에 우유와 휘핑크림을 더해 더 부드럽게 즐길 수 있는 프라페.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 521.7,
+      "satFat": "8.9g",
+      "sugar": "76.7g",
+      "sodium": "115.1mg",
+      "protein": "10.8g",
+      "caffeine": "110.1mg"
+    }
+  },
+  {
+    "name": "딸기요거트스무디",
+    "nameEn": "Strawberry Yogurt Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132117_1717993277823_KRGDVA4aeJ.jpg",
+    "volume": "591ml",
+    "calories": 388.8,
+    "description": "요거트의 상큼함과 딸기의 상큼함을 상냥하게 어우른 상큼 스무디.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 388.8,
+      "satFat": "2.0g",
+      "sugar": "62.5g",
+      "sodium": "66.7mg",
+      "protein": "6g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "딸기퐁크러쉬",
+    "nameEn": "Strawberry Pongcrush",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132132_1717993292542_TOXDd7N_72.jpg",
+    "volume": "591ml",
+    "calories": 536.9,
+    "description": "바삭하고 달달한 퐁에 상큼한 딸기와 부드러운 우유, 얼음을 함께 블렌딩해 시원하게 즐기는 프라페.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 536.9,
+      "satFat": "7.1g",
+      "sugar": "45.9g",
+      "sodium": "156.1mg",
+      "protein": "10.9g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "리얼초코프라페",
+    "nameEn": "Real Chocolate Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132157_1717993317456_RCHCZKkudt.jpg",
+    "volume": "591ml",
+    "calories": 580.8,
+    "description": "진한 초코소스와 부드러운 바닐라향의 만남으로 질리지 않는 달콤함을 완성한 프라페.",
+    "allergens": [
+      "우유",
+      "대두",
+      "밀"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 580.8,
+      "satFat": "14.6g",
+      "sugar": "75.4g",
+      "sodium": "223.3mg",
+      "protein": "8.0g",
+      "caffeine": "32.1mg"
+    }
+  },
+  {
+    "name": "망고요거트스무디",
+    "nameEn": "Mango Yogurt Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132210_1717993330781_04rKlgIKk6.jpg",
+    "volume": "591ml",
+    "calories": 365.2,
+    "description": "열대과일 망고의 진한 단 맛과 산뜻한 요거트의 하모니가 인상적인 스무디.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 365.2,
+      "satFat": "2.3g",
+      "sugar": "56.4g",
+      "sodium": "76.1mg",
+      "protein": "6g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "민트프라페",
+    "nameEn": "Mint Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115353_1717988033471_n8WL4rST4C.jpg",
+    "volume": "591ml",
+    "calories": 622.3,
+    "description": "상쾌한 민트에 달콤하게 씹는 재미를 더한 초콜릿칩의 즐거운 하모니가 매력적인 프라페.",
+    "allergens": [
+      "우유",
+      "대두",
+      "밀"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 622.3,
+      "satFat": "16.1g",
+      "sugar": "64.5g",
+      "sodium": "192.9mg",
+      "protein": "5.0g",
+      "caffeine": "5.6mg"
+    }
+  },
+  {
+    "name": "바나나퐁크러쉬",
+    "nameEn": "Banana Pongcrush",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132238_1717993358631_MGPEpkvNh1.jpg",
+    "volume": "591ml",
+    "calories": 593.8,
+    "description": "바삭하고 달달한 퐁에 부드러운 바나나와 우유, 얼음을 함께 블렌딩해 부드럽고 시원하게 즐기는 프라페.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 593.8,
+      "satFat": "4.6g",
+      "sugar": "64.2g",
+      "sodium": "167.3mg",
+      "protein": "10.8g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "초코허니퐁크러쉬",
+    "nameEn": "Chocolate Honey Pong Crush",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132651_1717993611266_QFRonrkBzf.jpg",
+    "volume": "591ml",
+    "calories": 594.6,
+    "description": "리얼 벌꿀이 들어가 더 달콤한 퍼프허니 시리얼과 부드럽게 달달한 초코가 함께 만드는 즐거운 맛의 프라페.",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 594.6,
+      "satFat": "7.8g",
+      "sugar": "67.6g",
+      "sodium": "216.2mg",
+      "protein": "11.9g",
+      "caffeine": "10.0mg"
+    }
+  },
+  {
+    "name": "커피프라페",
+    "nameEn": "Coffee Frappe",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132804_1717993684465__jH6f5a2VM.jpg",
+    "volume": "591ml",
+    "calories": 414.3,
+    "description": "바삭한 쿠키와 부드러운 바닐라에 향긋한 에스프레소를 섞어 만든 힐링 프라페.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 414.3,
+      "satFat": "11.9g",
+      "sugar": "35.6g",
+      "sodium": "168.0mg",
+      "protein": "6.5g",
+      "caffeine": "162.6mg"
+    }
+  },
+  {
+    "name": "플레인요거트스무디",
+    "nameEn": "Plain Yogurt Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240612101151_1718154711606_iC5h64zrID.jpg",
+    "volume": "591ml",
+    "calories": 514.9,
+    "description": "더 시원하게 요거트의 새콤달콤한 맛을 오롯이 만끽할 수 있는 스무디.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 514.9,
+      "satFat": "2.2g",
+      "sugar": "84.5g",
+      "sodium": "103.4mg",
+      "protein": "7.5g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "플레인퐁크러쉬",
+    "nameEn": "Plain Pongcrush",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113328_1717986808464_JOQsVpbWKq.jpg",
+    "volume": "591ml",
+    "calories": 468.6,
+    "description": "우유에 죠리퐁 씨리얼이 믹싱 된 얼음을 갈아 만든 시원한 프라페음료",
+    "allergens": [
+      "우유",
+      "밀",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 468.6,
+      "satFat": "6.0g",
+      "sugar": "46.2g",
+      "sodium": "154.8mg",
+      "protein": "10.6g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "라임모히또",
+    "nameEn": "Lime Mojito",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132145_1717993305587_JyUa7vPj3s.jpg",
+    "volume": "710ml",
+    "calories": 290.5,
+    "description": "상큼한 라임과 달콤한 향기의 애플민트가 어우러져 상쾌함을 한잔에 가득 채운 무알콜 모히또 음료.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 290.5,
+      "satFat": "0.0g",
+      "sugar": "70.4g",
+      "sodium": "41.7mg",
+      "protein": "0.4g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "레몬에이드",
+    "nameEn": "Lemonade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114557_1717987557279_GKXThr0HAc.jpg",
+    "volume": "710ml",
+    "calories": 196.8,
+    "description": "시트러스향 가득한 레몬의 상큼함과 톡쏘는 탄산의 상쾌함이 만난 청량 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 196.8,
+      "satFat": "0.0g",
+      "sugar": "35.1g",
+      "sodium": "71.3mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "블루레몬에이드",
+    "nameEn": "Blue Lemon Ade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132302_1717993382502_3JianCydlm.jpg",
+    "volume": "710ml",
+    "calories": 225,
+    "description": "레몬에이드의 상큼한 청량감에 블루큐라소의 진한 향미를 더한 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 225,
+      "satFat": "0.0g",
+      "sugar": "36.5g",
+      "sodium": "77.2mg",
+      "protein": "0.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "자몽에이드",
+    "nameEn": "Grapefruit Ade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260318150836_1773814116733_8c9H4Rw3gH.png",
+    "volume": "710ml",
+    "calories": 203.8,
+    "description": "자몽의 달콤쌉싸름한 맛과 탄산의 톡쏘는 목넘김이 어우러진 트로피컬 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 203.8,
+      "satFat": "0.0g",
+      "sugar": "40.7g",
+      "sodium": "3.3mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "청포도에이드",
+    "nameEn": "Green Grape Ade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115123_1717987883226_DMMQB84jmS.jpg",
+    "volume": "710ml",
+    "calories": 317,
+    "description": "산뜻한 청포도와 상쾌한 탄산의 달달한 조화가 인상적인 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 317,
+      "satFat": "0.0g",
+      "sugar": "77.7g",
+      "sodium": "17.9mg",
+      "protein": "0.2g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "체리콜라",
+    "nameEn": "Cherry Cola",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260112140953_1768194593743_H_mUOKjS42.png",
+    "volume": "710ml",
+    "calories": 323.6,
+    "description": "체리의 새콤함과 청량감을 동시에 즐길 수 있는 환상적인 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 323.6,
+      "satFat": "0.0g",
+      "sugar": "55.6g",
+      "sodium": "5.4mg",
+      "protein": "0.2g",
+      "caffeine": "23.9mg"
+    }
+  },
+  {
+    "name": "메가에이드",
+    "nameEn": "MEGA Ade",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115027_1717987827980_oPj14Xi9y1.jpg",
+    "volume": "710ml",
+    "calories": 296.9,
+    "description": "상큼한 레몬, 상쾌한 라임, 달콤쌉싸름한 자몽의 3색 맛을 한데 어우른 메가MGC커피 시그니처 에이드.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 296.9,
+      "satFat": "0.0g",
+      "sugar": "59.3g",
+      "sodium": "34.7mg",
+      "protein": "0.4g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "녹차",
+    "nameEn": "Green Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104441_1717983881331_6kaOJy5ayw.jpg",
+    "volume": "591ml",
+    "calories": 0.7,
+    "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 0.7,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "4.2mg",
+      "protein": "0.2g",
+      "caffeine": "65.3mg"
+    }
+  },
+  {
+    "name": "사과유자차",
+    "nameEn": "Applecitron Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105629_1717984589552_V9ta2Qw90q.jpg",
+    "volume": "591ml",
+    "calories": 227.1,
+    "description": "애플티의 향긋함과 유자청의 상큼달콤함을 한컵에 담아낸 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 227.1,
+      "satFat": "0.0g",
+      "sugar": "47.0g",
+      "sodium": "89.3mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "얼그레이",
+    "nameEn": "Earl Grey",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105659_1717984619283_Ssc082a5GK.jpg",
+    "volume": "591ml",
+    "calories": 0.7,
+    "description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 0.7,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "4.2mg",
+      "protein": "0.2g",
+      "caffeine": "73.4mg"
+    }
+  },
+  {
+    "name": "캐모마일",
+    "nameEn": "Chamomile",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105908_1717984748214_qc34s7Vkq5.jpg",
+    "volume": "591ml",
+    "calories": 0.5,
+    "description": "마음을 진정 시켜주는 산뜻한 풀내음을 느낄 수 있는 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 0.5,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "5.5mg",
+      "protein": "0.0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "페퍼민트",
+    "nameEn": "Peppermint Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110026_1717984826888_gfP6LsxEV3.jpg",
+    "volume": "591ml",
+    "calories": 0.2,
+    "description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 0.2,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "5.3mg",
+      "protein": "0.0g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "녹차",
+    "nameEn": "Green Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112857_1717986537987_H1q4z1rnt2.jpg",
+    "volume": "710ml",
+    "calories": 1,
+    "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 1,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "2.1mg",
+      "protein": "0.3g",
+      "caffeine": "78.5mg"
+    }
+  },
+  {
+    "name": "사과유자차",
+    "nameEn": "Applecitron Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132332_1717993412234_5kkTR1DkNH.jpg",
+    "volume": "710ml",
+    "calories": 242.2,
+    "description": "애플티의 향긋함과 유자청의 상큼달콤함을 한컵에 담아낸 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 242.2,
+      "satFat": "0.0g",
+      "sugar": "37.5g",
+      "sodium": "74.5mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "얼그레이",
+    "nameEn": "Earl Grey",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132511_1717993511025_ChoqheNJQf.jpg",
+    "volume": "710ml",
+    "calories": 1.3,
+    "description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 1.3,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "2.1mg",
+      "protein": "0.3g",
+      "caffeine": "87.2mg"
+    }
+  },
+  {
+    "name": "캐모마일",
+    "nameEn": "Chamomile",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132753_1717993673758__j_omi1oWY.jpg",
+    "volume": "710ml",
+    "calories": 1.3,
+    "description": "마음을 진정 시켜주는 산뜻한 풀내음을 느낄 수 있는 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 1.3,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "2.5mg",
+      "protein": "0.1g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "페퍼민트",
+    "nameEn": "Peppermint Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115138_1717987898720_OdAWvoBqNh.jpg",
+    "volume": "710ml",
+    "calories": 2.5,
+    "description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 2.5,
+      "satFat": "0.0g",
+      "sugar": "0.0g",
+      "sodium": "3.0mg",
+      "protein": "0.1g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "복숭아아이스티",
+    "nameEn": "Peach Iced Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132446_1717993486995_hvfli27vPn.jpg",
+    "volume": "710ml",
+    "calories": 297.1,
+    "description": "깊은 맛의 홍차와 달콤한 복숭아의 은은한 향이 어우러진 시원한 여름철 인기 음료.",
+    "allergens": [
+      "복숭아",
+      "아황산류"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 297.1,
+      "satFat": "0.0g",
+      "sugar": "62.6g",
+      "sodium": "67.5mg",
+      "protein": "0.1g",
+      "caffeine": "24.0mg"
+    }
+  },
+  {
+    "name": "유자차",
+    "nameEn": "Citron Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105725_1717984645282_YfXeYsJzVV.jpg",
+    "volume": "591ml",
+    "calories": 286.4,
+    "description": "비타민이 가득 든 상큼달콤한 유자를 듬뿍 넣어 향긋한 즐거움을 전하는 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 286.4,
+      "satFat": "0.0g",
+      "sugar": "47.9g",
+      "sodium": "104.0mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "레몬차",
+    "nameEn": "Lemon Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105600_1717984560889__UGBqFya7F.jpg",
+    "volume": "591ml",
+    "calories": 275.5,
+    "description": "상큼한 레몬의 맛과 향을 오롯이 살린 비타민C 가득한 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 275.5,
+      "satFat": "0.0g",
+      "sugar": "56.1g",
+      "sodium": "94.2mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "자몽차",
+    "nameEn": "Grapefruit Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105747_1717984667913_eDh3AjWACb.jpg",
+    "volume": "591ml",
+    "calories": 294,
+    "description": "달콤쌉싸름한 자몽의 조화로운 맛을 한 잔 가득 느낄 수 있는 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 294,
+      "satFat": "0.0g",
+      "sugar": "58.1g",
+      "sodium": "84.2mg",
+      "protein": "0.4g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "허니자몽블랙티",
+    "nameEn": "Honey Grapefruit Black Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610110100_1717984860663_v7Af5f77sc.jpg",
+    "volume": "591ml",
+    "calories": 302.2,
+    "description": "달콤한 꿀청에 재운 자몽에 홍차의 부드러움을 어우른 상큼한 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 302.2,
+      "satFat": "0.0g",
+      "sugar": "53.6g",
+      "sodium": "97.5mg",
+      "protein": "0.6g",
+      "caffeine": "61.5mg"
+    }
+  },
+  {
+    "name": "유자차",
+    "nameEn": "Citron Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610115050_1717987850728_2zPgDAyVmu.jpg",
+    "volume": "710ml",
+    "calories": 303.1,
+    "description": "비타민이 가득 든 상큼달콤한 유자를 듬뿍 넣어 향긋한 즐거움을 전하는 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 303.1,
+      "satFat": "0.0g",
+      "sugar": "59.4g",
+      "sodium": "99.1mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "레몬차",
+    "nameEn": "Lemon Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610114530_1717987530809_R6DsXnSZN_.jpg",
+    "volume": "710ml",
+    "calories": 327.5,
+    "description": "상큼한 레몬의 맛과 향을 오롯이 살린 비타민C 가득한 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 327.5,
+      "satFat": "0.0g",
+      "sugar": "68.9g",
+      "sodium": "101.3mg",
+      "protein": "0.3g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "자몽차",
+    "nameEn": "Grapefruit Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132550_1717993550755_D158pZtb1K.jpg",
+    "volume": "710ml",
+    "calories": 297.6,
+    "description": "달콤쌉싸름한 자몽의 조화로운 맛을 한 잔 가득 느낄 수 있는 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 297.6,
+      "satFat": "0.0g",
+      "sugar": "58.5g",
+      "sodium": "89.1mg",
+      "protein": "0.4g",
+      "caffeine": "0.0mg"
+    }
+  },
+  {
+    "name": "허니자몽블랙티",
+    "nameEn": "Honey Grapefruit Black Tea",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610113215_1717986735582_1qL_k3FLJ6.jpg",
+    "volume": "710ml",
+    "calories": 265.8,
+    "description": "달콤한 꿀청에 재운 자몽에 홍차의 부드러움을 어우른 상큼한 과일티.",
+    "allergens": [],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 265.8,
+      "satFat": "0.0g",
+      "sugar": "42.7g",
+      "sodium": "133.0mg",
+      "protein": "0.4g",
+      "caffeine": "70.9mg"
+    }
+  }
+]

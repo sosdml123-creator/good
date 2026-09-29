@@ -344,42 +344,50 @@ export const calculateProductReviewScore = (
 
 /**
  * Accurately determines if a product is a real new product (신제품).
- * Filters out raw agricultural/marine fresh ingredients, steady-sellers,
- * and classic items that do not represent newly launched food items.
+ * Strictly filters out regular menu items, classic/steady-sellers, and fresh raw produce.
  */
 export const isRealNewProduct = (p: Product): boolean => {
   if (!p) return false;
 
-  // 1. Exclude natural fresh farm/marine produce (fruits, veggies, raw meats/fish) unless specifically a new processed item
+  // 1. Exclude natural fresh farm/marine produce (fruits, veggies, raw meats/fish)
   const isFreshFarmProduce = 
     (p.category === '과일' || p.category === '식재료' || p.category === '고기·수산' || p.itemType === 'fresh' || Boolean(p.produceDetails)) &&
     !p.name.includes('신제품') && !p.name.includes('신상') && p.category !== '신제품';
   if (isFreshFarmProduce) return false;
 
-  // 2. Exclude steady-seller / classic popular banner strings unless specifically new
+  // 2. Exclude classic steady-sellers unless they have explicit recent launch year/tag
   if (p.releaseDate) {
     const rd = p.releaseDate;
-    const isExcluded = 
-      (rd.includes('스테디셀러') || 
-       rd.includes('베스트셀러') || 
-       rd.includes('판매 1위') || 
-       rd.includes('원조') || 
-       rd.includes('대표메뉴') ||
-       rd.includes('공식 전통') ||
-       rd.includes('산지직송')) &&
-      !rd.includes('신제품') && !rd.includes('신상') && !rd.includes('신규') && !rd.includes('2026') && !rd.includes('2025') && !rd.includes('리뉴얼') && !rd.includes('출시');
-    if (isExcluded) return false;
+    const isClassic = 
+      rd.includes('스테디셀러') || 
+      rd.includes('베스트셀러') || 
+      rd.includes('판매 1위') || 
+      rd.includes('원조') || 
+      rd.includes('대표메뉴') ||
+      rd.includes('공식 전통') ||
+      rd.includes('산지직송');
+    
+    const isRecentNew = 
+      rd.includes('신제품') || 
+      rd.includes('신상') || 
+      rd.includes('신규') || 
+      rd.includes('2026') || 
+      rd.includes('2025') || 
+      rd.includes('리뉴얼') || 
+      rd.includes('출시');
+
+    if (isClassic && !isRecentNew) return false;
   }
 
   // 3. Category is explicitly 신제품
   if (p.category === '신제품') return true;
 
-  // 4. Added via crawler / today's new items with isToday or isHot flag
-  if (p.isToday || p.isHot) {
+  // 4. Marked with isToday (today's newly dropped products)
+  if (p.isToday) {
     return true;
   }
 
-  // 5. Release date keywords
+  // 5. Release date contains explicit new launch indicators
   if (p.releaseDate) {
     const rd = p.releaseDate;
     if (
@@ -391,8 +399,14 @@ export const isRealNewProduct = (p: Product): boolean => {
       rd.includes('신메뉴 출시') ||
       rd.includes('한정 출시') ||
       rd.includes('한정판') ||
-      rd.includes('공식') ||
-      /\d{4}[.-]\d{1,2}/.test(rd)
+      rd.includes('시즌한정') ||
+      rd.includes('2026') ||
+      rd.includes('2025') ||
+      rd.includes('2024.1') ||
+      rd.includes('2024.2') ||
+      rd.includes('2024-1') ||
+      rd.includes('2024-2') ||
+      /\d{4}[.-]\d{1,2}\s*(신규|출시|신상)/.test(rd)
     ) {
       return true;
     }
@@ -426,21 +440,21 @@ export const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 /**
- * Returns a balanced, randomly shuffled list of new products.
- * Prevents monochromatic grouping (e.g. 10 bakery items in a row) by grouping
- * products across various categories/brands and interleaving them in a round-robin order.
+ * Returns a balanced, randomly shuffled list of ONLY real new products.
+ * Never includes regular/classic products. Shuffles within the new product pool
+ * across categories so users always discover fresh, diverse newly released items.
  */
 export const getBalancedShuffledNewProducts = (
   products: Product[],
   categoryFilter: string = '전체'
 ): Product[] => {
+  // STRICTLY filter only authentic new products
   const allNew = products.filter(p => isRealNewProduct(p));
-  const pool = allNew.length >= 10 ? allNew : products;
 
-  // Filter if category is specified
-  const filtered = categoryFilter === '전체'
-    ? pool
-    : pool.filter((p) => {
+  // Filter by category if specified
+  const filteredNew = categoryFilter === '전체'
+    ? allNew
+    : allNew.filter((p) => {
         if (categoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
         if (categoryFilter === '음료') return p.category === '음료';
         if (categoryFilter === '빵·디저트') return p.category === '빵·디저트';
@@ -450,11 +464,11 @@ export const getBalancedShuffledNewProducts = (
         return p.category === categoryFilter;
       });
 
-  if (filtered.length <= 1) return filtered;
+  if (filteredNew.length <= 1) return filteredNew;
 
-  // Group by category to achieve rich diversity
+  // Group by category to achieve rich diversity among new products
   const groups: Record<string, Product[]> = {};
-  for (const p of filtered) {
+  for (const p of filteredNew) {
     const cat = p.category || '기타';
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(p);

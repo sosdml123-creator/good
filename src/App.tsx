@@ -35,7 +35,8 @@ const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupMod
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
 import { checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
-import { initAdMob } from './services/admobService';
+import { initAdMob, showHomeBannerAd, hideBannerAd, resumeBannerAd } from './services/admobService';
+import { Capacitor } from '@capacitor/core';
 
 // Minimal fallback spinner shown during lazy load
 const TabFallback = () => (
@@ -49,20 +50,35 @@ export const App: React.FC = () => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
   const mainRef = useRef<HTMLElement>(null);
 
-  // App Mount: Initialize AdMob in background
+  // App Mount: Initialize AdMob and show native banner on iOS/Android
   useEffect(() => {
-    initAdMob().catch((err) => {
-      console.warn('[App] AdMob initialization notice:', err);
-    });
+    if (Capacitor.isNativePlatform()) {
+      showHomeBannerAd().catch((err) => {
+        console.warn('[App] Native AdMob banner notice:', err);
+      });
+    } else {
+      initAdMob().catch((err) => {
+        console.warn('[App] AdMob initialization notice:', err);
+      });
+    }
   }, []);
 
-  // 탭 변경 시 main 스크롤 컨테이너를 맨 위로 리셋하여 빈 화면 노출 방지
+  // 탭 변경 시 main 스크롤 컨테이너 리셋 및 네이티브 배너 가시성 관리
   useEffect(() => {
     if (mainRef.current) {
       mainRef.current.scrollTop = 0;
     }
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
+    }
+
+    if (Capacitor.isNativePlatform()) {
+      const modalTabs = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
+      if (modalTabs.includes(activeTab)) {
+        hideBannerAd().catch(() => {});
+      } else {
+        resumeBannerAd().catch(() => {});
+      }
     }
   }, [activeTab]);
 

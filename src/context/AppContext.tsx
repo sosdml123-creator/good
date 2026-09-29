@@ -46,7 +46,8 @@ import {
   isDailyCrawlNeeded,
   markDailyCrawlDone,
   PENDING_PRODUCTS_STORAGE_KEY,
-  LAST_CRAWL_STORAGE_KEY
+  LAST_CRAWL_STORAGE_KEY,
+  REAL_NEW_PRODUCTS_DATABASE
 } from '../services/productCrawler';
 import { fetchKamisDailyPrices, applyKamisPricesToProducts } from '../services/kamisApi';
 import { revalidatePendingProductList } from '../services/naverApi';
@@ -5018,8 +5019,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // 1. 오늘의 실제 신제품 일일 크롤링 실행
   const runDailyCrawler = async (force: boolean = false): Promise<{ count: number }> => {
     setIsCrawling(true);
+    showToast('⚡ 편의점 및 식품사 오늘 신제품 수집을 시작합니다...', 'info');
     try {
       const today = new Date().toISOString().split('T')[0];
+      const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
       const crawled = await fetchDailyNewProducts(today);
       
       // 기존 대기목록, 이미 출시된 제품, 관리자가 반려한 제품(이름 기준) 중복 필터링
@@ -5027,12 +5030,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim().toLowerCase()));
       const rejectedSet = new Set(rejectedPendingProductNames.map(n => n.trim().toLowerCase()));
 
-      const uniqueNewItems = crawled.filter(item => {
+      let uniqueNewItems = crawled.filter(item => {
         const clean = item.name.trim().toLowerCase();
         return !existingProductNames.has(clean) &&
                !existingPendingNames.has(clean) &&
                !rejectedSet.has(clean);
       });
+
+      // 만약 crawled에서 유효한 새 상품이 부족하면 REAL_NEW_PRODUCTS_DATABASE에서 아직 등록되지 않은 상품을 찾아 보충
+      if (uniqueNewItems.length === 0) {
+        const fallbackCandidates = REAL_NEW_PRODUCTS_DATABASE.filter(item => {
+          const clean = item.name.trim().toLowerCase();
+          return !existingProductNames.has(clean) &&
+                 !existingPendingNames.has(clean) &&
+                 !rejectedSet.has(clean);
+        });
+
+        if (fallbackCandidates.length > 0) {
+          const count = Math.min(6, fallbackCandidates.length);
+          uniqueNewItems = fallbackCandidates.slice(0, count).map((raw, i) => ({
+            ...raw,
+            id: `pending-db-${Date.now()}-${i}`,
+            crawledAt: `${today} ${nowTime}`,
+            status: 'pending' as const,
+          }));
+        }
+      }
 
       if (uniqueNewItems.length > 0) {
         setPendingProducts(prev => [...uniqueNewItems, ...prev]);
@@ -5043,10 +5066,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } else {
         if (force) {
           // 강제 수집인 경우 타임스탬프를 갱신하여 추가
-          const forcedItems = crawled.slice(0, 3).map((item, i) => ({
+          const forcedItems = (crawled.length > 0 ? crawled : REAL_NEW_PRODUCTS_DATABASE).slice(0, 3).map((item, i) => ({
             ...item,
             id: `pending-forced-${Date.now()}-${i}`,
-            crawledAt: `${today} ${new Date().toLocaleTimeString('ko-KR', { hour12: false })}`,
+            crawledAt: `${today} ${nowTime}`,
             status: 'pending' as const
           }));
           setPendingProducts(prev => [...forcedItems, ...prev]);

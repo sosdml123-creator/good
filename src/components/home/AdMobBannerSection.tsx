@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HomeSectionConfig } from '../../types';
-import { ADMOB_CONFIG, initAdMob } from '../../services/admobService';
+import { ADMOB_CONFIG, showHomeBannerAd } from '../../services/admobService';
 import { Capacitor } from '@capacitor/core';
 
 interface AdMobBannerSectionProps {
@@ -14,19 +14,21 @@ declare global {
 }
 
 export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section }) => {
+  const isNative = Capacitor.isNativePlatform();
   const adRef = useRef<HTMLModElement>(null);
   const [adStatus, setAdStatus] = useState<'loading' | 'filled' | 'unfilled'>('loading');
   const pushedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // 1. Native platform (iOS/Android): AdMob SDK initialization
-    if (Capacitor.isNativePlatform()) {
-      initAdMob().catch((err) => {
-        console.warn('[AdMobBannerSection] Native AdMob init notice:', err);
+    // 1. Native platform (iOS/Android): Show official AdMob Banner as per iOS guide
+    if (isNative) {
+      showHomeBannerAd().catch((err) => {
+        console.warn('[AdMobBannerSection] Native AdMob show notice:', err);
       });
+      return;
     }
 
-    // 2. Load Google Ad SDK script if not already present
+    // 2. Web platform: Load Google Ad SDK script if not already present
     if (typeof window !== 'undefined' && !document.getElementById('google-adsense-sdk')) {
       const script = document.createElement('script');
       script.id = 'google-adsense-sdk';
@@ -36,7 +38,7 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
       document.head.appendChild(script);
     }
 
-    // 3. Push ad request safely after mount
+    // 3. Push web ad request safely after mount
     const timer = setTimeout(() => {
       try {
         if (adRef.current && !pushedRef.current) {
@@ -51,7 +53,7 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
       }
     }, 250);
 
-    // 4. Observe ad slot status to handle filled/unfilled states without empty gaps
+    // 4. Observe ad slot status
     let observer: MutationObserver | null = null;
     if (adRef.current && typeof MutationObserver !== 'undefined') {
       observer = new MutationObserver(() => {
@@ -73,16 +75,21 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
       clearTimeout(timer);
       if (observer) observer.disconnect();
     };
-  }, []);
+  }, [isNative]);
 
-  // Google AdMob 정책 준수: 광고 미로드(unfilled) 시 빈 공백/깨진 상자를 노출하지 않고 영역 자동 축소
+  // On Native iOS: The official GADBannerView anchored banner is displayed natively.
+  // Returning null here prevents empty/duplicate gaps in the scrollable feed.
+  if (isNative) {
+    return null;
+  }
+
+  // Google AdMob/AdSense 정책 준수: 미로드 시 빈 박스 방지
   if (adStatus === 'unfilled') {
     return null;
   }
 
   return (
     <div key="ad_banner" className="bg-white py-2.5 px-4 border-b border-gray-100 transition-all duration-300">
-      {/* 구좌 헤더: 표준 광고(AD) 고지 (정책 준수: 불필요한 홍보/유도 문구 제거) */}
       <div className="flex items-center justify-between mb-1.5">
         <div className="flex items-center gap-1.5">
           <span className="text-[9px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">
@@ -94,7 +101,6 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
         </div>
       </div>
 
-      {/* Google AdMob / AdSense 공식 배너 광고 슬롯 */}
       <div
         id="admob-banner-container"
         data-ad-unit={ADMOB_CONFIG.bannerAdUnitId}

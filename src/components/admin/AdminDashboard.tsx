@@ -565,16 +565,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const filteredPendingProducts = pendingProducts.filter(item => {
     if (item.status !== 'pending') return false;
     if (pendingCategoryFilter !== '전체' && item.category !== pendingCategoryFilter) return false;
+    if (pendingSourceFilter !== '전체') {
       const srcName = item.sourceName || '';
+      const stores = item.stores || [];
       if (pendingSourceFilter === '공식몰') {
         if (!srcName.includes('공식') && !srcName.includes('몰') && !srcName.includes('스토어') && !srcName.includes('마켓')) return false;
       } else if (pendingSourceFilter === '인스타그램') {
         if (!srcName.includes('인스타') && !srcName.includes('@')) return false;
       } else if (pendingSourceFilter === '보도자료') {
         if (!srcName.includes('뉴스') && !srcName.includes('보도자료') && !srcName.includes('발표')) return false;
-      } else if (!srcName.includes(pendingSourceFilter)) {
-        return false;
+      } else {
+        const matchesSource = srcName.includes(pendingSourceFilter);
+        const matchesStore = stores.some(s => s.includes(pendingSourceFilter));
+        if (!matchesSource && !matchesStore) return false;
       }
+    }
     if (crawlerSearchQuery.trim()) {
       const q = crawlerSearchQuery.toLowerCase();
       return item.name.toLowerCase().includes(q) || item.brand.toLowerCase().includes(q);

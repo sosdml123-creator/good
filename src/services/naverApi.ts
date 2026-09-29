@@ -644,7 +644,7 @@ export const callNaverApi = async (
 ): Promise<NaverSearchResponse> => {
   const apiUrl = `/api/naver?type=${type}&query=${encodeURIComponent(query)}&display=${display}${sort ? `&sort=${sort}` : ''}`;
   
-  const res = await fetchWithTimeout(apiUrl, undefined, 10000);
+  const res = await fetchWithTimeout(apiUrl, undefined, 4000);
   if (!res.ok) {
     throw new Error(`Naver API (${type}) failed with status: ${res.status}`);
   }
@@ -1159,24 +1159,31 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
  * (Powered by NAVER Shopping Image Search + DataLab Shopping Insight + Verified Database)
  */
 export const fetchDailyRealNewProducts = async (): Promise<PendingProduct[]> => {
-  const trendingList = await getShoppingInsightTrendingKeywords();
-  const topKeywords = trendingList.slice(0, 3).map(t => `${t.relatedBrand || ''} ${t.keyword}`.trim());
+  let trendingList: TrendingKeywordInsight[] = [];
+  try {
+    trendingList = await getShoppingInsightTrendingKeywords();
+  } catch (e) {
+    // ignore
+  }
+  const topKeywords = (trendingList || []).slice(0, 2).map(t => `${t.relatedBrand || ''} ${t.keyword}`.trim());
 
   const targetKeywords = [
     ...topKeywords,
     '편의점 신제품 출시',
-    '신상 디저트 출시',
     '신제품 라면 출시',
     '신제품 과자 출시',
     '신제품 음료 출시'
-  ];
+  ].filter(Boolean);
 
   const allProducts: PendingProduct[] = [];
   const seenNames = new Set<string>();
 
+  let consecutiveErrors = 0;
   for (const kw of targetKeywords) {
+    if (consecutiveErrors >= 2) break; // API 미연결 시 바로 내부 고품질 DB로 전환
     try {
       const items = await searchRealNewProducts(kw);
+      consecutiveErrors = 0;
       for (const item of items) {
         const norm = item.name.replace(/\s+/g, '').toLowerCase();
         if (!seenNames.has(norm)) {
@@ -1186,7 +1193,8 @@ export const fetchDailyRealNewProducts = async (): Promise<PendingProduct[]> => 
       }
       if (allProducts.length >= 10) break;
     } catch (err) {
-      console.error('Error during daily crawl for keyword:', kw, err);
+      consecutiveErrors++;
+      console.warn('Error during daily crawl for keyword:', kw, err);
     }
   }
 

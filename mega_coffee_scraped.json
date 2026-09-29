@@ -1,0 +1,165 @@
+[
+  {
+    "name": "하우스밀크 라떼",
+    "nameEn": "House Milk Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20260902203101_1788348661533_weMnhAbV2Q.jpg",
+    "volume": "591ml",
+    "calories": 328,
+    "description": "메가MGC커피만의 하우스밀크로 고소하고 부드러운 맛과 은은한 단맛은 더하고 깊은 풍미의 에스프레소 샷을 블렌딩해 더욱 조화로운 밸런스를 완성한 카페라떼",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 328,
+      "satFat": "19.8g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "블루베리요거트스무디",
+    "nameEn": "Blueberry Yogurt Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20250320003134_1742398294871_z9t_oXfbA6.jpg",
+    "volume": "591ml",
+    "calories": 531.8,
+    "description": "새콤달콤한 블루베리와 산뜻한 요거트가 만나 조화로운 스무디",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 531.8,
+      "satFat": "2.5",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "골드망고스무디",
+    "nameEn": "Gold Mango Smoothie",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610112826_1717986506337_AauGwyguRG.jpg",
+    "volume": "591ml",
+    "calories": 209.5,
+    "description": "황금빛 골드망고가 진하게 느껴지는 부드럽고 상큼 달콤한 스무디",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 209.5,
+      "satFat": "0.1g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "디카페인 꿀아메리카노",
+    "nameEn": "Decaf Honey Americano",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610131949_1717993189396_pb_H77_7AM.jpg",
+    "volume": "710ml",
+    "calories": 137.4,
+    "description": "디카페인 아메리카노의 묵직한 바디감에 달콤한 사양벌꿀이 소프트하게 어우러진 커피.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 137.4,
+      "satFat": "0.1g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "토피넛라떼",
+    "nameEn": "Toffeenut Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105954_1717984794244_2JeEMNYiCL.jpg",
+    "volume": "591ml",
+    "calories": 373.1,
+    "description": "은은하게 퍼지는 카라멜의 달달한 향기와 견과의 고소함을 한입에 즐길 수 있는 라떼.",
+    "allergens": [
+      "우유",
+      "대두"
+    ],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 373.1,
+      "satFat": "8.1g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "연유라떼",
+    "nameEn": "Condensed milk Latte",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610105712_1717984632188_Lqh27degWu.jpg",
+    "volume": "591ml",
+    "calories": 321.6,
+    "description": "향기로운 에스프레소 샷, 부드러운 우유 그리고 달콤한 연유가 조화롭게 어우러진 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 321.6,
+      "satFat": "6.4g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "큐브라떼",
+    "nameEn": "Cube Latte",
+    "tempLabel": "ICE",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610132523_1717993523193_4mNdkfnxvz.jpg",
+    "volume": "591ml",
+    "calories": 304.4,
+    "description": "연유를 섞은 라떼에 에스프레소를 얼린 커피큐브를 올려, 녹을수록 더 진한 커피가 느껴지는 라떼.",
+    "allergens": [
+      "우유"
+    ],
+    "hasCaffeineWarning": true,
+    "nutrition": {
+      "calories": 304.4,
+      "satFat": "7.8g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  },
+  {
+    "name": "녹차",
+    "nameEn": "Green Tea",
+    "tempLabel": "HOT",
+    "image": "https://img.79plus.co.kr/megahp/manager/upload/menu/20240610104441_1717983881331_6kaOJy5ayw.jpg",
+    "volume": "591ml",
+    "calories": 0.7,
+    "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차.",
+    "allergens": [],
+    "hasCaffeineWarning": false,
+    "nutrition": {
+      "calories": 0.7,
+      "satFat": "0.0g",
+      "sugar": "",
+      "sodium": "",
+      "protein": "",
+      "caffeine": ""
+    }
+  }
+]

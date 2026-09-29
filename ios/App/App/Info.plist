@@ -71,8 +71,6 @@
 	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3878859120989916~2898554632</string>
-	<key>GADIntegrationManager</key>
-	<string>webview</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
