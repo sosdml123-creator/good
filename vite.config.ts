@@ -91,6 +91,53 @@ export default defineConfig(({ mode }) => {
             }
           });
         }
+      },
+      {
+        name: 'naver-api-middleware',
+        configureServer(server) {
+          server.middlewares.use('/api/naver', async (req, res) => {
+            try {
+              const handlerModule = await import('./api/naver.js');
+              const handler = handlerModule.default;
+              const url = new URL(req.url || '', `http://${req.headers.host}`);
+              const query = Object.fromEntries(url.searchParams.entries());
+
+              let body = '';
+              req.on('data', chunk => {
+                body += chunk;
+              });
+              req.on('end', async () => {
+                const fakeRes = {
+                  statusCode: 200,
+                  headers: {},
+                  setHeader(name, val) {
+                    this.headers[name] = val;
+                    res.setHeader(name, val);
+                  },
+                  status(code) {
+                    this.statusCode = code;
+                    res.statusCode = code;
+                    return this;
+                  },
+                  json(data) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify(data));
+                  },
+                  end(data) {
+                    res.end(data);
+                  }
+                };
+
+                await handler({ query, method: req.method, headers: req.headers, body }, fakeRes);
+              });
+            } catch (err) {
+              console.error('NAVER API middleware error:', err);
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+        }
       }
     ],
     build: {
@@ -147,23 +194,6 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       host: true,
-      proxy: {
-        '/api/naver': {
-          target: 'https://naverapihub.apigw.ntruss.com',
-          changeOrigin: true,
-          rewrite: (path) => {
-            const url = new URL(path, 'http://localhost');
-            const type = url.searchParams.get('type') || 'news';
-            url.searchParams.delete('type');
-            const search = url.searchParams.toString();
-            return `/search/v1/${type}${search ? `?${search}` : ''}`;
-          },
-          headers: {
-            'X-NCP-APIGW-API-KEY-ID': clientId,
-            'X-NCP-APIGW-API-KEY': clientSecret,
-          },
-        },
-      },
     },
   };
 });
