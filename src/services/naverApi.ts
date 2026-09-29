@@ -402,6 +402,16 @@ export const isClickbaitOrInvalidName = (text: string): { isInvalid: boolean; re
   return { isInvalid: false };
 };
 
+// Helper to safely strip trailing particles without corrupting nouns ending in '이' (초코파이, 떡볶이, 송이 등)
+export const stripTrailingKoreanParticle = (text: string): string => {
+  const clean = text.trim();
+  const preserveSuffixes = /(?:파이|볶이|구이|송이|피스타치오|소시지|소세지|마요|초코|라떼|쿠키|젤리|카레|짜장|김밥|유부|모나카|젤라또|쇼콜라)$/;
+  if (preserveSuffixes.test(clean)) {
+    return clean.replace(/(?:를|을|은|는|와|과|도)$/, '').trim();
+  }
+  return clean.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
+};
+
 /**
  * Extract clean and accurate product name from news title & description
  * Prioritizes launch patterns & quoted noun phrases.
@@ -422,16 +432,6 @@ export const extractProductName = (
                .replace(/\<[^\>]*\>/g, ' ')
                .replace(/\s+/g, ' ')
                .trim();
-
-// Helper to safely strip trailing particles without corrupting nouns ending in '이' (초코파이, 떡볶이, 송이 등)
-export const stripTrailingKoreanParticle = (text: string): string => {
-  const clean = text.trim();
-  const preserveSuffixes = /(?:파이|볶이|구이|송이|피스타치오|소시지|소세지|마요|초코|라떼|쿠키|젤리|카레|짜장|김밥|유부|모나카|젤라또|쇼콜라)$/;
-  if (preserveSuffixes.test(clean)) {
-    return clean.replace(/(?:를|을|은|는|와|과|도)$/, '').trim();
-  }
-  return clean.replace(/(?:를|을|은|는|이|가|와|과|도)$/, '').trim();
-};
 
   // 2. Priority a & b: Extract from Title Quotes: '신라면 툼바', "연세우유 밤티라미수", ‘비쵸비 딸기’
   const titleQuotes = title.match(/['‘"“]([^'’”"]{2,30})['’”"]/g);

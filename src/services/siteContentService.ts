@@ -52,13 +52,13 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
       );
 
       if (!sysErr && sysData && sysData.nutrition) {
-        if (Array.isArray(sysData.nutrition.banners) && sysData.nutrition.banners.length > 0) {
+        if (Array.isArray(sysData.nutrition.banners)) {
           banners = sysData.nutrition.banners;
         }
-        if (Array.isArray(sysData.nutrition.homeSections) && sysData.nutrition.homeSections.length > 0) {
+        if (Array.isArray(sysData.nutrition.homeSections)) {
           homeSections = sysData.nutrition.homeSections;
         }
-        if (Array.isArray(sysData.nutrition.salePromotions) && sysData.nutrition.salePromotions.length > 0) {
+        if (Array.isArray(sysData.nutrition.salePromotions)) {
           salePromotions = sysData.nutrition.salePromotions;
         }
         if (Array.isArray(sysData.nutrition.deletedProductIds)) {
@@ -74,8 +74,8 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  // 2. Fallback to /api/site-content if Supabase didn't return banners
-  if (!banners) {
+  // 2. Fallback to /api/site-content if Supabase didn't return banners record
+  if (banners === null) {
     try {
       const apiEndpoint = Capacitor.isNativePlatform() 
         ? 'https://sinsangpick.vercel.app/api/site-content' 
@@ -85,19 +85,19 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
       }, 5000);
       if (apiRes.ok) {
         const json = await apiRes.json();
-        if (json.banners && Array.isArray(json.banners)) {
+        if (json.banners !== undefined && Array.isArray(json.banners)) {
           banners = json.banners;
         }
-        if (json.homeSections && Array.isArray(json.homeSections)) {
+        if (json.homeSections !== undefined && Array.isArray(json.homeSections)) {
           homeSections = json.homeSections;
         }
-        if (json.salePromotions && Array.isArray(json.salePromotions)) {
+        if (json.salePromotions !== undefined && Array.isArray(json.salePromotions)) {
           salePromotions = json.salePromotions;
         }
-        if (json.deletedProductIds && Array.isArray(json.deletedProductIds)) {
+        if (json.deletedProductIds !== undefined && Array.isArray(json.deletedProductIds)) {
           deletedProductIds = json.deletedProductIds;
         }
-        if (json.deletedBannerIds && Array.isArray(json.deletedBannerIds)) {
+        if (json.deletedBannerIds !== undefined && Array.isArray(json.deletedBannerIds)) {
           deletedBannerIds = json.deletedBannerIds;
         }
         if (json.lastUpdated) {

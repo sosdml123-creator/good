@@ -1168,15 +1168,16 @@ export const smartMergeProducts = (
   const storedMap = new Map<string, Product>();
   storedProducts.filter(p => !deletedSet.has(p.id)).forEach(p => storedMap.set(p.id, p));
 
-  // 1. Update all official products with latest code updates while preserving ratings if available
+  // 1. Merge official products preserving admin modifications (name, price, image, stores, nutrition, isToday, isHot, etc.)
   const mergedOfficial: Product[] = validInitial.map(initP => {
     const stored = storedMap.get(initP.id);
     if (stored) {
       return {
         ...initP,
-        overallRating: stored.overallRating ?? 0,
-        ratingCount: stored.ratingCount ?? 0,
-        detailedRating: stored.detailedRating || initP.detailedRating,
+        ...stored,
+        overallRating: 0,
+        ratingCount: 0,
+        // Keep KAMIS price info if available
         kamisPriceInfo: stored.kamisPriceInfo || initP.kamisPriceInfo,
       };
     }
@@ -1561,7 +1562,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [events, setEvents] = useState<PromotionEvent[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_events');
-      return stored ? JSON.parse(stored) : INITIAL_EVENTS;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return INITIAL_EVENTS;
     } catch {
       return INITIAL_EVENTS;
     }
@@ -1573,7 +1577,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [notifications, setNotifications] = useState<AppNotification[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_notifications');
-      return stored ? JSON.parse(stored) : INITIAL_NOTIFICATIONS;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return INITIAL_NOTIFICATIONS;
     } catch {
       return INITIAL_NOTIFICATIONS;
     }
@@ -1611,7 +1618,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [brands, setBrands] = useState<BrandInfo[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_brands_v1');
-      return stored ? JSON.parse(stored) : POPULAR_BRANDS;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return POPULAR_BRANDS;
     } catch {
       return POPULAR_BRANDS;
     }
@@ -1629,7 +1639,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [storeChannels, setStoreChannels] = useState<StoreChannelInfo[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_stores_v1');
-      return stored ? JSON.parse(stored) : INITIAL_STORE_CHANNELS;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return INITIAL_STORE_CHANNELS;
     } catch {
       return INITIAL_STORE_CHANNELS;
     }
@@ -1647,7 +1660,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [calendarItems, setCalendarItems] = useState<ReleaseCalendarItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_calendar_v1');
-      return stored ? JSON.parse(stored) : INITIAL_CALENDAR_ITEMS;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return INITIAL_CALENDAR_ITEMS;
     } catch {
       return INITIAL_CALENDAR_ITEMS;
     }
@@ -1674,9 +1690,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [salePromotions, setSalePromotions] = useState<SalePromotionItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_sales_v1');
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           return parsed;
         }
       }
@@ -1707,7 +1723,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [recipes, setRecipes] = useState<RecipePost[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_recipes');
-      return stored ? JSON.parse(stored) : INITIAL_RECIPES;
+      if (stored !== null) {
+        return JSON.parse(stored);
+      }
+      return INITIAL_RECIPES;
     } catch {
       return INITIAL_RECIPES;
     }
@@ -1720,9 +1739,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_all_profiles');
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch {
       // ignore
@@ -1733,9 +1752,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [pointTransactions, setPointTransactions] = useState<PointTransaction[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_point_transactions');
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch {
       // ignore
@@ -1747,9 +1766,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [reports, setReports] = useState<ReportItem[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_reports');
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch {
       // ignore
@@ -1761,9 +1780,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [productEditRequests, setProductEditRequests] = useState<ProductEditRequest[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_product_edit_requests');
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch {
       // ignore
@@ -1873,6 +1892,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     safeSetItem('sinsangpick_notifications', JSON.stringify(notifications));
   }, [notifications]);
+
+  useEffect(() => {
+    safeSetItem('sinsangpick_recipes', JSON.stringify(recipes));
+  }, [recipes]);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -2015,7 +2038,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setHomeSections(mergedSections);
         safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSections));
       }
-      if (remote.salePromotions !== null && Array.isArray(remote.salePromotions) && remote.salePromotions.length > 0) {
+      if (remote.salePromotions !== null && Array.isArray(remote.salePromotions)) {
         setSalePromotions(remote.salePromotions);
         safeSetItem('sinsangpick_sales_v1', JSON.stringify(remote.salePromotions));
       }
@@ -2097,7 +2120,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setHomeSections(mergedSec);
           safeSetItem('sinsangpick_home_sections', JSON.stringify(mergedSec));
         }
-        if (systemBannerRecord.nutrition.salePromotions !== undefined && Array.isArray(systemBannerRecord.nutrition.salePromotions) && systemBannerRecord.nutrition.salePromotions.length > 0) {
+        if (systemBannerRecord.nutrition.salePromotions !== undefined && Array.isArray(systemBannerRecord.nutrition.salePromotions)) {
           setSalePromotions(systemBannerRecord.nutrition.salePromotions);
           safeSetItem('sinsangpick_sales_v1', JSON.stringify(systemBannerRecord.nutrition.salePromotions));
         }
@@ -2122,8 +2145,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_deleted_products', JSON.stringify(mergedDeletedIds));
       const deletedSet = new Set(mergedDeletedIds);
 
+      // Fetch stored local products to preserve any local edits
+      let storedLocalProducts: Product[] | null = null;
+      try {
+        const s = localStorage.getItem('sinsangpick_products');
+        if (s) storedLocalProducts = JSON.parse(s);
+      } catch {}
+
       if (!dbProducts || dbProducts.length === 0) {
-        setProducts(syncProductRatingsWithReviews(INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)), reviews));
+        const baseInitial = smartMergeProducts(storedLocalProducts, INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)), mergedDeletedIds);
+        setProducts(syncProductRatingsWithReviews(baseInitial, reviews));
       } else {
         // Filter INITIAL_PRODUCTS by deletedSet and merge DB fields
         const mergedInitial = INITIAL_PRODUCTS
@@ -2135,7 +2166,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               return {
                 ...initial,
                 ...mapped,
-                discountRate: undefined,
+                discountRate: mapped.discountRate !== undefined ? mapped.discountRate : initial.discountRate,
                 image: isAgriMarineProduct(initial) ? initial.image : (mapped.image && !mapped.image.includes('unsplash') ? mapped.image : initial.image),
                 nutrition: mapped.nutrition || initial.nutrition,
                 ingredients: mapped.ingredients || initial.ingredients,
@@ -2157,7 +2188,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           .filter((dbP: any) => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
           .map((dbP: any) => mapDBProductToProduct(dbP));
 
-        setProducts(syncProductRatingsWithReviews([...mergedInitial, ...extraDbProducts], reviews));
+        const combinedProducts = smartMergeProducts(storedLocalProducts, [...mergedInitial, ...extraDbProducts], mergedDeletedIds);
+        setProducts(syncProductRatingsWithReviews(combinedProducts, reviews));
       }
 
       // 2. Fetch User Likes
@@ -4203,34 +4235,50 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isParticipated: false,
       createdAt: new Date().toISOString(),
     };
-    setEvents(prev => [newEvent, ...prev]);
+    setEvents(prev => {
+      const next = [newEvent, ...prev];
+      safeSetItem('sinsangpick_events', JSON.stringify(next));
+      return next;
+    });
     showToast(`🎉 '${newEvent.title}' 이벤트가 성공적으로 등록되었습니다!`, 'success');
   };
 
   // Update Event
   const updateEvent = (id: string, updated: Partial<PromotionEvent>) => {
-    setEvents(prev => prev.map(e => e.id === id ? { ...e, ...updated } : e));
+    setEvents(prev => {
+      const next = prev.map(e => e.id === id ? { ...e, ...updated } : e);
+      safeSetItem('sinsangpick_events', JSON.stringify(next));
+      return next;
+    });
     showToast('이벤트 정보가 수정되었습니다.', 'success');
   };
 
   // Delete Event
   const deleteEvent = (id: string) => {
-    setEvents(prev => prev.filter(e => e.id !== id));
+    setEvents(prev => {
+      const next = prev.filter(e => e.id !== id);
+      safeSetItem('sinsangpick_events', JSON.stringify(next));
+      return next;
+    });
     showToast('이벤트가 삭제되었습니다.', 'info');
   };
 
   // Participate in Event
   const participateInEvent = (eventId: string) => {
-    setEvents(prev => prev.map(e => {
-      if (e.id === eventId) {
-        return {
-          ...e,
-          isParticipated: true,
-          participantsCount: (e.participantsCount || 0) + 1,
-        };
-      }
-      return e;
-    }));
+    setEvents(prev => {
+      const next = prev.map(e => {
+        if (e.id === eventId) {
+          return {
+            ...e,
+            isParticipated: true,
+            participantsCount: (e.participantsCount || 0) + 1,
+          };
+        }
+        return e;
+      });
+      safeSetItem('sinsangpick_events', JSON.stringify(next));
+      return next;
+    });
     const nextPoints = currentUser.points + 50;
     setCurrentUser(prev => ({
       ...prev,
@@ -4265,7 +4313,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     // 로컬 상태 즉시 반영 (관리자 본인 화면에 즉각 표시)
-    setNotifications(prev => [newNotif, ...prev]);
+    setNotifications(prev => {
+      const next = [newNotif, ...prev];
+      safeSetItem('sinsangpick_notifications', JSON.stringify(next));
+      return next;
+    });
     setIncomingPush(newNotif);
 
     // Native Browser Notification Trigger if supported & granted
@@ -4316,11 +4368,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const markNotificationAsRead = (id: string) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+    setNotifications(prev => {
+      const next = prev.map(n => n.id === id ? { ...n, isRead: true } : n);
+      safeSetItem('sinsangpick_notifications', JSON.stringify(next));
+      return next;
+    });
   };
 
   const deleteNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications(prev => {
+      const next = prev.filter(n => n.id !== id);
+      safeSetItem('sinsangpick_notifications', JSON.stringify(next));
+      return next;
+    });
     showToast('알림 항목이 삭제되었습니다.', 'info');
   };
 
@@ -4616,10 +4676,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Update Product
   const updateProduct = (id: string, updated: Partial<Product>) => {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p));
-    const target = products.find(p => p.id === id);
-    if (target) {
-      saveRemoteProduct({ ...target, ...updated }).catch(() => {});
+    let updatedTarget: Product | null = null;
+    setProducts(prev => {
+      const next = prev.map(p => {
+        if (p.id === id) {
+          updatedTarget = { ...p, ...updated };
+          return updatedTarget;
+        }
+        return p;
+      });
+      safeSetItem('sinsangpick_products', JSON.stringify(next));
+      return next;
+    });
+    if (updatedTarget) {
+      saveRemoteProduct(updatedTarget).catch(() => {});
     }
     showToast('상품 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
   };
@@ -4632,7 +4702,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
     saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
-    setProducts(prev => prev.filter(p => p.id !== id));
+    setProducts(prev => {
+      const next = prev.filter(p => p.id !== id);
+      safeSetItem('sinsangpick_products', JSON.stringify(next));
+      return next;
+    });
     deleteRemoteProduct(id).catch(() => {});
     showToast('상품이 삭제되었습니다. (클라우드 동기화 완료)', 'info');
   };
@@ -4647,40 +4721,58 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
     const idSet = new Set(ids);
-    setProducts(prev => prev.filter(p => !idSet.has(p.id)));
+    setProducts(prev => {
+      const next = prev.filter(p => !idSet.has(p.id));
+      safeSetItem('sinsangpick_products', JSON.stringify(next));
+      return next;
+    });
     deleteRemoteProducts(ids).catch(() => {});
     showToast(`선택한 ${ids.length}개의 상품이 삭제되었습니다. (클라우드 동기화 완료)`, 'info');
   };
 
   // Toggle Product Today
   const toggleProductToday = (id: string) => {
-    setProducts(prev => prev.map(p => {
-      if (p.id === id) {
-        const nextToday = !p.isToday;
-        saveRemoteProduct({ ...p, isToday: nextToday }).catch(() => {});
-        return { ...p, isToday: nextToday };
-      }
-      return p;
-    }));
+    setProducts(prev => {
+      const next = prev.map(p => {
+        if (p.id === id) {
+          const nextToday = !p.isToday;
+          const updated = { ...p, isToday: nextToday };
+          saveRemoteProduct(updated).catch(() => {});
+          return updated;
+        }
+        return p;
+      });
+      safeSetItem('sinsangpick_products', JSON.stringify(next));
+      return next;
+    });
     showToast('오늘의 신상 상태가 변경되었습니다.', 'info');
   };
 
   // Toggle Product Hot
   const toggleProductHot = (id: string) => {
-    setProducts(prev => prev.map(p => {
-      if (p.id === id) {
-        const nextHot = !p.isHot;
-        saveRemoteProduct({ ...p, isHot: nextHot }).catch(() => {});
-        return { ...p, isHot: nextHot };
-      }
-      return p;
-    }));
+    setProducts(prev => {
+      const next = prev.map(p => {
+        if (p.id === id) {
+          const nextHot = !p.isHot;
+          const updated = { ...p, isHot: nextHot };
+          saveRemoteProduct(updated).catch(() => {});
+          return updated;
+        }
+        return p;
+      });
+      safeSetItem('sinsangpick_products', JSON.stringify(next));
+      return next;
+    });
     showToast('인기 상품 상태가 변경되었습니다.', 'info');
   };
 
   // Update Battle Config
   const updateBattleConfig = (config: Partial<BattleConfig>) => {
-    setBattleConfig(prev => ({ ...prev, ...config }));
+    setBattleConfig(prev => {
+      const next = { ...prev, ...config };
+      safeSetItem('sinsangpick_battle_config', JSON.stringify(next));
+      return next;
+    });
     showToast('신상 배틀 설정이 업데이트되었습니다.', 'success');
   };
 
@@ -4688,7 +4780,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const updateHomeSection = (id: HomeSectionId, updates: Partial<HomeSectionConfig>) => {
     setHomeSections(prev => {
       const next = prev.map(sec => sec.id === id ? { ...sec, ...updates } : sec);
-      saveRemoteBannersAndSections(banners, next).catch(() => {});
+      safeSetItem('sinsangpick_home_sections', JSON.stringify(next));
+      saveRemoteBannersAndSections(banners, next, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
       return next;
     });
     showToast('홈 구좌 설정이 업데이트되었습니다. (클라우드 동기화 완료)', 'success');
@@ -4704,7 +4797,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
         return sec;
       });
-      saveRemoteBannersAndSections(banners, next).catch(() => {});
+      safeSetItem('sinsangpick_home_sections', JSON.stringify(next));
+      saveRemoteBannersAndSections(banners, next, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
       return next;
     });
   };
@@ -4712,14 +4806,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const reorderHomeSections = (sections: HomeSectionConfig[]) => {
     const updated = sections.map((s, idx) => ({ ...s, order: idx + 1 }));
     setHomeSections(updated);
-    saveRemoteBannersAndSections(banners, updated).catch(() => {});
+    safeSetItem('sinsangpick_home_sections', JSON.stringify(updated));
+    saveRemoteBannersAndSections(banners, updated, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
     showToast('홈 구좌 순서가 변경되었습니다. (클라우드 동기화 완료)', 'success');
   };
 
   const resetHomeSections = () => {
     setHomeSections(INITIAL_HOME_SECTIONS);
-    localStorage.removeItem('sinsangpick_home_sections');
-    saveRemoteBannersAndSections(banners, INITIAL_HOME_SECTIONS).catch(() => {});
+    safeSetItem('sinsangpick_home_sections', JSON.stringify(INITIAL_HOME_SECTIONS));
+    saveRemoteBannersAndSections(banners, INITIAL_HOME_SECTIONS, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
     showToast('홈 구좌 설정이 기본값으로 초기화되었습니다. (클라우드 동기화 완료)', 'info');
   };
 
@@ -4735,23 +4830,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       logo: brandData.logo || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=120&auto=format&fit=crop&q=80',
       isPopular: brandData.isPopular ?? false,
     };
-    setBrands(prev => [newBrand, ...prev]);
+    setBrands(prev => {
+      const next = [newBrand, ...prev];
+      safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`🏢 '${newBrand.name}' 브랜드가 등록되었습니다.`, 'success');
   };
 
   const updateBrand = (id: string, updated: Partial<BrandInfo>) => {
-    setBrands(prev => prev.map(b => b.id === id ? { ...b, ...updated } : b));
+    setBrands(prev => {
+      const next = prev.map(b => b.id === id ? { ...b, ...updated } : b);
+      safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      return next;
+    });
     showToast('🏢 브랜드 정보가 업데이트되었습니다.', 'success');
   };
 
   const deleteBrand = (id: string) => {
     const target = brands.find(b => b.id === id);
-    setBrands(prev => prev.filter(b => b.id !== id));
+    setBrands(prev => {
+      const next = prev.filter(b => b.id !== id);
+      safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`🏢 '${target?.name || ''}' 브랜드가 삭제되었습니다.`, 'info');
   };
 
   const toggleBrandPopular = (id: string) => {
-    setBrands(prev => prev.map(b => b.id === id ? { ...b, isPopular: !b.isPopular } : b));
+    setBrands(prev => {
+      const next = prev.map(b => b.id === id ? { ...b, isPopular: !b.isPopular } : b);
+      safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      return next;
+    });
     showToast('인기 브랜드 상태가 변경되었습니다.', 'info');
   };
 
@@ -4766,23 +4877,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isActive: storeData.isActive ?? true,
       order: storeData.order ?? (storeChannels.length + 1),
     };
-    setStoreChannels(prev => [...prev, newStore]);
+    setStoreChannels(prev => {
+      const next = [...prev, newStore];
+      safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`🏪 '${newStore.name}' 판매처가 등록되었습니다.`, 'success');
   };
 
   const updateStoreChannel = (id: string, updated: Partial<StoreChannelInfo>) => {
-    setStoreChannels(prev => prev.map(s => s.id === id ? { ...s, ...updated } : s));
+    setStoreChannels(prev => {
+      const next = prev.map(s => s.id === id ? { ...s, ...updated } : s);
+      safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      return next;
+    });
     showToast('🏪 판매처 정보가 업데이트되었습니다.', 'success');
   };
 
   const deleteStoreChannel = (id: string) => {
     const target = storeChannels.find(s => s.id === id);
-    setStoreChannels(prev => prev.filter(s => s.id !== id));
+    setStoreChannels(prev => {
+      const next = prev.filter(s => s.id !== id);
+      safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`🏪 '${target?.name || ''}' 판매처가 삭제되었습니다.`, 'info');
   };
 
   const toggleStoreChannelActive = (id: string) => {
-    setStoreChannels(prev => prev.map(s => s.id === id ? { ...s, isActive: !s.isActive } : s));
+    setStoreChannels(prev => {
+      const next = prev.map(s => s.id === id ? { ...s, isActive: !s.isActive } : s);
+      safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      return next;
+    });
     showToast('판매처 노출 상태가 변경되었습니다.', 'info');
   };
 
@@ -4857,18 +4984,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       highlight: itemData.highlight || '',
       isUpcoming: itemData.isUpcoming ?? true,
     };
-    setCalendarItems(prev => [newCalendar, ...prev]);
+    setCalendarItems(prev => {
+      const next = [newCalendar, ...prev];
+      safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`📅 '${newCalendar.name}' 출시 일정이 등록되었습니다.`, 'success');
   };
 
   const updateCalendarItem = (id: string, updated: Partial<ReleaseCalendarItem>) => {
-    setCalendarItems(prev => prev.map(c => c.id === id ? { ...c, ...updated } : c));
+    setCalendarItems(prev => {
+      const next = prev.map(c => c.id === id ? { ...c, ...updated } : c);
+      safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      return next;
+    });
     showToast('📅 출시 일정이 업데이트되었습니다.', 'success');
   };
 
   const deleteCalendarItem = (id: string) => {
     const target = calendarItems.find(c => c.id === id);
-    setCalendarItems(prev => prev.filter(c => c.id !== id));
+    setCalendarItems(prev => {
+      const next = prev.filter(c => c.id !== id);
+      safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      return next;
+    });
     showToast(`📅 '${target?.name || ''}' 일정이 삭제되었습니다.`, 'info');
   };
 
@@ -5936,7 +6075,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       createdAt: new Date().toISOString(),
     };
 
-    setReports(prev => [newReport, ...prev]);
+    setReports(prev => {
+      const next = [newReport, ...prev];
+      safeSetItem('sinsangpick_reports', JSON.stringify(next));
+      return next;
+    });
 
     if (reportData.targetType === 'review') {
       setReviews(prev => prev.map(r => r.id === reportData.targetId ? { ...r, isReported: true } : r));
@@ -5958,19 +6101,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const resolvedAt = new Date().toISOString();
 
-    setReports(prev => prev.map(r => {
-      if (r.id === reportId) {
-        return {
-          ...r,
-          status: 'resolved',
-          actionTaken: action,
-          actionReason: actionReason || '운영 규정 위반 제재',
-          adminMemo: adminMemo || r.adminMemo,
-          resolvedAt,
-        };
-      }
-      return r;
-    }));
+    setReports(prev => {
+      const next = prev.map(r => {
+        if (r.id === reportId) {
+          return {
+            ...r,
+            status: 'resolved' as const,
+            actionTaken: action,
+            actionReason: actionReason || '운영 규정 위반 제재',
+            adminMemo: adminMemo || r.adminMemo,
+            resolvedAt,
+          };
+        }
+        return r;
+      });
+      safeSetItem('sinsangpick_reports', JSON.stringify(next));
+      return next;
+    });
 
     // 피신고자 제재 자동 적용
     if (targetReport.targetUserId) {
@@ -6010,24 +6157,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const dismissReport = async (reportId: string, reason?: string, adminMemo?: string): Promise<void> => {
-    setReports(prev => prev.map(r => {
-      if (r.id === reportId) {
-        return {
-          ...r,
-          status: 'dismissed',
-          actionTaken: 'none',
-          actionReason: reason || '검토 결과 이상 없음 (정상 판정)',
-          adminMemo: adminMemo || r.adminMemo,
-          resolvedAt: new Date().toISOString(),
-        };
-      }
-      return r;
-    }));
+    setReports(prev => {
+      const next = prev.map(r => {
+        if (r.id === reportId) {
+          return {
+            ...r,
+            status: 'dismissed' as const,
+            actionTaken: 'none' as const,
+            actionReason: reason || '검토 결과 이상 없음 (정상 판정)',
+            adminMemo: adminMemo || r.adminMemo,
+            resolvedAt: new Date().toISOString(),
+          };
+        }
+        return r;
+      });
+      safeSetItem('sinsangpick_reports', JSON.stringify(next));
+      return next;
+    });
     showToast('신고 건을 반려(이상 없음) 처리했습니다.', 'info');
   };
 
   const deleteReport = async (reportId: string): Promise<void> => {
-    setReports(prev => prev.filter(r => r.id !== reportId));
+    setReports(prev => {
+      const next = prev.filter(r => r.id !== reportId);
+      safeSetItem('sinsangpick_reports', JSON.stringify(next));
+      return next;
+    });
     showToast('신고 내역을 삭제했습니다.', 'info');
   };
 
@@ -6043,7 +6198,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         createdAt: new Date().toISOString(),
       };
 
-      setProductEditRequests(prev => [newRequest, ...prev]);
+      setProductEditRequests(prev => {
+        const next = [newRequest, ...prev];
+        safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
+        return next;
+      });
 
       if (supabase && isSupabaseConfigured) {
         try {
@@ -6078,40 +6237,52 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ✏️ 제품 수정 요청 승인 / 반영완료
   const resolveProductEditRequest = async (requestId: string, adminMemo?: string): Promise<void> => {
     const processedAt = new Date().toISOString();
-    setProductEditRequests(prev => prev.map(req => {
-      if (req.id === requestId) {
-        return {
-          ...req,
-          status: 'approved',
-          adminMemo: adminMemo || req.adminMemo || '관리자 확인 및 상품 정보 반영 완료',
-          processedAt
-        };
-      }
-      return req;
-    }));
+    setProductEditRequests(prev => {
+      const next = prev.map(req => {
+        if (req.id === requestId) {
+          return {
+            ...req,
+            status: 'approved' as const,
+            adminMemo: adminMemo || req.adminMemo || '관리자 확인 및 상품 정보 반영 완료',
+            processedAt
+          };
+        }
+        return req;
+      });
+      safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
+      return next;
+    });
     showToast('✅ 수정 요청을 [반영 완료]로 승인 처리했습니다.', 'success');
   };
 
   // ✏️ 제품 수정 요청 반려
   const rejectProductEditRequest = async (requestId: string, adminMemo?: string): Promise<void> => {
     const processedAt = new Date().toISOString();
-    setProductEditRequests(prev => prev.map(req => {
-      if (req.id === requestId) {
-        return {
-          ...req,
-          status: 'rejected',
-          adminMemo: adminMemo || req.adminMemo || '확인 결과 기존 정보가 정확함 (반려)',
-          processedAt
-        };
-      }
-      return req;
-    }));
+    setProductEditRequests(prev => {
+      const next = prev.map(req => {
+        if (req.id === requestId) {
+          return {
+            ...req,
+            status: 'rejected' as const,
+            adminMemo: adminMemo || req.adminMemo || '확인 결과 기존 정보가 정확함 (반려)',
+            processedAt
+          };
+        }
+        return req;
+      });
+      safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
+      return next;
+    });
     showToast('ℹ️ 수정 요청을 [반려] 처리했습니다.', 'info');
   };
 
   // ✏️ 제품 수정 요청 삭제
   const deleteProductEditRequest = async (requestId: string): Promise<void> => {
-    setProductEditRequests(prev => prev.filter(req => req.id !== requestId));
+    setProductEditRequests(prev => {
+      const next = prev.filter(req => req.id !== requestId);
+      safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
+      return next;
+    });
     showToast('수정 요청 내역을 삭제했습니다.', 'info');
   };
 
