@@ -1,5 +1,7 @@
 import UIKit
 import Capacitor
+import GoogleMobileAds
+import WebKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -7,7 +9,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        DispatchQueue.main.async {
+            if let bridgeVC = self.window?.rootViewController as? CAPBridgeViewController,
+               let webView = bridgeVC.webView {
+                GADMobileAds.sharedInstance().register(webView)
+            }
+        }
         return true
     }
 

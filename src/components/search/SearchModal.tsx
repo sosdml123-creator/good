@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, ChevronLeft, X, Star, Flame, ArrowRight, Sparkles, MapPin } from 'lucide-react';
+import { Search, ChevronLeft, X, Star, Flame, ArrowRight, MapPin } from 'lucide-react';
 import { Product } from '../../types';
-import { showSearchBannerAd, removeBannerAd } from '../../services/admobService';
-import { Capacitor } from '@capacitor/core';
+import { AdBanner } from '../common/AdBanner';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -18,15 +17,6 @@ export const SearchModal: React.FC = () => {
   } = useApp();
 
   const [inputQuery, setInputQuery] = useState('');
-
-  // 검색 모달 진입 시 AdMob 배너 광고 표출 및 이탈 시 정리
-  useEffect(() => {
-    showSearchBannerAd();
-
-    return () => {
-      removeBannerAd();
-    };
-  }, []);
 
   const popularKeywords = [
     '새우',
@@ -298,30 +288,8 @@ export const SearchModal: React.FC = () => {
         </div>
       ) : (
         <div className="flex-1 p-4 space-y-6">
-          {/* Quick produce search tags */}
-          <div className="p-3 bg-gradient-to-r from-gray-50 to-slate-100 rounded-2xl border border-gray-200">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-gray-900" />
-              <span>원물 vs 관련제품 추천 검색</span>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {[
-                { tag: '🦐 생물 새우', query: '새우' },
-                { tag: '🍑 산지 복숭아', query: '복숭아' },
-                { tag: '🍉 꿀수박', query: '수박' },
-                { tag: '🍣 생연어', query: '연어' },
-                { tag: '🍎 청송 사과', query: '사과' }
-              ].map((item) => (
-                <button
-                  key={item.tag}
-                  onClick={() => handleSearch(item.query)}
-                  className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs font-semibold border border-gray-200 hover:border-gray-900 hover:text-gray-900 transition-all shadow-2xs"
-                >
-                  {item.tag}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* 상단 스폰서드 / Google AdMob 배너 광고 슬롯 */}
+          <AdBanner className="shadow-2xs" />
 
           {/* Recent Searches */}
           {recentSearches.length > 0 && (
@@ -391,27 +359,6 @@ export const SearchModal: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* 3. 하단 AdMob 배너 광고 영역 */}
-      <div className="mt-auto pt-6 px-4 pb-2">
-        {!Capacitor.isNativePlatform() ? (
-          <div className="w-full bg-gradient-to-r from-gray-50 via-slate-100 to-gray-50 border border-dashed border-gray-300 rounded-xl p-3 text-center flex items-center justify-between shadow-2xs">
-            <div className="flex items-center gap-2 text-left">
-              <span className="px-1.5 py-0.5 bg-gray-900 text-[9px] font-bold text-white rounded">
-                AD
-              </span>
-              <div>
-                <p className="text-xs font-bold text-gray-800">신상픽 스폰서드 파트너스</p>
-                <p className="text-[10px] text-gray-500">지금 가장 주목받는 신제품 특가 혜택</p>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-400 font-medium">Google AdMob</span>
-          </div>
-        ) : (
-          /* 네이티브 AdMob 배너가 BOTTOM_CENTER에 오버레이될 때 컨텐츠 겹침 방지 여백 */
-          <div className="h-14 w-full" />
-        )}
-      </div>
     </div>
   );
 };

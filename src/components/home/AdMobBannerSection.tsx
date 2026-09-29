@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { HomeSectionConfig } from '../../types';
 import { ADMOB_CONFIG, initAdMob, removeHomeBannerAd } from '../../services/admobService';
 import { Megaphone, Info } from 'lucide-react';
@@ -16,13 +16,11 @@ declare global {
 
 export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const [isAdLoaded, setIsAdLoaded] = useState(false);
-  const [adError, setAdError] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
-  const requestedRef = useRef(false);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const isPushedRef = useRef(false);
 
   useEffect(() => {
-    // 1. Native platform: Ensure any bottom overlay banner is removed (no bottom sticking)
+    // 1. Native platform: Remove bottom floating overlay banner to ensure in-feed placement
     if (Capacitor.isNativePlatform()) {
       removeHomeBannerAd().catch(() => {});
       initAdMob().catch((err) => {
@@ -30,53 +28,34 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
       });
     }
 
-    // 2. Load Google AdMob / AdSense SDK script if not already present
-    if (typeof window !== 'undefined' && !document.getElementById('admob-sdk-script')) {
+    // 2. Ensure Google Ad SDK script is loaded in document head
+    if (typeof window !== 'undefined' && !document.getElementById('google-adsense-sdk')) {
       const script = document.createElement('script');
-      script.id = 'admob-sdk-script';
+      script.id = 'google-adsense-sdk';
       script.async = true;
       script.crossOrigin = 'anonymous';
       script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916';
       document.head.appendChild(script);
     }
 
-    // 3. Request AdMob ad slot fill (Ad Unit: ca-app-pub-3878859120989916/6084323850)
-    if (!requestedRef.current && typeof window !== 'undefined') {
+    // 3. Request Google AdMob Banner ad (Unit: ca-app-pub-3878859120989916/9433572199)
+    if (!isPushedRef.current && typeof window !== 'undefined') {
       const timer = setTimeout(() => {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
-          requestedRef.current = true;
+          isPushedRef.current = true;
         } catch (e) {
-          console.warn('[AdMobBannerSection] adsbygoogle request notice:', e);
-          setAdError(true);
+          console.warn('[AdMobBannerSection] adsbygoogle push notice:', e);
         }
-      }, 300);
+      }, 250);
 
       return () => clearTimeout(timer);
     }
   }, []);
 
-  // Monitor ins element for ad load
-  useEffect(() => {
-    const el = adRef.current;
-    if (!el) return;
-
-    const observer = new MutationObserver(() => {
-      if (el.getAttribute('data-ad-status') === 'filled' || el.children.length > 0) {
-        setIsAdLoaded(true);
-      }
-      if (el.getAttribute('data-ad-status') === 'unfilled') {
-        setAdError(true);
-      }
-    });
-
-    observer.observe(el, { attributes: true, childList: true });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div key="ad_banner" className="bg-white py-3 px-4 border-b border-gray-100 transition-all duration-300">
-      {/* 구좌 헤더: 명확한 광고(AD) 고지 및 AdMob 단위 표기 */}
+      {/* 구좌 헤더: 명확한 광고(AD) 고지 및 Google AdMob 단위 표기 */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <span className="text-[10px] font-black text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-amber-300">
@@ -120,49 +99,32 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
         </div>
       )}
 
-      {/* Google AdMob 공식 광고 슬롯 컨테이너 (단위 ID: ca-app-pub-3878859120989916/6084323850) */}
+      {/* Google AdMob 공식 배너 광고 슬롯 (단위 ID: ca-app-pub-3878859120989916/9433572199) */}
       <div
         id="admob-banner-container"
         data-ad-unit={ADMOB_CONFIG.bannerAdUnitId}
         data-ad-client="ca-pub-3878859120989916"
-        data-ad-slot="6084323850"
-        className="w-full flex flex-col items-center justify-center min-h-[90px] rounded-xl overflow-hidden bg-slate-50/80 border border-dashed border-gray-200 relative"
+        data-ad-slot="9433572199"
+        className="w-full flex items-center justify-center min-h-[90px] sm:min-h-[100px] rounded-2xl overflow-hidden bg-slate-50 border border-slate-200/80 shadow-2xs relative"
       >
-        {/* Google AdMob / AdSense ins 광고 슬롯 */}
+        {/* Google AdMob / AdSense 공식 ins 광고 슬롯 */}
         <ins
           ref={adRef}
           className="adsbygoogle"
           style={{
             display: 'block',
             width: '100%',
-            minWidth: '300px',
+            minWidth: '320px',
             maxWidth: '360px',
             height: '90px',
             textAlign: 'center',
             margin: '0 auto',
           }}
           data-ad-client="ca-pub-3878859120989916"
-          data-ad-slot="6084323850"
+          data-ad-slot="9433572199"
           data-ad-format="auto"
           data-full-width-responsive="true"
         />
-
-        {/* 광고 로딩 전 / 미노출 시 보여주는 공식 AdMob 구좌 안내 카드 */}
-        {(!isAdLoaded || adError) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center pointer-events-none bg-gradient-to-r from-amber-500/5 via-orange-500/5 to-amber-500/5">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="text-[9px] font-black text-white bg-amber-600 px-1.5 py-0.2 rounded">
-                AD
-              </span>
-              <span className="text-[11px] font-bold text-gray-700">
-                Google AdMob 스폰서 구좌
-              </span>
-            </div>
-            <p className="text-[10px] text-gray-400 font-mono">
-              단위: {ADMOB_CONFIG.bannerAdUnitId}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );

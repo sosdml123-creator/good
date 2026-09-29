@@ -4,7 +4,7 @@ import { Capacitor } from '@capacitor/core';
 // AdMob App ID & Ad Unit IDs (Google AdMob 배너 광고 실서버 ID)
 export const ADMOB_CONFIG = {
   appId: 'ca-app-pub-3878859120989916~2898554632',
-  bannerAdUnitId: 'ca-app-pub-3878859120989916/1040251860',
+  bannerAdUnitId: 'ca-app-pub-3878859120989916/9433572199',
   // 테스트용 ID (AdMob 테스트 가이드)
   testBannerAdUnitId: 'ca-app-pub-3940256099942544/2934735716',
 };
