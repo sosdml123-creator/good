@@ -294,14 +294,26 @@ export const HomeView: React.FC = () => {
     setActiveTab('category');
   };
 
-  // Sort sections by admin configured order, guaranteeing banners is always present
+  // Sort sections by admin configured order, guaranteeing banners & ad_banner is always active and present
   const defaultBannerSection: HomeSectionConfig = { id: 'banners', name: '메인 롤링 배너', isVisible: true, order: 1, title: '', subtitle: '', badgeText: '' };
-  const baseSections: HomeSectionConfig[] = homeSections.length > 0 ? homeSections : [defaultBannerSection];
+  const defaultAdSection: HomeSectionConfig = { id: 'ad_banner', name: '스폰서드 광고 구좌', isVisible: true, order: 4, title: '스폰서드 맞춤 혜택', subtitle: '광고', badgeText: 'AD' };
+
+  const baseSections: HomeSectionConfig[] = homeSections.length > 0 ? homeSections : [defaultBannerSection, defaultAdSection];
   const hasBannerSection = baseSections.some(s => s.id === 'banners');
-  const guaranteedSections: HomeSectionConfig[] = hasBannerSection 
+  const hasAdSection = baseSections.some(s => s.id === 'ad_banner');
+
+  let workingSections = hasBannerSection 
     ? baseSections.map(s => s.id === 'banners' ? { ...s, isVisible: true } : s)
     : [defaultBannerSection, ...baseSections];
-  const sortedHomeSections = [...guaranteedSections].sort((a, b) => a.order - b.order);
+
+  if (!hasAdSection) {
+    // 카테고리(3) 바로 뒤, 신제품(5) 사이에 배치 (order: 4)
+    workingSections = [...workingSections, defaultAdSection];
+  } else {
+    workingSections = workingSections.map(s => s.id === 'ad_banner' ? { ...s, isVisible: true } : s);
+  }
+
+  const sortedHomeSections = [...workingSections].sort((a, b) => a.order - b.order);
 
   // Render individual sections dynamically
   const renderSection = (section: HomeSectionConfig) => {
