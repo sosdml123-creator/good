@@ -3324,9 +3324,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
   };
 
+  // 닉네임 중복 여부 확인
+  const isNicknameTaken = (nickname: string, excludeUid?: string): boolean => {
+    const trimmed = nickname.trim().toLowerCase();
+    if (!trimmed) return false;
+    return allProfiles.some(
+      p => p.uid !== excludeUid && (p.displayName || '').trim().toLowerCase() === trimmed
+    );
+  };
+
   const updateUserProfile = async (updates: { displayName?: string; photoURL?: string }) => {
     const trimmed = updates.displayName?.trim();
     const photo = updates.photoURL;
+
+    // 닉네임 중복 체크 (자기 자신 제외)
+    if (trimmed && isNicknameTaken(trimmed, currentUser.uid)) {
+      throw new Error('이미 다른 회원이 사용 중인 닉네임입니다.');
+    }
 
     setCurrentUser(prev => ({
       ...prev,
@@ -5977,15 +5991,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     }
     return { isSuspended: false, reason: '' };
-  };
-
-  // 닉네임 중복 여부 확인
-  const isNicknameTaken = (nickname: string, excludeUid?: string): boolean => {
-    const trimmed = nickname.trim().toLowerCase();
-    if (!trimmed) return false;
-    return allProfiles.some(
-      p => p.uid !== excludeUid && (p.displayName || '').trim().toLowerCase() === trimmed
-    );
   };
 
   // 🗑️ 관리자 회원 강제 영구 삭제 (개별)

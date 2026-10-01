@@ -9,7 +9,7 @@ interface EditProfileModalProps {
 }
 
 export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onClose }) => {
-  const { currentUser, updateUserProfile } = useApp();
+  const { currentUser, updateUserProfile, isNicknameTaken } = useApp();
   
   const [nicknameInput, setNicknameInput] = useState(currentUser.displayName || '');
   const [selectedPhoto, setSelectedPhoto] = useState<string>(currentUser.photoURL || DEFAULT_AVATAR);
@@ -75,6 +75,10 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onCl
     }
     if (trimmed.length > 15) {
       setErrorMessage('닉네임은 최대 15글자까지 가능합니다.');
+      return;
+    }
+    if (isNicknameTaken(trimmed, currentUser.uid)) {
+      setErrorMessage('이미 다른 회원이 사용 중인 닉네임입니다. 다른 닉네임을 입력해 주세요.');
       return;
     }
 

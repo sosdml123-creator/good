@@ -35,7 +35,7 @@ const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupMod
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
 import { checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
-import { initAdMob, showHomeBannerAd, hideBannerAd, resumeBannerAd } from './services/admobService';
+import { showBanner, hideBanner, resumeBanner } from './services/admobService';
 import { Capacitor } from '@capacitor/core';
 
 // Minimal fallback spinner shown during lazy load
@@ -50,15 +50,11 @@ export const App: React.FC = () => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
   const mainRef = useRef<HTMLElement>(null);
 
-  // App Mount: Initialize AdMob and show native banner on iOS/Android
+  // 앱 초기화: 네이티브(iOS/Android)에서 AdMob 배너 표시
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
-      showHomeBannerAd().catch((err) => {
-        console.warn('[App] Native AdMob banner notice:', err);
-      });
-    } else {
-      initAdMob().catch((err) => {
-        console.warn('[App] AdMob initialization notice:', err);
+      showBanner().catch((err) => {
+        console.warn('[App] AdMob showBanner notice:', err);
       });
     }
   }, []);
@@ -75,9 +71,9 @@ export const App: React.FC = () => {
     if (Capacitor.isNativePlatform()) {
       const modalTabs = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
       if (modalTabs.includes(activeTab)) {
-        hideBannerAd().catch(() => {});
+        hideBanner().catch(() => {});
       } else {
-        resumeBannerAd().catch(() => {});
+        resumeBanner().catch(() => {});
       }
     }
   }, [activeTab]);

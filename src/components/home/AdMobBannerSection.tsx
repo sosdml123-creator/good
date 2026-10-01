@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HomeSectionConfig } from '../../types';
-import { ADMOB_CONFIG, showHomeBannerAd } from '../../services/admobService';
 import { Capacitor } from '@capacitor/core';
 
 interface AdMobBannerSectionProps {
@@ -13,58 +12,71 @@ declare global {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────
+// AdMob 배너 구좌 컴포넌트
+// 위치: 카테고리 섹션 아래 / 신제품 섹션 위
+//
+// [네이티브 iOS/Android]
+//   App.tsx에서 showBanner()를 앱 초기화 시 1회 호출 →
+//   하단 탭바 위(BOTTOM_CENTER)에 ADAPTIVE_BANNER 고정 표시.
+//   이 컴포넌트는 카테고리-신제품 사이에 "AD" 레이블 구분선 역할.
+//
+// [웹]
+//   AdSense <ins> 태그를 렌더링하여 인라인 배너 표시.
+//   unfilled(광고 없음) 판정 시에는 2초 유예 후 컴포넌트 숨김(AdMob 정책 준수).
+// ─────────────────────────────────────────────────────────────────
 export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section }) => {
   const isNative = Capacitor.isNativePlatform();
+
+  // 웹 전용 상태
   const adRef = useRef<HTMLModElement>(null);
-  const [adStatus, setAdStatus] = useState<'loading' | 'filled' | 'unfilled'>('loading');
-  const pushedRef = useRef<boolean>(false);
+  const pushedRef = useRef(false);
+  const [webAdVisible, setWebAdVisible] = useState(true); // 기본 표시, unfilled 시 숨김
 
+  // ─── 웹: AdSense SDK 로드 + push + 상태 감지 ─────────────────
   useEffect(() => {
-    // 1. Native platform (iOS/Android): Show official AdMob Banner as per iOS guide
-    if (isNative) {
-      showHomeBannerAd().catch((err) => {
-        console.warn('[AdMobBannerSection] Native AdMob show notice:', err);
-      });
-      return;
+    if (isNative) return;
+
+    // SDK 스크립트 1회 로드
+    if (!document.getElementById('google-adsense-sdk')) {
+      const s = document.createElement('script');
+      s.id = 'google-adsense-sdk';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916';
+      document.head.appendChild(s);
     }
 
-    // 2. Web platform: Load Google Ad SDK script if not already present
-    if (typeof window !== 'undefined' && !document.getElementById('google-adsense-sdk')) {
-      const script = document.createElement('script');
-      script.id = 'google-adsense-sdk';
-      script.async = true;
-      script.crossOrigin = 'anonymous';
-      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916';
-      document.head.appendChild(script);
-    }
-
-    // 3. Push web ad request safely after mount
-    const timer = setTimeout(() => {
+    // SDK 로드 후 push
+    const pushTimer = setTimeout(() => {
       try {
         if (adRef.current && !pushedRef.current) {
-          const existingStatus = adRef.current.getAttribute('data-adsbygoogle-status');
-          if (!existingStatus) {
+          if (!adRef.current.getAttribute('data-adsbygoogle-status')) {
             pushedRef.current = true;
             (window.adsbygoogle = window.adsbygoogle || []).push({});
           }
         }
       } catch (e) {
-        console.warn('[AdMobBannerSection] adsbygoogle push notice:', e);
+        console.warn('[AdMob] push error:', e);
       }
-    }, 250);
+    }, 400);
 
-    // 4. Observe ad slot status
-    let observer: MutationObserver | null = null;
-    if (adRef.current && typeof MutationObserver !== 'undefined') {
-      observer = new MutationObserver(() => {
-        if (!adRef.current) return;
-        const status = adRef.current.getAttribute('data-ad-status');
-        if (status === 'filled') {
-          setAdStatus('filled');
-        } else if (status === 'unfilled') {
-          setAdStatus('unfilled');
+    // 광고 채워짐 여부 감지
+    let unfilledTimer: ReturnType<typeof setTimeout> | null = null;
+    const observer = new MutationObserver(() => {
+      const status = adRef.current?.getAttribute('data-ad-status');
+      if (status === 'filled') {
+        if (unfilledTimer) { clearTimeout(unfilledTimer); unfilledTimer = null; }
+        setWebAdVisible(true);
+      } else if (status === 'unfilled') {
+        // 즉시 숨기면 깜빡임 발생 → 2초 유예
+        if (!unfilledTimer) {
+          unfilledTimer = setTimeout(() => setWebAdVisible(false), 2000);
         }
-      });
+      }
+    });
+
+    if (adRef.current) {
       observer.observe(adRef.current, {
         attributes: true,
         attributeFilter: ['data-ad-status', 'data-adsbygoogle-status'],
@@ -72,52 +84,46 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
     }
 
     return () => {
-      clearTimeout(timer);
-      if (observer) observer.disconnect();
+      clearTimeout(pushTimer);
+      if (unfilledTimer) clearTimeout(unfilledTimer);
+      observer.disconnect();
     };
   }, [isNative]);
 
-  // On Native iOS: The official GADBannerView anchored banner is displayed natively.
-  // Returning null here prevents empty/duplicate gaps in the scrollable feed.
+  // ─── 네이티브: 구분선 + AD 레이블만 표시 ────────────────────
+  // 실제 광고는 App.tsx → showBanner() → BOTTOM_CENTER에 고정 표시됨
   if (isNative) {
-    return null;
+    return (
+      <div className="w-full bg-white border-b border-gray-100 flex items-center justify-center py-1">
+        <span className="text-[9px] font-bold text-gray-400 tracking-widest">
+          {section?.badgeText || 'AD'}
+        </span>
+      </div>
+    );
   }
 
-  // Google AdMob/AdSense 정책 준수: 미로드 시 빈 박스 방지
-  if (adStatus === 'unfilled') {
-    return null;
-  }
+  // ─── 웹: unfilled → 컴포넌트 숨김 ───────────────────────────
+  if (!webAdVisible) return null;
 
+  // ─── 웹: AdSense 배너 렌더링 ─────────────────────────────────
   return (
-    <div key="ad_banner" className="bg-white py-2.5 px-4 border-b border-gray-100 transition-all duration-300">
-      <div className="flex items-center justify-between mb-1.5">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[9px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">
-            {section?.badgeText || 'AD'}
-          </span>
-          <span className="text-[11px] text-gray-400 font-medium">
-            {section?.subtitle || '스폰서'}
-          </span>
-        </div>
+    <div className="bg-white py-2.5 px-4 border-b border-gray-100">
+      {/* AD 레이블 */}
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <span className="text-[9px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">
+          {section?.badgeText || 'AD'}
+        </span>
+        <span className="text-[11px] text-gray-400 font-medium">
+          {section?.subtitle || '스폰서'}
+        </span>
       </div>
 
-      <div
-        id="admob-banner-container"
-        data-ad-unit={ADMOB_CONFIG.bannerAdUnitId}
-        data-ad-client="ca-pub-3878859120989916"
-        data-ad-slot="9433572199"
-        className="w-full flex items-center justify-center min-h-[50px] sm:min-h-[90px] rounded-xl overflow-hidden bg-transparent relative"
-      >
+      {/* Google AdSense 배너 슬롯 */}
+      <div className="w-full overflow-hidden rounded-xl" style={{ minHeight: 50 }}>
         <ins
           ref={adRef}
           className="adsbygoogle"
-          style={{
-            display: 'block',
-            width: '100%',
-            textAlign: 'center',
-            margin: '0 auto',
-            minHeight: '50px',
-          }}
+          style={{ display: 'block', width: '100%', minHeight: 50 }}
           data-ad-client="ca-pub-3878859120989916"
           data-ad-slot="9433572199"
           data-ad-format="auto"
