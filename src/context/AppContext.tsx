@@ -945,7 +945,7 @@ export const getNextSequentialNickname = async (
  * Extracts all potential real names/nicknames provided by OAuth (Kakao, Google, etc.)
  * to prevent real name leakage and enforce random nicknames like Apple login
  */
-const getSocialRealNames = (user: any): string[] => {
+export const getSocialRealNames = (user: any): string[] => {
   if (!user) return [];
   const meta = user.user_metadata || {};
   return [
@@ -956,6 +956,29 @@ const getSocialRealNames = (user: any): string[] => {
     meta.user_name,
     user.email ? user.email.split('@')[0] : null,
   ].filter((n): n is string => Boolean(n && typeof n === 'string' && n.trim().length > 0));
+};
+
+/**
+ * Checks if a nickname is invalid, a social real name, or an unformatted fallback
+ */
+export const isInvalidOrSocialRealName = (displayName?: string | null, user?: any): boolean => {
+  if (!displayName || typeof displayName !== 'string') return true;
+  const trimmed = displayName.trim();
+  if (trimmed.length === 0) return true;
+  if (
+    trimmed.includes('사용자') ||
+    trimmed === '신상러버' ||
+    trimmed === '서현정' ||
+    trimmed === '이예진' ||
+    /^신상러버_[a-z0-9]{4}$/i.test(trimmed)
+  ) {
+    return true;
+  }
+  if (user) {
+    const socialNames = getSocialRealNames(user);
+    if (socialNames.includes(trimmed)) return true;
+  }
+  return false;
 };
 
 /**
@@ -2469,68 +2492,79 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setIsSupabaseConnected(true);
       const uid = user.id;
       const providerName = inferUserProvider(user);
-      const socialNames = getSocialRealNames(user);
-      const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
 
-      let resolvedDisplayName = localStorage.getItem('sinsangpick_name');
-      const isSocialRealName = resolvedDisplayName && socialNames.includes(resolvedDisplayName);
-
-      // 카카오 및 소셜 로그인 시 계정 실명 노출 방지:
-      // provider가 kakao이거나 apple일 때 user_metadata의 실명을 바로 displayName으로 쓰지 않고 무작위 닉네임 적용
-      if (
-        !resolvedDisplayName ||
-        resolvedDisplayName.includes('사용자') ||
-        resolvedDisplayName === '신상러버' ||
-        resolvedDisplayName === '서현정' ||
-        resolvedDisplayName === '이예진' ||
-        /^신상러버_[a-z0-9]{4}$/i.test(resolvedDisplayName) ||
-        isSocialRealName ||
-        ((providerName === 'kakao' || providerName === 'apple') && !isCustomized)
-      ) {
-        resolvedDisplayName = getInitialSequentialNicknameSync();
-        localStorage.setItem('sinsangpick_name', resolvedDisplayName);
+      // Fetch DB profile to check if valid profile already exists
+      let dbProfile: any = null;
+      try {
+        const { data } = await client
+          .from('profiles')
+          .select('*')
+          .eq('id', uid)
+          .maybeSingle();
+        dbProfile = data;
+      } catch (e) {
+        console.warn('[Supabase Profile Init Query Error]', e);
       }
 
-      const cachedPhoto = localStorage.getItem('sinsangpick_photo');
-      const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
+      let resolvedDisplayName: string | null = null;
+      let resolvedPhotoURL: string = getProviderLogoUrl(providerName);
 
-      let resolvedPhotoURL = getProviderLogoUrl(providerName);
-      if (hasCustomPhoto && cachedPhoto && isValidCustomPhoto(cachedPhoto, uid)) {
-        resolvedPhotoURL = cachedPhoto;
+      if (dbProfile) {
+        if (dbProfile.display_name && !isInvalidOrSocialRealName(dbProfile.display_name, user)) {
+          resolvedDisplayName = dbProfile.display_name;
+        } else {
+          resolvedDisplayName = await getNextSequentialNickname(client, allProfiles);
+        }
+
+        if (dbProfile.avatar_url && isValidCustomPhoto(dbProfile.avatar_url, uid)) {
+          resolvedPhotoURL = dbProfile.avatar_url;
+        }
       } else {
-        resolvedPhotoURL = getProviderLogoUrl(providerName);
+        resolvedDisplayName = await getNextSequentialNickname(client, allProfiles);
       }
 
+      localStorage.setItem('sinsangpick_uid', uid);
+      localStorage.setItem('sinsangpick_name', resolvedDisplayName!);
       localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
 
       setCurrentUser(prev => ({
         ...prev,
         uid,
-        displayName: resolvedDisplayName || prev.displayName,
+        displayName: resolvedDisplayName!,
         photoURL: resolvedPhotoURL,
         isAnonymous: user.is_anonymous || false,
         provider: providerName,
         email: user.email || prev.email,
+        points: dbProfile?.points ?? prev.points,
+        level: calculateLevel(dbProfile?.points ?? prev.points),
       }));
 
-      // 소셜 로그인 계정의 경우 profiles DB와 allProfiles 메모리에 provider 보정 동기화
+      // Update DB profile safely without overwriting established custom attributes
       if (providerName && ['apple', 'kakao', 'google'].includes(providerName)) {
         safeUpsertProfile(client, {
           id: uid,
-          display_name: resolvedDisplayName || '신상러버_001',
+          display_name: resolvedDisplayName!,
           avatar_url: resolvedPhotoURL,
           provider: providerName,
           email: user.email || undefined,
+          points: dbProfile?.points ?? undefined,
+          level: dbProfile?.level ?? undefined,
         }).catch(() => {});
 
-        setAllProfiles(prev => prev.map(p => p.uid === uid ? {
-          ...p,
-          displayName: resolvedDisplayName || p.displayName,
-          photoURL: resolvedPhotoURL,
-          provider: providerName,
-          email: user.email || p.email,
-          lastActiveAt: new Date().toISOString(),
-        } : p));
+        setAllProfiles(prev => {
+          const exists = prev.some(p => p.uid === uid);
+          if (exists) {
+            return prev.map(p => p.uid === uid ? {
+              ...p,
+              displayName: resolvedDisplayName!,
+              photoURL: resolvedPhotoURL,
+              provider: providerName,
+              email: user.email || p.email,
+              lastActiveAt: new Date().toISOString(),
+            } : p);
+          }
+          return prev;
+        });
       }
 
       await loadSupabaseData(uid);
@@ -2567,100 +2601,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (session?.user && isMounted) {
           const u = session.user;
           const providerName = inferUserProvider(u);
-          const socialNames = getSocialRealNames(u);
-          const isCustomized = localStorage.getItem('sinsangpick_custom_nickname_' + u.id) === 'true';
 
-          let displayName = localStorage.getItem('sinsangpick_name');
-          const isLocalSocialName = displayName && (socialNames.includes(displayName) || displayName === '서현정' || displayName === '이예진');
-
-          // Fetch DB profile to check if valid custom nickname already exists
-          let dbDisplayName: string | null = null;
-          let dbAvatarUrl: string | null = null;
+          // Fetch DB profile to check if established custom profile already exists
+          let dbProfileData: any = null;
           try {
             const { data: profileData } = await client
               .from('profiles')
-              .select('display_name, avatar_url')
+              .select('*')
               .eq('id', u.id)
               .maybeSingle();
-            if (profileData?.display_name) {
-              dbDisplayName = profileData.display_name;
-            }
-            if (profileData?.avatar_url) {
-              dbAvatarUrl = profileData.avatar_url;
-            }
+            dbProfileData = profileData;
           } catch (e) {
             console.warn('[Supabase Profile Check Error]', e);
           }
 
-          const isDbSocialName = dbDisplayName && (socialNames.includes(dbDisplayName) || dbDisplayName === '서현정' || dbDisplayName === '이예진');
+          let displayName: string | null = null;
+          let photoURL: string = getProviderLogoUrl(providerName);
 
-          // 카카오/애플 로그인 시 닉네임 무작위화 로직 (실명 노출 철저 방지):
-          // 1) 사용자가 직접 수정한 커스텀 닉네임(isCustomized)이 있고, DB에 저장된 이름이 실명이 아니며 유효한 경우 유지
-          // 2) 그 외(신규 가입, 카카오 실명이 노출되어 있는 경우, 기본값 '신상러버' 등)에는 애플 로그인처럼 getNextSequentialNickname으로 무작위 닉네임 발급!
-          const needsRandomNickname =
-            !displayName ||
-            displayName.includes('사용자') ||
-            displayName === '신상러버' ||
-            displayName === '서현정' ||
-            displayName === '이예진' ||
-            /^신상러버_[a-z0-9]{4}$/i.test(displayName) ||
-            isLocalSocialName ||
-            isDbSocialName ||
-            ((providerName === 'kakao' || providerName === 'apple') && !isCustomized);
-
-          if (needsRandomNickname) {
-            if (
-              isCustomized &&
-              dbDisplayName &&
-              !isDbSocialName &&
-              !dbDisplayName.includes('사용자') &&
-              dbDisplayName !== '신상러버' &&
-              dbDisplayName !== '서현정' &&
-              dbDisplayName !== '이예진' &&
-              !/^신상러버_[a-z0-9]{4}$/i.test(dbDisplayName)
-            ) {
-              displayName = dbDisplayName;
+          if (dbProfileData) {
+            if (dbProfileData.display_name && !isInvalidOrSocialRealName(dbProfileData.display_name, u)) {
+              displayName = dbProfileData.display_name;
             } else {
-              // 애플 및 카카오 로그인 시 고유한 무작위 순번 닉네임(신상러버_XXX) 자동 생성
               displayName = await getNextSequentialNickname(client, allProfiles);
             }
-          } else if (dbDisplayName && !isDbSocialName && !dbDisplayName.includes('사용자') && dbDisplayName !== '서현정' && dbDisplayName !== '이예진') {
-            displayName = dbDisplayName;
-          }
 
-          // 로그인 시 프로필 사진 결정:
-          // 1) 사용자가 직접 업로드한 커스텀 사진이 있는 경우 유지
-          // 2) 그 외에는 애플/카카오 공통 공식 로고(제공자 메타 포함) 적용
-          const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + u.id) === 'true';
-          let photoURL = getProviderLogoUrl(providerName);
-          if (hasCustomPhoto) {
-            if (dbAvatarUrl && isValidCustomPhoto(dbAvatarUrl, u.id)) {
-              photoURL = dbAvatarUrl;
-            } else {
-              const cachedPhoto = localStorage.getItem('sinsangpick_photo');
-              if (cachedPhoto && isValidCustomPhoto(cachedPhoto, u.id)) {
-                photoURL = cachedPhoto;
-              }
+            if (dbProfileData.avatar_url && isValidCustomPhoto(dbProfileData.avatar_url, u.id)) {
+              photoURL = dbProfileData.avatar_url;
             }
+          } else {
+            displayName = await getNextSequentialNickname(client, allProfiles);
           }
 
           // 소셜 원본 프로필 사진(개인 실명/얼굴 사진)인 경우에만 기본 아바타로 안전하게 동기화
-          if (dbAvatarUrl && isKakaoOrSocialRawAvatar(dbAvatarUrl) && client) {
+          if (dbProfileData?.avatar_url && isKakaoOrSocialRawAvatar(dbProfileData.avatar_url) && client) {
             client.from('profiles').update({ avatar_url: getProviderLogoUrl(providerName) }).eq('id', u.id).then(() => {});
           }
 
           localStorage.setItem('sinsangpick_photo', photoURL);
-          
-          setCurrentUser(prev => ({
-            ...prev,
-            uid: u.id,
-            displayName: displayName!,
-            photoURL: photoURL,
-            isAnonymous: false,
-            email: u.email,
-            provider: providerName,
-          }));
-
           localStorage.setItem('sinsangpick_uid', u.id);
           localStorage.setItem('sinsangpick_name', displayName!);
           localStorage.setItem('sinsangpick_nickname_set_' + u.id, 'true');
@@ -2686,6 +2663,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             avatar_url: photoURL,
             provider: providerName,
             email: u.email || undefined,
+            points: dbProfileData?.points ?? undefined,
+            level: dbProfileData?.level ?? undefined,
           });
 
           // allProfiles 메모리 상태에도 즉시 provider 동기화
@@ -2705,8 +2684,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               uid: u.id,
               displayName: displayName!,
               photoURL: photoURL,
-              level: 'Lv.1',
-              points: 100,
+              level: calculateLevel(dbProfileData?.points ?? 100),
+              points: dbProfileData?.points ?? 100,
               isAnonymous: false,
               provider: providerName,
               email: u.email || undefined,

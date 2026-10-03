@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Settings, ChevronRight, Edit3, Camera } from 'lucide-react';
+import { Settings, ChevronRight, Camera, Loader2 } from 'lucide-react';
 import { MyBookmarksModal } from './MyBookmarksModal';
 import { MyReviewsModal } from './MyReviewsModal';
 import { PointHistoryModal } from './PointHistoryModal';
-import { EditProfileModal } from './EditProfileModal';
-import { DEFAULT_AVATAR } from '../../utils/avatars';
+import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 
 export const MyPageView: React.FC = () => {
   const { 
@@ -17,15 +16,47 @@ export const MyPageView: React.FC = () => {
     savedSaleIds,
     setActiveTab,
     openPermissionModal,
-    openNotificationCenter
+    openNotificationCenter,
+    updateUserProfile
   } = useApp();
 
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const [isPointHistoryOpen, setIsPointHistoryOpen] = useState(false);
+  const [isProcessingImage, setIsProcessingImage] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const myReviewsCount = reviews.filter(r => r.userName === currentUser.displayName).length;
+
+  const handleOpenAlbum = () => {
+    if (isProcessingImage) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('이미지 파일만 선택할 수 있습니다.');
+      return;
+    }
+
+    try {
+      setIsProcessingImage(true);
+      const compressedDataUrl = await compressImageFile(file, 360, 0.85);
+      await updateUserProfile({ photoURL: compressedDataUrl });
+    } catch (err) {
+      console.error('Profile photo upload error:', err);
+      alert('이미지를 불러오는데 실패했습니다.');
+    } finally {
+      setIsProcessingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   const menuItems = [
     { label: '내가 쓴 리뷰', sub: `${myReviewsCount}개`, action: () => setIsReviewsOpen(true) },
@@ -70,23 +101,38 @@ export const MyPageView: React.FC = () => {
   return (
     <div className="bg-[#F5F5F5] min-h-full pb-20">
       
+      {/* Hidden File Input for Direct Album Opening */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
       {/* 1. Profile header */}
       <div className="bg-gradient-to-b from-gray-900 via-slate-900 to-gray-900 px-5 pt-6 pb-16 text-white relative shadow-sm">
         <div className="flex items-center gap-3.5">
-          {/* Avatar with Camera Overlay */}
+          {/* Avatar with Camera Overlay (Clicking opens album) */}
           <div 
-            onClick={() => setIsEditProfileOpen(true)}
+            onClick={handleOpenAlbum}
             className="relative cursor-pointer group shrink-0"
-            title="프로필 사진 및 닉네임 변경"
+            title="프로필 사진 변경 (앨범에서 선택)"
           >
             <img
               src={currentUser.photoURL || DEFAULT_AVATAR}
               alt="profile"
               className="w-14 h-14 rounded-full border-2 border-white/30 object-cover bg-slate-950 shrink-0 shadow-md transition-transform group-hover:scale-105"
             />
-            <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-gray-900 text-white rounded-full border border-white/40 shadow-sm group-hover:bg-amber-500 transition-colors">
-              <Camera className="w-3 h-3" />
-            </div>
+            {isProcessingImage ? (
+              <div className="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center">
+                <Loader2 className="w-5 h-5 text-white animate-spin" />
+              </div>
+            ) : (
+              <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-gray-900 text-white rounded-full border border-white/40 shadow-sm group-hover:bg-amber-500 transition-colors">
+                <Camera className="w-3 h-3" />
+              </div>
+            )}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -96,11 +142,11 @@ export const MyPageView: React.FC = () => {
                 {currentUser.level}
               </span>
               <button
-                onClick={() => setIsEditProfileOpen(true)}
+                onClick={handleOpenAlbum}
                 className="p-1 text-white/70 hover:text-white transition-colors"
-                title="닉네임 / 프로필 변경"
+                title="프로필 사진 변경 (앨범)"
               >
-                <Edit3 className="w-3.5 h-3.5" />
+                <Camera className="w-3.5 h-3.5" />
               </button>
             </div>
             
@@ -176,12 +222,6 @@ export const MyPageView: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {/* Edit Profile & Nickname & Photo Modal */}
-      <EditProfileModal
-        isOpen={isEditProfileOpen}
-        onClose={() => setIsEditProfileOpen(false)}
-      />
 
       {/* My Bookmarks & My Reviews Modals */}
       <MyBookmarksModal

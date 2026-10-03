@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   ChevronLeft, 
@@ -15,7 +15,8 @@ import {
   Info, 
   LogOut, 
   Trash2, 
-  Edit3, 
+  Camera,
+  Loader2,
   ExternalLink, 
   ChevronDown, 
   ChevronUp,
@@ -24,8 +25,7 @@ import {
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
 import { BlockedUsersModal } from './BlockedUsersModal';
-import { EditProfileModal } from '../my/EditProfileModal';
-import { DEFAULT_AVATAR } from '../../utils/avatars';
+import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
 
 export const SettingsView: React.FC = () => {
@@ -36,15 +36,47 @@ export const SettingsView: React.FC = () => {
     setActiveTab,
     openLoginModal,
     openPermissionModal,
-    openNotificationCenter
+    openNotificationCenter,
+    updateUserProfile
   } = useApp();
 
-  // State for modals & editing
+  // State for modals & image processing
   const [selectedPolicyId, setSelectedPolicyId] = useState<string | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isBlockedModalOpen, setIsBlockedModalOpen] = useState(false);
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [showBusinessInfo, setShowBusinessInfo] = useState(false);
+  const [isProcessingImage, setIsProcessingImage] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleOpenAlbum = () => {
+    if (isProcessingImage) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('이미지 파일만 선택할 수 있습니다.');
+      return;
+    }
+
+    try {
+      setIsProcessingImage(true);
+      const compressedDataUrl = await compressImageFile(file, 360, 0.85);
+      await updateUserProfile({ photoURL: compressedDataUrl });
+    } catch (err) {
+      console.error('Profile photo upload error:', err);
+      alert('이미지를 불러오는데 실패했습니다.');
+    } finally {
+      setIsProcessingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   // Notification Toggles (with local persistence)
   const [pushEnabled, setPushEnabled] = useState<boolean>(() => {
@@ -148,23 +180,38 @@ export const SettingsView: React.FC = () => {
         <div className="w-6" /> {/* Placeholder for balance */}
       </div>
 
+      {/* Hidden File Input for Direct Album Opening */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
       <div className="p-4 space-y-4">
         {/* 2. Account Profile Card */}
         <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-2xs">
           <div className="flex items-center gap-3.5">
             <div 
-              onClick={() => setIsEditProfileOpen(true)}
+              onClick={handleOpenAlbum}
               className="relative cursor-pointer group shrink-0"
-              title="프로필 사진 및 닉네임 변경"
+              title="프로필 사진 변경 (앨범에서 선택)"
             >
               <img
                 src={currentUser.photoURL || DEFAULT_AVATAR}
                 alt="프로필"
                 className="w-12 h-12 rounded-full border border-gray-200 object-cover bg-slate-950 shrink-0 transition-transform group-hover:scale-105"
               />
-              <div className="absolute -bottom-0.5 -right-0.5 p-0.5 bg-gray-900 text-white rounded-full border border-white/60 shadow-xs group-hover:bg-amber-500 transition-colors">
-                <Edit3 className="w-2.5 h-2.5" />
-              </div>
+              {isProcessingImage ? (
+                <div className="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center">
+                  <Loader2 className="w-4 h-4 text-white animate-spin" />
+                </div>
+              ) : (
+                <div className="absolute -bottom-0.5 -right-0.5 p-0.5 bg-gray-900 text-white rounded-full border border-white/60 shadow-xs group-hover:bg-amber-500 transition-colors">
+                  <Camera className="w-2.5 h-2.5" />
+                </div>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
@@ -172,11 +219,11 @@ export const SettingsView: React.FC = () => {
                   {currentUser.displayName}
                 </span>
                 <button
-                  onClick={() => setIsEditProfileOpen(true)}
+                  onClick={handleOpenAlbum}
                   className="p-1 text-gray-400 hover:text-gray-700 transition-colors"
-                  title="닉네임 / 프로필 변경"
+                  title="프로필 사진 변경 (앨범)"
                 >
-                  <Edit3 className="w-3.5 h-3.5" />
+                  <Camera className="w-3.5 h-3.5" />
                 </button>
               </div>
               <div className="mt-1 flex items-center gap-1.5 flex-wrap">
@@ -510,12 +557,6 @@ export const SettingsView: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {/* Edit Profile & Nickname & Photo Modal */}
-      <EditProfileModal
-        isOpen={isEditProfileOpen}
-        onClose={() => setIsEditProfileOpen(false)}
-      />
 
       {/* Policy Reader Modal */}
       <PolicyModal

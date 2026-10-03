@@ -9,7 +9,6 @@ import {
   Search, 
   Store, 
   AlertCircle,
-  Tag,
   ShoppingBag,
   Heart,
   Award,
@@ -38,14 +37,6 @@ const PURCHASE_PLACES = [
   { id: '동네슈퍼/기타', name: '동네/기타', badge: '기타', bgActive: 'bg-slate-100 border-slate-600 text-slate-900 ring-2 ring-slate-400/30', badgeBg: 'bg-slate-700 text-white' },
 ];
 
-// 구매 혜택 / 행사 조건
-const PURCHASE_EVENTS = [
-  { id: '정가 구매', label: '정가 구매', icon: '🏷️' },
-  { id: '1+1 행사', label: '1+1 득템', icon: '🎁' },
-  { id: '2+1 행사', label: '2+1 행사', icon: '✌️' },
-  { id: '깜짝할인/특가', label: '특가 타임', icon: '🔥' },
-  { id: '무료체험/선물', label: '무료/선물', icon: '✨' }
-];
 
 // 재구매 의사 5단계
 const REPURCHASE_OPTIONS = [
@@ -86,42 +77,6 @@ const REPURCHASE_OPTIONS = [
   },
 ];
 
-// 맛 프로필 옵션 (모바일 화면 짤림 방지 및 상세 카드 지원)
-const FLAVOR_OPTIONS = {
-  sweetness: [
-    { stage: '1단계', label: '안 달아요', desc: '담백한 맛', icon: '🍃' },
-    { stage: '2단계', label: '은은한 단맛', desc: '은은한 감미', icon: '🍵' },
-    { stage: '3단계', label: '적당한 달콤함', desc: '달달한 맛', icon: '🍯' },
-    { stage: '4단계', label: '아주 달아요', desc: '진한 단맛', icon: '🍰' },
-  ],
-  spiciness: [
-    { stage: '1단계', label: '안 매워요', desc: '순한맛', icon: '🥛' },
-    { stage: '2단계', label: '살짝 매콤', desc: '은근 매콤', icon: '🌱' },
-    { stage: '3단계', label: '신라면 수준', desc: '얼큰 칼칼', icon: '🌶️' },
-    { stage: '4단계', label: '불닭급 매움', desc: '화끈 매움', icon: '🔥' },
-  ],
-  texture: [
-    { label: '바삭바삭', icon: '🥨' },
-    { label: '쫀득/꾸덕', icon: '🍮' },
-    { label: '부드러움', icon: '🍦' },
-    { label: '아삭아삭', icon: '🍎' },
-    { label: '촉촉함', icon: '💧' },
-  ],
-};
-
-// 추천 대상 태그
-const RECOMMEND_TARGET_TAGS = [
-  { tag: '#단짠러버', emoji: '🍿' },
-  { tag: '#야식혼술족', emoji: '🍺' },
-  { tag: '#다이어터/저당', emoji: '🥗' },
-  { tag: '#아이들간식', emoji: '👧' },
-  { tag: '#가성비족', emoji: '💰' },
-  { tag: '#맵부심', emoji: '🔥' },
-  { tag: '#홈카페디저트', emoji: '☕' },
-  { tag: '#신상얼리어답터', emoji: '⚡' },
-  { tag: '#단백질충전', emoji: '💪' },
-  { tag: '#칼로리폭탄', emoji: '💣' }
-];
 
 const SEARCH_CATEGORIES: (ProductCategory | '전체')[] = [
   '전체', '과자', '음료', '빵·디저트', '간편식', '패스트푸드', '과일', '식재료', '고기·수산'
@@ -156,14 +111,7 @@ export const WriteReviewModal: React.FC = () => {
 
   // 3. 확장 메타데이터
   const [purchasePlace, setPurchasePlace] = useState<string>('GS25');
-  const [purchaseEvent, setPurchaseEvent] = useState<string>('정가 구매');
-  const [purchasePrice, setPurchasePrice] = useState<string>('');
   const [repurchaseIntent, setRepurchaseIntent] = useState<string>('무조건 또 사먹어요!');
-  const [headline, setHeadline] = useState<string>('');
-  const [selectedSweetness, setSelectedSweetness] = useState<string>('');
-  const [selectedSpiciness, setSelectedSpiciness] = useState<string>('');
-  const [selectedTexture, setSelectedTexture] = useState<string>('');
-  const [selectedTargets, setSelectedTargets] = useState<string[]>(['#신상얼리어답터']);
 
   // 4. 본문 & 사진
   const [text, setText] = useState('');
@@ -200,6 +148,33 @@ export const WriteReviewModal: React.FC = () => {
     const cat = prod?.category || '';
     const name = prod?.name || '';
 
+    const sub = prod?.subCategory || '';
+    const has = (...kw: string[]) => kw.some(k => name.includes(k) || sub.includes(k));
+
+    if (has('커피', '라떼', '아메리카노', '콜드브루', '에스프레소', '카페')) {
+      return [
+        { label: '산미', val: metric1, set: setMetric1, desc: '산미가 기분 좋게 느껴지나요?' },
+        { label: '고소함·바디감', val: metric2, set: setMetric2, desc: '고소하고 묵직한 바디감인가요?' },
+        { label: '쓴맛 밸런스', val: metric3, set: setMetric3, desc: '쓴맛이 부담 없이 균형 잡혔나요?' },
+        { label: '향', val: metric4, set: setMetric4, desc: '원두 향이 풍부한가요?' },
+      ];
+    }
+    if (has('라면', '국수', '우동', '짬뽕', '파스타', '냉면')) {
+      return [
+        { label: '국물·소스', val: metric1, set: setMetric1, desc: '국물/소스 맛이 진한가요?' },
+        { label: '면발', val: metric2, set: setMetric2, desc: '면이 쫄깃하고 잘 어울리나요?' },
+        { label: '매운맛 만족도', val: metric3, set: setMetric3, desc: '맵기가 딱 적당한가요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+      ];
+    }
+    if (has('아이스크림', '빙수', '젤라또') && cat !== '과자') {
+      return [
+        { label: '달콤함', val: metric1, set: setMetric1, desc: '달콤함이 적당한가요?' },
+        { label: '부드러움', val: metric2, set: setMetric2, desc: '입에서 부드럽게 녹나요?' },
+        { label: '풍미', val: metric3, set: setMetric3, desc: '재료 맛이 진하게 느껴지나요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+      ];
+    }
     if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
       return [
         { label: '신선도', val: metric1, set: setMetric1, desc: '싱싱하고 신선한가요?' },
@@ -211,16 +186,24 @@ export const WriteReviewModal: React.FC = () => {
     if (cat === '음료') {
       return [
         { label: '맛·풍미', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
-        { label: '목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
-        { label: '양·용량', val: metric3, set: setMetric3, desc: '마시기에 든든한 용량인가요?' },
+        { label: '청량감·목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
+        { label: '단맛 밸런스', val: metric3, set: setMetric3, desc: '너무 달지 않고 적당한가요?' },
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만점인가요?' },
       ];
     }
-    if (['과자', '빵·디저트'].includes(cat)) {
+    if (cat === '과자') {
       return [
-        { label: '바삭함·식감', val: metric1, set: setMetric1, desc: '바삭하거나 꾸덕함이 인상적인가요?' },
-        { label: '단짠·풍미', val: metric2, set: setMetric2, desc: '양념과 단짠 밸런스가 최고인가요?' },
-        { label: '양·구성', val: metric3, set: setMetric3, desc: '질소 없이 푸짐하게 들었나요?' },
+        { label: '바삭함', val: metric1, set: setMetric1, desc: '바삭바삭 식감이 살아있나요?' },
+        { label: '단짠 밸런스', val: metric2, set: setMetric2, desc: '양념과 단짠 조화가 좋은가요?' },
+        { label: '양·질소', val: metric3, set: setMetric3, desc: '질소 없이 푸짐하게 들었나요?' },
+        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+      ];
+    }
+    if (cat === '빵·디저트') {
+      return [
+        { label: '촉촉함·식감', val: metric1, set: setMetric1, desc: '촉촉하고 부드러운가요?' },
+        { label: '달콤함', val: metric2, set: setMetric2, desc: '단맛이 적당한가요?' },
+        { label: '크림·속재료', val: metric3, set: setMetric3, desc: '속이 꽉 차 있나요?' },
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
       ];
     }
@@ -303,29 +286,6 @@ export const WriteReviewModal: React.FC = () => {
     setImages(prev => prev.filter((_, i) => i !== idx));
   };
 
-  const toggleTarget = (tag: string) => {
-    if (selectedTargets.includes(tag)) {
-      setSelectedTargets(prev => prev.filter(t => t !== tag));
-    } else {
-      if (selectedTargets.length >= 4) {
-        showToast('추천 대상은 최대 4개까지 선택 가능합니다.', 'info');
-        return;
-      }
-      setSelectedTargets(prev => [...prev, tag]);
-    }
-  };
-
-  // 실제 구매가 자동 콤마(,) 서식 처리
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/[^0-9]/g, '');
-    if (!raw) {
-      setPurchasePrice('');
-      return;
-    }
-    const num = parseInt(raw, 10);
-    setPurchasePrice(isNaN(num) ? '' : num.toLocaleString());
-  };
-
   // 필수 입력 완료 여부 확인
   const isProductSelected = !!prod;
   const unratedMetrics = categoryMetrics.filter(m => m.val === 0);
@@ -383,11 +343,7 @@ export const WriteReviewModal: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      const extraTags = [
-        ...selectedTargets,
-        `#${purchasePlace}`,
-        purchaseEvent ? `#${purchaseEvent}` : '',
-      ].filter(Boolean);
+      const extraTags = [`#${purchasePlace}`];
 
       await submitReview(
         prod.id,
@@ -398,16 +354,7 @@ export const WriteReviewModal: React.FC = () => {
         extraTags,
         {
           purchasePlace,
-          purchaseEvent,
-          purchasePrice: purchasePrice ? Number(purchasePrice.replace(/[^0-9]/g, '')) : undefined,
           repurchaseIntent,
-          headline: headline.trim() || undefined,
-          flavorProfile: {
-            sweetness: selectedSweetness || undefined,
-            spiciness: selectedSpiciness || undefined,
-            texture: selectedTexture || undefined,
-          },
-          recommendTargets: selectedTargets,
         }
       );
     } catch (err) {
@@ -649,48 +596,6 @@ export const WriteReviewModal: React.FC = () => {
             })}
           </div>
 
-          {/* 구매 행사 & 구매 가격 */}
-          <div className="pt-3 border-t border-gray-100 space-y-2.5">
-            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
-              <Tag className="w-3.5 h-3.5 text-gray-500" />
-              구매 조건 / 혜택
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {PURCHASE_EVENTS.map((evt) => {
-                const isSelected = purchaseEvent === evt.id;
-                return (
-                  <button
-                    type="button"
-                    key={evt.id}
-                    onClick={() => setPurchaseEvent(evt.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 flex items-center gap-1 active:scale-95 ${
-                      isSelected
-                        ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-slate-900/20'
-                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
-                    }`}
-                  >
-                    <span>{evt.icon}</span>
-                    <span>{evt.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex items-center gap-2 pt-1">
-              <span className="text-[11px] text-gray-500 font-bold shrink-0">실제 구매가</span>
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  placeholder={prod ? `${prod.price.toLocaleString()} (선택입력)` : '구매금액 (선택입력)'}
-                  value={purchasePrice}
-                  onChange={handlePriceChange}
-                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-3 py-1.5 text-xs font-bold text-gray-900 outline-none focus:border-slate-900 focus:bg-white transition-colors"
-                />
-              </div>
-              <span className="text-xs text-gray-600 font-bold shrink-0">원</span>
-            </div>
-          </div>
         </div>
 
         {/* 7. 재구매 의사 */}
@@ -729,149 +634,6 @@ export const WriteReviewModal: React.FC = () => {
           <div className="text-center text-xs font-bold text-gray-700 bg-slate-50 py-2 px-3 rounded-xl border border-slate-100 flex items-center justify-center gap-1.5">
             <span>선택한 의견:</span>
             <span className="text-slate-900 font-black underline underline-offset-2">{repurchaseIntent}</span>
-          </div>
-        </div>
-
-        {/* 8. 핵심 한 줄 요약평 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              ✍️ 핵심 한 줄 평
-            </span>
-            <span className="text-[10px] text-gray-400 font-medium">피드 강조 문구</span>
-          </div>
-          <input
-            type="text"
-            maxLength={40}
-            value={headline}
-            onChange={(e) => setHeadline(e.target.value)}
-            placeholder="예: 크림이 진짜 가득 차있어서 인생 빵 등극!"
-            className="w-full bg-slate-50/70 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 font-bold outline-none placeholder-gray-400 focus:border-slate-900 focus:bg-white transition-colors"
-          />
-        </div>
-
-        {/* 9. 맛 & 식감 디테일 프로필 */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              👅 맛 & 식감 상세 프로필
-            </span>
-            <span className="text-[10px] text-gray-400 font-medium">선택사항</span>
-          </div>
-
-          {/* 단맛 (2열 카드 그리드로 글자 짤림 방지) */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="text-[11px] font-black text-gray-700 flex items-center gap-1">
-                <span>🍯</span> 단맛의 정도
-              </div>
-              {selectedSweetness && (
-                <span className="text-[10px] font-black text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                  선택: {selectedSweetness}
-                </span>
-              )}
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {FLAVOR_OPTIONS.sweetness.map((s) => {
-                const isSelected = selectedSweetness === s.label;
-                return (
-                  <button
-                    type="button"
-                    key={s.label}
-                    onClick={() => setSelectedSweetness(isSelected ? '' : s.label)}
-                    className={`p-2.5 rounded-xl border text-left transition-all duration-150 flex items-center justify-between active:scale-98 ${
-                      isSelected
-                        ? 'bg-amber-50/80 border-amber-500 ring-2 ring-amber-400/30 text-amber-900 shadow-2xs font-black'
-                        : 'bg-slate-50/70 border-gray-200 text-gray-700 hover:bg-slate-100 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-lg shrink-0">{s.icon}</span>
-                      <div className="min-w-0">
-                        <div className="text-[9px] text-gray-400 font-bold leading-none mb-1">{s.stage}</div>
-                        <div className="text-xs font-black text-gray-900 truncate">{s.label}</div>
-                      </div>
-                    </div>
-                    {isSelected && (
-                      <span className="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 ml-1 shadow-2xs">
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 매운맛 (2열 카드 그리드로 글자 짤림 방지) */}
-          <div className="space-y-2 pt-1 border-t border-gray-100">
-            <div className="flex items-center justify-between">
-              <div className="text-[11px] font-black text-gray-700 flex items-center gap-1">
-                <span>🌶️</span> 매운맛의 정도
-              </div>
-              {selectedSpiciness && (
-                <span className="text-[10px] font-black text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">
-                  선택: {selectedSpiciness}
-                </span>
-              )}
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {FLAVOR_OPTIONS.spiciness.map((sp) => {
-                const isSelected = selectedSpiciness === sp.label;
-                return (
-                  <button
-                    type="button"
-                    key={sp.label}
-                    onClick={() => setSelectedSpiciness(isSelected ? '' : sp.label)}
-                    className={`p-2.5 rounded-xl border text-left transition-all duration-150 flex items-center justify-between active:scale-98 ${
-                      isSelected
-                        ? 'bg-rose-50/80 border-rose-500 ring-2 ring-rose-400/30 text-rose-900 shadow-2xs font-black'
-                        : 'bg-slate-50/70 border-gray-200 text-gray-700 hover:bg-slate-100 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-lg shrink-0">{sp.icon}</span>
-                      <div className="min-w-0">
-                        <div className="text-[9px] text-gray-400 font-bold leading-none mb-1">{sp.stage}</div>
-                        <div className="text-xs font-black text-gray-900 truncate">{sp.label}</div>
-                      </div>
-                    </div>
-                    {isSelected && (
-                      <span className="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 ml-1 shadow-2xs">
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 식감 */}
-          <div className="space-y-1.5 pt-1 border-t border-gray-100">
-            <div className="text-[11px] font-black text-gray-600 flex items-center gap-1">
-              <span>🥨</span> 식감 특징
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {FLAVOR_OPTIONS.texture.map((tx) => {
-                const isSelected = selectedTexture === tx.label;
-                return (
-                  <button
-                    type="button"
-                    key={tx.label}
-                    onClick={() => setSelectedTexture(isSelected ? '' : tx.label)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all duration-150 flex items-center gap-1 active:scale-95 ${
-                      isSelected
-                        ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs font-black ring-2 ring-emerald-400/30'
-                        : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>{tx.icon}</span>
-                    <span>{tx.label}</span>
-                  </button>
-                );
-              })}
-            </div>
           </div>
         </div>
 
@@ -937,38 +699,6 @@ export const WriteReviewModal: React.FC = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* 11. 누구에게 추천하나요? */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              🎯 누구에게 추천하나요?
-            </span>
-            <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-              {selectedTargets.length} / 4개 선택
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {RECOMMEND_TARGET_TAGS.map((item) => {
-              const isSelected = selectedTargets.includes(item.tag);
-              return (
-                <button
-                  type="button"
-                  key={item.tag}
-                  onClick={() => toggleTarget(item.tag)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 flex items-center gap-1 active:scale-95 ${
-                    isSelected
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-slate-900/20'
-                      : 'bg-slate-50/70 text-gray-600 border-gray-200 hover:bg-slate-100'
-                  }`}
-                >
-                  <span>{item.emoji}</span>
-                  <span>{item.tag}</span>
-                </button>
-              );
-            })}
           </div>
         </div>
 
