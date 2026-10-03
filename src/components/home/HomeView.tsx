@@ -35,6 +35,7 @@ import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
+import { AdMobBannerSection } from './AdMobBannerSection';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -469,7 +470,8 @@ export const HomeView: React.FC = () => {
       // 3. 카테고리 스크롤
       case 'categories':
         return (
-          <div key="categories" className="bg-white py-3 px-4 border-b border-gray-100">
+          <React.Fragment key="categories">
+          <div className="bg-white py-3 px-4 border-b border-gray-100">
             <div className="flex gap-4 overflow-x-auto no-scrollbar">
               {categoryIcons.map((c) => (
                 <button
@@ -487,6 +489,8 @@ export const HomeView: React.FC = () => {
               ))}
             </div>
           </div>
+          <AdMobBannerSection />
+          </React.Fragment>
         );
 
       // 4. 따끈따끈 새로 나온 신제품 구좌
