@@ -4,6 +4,7 @@ import {
   BannerAdSize,
   BannerAdPosition,
   AdMobInitializationOptions,
+  BannerAdPluginEvents,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
@@ -20,6 +21,22 @@ export const ADMOB_CONFIG = {
 
 let isInitialized = false;
 let isNativeBannerActive = false;
+let eventListenersAdded = false;
+
+const setupEventListeners = () => {
+  if (eventListenersAdded) return;
+  try {
+    AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
+      console.log('[AdMob] Native banner loaded successfully');
+    });
+    AdMob.addListener(BannerAdPluginEvents.FailedToLoad, (err) => {
+      console.warn('[AdMob] Native banner failed to load:', err);
+    });
+    eventListenersAdded = true;
+  } catch (e) {
+    console.warn('[AdMob] Event listener setup notice:', e);
+  }
+};
 
 /**
  * AdMob SDK 초기화 (iOS/Android 네이티브)
@@ -34,6 +51,7 @@ export const initAdMob = async (): Promise<boolean> => {
     };
     await AdMob.initialize(options);
     isInitialized = true;
+    setupEventListeners();
     console.log('[AdMob] SDK initialized successfully with App ID:', ADMOB_APP_ID);
 
     // iOS ATT 추적 권한 요청
@@ -79,7 +97,7 @@ export const showBanner = async (): Promise<boolean> => {
 
     await AdMob.showBanner(options);
     isNativeBannerActive = true;
-    console.log('[AdMob] Native banner requested');
+    console.log('[AdMob] Native banner requested with Unit ID:', ADMOB_BANNER_UNIT_ID);
     return true;
   } catch (error) {
     console.warn('[AdMob] showBanner notice:', error);

@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HomeSectionConfig } from '../../types';
 import { Capacitor } from '@capacitor/core';
+import { showBanner } from '../../services/admobService';
 
 interface AdMobBannerSectionProps {
   section?: HomeSectionConfig;
@@ -16,11 +17,15 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
   const isNative = Capacitor.isNativePlatform();
   const adRef = useRef<HTMLModElement>(null);
   const requestedRef = useRef<boolean>(false);
+  const [unfilled, setUnfilled] = useState<boolean>(false);
 
   useEffect(() => {
     // 1. 네이티브 앱(iOS/Android) 환경인 경우
     if (isNative) {
-      // 네이티브는 admobService/Capacitor AdMob SDK를 통해 처리
+      // 네이티브 구글 AdMob SDK 배너 표시 호출
+      showBanner().catch((err) => {
+        console.warn('[AdMobBannerSection] Native showBanner notice:', err);
+      });
       return;
     }
 
@@ -49,10 +54,35 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
       }
     }, 200);
 
+    // 4. unfilled 상태 감지 (웹)
+    const observer = new MutationObserver(() => {
+      if (adRef.current) {
+        const adStatus = adRef.current.getAttribute('data-ad-status');
+        if (adStatus === 'unfilled') {
+          setUnfilled(true);
+        }
+      }
+    });
+
+    if (adRef.current) {
+      observer.observe(adRef.current, { attributes: true, attributeFilter: ['data-ad-status'] });
+    }
+
     return () => {
       clearTimeout(timer);
+      observer.disconnect();
     };
   }, [isNative]);
+
+  // 네이티브에서는 iOS/Android 하단 배너로 AdMob이 표출되므로 웹뷰 내부 빈박스는 미표시
+  if (isNative) {
+    return null;
+  }
+
+  // 웹에서 unfilled로 판명된 경우 미표시
+  if (unfilled) {
+    return null;
+  }
 
   return (
     <div 
@@ -71,7 +101,7 @@ export const AdMobBannerSection: React.FC<AdMobBannerSectionProps> = ({ section 
         </div>
       </div>
 
-      {/* 구글 공식 광고 슬롯 (임의의 더미 배너 없이 오직 구글 공식 광고만 렌더링) */}
+      {/* 구글 공식 광고 슬롯 */}
       <div 
         className="w-full flex items-center justify-center min-h-[50px] sm:min-h-[90px] rounded-xl overflow-hidden bg-gray-50/50"
       >

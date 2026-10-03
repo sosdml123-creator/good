@@ -35,7 +35,7 @@ const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupMod
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
 import { checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
-import { initAdMob } from './services/admobService';
+import { showBanner, hideBanner, resumeBanner } from './services/admobService';
 import { Capacitor } from '@capacitor/core';
 
 // Minimal fallback spinner shown during lazy load
@@ -50,11 +50,11 @@ export const App: React.FC = () => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
   const mainRef = useRef<HTMLElement>(null);
 
-  // 앱 초기화: 네이티브(iOS/Android)에서 Google AdMob SDK 초기화
+  // 앱 초기화: 네이티브(iOS/Android)에서 Google AdMob SDK 초기화 및 배너 표시
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
-      initAdMob().catch((err) => {
-        console.warn('[App] AdMob init notice:', err);
+      showBanner().catch((err) => {
+        console.warn('[App] AdMob showBanner notice:', err);
       });
     }
   }, []);
@@ -66,6 +66,18 @@ export const App: React.FC = () => {
     }
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
+    }
+  }, [activeTab]);
+
+  // 탭 변경 시 네이티브 배너 제어 (상세/작성/검색 등 모달 탭 시 일시 숨김)
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      const modalTabs = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
+      if (modalTabs.includes(activeTab)) {
+        hideBanner().catch(() => {});
+      } else {
+        resumeBanner().catch(() => {});
+      }
     }
   }, [activeTab]);
 
