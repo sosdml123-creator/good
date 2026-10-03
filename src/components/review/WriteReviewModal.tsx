@@ -9,7 +9,6 @@ import {
   Search, 
   Store, 
   AlertCircle,
-  ShoppingBag,
   Heart,
   Award,
   LayoutGrid,
@@ -24,42 +23,15 @@ import { NewProductRequestModal } from './NewProductRequestModal';
 import { compressAndResizeImage } from '../../utils/imageCompressor';
 import { ImageViewerModal } from '../common/ImageViewerModal';
 
-// 구매처 목록 & 브랜드 디테일
-const PURCHASE_PLACES = [
-  { id: 'GS25', name: 'GS25', badge: 'GS25', bgActive: 'bg-cyan-50 border-cyan-500 text-cyan-800 ring-2 ring-cyan-400/30', badgeBg: 'bg-cyan-500 text-white' },
-  { id: 'CU', name: 'CU', badge: 'CU', bgActive: 'bg-purple-50 border-purple-500 text-purple-800 ring-2 ring-purple-400/30', badgeBg: 'bg-purple-600 text-white' },
-  { id: '세븐일레븐', name: '7-11', badge: '7-11', bgActive: 'bg-emerald-50 border-emerald-500 text-emerald-800 ring-2 ring-emerald-400/30', badgeBg: 'bg-emerald-600 text-white' },
-  { id: '이마트24', name: 'emart24', badge: 'e24', bgActive: 'bg-amber-50 border-amber-500 text-amber-800 ring-2 ring-amber-400/30', badgeBg: 'bg-amber-500 text-white' },
-  { id: '마켓컬리', name: '마켓컬리', badge: '컬리', bgActive: 'bg-fuchsia-50 border-fuchsia-500 text-fuchsia-800 ring-2 ring-fuchsia-400/30', badgeBg: 'bg-fuchsia-600 text-white' },
-  { id: '쿠팡', name: '쿠팡', badge: '쿠팡', bgActive: 'bg-rose-50 border-rose-500 text-rose-800 ring-2 ring-rose-400/30', badgeBg: 'bg-rose-500 text-white' },
-  { id: '대형마트', name: '대형마트', badge: '마트', bgActive: 'bg-blue-50 border-blue-500 text-blue-800 ring-2 ring-blue-400/30', badgeBg: 'bg-blue-600 text-white' },
-  { id: '배민B마트', name: '배민B마트', badge: 'B마트', bgActive: 'bg-teal-50 border-teal-500 text-teal-800 ring-2 ring-teal-400/30', badgeBg: 'bg-teal-600 text-white' },
-  { id: '동네슈퍼/기타', name: '동네/기타', badge: '기타', bgActive: 'bg-slate-100 border-slate-600 text-slate-900 ring-2 ring-slate-400/30', badgeBg: 'bg-slate-700 text-white' },
-];
 
-
-// 재구매 의사 5단계
+// 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
 const REPURCHASE_OPTIONS = [
   { 
-    value: '무조건 또 사먹어요!', 
-    emoji: '🤩', 
-    label: '적극추천',
-    desc: '매일 사먹고 싶어요!',
-    theme: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-200'
-  },
-  { 
-    value: '행사/할인하면 살래요', 
-    emoji: '😊', 
-    label: '할인추천',
-    desc: '세일하면 꼭 살래요',
-    theme: 'border-teal-500 bg-teal-500 text-white shadow-teal-200'
-  },
-  { 
-    value: '한 번 먹어본 걸로 만족', 
-    emoji: '😐', 
-    label: '보통',
-    desc: '한 번쯤 경험으로!',
-    theme: 'border-amber-500 bg-amber-500 text-white shadow-amber-200'
+    value: '다시는 안 사먹을래요', 
+    emoji: '👎', 
+    label: '안 살래요',
+    desc: '제 입맛엔 안맞아요',
+    theme: 'border-rose-500 bg-rose-500 text-white shadow-rose-200'
   },
   { 
     value: '누가 주면 먹을듯', 
@@ -69,11 +41,25 @@ const REPURCHASE_OPTIONS = [
     theme: 'border-orange-500 bg-orange-500 text-white shadow-orange-200'
   },
   { 
-    value: '다시는 안 사먹을래요', 
-    emoji: '👎', 
-    label: '비추천',
-    desc: '제 입맛엔 안맞아요',
-    theme: 'border-rose-500 bg-rose-500 text-white shadow-rose-200'
+    value: '한 번 먹어본 걸로 만족', 
+    emoji: '😐', 
+    label: '보통',
+    desc: '한 번쯤 경험으로!',
+    theme: 'border-amber-500 bg-amber-500 text-white shadow-amber-200'
+  },
+  { 
+    value: '행사/할인하면 살래요', 
+    emoji: '😊', 
+    label: '할인하면',
+    desc: '세일하면 꼭 살래요',
+    theme: 'border-teal-500 bg-teal-500 text-white shadow-teal-200'
+  },
+  { 
+    value: '무조건 또 사먹어요!', 
+    emoji: '🤩', 
+    label: '무조건!',
+    desc: '매일 사먹고 싶어요!',
+    theme: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-200'
   },
 ];
 
@@ -110,7 +96,6 @@ export const WriteReviewModal: React.FC = () => {
   const [highlightedSection, setHighlightedSection] = useState<'product' | 'metrics' | 'text' | null>(null);
 
   // 3. 확장 메타데이터
-  const [purchasePlace, setPurchasePlace] = useState<string>('GS25');
   const [repurchaseIntent, setRepurchaseIntent] = useState<string>('무조건 또 사먹어요!');
 
   // 4. 본문 & 사진
@@ -175,12 +160,36 @@ export const WriteReviewModal: React.FC = () => {
         { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
       ];
     }
+    if (has('커피', '라떼', '아메리카노', '콜드브루', '에스프레소', '카페')) {
+      return [
+        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '커피 맛과 풍미가 뛰어난가요?' },
+        { label: '산미', val: metric2, set: setMetric2, desc: '산미가 기분 좋게 느껴지나요?' },
+        { label: '고소함·향', val: metric3, set: setMetric3, desc: '고소함과 원두 향이 풍부한가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 커피인가요?' },
+      ];
+    }
+    if (has('라면', '국수', '우동', '짬뽕', '파스타', '냉면')) {
+      return [
+        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '국물/소스와 전반적인 맛이 훌륭한가요?' },
+        { label: '면발·식감', val: metric2, set: setMetric2, desc: '면이 쫄깃하고 조화로운가요?' },
+        { label: '매운맛·얼큰함', val: metric3, set: setMetric3, desc: '맵기와 국물 감칠맛이 적당한가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 라면인가요?' },
+      ];
+    }
+    if (has('아이스크림', '빙수', '젤라또') && cat !== '과자') {
+      return [
+        { label: '맛·달콤함', val: metric1, set: setMetric1, desc: '달콤하고 재료 맛이 진한가요?' },
+        { label: '부드러움·식감', val: metric2, set: setMetric2, desc: '입에서 부드럽게 녹나요?' },
+        { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격 대비 용량이 만족스러운가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 아이스크림인가요?' },
+      ];
+    }
     if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
       return [
-        { label: '신선도', val: metric1, set: setMetric1, desc: '싱싱하고 신선한가요?' },
-        { label: '당도·풍미', val: metric2, set: setMetric2, desc: '달콤하고 풍미가 풍부한가요?' },
-        { label: '식감', val: metric3, set: setMetric3, desc: '아삭아삭 식감이 좋은가요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 훌륭한가요?' },
+        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '당도와 본연의 풍미가 뛰어난가요?' },
+        { label: '신선도', val: metric2, set: setMetric2, desc: '싱싱하고 신선한가요?' },
+        { label: '식감', val: metric3, set: setMetric3, desc: '아삭함/부드러움 식감이 좋은가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 구매하고 싶을 정도인가요?' },
       ];
     }
     if (cat === '음료') {
@@ -188,39 +197,39 @@ export const WriteReviewModal: React.FC = () => {
         { label: '맛·풍미', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
         { label: '청량감·목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
         { label: '단맛 밸런스', val: metric3, set: setMetric3, desc: '너무 달지 않고 적당한가요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만점인가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 음료인가요?' },
       ];
     }
     if (cat === '과자') {
       return [
-        { label: '바삭함', val: metric1, set: setMetric1, desc: '바삭바삭 식감이 살아있나요?' },
-        { label: '단짠 밸런스', val: metric2, set: setMetric2, desc: '양념과 단짠 조화가 좋은가요?' },
-        { label: '양·질소', val: metric3, set: setMetric3, desc: '질소 없이 푸짐하게 들었나요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+        { label: '맛·양념', val: metric1, set: setMetric1, desc: '단짠 조화와 맛이 훌륭한가요?' },
+        { label: '바삭함·식감', val: metric2, set: setMetric2, desc: '바삭바삭 식감이 살아있나요?' },
+        { label: '양·가성비', val: metric3, set: setMetric3, desc: '질소 없이 알차고 가성비가 좋은가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 과자인가요?' },
       ];
     }
     if (cat === '빵·디저트') {
       return [
-        { label: '촉촉함·식감', val: metric1, set: setMetric1, desc: '촉촉하고 부드러운가요?' },
-        { label: '달콤함', val: metric2, set: setMetric2, desc: '단맛이 적당한가요?' },
-        { label: '크림·속재료', val: metric3, set: setMetric3, desc: '속이 꽉 차 있나요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+        { label: '맛·달콤함', val: metric1, set: setMetric1, desc: '디저트 본연의 맛이 뛰어난가요?' },
+        { label: '촉촉함·식감', val: metric2, set: setMetric2, desc: '촉촉하고 부드러운가요?' },
+        { label: '크림·속재료', val: metric3, set: setMetric3, desc: '속재료가 알차게 들어있나요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 디저트인가요?' },
       ];
     }
     if (['간편식', '패스트푸드'].includes(cat)) {
       return [
         { label: '맛·양념', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
-        { label: '조리 편의성', val: metric2, set: setMetric2, desc: '데우거나 섭취하기 편리한가요?' },
-        { label: '양·푸짐함', val: metric3, set: setMetric3, desc: '한 끼 식사로 든든한가요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
+        { label: '푸짐함·양', val: metric2, set: setMetric2, desc: '한 끼 식사로 알차고 푸짐한가요?' },
+        { label: '조리 편의성', val: metric3, set: setMetric3, desc: '데우거나 먹기 편리한가요?' },
+        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 상품인가요?' },
       ];
     }
     return [
-      { label: '맛', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
-      { label: '가성비', val: metric2, set: setMetric2, desc: '가격 대비 만족스럽나요?' },
-      { label: '양', val: metric3, set: setMetric3, desc: '양과 내용물이 푸짐한가요?' },
+      { label: '맛·풍미', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
+      { label: '식감·특징', val: metric2, set: setMetric2, desc: '식감이나 특징이 인상적인가요?' },
+      { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격과 양이 만족스러운가요?' },
       { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶을 정도인가요?' },
-    ];
+      ];
   }, [prod, metric1, metric2, metric3, metric4]);
 
   // 검색 결과 필터링
@@ -343,7 +352,7 @@ export const WriteReviewModal: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      const extraTags = [`#${purchasePlace}`];
+      const extraTags: string[] = [];
 
       await submitReview(
         prod.id,
@@ -353,7 +362,6 @@ export const WriteReviewModal: React.FC = () => {
         images.length > 0 ? images : [],
         extraTags,
         {
-          purchasePlace,
           repurchaseIntent,
         }
       );
@@ -554,48 +562,6 @@ export const WriteReviewModal: React.FC = () => {
              rating === 3 ? '무난하고 평범해요 😐' : 
              rating === 2 ? '기대에는 조금 못 미쳐요 💦' : '많이 아쉬워요 😢'}
           </div>
-        </div>
-
-        {/* 6. 어디서 구매하셨나요? */}
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              <ShoppingBag className="w-4 h-4 text-emerald-600" />
-              어디서 구매하셨나요?
-            </span>
-            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
-              필수 선택
-            </span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2">
-            {PURCHASE_PLACES.map((place) => {
-              const isSelected = purchasePlace === place.id;
-              return (
-                <button
-                  type="button"
-                  key={place.id}
-                  onClick={() => setPurchasePlace(place.id)}
-                  className={`relative py-2.5 px-2 rounded-xl text-xs font-black border transition-all duration-200 flex flex-col items-center justify-center gap-1.5 active:scale-95 ${
-                    isSelected
-                      ? `${place.bgActive} shadow-xs font-black scale-[1.02]`
-                      : 'bg-slate-50/70 text-gray-600 border-gray-200/80 hover:bg-slate-100 hover:border-gray-300'
-                  }`}
-                >
-                  {isSelected && (
-                    <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center">
-                      <Check className="w-2.5 h-2.5 stroke-[3]" />
-                    </span>
-                  )}
-                  <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${isSelected ? place.badgeBg : 'bg-gray-200 text-gray-700'}`}>
-                    {place.badge}
-                  </span>
-                  <span className="text-xs">{place.name}</span>
-                </button>
-              );
-            })}
-          </div>
-
         </div>
 
         {/* 7. 재구매 의사 */}
