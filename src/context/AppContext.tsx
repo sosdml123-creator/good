@@ -1403,15 +1403,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  // 4. Rejected Pending Product Names Tracking (Prevents crawler re-importing discarded items)
-  const [rejectedPendingProductNames, setRejectedPendingProductNames] = useState<string[]>(() => {
-    try {
-      const stored = localStorage.getItem('sinsangpick_rejected_pending_names');
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  });
+
 
   const [products, setProducts] = useState<Product[]>(() => {
     try {
@@ -1816,22 +1808,110 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return INITIAL_PRODUCT_EDIT_REQUESTS;
   });
 
-  // Pending Products (승인 대기 신제품) states - Sanitized with strict product name validation & verified healing
-  const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>(() => {
+  // Pending Products (승인 대기 신제품) states - Supabase DB pending_products Single Source of Truth
+  const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>([]);
+
+  // Supabase pending_products sync helpers
+  const fetchPendingProductsFromSupabase = async () => {
+    if (!supabase) return;
     try {
-      const stored = localStorage.getItem(PENDING_PRODUCTS_STORAGE_KEY);
-      const parsed: PendingProduct[] = stored ? JSON.parse(stored) : [];
-      const healed = revalidatePendingProductList(parsed);
-      try {
-        localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(healed));
-      } catch (e) {
-        // ignore
+      const { data, error } = await supabase
+        .from('pending_products')
+        .select('*')
+        .eq('status', 'pending')
+        .order('crawled_at', { ascending: false });
+
+      if (!error && data) {
+        const mapped: PendingProduct[] = data.map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          brand: item.brand,
+          category: item.category,
+          subCategory: item.sub_category || undefined,
+          itemType: item.item_type || 'packaged',
+          image: item.image,
+          releaseDate: item.release_date || undefined,
+          price: item.price || 0,
+          discountRate: item.discount_rate || 0,
+          stores: item.stores || [],
+          description: item.description || undefined,
+          sourceName: item.source_name || undefined,
+          sourceUrl: item.source_url || undefined,
+          crawledAt: item.crawled_at || undefined,
+          status: item.status || 'pending',
+          calories: item.calories || undefined,
+          volume: item.volume || undefined,
+          nutrition: item.nutrition || undefined,
+          ingredients: item.ingredients || undefined,
+          allergens: item.allergens || undefined,
+          bestQuotes: item.best_quotes || undefined,
+        }));
+        setPendingProducts(mapped);
       }
-      return healed;
-    } catch {
-      return [];
+    } catch (err) {
+      console.warn('[Fetch Pending Products Error]', err);
     }
-  });
+  };
+
+  const insertPendingProductsToSupabase = async (items: PendingProduct[]) => {
+    if (!supabase || items.length === 0) return;
+    const rows = items.map(item => ({
+      id: item.id || `pending-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      name: item.name,
+      brand: item.brand,
+      category: item.category,
+      sub_category: item.subCategory || null,
+      item_type: item.itemType || 'packaged',
+      image: item.image,
+      release_date: item.releaseDate || null,
+      price: item.price || 0,
+      discount_rate: item.discountRate || 0,
+      stores: item.stores || [],
+      description: item.description || null,
+      source_name: item.sourceName || null,
+      source_url: item.sourceUrl || null,
+      crawled_at: new Date().toISOString(),
+      status: 'pending',
+      calories: item.calories || null,
+      volume: item.volume || null,
+      nutrition: item.nutrition || null,
+      ingredients: item.ingredients || null,
+      allergens: item.allergens || null,
+      best_quotes: item.bestQuotes || null,
+    }));
+
+    const { error } = await supabase
+      .from('pending_products')
+      .upsert(rows, { onConflict: 'source_url', ignoreDuplicates: true });
+
+    if (error) {
+      console.warn('[Supabase Insert Pending Products Warning]', error.message);
+    }
+  };
+
+  const getDbExistingAndRejectedSets = async () => {
+    const existingNames = new Set<string>(products.map(p => p.name.trim().toLowerCase()));
+    const existingUrls = new Set<string>();
+
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('pending_products')
+          .select('name, source_url, status');
+
+        if (!error && data) {
+          data.forEach((row: any) => {
+            if (row.name) existingNames.add(row.name.trim().toLowerCase());
+            if (row.source_url) existingUrls.add(row.source_url.trim().toLowerCase());
+          });
+        }
+      } catch (e) {
+        console.warn('[Supabase Get Existing Sets Error]', e);
+      }
+    }
+
+    return { existingNames, existingUrls };
+  };
 
   const [isCrawling, setIsCrawling] = useState<boolean>(false);
   const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
@@ -1881,9 +1961,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  useEffect(() => {
-    safeSetItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(pendingProducts));
-  }, [pendingProducts]);
+  // Pending products are synced with Supabase pending_products table
 
   // Sync state to localStorage
   useEffect(() => {
@@ -1941,34 +2019,37 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_name', currentUser.displayName);
   }, [currentUser]);
 
-  // Auto-fetch daily new products on app start only when needed, respecting admin rejections and manual clearance
+  // Auto-fetch daily new products on app start only when needed and sync with Supabase pending_products DB
   useEffect(() => {
     const checkAndAutoCrawl = async () => {
       const today = new Date().toISOString().split('T')[0];
       const needsCrawl = isDailyCrawlNeeded();
 
-      // Do NOT auto re-crawl if admin deliberately cleared the pending list and today is already marked crawled
       if (needsCrawl) {
         try {
           const crawled = await fetchDailyNewProducts(today);
-          setPendingProducts(prev => {
-            const existingNames = new Set(prev.map(p => p.name.trim().toLowerCase()));
-            const rejectedSet = new Set(rejectedPendingProductNames.map(n => n.trim().toLowerCase()));
-            const newItems = crawled.filter(item => {
-              const clean = item.name.trim().toLowerCase();
-              return !existingNames.has(clean) && !rejectedSet.has(clean);
-            });
-            return newItems.length > 0 ? [...newItems, ...prev] : prev;
+          const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
+          const newItems = crawled.filter(item => {
+            const cleanName = item.name.trim().toLowerCase();
+            const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
+            return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
           });
+
+          if (newItems.length > 0) {
+            await insertPendingProductsToSupabase(newItems);
+          }
           markDailyCrawlDone();
           setLastCrawledDate(today);
         } catch (e) {
           console.warn('[Auto Crawler Init Warning]', e);
         }
       }
+
+      // Fetch pending products from Supabase pending_products table (status = 'pending')
+      fetchPendingProductsFromSupabase();
     };
     checkAndAutoCrawl();
-  }, [rejectedPendingProductNames]);
+  }, []);
 
   // KAMIS Agricultural & Marine Produce Live Prices Sync Handler
   const refreshKamisPrices = async (force: boolean = false): Promise<{ count: number; latestDate: string }> => {
@@ -5017,26 +5098,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const today = new Date().toISOString().split('T')[0];
       const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
       const crawled = await fetchDailyNewProducts(today);
-      
-      // 기존 대기목록, 이미 출시된 제품, 관리자가 반려한 제품(이름 기준) 중복 필터링
-      const existingProductNames = new Set(products.map(p => p.name.trim().toLowerCase()));
-      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim().toLowerCase()));
-      const rejectedSet = new Set(rejectedPendingProductNames.map(n => n.trim().toLowerCase()));
+      const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
 
       let uniqueNewItems = crawled.filter(item => {
-        const clean = item.name.trim().toLowerCase();
-        return !existingProductNames.has(clean) &&
-               !existingPendingNames.has(clean) &&
-               !rejectedSet.has(clean);
+        const cleanName = item.name.trim().toLowerCase();
+        const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
+        return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
       });
 
-      // 만약 crawled에서 유효한 새 상품이 부족하면 REAL_NEW_PRODUCTS_DATABASE에서 아직 등록되지 않은 상품을 찾아 보충
       if (uniqueNewItems.length === 0) {
         const fallbackCandidates = REAL_NEW_PRODUCTS_DATABASE.filter(item => {
-          const clean = item.name.trim().toLowerCase();
-          return !existingProductNames.has(clean) &&
-                 !existingPendingNames.has(clean) &&
-                 !rejectedSet.has(clean);
+          const cleanName = item.name.trim().toLowerCase();
+          const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
+          return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
         });
 
         if (fallbackCandidates.length > 0) {
@@ -5051,21 +5125,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
 
       if (uniqueNewItems.length > 0) {
-        setPendingProducts(prev => [...uniqueNewItems, ...prev]);
+        await insertPendingProductsToSupabase(uniqueNewItems);
+        await fetchPendingProductsFromSupabase();
         markDailyCrawlDone();
         setLastCrawledDate(today);
-        showToast(`✨ 오늘의 실제 신제품 ${uniqueNewItems.length}건이 수집되어 승인 대기함에 등록되었습니다!`, 'success');
+        showToast(`✨ 오늘의 실제 신제품 ${uniqueNewItems.length}건이 수집되어 DB 승인 대기함에 등록되었습니다!`, 'success');
         return { count: uniqueNewItems.length };
       } else {
         if (force) {
-          // 강제 수집인 경우 타임스탬프를 갱신하여 추가
           const forcedItems = (crawled.length > 0 ? crawled : REAL_NEW_PRODUCTS_DATABASE).slice(0, 3).map((item, i) => ({
             ...item,
             id: `pending-forced-${Date.now()}-${i}`,
             crawledAt: `${today} ${nowTime}`,
             status: 'pending' as const
           }));
-          setPendingProducts(prev => [...forcedItems, ...prev]);
+          await insertPendingProductsToSupabase(forcedItems);
+          await fetchPendingProductsFromSupabase();
           showToast(`⚡ 새로운 실제 신제품 ${forcedItems.length}건을 즉시 수집했습니다!`, 'success');
           return { count: forcedItems.length };
         }
@@ -5087,12 +5162,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setIsCrawling(true);
     try {
       const results = await searchAndCrawlNewProducts(query);
-      const existingPendingNames = new Set(pendingProducts.map(p => p.name.trim()));
-      const newItems = results.filter(item => !existingPendingNames.has(item.name.trim()));
+      const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
+      const newItems = results.filter(item => {
+        const cleanName = item.name.trim().toLowerCase();
+        const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
+        return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
+      });
 
       if (newItems.length > 0) {
-        setPendingProducts(prev => [...newItems, ...prev]);
-        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 승인 대기함에 추가했습니다!`, 'success');
+        await insertPendingProductsToSupabase(newItems);
+        await fetchPendingProductsFromSupabase();
+        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 DB 승인 대기함에 추가했습니다!`, 'success');
         return { count: newItems.length };
       } else {
         showToast(`'${query}'에 해당하는 신제품이 이미 대기함에 있습니다.`, 'info');
@@ -5174,7 +5254,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // 승인 대기 목록에서 제거
     setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
 
-    // Supabase DB 연결 시에도 비동기 백그라운드 등록
+    // Supabase DB 연결 시에도 비동기 백그라운드 등록 및 status='approved' 업데이트
     if (supabase) {
       supabase.from('products').upsert({
         id: newProduct.id,
@@ -5197,6 +5277,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         is_hot: newProduct.isHot,
       }, { onConflict: 'id' }).then(({ error }) => {
         if (error) console.warn('[Supabase Product Insert Warning]', error.message);
+      });
+
+      supabase.from('pending_products').update({ status: 'approved' }).eq('id', pendingId).then(({ error }) => {
+        if (error) console.warn('[Supabase Pending Approved Warning]', error.message);
       });
     }
 
@@ -5259,39 +5343,69 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
     setProducts(prev => [...approvedList, ...prev]);
+    const pendingIds = pendingList.map(p => p.id);
     setPendingProducts([]);
+
+    if (supabase && pendingIds.length > 0) {
+      const client = supabase;
+      approvedList.forEach(prod => {
+        client.from('products').upsert({
+          id: prod.id,
+          name: prod.name,
+          brand: prod.brand,
+          category: prod.category,
+          sub_category: prod.subCategory,
+          item_type: prod.itemType,
+          image: prod.image,
+          release_date: prod.releaseDate,
+          price: prod.price,
+          discount_rate: prod.discountRate,
+          overall_rating: prod.overallRating,
+          rating_count: prod.ratingCount,
+          description: prod.description,
+          stores: prod.stores,
+          calories: prod.calories,
+          volume: prod.volume,
+          is_today: prod.isToday,
+        }, { onConflict: 'id' }).then(({ error }) => {
+          if (error) console.warn('[Supabase Product Insert Warning]', error.message);
+        });
+      });
+
+      client.from('pending_products').update({ status: 'approved' }).in('id', pendingIds).then(({ error }) => {
+        if (error) console.warn('[Supabase Bulk Pending Approved Warning]', error.message);
+      });
+    }
+
     showToast(`🎉 총 ${approvedList.length}건의 실제 신제품이 일괄 승인되어 서비스에 업로드되었습니다!`, 'success');
   };
 
-  // 5. 신제품 반려(거절) - 영구 기억하여 재크롤링 방지
+  // 5. 신제품 반려(거절) - Supabase pending_products status='rejected' 업데이트
   const rejectPendingProduct = (pendingId: string) => {
     const item = pendingProducts.find(p => p.id === pendingId);
-    if (item && item.name) {
-      setRejectedPendingProductNames(prev => {
-        const next = Array.from(new Set([...prev, item.name.trim()]));
-        safeSetItem('sinsangpick_rejected_pending_names', JSON.stringify(next));
-        return next;
+    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
+    if (supabase) {
+      supabase.from('pending_products').update({ status: 'rejected' }).eq('id', pendingId).then(({ error }) => {
+        if (error) console.warn('[Supabase Pending Rejected Warning]', error.message);
       });
     }
-    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
-    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다. (재수집 차단 완료)`, 'info');
+    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다. (DB 재수집 차단 완료)`, 'info');
   };
 
   // 5-1. 대기 중인 모든 신제품 일괄 승인 취소 (일괄 반려)
   const rejectAllPending = () => {
-    const count = pendingProducts.length;
-    if (count === 0) {
+    const pendingIds = pendingProducts.map(p => p.id);
+    if (pendingIds.length === 0) {
       showToast('대기 중인 신제품이 없습니다.', 'info');
       return;
     }
-    const names = pendingProducts.map(p => p.name.trim()).filter(Boolean);
-    setRejectedPendingProductNames(prev => {
-      const next = Array.from(new Set([...prev, ...names]));
-      safeSetItem('sinsangpick_rejected_pending_names', JSON.stringify(next));
-      return next;
-    });
     setPendingProducts([]);
-    showToast(`총 ${count}건의 대기 상품이 일괄 반려되었습니다.`, 'info');
+    if (supabase && pendingIds.length > 0) {
+      supabase.from('pending_products').update({ status: 'rejected' }).in('id', pendingIds).then(({ error }) => {
+        if (error) console.warn('[Supabase Bulk Pending Rejected Warning]', error.message);
+      });
+    }
+    showToast(`총 ${pendingIds.length}건의 대기 상품이 일괄 반려되었습니다.`, 'info');
   };
 
   // 5-2. 이미 승인된 개별 상품 승인 취소 (products에서 제거 후 pendingProducts 대기함으로 복원)
@@ -5434,31 +5548,54 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const revalidateAllPending = () => {
     setPendingProducts(prev => {
       const updated = revalidatePendingProductList(prev);
-      try {
-        localStorage.setItem(PENDING_PRODUCTS_STORAGE_KEY, JSON.stringify(updated));
-      } catch (e) {
-        // ignore
-      }
+      insertPendingProductsToSupabase(updated);
       showToast(`✨ 대기 상품 ${updated.length}건 모두 실물 쇼핑 정품 데이터로 정상화 완료!`, 'success');
       return updated;
     });
   };
 
-
   // 6. 대기 상품 정보 수정
   const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {
     setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
+    if (supabase) {
+      const dbUpdates: any = {};
+      if (updated.name !== undefined) dbUpdates.name = updated.name;
+      if (updated.brand !== undefined) dbUpdates.brand = updated.brand;
+      if (updated.category !== undefined) dbUpdates.category = updated.category;
+      if (updated.subCategory !== undefined) dbUpdates.sub_category = updated.subCategory;
+      if (updated.itemType !== undefined) dbUpdates.item_type = updated.itemType;
+      if (updated.image !== undefined) dbUpdates.image = updated.image;
+      if (updated.price !== undefined) dbUpdates.price = updated.price;
+      if (updated.discountRate !== undefined) dbUpdates.discount_rate = updated.discountRate;
+      if (updated.stores !== undefined) dbUpdates.stores = updated.stores;
+      if (updated.description !== undefined) dbUpdates.description = updated.description;
+      if (updated.calories !== undefined) dbUpdates.calories = updated.calories;
+      if (updated.volume !== undefined) dbUpdates.volume = updated.volume;
+
+      supabase.from('pending_products').update(dbUpdates).eq('id', pendingId).then(({ error }) => {
+        if (error) console.warn('[Supabase Pending Product Update Warning]', error.message);
+      });
+    }
     showToast('대기 상품 정보가 수정되었습니다.', 'success');
   };
 
-  // 7. 대기 목록 전체 삭제
+  // 7. 대기 목록 전체 삭제 (status='rejected' 업데이트)
   const clearAllPendingProducts = () => {
+    const pendingIds = pendingProducts.map(p => p.id);
     setPendingProducts([]);
+    if (supabase && pendingIds.length > 0) {
+      supabase.from('pending_products').update({ status: 'rejected' }).in('id', pendingIds).then(({ error }) => {
+        if (error) console.warn('[Supabase Clear All Pending Warning]', error.message);
+      });
+    }
     showToast('승인 대기 목록이 모두 비워졌습니다.', 'info');
   };
 
   // 8. 개별 신제품 대기함 직접 추가
   const addPendingProduct = (item: PendingProduct) => {
+    insertPendingProductsToSupabase([item]).then(() => {
+      fetchPendingProductsFromSupabase();
+    });
     setPendingProducts(prev => [item, ...prev.filter(p => p.id !== item.id)]);
     showToast(`'${item.name}' 상품이 승인 대기함에 추가되었습니다.`, 'info');
   };

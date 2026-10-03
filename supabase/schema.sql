@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS provider TEXT DEFAULT 'anonymous';
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS last_active_at TIMESTAMPTZ DEFAULT NOW();
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT false;
 
 -- 2. Products Table (상품 카탈로그 및 실시간 집계 평점)
 CREATE TABLE IF NOT EXISTS public.products (
@@ -450,11 +451,51 @@ CREATE TABLE IF NOT EXISTS public.pending_products (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS pending_products_source_url_key 
+ON public.pending_products (source_url) 
+WHERE source_url IS NOT NULL;
+
 ALTER TABLE public.pending_products ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Pending products are viewable by everyone" ON public.pending_products FOR SELECT USING (true);
-CREATE POLICY "Only service role can manage pending products" ON public.pending_products FOR ALL 
-    USING (auth.role() = 'service_role') 
-    WITH CHECK (auth.role() = 'service_role');
+
+CREATE POLICY "Admin select pending products" ON public.pending_products
+FOR SELECT USING (
+    auth.role() = 'service_role' OR 
+    EXISTS (
+        SELECT 1 FROM public.profiles 
+        WHERE public.profiles.id = auth.uid() 
+        AND public.profiles.is_admin = true
+    )
+);
+
+CREATE POLICY "Admin update pending products" ON public.pending_products
+FOR UPDATE USING (
+    auth.role() = 'service_role' OR 
+    EXISTS (
+        SELECT 1 FROM public.profiles 
+        WHERE public.profiles.id = auth.uid() 
+        AND public.profiles.is_admin = true
+    )
+);
+
+CREATE POLICY "Admin delete pending products" ON public.pending_products
+FOR DELETE USING (
+    auth.role() = 'service_role' OR 
+    EXISTS (
+        SELECT 1 FROM public.profiles 
+        WHERE public.profiles.id = auth.uid() 
+        AND public.profiles.is_admin = true
+    )
+);
+
+CREATE POLICY "Admin and service role insert pending products" ON public.pending_products
+FOR INSERT WITH CHECK (
+    auth.role() = 'service_role' OR 
+    EXISTS (
+        SELECT 1 FROM public.profiles 
+        WHERE public.profiles.id = auth.uid() 
+        AND public.profiles.is_admin = true
+    )
+);
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.pending_products;
 

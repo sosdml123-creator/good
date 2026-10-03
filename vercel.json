@@ -1,4 +1,10 @@
 {
+  "crons": [
+    {
+      "path": "/api/collect-news",
+      "schedule": "0 0 * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt).*)",
