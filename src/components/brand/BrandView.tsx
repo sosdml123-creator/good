@@ -5,12 +5,15 @@ import {
   Search, 
   Star, 
   Heart, 
-  ExternalLink, 
   Sparkles, 
   Flame, 
   SlidersHorizontal,
   ChevronRight,
-  Store
+  Store,
+  Bell,
+  User,
+  Gift,
+  Check
 } from 'lucide-react';
 import { getAggregatedBrands, getBrandLogo, ProcessedBrand } from '../../utils/brandData';
 import { BrandLogo } from './BrandLogo';
@@ -49,6 +52,15 @@ export const BrandView: React.FC = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState('전체');
   const [sortBy, setSortBy] = useState<SortOption>('popular');
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [isAlarmActive, setIsAlarmActive] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2500);
+  };
 
   // All aggregated brands from actual product catalogue + custom configured brands
   const allBrands = useMemo(() => getAggregatedBrands(products, brands), [products, brands]);
@@ -63,8 +75,8 @@ export const BrandView: React.FC = () => {
     return {
       name: selectedBrand,
       logo: getBrandLogo(selectedBrand),
-      bannerImage: brandProducts[0]?.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000&auto=format&fit=crop&q=80',
-      category: brandProducts[0]?.category || '브랜드관',
+      bannerImage: brandProducts[0]?.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80',
+      category: brandProducts[0]?.category || '공식 브랜드',
       slogan: `${selectedBrand} 공식 브랜드관`,
       description: `${selectedBrand}에서 판매 중인 대표 메뉴와 신제품을 한 곳에서 모아보세요.`,
       badge: '공식 브랜드',
@@ -105,12 +117,13 @@ export const BrandView: React.FC = () => {
     });
   }, [allBrands, directorySearchQuery, selectedCategoryTab]);
 
-  // Brand subcategories (e.g. 버거, 치킨, 사이드, 음료 등)
+  // Brand subcategories (e.g. 냉동/간편식, 스낵/과자, 식품, 음료/차 등)
   const brandSubCategories = useMemo(() => {
     if (!currentBrand) return ['전체'];
     const subSet = new Set<string>();
     currentBrand.products.forEach(p => {
       if (p.subCategory) subSet.add(p.subCategory);
+      else if (p.category) subSet.add(p.category);
     });
     return ['전체', ...Array.from(subSet)];
   }, [currentBrand]);
@@ -126,12 +139,13 @@ export const BrandView: React.FC = () => {
       list = list.filter(p => 
         p.name.toLowerCase().includes(q) ||
         (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
+        (p.category && p.category.toLowerCase().includes(q)) ||
         (p.description && p.description.toLowerCase().includes(q))
       );
     }
 
     if (selectedSubCategory !== '전체') {
-      list = list.filter(p => p.subCategory === selectedSubCategory);
+      list = list.filter(p => p.subCategory === selectedSubCategory || p.category === selectedSubCategory);
     }
 
     switch (sortBy) {
@@ -150,29 +164,11 @@ export const BrandView: React.FC = () => {
     }
   }, [currentBrand, selectedSubCategory, brandItemSearchQuery, sortBy]);
 
-  // Group products by subCategory for category-divided view
-  const categorizedProducts = useMemo(() => {
-    if (!currentBrand || selectedSubCategory !== '전체' || brandItemSearchQuery.trim() !== '') {
-      return null;
-    }
-
-    const groups: { categoryName: string; items: Product[] }[] = [];
-    const map = new Map<string, Product[]>();
-
-    displayedBrandProducts.forEach(p => {
-      const catKey = p.subCategory || p.category || '기타 메뉴';
-      if (!map.has(catKey)) {
-        map.set(catKey, []);
-      }
-      map.get(catKey)!.push(p);
-    });
-
-    map.forEach((items, categoryName) => {
-      groups.push({ categoryName, items });
-    });
-
-    return groups.length > 1 ? groups : null;
-  }, [currentBrand, selectedSubCategory, brandItemSearchQuery, displayedBrandProducts]);
+  // Count new product entries for stats card
+  const newProductCount = useMemo(() => {
+    if (!currentBrand) return 0;
+    return currentBrand.products.filter(p => p.isToday || p.isHot).length;
+  }, [currentBrand]);
 
   // Related brands when in Detail mode
   const relatedBrands = useMemo(() => {
@@ -246,7 +242,7 @@ export const BrandView: React.FC = () => {
             </div>
             <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
               <Star className="w-3 h-3 fill-amber-400 stroke-none" />
-              <span>{p.overallRating?.toFixed(1) || '4.8'}</span>
+              <span>{p.overallRating?.toFixed(1) || '4.5'}</span>
             </div>
           </div>
         </div>
@@ -255,19 +251,27 @@ export const BrandView: React.FC = () => {
   };
 
   // =========================================================================
-  // VIEW 1: BRAND DETAIL SHOWCASE (특정 브랜드 제품 모아보기)
+  // VIEW 1: BRAND DETAIL SHOWCASE (특정 브랜드 전용관 - 깔끔한 신규 UI)
   // =========================================================================
   if (selectedBrand && currentBrand) {
     return (
-      <div className="pb-20 bg-[#F8F9FA] min-h-full">
-        {/* 1. Sticky Header */}
+      <div className="pb-24 bg-[#F8F9FA] min-h-full">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-xl backdrop-blur-md flex items-center gap-2 animate-in fade-in slide-in-from-top duration-200">
+            <Bell className="w-4 h-4 text-amber-400 fill-amber-400" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* 1. Top Navbar Header */}
         <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-4 py-2.5 shadow-2xs">
           <button
             onClick={goBack}
-            className="p-1 -ml-1 text-gray-700 hover:text-gray-900 flex items-center gap-1 font-semibold text-xs"
+            className="p-1 -ml-1 text-gray-700 hover:text-gray-900 flex items-center gap-1 font-bold text-xs active:scale-95 transition-transform"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
-            <span>브랜드 목록</span>
+            <span>뒤로가기</span>
           </button>
 
           <div className="flex items-center gap-2 truncate max-w-[190px]">
@@ -277,8 +281,8 @@ export const BrandView: React.FC = () => {
               size="xs" 
               roundedClassName="rounded-md" 
             />
-            <span className="text-sm font-bold text-gray-900 truncate">
-              {currentBrand.name} 브랜드관
+            <span className="text-sm font-black text-gray-900 truncate">
+              {currentBrand.name}
             </span>
           </div>
 
@@ -294,212 +298,220 @@ export const BrandView: React.FC = () => {
           </button>
         </div>
 
-        {/* 2. Brand Visual Hero Banner & Profile Card */}
-        <div className="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white">
-          <div className="h-36 w-full relative overflow-hidden opacity-50">
+        {/* 2. Hero Header Banner Section */}
+        <div className="relative bg-gray-900 text-white overflow-hidden">
+          {/* Cover Background Image */}
+          <div className="h-44 sm:h-52 w-full relative overflow-hidden">
             <img
-              src={currentBrand.bannerImage || currentBrand.logo}
+              src={currentBrand.bannerImage || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80'}
               alt={currentBrand.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-75 transform scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20" />
+            
+            {/* Top Right "알림받기" Glassmorphism Button */}
+            <button
+              onClick={() => {
+                const nextState = !isAlarmActive;
+                setIsAlarmActive(nextState);
+                showToast(nextState ? `${currentBrand.name} 신상품 알림이 설정되었습니다.` : `${currentBrand.name} 알림이 해제되었습니다.`);
+              }}
+              className={`absolute top-4 right-4 z-20 px-3.5 py-1.5 rounded-full backdrop-blur-md text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shadow-md ${
+                isAlarmActive
+                  ? 'bg-amber-500 text-white border border-amber-400'
+                  : 'bg-black/30 border border-white/30 text-white hover:bg-black/50'
+              }`}
+            >
+              <Bell className={`w-3.5 h-3.5 ${isAlarmActive ? 'fill-white' : ''}`} />
+              <span>{isAlarmActive ? '알림 설정됨' : '알림받기'}</span>
+            </button>
           </div>
 
-          <div className="px-4 pb-5 -mt-12 relative z-10">
-            <div className="flex items-end justify-between gap-3">
-              <div className="flex items-center gap-3">
-                {/* Clean Brand Logo Container */}
-                <BrandLogo
-                  brandName={currentBrand.name}
-                  logoUrl={currentBrand.logo}
-                  size="xl"
-                  className="shadow-xl border-2 border-white ring-2 ring-black/10"
-                  roundedClassName="rounded-3xl"
-                />
-                <div className="space-y-0.5">
-                  <div className="flex items-center gap-1.5">
-                    {currentBrand.badge && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-2xs">
-                        {currentBrand.badge}
-                      </span>
-                    )}
-                    <span className="text-[10px] text-gray-300 font-medium">
-                      {currentBrand.category}
-                    </span>
-                  </div>
-                  <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
-                    {currentBrand.name}
-                    {currentBrand.engName && (
-                      <span className="text-xs font-normal text-gray-300 font-sans">
-                        ({currentBrand.engName})
-                      </span>
-                    )}
-                  </h1>
-                </div>
-              </div>
-
-              {currentBrand.officialUrl && (
-                <a
-                  href={currentBrand.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-[11px] font-semibold border border-white/20 flex items-center gap-1 transition-all shrink-0 active:scale-95"
-                >
-                  <span>공식몰</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              )}
+          {/* Overlay Brand Info (Logo, Badges, Name, Slogan) */}
+          <div className="px-4 pb-8 -mt-20 relative z-10 flex items-end gap-3.5">
+            {/* Large Logo Container */}
+            <div className="bg-white p-1 rounded-2xl shadow-xl border border-white/20 shrink-0">
+              <BrandLogo
+                brandName={currentBrand.name}
+                logoUrl={currentBrand.logo}
+                size="xl"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl"
+                showBorder={false}
+              />
             </div>
 
-            <p className="text-xs text-gray-200 mt-3 font-medium leading-relaxed bg-white/5 backdrop-blur-xs p-2.5 rounded-xl border border-white/10">
-              {currentBrand.slogan}
-            </p>
+            {/* Brand Title and Meta */}
+            <div className="flex-1 space-y-1 pb-0.5">
+              {/* Badges */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-400 text-gray-950 shadow-2xs">
+                  {currentBrand.badge || '국민가성비 1등 PB'}
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800/80 text-gray-200 border border-white/10 backdrop-blur-xs">
+                  공식브랜드
+                </span>
+              </div>
 
-            {/* Stats Bar */}
-            <div className="grid grid-cols-3 gap-2 mt-3 text-center">
-              <div className="bg-white/10 backdrop-blur-xs rounded-xl p-2 border border-white/5">
-                <div className="text-[10px] text-gray-300">등록 상품</div>
-                <div className="text-sm font-black text-white">{currentBrand.productCount}개</div>
+              {/* Brand Title */}
+              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-1.5 drop-shadow-md">
+                <span>{currentBrand.name}</span>
+                {currentBrand.engName && (
+                  <span className="text-xs font-normal text-gray-300 font-sans">
+                    ({currentBrand.engName})
+                  </span>
+                )}
+              </h1>
+
+              {/* Slogan */}
+              <p className="text-xs text-gray-200 font-medium line-clamp-1 drop-shadow-sm leading-tight">
+                {currentBrand.slogan}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. White Floating Summary Card (Stats Row) */}
+        <div className="px-4 -mt-5 relative z-20">
+          <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-3.5 grid grid-cols-3 divide-x divide-gray-100 text-center">
+            {/* Col 1: 등록 상품 */}
+            <div className="px-1 space-y-0.5">
+              <div className="text-[11px] sm:text-xs text-gray-500 font-semibold flex items-center justify-center gap-1">
+                <User className="w-3.5 h-3.5 text-gray-400" />
+                <span>등록 상품</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-xs rounded-xl p-2 border border-white/5">
-                <div className="text-[10px] text-gray-300">평균 평점</div>
-                <div className="text-sm font-black text-amber-300 flex items-center justify-center gap-0.5">
-                  <Star className="w-3.5 h-3.5 fill-amber-300 stroke-none" />
-                  <span>{currentBrand.avgRating}</span>
-                </div>
+              <div className="text-base sm:text-lg font-black text-gray-900">
+                {currentBrand.productCount}개
               </div>
-              <div className="bg-white/10 backdrop-blur-xs rounded-xl p-2 border border-white/5">
-                <div className="text-[10px] text-gray-300">실시간 리뷰</div>
-                <div className="text-sm font-black text-white">
-                  {currentBrand.totalReviews > 1000 ? `${(currentBrand.totalReviews / 1000).toFixed(1)}k+` : currentBrand.totalReviews}
-                </div>
+            </div>
+
+            {/* Col 2: 평균 평점 */}
+            <div className="px-1 space-y-0.5">
+              <div className="text-[11px] sm:text-xs text-gray-500 font-semibold flex items-center justify-center gap-1">
+                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span>평균 평점</span>
+              </div>
+              <div className="text-base sm:text-lg font-black text-gray-900 flex items-center justify-center gap-1">
+                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                <span>{currentBrand.avgRating}</span>
+              </div>
+            </div>
+
+            {/* Col 3: 신규 입점 */}
+            <div className="px-1 space-y-0.5">
+              <div className="text-[11px] sm:text-xs text-gray-500 font-semibold flex items-center justify-center gap-1">
+                <Gift className="w-3.5 h-3.5 text-slate-500" />
+                <span>신규 입점</span>
+              </div>
+              <div className="text-base sm:text-lg font-black text-gray-900">
+                {newProductCount}개
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3. In-Brand Menu Search Bar & Category Tabs */}
-        <div className="sticky top-[45px] z-20 bg-white border-b border-gray-100 shadow-2xs space-y-2 py-2 px-4">
-          {/* Menu Search Box inside Brand */}
-          <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-1.5">
-            <Search className="w-3.5 h-3.5 text-gray-400" />
+        {/* 4. In-Brand Product Search Input */}
+        <div className="px-4 mt-4">
+          <div className="bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-slate-900 rounded-full px-4 py-2.5 flex items-center gap-2.5 transition-all shadow-2xs border border-transparent focus-within:border-slate-900">
+            <Search className="w-4 h-4 text-gray-400 shrink-0" />
             <input
               type="text"
               value={brandItemSearchQuery}
               onChange={(e) => setBrandItemSearchQuery(e.target.value)}
-              placeholder={`${currentBrand.name} 메뉴 검색 (예: 빅맥, 와퍼, 감자튀김...)...`}
-              className="bg-transparent text-xs text-gray-800 placeholder-gray-400 outline-none w-full font-medium"
+              placeholder="브랜드 내 상품 검색하기"
+              className="bg-transparent text-xs sm:text-sm text-gray-900 placeholder-gray-400 outline-none w-full font-medium"
             />
             {brandItemSearchQuery && (
               <button 
                 onClick={() => setBrandItemSearchQuery('')} 
-                className="text-xs text-gray-400 hover:text-gray-600 bg-gray-200 rounded-full w-4 h-4 flex items-center justify-center"
+                className="text-xs text-gray-400 hover:text-gray-600 bg-gray-200 rounded-full w-4 h-4 flex items-center justify-center shrink-0"
               >
                 ✕
               </button>
             )}
           </div>
+        </div>
 
-          {/* SubCategory Horizontal Scroll Tabs & Sort */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-1.5 overflow-x-auto no-scrollbar py-0.5 flex-1 mr-2">
-              {brandSubCategories.map(subCat => {
-                const count = subCat === '전체' 
-                  ? currentBrand.products.length 
-                  : currentBrand.products.filter(p => p.subCategory === subCat).length;
-                return (
+        {/* 5. SubCategory Filter Pills & Filter Button Row */}
+        <div className="px-4 mt-3 flex items-center justify-between gap-2">
+          {/* Subcategory Pills Row */}
+          <div className="flex-1 flex gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            {brandSubCategories.map(subCat => {
+              const count = subCat === '전체' 
+                ? currentBrand.products.length 
+                : currentBrand.products.filter(p => p.subCategory === subCat || p.category === subCat).length;
+              const isActive = selectedSubCategory === subCat;
+
+              return (
+                <button
+                  key={subCat}
+                  onClick={() => setSelectedSubCategory(subCat)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1 shrink-0 ${
+                    isActive
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <span>{subCat}</span>
+                  <span className={`text-[11px] ${isActive ? 'text-gray-300 font-mono' : 'text-gray-400 font-mono'}`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Filter / Sort Button */}
+          <div className="relative shrink-0">
+            <button
+              onClick={() => setIsSortOpen(!isSortOpen)}
+              className="bg-white border border-gray-200 text-gray-800 font-bold px-3 py-1.5 rounded-full text-xs shrink-0 flex items-center gap-1 shadow-2xs hover:bg-gray-50 active:scale-95 transition-all"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gray-700" />
+              <span>필터</span>
+            </button>
+
+            {/* Sort Options Modal Dropdown */}
+            {isSortOpen && (
+              <div className="absolute right-0 top-full mt-1.5 bg-white border border-gray-200 rounded-2xl shadow-2xl py-1.5 w-36 z-40 animate-in fade-in duration-150">
+                <div className="px-3 py-1 text-[10px] font-bold text-gray-400 border-b border-gray-100 mb-1">
+                  정렬 기준 선택
+                </div>
+                {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
                   <button
-                    key={subCat}
-                    onClick={() => setSelectedSubCategory(subCat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                      selectedSubCategory === subCat
-                        ? 'bg-gray-900 text-white shadow-xs'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    key={opt}
+                    onClick={() => {
+                      setSortBy(opt);
+                      setIsSortOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-xs font-semibold flex items-center justify-between transition-colors ${
+                      sortBy === opt ? 'bg-slate-900 text-white font-bold' : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   >
-                    <span>{subCat}</span>
-                    <span className={`text-[10px] ${selectedSubCategory === subCat ? 'text-gray-300' : 'text-gray-400'}`}>
-                      {count}
-                    </span>
+                    <span>{SORT_LABELS[opt]}</span>
+                    {sortBy === opt && <Check className="w-3.5 h-3.5 text-amber-400" />}
                   </button>
-                );
-              })}
-            </div>
-
-            {/* Sort Menu Button */}
-            <div className="relative shrink-0">
-              <button
-                onClick={() => setIsSortOpen(!isSortOpen)}
-                className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 px-2.5 py-1.5 rounded-full hover:bg-gray-100"
-              >
-                <SlidersHorizontal className="w-3 h-3" />
-                <span>{SORT_LABELS[sortBy]}</span>
-              </button>
-
-              {isSortOpen && (
-                <div className="absolute right-0 top-full mt-1.5 bg-white border border-gray-200 rounded-xl shadow-xl py-1 w-32 z-40">
-                  {(Object.keys(SORT_LABELS) as SortOption[]).map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => {
-                        setSortBy(opt);
-                        setIsSortOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
-                        sortBy === opt ? 'bg-gray-100 text-gray-900 font-bold' : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {SORT_LABELS[opt]}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* 4. Brand Products Grid (Categorized Sections or Filtered Grid) */}
-        <div className="p-4 space-y-6">
+        {/* 6. Brand Products Grid */}
+        <div className="p-4">
           {displayedBrandProducts.length === 0 ? (
-            <div className="bg-white rounded-2xl p-8 text-center border border-gray-100 space-y-2">
+            <div className="bg-white rounded-2xl p-10 text-center border border-gray-100 space-y-2 my-4">
               <Store className="w-10 h-10 text-gray-300 mx-auto" />
               <p className="text-sm font-bold text-gray-700">검색 조건에 맞는 메뉴가 없습니다.</p>
               <p className="text-xs text-gray-400">다른 검색어나 카테고리를 선택해보세요.</p>
             </div>
-          ) : categorizedProducts ? (
-            /* Category-Divided Sections View */
-            categorizedProducts.map((group) => (
-              <div key={group.categoryName} className="space-y-3">
-                <div className="flex items-center justify-between border-b border-gray-200 pb-2">
-                  <h3 className="text-sm font-black text-gray-900 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-gray-900" />
-                    <span>{group.categoryName}</span>
-                    <span className="text-xs text-gray-700 font-bold bg-gray-100 px-2 py-0.5 rounded-full">
-                      {group.items.length}
-                    </span>
-                  </h3>
-                  <button
-                    onClick={() => setSelectedSubCategory(group.categoryName)}
-                    className="text-xs text-gray-400 hover:text-gray-900 font-medium"
-                  >
-                    이 카테고리만 보기 →
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {group.items.map(p => renderProductCard(p))}
-                </div>
-              </div>
-            ))
           ) : (
-            /* Flat Grid View (when filtered by subcategory or search query) */
             <div>
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 px-1">
                 <h2 className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-                  <span>{selectedSubCategory !== '전체' ? `${selectedSubCategory} 메뉴` : `${currentBrand.name} 검색 결과`}</span>
-                  <span className="text-gray-700 font-mono">({displayedBrandProducts.length})</span>
+                  <span>{selectedSubCategory !== '전체' ? `${selectedSubCategory} 메뉴` : `${currentBrand.name} 전체 상품`}</span>
+                  <span className="text-gray-500 font-mono">({displayedBrandProducts.length})</span>
                 </h2>
-                <span className="text-[11px] text-gray-400">클릭 시 상세정보 확인</span>
+                <span className="text-[11px] text-gray-400 font-medium">정렬: {SORT_LABELS[sortBy]}</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -509,7 +521,7 @@ export const BrandView: React.FC = () => {
           )}
         </div>
 
-        {/* 5. Related Brands Section */}
+        {/* 7. Related Brands Section */}
         {relatedBrands.length > 0 && (
           <div className="mt-4 px-4 pt-6 pb-2 border-t border-gray-200">
             <h3 className="text-xs font-black text-gray-900 mb-3 flex items-center gap-1.5">

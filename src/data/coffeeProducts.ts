@@ -555,7 +555,7 @@ export const COFFEE_BRAND_BEVERAGES: Product[] = [
     "name": "컴포즈커피 샤인머스캣 케일 주스",
     "brand": "컴포즈커피",
     "category": "음료",
-    "subCategory": "에이드·주스",
+    "subCategory": "주스",
     "itemType": "restaurant",
     "image": "https://composecoffee.com/files/attach/images/272857/918/303/f5b3989e310d81d2ea1a9059da856ab1.jpg",
     "releaseDate": "2026.09 헬시주스",

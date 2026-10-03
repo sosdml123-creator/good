@@ -24,7 +24,7 @@ import {
   Plus,
   RotateCw
 } from 'lucide-react';
-import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
+import { Product, ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
   getSearchTrendingProducts, 
@@ -74,21 +74,54 @@ export const HomeView: React.FC = () => {
   const dragStartY = useRef<number | null>(null);
   const isHorizontalSwipe = useRef<boolean | null>(null);
   const hasMovedSignificantly = useRef(false);
+  const newProductsScrollRef = useRef<HTMLDivElement>(null);
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
 
-  // 접속할 때마다 및 셔플 요청 시 신제품들을 카테고리/브랜드별로 골고루 랜덤하게 섞어 다양한 제품 노출
+  // 1) 전체 신제품 ID 지문 (신제품 목록 구조 변경 감지용)
+  const newProductIdsFingerprint = useMemo(() => {
+    if (!products) return '';
+    return products.filter(p => isRealNewProduct(p)).map(p => p.id).sort().join(',');
+  }, [products]);
+
+  // 2) shuffleKey나 카테고리 필터 변경 시에만 셔플 순서를 새로 생성 (일반 products 상태 업데이트 시 순서 유지)
+  const stableShuffledProductIds = useMemo(() => {
+    if (!products || products.length === 0) return [];
+    const shuffled = getBalancedShuffledNewProducts(products, newProductCategoryFilter);
+    return shuffled.map(p => p.id);
+    // eslint-disable-next-deps
+  }, [shuffleKey, newProductCategoryFilter, newProductIdsFingerprint]);
+
+  // 3) stableShuffledProductIds 순서를 보장하면서 최신 제품 데이터(북마크, 별점, 가격 등) 바인딩
   const displayedNewProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
-    return getBalancedShuffledNewProducts(products, newProductCategoryFilter);
-  }, [products, newProductCategoryFilter, shuffleKey]);
+    const productMap = new Map(products.map(p => [p.id, p]));
+    const ordered = stableShuffledProductIds
+      .map(id => productMap.get(id))
+      .filter((p): p is Product => p !== undefined);
+
+    // 혹시 셔플 생성 후 추가된 신규 제품이 있다면 뒤에 보완
+    const existingSet = new Set(ordered.map(p => p.id));
+    const extras = products
+      .filter(p => isRealNewProduct(p) && !existingSet.has(p.id));
+    
+    return extras.length > 0 ? [...ordered, ...extras] : ordered;
+  }, [products, stableShuffledProductIds]);
 
   const handleRefreshNewProducts = () => {
+    if (isRefreshingNew) return;
     setIsRefreshingNew(true);
+
+    // 수평 스크롤 위치를 맨 앞으로 부드럽게 초기화
+    if (newProductsScrollRef.current) {
+      newProductsScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
     setShuffleKey(prev => prev + 1);
+
     setTimeout(() => {
       setIsRefreshingNew(false);
-    }, 400);
+    }, 350);
   };
 
   const displayBanners = useMemo(() => {
@@ -543,6 +576,9 @@ export const HomeView: React.FC = () => {
                     key={cat}
                     onClick={(e) => {
                       setNewProductCategoryFilter(cat);
+                      if (newProductsScrollRef.current) {
+                        newProductsScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+                      }
                       e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                     }}
                     className={`shrink-0 px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${
@@ -559,7 +595,12 @@ export const HomeView: React.FC = () => {
 
             {/* Horizontal Scroll Cards */}
             {displayedNewProducts.length > 0 ? (
-              <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
+              <div
+                ref={newProductsScrollRef}
+                className={`flex gap-3 overflow-x-auto no-scrollbar px-4 transition-all duration-300 ${
+                  isRefreshingNew ? 'opacity-40 scale-[0.98] blur-[0.5px]' : 'opacity-100 scale-100 blur-0'
+                }`}
+              >
                 {displayedNewProducts.slice(0, section.itemLimit || 12).map((p) => {
                   const isBookmarked = bookmarkedIds.includes(p.id);
 

@@ -544,14 +544,19 @@ export const getCategoryReviewRankedProducts = (
     if (subCategory && subCategory !== '전체') {
       if (category === '신제품') {
         const matchesCategory = p.category === subCategory;
-        const matchesSubCategory = p.subCategory === subCategory;
+        const matchesSubCategory = p.subCategory === subCategory || (subCategory === '버거' && p.subCategory === '햄버거') || (subCategory === '햄버거' && p.subCategory === '버거');
         const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());
         if (!matchesCategory && !matchesSubCategory && !matchesName) return false;
       } else {
-        const matchesSub = p.subCategory === subCategory;
-        const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());
-        const matchesDesc = p.description?.toLowerCase().includes(subCategory.toLowerCase());
-        if (!matchesSub && !matchesName && !matchesDesc) return false;
+        if (p.subCategory) {
+          const pSub = p.subCategory;
+          const isBurgerAlias = (subCategory === '버거' && (pSub === '햄버거' || pSub === '버거')) || (subCategory === '햄버거' && (pSub === '버거' || pSub === '햄버거'));
+          const isMatch = pSub === subCategory || isBurgerAlias || (subCategory.includes('·') && subCategory.split('·').some(s => pSub.includes(s)));
+          if (!isMatch) return false;
+        } else {
+          const matchesName = p.name.toLowerCase().includes(subCategory.toLowerCase());
+          if (!matchesName) return false;
+        }
       }
     }
     return true;
