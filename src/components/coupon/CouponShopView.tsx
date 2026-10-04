@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Gift, 
   Copy, 
@@ -11,18 +11,40 @@ import {
   ArrowRight, 
   Tag,
   Zap,
-  ShoppingBag,
   ExternalLink,
-  CalendarCheck,
-  PenLine,
-  UtensilsCrossed,
+  Ticket,
   Sparkles,
-  Ticket
+  ShoppingBag,
+  ShieldCheck,
+  HelpCircle
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ECouponItem, PurchasedECoupon } from '../../types';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
+
+interface PartnerShopInfo {
+  id: 'coupang' | 'toss';
+  name: string;
+  badge: string;
+  badgeBg: string;
+  badgeText: string;
+  accentColor: string;
+  logo: React.ReactNode;
+  summary: string;
+  benefitTag: string;
+  externalUrl: string;
+  modal: {
+    title: string;
+    subTitle: string;
+    description: string;
+    steps: { step: string; title: string; desc: string }[];
+    benefits: string[];
+    cautions: string[];
+    buttonText: string;
+    buttonBg: string;
+  };
+}
 
 export const CouponShopView: React.FC = () => {
   const { 
@@ -30,11 +52,7 @@ export const CouponShopView: React.FC = () => {
     purchasedCoupons, 
     purchaseCoupon, 
     useCoupon, 
-    userPoints, 
-    addTestPoints,
-    setActiveTab,
-    setSelectedCategory,
-    openWriteRecipe
+    userPoints 
   } = useApp();
 
   const [activeSubTab, setActiveSubTab] = useState<'store' | 'recharge'>('store');
@@ -43,22 +61,10 @@ export const CouponShopView: React.FC = () => {
   // 모달 상태
   const [selectedProduct, setSelectedProduct] = useState<ECouponItem | null>(null);
   const [selectedUserCoupon, setSelectedUserCoupon] = useState<PurchasedECoupon | null>(null);
+  const [selectedPartner, setSelectedPartner] = useState<PartnerShopInfo | null>(null);
   const [isRecentCouponsOpen, setIsRecentCouponsOpen] = useState(false);
   const [copiedBarcode, setCopiedBarcode] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false);
-
-  // 일일 출석체크 상태 (localStorage 기반)
-  const [isCheckedToday, setIsCheckedToday] = useState(false);
-
-  useEffect(() => {
-    try {
-      const todayStr = new Date().toDateString();
-      const lastCheck = localStorage.getItem('sinsangpick_last_attendance_date');
-      if (lastCheck === todayStr) {
-        setIsCheckedToday(true);
-      }
-    } catch {}
-  }, []);
 
   const categories = ['전체', '카페/음료', '편의점/마트', '베이커리/디저트', '패스트푸드'];
 
@@ -69,11 +75,119 @@ export const CouponShopView: React.FC = () => {
 
   const unusedCount = purchasedCoupons.filter(c => !c.isUsed).length;
 
-  // 외부 링크 열기 (쿠팡 등)
-  const openExternalLink = async (url: string, rewardPoints?: number) => {
-    if (rewardPoints && rewardPoints > 0) {
-      addTestPoints(rewardPoints);
+  // 제휴 쇼핑 파트너 데이터 (쿠팡 & 토스쇼핑)
+  const partnerShops: PartnerShopInfo[] = [
+    {
+      id: 'coupang',
+      name: '쿠팡 (Coupang)',
+      badge: '로켓배송 적립',
+      badgeBg: 'bg-red-50 border-red-200/60',
+      badgeText: 'text-red-700',
+      accentColor: '#E1251B',
+      benefitTag: '쇼핑 결제 리워드 적립',
+      summary: '필요한 생필품, 신상 간식, 먹거리를 로켓배송으로 쇼핑하고 신상픽 포인트를 적립받아보세요!',
+      externalUrl: 'https://www.coupang.com',
+      logo: (
+        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2 shrink-0">
+          <div className="flex items-center text-[18px] font-black tracking-tighter">
+            <span style={{ color: '#cb1400' }}>cou</span>
+            <span style={{ color: '#ea7c16' }}>pa</span>
+            <span style={{ color: '#008f39' }}>ng</span>
+          </div>
+        </div>
+      ),
+      modal: {
+        title: '쿠팡 로켓쇼핑 적립 안내',
+        subTitle: '쿠팡에서 쇼핑하고 신상픽 e쿠폰 교환 포인트 적립받기',
+        description: '쿠팡에서 평소처럼 필요한 물건을 쇼핑하시면, 구매 실적에 따라 신상픽 리워드 포인트가 적립되어 원하는 스타벅스, 편의점 e쿠폰으로 즉시 교환하실 수 있습니다.',
+        steps: [
+          {
+            step: '01',
+            title: '쿠팡으로 이동하기',
+            desc: '아래 [쿠팡 쇼핑하러 가기] 버튼을 눌러 공식 쿠팡 웹 또는 앱으로 접속합니다.'
+          },
+          {
+            step: '02',
+            title: '원하는 상품 쇼핑 & 결제',
+            desc: '생필품, 신상 먹거리, 가전 등 원하는 상품을 장바구니에 담고 결제합니다.'
+          },
+          {
+            step: '03',
+            title: '신상픽 포인트 적립 확인',
+            desc: '구매 확정 후 신상픽 포인트로 적립되어 다양한 e쿠폰을 교환할 수 있습니다.'
+          }
+        ],
+        benefits: [
+          '로켓배송 & 로켓프레시 등 쿠팡의 모든 상품 적립 대상',
+          '오늘 주문하면 내일 새벽 도착하는 빠른 배송 혜택 그대로',
+          '차곡차곡 모은 포인트로 e쿠폰 스토어에서 즉시 기프티콘 교환'
+        ],
+        cautions: [
+          '반드시 신상픽에서 제공하는 연결 링크를 통해 접속하셔야 적립 대상에 포함됩니다.',
+          '장바구니에 미리 담아둔 상품의 경우 연결 추적이 누락될 수 있으니, 링크 접속 후 상품을 담아 결제해 주세요.',
+          '주문 취소 또는 반품 시 적립 포인트는 지급되지 않거나 회수 처리됩니다.'
+        ],
+        buttonText: '쿠팡 쇼핑하러 이동하기',
+        buttonBg: 'bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500'
+      }
+    },
+    {
+      id: 'toss',
+      name: '토스쇼핑 (Toss)',
+      badge: '공동구매 특가 적립',
+      badgeBg: 'bg-blue-50 border-blue-200/60',
+      badgeText: 'text-blue-700',
+      accentColor: '#0064FF',
+      benefitTag: '최저가 쇼핑 + 포인트 적립',
+      summary: '1개만 사도 100% 무료배송! 파격적인 할인가의 공동구매 특가를 누리고 포인트도 충전하세요!',
+      externalUrl: 'https://toss.im',
+      logo: (
+        <div className="w-14 h-14 rounded-2xl bg-[#0064FF] shadow-xs flex items-center justify-center p-2 shrink-0">
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-white font-black text-[18px] tracking-tight leading-none">toss</span>
+            <span className="text-blue-100 text-[9px] font-bold mt-0.5 tracking-tighter">쇼핑</span>
+          </div>
+        </div>
+      ),
+      modal: {
+        title: '토스쇼핑 공동구매 적립 안내',
+        subTitle: '1개만 사도 무료배송 & 공동구매 특가 쇼핑 혜택',
+        description: '토스쇼핑에서 인기 간식, 신선식품, 생활용품을 파격적인 할인가에 구매하고 신상픽 리워드 포인트도 함께 챙겨보세요.',
+        steps: [
+          {
+            step: '01',
+            title: '토스쇼핑으로 이동하기',
+            desc: '아래 [토스쇼핑으로 이동하기] 버튼을 눌러 토스쇼핑 페이지 또는 토스 앱으로 이동합니다.'
+          },
+          {
+            step: '02',
+            title: '공동구매 특가 상품 선택',
+            desc: '매일 업데이트되는 인기 식품 및 특가 상품을 고르고 결제를 완료합니다.'
+          },
+          {
+            step: '03',
+            title: '포인트 적립 & 무료배송',
+            desc: '1개만 구매해도 전 상품 무료배송 혜택과 함께 신상픽 포인트가 적립됩니다.'
+          }
+        ],
+        benefits: [
+          '단 1개만 사도 배송비 0원, 전 상품 무료배송 혜택',
+          '시중가 대비 최대 80% 할인되는 토스 인기 공동구매 특가',
+          '신상픽 포인트 추가 적립으로 맛있는 e쿠폰 교환 기회'
+        ],
+        cautions: [
+          '신상픽 앱 내 링크를 통해 이동 후 24시간 이내 구매 완료 건에 한해 인정됩니다.',
+          '스마트폰에 토스 앱이 설치되어 있는 경우 토스 앱으로 자동 연결될 수 있습니다.',
+          '구매 취소 및 환불 시 포인트 지급 대상에서 제외됩니다.'
+        ],
+        buttonText: '토스쇼핑으로 이동하기',
+        buttonBg: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500'
+      }
     }
+  ];
+
+  // 외부 링크 열기
+  const openExternalLink = async (url: string) => {
     if (Capacitor.isNativePlatform()) {
       try {
         await Browser.open({ url });
@@ -83,17 +197,6 @@ export const CouponShopView: React.FC = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  // 출석체크 처리
-  const handleDailyAttendance = () => {
-    if (isCheckedToday) return;
-    const todayStr = new Date().toDateString();
-    try {
-      localStorage.setItem('sinsangpick_last_attendance_date', todayStr);
-    } catch {}
-    setIsCheckedToday(true);
-    addTestPoints(20);
-  };
-
   // e쿠폰 구매 처리
   const handlePurchase = async (coupon: ECouponItem) => {
     setIsPurchasing(true);
@@ -101,7 +204,6 @@ export const CouponShopView: React.FC = () => {
       const purchased = await purchaseCoupon(coupon);
       if (purchased) {
         setSelectedProduct(null);
-        // 구매 성공 즉시 발급된 모바일 바코드 모달 팝업 열기
         setSelectedUserCoupon(purchased);
       }
     } finally {
@@ -129,7 +231,7 @@ export const CouponShopView: React.FC = () => {
           </div>
         </div>
 
-        {/* 보유 쿠폰이 있을 경우 빠른 보기 버튼 */}
+        {/* 보유 쿠폰 빠른 보기 버튼 */}
         {purchasedCoupons.length > 0 && (
           <button
             onClick={() => setIsRecentCouponsOpen(true)}
@@ -262,7 +364,7 @@ export const CouponShopView: React.FC = () => {
             })}
           </div>
 
-          {/* 포인트 부족 안내 & 충전함 유도 카드 */}
+          {/* 포인트 충전 안내 배너 */}
           <div 
             onClick={() => setActiveSubTab('recharge')}
             className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/70 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-amber-100/60 transition-colors shadow-xs"
@@ -273,7 +375,7 @@ export const CouponShopView: React.FC = () => {
               </div>
               <div>
                 <div className="text-[12px] font-extrabold text-amber-900">포인트가 부족하신가요?</div>
-                <div className="text-[11px] text-amber-700">쿠팡 쇼핑 & 미션으로 포인트 무료 충전하기</div>
+                <div className="text-[11px] text-amber-700">쿠팡 & 토스쇼핑에서 쇼핑하고 포인트 채우기</div>
               </div>
             </div>
             <ChevronRight className="w-4 h-4 text-amber-600" />
@@ -290,200 +392,77 @@ export const CouponShopView: React.FC = () => {
           </div>
         </div>
       ) : (
-        /* [⚡ 포인트 충전함 탭] */
+        /* [⚡ 포인트 충전함 탭] - 쿠팡 & 토스쇼핑 2개 구좌 */
         <div className="px-4 pt-3 space-y-3.5">
-          {/* 보유 포인트 상태 헤더 바 */}
-          <div className="bg-white rounded-2xl p-3.5 border border-gray-100 shadow-xs flex items-center justify-between">
+          {/* 상단 안내 메시지 */}
+          <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-xs">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold text-gray-400">현재 보유 포인트</span>
-              <span className="text-[15px] font-black text-amber-600">{userPoints.toLocaleString()} P</span>
-            </div>
-            <div className="text-[11px] text-gray-400 font-medium">
-              충전 즉시 e쿠폰 교환 가능
-            </div>
-          </div>
-
-          {/* 1. 쿠팡 로켓쇼핑 적립 구좌 (메인 제휴) */}
-          <div className="bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] rounded-2xl p-4 text-white shadow-md relative overflow-hidden">
-            <div className="absolute right-[-15px] bottom-[-15px] opacity-10 pointer-events-none">
-              <ShoppingBag className="w-32 h-32" />
-            </div>
-
-            <div className="relative z-10">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-[12px] font-black bg-[#C62828] text-white px-2 py-0.5 rounded-md">
-                    쿠팡
-                  </span>
-                  <span className="text-[10px] font-bold bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/30">
-                    인기 충전 구좌 🔥
-                  </span>
-                </div>
-                <span className="text-[11px] font-extrabold text-amber-400">+50P 적립</span>
+              <div className="w-6 h-6 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                <Sparkles className="w-3.5 h-3.5" />
               </div>
-
-              <h3 className="text-[16px] font-black mt-2 leading-tight">
-                쿠팡 로켓쇼핑하고 포인트 적립
-              </h3>
-              <p className="text-[12px] text-slate-300 mt-1 leading-relaxed">
-                생필품, 신상 먹거리, 간식 등 쿠팡에서 쇼핑하고 신상픽 포인트를 채워보세요!
-              </p>
-
-              <div className="mt-3 pt-3 border-t border-slate-700/60 flex items-center justify-between">
-                <span className="text-[11px] text-slate-400">방문 시 리워드 즉시 지급</span>
-                <button
-                  onClick={() => openExternalLink('https://www.coupang.com', 50)}
-                  className="px-3.5 py-1.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-xl text-[12px] font-extrabold flex items-center gap-1 shadow-sm active:scale-95 transition-all"
-                >
-                  <span>쿠팡 쇼핑하러 가기</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
-              </div>
+              <h3 className="text-[14px] font-extrabold text-gray-900">쇼핑하고 포인트 충전하기</h3>
             </div>
-          </div>
-
-          {/* 2. 제휴 쇼핑 적립 리스트 */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-xs space-y-3">
-            <h4 className="text-[13px] font-extrabold text-gray-900 flex items-center gap-1.5">
-              <ShoppingBag className="w-4 h-4 text-amber-600" />
-              <span>제휴 쇼핑몰 둘러보기</span>
-            </h4>
-
-            {/* 네이버 쇼핑 */}
-            <div className="flex items-center justify-between py-2 border-b border-gray-50">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 font-black flex items-center justify-center text-xs">
-                  N
-                </div>
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900">네이버 스마트스토어</div>
-                  <div className="text-[11px] text-gray-400">신제품 특가 쇼핑하고 포인트 받기</div>
-                </div>
-              </div>
-              <button
-                onClick={() => openExternalLink('https://shopping.naver.com', 30)}
-                className="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-lg text-[11px] font-bold flex items-center gap-0.5 transition-colors"
-              >
-                +30P 가기
-              </button>
-            </div>
-
-            {/* 마켓컬리 */}
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 font-black flex items-center justify-center text-xs">
-                  Kurly
-                </div>
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900">마켓컬리 신선특가</div>
-                  <div className="text-[11px] text-gray-400">새벽배송 신제품 & 디저트 장보기</div>
-                </div>
-              </div>
-              <button
-                onClick={() => openExternalLink('https://www.kurly.com', 30)}
-                className="px-2.5 py-1 bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-lg text-[11px] font-bold flex items-center gap-0.5 transition-colors"
-              >
-                +30P 가기
-              </button>
-            </div>
-          </div>
-
-          {/* 3. 신상픽 무료 미션으로 모으기 */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-xs space-y-3">
-            <h4 className="text-[13px] font-extrabold text-gray-900 flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>신상픽 무료 미션 적립</span>
-            </h4>
-
-            {/* 일일 출석체크 */}
-            <div className="flex items-center justify-between py-2 border-b border-gray-50">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                  <CalendarCheck className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900">오늘의 출석체크</div>
-                  <div className="text-[11px] text-gray-400">매일 터치 1번으로 즉시 충전</div>
-                </div>
-              </div>
-              <button
-                onClick={handleDailyAttendance}
-                disabled={isCheckedToday}
-                className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all ${
-                  isCheckedToday
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-amber-500 hover:bg-amber-600 text-white shadow-xs active:scale-95'
-                }`}
-              >
-                {isCheckedToday ? '오늘 완료 ✓' : '+20P 받기'}
-              </button>
-            </div>
-
-            {/* 신제품 리뷰 작성 */}
-            <div className="flex items-center justify-between py-2 border-b border-gray-50">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                  <PenLine className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900">신제품 솔직 리뷰 작성</div>
-                  <div className="text-[11px] text-gray-400">사진 첨부 시 1건당 최대 100P</div>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  setSelectedCategory('신제품');
-                  setActiveTab('category');
-                }}
-                className="px-2.5 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-[11px] font-bold flex items-center gap-0.5 transition-colors"
-              >
-                리뷰 쓰기 ↗
-              </button>
-            </div>
-
-            {/* 꿀조합 레시피 공유 */}
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
-                  <UtensilsCrossed className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900">먹조합 레시피 등록</div>
-                  <div className="text-[11px] text-gray-400">나만의 편의점 먹조합 공유 시</div>
-                </div>
-              </div>
-              <button
-                onClick={() => openWriteRecipe()}
-                className="px-2.5 py-1.5 bg-orange-50 text-orange-700 hover:bg-orange-100 rounded-xl text-[11px] font-bold flex items-center gap-0.5 transition-colors"
-              >
-                +50P 등록 ↗
-              </button>
-            </div>
-          </div>
-
-          {/* 4. [테스트/체험 지원] 빠른 포인트 무료 충전 */}
-          <div className="bg-amber-50/70 border border-amber-200/60 rounded-2xl p-4 shadow-xs space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] font-extrabold text-amber-900">🧪 테스트 포인트 즉시 충전</span>
-              <span className="text-[11px] text-amber-600 font-medium">체험용 무료 지원</span>
-            </div>
-            <p className="text-[11px] text-amber-700">
-              e쿠폰 교환 테스트를 위해 원하는 금액을 즉시 충전해보세요.
+            <p className="text-[12px] text-gray-500 mt-1 leading-relaxed">
+              제휴 쇼핑몰을 통해 원하는 상품을 쇼핑하시면 신상픽 리워드 포인트가 적립됩니다.
             </p>
-            <div className="flex gap-2 pt-1">
-              <button
-                onClick={() => addTestPoints(1000)}
-                className="flex-1 py-2 bg-white hover:bg-amber-100/50 border border-amber-200 rounded-xl text-[12px] font-bold text-amber-800 active:scale-95 transition-all shadow-2xs"
+          </div>
+
+          {/* 파트너 카드 목록 (쿠팡, 토스쇼핑) */}
+          <div className="space-y-3">
+            {partnerShops.map((partner) => (
+              <div
+                key={partner.id}
+                onClick={() => setSelectedPartner(partner)}
+                className="bg-white rounded-2xl border border-gray-100 p-4 shadow-xs hover:border-amber-200 hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 group active:scale-99"
               >
-                +1,000P 충전
-              </button>
-              <button
-                onClick={() => addTestPoints(5000)}
-                className="flex-1 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-[12px] font-bold active:scale-95 transition-all shadow-xs"
-              >
-                +5,000P 충전
-              </button>
+                {/* 상단 헤더: 로고 + 타이틀 + 배지 */}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    {partner.logo}
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="text-[15px] font-black text-gray-900 group-hover:text-amber-600 transition-colors">
+                          {partner.name}
+                        </h4>
+                      </div>
+                      <span className={`inline-block mt-0.5 text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${partner.badgeBg} ${partner.badgeText}`}>
+                        {partner.badge}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="w-8 h-8 rounded-full bg-gray-50 group-hover:bg-amber-50 group-hover:text-amber-600 flex items-center justify-center text-gray-400 transition-colors shrink-0">
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
+                </div>
+
+                {/* 설명 및 혜택 요약 */}
+                <p className="text-[12px] text-gray-600 leading-relaxed">
+                  {partner.summary}
+                </p>
+
+                {/* 하단 적립 태그 바 */}
+                <div className="pt-2.5 border-t border-gray-50 flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-amber-600 flex items-center gap-1">
+                    <Zap className="w-3.5 h-3.5 fill-amber-500" />
+                    <span>{partner.benefitTag}</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-gray-500 group-hover:text-gray-900 flex items-center gap-0.5">
+                    안내 및 바로가기 <ChevronRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 안전 적립 안내 */}
+          <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-3.5 text-[11px] text-slate-600 space-y-1 mt-2">
+            <div className="font-bold flex items-center gap-1 text-slate-800">
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+              <span>포인트 적립 유의사항</span>
             </div>
+            <p>• 각 제휴 쇼핑 카드를 터치하여 상세 이용 가이드를 확인하신 후 쇼핑을 진행해 주세요.</p>
+            <p>• 신상픽 연결 링크를 통해 접속하셔야 구매 실적이 정상 집계됩니다.</p>
           </div>
         </div>
       )}
@@ -569,7 +548,7 @@ export const CouponShopView: React.FC = () => {
                 </ul>
               </div>
 
-              {/* 포인트 부족 시 충전 유도 */}
+              {/* 포인트 부족 시 충전함 유도 */}
               {userPoints < selectedProduct.price && (
                 <div className="bg-rose-50 border border-rose-200/60 rounded-xl p-3 flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -616,7 +595,114 @@ export const CouponShopView: React.FC = () => {
         </div>
       )}
 
-      {/* 5. 바코드 상세 모달 (구매 완료 즉시 또는 내 쿠폰 터치 시 오픈) */}
+      {/* 5. 제휴 서비스 상세 안내 & 외부 링크 연결 모달 (쿠팡 / 토스쇼핑) */}
+      {selectedPartner && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/65 backdrop-blur-xs p-0 sm:p-4 animate-in fade-in duration-200">
+          <div 
+            className="w-full max-w-[430px] bg-white rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-md z-10">
+              <div className="flex items-center gap-3">
+                {selectedPartner.logo}
+                <div>
+                  <h3 className="text-[16px] font-black text-gray-900">{selectedPartner.name}</h3>
+                  <span className={`inline-block text-[10px] font-bold px-2 py-0.2 rounded-full border ${selectedPartner.badgeBg} ${selectedPartner.badgeText}`}>
+                    {selectedPartner.badge}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedPartner(null)}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Content Body */}
+            <div className="p-5 space-y-5">
+              {/* Hero Title */}
+              <div>
+                <h4 className="text-[17px] font-black text-gray-900 leading-snug">
+                  {selectedPartner.modal.title}
+                </h4>
+                <p className="text-[12px] text-gray-500 mt-1 leading-relaxed">
+                  {selectedPartner.modal.subTitle}
+                </p>
+                <div className="mt-3 bg-amber-50/70 border border-amber-200/60 rounded-xl p-3 text-[12px] text-amber-900 leading-relaxed font-medium">
+                  {selectedPartner.modal.description}
+                </div>
+              </div>
+
+              {/* Steps Guide */}
+              <div>
+                <h5 className="text-[13px] font-extrabold text-gray-900 mb-2.5 flex items-center gap-1.5">
+                  <ShoppingBag className="w-4 h-4 text-amber-600" />
+                  <span>적립 진행 방법</span>
+                </h5>
+                <div className="space-y-2">
+                  {selectedPartner.modal.steps.map((st, idx) => (
+                    <div key={idx} className="bg-gray-50 rounded-xl p-3 flex gap-3 items-start border border-gray-100">
+                      <span className="w-6 h-6 rounded-lg bg-gray-900 text-white text-[11px] font-black flex items-center justify-center shrink-0">
+                        {st.step}
+                      </span>
+                      <div>
+                        <div className="text-[13px] font-bold text-gray-900">{st.title}</div>
+                        <div className="text-[11px] text-gray-500 mt-0.5 leading-relaxed">{st.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Benefits */}
+              <div>
+                <h5 className="text-[13px] font-extrabold text-gray-900 mb-2 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>주요 쇼핑 혜택</span>
+                </h5>
+                <ul className="bg-slate-50 border border-slate-100 rounded-xl p-3 space-y-1.5 text-[11px] text-slate-700">
+                  {selectedPartner.modal.benefits.map((b, idx) => (
+                    <li key={idx} className="flex items-start gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Cautions */}
+              <div>
+                <h5 className="text-[12px] font-bold text-gray-700 mb-1.5 flex items-center gap-1">
+                  <HelpCircle className="w-3.5 h-3.5 text-gray-400" />
+                  <span>이용 시 꼭 확인해주세요</span>
+                </h5>
+                <ul className="space-y-1 text-[11px] text-gray-400 list-disc list-inside">
+                  {selectedPartner.modal.cautions.map((c, idx) => (
+                    <li key={idx}>{c}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* External Link Action Button */}
+              <div className="pt-2 sticky bottom-0 bg-white pb-1">
+                <button
+                  onClick={() => openExternalLink(selectedPartner.externalUrl)}
+                  className={`w-full py-3.5 text-white font-extrabold text-[15px] rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all ${selectedPartner.modal.buttonBg}`}
+                >
+                  <span>{selectedPartner.modal.buttonText}</span>
+                  <ExternalLink className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. 바코드 상세 모달 (구매 완료 즉시 또는 내 쿠폰 터치 시 오픈) */}
       {selectedUserCoupon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-xs p-4 animate-in fade-in duration-200">
           <div 
@@ -729,7 +815,7 @@ export const CouponShopView: React.FC = () => {
         </div>
       )}
 
-      {/* 6. 최근 구매한 e쿠폰 목록 팝업 */}
+      {/* 7. 최근 구매한 e쿠폰 목록 팝업 */}
       {isRecentCouponsOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 animate-in fade-in duration-200">
           <div 
