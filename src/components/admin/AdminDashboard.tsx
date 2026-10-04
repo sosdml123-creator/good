@@ -89,6 +89,7 @@ import { ReportManagementTab } from './ReportManagementTab';
 import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 import { ProductEditManagementTab } from './ProductEditManagementTab';
 import { KamisPriceManagementTab } from './KamisPriceManagementTab';
+import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
 
 export type AdminTab = 
   | 'overview' 
@@ -111,6 +112,7 @@ export type AdminTab =
   | 'analytics' 
   | 'banners' 
   | 'battle' 
+  | 'insta_generator'
   | 'data';
 
 export interface AdminDashboardProps {
@@ -1544,6 +1546,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </div>
 
               <button
+                onClick={() => setActiveAdminTab('insta_generator')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'insta_generator'
+                    ? 'bg-amber-500 text-black font-black shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Sparkles className={`w-4 h-4 ${activeAdminTab === 'insta_generator' ? 'text-black' : 'text-amber-400'}`} />
+                  <span>인스타 콘텐츠 생성기</span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-black shadow-sm">
+                  AI
+                </span>
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('banners')}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'banners'
@@ -1676,6 +1695,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'calendar' ? '출시캘린더' :
                activeAdminTab === 'events' ? '이벤트관리' :
                activeAdminTab === 'notifications' ? '푸시관리' :
+               activeAdminTab === 'insta_generator' ? '인스타 콘텐츠 생성기' :
                activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
                activeAdminTab === 'kamis' ? 'KAMIS시세' : '설정'}
             </h1>
@@ -5012,6 +5032,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </div>
 
             </div>
+          )}
+
+          {/* ========================================================
+              TAB 9: INSTAGRAM CONTENT GENERATOR (인스타 콘텐츠 생성기)
+             ======================================================== */}
+          {activeAdminTab === 'insta_generator' && (
+            <InstagramContentGeneratorTab onNotify={showToast} />
           )}
 
         </main>

@@ -4,6 +4,7 @@ import {
   Copy, 
   Check, 
   ChevronRight, 
+  ChevronLeft,
   Info, 
   CheckCircle2, 
   AlertCircle, 
@@ -217,6 +218,127 @@ export const CouponShopView: React.FC = () => {
     setCopiedBarcode(true);
     setTimeout(() => setCopiedBarcode(false), 2000);
   };
+
+  // [⚡ 제휴 서비스 상세 안내 페이지 그 자체 (쿠팡 / 토스쇼핑 단독 페이지)]
+  if (selectedPartner) {
+    return (
+      <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-screen pb-28 select-none animate-in fade-in duration-200">
+        {/* 상단 네비게이션 헤더 */}
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 px-4 py-3.5 flex items-center justify-between">
+          <button
+            onClick={() => setSelectedPartner(null)}
+            className="flex items-center gap-1 text-gray-700 hover:text-gray-900 font-bold text-[14px] p-1 -ml-1 rounded-lg transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 stroke-[2.3]" />
+            <span>충전소</span>
+          </button>
+          <h2 className="text-[16px] font-black text-gray-900">{selectedPartner.name}</h2>
+          <div className="w-12" />
+        </header>
+
+        {/* 본문 콘텐츠 */}
+        <div className="flex-1 px-4 py-4 space-y-4 max-w-lg mx-auto w-full">
+          {/* 브랜드 프로필 헤더 카드 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs flex items-center gap-4">
+            {selectedPartner.logo}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-[17px] font-black text-gray-900 truncate">
+                  {selectedPartner.name}
+                </h3>
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${selectedPartner.badgeBg} ${selectedPartner.badgeText}`}>
+                  {selectedPartner.badge}
+                </span>
+              </div>
+              <div className="mt-1 flex items-center gap-1 text-amber-600 font-bold text-[12px]">
+                <Zap className="w-3.5 h-3.5 fill-amber-500" />
+                <span>{selectedPartner.benefitTag}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 적립 안내 소개 카드 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs space-y-3">
+            <div>
+              <h4 className="text-[18px] font-black text-gray-900 leading-snug">
+                {selectedPartner.modal.title}
+              </h4>
+              <p className="text-[13px] text-gray-500 mt-1">
+                {selectedPartner.modal.subTitle}
+              </p>
+            </div>
+
+            <div className="bg-amber-50/70 border border-amber-200/60 rounded-xl p-3.5 text-[13px] text-amber-900 leading-relaxed font-medium">
+              {selectedPartner.modal.description}
+            </div>
+          </div>
+
+          {/* 적립 진행 방법 가이드 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
+            <h4 className="text-[14px] font-extrabold text-gray-900 mb-3 flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-amber-600" />
+              <span>적립 진행 순서</span>
+            </h4>
+            <div className="space-y-2.5">
+              {selectedPartner.modal.steps.map((st, idx) => (
+                <div key={idx} className="bg-gray-50 rounded-xl p-3.5 flex gap-3 items-start border border-gray-100">
+                  <span className="w-6 h-6 rounded-lg bg-gray-900 text-white text-[11px] font-black flex items-center justify-center shrink-0 mt-0.5">
+                    {st.step}
+                  </span>
+                  <div>
+                    <div className="text-[13px] font-bold text-gray-900">{st.title}</div>
+                    <div className="text-[12px] text-gray-500 mt-0.5 leading-relaxed">{st.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 주요 쇼핑 혜택 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
+            <h4 className="text-[14px] font-extrabold text-gray-900 mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>주요 쇼핑 혜택</span>
+            </h4>
+            <ul className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 text-[12px] text-slate-700">
+              {selectedPartner.modal.benefits.map((b, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 이용 시 유의사항 */}
+          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
+            <h4 className="text-[13px] font-bold text-gray-700 mb-2 flex items-center gap-1.5">
+              <HelpCircle className="w-4 h-4 text-gray-400" />
+              <span>이용 시 꼭 확인해주세요</span>
+            </h4>
+            <ul className="space-y-1.5 text-[12px] text-gray-500 list-disc list-inside leading-relaxed">
+              {selectedPartner.modal.cautions.map((c, idx) => (
+                <li key={idx}>{c}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* 하단 고정 이동 버튼 바 */}
+        <div className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-3">
+          <div className="max-w-lg mx-auto w-full">
+            <button
+              onClick={() => openExternalLink(selectedPartner.externalUrl)}
+              className={`w-full py-4 text-white font-black text-[16px] rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-98 transition-all ${selectedPartner.modal.buttonBg}`}
+            >
+              <span>{selectedPartner.modal.buttonText}</span>
+              <ExternalLink className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-screen pb-24 select-none">
@@ -596,112 +718,6 @@ export const CouponShopView: React.FC = () => {
         </div>
       )}
 
-      {/* 5. 제휴 서비스 상세 안내 & 외부 링크 연결 모달 (쿠팡 / 토스쇼핑) */}
-      {selectedPartner && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/65 backdrop-blur-xs p-0 sm:p-4 animate-in fade-in duration-200">
-          <div 
-            className="w-full max-w-[430px] bg-white rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="p-5 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-md z-10">
-              <div className="flex items-center gap-3">
-                {selectedPartner.logo}
-                <div>
-                  <h3 className="text-[16px] font-black text-gray-900">{selectedPartner.name}</h3>
-                  <span className={`inline-block text-[10px] font-bold px-2 py-0.2 rounded-full border ${selectedPartner.badgeBg} ${selectedPartner.badgeText}`}>
-                    {selectedPartner.badge}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setSelectedPartner(null)}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Content Body */}
-            <div className="p-5 space-y-5">
-              {/* Hero Title */}
-              <div>
-                <h4 className="text-[17px] font-black text-gray-900 leading-snug">
-                  {selectedPartner.modal.title}
-                </h4>
-                <p className="text-[12px] text-gray-500 mt-1 leading-relaxed">
-                  {selectedPartner.modal.subTitle}
-                </p>
-                <div className="mt-3 bg-amber-50/70 border border-amber-200/60 rounded-xl p-3 text-[12px] text-amber-900 leading-relaxed font-medium">
-                  {selectedPartner.modal.description}
-                </div>
-              </div>
-
-              {/* Steps Guide */}
-              <div>
-                <h5 className="text-[13px] font-extrabold text-gray-900 mb-2.5 flex items-center gap-1.5">
-                  <ShoppingBag className="w-4 h-4 text-amber-600" />
-                  <span>적립 진행 방법</span>
-                </h5>
-                <div className="space-y-2">
-                  {selectedPartner.modal.steps.map((st, idx) => (
-                    <div key={idx} className="bg-gray-50 rounded-xl p-3 flex gap-3 items-start border border-gray-100">
-                      <span className="w-6 h-6 rounded-lg bg-gray-900 text-white text-[11px] font-black flex items-center justify-center shrink-0">
-                        {st.step}
-                      </span>
-                      <div>
-                        <div className="text-[13px] font-bold text-gray-900">{st.title}</div>
-                        <div className="text-[11px] text-gray-500 mt-0.5 leading-relaxed">{st.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Benefits */}
-              <div>
-                <h5 className="text-[13px] font-extrabold text-gray-900 mb-2 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>주요 쇼핑 혜택</span>
-                </h5>
-                <ul className="bg-slate-50 border border-slate-100 rounded-xl p-3 space-y-1.5 text-[11px] text-slate-700">
-                  {selectedPartner.modal.benefits.map((b, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Cautions */}
-              <div>
-                <h5 className="text-[12px] font-bold text-gray-700 mb-1.5 flex items-center gap-1">
-                  <HelpCircle className="w-3.5 h-3.5 text-gray-400" />
-                  <span>이용 시 꼭 확인해주세요</span>
-                </h5>
-                <ul className="space-y-1 text-[11px] text-gray-400 list-disc list-inside">
-                  {selectedPartner.modal.cautions.map((c, idx) => (
-                    <li key={idx}>{c}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* External Link Action Button */}
-              <div className="pt-2 sticky bottom-0 bg-white pb-1">
-                <button
-                  onClick={() => openExternalLink(selectedPartner.externalUrl)}
-                  className={`w-full py-3.5 text-white font-extrabold text-[15px] rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all ${selectedPartner.modal.buttonBg}`}
-                >
-                  <span>{selectedPartner.modal.buttonText}</span>
-                  <ExternalLink className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* 6. 바코드 상세 모달 (구매 완료 즉시 또는 내 쿠폰 터치 시 오픈) */}
       {selectedUserCoupon && (

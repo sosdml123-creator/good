@@ -38,6 +38,8 @@ export default {
           '"Malgun Gothic"',
           'sans-serif',
         ],
+        gaegu: ['"Gaegu"', 'cursive'],
+        nanumPen: ['"Nanum Pen Script"', 'cursive'],
       }
     },
   },
