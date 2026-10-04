@@ -90,6 +90,7 @@ import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 import { ProductEditManagementTab } from './ProductEditManagementTab';
 import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
+import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
 
 export type AdminTab = 
   | 'overview' 
@@ -113,6 +114,7 @@ export type AdminTab =
   | 'banners' 
   | 'battle' 
   | 'insta_generator'
+  | 'ai_agents'
   | 'data';
 
 export interface AdminDashboardProps {
@@ -1546,6 +1548,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </div>
 
               <button
+                onClick={() => setActiveAdminTab('ai_agents')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'ai_agents'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold shadow-md shadow-indigo-600/30'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Bot className={`w-4 h-4 ${activeAdminTab === 'ai_agents' ? 'text-white' : 'text-indigo-400'}`} />
+                  <span>AI 전문가 에이전트</span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">
+                  16명
+                </span>
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('insta_generator')}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'insta_generator'
@@ -1606,6 +1625,53 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 <div className="flex items-center gap-3">
                   <Sliders className={`w-4 h-4 ${activeAdminTab === 'sections' ? 'text-white' : 'text-gray-400'}`} />
                   <span>홈 섹션 순서·배치</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('events')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'events'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Gift className={`w-4 h-4 ${activeAdminTab === 'events' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>체험단 구좌 & 이벤트</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeAdminTab === 'events' ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                }`}>
+                  {events.length}
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('calendar')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'calendar'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Clock className={`w-4 h-4 ${activeAdminTab === 'calendar' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>신제품 출시 캘린더</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('notifications')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'notifications'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Bell className={`w-4 h-4 ${activeAdminTab === 'notifications' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>앱 푸시 & 알림 발송</span>
                 </div>
               </button>
 
@@ -1692,9 +1758,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'sections' ? '홈섹션관리' :
                activeAdminTab === 'sales' ? '편의점행사' :
                activeAdminTab === 'battle' ? '신상배틀' :
-               activeAdminTab === 'calendar' ? '출시캘린더' :
-               activeAdminTab === 'events' ? '이벤트관리' :
-               activeAdminTab === 'notifications' ? '푸시관리' :
+               activeAdminTab === 'calendar' ? '신제품 출시 캘린더' :
+               activeAdminTab === 'events' ? '체험단 구좌 & 이벤트 관리' :
+               activeAdminTab === 'notifications' ? '앱 푸시 & 알림 발송' :
+               activeAdminTab === 'ai_agents' ? 'AI 전문가 에이전트' :
                activeAdminTab === 'insta_generator' ? '인스타 콘텐츠 생성기' :
                activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
                activeAdminTab === 'kamis' ? 'KAMIS시세' : '설정'}
@@ -5032,6 +5099,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </div>
 
             </div>
+          )}
+
+          {/* ========================================================
+              TAB: AI AGENTS (AI 전문가 에이전트 허브)
+             ======================================================== */}
+          {activeAdminTab === 'ai_agents' && (
+            <AiAgentsManagementTab onNotify={showToast} />
           )}
 
           {/* ========================================================

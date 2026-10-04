@@ -179,6 +179,7 @@ interface AppContextType {
   addEvent: (eventData: Omit<PromotionEvent, 'id' | 'createdAt' | 'participantsCount' | 'isParticipated'>) => void;
   updateEvent: (id: string, updated: Partial<PromotionEvent>) => void;
   deleteEvent: (id: string) => void;
+  reorderEvents: (newEvents: PromotionEvent[]) => void;
   participateInEvent: (eventId: string) => void;
   sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => void;
   dismissIncomingPush: () => void;
@@ -4540,6 +4541,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('이벤트가 삭제되었습니다.', 'info');
   };
 
+  // Reorder Events (체험단 구좌 노출 순서 변경)
+  const reorderEvents = (newEvents: PromotionEvent[]) => {
+    setEvents(newEvents);
+    safeSetItem('sinsangpick_events', JSON.stringify(newEvents));
+    showToast('체험단 구좌 노출 순서가 변경되었습니다.', 'info');
+  };
+
   // Participate in Event
   const participateInEvent = (eventId: string) => {
     setEvents(prev => {
@@ -6911,6 +6919,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addEvent,
         updateEvent,
         deleteEvent,
+        reorderEvents,
         participateInEvent,
         sendPushNotification,
         dismissIncomingPush,
