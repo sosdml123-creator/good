@@ -91,10 +91,12 @@ import { ProductEditManagementTab } from './ProductEditManagementTab';
 import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
+import { LinkProductCollectorTab } from './LinkProductCollectorTab';
 
 export type AdminTab = 
   | 'overview' 
   | 'kamis'
+  | 'link_collector'
   | 'collector'
   | 'approval' 
   | 'sections'
@@ -167,6 +169,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     updatePendingProduct,
     clearAllPendingProducts,
     addPendingProduct,
+    addPendingProducts,
     deleteReview,
     deleteCommunityPost,
     allProfiles,
@@ -1453,6 +1456,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </button>
 
               <button
+                onClick={() => setActiveAdminTab('link_collector')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'link_collector'
+                    ? 'bg-purple-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Link2 className={`w-4 h-4 ${activeAdminTab === 'link_collector' ? 'text-white' : 'text-purple-400'}`} />
+                  <span>신제품 링크 수집 설정</span>
+                </div>
+                <span className="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-300 font-bold">
+                  CU
+                </span>
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('collector')}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'collector'
@@ -1750,6 +1770,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'product_edits' ? '수정요청' :
                activeAdminTab === 'reviews' ? (moderationSubTab === 'community' ? '게시글관리' : '댓글관리') :
                activeAdminTab === 'products' ? '신상품관리' :
+                activeAdminTab === 'link_collector' ? '신제품 링크 수집 설정' :
                activeAdminTab === 'approval' ? '수집·승인함' :
                activeAdminTab === 'collector' ? '자동수집기' :
                activeAdminTab === 'brands' ? '제조사브랜드' :
@@ -2471,6 +2492,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           {/* ========================================================
               TAB: OFFICIAL COLLECTOR (브랜드 & 품목 공식몰 제품 자동 수집 등록기)
              ======================================================== */}
+          {/* ========================================================
+              TAB: LINK PRODUCT COLLECTOR (신제품 링크 수집기 및 URL 설정)
+             ======================================================== */}
+          {activeAdminTab === 'link_collector' && (
+            <LinkProductCollectorTab
+              isDark={isDark}
+              products={products}
+              pendingProducts={pendingProducts}
+              onAddProduct={addProduct}
+              onAddToPending={addPendingProduct}
+              onAddMultipleToPending={addPendingProducts}
+              showToast={showToast}
+              onNavigateToApproval={() => setActiveAdminTab('approval')}
+            />
+          )}
+
           {activeAdminTab === 'collector' && (
             <BrandProductAutoCollector
               isDark={isDark}
@@ -2509,6 +2546,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
                   {/* Crawler Action Buttons */}
                   <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={() => setActiveAdminTab('link_collector')}
+                      className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all active:scale-95 flex items-center gap-1.5 ${
+                        isDark 
+                          ? 'bg-purple-950/40 hover:bg-purple-900/50 text-purple-300 border-purple-800/60' 
+                          : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200'
+                      }`}
+                    >
+                      <Link2 className="w-4 h-4 text-purple-500" />
+                      <span>신제품 링크 수집 설정</span>
+                    </button>
+
                     <button
                       onClick={() => setActiveAdminTab('collector')}
                       className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all active:scale-95 flex items-center gap-1.5 ${

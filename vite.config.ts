@@ -52,6 +52,61 @@ export default defineConfig(({ mode }) => {
         }
       },
       {
+        name: 'new-products-crawler-middleware',
+        configureServer(server) {
+          server.middlewares.use('/api/crawl-new-products', async (req, res) => {
+            try {
+              const handlerModule = await import('./api/crawl-new-products.js');
+              const handler = handlerModule.default;
+              const url = new URL(req.url || '', `http://${req.headers.host}`);
+              const query = Object.fromEntries(url.searchParams.entries());
+
+              const executeHandler = async (body = '') => {
+                const fakeRes = {
+                  statusCode: 200,
+                  headers: {},
+                  setHeader(name, val) {
+                    this.headers[name] = val;
+                    res.setHeader(name, val);
+                  },
+                  status(code) {
+                    this.statusCode = code;
+                    res.statusCode = code;
+                    return this;
+                  },
+                  json(data) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify(data));
+                  },
+                  end(data) {
+                    res.end(data);
+                  }
+                };
+
+                await handler({ query, method: req.method, headers: req.headers, body }, fakeRes);
+              };
+
+              if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => {
+                  body += chunk;
+                });
+                req.on('end', () => {
+                  executeHandler(body);
+                });
+              } else {
+                await executeHandler('');
+              }
+            } catch (err: any) {
+              console.error('New products crawler middleware error:', err);
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+        }
+      },
+      {
         name: 'kamis-api-middleware',
         configureServer(server) {
           server.middlewares.use('/api/kamis', async (req, res) => {

@@ -1,6 +1,6 @@
 // src/components/admin/aiAgents/ApiKeyModal.tsx
 import React, { useState } from 'react';
-import { Key, X, Check, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
+import { Key, X, Check, ShieldCheck, Sparkles, AlertCircle, ExternalLink } from 'lucide-react';
 import { getAiApiSettings, saveAiApiSettings, AiApiSettings } from './aiAgentService';
 
 interface ApiKeyModalProps {
@@ -135,9 +135,17 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onSav
             <div className="flex items-center justify-between mb-1.5">
               <label className="font-semibold text-slate-200 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-blue-400" />
-                Google Gemini API Key
+                Google Gemini API Key (무료 추천)
               </label>
-              <span className="text-[10px] text-blue-400/80 font-mono">AIzaSy...</span>
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1 hover:underline"
+              >
+                <span>30초 무료 발급 ➔</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
             <input
               type="password"
@@ -146,6 +154,9 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onSav
               onChange={(e) => setGeminiKey(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-indigo-500 text-slate-200 placeholder:text-slate-600 outline-none font-mono text-xs"
             />
+            <p className="mt-1 text-[10px] text-slate-400">
+              * 구글 계정으로 로그인 후 [Create API Key]를 누르면 즉시 100% 무료 키가 발급됩니다.
+            </p>
           </div>
         </div>
 

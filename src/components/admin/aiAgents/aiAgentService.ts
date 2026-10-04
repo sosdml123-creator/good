@@ -55,7 +55,20 @@ export async function sendAgentMessage({
   appContext,
 }: SendAgentMessageParams): Promise<string> {
   const settings = getAiApiSettings();
-  const customKey = settings.anthropicKey || settings.openaiKey || settings.geminiKey || undefined;
+  let selectedKey = settings.anthropicKey || settings.openaiKey || settings.geminiKey || undefined;
+  let provider = settings.activeProvider;
+
+  if (provider === 'gemini' && settings.geminiKey) {
+    selectedKey = settings.geminiKey;
+  } else if (provider === 'anthropic' && settings.anthropicKey) {
+    selectedKey = settings.anthropicKey;
+  } else if (provider === 'openai' && settings.openaiKey) {
+    selectedKey = settings.openaiKey;
+  } else if (settings.geminiKey) {
+    // 자동 선택 시 Gemini 키가 있으면 우선 활용
+    selectedKey = settings.geminiKey;
+    provider = 'gemini';
+  }
 
   try {
     const res = await fetch('/api/ai-agents', {
@@ -80,7 +93,8 @@ export async function sendAgentMessage({
               appStack: 'React, TypeScript, Tailwind CSS, Supabase, Capacitor iOS/Android',
             }
           : undefined,
-        customApiKey: customKey,
+        customApiKey: selectedKey,
+        aiProvider: provider === 'auto' ? undefined : provider,
       }),
     });
 

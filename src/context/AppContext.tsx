@@ -236,6 +236,7 @@ interface AppContextType {
   updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
   clearAllPendingProducts: () => void;
   addPendingProduct: (item: PendingProduct) => void;
+  addPendingProducts: (items: PendingProduct[]) => Promise<void>;
 
   // KAMIS Agricultural & Marine Product Live Prices Actions
   kamisPriceStatus: {
@@ -5803,6 +5804,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(`'${item.name}' 상품이 승인 대기함에 추가되었습니다.`, 'info');
   };
 
+  // 8-1. 복수 신제품 대기함 일괄 추가
+  const addPendingProducts = async (items: PendingProduct[]) => {
+    if (!items || items.length === 0) return;
+    try {
+      await insertPendingProductsToSupabase(items);
+      await fetchPendingProductsFromSupabase();
+      setPendingProducts(prev => {
+        const newIds = new Set(items.map(i => i.id));
+        const filteredPrev = prev.filter(p => !newIds.has(p.id));
+        return [...items, ...filteredPrev];
+      });
+      showToast(`${items.length}개의 신제품이 승인 대기함에 추가되었습니다.`, 'success');
+    } catch (err) {
+      console.error('[addPendingProducts] Error:', err);
+      // 로컬 상태 폴백
+      setPendingProducts(prev => {
+        const newIds = new Set(items.map(i => i.id));
+        const filteredPrev = prev.filter(p => !newIds.has(p.id));
+        return [...items, ...filteredPrev];
+      });
+      showToast(`${items.length}개의 신제품이 대기함에 추가되었습니다.`, 'success');
+    }
+  };
+
   // User & Points Management Actions (Admin)
   const fetchAllProfiles = async () => {
     if (!supabase || !isSupabaseConfigured) return;
@@ -6980,6 +7005,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updatePendingProduct,
         clearAllPendingProducts,
         addPendingProduct,
+        addPendingProducts,
 
         // User & Points Management
         allProfiles,

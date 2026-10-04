@@ -40,13 +40,25 @@ export default async function handler(req: any, res: any) {
     history = [],
     contextData,
     customApiKey,
+    aiProvider,
   } = (req.body || {}) as RequestBody;
 
   if (!userMessage) {
     return res.status(400).json({ error: '사용자 메시지가 필요합니다.' });
   }
 
-  const apiKey = customApiKey || process.env.ANTHROPIC_API_KEY;
+  // API 키 및 프로바이더 판별
+  const geminiKey = (customApiKey && customApiKey.startsWith('AIzaSy')) 
+    ? customApiKey 
+    : (aiProvider === 'gemini' ? customApiKey : process.env.GEMINI_API_KEY);
+
+  const anthropicKey = (customApiKey && customApiKey.startsWith('sk-ant')) 
+    ? customApiKey 
+    : (aiProvider === 'anthropic' ? customApiKey : process.env.ANTHROPIC_API_KEY);
+
+  const openaiKey = (customApiKey && customApiKey.startsWith('sk-proj') || (customApiKey && customApiKey.startsWith('sk-') && !customApiKey.startsWith('sk-ant')))
+    ? customApiKey
+    : (aiProvider === 'openai' ? customApiKey : process.env.OPENAI_API_KEY);
 
   // 신상픽 컨텍스트 텍스트 구성
   let injectedContext = '';
@@ -69,8 +81,61 @@ export default async function handler(req: any, res: any) {
 3. 마크다운 포맷(제목, 볼드, 코드블록, 불릿포인트)을 활용하여 가독성 높게 작성하십시오.
 4. 한국어로 정중하고 프로페셔널하게 답변하십시오.`;
 
-  // Anthropic API 호출 시도
-  if (apiKey) {
+  // 1. Google Gemini API 호출 (Gemini 키가 있는 경우 우선 또는 선택 시)
+  if (geminiKey) {
+    try {
+      const contentsPayload = [
+        ...history.slice(-6).map((h) => ({
+          role: h.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: h.content }],
+        })),
+        {
+          role: 'user',
+          parts: [{ text: userMessage }],
+        },
+      ];
+
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: fullSystemPrompt }],
+            },
+            contents: contentsPayload,
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 3500,
+            },
+          }),
+        }
+      );
+
+      if (geminiRes.ok) {
+        const geminiData = await geminiRes.json();
+        const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          return res.status(200).json({
+            reply: text,
+            provider: 'google-gemini-1.5-flash',
+            timestamp: new Date().toISOString(),
+          });
+        }
+      } else {
+        const errText = await geminiRes.text();
+        console.warn('[api/ai-agents] Google Gemini API error:', errText);
+      }
+    } catch (gErr) {
+      console.warn('[api/ai-agents] Gemini fetch failed:', gErr);
+    }
+  }
+
+  // 2. Anthropic API 호출
+  if (anthropicKey) {
     try {
       const messagesPayload = [
         ...history.slice(-6).map((h) => ({
@@ -83,7 +148,7 @@ export default async function handler(req: any, res: any) {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
-          'x-api-key': apiKey,
+          'x-api-key': anthropicKey,
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json',
         },
@@ -109,6 +174,48 @@ export default async function handler(req: any, res: any) {
       }
     } catch (apiErr) {
       console.warn('[api/ai-agents] Network/API Error:', apiErr);
+    }
+  }
+
+  // 3. OpenAI API 호출
+  if (openaiKey) {
+    try {
+      const messagesPayload = [
+        { role: 'system', content: fullSystemPrompt },
+        ...history.slice(-6).map((h) => ({
+          role: h.role,
+          content: h.content,
+        })),
+        { role: 'user', content: userMessage },
+      ];
+
+      const openAiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openaiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: messagesPayload,
+          max_tokens: 3000,
+          temperature: 0.7,
+        }),
+      });
+
+      if (openAiRes.ok) {
+        const openAiData = await openAiRes.json();
+        const text = openAiData.choices?.[0]?.message?.content;
+        if (text) {
+          return res.status(200).json({
+            reply: text,
+            provider: 'openai-gpt-4o',
+            timestamp: new Date().toISOString(),
+          });
+        }
+      }
+    } catch (oErr) {
+      console.warn('[api/ai-agents] OpenAI fetch failed:', oErr);
     }
   }
 
