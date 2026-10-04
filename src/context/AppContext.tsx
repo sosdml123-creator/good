@@ -6505,93 +6505,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // 🎁 e쿠폰 스토어 구매 (포인트 교환 - 현재 서비스 준비 중)
-  const purchaseCoupon = async (coupon: ECouponItem): Promise<PurchasedECoupon | null> => {
+  const purchaseCoupon = async (_coupon: ECouponItem): Promise<PurchasedECoupon | null> => {
     // 🚧 e쿠폰 서비스 정식 오픈 준비 중 방어
     showToast('🎁 e쿠폰 교환 서비스는 현재 정식 오픈 준비 중입니다. 조금만 기다려 주세요!', 'info');
     return null;
-
-    const currentPoints = currentUser.points || 0;
-    if (currentPoints < coupon.price) {
-      showToast(`⚠️ 포인트가 부족합니다. (필요: ${coupon.price.toLocaleString()}P / 보유: ${currentPoints.toLocaleString()}P)`, 'error');
-      return null;
-    }
-
-    const nextPoints = currentPoints - coupon.price;
-
-    // 16자리 모바일 바코드 및 8자리 핀번호 생성
-    const seg = () => Math.floor(1000 + Math.random() * 9000);
-    const barcodeNumber = `${seg()}-${seg()}-${seg()}-${seg()}`;
-    const pinNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
-
-    const now = new Date();
-    const expireDate = new Date();
-    expireDate.setDate(expireDate.getDate() + (coupon.expiryDays || 93));
-
-    const newPurchased: PurchasedECoupon = {
-      id: `user_coupon_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-      couponId: coupon.id,
-      brand: coupon.brand,
-      name: coupon.name,
-      imageUrl: coupon.imageUrl,
-      price: coupon.price,
-      barcodeNumber,
-      pinNumber,
-      purchasedAt: now.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }),
-      expiresAt: expireDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }),
-      isUsed: false,
-    };
-
-    // 사용자 포인트 차감 및 레벨 재계산
-    setCurrentUser(prev => ({
-      ...prev,
-      points: nextPoints,
-      level: calculateLevel(nextPoints),
-    }));
-
-    const nowStr = now.toLocaleString('ko-KR', { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: false 
-    });
-
-    const newTx: PointTransaction = {
-      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-      userId: currentUser.uid,
-      userName: currentUser.displayName,
-      userAvatar: currentUser.photoURL,
-      type: 'use',
-      amount: -coupon.price,
-      balanceAfter: nextPoints,
-      reason: `[e쿠폰 교환] ${coupon.brand} ${coupon.name}`,
-      createdAt: nowStr,
-      adminMemo: `모바일 쿠폰 구매 (바코드: ${barcodeNumber})`
-    };
-    setPointTransactions(prev => [newTx, ...prev]);
-
-    setPurchasedCoupons(prev => {
-      const updated = [newPurchased, ...prev];
-      try {
-        localStorage.setItem('sinsangpick_user_coupons_v1', JSON.stringify(updated));
-      } catch {}
-      return updated;
-    });
-
-    if (supabase && isSupabaseConfigured && !currentUser.isAnonymous) {
-      try {
-        await supabase.from('profiles').update({
-          points: nextPoints,
-          level: calculateLevel(nextPoints)
-        }).eq('id', currentUser.uid);
-      } catch (err) {
-        console.warn('[Supabase Points Deduction Error]', err);
-      }
-    }
-
-    showToast(`🎉 [${coupon.name}] 교환 완료! 모바일 바코드가 발급되었습니다.`, 'success');
-    return newPurchased;
   };
 
   // 🎁 e쿠폰 사용 완료 처리 토글
