@@ -53,13 +53,17 @@ export default async function handler(req, res) {
 
   try {
     // ----------------------------------------------------
-    // 1. NAVER Search Trend API (POST: search-trend/v1/search)
+    // 1. NAVER Search Trend API (POST: search-trend/v1/search & openapi fallback)
     // ----------------------------------------------------
     if (safeType === 'search_trend' || safeType === 'datalab_search' || safeType === 'trend') {
       const trendUrl = 'https://naverapihub.apigw.ntruss.com/search-trend/v1/search';
       const bodyPayload = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
 
+      const openApiClientId = process.env.NAVER_OPENAPI_CLIENT_ID || process.env.VITE_NAVER_OPENAPI_CLIENT_ID;
+      const openApiClientSecret = process.env.NAVER_OPENAPI_CLIENT_SECRET || process.env.VITE_NAVER_OPENAPI_CLIENT_SECRET;
+
       try {
+        // 1-1. NCP Search Trend 시도
         const trendRes = await fetch(trendUrl, {
           method: 'POST',
           headers: {
@@ -72,10 +76,39 @@ export default async function handler(req, res) {
 
         if (trendRes.ok) {
           const trendData = await trendRes.json();
-          return res.status(200).json(trendData);
+          return res.status(200).json({
+            ...trendData,
+            sourceApi: 'NAVER_CLOUD_SEARCH_TREND',
+            isNcpActive: true
+          });
         }
 
-        // NCP search-trend 권한이 미활성화된 경우(401), 쇼핑인사이트 키워드 트렌드로 스마트 변환 제공
+        // 1-2. NCP 401(미활성화) 시, 만약 별도의 네이버 개발자센터 OpenAPI 키가 있으면 시도
+        if (openApiClientId && openApiClientSecret) {
+          try {
+            const openRes = await fetch('https://openapi.naver.com/v1/datalab/search', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Naver-Client-Id': openApiClientId,
+                'X-Naver-Client-Secret': openApiClientSecret
+              },
+              body: JSON.stringify(bodyPayload)
+            });
+            if (openRes.ok) {
+              const openData = await openRes.json();
+              return res.status(200).json({
+                ...openData,
+                sourceApi: 'NAVER_DEVELOPERS_DATALAB_SEARCH',
+                isNcpActive: false
+              });
+            }
+          } catch (e) {
+            // openapi fallback
+          }
+        }
+
+        // 1-3. NCP search-trend 권한이 미활성화된 경우(401), 쇼핑인사이트 키워드 트렌드로 스마트 변환 제공
         if (trendRes.status === 401 || trendRes.status === 403 || trendRes.status === 404) {
           console.warn('[NAVER API HUB] search-trend not active on NCP app, falling back to shopping keywords trend');
           
@@ -107,7 +140,10 @@ export default async function handler(req, res) {
             const fallbackData = await fallbackRes.json();
             return res.status(200).json({
               ...fallbackData,
-              note: 'Transformed via NAVER Shopping Insight Keywords API'
+              sourceApi: 'NAVER_CLOUD_SHOPPING_KEYWORDS_FALLBACK',
+              isNcpActive: false,
+              ncpStatus: 401,
+              ncpMessage: '요청한 API는 이 Application에서 활성화되어 있지 않습니다.'
             });
           }
         }

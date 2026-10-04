@@ -14,6 +14,7 @@ export const MyPageView: React.FC = () => {
     reviews,
     currentUser,
     savedSaleIds,
+    purchasedCoupons,
     setActiveTab,
     openPermissionModal,
     openNotificationCenter,
@@ -66,6 +67,7 @@ export const MyPageView: React.FC = () => {
     { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
     { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
+    { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: `${purchasedCoupons.filter(c => !c.isUsed).length > 0 ? `${purchasedCoupons.filter(c => !c.isUsed).length}개 보유` : '포인트로 교환'}`, hi: true, action: () => setActiveTab('coupon') },
     { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
   ];
 

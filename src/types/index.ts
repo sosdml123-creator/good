@@ -455,8 +455,9 @@ export type ActiveTab =
   | 'search'
   | 'admin'
   | 'event_detail'
-  | 'calendar'
-  | 'ranking';
+  | 'ranking'
+  | 'coupon'
+  | 'calendar';
 
 export interface BrandInfo {
   id: string;
@@ -632,3 +633,34 @@ export interface RecipePost {
 }
 
 export type WriteRecipeInput = Omit<RecipePost, 'id' | 'likes' | 'commentsCount' | 'createdAt' | 'author' | 'authorAvatar' | 'authorLevel' | 'isLiked'>;
+
+// 🎁 e쿠폰 / 모바일 상품권 스토어 타입 (ECoupon Shop)
+export interface ECouponItem {
+  id: string;
+  brand: string;
+  brandLogo?: string;
+  name: string;
+  price: number; // 교환 필요 포인트
+  originalPrice?: number; // 정가 기준 (원)
+  imageUrl: string;
+  category: string;
+  description: string;
+  exchangeGuide: string;
+  expiryDays: number;
+  notices: string[];
+}
+
+export interface PurchasedECoupon {
+  id: string;
+  couponId: string;
+  brand: string;
+  name: string;
+  imageUrl: string;
+  price: number;
+  barcodeNumber: string;
+  pinNumber?: string;
+  purchasedAt: string;
+  expiresAt: string;
+  isUsed: boolean;
+  usedAt?: string;
+}

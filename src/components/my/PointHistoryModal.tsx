@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { X, Coins, Sparkles, TrendingUp, TrendingDown, HelpCircle, ChevronRight, PenTool } from 'lucide-react';
+import { X, Coins, Sparkles, TrendingUp, TrendingDown, HelpCircle, ChevronRight, PenTool, Gift } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { PointTransaction } from '../../types';
 
@@ -172,6 +172,26 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
                 </div>
               </div>
             )}
+          </div>
+
+          {/* eCoupon Shop Shortcut Banner */}
+          <div 
+            onClick={() => {
+              onClose();
+              setActiveTab('coupon');
+            }}
+            className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-3.5 text-white flex items-center justify-between cursor-pointer hover:opacity-95 active:scale-98 transition-all shadow-xs"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
+                <Gift className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <div className="text-[13px] font-bold">포인트로 e쿠폰 교환하기</div>
+                <div className="text-[11px] text-amber-100">스타벅스 아메리카노 등 e쿠폰 실시간 교환</div>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/80" />
           </div>
 
           {/* 3. Filter tabs */}

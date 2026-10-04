@@ -343,7 +343,8 @@ export const HomeView: React.FC = () => {
     // 카테고리(3) 바로 뒤, 신제품(5) 사이에 배치 (order: 4)
     workingSections = [...workingSections, defaultAdSection];
   } else {
-    workingSections = workingSections.map(s => s.id === 'ad_banner' ? { ...s, isVisible: true } : s);
+    // 사용자가 요청한 위치: 카테고리(3) 바로 뒤, 신제품(5) 사이에 항상 위치하도록 order: 4 보장
+    workingSections = workingSections.map(s => s.id === 'ad_banner' ? { ...s, isVisible: true, order: 4 } : s);
   }
 
   const sortedHomeSections = [...workingSections].sort((a, b) => a.order - b.order);
@@ -503,8 +504,7 @@ export const HomeView: React.FC = () => {
       // 3. 카테고리 스크롤
       case 'categories':
         return (
-          <React.Fragment key="categories">
-          <div className="bg-white py-3 px-4 border-b border-gray-100">
+          <div key="categories" className="bg-white py-3 px-4 border-b border-gray-100">
             <div className="flex gap-4 overflow-x-auto no-scrollbar">
               {categoryIcons.map((c) => (
                 <button
@@ -522,8 +522,14 @@ export const HomeView: React.FC = () => {
               ))}
             </div>
           </div>
-          <AdMobBannerSection />
-          </React.Fragment>
+        );
+
+      // 카테고리 구좌와 신제품 구좌 사이: 공식 스폰서드 광고 구좌
+      case 'ad_banner':
+        return (
+          <div key="ad_banner" className="w-full">
+            <AdMobBannerSection />
+          </div>
         );
 
       // 4. 따끈따끈 새로 나온 신제품 구좌

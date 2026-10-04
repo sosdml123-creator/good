@@ -131,6 +131,10 @@ export interface SearchTrendResponse {
   timeUnit: string;
   results: SearchTrendResultItem[];
   note?: string;
+  sourceApi?: string;
+  isNcpActive?: boolean;
+  ncpStatus?: number;
+  ncpMessage?: string;
 }
 
 export interface KeywordDemographics {

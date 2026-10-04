@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Home, Compass, Trophy, MessageSquare, User } from 'lucide-react';
+import { Home, Compass, Gift, MessageSquare, User } from 'lucide-react';
 import { ActiveTab } from '../../types';
 
 export const BottomNav: React.FC = () => {
@@ -14,7 +14,7 @@ export const BottomNav: React.FC = () => {
   const navItems = [
     { id: 'home' as ActiveTab, label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
     { id: 'category' as ActiveTab, label: '신제품', icon: <Compass className="w-5 h-5 stroke-[2]" /> },
-    { id: 'ranking' as ActiveTab, label: '랭킹', icon: <Trophy className="w-5 h-5 stroke-[2]" /> },
+    { id: 'coupon' as ActiveTab, label: 'e쿠폰', icon: <Gift className="w-5 h-5 stroke-[2]" /> },
     { id: 'community' as ActiveTab, label: '수다방', icon: <MessageSquare className="w-5 h-5 stroke-[2]" /> },
     { id: 'my' as ActiveTab, label: '마이', icon: <User className="w-5 h-5 stroke-[2]" /> },
   ];

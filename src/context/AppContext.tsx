@@ -27,7 +27,9 @@ import {
   UserAccountStatus,
   HomeSectionConfig,
   HomeSectionId,
-  ProductEditRequest
+  ProductEditRequest,
+  ECouponItem,
+  PurchasedECoupon
 } from '../types';
 import type { ReviewExtraData } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
@@ -39,6 +41,7 @@ import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import { INITIAL_REPORTS } from '../data/mockReports';
 import { INITIAL_PRODUCT_EDIT_REQUESTS } from '../data/mockProductEdits';
+import { INITIAL_ECOUPONS } from '../data/mockCoupons';
 import { POPULAR_BRANDS } from '../utils/brandData';
 import {
   fetchDailyNewProducts,
@@ -373,6 +376,13 @@ interface AppContextType {
   isContentSyncing: boolean;
   syncAllContentToCloud: () => Promise<void>;
   refreshRemoteContent: () => Promise<void>;
+
+  // 🎁 e쿠폰 스토어 (Point Shop)
+  coupons: ECouponItem[];
+  purchasedCoupons: PurchasedECoupon[];
+  purchaseCoupon: (coupon: ECouponItem) => Promise<boolean>;
+  useCoupon: (purchasedCouponId: string) => Promise<void>;
+  addTestPoints: (amount?: number) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -1753,6 +1763,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isRecipeDetailOpen, setIsRecipeDetailOpen] = useState(false);
   const [isWriteRecipeOpen, setIsWriteRecipeOpen] = useState(false);
 
+  // 🎁 e쿠폰 스토어 상태
+  const [coupons, setCoupons] = useState<ECouponItem[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_coupons_v1');
+      if (stored !== null) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return INITIAL_ECOUPONS;
+  });
+
+  const [purchasedCoupons, setPurchasedCoupons] = useState<PurchasedECoupon[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_user_coupons_v1');
+      if (stored !== null) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch {}
+    return [];
+  });
+
   // All Profiles & Point Transactions for Admin & User Management
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(() => {
     try {
@@ -3055,6 +3088,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (category && category !== '전체') params.set('cat', category);
     } else if (tab === 'ranking') {
       params.set('tab', 'ranking');
+    } else if (tab === 'coupon') {
+      params.set('tab', 'coupon');
     } else if (tab === 'calendar' || (tab as string) === 'sale') {
       params.set('tab', 'sale');
     } else if (tab === 'community') {
@@ -6583,6 +6618,146 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('수정 요청 내역을 삭제했습니다.', 'info');
   };
 
+  // 🎁 e쿠폰 스토어 구매 (포인트 교환)
+  const purchaseCoupon = async (coupon: ECouponItem): Promise<boolean> => {
+    const currentPoints = currentUser.points || 0;
+    if (currentPoints < coupon.price) {
+      showToast(`⚠️ 포인트가 부족합니다. (필요: ${coupon.price.toLocaleString()}P / 보유: ${currentPoints.toLocaleString()}P)`, 'error');
+      return false;
+    }
+
+    const nextPoints = currentPoints - coupon.price;
+
+    // 16자리 모바일 바코드 및 8자리 핀번호 생성
+    const seg = () => Math.floor(1000 + Math.random() * 9000);
+    const barcodeNumber = `${seg()}-${seg()}-${seg()}-${seg()}`;
+    const pinNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
+
+    const now = new Date();
+    const expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + (coupon.expiryDays || 93));
+
+    const newPurchased: PurchasedECoupon = {
+      id: `user_coupon_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      couponId: coupon.id,
+      brand: coupon.brand,
+      name: coupon.name,
+      imageUrl: coupon.imageUrl,
+      price: coupon.price,
+      barcodeNumber,
+      pinNumber,
+      purchasedAt: now.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      expiresAt: expireDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      isUsed: false,
+    };
+
+    // 사용자 포인트 차감 및 레벨 재계산
+    setCurrentUser(prev => ({
+      ...prev,
+      points: nextPoints,
+      level: calculateLevel(nextPoints),
+    }));
+
+    const nowStr = now.toLocaleString('ko-KR', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false 
+    });
+
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId: currentUser.uid,
+      userName: currentUser.displayName,
+      userAvatar: currentUser.photoURL,
+      type: 'use',
+      amount: -coupon.price,
+      balanceAfter: nextPoints,
+      reason: `[e쿠폰 교환] ${coupon.brand} ${coupon.name}`,
+      createdAt: nowStr,
+      adminMemo: `모바일 쿠폰 구매 (바코드: ${barcodeNumber})`
+    };
+    setPointTransactions(prev => [newTx, ...prev]);
+
+    setPurchasedCoupons(prev => {
+      const updated = [newPurchased, ...prev];
+      try {
+        localStorage.setItem('sinsangpick_user_coupons_v1', JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
+
+    if (supabase && isSupabaseConfigured && !currentUser.isAnonymous) {
+      try {
+        await supabase.from('profiles').update({
+          points: nextPoints,
+          level: calculateLevel(nextPoints)
+        }).eq('id', currentUser.uid);
+      } catch (err) {
+        console.warn('[Supabase Points Deduction Error]', err);
+      }
+    }
+
+    showToast(`🎉 [${coupon.name}] 교환 완료! 내 쿠폰함에서 바코드를 확인하세요.`, 'success');
+    return true;
+  };
+
+  // 🎁 e쿠폰 사용 완료 처리 토글
+  const useCoupon = async (purchasedCouponId: string) => {
+    setPurchasedCoupons(prev => {
+      const updated = prev.map(c => {
+        if (c.id === purchasedCouponId) {
+          const nextUsed = !c.isUsed;
+          return {
+            ...c,
+            isUsed: nextUsed,
+            usedAt: nextUsed ? new Date().toLocaleDateString('ko-KR') : undefined
+          };
+        }
+        return c;
+      });
+      try {
+        localStorage.setItem('sinsangpick_user_coupons_v1', JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
+  };
+
+  // 🧪 테스트 포인트 충전 편의 함수
+  const addTestPoints = (amount: number = 5000) => {
+    const nextPoints = (currentUser.points || 0) + amount;
+    setCurrentUser(prev => ({
+      ...prev,
+      points: nextPoints,
+      level: calculateLevel(nextPoints),
+    }));
+
+    const nowStr = new Date().toLocaleString('ko-KR', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false 
+    });
+
+    const newTx: PointTransaction = {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      userId: currentUser.uid,
+      userName: currentUser.displayName,
+      userAvatar: currentUser.photoURL,
+      type: 'reward',
+      amount: amount,
+      balanceAfter: nextPoints,
+      reason: '테스트 포인트 충전 (e쿠폰 교환 체험)',
+      createdAt: nowStr
+    };
+    setPointTransactions(prev => [newTx, ...prev]);
+    showToast(`✨ 테스트 포인트 +${amount.toLocaleString()}P가 지급되었습니다!`, 'success');
+  };
+
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
     setProducts(INITIAL_PRODUCTS);
@@ -6599,6 +6774,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSalePromotions(INITIAL_SALE_PROMOTIONS);
     setCalendarItems(INITIAL_CALENDAR_ITEMS);
     setHomeSections(INITIAL_HOME_SECTIONS);
+    setCoupons(INITIAL_ECOUPONS);
+    setPurchasedCoupons([]);
+    localStorage.removeItem('sinsangpick_coupons_v1');
+    localStorage.removeItem('sinsangpick_user_coupons_v1');
     localStorage.removeItem('sinsangpick_products');
     localStorage.removeItem('sinsangpick_banners');
     localStorage.removeItem('sinsangpick_battle_config');
@@ -6844,6 +7023,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // KAMIS Agricultural & Marine Product Live Prices
         kamisPriceStatus,
         refreshKamisPrices,
+
+        // 🎁 e쿠폰 스토어
+        coupons,
+        purchasedCoupons,
+        purchaseCoupon,
+        useCoupon,
+        addTestPoints,
       }}
     >
       {children}

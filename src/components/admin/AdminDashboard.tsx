@@ -3807,6 +3807,35 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </div>
                 </div>
 
+                {/* NCP API Hub Activation Guide Banner (When 401 unactivated) */}
+                {searchTrendData && searchTrendData.isNcpActive === false && (
+                  <div className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-200 text-xs flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-1.5 font-bold text-amber-600 dark:text-amber-400">
+                        <ShieldAlert className="w-4 h-4 shrink-0" />
+                        <span>NAVER Cloud 콘솔 '검색어 트렌드' 서비스 활성화 안내</span>
+                      </div>
+                      <p className="text-[11px] text-amber-700/90 dark:text-amber-300/80">
+                        현재 NCP Application(ha89ylxb53)에서 '검색어 트렌드'가 미선택 상태여서 쇼핑 키워드 지수로 대체 제공 중입니다. 
+                        <strong> [NCP 콘솔] &gt; Application &gt; [수정] &gt; '검색어 트렌드' 체크 후 [저장]</strong>하시면 네이버 콘솔에 검색어 트렌드 사용량이 공식 카운트됩니다.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleFetchSearchTrend(searchTrendKeywordInput)}
+                      className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-xs shrink-0 transition-all active:scale-95 cursor-pointer"
+                    >
+                      콘솔 활성화 후 재확인
+                    </button>
+                  </div>
+                )}
+
+                {searchTrendData && searchTrendData.isNcpActive === true && (
+                  <div className="p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span className="font-bold">NAVER Cloud Platform '검색어 트렌드' 공식 API 연동 정상 (네이버 콘솔에 사용량 공식 집계 중)</span>
+                  </div>
+                )}
+
                 {/* Preset Fast Pills */}
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
                   <span className="text-[11px] font-bold text-slate-400 shrink-0">추천 분석 키워드:</span>
