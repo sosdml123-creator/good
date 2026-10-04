@@ -1070,8 +1070,8 @@ export const crawlOfficialProductsByBrandAndCategory = async (
   const collected: OfficialCollectedProduct[] = [];
   const seenNames = new Set<string>();
 
-  // 1. 인스타그램 및 SNS 채널 프리셋 우선 연동
-  if (sourceType === 'instagram' || (sourceType === 'all' && !cleanBrand && !cleanKeyword)) {
+  // 1. 사용자가 명시적으로 'instagram' 소스타입을 요청한 경우에만 인스타그램 프리셋 필터링 제공
+  if (sourceType === 'instagram') {
     const filteredPresets = INSTAGRAM_TRENDING_PRESETS.filter(item => {
       if (cleanBrand && !item.brand?.toLowerCase().includes(cleanBrand.toLowerCase()) && !cleanBrand.toLowerCase().includes(item.brand?.toLowerCase() || '')) {
         return false;
@@ -1112,31 +1112,41 @@ export const crawlOfficialProductsByBrandAndCategory = async (
       }
     });
 
-    if (sourceType === 'instagram' && collected.length >= displayCount) {
-      return collected.slice(0, displayCount);
-    }
+    return collected.slice(0, displayCount);
   }
 
-  // 2. [파이프라인 A] 네이버 공식 론칭 뉴스(News) 검색을 통한 실시간 최신 신제품 수집
-  const newsQuery = cleanBrand 
-    ? (cleanKeyword ? `${cleanBrand} ${cleanKeyword} 신제품 출시` : `${cleanBrand} 신제품 출시`)
-    : `${cleanKeyword || '편의점'} 신제품 출시`;
+  // 2. [파이프라인 A] 네이버 공식 보도자료(News) 실시간 서칭
+  const targetNewsQueries = cleanBrand 
+    ? [
+        cleanKeyword ? `${cleanBrand} ${cleanKeyword} 신제품 출시` : `${cleanBrand} 신제품 출시`,
+        `${cleanBrand} 신상 출시`
+      ]
+    : [
+        `${cleanKeyword || '편의점'} 신제품 출시`,
+        `${cleanKeyword || '편의점'} 신상 출시`,
+        '이달의 편의점 신제품'
+      ];
 
-  try {
-    const newsRes = await callNaverApi('news', newsQuery, 'date', 20);
-    if (newsRes && newsRes.items && newsRes.items.length > 0) {
-      for (const item of newsRes.items) {
-        const rawTitle = cleanHtml(item.title);
-        const rawDesc = cleanHtml(item.description || '');
+  for (const newsQuery of targetNewsQueries) {
+    if (collected.length >= displayCount) break;
+    try {
+      const newsRes = await callNaverApi('news', newsQuery, 'date', 20);
+      if (newsRes && newsRes.items && newsRes.items.length > 0) {
+        for (const item of newsRes.items) {
+          const rawTitle = cleanHtml(item.title);
+          const rawDesc = cleanHtml(item.description || '');
 
-        const resolvedBrand = detectBrand(rawTitle + ' ' + rawDesc) || cleanBrand || '식품';
-        const extracted = extractProductName(rawTitle, rawDesc, resolvedBrand);
+          const resolvedBrand = detectBrand(rawTitle + ' ' + rawDesc) || cleanBrand || '식품';
+          const extracted = extractProductName(rawTitle, rawDesc, resolvedBrand);
 
-        if (extracted.isValid && extracted.name.length >= 2) {
-          const refinedName = refineProductName(extracted.name);
-          const norm = refinedName.toLowerCase().replace(/\s+/g, '');
+          if (extracted.isValid && extracted.name.length >= 2) {
+            const refinedName = refineProductName(extracted.name);
+            const norm = refinedName.toLowerCase().replace(/\s+/g, '');
 
-          if (!seenNames.has(norm) && refinedName.length >= 2) {
+            // 브랜드명만 단독으로 있거나 중복된 이름은 제외
+            if (isBrandOnlyName(refinedName, resolvedBrand) || seenNames.has(norm)) {
+              continue;
+            }
             seenNames.add(norm);
 
             const resolvedCat = detectCategory(rawTitle + ' ' + rawDesc + ' ' + refinedName);
@@ -1156,7 +1166,7 @@ export const crawlOfficialProductsByBrandAndCategory = async (
             // 실시간 이미지 검색 시도
             let finalImage = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
             try {
-              const imgRes = await callNaverApi('image', `${resolvedBrand} ${refinedName} 공식 패키지`, 'sim', 3);
+              const imgRes = await callNaverApi('image', `${resolvedBrand} ${refinedName} 패키지`, 'sim', 3);
               if (imgRes && imgRes.items && imgRes.items.length > 0) {
                 const picked = imgRes.items[0].link || imgRes.items[0].thumbnail;
                 if (picked) {
@@ -1179,13 +1189,17 @@ export const crawlOfficialProductsByBrandAndCategory = async (
               ? `${rawDesc.slice(0, 95)}...`
               : `[${resolvedBrand}] 공식 출시 신제품 '${refinedName}'입니다.`;
 
+            // 기사 본문 가격 추출 시도
+            const parsedPrice = extractPriceFromText(rawDesc);
+            const finalPrice = parsedPrice > 0 ? parsedPrice : (resolvedCat === '간편식' ? 1800 : resolvedCat === '음료' ? 2200 : resolvedCat === '빵·디저트' ? 3400 : 2500);
+
             collected.push({
               id: `news-${Date.now()}-${collected.length}-${Math.random().toString(36).substring(2, 6)}`,
               name: refinedName,
               brand: resolvedBrand,
               category: resolvedCat,
               subCategory: '실시간 론칭 신작',
-              price: resolvedCat === '간편식' ? 1800 : resolvedCat === '음료' ? 2200 : resolvedCat === '빵·디저트' ? 3400 : 2500,
+              price: finalPrice,
               image: finalImage,
               description,
               mallName: `${resolvedBrand} 공식 출시 보도`,
@@ -1204,139 +1218,92 @@ export const crawlOfficialProductsByBrandAndCategory = async (
           }
         }
       }
+    } catch (err) {
+      console.warn('[OfficialStoreCrawler] News search pipeline error:', err);
     }
-  } catch (err) {
-    console.warn('[OfficialStoreCrawler] News search pipeline error:', err);
   }
 
   // 3. [파이프라인 B] 네이버 쇼핑 및 실물 패키지 이미지 검색 연동
-  const shopQuery = cleanBrand && cleanKeyword ? `${cleanBrand} ${cleanKeyword}` : (cleanBrand || cleanKeyword || '편의점 신제품');
-  try {
-    const shopRes = await callNaverApi('shop', shopQuery, 'sim', Math.min(displayCount, 20));
-    if (shopRes && shopRes.items && shopRes.items.length > 0) {
-      for (const item of shopRes.items) {
-        const rawTitle = cleanHtml(item.title);
-        const refinedName = refineProductName(rawTitle);
+  if (collected.length < displayCount) {
+    const shopQuery = cleanBrand && cleanKeyword ? `${cleanBrand} ${cleanKeyword}` : (cleanBrand || cleanKeyword || '편의점 신제품');
+    try {
+      const shopRes = await callNaverApi('shop', shopQuery, 'sim', Math.min(displayCount - collected.length, 20));
+      if (shopRes && shopRes.items && shopRes.items.length > 0) {
+        for (const item of shopRes.items) {
+          const rawTitle = cleanHtml(item.title);
+          const refinedName = refineProductName(rawTitle);
 
-        if (refinedName.length < 2) continue;
+          if (refinedName.length < 2) continue;
 
-        const norm = refinedName.toLowerCase().replace(/\s+/g, '');
-        if (seenNames.has(norm)) continue;
-        seenNames.add(norm);
-
-        let price = parseInt(item.lprice || '0', 10);
-        if (isNaN(price) || price <= 0) {
-          price = 2500;
-        } else if (price > 100000 && !refinedName.includes('세트') && !refinedName.includes('박스')) {
-          price = Math.round(price / 10);
-        }
-
-        let resolvedBrand = item.brand || item.maker || cleanBrand;
-        if (!resolvedBrand || resolvedBrand === '기타') {
-          resolvedBrand = detectBrand(refinedName + ' ' + rawTitle) || cleanBrand || '신상픽';
-        }
-
-        const fullCatText = `${item.category1 || ''} ${item.category2 || ''} ${item.category3 || ''} ${refinedName}`;
-        const resolvedCat = detectCategory(fullCatText);
-        const { isOfficial, badge } = getOfficialMallStatus(item.mallName, rawTitle, resolvedBrand);
-
-        let stores = detectStores(rawTitle + ' ' + (item.mallName || ''));
-        if (stores.length === 0) {
-          if (['농심', '오뚜기', '삼양식품', '오리온', '롯데웰푸드', '빙그레', '해태제과'].includes(resolvedBrand)) {
-            stores = ['CU', 'GS25', '세븐일레븐', '이마트24'];
-          } else if (['스타벅스', '배스킨라빈스', '맥도날드', '버거킹', '투썸플레이스', '뚜레쥬르', '파리바게뜨', '빽다방', '메가MGC커피'].includes(resolvedBrand)) {
-            stores = [resolvedBrand];
-          } else if (['CU', 'GS25', '세븐일레븐', '이마트24'].includes(resolvedBrand)) {
-            stores = [resolvedBrand];
-          } else {
-            stores = ['CU', 'GS25'];
+          let resolvedBrand = item.brand || item.maker || cleanBrand;
+          if (!resolvedBrand || resolvedBrand === '기타') {
+            resolvedBrand = detectBrand(refinedName + ' ' + rawTitle) || cleanBrand || '신상픽';
           }
+
+          if (isBrandOnlyName(refinedName, resolvedBrand)) continue;
+
+          const norm = refinedName.toLowerCase().replace(/\s+/g, '');
+          if (seenNames.has(norm)) continue;
+          seenNames.add(norm);
+
+          let price = parseInt(item.lprice || '0', 10);
+          if (isNaN(price) || price <= 0 || item.synthesized) {
+            price = 2500;
+          } else if (price > 100000 && !refinedName.includes('세트') && !refinedName.includes('박스')) {
+            price = Math.round(price / 10);
+          }
+
+          const fullCatText = `${item.category1 || ''} ${item.category2 || ''} ${item.category3 || ''} ${refinedName}`;
+          const resolvedCat = detectCategory(fullCatText);
+          const { isOfficial, badge } = getOfficialMallStatus(item.mallName, rawTitle, resolvedBrand);
+
+          let stores = detectStores(rawTitle + ' ' + (item.mallName || ''));
+          if (stores.length === 0) {
+            if (['농심', '오뚜기', '삼양식품', '오리온', '롯데웰푸드', '빙그레', '해태제과'].includes(resolvedBrand)) {
+              stores = ['CU', 'GS25', '세븐일레븐', '이마트24'];
+            } else if (['스타벅스', '배스킨라빈스', '맥도날드', '버거킹', '투썸플레이스', '뚜레쥬르', '파리바게뜨', '빽다방', '메가MGC커피'].includes(resolvedBrand)) {
+              stores = [resolvedBrand];
+            } else if (['CU', 'GS25', '세븐일레븐', '이마트24'].includes(resolvedBrand)) {
+              stores = [resolvedBrand];
+            } else {
+              stores = ['CU', 'GS25'];
+            }
+          }
+
+          const imageUrl = (item.image || 'https://shopping-phinf.pstatic.net/main_4187063/41870638618.20230814143219.jpg').replace(/^http:\/\//, 'https://');
+
+          collected.push({
+            id: `shop-${Date.now()}-${collected.length}-${Math.random().toString(36).substring(2, 6)}`,
+            name: refinedName,
+            brand: resolvedBrand,
+            category: resolvedCat,
+            subCategory: item.category3 || item.category2 || undefined,
+            price,
+            image: imageUrl,
+            description: `[${resolvedBrand}] ${refinedName}.`,
+            mallName: item.mallName || '네이버 쇼핑 공식',
+            isOfficialMall: isOfficial,
+            officialMallBadge: badge,
+            productLink: item.link,
+            stores,
+            isToday: true,
+            isHot: false,
+            releaseDate: `${dateStr} 공식 등록`,
+            crawledAt: `${dateStr} ${nowTime}`,
+            sourceType: 'official',
+            sourceChannel: item.mallName || `${resolvedBrand} 공식 직영몰`,
+            tags: ['#공식몰정품', '#신제품']
+          });
+
+          if (collected.length >= displayCount) break;
         }
-
-        const imageUrl = (item.image || 'https://shopping-phinf.pstatic.net/main_4187063/41870638618.20230814143219.jpg').replace(/^http:\/\//, 'https://');
-
-        collected.push({
-          id: `shop-${Date.now()}-${collected.length}-${Math.random().toString(36).substring(2, 6)}`,
-          name: refinedName,
-          brand: resolvedBrand,
-          category: resolvedCat,
-          subCategory: item.category3 || item.category2 || undefined,
-          price,
-          image: imageUrl,
-          description: `[${resolvedBrand}] 공식 홈페이지 및 직영 스토어에서 판매 중인 ${refinedName}.`,
-          mallName: item.mallName || '네이버 쇼핑 공식',
-          isOfficialMall: isOfficial,
-          officialMallBadge: badge,
-          productLink: item.link,
-          stores,
-          isToday: true,
-          isHot: false,
-          releaseDate: `${dateStr} 공식 등록`,
-          crawledAt: `${dateStr} ${nowTime}`,
-          sourceType: 'official',
-          sourceChannel: item.mallName || `${resolvedBrand} 공식 직영몰`,
-          tags: ['#공식몰정품', '#신제품']
-        });
-
-        if (collected.length >= displayCount) break;
       }
+    } catch (err) {
+      console.warn('[OfficialStoreCrawler] Shop pipeline error:', err);
     }
-  } catch (err) {
-    console.warn('[OfficialStoreCrawler] Shop pipeline error:', err);
   }
 
-  // 4. [파이프라인 C] 제조사별 공식 정품 사전 데이터베이스에서 보강
-  const matchedBrandKeys = Object.keys(OFFICIAL_BRAND_PRESET_DATABASE).filter(k => {
-    if (cleanBrand) {
-      return k.toLowerCase().includes(cleanBrand.toLowerCase()) || cleanBrand.toLowerCase().includes(k.toLowerCase());
-    }
-    if (cleanKeyword) {
-      return OFFICIAL_BRAND_PRESET_DATABASE[k].some(p => 
-        (p.name && p.name.includes(cleanKeyword)) || 
-        (p.category && p.category.includes(cleanKeyword)) ||
-        (p.subCategory && p.subCategory.includes(cleanKeyword))
-      );
-    }
-    return false;
-  });
-
-  const targetPresetKeys = matchedBrandKeys.length > 0 
-    ? matchedBrandKeys 
-    : (cleanBrand ? [] : ['농심', '오뚜기', '삼양식품', '오리온', '연세유업', 'CU', 'GS25', '세븐일레븐']);
-
-  targetPresetKeys.forEach(brandKey => {
-    const list = OFFICIAL_BRAND_PRESET_DATABASE[brandKey] || [];
-    list.forEach((preset, idx) => {
-      const norm = (preset.name || '').toLowerCase().replace(/\s+/g, '');
-      if (!seenNames.has(norm)) {
-        seenNames.add(norm);
-        collected.push({
-          id: `preset-${Date.now()}-${brandKey}-${idx}`,
-          name: preset.name || '공식 신제품',
-          brand: preset.brand || brandKey,
-          category: preset.category || '간편식',
-          subCategory: preset.subCategory,
-          price: preset.price || 2000,
-          image: (preset.image || 'https://shopping-phinf.pstatic.net/main_4187063/41870638618.20230814143219.jpg').replace(/^http:\/\//, 'https://'),
-          description: preset.description || `[${brandKey}] 본사 공식 정품 제품입니다.`,
-          mallName: preset.mallName || `${preset.brand || brandKey} 공식스토어`,
-          isOfficialMall: true,
-          officialMallBadge: preset.officialMallBadge || `🏢 ${preset.brand || brandKey} 공식 브랜드스토어`,
-          stores: preset.stores || ['CU', 'GS25', '세븐일레븐'],
-          volume: preset.volume,
-          calories: preset.calories,
-          isToday: true,
-          isHot: !!preset.isHot,
-          releaseDate: `${dateStr} 공식 등록`,
-          crawledAt: `${dateStr} ${nowTime}`,
-          sourceType: 'official',
-          sourceChannel: `${preset.brand || brandKey} 공식 직영`
-        });
-      }
-    });
-  });
-
-  // 최종 수량 조절 및 최신순 정렬
+  // 최종 수량 조절 및 반환 (가짜 하드코딩 프리셋 일절 없이 실제 서칭된 결과만 반환)
   return collected.slice(0, displayCount);
 };
 

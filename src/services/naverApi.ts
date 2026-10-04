@@ -414,8 +414,8 @@ export const isClickbaitOrInvalidName = (text: string): { isInvalid: boolean; re
   if (!/[가-힣]/.test(clean)) {
     return { isInvalid: true, reason: '한글 제품명 아님' };
   }
-  if (/\d{1,2}:\d{2}|20\d{2}년?|\d{1,2}월|\d{1,2}일/.test(clean)) {
-    return { isInvalid: true, reason: '날짜/시간 표현 포함' };
+  if (/^\d+년?$/.test(clean) || /\d{1,2}:\d{2}|20\d{2}년?|\d{1,2}월|\d{1,2}일/.test(clean)) {
+    return { isInvalid: true, reason: '날짜/시간/연도 표현 포함' };
   }
   if (/·|ㆍ|\s등$|\s외$/.test(clean)) {
     return { isInvalid: true, reason: '여러 제품 나열형' };
@@ -423,7 +423,7 @@ export const isClickbaitOrInvalidName = (text: string): { isInvalid: boolean; re
   if (clean.split(/\s+/).length > 5) {
     return { isInvalid: true, reason: '단어 수 과다 (문장형)' };
   }
-  if (/박람회|전시회|페스티벌|축제|팝업|매장|점포|오픈|개점|캠페인|이벤트|할인|프로모션|행사|기부|시상|수상|채용|실적|매출|간담회|투자|협업|상품군|제품군|라인업|카테고리|마케팅|광고|모델|앰버서더|굿즈|증정|사은품|첫번|첫 번|번째|리뉴얼$|출시$|론칭$|신제품$|신상$|신메뉴$/.test(clean)) {
+  if (/박람회|전시회|페스티벌|축제|팝업|매장|점포|오픈|개점|캠페인|이벤트|할인|프로모션|행사|기부|시상|수상|채용|실적|매출|간담회|투자|협업|상품군|제품군|라인업|카테고리|마케팅|광고|모델|앰버서더|굿즈|증정|사은품|첫번|첫 번|번째|출범$|돌파$|달성$|선정$|참가$|전망$|리뉴얼$|출시$|론칭$|신제품$|신상$|신메뉴$/.test(clean)) {
     return { isInvalid: true, reason: '제품명이 아닌 행사/기업 활동 문구' };
   }
 
@@ -583,13 +583,18 @@ export const extractProductName = (
  */
 export const isBrandOnlyName = (name: string, brand?: string): boolean => {
   const norm = name.replace(/\s+/g, '').toLowerCase();
+  // 회사/법인명 종결자 (음료, 식품, 제과, 유업, 유통, 리테일, 코리아, 주식회사)
+  if (/(?:음료|식품|제과|유업|유통|리테일|코리아|푸드|인터내셔널|홀딩스)$/.test(norm)) {
+    return true;
+  }
   const pool = [...KNOWN_BRANDS, '씨유', '지에스25', '이마트', '홈플러스', '롯데마트', brand || ''].filter(Boolean);
   for (const b of pool) {
     const nb = b.replace(/\s+/g, '').toLowerCase();
     if (!nb) continue;
     if (norm === nb) return true;
-    // 브랜드명을 제거하고 나면 남는 게 거의 없는 경우
+    // 브랜드명을 제거하고 나면 남는 게 거의 없는 경우 (예: '농심 신제품', '롯데 신상')
     if (norm.startsWith(nb) && norm.slice(nb.length).length < 2) return true;
+    if (norm === `${nb}신제품` || norm === `${nb}신상` || norm === `${nb}신메뉴`) return true;
   }
   return false;
 };

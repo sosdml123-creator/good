@@ -88,12 +88,12 @@ export const CouponShopView: React.FC = () => {
       summary: '필요한 생필품, 신상 간식, 먹거리를 로켓배송으로 쇼핑하고 신상픽 포인트를 적립받아보세요!',
       externalUrl: 'https://www.coupang.com',
       logo: (
-        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2 shrink-0">
-          <div className="flex items-center text-[18px] font-black tracking-tighter">
-            <span style={{ color: '#cb1400' }}>cou</span>
-            <span style={{ color: '#ea7c16' }}>pa</span>
-            <span style={{ color: '#008f39' }}>ng</span>
-          </div>
+        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2.5 shrink-0 overflow-hidden">
+          <img
+            src="/brands/coupang_logo.svg"
+            alt="쿠팡 로고"
+            className="w-full h-auto object-contain max-h-7"
+          />
         </div>
       ),
       modal: {
@@ -142,11 +142,12 @@ export const CouponShopView: React.FC = () => {
       summary: '1개만 사도 100% 무료배송! 파격적인 할인가의 공동구매 특가를 누리고 포인트도 충전하세요!',
       externalUrl: 'https://toss.im',
       logo: (
-        <div className="w-14 h-14 rounded-2xl bg-[#0064FF] shadow-xs flex items-center justify-center p-2 shrink-0">
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-white font-black text-[18px] tracking-tight leading-none">toss</span>
-            <span className="text-blue-100 text-[9px] font-bold mt-0.5 tracking-tighter">쇼핑</span>
-          </div>
+        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2 shrink-0 overflow-hidden">
+          <img
+            src="/brands/toss_symbol.png"
+            alt="토스 로고"
+            className="w-10 h-10 object-contain"
+          />
         </div>
       ),
       modal: {

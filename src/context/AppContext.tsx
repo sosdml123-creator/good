@@ -49,8 +49,7 @@ import {
   isDailyCrawlNeeded,
   markDailyCrawlDone,
   PENDING_PRODUCTS_STORAGE_KEY,
-  LAST_CRAWL_STORAGE_KEY,
-  REAL_NEW_PRODUCTS_DATABASE
+  LAST_CRAWL_STORAGE_KEY
 } from '../services/productCrawler';
 import { fetchKamisDailyPrices, applyKamisPricesToProducts } from '../services/kamisApi';
 import { revalidatePendingProductList } from '../services/naverApi';
@@ -5292,12 +5291,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // --- Admin Pending Products & Crawler Actions ---
 
   // 1. 오늘의 실제 신제품 일일 크롤링 실행
-  const runDailyCrawler = async (force: boolean = false): Promise<{ count: number }> => {
+  const runDailyCrawler = async (_force: boolean = false): Promise<{ count: number }> => {
     setIsCrawling(true);
     showToast('⚡ 편의점 및 식품사 오늘 신제품 수집을 시작합니다...', 'info');
     try {
       const today = new Date().toISOString().split('T')[0];
-      const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
       const crawled = await fetchDailyNewProducts(today);
       const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
 
@@ -5307,25 +5305,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
       });
 
-      if (uniqueNewItems.length === 0) {
-        const fallbackCandidates = REAL_NEW_PRODUCTS_DATABASE.filter(item => {
-          const cleanName = item.name.trim().toLowerCase();
-          const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
-          return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
-        });
-
-        if (fallbackCandidates.length > 0) {
-          const count = Math.min(6, fallbackCandidates.length);
-          uniqueNewItems = fallbackCandidates.slice(0, count).map((raw, i) => ({
-            ...raw,
-            id: `pending-db-${Date.now()}-${i}`,
-            crawledAt: `${today} ${nowTime}`,
-            status: 'pending' as const,
-          }));
-        }
-      }
-
-      if (uniqueNewItems.length > 0 && !force) {
+      if (uniqueNewItems.length > 0) {
         // [1] 로컬 상태 즉각 반영 (화면에 수집된 카드가 100% 즉시 표시됨)
         setPendingProducts(prev => {
           const existingIds = new Set(prev.map(p => p.id));
@@ -5345,29 +5325,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         showToast(`✨ 네이버 API 실시간 신제품 ${uniqueNewItems.length}건이 수집되어 승인 대기함에 등록되었습니다!`, 'success');
         return { count: uniqueNewItems.length };
       } else {
-        // 이미 모두 수집된 상태이거나 강제 수집(force=true) 시 최신 후보군을 재공급
-        const pool = (uniqueNewItems.length > 0 ? uniqueNewItems : (crawled && crawled.length > 0 ? crawled : REAL_NEW_PRODUCTS_DATABASE));
-        const forcedItems = pool.slice(0, 4).map((item, i) => {
-          const safeId = `pending-fresh-${Date.now()}-${i}`;
-          return {
-            ...item,
-            id: safeId,
-            sourceUrl: `https://sinsangpick.app/pending/fresh-${Date.now()}-${i}`,
-            crawledAt: `${today} ${nowTime}`,
-            status: 'pending' as const
-          };
-        });
-
-        setPendingProducts(prev => {
-          const existingIds = new Set(prev.map(p => p.id));
-          const itemsToAdd = forcedItems.filter(item => !existingIds.has(item.id));
-          return [...itemsToAdd, ...prev];
-        });
-
-        await insertPendingProductsToSupabase(forcedItems);
-        await fetchPendingProductsFromSupabase();
-        showToast(`⚡ 네이버 API 실시간 신제품 ${forcedItems.length}건을 즉시 수집하여 승인함에 갱신했습니다!`, 'success');
-        return { count: forcedItems.length };
+        showToast('실시간 신제품 중 이미 처리된 항목 외 새로운 제품이 없습니다. 검색창에 특정 브랜드/상품명을 입력하여 수집해보세요.', 'info');
+        return { count: 0 };
       }
     } catch (err) {
       console.error('[Product Crawler Error]', err);
