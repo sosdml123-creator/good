@@ -599,220 +599,11 @@ export const safeUpsertProfile = async (
   return success;
 };
 
-const now = Date.now();
-const oneHour = 60 * 60 * 1000;
-const oneDay = 24 * oneHour;
+// 실제 회원 프로필 및 포인트 거래 내역만 Supabase profiles DB 및 실제 사용자 활동에 의해 동적으로 적립/기록됩니다.
+export const INITIAL_USER_PROFILES: UserProfile[] = [];
 
-export const INITIAL_USER_PROFILES: UserProfile[] = [
-  {
-    uid: 'user_minji_01',
-    displayName: '신상탐험가_민지',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.5',
-    points: 850,
-    email: 'minji.snack@appleid.com',
-    provider: 'apple',
-    createdAt: new Date(now - 2 * oneHour).toISOString(),
-    lastActiveAt: new Date(now - 15 * 60 * 1000).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_junho_02',
-    displayName: '편의점고수_준호',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.7',
-    points: 1340,
-    email: 'junho_cu@kakao.com',
-    provider: 'kakao',
-    createdAt: new Date(now - 5 * oneHour).toISOString(),
-    lastActiveAt: new Date(now - 25 * 60 * 1000).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_dessert_03',
-    displayName: '디저트요정',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.3',
-    points: 520,
-    email: 'sweet_fairy@kakao.com',
-    provider: 'kakao',
-    createdAt: new Date(now - 1 * oneDay - 3 * oneHour).toISOString(),
-    lastActiveAt: new Date(now - 45 * 60 * 1000).toISOString(),
-    status: 'warned',
-    warningCount: 1,
-    statusReason: '리뷰 내 비속어 사용으로 인한 경고 1회',
-    statusUpdatedAt: new Date(now - 1 * oneDay).toISOString(),
-    role: 'user'
-  },
-  {
-    uid: 'user_taeyang_04',
-    displayName: '야식러버_태양',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.5',
-    points: 980,
-    email: 'sun_night@appleid.com',
-    provider: 'apple',
-    createdAt: new Date(now - 2 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 1 * oneDay - 2 * oneHour).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_jiwoo_05',
-    displayName: '스낵마니아_지우',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.2',
-    points: 310,
-    email: 'jiwoo.snack@appleid.com',
-    provider: 'apple',
-    createdAt: new Date(now - 3 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 5 * 60 * 1000).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_donghyun_06',
-    displayName: '맛집탐험대_동현',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.9',
-    points: 1620,
-    email: 'donghyun@kakao.com',
-    provider: 'kakao',
-    createdAt: new Date(now - 4 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 2 * oneHour).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_hyejin_07',
-    displayName: '매운맛도전자_혜진',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.4',
-    points: 730,
-    email: 'spicy_queen@kakao.com',
-    provider: 'kakao',
-    createdAt: new Date(now - 5 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 2 * oneDay).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_suho_08',
-    displayName: '헬린이식단_수호',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.3',
-    points: 440,
-    email: 'suho_fit@privaterelay.appleid.com',
-    provider: 'apple',
-    createdAt: new Date(now - 6 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 10 * 60 * 1000).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_seoyeon_09',
-    displayName: '과자박사_서연',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.10',
-    points: 1950,
-    email: 'seoyeon_snack@kakao.com',
-    provider: 'kakao',
-    createdAt: new Date(now - 8 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 2 * 60 * 1000).toISOString(),
-    status: 'active',
-    warningCount: 0,
-    role: 'user'
-  },
-  {
-    uid: 'user_random_99',
-    displayName: '어뷰저_99',
-    photoURL: DEFAULT_AVATAR,
-    level: 'Lv.1',
-    points: 0,
-    email: 'abuser99@trashmail.com',
-    provider: 'anonymous',
-    createdAt: new Date(now - 12 * oneDay).toISOString(),
-    lastActiveAt: new Date(now - 5 * oneDay).toISOString(),
-    status: 'suspended',
-    warningCount: 2,
-    suspendedUntil: new Date(now + 3 * oneDay).toISOString(),
-    statusReason: '사진 도용 및 허위 리뷰 반복 작성 (7일 이용 정지)',
-    statusUpdatedAt: new Date(now - 4 * oneDay).toISOString(),
-    role: 'user'
-  }
-];
+export const INITIAL_POINT_TRANSACTIONS: PointTransaction[] = [];
 
-export const INITIAL_POINT_TRANSACTIONS: PointTransaction[] = [
-  {
-    id: 'tx-01',
-    userId: 'user_seoyeon_09',
-    userName: '과자박사_서연',
-    userAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80',
-    type: 'grant',
-    amount: 500,
-    balanceAfter: 1950,
-    reason: '우수 리뷰어 베스트 픽 선정 보상',
-    createdAt: '2026.03.06 18:30',
-    adminMemo: '3월 1주차 베스트 신상 리뷰 1등 포상'
-  },
-  {
-    id: 'tx-02',
-    userId: 'user_junho_02',
-    userName: '편의점고수_준호',
-    userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
-    type: 'grant',
-    amount: 300,
-    balanceAfter: 1340,
-    reason: '체험단 성실 리뷰 작성 보너스',
-    createdAt: '2026.03.05 14:15',
-    adminMemo: '신라면 똠얌 체험단 미션 완수'
-  },
-  {
-    id: 'tx-03',
-    userId: 'user_minji_01',
-    userName: '신상탐험가_민지',
-    userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-    type: 'grant',
-    amount: 200,
-    balanceAfter: 850,
-    reason: '신규 상품 제보 채택 보상',
-    createdAt: '2026.03.04 11:00',
-    adminMemo: '편의점 단독 출시 신상 제보 반영'
-  },
-  {
-    id: 'tx-04',
-    userId: 'user_jiwoo_05',
-    userName: '스낵마니아_지우',
-    userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
-    type: 'revoke',
-    amount: -100,
-    balanceAfter: 310,
-    reason: '어뷰징/중복 작성 리뷰 삭제로 인한 포인트 회수',
-    createdAt: '2026.03.02 09:40',
-    adminMemo: '동일 내용 단순 복사 도배 적발'
-  },
-  {
-    id: 'tx-05',
-    userId: 'user_taeyang_04',
-    userName: '야식러버_태양',
-    userAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
-    type: 'grant',
-    amount: 150,
-    balanceAfter: 980,
-    reason: '출석체크 연속 7일 달성 보너스',
-    createdAt: '2026.03.01 16:20',
-    adminMemo: '2월 출석 이벤트'
-  }
-];
 
 /**
  * Synchronously resolves or generates an initial sequential unique nickname for instant boot
@@ -1607,12 +1398,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const voteBattle = (choice: 'A' | 'B') => {
+    if (battleChoice === choice) return;
     setBattleChoice(choice);
     try {
       localStorage.setItem('sinsangpick_battle_choice', choice);
     } catch (e) {
       console.warn(e);
     }
+    const bonus = 20;
+    const nextPoints = currentUser.points + bonus;
+    setCurrentUser(prev => ({
+      ...prev,
+      points: nextPoints,
+      level: calculateLevel(nextPoints),
+    }));
+    showToast(`⚡ 신상 배틀 투표 완료! 참여 리워드 +${bonus}P가 적립되었습니다.`, 'success');
   };
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
@@ -1857,11 +1657,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // 🎁 e쿠폰 스토어 상태
   const [coupons, setCoupons] = useState<ECouponItem[]>(() => {
     try {
-      const stored = localStorage.getItem('sinsangpick_coupons_v1');
+      const stored = localStorage.getItem('sinsangpick_coupons_v2');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length >= INITIAL_ECOUPONS.length) return parsed;
       }
+    } catch {}
+    try {
+      localStorage.setItem('sinsangpick_coupons_v2', JSON.stringify(INITIAL_ECOUPONS));
     } catch {}
     return INITIAL_ECOUPONS;
   });
@@ -1877,13 +1680,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return [];
   });
 
+  const FAKE_USER_UIDS = new Set([
+    'user_minji_01', 'user_junho_02', 'user_dessert_03', 'user_taeyang_04',
+    'user_jiwoo_05', 'user_donghyun_06', 'user_hyejin_07', 'user_suho_08',
+    'user_seoyeon_09', 'user_random_99'
+  ]);
+
   // All Profiles & Point Transactions for Admin & User Management
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(() => {
     try {
       const stored = localStorage.getItem('sinsangpick_all_profiles');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(p => !FAKE_USER_UIDS.has(p.uid));
+          return cleaned;
+        }
       }
     } catch {
       // ignore
@@ -1896,7 +1708,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const stored = localStorage.getItem('sinsangpick_point_transactions');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(t => !t.id?.startsWith('tx-0') && !FAKE_USER_UIDS.has(t.userId));
+          return cleaned;
+        }
       }
     } catch {
       // ignore
@@ -1910,7 +1725,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const stored = localStorage.getItem('sinsangpick_reports');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(r => !r.id?.startsWith('rep-10'));
+          return cleaned;
+        }
       }
     } catch {
       // ignore
@@ -1924,7 +1742,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const stored = localStorage.getItem('sinsangpick_product_edit_requests');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(r => !r.id?.startsWith('edit-req-10'));
+          return cleaned;
+        }
       }
     } catch {
       // ignore
@@ -5885,47 +5706,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             return { dName, pUrl, inferredProv };
           };
 
-          const updated = prev.map((p, idx) => {
-            const dbP = dbMap.get(p.uid);
-            if (dbP) {
-              const { dName, pUrl, inferredProv } = sanitizeProfileData(dbP, p, idx + 1);
-              return {
-                ...p,
-                displayName: dName,
-                photoURL: pUrl,
-                points: dbP.points ?? p.points,
-                level: calculateLevel(dbP.points ?? p.points),
-                email: dbP.email || p.email,
-                provider: inferredProv,
-                createdAt: dbP.created_at || p.createdAt,
-                lastActiveAt: dbP.last_active_at || dbP.updated_at || p.lastActiveAt,
-              };
-            }
-            return p;
-          });
-
-          const existingUids = new Set(prev.map(p => p.uid));
-          const extraUsers: UserProfile[] = dbAllProfiles
-            .filter(p => !existingUids.has(p.id))
+          // DB에 실제로 등록된 회원들만 매핑하여 순수 실제 회원 목록 구성
+          const realUsers: UserProfile[] = dbAllProfiles
+            .filter(p => !FAKE_USER_UIDS.has(p.id))
             .map((p, idx) => {
-              const { dName, pUrl, inferredProv } = sanitizeProfileData(p, undefined, prev.length + idx + 1);
+              const existingP = prev.find(ep => ep.uid === p.id);
+              const { dName, pUrl, inferredProv } = sanitizeProfileData(p, existingP, idx + 1);
               return {
                 uid: p.id,
                 displayName: dName,
                 photoURL: pUrl,
-                level: calculateLevel(p.points ?? 100),
-                points: p.points ?? 100,
-                email: p.email || undefined,
+                points: p.points ?? existingP?.points ?? 100,
+                level: calculateLevel(p.points ?? existingP?.points ?? 100),
+                email: p.email || existingP?.email || undefined,
                 provider: inferredProv,
-                createdAt: p.created_at || new Date().toISOString(),
-                lastActiveAt: p.last_active_at || p.updated_at || undefined,
-                status: 'active',
-                warningCount: 0,
-                role: 'user'
+                createdAt: p.created_at || existingP?.createdAt || new Date().toISOString(),
+                lastActiveAt: p.last_active_at || p.updated_at || existingP?.lastActiveAt || undefined,
+                status: existingP?.status || 'active',
+                warningCount: existingP?.warningCount || 0,
+                role: existingP?.role || 'user'
               };
             });
 
-          return [...updated, ...extraUsers];
+          return realUsers;
         });
 
         // 🩺 Self-Healing: 어드민에서 유저 목록 조회 시, 현재 로그인된 세션이 소셜인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
@@ -6701,8 +6504,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('수정 요청 내역을 삭제했습니다.', 'info');
   };
 
-  // 🎁 e쿠폰 스토어 구매 (포인트 교환)
+  // 🎁 e쿠폰 스토어 구매 (포인트 교환 - 현재 서비스 준비 중)
   const purchaseCoupon = async (coupon: ECouponItem): Promise<PurchasedECoupon | null> => {
+    // 🚧 e쿠폰 서비스 정식 오픈 준비 중 방어
+    showToast('🎁 e쿠폰 교환 서비스는 현재 정식 오픈 준비 중입니다. 조금만 기다려 주세요!', 'info');
+    return null;
+
     const currentPoints = currentUser.points || 0;
     if (currentPoints < coupon.price) {
       showToast(`⚠️ 포인트가 부족합니다. (필요: ${coupon.price.toLocaleString()}P / 보유: ${currentPoints.toLocaleString()}P)`, 'error');
@@ -6808,7 +6615,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
-  // 🧪 테스트 포인트 충전 편의 함수
+  // 🎁 활동 리워드 포인트 지급 편의 함수
   const addTestPoints = (amount: number = 5000) => {
     const nextPoints = (currentUser.points || 0) + amount;
     setCurrentUser(prev => ({
@@ -6834,11 +6641,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       type: 'reward',
       amount: amount,
       balanceAfter: nextPoints,
-      reason: '테스트 포인트 충전 (e쿠폰 교환 체험)',
+      reason: '신상픽 활동 리워드 보너스 포인트',
       createdAt: nowStr
     };
     setPointTransactions(prev => [newTx, ...prev]);
-    showToast(`✨ 테스트 포인트 +${amount.toLocaleString()}P가 지급되었습니다!`, 'success');
+    showToast(`✨ 활동 리워드 포인트 +${amount.toLocaleString()}P가 적립되었습니다!`, 'success');
   };
 
   // Reset All to Defaults

@@ -72,3 +72,13 @@
 .aspect-square {
   aspect-ratio: 1 / 1;
 }
+
+/* Google AdSense / AdMob 자동 앵커 광고(하단 탭바 덮임) 완전 차단 */
+.google-auto-placed,
+ins.adsbygoogle[data-anchor-status],
+iframe[id^="aswift_"][id$="_anchor"],
+div[id^="aswift_"][id$="_anchor__container"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}

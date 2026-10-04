@@ -35568,84 +35568,65 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
 
 export const INITIAL_EVENTS: PromotionEvent[] = [
   {
-    id: 'event-pizza-01',
-    title: '🍕 대표 피자 브랜드 시식 체험단 100인 모집',
-    subtitle: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자 신상 피자를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
+    id: 'event-dessert-01',
+    title: '🍂 10월 가을 시즌 신상 디저트 & 음료 무료 체험단 100인 모집',
+    subtitle: '배스킨라빈스, 스타벅스, 메가MGC커피 가을 신메뉴를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
     badge: '체험단 100명',
     category: '체험단',
-    bannerImage: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1000&auto=format&fit=crop&q=80',
-    startDate: '2026.09.01',
-    endDate: '2026.09.30',
-    dDay: 'D-14',
+    bannerImage: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1000&auto=format&fit=crop&q=80',
+    startDate: '2026.10.01',
+    endDate: '2026.10.31',
+    dDay: 'D-27',
     status: 'ongoing',
-    description: '[대표 피자 프랜차이즈 신메뉴 체험단 오픈!]\n도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 대표 시그니처 피자를 무료로 체험하고 리뷰를 작성해보세요!',
-    reward: '피자 L사이즈 모바일 교환권 (총 100명)',
-    targetProductId: 'pizza-domino-01',
+    description: '[10월 가을 한정판 신메뉴 체험단 OPEN!]\n배스킨라빈스, 스타벅스, 메가커피 등 인기 프랜차이즈의 가을 시그니처 신메뉴를 무료로 체험하고 생생한 맛 평가 리뷰를 남겨보세요!',
+    reward: '모바일 e쿠폰 5,000원권 (총 100명 추첨)',
+    targetProductId: 'cal-03',
     actionButtonText: '무료 체험단 즉시 신청하기',
-    participantsCount: 820,
+    participantsCount: 48,
     isParticipated: false,
-    createdAt: '2026-09-01T10:00:00Z'
+    createdAt: '2026-10-01T10:00:00Z'
   },
   {
-    id: 'event-01',
-    title: '5대 햄버거 브랜드 시식 체험단 100인 모집',
-    subtitle: '맥도날드, 버거킹, 롯데리아, KFC, 맘스터치 신상 버거를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
+    id: 'event-ramen-01',
+    title: '🍜 편의점 10월 핫신상 라면 & 스낵 무료 시식 체험단 모집',
+    subtitle: 'CU, GS25, 세븐일레븐 단독 출시 신상 라면과 스낵을 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
     badge: '체험단 100명',
     category: '체험단',
-    bannerImage: 'https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/c9811022-3678-4988-9fa4-1d3fc6a69bf5.png',
-    startDate: '2026.09.01',
-    endDate: '2026.09.25',
-    dDay: 'D-15',
+    bannerImage: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=1000&auto=format&fit=crop&q=80',
+    startDate: '2026.10.01',
+    endDate: '2026.10.25',
+    dDay: 'D-21',
     status: 'ongoing',
-    description: '[5대 햄버거 프랜차이즈 신메뉴 체험단 오픈!]\n맥도날드, 버거킹, 롯데리아, KFC, 맘스터치의 대표 신상 버거를 무료로 체험하고 리뷰를 작성해보세요!',
-    reward: '버거 세트 모바일 교환권 (총 100명)',
-    targetProductId: 'burger-mcd-01',
+    description: '[편의점 핫신상 라면 & 스낵 체험단 OPEN!]\n오모리 직화마라 부대찌개 라면, 스윙칩 까르보나라불닭맛 등 10월 대표 편의점 신상을 무료로 체험하고 리뷰를 작성해보세요!',
+    reward: 'CU / GS25 편의점 모바일 금액권 5,000원권 (총 100명)',
+    targetProductId: 'cal-04',
     actionButtonText: '무료 체험단 즉시 신청하기',
-    participantsCount: 680,
+    participantsCount: 36,
     isParticipated: false,
-    createdAt: '2026-09-01T10:00:00Z'
+    createdAt: '2026-10-01T10:00:00Z'
   }
 ];
 
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
   {
-    id: 'notif-pizza-01',
-    title: '🍕 도미노 · 파파존스 · 피자헛 등 6대 피자 브랜드 입점!',
-    body: '도미노피자, 파파존스, 피자헛, 피자스쿨, 피자알볼로, 반올림피자의 공식 대표 시그니처 메뉴 104종이 신규 등록되었습니다.',
-    timestamp: '2026-09-16T19:40:00Z',
+    id: 'notif-oct-01',
+    title: '🍂 10월 가을 신제품 & 편의점 핫신상 정식 업데이트!',
+    body: '배스킨라빈스, 스타벅스, 오리온 등 주요 브랜드의 10월 신제품과 편의점 1+1 행사 정보가 새롭게 등록되었습니다.',
+    timestamp: new Date().toISOString(),
     isRead: false,
     type: 'product',
-    targetId: 'pizza-domino-01',
+    targetId: 'cal-03',
     badge: 'NEW'
   },
   {
-    id: 'notif-bakery-01',
-    title: '🥖 파리바게뜨 · 뚜레쥬르 · 성심당 등 7대 베이커리 입점!',
-    body: '파리바게뜨, 뚜레쥬르, 대전 성심당, 런던베이글뮤지엄, 노티드, 삼송빵집, 태극당의 대표 시그니처 빵 53종이 신규 등록되었습니다.',
-    timestamp: '2026-09-06T19:40:00Z',
+    id: 'notif-coupon-01',
+    title: '🎁 포인트 e쿠폰 상점 라인업 대폭 확대!',
+    body: '리뷰 작성과 활동으로 모은 포인트로 전국 CU, GS25, 메가커피, 스타벅스 모바일 쿠폰으로 즉시 교환해보세요.',
+    timestamp: new Date(Date.now() - 3600 * 1000 * 4).toISOString(),
     isRead: false,
-    type: 'product',
-    targetId: 'bakery-pb-01',
-    badge: 'NEW'
-  },
-  {
-    id: 'notif-coffee-01',
-    title: '☕ 커피 브랜드 대표 음료 신규 등록 완료!',
-    body: '스타벅스, 메가커피, 컴포즈커피, 빽다방, 이디야, 투썸플레이스, 폴바셋, 더벤티의 시그니처 음료들이 정식 등록되었습니다.',
-    timestamp: '2026-09-06T19:30:00Z',
-    isRead: false,
-    type: 'product',
-    targetId: 'coffee-compose-01',
-    badge: 'NEW'
-  },
-  {
-    id: 'notif-01',
-    title: '맥도날드 · 버거킹 · 롯데리아 · KFC · 맘스터치 등록!',
-    body: '5대 버거 브랜드의 시그니처 및 신상 버거 50종의 상세 정보가 새롭게 추가되었습니다.',
-    timestamp: '2026-09-06T09:10:00Z',
-    isRead: false,
-    type: 'product',
-    targetId: 'burger-mcd-01',
-    badge: 'NEW'
+    type: 'event',
+    targetId: 'coupon-shop',
+    badge: 'HOT'
   }
 ];
+

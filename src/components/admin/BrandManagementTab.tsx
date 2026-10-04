@@ -724,10 +724,10 @@ export const BrandManagementTab: React.FC<BrandManagementTabProps> = ({
                       type="button"
                       onClick={() => window.open(formData.officialUrl, '_blank')}
                       className="px-3 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1 shrink-0"
-                      title="링크 테스트"
+                      title="링크 연결 확인"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
-                      <span>테스트</span>
+                      <span>연결 확인</span>
                     </button>
                   )}
                 </div>

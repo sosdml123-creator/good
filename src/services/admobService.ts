@@ -1,8 +1,5 @@
 import {
   AdMob,
-  BannerAdOptions,
-  BannerAdSize,
-  BannerAdPosition,
   BannerAdPluginEvents,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
@@ -16,7 +13,6 @@ export const BANNER_HEIGHT = 50;
 export const BANNER_WIDTH = 320;
 
 let initPromise: Promise<boolean> | null = null;
-let bannerShownAtMargin: number | null = null;
 let isBannerCreated = false;
 let isHidden = false;
 let listenersAdded = false;
@@ -84,55 +80,11 @@ export const initAdMob = (): Promise<boolean> => {
  * mAdViewLayoutParams.setMargins(sideMargin, densityMargin, sideMargin, densityMargin)
  * margin = targetOffset (양수 전달)
  */
-export const showBannerAt = async (slotTop: number): Promise<void> => {
+export const showBannerAt = async (_slotTop?: number): Promise<void> => {
+  // 웹뷰 인라인 구좌('신상픽 추천 스폰서드')로 1:1 배치되었으므로,
+  // 화면 하단 메뉴 위에 플로팅되는 네이티브 오버레이 배너는 생성하지 않고 완전 제거합니다.
   if (!isNative()) return;
-  const ok = await initAdMob();
-  if (!ok) return;
-
-  const isIOS = Capacitor.getPlatform() === 'ios';
-  // iOS 플러그인은 constant = Margin * -1을 safeAreaLayoutGuide.top에 적용하므로,
-  // safeArea 바로 아래부터 시작하는 웹뷰 slotTop 위치와 1:1로 일치시키려면
-  // margin = -slotTop을 전달해야 합니다 (safeAreaTop을 중복 차감하지 않음).
-  const roundedTop = Math.round(Math.max(0, slotTop));
-  const margin = isIOS ? -roundedTop : roundedTop;
-
-  try {
-    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 5) {
-      if (isHidden) {
-        await AdMob.resumeBanner();
-        isHidden = false;
-        console.log('[AdMob] Banner resumed at margin:', margin);
-      }
-      return;
-    }
-
-    if (isBannerCreated) {
-      await AdMob.removeBanner().catch(() => {});
-      isBannerCreated = false;
-    }
-
-    const options: BannerAdOptions = {
-      adId: ADMOB_BANNER_UNIT_ID,
-      adSize: BannerAdSize.BANNER,
-      position: BannerAdPosition.TOP_CENTER,
-      margin,
-      isTesting: false,
-    };
-
-    console.log('[AdMob] showBanner requesting with options:', {
-      adUnitId: ADMOB_BANNER_UNIT_ID,
-      slotTop: roundedTop,
-      calculatedMargin: margin,
-      isIOS,
-    });
-
-    await AdMob.showBanner(options);
-    bannerShownAtMargin = margin;
-    isBannerCreated = true;
-    isHidden = false;
-  } catch (e) {
-    console.warn('[AdMob] showBannerAt failed:', e);
-  }
+  await removeBanner().catch(() => {});
 };
 
 /**
@@ -170,7 +122,6 @@ export const removeBanner = async (): Promise<void> => {
   if (!isNative()) return;
   try {
     await AdMob.removeBanner();
-    bannerShownAtMargin = null;
     isBannerCreated = false;
     isHidden = false;
     console.log('[AdMob] Banner removed');

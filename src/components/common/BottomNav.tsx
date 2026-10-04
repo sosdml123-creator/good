@@ -11,12 +11,12 @@ export const BottomNav: React.FC = () => {
     return null;
   }
 
-  const navItems = [
-    { id: 'home' as ActiveTab, label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
-    { id: 'category' as ActiveTab, label: '신제품', icon: <Compass className="w-5 h-5 stroke-[2]" /> },
-    { id: 'coupon' as ActiveTab, label: 'e쿠폰', icon: <Gift className="w-5 h-5 stroke-[2]" /> },
-    { id: 'community' as ActiveTab, label: '수다방', icon: <MessageSquare className="w-5 h-5 stroke-[2]" /> },
-    { id: 'my' as ActiveTab, label: '마이', icon: <User className="w-5 h-5 stroke-[2]" /> },
+  const navItems: { id: ActiveTab; label: string; icon: React.ReactNode; badge?: string }[] = [
+    { id: 'home', label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
+    { id: 'category', label: '신제품', icon: <Compass className="w-5 h-5 stroke-[2]" /> },
+    { id: 'coupon', label: 'e쿠폰', icon: <Gift className="w-5 h-5 stroke-[2]" />, badge: '준비중' },
+    { id: 'community', label: '수다방', icon: <MessageSquare className="w-5 h-5 stroke-[2]" /> },
+    { id: 'my', label: '마이', icon: <User className="w-5 h-5 stroke-[2]" /> },
   ];
 
   const handleTabClick = (tabId: ActiveTab) => {
@@ -40,7 +40,14 @@ export const BottomNav: React.FC = () => {
                 isActive ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              <div className="transition-transform active:scale-90">{item.icon}</div>
+              <div className="relative transition-transform active:scale-90">
+                {item.icon}
+                {item.badge && (
+                  <span className="absolute -top-1 -right-3.5 bg-amber-500 text-white text-[8px] font-black px-1 py-0.2 rounded-full leading-tight shadow-2xs whitespace-nowrap">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
               <span className="text-[10px] font-semibold mt-0.5">
                 {item.label}
               </span>
