@@ -53,7 +53,8 @@ export const CouponShopView: React.FC = () => {
     purchasedCoupons, 
     purchaseCoupon, 
     useCoupon, 
-    userPoints 
+    userPoints,
+    showToast
   } = useApp();
 
   const [activeSubTab, setActiveSubTab] = useState<'store' | 'recharge'>('store');
