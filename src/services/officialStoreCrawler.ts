@@ -109,8 +109,8 @@ export const refineProductName = (rawTitle: string): string => {
   // 과도한 공백 정리
   name = name.replace(/\s+/g, ' ').trim();
 
-  // 만약 앞뒤에 불필요한 하이픈이나 기호가 남아있으면 제거
-  name = name.replace(/^[-_\s\/\.,]+|[-_\s\/\.,]+$/g, '').trim();
+  // 만약 앞뒤에 불필요한 따옴표, 하이픈이나 기호가 남아있으면 완벽 제거
+  name = name.replace(/^[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F'"`´\-_\s\/\.,~]+|[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F'"`´\-_\s\/\.,~]+$/g, '').trim();
 
   return name;
 };

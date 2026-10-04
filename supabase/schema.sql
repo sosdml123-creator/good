@@ -573,16 +573,9 @@ BEGIN
     DELETE FROM public.review_likes WHERE user_id = current_user_id;
     DELETE FROM public.post_likes WHERE user_id = current_user_id;
 
-    -- 3. 작성한 리뷰 & 커뮤니티 글은 작성자를 '탈퇴한 회원'으로 익명 처리 (리뷰 데이터 보존 정책)
-    UPDATE public.reviews 
-    SET user_name = '탈퇴한 회원', 
-        user_avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
-    WHERE user_id = current_user_id;
-
-    UPDATE public.community_posts 
-    SET author_name = '탈퇴한 회원', 
-        author_avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
-    WHERE author_id = current_user_id;
+    -- 3. 작성한 리뷰 & 커뮤니티 글 영구 삭제 (회원 데이터 완전 파기 정책)
+    DELETE FROM public.reviews WHERE user_id = current_user_id;
+    DELETE FROM public.community_posts WHERE author_id = current_user_id;
 
     -- 4. 프로필 정보 영구 파기
     DELETE FROM public.profiles WHERE id = current_user_id;

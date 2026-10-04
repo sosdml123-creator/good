@@ -481,9 +481,11 @@ export const extractProductName = (
   if (titleQuotes && titleQuotes.length > 0) {
     for (const q of titleQuotes) {
       let clean = q.replace(/['‘"“”]/g, '').trim();
+      clean = clean.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
       clean = stripTrailingKoreanParticle(clean);
+      clean = clean.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
       const check = isClickbaitOrInvalidName(clean);
-      if (!check.isInvalid) {
+      if (!check.isInvalid && clean.length >= 2) {
         return { name: clean, isValid: true };
       }
     }
@@ -496,10 +498,12 @@ export const extractProductName = (
     let candidate = matchAction[1].trim();
     candidate = candidate.replace(/^[가-힣A-Za-z0-9]+\s*,\s*/, '').trim();
     candidate = candidate.replace(/^(?:신제품|신상|가을 신메뉴|겨울 신메뉴|여름 신상|인기|단독)\s+/, '').trim();
+    candidate = candidate.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
     candidate = stripTrailingKoreanParticle(candidate);
+    candidate = candidate.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
     
     const check = isClickbaitOrInvalidName(candidate);
-    if (!check.isInvalid && !candidate.endsWith('점') && !candidate.endsWith('사') && !candidate.endsWith('일')) {
+    if (!check.isInvalid && candidate.length >= 2 && !candidate.endsWith('점') && !candidate.endsWith('사') && !candidate.endsWith('일')) {
       return { name: candidate, isValid: true };
     }
   }
@@ -508,9 +512,12 @@ export const extractProductName = (
   const prefixRegex = /(?:신제품|신상품|신메뉴|신상)\s+['‘"“]?([가-힣A-Za-z0-9\s·\-\+]{2,22})['‘"”]?(?:\s|$|,)/;
   const matchPrefix = title.match(prefixRegex);
   if (matchPrefix) {
-    let candidate = stripTrailingKoreanParticle(matchPrefix[1].trim());
+    let candidate = matchPrefix[1].trim();
+    candidate = candidate.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
+    candidate = stripTrailingKoreanParticle(candidate);
+    candidate = candidate.replace(/^['‘"“\s]+|['‘"”\s,\.\-~]+$/g, '').trim();
     const check = isClickbaitOrInvalidName(candidate);
-    if (!check.isInvalid) {
+    if (!check.isInvalid && candidate.length >= 2) {
       return { name: candidate, isValid: true };
     }
   }
@@ -1039,18 +1046,18 @@ export interface NaverRealtimeProduct {
  */
 export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeywordInsight[]> => {
   const candidateKeywords = [
-    { name: '피자떡 (치즈 폭탄)', param: ['피자떡', '치즈피자떡', '떡볶이다 피자떡'], category: '간편식' as ProductCategory, brand: '인기 먹거리' },
-    { name: '한정선 과일찹쌀떡', param: ['한정선', '한정선 찹쌀떡', '딸기 찹쌀떡'], category: '빵·디저트' as ProductCategory, brand: '한정선' },
-    { name: '두바이 피스타치오 찹쌀떡', param: ['두바이 찹쌀떡', '두바이 초콜릿 떡', '두바이 모찌'], category: '빵·디저트' as ProductCategory, brand: '편의점/디저트' },
-    { name: '요아정 요거트아이스크림', param: ['요아정', '요거트아이스크림의정석', '요아정 초코쉘'], category: '아이스크림' as ProductCategory, brand: '요아정' },
-    { name: '연세우유 밤티라미수', param: ['밤티라미수', '밤 티라미수', '연세우유 밤티라미수'], category: '빵·디저트' as ProductCategory, brand: '연세유업' },
-    { name: '신라면 툼바', param: ['신라면 툼바', '신라면투움바'], category: '간편식' as ProductCategory, brand: '농심' },
-    { name: '황치즈 맘모스', param: ['황치즈', '황치즈 맘모스', '황치즈 크림빵'], category: '빵·디저트' as ProductCategory, brand: '편의점 신상' },
-    { name: '오리온 비쵸비 딸기', param: ['비쵸비 딸기', '비쵸비'], category: '과자' as ProductCategory, brand: '오리온' },
-    { name: '제로 밀크티', param: ['제로 밀크티', '무설탕 라떼', '저당 음료'], category: '음료' as ProductCategory, brand: '편의점 신상' },
-    { name: '소금버터 홈런볼', param: ['홈런볼 소금버터', '소금버터 홈런볼'], category: '과자' as ProductCategory, brand: '해태제과' },
-    { name: '마열라면', param: ['마열라면', '열라면 마늘후추'], category: '간편식' as ProductCategory, brand: '오뚜기' },
-    { name: '테라 라이트', param: ['테라 라이트', '제로슈거 맥주'], category: '음료' as ProductCategory, brand: '하이트진로' }
+    { name: '피자떡', param: ['피자떡'], category: '간편식' as ProductCategory, brand: '인기 먹거리' },
+    { name: '한정선 찹쌀떡', param: ['한정선'], category: '빵·디저트' as ProductCategory, brand: '한정선' },
+    { name: '두바이 찹쌀떡', param: ['두바이 찹쌀떡'], category: '빵·디저트' as ProductCategory, brand: '편의점/디저트' },
+    { name: '요아정', param: ['요아정'], category: '아이스크림' as ProductCategory, brand: '요아정' },
+    { name: '연세우유 밤티라미수', param: ['밤티라미수'], category: '빵·디저트' as ProductCategory, brand: '연세유업' },
+    { name: '신라면 툼바', param: ['신라면 툼바'], category: '간편식' as ProductCategory, brand: '농심' },
+    { name: '황치즈 맘모스', param: ['황치즈'], category: '빵·디저트' as ProductCategory, brand: '편의점 신상' },
+    { name: '오리온 비쵸비 딸기', param: ['비쵸비'], category: '과자' as ProductCategory, brand: '오리온' },
+    { name: '제로 밀크티', param: ['제로 밀크티'], category: '음료' as ProductCategory, brand: '편의점 신상' },
+    { name: '소금버터 홈런볼', param: ['홈런볼'], category: '과자' as ProductCategory, brand: '해태제과' },
+    { name: '마열라면', param: ['마열라면'], category: '간편식' as ProductCategory, brand: '오뚜기' },
+    { name: '테라 라이트', param: ['테라 라이트'], category: '음료' as ProductCategory, brand: '하이트진로' }
   ];
 
   try {
@@ -1584,7 +1591,7 @@ export const searchRealNewProducts = async (keyword: string): Promise<PendingPro
       continue;
     }
 
-    const productName = extracted.name;
+    const productName = extracted.name.replace(/^[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F'"`´\-_\s\/\.,~]+|[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F'"`´\-_\s\/\.,~]+$/g, '').trim();
 
     // 중복 검사
     const normalizedName = productName.replace(/\s+/g, '').toLowerCase();

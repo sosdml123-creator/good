@@ -2390,6 +2390,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               onAddProduct={addProduct}
               onAddToPending={addPendingProduct}
               showToast={showToast}
+              onNavigateToApproval={() => setActiveAdminTab('approval')}
             />
           )}
 

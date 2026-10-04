@@ -37,13 +37,15 @@ interface BrandProductAutoCollectorProps {
   onAddProduct: (productData: Partial<Product> & { name: string; brand: string; category: ProductCategory; price: number }) => void;
   onAddToPending: (item: PendingProduct) => void;
   showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+  onNavigateToApproval?: () => void;
 }
 
 export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps> = ({
   isDark = false,
   onAddProduct,
   onAddToPending,
-  showToast
+  showToast,
+  onNavigateToApproval
 }) => {
   // Multi-source Channel Selection State
   const [activeSourceType, setActiveSourceType] = useState<CollectionSourceType>('all');
@@ -262,7 +264,10 @@ export const BrandProductAutoCollector: React.FC<BrandProductAutoCollectorProps>
       return next;
     });
 
-    showToast(`📥 선택한 ${selectedItems.length}개의 상품이 승인 대기함으로 일괄 전송되었습니다!`, 'info');
+    showToast(`📥 선택한 ${selectedItems.length}개의 상품이 승인 대기함으로 일괄 전송되었습니다!`, 'success');
+    if (onNavigateToApproval) {
+      setTimeout(() => onNavigateToApproval(), 300);
+    }
   };
 
   // Delete product from collected list

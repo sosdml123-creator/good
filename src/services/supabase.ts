@@ -502,19 +502,13 @@ export const deleteCurrentUserAccount = async (): Promise<void> => {
       try { await supabase.from('point_transactions').delete().eq('user_id', userId); } catch {}
       try { await supabase.from('bookmarks').delete().eq('user_id', userId); } catch {}
 
-      // 2. Anonymize user reviews and community posts
+      // 2. Permanently delete user reviews and community posts
       try {
-        await supabase.from('reviews').update({
-          user_name: '탈퇴한 회원',
-          user_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-        }).eq('user_id', userId);
+        await supabase.from('reviews').delete().eq('user_id', userId);
       } catch {}
 
       try {
-        await supabase.from('community_posts').update({
-          author_name: '탈퇴한 회원',
-          author_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-        }).eq('author_id', userId);
+        await supabase.from('community_posts').delete().eq('author_id', userId);
       } catch {}
 
       // 3. Delete profile row from DB

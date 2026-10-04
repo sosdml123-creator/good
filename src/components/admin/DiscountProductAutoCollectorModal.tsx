@@ -11,7 +11,8 @@ import {
   ShieldCheck, 
   Utensils, 
   Sparkles,
-  Edit3
+  Edit3,
+  Loader2
 } from 'lucide-react';
 import { SalePromotionItem, SaleDealType, SaleStoreType, ProductCategory } from '../../types';
 import { 
@@ -20,6 +21,7 @@ import {
   DiscountCrawlResult, 
   crawlDiscountProducts
 } from '../../services/discountCrawler';
+import { fetchNaverProductAutoFillInfo } from '../../services/naverApi';
 
 interface DiscountProductAutoCollectorModalProps {
   isOpen: boolean;
@@ -167,6 +169,42 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
     });
 
     showToast(`🎉 선택한 ${toAdd.length}개 행사 상품이 세일 피드에 일괄 등록되었습니다!`, 'success');
+  };
+
+  // Quick Edit NAVER Auto Fill
+  const [isAutoFillingQuickEdit, setIsAutoFillingQuickEdit] = useState(false);
+  const handleAutoFillQuickEdit = async () => {
+    if (!editingItem || !editingItem.title.trim()) {
+      showToast('상품명을 먼저 입력해주세요.', 'info');
+      return;
+    }
+    const targetTitle = editingItem.title.trim();
+    setIsAutoFillingQuickEdit(true);
+    showToast(`⚡ '${targetTitle}' 네이버 쇼핑·이미지 정보를 검색 중입니다...`, 'info');
+    try {
+      const result = await fetchNaverProductAutoFillInfo(targetTitle, editingItem.brand);
+      if (result) {
+        setEditingItem(prev => {
+          if (!prev) return null;
+          return {
+            ...prev,
+            title: result.name || prev.title,
+            brand: result.brand && result.brand !== '신제품' ? result.brand : prev.brand,
+            category: result.category || prev.category,
+            image: result.image || prev.image,
+            description: result.description || prev.description
+          };
+        });
+        showToast(`✨ '${result.name || targetTitle}' 네이버 공식 정보(이미지, 브랜드, 카테고리) 자동 반영 완료!`, 'success');
+      } else {
+        showToast('네이버에서 일치하는 상품 정보를 찾지 못했습니다.', 'info');
+      }
+    } catch (err) {
+      console.error('[handleAutoFillQuickEdit Error]', err);
+      showToast('네이버 정보 검색 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsAutoFillingQuickEdit(false);
+    }
   };
 
   // Save quick edit
@@ -596,7 +634,23 @@ export const DiscountProductAutoCollectorModal: React.FC<DiscountProductAutoColl
 
             <form onSubmit={handleSaveQuickEdit} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold mb-1">상품명</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold">상품명</label>
+                  <button
+                    type="button"
+                    onClick={handleAutoFillQuickEdit}
+                    disabled={isAutoFillingQuickEdit}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold transition-colors disabled:opacity-50 active:scale-95 cursor-pointer"
+                    title="네이버 쇼핑·이미지 API로 이미지, 브랜드 자동 완성"
+                  >
+                    {isAutoFillingQuickEdit ? (
+                      <Loader2 className="w-3 h-3 animate-spin text-emerald-500" />
+                    ) : (
+                      <Zap className="w-3 h-3 text-emerald-500 fill-emerald-500" />
+                    )}
+                    <span>네이버 자동완성</span>
+                  </button>
+                </div>
                 <input
                   type="text"
                   required

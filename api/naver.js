@@ -181,6 +181,18 @@ export default async function handler(req, res) {
       const shoppingUrl = `https://naverapihub.apigw.ntruss.com/shopping/v1/${endpoint}`;
       const bodyPayload = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
 
+      // NCP Shopping API 페이로드 정규화 (NCP 규격 미준수 시 400 Bad Request 방지)
+      if (endpoint === 'category/keywords' && Array.isArray(bodyPayload.keyword)) {
+        // NCP 규격: keyword[i].param은 반드시 최대 1개 아이템만 허용
+        bodyPayload.keyword = bodyPayload.keyword.map(k => ({
+          name: k.name || (Array.isArray(k.param) ? k.param[0] : k.param) || '신제품',
+          param: [String((Array.isArray(k.param) ? k.param[0] : k.param) || k.name || '신제품').trim()]
+        }));
+      } else if (endpoint === 'categories' && Array.isArray(bodyPayload.category)) {
+        // NCP 규격: category는 1회 요청 시 최대 3개 항목만 허용
+        bodyPayload.category = bodyPayload.category.slice(0, 3);
+      }
+
       const response = await fetch(shoppingUrl, {
         method: 'POST',
         headers: {

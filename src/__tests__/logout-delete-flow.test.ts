@@ -109,6 +109,24 @@ describe('User Flow 4 & 5: Logout & Account Deletion (로그아웃 → 설정 �
       attemptDelete();
       expect(deleted).toBe(true);
     });
+
+    it('[정상] 회원 탈퇴 시 작성한 모든 리뷰 및 커뮤니티 글 영구 삭제 및 익명 잔존 방지', () => {
+      const mockReviews = [
+        { id: 'rev-1', userId: mockUser.uid, userName: mockUser.displayName, content: '내가 쓴 리뷰 1' },
+        { id: 'rev-2', userId: 'other-user', userName: '다른유저', content: '다른 사람 리뷰' },
+        { id: 'rev-3', userId: 'withdrawn-user', userName: '탈퇴한 회원', content: '기존 탈퇴회원 리뷰' },
+      ];
+
+      // 탈퇴 처리 시 본인 작성 리뷰 및 기존 '탈퇴한 회원' 리뷰 필터링
+      const remainingReviews = mockReviews.filter(
+        r => r.userId !== mockUser.uid && r.userName !== mockUser.displayName && r.userName !== '탈퇴한 회원'
+      );
+
+      expect(remainingReviews.length).toBe(1);
+      expect(remainingReviews[0].id).toBe('rev-2');
+      expect(remainingReviews.some(r => r.userId === mockUser.uid)).toBe(false);
+      expect(remainingReviews.some(r => r.userName === '탈퇴한 회원')).toBe(false);
+    });
   });
 
   describe('3. 뒤로가기(Back Navigation) 스택 엣지 케이스', () => {

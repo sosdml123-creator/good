@@ -72,7 +72,7 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({ isOpen, 
               소셜 로그인({currentUser.provider || '간편로그인'}) 연동 정보가 완전히 분리 및 파기됩니다.
             </li>
             <li>
-              작성하신 리뷰 및 댓글은 서비스 이용약관에 따라 '탈퇴한 회원'으로 익명 전환됩니다.
+              작성하신 모든 리뷰, 댓글, 커뮤니티 글은 즉시 영구 삭제 처리되며 복구되지 않습니다.
             </li>
           </ul>
         </div>

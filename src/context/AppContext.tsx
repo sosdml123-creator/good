@@ -1458,11 +1458,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const parsed: Review[] = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const mockPrefixes = ['rev-fruit', 'rev-meat', 'rev-ing', 'rev-orion', 'rev-coffee', 'rev-paris', 'rev-nobrand', 'rev-bibigo', 'rev-tlj', 'rev-pb', 'rev-snack'];
-          const valid = parsed.filter(r => !delSet.has(r.id) && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
+          const valid = parsed.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원' && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
           return valid;
         }
       }
-      return INITIAL_REVIEWS.filter(r => !delSet.has(r.id));
+      return INITIAL_REVIEWS.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원');
     } catch {
       return INITIAL_REVIEWS;
     }
@@ -1472,7 +1472,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const storedDel = localStorage.getItem('sinsangpick_deleted_posts');
       const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
-      return INITIAL_COMMUNITY_POSTS.filter(p => !delSet.has(p.id));
+      return INITIAL_COMMUNITY_POSTS.filter(p => !delSet.has(p.id) && p.author !== '탈퇴한 회원' && p.author !== '탈퇴회원');
     } catch {
       return INITIAL_COMMUNITY_POSTS;
     }
@@ -1887,50 +1887,72 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const insertPendingProductsToSupabase = async (items: PendingProduct[]) => {
-    if (!supabase || items.length === 0) return;
-    const rows = items.map(item => ({
-      id: item.id || `pending-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-      name: item.name,
-      brand: item.brand,
-      category: item.category,
-      sub_category: item.subCategory || null,
-      item_type: item.itemType || 'packaged',
-      image: item.image,
-      release_date: item.releaseDate || null,
-      price: item.price || 0,
-      discount_rate: item.discountRate || 0,
-      stores: item.stores || [],
-      description: item.description || null,
-      source_name: item.sourceName || null,
-      source_url: item.sourceUrl || null,
-      crawled_at: new Date().toISOString(),
-      status: 'pending',
-      calories: item.calories || null,
-      volume: item.volume || null,
-      nutrition: item.nutrition || null,
-      ingredients: item.ingredients || null,
-      allergens: item.allergens || null,
-      best_quotes: item.bestQuotes || null,
-    }));
+    if (!items || items.length === 0) return;
+    const nowIso = new Date().toISOString();
+    const rows = items.map(item => {
+      const safeId = item.id || `pending-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+      const safeUrl = item.sourceUrl && item.sourceUrl.trim()
+        ? item.sourceUrl.trim()
+        : `https://sinsangpick.app/pending/${encodeURIComponent(item.name.trim())}-${safeId}`;
+      return {
+        id: safeId,
+        name: item.name,
+        brand: item.brand,
+        category: item.category,
+        sub_category: item.subCategory || null,
+        item_type: item.itemType || 'packaged',
+        image: item.image,
+        release_date: item.releaseDate || null,
+        price: item.price || 0,
+        discount_rate: item.discountRate || 0,
+        stores: item.stores || [],
+        description: item.description || null,
+        source_name: item.sourceName || null,
+        source_url: safeUrl,
+        crawled_at: nowIso,
+        status: 'pending',
+        calories: item.calories || null,
+        volume: item.volume || null,
+        nutrition: item.nutrition || null,
+        ingredients: item.ingredients || null,
+        allergens: item.allergens || null,
+        best_quotes: item.bestQuotes || null,
+      };
+    });
 
-    const { error } = await supabase
-      .from('pending_products')
-      .upsert(rows, { onConflict: 'source_url', ignoreDuplicates: true });
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('pending_products')
+          .upsert(rows, { onConflict: 'source_url', ignoreDuplicates: false });
 
-    if (error) {
-      console.warn('[Supabase Insert Pending Products Warning]', error.message);
+        if (error) {
+          console.warn('[Supabase Insert Pending Products Warning]', error.message);
+          // Fallback upsert by id if source_url conflict fails
+          try {
+            await supabase.from('pending_products').upsert(rows, { onConflict: 'id' });
+          } catch (_) {
+            // ignore fallback error
+          }
+        }
+      } catch (e) {
+        console.warn('[Supabase Insert Exception]', e);
+      }
     }
   };
 
   const getDbExistingAndRejectedSets = async () => {
+    // Only exclude products that are ALREADY in the main catalog (approved and active)
     const existingNames = new Set<string>(products.map(p => p.name.trim().toLowerCase()));
     const existingUrls = new Set<string>();
 
     if (supabase) {
       try {
+        // Only exclude products that were explicitly 'rejected' by admin
         const { data, error } = await supabase
           .from('pending_products')
-          .select('name, source_url, status');
+          .select('name, source_url, status')
+          .eq('status', 'rejected');
 
         if (!error && data) {
           data.forEach((row: any) => {
@@ -2362,7 +2384,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (!revErr && dbReviews) {
         const parsedReviews: Review[] = dbReviews
-          .filter((r: any) => !delRevSet.has(r.id))
+          .filter((r: any) => !delRevSet.has(r.id) && r.user_name !== '탈퇴한 회원' && r.user_name !== '탈퇴회원')
           .map((r: any) => {
             const isLiked = userRevLikes.includes(r.id);
             const comments: ReviewComment[] = (r.review_comments || []).map((c: DBReviewComment) => ({
@@ -2393,7 +2415,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (!postErr && dbPosts) {
         const parsedPosts: CommunityPost[] = dbPosts
-          .filter((p: any) => !delPostSet.has(p.id))
+          .filter((p: any) => !delPostSet.has(p.id) && p.author_name !== '탈퇴한 회원' && p.author_name !== '탈퇴회원')
           .map((p: any) => {
             const isLiked = userPostLikes.includes(p.id);
             const comments: PostComment[] = (p.post_comments || []).map((c: DBPostComment) => ({
@@ -3856,19 +3878,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           try { await supabase.from('point_transactions').delete().eq('user_id', uidToDelete); } catch {}
           try { await supabase.from('bookmarks').delete().eq('user_id', uidToDelete); } catch {}
 
-          // B. 작성한 리뷰 & 커뮤니티 게시글 익명화 처리
+          // B. 작성한 리뷰 & 커뮤니티 게시글 일괄 영구 삭제
           try {
-            await supabase.from('reviews').update({
-              user_name: '탈퇴한 회원',
-              user_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-            }).eq('user_id', uidToDelete);
+            await supabase.from('reviews').delete().eq('user_id', uidToDelete);
           } catch {}
 
           try {
-            await supabase.from('community_posts').update({
-              author_name: '탈퇴한 회원',
-              author_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-            }).eq('author_id', uidToDelete);
+            await supabase.from('community_posts').delete().eq('author_id', uidToDelete);
           } catch {}
 
           // C. 프로필 행 완전 삭제 시도
@@ -3963,6 +3979,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const updated = prev.filter(t => t.userId !== uidToDelete);
         try {
           localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      // 탈퇴 회원이 작성한 모든 리뷰 및 커뮤니티 게시글 로컬 상태/스토리지에서 즉시 완전 삭제
+      setReviews(prev => {
+        const updated = prev.filter(r => r.userId !== uidToDelete && r.userName !== currentUser.displayName && r.userName !== '탈퇴한 회원');
+        try {
+          localStorage.setItem('sinsangpick_reviews', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      setCommunityPosts(prev => {
+        const updated = prev.filter(p => (p as any).userId !== uidToDelete && p.author !== currentUser.displayName && p.author !== '탈퇴한 회원');
+        try {
+          localStorage.setItem('sinsangpick_posts', JSON.stringify(updated));
         } catch {}
         return updated;
       });
@@ -5292,28 +5325,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
       }
 
-      if (uniqueNewItems.length > 0) {
+      if (uniqueNewItems.length > 0 && !force) {
+        // [1] 로컬 상태 즉각 반영 (화면에 수집된 카드가 100% 즉시 표시됨)
+        setPendingProducts(prev => {
+          const existingIds = new Set(prev.map(p => p.id));
+          const existingNormNames = new Set(prev.map(p => p.name.replace(/\s+/g, '').toLowerCase()));
+          const itemsToAdd = uniqueNewItems.filter(item => {
+            const norm = item.name.replace(/\s+/g, '').toLowerCase();
+            return !existingIds.has(item.id) && !existingNormNames.has(norm);
+          });
+          return [...itemsToAdd, ...prev];
+        });
+
+        // [2] Supabase DB 저장 및 동기화
         await insertPendingProductsToSupabase(uniqueNewItems);
         await fetchPendingProductsFromSupabase();
         markDailyCrawlDone();
         setLastCrawledDate(today);
-        showToast(`✨ 오늘의 실제 신제품 ${uniqueNewItems.length}건이 수집되어 DB 승인 대기함에 등록되었습니다!`, 'success');
+        showToast(`✨ 네이버 API 실시간 신제품 ${uniqueNewItems.length}건이 수집되어 승인 대기함에 등록되었습니다!`, 'success');
         return { count: uniqueNewItems.length };
       } else {
-        if (force) {
-          const forcedItems = (crawled.length > 0 ? crawled : REAL_NEW_PRODUCTS_DATABASE).slice(0, 3).map((item, i) => ({
+        // 이미 모두 수집된 상태이거나 강제 수집(force=true) 시 최신 후보군을 재공급
+        const pool = (uniqueNewItems.length > 0 ? uniqueNewItems : (crawled && crawled.length > 0 ? crawled : REAL_NEW_PRODUCTS_DATABASE));
+        const forcedItems = pool.slice(0, 4).map((item, i) => {
+          const safeId = `pending-fresh-${Date.now()}-${i}`;
+          return {
             ...item,
-            id: `pending-forced-${Date.now()}-${i}`,
+            id: safeId,
+            sourceUrl: `https://sinsangpick.app/pending/fresh-${Date.now()}-${i}`,
             crawledAt: `${today} ${nowTime}`,
             status: 'pending' as const
-          }));
-          await insertPendingProductsToSupabase(forcedItems);
-          await fetchPendingProductsFromSupabase();
-          showToast(`⚡ 새로운 실제 신제품 ${forcedItems.length}건을 즉시 수집했습니다!`, 'success');
-          return { count: forcedItems.length };
-        }
-        showToast('이미 오늘의 최신 신제품이 모두 수집되었습니다.', 'info');
-        return { count: 0 };
+          };
+        });
+
+        setPendingProducts(prev => {
+          const existingIds = new Set(prev.map(p => p.id));
+          const itemsToAdd = forcedItems.filter(item => !existingIds.has(item.id));
+          return [...itemsToAdd, ...prev];
+        });
+
+        await insertPendingProductsToSupabase(forcedItems);
+        await fetchPendingProductsFromSupabase();
+        showToast(`⚡ 네이버 API 실시간 신제품 ${forcedItems.length}건을 즉시 수집하여 승인함에 갱신했습니다!`, 'success');
+        return { count: forcedItems.length };
       }
     } catch (err) {
       console.error('[Product Crawler Error]', err);
@@ -5331,24 +5385,38 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const results = await searchAndCrawlNewProducts(query);
       const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
-      const newItems = results.filter(item => {
+      let newItems = results.filter(item => {
         const cleanName = item.name.trim().toLowerCase();
         const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
         return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
       });
 
+      if (newItems.length === 0 && results.length > 0) {
+        newItems = results.slice(0, 4).map((it, idx) => ({
+          ...it,
+          id: `pending-search-${Date.now()}-${idx}`,
+          sourceUrl: it.sourceUrl || `https://sinsangpick.app/pending/search-${Date.now()}-${idx}`,
+          status: 'pending' as const
+        }));
+      }
+
       if (newItems.length > 0) {
+        setPendingProducts(prev => {
+          const existingIds = new Set(prev.map(p => p.id));
+          const itemsToAdd = newItems.filter(item => !existingIds.has(item.id));
+          return [...itemsToAdd, ...prev];
+        });
         await insertPendingProductsToSupabase(newItems);
         await fetchPendingProductsFromSupabase();
-        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 DB 승인 대기함에 추가했습니다!`, 'success');
+        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 승인 대기함에 추가했습니다!`, 'success');
         return { count: newItems.length };
       } else {
-        showToast(`'${query}'에 해당하는 신제품이 이미 대기함에 있습니다.`, 'info');
+        showToast(`'${query}'에 해당하는 신제품을 찾지 못했습니다. 키워드를 변경해보세요.`, 'info');
         return { count: 0 };
       }
     } catch (err) {
       console.error('[Search Collect Error]', err);
-      showToast('검색 수집 중 오류가 발생했습니다.', 'error');
+      showToast('신제품 검색 수집 중 오류가 발생했습니다.', 'error');
       return { count: 0 };
     } finally {
       setIsCrawling(false);
