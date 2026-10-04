@@ -63,6 +63,8 @@ import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
   fetchFoodCategoryShoppingTrends, 
+  fetchNaverRealtimeTrendingProducts,
+  NaverRealtimeProduct,
   TrendingKeywordInsight, 
   ShoppingInsightResponse 
 } from '../../services/naverApi';
@@ -200,20 +202,31 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [shoppingCategoryTrends, setShoppingCategoryTrends] = useState<ShoppingInsightResponse | null>(null);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
 
-  // Load NAVER DataLab Shopping Insights
-  const loadShoppingInsights = async () => {
+  // NAVER Realtime Live Shopping Products states
+  const [realtimeShoppingProducts, setRealtimeShoppingProducts] = useState<NaverRealtimeProduct[]>([]);
+  const [trendSearchInput, setTrendSearchInput] = useState('');
+  const [activeTrendKeywordTag, setActiveTrendKeywordTag] = useState<string>('전체');
+  const [isFetchingRealtimeProducts, setIsFetchingRealtimeProducts] = useState(false);
+
+  // Load NAVER DataLab Shopping Insights & Realtime Live Products
+  const loadShoppingInsights = async (searchKw?: string) => {
     setIsLoadingInsights(true);
+    setIsFetchingRealtimeProducts(true);
     try {
-      const [keywords, catTrends] = await Promise.all([
+      const targetQuery = searchKw !== undefined ? searchKw : trendSearchInput;
+      const [keywords, catTrends, realProducts] = await Promise.all([
         getShoppingInsightTrendingKeywords(),
-        fetchFoodCategoryShoppingTrends()
+        fetchFoodCategoryShoppingTrends(),
+        fetchNaverRealtimeTrendingProducts(targetQuery)
       ]);
       setShoppingInsightTrends(keywords);
       setShoppingCategoryTrends(catTrends);
+      setRealtimeShoppingProducts(realProducts);
     } catch (e) {
       console.warn('[Admin Shopping Insight Load Error]', e);
     } finally {
       setIsLoadingInsights(false);
+      setIsFetchingRealtimeProducts(false);
     }
   };
 
@@ -221,9 +234,83 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     loadShoppingInsights();
   }, []);
 
+  // Search Realtime Products by keyword
+  const handleSearchRealtimeProducts = async (kw?: string) => {
+    const queryToSearch = kw !== undefined ? kw : trendSearchInput;
+    setIsFetchingRealtimeProducts(true);
+    if (kw !== undefined) {
+      setTrendSearchInput(kw);
+      setActiveTrendKeywordTag(kw || '전체');
+    }
+    try {
+      const items = await fetchNaverRealtimeTrendingProducts(queryToSearch);
+      setRealtimeShoppingProducts(items);
+      if (queryToSearch) {
+        showToast(`🔍 '${queryToSearch}' 관련 네이버 실시간 급상승 상품 ${items.length}건을 로드했습니다.`, 'success');
+      }
+    } catch (err) {
+      console.warn('[Search Realtime Products Failed]', err);
+    } finally {
+      setIsFetchingRealtimeProducts(false);
+    }
+  };
+
+  // Add Realtime Naver Product to Pending Queue
+  const handleAddRealtimeToPending = (item: NaverRealtimeProduct) => {
+    const pendingItem: PendingProduct = {
+      id: `pending-naver-real-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+      name: item.name,
+      brand: item.brand,
+      category: item.category,
+      subCategory: item.keywordTag.replace('#', '') + ' 인기 먹거리',
+      price: item.price,
+      image: item.image,
+      discountRate: 0,
+      releaseDate: `${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')} 네이버 쇼핑 실시간 포착`,
+      stores: item.stores && item.stores.length > 0 ? item.stores : ['CU', 'GS25', '세븐일레븐', '이마트24'],
+      description: item.description,
+      sourceName: `네이버 쇼핑 라이브 (${item.mallName})`,
+      sourceUrl: item.link,
+      crawledAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      status: 'pending',
+      bestQuotes: [
+        '네이버 쇼핑 실시간 검색어 급상승 대표 인기 먹거리!',
+        '리뷰 및 평점이 높고 입소문으로 큰 화제를 모으고 있습니다.',
+        '재구매율이 높고 선물용으로도 강력 추천합니다.'
+      ],
+      calories: item.category === '음료' ? 150 : item.category === '과자' ? 380 : 420,
+      volume: item.category === '음료' ? '350ml' : item.category === '과자' ? '85g' : '1팩',
+      needsReview: false
+    };
+    addPendingProduct(pendingItem);
+    showToast(`✅ '${item.name}' 제품이 승인 대기함에 수집되었습니다!`, 'success');
+  };
+
+  // Register Realtime Naver Product directly to Main Products
+  const handleAddRealtimeToProducts = (item: NaverRealtimeProduct) => {
+    addProduct({
+      name: item.name,
+      brand: item.brand,
+      category: item.category,
+      subCategory: item.keywordTag.replace('#', '') + ' 인기 먹거리',
+      price: item.price,
+      discountRate: 0,
+      image: item.image,
+      description: item.description,
+      stores: item.stores && item.stores.length > 0 ? item.stores : ['CU', 'GS25', '세븐일레븐', '이마트24'],
+      volume: item.category === '음료' ? '350ml' : item.category === '과자' ? '85g' : '1팩',
+      calories: item.category === '음료' ? 150 : item.category === '과자' ? 380 : 420,
+      isToday: true,
+      isHot: true,
+      releaseDate: `${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')} 출시`
+    });
+    showToast(`🚀 '${item.name}' 제품이 앱 전체 상품 목록에 즉시 정식 등록되었습니다!`, 'success');
+  };
+
   // Collect Products based on Shopping Insight Keyword
   const handleCollectByInsightKeyword = async (kw: string) => {
     showToast(`🔥 네이버 쇼핑인사이트 급상승 '${kw}' 신제품을 수집합니다...`, 'info');
+    await handleSearchRealtimeProducts(kw);
     const res = await searchAndCollect(`${kw} 신제품`);
     setActiveAdminTab('approval');
     showToast(`'${kw}' 관련 ${res.count}개 신제품이 승인 대기함에 추가되었습니다!`, 'success');
@@ -3507,7 +3594,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 </div>
 
                 <button
-                  onClick={loadShoppingInsights}
+                  onClick={() => loadShoppingInsights()}
                   disabled={isLoadingInsights}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 ${
                     isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
@@ -3563,9 +3650,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Activity className="w-4 h-4 text-indigo-500 animate-pulse" />
-                    <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>네이버 쇼핑인사이트 실시간 급상승 신제품 키워드 TOP 8</h3>
+                    <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>네이버 쇼핑인사이트 실시간 급상승 신제품 키워드 TOP 10</h3>
                   </div>
-                  <span className="text-[11px] text-slate-400">※ 키워드를 클릭하면 즉시 신제품을 자동 수집합니다</span>
+                  <span className="text-[11px] text-slate-400">※ 키워드를 클릭하면 실시간 쇼핑 상품을 즉시 조회합니다</span>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -3578,7 +3665,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <th className="py-2.5 px-3">주요 브랜드</th>
                         <th className="py-2.5 px-3">쇼핑 클릭 지수</th>
                         <th className="py-2.5 px-3">주간 검색 증가율</th>
-                        <th className="py-2.5 px-3 text-right">수집 작업</th>
+                        <th className="py-2.5 px-3 text-right">실시간 상품 조회</th>
                       </tr>
                     </thead>
                     <tbody className={`divide-y ${tableRowHover}`}>
@@ -3628,11 +3715,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                           </td>
                           <td className="py-3 px-3 text-right">
                             <button
-                              onClick={() => handleCollectByInsightKeyword(item.keyword)}
+                              onClick={() => handleSearchRealtimeProducts(item.keyword)}
                               className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto"
                             >
-                              <Zap className="w-3 h-3" />
-                              <span>신제품 자동 수집</span>
+                              <Search className="w-3 h-3" />
+                              <span>실시간 상품 조회</span>
                             </button>
                           </td>
                         </tr>
@@ -3640,6 +3727,183 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              {/* 4. NAVER Realtime Live Shopping Products Section (네이버 쇼핑 API 실시간 연동) */}
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1">
+                        <Flame className="w-3.5 h-3.5 text-rose-500" />
+                        <span>LIVE API</span>
+                      </span>
+                      <h3 className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        네이버 쇼핑 실시간 급상승 인기 먹거리/디저트 상품
+                      </h3>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">
+                      네이버 쇼핑 API에 직접 연동되어 실시간 인기 판매 및 관심 지수가 급상승 중인 실물 신제품 목록입니다.
+                    </p>
+                  </div>
+
+                  {/* Realtime Live Search Bar */}
+                  <div className="flex items-center gap-2 w-full md:w-auto">
+                    <div className="relative flex-1 md:w-64">
+                      <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        value={trendSearchInput}
+                        onChange={(e) => setTrendSearchInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleSearchRealtimeProducts(trendSearchInput);
+                          }
+                        }}
+                        placeholder="예: 피자떡, 한정선, 두바이 찹쌀떡..."
+                        className={`w-full pl-9 pr-3 py-1.5 rounded-xl text-xs border focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 ${inputBg}`}
+                      />
+                    </div>
+                    <button
+                      onClick={() => handleSearchRealtimeProducts(trendSearchInput)}
+                      disabled={isFetchingRealtimeProducts}
+                      className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1 shrink-0"
+                    >
+                      {isFetchingRealtimeProducts ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Search className="w-3.5 h-3.5" />
+                      )}
+                      <span>실시간 검색</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Popular Trend Keyword Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  <span className="text-[11px] font-bold text-slate-400 shrink-0 mr-1">🔥 핫 키워드:</span>
+                  {[
+                    '전체',
+                    '피자떡',
+                    '한정선 찹쌀떡',
+                    '두바이 찹쌀떡',
+                    '요아정',
+                    '밤티라미수',
+                    '신라면 툼바',
+                    '황치즈',
+                    '비쵸비'
+                  ].map((kw) => (
+                    <button
+                      key={kw}
+                      onClick={() => handleSearchRealtimeProducts(kw === '전체' ? '' : kw)}
+                      className={`px-2.5 py-1 rounded-full text-xs font-bold border transition-all shrink-0 active:scale-95 ${
+                        (activeTrendKeywordTag === kw || (kw === '전체' && activeTrendKeywordTag === '전체'))
+                          ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                          : isDark
+                          ? 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                          : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                      }`}
+                    >
+                      {kw === '전체' ? '전체 보기' : `#${kw}`}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Realtime Live Products Grid */}
+                {isFetchingRealtimeProducts ? (
+                  <div className="py-12 flex flex-col items-center justify-center space-y-3">
+                    <RefreshCw className="w-7 h-7 text-indigo-500 animate-spin" />
+                    <p className="text-xs font-bold text-slate-400">네이버 쇼핑 API에서 실시간 급상승 상품을 조회 중입니다...</p>
+                  </div>
+                ) : realtimeShoppingProducts.length === 0 ? (
+                  <div className="py-12 text-center text-xs text-slate-400">
+                    검색어에 일치하는 네이버 쇼핑 실시간 상품이 없습니다. 키워드를 변경해보세요.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    {realtimeShoppingProducts.map((item, idx) => (
+                      <div
+                        key={item.id || idx}
+                        className={`rounded-2xl border p-3.5 flex flex-col justify-between transition-all hover:shadow-md ${subCardBg} group`}
+                      >
+                        <div>
+                          {/* Image & Badge */}
+                          <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 mb-3 border border-slate-200/50 dark:border-slate-700/50">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              onError={(e) => {
+                                (e.target as HTMLElement).setAttribute('src', 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80');
+                              }}
+                            />
+                            <div className="absolute top-2 left-2 flex items-center gap-1">
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-black/70 text-white backdrop-blur-xs">
+                                TOP {idx + 1}
+                              </span>
+                              {item.isHot && (
+                                <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-rose-600 text-white shadow-xs">
+                                  HOT
+                                </span>
+                              )}
+                            </div>
+                            <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded-md text-[9px] font-bold bg-indigo-600/90 text-white backdrop-blur-xs">
+                              {item.category}
+                            </span>
+                          </div>
+
+                          {/* Brand & Mall */}
+                          <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1 font-semibold">
+                            <span className="text-indigo-600 dark:text-indigo-400 font-bold">{item.brand}</span>
+                            <span className="truncate max-w-[120px]">{item.mallName}</span>
+                          </div>
+
+                          {/* Title */}
+                          <h4 className={`text-xs font-bold line-clamp-2 leading-snug mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                            {item.name}
+                          </h4>
+
+                          {/* Price */}
+                          <div className="flex items-baseline gap-1 mb-3">
+                            <span className="text-xs text-slate-400">네이버 최저가</span>
+                            <span className={`text-base font-black font-mono ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                              {item.price.toLocaleString()}원
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="space-y-1.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60">
+                          <div className="grid grid-cols-2 gap-1.5">
+                            <button
+                              onClick={() => handleAddRealtimeToPending(item)}
+                              className="w-full py-1.5 px-2 bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-400 rounded-lg text-[10px] font-bold border border-indigo-200 dark:border-indigo-800 transition-all active:scale-95 flex items-center justify-center gap-1"
+                            >
+                              <Zap className="w-3 h-3" />
+                              <span>대기함 수집</span>
+                            </button>
+                            <button
+                              onClick={() => handleAddRealtimeToProducts(item)}
+                              className="w-full py-1.5 px-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] font-bold transition-all active:scale-95 flex items-center justify-center gap-1 shadow-xs"
+                            >
+                              <Plus className="w-3 h-3" />
+                              <span>즉시 정식 등록</span>
+                            </button>
+                          </div>
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-1 rounded-md text-[9px] font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors flex items-center justify-center gap-1"
+                          >
+                            <span>네이버 쇼핑 연결</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* 3. 2-Column: Left Category Share & Right Convenience Store Share */}
