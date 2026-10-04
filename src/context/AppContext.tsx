@@ -380,7 +380,7 @@ interface AppContextType {
   // 🎁 e쿠폰 스토어 (Point Shop)
   coupons: ECouponItem[];
   purchasedCoupons: PurchasedECoupon[];
-  purchaseCoupon: (coupon: ECouponItem) => Promise<boolean>;
+  purchaseCoupon: (coupon: ECouponItem) => Promise<PurchasedECoupon | null>;
   useCoupon: (purchasedCouponId: string) => Promise<void>;
   addTestPoints: (amount?: number) => void;
 }
@@ -6619,11 +6619,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // 🎁 e쿠폰 스토어 구매 (포인트 교환)
-  const purchaseCoupon = async (coupon: ECouponItem): Promise<boolean> => {
+  const purchaseCoupon = async (coupon: ECouponItem): Promise<PurchasedECoupon | null> => {
     const currentPoints = currentUser.points || 0;
     if (currentPoints < coupon.price) {
       showToast(`⚠️ 포인트가 부족합니다. (필요: ${coupon.price.toLocaleString()}P / 보유: ${currentPoints.toLocaleString()}P)`, 'error');
-      return false;
+      return null;
     }
 
     const nextPoints = currentPoints - coupon.price;
@@ -6700,8 +6700,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     }
 
-    showToast(`🎉 [${coupon.name}] 교환 완료! 내 쿠폰함에서 바코드를 확인하세요.`, 'success');
-    return true;
+    showToast(`🎉 [${coupon.name}] 교환 완료! 모바일 바코드가 발급되었습니다.`, 'success');
+    return newPurchased;
   };
 
   // 🎁 e쿠폰 사용 완료 처리 토글
