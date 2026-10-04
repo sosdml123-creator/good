@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { PendingProduct, ProductCategory } from '../types';
 import { fetchWithTimeout } from '../utils/networkUtils';
 import { REAL_NEW_PRODUCTS_DATABASE } from '../data/realNewProducts';
@@ -675,6 +676,10 @@ export const generateCleanProductDescription = (
   }
 };
 
+const getNaverApiBaseUrl = (): string => {
+  return Capacitor.isNativePlatform() ? 'https://sinsangpick.vercel.app' : '';
+};
+
 /**
  * Call Naver API via proxy endpoint (/api/naver)
  */
@@ -684,7 +689,8 @@ export const callNaverApi = async (
   sort: string = 'date',
   display: number = 10
 ): Promise<NaverSearchResponse> => {
-  const apiUrl = `/api/naver?type=${type}&query=${encodeURIComponent(query)}&display=${display}${sort ? `&sort=${sort}` : ''}`;
+  const baseUrl = getNaverApiBaseUrl();
+  const apiUrl = `${baseUrl}/api/naver?type=${type}&query=${encodeURIComponent(query)}&display=${display}${sort ? `&sort=${sort}` : ''}`;
   
   const res = await fetchWithTimeout(apiUrl, undefined, 4000);
   if (!res.ok) {
@@ -703,7 +709,8 @@ export const callNaverDataLabApi = async (
     | 'search_trend',
   payload: any
 ): Promise<any> => {
-  const apiUrl = `/api/naver?type=${type}`;
+  const baseUrl = getNaverApiBaseUrl();
+  const apiUrl = `${baseUrl}/api/naver?type=${type}`;
   const res = await fetchWithTimeout(apiUrl, {
     method: 'POST',
     headers: {

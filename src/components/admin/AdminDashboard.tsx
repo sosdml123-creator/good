@@ -1676,7 +1676,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'calendar' ? '출시캘린더' :
                activeAdminTab === 'events' ? '이벤트관리' :
                activeAdminTab === 'notifications' ? '푸시관리' :
-               activeAdminTab === 'analytics' ? '통계' :
+               activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
                activeAdminTab === 'kamis' ? 'KAMIS시세' : '설정'}
             </h1>
           </div>
