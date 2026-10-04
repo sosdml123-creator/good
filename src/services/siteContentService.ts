@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { supabase, DBProduct } from './supabase';
-import { BannerItem, Product, HomeSectionConfig, SalePromotionItem } from '../types';
+import { BannerItem, Product, HomeSectionConfig, SalePromotionItem, PromotionEvent } from '../types';
 import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
@@ -9,18 +9,22 @@ export interface RemoteContentPayload {
   banners?: BannerItem[];
   homeSections?: HomeSectionConfig[];
   salePromotions?: SalePromotionItem[];
+  events?: PromotionEvent[];
   products?: Product[];
   deletedProductIds?: string[];
   deletedBannerIds?: string[];
+  deletedEventIds?: string[];
 }
 
 export interface RemoteContentResult {
   banners: BannerItem[] | null;
   homeSections: HomeSectionConfig[] | null;
   salePromotions: SalePromotionItem[] | null;
+  events: PromotionEvent[] | null;
   products: Product[];
   deletedProductIds: string[] | null;
   deletedBannerIds: string[] | null;
+  deletedEventIds: string[] | null;
   lastUpdated: string | null;
 }
 
@@ -32,9 +36,11 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   let banners: BannerItem[] | null = null;
   let homeSections: HomeSectionConfig[] | null = null;
   let salePromotions: SalePromotionItem[] | null = null;
+  let events: PromotionEvent[] | null = null;
   let products: Product[] = [];
   let deletedProductIds: string[] | null = null;
   let deletedBannerIds: string[] | null = null;
+  let deletedEventIds: string[] | null = null;
   let lastUpdated: string | null = null;
 
   // 1. Direct Supabase Query (Fastest and works identically on both Web & Native App)
@@ -61,11 +67,17 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (Array.isArray(sysData.nutrition.salePromotions)) {
           salePromotions = sysData.nutrition.salePromotions;
         }
+        if (Array.isArray(sysData.nutrition.events)) {
+          events = sysData.nutrition.events;
+        }
         if (Array.isArray(sysData.nutrition.deletedProductIds)) {
           deletedProductIds = sysData.nutrition.deletedProductIds;
         }
         if (Array.isArray(sysData.nutrition.deletedBannerIds)) {
           deletedBannerIds = sysData.nutrition.deletedBannerIds;
+        }
+        if (Array.isArray(sysData.nutrition.deletedEventIds)) {
+          deletedEventIds = sysData.nutrition.deletedEventIds;
         }
         lastUpdated = sysData.updated_at || null;
       }
@@ -94,11 +106,17 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (json.salePromotions !== undefined && Array.isArray(json.salePromotions)) {
           salePromotions = json.salePromotions;
         }
+        if (json.events !== undefined && Array.isArray(json.events)) {
+          events = json.events;
+        }
         if (json.deletedProductIds !== undefined && Array.isArray(json.deletedProductIds)) {
           deletedProductIds = json.deletedProductIds;
         }
         if (json.deletedBannerIds !== undefined && Array.isArray(json.deletedBannerIds)) {
           deletedBannerIds = json.deletedBannerIds;
+        }
+        if (json.deletedEventIds !== undefined && Array.isArray(json.deletedEventIds)) {
+          deletedEventIds = json.deletedEventIds;
         }
         if (json.lastUpdated) {
           lastUpdated = json.lastUpdated;
@@ -109,7 +127,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  return { banners, homeSections, salePromotions, products, deletedProductIds, deletedBannerIds, lastUpdated };
+  return { banners, homeSections, salePromotions, events, products, deletedProductIds, deletedBannerIds, deletedEventIds, lastUpdated };
 };
 
 /**
@@ -121,7 +139,9 @@ export const saveRemoteBannersAndSections = async (
   homeSections?: HomeSectionConfig[],
   deletedProductIds?: string[],
   deletedBannerIds?: string[],
-  salePromotions?: SalePromotionItem[]
+  salePromotions?: SalePromotionItem[],
+  events?: PromotionEvent[],
+  deletedEventIds?: string[]
 ): Promise<boolean> => {
   let saved = false;
 
@@ -151,6 +171,11 @@ export const saveRemoteBannersAndSections = async (
         ...(deletedProductIds || [])
       ]));
 
+      const mergedDeletedEventIds = Array.from(new Set([
+        ...(existingNutrition.deletedEventIds || []),
+        ...(deletedEventIds || [])
+      ]));
+
       const payload: any = {
         id: SYSTEM_BANNER_RECORD_ID,
         name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -166,8 +191,10 @@ export const saveRemoteBannersAndSections = async (
           banners: banners !== undefined ? banners : (existingNutrition.banners || []),
           homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
           salePromotions: salePromotions !== undefined ? salePromotions : (existingNutrition.salePromotions || []),
+          events: events !== undefined ? events : (existingNutrition.events || []),
           deletedProductIds: mergedDeletedProductIds,
           deletedBannerIds: mergedDeletedBannerIds,
+          deletedEventIds: mergedDeletedEventIds,
           updatedAt: new Date().toISOString()
         },
         updated_at: new Date().toISOString()
@@ -198,8 +225,94 @@ export const saveRemoteBannersAndSections = async (
           banners,
           homeSections,
           salePromotions,
+          events,
           deletedProductIds,
           deletedBannerIds,
+          deletedEventIds,
+          timestamp: new Date().toISOString()
+        })
+      }, 5000);
+      saved = true;
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return saved;
+};
+
+/**
+ * Save updated promotion events and deleted event IDs to remote cloud (Supabase & Vercel API)
+ */
+export const saveRemoteEvents = async (
+  events: PromotionEvent[],
+  deletedEventIds?: string[]
+): Promise<boolean> => {
+  let saved = false;
+
+  // 1. Save to Supabase system record
+  if (supabase) {
+    try {
+      const { data: existing } = await withTimeout(
+        supabase
+          .from('products')
+          .select('nutrition')
+          .eq('id', SYSTEM_BANNER_RECORD_ID)
+          .maybeSingle(),
+        6000,
+        { data: null, error: null } as any
+      );
+
+      const existingNutrition = existing?.nutrition || {};
+
+      const mergedDeletedEventIds = Array.from(new Set([
+        ...(existingNutrition.deletedEventIds || []),
+        ...(deletedEventIds || [])
+      ]));
+
+      const payload: any = {
+        id: SYSTEM_BANNER_RECORD_ID,
+        name: 'SYSTEM_SETTINGS_CONTAINER',
+        brand: '신상픽_시스템',
+        category: '시스템',
+        price: 0,
+        image: '',
+        description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
+        is_today: false,
+        is_hot: false,
+        nutrition: {
+          ...existingNutrition,
+          events: events !== undefined ? events : (existingNutrition.events || []),
+          deletedEventIds: mergedDeletedEventIds,
+          updatedAt: new Date().toISOString()
+        },
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await withTimeout(
+        supabase.from('products').upsert(payload, { onConflict: 'id' }),
+        7000,
+        { error: null } as any
+      );
+      if (!error) {
+        saved = true;
+      } else {
+        console.warn('[saveRemoteEvents] Supabase upsert error:', error.message);
+      }
+    } catch (e) {
+      console.warn('[saveRemoteEvents] Supabase upsert failed:', e);
+    }
+  }
+
+  // 2. Also send to /api/site-content if on Web
+  if (!Capacitor.isNativePlatform()) {
+    try {
+      await fetchWithTimeout('/api/site-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          events,
+          deletedEventIds,
           timestamp: new Date().toISOString()
         })
       }, 5000);

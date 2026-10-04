@@ -6,8 +6,6 @@ import {
   MoreVertical, 
   Star, 
   PenSquare, 
-  Scale, 
-  Bell, 
   CheckCircle2, 
   Award, 
   MapPin,
@@ -474,35 +472,6 @@ export const ProductDetailModal: React.FC = () => {
             {selectedProduct.description}
           </p>
         )}
-      </div>
-
-      {/* 4. Top 3 Action Buttons */}
-      <div className="bg-white px-4 py-3 mt-2 border-b border-gray-100 grid grid-cols-3 gap-2">
-        <button
-          onClick={() => setActiveTab('write')}
-          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-gray-400 hover:bg-gray-50 transition-all active:scale-98"
-        >
-          <PenSquare className="w-4 h-4 text-gray-900" />
-          <span>평가 및 리뷰</span>
-        </button>
-        <button
-          onClick={(e) => toggleCompare(selectedProduct.id, e)}
-          className={`py-3 rounded-xl border text-[12px] font-bold flex flex-col items-center gap-1 transition-all active:scale-98 ${
-            isCompared
-              ? 'border-gray-900 bg-gray-900 text-white'
-              : 'border-gray-200 text-gray-700 hover:bg-gray-50'
-          }`}
-        >
-          <Scale className={`w-4 h-4 ${isCompared ? 'text-white' : 'text-gray-600'}`} />
-          <span>{isCompared ? '비교함 담김' : '비교함 담기'}</span>
-        </button>
-        <button
-          onClick={() => setActiveTab('alert_settings')}
-          className="py-3 rounded-xl border border-gray-200 text-[12px] font-bold text-gray-700 flex flex-col items-center gap-1 hover:border-gray-400 hover:bg-gray-50 transition-all active:scale-98"
-        >
-          <Bell className="w-4 h-4 text-amber-500" />
-          <span>제철/출시 알림</span>
-        </button>
       </div>
 
       {/* 5. Sticky Navigation Tabs (소비자 리뷰 / 품목 정보 / 판매처) */}

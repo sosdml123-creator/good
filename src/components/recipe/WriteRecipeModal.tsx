@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Plus, Trash2, ChefHat } from 'lucide-react';
+import { X, Plus, Trash2, ChefHat, Camera, Loader2 } from 'lucide-react';
 import { RecipeIngredient } from '../../types';
-
-const PRESET_IMAGES = [
-  { label: '라면·분식', url: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700&auto=format&fit=crop&q=80' },
-  { label: '음료·카페', url: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=700&auto=format&fit=crop&q=80' },
-  { label: '베이커리·디저트', url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=700&auto=format&fit=crop&q=80' },
-  { label: '탕·찌개·식사', url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?w=700&auto=format&fit=crop&q=80' },
-  { label: '스낵·안주', url: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=700&auto=format&fit=crop&q=80' },
-];
+import { compressAndResizeImage } from '../../utils/imageCompressor';
 
 export const WriteRecipeModal: React.FC = () => {
   const { isWriteRecipeOpen, closeWriteRecipe, addRecipePost, showToast } = useApp();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedImage, setSelectedImage] = useState(PRESET_IMAGES[0].url);
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [prepTime, setPrepTime] = useState('3분');
   const [difficulty, setDifficulty] = useState<'초간단' | '쉬움' | '보통'>('초간단');
   const [totalCost, setTotalCost] = useState(4000);
@@ -32,6 +28,47 @@ export const WriteRecipeModal: React.FC = () => {
   const [tagInput, setTagInput] = useState('#편의점꿀조합 #신상레시피');
 
   if (!isWriteRecipeOpen) return null;
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      showToast('이미지 파일(JPG, PNG 등)만 등록 가능합니다.', 'error');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
+    }
+
+    if (file.size > 20 * 1024 * 1024) {
+      showToast('20MB 이하의 사진을 선택해주세요.', 'error');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const compressed = await compressAndResizeImage(file, {
+        maxWidth: 1200,
+        maxHeight: 1200,
+        quality: 0.85,
+        mimeType: 'image/jpeg'
+      });
+      setSelectedImage(compressed);
+      showToast('📸 대표 사진이 성공적으로 등록되었습니다.', 'success');
+    } catch (err) {
+      console.error('Failed to compress/upload image:', err);
+      showToast('사진을 처리하는 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleRemoveImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setSelectedImage('');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
 
   const handleAddIngredient = () => {
     setIngredients(prev => [...prev, { name: '', store: '편의점 전점', price: 1000, amount: '적당량' }]);
@@ -73,6 +110,10 @@ export const WriteRecipeModal: React.FC = () => {
     }
     if (!description.trim()) {
       showToast('레시피 한줄 소개를 입력해주세요.', 'error');
+      return;
+    }
+    if (!selectedImage) {
+      showToast('레시피 대표 사진을 앨범에서 선택해주세요.', 'error');
       return;
     }
 
@@ -164,28 +205,107 @@ export const WriteRecipeModal: React.FC = () => {
             />
           </div>
 
-          {/* 3. Image Preset Select */}
+          {/* 3. Recipe Image Upload from Album */}
           <div>
-            <label className="text-xs font-bold text-gray-800 block mb-1">
-              대표 비주얼 사진 선택
-            </label>
-            <div className="grid grid-cols-5 gap-1.5">
-              {PRESET_IMAGES.map((preset) => (
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-xs font-bold text-gray-800 flex items-center gap-1">
+                대표 완성 사진 <span className="text-red-500">*</span>
+              </label>
+              <span className="text-[11px] text-gray-500 font-medium">
+                내 앨범에서 사진 첨부
+              </span>
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+
+            {selectedImage ? (
+              <div className="relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-100 border border-gray-200 group shadow-xs">
+                <img
+                  src={selectedImage}
+                  alt="레시피 대표 사진"
+                  className="w-full h-full object-cover"
+                />
+
+                {/* PC 호버 오버레이 */}
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    className="px-3 py-1.5 bg-white/95 hover:bg-white text-gray-900 text-xs font-bold rounded-xl shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
+                  >
+                    <Camera className="w-3.5 h-3.5 text-gray-700" />
+                    사진 변경
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="px-3 py-1.5 bg-rose-600/90 hover:bg-rose-600 text-white text-xs font-bold rounded-xl shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    삭제
+                  </button>
+                </div>
+
+                {/* 모바일 상시 노출 액션 버튼 */}
                 <button
                   type="button"
-                  key={preset.label}
-                  onClick={() => setSelectedImage(preset.url)}
-                  className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all ${
-                    selectedImage === preset.url ? 'border-gray-900 ring-2 ring-gray-900/20' : 'border-transparent opacity-60'
-                  }`}
+                  onClick={handleRemoveImage}
+                  className="absolute top-2.5 right-2.5 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full shadow-md backdrop-blur-xs transition-colors active:scale-90"
+                  aria-label="사진 삭제"
                 >
-                  <img src={preset.url} alt={preset.label} className="w-full h-full object-cover" />
-                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white py-0.5 text-center truncate">
-                    {preset.label}
-                  </span>
+                  <X className="w-4 h-4" />
                 </button>
-              ))}
-            </div>
+
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  className="absolute bottom-2.5 left-2.5 px-2.5 py-1.5 bg-black/60 hover:bg-black/80 text-white rounded-xl text-[11px] font-medium shadow-md backdrop-blur-xs flex items-center gap-1.5 transition-colors active:scale-95"
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  앨범에서 다시 선택
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className={`w-full rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-800 bg-gray-50/70 hover:bg-gray-100/70 py-6 px-4 flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.99] group ${
+                  isUploading ? 'opacity-70 pointer-events-none' : ''
+                }`}
+              >
+                {isUploading ? (
+                  <>
+                    <Loader2 className="w-6 h-6 text-gray-600 animate-spin" />
+                    <span className="text-xs font-semibold text-gray-600">
+                      사진 최적화 처리 중...
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-11 h-11 rounded-2xl bg-white shadow-xs border border-gray-200 flex items-center justify-center text-gray-500 group-hover:text-gray-900 group-hover:scale-105 transition-all">
+                      <Camera className="w-5 h-5" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs font-bold text-gray-800 group-hover:text-gray-900">
+                        내 앨범에서 사진 올리기
+                      </p>
+                      <p className="text-[11px] text-gray-400 mt-0.5">
+                        요리 완성 사진이나 꿀조합 이미지를 첨부해주세요
+                      </p>
+                    </div>
+                  </>
+                )}
+              </button>
+            )}
           </div>
 
           {/* 4. Prep Time, Difficulty, Total Cost */}

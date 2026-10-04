@@ -35566,46 +35566,8 @@ export const INITIAL_HOME_SECTIONS: HomeSectionConfig[] = [
   },
 ];
 
-export const INITIAL_EVENTS: PromotionEvent[] = [
-  {
-    id: 'event-dessert-01',
-    title: '🍂 10월 가을 시즌 신상 디저트 & 음료 무료 체험단 100인 모집',
-    subtitle: '배스킨라빈스, 스타벅스, 메가MGC커피 가을 신메뉴를 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
-    badge: '체험단 100명',
-    category: '체험단',
-    bannerImage: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1000&auto=format&fit=crop&q=80',
-    startDate: '2026.10.01',
-    endDate: '2026.10.31',
-    dDay: 'D-27',
-    status: 'ongoing',
-    description: '[10월 가을 한정판 신메뉴 체험단 OPEN!]\n배스킨라빈스, 스타벅스, 메가커피 등 인기 프랜차이즈의 가을 시그니처 신메뉴를 무료로 체험하고 생생한 맛 평가 리뷰를 남겨보세요!',
-    reward: '모바일 e쿠폰 5,000원권 (총 100명 추첨)',
-    targetProductId: 'cal-03',
-    actionButtonText: '무료 체험단 즉시 신청하기',
-    participantsCount: 48,
-    isParticipated: false,
-    createdAt: '2026-10-01T10:00:00Z'
-  },
-  {
-    id: 'event-ramen-01',
-    title: '🍜 편의점 10월 핫신상 라면 & 스낵 무료 시식 체험단 모집',
-    subtitle: 'CU, GS25, 세븐일레븐 단독 출시 신상 라면과 스낵을 가장 먼저 맛보고 솔직 후기를 남겨보세요.',
-    badge: '체험단 100명',
-    category: '체험단',
-    bannerImage: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=1000&auto=format&fit=crop&q=80',
-    startDate: '2026.10.01',
-    endDate: '2026.10.25',
-    dDay: 'D-21',
-    status: 'ongoing',
-    description: '[편의점 핫신상 라면 & 스낵 체험단 OPEN!]\n오모리 직화마라 부대찌개 라면, 스윙칩 까르보나라불닭맛 등 10월 대표 편의점 신상을 무료로 체험하고 리뷰를 작성해보세요!',
-    reward: 'CU / GS25 편의점 모바일 금액권 5,000원권 (총 100명)',
-    targetProductId: 'cal-04',
-    actionButtonText: '무료 체험단 즉시 신청하기',
-    participantsCount: 36,
-    isParticipated: false,
-    createdAt: '2026-10-01T10:00:00Z'
-  }
-];
+export const INITIAL_EVENTS: PromotionEvent[] = [];
+
 
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
   {
