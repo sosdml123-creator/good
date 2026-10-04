@@ -413,13 +413,15 @@ export const RankingView: React.FC = () => {
                         <span className="text-xs font-bold text-gray-900">
                           {item.product.price ? `${item.product.price.toLocaleString()}원` : '가격문의'}
                         </span>
-                        <div className="flex items-center gap-0.5 text-amber-500 text-[11px] font-bold">
-                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                          <span>{item.effectiveRating}</span>
-                          <span className="text-gray-400 text-[10px] font-normal">
-                            ({item.totalReviews})
-                          </span>
-                        </div>
+                        {item.totalReviews > 0 && item.effectiveRating > 0 ? (
+                          <div className="flex items-center gap-0.5 text-amber-500 text-[11px] font-bold">
+                            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                            <span>{item.effectiveRating}</span>
+                            <span className="text-gray-400 text-[10px] font-normal">
+                              ({item.totalReviews})
+                            </span>
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="flex items-center gap-2 mt-1">
@@ -585,10 +587,12 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
           <span className="text-[10px] font-bold text-gray-800">
             {item.product.price ? `${item.product.price.toLocaleString()}원` : ''}
           </span>
-          <div className="flex items-center gap-0.5 text-[10px] text-amber-500 font-bold">
-            <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
-            <span>{item.effectiveRating}</span>
-          </div>
+          {item.totalReviews > 0 && item.effectiveRating > 0 ? (
+            <div className="flex items-center gap-0.5 text-[10px] text-amber-500 font-bold">
+              <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+              <span>{item.effectiveRating}</span>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

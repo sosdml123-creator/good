@@ -30,7 +30,7 @@ const SORT_LABELS: Record<SortOption, string> = {
   price_desc: '높은 가격순',
 };
 
-const BRAND_CATEGORIES = ['전체', '편의점', '패스트푸드', '커피·음료', '과자·스낵', '베이커리·디저트', '라면·간편식'];
+const BRAND_CATEGORIES = ['전체', '편의점', '패스트푸드', '커피·음료', '과자·스낵', '베이커리·디저트', '아이스크림', '라면·간편식'];
 
 export const BrandView: React.FC = () => {
   const {
@@ -109,7 +109,12 @@ export const BrandView: React.FC = () => {
           brand.category.includes('빵') || 
           brand.category.includes('디저트') || 
           brand.category.includes('베이커리') ||
-          ['파리바게뜨', '파리바게트', '뚜레쥬르', '성심당', '런던베이글뮤지엄', '노티드', '삼송빵집', '태극당', '배스킨라빈스', '베스킨라빈스'].includes(brand.name)
+          ['파리바게뜨', '파리바게트', '뚜레쥬르', '성심당', '런던베이글뮤지엄', '노티드', '삼송빵집', '태극당'].includes(brand.name)
+        )) ||
+        (selectedCategoryTab === '아이스크림' && (
+          brand.category.includes('아이스크림') || 
+          brand.category.includes('빙과') ||
+          ['배스킨라빈스', '베스킨라빈스', '빙그레', '해태아이스', '요아정', '하겐다즈', '나뚜루'].includes(brand.name)
         )) ||
         (selectedCategoryTab === '라면·간편식' && (brand.category.includes('간편식') || brand.category.includes('식재료') || brand.name === '노브랜드'));
 
@@ -240,10 +245,12 @@ export const BrandView: React.FC = () => {
             <div className="text-xs font-black text-gray-900">
               {p.price.toLocaleString()}원
             </div>
-            <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
-              <Star className="w-3 h-3 fill-amber-400 stroke-none" />
-              <span>{p.overallRating?.toFixed(1) || '4.5'}</span>
-            </div>
+            {p.ratingCount > 0 && p.overallRating > 0 ? (
+              <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
+                <Star className="w-3 h-3 fill-amber-400 stroke-none" />
+                <span>{p.overallRating.toFixed(1)}</span>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

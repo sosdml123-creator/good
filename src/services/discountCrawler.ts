@@ -160,6 +160,14 @@ export function detectFoodSubCategory(name: string, category: ProductCategory): 
     if (/쿠키|비스킷|파이/.test(lower)) return '비스킷/파이';
     return '스낵';
   }
+  if (category === '아이스크림') {
+    if (/콘|와플|부라보|월드콘|슈퍼콘|구구콘/.test(lower)) return '콘·와플';
+    if (/컵|파인트|투게더|미니컵|빙수/.test(lower)) return '컵·파인트';
+    if (/튜브|쭈쭈바|폴라포|더위사냥|탱크보이|뽕따|빠삐코|설레임/.test(lower)) return '튜브·쭈쭈바';
+    if (/모나카|샌드|싸만코|빵또아|시모나|찰떡/.test(lower)) return '모나카·샌드';
+    if (/마카롱|엑설런트|티코|팽이팽이|디저트/.test(lower)) return '디저트·마카롱';
+    return '바·하드';
+  }
   return category;
 }
 

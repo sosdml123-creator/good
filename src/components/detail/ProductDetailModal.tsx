@@ -191,26 +191,21 @@ export const ProductDetailModal: React.FC = () => {
       )
     : null;
 
-  const metrics = prod.freshMetrics
-    ? [
-        { label: '당도 (Brix)', val: prod.freshMetrics.sweetness ?? 5 },
-        { label: '신선도', val: prod.freshMetrics.freshness ?? 5 },
-        { label: '식감', val: prod.freshMetrics.texture ?? 5 },
-        { label: '가격 만족도', val: prod.freshMetrics.value ?? 5 },
-      ]
-    : avgDetailed && avgDetailed.count > 0
-      ? [
-          { label: '맛', val: Number((avgDetailed.taste / avgDetailed.count).toFixed(1)) },
-          { label: '가성비', val: Number((avgDetailed.value / avgDetailed.count).toFixed(1)) },
-          { label: '양', val: Number((avgDetailed.portion / avgDetailed.count).toFixed(1)) },
-          { label: '재구매 의사', val: Number((avgDetailed.repurchase / avgDetailed.count).toFixed(1)) },
-        ]
-      : [
-          { label: '맛', val: actualReviewCount > 0 ? (prod.detailedRating?.taste ?? 5) : 0 },
-          { label: '가성비', val: actualReviewCount > 0 ? (prod.detailedRating?.value ?? 5) : 0 },
-          { label: '양', val: actualReviewCount > 0 ? (prod.detailedRating?.portion ?? 4.5) : 0 },
-          { label: '재구매 의사', val: actualReviewCount > 0 ? (prod.detailedRating?.repurchase ?? 4.8) : 0 },
-        ];
+  const metrics = actualReviewCount > 0
+    ? (avgDetailed && avgDetailed.count > 0
+        ? [
+            { label: '맛', val: Number((avgDetailed.taste / avgDetailed.count).toFixed(1)) },
+            { label: '가성비', val: Number((avgDetailed.value / avgDetailed.count).toFixed(1)) },
+            { label: '양', val: Number((avgDetailed.portion / avgDetailed.count).toFixed(1)) },
+            { label: '재구매 의사', val: Number((avgDetailed.repurchase / avgDetailed.count).toFixed(1)) },
+          ]
+        : [
+            { label: '맛', val: actualOverallRating },
+            { label: '가성비', val: actualOverallRating },
+            { label: '양', val: actualOverallRating },
+            { label: '재구매 의사', val: actualOverallRating },
+          ])
+    : [];
 
   // Default stores if none specified
   const storeList = selectedProduct.stores && selectedProduct.stores.length > 0
@@ -375,17 +370,30 @@ export const ProductDetailModal: React.FC = () => {
         )}
 
         <div className="flex items-center gap-2 mt-2">
-          <div className="flex items-center gap-0.5">
-            <Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
-          </div>
-          <span className="text-[15px] font-bold text-gray-800">
-            {actualReviewCount > 0 ? actualOverallRating.toFixed(1) : '0.0'}
-          </span>
-          <span className="text-[12px] text-gray-400">({actualReviewCount}명 평가)</span>
-          {selectedProduct.repurchasePercent && actualReviewCount > 0 && (
-            <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
-              재구매율 {selectedProduct.repurchasePercent}%
-            </span>
+          {actualReviewCount > 0 ? (
+            <>
+              <div className="flex items-center gap-0.5">
+                <Star className="w-4 h-4 fill-[#FFC107] text-[#FFC107]" />
+              </div>
+              <span className="text-[15px] font-bold text-gray-800">
+                {actualOverallRating.toFixed(1)}
+              </span>
+              <span className="text-[12px] text-gray-400">({actualReviewCount}명 평가)</span>
+              {selectedProduct.repurchasePercent && selectedProduct.repurchasePercent > 0 ? (
+                <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
+                  재구매율 {selectedProduct.repurchasePercent}%
+                </span>
+              ) : null}
+            </>
+          ) : (
+            <div className="flex items-center gap-1.5 py-0.5">
+              <span className="text-[11px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md font-medium">
+                평가 미등록
+              </span>
+              <span className="text-[11px] text-indigo-600 font-bold">
+                첫 리뷰를 남겨보세요!
+              </span>
+            </div>
           )}
         </div>
 
@@ -809,15 +817,15 @@ export const ProductDetailModal: React.FC = () => {
             </div>
           )}
 
-          {/* Score breakdown - 신선식품 품질지표 또는 실제 소비자 리뷰가 등록된 경우에만 표시 */}
-          {(Boolean(selectedProduct.freshMetrics) || actualReviewCount > 0) && (
+          {/* Score breakdown - 실제 소비자 리뷰가 등록된 경우에만 표시 */}
+          {actualReviewCount > 0 && metrics.length > 0 && (
             <div className="bg-white px-4 py-4 border-b border-gray-100">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[14px] font-bold text-gray-900">
-                  {selectedProduct.freshMetrics ? '🍎 신선식품 품질 평가 지표' : '세부 평점 지표'}
+                  세부 평점 지표
                 </span>
                 <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">
-                  소비자 실측 기준
+                  소비자 실측 기준 ({actualReviewCount}명)
                 </span>
               </div>
 
@@ -924,18 +932,8 @@ export const ProductDetailModal: React.FC = () => {
                 <span className="text-gray-900">{selectedProduct.manufacturer || `${selectedProduct.brand} 공식 파트너`}</span>
               </div>
               <div className="flex py-2.5 px-3">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">출시 / 제철</span>
-                <span className="text-gray-900">{selectedProduct.releaseDate || '상시 판매'}</span>
-              </div>
-              <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">규격 / 내용량</span>
                 <span className="text-gray-900">{selectedProduct.volume || '상세 규격 참조'}</span>
-              </div>
-              <div className="flex py-2.5 px-3">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">총 열량(칼로리)</span>
-                <span className="text-gray-900 font-bold">
-                  {selectedProduct.calories ? `${selectedProduct.calories} kcal` : (selectedProduct.itemType === 'fresh' ? '신선 자연식품' : '상세 표기 참조')}
-                </span>
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
                 <span className="w-24 text-gray-500 font-semibold shrink-0">보관 방법</span>
@@ -958,6 +956,17 @@ export const ProductDetailModal: React.FC = () => {
                 <span className="text-emerald-700 font-black">{selectedProduct.repurchasePercent || 95}% 추천</span>
               </div>
             </div>
+
+            {/* 안내 문구: 실제 영양성분 및 정보 상이 가능 안내 */}
+            <div className="mt-3 p-3 rounded-xl bg-amber-50/70 border border-amber-200/60 flex items-start gap-2.5 text-[11px] text-amber-800 leading-relaxed">
+              <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold text-amber-900 block mb-0.5">품목 및 영양성분 정보 안내</span>
+                <span>
+                  제조사 사정, 제품 리뉴얼 또는 원료 수급 시점에 따라 실제 영양성분 및 제품 정보와 차이가 있을 수 있습니다. 정확한 정보는 제품 포장의 표시 사항을 확인해 주세요.
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* 2. Nutrition Facts or Fresh Metrics */}
@@ -966,15 +975,15 @@ export const ProductDetailModal: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-gray-900" />
                 <span className="text-[14px] font-bold text-gray-900">
-                  {selectedProduct.freshMetrics ? '신선 먹거리 품질 지표' : '영양 성분 분석표 (식약처 기준)'}
+                  {selectedProduct.freshMetrics && actualReviewCount > 0 ? '신선 먹거리 품질 지표' : '영양 성분 분석표 (식약처 기준)'}
                 </span>
               </div>
-              {!selectedProduct.freshMetrics && (
+              {(!selectedProduct.freshMetrics || actualReviewCount === 0) && (
                 <span className="text-[10px] text-gray-400">1일 영양성분 기준치 비율(%)</span>
               )}
             </div>
 
-            {selectedProduct.freshMetrics ? (
+            {selectedProduct.freshMetrics && actualReviewCount > 0 ? (
               <div className="grid grid-cols-2 gap-2.5 text-center">
                 <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100">
                   <div className="text-[11px] text-emerald-700 font-bold">당도 (Brix)</div>
@@ -1066,9 +1075,10 @@ export const ProductDetailModal: React.FC = () => {
               );
             })()}
 
-            <p className="text-[10px] text-gray-400 mt-2">
-              * 1일 영양성분 기준치(2,000 kcal)에 대한 비율(%)이며, 개인의 필요 열량에 따라 다를 수 있습니다.
-            </p>
+            <div className="mt-2 text-[10px] text-gray-400 space-y-0.5">
+              <p>* 1일 영양성분 기준치(2,000 kcal)에 대한 비율(%)이며, 개인의 필요 열량에 따라 다를 수 있습니다.</p>
+              <p>* 실제 영양성분 및 제품 정보는 제조사 사정이나 리뉴얼 시점에 따라 실제 포장 표기와 다를 수 있습니다.</p>
+            </div>
           </div>
 
 

@@ -21,6 +21,7 @@ import {
   Egg,
   Beef,
   Beer,
+  IceCream,
   Plus,
   RotateCw
 } from 'lucide-react';
@@ -36,6 +37,7 @@ import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
+import { INITIAL_EVENTS } from '../../data/mockProducts';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -76,7 +78,7 @@ export const HomeView: React.FC = () => {
   const hasMovedSignificantly = useRef(false);
   const newProductsScrollRef = useRef<HTMLDivElement>(null);
 
-  const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '기타'];
+  const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
   // 1) 전체 신제품 ID 지문 (신제품 목록 구조 변경 감지용)
   const newProductIdsFingerprint = useMemo(() => {
@@ -283,6 +285,7 @@ export const HomeView: React.FC = () => {
     { label: '과자', icon: <Cookie className="w-5 h-5 text-amber-700" />, cat: '과자' },
     { label: '음료', icon: <Coffee className="w-5 h-5 text-cyan-600" />, cat: '음료' },
     { label: '빵·디저트', icon: <Croissant className="w-5 h-5 text-orange-600" />, cat: '빵·디저트' },
+    { label: '아이스크림', icon: <IceCream className="w-5 h-5 text-pink-500" />, cat: '아이스크림' },
     { label: '간편식', icon: <UtensilsCrossed className="w-5 h-5 text-rose-600" />, cat: '간편식' },
     { label: '패스트푸드', icon: <Sandwich className="w-5 h-5 text-yellow-600" />, cat: '패스트푸드' },
     { label: '과일', icon: <Apple className="w-5 h-5 text-red-500" />, cat: '과일' },
@@ -479,10 +482,9 @@ export const HomeView: React.FC = () => {
                     } else if (m.action === 'compare') {
                       setActiveTab('compare');
                     } else if (m.action === 'event') {
-                      if (events.length > 0) {
-                        openEventDetail(events[0].id);
-                      } else {
-                        setActiveTab('alert_settings');
+                      const targetEvent = events.find(e => e.category === '체험단') || events[0] || INITIAL_EVENTS[0];
+                      if (targetEvent) {
+                        openEventDetail(targetEvent.id);
                       }
                     } else if (m.action === 'my') {
                       setActiveTab('my');
@@ -658,11 +660,13 @@ export const HomeView: React.FC = () => {
                         </div>
 
                         {/* Star Rating */}
-                        <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
-                          <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                          <span>{(p.overallRating || 0).toFixed(1)}</span>
-                          <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount || 0})</span>
-                        </div>
+                        {p.ratingCount > 0 && p.overallRating > 0 ? (
+                          <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
+                            <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                            <span>{p.overallRating.toFixed(1)}</span>
+                            <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
+                          </div>
+                        ) : null}
 
                         {/* Price */}
                         <div className="flex items-center gap-1 mt-0.5">
@@ -933,11 +937,13 @@ export const HomeView: React.FC = () => {
                       </div>
 
                       {/* Yellow Star Rating */}
-                      <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
-                        <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{(p.overallRating || 0).toFixed(1)}</span>
-                        <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount || 0})</span>
-                      </div>
+                      {p.ratingCount > 0 && p.overallRating > 0 ? (
+                        <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
+                          <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                          <span>{p.overallRating.toFixed(1)}</span>
+                          <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
+                        </div>
+                      ) : null}
 
                       <div className="flex items-center gap-1 mt-0.5">
                         <span className="text-[13px] font-bold text-gray-900">{p.price.toLocaleString()}원</span>
@@ -953,7 +959,7 @@ export const HomeView: React.FC = () => {
       // 8. 실시간 핫 이벤트 & 프로모션
       case 'hot_events':
         return events.length > 0 ? (
-          <div key="hot_events" className="mt-2 bg-white py-4 border-b border-gray-100">
+          <div key="hot_events" id="section-hot-events" className="mt-2 bg-white py-4 border-b border-gray-100">
             <div className="flex items-center justify-between px-4 mb-3">
               <div className="flex items-center gap-1.5">
                 <span className="text-[15px] font-black text-gray-900">{section.title || '진행 중인 핫 이벤트 & 체험단'}</span>
@@ -1233,13 +1239,15 @@ export const HomeView: React.FC = () => {
                   <div className="flex-1 min-w-0">
                     <div className="text-[11px] text-gray-400">{p.brand} {p.subCategory ? `· ${p.subCategory}` : ''}</div>
                     <div className="text-[13px] font-semibold text-gray-900 truncate">{p.name}</div>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <div className="flex items-center gap-0.5 text-[11px] font-semibold text-gray-700">
-                        <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{(p.overallRating || 0).toFixed(1)}</span>
+                    {p.ratingCount > 0 && p.overallRating > 0 ? (
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <div className="flex items-center gap-0.5 text-[11px] font-semibold text-gray-700">
+                          <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                          <span>{p.overallRating.toFixed(1)}</span>
+                        </div>
+                        <span className="text-[11px] text-gray-400">({p.ratingCount})</span>
                       </div>
-                      <span className="text-[11px] text-gray-400">({p.ratingCount || 0})</span>
-                    </div>
+                    ) : null}
                   </div>
 
                   <button

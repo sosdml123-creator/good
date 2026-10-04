@@ -727,8 +727,8 @@ export const REAL_NEW_PRODUCTS_DATABASE: Omit<PendingProduct, 'id' | 'crawledAt'
   {
     "name": "빙그레 투게더 미니어처 바닐라초코",
     "brand": "빙그레",
-    "category": "빵·디저트",
-    "subCategory": "아이스크림",
+    "category": "아이스크림",
+    "subCategory": "컵·파인트",
     "itemType": "packaged",
     "image": "https://www.bing.co.kr/upload/product/taste_together_original.png",
     "price": 2500,

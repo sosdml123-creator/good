@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Settings, ChevronRight, Camera, Loader2 } from 'lucide-react';
+import { Settings, ChevronRight, Camera, Loader2, Pencil } from 'lucide-react';
 import { MyBookmarksModal } from './MyBookmarksModal';
 import { MyReviewsModal } from './MyReviewsModal';
 import { PointHistoryModal } from './PointHistoryModal';
+import { EditNicknameModal } from './EditNicknameModal';
 import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 
 export const MyPageView: React.FC = () => {
@@ -11,7 +12,7 @@ export const MyPageView: React.FC = () => {
     bookmarkedIds, 
     comparedIds, 
     userPoints, 
-    reviews,
+    reviews, 
     currentUser,
     savedSaleIds,
     purchasedCoupons,
@@ -24,6 +25,7 @@ export const MyPageView: React.FC = () => {
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const [isPointHistoryOpen, setIsPointHistoryOpen] = useState(false);
+  const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [isProcessingImage, setIsProcessingImage] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -68,6 +70,7 @@ export const MyPageView: React.FC = () => {
     { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
     { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: `${purchasedCoupons.filter(c => !c.isUsed).length > 0 ? `${purchasedCoupons.filter(c => !c.isUsed).length}개 보유` : '포인트로 교환'}`, hi: true, action: () => setActiveTab('coupon') },
+    { label: '✏️ 닉네임 수정', sub: currentUser.displayName, action: () => setIsEditNicknameOpen(true) },
     { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
   ];
 
@@ -138,14 +141,28 @@ export const MyPageView: React.FC = () => {
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="text-[17px] font-extrabold truncate">{currentUser.displayName}</span>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span 
+                onClick={() => setIsEditNicknameOpen(true)}
+                className="text-[17px] font-extrabold truncate cursor-pointer hover:underline"
+                title="닉네임 변경"
+              >
+                {currentUser.displayName}
+              </span>
+              <button
+                onClick={() => setIsEditNicknameOpen(true)}
+                className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors shrink-0 cursor-pointer"
+                title="닉네임 수정"
+                aria-label="닉네임 수정"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+              </button>
               <span className="text-[10px] font-bold bg-white/20 px-1.5 py-0.5 rounded-full shrink-0">
                 {currentUser.level}
               </span>
               <button
                 onClick={handleOpenAlbum}
-                className="p-1 text-white/70 hover:text-white transition-colors"
+                className="p-1 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors shrink-0 cursor-pointer"
                 title="프로필 사진 변경 (앨범)"
               >
                 <Camera className="w-3.5 h-3.5" />
@@ -240,6 +257,12 @@ export const MyPageView: React.FC = () => {
       <PointHistoryModal
         isOpen={isPointHistoryOpen}
         onClose={() => setIsPointHistoryOpen(false)}
+      />
+
+      {/* Edit Nickname Modal */}
+      <EditNicknameModal
+        isOpen={isEditNicknameOpen}
+        onClose={() => setIsEditNicknameOpen(false)}
       />
 
     </div>

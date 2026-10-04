@@ -179,11 +179,11 @@ export const getSearchInfluxCount = (product: Product): number => {
 
   // 3. Deterministic calculation for other food products (scaled realistically between 1,200 ~ 19,800)
   const base = Math.round(
-    (product.ratingCount || 40) * 12 +
-    (product.overallRating || 4.2) * 120 +
+    (product.ratingCount || 0) * 12 +
+    (product.overallRating || 0) * 120 +
     (product.isHot ? 3200 : 0) +
     (product.isToday ? 2100 : 0) +
-    (product.repurchasePercent || 70) * 15
+    (product.repurchasePercent || 0) * 15
   );
   return Math.min(19800, Math.max(1200, base));
 };
@@ -250,7 +250,8 @@ export interface ProductReviewEvaluation {
 
 /**
  * Calculates review-based score and evaluation metrics for a product,
- * taking into account posted reviews, ratings, engagement, and taste satisfaction.
+ * strictly derived from posted authentic consumer reviews.
+ * If 0 reviews exist, reviewScore and effectiveRating will be 0.
  */
 export const calculateProductReviewScore = (
   product: Product,
@@ -275,62 +276,57 @@ export const calculateProductReviewScore = (
   }
 
   const postedCount = posted.length;
-  const baseCount = product.ratingCount || 0;
-  const totalReviewCount = baseCount + postedCount;
+  const totalReviewCount = postedCount > 0 ? postedCount : (product.ratingCount || 0);
 
-  let effectiveRating = product.overallRating || 4.5;
+  // If no reviews exist, scores and ratings are strictly 0
+  if (totalReviewCount === 0 || (postedCount === 0 && (!product.overallRating || product.overallRating === 0))) {
+    return {
+      reviewScore: 0,
+      postedReviewCount: 0,
+      totalReviewCount: 0,
+      effectiveRating: 0,
+      positiveRate: 0,
+      topKeyword: undefined,
+    };
+  }
+
+  let effectiveRating = 0;
   let positiveCount = 0;
   let likesBonus = 0;
 
   if (postedCount > 0) {
     const sumPostedRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
-    // Bayesian blend: 5 prior units with product.overallRating
-    effectiveRating = Number(((product.overallRating * 5 + sumPostedRating) / (5 + postedCount)).toFixed(1));
+    effectiveRating = Number((sumPostedRating / postedCount).toFixed(1));
 
     for (let i = 0; i < posted.length; i++) {
       const r = posted[i];
-      if (r.rating >= 4) positiveCount++;
+      if ((r.rating || 5) >= 4) positiveCount++;
       likesBonus += (r.likes || 0) * 0.5;
-      if (r.images && r.images.length > 0) likesBonus += 1.5; // Photo review bonus
+      if (r.images && r.images.length > 0) likesBonus += 2; // Photo review bonus
     }
+  } else {
+    effectiveRating = product.overallRating || 0;
   }
 
   const positiveRate = postedCount > 0 
     ? Math.round((positiveCount / postedCount) * 100)
-    : Math.round(((product.overallRating || 4.5) / 5) * 100);
+    : (effectiveRating > 0 ? Math.round((effectiveRating / 5) * 100) : 0);
 
-  // Derive top keywords from reviews or product bestQuotes
+  // Derive top keywords strictly from user reviews
   let topKeyword: string | undefined = undefined;
   if (postedCount > 0 && posted[0].tags && posted[0].tags.length > 0) {
     topKeyword = posted[0].tags[0].replace('#', '');
-  } else if (product.bestQuotes && product.bestQuotes.length > 0) {
-    const quoteWords = product.bestQuotes[0].split(' ');
-    topKeyword = quoteWords.find(w => w.length >= 2 && !w.startsWith('#'))?.replace(/[^\wㄱ-ㅎ가-힣]/g, '');
   }
 
-  // Score formulation:
-  // 1. Effective Rating weight: 25 pts (out of 125 for 5.0)
-  // 2. Review volume credibility (logarithmic to prevent sheer spam): up to 45 pts
-  // 3. Active posted reviews weight: 8 pts each + likes bonus
-  // 4. Taste/Fresh metrics: up to 15 pts
-  // 5. Repurchase intent: up to 10 pts
-  const ratingPart = effectiveRating * 25;
-  const volumePart = Math.min(45, Math.log10(totalReviewCount + 1) * 15);
-  const postedBonus = Math.min(40, postedCount * 8 + likesBonus);
-  
-  let metricPart = 0;
-  if (product.freshMetrics) {
-    const sweetness = Number(product.freshMetrics.sweetness) || 5;
-    const freshness = Number(product.freshMetrics.freshness) || 5;
-    metricPart = (sweetness + freshness) * 1.5;
-  } else if (product.detailedRating) {
-    metricPart = ((Number(product.detailedRating.taste) || 4.5) + (Number(product.detailedRating.repurchase) || 4.5)) * 1.5;
-  }
+  // Score formulation strictly based on authentic user feedback:
+  // 1. Rating part: up to 50 pts (effectiveRating * 10)
+  // 2. Review volume credibility: up to 30 pts (logarithmic)
+  // 3. User engagement & photo bonus: up to 20 pts
+  const ratingPart = effectiveRating * 10;
+  const volumePart = Math.min(30, Math.log10(totalReviewCount + 1) * 20);
+  const engagementBonus = Math.min(20, postedCount * 4 + likesBonus);
 
-  const repurchasePart = (product.repurchasePercent || 90) * 0.1;
-  const noveltyBonus = (product.isHot ? 10 : 0) + (product.isToday ? 15 : 0);
-
-  const reviewScore = Math.round(ratingPart + volumePart + postedBonus + metricPart + repurchasePart + noveltyBonus);
+  const reviewScore = Math.min(100, Math.round(ratingPart + volumePart + engagementBonus));
 
   return {
     reviewScore,
@@ -457,10 +453,11 @@ export const getBalancedShuffledNewProducts = (
     : allNew.filter((p) => {
         if (categoryFilter === '과자·스낵') return p.category === '과자' || p.subCategory === '스낵';
         if (categoryFilter === '음료') return p.category === '음료';
-        if (categoryFilter === '빵·디저트') return p.category === '빵·디저트';
+        if (categoryFilter === '빵·디저트' || categoryFilter === '빵') return p.category === '빵·디저트';
         if (categoryFilter === '간편식') return p.category === '간편식';
         if (categoryFilter === '패스트푸드') return p.category === '패스트푸드';
-        if (categoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드'].includes(p.category);
+        if (categoryFilter === '아이스크림') return p.category === '아이스크림';
+        if (categoryFilter === '기타') return !['과자', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '과일', '식재료', '고기·수산'].includes(p.category);
         return p.category === categoryFilter;
       });
 

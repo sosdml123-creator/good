@@ -383,7 +383,7 @@ export const POPULAR_BRANDS: BrandInfo[] = [
     engName: 'Baskin Robbins',
     logo: BRAND_LOGOS_MAP['배스킨라빈스'],
     bannerImage: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=1000&auto=format&fit=crop&q=80',
-    category: '베이커리·디저트',
+    category: '아이스크림',
     slogan: '골라 먹는 31가지 즐거움, 프리미엄 아이스크림 No.1',
     description: '엄마는 외계인, 아몬드 봉봉, 민트 초콜릿 칩, 이달의 맛 도쿄바나나 크렘브륄레까지 매일 새로운 행복을 전하는 글로벌 No.1 아이스크림 브랜드.',
     officialUrl: 'https://www.baskinrobbins.co.kr',

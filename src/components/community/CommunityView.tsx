@@ -163,10 +163,12 @@ export const CommunityView: React.FC = () => {
                 <div className="text-[11px] font-semibold text-gray-800 truncate leading-snug">
                   {p.name}
                 </div>
-                <div className="flex items-center gap-0.5 mt-0.5">
-                  <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                  <span className="text-[11px] font-semibold text-gray-700">{p.overallRating.toFixed(1)}</span>
-                </div>
+                {p.ratingCount > 0 && p.overallRating > 0 ? (
+                  <div className="flex items-center gap-0.5 mt-0.5">
+                    <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                    <span className="text-[11px] font-semibold text-gray-700">{p.overallRating.toFixed(1)}</span>
+                  </div>
+                ) : null}
               </div>
             </div>
           ))}

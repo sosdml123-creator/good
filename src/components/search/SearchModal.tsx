@@ -194,11 +194,13 @@ export const SearchModal: React.FC = () => {
                                 {p.price.toLocaleString()}원
                               </span>
                             </div>
-                            <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
-                              <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
-                              <span>{(p.overallRating || 0).toFixed(1)}</span>
-                              <span className="text-gray-400 font-normal">({p.ratingCount || 0})</span>
-                            </div>
+                            {p.ratingCount > 0 && p.overallRating > 0 ? (
+                              <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
+                                <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
+                                <span>{p.overallRating.toFixed(1)}</span>
+                                <span className="text-gray-400 font-normal">({p.ratingCount})</span>
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                       </div>
@@ -264,11 +266,13 @@ export const SearchModal: React.FC = () => {
                             <span className="text-xs font-black text-gray-900">
                               {p.price.toLocaleString()}원
                             </span>
-                            <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
-                              <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
-                              <span>{(p.overallRating || 0).toFixed(1)}</span>
-                              <span className="text-gray-400 font-normal">({p.ratingCount || 0})</span>
-                            </div>
+                            {p.ratingCount > 0 && p.overallRating > 0 ? (
+                              <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">
+                                <Star className="w-3 h-3 fill-[#F59E0B] text-[#F59E0B]" />
+                                <span>{p.overallRating.toFixed(1)}</span>
+                                <span className="text-gray-400 font-normal">({p.ratingCount})</span>
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                       </div>

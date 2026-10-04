@@ -18,6 +18,8 @@ export const EventDetailModal: React.FC = () => {
   const { 
     selectedEvent, 
     products, 
+    events,
+    openEventDetail,
     goBack, 
     openProductDetail, 
     participateInEvent, 
@@ -288,6 +290,43 @@ export const EventDetailModal: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* 7.5 Other Active Events & Experiences */}
+        {events.filter(e => e.id !== selectedEvent.id).length > 0 && (
+          <div className="bg-white rounded-2xl p-4 shadow-2xs border border-gray-100">
+            <h3 className="text-xs font-black text-gray-900 mb-2.5 flex items-center gap-1.5">
+              <span>🎁 다른 진행 중인 체험단 & 이벤트</span>
+            </h3>
+            <div className="flex gap-2.5 overflow-x-auto no-scrollbar pb-1">
+              {events
+                .filter(e => e.id !== selectedEvent.id)
+                .map((ev) => (
+                  <div
+                    key={ev.id}
+                    onClick={() => openEventDetail(ev.id)}
+                    className="shrink-0 w-[200px] bg-gray-50 hover:bg-gray-100/80 rounded-xl overflow-hidden border border-gray-200/80 cursor-pointer transition-all p-2.5 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] font-bold text-gray-800 bg-gray-200/70 px-1.5 py-0.5 rounded">
+                          {ev.badge}
+                        </span>
+                        <span className="text-[10px] font-semibold text-rose-500">
+                          {ev.dDay}
+                        </span>
+                      </div>
+                      <h4 className="text-xs font-bold text-gray-900 line-clamp-1 leading-snug">
+                        {ev.title}
+                      </h4>
+                    </div>
+                    <div className="text-[10px] text-gray-500 mt-2 truncate">
+                      {ev.reward}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 8. Fixed Bottom Action Bar */}

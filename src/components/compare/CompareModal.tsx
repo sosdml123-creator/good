@@ -402,11 +402,15 @@ export const CompareModal: React.FC = () => {
             />
             <h3 className="text-xs font-bold text-gray-900 truncate">{p1.name}</h3>
             <span className="text-[11px] text-gray-400 block mt-0.5">{p1.brand}</span>
-            <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-amber-500 mt-1">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span>{(p1.overallRating || 0).toFixed(1)}</span>
-              <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount || 0})</span>
-            </div>
+            {p1.ratingCount > 0 && p1.overallRating > 0 ? (
+              <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-amber-500 mt-1">
+                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                <span>{p1.overallRating.toFixed(1)}</span>
+                <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount})</span>
+              </div>
+            ) : (
+              <span className="text-gray-400 font-medium text-[11px] mt-1 block">평가 대기</span>
+            )}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -444,11 +448,15 @@ export const CompareModal: React.FC = () => {
             />
             <h3 className="text-xs font-bold text-gray-900 truncate">{p2.name}</h3>
             <span className="text-[11px] text-gray-400 block mt-0.5">{p2.brand}</span>
-            <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-orange-500 mt-1">
-              <Star className="w-3.5 h-3.5 fill-orange-500" />
-              <span>{(p2.overallRating || 0).toFixed(1)}</span>
-              <span className="text-gray-400 font-normal text-[11px]">({p2.ratingCount || 0})</span>
-            </div>
+            {p2.ratingCount > 0 && p2.overallRating > 0 ? (
+              <div className="flex items-center justify-center gap-0.5 text-xs font-bold text-orange-500 mt-1">
+                <Star className="w-3.5 h-3.5 fill-orange-500" />
+                <span>{p2.overallRating.toFixed(1)}</span>
+                <span className="text-gray-400 font-normal text-[11px]">({p2.ratingCount})</span>
+              </div>
+            ) : (
+              <span className="text-gray-400 font-medium text-[11px] mt-1 block">평가 대기</span>
+            )}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -470,59 +478,65 @@ export const CompareModal: React.FC = () => {
           <span className="text-[11px] text-gray-400">실제 구매자 평점 기준</span>
         </div>
 
-        <div className="space-y-3.5 text-xs font-bold">
-          {/* 맛 */}
-          <div className="flex items-center">
-            <span className="w-16 text-gray-600 text-[11px]">맛 평가</span>
-            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.taste.toFixed(1)}</span>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.taste / 5) * 100}%` }} />
+        {((p1.ratingCount && p1.ratingCount > 0) || (p2.ratingCount && p2.ratingCount > 0)) ? (
+          <div className="space-y-3.5 text-xs font-bold">
+            {/* 맛 */}
+            <div className="flex items-center">
+              <span className="w-16 text-gray-600 text-[11px]">맛 평가</span>
+              <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.taste || 0).toFixed(1)}</span>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
+                <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.taste || 0) / 5) * 100}%` }} />
+              </div>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
+                <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${((p2.detailedRating?.taste || 0) / 5) * 100}%` }} />
+              </div>
+              <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{(p2.detailedRating?.taste || 0).toFixed(1)}</span>
             </div>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
-              <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.taste / 5) * 100}%` }} />
-            </div>
-            <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{p2.detailedRating.taste.toFixed(1)}</span>
-          </div>
 
-          {/* 가성비 */}
-          <div className="flex items-center">
-            <span className="w-16 text-gray-600 text-[11px]">가성비</span>
-            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.value.toFixed(1)}</span>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.value / 5) * 100}%` }} />
+            {/* 가성비 */}
+            <div className="flex items-center">
+              <span className="w-16 text-gray-600 text-[11px]">가성비</span>
+              <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.value || 0).toFixed(1)}</span>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
+                <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.value || 0) / 5) * 100}%` }} />
+              </div>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
+                <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${((p2.detailedRating?.value || 0) / 5) * 100}%` }} />
+              </div>
+              <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{(p2.detailedRating?.value || 0).toFixed(1)}</span>
             </div>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
-              <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.value / 5) * 100}%` }} />
-            </div>
-            <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{p2.detailedRating.value.toFixed(1)}</span>
-          </div>
 
-          {/* 양 */}
-          <div className="flex items-center">
-            <span className="w-16 text-gray-600 text-[11px]">푸짐함(양)</span>
-            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.portion.toFixed(1)}</span>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.portion / 5) * 100}%` }} />
+            {/* 양 */}
+            <div className="flex items-center">
+              <span className="w-16 text-gray-600 text-[11px]">푸짐함(양)</span>
+              <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.portion || 0).toFixed(1)}</span>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
+                <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.portion || 0) / 5) * 100}%` }} />
+              </div>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
+                <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${((p2.detailedRating?.portion || 0) / 5) * 100}%` }} />
+              </div>
+              <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{(p2.detailedRating?.portion || 0).toFixed(1)}</span>
             </div>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
-              <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.portion / 5) * 100}%` }} />
-            </div>
-            <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{p2.detailedRating.portion.toFixed(1)}</span>
-          </div>
 
-          {/* 재구매 의사 */}
-          <div className="flex items-center">
-            <span className="w-16 text-gray-600 text-[11px]">재구매 의사</span>
-            <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{p1.detailedRating.repurchase.toFixed(1)}</span>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
-              <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${(p1.detailedRating.repurchase / 5) * 100}%` }} />
+            {/* 재구매 의사 */}
+            <div className="flex items-center">
+              <span className="w-16 text-gray-600 text-[11px]">재구매 의사</span>
+              <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.repurchase || 0).toFixed(1)}</span>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
+                <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.repurchase || 0) / 5) * 100}%` }} />
+              </div>
+              <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
+                <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${((p2.detailedRating?.repurchase || 0) / 5) * 100}%` }} />
+              </div>
+              <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{(p2.detailedRating?.repurchase || 0).toFixed(1)}</span>
             </div>
-            <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-start ml-1">
-              <div className="bg-orange-400 h-full rounded-r-full" style={{ width: `${(p2.detailedRating.repurchase / 5) * 100}%` }} />
-            </div>
-            <span className="w-7 text-right font-bold text-orange-500 text-[11px]">{p2.detailedRating.repurchase.toFixed(1)}</span>
           </div>
-        </div>
+        ) : (
+          <div className="py-6 text-center text-gray-400 text-xs bg-gray-50 rounded-xl">
+            아직 두 상품 모두 등록된 소비자 상세 평점이 없습니다.
+          </div>
+        )}
       </div>
 
       {/* 5. 🥊 메인 신규 기능: 실시간 배틀 톡톡 (댓글 / 의견 나누기 커뮤니티) */}

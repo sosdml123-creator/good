@@ -65,7 +65,7 @@ const REPURCHASE_OPTIONS = [
 
 
 const SEARCH_CATEGORIES: (ProductCategory | '전체')[] = [
-  '전체', '과자', '음료', '빵·디저트', '간편식', '패스트푸드', '과일', '식재료', '고기·수산'
+  '전체', '과자', '음료', '빵·디저트', '아이스크림', '간편식', '패스트푸드', '과일', '식재료', '고기·수산'
 ];
 
 export const WriteReviewModal: React.FC = () => {
@@ -128,7 +128,7 @@ export const WriteReviewModal: React.FC = () => {
     setDisplayLimit(24);
   }, [searchQuery, selectedSearchCategory]);
 
-  // 상품 카테고리별 세부 평가 항목
+  // 상품 카테고리별 세부 평가 항목 (모든 카테고리에 '맛' 항목 포함)
   const categoryMetrics = useMemo(() => {
     const cat = prod?.category || '';
     const name = prod?.name || '';
@@ -138,31 +138,7 @@ export const WriteReviewModal: React.FC = () => {
 
     if (has('커피', '라떼', '아메리카노', '콜드브루', '에스프레소', '카페')) {
       return [
-        { label: '산미', val: metric1, set: setMetric1, desc: '산미가 기분 좋게 느껴지나요?' },
-        { label: '고소함·바디감', val: metric2, set: setMetric2, desc: '고소하고 묵직한 바디감인가요?' },
-        { label: '쓴맛 밸런스', val: metric3, set: setMetric3, desc: '쓴맛이 부담 없이 균형 잡혔나요?' },
-        { label: '향', val: metric4, set: setMetric4, desc: '원두 향이 풍부한가요?' },
-      ];
-    }
-    if (has('라면', '국수', '우동', '짬뽕', '파스타', '냉면')) {
-      return [
-        { label: '국물·소스', val: metric1, set: setMetric1, desc: '국물/소스 맛이 진한가요?' },
-        { label: '면발', val: metric2, set: setMetric2, desc: '면이 쫄깃하고 잘 어울리나요?' },
-        { label: '매운맛 만족도', val: metric3, set: setMetric3, desc: '맵기가 딱 적당한가요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
-      ];
-    }
-    if (has('아이스크림', '빙수', '젤라또') && cat !== '과자') {
-      return [
-        { label: '달콤함', val: metric1, set: setMetric1, desc: '달콤함이 적당한가요?' },
-        { label: '부드러움', val: metric2, set: setMetric2, desc: '입에서 부드럽게 녹나요?' },
-        { label: '풍미', val: metric3, set: setMetric3, desc: '재료 맛이 진하게 느껴지나요?' },
-        { label: '가성비', val: metric4, set: setMetric4, desc: '가격 대비 만족스럽나요?' },
-      ];
-    }
-    if (has('커피', '라떼', '아메리카노', '콜드브루', '에스프레소', '카페')) {
-      return [
-        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '커피 맛과 풍미가 뛰어난가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '커피 맛과 풍미가 뛰어난가요?' },
         { label: '산미', val: metric2, set: setMetric2, desc: '산미가 기분 좋게 느껴지나요?' },
         { label: '고소함·향', val: metric3, set: setMetric3, desc: '고소함과 원두 향이 풍부한가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 커피인가요?' },
@@ -170,7 +146,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (has('라면', '국수', '우동', '짬뽕', '파스타', '냉면')) {
       return [
-        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '국물/소스와 전반적인 맛이 훌륭한가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '국물/소스와 전반적인 맛이 훌륭한가요?' },
         { label: '면발·식감', val: metric2, set: setMetric2, desc: '면이 쫄깃하고 조화로운가요?' },
         { label: '매운맛·얼큰함', val: metric3, set: setMetric3, desc: '맵기와 국물 감칠맛이 적당한가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 라면인가요?' },
@@ -178,7 +154,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (has('아이스크림', '빙수', '젤라또') && cat !== '과자') {
       return [
-        { label: '맛·달콤함', val: metric1, set: setMetric1, desc: '달콤하고 재료 맛이 진한가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '달콤하고 재료 본연의 맛이 진한가요?' },
         { label: '부드러움·식감', val: metric2, set: setMetric2, desc: '입에서 부드럽게 녹나요?' },
         { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격 대비 용량이 만족스러운가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 아이스크림인가요?' },
@@ -186,7 +162,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
       return [
-        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '당도와 본연의 풍미가 뛰어난가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '당도와 본연의 풍미가 뛰어난가요?' },
         { label: '신선도', val: metric2, set: setMetric2, desc: '싱싱하고 신선한가요?' },
         { label: '식감', val: metric3, set: setMetric3, desc: '아삭함/부드러움 식감이 좋은가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 구매하고 싶을 정도인가요?' },
@@ -194,7 +170,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (cat === '음료') {
       return [
-        { label: '맛·풍미', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
         { label: '청량감·목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
         { label: '단맛 밸런스', val: metric3, set: setMetric3, desc: '너무 달지 않고 적당한가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 음료인가요?' },
@@ -202,7 +178,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (cat === '과자') {
       return [
-        { label: '맛·양념', val: metric1, set: setMetric1, desc: '단짠 조화와 맛이 훌륭한가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '단짠 조화와 스낵 맛이 훌륭한가요?' },
         { label: '바삭함·식감', val: metric2, set: setMetric2, desc: '바삭바삭 식감이 살아있나요?' },
         { label: '양·가성비', val: metric3, set: setMetric3, desc: '질소 없이 알차고 가성비가 좋은가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 과자인가요?' },
@@ -210,7 +186,7 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (cat === '빵·디저트') {
       return [
-        { label: '맛·달콤함', val: metric1, set: setMetric1, desc: '디저트 본연의 맛이 뛰어난가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '디저트 본연의 맛이 뛰어난가요?' },
         { label: '촉촉함·식감', val: metric2, set: setMetric2, desc: '촉촉하고 부드러운가요?' },
         { label: '크림·속재료', val: metric3, set: setMetric3, desc: '속재료가 알차게 들어있나요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 디저트인가요?' },
@@ -218,18 +194,18 @@ export const WriteReviewModal: React.FC = () => {
     }
     if (['간편식', '패스트푸드'].includes(cat)) {
       return [
-        { label: '맛·양념', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
+        { label: '맛', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
         { label: '푸짐함·양', val: metric2, set: setMetric2, desc: '한 끼 식사로 알차고 푸짐한가요?' },
         { label: '조리 편의성', val: metric3, set: setMetric3, desc: '데우거나 먹기 편리한가요?' },
         { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 상품인가요?' },
       ];
     }
     return [
-      { label: '맛·풍미', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
+      { label: '맛', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
       { label: '식감·특징', val: metric2, set: setMetric2, desc: '식감이나 특징이 인상적인가요?' },
       { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격과 양이 만족스러운가요?' },
       { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶을 정도인가요?' },
-      ];
+    ];
   }, [prod, metric1, metric2, metric3, metric4]);
 
   // 검색 결과 필터링
@@ -929,9 +905,11 @@ export const WriteReviewModal: React.FC = () => {
                                 <span className="text-[11px] font-black text-slate-800">
                                   {item.price.toLocaleString()}원
                                 </span>
-                                <span className="text-[10px] text-amber-500 font-black flex items-center">
-                                  ★ {item.overallRating?.toFixed(1) || '5.0'}
-                                </span>
+                                {item.ratingCount && item.ratingCount > 0 && item.overallRating ? (
+                                  <span className="text-[10px] text-amber-500 font-black flex items-center">
+                                    ★ {item.overallRating.toFixed(1)}
+                                  </span>
+                                ) : null}
                               </div>
                             </div>
                             <div className="shrink-0 pl-1">
@@ -997,9 +975,11 @@ export const WriteReviewModal: React.FC = () => {
                               <span className="text-xs font-black text-slate-900">
                                 {item.price.toLocaleString()}원
                               </span>
-                              <span className="text-[10px] text-amber-500 font-black">
-                                ★ {item.overallRating?.toFixed(1) || '5.0'}
-                              </span>
+                              {item.ratingCount && item.ratingCount > 0 && item.overallRating ? (
+                                <span className="text-[10px] text-amber-500 font-black">
+                                  ★ {item.overallRating.toFixed(1)}
+                                </span>
+                              ) : null}
                             </div>
                           </div>
                         );

@@ -345,15 +345,19 @@ export const DiscoverView: React.FC = () => {
                   </div>
 
                   <div className="flex flex-col items-end shrink-0 ml-2">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                      <span className="text-xs font-black text-gray-900">{item.effectiveRating.toFixed(1)}</span>
-                      <span className="text-[10px] text-gray-400">({item.totalReviewCount})</span>
-                    </div>
+                    {item.totalReviewCount > 0 && item.effectiveRating > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                        <span className="text-xs font-black text-gray-900">{item.effectiveRating.toFixed(1)}</span>
+                        <span className="text-[10px] text-gray-400">({item.totalReviewCount})</span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-1 mt-0.5">
-                      <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded">
-                        점수 {item.reviewScore}
-                      </span>
+                      {item.totalReviewCount > 0 && item.reviewScore > 0 && (
+                        <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded">
+                          점수 {item.reviewScore}
+                        </span>
+                      )}
                       {p.buyLink && (
                         <button
                           onClick={(e) => {
@@ -436,18 +440,22 @@ export const DiscoverView: React.FC = () => {
                     </div>
 
                     {/* Rating & Review Score Preview */}
-                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                      <div className="flex items-center gap-0.5">
-                        <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                        <span className="text-[12px] font-black text-gray-800">{item.effectiveRating.toFixed(1)}</span>
-                      </div>
-                      <span className="text-[11px] text-gray-400">({item.totalReviewCount}명 리뷰)</span>
+                    {item.totalReviewCount > 0 && item.effectiveRating > 0 ? (
+                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                        <div className="flex items-center gap-0.5">
+                          <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                          <span className="text-[12px] font-black text-gray-800">{item.effectiveRating.toFixed(1)}</span>
+                        </div>
+                        <span className="text-[11px] text-gray-400">({item.totalReviewCount}명 리뷰)</span>
 
-                      {/* 실시간 리뷰 반영 점수 배지 */}
-                      <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">
-                        점수 {item.reviewScore}점
-                      </span>
-                    </div>
+                        {/* 실시간 리뷰 반영 점수 배지 */}
+                        {item.reviewScore > 0 && (
+                          <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">
+                            점수 {item.reviewScore}점
+                          </span>
+                        )}
+                      </div>
+                    ) : null}
 
                     {/* 📐 농수산물 전용: 사이즈 평균 & 당도 배지 */}
                     {isProduce(p) && (

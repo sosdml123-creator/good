@@ -337,6 +337,15 @@ export const detectCategory = (text: string): ProductCategory => {
       t.includes('사이다') || t.includes('에너지드링크')) {
     return '음료';
   }
+  if (t.includes('아이스크림') || t.includes('빙과') || t.includes('하드') || t.includes('소프트콘') ||
+      t.includes('젤라또') || t.includes('소르베') || t.includes('샤베트') || t.includes('파인트') ||
+      t.includes('쭈쭈바') || t.includes('폴라포') || t.includes('더위사냥') || t.includes('월드콘') ||
+      t.includes('부라보') || t.includes('설레임') || t.includes('메로나') || t.includes('비비빅') ||
+      t.includes('누가바') || t.includes('쌍쌍바') || t.includes('바밤바') || t.includes('투게더') ||
+      t.includes('붕어싸만코') || t.includes('빵또아') || t.includes('요아정') || t.includes('배스킨라빈스') ||
+      t.includes('끌레도르') || t.includes('하겐다즈') || t.includes('나뚜루')) {
+    return '아이스크림';
+  }
   if (t.includes('빵') || t.includes('디저트') || t.includes('케이크') || t.includes('크림빵') || 
       t.includes('도넛') || t.includes('찹쌀떡') || t.includes('쿠키') || t.includes('와플') ||
       t.includes('베이글') || t.includes('샌드위치') || t.includes('타르트') || t.includes('슈') ||
@@ -344,7 +353,7 @@ export const detectCategory = (text: string): ProductCategory => {
     return '빵·디저트';
   }
   if (t.includes('과자') || t.includes('스낵') || t.includes('감자칩') || t.includes('젤리') || 
-      t.includes('초콜릿') || t.includes('캔디') || t.includes('아이스크림') || t.includes('팝콘') ||
+      t.includes('초콜릿') || t.includes('캔디') || t.includes('팝콘') ||
       t.includes('비스킷') || t.includes('초코') || t.includes('웨하스') || t.includes('사탕') ||
       t.includes('칩') || t.includes('구미')) {
     return '과자';

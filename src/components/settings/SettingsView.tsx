@@ -20,11 +20,13 @@ import {
   ExternalLink, 
   ChevronDown, 
   ChevronUp,
-  ShieldCheck
+  ShieldCheck,
+  Pencil
 } from 'lucide-react';
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
 import { BlockedUsersModal } from './BlockedUsersModal';
+import { EditNicknameModal } from '../my/EditNicknameModal';
 import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
 
@@ -44,6 +46,7 @@ export const SettingsView: React.FC = () => {
   const [selectedPolicyId, setSelectedPolicyId] = useState<string | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isBlockedModalOpen, setIsBlockedModalOpen] = useState(false);
+  const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [showBusinessInfo, setShowBusinessInfo] = useState(false);
   const [isProcessingImage, setIsProcessingImage] = useState(false);
 
@@ -214,13 +217,25 @@ export const SettingsView: React.FC = () => {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-extrabold text-gray-900 truncate">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span 
+                  onClick={() => setIsEditNicknameOpen(true)}
+                  className="text-sm font-extrabold text-gray-900 truncate cursor-pointer hover:underline"
+                  title="닉네임 변경"
+                >
                   {currentUser.displayName}
                 </span>
                 <button
+                  onClick={() => setIsEditNicknameOpen(true)}
+                  className="p-1 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                  title="닉네임 수정"
+                  aria-label="닉네임 수정"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                </button>
+                <button
                   onClick={handleOpenAlbum}
-                  className="p-1 text-gray-400 hover:text-gray-700 transition-colors"
+                  className="p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
                   title="프로필 사진 변경 (앨범)"
                 >
                   <Camera className="w-3.5 h-3.5" />
@@ -235,6 +250,21 @@ export const SettingsView: React.FC = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Quick Nickname Edit Bar */}
+          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-gray-500">닉네임</span>
+              <span className="text-xs font-bold text-gray-800">{currentUser.displayName}</span>
+            </div>
+            <button
+              onClick={() => setIsEditNicknameOpen(true)}
+              className="text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-95 px-2.5 py-1 rounded-xl transition-all flex items-center gap-1 cursor-pointer"
+            >
+              <Pencil className="w-3 h-3 text-gray-500" />
+              <span>변경</span>
+            </button>
           </div>
         </div>
 
@@ -575,6 +605,12 @@ export const SettingsView: React.FC = () => {
       <DeleteAccountModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
+      />
+
+      {/* Edit Nickname Modal */}
+      <EditNicknameModal
+        isOpen={isEditNicknameOpen}
+        onClose={() => setIsEditNicknameOpen(false)}
       />
     </div>
   );

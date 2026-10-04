@@ -1143,17 +1143,62 @@ export const smartMergeBanners = (
 };
 
 /**
- * Synchronize product overallRating and ratingCount with actual consumer reviews.
- * Products with 0 reviews will have ratingCount = 0 and overallRating = 0.
+ * Synchronize product overallRating, ratingCount, detailedRating, and metrics with actual consumer reviews.
+ * Products with 0 reviews will strictly have ratingCount = 0, overallRating = 0, detailedRating = all 0s, and bestQuotes = [].
+ * Products with reviews will have their ratings, counts, and detailed categories computed dynamically from real user submissions.
  */
 export const syncProductRatingsWithReviews = (prods: Product[], revs: Review[]): Product[] => {
   if (!prods || prods.length === 0) return prods;
-  const statsMap = new Map<string, { count: number; totalRating: number }>();
-  for (const r of revs) {
-    if (!r.productId) continue;
-    const cur = statsMap.get(r.productId) || { count: 0, totalRating: 0 };
+  const statsMap = new Map<string, {
+    count: number;
+    totalRating: number;
+    tasteTotal: number;
+    valueTotal: number;
+    portionTotal: number;
+    repurchaseTotal: number;
+    positiveCount: number;
+    quotes: string[];
+  }>();
+
+  for (const r of (revs || [])) {
+    if (!r || !r.productId) continue;
+    const cur = statsMap.get(r.productId) || {
+      count: 0,
+      totalRating: 0,
+      tasteTotal: 0,
+      valueTotal: 0,
+      portionTotal: 0,
+      repurchaseTotal: 0,
+      positiveCount: 0,
+      quotes: [],
+    };
+    const ratingVal = typeof r.rating === 'number' && !isNaN(r.rating) ? r.rating : 5;
     cur.count += 1;
-    cur.totalRating += (r.rating || 5);
+    cur.totalRating += ratingVal;
+
+    // Detailed rating aggregation from review
+    const dTaste = (r.detailedRating && typeof r.detailedRating.taste === 'number') ? r.detailedRating.taste : ratingVal;
+    const dValue = (r.detailedRating && typeof r.detailedRating.value === 'number') ? r.detailedRating.value : ratingVal;
+    const dPortion = (r.detailedRating && typeof r.detailedRating.portion === 'number') ? r.detailedRating.portion : ratingVal;
+    const dRepurchase = (r.detailedRating && typeof r.detailedRating.repurchase === 'number') ? r.detailedRating.repurchase : ratingVal;
+
+    cur.tasteTotal += dTaste;
+    cur.valueTotal += dValue;
+    cur.portionTotal += dPortion;
+    cur.repurchaseTotal += dRepurchase;
+
+    if (
+      ratingVal >= 4 ||
+      r.repurchaseIntent === '무조건 또 사먹어요!' ||
+      r.repurchaseIntent === '행사/할인하면 살래요'
+    ) {
+      cur.positiveCount += 1;
+    }
+
+    if (r.content && r.content.trim().length >= 4 && cur.quotes.length < 5) {
+      cur.quotes.push(r.content.trim());
+    }
+
     statsMap.set(r.productId, cur);
   }
 
@@ -1162,14 +1207,43 @@ export const syncProductRatingsWithReviews = (prods: Product[], revs: Review[]):
     const stats = statsMap.get(p.id);
     const count = stats ? stats.count : 0;
     const rating = count > 0 ? Number((stats!.totalRating / count).toFixed(1)) : 0;
-    if ((p.ratingCount ?? 0) === count && (p.overallRating ?? 0) === rating) {
+    const detailed = count > 0 ? {
+      taste: Number((stats!.tasteTotal / count).toFixed(1)),
+      value: Number((stats!.valueTotal / count).toFixed(1)),
+      portion: Number((stats!.portionTotal / count).toFixed(1)),
+      repurchase: Number((stats!.repurchaseTotal / count).toFixed(1)),
+    } : {
+      taste: 0,
+      value: 0,
+      portion: 0,
+      repurchase: 0,
+    };
+    const repPercent = count > 0 ? Math.round((stats!.positiveCount / count) * 100) : 0;
+    const quotes = count > 0 ? stats!.quotes : [];
+
+    const curDetailed = p.detailedRating || { taste: 0, value: 0, portion: 0, repurchase: 0 };
+    const isSame = 
+      (p.ratingCount ?? 0) === count &&
+      (p.overallRating ?? 0) === rating &&
+      (p.repurchasePercent ?? 0) === repPercent &&
+      (curDetailed.taste ?? 0) === detailed.taste &&
+      (curDetailed.value ?? 0) === detailed.value &&
+      (curDetailed.portion ?? 0) === detailed.portion &&
+      (curDetailed.repurchase ?? 0) === detailed.repurchase &&
+      JSON.stringify(p.bestQuotes || []) === JSON.stringify(quotes);
+
+    if (isSame) {
       return p;
     }
+
     hasChanged = true;
     return {
       ...p,
       ratingCount: count,
       overallRating: rating,
+      detailedRating: detailed,
+      repurchasePercent: repPercent,
+      bestQuotes: quotes,
     };
   });
   return hasChanged ? updated : prods;
@@ -1179,7 +1253,7 @@ export const syncProductRatingsWithReviews = (prods: Product[], revs: Review[]):
  * Smart merge function for products:
  * Guarantees that official INITIAL_PRODUCTS are always up-to-date with latest metadata
  * (image, price, releaseDate, description, stores, calories, volume, nutrition, isToday, isHot),
- * while preserving any custom products created or approved by admin.
+ * while initializing all ratings/scores to 0 (unless real reviews are attached).
  */
 export const smartMergeProducts = (
   storedProducts: Product[] | null,
@@ -1189,12 +1263,17 @@ export const smartMergeProducts = (
   const deletedSet = new Set(deletedProductIds);
   const validInitial = initialProducts.filter(p => !deletedSet.has(p.id));
 
+  const resetProductRatings = (p: Product): Product => ({
+    ...p,
+    overallRating: 0,
+    ratingCount: 0,
+    detailedRating: { taste: 0, value: 0, portion: 0, repurchase: 0 },
+    repurchasePercent: 0,
+    bestQuotes: [],
+  });
+
   if (!storedProducts || !Array.isArray(storedProducts) || storedProducts.length === 0) {
-    return validInitial.map(p => ({
-      ...p,
-      ratingCount: 0,
-      overallRating: 0,
-    }));
+    return validInitial.map(resetProductRatings);
   }
 
   const initialMap = new Map<string, Product>();
@@ -1207,24 +1286,20 @@ export const smartMergeProducts = (
   const mergedOfficial: Product[] = validInitial.map(initP => {
     const stored = storedMap.get(initP.id);
     if (stored) {
-      return {
+      return resetProductRatings({
         ...initP,
         ...stored,
-        overallRating: 0,
-        ratingCount: 0,
         // Keep KAMIS price info if available
         kamisPriceInfo: stored.kamisPriceInfo || initP.kamisPriceInfo,
-      };
+      });
     }
-    return {
-      ...initP,
-      overallRating: 0,
-      ratingCount: 0,
-    };
+    return resetProductRatings(initP);
   });
 
   // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS and not deleted)
-  const customProducts = storedProducts.filter(p => !initialMap.has(p.id) && !deletedSet.has(p.id));
+  const customProducts = storedProducts
+    .filter(p => !initialMap.has(p.id) && !deletedSet.has(p.id))
+    .map(resetProductRatings);
 
   return [...customProducts, ...mergedOfficial];
 };
@@ -1416,15 +1491,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
 
 
+  const [reviews, setReviews] = useState<Review[]>(() => {
+    try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_reviews');
+      const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
+      const stored = localStorage.getItem('sinsangpick_reviews');
+      if (stored) {
+        const parsed: Review[] = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const mockPrefixes = ['rev-fruit', 'rev-meat', 'rev-ing', 'rev-orion', 'rev-coffee', 'rev-paris', 'rev-nobrand', 'rev-bibigo', 'rev-tlj', 'rev-pb', 'rev-snack'];
+          const valid = parsed.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원' && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
+          return valid;
+        }
+      }
+      return INITIAL_REVIEWS.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원');
+    } catch {
+      return INITIAL_REVIEWS;
+    }
+  });
+
   const [products, setProducts] = useState<Product[]>(() => {
     try {
       const storedDel = localStorage.getItem('sinsangpick_deleted_products');
       const parsedDel: string[] = storedDel ? JSON.parse(storedDel) : [];
       const stored = localStorage.getItem('sinsangpick_products');
       const parsed: Product[] | null = stored ? JSON.parse(stored) : null;
-      return smartMergeProducts(parsed, INITIAL_PRODUCTS, parsedDel);
+      const initialDelRev = localStorage.getItem('sinsangpick_deleted_reviews');
+      const delRevSet = new Set(initialDelRev ? JSON.parse(initialDelRev) : []);
+      let initialRevs: Review[] = [];
+      const storedRevs = localStorage.getItem('sinsangpick_reviews');
+      if (storedRevs) {
+        const parsedR: Review[] = JSON.parse(storedRevs);
+        if (Array.isArray(parsedR)) {
+          const mockPrefixes = ['rev-fruit', 'rev-meat', 'rev-ing', 'rev-orion', 'rev-coffee', 'rev-paris', 'rev-nobrand', 'rev-bibigo', 'rev-tlj', 'rev-pb', 'rev-snack'];
+          initialRevs = parsedR.filter(r => !delRevSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원' && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
+        }
+      }
+      const merged = smartMergeProducts(parsed, INITIAL_PRODUCTS, parsedDel);
+      return syncProductRatingsWithReviews(merged, initialRevs);
     } catch {
-      return INITIAL_PRODUCTS;
+      return syncProductRatingsWithReviews(smartMergeProducts(null, INITIAL_PRODUCTS, []), []);
     }
   });
 
@@ -1447,25 +1553,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       };
     } catch {
       return { lastUpdated: null, isUpdating: false, count: 0, latestDate: null };
-    }
-  });
-
-  const [reviews, setReviews] = useState<Review[]>(() => {
-    try {
-      const storedDel = localStorage.getItem('sinsangpick_deleted_reviews');
-      const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
-      const stored = localStorage.getItem('sinsangpick_reviews');
-      if (stored) {
-        const parsed: Review[] = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const mockPrefixes = ['rev-fruit', 'rev-meat', 'rev-ing', 'rev-orion', 'rev-coffee', 'rev-paris', 'rev-nobrand', 'rev-bibigo', 'rev-tlj', 'rev-pb', 'rev-snack'];
-          const valid = parsed.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원' && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
-          return valid;
-        }
-      }
-      return INITIAL_REVIEWS.filter(r => !delSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원');
-    } catch {
-      return INITIAL_REVIEWS;
     }
   });
 
@@ -1592,7 +1679,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const stored = localStorage.getItem('sinsangpick_events');
       if (stored !== null) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
       }
       return INITIAL_EVENTS;
     } catch {
@@ -2399,6 +2489,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             return mapDBReviewToReview(r, isLiked, comments);
           });
         setReviews(parsedReviews);
+        setProducts(prev => syncProductRatingsWithReviews(prev, parsedReviews));
       }
 
       // 4. Fetch Community Posts with Comments (Respecting admin deleted posts)
@@ -3453,54 +3544,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
-  const updateUserNickname = async (newName: string) => {
-    const trimmed = newName.trim();
-    if (!trimmed) return;
-    setCurrentUser(prev => ({ ...prev, displayName: trimmed }));
-    try {
-      localStorage.setItem('sinsangpick_name', trimmed);
-    } catch (e) {
-      console.warn('Failed to save nickname to localStorage', e);
-    }
-
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase
-          .from('profiles')
-          .update({ display_name: trimmed })
-          .eq('id', currentUser.uid);
-      } catch (err) {
-        console.warn('[Supabase] Failed to update user nickname:', err);
-      }
-    }
-    showToast('닉네임이 성공적으로 변경되었습니다.', 'success');
-  };
-
-  const updateUserPhoto = async (newPhotoURL: string) => {
-    setCurrentUser(prev => ({ ...prev, photoURL: newPhotoURL }));
-    try {
-      localStorage.setItem('sinsangpick_photo', newPhotoURL);
-      localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
-    } catch (e) {
-      console.warn('Failed to save photo to localStorage', e);
-    }
-
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase
-          .from('profiles')
-          .update({ avatar_url: newPhotoURL })
-          .eq('id', currentUser.uid);
-      } catch (err) {
-        console.warn('[Supabase] Failed to update user avatar:', err);
-      }
-    }
-    setAllProfiles(prev =>
-      prev.map(p => p.uid === currentUser.uid ? { ...p, photoURL: newPhotoURL } : p)
-    );
-    showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
-  };
-
   // 닉네임 중복 여부 확인
   const isNicknameTaken = (nickname: string, excludeUid?: string): boolean => {
     const trimmed = nickname.trim().toLowerCase();
@@ -3583,6 +3626,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           .from('profiles')
           .update(dbUpdates)
           .eq('id', currentUser.uid);
+
+        if (trimmed) {
+          await supabase
+            .from('reviews')
+            .update({ user_name: trimmed })
+            .eq('user_id', currentUser.uid);
+
+          await supabase
+            .from('community_posts')
+            .update({ author: trimmed })
+            .eq('author_id', currentUser.uid);
+        }
       } catch (err) {
         console.warn('[Supabase] Failed to update profile:', err);
       }
@@ -3600,7 +3655,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return p;
       })
     );
-    showToast('프로필이 성공적으로 변경되었습니다.', 'success');
+
+    if (trimmed && photo === undefined) {
+      showToast('닉네임이 성공적으로 변경되었습니다.', 'success');
+    } else if (photo !== undefined && !trimmed) {
+      showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
+    } else {
+      showToast('프로필이 성공적으로 변경되었습니다.', 'success');
+    }
+  };
+
+  const updateUserNickname = async (newName: string) => {
+    await updateUserProfile({ displayName: newName });
+  };
+
+  const updateUserPhoto = async (newPhotoURL: string) => {
+    await updateUserProfile({ photoURL: newPhotoURL });
   };
 
   const loginWithApple = async () => {
@@ -4063,28 +4133,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...(extra || {}),
     };
 
-    // Optimistic rating & count calculation
-    const newCount = (targetProduct.ratingCount || 0) + 1;
-    const currentTotal = (targetProduct.overallRating || 0) * (targetProduct.ratingCount || 0);
-    const newRating = Number(((currentTotal + rating) / newCount).toFixed(1));
-
     // Calculate dynamic points (Base 50P + Photo bonus 30P + Length bonus 20P)
     let earnedPoints = 50;
     if (images && images.length > 0) earnedPoints += 30;
     if (content && content.trim().length >= 30) earnedPoints += 20;
 
     // 1. Optimistic Updates
-    setReviews(prev => [newReview, ...prev]);
-    setProducts(prev => prev.map(p => {
-      if (p.id === targetProduct.id) {
-        return {
-          ...p,
-          ratingCount: newCount,
-          overallRating: newRating,
-        };
-      }
-      return p;
-    }));
+    const nextReviews = [newReview, ...reviews];
+    setReviews(nextReviews);
+    setProducts(prev => syncProductRatingsWithReviews(prev, nextReviews));
 
     const nextPoints = currentUser.points + earnedPoints;
     setCurrentUser(prev => ({
@@ -4384,10 +4441,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // ================= USER & ADMIN MODERATION FUNCTIONS =================
   // Update Review
   const updateReview = async (reviewId: string, updatedData: Partial<Review>) => {
-    const target = reviews.find(r => r.id === reviewId);
-
-    // 1. Local state update
-    setReviews(prev => prev.map(r => {
+    // 1. Local state update & product rating recalculation
+    const updatedReviews = reviews.map(r => {
       if (r.id === reviewId) {
         return {
           ...r,
@@ -4395,21 +4450,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         };
       }
       return r;
-    }));
-
-    // 2. Adjust overallRating if rating changed
-    if (target && updatedData.rating !== undefined && updatedData.rating !== target.rating) {
-      const diff = updatedData.rating - target.rating;
-      setProducts(prev => prev.map(p => {
-        if (p.id === target.productId) {
-          const count = p.ratingCount || 1;
-          const currentTotal = (p.overallRating || 0) * count;
-          const newRating = Number(((currentTotal + diff) / count).toFixed(1));
-          return { ...p, overallRating: newRating };
-        }
-        return p;
-      }));
-    }
+    });
+    setReviews(updatedReviews);
+    setProducts(prev => syncProductRatingsWithReviews(prev, updatedReviews));
 
     // 3. Supabase update
     if (supabase && isSupabaseConfigured) {
@@ -4436,34 +4479,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Delete Review
   const deleteReview = async (reviewId: string) => {
-    const target = reviews.find(r => r.id === reviewId);
-
     setDeletedReviewIds(prev => {
       const next = Array.from(new Set([...prev, reviewId]));
       safeSetItem('sinsangpick_deleted_reviews', JSON.stringify(next));
       return next;
     });
-    setReviews(prev => prev.filter(r => r.id !== reviewId));
-
-    // Recalculate product rating & count
-    if (target) {
-      setProducts(prev => prev.map(p => {
-        if (p.id === target.productId) {
-          const count = Math.max(0, (p.ratingCount || 1) - 1);
-          let newRating = 0;
-          if (count > 0) {
-            const currentTotal = (p.overallRating || 0) * (p.ratingCount || 1);
-            newRating = Number((Math.max(0, currentTotal - target.rating) / count).toFixed(1));
-          }
-          return {
-            ...p,
-            ratingCount: count,
-            overallRating: newRating,
-          };
-        }
-        return p;
-      }));
-    }
+    const filteredReviews = reviews.filter(r => r.id !== reviewId);
+    setReviews(filteredReviews);
+    setProducts(prev => syncProductRatingsWithReviews(prev, filteredReviews));
 
     deleteRemoteReview(reviewId).catch(() => {});
     showToast('리뷰가 정상적으로 삭제되었습니다.', 'info');

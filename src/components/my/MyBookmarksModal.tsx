@@ -68,10 +68,12 @@ export const MyBookmarksModal: React.FC<MyBookmarksModalProps> = ({ isOpen, onCl
                     <h3 className="text-xs font-bold text-gray-900 truncate mt-0.5">{p.name}</h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-xs font-black text-gray-900">{p.price.toLocaleString()}원</span>
-                      <div className="flex items-center gap-0.5 text-[11px] font-bold text-gray-700">
-                        <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                        <span>{p.overallRating.toFixed(1)}</span>
-                      </div>
+                      {p.ratingCount > 0 && p.overallRating > 0 ? (
+                        <div className="flex items-center gap-0.5 text-[11px] font-bold text-gray-700">
+                          <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                          <span>{p.overallRating.toFixed(1)}</span>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
