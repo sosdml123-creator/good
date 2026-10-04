@@ -4,200 +4,31 @@ import {
   Copy, 
   Check, 
   ChevronRight, 
-  ChevronLeft,
-  Info, 
-  CheckCircle2, 
-  AlertCircle, 
   Clock, 
-  Tag,
-  Zap,
-  ExternalLink,
-  Ticket,
-  Sparkles,
-  ShoppingBag,
-  ShieldCheck,
-  HelpCircle
+  Ticket, 
+  Sparkles, 
+  CheckCircle2,
+  Compass,
+  Home
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { ECouponItem, PurchasedECoupon } from '../../types';
-import { Browser } from '@capacitor/browser';
-import { Capacitor } from '@capacitor/core';
-
-interface PartnerShopInfo {
-  id: 'coupang' | 'toss';
-  name: string;
-  badge: string;
-  badgeBg: string;
-  badgeText: string;
-  accentColor: string;
-  logo: React.ReactNode;
-  summary: string;
-  benefitTag: string;
-  externalUrl: string;
-  modal: {
-    title: string;
-    subTitle: string;
-    description: string;
-    steps: { step: string; title: string; desc: string }[];
-    benefits: string[];
-    cautions: string[];
-    buttonText: string;
-    buttonBg: string;
-  };
-}
+import { PurchasedECoupon } from '../../types';
 
 export const CouponShopView: React.FC = () => {
   const { 
-    coupons, 
     purchasedCoupons, 
     useCoupon, 
     userPoints,
-    showToast
+    setActiveTab,
+    setSelectedCategory
   } = useApp();
 
-  const [activeSubTab, setActiveSubTab] = useState<'store' | 'recharge'>('store');
-  const [selectedCategory, setSelectedCouponCategory] = useState<string>('전체');
-  
   // 모달 상태
-  const [selectedProduct, setSelectedProduct] = useState<ECouponItem | null>(null);
   const [selectedUserCoupon, setSelectedUserCoupon] = useState<PurchasedECoupon | null>(null);
-  const [selectedPartner, setSelectedPartner] = useState<PartnerShopInfo | null>(null);
   const [isRecentCouponsOpen, setIsRecentCouponsOpen] = useState(false);
   const [copiedBarcode, setCopiedBarcode] = useState(false);
 
-  const categories = ['전체', '카페/음료', '편의점/마트', '베이커리/디저트', '패스트푸드'];
-
-  const filteredCoupons = coupons.filter(c => {
-    if (selectedCategory === '전체') return true;
-    return c.category === selectedCategory;
-  });
-
   const unusedCount = purchasedCoupons.filter(c => !c.isUsed).length;
-
-  // 제휴 쇼핑 파트너 데이터 (쿠팡 & 토스쇼핑)
-  const partnerShops: PartnerShopInfo[] = [
-    {
-      id: 'coupang',
-      name: '쿠팡 (Coupang)',
-      badge: '로켓배송 적립',
-      badgeBg: 'bg-red-50 border-red-200/60',
-      badgeText: 'text-red-700',
-      accentColor: '#E1251B',
-      benefitTag: '쇼핑 결제 리워드 적립',
-      summary: '필요한 생필품, 신상 간식, 먹거리를 로켓배송으로 쇼핑하고 신상픽 포인트를 적립받아보세요!',
-      externalUrl: 'https://www.coupang.com',
-      logo: (
-        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2.5 shrink-0 overflow-hidden">
-          <img
-            src="/brands/coupang_logo.svg"
-            alt="쿠팡 로고"
-            className="w-full h-auto object-contain max-h-7"
-          />
-        </div>
-      ),
-      modal: {
-        title: '쿠팡 로켓쇼핑 적립 안내',
-        subTitle: '쿠팡에서 쇼핑하고 신상픽 e쿠폰 교환 포인트 적립받기',
-        description: '쿠팡에서 평소처럼 필요한 물건을 쇼핑하시면, 구매 실적에 따라 신상픽 리워드 포인트가 적립되어 원하는 스타벅스, 편의점 e쿠폰으로 즉시 교환하실 수 있습니다.',
-        steps: [
-          {
-            step: '01',
-            title: '쿠팡으로 이동하기',
-            desc: '아래 [쿠팡 쇼핑하러 가기] 버튼을 눌러 공식 쿠팡 웹 또는 앱으로 접속합니다.'
-          },
-          {
-            step: '02',
-            title: '원하는 상품 쇼핑 & 결제',
-            desc: '생필품, 신상 먹거리, 가전 등 원하는 상품을 장바구니에 담고 결제합니다.'
-          },
-          {
-            step: '03',
-            title: '신상픽 포인트 적립 확인',
-            desc: '구매 확정 후 신상픽 포인트로 적립되어 다양한 e쿠폰을 교환할 수 있습니다.'
-          }
-        ],
-        benefits: [
-          '로켓배송 & 로켓프레시 등 쿠팡의 모든 상품 적립 대상',
-          '오늘 주문하면 내일 새벽 도착하는 빠른 배송 혜택 그대로',
-          '차곡차곡 모은 포인트로 e쿠폰 스토어에서 즉시 기프티콘 교환'
-        ],
-        cautions: [
-          '반드시 신상픽에서 제공하는 연결 링크를 통해 접속하셔야 적립 대상에 포함됩니다.',
-          '장바구니에 미리 담아둔 상품의 경우 연결 추적이 누락될 수 있으니, 링크 접속 후 상품을 담아 결제해 주세요.',
-          '주문 취소 또는 반품 시 적립 포인트는 지급되지 않거나 회수 처리됩니다.'
-        ],
-        buttonText: '쿠팡 쇼핑하러 이동하기',
-        buttonBg: 'bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500'
-      }
-    },
-    {
-      id: 'toss',
-      name: '토스쇼핑 (Toss)',
-      badge: '공동구매 특가 적립',
-      badgeBg: 'bg-blue-50 border-blue-200/60',
-      badgeText: 'text-blue-700',
-      accentColor: '#0064FF',
-      benefitTag: '최저가 쇼핑 + 포인트 적립',
-      summary: '1개만 사도 100% 무료배송! 파격적인 할인가의 공동구매 특가를 누리고 포인트도 충전하세요!',
-      externalUrl: 'https://toss.im',
-      logo: (
-        <div className="w-14 h-14 rounded-2xl bg-white shadow-xs border border-gray-100 flex items-center justify-center p-2 shrink-0 overflow-hidden">
-          <img
-            src="/brands/toss_symbol.png"
-            alt="토스 로고"
-            className="w-10 h-10 object-contain"
-          />
-        </div>
-      ),
-      modal: {
-        title: '토스쇼핑 공동구매 적립 안내',
-        subTitle: '1개만 사도 무료배송 & 공동구매 특가 쇼핑 혜택',
-        description: '토스쇼핑에서 인기 간식, 신선식품, 생활용품을 파격적인 할인가에 구매하고 신상픽 리워드 포인트도 함께 챙겨보세요.',
-        steps: [
-          {
-            step: '01',
-            title: '토스쇼핑으로 이동하기',
-            desc: '아래 [토스쇼핑으로 이동하기] 버튼을 눌러 토스쇼핑 페이지 또는 토스 앱으로 이동합니다.'
-          },
-          {
-            step: '02',
-            title: '공동구매 특가 상품 선택',
-            desc: '매일 업데이트되는 인기 식품 및 특가 상품을 고르고 결제를 완료합니다.'
-          },
-          {
-            step: '03',
-            title: '포인트 적립 & 무료배송',
-            desc: '1개만 구매해도 전 상품 무료배송 혜택과 함께 신상픽 포인트가 적립됩니다.'
-          }
-        ],
-        benefits: [
-          '단 1개만 사도 배송비 0원, 전 상품 무료배송 혜택',
-          '시중가 대비 최대 80% 할인되는 토스 인기 공동구매 특가',
-          '신상픽 포인트 추가 적립으로 맛있는 e쿠폰 교환 기회'
-        ],
-        cautions: [
-          '신상픽 앱 내 링크를 통해 이동 후 24시간 이내 구매 완료 건에 한해 인정됩니다.',
-          '스마트폰에 토스 앱이 설치되어 있는 경우 토스 앱으로 자동 연결될 수 있습니다.',
-          '구매 취소 및 환불 시 포인트 지급 대상에서 제외됩니다.'
-        ],
-        buttonText: '토스쇼핑으로 이동하기',
-        buttonBg: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500'
-      }
-    }
-  ];
-
-  // 외부 링크 열기
-  const openExternalLink = async (url: string) => {
-    if (Capacitor.isNativePlatform()) {
-      try {
-        await Browser.open({ url });
-        return;
-      } catch {}
-    }
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
-  
 
   const handleCopyBarcode = (barcode: string) => {
     navigator.clipboard.writeText(barcode.replace(/-/g, ''));
@@ -205,130 +36,20 @@ export const CouponShopView: React.FC = () => {
     setTimeout(() => setCopiedBarcode(false), 2000);
   };
 
-  // [⚡ 제휴 서비스 상세 안내 페이지 그 자체 (쿠팡 / 토스쇼핑 단독 페이지)]
-  if (selectedPartner) {
-    return (
-      <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-screen pb-28 select-none animate-in fade-in duration-200">
-        {/* 상단 네비게이션 헤더 */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 px-4 py-3.5 flex items-center justify-between">
-          <button
-            onClick={() => setSelectedPartner(null)}
-            className="flex items-center gap-1 text-gray-700 hover:text-gray-900 font-bold text-[14px] p-1 -ml-1 rounded-lg transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5 stroke-[2.3]" />
-            <span>충전소</span>
-          </button>
-          <h2 className="text-[16px] font-black text-gray-900">{selectedPartner.name}</h2>
-          <div className="w-12" />
-        </header>
-
-        {/* 본문 콘텐츠 */}
-        <div className="flex-1 px-4 py-4 space-y-4 max-w-lg mx-auto w-full">
-          {/* 브랜드 프로필 헤더 카드 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs flex items-center gap-4">
-            {selectedPartner.logo}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-[17px] font-black text-gray-900 truncate">
-                  {selectedPartner.name}
-                </h3>
-                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${selectedPartner.badgeBg} ${selectedPartner.badgeText}`}>
-                  {selectedPartner.badge}
-                </span>
-              </div>
-              <div className="mt-1 flex items-center gap-1 text-amber-600 font-bold text-[12px]">
-                <Zap className="w-3.5 h-3.5 fill-amber-500" />
-                <span>{selectedPartner.benefitTag}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* 적립 안내 소개 카드 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs space-y-3">
-            <div>
-              <h4 className="text-[18px] font-black text-gray-900 leading-snug">
-                {selectedPartner.modal.title}
-              </h4>
-              <p className="text-[13px] text-gray-500 mt-1">
-                {selectedPartner.modal.subTitle}
-              </p>
-            </div>
-
-            <div className="bg-amber-50/70 border border-amber-200/60 rounded-xl p-3.5 text-[13px] text-amber-900 leading-relaxed font-medium">
-              {selectedPartner.modal.description}
-            </div>
-          </div>
-
-          {/* 적립 진행 방법 가이드 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
-            <h4 className="text-[14px] font-extrabold text-gray-900 mb-3 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-amber-600" />
-              <span>적립 진행 순서</span>
-            </h4>
-            <div className="space-y-2.5">
-              {selectedPartner.modal.steps.map((st, idx) => (
-                <div key={idx} className="bg-gray-50 rounded-xl p-3.5 flex gap-3 items-start border border-gray-100">
-                  <span className="w-6 h-6 rounded-lg bg-gray-900 text-white text-[11px] font-black flex items-center justify-center shrink-0 mt-0.5">
-                    {st.step}
-                  </span>
-                  <div>
-                    <div className="text-[13px] font-bold text-gray-900">{st.title}</div>
-                    <div className="text-[12px] text-gray-500 mt-0.5 leading-relaxed">{st.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 주요 쇼핑 혜택 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
-            <h4 className="text-[14px] font-extrabold text-gray-900 mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>주요 쇼핑 혜택</span>
-            </h4>
-            <ul className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 space-y-2 text-[12px] text-slate-700">
-              {selectedPartner.modal.benefits.map((b, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 이용 시 유의사항 */}
-          <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-xs">
-            <h4 className="text-[13px] font-bold text-gray-700 mb-2 flex items-center gap-1.5">
-              <HelpCircle className="w-4 h-4 text-gray-400" />
-              <span>이용 시 꼭 확인해주세요</span>
-            </h4>
-            <ul className="space-y-1.5 text-[12px] text-gray-500 list-disc list-inside leading-relaxed">
-              {selectedPartner.modal.cautions.map((c, idx) => (
-                <li key={idx}>{c}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* 하단 고정 이동 버튼 바 */}
-        <div className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-3">
-          <div className="max-w-lg mx-auto w-full">
-            <button
-              onClick={() => openExternalLink(selectedPartner.externalUrl)}
-              className={`w-full py-4 text-white font-black text-[16px] rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-98 transition-all ${selectedPartner.modal.buttonBg}`}
-            >
-              <span>{selectedPartner.modal.buttonText}</span>
-              <ExternalLink className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const upcomingBrands = [
+    '스타벅스',
+    'CU 편의점',
+    'GS25 편의점',
+    '메가MGC커피',
+    '배스킨라빈스',
+    '파리바게뜨',
+    '맥도날드',
+    '맘스터치'
+  ];
 
   return (
     <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-screen pb-24 select-none">
-      {/* 1. Sticky Header */}
+      {/* 1. Header */}
       <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600 font-bold">
@@ -336,16 +57,16 @@ export const CouponShopView: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="text-[17px] font-black text-gray-900 tracking-tight">e쿠폰 스토어</h1>
+              <h1 className="text-[17px] font-black text-gray-900 tracking-tight">e쿠폰</h1>
               <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800">
                 준비중
               </span>
             </div>
-            <p className="text-[11px] text-gray-400 font-medium">포인트로 맛있는 e쿠폰 교환</p>
+            <p className="text-[11px] text-gray-400 font-medium">포인트 모바일 쿠폰 교환</p>
           </div>
         </div>
 
-        {/* 보유 쿠폰 빠른 보기 버튼 */}
+        {/* 기존에 교환했던 쿠폰이 있는 경우 확인 버튼 */}
         {purchasedCoupons.length > 0 && (
           <button
             onClick={() => setIsRecentCouponsOpen(true)}
@@ -363,383 +84,87 @@ export const CouponShopView: React.FC = () => {
         )}
       </header>
 
-      {/* 2. Main Switch Tabs (e쿠폰 교환 vs 포인트 충전함) */}
-      <div className="px-4 pt-3">
-        <div className="flex bg-gray-200/80 p-1 rounded-xl">
+      {/* 2. 전체 준비중 메인 화면 (Full Under Preparation View) */}
+      <div className="flex-1 flex flex-col items-center justify-center px-5 py-10 text-center">
+        {/* 아이콘 그래픽 */}
+        <div className="relative mb-5">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500 to-orange-400 text-white flex items-center justify-center shadow-lg shadow-amber-500/25">
+            <Gift className="w-10 h-10 stroke-[2]" />
+          </div>
+          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white shadow-md flex items-center justify-center">
+            <Clock className="w-4 h-4 text-amber-600" />
+          </div>
+        </div>
+
+        {/* 준비중 배지 */}
+        <span className="inline-flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200/80 mb-3">
+          <Sparkles className="w-3 h-3 text-amber-600" />
+          <span>서비스 오픈 준비 중</span>
+        </span>
+
+        {/* 타이틀 및 상세 설명 */}
+        <h2 className="text-[20px] font-black text-gray-900 leading-snug tracking-tight">
+          e쿠폰 상점을<br />정성껏 준비하고 있습니다
+        </h2>
+
+        <p className="text-[13px] text-gray-500 mt-2.5 leading-relaxed max-w-xs">
+          회원님들께 더 다양하고 풍성한 모바일 쿠폰 혜택을 제공해드리기 위해 제휴사 시스템 연동을 준비 중입니다. 조금만 기다려 주세요!
+        </p>
+
+        {/* 내 포인트 안전 보관 카드 */}
+        <div className="w-full max-w-sm bg-white rounded-2xl p-4 border border-gray-100 shadow-xs mt-6 text-left">
+          <div className="flex items-center justify-between pb-2.5 border-b border-gray-100">
+            <span className="text-[11px] font-bold text-gray-500">내 보유 포인트</span>
+            <div className="text-[16px] font-black text-amber-600 flex items-baseline gap-0.5">
+              <span>{userPoints.toLocaleString()}</span>
+              <span className="text-[12px] font-bold">P</span>
+            </div>
+          </div>
+          <p className="text-[11px] text-gray-400 mt-2 leading-relaxed">
+            🌟 신상픽 리뷰 및 이벤트로 모으신 포인트는 안전하게 보관되며, e쿠폰 상점 오픈 시 기프티콘으로 즉시 교환하실 수 있습니다.
+          </p>
+        </div>
+
+        {/* 오픈 예정 브랜드 칩 */}
+        <div className="w-full max-w-sm mt-5 text-left">
+          <span className="text-[11px] font-extrabold text-gray-400 block mb-2 px-1">
+            입점 예정 브랜드
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {upcomingBrands.map((b) => (
+              <span
+                key={b}
+                className="text-[11px] font-bold bg-white text-gray-600 px-2.5 py-1 rounded-lg border border-gray-200/80 shadow-2xs"
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* 둘러보기 버튼 액션 */}
+        <div className="w-full max-w-sm grid grid-cols-2 gap-2.5 mt-6">
           <button
-            onClick={() => setActiveSubTab('store')}
-            className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-              activeSubTab === 'store'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
+            onClick={() => {
+              setSelectedCategory('신제품');
+              setActiveTab('category');
+            }}
+            className="py-3 px-3 bg-gray-900 hover:bg-black text-white font-black text-[13px] rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-colors active:scale-98"
           >
-            <Gift className="w-4 h-4 stroke-[2]" />
-            <span>e쿠폰 교환</span>
-            <span className="text-[9px] bg-amber-100 text-amber-700 font-black px-1.5 py-0.2 rounded-full">준비중</span>
+            <Compass className="w-4 h-4" />
+            <span>신제품 둘러보기</span>
           </button>
           <button
-            onClick={() => setActiveSubTab('recharge')}
-            className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-              activeSubTab === 'recharge'
-                ? 'bg-white text-amber-700 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
+            onClick={() => setActiveTab('home')}
+            className="py-3 px-3 bg-white hover:bg-gray-50 text-gray-700 font-bold text-[13px] rounded-xl border border-gray-200 flex items-center justify-center gap-1.5 shadow-2xs transition-colors active:scale-98"
           >
-            <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-            <span>포인트 충전함</span>
+            <Home className="w-4 h-4 text-gray-500" />
+            <span>홈으로 가기</span>
           </button>
         </div>
       </div>
 
-      {/* 3. Sub Content Area */}
-      {activeSubTab === 'store' ? (
-        /* [e쿠폰 교환 탭 - 준비중] */
-        <div className="px-4 pt-3 space-y-3.5">
-          {/* 서비스 준비 중 안내 카드 (Coming Soon Hero Card) */}
-          <div className="bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-white border border-amber-200/80 rounded-3xl p-5 text-center shadow-xs">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-400 text-white flex items-center justify-center shadow-md mb-3 relative">
-              <Gift className="w-7 h-7" />
-              <span className="absolute -top-1.5 -right-2 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-2xs">
-                준비중
-              </span>
-            </div>
-
-            <div className="inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200/70 mb-2">
-              <Clock className="w-3 h-3" />
-              <span>e쿠폰 교환 서비스 오픈 준비 중</span>
-            </div>
-
-            <h2 className="text-[17px] font-black text-gray-900 leading-snug">
-              더 풍성하고 맛있는 모바일 쿠폰 혜택을<br />정성껏 준비하고 있습니다!
-            </h2>
-
-            <p className="text-[12px] text-gray-600 mt-2 leading-relaxed">
-              스타벅스, CU, GS25, 베이커리 등 인기 브랜드 모바일 상품권을 신상픽 포인트로 실시간 교환하실 수 있는 정식 상점을 준비 중입니다.
-            </p>
-
-            {/* 내 보유 포인트 확인 & 충전함 연결 */}
-            <div className="mt-4 bg-white rounded-2xl p-3.5 border border-amber-200/60 flex items-center justify-between text-left shadow-2xs">
-              <div>
-                <span className="text-[10px] text-gray-500 font-bold block">내 보유 포인트 (오픈 시 전액 교환 가능)</span>
-                <div className="text-[16px] font-black text-amber-600 flex items-baseline gap-0.5 mt-0.5">
-                  <span>{userPoints.toLocaleString()}</span>
-                  <span className="text-[12px] font-bold">P</span>
-                </div>
-              </div>
-              <button
-                onClick={() => setActiveSubTab('recharge')}
-                className="text-[11px] font-black px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl shadow-xs transition-colors active:scale-95 flex items-center gap-1"
-              >
-                <Zap className="w-3.5 h-3.5 fill-white" />
-                <span>포인트 채워두기</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 오픈 예정 라인업 타이틀 */}
-          <div className="flex items-center justify-between pt-1">
-            <div className="flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <h3 className="text-[14px] font-extrabold text-gray-900">오픈 예정 상품 라인업</h3>
-            </div>
-            <span className="text-[11px] text-gray-400 font-medium">정식 오픈 시 교환 개시</span>
-          </div>
-
-          {/* Category Pill Filters */}
-          <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCouponCategory(cat)}
-                className={`px-3 py-1.5 rounded-full text-[12px] font-bold whitespace-nowrap transition-colors ${
-                  selectedCategory === cat
-                    ? 'bg-gray-900 text-white shadow-xs'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* eCoupon Items Grid (1줄에 2개씩 - 오픈 예정 안내) */}
-          <div className="grid grid-cols-2 gap-3 pt-1">
-            {filteredCoupons.map((coupon) => (
-              <div
-                key={coupon.id}
-                onClick={() => {
-                  setSelectedProduct(coupon);
-                }}
-                className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-xs hover:border-amber-200 transition-all cursor-pointer flex flex-col group relative"
-              >
-                {/* Thumbnail Image (정방형 1:1) */}
-                <div className="relative aspect-square w-full bg-gray-50 overflow-hidden">
-                  <img
-                    src={coupon.imageUrl}
-                    alt={coupon.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 filter grayscale-[10%]"
-                  />
-                  <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
-                    {coupon.brand}
-                  </div>
-                  <div className="absolute top-2 right-2 bg-slate-900/80 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
-                    <Clock className="w-2.5 h-2.5" />
-                    <span>오픈 예정</span>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-3 flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold text-gray-400">{coupon.category}</span>
-                    <h3 className="text-[13px] font-bold text-gray-900 line-clamp-2 mt-0.5 leading-tight min-h-[34px]">
-                      {coupon.name}
-                    </h3>
-                  </div>
-
-                  <div className="mt-3 pt-2 border-t border-gray-50 flex items-center justify-between">
-                    <div>
-                      <span className="text-[9px] text-gray-400 block leading-none">필요 포인트</span>
-                      <div className="text-[14px] font-black text-amber-600/80 flex items-baseline gap-0.5 mt-0.5">
-                        <span>{coupon.price.toLocaleString()}</span>
-                        <span className="text-[11px] font-bold">P</span>
-                      </div>
-                    </div>
-
-                    <span className="text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl bg-gray-100 text-gray-400 select-none">
-                      준비중
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* 포인트 충전 안내 배너 */}
-          <div 
-            onClick={() => setActiveSubTab('recharge')}
-            className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/70 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer hover:bg-amber-100/60 transition-colors shadow-xs"
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold shrink-0">
-                <Zap className="w-4 h-4 fill-white" />
-              </div>
-              <div>
-                <div className="text-[12px] font-extrabold text-amber-900">포인트를 미리 모아두세요!</div>
-                <div className="text-[11px] text-amber-700">쿠팡 & 토스쇼핑에서 쇼핑하고 오픈 전 포인트 채우기</div>
-              </div>
-            </div>
-            <ChevronRight className="w-4 h-4 text-amber-600" />
-          </div>
-
-          {/* 이용 안내 카드 */}
-          <div className="bg-white border border-gray-100 rounded-2xl p-4 text-[11px] text-gray-500 space-y-1.5 shadow-2xs">
-            <div className="font-bold flex items-center gap-1.5 text-gray-800">
-              <Info className="w-3.5 h-3.5 text-amber-600" />
-              <span>e쿠폰 서비스 안내</span>
-            </div>
-            <p>• e쿠폰 실시간 모바일 상품권 발급 제휴사 연동 작업이 진행 중입니다.</p>
-            <p>• 신상픽에서 리뷰 작성 및 이벤트로 적립하신 모든 포인트는 안전하게 보관되며, 정식 오픈 즉시 교환하실 수 있습니다.</p>
-            <p>• 정식 상점 오픈 시 앱 푸시 알림 및 공지사항을 통해 가장 먼저 안내해 드립니다.</p>
-          </div>
-        </div>
-      ) : (
-        /* [⚡ 포인트 충전함 탭] - 쿠팡 & 토스쇼핑 2개 구좌 */
-        <div className="px-4 pt-3 space-y-3.5">
-          {/* 상단 안내 메시지 */}
-          <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-xs">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                <Sparkles className="w-3.5 h-3.5" />
-              </div>
-              <h3 className="text-[14px] font-extrabold text-gray-900">쇼핑하고 포인트 충전하기</h3>
-            </div>
-            <p className="text-[12px] text-gray-500 mt-1 leading-relaxed">
-              제휴 쇼핑몰을 통해 원하는 상품을 쇼핑하시면 신상픽 리워드 포인트가 적립됩니다.
-            </p>
-          </div>
-
-          {/* 파트너 카드 목록 (쿠팡, 토스쇼핑) */}
-          <div className="space-y-3">
-            {partnerShops.map((partner) => (
-              <div
-                key={partner.id}
-                onClick={() => setSelectedPartner(partner)}
-                className="bg-white rounded-2xl border border-gray-100 p-4 shadow-xs hover:border-amber-200 hover:shadow-md transition-all cursor-pointer flex flex-col gap-3 group active:scale-99"
-              >
-                {/* 상단 헤더: 로고 + 타이틀 + 배지 */}
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    {partner.logo}
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="text-[15px] font-black text-gray-900 group-hover:text-amber-600 transition-colors">
-                          {partner.name}
-                        </h4>
-                      </div>
-                      <span className={`inline-block mt-0.5 text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${partner.badgeBg} ${partner.badgeText}`}>
-                        {partner.badge}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="w-8 h-8 rounded-full bg-gray-50 group-hover:bg-amber-50 group-hover:text-amber-600 flex items-center justify-center text-gray-400 transition-colors shrink-0">
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
-                </div>
-
-                {/* 설명 및 혜택 요약 */}
-                <p className="text-[12px] text-gray-600 leading-relaxed">
-                  {partner.summary}
-                </p>
-
-                {/* 하단 적립 태그 바 */}
-                <div className="pt-2.5 border-t border-gray-50 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-amber-600 flex items-center gap-1">
-                    <Zap className="w-3.5 h-3.5 fill-amber-500" />
-                    <span>{partner.benefitTag}</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-gray-500 group-hover:text-gray-900 flex items-center gap-0.5">
-                    안내 및 바로가기 <ChevronRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* 안전 적립 안내 */}
-          <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-3.5 text-[11px] text-slate-600 space-y-1 mt-2">
-            <div className="font-bold flex items-center gap-1 text-slate-800">
-              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-              <span>포인트 적립 유의사항</span>
-            </div>
-            <p>• 각 제휴 쇼핑 카드를 터치하여 상세 이용 가이드를 확인하신 후 쇼핑을 진행해 주세요.</p>
-            <p>• 신상픽 연결 링크를 통해 접속하셔야 구매 실적이 정상 집계됩니다.</p>
-          </div>
-        </div>
-      )}
-
-      {/* 4. e쿠폰 구매(교환) 확인 모달 */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 animate-in fade-in duration-200">
-          <div 
-            className="w-full max-w-[430px] bg-white rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header Image */}
-            <div className="relative h-56 bg-gray-100 shrink-0">
-              <img
-                src={selectedProduct.imageUrl}
-                alt={selectedProduct.name}
-                className="w-full h-full object-cover"
-              />
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center font-bold text-sm hover:bg-black/70 transition-colors"
-              >
-                ✕
-              </button>
-              <div className="absolute bottom-3 left-4 bg-black/75 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
-                {selectedProduct.brand}
-              </div>
-            </div>
-
-            {/* Modal Body */}
-            <div className="p-5 space-y-4 flex-1">
-              <div>
-                <span className="text-[11px] font-bold text-amber-600">{selectedProduct.category}</span>
-                <h3 className="text-[18px] font-black text-gray-900 mt-0.5">
-                  {selectedProduct.name}
-                </h3>
-                <p className="text-[13px] text-gray-600 mt-1 leading-relaxed">
-                  {selectedProduct.description}
-                </p>
-              </div>
-
-              {/* 교환 조건 카드 */}
-              <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 space-y-2.5">
-                <div className="flex items-center justify-between text-[13px]">
-                  <span className="text-gray-500 font-medium">내 보유 포인트</span>
-                  <span className="font-extrabold text-gray-900">{userPoints.toLocaleString()} P</span>
-                </div>
-                <div className="flex items-center justify-between text-[13px]">
-                  <span className="text-gray-500 font-medium">필요 포인트</span>
-                  <span className="font-extrabold text-amber-600">-{selectedProduct.price.toLocaleString()} P</span>
-                </div>
-                <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[14px]">
-                  <span className="text-gray-700 font-bold">교환 후 잔여 포인트</span>
-                  <span className={`font-black ${userPoints >= selectedProduct.price ? 'text-gray-900' : 'text-rose-500'}`}>
-                    {(userPoints - selectedProduct.price).toLocaleString()} P
-                  </span>
-                </div>
-              </div>
-
-              {/* 상세 정보 */}
-              <div className="space-y-2 text-[12px] text-gray-600 bg-amber-50/50 p-3.5 rounded-xl border border-amber-100">
-                <div className="flex items-start gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-gray-900 font-bold">교환처:</strong> {selectedProduct.exchangeGuide}
-                  </div>
-                </div>
-                <div className="flex items-start gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-gray-900 font-bold">유효기간:</strong> 교환일로부터 {selectedProduct.expiryDays}일
-                  </div>
-                </div>
-              </div>
-
-              {/* 유의사항 */}
-              <div>
-                <h4 className="text-[12px] font-bold text-gray-700 mb-1.5">이용 유의사항</h4>
-                <ul className="text-[11px] text-gray-500 space-y-1 list-disc list-inside">
-                  {selectedProduct.notices.map((n, idx) => (
-                    <li key={idx}>{n}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* 포인트 부족 시 충전함 유도 */}
-              {userPoints < selectedProduct.price && (
-                <div className="bg-rose-50 border border-rose-200/60 rounded-xl p-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
-                    <span className="text-[11px] font-bold text-rose-700">
-                      {(selectedProduct.price - userPoints).toLocaleString()}P가 부족합니다.
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setSelectedProduct(null);
-                      setActiveSubTab('recharge');
-                    }}
-                    className="text-[11px] font-bold bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-lg shrink-0 shadow-xs active:scale-95 transition-all"
-                  >
-                    포인트 충전하러 가기
-                  </button>
-                </div>
-              )}
-
-              {/* Action Button (오픈 준비 중 안내) */}
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => showToast('🎁 e쿠폰 교환 서비스는 현재 정식 오픈 준비 중입니다. 조금만 기다려 주세요!', 'info')}
-                  className="w-full py-3.5 rounded-xl font-extrabold text-[15px] bg-amber-50 hover:bg-amber-100 text-amber-800 flex items-center justify-center gap-2 border border-amber-200 transition-colors active:scale-98 shadow-xs"
-                >
-                  <Clock className="w-4 h-4 text-amber-600" />
-                  <span>e쿠폰 서비스 정식 오픈 준비 중</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-
-      {/* 6. 바코드 상세 모달 (구매 완료 즉시 또는 내 쿠폰 터치 시 오픈) */}
+      {/* 3. 바코드 상세 모달 (보유한 쿠폰이 있을 때 터치 시 오픈) */}
       {selectedUserCoupon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-xs p-4 animate-in fade-in duration-200">
           <div 
@@ -852,7 +277,7 @@ export const CouponShopView: React.FC = () => {
         </div>
       )}
 
-      {/* 7. 최근 구매한 e쿠폰 목록 팝업 */}
+      {/* 4. 최근 구매한 e쿠폰 목록 팝업 */}
       {isRecentCouponsOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 animate-in fade-in duration-200">
           <div 

@@ -1,10 +1,10 @@
 # Agent Guidelines - 신상픽 (Sinsangpick)
 
-## ⚡ 작업 원칙: 신속한 반복 개발 및 요청 시 배포 (Fast Iteration & On-Demand Deploy)
-- **일반 개발 작업 시**: 코드 구현 및 수정 작업을 빠르고 정확하게 수행하며, 불필요한 전체 빌드/푸시 단계를 거치지 않고 신속하게 결과를 보고합니다.
-- **배포 요청 시 ("배포해줘", "푸시해줘" 등)**: 아래의 배포 체크리스트를 순차적으로 완수합니다.
+## 🚀 기본 원칙: 모든 명령 및 작업 시 항상 배포까지 완수 (Every Task Auto-Deploy)
+- 사용자의 모든 명령 및 코드 수정/작업 완료 시, 매번 예외 없이 아래의 **배포 체크리스트**를 순차적으로 완수하여 원격 배포까지 자동 진행합니다.
+- 별도로 "배포해줘"라는 요청이 없더라도 모든 작업의 마무리 단계로 빌드, 동기화, 커밋, 푸시를 반드시 실행합니다.
 
-### 🚀 배포 체크리스트 (배포 요청 시 실행)
+### 🚀 배포 체크리스트 (모든 작업 완료 시 필수 실행)
 1. **빌드 & 타입 체크 검증**
    - `npm run build` (`tsc && vite build`) 통과 필수 (에러 0건)
    - Capacitor iOS 동기화: `npx cap sync ios`
@@ -14,7 +14,7 @@
    - `git push origin main` 실행
    - GitHub Actions (`ios-deploy.yml` App Store Connect 업로드) 및 Vercel Production 자동 배포 트리거
 3. **결과 보고**
-   - 배포 커밋 및 배포 파이프라인 트리거 완료 상황을 사용자에게 명확히 전달
+   - 작업 내용 및 배포 커밋, 배포 파이프라인 트리거 완료 상황을 사용자에게 명확히 전달
 
 ## 🚫 절대 금지 규칙: Capacitor `server.url` 외부 원격 웹뷰 URL 설정 금지 (앱 먹통 방지)
 - **발생 배경 및 원인**:
@@ -25,4 +25,3 @@
   - `capacitor.config.ts`의 `server` 객체에는 `server.url`을 **절대로** 추가하지 않습니다 (`androidScheme: 'https'`만 유지).
   - 모바일 앱은 반드시 빌드된 로컬 번들(`webDir: 'dist'`)을 자체 로컬 서빙(`capacitor://localhost` / `https://localhost`)해야 합니다.
   - 실시간 데이터(배너, 신제품, 랭킹 등)는 웹뷰 URL 변경이 아니라 Supabase REST / Realtime API를 통해 클라이언트 내부에서 동적으로 페치합니다.
-
