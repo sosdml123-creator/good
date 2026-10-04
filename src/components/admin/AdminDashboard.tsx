@@ -64,9 +64,14 @@ import {
   getShoppingInsightTrendingKeywords, 
   fetchFoodCategoryShoppingTrends, 
   fetchNaverRealtimeTrendingProducts,
+  fetchSearchTrend,
+  fetchKeywordDemographics,
+  fetchNaverProductAutoFillInfo,
   NaverRealtimeProduct,
   TrendingKeywordInsight, 
-  ShoppingInsightResponse 
+  ShoppingInsightResponse,
+  SearchTrendResponse,
+  KeywordDemographics
 } from '../../services/naverApi';
 import { BrandProductAutoCollector } from './BrandProductAutoCollector';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
@@ -202,6 +207,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [shoppingCategoryTrends, setShoppingCategoryTrends] = useState<ShoppingInsightResponse | null>(null);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
 
+  // NAVER Search Trend & Demographics states
+  const [searchTrendKeywordInput, setSearchTrendKeywordInput] = useState('신라면');
+  const [searchTrendData, setSearchTrendData] = useState<SearchTrendResponse | null>(null);
+  const [isLoadingSearchTrend, setIsLoadingSearchTrend] = useState(false);
+  const [activeDemographicKeyword, setActiveDemographicKeyword] = useState<string>('신라면');
+  const [demographicsData, setDemographicsData] = useState<KeywordDemographics | null>(null);
+  const [isLoadingDemographics, setIsLoadingDemographics] = useState(false);
+
+  // NAVER Auto-Fill for Product Create/Edit
+  const [isAutoFillingFromNaver, setIsAutoFillingFromNaver] = useState(false);
+
   // NAVER Realtime Live Shopping Products states
   const [realtimeShoppingProducts, setRealtimeShoppingProducts] = useState<NaverRealtimeProduct[]>([]);
   const [trendSearchInput, setTrendSearchInput] = useState('');
@@ -230,8 +246,77 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     }
   };
 
+  // Fetch NAVER Search Trend
+  const handleFetchSearchTrend = async (kw?: string) => {
+    const target = (kw !== undefined ? kw : searchTrendKeywordInput).trim();
+    if (!target) return;
+    setIsLoadingSearchTrend(true);
+    try {
+      const res = await fetchSearchTrend([{ groupName: target, keywords: [target] }]);
+      setSearchTrendData(res);
+      showToast(`📈 '${target}' 네이버 검색어 트렌드를 성공적으로 조회했습니다.`, 'success');
+    } catch (e) {
+      console.warn('[handleFetchSearchTrend error]', e);
+    } finally {
+      setIsLoadingSearchTrend(false);
+    }
+  };
+
+  // Fetch NAVER Demographics (Gender & Age)
+  const handleFetchDemographics = async (kw?: string) => {
+    const target = (kw !== undefined ? kw : activeDemographicKeyword).trim();
+    if (!target) return;
+    setIsLoadingDemographics(true);
+    try {
+      const res = await fetchKeywordDemographics(target);
+      setDemographicsData(res);
+      setActiveDemographicKeyword(target);
+    } catch (e) {
+      console.warn('[handleFetchDemographics error]', e);
+    } finally {
+      setIsLoadingDemographics(false);
+    }
+  };
+
+  // One-click Auto Fill Product Info from NAVER APIs
+  const handleAutoFillFromNaver = async () => {
+    const targetName = productForm.name?.trim();
+    if (!targetName) {
+      showToast('상품명을 먼저 입력해주세요.', 'info');
+      return;
+    }
+
+    setIsAutoFillingFromNaver(true);
+    showToast(`⚡ '${targetName}' 네이버 공식 쇼핑·트렌드·이미지 정보를 가져오는 중...`, 'info');
+    try {
+      const result = await fetchNaverProductAutoFillInfo(targetName, productForm.brand);
+      if (result) {
+        setProductForm(prev => ({
+          ...prev,
+          name: result.name || prev.name,
+          brand: result.brand !== '신제품' ? result.brand : prev.brand,
+          category: result.category || prev.category,
+          price: result.price > 0 ? result.price : prev.price,
+          image: result.image || prev.image,
+          description: result.description || prev.description,
+          stores: result.stores && result.stores.length > 0 ? result.stores : prev.stores
+        }));
+        showToast(`✨ '${targetName}' 네이버 공식 데이터(패키지컷, 정가, 브랜드)가 자동 완성되었습니다!`, 'success');
+      } else {
+        showToast('네이버에서 일치하는 상품 정보를 찾지 못했습니다.', 'info');
+      }
+    } catch (err) {
+      console.error('[handleAutoFillFromNaver Error]', err);
+      showToast('네이버 정보 가져오기 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsAutoFillingFromNaver(false);
+    }
+  };
+
   useEffect(() => {
     loadShoppingInsights();
+    handleFetchSearchTrend('신라면');
+    handleFetchDemographics('신라면');
   }, []);
 
   // Search Realtime Products by keyword
@@ -3593,16 +3678,36 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => loadShoppingInsights()}
-                  disabled={isLoadingInsights}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 ${
-                    isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                  }`}
-                >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isLoadingInsights ? 'animate-spin text-indigo-500' : 'text-slate-500'}`} />
-                  <span>쇼핑인사이트 데이터 새로고침</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={async () => {
+                      showToast('⚡ 네이버 API 실시간 신제품 수집을 시작합니다...', 'info');
+                      const res = await runDailyCrawler(true);
+                      setActiveAdminTab('approval');
+                      showToast(`✨ 네이버 API로 ${res.count}개 신제품을 수집했습니다!`, 'success');
+                    }}
+                    disabled={isCrawling}
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
+                  >
+                    {isCrawling ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                    )}
+                    <span>네이버 API 신제품 즉시 수집</span>
+                  </button>
+
+                  <button
+                    onClick={() => loadShoppingInsights()}
+                    disabled={isLoadingInsights}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer ${
+                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                    }`}
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${isLoadingInsights ? 'animate-spin text-indigo-500' : 'text-slate-500'}`} />
+                    <span>쇼핑인사이트 새로고침</span>
+                  </button>
+                </div>
               </div>
 
               {/* 2. NAVER DataLab Shopping Category Click Share Cards */}
@@ -3643,6 +3748,191 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     </div>
                   );
                 })}
+              </div>
+
+              {/* [NEW] NAVER Search Trend & Demographics Deep Dive Card */}
+              <div className={`p-6 rounded-2xl border shadow-sm space-y-6 ${cardBg}`}>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center gap-1">
+                        <TrendingUp className="w-3.5 h-3.5" />
+                        <span>NAVER 검색어 트렌드 & 쇼핑 인구통계 API</span>
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        openapi / search-trend / shopping demographics
+                      </span>
+                    </div>
+                    <h3 className={`text-base font-black flex items-center gap-2 mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      실시간 네이버 검색어 트렌드 & 연령·성별 클릭 빅데이터 분석
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      궁금한 신제품명 또는 식품 키워드를 직접 입력하여 네이버 통합 검색량 추이와 남녀/연령별 쇼핑 반응을 실시간 조회합니다.
+                    </p>
+                  </div>
+
+                  {/* Search Input & Action */}
+                  <div className="flex items-center gap-2">
+                    <div className="relative w-48 sm:w-60">
+                      <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        value={searchTrendKeywordInput}
+                        onChange={(e) => setSearchTrendKeywordInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleFetchSearchTrend(searchTrendKeywordInput);
+                            handleFetchDemographics(searchTrendKeywordInput);
+                          }
+                        }}
+                        placeholder="키워드 입력 (예: 신라면, 먹태깡)"
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 ${inputBg}`}
+                      />
+                    </div>
+                    <button
+                      onClick={() => {
+                        handleFetchSearchTrend(searchTrendKeywordInput);
+                        handleFetchDemographics(searchTrendKeywordInput);
+                      }}
+                      disabled={isLoadingSearchTrend || isLoadingDemographics}
+                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer"
+                    >
+                      {isLoadingSearchTrend || isLoadingDemographics ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <TrendingUp className="w-3.5 h-3.5" />
+                      )}
+                      <span>트렌드 분석</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preset Fast Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+                  <span className="text-[11px] font-bold text-slate-400 shrink-0">추천 분석 키워드:</span>
+                  {['신라면', '신라면 툼바', '먹태깡', '두바이 초콜릿', '요아정', '밤티라미수', '피자떡', '마열라면'].map((kw) => (
+                    <button
+                      key={kw}
+                      onClick={() => {
+                        setSearchTrendKeywordInput(kw);
+                        handleFetchSearchTrend(kw);
+                        handleFetchDemographics(kw);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all shrink-0 cursor-pointer ${
+                        searchTrendKeywordInput === kw
+                          ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                          : isDark
+                          ? 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-600'
+                          : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+                      }`}
+                    >
+                      {kw}
+                    </button>
+                  ))}
+                </div>
+
+                {/* 2-Column Trend & Demographics Data View */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Left: Search Trend Time-Series Graph */}
+                  <div className={`p-4 rounded-xl border ${isDark ? 'bg-slate-950/40 border-slate-800' : 'bg-slate-50/70 border-slate-200'}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <Activity className="w-4 h-4 text-indigo-500" />
+                        <span className="text-xs font-bold">최근 30일 네이버 검색량 추이</span>
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono">
+                          {searchTrendData?.results?.[0]?.title || searchTrendKeywordInput}
+                        </span>
+                      </div>
+                      {searchTrendData?.results?.[0]?.data?.length ? (
+                        <span className="text-[10px] font-mono text-slate-400">
+                          최고치 {Math.round(Math.max(...searchTrendData.results[0].data.map((d: any) => d.ratio)))} pt
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {searchTrendData?.results?.[0]?.data && searchTrendData.results[0].data.length > 0 ? (
+                      <div className="space-y-3">
+                        {/* Mini SVG Trend Line Chart */}
+                        <div className="h-32 w-full flex items-end gap-1 pt-4 pb-2 px-1">
+                          {searchTrendData.results[0].data.slice(-20).map((pt: any, idx: number) => (
+                            <div key={idx} className="flex-1 flex flex-col items-center gap-1 group relative">
+                              <div
+                                className="w-full rounded-t-sm bg-gradient-to-t from-indigo-600 to-indigo-400 hover:from-indigo-500 hover:to-indigo-300 transition-all cursor-pointer"
+                                style={{ height: `${Math.max(6, Math.min(100, Math.round(pt.ratio)))}%` }}
+                              />
+                              <div className="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-[9px] px-1.5 py-0.5 rounded pointer-events-none whitespace-nowrap z-10 shadow-xs">
+                                {pt.period.slice(5)}: {Math.round(pt.ratio)}pt
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex justify-between text-[10px] text-slate-400 font-mono px-1">
+                          <span>{searchTrendData.results[0].data[0]?.period || ''}</span>
+                          <span className="text-indigo-500 font-bold">검색량 지수 (최대 100 기준 상대비)</span>
+                          <span>{searchTrendData.results[0].data[searchTrendData.results[0].data.length - 1]?.period || ''}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-32 flex flex-col items-center justify-center text-slate-400 text-xs">
+                        <TrendingUp className="w-6 h-6 mb-1 text-slate-300 dark:text-slate-600" />
+                        <span>트렌드 데이터 조회 버튼을 눌러 확인하세요.</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right: Demographics (Gender & Age) */}
+                  <div className={`p-4 rounded-xl border ${isDark ? 'bg-slate-950/40 border-slate-800' : 'bg-slate-50/70 border-slate-200'}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-emerald-500" />
+                        <span className="text-xs font-bold">쇼핑 클릭 성별·연령 분포</span>
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono">
+                          {demographicsData?.keyword || searchTrendKeywordInput}
+                        </span>
+                      </div>
+                    </div>
+
+                    {demographicsData ? (
+                      <div className="space-y-4">
+                        {/* Gender Split Bar */}
+                        <div>
+                          <div className="flex justify-between text-[11px] font-bold mb-1">
+                            <span className="text-blue-500">남성 {demographicsData.genderRatio.male}%</span>
+                            <span className="text-rose-500">여성 {demographicsData.genderRatio.female}%</span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full overflow-hidden flex bg-slate-200 dark:bg-slate-700">
+                            <div className="bg-blue-500 h-full transition-all" style={{ width: `${demographicsData.genderRatio.male}%` }} />
+                            <div className="bg-rose-500 h-full transition-all" style={{ width: `${demographicsData.genderRatio.female}%` }} />
+                          </div>
+                        </div>
+
+                        {/* Age Groups Distribution */}
+                        <div>
+                          <span className="text-[10px] text-slate-400 font-bold block mb-1.5">연령대별 클릭 점유율</span>
+                          <div className="grid grid-cols-5 gap-2">
+                            {demographicsData.ageRatios.map((age: any) => (
+                              <div key={age.ageGroup} className="flex flex-col items-center">
+                                <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">{age.ratio}%</div>
+                                <div className="w-full h-12 flex items-end my-1 bg-slate-200/50 dark:bg-slate-800 rounded">
+                                  <div
+                                    className="w-full rounded bg-emerald-500 transition-all"
+                                    style={{ height: `${Math.max(8, Math.min(100, age.ratio * 2.2))}%` }}
+                                  />
+                                </div>
+                                <div className="text-[10px] text-slate-400 font-mono">{age.ageGroup}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-32 flex flex-col items-center justify-center text-slate-400 text-xs">
+                        <Users className="w-6 h-6 mb-1 text-slate-300 dark:text-slate-600" />
+                        <span>인구통계 데이터를 로딩 중이거나 조회 대기 중입니다.</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* 3. NAVER DataLab Realtime Shopping Trending Keywords Board */}
@@ -4758,12 +5048,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </div>
 
                   <div className="col-span-2">
-                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">상품명 *</label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs font-bold text-slate-600 dark:text-slate-300">상품명 *</label>
+                      <button
+                        type="button"
+                        onClick={handleAutoFillFromNaver}
+                        disabled={isAutoFillingFromNaver || !productForm.name?.trim()}
+                        className="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 flex items-center gap-1 transition-all disabled:opacity-40 active:scale-95 cursor-pointer"
+                        title="입력한 상품명을 바탕으로 네이버 쇼핑·이미지·블로그·트렌드 데이터를 실시간으로 가져옵니다"
+                      >
+                        {isAutoFillingFromNaver ? (
+                          <RefreshCw className="w-3 h-3 animate-spin text-indigo-600 dark:text-indigo-400" />
+                        ) : (
+                          <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                        )}
+                        <span>네이버 API로 자동 완성</span>
+                      </button>
+                    </div>
                     <input
                       type="text"
                       value={productForm.name}
                       onChange={e => setProductForm({ ...productForm, name: e.target.value })}
-                      placeholder="예: 꼬북칩 초코츄러스맛"
+                      placeholder="예: 꼬북칩 초코츄러스맛, 신라면 툼바"
                       className={`w-full p-2.5 rounded-xl text-xs border focus:outline-none focus:border-indigo-500 ${inputBg}`}
                     />
                   </div>

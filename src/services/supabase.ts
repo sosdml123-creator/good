@@ -493,24 +493,85 @@ export const deleteCurrentUserAccount = async (): Promise<void> => {
     const userId = user?.id;
 
     if (userId) {
-      // 1. Direct cleanup client-accessible tables first
+      // 1. Client-accessible tables cleanup
       try { await supabase.from('device_tokens').delete().eq('user_id', userId); } catch {}
       try { await supabase.from('review_likes').delete().eq('user_id', userId); } catch {}
       try { await supabase.from('post_likes').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('review_comments').delete().eq('user_id', userId); } catch {}
+      try { await supabase.from('post_comments').delete().eq('user_id', userId); } catch {}
       try { await supabase.from('point_transactions').delete().eq('user_id', userId); } catch {}
       try { await supabase.from('bookmarks').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('profiles').delete().eq('id', userId); } catch {}
+
+      // 2. Anonymize user reviews and community posts
+      try {
+        await supabase.from('reviews').update({
+          user_name: '탈퇴한 회원',
+          user_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        }).eq('user_id', userId);
+      } catch {}
+
+      try {
+        await supabase.from('community_posts').update({
+          author_name: '탈퇴한 회원',
+          author_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+        }).eq('author_id', userId);
+      } catch {}
+
+      // 3. Delete profile row from DB
+      try {
+        const { error: delProfileErr } = await supabase.from('profiles').delete().eq('id', userId);
+        if (delProfileErr) {
+          console.warn('[Supabase Auth] profiles delete returned error, applying fallback wipe:', delProfileErr);
+        }
+      } catch (err) {
+        console.warn('[Supabase Auth] profiles delete exception, applying fallback wipe:', err);
+      }
+
+      // 4. Fallback Wipe: If the profile row remains due to RLS/foreign key constraints,
+      // overwrite all sensitive data, points, and nickname to a fresh baseline (100P, Lv.1)
+      try {
+        await supabase.from('profiles').update({
+          display_name: '신상러버_' + Math.floor(100 + Math.random() * 900),
+          avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+          points: 100,
+          level: 'Lv.1',
+          email: null,
+          updated_at: new Date().toISOString(),
+        }).eq('id', userId);
+      } catch {}
     }
 
-    // 2. Try secure RPC delete_user_account for complete database & auth wipe
-    const { error: rpcError } = await supabase.rpc('delete_user_account');
-    if (rpcError) {
-      console.warn('[Supabase Auth] RPC delete_user_account fallback/warning:', rpcError.message);
+    // 5. Try secure RPC delete_user_account for complete database & auth wipe
+    try {
+      const { error: rpcError } = await supabase.rpc('delete_user_account');
+      if (rpcError) {
+        console.warn('[Supabase Auth] RPC delete_user_account fallback/warning:', rpcError.message);
+      }
+    } catch (e) {
+      console.warn('[Supabase Auth] RPC execution error:', e);
     }
   } catch (err) {
     console.warn('[Supabase Auth] deleteCurrentUserAccount exception:', err);
   } finally {
-    // Always sign out to clear cached auth tokens and sessions
-    try { await supabase.auth.signOut(); } catch {}
+    // Always sign out globally to clear cached auth tokens and sessions
+    try {
+      await supabase.auth.signOut({ scope: 'global' });
+    } catch {
+      try { await supabase.auth.signOut(); } catch {}
+    }
+
+    // Clean up local Supabase auth tokens from localStorage
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('sb-')) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      } catch {}
+    }
   }
 };

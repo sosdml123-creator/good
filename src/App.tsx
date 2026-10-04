@@ -35,6 +35,8 @@ const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupMod
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
 import { checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
+import { hideBanner } from './services/admobService';
+import { Capacitor } from '@capacitor/core';
 
 // Minimal fallback spinner shown during lazy load
 const TabFallback = () => (
@@ -55,6 +57,13 @@ export const App: React.FC = () => {
     }
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
+    }
+  }, [activeTab]);
+
+  // 홈 탭이 아닌 다른 탭이나 모달 화면 진입 시 네이티브 배너 숨김
+  useEffect(() => {
+    if (Capacitor.isNativePlatform() && activeTab !== 'home') {
+      hideBanner().catch(() => {});
     }
   }, [activeTab]);
 

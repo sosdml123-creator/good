@@ -2377,11 +2377,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
 
       // 5. Fetch Current User Profile
-      const { data: profile } = await supabase
+      const isWithdrawn = (() => {
+        try {
+          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+          return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
+        } catch { return false; }
+      })();
+
+      const { data: profile } = isWithdrawn ? { data: null } : await supabase
         .from('profiles')
         .select('*')
         .eq('id', uid)
-        .single();
+        .maybeSingle();
 
       if (profile) {
         setCurrentUser(prev => {
@@ -2574,17 +2581,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const uid = user.id;
       const providerName = inferUserProvider(user);
 
+      // Check if user has withdrawn previously
+      const isWithdrawn = (() => {
+        try {
+          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+          return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
+        } catch { return false; }
+      })();
+
       // Fetch DB profile to check if valid profile already exists
       let dbProfile: any = null;
-      try {
-        const { data } = await client
-          .from('profiles')
-          .select('*')
-          .eq('id', uid)
-          .maybeSingle();
-        dbProfile = data;
-      } catch (e) {
-        console.warn('[Supabase Profile Init Query Error]', e);
+      if (!isWithdrawn) {
+        try {
+          const { data } = await client
+            .from('profiles')
+            .select('*')
+            .eq('id', uid)
+            .maybeSingle();
+          dbProfile = data;
+        } catch (e) {
+          console.warn('[Supabase Profile Init Query Error]', e);
+        }
+      } else {
+        // 탈퇴 후 재가입: 기존 잔존 DB 프로필 무시 및 플래그 정리
+        localStorage.removeItem('sinsangpick_withdrawn_uid_' + uid);
+        try {
+          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+          const filtered = list.filter((id: string) => id !== uid);
+          localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
+        } catch {}
       }
 
       let resolvedDisplayName: string | null = null;
@@ -2607,6 +2632,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.setItem('sinsangpick_uid', uid);
       localStorage.setItem('sinsangpick_name', resolvedDisplayName!);
       localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
+      const initialPoints = isWithdrawn ? 100 : (dbProfile?.points ?? currentUser.points ?? 100);
 
       setCurrentUser(prev => ({
         ...prev,
@@ -2616,8 +2642,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isAnonymous: user.is_anonymous || false,
         provider: providerName,
         email: user.email || prev.email,
-        points: dbProfile?.points ?? prev.points,
-        level: calculateLevel(dbProfile?.points ?? prev.points),
+        points: initialPoints,
+        level: calculateLevel(initialPoints),
       }));
 
       // Update DB profile safely without overwriting established custom attributes
@@ -2628,8 +2654,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           avatar_url: resolvedPhotoURL,
           provider: providerName,
           email: user.email || undefined,
-          points: dbProfile?.points ?? undefined,
-          level: dbProfile?.level ?? undefined,
+          points: isWithdrawn ? 100 : (dbProfile?.points ?? undefined),
+          level: isWithdrawn ? 'Lv.1' : (dbProfile?.level ?? undefined),
         }).catch(() => {});
 
         setAllProfiles(prev => {
@@ -2683,17 +2709,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const u = session.user;
           const providerName = inferUserProvider(u);
 
+          // Check if user has withdrawn previously
+          const isWithdrawn = (() => {
+            try {
+              const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+              return list.includes(u.id) || localStorage.getItem('sinsangpick_withdrawn_uid_' + u.id) === 'true';
+            } catch { return false; }
+          })();
+
           // Fetch DB profile to check if established custom profile already exists
           let dbProfileData: any = null;
-          try {
-            const { data: profileData } = await client
-              .from('profiles')
-              .select('*')
-              .eq('id', u.id)
-              .maybeSingle();
-            dbProfileData = profileData;
-          } catch (e) {
-            console.warn('[Supabase Profile Check Error]', e);
+          if (!isWithdrawn) {
+            try {
+              const { data: profileData } = await client
+                .from('profiles')
+                .select('*')
+                .eq('id', u.id)
+                .maybeSingle();
+              dbProfileData = profileData;
+            } catch (e) {
+              console.warn('[Supabase Profile Check Error]', e);
+            }
+          } else {
+            // 탈퇴 후 재가입: 기존 잔존 DB 프로필 무시 및 플래그 정리
+            localStorage.removeItem('sinsangpick_withdrawn_uid_' + u.id);
+            try {
+              const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+              const filtered = list.filter((id: string) => id !== u.id);
+              localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
+            } catch {}
           }
 
           let displayName: string | null = null;
@@ -2718,13 +2762,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             client.from('profiles').update({ avatar_url: getProviderLogoUrl(providerName) }).eq('id', u.id).then(() => {});
           }
 
+          const targetPoints = isWithdrawn ? 100 : (dbProfileData?.points ?? 100);
+
           localStorage.setItem('sinsangpick_photo', photoURL);
           localStorage.setItem('sinsangpick_uid', u.id);
           localStorage.setItem('sinsangpick_name', displayName!);
+          localStorage.setItem('sinsangpick_points', String(targetPoints));
           localStorage.setItem('sinsangpick_nickname_set_' + u.id, 'true');
           setIsLoginModalOpen(false);
           setIsGuestBrowse(true);
           checkAndOpenPostLoginModals(u.id);
+
+          setCurrentUser(prev => ({
+            ...prev,
+            uid: u.id,
+            displayName: displayName!,
+            photoURL: photoURL,
+            points: targetPoints,
+            level: calculateLevel(targetPoints),
+            isAnonymous: false,
+            provider: providerName,
+            email: u.email || prev.email,
+          }));
 
           if (event === 'SIGNED_IN') {
             const providerMsg = providerName === 'apple' 
@@ -2744,8 +2803,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             avatar_url: photoURL,
             provider: providerName,
             email: u.email || undefined,
-            points: dbProfileData?.points ?? undefined,
-            level: dbProfileData?.level ?? undefined,
+            points: isWithdrawn ? 100 : (dbProfileData?.points ?? undefined),
+            level: isWithdrawn ? 'Lv.1' : (dbProfileData?.level ?? undefined),
           });
 
           // allProfiles 메모리 상태에도 즉시 provider 동기화
@@ -3520,8 +3579,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const u = res.user;
         const uid = u.id || u.uid;
 
+        const isWithdrawn = (() => {
+          try {
+            const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+            return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
+          } catch { return false; }
+        })();
+
+        if (isWithdrawn) {
+          localStorage.removeItem('sinsangpick_name');
+          localStorage.removeItem('sinsangpick_points');
+          localStorage.removeItem('sinsangpick_withdrawn_uid_' + uid);
+          try {
+            const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+            const filtered = list.filter((id: string) => id !== uid);
+            localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
+          } catch {}
+        }
+
         // Check if user already has an established custom nickname
-        let assignedName = localStorage.getItem('sinsangpick_name');
+        let assignedName = isWithdrawn ? null : localStorage.getItem('sinsangpick_name');
         if (
           !assignedName ||
           assignedName.includes('사용자') ||
@@ -3529,11 +3606,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           /^신상러버_[a-z0-9]{4}$/i.test(assignedName)
         ) {
           try {
-            const { data: dbProfile } = await supabase
+            const { data: dbProfile } = !isWithdrawn ? await supabase
               .from('profiles')
               .select('display_name')
               .eq('id', uid)
-              .maybeSingle();
+              .maybeSingle() : { data: null };
             if (
               dbProfile?.display_name &&
               !dbProfile.display_name.includes('사용자') &&
@@ -3555,6 +3632,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           uid,
           displayName: assignedName!,
           photoURL: photoURL,
+          level: 'Lv.1',
+          points: 100,
           isAnonymous: false,
           email: u.email,
           provider: 'apple',
@@ -3562,6 +3641,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         localStorage.setItem('sinsangpick_uid', uid);
         localStorage.setItem('sinsangpick_name', assignedName!);
+        localStorage.setItem('sinsangpick_points', '100');
         localStorage.setItem('sinsangpick_photo', photoURL);
         localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
         setIsLoginModalOpen(false);
@@ -3575,6 +3655,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           avatar_url: photoURL,
           provider: 'apple',
           email: u.email || undefined,
+          points: 100,
+          level: 'Lv.1',
         });
 
         setAllProfiles(prev => {
@@ -3717,15 +3799,66 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const uidToDelete = currentUser.uid;
 
-      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제 (테이블 직접 삭제 + RPC)
+      // 0. 탈퇴 대상 UID를 로컬에 기록하여 재로그인 시 과거 캐시나 잔존 DB 프로필 복원 원천 차단
+      try {
+        localStorage.setItem('sinsangpick_withdrawn_uid_' + uidToDelete, 'true');
+        const withdrawnList = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
+        if (!withdrawnList.includes(uidToDelete)) {
+          withdrawnList.push(uidToDelete);
+          localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(withdrawnList));
+        }
+      } catch {}
+
+      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제 (테이블 직접 삭제 + 익명화 + Fallback Reset + RPC)
       if (supabase && isSupabaseConfigured) {
         try {
+          // A. 사용자 부가 데이터 테이블 영구 삭제
           try { await supabase.from('device_tokens').delete().eq('user_id', uidToDelete); } catch {}
           try { await supabase.from('review_likes').delete().eq('user_id', uidToDelete); } catch {}
           try { await supabase.from('post_likes').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('review_comments').delete().eq('user_id', uidToDelete); } catch {}
+          try { await supabase.from('post_comments').delete().eq('user_id', uidToDelete); } catch {}
           try { await supabase.from('point_transactions').delete().eq('user_id', uidToDelete); } catch {}
           try { await supabase.from('bookmarks').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('profiles').delete().eq('id', uidToDelete); } catch {}
+
+          // B. 작성한 리뷰 & 커뮤니티 게시글 익명화 처리
+          try {
+            await supabase.from('reviews').update({
+              user_name: '탈퇴한 회원',
+              user_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+            }).eq('user_id', uidToDelete);
+          } catch {}
+
+          try {
+            await supabase.from('community_posts').update({
+              author_name: '탈퇴한 회원',
+              author_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+            }).eq('author_id', uidToDelete);
+          } catch {}
+
+          // C. 프로필 행 완전 삭제 시도
+          try {
+            const { error: delErr } = await supabase.from('profiles').delete().eq('id', uidToDelete);
+            if (delErr) {
+              console.warn('[Supabase] Profiles delete error:', delErr.message);
+            }
+          } catch {}
+
+          // D. Fallback Reset (2중 방어): RLS 정책이나 외래키로 행이 완전히 삭제되지 않고 남아있더라도
+          // 보유 포인트는 100P로 강제 초기화하고 닉네임/프로필 정보를 완전 백지화
+          try {
+            await supabase.from('profiles').update({
+              display_name: '신상러버_' + Math.floor(100 + Math.random() * 900),
+              avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+              points: 100,
+              level: 'Lv.1',
+              email: null,
+              provider: 'anonymous',
+              updated_at: new Date().toISOString(),
+            }).eq('id', uidToDelete);
+          } catch {}
+
+          // E. Supabase Auth 사용자 영구 삭제 RPC 및 전역 로그아웃 실행
           await deleteCurrentUserAccount();
         } catch (err) {
           console.warn('[Supabase] Failed to delete user profile from DB:', err);
@@ -6120,11 +6253,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           await supabase.from('device_tokens').delete().eq('user_id', userId);
           await supabase.from('review_likes').delete().eq('user_id', userId);
           await supabase.from('post_likes').delete().eq('user_id', userId);
+          await supabase.from('review_comments').delete().eq('user_id', userId);
+          await supabase.from('post_comments').delete().eq('user_id', userId);
           await supabase.from('point_transactions').delete().eq('user_id', userId);
           await supabase.from('bookmarks').delete().eq('user_id', userId);
           await supabase.from('reviews').delete().eq('user_id', userId);
           await supabase.from('community_posts').delete().eq('author_id', userId);
           await supabase.from('profiles').delete().eq('id', userId);
+          // Fallback Wipe
+          await supabase.from('profiles').update({
+            display_name: '탈퇴회원',
+            points: 0,
+            level: 'Lv.1',
+            updated_at: new Date().toISOString(),
+          }).eq('id', userId);
         } catch (err) {
           console.warn('[Supabase Admin Delete Error]', err);
         }
@@ -6165,11 +6307,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           await supabase.from('device_tokens').delete().in('user_id', userIds);
           await supabase.from('review_likes').delete().in('user_id', userIds);
           await supabase.from('post_likes').delete().in('user_id', userIds);
+          await supabase.from('review_comments').delete().in('user_id', userIds);
+          await supabase.from('post_comments').delete().in('user_id', userIds);
           await supabase.from('point_transactions').delete().in('user_id', userIds);
           await supabase.from('bookmarks').delete().in('user_id', userIds);
           await supabase.from('reviews').delete().in('user_id', userIds);
           await supabase.from('community_posts').delete().in('author_id', userIds);
           await supabase.from('profiles').delete().in('id', userIds);
+          // Fallback Wipe
+          await supabase.from('profiles').update({
+            display_name: '탈퇴회원',
+            points: 0,
+            level: 'Lv.1',
+            updated_at: new Date().toISOString(),
+          }).in('id', userIds);
         } catch (err) {
           console.warn('[Supabase Admin Batch Delete Error]', err);
         }

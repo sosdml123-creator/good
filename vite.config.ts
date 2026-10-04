@@ -95,18 +95,24 @@ export default defineConfig(({ mode }) => {
       {
         name: 'naver-api-middleware',
         configureServer(server) {
+          if (clientId && !process.env.NAVER_CLIENT_ID) {
+            process.env.NAVER_CLIENT_ID = clientId;
+          }
+          if (clientSecret && !process.env.NAVER_CLIENT_SECRET) {
+            process.env.NAVER_CLIENT_SECRET = clientSecret;
+          }
+
           server.middlewares.use('/api/naver', async (req, res) => {
             try {
+              if (clientId && !process.env.NAVER_CLIENT_ID) process.env.NAVER_CLIENT_ID = clientId;
+              if (clientSecret && !process.env.NAVER_CLIENT_SECRET) process.env.NAVER_CLIENT_SECRET = clientSecret;
+
               const handlerModule = await import('./api/naver.js');
               const handler = handlerModule.default;
               const url = new URL(req.url || '', `http://${req.headers.host}`);
               const query = Object.fromEntries(url.searchParams.entries());
 
-              let body = '';
-              req.on('data', chunk => {
-                body += chunk;
-              });
-              req.on('end', async () => {
+              const executeHandler = async (body = '') => {
                 const fakeRes = {
                   statusCode: 200,
                   headers: {},
@@ -129,7 +135,19 @@ export default defineConfig(({ mode }) => {
                 };
 
                 await handler({ query, method: req.method, headers: req.headers, body }, fakeRes);
-              });
+              };
+
+              if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => {
+                  body += chunk;
+                });
+                req.on('end', () => {
+                  executeHandler(body);
+                });
+              } else {
+                await executeHandler('');
+              }
             } catch (err) {
               console.error('NAVER API middleware error:', err);
               res.statusCode = 500;
