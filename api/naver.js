@@ -262,16 +262,18 @@ export default async function handler(req, res) {
               title: rawTitle,
               link: it.link || it.thumbnail,
               image: imageUrl,
-              lprice: '2500',
+              // NCP API HUB에는 쇼핑 검색이 없으므로 실제 가격을 알 수 없음 → 가짜 가격을 만들지 않음
+              lprice: '0',
               hprice: '0',
-              mallName: isRetailCdn ? '네이버 공식 브랜드스토어' : '네이버 쇼핑 공식 인증몰',
+              mallName: isRetailCdn ? '네이버 이미지 검색' : '이미지 검색 결과',
               productId: `ncp-shop-${Date.now()}-${idx + 1}`,
               productType: '1',
               brand: cleanBrand,
               maker: cleanBrand,
               category1: '식품',
               category2: '신제품',
-              category3: ''
+              category3: '',
+              synthesized: true
             };
           });
 
@@ -280,7 +282,8 @@ export default async function handler(req, res) {
             total: shopFormattedItems.length,
             start: safeStart,
             display: shopFormattedItems.length,
-            items: shopFormattedItems
+            items: shopFormattedItems,
+            synthesized: true
           });
         }
       } catch (e) {

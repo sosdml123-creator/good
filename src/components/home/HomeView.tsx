@@ -339,12 +339,15 @@ export const HomeView: React.FC = () => {
     ? baseSections.map(s => s.id === 'banners' ? { ...s, isVisible: true } : s)
     : [defaultBannerSection, ...baseSections];
 
+  const categorySection = baseSections.find(s => s.id === 'categories');
+  const adOrder = categorySection ? categorySection.order + 0.5 : 3.5;
+
   if (!hasAdSection) {
-    // 카테고리(3) 바로 뒤, 신제품(5) 사이에 배치 (order: 4)
-    workingSections = [...workingSections, defaultAdSection];
+    // 카테고리 바로 뒤에 고정 배치
+    workingSections = [...workingSections, { ...defaultAdSection, order: adOrder }];
   } else {
-    // 사용자가 요청한 위치: 카테고리(3) 바로 뒤, 신제품(5) 사이에 항상 위치하도록 order: 4 보장
-    workingSections = workingSections.map(s => s.id === 'ad_banner' ? { ...s, isVisible: true, order: 4 } : s);
+    // 사용자가 요청한 위치: 카테고리 바로 뒤에 항상 위치하도록 order 보장
+    workingSections = workingSections.map(s => s.id === 'ad_banner' ? { ...s, isVisible: true, order: adOrder } : s);
   }
 
   const sortedHomeSections = [...workingSections].sort((a, b) => a.order - b.order);

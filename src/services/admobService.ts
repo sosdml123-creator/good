@@ -84,18 +84,20 @@ export const initAdMob = (): Promise<boolean> => {
  * mAdViewLayoutParams.setMargins(sideMargin, densityMargin, sideMargin, densityMargin)
  * margin = targetOffset (양수 전달)
  */
-export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Promise<void> => {
+export const showBannerAt = async (slotTop: number): Promise<void> => {
   if (!isNative()) return;
   const ok = await initAdMob();
   if (!ok) return;
 
   const isIOS = Capacitor.getPlatform() === 'ios';
-  const targetOffset = Math.max(0, slotTop - safeAreaTop);
-  // iOS 플러그인은 -1을 곱하므로 음수를 전달해야 아래로 내려감
-  const margin = isIOS ? -Math.round(targetOffset) : Math.round(targetOffset);
+  // iOS 플러그인은 constant = Margin * -1을 safeAreaLayoutGuide.top에 적용하므로,
+  // safeArea 바로 아래부터 시작하는 웹뷰 slotTop 위치와 1:1로 일치시키려면
+  // margin = -slotTop을 전달해야 합니다 (safeAreaTop을 중복 차감하지 않음).
+  const roundedTop = Math.round(Math.max(0, slotTop));
+  const margin = isIOS ? -roundedTop : roundedTop;
 
   try {
-    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 3) {
+    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 5) {
       if (isHidden) {
         await AdMob.resumeBanner();
         isHidden = false;
@@ -119,8 +121,7 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
 
     console.log('[AdMob] showBanner requesting with options:', {
       adUnitId: ADMOB_BANNER_UNIT_ID,
-      slotTop,
-      safeAreaTop,
+      slotTop: roundedTop,
       calculatedMargin: margin,
       isIOS,
     });
@@ -179,7 +180,7 @@ export const removeBanner = async (): Promise<void> => {
 };
 
 // 하위 호환 alias
-export const showBanner = (slotTop: number = 320, safeAreaTop: number = 47) => showBannerAt(slotTop, safeAreaTop);
+export const showBanner = (slotTop: number = 530) => showBannerAt(slotTop);
 export const showHomeBannerAd = showBanner;
 export const hideBannerAd = hideBanner;
 export const resumeBannerAd = resumeBanner;

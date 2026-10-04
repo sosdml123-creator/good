@@ -1,5 +1,5 @@
 import { ProductCategory } from '../types';
-import { callNaverApi, cleanHtml, detectCategory, detectBrand, detectStores, extractProductName } from './naverApi';
+import { callNaverApi, cleanHtml, detectCategory, detectBrand, detectStores, extractProductName, isBrandOnlyName, extractPriceFromText } from './naverApi';
 
 export type CollectionSourceType = 'all' | 'official' | 'instagram' | 'convenience' | 'news';
 

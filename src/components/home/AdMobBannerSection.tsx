@@ -2,26 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { BANNER_HEIGHT, BANNER_WIDTH, hideBanner, resumeBanner, showBannerAt } from '../../services/admobService';
 
-/**
- * iOS 노치 / 다이내믹 아일랜드 Safe Area Inset Top 측정 (pt 단위)
- */
-const getSafeAreaTop = (): number => {
-  try {
-    const testEl = document.createElement('div');
-    testEl.style.paddingTop = 'env(safe-area-inset-top, 0px)';
-    testEl.style.position = 'fixed';
-    testEl.style.top = '0';
-    testEl.style.left = '0';
-    testEl.style.visibility = 'hidden';
-    testEl.style.pointerEvents = 'none';
-    document.body.appendChild(testEl);
-    const sat = parseFloat(window.getComputedStyle(testEl).paddingTop) || 0;
-    document.body.removeChild(testEl);
-    return sat > 0 ? sat : (Capacitor.getPlatform() === 'ios' ? 47 : 0);
-  } catch {
-    return Capacitor.getPlatform() === 'ios' ? 47 : 0;
-  }
-};
 
 /**
  * 카테고리 구좌와 신제품 구좌 사이 공식 AdMob 배너 광고 구좌 (iOS / Android 네이티브 SDK)
@@ -52,29 +32,32 @@ export const AdMobBannerSection: React.FC = () => {
       const rect = slotRef.current.getBoundingClientRect();
       const currentScrollTop = scroller?.scrollTop || 0;
 
-      // 스크롤 최상단(0) 기준 슬롯의 절대적인 상단 y좌표 (헤더 + 메인배너 + 퀵메뉴 + 카테고리 높이 합산)
+      // 스크롤 최상단(0) 기준 슬롯의 절대 상단 y좌표 (헤더 + 메인배너 265px + 퀵메뉴 + 카테고리 높이 합산)
       const absoluteTop = rect.top + currentScrollTop;
 
-      // 슬롯이 화면 헤더 아래(대략 50px)부터 화면 하단 사이에 가시 상태인지 검사
-      const isVisibleInViewport = rect.bottom > 50 && rect.top < window.innerHeight - 50;
+      // [핵심 가드] 상단 메인 배너(265px) 및 카테고리가 완전히 펼쳐지지 않은 조기 렌더링(450px 미만) 상태에서는
+      // 배너를 잘못된 상단 위치에 생성하지 않고 정상 높이까지 대기합니다.
+      if (absoluteTop < 450) {
+        return;
+      }
 
-      if (isVisibleInViewport) {
-        // 상단 배너 등이 렌더링되기 전(300px 미만)이면 성급하게 띄우지 않고 안정화될 때까지 대기
-        // 정상적인 카테고리 하단 위치는 최소 350px 이상
-        const sat = getSafeAreaTop();
+      // 사용자가 홈 상단 영역(카테고리 구좌 ~ 신제품 구좌 사이 슬롯)을 보고 있을 때 (스크롤 35px 이내)
+      // 네이티브 배너를 해당 슬롯에 정확히 1:1로 고정하여 안착시킵니다.
+      const isAtRestHeaderArea = currentScrollTop <= 35;
+
+      if (isAtRestHeaderArea) {
         const hasPlaced = lastPlacedTopRef.current !== null;
-        const positionShifted = hasPlaced && Math.abs((lastPlacedTopRef.current || 0) - absoluteTop) > 12;
+        const positionShifted = hasPlaced && Math.abs((lastPlacedTopRef.current || 0) - absoluteTop) > 10;
 
         if (!hasPlaced || positionShifted) {
-          // 최초 생성 또는 상단 요소 로딩으로 위치가 밀려난 경우 정확한 위치로 재배치
           lastPlacedTopRef.current = absoluteTop;
-          showBannerAt(absoluteTop, sat);
+          showBannerAt(absoluteTop);
         } else {
-          // 이미 정확한 위치에 있으면 resume만 실행
           resumeBanner();
         }
       } else {
-        // 스크롤을 내려 카테고리 구좌가 화면 위로 벗어나면 신제품/랭킹 콘텐츠 가림 방지를 위해 숨김
+        // 스크롤을 내려 신제품 목록 및 아래 콘텐츠를 탐색할 때는
+        // 화면 오버레이인 네이티브 배너가 신제품 콘텐츠를 가리지 않도록 숨김 처리
         hideBanner();
       }
     };
@@ -83,12 +66,12 @@ export const AdMobBannerSection: React.FC = () => {
       if (!raf) raf = requestAnimationFrame(checkAndPositionBanner);
     };
 
-    // 상단 메인 배너 및 비동기 이미지 로딩 단계별 다단계 위치 안정화 (150ms, 450ms, 900ms, 1500ms)
+    // 상단 메인 배너 및 비동기 요소 로딩 완료 단계별 순차 안정화 타이머
     const timers = [
-      setTimeout(checkAndPositionBanner, 150),
-      setTimeout(checkAndPositionBanner, 450),
-      setTimeout(checkAndPositionBanner, 900),
-      setTimeout(checkAndPositionBanner, 1500),
+      setTimeout(checkAndPositionBanner, 250),
+      setTimeout(checkAndPositionBanner, 550),
+      setTimeout(checkAndPositionBanner, 1000),
+      setTimeout(checkAndPositionBanner, 1600),
     ];
 
     scroller?.addEventListener('scroll', onScrollOrResize, { passive: true });
