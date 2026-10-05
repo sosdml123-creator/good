@@ -37,7 +37,6 @@ import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
-import { INITIAL_EVENTS } from '../../data/mockProducts';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -61,6 +60,7 @@ export const HomeView: React.FC = () => {
     openEventDetail,
     toggleBookmark, 
     bookmarkedIds,
+    showToast,
     homeSections = []
   } = useApp();
 
@@ -482,9 +482,11 @@ export const HomeView: React.FC = () => {
                     } else if (m.action === 'compare') {
                       setActiveTab('compare');
                     } else if (m.action === 'event') {
-                      const targetEvent = events.find(e => e.category === '체험단') || events[0] || INITIAL_EVENTS[0];
-                      if (targetEvent) {
+                      const targetEvent = events.find(e => e.category === '체험단') || events[0];
+                      if (targetEvent && targetEvent.id) {
                         openEventDetail(targetEvent.id);
+                      } else {
+                        showToast('현재 모집 중인 체험단 구좌가 없습니다.', 'info');
                       }
                     } else if (m.action === 'my') {
                       setActiveTab('my');

@@ -72,6 +72,7 @@ import {
 import {
   fetchRemoteContent,
   saveRemoteBannersAndSections,
+  saveRemoteEvents,
   saveRemoteProduct,
   deleteRemoteProduct,
   deleteRemoteProducts,
@@ -1280,6 +1281,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  // 4. Deleted Events Tracking (체험단 구좌 & 이벤트 삭제 추적 - 부활 완전 방지)
+  const [deletedEventIds, setDeletedEventIds] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('sinsangpick_deleted_events');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const deletedEventIdsRef = React.useRef<string[]>(deletedEventIds);
+  useEffect(() => {
+    deletedEventIdsRef.current = deletedEventIds;
+  }, [deletedEventIds]);
+
+
 
 
   const [reviews, setReviews] = useState<Review[]>(() => {
@@ -1477,16 +1493,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [events, setEvents] = useState<PromotionEvent[]>(() => {
     try {
+      const storedDel = localStorage.getItem('sinsangpick_deleted_events');
+      const delSet = new Set(storedDel ? JSON.parse(storedDel) : []);
+      const FAKE_EVENT_IDS = new Set(['event-dessert-01', 'event-ramen-01']);
+
       const stored = localStorage.getItem('sinsangpick_events');
       if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+        if (Array.isArray(parsed)) {
+          return parsed.filter(e => e && e.id && !delSet.has(e.id) && !FAKE_EVENT_IDS.has(e.id));
         }
       }
-      return INITIAL_EVENTS;
+      return INITIAL_EVENTS.filter(e => e && e.id && !delSet.has(e.id) && !FAKE_EVENT_IDS.has(e.id));
     } catch {
-      return INITIAL_EVENTS;
+      return [];
     }
   });
   const [selectedEventId, setSelectedEventId] = useState<string>(() => {
@@ -1961,6 +1981,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [events]);
 
   useEffect(() => {
+    safeSetItem('sinsangpick_deleted_events', JSON.stringify(deletedEventIds));
+  }, [deletedEventIds]);
+
+  useEffect(() => {
     safeSetItem('sinsangpick_notifications', JSON.stringify(notifications));
   }, [notifications]);
 
@@ -2116,6 +2140,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSalePromotions(remote.salePromotions);
         safeSetItem('sinsangpick_sales_v1', JSON.stringify(remote.salePromotions));
       }
+      let curDeletedEvents = deletedEventIdsRef.current;
+      if (remote.deletedEventIds && Array.isArray(remote.deletedEventIds)) {
+        curDeletedEvents = Array.from(new Set([...curDeletedEvents, ...remote.deletedEventIds]));
+        deletedEventIdsRef.current = curDeletedEvents;
+        setDeletedEventIds(curDeletedEvents);
+        safeSetItem('sinsangpick_deleted_events', JSON.stringify(curDeletedEvents));
+      }
+      if (remote.events !== null && Array.isArray(remote.events)) {
+        const delEventSet = new Set(curDeletedEvents);
+        const FAKE_EVENT_IDS = new Set(['event-dessert-01', 'event-ramen-01']);
+        const validEvents = remote.events.filter(e => e && e.id && !delEventSet.has(e.id) && !FAKE_EVENT_IDS.has(e.id));
+        setEvents(validEvents);
+        safeSetItem('sinsangpick_events', JSON.stringify(validEvents));
+      }
       if (remote.deletedProductIds && Array.isArray(remote.deletedProductIds)) {
         const nextDel = Array.from(new Set([...deletedProductIdsRef.current, ...remote.deletedProductIds]));
         deletedProductIdsRef.current = nextDel;
@@ -2134,8 +2172,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const syncAllContentToCloud = async () => {
     setIsContentSyncing(true);
     try {
-      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions);
-      showToast('☁️ 배너, 홈 구좌 및 1+1 행사 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
+      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions, events, deletedEventIdsRef.current);
+      showToast('☁️ 배너, 홈 구좌, 체험단 및 1+1 행사 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
     } catch (e) {
       showToast('동기화 중 오류가 발생했습니다.', 'error');
     } finally {
@@ -2197,6 +2235,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (systemBannerRecord.nutrition.salePromotions !== undefined && Array.isArray(systemBannerRecord.nutrition.salePromotions)) {
           setSalePromotions(systemBannerRecord.nutrition.salePromotions);
           safeSetItem('sinsangpick_sales_v1', JSON.stringify(systemBannerRecord.nutrition.salePromotions));
+        }
+        if (Array.isArray(systemBannerRecord.nutrition.deletedEventIds)) {
+          const mergedDeletedEvents = Array.from(new Set([...deletedEventIdsRef.current, ...systemBannerRecord.nutrition.deletedEventIds]));
+          deletedEventIdsRef.current = mergedDeletedEvents;
+          setDeletedEventIds(mergedDeletedEvents);
+          safeSetItem('sinsangpick_deleted_events', JSON.stringify(mergedDeletedEvents));
+        }
+        if (systemBannerRecord.nutrition.events !== undefined && Array.isArray(systemBannerRecord.nutrition.events)) {
+          const delEventSet = new Set(deletedEventIdsRef.current);
+          const FAKE_EVENT_IDS = new Set(['event-dessert-01', 'event-ramen-01']);
+          const validEvents = systemBannerRecord.nutrition.events.filter((e: any) => e && e.id && !delEventSet.has(e.id) && !FAKE_EVENT_IDS.has(e.id));
+          setEvents(validEvents);
+          safeSetItem('sinsangpick_events', JSON.stringify(validEvents));
         }
         if (Array.isArray(systemBannerRecord.nutrition.deletedProductIds)) {
           remoteDeleted = systemBannerRecord.nutrition.deletedProductIds;
@@ -2981,7 +3032,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [likedPostIds]);
 
   const selectedProduct = products.find(p => p.id === selectedProductId) || products[0] || INITIAL_PRODUCTS[0];
-  const selectedEvent = events.find(e => e.id === selectedEventId) || events[0] || INITIAL_EVENTS[0];
+  const DEFAULT_EMPTY_EVENT: PromotionEvent = {
+    id: '',
+    title: '진행 중인 이벤트가 없습니다.',
+    subtitle: '',
+    badge: '이벤트',
+    category: '이벤트',
+    bannerImage: '',
+    startDate: '',
+    endDate: '',
+    dDay: '',
+    status: 'ended',
+    description: '',
+    reward: '',
+    actionButtonText: '확인',
+    participantsCount: 0,
+    isParticipated: false,
+    createdAt: ''
+  };
+  const selectedEvent = events.find(e => e.id === selectedEventId) || events[0] || DEFAULT_EMPTY_EVENT;
   const unreadNotificationCount = notifications.filter(n => !n.isRead).length;
 
   const isPopStateRef = React.useRef(false);
@@ -4361,9 +4430,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setEvents(prev => {
       const next = [newEvent, ...prev];
       safeSetItem('sinsangpick_events', JSON.stringify(next));
+      // Supabase & 클라우드 API 영구 저장
+      saveRemoteEvents(next, deletedEventIdsRef.current).catch(() => {});
       return next;
     });
-    showToast(`🎉 '${newEvent.title}' 이벤트가 성공적으로 등록되었습니다!`, 'success');
+    showToast(`🎉 '${newEvent.title}' 체험단 구좌가 성공적으로 등록되었습니다!`, 'success');
   };
 
   // Update Event
@@ -4371,25 +4442,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setEvents(prev => {
       const next = prev.map(e => e.id === id ? { ...e, ...updated } : e);
       safeSetItem('sinsangpick_events', JSON.stringify(next));
+      // Supabase & 클라우드 API 영구 저장
+      saveRemoteEvents(next, deletedEventIdsRef.current).catch(() => {});
       return next;
     });
-    showToast('이벤트 정보가 수정되었습니다.', 'success');
+    showToast('체험단 구좌 정보가 수정되었습니다.', 'success');
   };
 
   // Delete Event
   const deleteEvent = (id: string) => {
+    const nextDeleted = Array.from(new Set([...deletedEventIdsRef.current, id]));
+    deletedEventIdsRef.current = nextDeleted;
+    setDeletedEventIds(nextDeleted);
+    safeSetItem('sinsangpick_deleted_events', JSON.stringify(nextDeleted));
+
     setEvents(prev => {
       const next = prev.filter(e => e.id !== id);
       safeSetItem('sinsangpick_events', JSON.stringify(next));
+      // Supabase & 클라우드 API 영구 삭제 동기화
+      saveRemoteEvents(next, nextDeleted).catch(() => {});
       return next;
     });
-    showToast('이벤트가 삭제되었습니다.', 'info');
+    showToast('체험단 구좌가 성공적으로 삭제되었습니다.', 'info');
   };
 
   // Reorder Events (체험단 구좌 노출 순서 변경)
   const reorderEvents = (newEvents: PromotionEvent[]) => {
     setEvents(newEvents);
     safeSetItem('sinsangpick_events', JSON.stringify(newEvents));
+    // Supabase & 클라우드 API 영구 저장
+    saveRemoteEvents(newEvents, deletedEventIdsRef.current).catch(() => {});
     showToast('체험단 구좌 노출 순서가 변경되었습니다.', 'info');
   };
 
@@ -6571,6 +6653,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBanners(INITIAL_BANNERS);
     setBattleConfig(INITIAL_BATTLE_CONFIG);
     setEvents(INITIAL_EVENTS);
+    setDeletedEventIds([]);
     setNotifications(INITIAL_NOTIFICATIONS);
     setAllProfiles(INITIAL_USER_PROFILES);
     setPointTransactions(INITIAL_POINT_TRANSACTIONS);
@@ -6590,6 +6673,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('sinsangpick_battle_config');
     localStorage.removeItem('sinsangpick_home_sections');
     localStorage.removeItem('sinsangpick_events');
+    localStorage.removeItem('sinsangpick_deleted_events');
     localStorage.removeItem('sinsangpick_notifications');
     localStorage.removeItem('sinsangpick_all_profiles');
     localStorage.removeItem('sinsangpick_point_transactions');

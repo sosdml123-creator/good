@@ -34,7 +34,7 @@ export const EventDetailModal: React.FC = () => {
     { id: 'c-3', user: '단짠요정', text: '주변 친구들한테도 바로 공유했음! 다들 신상픽 알림 켜두세요 🚀', time: '5시간 전' },
   ]);
 
-  if (!selectedEvent) {
+  if (!selectedEvent || !selectedEvent.id) {
     return (
       <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center">
         <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-3xl mb-4 shadow-sm">

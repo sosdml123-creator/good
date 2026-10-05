@@ -11,7 +11,7 @@ import { Capacitor } from '@capacitor/core';
 export const ADMOB_APP_ID = 'ca-app-pub-3878859120989916~2898554632';
 export const ADMOB_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/9433572199';
 
-// 고정 배너 사이즈 (320x50) - 웹뷰 placeholder와 정확히 높이를 맞추기 위함
+// 고정 배너 사이즈 (320x50 표준 모바일 배너)
 export const BANNER_HEIGHT = 50;
 export const BANNER_WIDTH = 320;
 
@@ -21,7 +21,7 @@ let isBannerCreated = false;
 let isHidden = false;
 let listenersAdded = false;
 
-const isNative = () => Capacitor.isNativePlatform();
+export const isNative = () => Capacitor.isNativePlatform();
 
 /**
  * iOS 노치 / 다이내믹 아일랜드 Safe Area Inset Top 측정 (pt 단위)
@@ -75,6 +75,9 @@ export const initAdMob = (): Promise<boolean> => {
         AdMob.addListener(BannerAdPluginEvents.Closed, () => {
           console.log('[AdMob] Banner closed');
         });
+        AdMob.addListener(BannerAdPluginEvents.AdImpression, () => {
+          console.log('[AdMob] Banner impression recorded');
+        });
       }
       return true;
     } catch (e) {
@@ -87,21 +90,12 @@ export const initAdMob = (): Promise<boolean> => {
 };
 
 /**
- * 화면 상단 카테고리 아래 '신상픽 추천 스폰서드' 슬롯 위치(slotTop)에 320x50 배너 표시.
+ * 화면 상단 카테고리 아래 '스폰서드 광고 구좌' 슬롯 위치(slotTop)에 320x50 배너 표시.
  *
- * [핵심: iOS 플러그인 AutoLayout 위치 정밀 보정]
- * @capacitor-community/admob iOS 구현:
- * NSLayoutConstraint(..., toItem: safeAreaLayoutGuide, constant: CGFloat(Int(Margin) * -1))
- * 즉: bannerView.top = safeAreaLayoutGuide.top + (Margin * -1)
- *
- * 따라서 화면 상단 기준 슬롯 y위치(slotTop)와 1:1로 일치시키려면:
- * safeAreaTop + (Margin * -1) = slotTop
- * Margin * -1 = slotTop - safeAreaTop
- * Margin = -(slotTop - safeAreaTop)  (음수 전달 필수!)
- *
- * Android 구현:
- * mAdViewLayoutParams.gravity = Gravity.TOP
- * margin = slotTop (양수 전달)
+ * [플랫폼별 위치 계산]
+ * - iOS: safeAreaLayoutGuide.top 기준 constant = -(Margin * -1)
+ *        margin = -(slotTop - safeAreaTop)
+ * - Android: mAdViewLayoutParams.gravity = Gravity.TOP, margin = slotTop
  */
 export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Promise<void> => {
   if (!isNative()) return;
@@ -115,9 +109,9 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
   const margin = isIOS ? -offsetFromSafeArea : roundedTop;
 
   try {
-    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 4) {
+    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 6) {
       if (isHidden) {
-        await AdMob.resumeBanner();
+        await AdMob.resumeBanner().catch(() => {});
         isHidden = false;
         console.log('[AdMob] Banner resumed at margin:', margin);
       }
@@ -141,7 +135,6 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
       adUnitId: ADMOB_BANNER_UNIT_ID,
       slotTop: roundedTop,
       safeAreaTop: roundedSat,
-      offsetFromSafeArea,
       calculatedMargin: margin,
       isIOS,
     });
@@ -156,7 +149,7 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
 };
 
 /**
- * 배너 광고 일시 숨김 (스크롤 시 또는 다른 화면 이동 시)
+ * 배너 광고 일시 숨김 (다른 탭으로 이동하거나 화면 밖으로 스크롤 시)
  */
 export const hideBanner = async (): Promise<void> => {
   if (!isNative() || !isBannerCreated || isHidden) return;
@@ -170,10 +163,11 @@ export const hideBanner = async (): Promise<void> => {
 };
 
 /**
- * 숨겨진 배너 다시 표시 (홈 화면 카테고리 영역 복귀 시)
+ * 숨겨진 배너 다시 표시 (홈 화면 복귀 시)
  */
 export const resumeBanner = async (): Promise<void> => {
-  if (!isNative() || !isBannerCreated || !isHidden) return;
+  if (!isNative() || !isBannerCreated) return;
+  if (!isHidden) return;
   try {
     await AdMob.resumeBanner();
     isHidden = false;

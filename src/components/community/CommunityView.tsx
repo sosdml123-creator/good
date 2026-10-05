@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Bell, Star, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag, Loader2, RefreshCw } from 'lucide-react';
+import { Search, Bell, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag, Loader2, RefreshCw } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
-import { getPopularCommunityPosts, getPopularProducts } from '../../utils/ranking';
+import { getPopularCommunityPosts } from '../../utils/ranking';
 import { CommunityPost } from '../../types';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
 
 export const CommunityView: React.FC = () => {
   const { 
     communityPosts, 
-    products, 
     events,
     recipes, 
     openRecipeDetail, 
     openWriteRecipe, 
     toggleRecipeLike, 
     openEventDetail, 
-    openProductDetail, 
     setActiveTab, 
     toggleLikePost, 
     addCommunityPost, 
@@ -48,8 +46,6 @@ export const CommunityView: React.FC = () => {
   const displayedPosts: CommunityPost[] = (activeSubTab === '인기'
     ? getPopularCommunityPosts(cleanPosts)
     : cleanPosts.filter(p => p.category === activeSubTab));
-
-  const popularTopProducts = getPopularProducts(products, 3);
 
   const handleCreatePost = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,45 +131,6 @@ export const CommunityView: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. 이번 주 신상 랭킹 */}
-      <div className="bg-white px-4 py-4 border-b border-gray-100">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[14px] font-bold text-gray-900">🔥 이번 주 신상 랭킹</span>
-          <button onClick={() => setActiveTab('category')} className="text-[12px] text-gray-400">
-            전체보기
-          </button>
-        </div>
-
-        <div className="flex gap-3 overflow-x-auto no-scrollbar">
-          {popularTopProducts.map((p, i) => (
-            <div
-              key={p.id}
-              onClick={() => openProductDetail(p.id)}
-              className="shrink-0 w-[100px] cursor-pointer hover:opacity-90 transition-opacity"
-            >
-              <div className="relative rounded-xl overflow-hidden bg-gray-100" style={{ height: '100px' }}>
-                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                <span className={`absolute top-1.5 left-1.5 w-5 h-5 rounded-md ${
-                  i === 0 ? 'bg-amber-500' : i === 1 ? 'bg-gray-600' : 'bg-gray-400'
-                } text-white text-[10px] font-black flex items-center justify-center`}>
-                  {i + 1}
-                </span>
-              </div>
-              <div className="mt-1.5">
-                <div className="text-[11px] font-semibold text-gray-800 truncate leading-snug">
-                  {p.name}
-                </div>
-                {p.ratingCount > 0 && p.overallRating > 0 ? (
-                  <div className="flex items-center gap-0.5 mt-0.5">
-                    <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
-                    <span className="text-[11px] font-semibold text-gray-700">{p.overallRating.toFixed(1)}</span>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* 2.5 Active Events & Promotions (When 이벤트 tab is active) */}
       {activeSubTab === '이벤트' && events.length > 0 && (

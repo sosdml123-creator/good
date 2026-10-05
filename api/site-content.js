@@ -51,8 +51,10 @@ export default async function handler(req, res) {
       const banners = systemData?.nutrition?.banners || null;
       const homeSections = systemData?.nutrition?.homeSections || null;
       const salePromotions = systemData?.nutrition?.salePromotions || null;
+      const events = systemData?.nutrition?.events || null;
       const deletedProductIds = systemData?.nutrition?.deletedProductIds || null;
       const deletedBannerIds = systemData?.nutrition?.deletedBannerIds || null;
+      const deletedEventIds = systemData?.nutrition?.deletedEventIds || null;
       const lastUpdated = systemData?.updated_at || null;
 
       // 2. Fetch active products from Supabase
@@ -70,8 +72,10 @@ export default async function handler(req, res) {
         banners,
         homeSections,
         salePromotions,
+        events,
         deletedProductIds,
         deletedBannerIds,
+        deletedEventIds,
         products,
         lastUpdated,
         serverTime: new Date().toISOString()
@@ -95,7 +99,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      const { action, id, ids, banners, homeSections, salePromotions, deletedProductIds, deletedBannerIds, products } = req.body || {};
+      const { action, id, ids, banners, homeSections, salePromotions, events, deletedProductIds, deletedBannerIds, deletedEventIds, products } = req.body || {};
 
       // 0-A. Handle Direct Product Deletion via Serverless Service Role
       if (action === 'delete_products' || action === 'delete_product') {
@@ -133,8 +137,8 @@ export default async function handler(req, res) {
         });
       }
 
-      // 1. Save banners, homeSections, salePromotions, and deleted IDs in system record inside products table
-      if (banners !== undefined || homeSections !== undefined || salePromotions !== undefined || deletedProductIds !== undefined || deletedBannerIds !== undefined) {
+      // 1. Save banners, homeSections, salePromotions, events, and deleted IDs in system record inside products table
+      if (banners !== undefined || homeSections !== undefined || salePromotions !== undefined || events !== undefined || deletedProductIds !== undefined || deletedBannerIds !== undefined || deletedEventIds !== undefined || action === 'delete_event') {
         // Fetch existing record first to merge safely
         let existingNutrition = {};
         try {
@@ -159,6 +163,19 @@ export default async function handler(req, res) {
           ...(deletedBannerIds || [])
         ]));
 
+        const eventTargetIds = action === 'delete_event' ? (ids || (id ? [id] : [])) : [];
+        const mergedDeletedEventIds = Array.from(new Set([
+          ...(existingNutrition.deletedEventIds || []),
+          ...(deletedEventIds || []),
+          ...eventTargetIds
+        ]));
+
+        let finalEvents = events !== undefined ? events : existingNutrition.events;
+        if (action === 'delete_event' && Array.isArray(finalEvents)) {
+          const delEventSet = new Set(mergedDeletedEventIds);
+          finalEvents = finalEvents.filter(e => !delEventSet.has(e.id));
+        }
+
         const payload = {
           id: SYSTEM_RECORD_ID,
           name: 'SYSTEM_SETTINGS_CONTAINER',
@@ -174,8 +191,10 @@ export default async function handler(req, res) {
             banners: banners !== undefined ? banners : existingNutrition.banners,
             homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
             salePromotions: salePromotions !== undefined ? salePromotions : existingNutrition.salePromotions,
+            events: finalEvents !== undefined ? finalEvents : (existingNutrition.events || []),
             deletedProductIds: mergedDeletedProductIds,
             deletedBannerIds: mergedDeletedBannerIds,
+            deletedEventIds: mergedDeletedEventIds,
             updatedAt: new Date().toISOString()
           },
           updated_at: new Date().toISOString()
