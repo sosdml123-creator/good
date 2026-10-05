@@ -1,114 +1,80 @@
 import React, { useEffect, useRef } from 'react';
-import { Capacitor } from '@capacitor/core';
 import {
+  ADMOB_CLIENT_ID,
+  ADMOB_SLOT_ID,
   BANNER_HEIGHT,
   BANNER_WIDTH,
-  getSafeAreaTop,
-  hideBanner,
-  resumeBanner,
-  showBannerAtSlot,
+  removeBanner,
 } from '../../services/admobService';
 
 /**
- * 카테고리 구좌와 신제품 구좌 사이 공식 AdMob 배너 광고 구좌
+ * 카테고리 구좌와 신제품 구좌 사이 공식 AdMob 광고 구좌
  *
- * 1) PC(웹 브라우저): 불필요한 더미/텍스트 없이 깔끔한 빈 공간으로 유지.
- * 2) 모바일 앱(iOS/Android): AdMob 공식 네이티브 배너를 카테고리 아래 슬롯 위치에 1:1로 정확히 안착.
- *    신제품 목록으로 스크롤 시 숨김 처리하여 본문을 가리지 않고, 상단 복귀 시 원래 자리에 재노출.
+ * - PC와 앱 모두 동일하게 해당 구좌(빈 공간) 내부에 직접 AdMob 광고를 삽입하여 고정
+ * - 네이티브 플로팅 오버레이를 제거하고 DOM 인라인 구좌에 1:1로 안착
  */
 export const AdMobBannerSection: React.FC = () => {
-  const isNative = Capacitor.isNativePlatform();
-  const slotRef = useRef<HTMLDivElement>(null);
-  const isPlacedRef = useRef<boolean>(false);
+  const adSlotRef = useRef<HTMLDivElement>(null);
+  const isPushedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!isNative || !slotRef.current) return;
+    // 혹시 떠 있을 수 있는 네이티브 플로팅 오버레이는 확실하게 정리
+    removeBanner().catch(() => {});
 
-    const slot = slotRef.current;
-    const scroller = slot.closest('main') as HTMLElement | null;
-    let raf = 0;
-
-    const syncBanner = () => {
-      raf = 0;
-      if (!slotRef.current) return;
-
-      const rect = slotRef.current.getBoundingClientRect();
-      const currentScrollTop = scroller?.scrollTop ?? (typeof window !== 'undefined' ? window.scrollY : 0);
-
-      // 상단 홈 카테고리 영역(스크롤 0~60px 이내)에 있을 때만 슬롯 위치에 배너 노출
-      const isNearTop = currentScrollTop <= 60;
-
-      if (isNearTop) {
-        // 스크롤 최상단 기준 슬롯 Y좌표 계산
-        const absoluteTop = rect.top + currentScrollTop;
-        const safeAreaTop = getSafeAreaTop();
-
-        // 메인 배너와 카테고리가 렌더링된 정상 높이(300px 이상)일 때 배치
-        if (absoluteTop >= 300) {
-          if (!isPlacedRef.current) {
-            isPlacedRef.current = true;
-            showBannerAtSlot(absoluteTop, safeAreaTop);
-          } else {
-            resumeBanner();
-          }
+    // DOM 내부에 AdMob / AdSense 광고 로드
+    if (!isPushedRef.current) {
+      isPushedRef.current = true;
+      try {
+        if (typeof window !== 'undefined') {
+          const ads = ((window as unknown as { adsbygoogle: unknown[] }).adsbygoogle =
+            (window as unknown as { adsbygoogle: unknown[] }).adsbygoogle || []);
+          ads.push({});
+          console.log('[AdMob Banner] In-line banner push succeeded');
         }
-      } else {
-        // 스크롤을 내려 신제품 목록 및 행사 소식을 탐색할 때는 본문 가림 방지를 위해 배너 숨김
-        hideBanner();
+      } catch (e) {
+        console.warn('[AdMob Banner] In-line banner push notice:', e);
       }
-    };
-
-    const handleScrollOrResize = () => {
-      if (!raf) raf = requestAnimationFrame(syncBanner);
-    };
-
-    // 상단 롤링 배너 및 카테고리 이미지 렌더링 시점에 맞춘 순차 위치 측정
-    const timers = [
-      setTimeout(syncBanner, 100),
-      setTimeout(syncBanner, 300),
-      setTimeout(syncBanner, 700),
-      setTimeout(syncBanner, 1400),
-    ];
-
-    scroller?.addEventListener('scroll', handleScrollOrResize, { passive: true });
-    window.addEventListener('scroll', handleScrollOrResize, { passive: true });
-    window.addEventListener('resize', handleScrollOrResize);
-
-    const resizeObserver = new ResizeObserver(() => {
-      handleScrollOrResize();
-    });
-    if (slot.parentElement) {
-      resizeObserver.observe(slot.parentElement);
     }
+  }, []);
 
-    return () => {
-      timers.forEach(clearTimeout);
-      if (raf) cancelAnimationFrame(raf);
-      scroller?.removeEventListener('scroll', handleScrollOrResize);
-      window.removeEventListener('scroll', handleScrollOrResize);
-      window.removeEventListener('resize', handleScrollOrResize);
-      resizeObserver.disconnect();
-      hideBanner();
-    };
-  }, [isNative]);
-
-  // 1. PC 및 웹 환경: 더미 박스나 텍스트 없이 깔끔한 빈 공간으로 유지
-  if (!isNative) {
-    return <div className="w-full h-1" aria-hidden="true" />;
-  }
-
-  // 2. 모바일 앱 환경: 카테고리 아래 ~ 신제품 위에 320x50 규격 슬롯 영역 확보
   return (
-    <div className="w-full flex flex-col items-center justify-center my-1">
+    <div className="w-full bg-white border-b border-gray-100 flex flex-col items-center py-2.5 px-4 my-1">
+      {/* 1. 구좌 헤더 라벨 */}
+      <div className="w-[320px] max-w-full flex items-center justify-between mb-1.5 px-1">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[9px] font-black bg-amber-100 text-amber-800 border border-amber-300 px-1 py-0.5 rounded leading-none shadow-2xs">
+            AD
+          </span>
+          <span className="text-[12px] font-bold text-gray-800 tracking-tight">
+            신상픽 추천 스폰서드
+          </span>
+        </div>
+        <span className="text-[10px] text-gray-400 font-medium">
+          맞춤 제휴 혜택
+        </span>
+      </div>
+
+      {/* 2. 320x50 정밀 규격 인라인 광고 컨테이너 (PC 및 앱 동일하게 직접 삽입) */}
       <div
-        ref={slotRef}
+        ref={adSlotRef}
         style={{ width: `${BANNER_WIDTH}px`, height: `${BANNER_HEIGHT}px` }}
-        className="w-[320px] max-w-full h-[50px] min-h-[50px] bg-transparent flex items-center justify-center pointer-events-none"
-        aria-hidden="true"
-      />
+        className="w-[320px] max-w-full h-[50px] min-h-[50px] rounded-xl bg-gray-50/80 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative shadow-2xs"
+      >
+        <ins
+          className="adsbygoogle"
+          style={{
+            display: 'inline-block',
+            width: `${BANNER_WIDTH}px`,
+            height: `${BANNER_HEIGHT}px`,
+          }}
+          data-ad-client={ADMOB_CLIENT_ID}
+          data-ad-slot={ADMOB_SLOT_ID}
+        />
+      </div>
     </div>
   );
 };
+
 
 
 
