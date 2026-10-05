@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
 import {
+  ADMOB_CLIENT_ID,
   ADMOB_BANNER_UNIT_ID,
+  ADMOB_HOME_SLOT_ID,
   BANNER_HEIGHT,
   BANNER_WIDTH,
   getSafeAreaTop,
   hideBanner,
+  removeBanner,
   showBannerAt,
 } from '../../services/admobService';
 
@@ -18,47 +21,61 @@ import {
 export const AdMobBannerSection: React.FC = () => {
   const isNative = Capacitor.isNativePlatform();
   const slotRef = useRef<HTMLDivElement>(null);
+  const isWebPushedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!isNative) return;
+    if (!isNative) {
+      if (isWebPushedRef.current) return;
+      isWebPushedRef.current = true;
+
+      try {
+        if (typeof window !== 'undefined') {
+          const ads = ((window as unknown as { adsbygoogle: unknown[] }).adsbygoogle =
+            (window as unknown as { adsbygoogle: unknown[] }).adsbygoogle || []);
+          ads.push({});
+        }
+      } catch (e) {
+        console.warn('[HomeAdMobBanner] Web ad notice:', e);
+      }
+
+      return;
+    }
 
     const slot = slotRef.current;
     const scroller = slot?.closest('main') as HTMLElement | null;
     let raf = 0;
 
-    const measureAndDisplayBanner = () => {
+    const syncBannerPosition = () => {
       raf = 0;
-      const currentScrollTop = scroller?.scrollTop ?? (typeof window !== 'undefined' ? window.scrollY : 0);
+      if (!slotRef.current) return;
 
-      // 상단 홈 카테고리 영역(스크롤 80px 이내)에 있을 때 배너 노출
-      if (currentScrollTop <= 80) {
-        let absoluteTop = 520; // 표준 기본값 fallback (헤더 56 + 배너 265 + 퀵메뉴 76 + 카테고리 124)
-        if (slotRef.current) {
-          const rect = slotRef.current.getBoundingClientRect();
-          const measuredTop = rect.top + currentScrollTop;
-          if (measuredTop > 250) {
-            absoluteTop = measuredTop;
-          }
-        }
+      const rect = slotRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const bottomNavReserve = 84;
+      const isSlotVisible =
+        rect.bottom > 0 &&
+        rect.top < viewportHeight - bottomNavReserve &&
+        rect.width > 0 &&
+        rect.height > 0;
+
+      if (isSlotVisible) {
         const safeAreaTop = getSafeAreaTop();
-        showBannerAt(absoluteTop, safeAreaTop, ADMOB_BANNER_UNIT_ID);
+        showBannerAt(rect.top, safeAreaTop, ADMOB_BANNER_UNIT_ID);
       } else {
-        // 스크롤을 내려 신제품 목록을 탐색할 때는 본문 가림 방지를 위해 숨김
         hideBanner();
       }
     };
 
     const handleScrollOrResize = () => {
-      if (!raf) raf = requestAnimationFrame(measureAndDisplayBanner);
+      if (!raf) raf = requestAnimationFrame(syncBannerPosition);
     };
 
-    // 마운트 즉시 및 뷰 렌더링 완료 타이밍별 순차 호출로 100% 광고 로드 보장
-    measureAndDisplayBanner();
+    syncBannerPosition();
     const timers = [
-      setTimeout(measureAndDisplayBanner, 150),
-      setTimeout(measureAndDisplayBanner, 400),
-      setTimeout(measureAndDisplayBanner, 800),
-      setTimeout(measureAndDisplayBanner, 1500),
+      setTimeout(syncBannerPosition, 80),
+      setTimeout(syncBannerPosition, 250),
+      setTimeout(syncBannerPosition, 500),
+      setTimeout(syncBannerPosition, 1000),
     ];
 
     scroller?.addEventListener('scroll', handleScrollOrResize, { passive: true });
@@ -79,28 +96,34 @@ export const AdMobBannerSection: React.FC = () => {
       window.removeEventListener('scroll', handleScrollOrResize);
       window.removeEventListener('resize', handleScrollOrResize);
       resizeObserver.disconnect();
-      hideBanner();
+      removeBanner().catch(() => {});
     };
   }, [isNative]);
 
-  // 1. PC 웹 환경: 어떠한 텍스트나 공간도 남기지 않는 완전한 빈칸
-  if (!isNative) {
-    return null;
-  }
-
-  // 2. 모바일 앱 환경: "신상픽 추천 스폰서드" 텍스트 없이 320x50 투명 슬롯 영역 확보
   return (
-    <div className="w-full flex flex-col items-center justify-center my-1">
+    <div className="w-full flex flex-col items-center justify-center bg-white py-2 border-b border-gray-100">
       <div
         ref={slotRef}
         style={{ width: `${BANNER_WIDTH}px`, height: `${BANNER_HEIGHT}px` }}
-        className="w-[320px] max-w-full h-[50px] min-h-[50px] bg-transparent flex items-center justify-center pointer-events-none"
+        className="w-[320px] max-w-full h-[50px] min-h-[50px] bg-white flex items-center justify-center overflow-hidden"
         aria-hidden="true"
-      />
+      >
+        {!isNative && (
+          <ins
+            className="adsbygoogle"
+            style={{
+              display: 'inline-block',
+              width: `${BANNER_WIDTH}px`,
+              height: `${BANNER_HEIGHT}px`,
+            }}
+            data-ad-client={ADMOB_CLIENT_ID}
+            data-ad-slot={ADMOB_HOME_SLOT_ID}
+          />
+        )}
+      </div>
     </div>
   );
 };
-
 
 
 
