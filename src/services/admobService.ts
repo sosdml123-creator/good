@@ -9,7 +9,12 @@ import { Capacitor } from '@capacitor/core';
 
 // Google AdMob 공식 앱 ID & 배너 광고 단위 ID
 export const ADMOB_APP_ID = 'ca-app-pub-3878859120989916~2898554632';
-export const ADMOB_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/9433572199';
+export const ADMOB_CLIENT_ID = 'ca-pub-3878859120989916';
+export const ADMOB_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/9433572199'; // 홈 피드 메인 배너
+export const ADMOB_SEARCH_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/1040251860'; // 검색창 추천 슬롯 배너
+export const ADMOB_SLOT_ID = '9433572199';
+export const ADMOB_HOME_SLOT_ID = '9433572199';
+export const ADMOB_SEARCH_SLOT_ID = '1040251860';
 
 // 고정 배너 사이즈 (320x50 표준 모바일 배너)
 export const BANNER_HEIGHT = 50;
@@ -19,6 +24,7 @@ let initPromise: Promise<boolean> | null = null;
 let isBannerCreated = false;
 let isHidden = false;
 let bannerShownAtMargin: number | null = null;
+let currentAdId: string | null = null;
 let listenersAdded = false;
 
 export const isNative = () => Capacitor.isNativePlatform();
@@ -88,9 +94,13 @@ export const initAdMob = (): Promise<boolean> => {
 };
 
 /**
- * 카테고리 구좌 바로 아래 슬롯 Y좌표(slotTop)에 320x50 애드몹 배너를 정밀 안착
+ * 카테고리 구좌 및 검색창 슬롯 Y좌표(slotTop)에 320x50 애드몹 배너를 정밀 안착
  */
-export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Promise<void> => {
+export const showBannerAt = async (
+  slotTop: number,
+  safeAreaTop: number = 0,
+  adId: string = ADMOB_BANNER_UNIT_ID
+): Promise<void> => {
   if (!isNative()) return;
   const ok = await initAdMob();
   if (!ok) return;
@@ -103,22 +113,30 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
   const margin = isIOS ? -offsetFromSafeArea : roundedTop;
 
   try {
-    if (isBannerCreated && bannerShownAtMargin !== null && Math.abs(bannerShownAtMargin - margin) <= 6) {
+    // 이미 배너가 생성되어 있고, 광고 ID 및 슬롯 마진이 동일한 경우 숨김 해제만 수행
+    if (
+      isBannerCreated &&
+      currentAdId === adId &&
+      bannerShownAtMargin !== null &&
+      Math.abs(bannerShownAtMargin - margin) <= 6
+    ) {
       if (isHidden) {
         await AdMob.resumeBanner().catch(() => {});
         isHidden = false;
-        console.log('[AdMob] Banner resumed at margin:', margin);
+        console.log('[AdMob] Banner resumed at margin:', margin, 'adId:', adId);
       }
       return;
     }
 
+    // 다른 광고 단위이거나 마진 위치가 변경된 경우 기존 배너 완전 제거 후 재생성
     if (isBannerCreated) {
       await AdMob.removeBanner().catch(() => {});
       isBannerCreated = false;
+      currentAdId = null;
     }
 
     const options: BannerAdOptions = {
-      adId: ADMOB_BANNER_UNIT_ID,
+      adId,
       adSize: BannerAdSize.BANNER,
       position: BannerAdPosition.TOP_CENTER,
       margin,
@@ -126,7 +144,7 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
     };
 
     console.log('[AdMob] Requesting native banner at slot:', {
-      adId: ADMOB_BANNER_UNIT_ID,
+      adId,
       slotTop: roundedTop,
       safeAreaTop: roundedSat,
       margin,
@@ -135,6 +153,7 @@ export const showBannerAt = async (slotTop: number, safeAreaTop: number = 0): Pr
 
     await AdMob.showBanner(options);
     bannerShownAtMargin = margin;
+    currentAdId = adId;
     isBannerCreated = true;
     isHidden = false;
   } catch (e) {
@@ -178,6 +197,7 @@ export const removeBanner = async (): Promise<void> => {
   try {
     await AdMob.removeBanner().catch(() => {});
     bannerShownAtMargin = null;
+    currentAdId = null;
     isBannerCreated = false;
     isHidden = false;
     console.log('[AdMob] Banner removed');
@@ -190,6 +210,8 @@ export const removeBanner = async (): Promise<void> => {
 export const showBannerAtSlot = showBannerAt;
 export const showBanner = (slotTop: number = 530, safeAreaTop: number = 47) => showBannerAt(slotTop, safeAreaTop);
 export const showHomeBannerAd = showBanner;
+export const showSearchBannerAd = (slotTop: number = 110, safeAreaTop: number = 47) =>
+  showBannerAt(slotTop, safeAreaTop, ADMOB_SEARCH_BANNER_UNIT_ID);
 export const hideBannerAd = hideBanner;
 export const resumeBannerAd = resumeBanner;
 export const removeBannerAd = removeBanner;
