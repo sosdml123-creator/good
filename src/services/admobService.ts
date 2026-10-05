@@ -1,8 +1,5 @@
 import {
   AdMob,
-  BannerAdOptions,
-  BannerAdSize,
-  BannerAdPosition,
   BannerAdPluginEvents,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
@@ -21,10 +18,6 @@ export const BANNER_HEIGHT = 50;
 export const BANNER_WIDTH = 320;
 
 let initPromise: Promise<boolean> | null = null;
-let isBannerCreated = false;
-let isHidden = false;
-let bannerShownAtMargin: number | null = null;
-let currentAdId: string | null = null;
 let listenersAdded = false;
 
 export const isNative = () => Capacitor.isNativePlatform();
@@ -83,6 +76,8 @@ export const initAdMob = (): Promise<boolean> => {
         });
       }
 
+      // 화면에 따로 떠서 따라다니는 네이티브 플로팅 오버레이 완전 제거
+      await AdMob.removeBanner().catch(() => {});
       return true;
     } catch (e) {
       console.warn('[AdMob] Init failed:', e);
@@ -94,128 +89,29 @@ export const initAdMob = (): Promise<boolean> => {
 };
 
 /**
- * 카테고리 구좌 및 검색창 슬롯 Y좌표(slotTop)에 320x50 애드몹 배너를 정밀 안착
- */
-export const showBannerAt = async (
-  slotTop: number,
-  safeAreaTop: number = 0,
-  adId: string = ADMOB_BANNER_UNIT_ID
-): Promise<void> => {
-  if (!isNative()) return;
-  const ok = await initAdMob();
-  if (!ok) return;
-
-  const isIOS = Capacitor.getPlatform() === 'ios';
-  const roundedTop = Math.round(Math.max(0, slotTop));
-  const roundedSat = Math.round(Math.max(0, safeAreaTop));
-  const offsetFromSafeArea = Math.max(0, roundedTop - roundedSat);
-  // iOS AutoLayout: constant = -(Margin * -1) 이므로 음수를 전달해야 safeAreaTop 기준 아래로 이동
-  const margin = isIOS ? -offsetFromSafeArea : roundedTop;
-
-  try {
-    // 이미 배너가 생성되어 있고, 광고 ID 및 슬롯 마진이 동일한 경우 숨김 해제만 수행
-    if (
-      isBannerCreated &&
-      currentAdId === adId &&
-      bannerShownAtMargin !== null &&
-      Math.abs(bannerShownAtMargin - margin) <= 6
-    ) {
-      if (isHidden) {
-        await AdMob.resumeBanner().catch(() => {});
-        isHidden = false;
-        console.log('[AdMob] Banner resumed at margin:', margin, 'adId:', adId);
-      }
-      return;
-    }
-
-    // 다른 광고 단위이거나 마진 위치가 변경된 경우 기존 배너 완전 제거 후 재생성
-    if (isBannerCreated) {
-      await AdMob.removeBanner().catch(() => {});
-      isBannerCreated = false;
-      currentAdId = null;
-    }
-
-    const options: BannerAdOptions = {
-      adId,
-      adSize: BannerAdSize.BANNER,
-      position: BannerAdPosition.TOP_CENTER,
-      margin,
-      isTesting: false,
-    };
-
-    console.log('[AdMob] Requesting native banner at slot:', {
-      adId,
-      slotTop: roundedTop,
-      safeAreaTop: roundedSat,
-      margin,
-      isIOS,
-    });
-
-    await AdMob.showBanner(options);
-    bannerShownAtMargin = margin;
-    currentAdId = adId;
-    isBannerCreated = true;
-    isHidden = false;
-  } catch (e) {
-    console.warn('[AdMob] showBannerAt failed:', e);
-  }
-};
-
-/**
- * 배너 광고 일시 숨김 (스크롤 시 신제품 본문을 가리지 않도록 숨김)
- */
-export const hideBanner = async (): Promise<void> => {
-  if (!isNative() || !isBannerCreated || isHidden) return;
-  isHidden = true;
-  try {
-    await AdMob.hideBanner();
-    console.log('[AdMob] Banner hidden');
-  } catch (e) {
-    console.warn('[AdMob] hideBanner notice:', e);
-  }
-};
-
-/**
- * 숨겨진 배너 다시 표시 (카테고리 영역으로 복귀 시)
- */
-export const resumeBanner = async (): Promise<void> => {
-  if (!isNative() || !isBannerCreated || !isHidden) return;
-  try {
-    await AdMob.resumeBanner();
-    isHidden = false;
-    console.log('[AdMob] Banner resumed');
-  } catch (e) {
-    console.warn('[AdMob] resumeBanner notice:', e);
-  }
-};
-
-/**
- * 배너 완전 제거
+ * 네이티브 플로팅 오버레이 배너 완전 제거 (화면 따라다님 방지)
  */
 export const removeBanner = async (): Promise<void> => {
   if (!isNative()) return;
   try {
     await AdMob.removeBanner().catch(() => {});
-    bannerShownAtMargin = null;
-    currentAdId = null;
-    isBannerCreated = false;
-    isHidden = false;
-    console.log('[AdMob] Banner removed');
+    console.log('[AdMob] Native floating overlay removed');
   } catch (e) {
     console.warn('[AdMob] removeBanner notice:', e);
   }
 };
 
-// 하위 호환 alias
-export const showBannerAtSlot = showBannerAt;
-export const showBanner = (slotTop: number = 530, safeAreaTop: number = 47) => showBannerAt(slotTop, safeAreaTop);
-export const showHomeBannerAd = showBanner;
-export const showSearchBannerAd = (slotTop: number = 110, safeAreaTop: number = 47) =>
-  showBannerAt(slotTop, safeAreaTop, ADMOB_SEARCH_BANNER_UNIT_ID);
+export const hideBanner = removeBanner;
+export const resumeBanner = () => Promise.resolve();
+export const showBannerAt = () => Promise.resolve();
+export const showBannerAtSlot = () => Promise.resolve();
+export const showBanner = () => Promise.resolve();
+export const showHomeBannerAd = () => Promise.resolve();
+export const showSearchBannerAd = () => Promise.resolve();
 export const hideBannerAd = hideBanner;
 export const resumeBannerAd = resumeBanner;
 export const removeBannerAd = removeBanner;
-export const isHomeBannerVisible = (): boolean => isBannerCreated && !isHidden;
+export const isHomeBannerVisible = (): boolean => false;
 
 
 
