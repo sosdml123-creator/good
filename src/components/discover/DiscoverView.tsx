@@ -359,19 +359,17 @@ export const DiscoverView: React.FC = () => {
                           점수 {item.reviewScore}
                         </span>
                       )}
-                      {p.buyLink && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(p.buyLink, '_blank');
-                          }}
-                          className="px-1.5 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold flex items-center gap-0.5 shadow-2xs"
-                          title="실제 판매처 바로가기"
-                        >
-                          <span>구매</span>
-                          <ExternalLink className="w-2.5 h-2.5" />
-                        </button>
-                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(COUPANG_AFFILIATE_URL, '_blank');
+                        }}
+                        className="px-1.5 py-0.5 rounded bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold flex items-center gap-0.5 shadow-2xs"
+                        title="쿠팡 최저가 바로가기"
+                      >
+                        <span>쿠팡</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -507,19 +505,17 @@ export const DiscoverView: React.FC = () => {
 
                   {/* Action Buttons (Buy Link & Bookmark) */}
                   <div className="flex items-center gap-1 shrink-0">
-                    {p.buyLink && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(p.buyLink, '_blank');
-                        }}
-                        className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-black flex items-center gap-0.5 border border-emerald-200 transition-all active:scale-95 shadow-2xs"
-                        title="실제 판매처 바로가기"
-                      >
-                        <span>구매</span>
-                        <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
-                      </button>
-                    )}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(COUPANG_AFFILIATE_URL, '_blank');
+                      }}
+                      className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-black flex items-center gap-0.5 border border-rose-200 transition-all active:scale-95 shadow-2xs"
+                      title="쿠팡 최저가 바로가기"
+                    >
+                      <span>쿠팡</span>
+                      <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
+                    </button>
                     <button
                       onClick={(e) => toggleBookmark(p.id, e)}
                       className="text-xl p-1 text-gray-300 hover:text-rose-500 transition-colors"
