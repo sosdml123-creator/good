@@ -9,7 +9,6 @@ import {
   CheckCircle2, 
   Award, 
   MapPin,
-  Store,
   ExternalLink,
   Info,
   ShieldCheck,
@@ -20,7 +19,7 @@ import {
   TrendingUp,
   TrendingDown
 } from 'lucide-react';
-import { StoreStockItem, NutritionInfo } from '../../types';
+import { NutritionInfo } from '../../types';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
 import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
@@ -205,41 +204,6 @@ export const ProductDetailModal: React.FC = () => {
             { label: '재구매 의사', val: actualOverallRating },
           ])
     : [];
-
-  // Default stores if none specified
-  const storeList = selectedProduct.stores && selectedProduct.stores.length > 0
-    ? selectedProduct.stores
-    : selectedProduct.itemType === 'fresh'
-      ? ['마켓컬리', '쿠팡프레시', '대형마트']
-      : ['CU', 'GS25', '세븐일레븐', '대형마트'];
-
-  const getStoreBadge = (storeName: string) => {
-    switch (storeName) {
-      case 'CU':
-        return { text: '1+1 행사중', color: 'bg-purple-50 text-purple-600 border-purple-200' };
-      case 'GS25':
-        return { text: '입고완료', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
-      case '세븐일레븐':
-        return { text: '입고완료', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' };
-      case '이마트24':
-        return { text: '2+1 행사중', color: 'bg-amber-50 text-amber-600 border-amber-200' };
-      case '마켓컬리':
-        return { text: '샛별배송 🚀', color: 'bg-purple-50 text-purple-700 border-purple-200' };
-      case '쿠팡프레시':
-        return { text: '새벽도착 🚀', color: 'bg-sky-50 text-sky-700 border-sky-200' };
-      default:
-        return { text: '판매중', color: 'bg-gray-50 text-gray-700 border-gray-200' };
-    }
-  };
-
-  const getStoreIcon = (storeName: string) => {
-    if (['CU', 'GS25', '세븐일레븐', '이마트24'].includes(storeName)) return '🏪';
-    if (['마켓컬리', '쿠팡프레시'].includes(storeName)) return '📦';
-    if (['대형마트', '이마트', '홈플러스', '롯데마트'].includes(storeName)) return '🛒';
-    return '🏬';
-  };
-
-  const effectiveBuyLink = COUPANG_AFFILIATE_URL;
 
   return (
     <div className="bg-[#F5F5F5] min-h-full pb-28">
