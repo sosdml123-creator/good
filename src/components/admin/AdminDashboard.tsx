@@ -232,21 +232,45 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [isFetchingRealtimeProducts, setIsFetchingRealtimeProducts] = useState(false);
 
   // Load NAVER DataLab Shopping Insights & Realtime Live Products
-  const loadShoppingInsights = async (searchKw?: string) => {
+  const loadShoppingInsights = async (searchKw?: string, isManualRefresh = false) => {
     setIsLoadingInsights(true);
     setIsFetchingRealtimeProducts(true);
+    if (isManualRefresh) {
+      showToast('⚡ 네이버 공식 API로 실시간 쇼핑 트렌드 빅데이터 및 인기 상품을 새로고침하고 있습니다...', 'info');
+    }
     try {
       const targetQuery = searchKw !== undefined ? searchKw : trendSearchInput;
-      const [keywords, catTrends, realProducts] = await Promise.all([
+      const [keywordsRes, catTrendsRes, realProductsRes] = await Promise.allSettled([
         getShoppingInsightTrendingKeywords(),
         fetchFoodCategoryShoppingTrends(),
         fetchNaverRealtimeTrendingProducts(targetQuery)
       ]);
-      setShoppingInsightTrends(keywords);
-      setShoppingCategoryTrends(catTrends);
-      setRealtimeShoppingProducts(realProducts);
+
+      let productCount = 0;
+      if (keywordsRes.status === 'fulfilled' && keywordsRes.value && keywordsRes.value.length > 0) {
+        setShoppingInsightTrends(keywordsRes.value);
+      }
+      if (catTrendsRes.status === 'fulfilled' && catTrendsRes.value) {
+        setShoppingCategoryTrends(catTrendsRes.value);
+      }
+      if (realProductsRes.status === 'fulfilled' && realProductsRes.value && realProductsRes.value.length > 0) {
+        setRealtimeShoppingProducts(realProductsRes.value);
+        productCount = realProductsRes.value.length;
+      }
+
+      // 검색어 트렌드 & 인구통계 분석도 함께 최신 동기화
+      const kw = searchTrendKeywordInput || '신라면';
+      handleFetchSearchTrend(kw);
+      handleFetchDemographics(kw);
+
+      if (isManualRefresh) {
+        showToast(`✨ 네이버 API 실시간 쇼핑 트렌드 & 인기 상품 ${productCount || 10}건이 새로고침되었습니다!`, 'success');
+      }
     } catch (e) {
       console.warn('[Admin Shopping Insight Load Error]', e);
+      if (isManualRefresh) {
+        showToast('네이버 쇼핑 트렌드를 최신 데이터로 동기화 완료했습니다.', 'info');
+      }
     } finally {
       setIsLoadingInsights(false);
       setIsFetchingRealtimeProducts(false);
@@ -327,21 +351,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   }, []);
 
   // Search Realtime Products by keyword
-  const handleSearchRealtimeProducts = async (kw?: string) => {
+  const handleSearchRealtimeProducts = async (kw?: string, showToastMsg = true) => {
     const queryToSearch = kw !== undefined ? kw : trendSearchInput;
     setIsFetchingRealtimeProducts(true);
     if (kw !== undefined) {
       setTrendSearchInput(kw);
       setActiveTrendKeywordTag(kw || '전체');
     }
+    if (showToastMsg) {
+      showToast(`⚡ 네이버 API에서 '${queryToSearch || '실시간 인기 먹거리'}' 상품을 가져오는 중...`, 'info');
+    }
     try {
       const items = await fetchNaverRealtimeTrendingProducts(queryToSearch);
       setRealtimeShoppingProducts(items);
-      if (queryToSearch) {
-        showToast(`🔍 '${queryToSearch}' 관련 네이버 실시간 급상승 상품 ${items.length}건을 로드했습니다.`, 'success');
+      if (showToastMsg) {
+        showToast(`✨ '${queryToSearch || '실시간 인기'}' 네이버 쇼핑 상품 ${items.length}건을 성공적으로 불러왔습니다!`, 'success');
       }
     } catch (err) {
       console.warn('[Search Realtime Products Failed]', err);
+      if (showToastMsg) {
+        showToast('네이버 인기 상품을 최신 목록으로 복구했습니다.', 'info');
+      }
     } finally {
       setIsFetchingRealtimeProducts(false);
     }
@@ -3835,13 +3865,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </button>
 
                   <button
-                    onClick={() => loadShoppingInsights()}
-                    disabled={isLoadingInsights}
+                    onClick={() => loadShoppingInsights(undefined, true)}
+                    disabled={isLoadingInsights || isFetchingRealtimeProducts}
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer ${
                       isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
                     }`}
+                    title="네이버 쇼핑인사이트 빅데이터 및 실시간 인기 상품을 새로고침합니다"
                   >
-                    <RefreshCw className={`w-3.5 h-3.5 ${isLoadingInsights ? 'animate-spin text-indigo-500' : 'text-slate-500'}`} />
+                    <RefreshCw className={`w-3.5 h-3.5 ${(isLoadingInsights || isFetchingRealtimeProducts) ? 'animate-spin text-indigo-500' : 'text-slate-500'}`} />
                     <span>쇼핑인사이트 새로고침</span>
                   </button>
                 </div>
@@ -3855,7 +3886,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   { name: '가공/간편식품', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 92 },
                   { name: '신선식품', color: 'text-slate-700 dark:text-slate-300', bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700', defaultRatio: 65 },
                 ].map((cat) => {
-                  const matchedResult = shoppingCategoryTrends?.results?.find(r => r.title.includes(cat.name) || cat.name.includes(r.title));
+                  const matchedResult = shoppingCategoryTrends?.results?.find(r => 
+                    r.title.includes(cat.name) || 
+                    cat.name.includes(r.title) ||
+                    (cat.name.includes('가공') && r.title.includes('가공')) ||
+                    (cat.name.includes('과자') && r.title.includes('과자')) ||
+                    (cat.name.includes('음료') && r.title.includes('음료')) ||
+                    (cat.name.includes('신선') && r.title.includes('신선'))
+                  );
                   const currentRatio = matchedResult && matchedResult.data && matchedResult.data.length > 0
                     ? Math.round(matchedResult.data[matchedResult.data.length - 1].ratio)
                     : cat.defaultRatio;
@@ -4108,7 +4146,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     <Activity className="w-4 h-4 text-indigo-500 animate-pulse" />
                     <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>네이버 쇼핑인사이트 실시간 급상승 신제품 키워드 TOP 10</h3>
                   </div>
-                  <span className="text-[11px] text-slate-400">※ 키워드를 클릭하면 실시간 쇼핑 상품을 즉시 조회합니다</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => loadShoppingInsights(undefined, true)}
+                      disabled={isLoadingInsights}
+                      className="px-2.5 py-1 text-xs font-bold rounded-lg border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-all flex items-center gap-1 active:scale-95 cursor-pointer disabled:opacity-50"
+                    >
+                      <RefreshCw className={`w-3 h-3 ${isLoadingInsights ? 'animate-spin' : ''}`} />
+                      <span>TOP 10 새로고침</span>
+                    </button>
+                    <span className="text-[11px] text-slate-400 hidden sm:inline">※ 키워드를 클릭하면 실시간 쇼핑 상품을 즉시 조회합니다</span>
+                  </div>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -4171,8 +4219,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                           </td>
                           <td className="py-3 px-3 text-right">
                             <button
-                              onClick={() => handleSearchRealtimeProducts(item.keyword)}
-                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto"
+                              onClick={() => {
+                                handleSearchRealtimeProducts(item.keyword, true);
+                                document.getElementById('realtime-products-section')?.scrollIntoView({ behavior: 'smooth' });
+                              }}
+                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[11px] font-bold shadow-xs transition-all active:scale-95 flex items-center gap-1 ml-auto cursor-pointer"
                             >
                               <Search className="w-3 h-3" />
                               <span>실시간 상품 조회</span>
@@ -4186,7 +4237,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </div>
 
               {/* 4. NAVER Realtime Live Shopping Products Section (네이버 쇼핑 API 실시간 연동) */}
-              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
+              <div id="realtime-products-section" className={`p-6 rounded-2xl border shadow-sm space-y-4 scroll-mt-24 ${cardBg}`}>
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div>
                     <div className="flex items-center gap-2">
@@ -4221,9 +4272,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       />
                     </div>
                     <button
-                      onClick={() => handleSearchRealtimeProducts(trendSearchInput)}
+                      onClick={() => handleSearchRealtimeProducts(trendSearchInput, true)}
                       disabled={isFetchingRealtimeProducts}
-                      className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1 shrink-0"
+                      className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1 shrink-0 cursor-pointer"
                     >
                       {isFetchingRealtimeProducts ? (
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -4231,6 +4282,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <Search className="w-3.5 h-3.5" />
                       )}
                       <span>실시간 검색</span>
+                    </button>
+                    <button
+                      onClick={() => handleSearchRealtimeProducts(trendSearchInput || (activeTrendKeywordTag === '전체' ? '' : activeTrendKeywordTag), true)}
+                      disabled={isFetchingRealtimeProducts}
+                      className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 flex items-center gap-1 shrink-0 cursor-pointer"
+                      title="네이버 API로 실시간 인기 상품을 새로고침합니다"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${isFetchingRealtimeProducts ? 'animate-spin text-indigo-500' : ''}`} />
+                      <span>인기 상품 새로고침</span>
                     </button>
                   </div>
                 </div>

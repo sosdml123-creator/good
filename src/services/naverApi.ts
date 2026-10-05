@@ -1217,65 +1217,89 @@ export interface NaverRealtimeProduct {
 /**
  * Get Realtime Trending Food Keywords curated with DataLab Shopping Insight
  */
+/**
+ * Get Realtime Trending Food Keywords curated with DataLab Shopping Insight
+ */
 export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeywordInsight[]> => {
   const candidateKeywords = [
     { name: '피자떡', param: ['피자떡'], category: '간편식' as ProductCategory, brand: '인기 먹거리' },
     { name: '한정선 찹쌀떡', param: ['한정선'], category: '빵·디저트' as ProductCategory, brand: '한정선' },
     { name: '두바이 찹쌀떡', param: ['두바이 찹쌀떡'], category: '빵·디저트' as ProductCategory, brand: '편의점/디저트' },
     { name: '요아정', param: ['요아정'], category: '아이스크림' as ProductCategory, brand: '요아정' },
-    { name: '연세우유 밤티라미수', param: ['밤티라미수'], category: '빵·디저트' as ProductCategory, brand: '연세유업' },
+    { name: '밤티라미수', param: ['밤티라미수'], category: '빵·디저트' as ProductCategory, brand: '연세유업' },
     { name: '신라면 툼바', param: ['신라면 툼바'], category: '간편식' as ProductCategory, brand: '농심' },
-    { name: '황치즈 맘모스', param: ['황치즈'], category: '빵·디저트' as ProductCategory, brand: '편의점 신상' },
-    { name: '오리온 비쵸비 딸기', param: ['비쵸비'], category: '과자' as ProductCategory, brand: '오리온' },
-    { name: '제로 밀크티', param: ['제로 밀크티'], category: '음료' as ProductCategory, brand: '편의점 신상' },
-    { name: '소금버터 홈런볼', param: ['홈런볼'], category: '과자' as ProductCategory, brand: '해태제과' },
+    { name: '황치즈', param: ['황치즈'], category: '빵·디저트' as ProductCategory, brand: '편의점 신상' },
+    { name: '비쵸비', param: ['비쵸비'], category: '과자' as ProductCategory, brand: '오리온' },
+    { name: '먹태깡', param: ['먹태깡'], category: '과자' as ProductCategory, brand: '농심' },
     { name: '마열라면', param: ['마열라면'], category: '간편식' as ProductCategory, brand: '오뚜기' },
+    { name: '소금버터 홈런볼', param: ['홈런볼'], category: '과자' as ProductCategory, brand: '해태제과' },
     { name: '테라 라이트', param: ['테라 라이트'], category: '음료' as ProductCategory, brand: '하이트진로' }
   ];
 
   try {
-    // NAVER DataLab Shopping Keyword API limit: max 5 keywords per request. Chunk into groups of 4!
     const chunkSize = 4;
+    const chunks: { name: string; param: string[]; category: ProductCategory; brand: string }[][] = [];
+    for (let i = 0; i < candidateKeywords.length; i += chunkSize) {
+      chunks.push(candidateKeywords.slice(i, i + chunkSize));
+    }
+
+    const chunkResponses = await Promise.allSettled(
+      chunks.map(chunk =>
+        fetchFoodKeywordShoppingTrends(chunk.map(c => ({ name: c.name, param: c.param })))
+      )
+    );
+
     const allResults: TrendingKeywordInsight[] = [];
 
-    for (let i = 0; i < candidateKeywords.length; i += chunkSize) {
-      const chunk = candidateKeywords.slice(i, i + chunkSize);
-      const keywordParams = chunk.map(c => ({ name: c.name, param: c.param }));
-      
-      const insightData = await fetchFoodKeywordShoppingTrends(keywordParams);
-
-      if (insightData && insightData.results && insightData.results.length > 0) {
-        insightData.results.forEach((res, index) => {
-          const candidate = chunk.find(c => c.name === res.title) || chunk[index];
+    chunkResponses.forEach((res, cIdx) => {
+      if (res.status === 'fulfilled' && res.value && res.value.results) {
+        const chunk = chunks[cIdx];
+        res.value.results.forEach((r, index) => {
+          const candidate = chunk.find(c => c.name === r.title) || chunk[index];
           if (!candidate) return;
-          const lastPoints = res.data.slice(-7);
-          const avgRatio = lastPoints.length > 0 
-            ? Math.round(lastPoints.reduce((acc, p) => acc + p.ratio, 0) / lastPoints.length)
-            : Math.round(res.data[res.data.length - 1]?.ratio || 75);
+
+          const data = r.data || [];
+          const recentPoints = data.slice(-7);
+          const prevPoints = data.slice(-14, -7);
+
+          const recentAvg = recentPoints.length > 0
+            ? recentPoints.reduce((acc, p) => acc + p.ratio, 0) / recentPoints.length
+            : (data[data.length - 1]?.ratio || 50);
+
+          const prevAvg = prevPoints.length > 0
+            ? prevPoints.reduce((acc, p) => acc + p.ratio, 0) / prevPoints.length
+            : Math.max(10, recentAvg * 0.8);
+
+          const growthPercent = prevAvg > 0
+            ? Math.round(((recentAvg - prevAvg) / prevAvg) * 100)
+            : Math.round(recentAvg * 1.5);
+
+          const score = Math.max(15, Math.min(100, Math.round(recentAvg)));
 
           allResults.push({
             rank: 0,
-            keyword: res.title,
+            keyword: r.title,
             category: candidate.category,
-            score: Math.max(25, Math.min(100, avgRatio)),
-            growthRate: `+${Math.round(45 + Math.random() * 150)}%`,
-            isHot: avgRatio >= 60 || allResults.length < 4,
+            score,
+            growthRate: `${growthPercent >= 0 ? '+' : ''}${growthPercent}%`,
+            isHot: score >= 40 || growthPercent > 30 || allResults.length < 3,
             relatedBrand: candidate.brand
           });
         });
       }
-    }
+    });
 
     if (allResults.length > 0) {
       return allResults
         .sort((a, b) => b.score - a.score)
+        .slice(0, 10)
         .map((item, idx) => ({ ...item, rank: idx + 1 }));
     }
   } catch (err) {
     console.warn('[Shopping Insight Trending Fetch Fallback]', err);
   }
 
-  // Curated Fallback with Real Live Trending Delicacies (피자떡, 한정선, 두바이 찹쌀떡, 요아정, etc.)
+  // Curated Fallback with Real Live Trending Delicacies
   return [
     { rank: 1, keyword: '피자떡 (치즈 폭탄)', category: '간편식', score: 99, growthRate: '+245%', isHot: true, relatedBrand: '인기 먹거리' },
     { rank: 2, keyword: '한정선 과일찹쌀떡', category: '빵·디저트', score: 97, growthRate: '+220%', isHot: true, relatedBrand: '한정선' },
@@ -1285,7 +1309,7 @@ export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeyw
     { rank: 6, keyword: '신라면 툼바 큰사발면', category: '간편식', score: 88, growthRate: '+165%', isHot: false, relatedBrand: '농심' },
     { rank: 7, keyword: '황치즈 맘모스 쫀득볼', category: '빵·디저트', score: 84, growthRate: '+140%', isHot: false, relatedBrand: '편의점 신상' },
     { rank: 8, keyword: '오리온 비쵸비 딸기 에디션', category: '과자', score: 81, growthRate: '+125%', isHot: false, relatedBrand: '오리온' },
-    { rank: 9, keyword: '하이트진로 테라 라이트 제로슈거', category: '음료', score: 78, growthRate: '+110%', isHot: false, relatedBrand: '하이트진로' },
+    { rank: 9, keyword: '농심 먹태깡 청양마요', category: '과자', score: 79, growthRate: '+115%', isHot: false, relatedBrand: '농심' },
     { rank: 10, keyword: '오뚜기 마열라면 큰사발', category: '간편식', score: 75, growthRate: '+95%', isHot: false, relatedBrand: '오뚜기' }
   ];
 };
@@ -1296,53 +1320,76 @@ export const getShoppingInsightTrendingKeywords = async (): Promise<TrendingKeyw
 export const fetchNaverRealtimeTrendingProducts = async (
   searchQuery?: string
 ): Promise<NaverRealtimeProduct[]> => {
-  const targetKeywords = searchQuery && searchQuery.trim().length > 0 
-    ? [searchQuery.trim()] 
-    : ['피자떡', '한정선 찹쌀떡', '두바이 찹쌀떡', '요아정', '밤티라미수', '신라면 툼바', '황치즈'];
+  const isSearchAll = !searchQuery || searchQuery.trim().length === 0 || searchQuery.trim() === '전체';
+  const targetKeywords = isSearchAll
+    ? ['피자떡', '한정선 찹쌀떡', '두바이 찹쌀떡', '요아정', '밤티라미수', '신라면 툼바', '황치즈', '비쵸비', '먹태깡', '마열라면']
+    : [searchQuery!.trim()];
 
   const results: NaverRealtimeProduct[] = [];
   const seenNames = new Set<string>();
 
-  for (let kIdx = 0; kIdx < targetKeywords.length; kIdx++) {
-    const kw = targetKeywords[kIdx];
-    try {
-      const shopRes = await callNaverApi('shop', kw, 'sim', 10);
-      if (shopRes && shopRes.items && shopRes.items.length > 0) {
-        for (let i = 0; i < shopRes.items.length; i++) {
-          const item = shopRes.items[i];
-          const rawTitle = cleanHtml(item.title);
+  try {
+    // 다중 키워드를 병렬 호출하여 1~2초 내 초고속 실시간 수집 완수
+    const searchTasks = targetKeywords.map(kw => callNaverApi('shop', kw, 'sim', isSearchAll ? 4 : 12));
+    const taskResults = await Promise.allSettled(searchTasks);
+
+    taskResults.forEach((res, tIdx) => {
+      const kw = targetKeywords[tIdx];
+      if (res.status === 'fulfilled' && res.value && res.value.items) {
+        const items = res.value.items;
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const rawTitle = cleanHtml(item.title)
+            .replace(/\[[^\]]*\]/g, ' ')
+            .replace(/\([^\)]*\)/g, ' ')
+            .replace(/\s*:\s*(?:스마트스토어|네이버쇼핑|쇼핑몰|구매대행|마트몰|강철\s*유통|서울포장).*$/i, '')
+            .trim();
+
           const normName = rawTitle.replace(/\s+/g, '').toLowerCase();
-          if (seenNames.has(normName)) continue;
+          if (seenNames.has(normName) || normName.length < 2) continue;
           seenNames.add(normName);
 
-          const brand = item.brand || detectBrand(rawTitle) || item.mallName || '네이버쇼핑 인기몰';
+          const brand = item.brand || detectBrand(rawTitle) || item.mallName || '인기 브랜드';
           const category = detectCategory(rawTitle + ' ' + (item.category2 || '') + ' ' + (item.category3 || ''));
-          const price = item.lprice ? parseInt(item.lprice, 10) : 3500;
+          const parsedPrice = item.lprice ? parseInt(item.lprice, 10) : 0;
+          let price = parsedPrice > 500 && parsedPrice < 50000 ? parsedPrice : 0;
+          if (price === 0) {
+            if (rawTitle.includes('라면') || rawTitle.includes('사발')) price = 1800;
+            else if (rawTitle.includes('과자') || rawTitle.includes('스낵') || rawTitle.includes('칩')) price = 2000;
+            else if (rawTitle.includes('음료') || rawTitle.includes('티')) price = 2500;
+            else if (rawTitle.includes('떡') || rawTitle.includes('모찌') || rawTitle.includes('티라미수') || rawTitle.includes('케이크') || rawTitle.includes('빵')) price = 3800;
+            else if (rawTitle.includes('아이스크림') || rawTitle.includes('파르페')) price = 4500;
+            else price = 3500;
+          }
+
           const img = (item.image || '').replace(/^http:\/\//, 'https://');
+          const finalImage = img || HIGH_QUALITY_CATEGORY_IMAGES[category]?.[0] || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80';
+          const shoppingLink = `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(rawTitle)}`;
 
           results.push({
             id: `naver-shop-trend-${Date.now()}-${results.length + 1}`,
             name: rawTitle,
             brand,
             category,
-            price: price > 0 ? price : 3500,
-            image: img || HIGH_QUALITY_CATEGORY_IMAGES[category]?.[0] || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80',
+            price,
+            image: finalImage,
             mallName: item.mallName || '네이버 공식 브랜드 스토어',
-            link: item.link || `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(rawTitle)}`,
+            link: shoppingLink,
             keywordTag: `#${kw}`,
             trendRank: results.length + 1,
-            isHot: i < 2 || results.length < 3,
-            description: `${brand}의 실시간 네이버 쇼핑 라이브 급상승 인기 먹거리 '${rawTitle}'! 네이버 쇼핑 빅데이터에서 높은 관심도를 기록 중입니다.`,
+            isHot: i < 2 || results.length < 4,
+            description: `${brand}의 네이버 실시간 쇼핑 급상승 인기 먹거리 '${rawTitle}'! 네이버 빅데이터에서 높은 클릭과 검색량을 기록 중입니다.`,
             stores: detectStores(rawTitle + ' ' + (item.mallName || ''))
           });
 
+          // 전체 검색 모드에서는 키워드당 최대 2~3건만 취합하여 다양한 인기 상품 조합 구성
+          if (isSearchAll && i >= 2) break;
           if (results.length >= 24) break;
         }
       }
-    } catch (err) {
-      console.warn(`[fetchNaverRealtimeTrendingProducts Error for '${kw}']:`, err);
-    }
-    if (results.length >= 24) break;
+    });
+  } catch (err) {
+    console.warn('[fetchNaverRealtimeTrendingProducts Error]:', err);
   }
 
   // Fallback to curated real-time products if API returns empty
@@ -1395,11 +1442,11 @@ export const getCuratedRealtimeTrendingProducts = (): NaverRealtimeProduct[] => 
     price: 3900,
     image: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=800&auto=format&fit=crop&q=80',
     mallName: 'CU/GS25 직영몰',
-    link: 'https://search.shopping.naver.com/search/all?query=%EB%94%90%EB%B0%94%EC%9D%B4',
+    link: 'https://search.shopping.naver.com/search/all?query=%EB%91%90%EB%B0%94%EC%9D%B4+%EC%B4%88%EC%BD%9C%EB%A6%BF',
     keywordTag: '#두바이찹쌀떡',
     trendRank: 3,
     isHot: true,
-    description: '바삭한 볶은 카다이프면과 고소한 피스타치오 원물 스프레드가 쫀득한 찹쌀 피에 듬뿍 들어간 2024 최고의 실시간 급상승 디저트.',
+    description: '바삭한 볶은 카다이프면과 고소한 피스타치오 원물 스프레드가 쫀득한 찹쌀 피에 듬뿍 들어간 2026 최고의 실시간 급상승 디저트.',
     stores: ['CU', 'GS25']
   },
   {
@@ -1471,11 +1518,41 @@ export const getCuratedRealtimeTrendingProducts = (): NaverRealtimeProduct[] => 
     image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&auto=format&fit=crop&q=80',
     mallName: '오리온 공식몰',
     link: 'https://search.shopping.naver.com/search/all?query=%EB%B9%84%EC%B8%87%EB%B9%84',
-    keywordTag: '#비쵸비딸기',
+    keywordTag: '#비쵸비',
     trendRank: 8,
     isHot: false,
     description: '통초콜릿이 샌드된 히트과자 비쵸비의 시즌 한정판! 새콤달콤한 딸기 초콜릿과 바삭한 비스킷의 품격있는 조화.',
     stores: ['CU', 'GS25', '대형마트']
+  },
+  {
+    id: 'trend-meoktae-09',
+    name: '농심 먹태깡 청양마요맛 스낵',
+    brand: '농심',
+    category: '과자',
+    price: 1700,
+    image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800&auto=format&fit=crop&q=80',
+    mallName: '농심 브랜드스토어',
+    link: 'https://search.shopping.naver.com/search/all?query=%EB%A8%B9%ED%83%9C%EA%B9%A1',
+    keywordTag: '#먹태깡',
+    trendRank: 9,
+    isHot: false,
+    description: '전국 편의점 품절 대란의 주역! 알싸한 청양고추와 고소한 마요네즈 시즈닝이 바삭한 먹태 스낵과 어우러진 안주 겸 간식.',
+    stores: ['CU', 'GS25', '세븐일레븐', '이마트24']
+  },
+  {
+    id: 'trend-mayeol-10',
+    name: '오뚜기 마열라면 큰사발면 (마늘·후추 블렌딩)',
+    brand: '오뚜기',
+    category: '간편식',
+    price: 1800,
+    image: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=800&auto=format&fit=crop&q=80',
+    mallName: '오뚜기몰',
+    link: 'https://search.shopping.naver.com/search/all?query=%EB%A7%88%EC%97%B4%EB%9D%BC%EB%A9%B4',
+    keywordTag: '#마열라면',
+    trendRank: 10,
+    isHot: false,
+    description: '열라면에 구운 마늘과 굵은 후추의 알싸한 풍미를 더해 깊고 진한 매운맛을 완성한 스테디셀러 신상 라면.',
+    stores: ['CU', 'GS25', '세븐일레븐', '이마트24']
   }
 ];
 
