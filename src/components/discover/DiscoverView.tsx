@@ -6,6 +6,7 @@ import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
 import { SafeImage } from '../common/SafeImage';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
+import { COUPANG_AFFILIATE_URL } from '../../constants/affiliate';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 

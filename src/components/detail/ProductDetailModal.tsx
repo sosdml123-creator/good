@@ -32,6 +32,7 @@ import { NearbyStoreStockModal } from './NearbyStoreStockModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { ReportModal } from '../common/ReportModal';
 import { KamisPriceTrendChart } from './KamisPriceTrendChart';
+import { COUPANG_AFFILIATE_URL, COUPANG_PARTNERS_NOTICE } from '../../constants/affiliate';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -238,10 +239,7 @@ export const ProductDetailModal: React.FC = () => {
     return '🏬';
   };
 
-  const effectiveBuyLink = selectedProduct.buyLink || 
-    selectedProduct.brandRankings?.find(r => r.buyLink)?.buyLink ||
-    selectedProduct.storeStocks?.find(s => s.appLink)?.appLink ||
-    `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(selectedProduct.brand + ' ' + selectedProduct.name)}`;
+  const effectiveBuyLink = COUPANG_AFFILIATE_URL;
 
   return (
     <div className="bg-[#F5F5F5] min-h-full pb-28">
@@ -761,21 +759,14 @@ export const ProductDetailModal: React.FC = () => {
                           {br.deliveryBadge || '산지직송 새벽배송 🚀'}
                         </span>
                         <button
-                          onClick={() => {
-                            if (br.buyLink) {
-                              window.open(br.buyLink, '_blank');
-                            } else {
-                              const searchUrl = `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(br.brand + ' ' + br.name)}`;
-                              window.open(searchUrl, '_blank');
-                            }
-                          }}
+                          onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
                           className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 transition-all ${
                             br.rank === 1
-                              ? 'bg-gray-900 text-white hover:bg-black shadow-xs'
+                              ? 'bg-rose-600 text-white hover:bg-rose-700 shadow-xs'
                               : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                           }`}
                         >
-                          <span>구매 / 판매처</span>
+                          <span>쿠팡 구매</span>
                           <ExternalLink className="w-3 h-3" />
                         </button>
                       </div>
@@ -1096,14 +1087,13 @@ export const ProductDetailModal: React.FC = () => {
                         <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
                         <span>{(br.tasteScore || br.rating).toFixed(1)}</span>
                       </div>
-                      {br.buyLink && (
-                        <button
-                          onClick={() => window.open(br.buyLink, '_blank')}
-                          className="text-[10px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded-md ml-1"
-                        >
-                          판매처
-                        </button>
-                      )}
+                      <button
+                        onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                        className="text-[10px] font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2 py-1 rounded-md ml-1 flex items-center gap-0.5"
+                      >
+                        <span>쿠팡</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -1177,73 +1167,65 @@ export const ProductDetailModal: React.FC = () => {
               )}
             </div>
           ) : (
-            /* Retailers / Convenience Stores / Online Marts */
-            <div className="space-y-2">
-              
-              {/* Stores List Card with Real Stock Data */}
-              <div className="bg-white px-4 py-4 border-b border-gray-100">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1.5">
-                    <Store className="w-4 h-4 text-gray-900" />
-                    <span className="text-[14px] font-bold text-gray-900">판매처별 실시간 입고 현황</span>
+            /* Retailers -> Coupang Affiliate Single Store */
+            <div className="space-y-3 animate-in fade-in duration-200">
+              <div className="bg-white px-4 py-5 border-b border-gray-100">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-xl shadow-2xs">
+                      🛒
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[15px] font-black text-gray-900">쿠팡 (Coupang)</span>
+                        <span className="text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded">
+                          공식 제휴
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-gray-500 block mt-0.5">신상품 공식 특가 & 로켓배송</span>
+                    </div>
                   </div>
-                  <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">실시간 연동</span>
+                  <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <span>로켓배송</span>
+                    <span>🚀</span>
+                  </span>
                 </div>
 
-                <div className="space-y-2.5">
-                  {(selectedProduct.storeStocks && selectedProduct.storeStocks.length > 0 ? selectedProduct.storeStocks : storeList.map((st): StoreStockItem => ({
-                    store: st,
-                    status: '입고완료',
-                    stockCount: 6,
-                    price: selectedProduct.price,
-                    appLink: `https://www.google.com/search?q=${encodeURIComponent(st + ' ' + selectedProduct.name)}`,
-                    distance: '250m',
-                    deliveryTime: '지금 즉시 픽업 가능'
-                  }))).map((stItem) => {
-                    const badge = getStoreBadge(stItem.store);
-                    const storeIcon = getStoreIcon(stItem.store);
-                    return (
-                      <div key={stItem.store} className="p-3.5 rounded-xl border border-gray-100 bg-gray-50/60 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center p-1.5 shadow-2xs text-lg">
-                            {storeIcon}
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-gray-900">{stItem.store}</span>
-                              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${badge.color}`}>
-                                {stItem.eventBadge || badge.text}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-1.5 mt-1">
-                              <span className="text-xs font-black text-gray-900">
-                                {stItem.price?.toLocaleString() || selectedProduct.price.toLocaleString()}원
-                              </span>
-                              {stItem.distance && (
-                                <span className="text-[11px] text-gray-500 font-medium">· 거리 {stItem.distance}</span>
-                              )}
-                              {stItem.deliveryTime && (
-                                <span className="text-[11px] text-gray-400">· {stItem.deliveryTime}</span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
+                {/* 쿠팡 구매 정보 박스 */}
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-50 via-gray-50 to-rose-50/20 border border-gray-200/90 shadow-2xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] text-gray-500 font-medium block">실시간 판매 가격</span>
+                      <span className="text-xl font-black text-gray-900 mt-0.5 block">
+                        {(selectedProduct.price ?? 0).toLocaleString()}원
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md inline-block">
+                        당일 / 새벽 도착 보장
+                      </span>
+                      <span className="text-[10px] text-gray-400 block mt-0.5">와우회원 무료배송 혜택</span>
+                    </div>
+                  </div>
 
-                        {stItem.appLink && (
-                          <button
-                            onClick={() => window.open(stItem.appLink, '_blank')}
-                            className="px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 shrink-0 ml-2 shadow-2xs bg-gray-900 text-white hover:bg-black"
-                          >
-                            <span>구매 / 바로가기</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <button
+                    onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                    className="w-full py-3 bg-gradient-to-r from-rose-500 via-rose-600 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
+                  >
+                    <span>쿠팡에서 최저가 구매하기</span>
+                    <ExternalLink className="w-4 h-4 stroke-[2.5]" />
+                  </button>
+                </div>
+
+                {/* 쿠팡 파트너스 공정위 고지 문구 배너 */}
+                <div className="mt-3.5 p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 flex items-start gap-2 text-[11px] text-amber-900 leading-relaxed">
+                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-amber-950 block mb-0.5">쿠팡 파트너스 안내</span>
+                    <span>{COUPANG_PARTNERS_NOTICE}</span>
+                  </div>
                 </div>
               </div>
-
             </div>
           )}
 
@@ -1251,39 +1233,46 @@ export const ProductDetailModal: React.FC = () => {
       )}
 
       {/* 9. Floating Bottom Purchase Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 shadow-lg flex items-center justify-between gap-3">
-        <div className="flex flex-col min-w-0">
-          <span className="text-[11px] text-gray-500 font-medium truncate">
-            {selectedProduct.brand} {selectedProduct.discountRate ? `· ${selectedProduct.discountRate}% 할인` : ''}
-          </span>
-          <div className="flex items-baseline gap-1">
-            <span className="text-base font-black text-gray-900">
-              {(selectedProduct.price ?? 0).toLocaleString()}원
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 pt-2.5 pb-3 shadow-lg flex flex-col gap-1.5">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-col min-w-0">
+            <span className="text-[11px] text-gray-500 font-medium truncate">
+              {selectedProduct.brand} {selectedProduct.discountRate ? `· ${selectedProduct.discountRate}% 할인` : ''}
             </span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-base font-black text-gray-900">
+                {(selectedProduct.price ?? 0).toLocaleString()}원
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={(e) => toggleBookmark(selectedProduct.id, e)}
+              className={`p-2.5 rounded-xl border transition-all ${
+                isBookmarked 
+                  ? 'border-rose-200 bg-rose-50 text-rose-600' 
+                  : 'border-gray-200 text-gray-400 hover:bg-gray-50'
+              }`}
+              aria-label={isBookmarked ? '찜 취소' : '찜하기'}
+            >
+              <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
+            </button>
+
+            <button
+              onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+              className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
+            >
+              <span>쿠팡 구매하기</span>
+              <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={(e) => toggleBookmark(selectedProduct.id, e)}
-            className={`p-2.5 rounded-xl border transition-all ${
-              isBookmarked 
-                ? 'border-rose-200 bg-rose-50 text-rose-600' 
-                : 'border-gray-200 text-gray-400 hover:bg-gray-50'
-            }`}
-            aria-label={isBookmarked ? '찜 취소' : '찜하기'}
-          >
-            <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
-          </button>
-
-          <button
-            onClick={() => window.open(effectiveBuyLink, '_blank')}
-            className="px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
-          >
-            <span>실제 판매처 바로가기</span>
-            <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
-          </button>
-        </div>
+        {/* 쿠팡 파트너스 하단 공정위 고지 문구 */}
+        <p className="text-[10px] text-gray-400 text-center leading-tight">
+          {COUPANG_PARTNERS_NOTICE}
+        </p>
       </div>
 
       {/* 10. Product Action Menu Modal (Hamburger / More Actions) */}
