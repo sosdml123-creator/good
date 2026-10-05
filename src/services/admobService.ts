@@ -1,5 +1,8 @@
 import {
   AdMob,
+  BannerAdOptions,
+  BannerAdPosition,
+  BannerAdSize,
   BannerAdPluginEvents,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
@@ -19,6 +22,7 @@ export const BANNER_WIDTH = 320;
 
 let initPromise: Promise<boolean> | null = null;
 let listenersAdded = false;
+let currentShowingAdId: string | null = null;
 
 export const isNative = () => Capacitor.isNativePlatform();
 
@@ -63,7 +67,7 @@ export const initAdMob = (): Promise<boolean> => {
       if (!listenersAdded) {
         listenersAdded = true;
         AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
-          console.log('[AdMob] Banner loaded successfully:', ADMOB_BANNER_UNIT_ID);
+          console.log('[AdMob] Banner loaded successfully');
         });
         AdMob.addListener(BannerAdPluginEvents.FailedToLoad, (e) => {
           console.warn('[AdMob] Banner failed to load:', e);
@@ -76,8 +80,6 @@ export const initAdMob = (): Promise<boolean> => {
         });
       }
 
-      // 화면에 따로 떠서 따라다니는 네이티브 플로팅 오버레이 완전 제거
-      await AdMob.removeBanner().catch(() => {});
       return true;
     } catch (e) {
       console.warn('[AdMob] Init failed:', e);
@@ -89,13 +91,66 @@ export const initAdMob = (): Promise<boolean> => {
 };
 
 /**
- * 네이티브 플로팅 오버레이 배너 완전 제거 (화면 따라다님 방지)
+ * 광고 구좌 위치에 320x50 AdMob 배너를 단 1회 안정적으로 안착
+ * - 스크롤할 때마다 위치를 바꾸거나 따라다니지 않고 지정된 구좌 자리에 안정적으로 유지
+ */
+export const showBannerAt = async (
+  slotTop: number,
+  safeAreaTop: number = 0,
+  adId: string = ADMOB_SEARCH_BANNER_UNIT_ID
+): Promise<void> => {
+  if (!isNative()) return;
+  const ok = await initAdMob();
+  if (!ok) return;
+
+  // 이미 해당 광고 ID로 배너가 떠 있다면 중복 호출 방지
+  if (currentShowingAdId === adId) {
+    return;
+  }
+
+  const isIOS = Capacitor.getPlatform() === 'ios';
+  const roundedTop = Math.round(Math.max(0, slotTop));
+  const roundedSat = Math.round(Math.max(0, safeAreaTop));
+  const offsetFromSafeArea = Math.max(0, roundedTop - roundedSat);
+  // iOS AutoLayout: constant = -(Margin * -1) 이므로 음수를 전달해야 safeAreaTop 기준 아래로 이동
+  const margin = isIOS ? -offsetFromSafeArea : roundedTop;
+
+  try {
+    if (currentShowingAdId) {
+      await AdMob.removeBanner().catch(() => {});
+      currentShowingAdId = null;
+    }
+
+    const options: BannerAdOptions = {
+      adId,
+      adSize: BannerAdSize.BANNER,
+      position: BannerAdPosition.TOP_CENTER,
+      margin,
+      isTesting: false,
+    };
+
+    console.log('[AdMob] Showing banner at slot position:', {
+      adId,
+      margin,
+      isIOS,
+    });
+
+    await AdMob.showBanner(options);
+    currentShowingAdId = adId;
+  } catch (e) {
+    console.warn('[AdMob] showBannerAt failed:', e);
+  }
+};
+
+/**
+ * 네이티브 배너 완전 제거 (화면 전환 또는 모달 닫힘 시)
  */
 export const removeBanner = async (): Promise<void> => {
   if (!isNative()) return;
   try {
     await AdMob.removeBanner().catch(() => {});
-    console.log('[AdMob] Native floating overlay removed');
+    currentShowingAdId = null;
+    console.log('[AdMob] Banner removed');
   } catch (e) {
     console.warn('[AdMob] removeBanner notice:', e);
   }
@@ -103,15 +158,16 @@ export const removeBanner = async (): Promise<void> => {
 
 export const hideBanner = removeBanner;
 export const resumeBanner = () => Promise.resolve();
-export const showBannerAt = () => Promise.resolve();
-export const showBannerAtSlot = () => Promise.resolve();
-export const showBanner = () => Promise.resolve();
-export const showHomeBannerAd = () => Promise.resolve();
-export const showSearchBannerAd = () => Promise.resolve();
+export const showBannerAtSlot = showBannerAt;
+export const showBanner = (slotTop: number = 530, safeAreaTop: number = 47) =>
+  showBannerAt(slotTop, safeAreaTop, ADMOB_BANNER_UNIT_ID);
+export const showHomeBannerAd = showBanner;
+export const showSearchBannerAd = (slotTop: number = 60, safeAreaTop: number = 47) =>
+  showBannerAt(slotTop, safeAreaTop, ADMOB_SEARCH_BANNER_UNIT_ID);
 export const hideBannerAd = hideBanner;
 export const resumeBannerAd = resumeBanner;
 export const removeBannerAd = removeBanner;
-export const isHomeBannerVisible = (): boolean => false;
+export const isHomeBannerVisible = (): boolean => Boolean(currentShowingAdId);
 
 
 
