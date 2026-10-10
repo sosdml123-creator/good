@@ -134,7 +134,7 @@ export async function searchFoodNutrition(
   // - 네이티브 앱은 로컬 번들(capacitor://localhost)에서 구동되므로 절대 경로로 호출
   if (typeof window !== 'undefined') {
     try {
-      const baseUrl = Capacitor.isNativePlatform() ? 'https://sinsangpick.vercel.app' : '';
+      const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
       const proxyUrl = `${baseUrl}/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
       const res = await fetchWithTimeout(proxyUrl, undefined, 8000);
       if (res.ok) {

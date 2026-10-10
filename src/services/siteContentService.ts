@@ -91,7 +91,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   if (banners === null) {
     try {
       const apiEndpoint = Capacitor.isNativePlatform() 
-        ? 'https://sinsangpick.vercel.app/api/site-content' 
+        ? 'https://www.sinsangpick.kr/api/site-content' 
         : '/api/site-content';
       const apiRes = await fetchWithTimeout(apiEndpoint, {
         headers: { 'Accept': 'application/json' }

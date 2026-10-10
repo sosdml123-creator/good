@@ -738,7 +738,7 @@ const getNaverApiBaseUrl = (): string => {
   if (!Capacitor.isNativePlatform()) return '';
   // 네이티브 앱은 상대경로(/api)를 쓸 수 없으므로 실제 배포된 공개 도메인이 필요합니다.
   const configured = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
-  return (configured && configured.trim().replace(/\/+$/, '')) || 'https://sinsangpick.vercel.app';
+  return (configured && configured.trim().replace(/\/+$/, '')) || 'https://www.sinsangpick.kr';
 };
 
 /**

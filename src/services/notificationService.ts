@@ -443,7 +443,7 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
 
   // 2. Dispatch via Serverless FCM / APNs endpoint
   try {
-    const baseUrl = Capacitor.isNativePlatform() ? 'https://sinsangpick.vercel.app' : '';
+    const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
     const response = await fetch(`${baseUrl}/api/send-fcm`, {
       method: 'POST',
       headers: {
@@ -481,7 +481,7 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
  */
 export const getFcmStatus = async (): Promise<FcmStatusInfo> => {
   try {
-    const baseUrl = Capacitor.isNativePlatform() ? 'https://sinsangpick.vercel.app' : '';
+    const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
     const res = await fetch(`${baseUrl}/api/send-fcm`, { method: 'GET' });
     if (res.ok) {
       return await res.json();
