@@ -28,7 +28,6 @@ import {
   HomeSectionConfig,
   HomeSectionId,
   ProductEditRequest,
-  ECouponItem,
   PurchasedECoupon
 } from '../types';
 import type { ReviewExtraData } from '../types';
@@ -41,7 +40,7 @@ import { INITIAL_REVIEWS } from '../data/mockReviews';
 import { INITIAL_COMMUNITY_POSTS } from '../data/mockCommunity';
 import { INITIAL_REPORTS } from '../data/mockReports';
 import { INITIAL_PRODUCT_EDIT_REQUESTS } from '../data/mockProductEdits';
-import { INITIAL_ECOUPONS } from '../data/mockCoupons';
+import { exchangeCoupon, fetchMyCoupons, setCouponUsed } from '../services/couponApi';
 import { POPULAR_BRANDS } from '../utils/brandData';
 import {
   fetchDailyNewProducts,
@@ -380,9 +379,9 @@ interface AppContextType {
   refreshRemoteContent: () => Promise<void>;
 
   // 🎁 e쿠폰 스토어 (Point Shop)
-  coupons: ECouponItem[];
   purchasedCoupons: PurchasedECoupon[];
-  purchaseCoupon: (coupon: ECouponItem) => Promise<PurchasedECoupon | null>;
+  refreshPurchasedCoupons: () => Promise<void>;
+  purchaseCoupon: (goodsCode: string) => Promise<PurchasedECoupon | null>;
   useCoupon: (purchasedCouponId: string) => Promise<void>;
   addTestPoints: (amount?: number) => void;
 }
@@ -1674,31 +1673,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isRecipeDetailOpen, setIsRecipeDetailOpen] = useState(false);
   const [isWriteRecipeOpen, setIsWriteRecipeOpen] = useState(false);
 
-  // 🎁 e쿠폰 스토어 상태
-  const [coupons, setCoupons] = useState<ECouponItem[]>(() => {
-    try {
-      const stored = localStorage.getItem('sinsangpick_coupons_v2');
-      if (stored !== null) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length >= INITIAL_ECOUPONS.length) return parsed;
-      }
-    } catch {}
-    try {
-      localStorage.setItem('sinsangpick_coupons_v2', JSON.stringify(INITIAL_ECOUPONS));
-    } catch {}
-    return INITIAL_ECOUPONS;
-  });
-
-  const [purchasedCoupons, setPurchasedCoupons] = useState<PurchasedECoupon[]>(() => {
-    try {
-      const stored = localStorage.getItem('sinsangpick_user_coupons_v1');
-      if (stored !== null) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return parsed;
-      }
-    } catch {}
-    return [];
-  });
+  // 🎁 e쿠폰 스토어 상태 (교환 내역은 서버 coupon_orders 가 원본)
+  const [purchasedCoupons, setPurchasedCoupons] = useState<PurchasedECoupon[]>([]);
 
   const FAKE_USER_UIDS = new Set([
     'user_minji_01', 'user_junho_02', 'user_dessert_03', 'user_taeyang_04',
@@ -6586,33 +6562,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('수정 요청 내역을 삭제했습니다.', 'info');
   };
 
-  // 🎁 e쿠폰 스토어 구매 (포인트 교환 - 현재 서비스 준비 중)
-  const purchaseCoupon = async (_coupon: ECouponItem): Promise<PurchasedECoupon | null> => {
-    // 🚧 e쿠폰 서비스 정식 오픈 준비 중 방어
-    showToast('🎁 e쿠폰 교환 서비스는 현재 정식 오픈 준비 중입니다. 조금만 기다려 주세요!', 'info');
-    return null;
+  // 서버가 내려준 포인트 잔액을 로컬 상태에 반영 (교환 직후 예전 잔액으로 덮어쓰지 않도록)
+  const applyServerPoints = (balance?: number | null) => {
+    if (typeof balance !== 'number') return;
+    setCurrentUser(prev => ({ ...prev, points: balance, level: calculateLevel(balance) }));
+  };
+
+  // 🎁 내가 교환한 e쿠폰 목록 불러오기
+  const refreshPurchasedCoupons = async () => {
+    try {
+      const mine = await fetchMyCoupons();
+      setPurchasedCoupons(mine ? mine.coupons : []);
+    } catch (e) {
+      console.warn('[coupon] 내 쿠폰 조회 실패:', e);
+    }
+  };
+
+  // 🎁 e쿠폰 포인트 교환 (서버에서 포인트 차감 후 기프티쇼 쿠폰 발급)
+  const purchaseCoupon = async (goodsCode: string): Promise<PurchasedECoupon | null> => {
+    try {
+      const result = await exchangeCoupon(goodsCode);
+      applyServerPoints(result.balance);
+      if (result.needLogin) {
+        openLoginModal();
+        return null;
+      }
+      if (!result.success || !result.coupon) {
+        showToast(result.error || '쿠폰 교환에 실패했습니다.', 'error');
+        return null;
+      }
+      const issued = result.coupon;
+      setPurchasedCoupons(prev => [issued, ...prev]);
+      showToast('🎁 e쿠폰 교환이 완료되었습니다!', 'success');
+      return issued;
+    } catch (e) {
+      console.warn('[coupon] 교환 요청 실패:', e);
+      showToast('네트워크 오류로 교환 결과를 확인하지 못했습니다. 내 쿠폰함을 확인해 주세요.', 'error');
+      refreshPurchasedCoupons();
+      return null;
+    }
   };
 
   // 🎁 e쿠폰 사용 완료 처리 토글
   const useCoupon = async (purchasedCouponId: string) => {
-    setPurchasedCoupons(prev => {
-      const updated = prev.map(c => {
-        if (c.id === purchasedCouponId) {
-          const nextUsed = !c.isUsed;
-          return {
-            ...c,
-            isUsed: nextUsed,
-            usedAt: nextUsed ? new Date().toLocaleDateString('ko-KR') : undefined
-          };
-        }
-        return c;
-      });
-      try {
-        localStorage.setItem('sinsangpick_user_coupons_v1', JSON.stringify(updated));
-      } catch {}
-      return updated;
-    });
+    const target = purchasedCoupons.find(c => c.id === purchasedCouponId);
+    if (!target) return;
+    try {
+      const updated = await setCouponUsed(purchasedCouponId, !target.isUsed);
+      if (updated) {
+        setPurchasedCoupons(prev => prev.map(c => (c.id === purchasedCouponId ? updated : c)));
+      }
+    } catch (e) {
+      console.warn('[coupon] 사용 상태 변경 실패:', e);
+      showToast('사용 상태를 변경하지 못했습니다.', 'error');
+    }
   };
+
+  useEffect(() => {
+    refreshPurchasedCoupons();
+  }, [currentUser.uid]);
 
   // 🎁 활동 리워드 포인트 지급 편의 함수
   const addTestPoints = (amount: number = 5000) => {
@@ -6664,7 +6672,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSalePromotions(INITIAL_SALE_PROMOTIONS);
     setCalendarItems(INITIAL_CALENDAR_ITEMS);
     setHomeSections(INITIAL_HOME_SECTIONS);
-    setCoupons(INITIAL_ECOUPONS);
     setPurchasedCoupons([]);
     localStorage.removeItem('sinsangpick_coupons_v1');
     localStorage.removeItem('sinsangpick_user_coupons_v1');
@@ -6918,8 +6925,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         refreshKamisPrices,
 
         // 🎁 e쿠폰 스토어
-        coupons,
         purchasedCoupons,
+        refreshPurchasedCoupons,
         purchaseCoupon,
         useCoupon,
         addTestPoints,

@@ -14,7 +14,7 @@ export const BottomNav: React.FC = () => {
   const navItems: { id: ActiveTab; label: string; icon: React.ReactNode; badge?: string }[] = [
     { id: 'home', label: '홈', icon: <Home className="w-5 h-5 stroke-[2]" /> },
     { id: 'category', label: '신제품', icon: <Compass className="w-5 h-5 stroke-[2]" /> },
-    { id: 'coupon', label: 'e쿠폰', icon: <Gift className="w-5 h-5 stroke-[2]" />, badge: '준비중' },
+    { id: 'coupon', label: 'e쿠폰', icon: <Gift className="w-5 h-5 stroke-[2]" /> },
     { id: 'community', label: '수다방', icon: <MessageSquare className="w-5 h-5 stroke-[2]" /> },
     { id: 'my', label: '마이', icon: <User className="w-5 h-5 stroke-[2]" /> },
   ];

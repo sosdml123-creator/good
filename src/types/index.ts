@@ -634,20 +634,25 @@ export interface RecipePost {
 
 export type WriteRecipeInput = Omit<RecipePost, 'id' | 'likes' | 'commentsCount' | 'createdAt' | 'author' | 'authorAvatar' | 'authorLevel' | 'isLiked'>;
 
-// 🎁 e쿠폰 / 모바일 상품권 스토어 타입 (ECoupon Shop)
+// 🎁 e쿠폰 스토어 타입 (기프티쇼 비즈 연동, /api/giftishow)
 export interface ECouponItem {
-  id: string;
-  brand: string;
-  brandLogo?: string;
+  code: string; // 기프티쇼 상품코드
   name: string;
-  price: number; // 교환 필요 포인트
-  originalPrice?: number; // 정가 기준 (원)
-  imageUrl: string;
+  brand: string;
+  brandIcon?: string;
+  image: string;
+  price: number; // 교환 필요 포인트 (1P = 1원)
+  salePrice: number; // 권장 소비자가 (원)
+  limitDay: number; // 유효기간 (일)
   category: string;
-  description: string;
-  exchangeGuide: string;
-  expiryDays: number;
-  notices: string[];
+}
+
+export interface ECouponDetail extends ECouponItem {
+  imageLarge: string;
+  content: string;
+  contentAddDesc: string;
+  affiliate: string;
+  goodsType: string;
 }
 
 export interface PurchasedECoupon {
@@ -659,6 +664,7 @@ export interface PurchasedECoupon {
   price: number;
   barcodeNumber: string;
   pinNumber?: string;
+  couponImgUrl?: string;
   purchasedAt: string;
   expiresAt: string;
   isUsed: boolean;

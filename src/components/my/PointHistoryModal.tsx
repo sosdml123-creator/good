@@ -189,9 +189,8 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
               <div>
                 <div className="text-[13px] font-bold flex items-center gap-1.5">
                   <span>e쿠폰 교환소</span>
-                  <span className="text-[10px] bg-white/30 text-white font-extrabold px-1.5 py-0.2 rounded-md">준비중</span>
                 </div>
-                <div className="text-[11px] text-amber-100">스타벅스, 편의점 모바일 쿠폰 실시간 교환 오픈 예정</div>
+                <div className="text-[11px] text-amber-100">스타벅스, 편의점 모바일 쿠폰으로 바로 교환</div>
               </div>
             </div>
             <ChevronRight className="w-4 h-4 text-white/80" />

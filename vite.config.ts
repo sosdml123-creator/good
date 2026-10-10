@@ -52,6 +52,53 @@ export default defineConfig(({ mode }) => {
         }
       },
       {
+        name: 'giftishow-api-middleware',
+        configureServer(server) {
+          server.middlewares.use('/api/giftishow', async (req, res) => {
+            try {
+              // 핸들러가 process.env 에서 서버 전용 키를 읽으므로 .env 값을 먼저 주입
+              for (const [key, value] of Object.entries(env)) {
+                if (process.env[key] === undefined) process.env[key] = value;
+              }
+              const handler = (await import('./api/giftishow.js')).default;
+              const url = new URL(req.url || '', `http://${req.headers.host}`);
+              const query = Object.fromEntries(url.searchParams.entries());
+
+              let body = {};
+              if (req.method === 'POST') {
+                const chunks = [];
+                for await (const chunk of req) chunks.push(chunk);
+                body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+              }
+
+              const fakeRes = {
+                setHeader(name, val) {
+                  res.setHeader(name, val);
+                },
+                status(code) {
+                  res.statusCode = code;
+                  return this;
+                },
+                json(data) {
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify(data));
+                },
+                end(data) {
+                  res.end(data);
+                }
+              };
+
+              await handler({ query, body, method: req.method, headers: req.headers }, fakeRes);
+            } catch (err) {
+              console.error('Giftishow middleware error:', err);
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+        }
+      },
+      {
         name: 'new-products-crawler-middleware',
         configureServer(server) {
           server.middlewares.use('/api/crawl-new-products', async (req, res) => {
