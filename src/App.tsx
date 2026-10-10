@@ -113,7 +113,7 @@ export const App: React.FC = () => {
     }
 
     return (
-      <div className="h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-hidden antialiased">
+      <div className="h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col overflow-hidden antialiased select-text">
         <AuthCallbackBridge />
         <NetworkStatusBar />
         <ToastContainer />
