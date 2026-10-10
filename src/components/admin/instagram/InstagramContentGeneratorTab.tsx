@@ -193,7 +193,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
     }
 
     setIsGenerating(true);
-    showToast('✨ AI가 신상 데이터를 분석하여 인스타 카피와 카드를 생성 중입니다...', 'info');
+    showToast('✨ 신상 데이터로 인스타 카피와 카드를 생성 중입니다...', 'info');
 
     try {
       const response = await fetch('/api/generate-content', {
@@ -366,7 +366,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
   const handleRunDaily = async (force: boolean) => {
     if (force && !confirm('오늘의 자동 콘텐츠 5개를 새로 만들어 기존 것을 덮어쓸까요?')) return;
     setIsRunningDaily(true);
-    showToast('🌅 AI가 오늘 올릴 콘텐츠 5개를 기획하고 있습니다... (최대 1분)', 'info');
+    showToast('🌅 오늘 올릴 콘텐츠 5개를 만들고 있습니다... (최대 1분)', 'info');
     try {
       const result = await runDailyGeneration(force);
       await loadHistory();
@@ -481,25 +481,26 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
         </div>
       </div>
 
-      {/* 서버 설정 누락 안내 (AI 키 / 이력 테이블) */}
-      {(serverStatus.aiConfigured === false || serverStatus.storageReady === false) && (
+      {/* 이력 테이블 누락 안내 */}
+      {serverStatus.storageReady === false && (
         <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs sm:text-sm text-red-900 font-semibold space-y-1.5">
           <div className="flex items-center gap-1.5 font-black">
             <AlertTriangle size={16} />
             <span>서버 설정이 필요합니다</span>
           </div>
-          {serverStatus.aiConfigured === false && (
-            <p>
-              · Vercel 환경변수 <code className="font-black">ANTHROPIC_API_KEY</code>가 없어 AI 생성이 동작하지 않습니다.
-              (Vercel → Settings → Environment Variables에 추가 후 재배포)
-            </p>
-          )}
-          {serverStatus.storageReady === false && (
-            <p>
-              · Supabase에 <code className="font-black">content_posts</code> 테이블이 없어 자동 콘텐츠와 이력이 서버에 저장되지 않습니다.
-              (<code>supabase/migrations/20261010_content_posts_daily.sql</code>을 SQL Editor에서 실행)
-            </p>
-          )}
+          <p>
+            · Supabase에 <code className="font-black">content_posts</code> 테이블이 없어 자동 콘텐츠와 이력이 서버에 저장되지 않습니다.
+            (<code>supabase/migrations/20261010_content_posts_daily.sql</code>을 SQL Editor에서 실행)
+          </p>
+        </div>
+      )}
+
+      {/* AI 키 없이 동작 중일 때의 안내 (오류 아님) */}
+      {serverStatus.aiConfigured === false && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-900 font-semibold leading-relaxed">
+          <span className="font-black">자동 조합 모드로 동작 중입니다.</span> AI 키 없이 DB의 실제 상품 데이터를 정해진 문구 틀에
+          맞춰 구성합니다. Vercel 환경변수에 무료 <code className="font-black">GEMINI_API_KEY</code>(Google AI Studio 발급)를
+          넣으면 AI가 주제와 문구를 직접 판단해 작성합니다.
         </div>
       )}
 
@@ -513,7 +514,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
                 <span>오늘의 자동 콘텐츠</span>
               </h2>
               <p className="text-xs text-gray-500 font-medium mt-0.5 leading-relaxed">
-                매일 오전 7시경 AI가 DB의 실제 신상 데이터를 보고 오늘 올릴 게시물 5개를 직접 기획·제작해 둡니다.
+                매일 오전 7시경 DB의 실제 신상 데이터로 오늘 올릴 게시물 5개를 자동으로 만들어 둡니다.
                 카드를 누르면 편집·다운로드 화면으로 불러옵니다.
               </p>
             </div>

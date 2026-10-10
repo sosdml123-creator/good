@@ -1,5 +1,9 @@
 // api/generate-content.ts
-// 신상픽 인스타그램 카드뉴스 생성 Vercel 서버리스 함수 (Anthropic Claude API)
+// 신상픽 인스타그램 카드뉴스 생성 Vercel 서버리스 함수
+//
+// 문구 작성 엔진은 설정된 키에 따라 자동 선택된다:
+//   ANTHROPIC_API_KEY → Claude / GEMINI_API_KEY(무료 등급 가능) → Gemini / 둘 다 없으면 → 규칙 기반 자동 조합
+// 어떤 엔진이든 상품 이미지·별점은 DB 값으로만 채운다.
 //
 //  POST   /api/generate-content            관리자: 요청문으로 카드뉴스 1세트 생성 + 이력 저장
 //  GET    /api/generate-content            관리자: 저장된 생성 이력 목록
@@ -337,11 +341,70 @@ function describeProducts(products: CandidateProduct[]): string {
 // Claude 호출
 // ---------------------------------------------------------------------------
 
-async function askClaudeForJson(
-  client: Anthropic,
-  userMessage: string,
-  opts: { maxTokens: number; timeoutMs: number; system?: string }
-): Promise<any> {
+type Engine = { provider: 'anthropic'; client: Anthropic } | { provider: 'gemini'; apiKey: string };
+
+/** 설정된 키에 맞는 문구 작성 엔진. 키가 하나도 없으면 null (규칙 기반 조합 사용) */
+function getEngine(): Engine | null {
+  if (process.env.ANTHROPIC_API_KEY) {
+    return { provider: 'anthropic', client: new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }) };
+  }
+  if (process.env.GEMINI_API_KEY) {
+    return { provider: 'gemini', apiKey: process.env.GEMINI_API_KEY.trim() };
+  }
+  return null;
+}
+
+interface AskOptions {
+  maxTokens: number;
+  timeoutMs: number;
+  system?: string;
+}
+
+function askModelForJson(engine: Engine, userMessage: string, opts: AskOptions): Promise<any> {
+  return engine.provider === 'anthropic'
+    ? askClaudeForJson(engine.client, userMessage, opts)
+    : askGeminiForJson(engine.apiKey, userMessage, opts);
+}
+
+async function askGeminiForJson(apiKey: string, userMessage: string, opts: AskOptions): Promise<any> {
+  // 'gemini-flash-latest'는 구글이 최신 Flash 모델로 연결해 주는 별칭이라 모델 종료에 영향받지 않는다
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-goog-api-key': apiKey },
+      signal: AbortSignal.timeout(opts.timeoutMs),
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: opts.system ?? SYSTEM_PROMPT }] },
+        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+        generationConfig: { responseMimeType: 'application/json', maxOutputTokens: opts.maxTokens },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const body = (await response.text()).slice(0, 300);
+    if (response.status === 429) {
+      throw new Error('Gemini 무료 사용량 한도에 걸렸습니다. 잠시 후 다시 시도해주세요.');
+    }
+    if (response.status === 400 || response.status === 403) {
+      throw new Error(`GEMINI_API_KEY가 올바르지 않거나 사용할 수 없습니다 (${response.status}): ${body}`);
+    }
+    throw new Error(`Gemini API 오류 (${response.status}): ${body}`);
+  }
+
+  const data = await response.json();
+  const candidate = data?.candidates?.[0];
+  const text = (candidate?.content?.parts || []).map((part: any) => part?.text || '').join('');
+  if (!text) {
+    const reason = candidate?.finishReason || data?.promptFeedback?.blockReason || '빈 응답';
+    throw new Error(`Gemini가 응답을 만들지 못했습니다 (${reason}). 다시 시도해주세요.`);
+  }
+  return extractJsonObject(text);
+}
+
+async function askClaudeForJson(client: Anthropic, userMessage: string, opts: AskOptions): Promise<any> {
   const response = await client.beta.messages.create(
     {
       model: MODEL,
@@ -386,6 +449,9 @@ function describeAiError(error: unknown): string {
   if (error instanceof Anthropic.APIError) {
     return `AI API 오류 (${error.status ?? '연결 실패'}): ${error.message}`;
   }
+  if (error instanceof Error && error.name === 'TimeoutError') {
+    return 'AI 응답이 제한 시간 안에 오지 않았습니다. 다시 시도해주세요.';
+  }
   return error instanceof Error ? error.message : '알 수 없는 오류';
 }
 
@@ -398,7 +464,30 @@ interface GenerateArgs {
   timeoutMs: number;
 }
 
-async function generatePackage(client: Anthropic, args: GenerateArgs) {
+/** 모델(또는 규칙)이 만든 초안을 렌더링 가능한 패키지로 확정 */
+function assemblePackage(args: Omit<GenerateArgs, 'templateMode' | 'timeoutMs'>, draft: any) {
+  const slides = finalizeSlides(draft?.slides, args.products, args.id);
+  if (slides.length === 0) {
+    throw new Error('사용할 수 있는 슬라이드를 만들지 못했습니다. 상품을 바꾸거나 다시 시도해주세요.');
+  }
+
+  return {
+    id: args.id,
+    title: str(draft.title, args.brief.slice(0, 60)),
+    prompt: args.brief,
+    aspectRatio: args.aspectRatio,
+    caption: str(draft.caption),
+    hashtags: (Array.isArray(draft.hashtags) ? draft.hashtags : [])
+      .map((h: unknown) => str(h))
+      .filter(Boolean)
+      .slice(0, 15),
+    slides,
+    productIds: usedProductIds(draft?.slides, args.products),
+    created_at: new Date().toISOString(),
+  };
+}
+
+async function generatePackage(engine: Engine, args: GenerateArgs) {
   const userMessage = `[요청]
 ${args.brief}
 
@@ -411,26 +500,275 @@ ${args.aspectRatio}
 [사용할 수 있는 상품 목록] (한 줄에 하나)
 ${describeProducts(args.products)}`;
 
-  const result = await askClaudeForJson(client, userMessage, { maxTokens: 8000, timeoutMs: args.timeoutMs });
-  const slides = finalizeSlides(result?.slides, args.products, args.id);
-  if (slides.length === 0) {
-    throw new Error('AI가 사용할 수 있는 슬라이드를 만들지 못했습니다. 다시 시도해주세요.');
-  }
+  const draft = await askModelForJson(engine, userMessage, { maxTokens: 8000, timeoutMs: args.timeoutMs });
+  return { ...assemblePackage(args, draft), engine: engine.provider };
+}
 
-  return {
-    id: args.id,
-    title: str(result.title, args.brief.slice(0, 60)),
-    prompt: args.brief,
-    aspectRatio: args.aspectRatio,
-    caption: str(result.caption),
-    hashtags: (Array.isArray(result.hashtags) ? result.hashtags : [])
-      .map((h: unknown) => str(h))
-      .filter(Boolean)
-      .slice(0, 15),
-    slides,
-    productIds: usedProductIds(result?.slides, args.products),
-    created_at: new Date().toISOString(),
+// ---------------------------------------------------------------------------
+// 규칙 기반 자동 조합 (AI 키가 없을 때) — 문구는 정해진 틀, 내용은 전부 DB의 실제 상품 데이터
+// ---------------------------------------------------------------------------
+
+export type RuleKind = 'spotlight' | 'top5' | 'versus' | 'reels' | 'curation';
+
+const pickBy = <T,>(items: T[], seed: number): T => items[Math.abs(seed) % items.length];
+
+/** 수집 과정에서 한 글자로 잘못 들어간 브랜드("삼" 등)는 문구에 쓰지 않는다 */
+const brandOf = (p: CandidateProduct): string => ((p.brand || '').trim().length >= 2 ? (p.brand as string).trim() : '');
+
+/** "브랜드 상품명" (상품명에 이미 브랜드가 들어 있으면 상품명만) */
+const fullName = (p: CandidateProduct): string => {
+  const name = cleanName(p.name);
+  const brand = brandOf(p);
+  return brand && !name.includes(brand) ? `${brand} ${name}` : name;
+};
+
+const firstSentence = (text?: string): string => {
+  const t = (text || '').trim();
+  // "[CU 공식 신상품] ..." 같은 수집기 자동 문구는 상품 설명이 아니므로 쓰지 않는다
+  if (!t || t.startsWith('[')) return '';
+  const cut = t.split(/(?<=[.!?])\s/)[0];
+  return cut.length > 70 ? `${cut.slice(0, 68)}…` : cut;
+};
+
+const BASE_HASHTAGS = [
+  '#신상픽', '#신상', '#신제품', '#편의점신상', '#신상리뷰', '#먹스타그램', '#간식추천', '#신상추천',
+  '#오늘뭐먹지', '#맛스타그램', '#편의점추천', '#신메뉴', '#내돈내산', '#먹킷리스트', '#푸드스타그램',
+];
+
+function buildHashtags(products: CandidateProduct[]): string[] {
+  const tag = (v?: string) => (v ? `#${v.replace(/[^가-힣A-Za-z0-9]/g, '')}` : '');
+  const own = products.flatMap((p) => {
+    const brand = brandOf(p);
+    return [tag(brand), brand ? `${tag(brand)}신상` : '', tag(p.category)];
+  });
+  return [...new Set(['#신상픽', ...own, ...BASE_HASHTAGS].filter((t) => t.length > 1))].slice(0, 15);
+}
+
+const CAPTION_OUTRO = "더 많은 신상과 솔직한 리뷰는 프로필 링크 '신상픽' 앱에서 확인하세요!";
+const CTA_SLIDE = { templateType: 'cta_app', props: {} };
+
+const reviewSlide = (p: CandidateProduct, seed: number) => ({
+  templateType: 'review_card',
+  props: {
+    productId: p.id,
+    description: firstSentence(p.description) || `${p.category || '화제의'} 신상, 어떤 맛일지 궁금하다면?`,
+    recommendations: [
+      `${p.category || '새로운'} 신상을 기다려온 분`,
+      '새로운 맛을 누구보다 먼저 맛보고 싶은 분',
+      p.stores?.length ? `${p.stores[0]} 자주 가는 분` : '오늘 뭐 먹을지 고민인 분',
+    ],
+    handwriting: pickBy(['이건\n먹어봐야 해!', '궁금하면\n바로 픽!', '오늘의\n신상 픽'], seed),
+  },
+});
+
+/**
+ * 규칙 기반 초안 (모델 출력과 같은 형태: title/caption/hashtags/slides).
+ * 상품 수가 kind에 필요한 만큼 없으면 null.
+ */
+export function buildRuleDraft(kind: RuleKind, products: CandidateProduct[], seed: number): any | null {
+  const [a, b] = products;
+  if (!a) return null;
+  const nameA = cleanName(a.name);
+  const hashtags = buildHashtags(products);
+
+  switch (kind) {
+    case 'spotlight': {
+      const brand = brandOf(a);
+      const title = `${brand && !nameA.includes(brand) ? `${brand} ` : ''}신상 ${nameA}`;
+      return {
+        title,
+        hashtags,
+        caption: [
+          `🔥 ${title} 나왔어요!`,
+          '',
+          firstSentence(a.description) || '따끈따끈한 신상, 어떤 맛일지 궁금하지 않나요?',
+          a.stores?.length ? `📍 만날 수 있는 곳: ${a.stores.join(', ')}` : '',
+          '',
+          '먹어본 분들은 댓글로 솔직 후기 남겨주세요 👇',
+          CAPTION_OUTRO,
+        ].filter((line, i, arr) => line || arr[i - 1]).join('\n'),
+        slides: [
+          {
+            templateType: 'cover_new',
+            props: {
+              title1: pickBy(['오늘의 신상', '지금 막 나온 신상', '이번 주 주목 신상'], seed),
+              title2: '신상픽',
+              handwriting: pickBy(['이거\n나왔대!', '신상\n도착!', '오늘은\n이거다'], seed + 1),
+            },
+          },
+          {
+            templateType: 'hook_photo',
+            props: {
+              productId: a.id,
+              hookTitle: brand ? `${brand}에\n이거 나왔어요!` : '따끈따끈한\n신상 도착!',
+              subText: `${nameA}\n같이 확인해봐요`,
+            },
+          },
+          reviewSlide(a, seed),
+          { templateType: 'rating_detail', props: { productId: a.id, quote: a.bestQuotes?.[0] || '' } },
+          CTA_SLIDE,
+        ],
+      };
+    }
+
+    case 'top5': {
+      // 순위는 실제 별점이 있는 상품만으로, 별점 순으로 매긴다
+      const top = products.filter(hasRating).sort((x, y) => ratingScore(y) - ratingScore(x)).slice(0, 5);
+      if (top.length < 3) return null;
+      const title = `신상 TOP ${top.length}`;
+      return {
+        title,
+        hashtags,
+        caption: [
+          `🏆 신상픽 유저 별점으로 뽑은 ${title}`,
+          '',
+          ...top.map((p, i) => `${i + 1}위 ${fullName(p)}`),
+          '',
+          '여러분의 원픽은 몇 위인가요? 댓글로 알려주세요 👇',
+          CAPTION_OUTRO,
+        ].join('\n'),
+        slides: [
+          { templateType: 'cover_new', props: { title1: '신상픽 유저가 뽑은', title2: `TOP ${top.length}`, handwriting: '별점으로\n줄 세워봄' } },
+          {
+            templateType: 'top5',
+            props: { badge: 'RANKING', title, subText: '신상픽 유저 별점 기준', productIds: top.map((p) => p.id) },
+          },
+          CTA_SLIDE,
+        ],
+      };
+    }
+
+    case 'versus': {
+      if (!b) return null;
+      const nameB = cleanName(b.name);
+      const title = `${nameA} VS ${nameB}`;
+      return {
+        title,
+        hashtags,
+        caption: [
+          `⚔️ ${a.category || '신상'} 맞대결! ${title}`,
+          '',
+          '둘 중 하나만 고른다면, 여러분의 선택은?',
+          '댓글로 투표해주세요 👇',
+          CAPTION_OUTRO,
+        ].join('\n'),
+        slides: [
+          { templateType: 'cover_new', props: { title1: `${a.category || '신상'} 맞대결`, title2: 'VS', handwriting: '둘 중\n뭐 먹지?' } },
+          { templateType: 'versus', props: { productIds: [a.id, b.id], question: '둘 중 하나만 고른다면\n당신의 선택은?', buttonText: '댓글로 투표하기 →' } },
+          reviewSlide(a, seed),
+          reviewSlide(b, seed + 1),
+          CTA_SLIDE,
+        ],
+      };
+    }
+
+    case 'reels':
+      return {
+        title: `릴스 커버 · ${nameA}`,
+        hashtags,
+        caption: [
+          `👀 ${fullName(a)}, 다들 보셨나요?`,
+          '',
+          firstSentence(a.description) || '요즘 눈에 띄는 신상, 영상으로 먼저 만나보세요.',
+          '',
+          CAPTION_OUTRO,
+        ].join('\n'),
+        slides: [
+          {
+            templateType: 'reels_cover',
+            props: { productId: a.id, stickerText: pickBy(['이거\n오늘 처음 봤어요!', '이 신상\n나만 몰랐어?', '지금 난리난\n신상'], seed) },
+          },
+        ],
+      };
+
+    case 'curation': {
+      if (products.length < 3) return null;
+      const group = products.slice(0, 4);
+      const category = a.category || '신상';
+      const title = `요즘 ${category} 신상 모아보기`;
+      return {
+        title,
+        hashtags,
+        caption: [
+          `🧺 ${title}`,
+          '',
+          ...group.map((p) => `· ${fullName(p)}`),
+          '',
+          '이 중에 먹어본 거 있나요? 댓글로 알려주세요 👇',
+          CAPTION_OUTRO,
+        ].join('\n'),
+        slides: [
+          { templateType: 'cover_new', props: { title1: `요즘 ${category} 신상`, title2: '모아보기', handwriting: `${group.length}개만\n기억해!` } },
+          ...group.map((p, i) => reviewSlide(p, seed + i)),
+          CTA_SLIDE,
+        ],
+      };
+    }
+  }
+}
+
+const ratingScore = (p: CandidateProduct) => (p.rating || 0) * Math.log((p.ratingCount || 0) + 1);
+
+/** 후보 목록에서 kind에 맞는 상품을 고른다. taken에 든 상품은 건너뛰고, 고른 상품은 taken에 넣는다 */
+function selectForKind(kind: RuleKind, pool: CandidateProduct[], taken: Set<string>, seed: number): CandidateProduct[] {
+  // 같은 상품이 DB에 두 번 들어 있는 경우가 있어 이름 기준으로 한 번만 쓴다
+  const seenNames = new Set<string>();
+  const free = pool.filter((p) => !taken.has(p.id) && !seenNames.has(fullName(p)) && !!seenNames.add(fullName(p)));
+  const withImage = free.filter((p) => p.image);
+  const byCategory = (items: CandidateProduct[], min: number, sameBrand = false) => {
+    const groups = new Map<string, CandidateProduct[]>();
+    items.forEach((p) => {
+      if (!p.category || (sameBrand && !brandOf(p))) return;
+      const key = sameBrand ? `${p.category}|${brandOf(p)}` : p.category;
+      groups.set(key, [...(groups.get(key) || []), p]);
+    });
+    const eligible = [...groups.values()].filter((g) => g.length >= min);
+    return eligible.length ? pickBy(eligible, seed) : [];
   };
+
+  let chosen: CandidateProduct[] = [];
+  if (kind === 'spotlight' || kind === 'reels') chosen = withImage.slice(0, 1);
+  if (kind === 'top5') chosen = free.filter(hasRating).sort((x, y) => ratingScore(y) - ratingScore(x)).slice(0, 5);
+  // 비교는 같은 브랜드의 같은 카테고리 상품끼리 붙여야 말이 된다
+  if (kind === 'versus') chosen = byCategory(withImage, 2, true).slice(0, 2);
+  if (kind === 'curation') chosen = byCategory(free, 3).slice(0, 4);
+
+  chosen.forEach((p) => taken.add(p.id));
+  return chosen;
+}
+
+const DAILY_RULE_KINDS: RuleKind[] = ['spotlight', 'top5', 'versus', 'reels', 'curation'];
+
+/** AI 없이 오늘의 콘텐츠 5세트를 조합 */
+export function buildDailyByRules(candidates: CandidateProduct[], recentlyUsed: string[], date: string) {
+  const seed = Number(date.replace(/-/g, ''));
+  // 최근에 다룬 상품은 피하되, 그러면 후보가 너무 줄어드는 경우에는 전체에서 고른다
+  const fresh = candidates.filter((p) => !recentlyUsed.includes(p.id));
+  const pool = fresh.length >= 15 ? fresh : candidates;
+  const taken = new Set<string>();
+
+  return DAILY_RULE_KINDS.flatMap((kind, idx) => {
+    const products = selectForKind(kind, pool, taken, seed + idx);
+    const draft = buildRuleDraft(kind, products, seed + idx);
+    if (!draft) return [];
+    try {
+      const pkg = assemblePackage(
+        { id: `daily-${date}-${idx + 1}`, brief: draft.title, aspectRatio: kind === 'reels' ? '9:16' : '1:1', products },
+        draft
+      );
+      return [{ ...pkg, engine: 'rules', source: 'daily', dailyDate: date }];
+    } catch {
+      return [];
+    }
+  });
+}
+
+/** 요청문/템플릿 지정에서 규칙 기반 구성 종류를 정한다 */
+function ruleKindFor(prompt: string, templateMode: string, productCount: number): RuleKind {
+  if (templateMode === 'top5' || /TOP|탑\s?5|랭킹|순위/i.test(prompt)) return 'top5';
+  if (templateMode === 'versus' || /VS|비교|대결/i.test(prompt)) return 'versus';
+  if (templateMode === 'reels_cover' || /릴스|숏폼/.test(prompt)) return 'reels';
+  return productCount >= 3 ? 'curation' : 'spotlight';
 }
 
 // ---------------------------------------------------------------------------
@@ -519,7 +857,7 @@ const PLAN_SYSTEM_PROMPT = `신상픽(SinSangPick)은 편의점·카페·식품 
 
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-async function runDailyGeneration(client: Anthropic, db: Db, date: string) {
+async function runDailyGeneration(engine: Engine | null, db: Db, date: string) {
   const candidates = await fetchCandidateProducts(db);
   if (candidates.length < 5) {
     throw new Error('콘텐츠를 만들 상품이 DB에 충분하지 않습니다 (5개 미만).');
@@ -532,15 +870,25 @@ async function runDailyGeneration(client: Anthropic, db: Db, date: string) {
     .eq('template_mode', 'daily')
     .order('created_at', { ascending: false })
     .limit(15);
-  const recent = (recentRows || [])
-    .map((r: any) => r.content_json)
-    .filter((c: any) => c && c.dailyDate !== date)
+  const recentPosts = (recentRows || []).map((r: any) => r.content_json).filter((c: any) => c && c.dailyDate !== date);
+
+  if (!engine) {
+    const posts = buildDailyByRules(candidates, recentPosts.flatMap((c: any) => c.productIds || []), date);
+    const failed: string[] = [];
+    for (const post of posts) {
+      const saveError = await savePost(db, post, 'daily');
+      if (saveError) failed.push(`저장 실패: ${saveError}`);
+    }
+    return { date, engine: 'rules', generated: posts.length - failed.length, failed, posts };
+  }
+
+  const recent = recentPosts
     .map((c: any) => `- ${c.title || c.prompt} (상품: ${(c.productIds || []).join(', ') || '없음'})`)
     .join('\n');
 
   const weekday = WEEKDAYS[new Date(`${date}T00:00:00Z`).getUTCDay()];
-  const plan = await askClaudeForJson(
-    client,
+  const plan = await askModelForJson(
+    engine,
     `[오늘] ${date} (${weekday}요일)
 
 [최근 며칠간 이미 올린 자동 콘텐츠]
@@ -572,7 +920,7 @@ ${describeProducts(candidates)}
 
   const settled = await Promise.allSettled(
     briefs.map(async (brief: any, idx: number) => {
-      const pkg = await generatePackage(client, {
+      const pkg = await generatePackage(engine, {
         id: `daily-${date}-${idx + 1}`,
         brief: `${brief.title}\n방향: ${brief.angle}\n포맷: ${brief.format}`,
         templateMode: 'auto',
@@ -591,7 +939,7 @@ ${describeProducts(candidates)}
   const failures = settled.flatMap((r) => (r.status === 'rejected' ? [describeAiError(r.reason)] : []));
   if (failures.length) console.warn('[api/generate-content] daily 일부 실패:', failures);
 
-  return { date, generated: posts.length, failed: failures, posts };
+  return { date, engine: engine.provider, generated: posts.length, failed: failures, posts };
 }
 
 // ---------------------------------------------------------------------------
@@ -607,7 +955,8 @@ export default async function handler(req: any, res: any) {
     return res.status(200).end();
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const engine = getEngine();
+  const engineName = engine?.provider ?? 'rules';
   const supabase = getSupabase();
   const query = req.query || {};
 
@@ -619,10 +968,10 @@ export default async function handler(req: any, res: any) {
       storageReady = !error;
     }
     return res.status(200).json({
-      aiConfigured: !!apiKey,
+      engine: engineName,
+      aiConfigured: !!engine,
       storageReady,
       cronSecretConfigured: !!process.env.CRON_SECRET,
-      model: MODEL,
     });
   }
 
@@ -637,9 +986,6 @@ export default async function handler(req: any, res: any) {
     }
     const force = isAdmin && !!query.force;
 
-    if (!apiKey) {
-      return res.status(503).json({ error: 'Vercel 환경변수 ANTHROPIC_API_KEY가 설정되어 있지 않습니다.' });
-    }
     if (!supabase?.hasServiceKey) {
       return res.status(503).json({ error: 'SUPABASE_SERVICE_ROLE_KEY가 설정되어 있지 않습니다.' });
     }
@@ -658,7 +1004,7 @@ export default async function handler(req: any, res: any) {
     }
 
     try {
-      const result = await runDailyGeneration(new Anthropic({ apiKey }), supabase.db, date);
+      const result = await runDailyGeneration(engine, supabase.db, date);
       return res.status(result.generated > 0 ? 200 : 502).json(result);
     } catch (error) {
       console.error('[api/generate-content] daily error:', error);
@@ -673,7 +1019,7 @@ export default async function handler(req: any, res: any) {
   }
 
   if (req.method === 'GET') {
-    const base = { aiConfigured: !!apiKey, storageReady: false, posts: [] as any[] };
+    const base = { engine: engineName, aiConfigured: !!engine, storageReady: false, posts: [] as any[] };
     if (!supabase?.hasServiceKey) return res.status(200).json(base);
     const { data, error } = await supabase.db
       .from('content_posts')
@@ -702,10 +1048,6 @@ export default async function handler(req: any, res: any) {
   if (!prompt.trim() && products.length === 0) {
     return res.status(400).json({ error: '요청 문구 또는 상품 데이터가 필요합니다.' });
   }
-  if (!apiKey) {
-    return res.status(503).json({ error: 'Vercel 환경변수 ANTHROPIC_API_KEY가 설정되어 있지 않아 AI 생성을 할 수 없습니다.' });
-  }
-
   try {
     // 관리자가 상품을 고르지 않았으면 DB의 실제 신상 중에서 AI가 고른다
     let candidates: CandidateProduct[] = products
@@ -719,14 +1061,27 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: '카드뉴스에 사용할 상품이 없습니다. 상품을 선택해주세요.' });
     }
 
-    const pkg = await generatePackage(new Anthropic({ apiKey }), {
-      id: `gen-${Date.now()}`,
-      brief: prompt.trim() || '선택한 상품을 소개하는 신상 추천 카드뉴스',
-      templateMode,
-      aspectRatio,
-      products: candidates,
-      timeoutMs: 50_000,
-    });
+    const id = `gen-${Date.now()}`;
+    let pkg: any;
+    if (engine) {
+      pkg = await generatePackage(engine, {
+        id,
+        brief: prompt.trim() || '선택한 상품을 소개하는 신상 추천 카드뉴스',
+        templateMode,
+        aspectRatio,
+        products: candidates,
+        timeoutMs: 50_000,
+      });
+    } else {
+      // AI 키가 없으면 실제 상품 데이터로 규칙 기반 조합 (관리자가 고른 상품은 그대로, 아니면 후보에서 선택)
+      const kind = ruleKindFor(prompt, templateMode, products.length);
+      const chosen = products.length > 0 ? candidates : selectForKind(kind, candidates, new Set(), Date.now());
+      const draft = buildRuleDraft(kind, chosen, Date.now());
+      if (!draft) {
+        return res.status(400).json({ error: '이 구성에 필요한 상품 수가 부족합니다. 상품을 더 선택해주세요. (TOP5·모아보기 3개 이상, VS 2개)' });
+      }
+      pkg = { ...assemblePackage({ id, brief: prompt.trim() || draft.title, aspectRatio, products: chosen }, draft), engine: 'rules' };
+    }
 
     // 직접 올린 사진(data URL)이 섞이면 행이 지나치게 커지므로 그런 세트는 브라우저에만 보관한다
     const hasInlineImage = JSON.stringify(pkg.slides).includes('"data:');

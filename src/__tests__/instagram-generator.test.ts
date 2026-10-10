@@ -152,3 +152,50 @@ describe('5. 서버 슬라이드 확정 로직 (api/generate-content)', () => {
     expect(kstDateString(new Date('2026-10-10T22:00:00Z'))).toBe('2026-10-11');
   });
 });
+
+describe('6. AI 키 없이 동작하는 규칙 기반 자동 조합 (api/generate-content)', () => {
+  const make = (i: number, category: string, brand: string) => ({
+    id: `p${i}`,
+    name: `${brand} 테스트상품${i}`,
+    brand,
+    category,
+    image: `https://example.com/${i}.jpg`,
+    rating: 4 + (i % 10) / 10,
+    ratingCount: i + 1,
+    detailedRating: { taste: 4.5, value: 4, portion: 4, repurchase: 4.2 },
+    description: `테스트상품${i} 설명입니다.`,
+  });
+  const candidates = [
+    ...[1, 2, 3, 4, 5].map((i) => make(i, '과자', '오리온')),
+    ...[6, 7, 8, 9].map((i) => make(i, '음료', '메가커피')),
+    ...[10, 11, 12, 13, 14, 15, 16].map((i) => make(i, '간편식', 'CU')),
+  ];
+
+  it('하루치 5세트를 서로 겹치지 않는 상품으로 만들고, 모든 수치·이미지는 후보 데이터에서 와야 함', async () => {
+    const { buildDailyByRules } = await import('../../api/generate-content');
+    const posts = buildDailyByRules(candidates, [], '2026-10-11');
+    expect(posts.length).toBe(5);
+    expect(posts.map((p) => p.id)).toEqual([1, 2, 3, 4, 5].map((n) => `daily-2026-10-11-${n}`));
+    expect(posts.every((p) => p.engine === 'rules' && p.caption && p.hashtags.length === 15)).toBe(true);
+
+    const used = posts.flatMap((p) => p.productIds);
+    expect(new Set(used).size).toBe(used.length);
+
+    const images = new Set(candidates.map((c) => c.image));
+    const json = JSON.stringify(posts);
+    const urls = json.match(/https:\/\/[^"\\]+/g) || [];
+    expect(urls.length).toBeGreaterThan(0);
+    expect(urls.every((u) => images.has(u))).toBe(true);
+  });
+
+  it('최근에 다룬 상품은 피하고, 별점 없는 상품으로는 랭킹을 만들지 않아야 함', async () => {
+    const { buildDailyByRules, buildRuleDraft } = await import('../../api/generate-content');
+    const recent = ['p1', 'p6', 'p10'];
+    const pool = [...candidates, ...[17, 18, 19].map((i) => make(i, '과자', '롯데'))];
+    const posts = buildDailyByRules(pool, recent, '2026-10-12');
+    expect(posts.flatMap((p) => p.productIds).some((id) => recent.includes(id))).toBe(false);
+
+    const unrated = candidates.slice(0, 5).map((c) => ({ ...c, rating: 0, ratingCount: 0 }));
+    expect(buildRuleDraft('top5', unrated, 1)).toBeNull();
+  });
+});
