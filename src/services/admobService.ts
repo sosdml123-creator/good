@@ -156,6 +156,132 @@ export const removeBanner = async (): Promise<void> => {
   }
 };
 
+/**
+ * iOS 인라인 배너 (AppDelegate.swift의 InlineAdManager와 통신)
+ * - 네이티브 배너를 웹 구좌(DOM) 위치에 붙여서 본문 스크롤과 함께 움직이게 함
+ * - 구좌가 스크롤 영역 밖으로 나가거나 헤더/모달/토스트에 가려지면 그만큼 잘라내거나 숨김
+ */
+type InlineAdMessage =
+  | { action: 'update'; slot: string; adId: string; frame: number[]; clip: number[] }
+  | { action: 'hide' | 'remove'; slot: string }
+  | { action: 'reset' };
+
+const postInlineAd = (msg: InlineAdMessage): boolean => {
+  const bridge = (
+    window as unknown as {
+      webkit?: { messageHandlers?: { inlineAd?: { postMessage: (m: InlineAdMessage) => void } } };
+    }
+  ).webkit?.messageHandlers?.inlineAd;
+  if (!bridge) return false;
+  bridge.postMessage(msg);
+  return true;
+};
+
+export const supportsInlineBanner = (): boolean => Capacitor.getPlatform() === 'ios';
+
+let inlineAdReady = false;
+
+/**
+ * 구좌 엘리먼트 중 실제로 화면에 보이는 영역 [left, top, right, bottom] 계산 (안 보이면 null)
+ */
+const measureVisibleRect = (el: HTMLElement, clippers: HTMLElement[]): number[] | null => {
+  const r = el.getBoundingClientRect();
+  if (r.width < 1 || r.height < 1) return null;
+
+  let left = Math.max(r.left, 0);
+  let top = Math.max(r.top, 0);
+  let right = Math.min(r.right, window.innerWidth);
+  let bottom = Math.min(r.bottom, window.innerHeight);
+  for (const c of clippers) {
+    const cr = c.getBoundingClientRect();
+    left = Math.max(left, cr.left);
+    top = Math.max(top, cr.top);
+    right = Math.min(right, cr.right);
+    bottom = Math.min(bottom, cr.bottom);
+  }
+  if (right - left < 1 || bottom - top < 1) return null;
+
+  // 구좌 위를 덮고 있는 다른 엘리먼트(고정 헤더, 모달, 토스트 등) 탐지
+  const x = (left + right) / 2;
+  const coverAt = (y: number): DOMRect[] | null => {
+    const hit = document.elementFromPoint(x, y);
+    if (!hit || el.contains(hit)) return null;
+    const rects: DOMRect[] = [];
+    for (let n: Element | null = hit; n && !n.contains(el); n = n.parentElement) {
+      const b = n.getBoundingClientRect();
+      if (b.left <= x && b.right >= x && b.top <= y && b.bottom >= y) rects.push(b);
+    }
+    return rects;
+  };
+
+  const topCover = coverAt(top + 1);
+  if (topCover) top = Math.max(top, ...topCover.map((b) => b.bottom));
+  const bottomCover = coverAt(bottom - 1);
+  if (bottomCover) bottom = Math.min(bottom, ...bottomCover.map((b) => b.top));
+  if (bottom - top < 1) return null;
+  if (coverAt((top + bottom) / 2)) return null;
+
+  return [left, top, right, bottom];
+};
+
+/**
+ * 구좌 엘리먼트에 인라인 배너를 붙이고 매 프레임 위치를 동기화. 반환된 함수를 호출하면 해제.
+ */
+export const trackInlineBanner = (slot: string, adId: string, el: HTMLElement): (() => void) => {
+  let raf = 0;
+  let stopped = false;
+  let lastSent = '';
+
+  const clippers: HTMLElement[] = [];
+  for (let p = el.parentElement; p; p = p.parentElement) {
+    const style = window.getComputedStyle(p);
+    if (style.overflowX !== 'visible' || style.overflowY !== 'visible') clippers.push(p);
+  }
+
+  const tick = () => {
+    if (stopped) return;
+    const visible = measureVisibleRect(el, clippers);
+    let msg: InlineAdMessage = { action: 'hide', slot };
+    if (visible) {
+      const r = el.getBoundingClientRect();
+      const [left, top, right, bottom] = visible;
+      const sx = window.scrollX;
+      const sy = window.scrollY;
+      msg = {
+        action: 'update',
+        slot,
+        adId,
+        frame: [r.left + sx, r.top + sy, r.width, r.height],
+        clip: [left + sx, top + sy, right - left, bottom - top],
+      };
+    }
+    const key = JSON.stringify(msg);
+    if (key !== lastSent && postInlineAd(msg)) lastSent = key;
+    raf = requestAnimationFrame(tick);
+  };
+
+  // 추적 허용(ATT) 팝업 응답 이후에 첫 광고를 요청
+  initAdMob().finally(() => {
+    if (stopped) return;
+    if (!inlineAdReady) {
+      inlineAdReady = true;
+      // 페이지가 새로 로드된 경우 이전 페이지가 남긴 네이티브 배너 정리
+      postInlineAd({ action: 'reset' });
+      window.addEventListener('inlineAdStatus', (e) => {
+        console.log('[AdMob] Inline banner status:', (e as CustomEvent).detail);
+      });
+    }
+    raf = requestAnimationFrame(tick);
+  });
+
+  return () => {
+    stopped = true;
+    cancelAnimationFrame(raf);
+    // 배너는 지우지 않고 숨기기만 해서 다시 들어왔을 때 재요청 없이 바로 표시
+    postInlineAd({ action: 'hide', slot });
+  };
+};
+
 export const hideBanner = removeBanner;
 export const resumeBanner = () => Promise.resolve();
 export const showBannerAtSlot = showBannerAt;

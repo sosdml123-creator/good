@@ -9,6 +9,8 @@ import {
   getSafeAreaTop,
   showBannerAt,
   removeBanner,
+  supportsInlineBanner,
+  trackInlineBanner,
 } from '../../services/admobService';
 
 /**
@@ -19,11 +21,18 @@ import {
  */
 export const SearchAdMobBannerSection: React.FC = () => {
   const isNative = Capacitor.isNativePlatform();
+  const useInlineBanner = supportsInlineBanner();
   const slotRef = useRef<HTMLDivElement>(null);
   const isPlacedRef = useRef<boolean>(false);
   const isWebPushedRef = useRef<boolean>(false);
 
   useEffect(() => {
+    // 0. iOS 앱: 구좌 위치에 네이티브 배너를 붙여 본문과 함께 스크롤
+    if (useInlineBanner) {
+      if (!slotRef.current) return;
+      return trackInlineBanner('search', ADMOB_SEARCH_BANNER_UNIT_ID, slotRef.current);
+    }
+
     // 1. 모바일 앱 환경: 구좌 위치에 실제 애드몹 배너를 단 1회 안정적으로 안착
     if (isNative) {
       const placeBanner = () => {
@@ -61,7 +70,7 @@ export const SearchAdMobBannerSection: React.FC = () => {
         console.warn('[SearchAdMobBanner] Web ad push notice:', e);
       }
     }
-  }, [isNative]);
+  }, [isNative, useInlineBanner]);
 
   // 모바일 앱 환경: 네이티브 배너가 올라올 320x50 크기의 1개 정규 구좌 공간 확보
   if (isNative) {
@@ -70,7 +79,7 @@ export const SearchAdMobBannerSection: React.FC = () => {
         <div
           ref={slotRef}
           style={{ width: `${BANNER_WIDTH}px`, height: `${BANNER_HEIGHT}px` }}
-          className="w-[320px] max-w-full h-[50px] min-h-[50px] bg-transparent flex items-center justify-center pointer-events-none"
+          className="w-[320px] max-w-full h-[50px] min-h-[50px] bg-transparent flex items-center justify-center"
           aria-hidden="true"
         />
       </div>

@@ -1,21 +1,31 @@
 import React, { useEffect, useRef } from 'react';
 import {
+  ADMOB_BANNER_UNIT_ID,
   ADMOB_CLIENT_ID,
   ADMOB_HOME_SLOT_ID,
   BANNER_HEIGHT,
   BANNER_WIDTH,
   removeBanner,
+  supportsInlineBanner,
+  trackInlineBanner,
 } from '../../services/admobService';
 
 /**
  * 카테고리 구좌와 신제품 구좌 사이 공식 AdMob 광고 구좌
  * - 화면 플로팅/오버레이 없이 본문 스크롤에 맞춰 자연스럽게 함께 움직이는 일반 인라인 구좌
+ * - iOS 앱: 네이티브 AdMob 배너를 이 구좌 위치에 붙여 함께 스크롤 (웹뷰 안에서는 AdSense가 송출되지 않음)
  */
 export const AdMobBannerSection: React.FC = () => {
+  const useInlineBanner = supportsInlineBanner();
   const adSlotRef = useRef<HTMLDivElement>(null);
   const isPushedRef = useRef<boolean>(false);
 
   useEffect(() => {
+    if (useInlineBanner) {
+      if (!adSlotRef.current) return;
+      return trackInlineBanner('home', ADMOB_BANNER_UNIT_ID, adSlotRef.current);
+    }
+
     // 화면에 떠 있는 네이티브 플로팅 오버레이 완전 제거 (움직일 때마다 따라다니지 않도록 방지)
     removeBanner().catch(() => {});
 
@@ -33,7 +43,7 @@ export const AdMobBannerSection: React.FC = () => {
         console.warn('[Home AdMob Banner] In-line banner push notice:', e);
       }
     }
-  }, []);
+  }, [useInlineBanner]);
 
   return (
     <div className="w-full flex flex-col items-center justify-center bg-white py-2 border-b border-gray-100">
@@ -43,16 +53,18 @@ export const AdMobBannerSection: React.FC = () => {
         style={{ width: `${BANNER_WIDTH}px`, height: `${BANNER_HEIGHT}px` }}
         className="w-[320px] max-w-full h-[50px] min-h-[50px] rounded-xl bg-gray-50/80 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative shadow-2xs"
       >
-        <ins
-          className="adsbygoogle"
-          style={{
-            display: 'inline-block',
-            width: `${BANNER_WIDTH}px`,
-            height: `${BANNER_HEIGHT}px`,
-          }}
-          data-ad-client={ADMOB_CLIENT_ID}
-          data-ad-slot={ADMOB_HOME_SLOT_ID}
-        />
+        {!useInlineBanner && (
+          <ins
+            className="adsbygoogle"
+            style={{
+              display: 'inline-block',
+              width: `${BANNER_WIDTH}px`,
+              height: `${BANNER_HEIGHT}px`,
+            }}
+            data-ad-client={ADMOB_CLIENT_ID}
+            data-ad-slot={ADMOB_HOME_SLOT_ID}
+          />
+        )}
       </div>
     </div>
   );
