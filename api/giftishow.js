@@ -13,7 +13,7 @@
  * 리워드 포인트 교환만 허용되므로, 결제 수단은 포인트뿐입니다.
  */
 
-import { randomBytes } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { verifyAdminRequest } from './_lib/adminAuth.js';
 
 export const config = { maxDuration: 60 };
@@ -80,7 +80,10 @@ async function loadCatalog() {
   for (let page = 1; page <= 10; page++) {
     const json = await callBiz('/goods', '0101', { start: String(page), size: String(size) });
     if (json?.code !== '0000') {
-      throw new Error(`기프티쇼 상품 조회 실패: ${json?.code || 'unknown'} ${json?.message || ''}`);
+      // 인증 실패 시 환경변수 값이 발급받은 키와 같은지 값 노출 없이 대조할 수 있도록 길이·해시 앞자리만 남김
+      const fp = (v) => `${String(v).length}:${createHash('sha256').update(String(v)).digest('hex').slice(0, 8)}`;
+      const hint = json?.code === 'E0006' ? ` [code ${fp(AUTH_CODE)} token ${fp(AUTH_TOKEN)}]` : '';
+      throw new Error(`기프티쇼 상품 조회 실패: ${json?.code || 'unknown'} ${json?.message || ''}${hint}`);
     }
     const list = json.result?.goodsList || [];
     for (const g of list) {
