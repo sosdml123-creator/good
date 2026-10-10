@@ -28,7 +28,6 @@ import {
 import { Product, ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
-  getSearchTrendingProducts, 
   isRealNewProduct,
   getBalancedShuffledNewProducts
 } from '../../utils/ranking';
@@ -37,6 +36,7 @@ import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
+import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
 
 export const HomeView: React.FC = () => {
   const { 
@@ -356,6 +356,9 @@ export const HomeView: React.FC = () => {
   const sortedHomeSections = [...workingSections].sort((a, b) => a.order - b.order);
 
   // Render individual sections dynamically
+  const searchTrendingSection = workingSections.find(s => s.id === 'search_trending' && s.isVisible);
+  const searchTrending = useFoodTrendRanking(products, searchTrendingSection?.itemLimit || 12, Boolean(searchTrendingSection));
+
   const renderSection = (section: HomeSectionConfig) => {
     if (!section.isVisible) return null;
 
@@ -875,8 +878,14 @@ export const HomeView: React.FC = () => {
               </p>
             ) : null}
 
+            {searchTrending.isLive ? (
+              <p className="px-4 text-[11px] text-gray-400 mb-3">
+                네이버 검색량·쇼핑·블로그 종합 · {new Date(searchTrending.updatedAt).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })} 기준
+              </p>
+            ) : null}
+
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
-              {getSearchTrendingProducts(products, section.itemLimit || 12).map((p, index) => {
+              {searchTrending.products.map((p, index) => {
                 const isBookmarked = bookmarkedIds.includes(p.id);
                 const rank = index + 1;
 

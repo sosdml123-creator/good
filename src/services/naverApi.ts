@@ -1,6 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import { PendingProduct, ProductCategory } from '../types';
 import { fetchWithTimeout } from '../utils/networkUtils';
+import type { FoodTrendSignal } from '../utils/foodTrend';
 import { REAL_NEW_PRODUCTS_DATABASE } from '../data/realNewProducts';
 import {
   ILLUSTRATION_PEACH,
@@ -776,6 +777,27 @@ export const callNaverDataLabApi = async (
     throw new Error(`Naver DataLab API (${type}) failed with status: ${res.status}`);
   }
   return await res.json();
+};
+
+/**
+ * "요즘 주목받는 먹거리" 순위용 네이버 신호 조회 (검색량·쇼핑 클릭·블로그 언급, 서버에서 1시간 캐시).
+ * batch는 "키워드~별칭|키워드~별칭" 형식(최대 4개)이며, 실패 시 빈 객체를 반환합니다.
+ */
+export const fetchFoodTrendSignals = async (batch: string): Promise<Record<string, FoodTrendSignal>> => {
+  try {
+    const res = await fetchWithTimeout(`${getNaverApiBaseUrl()}/api/naver?type=food_trend&kw=${encodeURIComponent(batch)}`, undefined, 15000);
+    if (!res.ok) return {};
+    const data = await res.json();
+    const signals: Record<string, FoodTrendSignal> = {};
+    for (const item of Array.isArray(data?.items) ? data.items : []) {
+      if (typeof item?.key !== 'string') continue;
+      signals[item.key] = { search: item.search ?? null, momentum: item.momentum ?? null, shopping: item.shopping ?? null, blog: item.blog ?? null };
+    }
+    return signals;
+  } catch (err) {
+    console.warn('[Food Trend Signals Failed]', err);
+    return {};
+  }
 };
 
 /**

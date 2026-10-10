@@ -11,9 +11,14 @@
  * 2. NAVER Search Trend API (POST):
  *    - /api/naver?type=search_trend | datalab_search
  * 
- * 3. NAVER Search APIs (GET):
+ * 3. 요즘 주목받는 먹거리 실시간 신호 (GET, 1시간 엣지 캐시):
+ *    - /api/naver?type=food_trend&kw=이름~별칭|이름~별칭 (최대 4개)
+ *
+ * 4. NAVER Search APIs (GET):
  *    - /api/naver?type=news|image|blog|shop|webkr&query=...&sort=...&display=...
  */
+
+import { collectFoodTrendSignals, parseTrendItems } from './_lib/foodTrend.js';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -42,7 +47,8 @@ export default async function handler(req, res) {
     'datalab_gender', 'shopping_gender',
     'datalab_device', 'shopping_device',
     'shopping_keyword_age', 'shopping_keyword_gender', 'shopping_keyword_device',
-    'search_trend', 'datalab_search', 'trend'
+    'search_trend', 'datalab_search', 'trend',
+    'food_trend'
   ];
 
   const safeType = ALLOWED_TYPES.includes(String(type)) ? String(type) : 'news';
@@ -52,6 +58,25 @@ export default async function handler(req, res) {
   const cleanQuery = String(query || '').trim().slice(0, 100);
 
   try {
+    // ----------------------------------------------------
+    // 0. 요즘 주목받는 먹거리: 검색어 트렌드 + 쇼핑인사이트 + 블로그 신호 종합 (GET)
+    // ----------------------------------------------------
+    if (safeType === 'food_trend') {
+      const trendItems = parseTrendItems(req.query?.kw);
+      if (trendItems.length === 0) {
+        return res.status(400).json({ error: 'kw parameter is required' });
+      }
+      const signals = await collectFoodTrendSignals(trendItems, { clientId, clientSecret });
+      if (!signals.ok) {
+        return res.status(502).json({ error: 'NAVER trend signals are unavailable' });
+      }
+      // 같은 키워드 묶음은 모든 사용자가 엣지 캐시를 공유 (일부 신호가 빠진 응답은 짧게만 캐시)
+      res.setHeader('Cache-Control', signals.complete
+        ? 's-maxage=3600, stale-while-revalidate=86400'
+        : 's-maxage=300');
+      return res.status(200).json(signals);
+    }
+
     // ----------------------------------------------------
     // 1. NAVER Search Trend API (POST: search-trend/v1/search & openapi fallback)
     // ----------------------------------------------------
