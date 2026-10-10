@@ -89,6 +89,14 @@ final class InlineAdManager: NSObject, WKScriptMessageHandler, GADBannerViewDele
         let container = InlineAdContainerView()
         let banner = GADBannerView(adSize: GADAdSizeBanner)
         var retries = 0
+
+        // 구좌가 속한 웹 스크롤 영역의 네이티브 스크롤뷰 (스크롤 중 위치를 지연 없이 맞추기 위함)
+        weak var scroller: UIScrollView?
+        var observation: NSKeyValueObservation?
+        var region = CGRect.zero
+        var x: CGFloat = 0
+        var contentY: CGFloat = 0
+        var jsScrollTop: CGFloat = 0
     }
 
     private weak var webView: WKWebView?
@@ -115,7 +123,10 @@ final class InlineAdManager: NSObject, WKScriptMessageHandler, GADBannerViewDele
             guard let adId = body["adId"] as? String,
                   let frame = rect(body["frame"]),
                   let clip = rect(body["clip"]) else { return }
-            update(id, adId: adId, frame: frame, clip: clip)
+            let scrollTop = CGFloat((body["scrollTop"] as? NSNumber)?.doubleValue ?? 0)
+            let scrollHeight = CGFloat((body["scrollHeight"] as? NSNumber)?.doubleValue ?? 0)
+            update(id, adId: adId, frame: frame, clip: clip,
+                   scrollerRect: rect(body["scroller"]), scrollTop: scrollTop, scrollHeight: scrollHeight)
         case "hide":
             slots[id]?.container.isHidden = true
         case "remove":
@@ -130,7 +141,8 @@ final class InlineAdManager: NSObject, WKScriptMessageHandler, GADBannerViewDele
         return CGRect(x: n[0].doubleValue, y: n[1].doubleValue, width: n[2].doubleValue, height: n[3].doubleValue)
     }
 
-    private func update(_ id: String, adId: String, frame: CGRect, clip: CGRect) {
+    private func update(_ id: String, adId: String, frame: CGRect, clip: CGRect,
+                        scrollerRect: CGRect?, scrollTop: CGFloat, scrollHeight: CGFloat) {
         guard let webView = webView else { return }
 
         let slot: Slot
@@ -150,13 +162,67 @@ final class InlineAdManager: NSObject, WKScriptMessageHandler, GADBannerViewDele
             slot.banner.load(GADRequest())
         }
 
-        slot.container.frame = clip
-        slot.banner.frame.origin = CGPoint(x: frame.minX - clip.minX, y: frame.minY - clip.minY)
+        slot.region = clip
+        slot.x = frame.minX
+        slot.contentY = frame.minY + scrollTop
+        slot.jsScrollTop = scrollTop
+        bindScroller(slot, rect: scrollerRect, scrollHeight: scrollHeight, in: webView.scrollView)
+        layout(slot)
         slot.container.isHidden = false
+    }
+
+    /// 배너 위치 = 구좌의 콘텐츠 내 위치 - 현재 스크롤 오프셋.
+    /// 네이티브 스크롤뷰를 찾았으면 그 오프셋을 직접 읽고, 못 찾았으면 JS가 알려준 값을 사용한다.
+    private func layout(_ slot: Slot) {
+        let offsetY = slot.scroller?.contentOffset.y ?? slot.jsScrollTop
+        slot.container.frame = slot.region
+        slot.banner.frame.origin = CGPoint(x: slot.x - slot.region.minX,
+                                           y: slot.contentY - offsetY - slot.region.minY)
+    }
+
+    private func bindScroller(_ slot: Slot, rect: CGRect?, scrollHeight: CGFloat, in root: UIScrollView) {
+        guard let rect = rect else {
+            slot.observation = nil
+            slot.scroller = nil
+            return
+        }
+        if let current = slot.scroller, current.window != nil, matches(current, rect, in: root) { return }
+
+        slot.observation = nil
+        var best: UIScrollView?
+        findScroller(in: root, root: root, rect: rect, scrollHeight: scrollHeight, best: &best)
+        slot.scroller = best
+        slot.observation = best?.observe(\.contentOffset) { [weak self, weak slot] _, _ in
+            guard let self = self, let slot = slot else { return }
+            self.layout(slot)
+        }
+    }
+
+    private func matches(_ scroller: UIScrollView, _ rect: CGRect, in root: UIScrollView) -> Bool {
+        let visible = scroller.convert(scroller.bounds, to: root)
+        return abs(visible.minX - rect.minX) < 2 && abs(visible.minY - rect.minY) < 2
+            && abs(visible.width - rect.width) < 2 && abs(visible.height - rect.height) < 2
+    }
+
+    /// 웹의 overflow 스크롤 영역마다 WebKit이 만들어 두는 UIScrollView 중, 화면상 위치가 일치하는 것을 찾는다
+    private func findScroller(in view: UIView, root: UIScrollView, rect: CGRect, scrollHeight: CGFloat, best: inout UIScrollView?) {
+        for sub in view.subviews where !(sub is InlineAdContainerView) {
+            if let candidate = sub as? UIScrollView, matches(candidate, rect, in: root) {
+                if let current = best {
+                    if abs(candidate.contentSize.height - scrollHeight) < abs(current.contentSize.height - scrollHeight) {
+                        best = candidate
+                    }
+                } else {
+                    best = candidate
+                }
+            }
+            findScroller(in: sub, root: root, rect: rect, scrollHeight: scrollHeight, best: &best)
+        }
     }
 
     private func remove(_ id: String) {
         guard let slot = slots.removeValue(forKey: id) else { return }
+        slot.observation = nil
         slot.banner.delegate = nil
         slot.container.removeFromSuperview()
     }

@@ -162,7 +162,16 @@ export const removeBanner = async (): Promise<void> => {
  * - 구좌가 스크롤 영역 밖으로 나가거나 헤더/모달/토스트에 가려지면 그만큼 잘라내거나 숨김
  */
 type InlineAdMessage =
-  | { action: 'update'; slot: string; adId: string; frame: number[]; clip: number[] }
+  | {
+      action: 'update';
+      slot: string;
+      adId: string;
+      frame: number[];
+      clip: number[];
+      scroller: number[] | null;
+      scrollTop: number;
+      scrollHeight: number;
+    }
   | { action: 'hide' | 'remove'; slot: string }
   | { action: 'reset' };
 
@@ -181,17 +190,26 @@ export const supportsInlineBanner = (): boolean => Capacitor.getPlatform() === '
 
 let inlineAdReady = false;
 
-/**
- * 구좌 엘리먼트 중 실제로 화면에 보이는 영역 [left, top, right, bottom] 계산 (안 보이면 null)
- */
-const measureVisibleRect = (el: HTMLElement, clippers: HTMLElement[]): number[] | null => {
-  const r = el.getBoundingClientRect();
-  if (r.width < 1 || r.height < 1) return null;
+const pinnedCache = new WeakMap<Element, boolean>();
+const isPinned = (n: Element): boolean => {
+  let pinned = pinnedCache.get(n);
+  if (pinned === undefined) {
+    const position = window.getComputedStyle(n).position;
+    pinned = position === 'sticky' || position === 'fixed';
+    pinnedCache.set(n, pinned);
+  }
+  return pinned;
+};
 
-  let left = Math.max(r.left, 0);
-  let top = Math.max(r.top, 0);
-  let right = Math.min(r.right, window.innerWidth);
-  let bottom = Math.min(r.bottom, window.innerHeight);
+/**
+ * 배너가 그려져도 되는 영역 [left, top, right, bottom] 계산 (스크롤과 무관하게 고정된 값)
+ * - 스크롤 컨테이너 등 클리핑 조상들의 교집합에서, 위/아래 가장자리를 덮는 sticky·fixed 요소만큼 제외
+ */
+const measureRegion = (el: HTMLElement, clippers: HTMLElement[], x: number): number[] | null => {
+  let left = 0;
+  let top = 0;
+  let right = window.innerWidth;
+  let bottom = window.innerHeight;
   for (const c of clippers) {
     const cr = c.getBoundingClientRect();
     left = Math.max(left, cr.left);
@@ -201,31 +219,26 @@ const measureVisibleRect = (el: HTMLElement, clippers: HTMLElement[]): number[] 
   }
   if (right - left < 1 || bottom - top < 1) return null;
 
-  // 구좌 위를 덮고 있는 다른 엘리먼트(고정 헤더, 모달, 토스트 등) 탐지
-  const x = (left + right) / 2;
-  const coverAt = (y: number): DOMRect[] | null => {
+  const pinnedAt = (y: number): DOMRect | null => {
     const hit = document.elementFromPoint(x, y);
-    if (!hit || el.contains(hit)) return null;
-    const rects: DOMRect[] = [];
     for (let n: Element | null = hit; n && !n.contains(el); n = n.parentElement) {
-      const b = n.getBoundingClientRect();
-      if (b.left <= x && b.right >= x && b.top <= y && b.bottom >= y) rects.push(b);
+      if (isPinned(n)) return n.getBoundingClientRect();
     }
-    return rects;
+    return null;
   };
-
-  const topCover = coverAt(top + 1);
-  if (topCover) top = Math.max(top, ...topCover.map((b) => b.bottom));
-  const bottomCover = coverAt(bottom - 1);
-  if (bottomCover) bottom = Math.min(bottom, ...bottomCover.map((b) => b.top));
+  const topCover = pinnedAt(top + 1);
+  if (topCover) top = Math.max(top, topCover.bottom);
+  const bottomCover = pinnedAt(bottom - 1);
+  if (bottomCover) bottom = Math.min(bottom, bottomCover.top);
   if (bottom - top < 1) return null;
-  if (coverAt((top + bottom) / 2)) return null;
 
   return [left, top, right, bottom];
 };
 
 /**
- * 구좌 엘리먼트에 인라인 배너를 붙이고 매 프레임 위치를 동기화. 반환된 함수를 호출하면 해제.
+ * 구좌 엘리먼트에 인라인 배너를 붙이고 위치를 동기화. 반환된 함수를 호출하면 해제.
+ * - 스크롤 중의 위치는 네이티브가 스크롤뷰 오프셋을 직접 읽어 계산하므로 지연 없이 본문에 붙어 움직임
+ * - JS는 구좌의 "콘텐츠 내 위치"와 허용 영역, 모달 등에 가려졌는지만 알려줌
  */
 export const trackInlineBanner = (slot: string, adId: string, el: HTMLElement): (() => void) => {
   let raf = 0;
@@ -233,28 +246,49 @@ export const trackInlineBanner = (slot: string, adId: string, el: HTMLElement): 
   let lastSent = '';
 
   const clippers: HTMLElement[] = [];
+  let scroller: HTMLElement | null = null;
   for (let p = el.parentElement; p; p = p.parentElement) {
     const style = window.getComputedStyle(p);
     if (style.overflowX !== 'visible' || style.overflowY !== 'visible') clippers.push(p);
+    if (!scroller && (style.overflowY === 'auto' || style.overflowY === 'scroll')) scroller = p;
   }
+
+  const measure = (): InlineAdMessage => {
+    const hidden: InlineAdMessage = { action: 'hide', slot };
+    const r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return hidden;
+
+    const x = Math.min(Math.max(r.left + r.width / 2, 0), window.innerWidth - 1);
+    const region = measureRegion(el, clippers, x);
+    if (!region) return hidden;
+    const [left, top, right, bottom] = region;
+
+    // 구좌의 보이는 부분 위에 모달·토스트 등이 떠 있으면 숨김
+    const visTop = Math.max(r.top, top);
+    const visBottom = Math.min(r.bottom, bottom);
+    if (visBottom - visTop >= 1) {
+      const hit = document.elementFromPoint(x, (visTop + visBottom) / 2);
+      if (hit && !el.contains(hit)) return hidden;
+    }
+
+    const sx = window.scrollX;
+    const sy = window.scrollY;
+    const sr = scroller?.getBoundingClientRect();
+    return {
+      action: 'update',
+      slot,
+      adId,
+      frame: [r.left + sx, r.top + sy, r.width, r.height],
+      clip: [left + sx, top + sy, right - left, bottom - top],
+      scroller: sr ? [sr.left + sx, sr.top + sy, sr.width, sr.height] : null,
+      scrollTop: scroller?.scrollTop ?? 0,
+      scrollHeight: scroller?.scrollHeight ?? 0,
+    };
+  };
 
   const tick = () => {
     if (stopped) return;
-    const visible = measureVisibleRect(el, clippers);
-    let msg: InlineAdMessage = { action: 'hide', slot };
-    if (visible) {
-      const r = el.getBoundingClientRect();
-      const [left, top, right, bottom] = visible;
-      const sx = window.scrollX;
-      const sy = window.scrollY;
-      msg = {
-        action: 'update',
-        slot,
-        adId,
-        frame: [r.left + sx, r.top + sy, r.width, r.height],
-        clip: [left + sx, top + sy, right - left, bottom - top],
-      };
-    }
+    const msg = measure();
     const key = JSON.stringify(msg);
     if (key !== lastSent && postInlineAd(msg)) lastSent = key;
     raf = requestAnimationFrame(tick);
