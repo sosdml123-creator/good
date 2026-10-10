@@ -157,9 +157,6 @@ export const MyPageView: React.FC = () => {
               >
                 <Pencil className="w-3.5 h-3.5" />
               </button>
-              <span className="text-[10px] font-bold bg-white/20 px-1.5 py-0.5 rounded-full shrink-0">
-                {currentUser.level}
-              </span>
               <button
                 onClick={handleOpenAlbum}
                 className="p-1 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors shrink-0 cursor-pointer"

@@ -125,9 +125,6 @@ export const RecipeDetailModal: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-1">
                     <span className="text-xs font-bold text-gray-900">{selectedRecipe.author}</span>
-                    <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
-                      {selectedRecipe.authorLevel || 'LV.1'}
-                    </span>
                   </div>
                   <span className="text-[10px] text-gray-400">{selectedRecipe.createdAt}</span>
                 </div>

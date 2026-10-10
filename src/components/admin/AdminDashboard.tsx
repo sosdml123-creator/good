@@ -3048,7 +3048,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                               <div className="flex items-center gap-2">
                                 <img src={r.userAvatar} alt={r.userName} className="w-5 h-5 rounded-full object-cover" />
                                 <span className="text-xs font-bold">{r.userName}</span>
-                                <span className="text-[10px] text-indigo-500 font-semibold">{r.userLevel}</span>
                               </div>
                               <p className={`text-xs leading-relaxed break-words break-all whitespace-pre-wrap [overflow-wrap:anywhere] ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                                 {r.content}

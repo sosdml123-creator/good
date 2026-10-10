@@ -148,11 +148,6 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-xs font-bold text-gray-900">{r.userName}</span>
-                      {r.userLevel && (
-                        <span className="text-[10px] bg-amber-50 text-amber-600 font-bold px-1 rounded">
-                          Lv.{r.userLevel}
-                        </span>
-                      )}
                       {isMine && (
                         <span className="text-[9px] bg-gray-900 text-white font-bold px-1.5 py-0.5 rounded-full">
                           내 글

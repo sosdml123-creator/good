@@ -30,7 +30,6 @@ export interface BattleComment {
   userId?: string;
   userName: string;
   userAvatar?: string;
-  userLevel?: number;
   choice: 'A' | 'B' | 'NONE'; // A 지지 | B 지지 | 중립
   content: string;
   likes: number;
@@ -44,7 +43,6 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
     id: 'b-cmt-1',
     userName: '편의점탐험가',
     userAvatar: DEFAULT_AVATAR,
-    userLevel: 4,
     choice: 'A',
     content: '이번 신상은 국물이 진짜 깊고 진해요 ㅋㅋㅋ 특유의 불향이 살아있어서 밥까지 말아먹었습니다. 완전 강추!',
     likes: 24,
@@ -64,7 +62,6 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
     id: 'b-cmt-2',
     userName: '알뜰식탐러',
     userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
-    userLevel: 3,
     choice: 'B',
     content: '가성비랑 양 생각하면 무조건 B가 승리입니다 ㅋㅋㅋ 편의점에서 2+1 행사도 하고 있어서 쟁여두기 딱 좋아요. 달콤매콤해서 중독성 대박!',
     likes: 19,
@@ -76,7 +73,6 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
     id: 'b-cmt-3',
     userName: '신상얼리어답터',
     userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
-    userLevel: 5,
     choice: 'NONE',
     content: '둘 다 개성이 확실해서 취향 차이일 듯해요! 얼큰하고 진한 자극을 원할 땐 A, 가볍고 감칠맛 있는 한 끼엔 B 추천합니다. 둘 다 신상치고 완성도 높아요 👍',
     likes: 14,
@@ -88,7 +84,6 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
     id: 'b-cmt-4',
     userName: '매운맛챌린저',
     userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-    userLevel: 2,
     choice: 'A',
     content: '매운 거 좋아하시는 분들은 망설이지 말고 A 가세요! 스트레스 확 풀리는 알싸함입니다 🔥',
     likes: 9,
@@ -100,7 +95,6 @@ const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
     id: 'b-cmt-5',
     userName: '간식요정',
     userAvatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80',
-    userLevel: 3,
     choice: 'B',
     content: 'B는 치즈나 반숙란 살짝 얹어서 같이 먹으면 진짜 꿀맛탱이에요.. 무조건 꿀조합으로 드셔보세요!',
     likes: 17,
@@ -172,7 +166,6 @@ export const CompareModal: React.FC = () => {
       userId: currentUser.uid || 'user_me',
       userName: currentUser.displayName || '신상러버',
       userAvatar: currentUser.photoURL || DEFAULT_AVATAR,
-      userLevel: currentUser.level ? parseInt(currentUser.level.replace(/[^0-9]/g, '')) || 3 : 3,
       choice: selectedChoice,
       content: inputText.trim(),
       likes: 0,
@@ -694,11 +687,6 @@ export const CompareModal: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-1.5">
                         <span className="text-xs font-bold text-gray-800">{comment.userName}</span>
-                        {comment.userLevel && (
-                          <span className="text-[10px] text-amber-600 bg-amber-50 font-bold px-1 rounded">
-                            Lv.{comment.userLevel}
-                          </span>
-                        )}
                         <span className="text-[10px] text-gray-400">{comment.createdAt}</span>
                       </div>
                       

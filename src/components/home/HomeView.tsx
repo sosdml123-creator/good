@@ -1293,7 +1293,6 @@ export const HomeView: React.FC = () => {
                       <div>
                         <div className="flex items-center gap-1.5">
                           <span className="text-[13px] font-semibold text-gray-900">{r.userName}</span>
-                          <span className="text-[10px] text-white bg-gray-400 px-1.5 py-0.2 rounded font-semibold">{r.userLevel}</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
                           <div className="flex items-center gap-0.5">

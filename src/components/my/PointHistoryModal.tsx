@@ -49,12 +49,7 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
 
   if (!isOpen) return null;
 
-  // Level progress calculation (200 points per level)
   const currentPoints = currentUser.points || userPoints;
-  const currentLevelNum = Math.max(1, Math.min(10, Math.floor(currentPoints / 200) + 1));
-  const nextLevelPoints = currentLevelNum * 200;
-  const pointsToNextLevel = Math.max(0, nextLevelPoints - currentPoints);
-  const progressPercent = Math.min(100, Math.max(0, ((currentPoints % 200) / 200) * 100));
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
@@ -97,32 +92,11 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
                 <Sparkles className="w-3.5 h-3.5 text-amber-200" />
                 보유 포인트
               </span>
-              <span className="text-[11px] font-bold bg-white/20 backdrop-blur-xs px-2.5 py-0.5 rounded-full text-white">
-                {currentUser.level || `Lv.${currentLevelNum}`}
-              </span>
             </div>
 
             <div className="mt-2 text-3xl font-black tracking-tight relative z-10 flex items-baseline gap-1">
               <span>{currentPoints.toLocaleString()}</span>
               <span className="text-xl font-bold">P</span>
-            </div>
-
-            {/* Level progress bar */}
-            <div className="mt-4 pt-3 border-t border-white/20 relative z-10">
-              <div className="flex justify-between text-[11px] font-medium text-amber-100 mb-1.5">
-                <span>Lv.{currentLevelNum}</span>
-                {currentLevelNum < 10 ? (
-                  <span>Lv.{currentLevelNum + 1}까지 {pointsToNextLevel}P 남음</span>
-                ) : (
-                  <span>최고 레벨 도달! 👑</span>
-                )}
-              </div>
-              <div className="w-full bg-black/20 h-1.5 rounded-full overflow-hidden">
-                <div 
-                  className="bg-white h-full rounded-full transition-all duration-500 ease-out shadow-xs" 
-                  style={{ width: `${currentLevelNum >= 10 ? 100 : progressPercent}%` }}
-                />
-              </div>
             </div>
           </div>
 

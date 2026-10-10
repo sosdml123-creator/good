@@ -1028,7 +1028,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     <th className="p-3.5">로그인 수단</th>
                     <th className="p-3.5">가입 일시</th>
                     <th className="p-3.5">최근 활동 (DAU)</th>
-                    <th className="p-3.5">보유 포인트 / 등급</th>
+                    <th className="p-3.5">보유 포인트</th>
                     <th className="p-3.5">계정 상태</th>
                     <th className="p-3.5">누적 경고 / 제재</th>
                     <th className="p-3.5 text-right">포인트 & 상태 관리</th>
@@ -1136,7 +1136,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                             </div>
                           </td>
 
-                          {/* Points & Level */}
+                          {/* Points */}
                           <td className="p-3.5">
                             <div className="space-y-0.5">
                               <div className="font-bold font-mono text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
@@ -1146,7 +1146,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                               <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${
                                 isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'
                               }`}>
-                                {user.level || 'Lv.1'} · 리뷰 {userReviewsCount}건
+                                리뷰 {userReviewsCount}건
                               </span>
                             </div>
                           </td>
@@ -1397,7 +1397,7 @@ export const UserManagementTab: React.FC<UserManagementTabProps> = ({ isDark }) 
                     {getProviderBadge(selectedUser)}
                   </div>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">
-                    {selectedUser.email || selectedUser.uid} · {selectedUser.level} · {(selectedUser.points || 0).toLocaleString()}P
+                    {selectedUser.email || selectedUser.uid} · {(selectedUser.points || 0).toLocaleString()}P
                   </p>
                 </div>
               </div>
