@@ -1,4 +1,4 @@
-import { Capacitor, CapacitorHttp } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 import { PendingProduct, ProductCategory } from '../types';
 import { fetchWithTimeout } from '../utils/networkUtils';
 import { REAL_NEW_PRODUCTS_DATABASE } from '../data/realNewProducts';
@@ -723,9 +723,6 @@ export const generateCleanProductDescription = (
   }
 };
 
-const NCP_CLIENT_ID = 'ha89ylxb53';
-const NCP_CLIENT_SECRET = '4hm7znMnOmGyvtw2xnvEjTWoRG1UZeLqlccI7b4p';
-
 const getNaverApiBaseUrl = (): string => {
   if (!Capacitor.isNativePlatform()) return '';
   // 네이티브 앱은 상대경로(/api)를 쓸 수 없으므로 실제 배포된 공개 도메인이 필요합니다.
@@ -734,7 +731,7 @@ const getNaverApiBaseUrl = (): string => {
 };
 
 /**
- * Call Naver API via proxy endpoint (/api/naver) or direct native CapacitorHttp
+ * Call Naver API via proxy endpoint (/api/naver). 네이티브 앱은 배포 도메인의 프록시를 절대경로로 호출합니다 (API 키는 서버에만 보관).
  */
 export const callNaverApi = async (
   type: 'news' | 'image' | 'blog' | 'shop',
@@ -743,64 +740,7 @@ export const callNaverApi = async (
   display: number = 10,
   start: number = 1
 ): Promise<NaverSearchResponse> => {
-  // 1. Capacitor Native 플랫폼: Vercel 도메인 404를 우회하여 네이버 클라우드 플랫폼 직접 호출
-  if (Capacitor.isNativePlatform()) {
-    try {
-      const hubType = type === 'shop' ? 'image' : type;
-      const hubQuery = type === 'shop'
-        ? (query.includes('편의점') || query.includes('신제품') ? query : `${query} 편의점 신상`)
-        : query;
-      const url = `https://naverapihub.apigw.ntruss.com/search/v1/${hubType}?query=${encodeURIComponent(hubQuery)}&display=${display}${start > 1 ? `&start=${start}` : ''}${sort ? `&sort=${sort}` : ''}`;
-      const response = await CapacitorHttp.get({
-        url,
-        headers: {
-          'X-NCP-APIGW-API-KEY-ID': NCP_CLIENT_ID,
-          'X-NCP-APIGW-API-KEY': NCP_CLIENT_SECRET
-        }
-      });
-      if (response.status === 200 && response.data) {
-        if (type === 'shop' && response.data.items) {
-          const items = response.data.items.map((it: any, idx: number) => {
-            const rawTitle = cleanHtml(it.title || query)
-              .replace(/<[^>]+>/g, '')
-              .replace(/\[[^\]]*\]/g, ' ')
-              .replace(/\([^\)]*\)/g, ' ')
-              .replace(/\s*:\s*(?:스마트스토어|네이버쇼핑|쇼핑몰|구매대행|마트몰|강철\s*유통|서울포장).*$/i, '')
-              .trim();
-            const imgUrl = (it.link || it.thumbnail || '').replace(/^http:\/\//, 'https://');
-            return {
-              title: rawTitle || `${query} 인기 디저트`,
-              link: `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(rawTitle || query)}`,
-              image: imgUrl,
-              lprice: '3500',
-              hprice: '3500',
-              mallName: '네이버 공식 브랜드 스토어',
-              productId: `ncp-shop-${Date.now()}-${idx + 1}`,
-              productType: '1',
-              brand: query.split(' ')[0] || '인기 신상',
-              maker: query.split(' ')[0] || '인기 신상',
-              category1: '식품',
-              category2: '신제품',
-              synthesized: true
-            };
-          });
-          return {
-            lastBuildDate: new Date().toUTCString(),
-            total: items.length,
-            start: 1,
-            display: items.length,
-            items,
-            synthesized: true
-          };
-        }
-        return response.data;
-      }
-    } catch (e) {
-      console.warn('[CapacitorHttp Naver Search Direct Error]', e);
-    }
-  }
-
-  // 2. Web 브라우저 / Local 환경: 프록시 엔드포인트(/api/naver) 호출
+  // 웹은 상대경로, 네이티브는 절대경로로 프록시 엔드포인트(/api/naver) 호출
   const baseUrl = getNaverApiBaseUrl();
   const apiUrl = `${baseUrl}/api/naver?type=${type}&query=${encodeURIComponent(query)}&display=${display}${start > 1 ? `&start=${start}` : ''}${sort ? `&sort=${sort}` : ''}`;
   
@@ -812,7 +752,7 @@ export const callNaverApi = async (
 };
 
 /**
- * Call NAVER DataLab Shopping Insight & Search Trend API via proxy (/api/naver) or direct native CapacitorHttp
+ * Call NAVER DataLab Shopping Insight & Search Trend API via proxy (/api/naver)
  */
 export const callNaverDataLabApi = async (
   type:
@@ -821,43 +761,7 @@ export const callNaverDataLabApi = async (
     | 'search_trend',
   payload: any
 ): Promise<any> => {
-  // 1. Capacitor Native 플랫폼: CapacitorHttp로 네이버 클라우드 플랫폼 직접 호출
-  if (Capacitor.isNativePlatform()) {
-    try {
-      let endpoint = 'categories';
-      if (type === 'datalab_keywords' || type === 'shopping_keywords') {
-        endpoint = 'category/keywords';
-      } else if (type === 'shopping_keyword_age' || type === 'datalab_age') {
-        endpoint = 'category/keyword/age';
-      } else if (type === 'shopping_keyword_gender' || type === 'datalab_gender') {
-        endpoint = 'category/keyword/gender';
-      } else if (type === 'shopping_keyword_device' || type === 'datalab_device') {
-        endpoint = 'category/keyword/device';
-      }
-
-      const isSearchTrend = type === 'search_trend';
-      const url = isSearchTrend
-        ? 'https://naverapihub.apigw.ntruss.com/search-trend/v1/search'
-        : `https://naverapihub.apigw.ntruss.com/shopping/v1/${endpoint}`;
-
-      const response = await CapacitorHttp.post({
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          'X-NCP-APIGW-API-KEY-ID': NCP_CLIENT_ID,
-          'X-NCP-APIGW-API-KEY': NCP_CLIENT_SECRET
-        },
-        data: payload
-      });
-      if (response.status === 200 && response.data) {
-        return response.data;
-      }
-    } catch (e) {
-      console.warn('[CapacitorHttp Naver DataLab Direct Error]', e);
-    }
-  }
-
-  // 2. Web 브라우저 / Local 환경: 프록시 엔드포인트(/api/naver) 호출
+  // 웹은 상대경로, 네이티브는 절대경로로 프록시 엔드포인트(/api/naver) 호출
   const baseUrl = getNaverApiBaseUrl();
   const apiUrl = `${baseUrl}/api/naver?type=${type}`;
   const res = await fetchWithTimeout(apiUrl, {

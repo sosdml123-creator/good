@@ -1,8 +1,8 @@
 import { Product, KamisPriceInfo, KamisPriceTrendItem } from '../types';
+import { Capacitor } from '@capacitor/core';
 import { fetchWithTimeout } from '../utils/networkUtils';
 
-export const KAMIS_DEFAULT_KEY = '48af112d-8ebb-484b-8ecb-a836c3976152';
-export const KAMIS_DEFAULT_ID = 'sinsangpick';
+const KAMIS_PROXY_URL = `${Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : ''}/api/kamis`;
 
 const STORAGE_CACHE_KEY = 'sinsangpick_kamis_cache_v2';
 const STORAGE_LAST_UPDATE_KEY = 'sinsangpick_kamis_last_update';
@@ -126,7 +126,7 @@ export function mapToKamisPriceInfo(item: RawKamisItem, latestDateStr?: string):
 }
 
 /**
- * KAMIS 오픈 API 시세 조회 (Proxy 1차 -> 직접 호출 2차)
+ * KAMIS 오픈 API 시세 조회 (서버 프록시 경유 — 인증키는 서버에만 보관)
  */
 export async function fetchKamisDailyPrices(forceRefresh: boolean = false): Promise<KamisApiResponse> {
   const todayStr = getTodayDateString();
@@ -149,10 +149,10 @@ export async function fetchKamisDailyPrices(forceRefresh: boolean = false): Prom
     } catch {}
   }
 
-  // 2. 1차 시도: Vercel Serverless Function Proxy (/api/kamis?category=all)
+  // 2. Vercel Serverless Function Proxy (/api/kamis?category=all)
   if (typeof window !== 'undefined') {
     try {
-      const proxyUrl = `/api/kamis?category=all`;
+      const proxyUrl = `${KAMIS_PROXY_URL}?category=all`;
       const res = await fetchWithTimeout(proxyUrl, undefined, 12000);
       if (res.ok) {
         const json: KamisApiResponse = await res.json();
@@ -162,46 +162,8 @@ export async function fetchKamisDailyPrices(forceRefresh: boolean = false): Prom
         }
       }
     } catch (proxyError) {
-      console.warn('[KAMIS API] Proxy fetch failed, falling back to direct:', proxyError);
+      console.warn('[KAMIS API] Proxy fetch failed:', proxyError);
     }
-  }
-
-  // 3. 2차 시도: Direct Call (모바일/Capacitor 환경 등)
-  const certKey = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_KAMIS_API_KEY) ||
-                  (typeof process !== 'undefined' && (process.env?.VITE_KAMIS_API_KEY || process.env?.KAMIS_API_KEY)) ||
-                  KAMIS_DEFAULT_KEY;
-  const certId = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_KAMIS_API_ID) ||
-                 (typeof process !== 'undefined' && (process.env?.VITE_KAMIS_API_ID || process.env?.KAMIS_API_ID)) ||
-                 KAMIS_DEFAULT_ID;
-
-  try {
-    const categories = ['100', '200', '400', '500', '600'];
-    const allItems: RawKamisItem[] = [];
-    let detectedLatestDate = todayStr;
-
-    for (const cat of categories) {
-      // Direct request to KAMIS
-      const url = `https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList&p_product_cls_code=01&p_convert_kg_yn=N&p_item_category_code=${cat}&p_cert_key=${certKey}&p_cert_id=${certId}&p_returntype=json`;
-      const res = await fetchWithTimeout(url, undefined, 7000);
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.data?.error_code === '000' && Array.isArray(json?.data?.item)) {
-          allItems.push(...json.data.item);
-        }
-      }
-    }
-
-    if (allItems.length > 0) {
-      saveToCache(todayStr, detectedLatestDate, allItems);
-      return {
-        success: true,
-        latestDate: detectedLatestDate,
-        count: allItems.length,
-        items: allItems
-      };
-    }
-  } catch (directError) {
-    console.error('[KAMIS API] Direct fetch failed:', directError);
   }
 
   // 캐시가 있다면 오래되었더라도 반환

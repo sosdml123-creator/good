@@ -3344,7 +3344,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <span>NAVER Cloud 콘솔 '검색어 트렌드' 서비스 활성화 안내</span>
                       </div>
                       <p className="text-[11px] text-amber-700/90 dark:text-amber-300/80">
-                        현재 NCP Application(ha89ylxb53)에서 '검색어 트렌드'가 미선택 상태여서 쇼핑 키워드 지수로 대체 제공 중입니다. 
+                        현재 NCP Application에서 '검색어 트렌드'가 미선택 상태여서 쇼핑 키워드 지수로 대체 제공 중입니다. 
                         <strong> [NCP 콘솔] &gt; Application &gt; [수정] &gt; '검색어 트렌드' 체크 후 [저장]</strong>하시면 네이버 콘솔에 검색어 트렌드 사용량이 공식 카운트됩니다.
                       </p>
                     </div>
