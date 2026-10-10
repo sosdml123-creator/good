@@ -457,6 +457,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, error: 'Unknown action.' });
   } catch (err) {
     console.error('[giftishow error]', action, err);
-    return res.status(500).json({ success: false, error: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' });
+    // 상품 조회 실패 원인(기프티쇼 오류코드 / 네트워크)은 비밀값이 아니므로 진단용으로 함께 내려줌
+    const detail = action === 'goods' || action === 'detail' ? String(err?.message || err?.name || '').slice(0, 200) : undefined;
+    return res.status(500).json({ success: false, error: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.', detail });
   }
 }
