@@ -45,17 +45,19 @@ export const ReviewCardTemplate: React.FC<ReviewCardProps> = ({
             </h2>
 
             {/* 별점 & 리뷰수 */}
-            <div className="flex items-center gap-1.5 mt-2">
-              <Star size={18} className="text-amber-400 fill-amber-400" />
-              <span className="text-base sm:text-lg font-black text-black">
-                {typeof rating === 'number' ? rating.toFixed(1) : rating}
-              </span>
-              {reviewCount && (
-                <span className="text-xs sm:text-sm font-medium text-gray-400">
-                  ({reviewCount})
+            {rating != null && (
+              <div className="flex items-center gap-1.5 mt-2">
+                <Star size={18} className="text-amber-400 fill-amber-400" />
+                <span className="text-base sm:text-lg font-black text-black">
+                  {typeof rating === 'number' ? rating.toFixed(1) : rating}
                 </span>
-              )}
-            </div>
+                {reviewCount && (
+                  <span className="text-xs sm:text-sm font-medium text-gray-400">
+                    ({reviewCount})
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           {/* 우측 상단 상품 썸네일 & 손글씨 */}

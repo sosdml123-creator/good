@@ -77,3 +77,78 @@ describe('Instagram Content Generator Studio Suite', () => {
     });
   });
 });
+
+describe('5. 서버 슬라이드 확정 로직 (api/generate-content)', () => {
+  const products = [
+    {
+      id: 'p1',
+      name: '삼)곱창김참치마요',
+      brand: 'CU',
+      category: '간편식',
+      image: 'https://example.com/p1.jpg',
+      rating: 4.6,
+      ratingCount: 12,
+      detailedRating: { taste: 4.8, value: 4.2, portion: 4.0, repurchase: 4.5 },
+    },
+    { id: 'p2', name: '리뷰 없는 신상', brand: 'GS25', category: '과자', image: 'https://example.com/p2.jpg', rating: 0, ratingCount: 0 },
+    { id: 'p3', name: '세번째 상품', brand: 'CU', category: '음료', image: '' },
+  ];
+
+  it('이미지·별점은 모델 출력이 아니라 상품 데이터에서만 채워져야 함', async () => {
+    const { finalizeSlides } = await import('../../api/generate-content');
+    const slides = finalizeSlides(
+      [
+        {
+          templateType: 'review_card',
+          props: { productId: 'p1', rating: 5.0, reviewCount: '9,999', productImage: 'https://fake/img.jpg', description: '설명' },
+        },
+        { templateType: 'review_card', props: { productId: 'p2', rating: 4.9, reviewCount: '500' } },
+      ],
+      products,
+      'gen-1'
+    );
+    expect(slides[0].props.rating).toBe(4.6);
+    expect(slides[0].props.reviewCount).toBe('12');
+    expect(slides[0].props.productImage).toBe('https://example.com/p1.jpg');
+    expect(slides[0].props.productName).toBe('곱창김참치마요');
+    // 리뷰가 없는 상품은 별점을 지어내지 않고 숨긴다
+    expect(slides[1].props.rating).toBeNull();
+    expect(slides[1].props.reviewCount).toBeNull();
+  });
+
+  it('목록에 없는 상품이나 근거 데이터가 없는 슬라이드는 제외되어야 함', async () => {
+    const { finalizeSlides } = await import('../../api/generate-content');
+    const slides = finalizeSlides(
+      [
+        { templateType: 'cover_new', props: { title1: '오늘의', title2: '신상' } },
+        { templateType: 'hook_photo', props: { productId: 'unknown', hookTitle: '없는 상품' } },
+        { templateType: 'hook_photo', props: { productId: 'p3', hookTitle: '이미지 없는 상품' } },
+        { templateType: 'rating_detail', props: { productId: 'p2', quote: '리뷰 없음' } },
+        { templateType: 'rating_detail', props: { productId: 'p1', quote: '맛있다' } },
+        { templateType: 'top5', props: { productIds: ['p1', 'p2'] } },
+        { templateType: 'versus', props: { productIds: ['p1', 'p2'], question: '뭐가 더?' } },
+        { templateType: 'reels_cover', props: { productId: 'p1', viewsCount: '99만' } },
+        { templateType: 'not_a_template', props: {} },
+      ],
+      products,
+      'gen-2'
+    );
+    expect(slides.map((s) => s.templateType)).toEqual(['cover_new', 'rating_detail', 'versus', 'reels_cover']);
+    expect(slides[1].props.ratings).toEqual([
+      { label: '맛', score: 4.8 },
+      { label: '가성비', score: 4.2 },
+      { label: '양', score: 4.0 },
+      { label: '재구매', score: 4.5 },
+    ]);
+    expect(slides[3].props.viewsCount).toBeNull();
+    expect(slides[0].id).toBe('gen-2-s1');
+  });
+
+  it('모델 응답 텍스트에서 JSON을 추출하고 KST 날짜를 계산해야 함', async () => {
+    const { extractJsonObject, kstDateString } = await import('../../api/generate-content');
+    expect(extractJsonObject('```json\n{"a": {"b": 1}}\n```')).toEqual({ a: { b: 1 } });
+    expect(() => extractJsonObject('JSON 없음')).toThrow();
+    // UTC 22:00 = 한국 시간 다음 날 07:00
+    expect(kstDateString(new Date('2026-10-10T22:00:00Z'))).toBe('2026-10-11');
+  });
+});

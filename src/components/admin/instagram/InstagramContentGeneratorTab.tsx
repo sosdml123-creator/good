@@ -16,7 +16,9 @@ import {
   History,
   Trash2,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Sunrise,
+  AlertTriangle
 } from 'lucide-react';
 import { AspectRatioType } from './theme';
 import { GeneratedContentPackage, SlideData, TemplateType } from './types';
@@ -26,10 +28,29 @@ import { downloadSlideAsPng, downloadAllSlidesAsZip } from './downloadUtils';
 import { getAdminAuthHeaders } from '../../../services/adminAuth';
 import {
   saveContentPost,
-  fetchContentPosts,
+  fetchContentHistory,
   deleteContentPost,
+  runDailyGeneration,
   ContentHistoryItem
 } from './contentHistoryService';
+
+interface SelectableProduct {
+  id: string;
+  name: string;
+  brand: string;
+  category: string;
+  image: string;
+  // 아래 값은 실제 리뷰가 있는 상품에만 채워진다 (없는 수치를 지어내지 않기 위함)
+  rating?: number;
+  ratingCount?: number;
+  detailedRating?: Record<string, number>;
+  description?: string;
+  stores?: string[];
+  bestQuotes?: string[];
+}
+
+/** 한국 시간 기준 오늘 날짜 (YYYY-MM-DD) — 서버의 자동 생성 기준일과 동일 */
+const kstToday = () => new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
 interface InstagramContentGeneratorTabProps {
   onNotify?: (message: string, type: 'success' | 'error' | 'info') => void;
@@ -38,15 +59,15 @@ interface InstagramContentGeneratorTabProps {
 export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTabProps> = ({ onNotify: _onNotify }) => {
   const { products, pendingProducts, showToast } = useApp();
 
-  // 활성 서브 탭: 'showcase' (9종 미리보기) | 'generator' (생성기) | 'history' (생성 이력)
-  const [activeSubTab, setActiveSubTab] = useState<'showcase' | 'generator' | 'history'>('generator');
+  // 활성 서브 탭: 'daily' (오늘의 자동 콘텐츠) | 'generator' (생성기) | 'showcase' (9종 미리보기) | 'history' (생성 이력)
+  const [activeSubTab, setActiveSubTab] = useState<'daily' | 'showcase' | 'generator' | 'history'>('daily');
 
   // 생성 폼 상태
   const [promptInput, setPromptInput] = useState('');
   const [selectedTemplateMode, setSelectedTemplateMode] = useState<'auto' | TemplateType>('auto');
   const [selectedRatio, setSelectedRatio] = useState<AspectRatioType>('1:1');
   const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
-  const [customProducts, setCustomProducts] = useState<Array<{ id: string; name: string; brand: string; category: string; image: string; rating: number }>>([]);
+  const [customProducts, setCustomProducts] = useState<SelectableProduct[]>([]);
   const [productSearchQuery, setProductSearchQuery] = useState('');
   const [isProductSelectorOpen, setIsProductSelectorOpen] = useState(false);
 
@@ -69,6 +90,13 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
   const [historyList, setHistoryList] = useState<ContentHistoryItem[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
+  // 서버 준비 상태 (AI 키 / 이력 저장 테이블) 및 오늘의 자동 콘텐츠 실행 상태
+  const [serverStatus, setServerStatus] = useState<{ aiConfigured: boolean | null; storageReady: boolean | null }>({
+    aiConfigured: null,
+    storageReady: null,
+  });
+  const [isRunningDaily, setIsRunningDaily] = useState(false);
+
   // 개별 슬라이드 DOM 참조 맵 (PNG 렌더링용)
   const slideRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -82,8 +110,9 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
   const loadHistory = async () => {
     setIsLoadingHistory(true);
     try {
-      const items = await fetchContentPosts();
-      setHistoryList(items);
+      const result = await fetchContentHistory();
+      setHistoryList(result.items);
+      setServerStatus({ aiConfigured: result.aiConfigured, storageReady: result.storageReady });
     } catch (e) {
       console.warn('History load error:', e);
     } finally {
@@ -97,7 +126,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
 
   // 검색 대상 상품 목록 (승인된 products + pending_products + 사용자가 직접 추가한 커스텀 상품)
   const searchableProducts = useMemo(() => {
-    const list: Array<{ id: string; name: string; brand: string; category: string; image: string; rating: number }> = [];
+    const list: SelectableProduct[] = [];
     customProducts.forEach((cp) => list.push(cp));
 
     products.forEach((p) => {
@@ -107,7 +136,12 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
         brand: p.brand || '',
         category: p.category || '',
         image: p.image || '',
-        rating: p.overallRating || 4.5,
+        ...(p.ratingCount > 0
+          ? { rating: p.overallRating, ratingCount: p.ratingCount, detailedRating: { ...p.detailedRating } }
+          : {}),
+        description: p.description,
+        stores: p.stores,
+        bestQuotes: p.bestQuotes,
       });
     });
 
@@ -118,7 +152,6 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
         brand: p.brand || '',
         category: p.category || '',
         image: p.image || '',
-        rating: 4.5,
       });
     });
     return list;
@@ -174,16 +207,17 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`생성 서버 오류 (${response.status})`);
+      const payload = await response.json().catch(() => null);
+      if (!response.ok || !payload?.slides) {
+        throw new Error(payload?.error || `생성 서버 오류 (${response.status})`);
       }
 
-      const generatedData: GeneratedContentPackage = await response.json();
+      const generatedData: GeneratedContentPackage = payload;
 
       // 생성된 카드 세트 반영
       setContentPackage(generatedData);
 
-      // Supabase / LocalStorage에 생성 이력 자동 저장
+      // 서버 이력(content_posts)은 API가 저장하고, 여기서는 이 브라우저에 백업해 둔다
       await saveContentPost(generatedData, selectedTemplateMode);
       loadHistory();
 
@@ -222,8 +256,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
       name: customName.trim(),
       brand: customBrand.trim() || '직접입력',
       category: customCategory,
-      image: customImage || 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&auto=format&fit=crop',
-      rating: 4.8,
+      image: customImage,
     };
     setCustomProducts((prev) => [newProduct, ...prev]);
     setSelectedProductIds((prev) => [...prev, newId]);
@@ -323,10 +356,50 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
   // 이력에서 카드뉴스 다시 불러오기
   const handleRestoreFromHistory = (item: ContentHistoryItem) => {
     setContentPackage(item.content_json);
-    setPromptInput(item.prompt);
+    setPromptInput(item.template_mode === 'daily' ? '' : item.prompt);
+    setSelectedRatio(item.content_json.aspectRatio);
     setActiveSubTab('generator');
     showToast('📜 저장된 카드뉴스를 화면에 다시 불러왔습니다.', 'success');
   };
+
+  // 오늘의 자동 콘텐츠 5세트를 지금 생성 (아침 크론과 동일한 작업)
+  const handleRunDaily = async (force: boolean) => {
+    if (force && !confirm('오늘의 자동 콘텐츠 5개를 새로 만들어 기존 것을 덮어쓸까요?')) return;
+    setIsRunningDaily(true);
+    showToast('🌅 AI가 오늘 올릴 콘텐츠 5개를 기획하고 있습니다... (최대 1분)', 'info');
+    try {
+      const result = await runDailyGeneration(force);
+      await loadHistory();
+      if (result.skipped) {
+        showToast('오늘 콘텐츠는 이미 생성되어 있습니다.', 'info');
+      } else if (result.failed?.length) {
+        showToast(`${result.generated}개 생성, ${result.failed.length}개 실패: ${result.failed[0]}`, 'error');
+      } else {
+        showToast(`🎉 오늘의 콘텐츠 ${result.generated}개가 준비되었습니다!`, 'success');
+      }
+    } catch (e: any) {
+      console.error('Daily generation error:', e);
+      showToast(`자동 콘텐츠 생성 실패: ${e.message}`, 'error');
+    } finally {
+      setIsRunningDaily(false);
+    }
+  };
+
+  // 자동 생성 콘텐츠를 날짜별로 묶음 (최신 날짜 먼저)
+  const dailyGroups = useMemo(() => {
+    const groups = new Map<string, ContentHistoryItem[]>();
+    historyList
+      .filter((item) => item.template_mode === 'daily')
+      .forEach((item) => {
+        const date = item.content_json?.dailyDate || item.created_at.slice(0, 10);
+        groups.set(date, [...(groups.get(date) || []), item]);
+      });
+    return [...groups.entries()]
+      .sort(([a], [b]) => b.localeCompare(a))
+      .map(([date, items]) => ({ date, items: items.sort((a, b) => a.id.localeCompare(b.id)) }));
+  }, [historyList]);
+  const todayDate = kstToday();
+  const hasTodayDaily = dailyGroups.some((g) => g.date === todayDate);
 
   // 이력 삭제
   const handleDeleteHistory = async (id: string, e: React.MouseEvent) => {
@@ -355,6 +428,17 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
 
           {/* 서브 탭 전환 버튼 */}
           <div className="flex flex-wrap items-center gap-2 mt-5">
+            <button
+              onClick={() => setActiveSubTab('daily')}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 shadow-sm ${
+                activeSubTab === 'daily'
+                  ? 'bg-black text-white scale-105'
+                  : 'bg-white/80 text-black hover:bg-white'
+              }`}
+            >
+              <Sunrise size={15} />
+              <span>🌅 오늘의 자동 콘텐츠</span>
+            </button>
             <button
               onClick={() => setActiveSubTab('generator')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 shadow-sm ${
@@ -396,6 +480,122 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
           <span className="text-[140px] font-black italic tracking-tighter">new</span>
         </div>
       </div>
+
+      {/* 서버 설정 누락 안내 (AI 키 / 이력 테이블) */}
+      {(serverStatus.aiConfigured === false || serverStatus.storageReady === false) && (
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs sm:text-sm text-red-900 font-semibold space-y-1.5">
+          <div className="flex items-center gap-1.5 font-black">
+            <AlertTriangle size={16} />
+            <span>서버 설정이 필요합니다</span>
+          </div>
+          {serverStatus.aiConfigured === false && (
+            <p>
+              · Vercel 환경변수 <code className="font-black">ANTHROPIC_API_KEY</code>가 없어 AI 생성이 동작하지 않습니다.
+              (Vercel → Settings → Environment Variables에 추가 후 재배포)
+            </p>
+          )}
+          {serverStatus.storageReady === false && (
+            <p>
+              · Supabase에 <code className="font-black">content_posts</code> 테이블이 없어 자동 콘텐츠와 이력이 서버에 저장되지 않습니다.
+              (<code>supabase/migrations/20261010_content_posts_daily.sql</code>을 SQL Editor에서 실행)
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* 0. 오늘의 자동 콘텐츠 탭 */}
+      {activeSubTab === 'daily' && (
+        <div className="space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-black text-gray-900 flex items-center gap-2">
+                <Sunrise size={18} className="text-amber-500" />
+                <span>오늘의 자동 콘텐츠</span>
+              </h2>
+              <p className="text-xs text-gray-500 font-medium mt-0.5 leading-relaxed">
+                매일 오전 7시경 AI가 DB의 실제 신상 데이터를 보고 오늘 올릴 게시물 5개를 직접 기획·제작해 둡니다.
+                카드를 누르면 편집·다운로드 화면으로 불러옵니다.
+              </p>
+            </div>
+            <button
+              type="button"
+              disabled={isRunningDaily}
+              onClick={() => handleRunDaily(hasTodayDaily)}
+              className="px-5 py-3 rounded-2xl bg-black text-amber-300 hover:bg-gray-900 disabled:opacity-50 text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-md shrink-0"
+            >
+              <RefreshCw size={15} className={isRunningDaily ? 'animate-spin' : ''} />
+              <span>{isRunningDaily ? '생성 중...' : hasTodayDaily ? '오늘 것 다시 만들기' : '지금 바로 만들기'}</span>
+            </button>
+          </div>
+
+          {dailyGroups.length === 0 ? (
+            <div className="bg-white rounded-3xl border border-gray-100 py-16 px-6 text-center text-gray-400 font-medium text-xs">
+              {isLoadingHistory
+                ? '불러오는 중...'
+                : '아직 자동 생성된 콘텐츠가 없습니다. 내일 아침에 자동으로 채워지며, [지금 바로 만들기]로 먼저 받아볼 수 있습니다.'}
+            </div>
+          ) : (
+            dailyGroups.slice(0, 7).map((group) => (
+              <div key={group.date} className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <Calendar size={15} className="text-gray-500" />
+                  <span className="text-sm font-black text-gray-900">{group.date}</span>
+                  {group.date === todayDate && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-black bg-amber-400 text-black">오늘</span>
+                  )}
+                  <span className="text-xs font-bold text-gray-400">{group.items.length}개</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                  {group.items.map((item, idx) => {
+                    const pkg = item.content_json;
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => handleRestoreFromHistory(item)}
+                        className="bg-white rounded-3xl p-3 shadow-sm border border-gray-100 hover:border-amber-300 hover:shadow-md cursor-pointer transition-all flex flex-col gap-2.5 group"
+                      >
+                        {pkg.slides[0] && (
+                          <div className="pointer-events-none">
+                            <TemplateRenderer slide={pkg.slides[0]} aspectRatio="1:1" />
+                          </div>
+                        )}
+                        <div className="px-1 flex-1">
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-black">
+                              {idx + 1}
+                            </span>
+                            <span className="text-[10px] font-bold text-gray-400">
+                              {pkg.aspectRatio} · {pkg.slides.length}장
+                            </span>
+                          </div>
+                          <p className="text-sm font-black text-gray-900 leading-snug line-clamp-2">
+                            {pkg.title || item.prompt}
+                          </p>
+                          <p className="text-[11px] text-gray-500 font-medium mt-1 line-clamp-2">{item.caption}</p>
+                        </div>
+                        <div className="px-1 pb-1 flex items-center justify-between">
+                          <span className="text-xs font-bold text-amber-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                            <span>편집·다운로드</span>
+                            <ArrowRight size={14} />
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => handleDeleteHistory(item.id, e)}
+                            className="p-1.5 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors"
+                            title="삭제"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
       {/* 1. AI 생성기 탭 */}
       {activeSubTab === 'generator' && (
@@ -986,10 +1186,10 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
                       </span>
                     </div>
                     <p className="text-sm font-black text-gray-900 truncate">
-                      "{item.prompt}"
+                      {item.content_json?.title || `"${item.prompt}"`}
                     </p>
                     <p className="text-xs text-gray-500 truncate mt-0.5 font-medium">
-                      {item.caption.slice(0, 70)}...
+                      {(item.caption || '').slice(0, 70)}...
                     </p>
                   </div>
 

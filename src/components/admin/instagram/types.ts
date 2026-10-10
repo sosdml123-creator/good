@@ -24,7 +24,7 @@ export interface HookPhotoProps {
   hookTitle?: string;
   subText?: string;
   tag?: string;
-  pageIndicator?: string;
+  pageIndicator?: string | null;
   bgImage?: string;
 }
 
@@ -32,12 +32,12 @@ export interface ReviewCardProps {
   badge?: string;
   brand?: string;
   productName?: string;
-  rating?: number;
-  reviewCount?: number | string;
+  rating?: number | null;
+  reviewCount?: number | string | null;
   description?: string;
   recommendationTitle?: string;
   recommendations?: string[];
-  productImage?: string;
+  productImage?: string | null;
   handwriting?: string;
 }
 
@@ -59,7 +59,7 @@ export interface ReelsCoverProps {
   stickerText?: string;
   bgImage?: string;
   stickerTag?: string;
-  viewsCount?: string;
+  viewsCount?: string | null;
 }
 
 export interface RatingScoreItem {
@@ -73,7 +73,7 @@ export interface RatingDetailProps {
   productName?: string;
   ratings?: RatingScoreItem[];
   quote?: string;
-  productImage?: string;
+  productImage?: string | null;
 }
 
 export interface PhotoDessertProps {
@@ -123,6 +123,14 @@ export interface SlideData {
 }
 
 export interface GeneratedContentPackage {
+  /** 관리자 목록용 제목 (AI 생성) */
+  title?: string;
+  /** 'daily' = 매일 아침 자동 생성된 콘텐츠 */
+  source?: string;
+  /** 자동 생성 기준 날짜 (KST, YYYY-MM-DD) */
+  dailyDate?: string;
+  /** 서버 이력(content_posts) 저장 여부 */
+  persisted?: boolean;
   id?: string;
   prompt: string;
   aspectRatio: AspectRatioType;

@@ -3,8 +3,17 @@
     {
       "path": "/api/collect-news",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/generate-content?daily=1",
+      "schedule": "0 22 * * *"
     }
   ],
+  "functions": {
+    "api/generate-content.ts": {
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
     {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt).*)",

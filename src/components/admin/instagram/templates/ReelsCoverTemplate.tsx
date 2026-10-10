@@ -60,10 +60,14 @@ export const ReelsCoverTemplate: React.FC<ReelsCoverProps> = ({
       {/* 하단 정보들: 좌측 조회수 알약 + 우측 신상픽 스티커 */}
       <div className="relative z-10 flex items-end justify-between w-full pb-1">
         {/* 좌하단 조회수 알약 */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-bold shadow-md">
-          <Play size={12} className="fill-white" />
-          <span>{viewsCount}</span>
-        </div>
+        {viewsCount ? (
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-bold shadow-md">
+            <Play size={12} className="fill-white" />
+            <span>{viewsCount}</span>
+          </div>
+        ) : (
+          <span />
+        )}
 
         {/* 우하단 신상픽 노란 타원 스티커 */}
         <div
