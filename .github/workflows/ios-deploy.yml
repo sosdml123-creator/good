@@ -91,6 +91,14 @@ jobs:
             echo "Profile does NOT include Sign In with Apple"
           fi
 
+          if echo "$PP_PLIST" | grep -q "aps-environment"; then
+            echo "HAS_PUSH=true" >> $GITHUB_ENV
+            echo "Profile includes Push Notifications"
+          else
+            echo "HAS_PUSH=false" >> $GITHUB_ENV
+            echo "Profile does NOT include Push Notifications"
+          fi
+
       - name: Generate ExportOptions.plist
         run: |
           EXPORT_PLIST="$GITHUB_WORKSPACE/ios/App/ExportOptions.plist"
@@ -127,6 +135,12 @@ jobs:
               -c "Add :application-identifier string $TEAM_ID.com.sinsangpick.app" \
               "$ENTITLEMENTS" || true
             echo "Using minimal entitlements (no Apple Sign In)"
+          fi
+
+          # 푸시 권한은 프로비저닝 프로파일에 포함된 경우에만 추가 (미포함 시 서명 실패 방지)
+          if [ "$HAS_PUSH" = "true" ]; then
+            /usr/libexec/PlistBuddy -c "Add :aps-environment string production" "$ENTITLEMENTS" || true
+            echo "Added aps-environment entitlement (Push Notifications)"
           fi
 
           xcodebuild archive \

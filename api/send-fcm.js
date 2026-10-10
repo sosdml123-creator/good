@@ -4,6 +4,7 @@
  */
 
 import { verifyAdminRequest } from './_lib/adminAuth.js';
+import { getApnsConfig, isApnsToken, sendApnsNotifications } from './_lib/apns.js';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -43,15 +44,12 @@ export default async function handler(req, res) {
       }
     }
 
-    const hasFcmKey = Boolean(
-      process.env.FIREBASE_SERVER_KEY || 
-      process.env.FCM_SERVER_KEY ||
-      (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_PRIVATE_KEY)
-    );
+    const hasApnsKey = Boolean(getApnsConfig());
 
     return res.status(200).json({
       status: 'online',
-      hasFcmKey,
+      hasApnsKey,
+      hasFcmKey: hasApnsKey,
       registeredTokens: tokenCount,
       tokensByPlatform,
       timestamp: new Date().toISOString()
@@ -125,11 +123,11 @@ export default async function handler(req, res) {
       }
     }
 
-    // 2. Resolve target tokens
+    // 2. Resolve target tokens (iOS APNs 디바이스 토큰)
     let targetTokens = Array.isArray(tokens) ? [...tokens] : [];
     if (targetTokens.length === 0 && supabaseUrl && supabaseKey) {
       try {
-        const tokenRes = await fetch(`${supabaseUrl}/rest/v1/device_tokens?select=token,platform`, {
+        const tokenRes = await fetch(`${supabaseUrl}/rest/v1/device_tokens?select=token,platform&platform=eq.ios`, {
           headers: {
             apikey: supabaseKey,
             Authorization: `Bearer ${supabaseKey}`
@@ -144,70 +142,54 @@ export default async function handler(req, res) {
       }
     }
 
-    // Remove duplicates & empties
-    targetTokens = Array.from(new Set(targetTokens.filter(t => typeof t === 'string' && t.trim().length > 0)));
+    // Remove duplicates & anything that is not a real APNs device token
+    targetTokens = Array.from(new Set(targetTokens.filter(isApnsToken)));
 
-    // 3. Send to FCM
-    const fcmServerKey = process.env.FIREBASE_SERVER_KEY || process.env.FCM_SERVER_KEY;
-    let fcmResult = {
+    // 3. Send device push via APNs
+    const apnsConfig = getApnsConfig();
+    let pushResult = {
       sentCount: 0,
       failedCount: 0,
-      fcmConfigured: Boolean(fcmServerKey)
+      configured: Boolean(apnsConfig)
     };
 
-    if (fcmServerKey && targetTokens.length > 0) {
-      // Chunk tokens by 500 for FCM multicast limits
-      const CHUNK_SIZE = 500;
-      for (let i = 0; i < targetTokens.length; i += CHUNK_SIZE) {
-        const chunk = targetTokens.slice(i, i + CHUNK_SIZE);
-        try {
-          const fcmPayload = {
-            registration_ids: chunk,
-            notification: {
-              title: cleanTitle,
-              body: cleanBody,
-              image: safeImageUrl || undefined,
-              sound: 'default'
-            },
-            data: {
-              title: cleanTitle,
-              body: cleanBody,
-              type: safeType,
-              targetId: safeTargetId,
-              imageUrl: safeImageUrl,
-              badge: safeBadge
-            },
-            priority: 'high'
-          };
-
-          const fcmResponse = await fetch('https://fcm.googleapis.com/fcm/send', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `key=${fcmServerKey}`
-            },
-            body: JSON.stringify(fcmPayload)
-          });
-
-          if (fcmResponse.ok) {
-            const fcmData = await fcmResponse.json();
-            fcmResult.sentCount += (fcmData.success || 0);
-            fcmResult.failedCount += (fcmData.failure || 0);
-          } else {
-            console.warn('[FCM Send Error] HTTP status:', fcmResponse.status);
-            fcmResult.failedCount += chunk.length;
+    if (apnsConfig && targetTokens.length > 0) {
+      try {
+        const apnsResult = await sendApnsNotifications(apnsConfig, targetTokens, {
+          title: cleanTitle,
+          body: cleanBody,
+          data: {
+            type: safeType,
+            targetId: safeTargetId,
+            imageUrl: safeImageUrl,
+            badge: safeBadge
           }
-        } catch (fcmErr) {
-          console.error('[FCM Send Chunk Error]:', fcmErr);
-          fcmResult.failedCount += chunk.length;
+        });
+        pushResult.sentCount = apnsResult.sentCount;
+        pushResult.failedCount = apnsResult.failedCount;
+        if (apnsResult.failedCount > 0) {
+          pushResult.errors = apnsResult.errors;
+          console.warn('[APNs] delivery failures:', apnsResult.errors);
         }
+
+        // 더 이상 유효하지 않은 기기 토큰 정리
+        if (apnsResult.invalidTokens.length > 0 && supabaseUrl && supabaseKey) {
+          const inQuery = apnsResult.invalidTokens.map(t => `"${t}"`).join(',');
+          await fetch(`${supabaseUrl}/rest/v1/device_tokens?token=in.(${inQuery})`, {
+            method: 'DELETE',
+            headers: {
+              apikey: supabaseKey,
+              Authorization: `Bearer ${supabaseKey}`
+            }
+          }).catch(() => {});
+        }
+      } catch (apnsErr) {
+        console.error('[APNs Send Error]:', apnsErr);
+        pushResult.failedCount = targetTokens.length;
+        pushResult.errors = { [apnsErr.message || 'send_error']: targetTokens.length };
       }
-    } else if (!fcmServerKey) {
-      // FCM Server Key is not set in env:
-      // Realtime in-app push still succeeds via Supabase!
-      fcmResult.simulated = true;
-      fcmResult.sentCount = targetTokens.length;
-      fcmResult.note = 'Firebase Server Key not configured in environment. In-app Realtime notification dispatched successfully.';
+    } else if (!apnsConfig) {
+      pushResult.note = 'APNs key is not configured. Only the in-app notification was saved; no device push was sent.';
     }
 
     return res.status(200).json({
@@ -224,7 +206,8 @@ export default async function handler(req, res) {
       },
       dbSaved,
       targetTokensCount: targetTokens.length,
-      fcm: fcmResult
+      push: pushResult,
+      fcm: pushResult
     });
   } catch (error) {
     console.error('[FCM Handler Fatal Error]:', error);

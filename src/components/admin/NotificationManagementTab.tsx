@@ -287,16 +287,18 @@ export const NotificationManagementTab: React.FC = () => {
         {/* FCM Server Configuration */}
         <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-2xs">
           <div className="flex items-center justify-between text-gray-500 mb-2">
-            <span className="text-xs font-bold">FCM 서버 연동 모드</span>
+            <span className="text-xs font-bold">기기 푸시 발송 상태</span>
             <ShieldCheck className="w-4 h-4 text-blue-500" />
           </div>
           <div>
             <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 inline-block">
-              {fcmInfo?.hasFcmKey ? 'FCM Direct Key 활성' : '하이브리드 실시간 브로드캐스트'}
+              {fcmInfo?.hasFcmKey ? 'APNs 발송 활성 (iOS)' : '푸시 키 미설정'}
             </span>
           </div>
           <p className="mt-2 text-[11px] text-gray-500">
-            Supabase Realtime + FCM Push 동시 가동
+            {fcmInfo?.hasFcmKey
+              ? '인앱 알림함 + iOS 기기 푸시 동시 발송'
+              : '인앱 알림함에만 저장되며 기기 푸시는 발송되지 않습니다'}
           </p>
         </div>
       </div>
