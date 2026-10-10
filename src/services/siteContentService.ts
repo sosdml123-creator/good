@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import { supabase, DBProduct } from './supabase';
 import { BannerItem, Product, HomeSectionConfig, SalePromotionItem, PromotionEvent } from '../types';
 import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
+import { getAdminAuthHeaders } from './adminAuth';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -220,7 +221,7 @@ export const saveRemoteBannersAndSections = async (
     try {
       await fetchWithTimeout('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({
           banners,
           homeSections,
@@ -309,7 +310,7 @@ export const saveRemoteEvents = async (
     try {
       await fetchWithTimeout('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({
           events,
           deletedEventIds,
@@ -370,7 +371,7 @@ export const saveRemoteDeletedProducts = async (deletedProductIds: string[]): Pr
     try {
       await fetch('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({ deletedProductIds })
       });
       saved = true;
@@ -443,7 +444,7 @@ export const deleteRemoteProduct = async (productId: string): Promise<boolean> =
     try {
       await fetch('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({ action: 'delete_products', ids: [productId] })
       });
       success = true;
@@ -477,7 +478,7 @@ export const deleteRemoteProducts = async (productIds: string[]): Promise<boolea
     try {
       await fetch('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({ action: 'delete_products', ids: productIds })
       });
       success = true;
@@ -506,7 +507,7 @@ export const deleteRemoteReview = async (reviewId: string): Promise<boolean> => 
     try {
       await fetch('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({ action: 'delete_review', id: reviewId })
       });
       success = true;
@@ -534,7 +535,7 @@ export const deleteRemoteCommunityPost = async (postId: string): Promise<boolean
     try {
       await fetch('/api/site-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({ action: 'delete_post', id: postId })
       });
       success = true;

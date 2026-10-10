@@ -35,7 +35,6 @@ const AuthOnboardingView = lazy(() => import('./components/auth/AuthOnboardingVi
 const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupModal').then(m => ({ default: m.NicknameSetupModal })));
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
-import { checkIsAdminAuthenticated } from './components/admin/AdminLoginView';
 import { hideBanner } from './services/admobService';
 import { Capacitor } from '@capacitor/core';
 
@@ -48,7 +47,7 @@ const TabFallback = () => (
 
 export const App: React.FC = () => {
   const { activeTab, setActiveTab, currentUser, isGuestBrowse } = useApp();
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => checkIsAdminAuthenticated());
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const mainRef = useRef<HTMLElement>(null);
 
   // 탭 변경 시 main 스크롤 컨테이너 리셋

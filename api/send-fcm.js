@@ -3,11 +3,13 @@
  * Endpoint: POST /api/send-fcm
  */
 
+import { verifyAdminRequest } from './_lib/adminAuth.js';
+
 export default async function handler(req, res) {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-admin-key');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -15,7 +17,6 @@ export default async function handler(req, res) {
 
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-  const adminSecret = process.env.ADMIN_API_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   // GET: Health check and token count info
   if (req.method === 'GET') {
@@ -62,13 +63,9 @@ export default async function handler(req, res) {
   }
 
   // Admin / Service Authentication Check
-  const authHeader = req.headers['authorization'] || '';
-  const xAdminKey = req.headers['x-admin-key'] || '';
-  const tokenFromHeader = authHeader.startsWith('Bearer ') ? authHeader.substring(7).trim() : authHeader.trim();
-  const providedSecret = tokenFromHeader || xAdminKey;
-
-  if (adminSecret && (!providedSecret || (providedSecret !== adminSecret && providedSecret !== process.env.VITE_SUPABASE_ANON_KEY))) {
-    return res.status(401).json({ error: 'Unauthorized: Valid admin credentials required to dispatch push notifications.' });
+  const auth = await verifyAdminRequest(req);
+  if (!auth.ok) {
+    return res.status(auth.status).json({ error: auth.error });
   }
 
   try {

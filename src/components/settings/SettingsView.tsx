@@ -575,7 +575,7 @@ export const SettingsView: React.FC = () => {
           </div>
         </div>
 
-        {/* Secret Admin Entry Link (Protected by ID 8648 / PW 8648 Authentication) */}
+        {/* Admin Entry Link (profiles.is_admin 계정만 접속 가능) */}
         <div className="pt-2 pb-6 text-center">
           <button
             onClick={() => setActiveTab('admin')}

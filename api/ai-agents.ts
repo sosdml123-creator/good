@@ -17,11 +17,14 @@ interface RequestBody {
   aiProvider?: 'anthropic' | 'openai' | 'gemini';
 }
 
+// @ts-ignore - .js 엔드포인트와 공유하는 순수 JS 헬퍼
+import { verifyAdminRequest } from './_lib/adminAuth.js';
+
 export default async function handler(req: any, res: any) {
   // CORS 설정
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -29,6 +32,12 @@ export default async function handler(req: any, res: any) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  // 관리자 전용: 서버 AI API 키 무단 사용(과금) 방지
+  const auth = await verifyAdminRequest(req);
+  if (!auth.ok) {
+    return res.status(auth.status).json({ error: auth.error });
   }
 
   const {

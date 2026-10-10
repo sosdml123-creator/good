@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+// 릴리스 서명 정보는 Git에 올라가지 않는 android/keystore.properties 에서 읽습니다.
+// (형식은 android/keystore.properties.example 참고)
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     namespace "com.sinsangpick.app"
     compileSdk rootProject.ext.compileSdkVersion
@@ -18,10 +26,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('sinsangpick-release-key.jks')
-            storePassword 'sinsangpick1234'
-            keyAlias 'sinsangpick'
-            keyPassword 'sinsangpick1234'
+            storeFile file(keystoreProperties['storeFile'] ?: 'sinsangpick-release-key.jks')
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias'] ?: 'sinsangpick'
+            keyPassword keystoreProperties['keyPassword']
         }
     }
     buildTypes {

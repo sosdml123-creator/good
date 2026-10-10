@@ -23,6 +23,7 @@ import { GeneratedContentPackage, SlideData, TemplateType } from './types';
 import { SAMPLE_INSTAGRAM_CONTENT } from './sampleData';
 import { TemplateRenderer } from './templates/TemplateRenderer';
 import { downloadSlideAsPng, downloadAllSlidesAsZip } from './downloadUtils';
+import { getAdminAuthHeaders } from '../../../services/adminAuth';
 import {
   saveContentPost,
   fetchContentPosts,
@@ -164,7 +165,7 @@ export const InstagramContentGeneratorTab: React.FC<InstagramContentGeneratorTab
     try {
       const response = await fetch('/api/generate-content', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
         body: JSON.stringify({
           prompt: targetPrompt || '화제의 신상 추천 카드뉴스',
           templateMode: selectedTemplateMode,

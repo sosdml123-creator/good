@@ -1,6 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications, Token, ActionPerformed, PushNotificationSchema } from '@capacitor/push-notifications';
 import { supabase } from './supabase';
+import { getAdminAuthHeaders } from './adminAuth';
 import { AppNotification } from '../types';
 
 export interface DeviceTokenRecord {
@@ -446,7 +447,8 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
     const response = await fetch(`${baseUrl}/api/send-fcm`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...(await getAdminAuthHeaders())
       },
       body: JSON.stringify({
         ...payload,

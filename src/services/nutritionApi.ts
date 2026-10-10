@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { NutritionInfo } from '../types';
 import { fetchWithTimeout } from '../utils/networkUtils';
 
@@ -128,10 +129,13 @@ export async function searchFoodNutrition(
     return { totalCount: 0, items: [] };
   }
 
-  // 1차 시도: Vercel Serverless Function Proxy (/api/nutrition) (브라우저 환경일 때)
+  // Vercel Serverless Function Proxy (/api/nutrition) 경유 호출
+  // - 인증키는 서버 환경변수에만 보관 (클라이언트 번들에 키를 포함하지 않음)
+  // - 네이티브 앱은 로컬 번들(capacitor://localhost)에서 구동되므로 절대 경로로 호출
   if (typeof window !== 'undefined') {
     try {
-      const proxyUrl = `/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
+      const baseUrl = Capacitor.isNativePlatform() ? 'https://sinsangpick.vercel.app' : '';
+      const proxyUrl = `${baseUrl}/api/nutrition?query=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
       const res = await fetchWithTimeout(proxyUrl, undefined, 8000);
       if (res.ok) {
         const data = await res.json();
@@ -143,37 +147,9 @@ export async function searchFoodNutrition(
         }
       }
     } catch (proxyError) {
-      console.warn('[NutritionAPI] Proxy call failed or not running in Vercel, falling back to direct call:', proxyError);
+      console.warn('[NutritionAPI] Proxy call failed:', proxyError);
     }
   }
 
-  // 2차 시도: Direct API Call (모바일 앱 또는 프록시 미작동 시)
-  try {
-    const apiKey = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_FOOD_NUTRITION_API_KEY) ||
-                   (typeof process !== 'undefined' && process.env && (process.env.VITE_FOOD_NUTRITION_API_KEY || process.env.FOOD_NUTRITION_API_KEY));
-    if (!apiKey) {
-      console.warn('[NutritionAPI] Food nutrition API key not configured.');
-      return { totalCount: 0, items: [] };
-    }
-
-    const directUrl = `https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo02/getFoodNtrCpntDbInq02?serviceKey=${apiKey}&type=json&FOOD_NM_KR=${encodeURIComponent(trimmed)}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
-
-    const res = await fetchWithTimeout(directUrl, undefined, 8000);
-    if (!res.ok) {
-      throw new Error(`식약처 API 응답 오류 (HTTP ${res.status})`);
-    }
-
-    const data = await res.json();
-    if (data?.body?.items && Array.isArray(data.body.items)) {
-      return {
-        totalCount: Number(data.body.totalCount) || data.body.items.length,
-        items: data.body.items.map(mapToFoodNutritionData)
-      };
-    }
-
-    return { totalCount: 0, items: [] };
-  } catch (directError) {
-    console.error('[NutritionAPI] Direct call failed:', directError);
-    throw directError;
-  }
+  return { totalCount: 0, items: [] };
 }

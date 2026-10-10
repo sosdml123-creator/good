@@ -1,5 +1,6 @@
 // src/components/admin/aiAgents/aiAgentService.ts
 import { AgentPersona, ChatMessage, MultiAgentTaskResult } from './types';
+import { getAdminAuthHeaders } from '../../../services/adminAuth';
 
 const STORAGE_KEY_ANTHROPIC = 'sinsangpick_admin_anthropic_key';
 const STORAGE_KEY_OPENAI = 'sinsangpick_admin_openai_key';
@@ -75,6 +76,7 @@ export async function sendAgentMessage({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(await getAdminAuthHeaders()),
       },
       body: JSON.stringify({
         agentId: persona.id,

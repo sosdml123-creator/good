@@ -6,11 +6,13 @@
  * Allows web browsers and native apps (iOS / Android Capacitor) to share identical state in real-time.
  */
 
+import { verifyAdminRequest } from './_lib/adminAuth.js';
+
 export default async function handler(req, res) {
   // Enable CORS for web and Capacitor native apps (capacitor://localhost, ionic://localhost, etc.)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey, x-admin-key');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -18,7 +20,6 @@ export default async function handler(req, res) {
 
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-  const adminSecret = process.env.ADMIN_API_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -89,13 +90,9 @@ export default async function handler(req, res) {
   // POST: Update banners, homeSections, handle deletions, or sync data from Admin
   if (req.method === 'POST') {
     // Admin / Service Authentication Check
-    const authHeader = req.headers['authorization'] || '';
-    const xAdminKey = req.headers['x-admin-key'] || req.headers['apikey'] || '';
-    const tokenFromHeader = authHeader.startsWith('Bearer ') ? authHeader.substring(7).trim() : authHeader.trim();
-    const providedSecret = tokenFromHeader || xAdminKey;
-
-    if (adminSecret && (!providedSecret || (providedSecret !== adminSecret && providedSecret !== process.env.VITE_SUPABASE_ANON_KEY))) {
-      return res.status(401).json({ success: false, error: 'Unauthorized: Admin authorization required.' });
+    const auth = await verifyAdminRequest(req);
+    if (!auth.ok) {
+      return res.status(auth.status).json({ success: false, error: auth.error });
     }
 
     try {
