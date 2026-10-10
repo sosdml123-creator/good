@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/collect-news",
+      "path": "/api/pending-products?action=cron",
       "schedule": "0 0 * * *"
     },
     {

@@ -17,7 +17,6 @@ import {
   Zap, 
   Bot, 
   Clock, 
-  CheckCircle2, 
   Check, 
   RefreshCw, 
   Smartphone, 
@@ -30,7 +29,6 @@ import {
   ThumbsUp,
   Award,
   Activity,
-  ArrowUpRight,
   Globe,
   AlertTriangle,
   Upload,
@@ -41,8 +39,6 @@ import {
   Users,
   ShieldCheck,
   Copy,
-  Target,
-  FolderCheck,
   ArrowUp,
   ArrowDown,
   ChevronLeft,
@@ -58,7 +54,7 @@ import {
   Ban
 } from 'lucide-react';
 import { clearAdminAuthenticated } from './AdminLoginView';
-import { ProductCategory, BannerItem, BannerLinkType, Product, PendingProduct, NutritionInfo, StoreStockItem } from '../../types';
+import { ProductCategory, BannerItem, BannerLinkType, Product, NutritionInfo, StoreStockItem } from '../../types';
 import { CATEGORIES } from '../../data/mockProducts';
 import { 
   getShoppingInsightTrendingKeywords, 
@@ -73,7 +69,6 @@ import {
   SearchTrendResponse,
   KeywordDemographics
 } from '../../services/naverApi';
-import { BrandProductAutoCollector } from './BrandProductAutoCollector';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
 import { FoodNutritionSearchModal } from './FoodNutritionSearchModal';
 import { FoodNutritionData } from '../../services/nutritionApi';
@@ -91,13 +86,11 @@ import { ProductEditManagementTab } from './ProductEditManagementTab';
 import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
-import { LinkProductCollectorTab } from './LinkProductCollectorTab';
+import { ProductIntakeTab } from './ProductIntakeTab';
 
 export type AdminTab = 
   | 'overview' 
   | 'kamis'
-  | 'link_collector'
-  | 'collector'
   | 'approval' 
   | 'sections'
   | 'products' 
@@ -152,24 +145,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     setActiveTab,
     showToast,
     isSupabaseConnected,
-    pendingProducts,
     pendingCount,
-    isCrawling,
-    lastCrawledDate,
-    runDailyCrawler,
-    searchAndCollect,
-    approvePendingProduct,
-    approveAllPending,
-    rejectPendingProduct,
-    rejectAllPending,
+    refreshPendingProducts,
     revokeApprovedProduct,
     revokeAllApprovedProducts,
-    removeDuplicatePending,
-    revalidateAllPending,
-    updatePendingProduct,
-    clearAllPendingProducts,
     addPendingProduct,
-    addPendingProducts,
     deleteReview,
     deleteCommunityPost,
     allProfiles,
@@ -200,14 +180,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
   // Total points for overview KPI summary
   const totalMemberPoints = allProfiles.reduce((acc, u) => acc + (u.points || 0), 0);
-
-  // Approval / Crawler tab states
-  const [crawlerSearchQuery, setCrawlerSearchQuery] = useState('');
-  const [selectedPendingIds, setSelectedPendingIds] = useState<string[]>([]);
-  const [pendingCategoryFilter, setPendingCategoryFilter] = useState<ProductCategory | '전체'>('전체');
-  const [pendingSourceFilter, setPendingSourceFilter] = useState<string>('전체');
-  const [isEditingPendingModalOpen, setIsEditingPendingModalOpen] = useState(false);
-  const [editingPendingItem, setEditingPendingItem] = useState<PendingProduct | null>(null);
 
   // NAVER DataLab Shopping Insight states
   const [shoppingInsightTrends, setShoppingInsightTrends] = useState<TrendingKeywordInsight[]>([]);
@@ -345,6 +317,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   };
 
   useEffect(() => {
+    refreshPendingProducts();
     loadShoppingInsights();
     handleFetchSearchTrend('신라면');
     handleFetchDemographics('신라면');
@@ -378,34 +351,24 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   };
 
   // Add Realtime Naver Product to Pending Queue
-  const handleAddRealtimeToPending = (item: NaverRealtimeProduct) => {
-    const pendingItem: PendingProduct = {
-      id: `pending-naver-real-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+  const handleAddRealtimeToPending = async (item: NaverRealtimeProduct) => {
+    const added = await addPendingProduct({
+      id: `naver-shop-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: item.name,
       brand: item.brand,
       category: item.category,
-      subCategory: item.keywordTag.replace('#', '') + ' 인기 먹거리',
       price: item.price,
       image: item.image,
       discountRate: 0,
-      releaseDate: `${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')} 네이버 쇼핑 실시간 포착`,
-      stores: item.stores && item.stores.length > 0 ? item.stores : ['CU', 'GS25', '세븐일레븐', '이마트24'],
-      description: item.description,
-      sourceName: `네이버 쇼핑 라이브 (${item.mallName})`,
+      releaseDate: '',
+      stores: item.stores || [],
+      description: item.description || '',
+      sourceName: `네이버 쇼핑 (${item.mallName})`,
       sourceUrl: item.link,
-      crawledAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      crawledAt: new Date().toISOString(),
       status: 'pending',
-      bestQuotes: [
-        '네이버 쇼핑 실시간 검색어 급상승 대표 인기 먹거리!',
-        '리뷰 및 평점이 높고 입소문으로 큰 화제를 모으고 있습니다.',
-        '재구매율이 높고 선물용으로도 강력 추천합니다.'
-      ],
-      calories: item.category === '음료' ? 150 : item.category === '과자' ? 380 : 420,
-      volume: item.category === '음료' ? '350ml' : item.category === '과자' ? '85g' : '1팩',
-      needsReview: false
-    };
-    addPendingProduct(pendingItem);
-    showToast(`✅ '${item.name}' 제품이 승인 대기함에 수집되었습니다!`, 'success');
+    });
+    if (added) showToast(`✅ '${item.name}' 제품을 승인 대기함에 담았습니다.`, 'success');
   };
 
   // Register Realtime Naver Product directly to Main Products
@@ -414,28 +377,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       name: item.name,
       brand: item.brand,
       category: item.category,
-      subCategory: item.keywordTag.replace('#', '') + ' 인기 먹거리',
       price: item.price,
       discountRate: 0,
       image: item.image,
       description: item.description,
-      stores: item.stores && item.stores.length > 0 ? item.stores : ['CU', 'GS25', '세븐일레븐', '이마트24'],
-      volume: item.category === '음료' ? '350ml' : item.category === '과자' ? '85g' : '1팩',
-      calories: item.category === '음료' ? 150 : item.category === '과자' ? 380 : 420,
+      stores: item.stores || [],
       isToday: true,
-      isHot: true,
-      releaseDate: `${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')} 출시`
     });
-    showToast(`🚀 '${item.name}' 제품이 앱 전체 상품 목록에 즉시 정식 등록되었습니다!`, 'success');
-  };
-
-  // Collect Products based on Shopping Insight Keyword
-  const handleCollectByInsightKeyword = async (kw: string) => {
-    showToast(`🔥 네이버 쇼핑인사이트 급상승 '${kw}' 신제품을 수집합니다...`, 'info');
-    await handleSearchRealtimeProducts(kw);
-    const res = await searchAndCollect(`${kw} 신제품`);
-    setActiveAdminTab('approval');
-    showToast(`'${kw}' 관련 ${res.count}개 신제품이 승인 대기함에 추가되었습니다!`, 'success');
   };
 
   // Products tab states
@@ -770,32 +718,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       .slice(0, 5);
   }, [allProfiles]);
 
-  // Filtered pending products
-  const filteredPendingProducts = pendingProducts.filter(item => {
-    if (item.status !== 'pending') return false;
-    if (pendingCategoryFilter !== '전체' && item.category !== pendingCategoryFilter) return false;
-    if (pendingSourceFilter !== '전체') {
-      const srcName = item.sourceName || '';
-      const stores = item.stores || [];
-      if (pendingSourceFilter === '공식몰') {
-        if (!srcName.includes('공식') && !srcName.includes('몰') && !srcName.includes('스토어') && !srcName.includes('마켓')) return false;
-      } else if (pendingSourceFilter === '인스타그램') {
-        if (!srcName.includes('인스타') && !srcName.includes('@')) return false;
-      } else if (pendingSourceFilter === '보도자료') {
-        if (!srcName.includes('뉴스') && !srcName.includes('보도자료') && !srcName.includes('발표')) return false;
-      } else {
-        const matchesSource = srcName.includes(pendingSourceFilter);
-        const matchesStore = stores.some(s => s.includes(pendingSourceFilter));
-        if (!matchesSource && !matchesStore) return false;
-      }
-    }
-    if (crawlerSearchQuery.trim()) {
-      const q = crawlerSearchQuery.toLowerCase();
-      return item.name.toLowerCase().includes(q) || item.brand.toLowerCase().includes(q);
-    }
-    return true;
-  });
-
   // Filtered regular products with useMemo for performance optimization
   const filteredAdminProducts = useMemo(() => {
     return products.filter(p => {
@@ -840,37 +762,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     );
   });
 
-  // Pending selection helpers
-  const toggleSelectAllPending = () => {
-    if (selectedPendingIds.length === filteredPendingProducts.length) {
-      setSelectedPendingIds([]);
-    } else {
-      setSelectedPendingIds(filteredPendingProducts.map(p => p.id));
-    }
-  };
-
-  const togglePendingSelect = (id: string) => {
-    setSelectedPendingIds(prev => 
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-    );
-  };
-
-  const handleBulkApproveSelected = () => {
-    if (selectedPendingIds.length === 0) return;
-    const count = selectedPendingIds.length;
-    selectedPendingIds.forEach(id => approvePendingProduct(id));
-    setSelectedPendingIds([]);
-    showToast(`${count}개 상품이 승인 등록되었습니다!`, 'success');
-  };
-
-  const handleBulkRejectSelected = () => {
-    if (selectedPendingIds.length === 0) return;
-    const count = selectedPendingIds.length;
-    selectedPendingIds.forEach(id => rejectPendingProduct(id));
-    setSelectedPendingIds([]);
-    showToast(`${count}개 대기 상품이 승인 취소(반려)되었습니다.`, 'info');
-  };
-
   const handleBulkRevokeSelectedProducts = () => {
     if (selectedProductIds.length === 0) return;
     const count = selectedProductIds.length;
@@ -881,26 +772,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   };
 
 
-
-  // Helper to check if a pending product is a duplicate of an existing approved product
-  const isDuplicateItem = (name: string): boolean => {
-    const cleanName = name.replace(/\s+/g, '').toLowerCase();
-    return products.some(p => p.name.replace(/\s+/g, '').toLowerCase() === cleanName);
-  };
-
-  const handleSearchCollect = async () => {
-    if (!crawlerSearchQuery.trim()) {
-      showToast('검색어를 입력해주세요.', 'info');
-      return;
-    }
-    const res = await searchAndCollect(crawlerSearchQuery);
-    showToast(`'${crawlerSearchQuery}' 관련 ${res.count}개 신제품을 수집했습니다.`, 'success');
-  };
-
-  const openEditPending = (item: PendingProduct) => {
-    setEditingPendingItem(item);
-    setIsEditingPendingModalOpen(true);
-  };
 
   // Product selection (Bulk operations) helpers
   const toggleSelectAllProducts = () => {
@@ -1476,44 +1347,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               >
                 <div className="flex items-center gap-3">
                   <Sparkles className={`w-4 h-4 ${activeAdminTab === 'approval' ? 'text-white' : 'text-gray-400'}`} />
-                  <span>수집 신제품 승인함</span>
+                  <span>신제품 수집·승인</span>
                 </div>
                 {pendingCount > 0 && (
                   <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500 text-white font-bold">
                     {pendingCount}건
                   </span>
                 )}
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('link_collector')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'link_collector'
-                    ? 'bg-purple-600 text-white font-bold shadow-sm'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Link2 className={`w-4 h-4 ${activeAdminTab === 'link_collector' ? 'text-white' : 'text-purple-400'}`} />
-                  <span>신제품 링크 수집 설정</span>
-                </div>
-                <span className="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-300 font-bold">
-                  CU
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveAdminTab('collector')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
-                  activeAdminTab === 'collector'
-                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Target className={`w-4 h-4 ${activeAdminTab === 'collector' ? 'text-white' : 'text-gray-400'}`} />
-                  <span>브랜드 공식 수집기</span>
-                </div>
               </button>
 
               <button
@@ -1800,9 +1640,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'product_edits' ? '수정요청' :
                activeAdminTab === 'reviews' ? (moderationSubTab === 'community' ? '게시글관리' : '댓글관리') :
                activeAdminTab === 'products' ? '신상품관리' :
-                activeAdminTab === 'link_collector' ? '신제품 링크 수집 설정' :
-               activeAdminTab === 'approval' ? '수집·승인함' :
-               activeAdminTab === 'collector' ? '자동수집기' :
+               activeAdminTab === 'approval' ? '신제품 수집·승인' :
                activeAdminTab === 'brands' ? '제조사브랜드' :
                activeAdminTab === 'stores' ? '판매처채널' :
                activeAdminTab === 'banners' ? '배너관리' :
@@ -2520,484 +2358,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           )}
 
           {/* ========================================================
-              TAB: OFFICIAL COLLECTOR (브랜드 & 품목 공식몰 제품 자동 수집 등록기)
-             ======================================================== */}
-          {/* ========================================================
-              TAB: LINK PRODUCT COLLECTOR (신제품 링크 수집기 및 URL 설정)
-             ======================================================== */}
-          {activeAdminTab === 'link_collector' && (
-            <LinkProductCollectorTab
-              isDark={isDark}
-              products={products}
-              pendingProducts={pendingProducts}
-              onAddProduct={addProduct}
-              onAddToPending={addPendingProduct}
-              onAddMultipleToPending={addPendingProducts}
-              showToast={showToast}
-              onNavigateToApproval={() => setActiveAdminTab('approval')}
-            />
-          )}
-
-          {activeAdminTab === 'collector' && (
-            <BrandProductAutoCollector
-              isDark={isDark}
-              onAddProduct={addProduct}
-              onAddToPending={addPendingProduct}
-              showToast={showToast}
-              onNavigateToApproval={() => setActiveAdminTab('approval')}
-            />
-          )}
-
-          {/* ========================================================
-              TAB 2: APPROVAL / CRAWLER INBOX (신제품 수집 & 승인함)
+              TAB 2: 신제품 수집·승인 (수집 → 대기함 검토 → 승인/반려 통합)
              ======================================================== */}
           {activeAdminTab === 'approval' && (
-            <div className="space-y-6">
-              
-              {/* Header & Crawler Controller Banner */}
-              <div className={`p-6 rounded-2xl border shadow-sm space-y-4 ${cardBg}`}>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center gap-1">
-                        <Bot className="w-3.5 h-3.5" />
-                        <span>신제품 실시간 수집 파이프라인</span>
-                      </span>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] flex items-center gap-1 ${isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
-                        <Clock className="w-3 h-3" />
-                        <span>마지막 수집: {lastCrawledDate || '금일 미수집'}</span>
-                      </span>
-                    </div>
-                    <h2 className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>편의점 4사 및 주요 식품사 실시간 신제품 승인함</h2>
-                    <p className="text-xs text-slate-500">
-                      CU, GS25, 세븐일레븐, 이마트24, 농심, 오리온 등에서 출시된 신제품을 수집하여 검토 후 승인 시 즉시 사용자 앱에 반영됩니다.
-                    </p>
-                  </div>
-
-                  {/* Crawler Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      onClick={() => setActiveAdminTab('link_collector')}
-                      className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all active:scale-95 flex items-center gap-1.5 ${
-                        isDark 
-                          ? 'bg-purple-950/40 hover:bg-purple-900/50 text-purple-300 border-purple-800/60' 
-                          : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200'
-                      }`}
-                    >
-                      <Link2 className="w-4 h-4 text-purple-500" />
-                      <span>신제품 링크 수집 설정</span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveAdminTab('collector')}
-                      className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all active:scale-95 flex items-center gap-1.5 ${
-                        isDark 
-                          ? 'bg-indigo-950/40 hover:bg-indigo-900/50 text-indigo-300 border-indigo-800/60' 
-                          : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
-                      }`}
-                    >
-                      <Target className="w-4 h-4 text-indigo-500" />
-                      <span>브랜드·품목 맞춤 수집기</span>
-                    </button>
-
-                    <button
-                      onClick={() => runDailyCrawler(true)}
-                      disabled={isCrawling}
-                      className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 rounded-xl text-xs font-bold shadow-sm flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
-                    >
-                      {isCrawling ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 animate-spin" />
-                          <span>신제품 수집 진행 중...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Zap className="w-4 h-4 text-amber-400 dark:text-amber-500" />
-                          <span>오늘 신제품 즉시 수집</span>
-                        </>
-                      )}
-                    </button>
-
-                    {filteredPendingProducts.length > 0 && (
-                      <>
-                        <button
-                          onClick={handleBulkApproveSelected}
-                          disabled={selectedPendingIds.length === 0}
-                          className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40 flex items-center gap-1"
-                        >
-                          <Check className="w-3.5 h-3.5" />
-                          <span>선택 {selectedPendingIds.length}개 일괄 승인</span>
-                        </button>
-                        <button
-                          onClick={approveAllPending}
-                          className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 flex items-center gap-1"
-                        >
-                          <Sparkles className="w-3.5 h-3.5" />
-                          <span>전체 일괄 승인</span>
-                        </button>
-                        <button
-                          onClick={handleBulkRejectSelected}
-                          disabled={selectedPendingIds.length === 0}
-                          className="px-3 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 disabled:opacity-40 flex items-center gap-1"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                          <span>선택 일괄 승인 취소</span>
-                        </button>
-                        <button
-                          onClick={rejectAllPending}
-                          className="px-3 py-2.5 bg-rose-700 hover:bg-rose-600 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 flex items-center gap-1"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                          <span>전체 일괄 승인 취소</span>
-                        </button>
-                        <button
-                          onClick={removeDuplicatePending}
-                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 ${
-                            isDark ? 'bg-slate-800 hover:bg-amber-950/60 text-amber-300 border-slate-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700 border-amber-200'
-                          }`}
-                          title="이미 등록된 상품 및 중복 수집된 항목 자동 정리"
-                        >
-                          <span>⚠️ 중복 항목 자동 정리</span>
-                        </button>
-                        <button
-                          onClick={revalidateAllPending}
-                          className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 shadow-xs ${
-                            isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-indigo-700/60' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
-                          }`}
-                          title="네이버 쇼핑 실물 패키지 및 실제 판매가로 100% 정상화"
-                        >
-                          <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                          <span>✨ 쇼핑·신제품 고화질 정상화 ({filteredPendingProducts.length}건)</span>
-                        </button>
-
-                        <button
-                          onClick={clearAllPendingProducts}
-                          className={`px-3 py-2.5 rounded-xl text-xs font-semibold border transition-all ${
-                            isDark ? 'bg-slate-800 hover:bg-rose-950/60 text-slate-400 hover:text-rose-300 border-slate-700' : 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200'
-                          }`}
-                        >
-                          대기함 비우기
-                        </button>
-                      </>
-                    )}
-
-                    {/* 최근 승인된 상품 대기함으로 복원 (승인 취소) */}
-                    <button
-                      onClick={() => {
-                        if (confirm('최근 승인된 상품들을 다시 승인 대기함으로 되돌리시겠습니까?')) {
-                          revokeAllApprovedProducts();
-                        }
-                      }}
-                      className={`px-3 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 ${
-                        isDark ? 'bg-slate-800 hover:bg-indigo-950/60 text-indigo-300 border-slate-700' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
-                      }`}
-                      title="최근 승인된 상품들을 대기함으로 다시 복원합니다"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                      <span>최근 승인 일괄 취소 (대기함 복원)</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Keyword Search Crawler Bar & Shopping Insight Recommendation Chips */}
-                <div className={`pt-3 border-t space-y-2.5 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="relative flex-1 min-w-[280px]">
-                      <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={crawlerSearchQuery}
-                        onChange={e => setCrawlerSearchQuery(e.target.value)}
-                        onKeyDown={e => e.key === 'Enter' && handleSearchCollect()}
-                        placeholder="특정 상품명이나 브랜드 검색 수집 (예: 꼬북칩, 제로밀크티, 찰떡아이스)"
-                        className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 border ${inputBg}`}
-                      />
-                    </div>
-                    <button
-                      onClick={handleSearchCollect}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all border ${
-                        isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                      }`}
-                    >
-                      <Search className="w-3.5 h-3.5 text-amber-500" />
-                      <span>키워드 맞춤 수집</span>
-                    </button>
-                  </div>
-
-                  {/* Realtime DataLab Shopping Insight Quick Trigger Chips */}
-                  <div className="flex items-center gap-1.5 flex-wrap text-xs">
-                    <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                      <Activity className="w-3 h-3 animate-pulse" />
-                      <span>네이버 쇼핑인사이트 실시간 인기 키워드:</span>
-                    </span>
-                    {shoppingInsightTrends.slice(0, 6).map((item) => (
-                      <button
-                        key={item.keyword}
-                        onClick={() => handleCollectByInsightKeyword(item.keyword)}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all flex items-center gap-1 group ${
-                          isDark 
-                            ? 'bg-slate-800/90 text-slate-300 border-slate-700 hover:bg-amber-950/60 hover:text-amber-300 hover:border-amber-700' 
-                            : 'bg-white text-slate-700 border-slate-200 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 shadow-2xs'
-                        }`}
-                        title="클릭 시 이 키워드로 실시간 신제품을 자동 수집합니다"
-                      >
-                        <span className="font-mono text-amber-500 text-[10px]">#{item.rank}</span>
-                        <span>{item.keyword}</span>
-                        <span className="text-[9px] text-emerald-500 font-mono font-black">{item.growthRate}</span>
-                        <ArrowUpRight className="w-2.5 h-2.5 opacity-50 group-hover:opacity-100 text-amber-500" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Filters & Count Bar */}
-              <div className={`flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl border ${subCardBg}`}>
-                {/* Category Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                  {(['전체', '과자', '음료', '빵·디저트', '간편식', '기타'] as const).map(cat => (
-                    <button
-                      key={cat}
-                      onClick={() => setPendingCategoryFilter(cat)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
-                        pendingCategoryFilter === cat
-                          ? 'bg-amber-500 text-white shadow-xs'
-                          : isDark 
-                            ? 'bg-slate-800 text-slate-400 hover:text-slate-200' 
-                            : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Source Filter Pills */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 overflow-x-auto no-scrollbar">
-                  <span className="font-semibold shrink-0">출처:</span>
-                  {(['전체', 'CU', 'GS25', '세븐일레븐', '이마트24', '공식몰', '인스타그램', '보도자료'] as const).map(src => (
-                    <button
-                      key={src}
-                      onClick={() => setPendingSourceFilter(src)}
-                      className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all whitespace-nowrap ${
-                        pendingSourceFilter === src
-                          ? 'bg-slate-700 text-white font-bold'
-                          : 'text-slate-400 hover:text-slate-600'
-                      }`}
-                    >
-                      {src}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pending Products Desktop Table */}
-              {filteredPendingProducts.length === 0 ? (
-                <div className={`p-12 rounded-2xl border border-dashed text-center space-y-3 ${isDark ? 'border-slate-800 bg-slate-900/40' : 'border-slate-200 bg-white'}`}>
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>승인 대기 중인 신제품이 없습니다</h3>
-                  <p className="text-xs text-slate-500 max-w-md mx-auto">
-                    위의 <strong className="text-amber-600 font-bold">[오늘 신제품 즉시 수집]</strong> 버튼을 누르시면 편의점 및 식품사의 따끈따끈한 신제품을 자동으로 가져옵니다.
-                  </p>
-                </div>
-              ) : (
-                <div className={`rounded-2xl border shadow-sm overflow-hidden ${cardBg}`}>
-                  <div className={`p-4 border-b flex items-center justify-between text-xs ${isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'}`}>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedPendingIds.length === filteredPendingProducts.length && filteredPendingProducts.length > 0}
-                        onChange={toggleSelectAllPending}
-                        className="rounded border-slate-300 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
-                      />
-                      <span className={`font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                        전체 선택 ({selectedPendingIds.length}/{filteredPendingProducts.length}개)
-                      </span>
-                    </div>
-                    <span>※ 승인된 상품은 즉시 메인 홈 및 신제품 피드에 정식 등록됩니다.</span>
-                  </div>
-
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
-                      <thead className={`uppercase font-bold text-[11px] border-b ${tableHeaderBg}`}>
-                        <tr>
-                          <th className="py-3 px-4 w-12 text-center">선택</th>
-                          <th className="py-3 px-4">신제품 / 브랜드 (클릭 시 출처 확인)</th>
-                          <th className="py-3 px-4">저장 카테고리</th>
-                          <th className="py-3 px-4">가격</th>
-                          <th className="py-3 px-4">판매처 편의점</th>
-                          <th className="py-3 px-4">수집 출처</th>
-                          <th className="py-3 px-4">수집 일시</th>
-                          <th className="py-3 px-4 text-right">작업</th>
-                        </tr>
-                      </thead>
-                      <tbody className={`divide-y ${tableRowHover}`}>
-                        {filteredPendingProducts.map(item => {
-                          const isSelected = selectedPendingIds.includes(item.id);
-                          const isDupl = isDuplicateItem(item.name);
-                          return (
-                            <tr key={item.id} className={`transition-colors ${isDupl ? (isDark ? 'bg-amber-950/30' : 'bg-amber-50/80') : isSelected ? (isDark ? 'bg-indigo-950/20' : 'bg-indigo-50/60') : ''}`}>
-                              <td className="py-3 px-4 text-center">
-                                <input
-                                  type="checkbox"
-                                  checked={isSelected}
-                                  onChange={() => togglePendingSelect(item.id)}
-                                  className="rounded border-slate-300 text-amber-500 focus:ring-0 w-4 h-4 cursor-pointer"
-                                />
-                              </td>
-                              <td className="py-3 px-4">
-                                <div className="flex items-center gap-3">
-                                  <div className="relative shrink-0 group">
-                                    <div
-                                      onClick={() => setPreviewImageModalUrl(item.image)}
-                                      className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden cursor-pointer"
-                                    >
-                                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
-                                        <Eye className="w-3.5 h-3.5 text-white" />
-                                      </div>
-                                    </div>
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        setImageSelectorTarget({
-                                          brand: item.brand,
-                                          name: item.name,
-                                          currentImage: item.image,
-                                          onSelect: (newUrl: string) => {
-                                            updatePendingProduct(item.id, { image: newUrl });
-                                            showToast('신제품 이미지가 고화질 실물 이미지로 교체되었습니다.', 'success');
-                                          }
-                                        });
-                                      }}
-                                      className="absolute -bottom-1 -right-1 p-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full shadow-xs transition-transform hover:scale-110"
-                                      title="고화질 실물 이미지로 교체"
-                                    >
-                                      <ImageIcon className="w-2.5 h-2.5" />
-                                    </button>
-                                  </div>
-                                  <div className="min-w-0">
-                                    <div className="flex items-center gap-1.5 flex-wrap">
-                                      <p 
-                                        onClick={() => openEditPending(item)}
-                                        className={`font-bold text-xs truncate max-w-xs cursor-pointer hover:underline ${isDark ? 'text-white hover:text-amber-400' : 'text-slate-900 hover:text-amber-600'}`}
-                                        title="클릭하여 수집 출처 및 저장될 카테고리 확인/수정"
-                                      >
-                                        {item.name}
-                                      </p>
-                                      {isDupl && (
-                                        <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-600 border border-amber-500/40 animate-pulse">
-                                          ⚠️ 이미 등록됨
-                                        </span>
-                                      )}
-                                      {item.needsReview && (
-                                        <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 flex items-center gap-0.5" title={item.reviewReason || '수동 검증 필요'}>
-                                          <AlertTriangle className="w-2.5 h-2.5" />
-                                          <span>검증 필요{item.reviewReason ? ` (${item.reviewReason})` : ''}</span>
-                                        </span>
-                                      )}
-                                    </div>
-                                    <p className="text-[11px] text-slate-400">{item.brand} · {item.releaseDate}</p>
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="py-3 px-4">
-                                <span 
-                                  onClick={() => openEditPending(item)}
-                                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold cursor-pointer hover:ring-1 hover:ring-indigo-400 transition-all ${isDark ? 'bg-indigo-950/40 text-indigo-300 border border-indigo-800/50' : 'bg-indigo-50 text-indigo-700 border border-indigo-200'}`}
-                                  title={`승인 시 [${item.category}] 카테고리에 저장됩니다. 클릭 시 변경 가능`}
-                                >
-                                  📁 {item.category}
-                                </span>
-                              </td>
-                              <td className={`py-3 px-4 font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                {item.price > 0 ? (
-                                  `${item.price.toLocaleString()}원`
-                                ) : (
-                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                                    가격 미정 (직접 입력)
-                                  </span>
-                                )}
-                              </td>
-                              <td className="py-3 px-4">
-                                <div className="flex flex-wrap gap-1">
-                                  {item.stores.map(st => (
-                                    <span key={st} className={`px-1.5 py-0.2 rounded text-[10px] font-semibold border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                                      {st}
-                                    </span>
-                                  ))}
-                                </div>
-                              </td>
-                              <td className="py-3 px-4">
-                                <span 
-                                  onClick={() => openEditPending(item)}
-                                  className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 text-[10px] font-bold cursor-pointer hover:bg-amber-500/20 transition-colors inline-flex items-center gap-1"
-                                  title={`어디서 수집되었는지: ${item.sourceName}`}
-                                >
-                                  <span>📍 {item.sourceName}</span>
-                                </span>
-                              </td>
-                              <td className="py-3 px-4 text-slate-400 font-mono text-[10px]">
-                                {isNaN(new Date(item.crawledAt).getTime()) ? item.crawledAt : new Date(item.crawledAt).toLocaleDateString()}
-                              </td>
-                              <td className="py-3 px-4 text-right">
-                                <div className="flex items-center justify-end gap-1.5">
-                                  <button
-                                    onClick={() => approvePendingProduct(item.id)}
-                                    className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-[11px] font-bold transition-all shadow-xs flex items-center gap-1"
-                                  >
-                                    <Check className="w-3 h-3" />
-                                    <span>승인</span>
-                                  </button>
-                                  <button
-                                    onClick={() => openEditPending(item)}
-                                    className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all border ${
-                                      isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                                    }`}
-                                  >
-                                    수정
-                                  </button>
-                                  <button
-                                    onClick={() => setImageSelectorTarget({
-                                      brand: item.brand,
-                                      name: item.name,
-                                      currentImage: item.image,
-                                      onSelect: (newUrl: string) => {
-                                        updatePendingProduct(item.id, { image: newUrl });
-                                        showToast('고화질 실물 이미지로 교체되었습니다.', 'success');
-                                      }
-                                    })}
-                                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all border flex items-center gap-1 ${
-                                      isDark ? 'bg-indigo-950/40 hover:bg-indigo-900/60 text-indigo-300 border-indigo-800/60' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border-indigo-200'
-                                    }`}
-                                    title="네이버 쇼핑 공식몰 고화질 이미지 검색 및 교체"
-                                  >
-                                    <ImageIcon className="w-3 h-3" />
-                                    <span>이미지</span>
-                                  </button>
-                                  <button
-                                    onClick={() => rejectPendingProduct(item.id)}
-                                    className="px-2 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 rounded text-[11px] font-semibold border border-rose-200 dark:border-rose-900/60 transition-all flex items-center gap-0.5"
-                                    title="승인 취소 (반려)"
-                                  >
-                                    <X className="w-3 h-3" />
-                                    <span>취소</span>
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-            </div>
+            <ProductIntakeTab isDark={isDark} />
           )}
 
           {/* ========================================================
@@ -3847,21 +3211,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={async () => {
-                      showToast('⚡ 네이버 API 실시간 신제품 수집을 시작합니다...', 'info');
-                      const res = await runDailyCrawler(true);
-                      setActiveAdminTab('approval');
-                      showToast(`✨ 네이버 API로 ${res.count}개 신제품을 수집했습니다!`, 'success');
-                    }}
-                    disabled={isCrawling}
-                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
+                    onClick={() => setActiveAdminTab('approval')}
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
                   >
-                    {isCrawling ? (
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                    )}
-                    <span>네이버 API 신제품 즉시 수집</span>
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                    <span>신제품 수집·승인으로 이동</span>
                   </button>
 
                   <button
@@ -6148,282 +5502,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>판매처 링크 저장</span>
-              </button>
-            </div>
-
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================
-          MODAL: EDIT PENDING PRODUCT MODAL
-         ======================================================== */}
-      {isEditingPendingModalOpen && editingPendingItem && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
-          <div className={`rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border ${cardBg}`}>
-            
-            <div className={`p-5 border-b flex items-center justify-between shrink-0 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>수집된 신제품 정보 수정 후 승인</h3>
-                  <p className="text-xs text-slate-400">수정 후 승인하면 정식 상품으로 즉시 등록됩니다.</p>
-                </div>
-              </div>
-              <button onClick={() => setIsEditingPendingModalOpen(false)} className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-6 overflow-y-auto space-y-4 text-xs">
-              {(editingPendingItem.needsReview || editingPendingItem.price === 0) && (
-                <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 flex items-start gap-2.5">
-                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-bold text-xs">수동 확인이 필요한 수집 항목입니다 ({editingPendingItem.reviewReason || '정보 불완전'})</p>
-                    <p className="text-[11px] opacity-90 mt-0.5">네이버 쇼핑 자동 매칭 및 키워드 검증 과정에서 확인이 필요한 항목입니다. 상품명, 브랜드, 실제 판매 가격(정가), 이미지를 확인하고 수정 후 승인해주세요.</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Source & Destination Category Guide Banner */}
-              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2.5">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base">📍</span>
-                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      어디서 가져왔나요? (수집 출처):
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300/60 dark:border-slate-700">
-                      {editingPendingItem.sourceName || '공식 채널'}
-                    </span>
-                  </div>
-                  {editingPendingItem.sourceUrl && (
-                    <a
-                      href={editingPendingItem.sourceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
-                    >
-                      <span>출처 원본 링크</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-                  <FolderCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span>
-                    어디 카테고리에 저장되나요?: 승인 시 앱의 <strong className="text-indigo-600 dark:text-indigo-400 font-bold">[{editingPendingItem.category}]</strong> 카테고리 탭 및 메인 홈에 등록됩니다. (아래 선택창에서 변경 가능)
-                  </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품명 *</label>
-                  <input
-                    type="text"
-                    value={editingPendingItem.name}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, name: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
-                </div>
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">제조사 / 브랜드 *</label>
-                  <input
-                    type="text"
-                    value={editingPendingItem.brand}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, brand: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">카테고리</label>
-                  <select
-                    value={editingPendingItem.category}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, category: e.target.value as ProductCategory })}
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  >
-                    {CATEGORIES.filter(c => c !== '전체').map(c => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">가격 (원) {editingPendingItem.price === 0 && <span className="text-amber-600 text-[10px] font-bold">⚠️ 가격 입력 필요</span>}</label>
-                  <input
-                    type="number"
-                    value={editingPendingItem.price}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, price: Number(e.target.value) })}
-                    placeholder="실제 판매가 입력"
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
-                </div>
-                <div>
-                  <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">출시일</label>
-                  <input
-                    type="text"
-                    value={editingPendingItem.releaseDate}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, releaseDate: e.target.value })}
-                    className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                  />
-                </div>
-              </div>
-
-              {/* 용량 / 칼로리 / 식약처 영양성분 자동조회 */}
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-700 dark:text-slate-200 text-xs flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    <span>영양성분 및 규격 정보</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setNutritionSearchTarget({
-                      initialQuery: editingPendingItem.name || editingPendingItem.brand,
-                      brand: editingPendingItem.brand,
-                      onSelect: (data: FoodNutritionData) => {
-                        setEditingPendingItem(prev => prev ? ({
-                          ...prev,
-                          calories: data.calories || prev.calories,
-                          volume: data.totalWeight || data.servingSize || prev.volume,
-                          manufacturer: prev.manufacturer || data.makerName,
-                          nutrition: data.nutrition
-                        }) : null);
-                        showToast(`식약처 공식 영양성분(${data.foodName}, ${data.calories}kcal)이 자동 적용되었습니다!`, 'success');
-                      }
-                    })}
-                    className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1 transition-all"
-                  >
-                    <Search className="w-3 h-3" />
-                    <span>식약처 영양성분 자동조회</span>
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 mb-1">용량 (g/ml)</label>
-                    <input
-                      type="text"
-                      value={editingPendingItem.volume || ''}
-                      onChange={e => setEditingPendingItem({ ...editingPendingItem, volume: e.target.value })}
-                      placeholder="예: 80g"
-                      className={`w-full p-2 rounded-xl border text-xs ${inputBg}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 mb-1">칼로리 (kcal)</label>
-                    <input
-                      type="number"
-                      value={editingPendingItem.calories || ''}
-                      onChange={e => setEditingPendingItem({ ...editingPendingItem, calories: Number(e.target.value) })}
-                      placeholder="예: 350"
-                      className={`w-full p-2 rounded-xl border text-xs ${inputBg}`}
-                    />
-                  </div>
-                </div>
-
-                {editingPendingItem.nutrition && (
-                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex flex-wrap gap-2 text-[10px] text-emerald-800 dark:text-emerald-300">
-                    <span className="font-bold">연동된 영양표시:</span>
-                    <span>탄수 {editingPendingItem.nutrition.carbs || '0g'}</span>
-                    <span>당류 {editingPendingItem.nutrition.sugar || '0g'}</span>
-                    <span>단백질 {editingPendingItem.nutrition.protein || '0g'}</span>
-                    <span>지방 {editingPendingItem.nutrition.fat || '0g'}</span>
-                    <span>나트륨 {editingPendingItem.nutrition.sodium || '0mg'}</span>
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block font-bold text-slate-600 dark:text-slate-300">이미지 URL</label>
-                  <button
-                    type="button"
-                    onClick={() => setImageSelectorTarget({
-                      brand: editingPendingItem.brand,
-                      name: editingPendingItem.name,
-                      currentImage: editingPendingItem.image,
-                      onSelect: (newUrl: string) => {
-                        setEditingPendingItem({ ...editingPendingItem, image: newUrl });
-                        showToast('선택한 고화질 이미지가 적용되었습니다.', 'success');
-                      }
-                    })}
-                    className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1 transition-all"
-                  >
-                    <Search className="w-3 h-3" />
-                    <span>네이버 쇼핑/공식몰 고화질 이미지 찾기</span>
-                  </button>
-                </div>
-                <div className="flex items-center gap-3">
-                  {editingPendingItem.image && (
-                    <img src={editingPendingItem.image} alt={editingPendingItem.name} className="w-11 h-11 rounded-lg object-cover border border-slate-200 dark:border-slate-700 shrink-0 bg-slate-100" />
-                  )}
-                  <input
-                    type="text"
-                    value={editingPendingItem.image}
-                    onChange={e => setEditingPendingItem({ ...editingPendingItem, image: e.target.value })}
-                    placeholder="이미지 URL 입력 또는 우측 검색 버튼 사용"
-                    className={`w-full p-2.5 rounded-xl border font-mono ${inputBg}`}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-bold text-slate-600 dark:text-slate-300 mb-1">상품 설명</label>
-                <textarea
-                  rows={2}
-                  value={editingPendingItem.description}
-                  onChange={e => setEditingPendingItem({ ...editingPendingItem, description: e.target.value })}
-                  className={`w-full p-2.5 rounded-xl border ${inputBg}`}
-                />
-              </div>
-            </div>
-
-            <div className={`p-4 border-t flex items-center justify-end gap-2 ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-              <button
-                onClick={() => setIsEditingPendingModalOpen(false)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
-              >
-                취소
-              </button>
-              <button
-                onClick={() => {
-                  updatePendingProduct(editingPendingItem.id, {
-                    ...editingPendingItem,
-                    needsReview: false,
-                    reviewReason: undefined
-                  });
-                  setIsEditingPendingModalOpen(false);
-                  showToast('대기 항목 수정사항이 저장되었습니다.', 'info');
-                }}
-                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
-                  isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                }`}
-              >
-                수정 저장 (대기 유지)
-              </button>
-              <button
-                onClick={() => {
-                  const cleanedItem = {
-                    ...editingPendingItem,
-                    needsReview: false,
-                    reviewReason: undefined
-                  };
-                  updatePendingProduct(editingPendingItem.id, cleanedItem);
-                  approvePendingProduct(editingPendingItem.id);
-                  setIsEditingPendingModalOpen(false);
-                  showToast(`'${editingPendingItem.name}' 상품이 승인되었습니다.`, 'success');
-                }}
-                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-sm"
-              >
-                수정 완료 및 즉시 승인
               </button>
             </div>
 

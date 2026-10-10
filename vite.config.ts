@@ -99,11 +99,14 @@ export default defineConfig(({ mode }) => {
         }
       },
       {
-        name: 'new-products-crawler-middleware',
+        name: 'pending-products-middleware',
         configureServer(server) {
-          server.middlewares.use('/api/crawl-new-products', async (req, res) => {
+          server.middlewares.use('/api/pending-products', async (req, res) => {
             try {
-              const handlerModule = await import('./api/crawl-new-products.js');
+              for (const key of ['VITE_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'VITE_SUPABASE_ANON_KEY', 'NAVER_CLIENT_ID', 'NAVER_CLIENT_SECRET']) {
+                if (env[key] && !process.env[key]) process.env[key] = env[key];
+              }
+              const handlerModule = await import('./api/pending-products.js');
               const handler = handlerModule.default;
               const url = new URL(req.url || '', `http://${req.headers.host}`);
               const query = Object.fromEntries(url.searchParams.entries());
@@ -145,7 +148,7 @@ export default defineConfig(({ mode }) => {
                 await executeHandler('');
               }
             } catch (err: any) {
-              console.error('New products crawler middleware error:', err);
+              console.error('Pending products middleware error:', err);
               res.statusCode = 500;
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify({ error: err.message }));

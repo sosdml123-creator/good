@@ -43,15 +43,17 @@ import { INITIAL_PRODUCT_EDIT_REQUESTS } from '../data/mockProductEdits';
 import { exchangeCoupon, fetchMyCoupons, setCouponUsed } from '../services/couponApi';
 import { POPULAR_BRANDS } from '../utils/brandData';
 import {
-  fetchDailyNewProducts,
-  searchAndCrawlNewProducts,
-  isDailyCrawlNeeded,
-  markDailyCrawlDone,
-  PENDING_PRODUCTS_STORAGE_KEY,
-  LAST_CRAWL_STORAGE_KEY
-} from '../services/productCrawler';
+  fetchPendingProducts,
+  collectPendingProducts,
+  addPendingItems,
+  updatePendingItem,
+  setPendingStatus,
+  approvePendingItems,
+  PendingApiError,
+  CollectSource,
+  CollectReport
+} from '../services/pendingProductsService';
 import { fetchKamisDailyPrices, applyKamisPricesToProducts } from '../services/kamisApi';
-import { revalidatePendingProductList } from '../services/naverApi';
 import {
   supabase,
   isSupabaseConfigured,
@@ -218,25 +220,19 @@ interface AppContextType {
   toggleHomeSectionVisibility: (id: HomeSectionId) => void;
   resetHomeSections: () => void;
 
-  // Admin Pending Products / Daily Crawler Actions
+  // 신제품 수집·승인 대기함 (Admin)
   pendingProducts: PendingProduct[];
   pendingCount: number;
-  isCrawling: boolean;
-  lastCrawledDate: string | null;
-  runDailyCrawler: (force?: boolean) => Promise<{ count: number }>;
-  searchAndCollect: (query: string) => Promise<{ count: number }>;
-  approvePendingProduct: (pendingId: string, customData?: Partial<Product>) => void;
-  approveAllPending: () => void;
-  rejectPendingProduct: (pendingId: string) => void;
-  rejectAllPending: () => void;
-  revokeApprovedProduct: (productId: string) => void;
-  revokeAllApprovedProducts: (ids?: string[]) => void;
-  removeDuplicatePending: () => { removedCount: number };
-  revalidateAllPending: () => void;
-  updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => void;
-  clearAllPendingProducts: () => void;
-  addPendingProduct: (item: PendingProduct) => void;
-  addPendingProducts: (items: PendingProduct[]) => Promise<void>;
+  pendingSetupError: string | null;
+  isNaverCollectAvailable: boolean;
+  refreshPendingProducts: () => Promise<void>;
+  collectNewProducts: (source: CollectSource, query?: string) => Promise<CollectReport[]>;
+  approvePendingProducts: (pendingIds: string[]) => Promise<number>;
+  rejectPendingProducts: (pendingIds: string[]) => Promise<void>;
+  updatePendingProduct: (pendingId: string, updated: Partial<PendingProduct>) => Promise<boolean>;
+  addPendingProduct: (item: PendingProduct) => Promise<boolean>;
+  revokeApprovedProduct: (productId: string) => Promise<void>;
+  revokeAllApprovedProducts: (ids: string[]) => Promise<void>;
 
   // KAMIS Agricultural & Marine Product Live Prices Actions
   kamisPriceStatus: {
@@ -1749,137 +1745,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return INITIAL_PRODUCT_EDIT_REQUESTS;
   });
 
-  // Pending Products (승인 대기 신제품) states - Supabase DB pending_products Single Source of Truth
+  // 신제품 수집·승인 대기함 — 원본은 서버(/api/pending-products → pending_products 테이블)
   const [pendingProducts, setPendingProducts] = useState<PendingProduct[]>([]);
-
-  // Supabase pending_products sync helpers
-  const fetchPendingProductsFromSupabase = async () => {
-    if (!supabase) return;
-    try {
-      const { data, error } = await supabase
-        .from('pending_products')
-        .select('*')
-        .eq('status', 'pending')
-        .order('crawled_at', { ascending: false });
-
-      if (!error && data) {
-        const mapped: PendingProduct[] = data.map((item: any) => ({
-          id: item.id,
-          name: item.name,
-          brand: item.brand,
-          category: item.category,
-          subCategory: item.sub_category || undefined,
-          itemType: item.item_type || 'packaged',
-          image: item.image,
-          releaseDate: item.release_date || undefined,
-          price: item.price || 0,
-          discountRate: item.discount_rate || 0,
-          stores: item.stores || [],
-          description: item.description || undefined,
-          sourceName: item.source_name || undefined,
-          sourceUrl: item.source_url || undefined,
-          crawledAt: item.crawled_at || undefined,
-          status: item.status || 'pending',
-          calories: item.calories || undefined,
-          volume: item.volume || undefined,
-          nutrition: item.nutrition || undefined,
-          ingredients: item.ingredients || undefined,
-          allergens: item.allergens || undefined,
-          bestQuotes: item.best_quotes || undefined,
-        }));
-        setPendingProducts(mapped);
-      }
-    } catch (err) {
-      console.warn('[Fetch Pending Products Error]', err);
-    }
-  };
-
-  const insertPendingProductsToSupabase = async (items: PendingProduct[]) => {
-    if (!items || items.length === 0) return;
-    const nowIso = new Date().toISOString();
-    const rows = items.map(item => {
-      const safeId = item.id || `pending-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
-      const safeUrl = item.sourceUrl && item.sourceUrl.trim()
-        ? item.sourceUrl.trim()
-        : `https://sinsangpick.app/pending/${encodeURIComponent(item.name.trim())}-${safeId}`;
-      return {
-        id: safeId,
-        name: item.name,
-        brand: item.brand,
-        category: item.category,
-        sub_category: item.subCategory || null,
-        item_type: item.itemType || 'packaged',
-        image: item.image,
-        release_date: item.releaseDate || null,
-        price: item.price || 0,
-        discount_rate: item.discountRate || 0,
-        stores: item.stores || [],
-        description: item.description || null,
-        source_name: item.sourceName || null,
-        source_url: safeUrl,
-        crawled_at: nowIso,
-        status: 'pending',
-        calories: item.calories || null,
-        volume: item.volume || null,
-        nutrition: item.nutrition || null,
-        ingredients: item.ingredients || null,
-        allergens: item.allergens || null,
-        best_quotes: item.bestQuotes || null,
-      };
-    });
-
-    if (supabase) {
-      try {
-        const { error } = await supabase
-          .from('pending_products')
-          .upsert(rows, { onConflict: 'source_url', ignoreDuplicates: false });
-
-        if (error) {
-          console.warn('[Supabase Insert Pending Products Warning]', error.message);
-          // Fallback upsert by id if source_url conflict fails
-          try {
-            await supabase.from('pending_products').upsert(rows, { onConflict: 'id' });
-          } catch (_) {
-            // ignore fallback error
-          }
-        }
-      } catch (e) {
-        console.warn('[Supabase Insert Exception]', e);
-      }
-    }
-  };
-
-  const getDbExistingAndRejectedSets = async () => {
-    // Only exclude products that are ALREADY in the main catalog (approved and active)
-    const existingNames = new Set<string>(products.map(p => p.name.trim().toLowerCase()));
-    const existingUrls = new Set<string>();
-
-    if (supabase) {
-      try {
-        // Only exclude products that were explicitly 'rejected' by admin
-        const { data, error } = await supabase
-          .from('pending_products')
-          .select('name, source_url, status')
-          .eq('status', 'rejected');
-
-        if (!error && data) {
-          data.forEach((row: any) => {
-            if (row.name) existingNames.add(row.name.trim().toLowerCase());
-            if (row.source_url) existingUrls.add(row.source_url.trim().toLowerCase());
-          });
-        }
-      } catch (e) {
-        console.warn('[Supabase Get Existing Sets Error]', e);
-      }
-    }
-
-    return { existingNames, existingUrls };
-  };
-
-  const [isCrawling, setIsCrawling] = useState<boolean>(false);
-  const [lastCrawledDate, setLastCrawledDate] = useState<string | null>(() => {
-    return localStorage.getItem(LAST_CRAWL_STORAGE_KEY);
-  });
+  const [pendingSetupError, setPendingSetupError] = useState<string | null>(null);
+  const [isNaverCollectAvailable, setIsNaverCollectAvailable] = useState<boolean>(false);
 
   // Sync allProfiles & pointTransactions to localStorage
   useEffect(() => {
@@ -1985,38 +1854,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_points', currentUser.points.toString());
     safeSetItem('sinsangpick_name', currentUser.displayName);
   }, [currentUser]);
-
-  // Auto-fetch daily new products on app start only when needed and sync with Supabase pending_products DB
-  useEffect(() => {
-    const checkAndAutoCrawl = async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const needsCrawl = isDailyCrawlNeeded();
-
-      if (needsCrawl) {
-        try {
-          const crawled = await fetchDailyNewProducts(today);
-          const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
-          const newItems = crawled.filter(item => {
-            const cleanName = item.name.trim().toLowerCase();
-            const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
-            return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
-          });
-
-          if (newItems.length > 0) {
-            await insertPendingProductsToSupabase(newItems);
-          }
-          markDailyCrawlDone();
-          setLastCrawledDate(today);
-        } catch (e) {
-          console.warn('[Auto Crawler Init Warning]', e);
-        }
-      }
-
-      // Fetch pending products from Supabase pending_products table (status = 'pending')
-      fetchPendingProductsFromSupabase();
-    };
-    checkAndAutoCrawl();
-  }, []);
 
   // KAMIS Agricultural & Marine Produce Live Prices Sync Handler
   const refreshKamisPrices = async (force: boolean = false): Promise<{ count: number; latestDate: string }> => {
@@ -5199,340 +5036,146 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast(`📅 '${target?.name || ''}' 일정이 삭제되었습니다.`, 'info');
   };
 
-  // --- Admin Pending Products & Crawler Actions ---
+  // --- 신제품 수집·승인 대기함 (Admin) ---
 
-  // 1. 오늘의 실제 신제품 일일 크롤링 실행
-  const runDailyCrawler = async (_force: boolean = false): Promise<{ count: number }> => {
-    setIsCrawling(true);
-    showToast('⚡ 편의점 및 식품사 오늘 신제품 수집을 시작합니다...', 'info');
+  const handlePendingError = (err: unknown, fallback: string) => {
+    const message = err instanceof Error && err.message ? err.message : fallback;
+    if (err instanceof PendingApiError && err.code === 'TABLE_MISSING') setPendingSetupError(message);
+    showToast(message, 'error');
+  };
+
+  // 1. 대기함 목록 새로고침
+  const refreshPendingProducts = async () => {
     try {
-      const today = new Date().toISOString().split('T')[0];
-      const crawled = await fetchDailyNewProducts(today);
-      const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
-
-      let uniqueNewItems = crawled.filter(item => {
-        const cleanName = item.name.trim().toLowerCase();
-        const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
-        return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
-      });
-
-      if (uniqueNewItems.length > 0) {
-        // [1] 로컬 상태 즉각 반영 (화면에 수집된 카드가 100% 즉시 표시됨)
-        setPendingProducts(prev => {
-          const existingIds = new Set(prev.map(p => p.id));
-          const existingNormNames = new Set(prev.map(p => p.name.replace(/\s+/g, '').toLowerCase()));
-          const itemsToAdd = uniqueNewItems.filter(item => {
-            const norm = item.name.replace(/\s+/g, '').toLowerCase();
-            return !existingIds.has(item.id) && !existingNormNames.has(norm);
-          });
-          return [...itemsToAdd, ...prev];
-        });
-
-        // [2] Supabase DB 저장 및 동기화
-        await insertPendingProductsToSupabase(uniqueNewItems);
-        await fetchPendingProductsFromSupabase();
-        markDailyCrawlDone();
-        setLastCrawledDate(today);
-        showToast(`✨ 네이버 API 실시간 신제품 ${uniqueNewItems.length}건이 수집되어 승인 대기함에 등록되었습니다!`, 'success');
-        return { count: uniqueNewItems.length };
-      } else {
-        showToast('실시간 신제품 중 이미 처리된 항목 외 새로운 제품이 없습니다. 검색창에 특정 브랜드/상품명을 입력하여 수집해보세요.', 'info');
-        return { count: 0 };
-      }
+      const { items, naverConfigured } = await fetchPendingProducts('pending');
+      setPendingProducts(items);
+      setIsNaverCollectAvailable(naverConfigured);
+      setPendingSetupError(null);
     } catch (err) {
-      console.error('[Product Crawler Error]', err);
-      showToast('신제품 수집 중 오류가 발생했습니다.', 'error');
-      return { count: 0 };
-    } finally {
-      setIsCrawling(false);
+      if (err instanceof PendingApiError && err.code === 'TABLE_MISSING') setPendingSetupError(err.message);
+      else console.warn('[Pending Products] 목록 조회 실패:', err);
     }
   };
 
-  // 2. 키워드/편의점 기반 실제 신제품 즉시 검색 수집
-  const searchAndCollect = async (query: string): Promise<{ count: number }> => {
-    if (!query.trim()) return { count: 0 };
-    setIsCrawling(true);
+  // 2. 수집 실행 (편의점 공식 신상품 / 네이버 뉴스) — 서버가 중복을 걸러 새 항목만 대기함에 저장
+  const collectNewProducts = async (source: CollectSource, query?: string): Promise<CollectReport[]> => {
     try {
-      const results = await searchAndCrawlNewProducts(query);
-      const { existingNames, existingUrls } = await getDbExistingAndRejectedSets();
-      let newItems = results.filter(item => {
-        const cleanName = item.name.trim().toLowerCase();
-        const cleanUrl = item.sourceUrl ? item.sourceUrl.trim().toLowerCase() : '';
-        return !existingNames.has(cleanName) && (!cleanUrl || !existingUrls.has(cleanUrl));
-      });
+      const reports = await collectPendingProducts(source, query);
+      await refreshPendingProducts();
+      return reports;
+    } catch (err) {
+      handlePendingError(err, '신제품 수집에 실패했습니다.');
+      return [];
+    }
+  };
 
-      if (newItems.length === 0 && results.length > 0) {
-        newItems = results.slice(0, 4).map((it, idx) => ({
-          ...it,
-          id: `pending-search-${Date.now()}-${idx}`,
-          sourceUrl: it.sourceUrl || `https://sinsangpick.app/pending/search-${Date.now()}-${idx}`,
-          status: 'pending' as const
+  // 3. 승인 — 서버가 products 테이블에 등록하고 대기 상태를 approved로 바꾼 뒤 화면에 반영
+  const approvePendingProducts = async (pendingIds: string[]): Promise<number> => {
+    const targets = pendingProducts.filter(p => pendingIds.includes(p.id) && p.image);
+    if (targets.length === 0) {
+      showToast('승인할 수 있는 상품이 없습니다. 이미지가 없는 상품은 먼저 이미지를 등록해주세요.', 'info');
+      return 0;
+    }
+
+    const stamp = Date.now();
+    try {
+      const approved = await approvePendingItems(
+        targets.map((p, idx) => ({ pendingId: p.id, productId: `prod-appr-${stamp}-${idx}` }))
+      );
+      const productIdByPending = new Map(approved.map(a => [a.pendingId, a.productId]));
+
+      // 평점·후기는 실제 사용자 리뷰로만 채워집니다.
+      const newProducts: Product[] = targets
+        .filter(p => productIdByPending.has(p.id))
+        .map(p => ({
+          id: productIdByPending.get(p.id)!,
+          name: p.name,
+          brand: p.brand,
+          category: p.category,
+          subCategory: p.subCategory,
+          itemType: p.itemType || 'packaged',
+          image: p.image,
+          releaseDate: p.releaseDate,
+          price: p.price,
+          discountRate: p.discountRate || 0,
+          overallRating: 0,
+          ratingCount: 0,
+          detailedRating: { taste: 0, value: 0, portion: 0, repurchase: 0 },
+          description: p.description,
+          stores: p.stores,
+          calories: p.calories,
+          volume: p.volume,
+          nutrition: p.nutrition,
+          ingredients: p.ingredients,
+          allergens: p.allergens,
+          isToday: true,
+          isHot: false,
+          sourceName: p.sourceName,
+          sourceUrl: p.sourceUrl,
         }));
-      }
 
-      if (newItems.length > 0) {
-        setPendingProducts(prev => {
-          const existingIds = new Set(prev.map(p => p.id));
-          const itemsToAdd = newItems.filter(item => !existingIds.has(item.id));
-          return [...itemsToAdd, ...prev];
-        });
-        await insertPendingProductsToSupabase(newItems);
-        await fetchPendingProductsFromSupabase();
-        showToast(`🔍 '${query}' 관련 실제 신제품 ${newItems.length}건을 수집하여 승인 대기함에 추가했습니다!`, 'success');
-        return { count: newItems.length };
-      } else {
-        showToast(`'${query}'에 해당하는 신제품을 찾지 못했습니다. 키워드를 변경해보세요.`, 'info');
-        return { count: 0 };
-      }
+      setProducts(prev => [...newProducts, ...prev]);
+      setPendingProducts(prev => prev.filter(p => !productIdByPending.has(p.id)));
+
+      const skipped = pendingIds.length - newProducts.length;
+      showToast(
+        `✅ ${newProducts.length}건을 승인해 앱에 등록했습니다.${skipped > 0 ? ` (이미지 없음 등 ${skipped}건 제외)` : ''}`,
+        'success'
+      );
+      return newProducts.length;
     } catch (err) {
-      console.error('[Search Collect Error]', err);
-      showToast('신제품 검색 수집 중 오류가 발생했습니다.', 'error');
-      return { count: 0 };
-    } finally {
-      setIsCrawling(false);
+      handlePendingError(err, '승인 처리에 실패했습니다.');
+      return 0;
     }
   };
 
-  // 3. 신제품 개별 승인 (정식 products 등록 및 전체 사용자에게 즉시 발행)
-  const approvePendingProduct = (pendingId: string, customData?: Partial<Product>) => {
-    const pendingItem = pendingProducts.find(p => p.id === pendingId);
-    if (!pendingItem) return;
-
-    const isAgri = isAgriMarineProduct({
-      name: customData?.name || pendingItem.name,
-      category: customData?.category || pendingItem.category,
-      subCategory: customData?.subCategory || pendingItem.subCategory,
-      itemType: customData?.itemType || pendingItem.itemType,
-    });
-    const rawImg = customData?.image || pendingItem.image;
-    const finalImg = isAgri && (!rawImg || rawImg.includes('unsplash') || !rawImg.startsWith('data:image/svg+xml'))
-      ? getProductIllustration({
-          name: customData?.name || pendingItem.name,
-          category: customData?.category || pendingItem.category,
-          subCategory: customData?.subCategory || pendingItem.subCategory,
-          itemType: customData?.itemType || pendingItem.itemType,
-        })
-      : (rawImg || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80');
-
-    const newProduct: Product = {
-      id: `prod-appr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-      code: customData?.code || generateNextProductCode(products, customData?.category || pendingItem.category, customData?.brand || pendingItem.brand),
-      name: customData?.name || pendingItem.name,
-      brand: customData?.brand || pendingItem.brand,
-      category: customData?.category || pendingItem.category,
-      subCategory: customData?.subCategory || pendingItem.subCategory,
-      itemType: customData?.itemType || pendingItem.itemType || (isAgri ? 'fresh' : 'packaged'),
-      image: finalImg,
-      releaseDate: customData?.releaseDate || pendingItem.releaseDate || new Date().toLocaleDateString('ko-KR') + ' 출시',
-      price: customData?.price !== undefined ? customData.price : pendingItem.price,
-      discountRate: customData?.discountRate ?? pendingItem.discountRate ?? 0,
-      overallRating: 5.0,
-      ratingCount: 1,
-      detailedRating: { taste: 5, value: 5, portion: 5, repurchase: 5 },
-      description: customData?.description || pendingItem.description,
-      stores: customData?.stores || pendingItem.stores,
-      repurchasePercent: 96,
-      calories: customData?.calories || pendingItem.calories,
-      volume: customData?.volume || pendingItem.volume,
-      isToday: customData?.isToday ?? true,
-      isHot: customData?.isHot ?? false,
-      nutrition: pendingItem.nutrition,
-      ingredients: pendingItem.ingredients,
-      allergens: pendingItem.allergens,
-      origin: pendingItem.origin,
-      manufacturer: pendingItem.manufacturer,
-      storageMethod: pendingItem.storageMethod,
-      shelfLife: pendingItem.shelfLife,
-      bestQuotes: pendingItem.bestQuotes || ['새로 나온 신상 먹어봤는데 완전 추천해요!'],
-      storeStocks: pendingItem.storeStocks || pendingItem.stores.map(st => ({
-        store: st,
-        status: '입고완료' as const,
-        stockCount: 6,
-        price: customData?.price !== undefined ? customData.price : pendingItem.price,
-        eventBadge: '신규입고',
-        deliveryTime: '매장 즉시 픽업'
-      })),
-    };
-
-    // 정식 제품 등록
-    setProducts(prev => [newProduct, ...prev]);
-
-    // 승인 대기 목록에서 제거
-    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
-
-    // Supabase DB 연결 시에도 비동기 백그라운드 등록 및 status='approved' 업데이트
-    if (supabase) {
-      supabase.from('products').upsert({
-        id: newProduct.id,
-        name: newProduct.name,
-        brand: newProduct.brand,
-        category: newProduct.category,
-        sub_category: newProduct.subCategory,
-        item_type: newProduct.itemType,
-        image: newProduct.image,
-        release_date: newProduct.releaseDate,
-        price: newProduct.price,
-        discount_rate: newProduct.discountRate,
-        overall_rating: newProduct.overallRating,
-        rating_count: newProduct.ratingCount,
-        description: newProduct.description,
-        stores: newProduct.stores,
-        calories: newProduct.calories,
-        volume: newProduct.volume,
-        is_today: newProduct.isToday,
-        is_hot: newProduct.isHot,
-      }, { onConflict: 'id' }).then(({ error }) => {
-        if (error) console.warn('[Supabase Product Insert Warning]', error.message);
-      });
-
-      supabase.from('pending_products').update({ status: 'approved' }).eq('id', pendingId).then(({ error }) => {
-        if (error) console.warn('[Supabase Pending Approved Warning]', error.message);
-      });
+  // 4. 반려 — 반려 이력이 남아 같은 상품이 다시 수집되지 않음
+  const rejectPendingProducts = async (pendingIds: string[]): Promise<void> => {
+    if (pendingIds.length === 0) return;
+    try {
+      await setPendingStatus(pendingIds, 'rejected');
+      setPendingProducts(prev => prev.filter(p => !pendingIds.includes(p.id)));
+      showToast(`${pendingIds.length}건을 반려했습니다. 반려한 상품은 다시 수집되지 않습니다.`, 'info');
+    } catch (err) {
+      handlePendingError(err, '반려 처리에 실패했습니다.');
     }
-
-    showToast(`🚀 [${newProduct.name}] 신제품이 승인되어 서비스에 즉시 업로드되었습니다!`, 'success');
   };
 
-  // 4. 대기 중인 모든 신제품 일괄 승인
-  const approveAllPending = () => {
-    const pendingList = pendingProducts.filter(p => p.status === 'pending');
-    if (pendingList.length === 0) {
-      showToast('승인 대기 중인 신제품이 없습니다.', 'info');
+  // 5. 대기 상품 정보 수정
+  const updatePendingProduct = async (pendingId: string, updated: Partial<PendingProduct>): Promise<boolean> => {
+    try {
+      await updatePendingItem(pendingId, updated);
+      setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
+      return true;
+    } catch (err) {
+      handlePendingError(err, '대기 상품 수정에 실패했습니다.');
+      return false;
+    }
+  };
+
+  // 6. 대기함에 직접 추가
+  const addPendingProduct = async (item: PendingProduct): Promise<boolean> => {
+    try {
+      await addPendingItems([item]);
+      await refreshPendingProducts();
+      return true;
+    } catch (err) {
+      handlePendingError(err, '대기함에 추가하지 못했습니다.');
+      return false;
+    }
+  };
+
+  // 7. 승인 취소 — 등록된 상품을 앱에서 내리고 대기함으로 되돌림
+  const revokeAllApprovedProducts = async (ids: string[]): Promise<void> => {
+    const targets = products.filter(p => ids.includes(p.id));
+    if (targets.length === 0) {
+      showToast('승인 취소할 상품이 없습니다.', 'info');
       return;
     }
 
-    const approvedList: Product[] = pendingList.map((item, idx) => {
-      const isAgri = isAgriMarineProduct(item);
-      const rawImg = item.image;
-      const finalImg = isAgri && (!rawImg || rawImg.includes('unsplash') || !rawImg.startsWith('data:image/svg+xml'))
-        ? getProductIllustration(item)
-        : (rawImg || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=600&auto=format&fit=crop&q=80');
-
-      return {
-        id: `prod-bulk-${Date.now()}-${idx}`,
-        name: item.name,
-        brand: item.brand,
-        category: item.category,
-        subCategory: item.subCategory,
-        itemType: item.itemType || (isAgri ? 'fresh' : 'packaged'),
-        image: finalImg,
-      releaseDate: item.releaseDate,
-      price: item.price,
-      discountRate: item.discountRate || 0,
-      overallRating: 5.0,
-      ratingCount: 1,
-      detailedRating: { taste: 5, value: 5, portion: 5, repurchase: 5 },
-      description: item.description,
-      stores: item.stores,
-      repurchasePercent: 95,
-      calories: item.calories,
-      volume: item.volume,
-      isToday: true,
-      isHot: false,
-      nutrition: item.nutrition,
-      ingredients: item.ingredients,
-      allergens: item.allergens,
-      origin: item.origin,
-      manufacturer: item.manufacturer,
-      storageMethod: item.storageMethod,
-      shelfLife: item.shelfLife,
-      bestQuotes: item.bestQuotes || ['신상품으로 적극 추천합니다.'],
-      storeStocks: item.stores.map(st => ({
-        store: st,
-        status: '입고완료' as const,
-        stockCount: 5,
-        price: item.price,
-        eventBadge: '신규입고',
-        deliveryTime: '매장 즉시 픽업'
-      })),
-    };
-  });
-
-    setProducts(prev => [...approvedList, ...prev]);
-    const pendingIds = pendingList.map(p => p.id);
-    setPendingProducts([]);
-
-    if (supabase && pendingIds.length > 0) {
-      const client = supabase;
-      approvedList.forEach(prod => {
-        client.from('products').upsert({
-          id: prod.id,
-          name: prod.name,
-          brand: prod.brand,
-          category: prod.category,
-          sub_category: prod.subCategory,
-          item_type: prod.itemType,
-          image: prod.image,
-          release_date: prod.releaseDate,
-          price: prod.price,
-          discount_rate: prod.discountRate,
-          overall_rating: prod.overallRating,
-          rating_count: prod.ratingCount,
-          description: prod.description,
-          stores: prod.stores,
-          calories: prod.calories,
-          volume: prod.volume,
-          is_today: prod.isToday,
-        }, { onConflict: 'id' }).then(({ error }) => {
-          if (error) console.warn('[Supabase Product Insert Warning]', error.message);
-        });
-      });
-
-      client.from('pending_products').update({ status: 'approved' }).in('id', pendingIds).then(({ error }) => {
-        if (error) console.warn('[Supabase Bulk Pending Approved Warning]', error.message);
-      });
-    }
-
-    showToast(`🎉 총 ${approvedList.length}건의 실제 신제품이 일괄 승인되어 서비스에 업로드되었습니다!`, 'success');
-  };
-
-  // 5. 신제품 반려(거절) - Supabase pending_products status='rejected' 업데이트
-  const rejectPendingProduct = (pendingId: string) => {
-    const item = pendingProducts.find(p => p.id === pendingId);
-    setPendingProducts(prev => prev.filter(p => p.id !== pendingId));
-    if (supabase) {
-      supabase.from('pending_products').update({ status: 'rejected' }).eq('id', pendingId).then(({ error }) => {
-        if (error) console.warn('[Supabase Pending Rejected Warning]', error.message);
-      });
-    }
-    showToast(`'${item?.name || '상품'}'이(가) 반려되었습니다. (DB 재수집 차단 완료)`, 'info');
-  };
-
-  // 5-1. 대기 중인 모든 신제품 일괄 승인 취소 (일괄 반려)
-  const rejectAllPending = () => {
-    const pendingIds = pendingProducts.map(p => p.id);
-    if (pendingIds.length === 0) {
-      showToast('대기 중인 신제품이 없습니다.', 'info');
-      return;
-    }
-    setPendingProducts([]);
-    if (supabase && pendingIds.length > 0) {
-      supabase.from('pending_products').update({ status: 'rejected' }).in('id', pendingIds).then(({ error }) => {
-        if (error) console.warn('[Supabase Bulk Pending Rejected Warning]', error.message);
-      });
-    }
-    showToast(`총 ${pendingIds.length}건의 대기 상품이 일괄 반려되었습니다.`, 'info');
-  };
-
-  // 5-2. 이미 승인된 개별 상품 승인 취소 (products에서 제거 후 pendingProducts 대기함으로 복원)
-  const revokeApprovedProduct = (productId: string) => {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    // Mark as deleted in products master to prevent cloud re-sync from reviving it into products table
-    const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, productId]));
-    deletedProductIdsRef.current = nextDeleted;
-    setDeletedProductIds(nextDeleted);
-    safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
-    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
-
-    // Remove from products
-    setProducts(prev => prev.filter(p => p.id !== productId));
-    deleteRemoteProduct(productId).catch(() => {});
-
-    // Restore to pendingProducts
-    const restoredPending: PendingProduct = {
-      id: `pending-revoked-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+    const stamp = Date.now();
+    const restored: PendingProduct[] = targets.map((product, idx) => ({
+      id: `revoked-${stamp}-${idx}`,
       name: product.name,
       brand: product.brand,
       category: product.category,
@@ -5542,193 +5185,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       price: product.price,
       discountRate: product.discountRate || 0,
       releaseDate: product.releaseDate,
-      stores: product.stores || ['CU', 'GS25'],
+      stores: product.stores || [],
       description: product.description || '',
-      sourceName: '승인 취소 상품 (관리자 복원)',
-      crawledAt: `${new Date().toISOString().split('T')[0]} ${new Date().toLocaleTimeString('ko-KR', { hour12: false })}`,
+      sourceName: '승인 취소 (관리자)',
+      sourceUrl: product.sourceUrl,
+      crawledAt: new Date().toISOString(),
       status: 'pending',
       calories: product.calories,
       volume: product.volume,
       nutrition: product.nutrition,
       ingredients: product.ingredients,
       allergens: product.allergens,
-      origin: product.origin,
-      manufacturer: product.manufacturer,
-      storageMethod: product.storageMethod,
-      shelfLife: product.shelfLife,
-      bestQuotes: product.bestQuotes,
-      storeStocks: product.storeStocks,
-    };
+    }));
 
-    setPendingProducts(prev => [restoredPending, ...prev]);
-    showToast(`↩️ [${product.name}] 승인이 취소되어 다시 승인 대기함으로 이동되었습니다.`, 'info');
-  };
-
-  // 5-3. 승인된 상품들 일괄 승인 취소 (선택된 ID들 또는 최근 승인된 상품들 대기함으로 복원)
-  const revokeAllApprovedProducts = (ids?: string[]) => {
-    const targetIds = ids && ids.length > 0 
-      ? ids 
-      : products.slice(0, 10).map(p => p.id); // Default to latest 10 products
-
-    if (targetIds.length === 0) {
-      showToast('승인 취소할 상품이 없습니다.', 'info');
+    try {
+      await addPendingItems(restored);
+    } catch (err) {
+      handlePendingError(err, '승인 취소에 실패했습니다.');
       return;
     }
 
+    // 클라우드 재동기화로 상품이 되살아나지 않도록 삭제 목록에 기록
+    const targetIds = targets.map(p => p.id);
     const nextDeleted = Array.from(new Set([...deletedProductIdsRef.current, ...targetIds]));
     deletedProductIdsRef.current = nextDeleted;
     setDeletedProductIds(nextDeleted);
     safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
     saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
-    const revokedProducts = products.filter(p => targetIds.includes(p.id));
     setProducts(prev => prev.filter(p => !targetIds.includes(p.id)));
     deleteRemoteProducts(targetIds).catch(() => {});
-
-    const dateStr = new Date().toISOString().split('T')[0];
-    const nowTime = new Date().toLocaleTimeString('ko-KR', { hour12: false });
-
-    const restoredList: PendingProduct[] = revokedProducts.map((product, idx) => ({
-      id: `pending-bulk-revoked-${Date.now()}-${idx}`,
-      name: product.name,
-      brand: product.brand,
-      category: product.category,
-      subCategory: product.subCategory,
-      itemType: product.itemType || 'packaged',
-      image: product.image,
-      price: product.price,
-      discountRate: product.discountRate || 0,
-      releaseDate: product.releaseDate,
-      stores: product.stores || ['CU', 'GS25'],
-      description: product.description || '',
-      sourceName: '일괄 승인 취소 (관리자 복원)',
-      crawledAt: `${dateStr} ${nowTime}`,
-      status: 'pending',
-      calories: product.calories,
-      volume: product.volume,
-      nutrition: product.nutrition,
-      ingredients: product.ingredients,
-      allergens: product.allergens,
-      origin: product.origin,
-      manufacturer: product.manufacturer,
-      storageMethod: product.storageMethod,
-      shelfLife: product.shelfLife,
-      bestQuotes: product.bestQuotes,
-      storeStocks: product.storeStocks,
-    }));
-
-    setPendingProducts(prev => [...restoredList, ...prev]);
-    showToast(`↩️ 총 ${revokedProducts.length}건의 상품이 일괄 승인 취소되어 대기함으로 복원되었습니다!`, 'success');
+    setPendingProducts(prev => [...restored, ...prev]);
+    showToast(`↩️ ${targets.length}건의 승인을 취소하고 대기함으로 되돌렸습니다.`, 'info');
   };
 
-  // 5-4. 대기 목록 내 중복 항목 및 기존 등록 상품과의 중복 자동 정리
-  const removeDuplicatePending = (): { removedCount: number } => {
-    const registeredNames = new Set(
-      products.map(p => p.name.replace(/\s+/g, '').toLowerCase())
-    );
-
-    const seenPending = new Set<string>();
-    const cleanedPending: PendingProduct[] = [];
-    let duplicateCount = 0;
-
-    for (const item of pendingProducts) {
-      const normName = item.name.replace(/\s+/g, '').toLowerCase();
-      if (registeredNames.has(normName) || seenPending.has(normName)) {
-        duplicateCount++;
-      } else {
-        seenPending.add(normName);
-        cleanedPending.push(item);
-      }
-    }
-
-    setPendingProducts(cleanedPending);
-    if (duplicateCount > 0) {
-      showToast(`🧹 중복 감지된 ${duplicateCount}개 신제품이 정리되었습니다.`, 'success');
-    } else {
-      showToast('중복된 신제품이 없습니다.', 'info');
-    }
-    return { removedCount: duplicateCount };
-  };
-
-  // 5-5. 대기 목록 정제 및 재검증 (헤드라인성 문구 걸러내기 및 실물 쇼핑 패키지/가격 정상화)
-  const revalidateAllPending = () => {
-    setPendingProducts(prev => {
-      const updated = revalidatePendingProductList(prev);
-      insertPendingProductsToSupabase(updated);
-      showToast(`✨ 대기 상품 ${updated.length}건 모두 실물 쇼핑 정품 데이터로 정상화 완료!`, 'success');
-      return updated;
-    });
-  };
-
-  // 6. 대기 상품 정보 수정
-  const updatePendingProduct = (pendingId: string, updated: Partial<PendingProduct>) => {
-    setPendingProducts(prev => prev.map(p => p.id === pendingId ? { ...p, ...updated } : p));
-    if (supabase) {
-      const dbUpdates: any = {};
-      if (updated.name !== undefined) dbUpdates.name = updated.name;
-      if (updated.brand !== undefined) dbUpdates.brand = updated.brand;
-      if (updated.category !== undefined) dbUpdates.category = updated.category;
-      if (updated.subCategory !== undefined) dbUpdates.sub_category = updated.subCategory;
-      if (updated.itemType !== undefined) dbUpdates.item_type = updated.itemType;
-      if (updated.image !== undefined) dbUpdates.image = updated.image;
-      if (updated.price !== undefined) dbUpdates.price = updated.price;
-      if (updated.discountRate !== undefined) dbUpdates.discount_rate = updated.discountRate;
-      if (updated.stores !== undefined) dbUpdates.stores = updated.stores;
-      if (updated.description !== undefined) dbUpdates.description = updated.description;
-      if (updated.calories !== undefined) dbUpdates.calories = updated.calories;
-      if (updated.volume !== undefined) dbUpdates.volume = updated.volume;
-
-      supabase.from('pending_products').update(dbUpdates).eq('id', pendingId).then(({ error }) => {
-        if (error) console.warn('[Supabase Pending Product Update Warning]', error.message);
-      });
-    }
-    showToast('대기 상품 정보가 수정되었습니다.', 'success');
-  };
-
-  // 7. 대기 목록 전체 삭제 (status='rejected' 업데이트)
-  const clearAllPendingProducts = () => {
-    const pendingIds = pendingProducts.map(p => p.id);
-    setPendingProducts([]);
-    if (supabase && pendingIds.length > 0) {
-      supabase.from('pending_products').update({ status: 'rejected' }).in('id', pendingIds).then(({ error }) => {
-        if (error) console.warn('[Supabase Clear All Pending Warning]', error.message);
-      });
-    }
-    showToast('승인 대기 목록이 모두 비워졌습니다.', 'info');
-  };
-
-  // 8. 개별 신제품 대기함 직접 추가
-  const addPendingProduct = (item: PendingProduct) => {
-    insertPendingProductsToSupabase([item]).then(() => {
-      fetchPendingProductsFromSupabase();
-    });
-    setPendingProducts(prev => [item, ...prev.filter(p => p.id !== item.id)]);
-    showToast(`'${item.name}' 상품이 승인 대기함에 추가되었습니다.`, 'info');
-  };
-
-  // 8-1. 복수 신제품 대기함 일괄 추가
-  const addPendingProducts = async (items: PendingProduct[]) => {
-    if (!items || items.length === 0) return;
-    try {
-      await insertPendingProductsToSupabase(items);
-      await fetchPendingProductsFromSupabase();
-      setPendingProducts(prev => {
-        const newIds = new Set(items.map(i => i.id));
-        const filteredPrev = prev.filter(p => !newIds.has(p.id));
-        return [...items, ...filteredPrev];
-      });
-      showToast(`${items.length}개의 신제품이 승인 대기함에 추가되었습니다.`, 'success');
-    } catch (err) {
-      console.error('[addPendingProducts] Error:', err);
-      // 로컬 상태 폴백
-      setPendingProducts(prev => {
-        const newIds = new Set(items.map(i => i.id));
-        const filteredPrev = prev.filter(p => !newIds.has(p.id));
-        return [...items, ...filteredPrev];
-      });
-      showToast(`${items.length}개의 신제품이 대기함에 추가되었습니다.`, 'success');
-    }
-  };
+  const revokeApprovedProduct = (productId: string) => revokeAllApprovedProducts([productId]);
 
   // User & Points Management Actions (Admin)
   const fetchAllProfiles = async () => {
@@ -6688,8 +6179,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('sinsangpick_stores_v1');
     localStorage.removeItem('sinsangpick_sales_v1');
     localStorage.removeItem('sinsangpick_calendar_v1');
-    localStorage.removeItem(PENDING_PRODUCTS_STORAGE_KEY);
-    localStorage.removeItem(LAST_CRAWL_STORAGE_KEY);
+    localStorage.removeItem('sinsangpick_pending_products');
+    localStorage.removeItem('sinsangpick_last_crawl_date');
     showToast('모든 데이터가 기본값으로 초기화되었습니다.', 'info');
   };
 
@@ -6825,25 +6316,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteStoreChannel,
         toggleStoreChannelActive,
 
-        // Admin Pending Products & Crawler Actions
+        // 신제품 수집·승인 대기함 (Admin)
         pendingProducts,
-        pendingCount: pendingProducts.filter(p => p.status === 'pending').length,
-        isCrawling,
-        lastCrawledDate,
-        runDailyCrawler,
-        searchAndCollect,
-        approvePendingProduct,
-        approveAllPending,
-        rejectPendingProduct,
-        rejectAllPending,
+        pendingCount: pendingProducts.length,
+        pendingSetupError,
+        isNaverCollectAvailable,
+        refreshPendingProducts,
+        collectNewProducts,
+        approvePendingProducts,
+        rejectPendingProducts,
+        updatePendingProduct,
+        addPendingProduct,
         revokeApprovedProduct,
         revokeAllApprovedProducts,
-        removeDuplicatePending,
-        revalidateAllPending,
-        updatePendingProduct,
-        clearAllPendingProducts,
-        addPendingProduct,
-        addPendingProducts,
 
         // User & Points Management
         allProfiles,
