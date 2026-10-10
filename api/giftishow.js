@@ -22,9 +22,10 @@ const BIZ_API = 'https://bizapi.giftishow.com/bizApi';
 const SEND_TIMEOUT_MS = 15000;
 const CATALOG_TTL_MS = 30 * 60 * 1000;
 
-const AUTH_CODE = process.env.GIFTISHOW_AUTH_CODE;
-const AUTH_TOKEN = process.env.GIFTISHOW_AUTH_TOKEN;
-const BIZ_USER_ID = process.env.GIFTISHOW_USER_ID;
+// 대시보드에 붙여넣을 때 섞여 들어간 앞뒤 공백·탭 제거
+const AUTH_CODE = (process.env.GIFTISHOW_AUTH_CODE || '').trim();
+const AUTH_TOKEN = (process.env.GIFTISHOW_AUTH_TOKEN || '').trim();
+const BIZ_USER_ID = (process.env.GIFTISHOW_USER_ID || '').trim();
 const CALLBACK_NO = String(process.env.GIFTISHOW_CALLBACK_NO || '').replace(/\D/g, '');
 
 // 포인트 위변조·오남용 시 비즈머니 손실을 제한하는 안전장치 (1P = 1원)
