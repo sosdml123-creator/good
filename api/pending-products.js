@@ -4,7 +4,7 @@
  *
  *  GET  ?status=pending|rejected          대기함 목록 (관리자)
  *  GET  ?action=cron                       매일 자동 수집 (Vercel Cron)
- *  POST { action: 'collect', source, query }   수집 실행: source = 'stores' | 'cu' | 'seven' | 'news'
+ *  POST { action: 'collect', source, query }   수집 실행: source = 'all' | 'stores' | 'cu' | 'seven' | 'news'
  *  POST { action: 'add', items }               대기함에 직접 추가
  *  POST { action: 'update', id, patch }        대기 상품 정보 수정
  *  POST { action: 'set_status', ids, status }  반려('rejected') / 대기함 복원('pending')
@@ -14,7 +14,13 @@
  */
 
 import { verifyAdminRequest } from './_lib/adminAuth.js';
-import { crawlCuNew, crawlSevenNew, collectNewsProducts, normalizeProductName } from './_lib/storeCrawlers.js';
+import {
+  crawlCuNew,
+  crawlSevenNew,
+  collectNewsProducts,
+  collectDefaultNewsProducts,
+  normalizeProductName,
+} from './_lib/storeCrawlers.js';
 
 export const config = { maxDuration: 60 };
 
@@ -25,11 +31,15 @@ const SOURCES = {
   cu: { label: 'CU 공식 신상품', run: () => crawlCuNew() },
   seven: { label: '세븐일레븐 공식 신상품', run: () => crawlSevenNew(60) },
   news: {
-    label: '네이버 뉴스',
-    run: (query) => collectNewsProducts(query, {
-      clientId: process.env.NAVER_CLIENT_ID,
-      clientSecret: process.env.NAVER_CLIENT_SECRET,
-    }),
+    label: '뉴스 (편의점·마트·슈퍼·식품사 전체)',
+    // 키워드가 있으면 그 키워드만, 없으면 유통사 전체 기본 검색어를 돕니다.
+    run: (query) => {
+      const credentials = {
+        clientId: process.env.NAVER_CLIENT_ID,
+        clientSecret: process.env.NAVER_CLIENT_SECRET,
+      };
+      return query ? collectNewsProducts(query, credentials) : collectDefaultNewsProducts(credentials);
+    },
   },
 };
 
@@ -219,7 +229,7 @@ export default async function handler(req, res) {
         return res.status(401).json({ success: false, error: 'Unauthorized' });
       }
       const sources = naverConfigured ? ['cu', 'seven', 'news'] : ['cu', 'seven'];
-      const reports = await runCollect(db, sources, '편의점 신제품');
+      const reports = await runCollect(db, sources, '');
       return res.status(200).json({ success: true, reports });
     }
 
@@ -240,12 +250,12 @@ export default async function handler(req, res) {
     const { action } = body;
 
     if (action === 'collect') {
-      const source = String(body.source || 'stores');
-      const sources = source === 'stores' ? ['cu', 'seven'] : [source];
+      const source = String(body.source || 'all');
+      const sources = source === 'all' ? ['cu', 'seven', 'news'] : source === 'stores' ? ['cu', 'seven'] : [source];
       if (!sources.every((key) => SOURCES[key])) {
         return res.status(400).json({ success: false, error: `알 수 없는 수집 소스: ${source}` });
       }
-      const reports = await runCollect(db, sources, String(body.query || '').slice(0, 60));
+      const reports = await runCollect(db, sources, String(body.query || '').trim().slice(0, 60));
       return res.status(200).json({ success: true, reports, naverConfigured });
     }
 

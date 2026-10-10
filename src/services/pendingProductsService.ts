@@ -8,7 +8,7 @@ import { getAdminAuthHeaders } from './adminAuth';
  */
 const API_URL = `${Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : ''}/api/pending-products`;
 
-export type CollectSource = 'stores' | 'cu' | 'seven' | 'news';
+export type CollectSource = 'all' | 'stores' | 'cu' | 'seven' | 'news';
 
 export interface CollectReport {
   source: string;

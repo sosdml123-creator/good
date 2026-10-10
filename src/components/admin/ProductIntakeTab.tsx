@@ -7,12 +7,10 @@ import {
   ExternalLink,
   Image as ImageIcon,
   Inbox,
-  Newspaper,
   RefreshCw,
   RotateCcw,
   Search,
   ShieldCheck,
-  Store,
   X,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
@@ -32,16 +30,10 @@ interface ProductIntakeTabProps {
   isDark: boolean;
 }
 
-type SourceKey = 'CU' | '세븐일레븐' | '뉴스' | '기타';
-const SOURCE_KEYS: SourceKey[] = ['CU', '세븐일레븐', '뉴스', '기타'];
 const PAGE_SIZE = 60;
 
-const getSourceKey = (item: PendingProduct): SourceKey => {
-  if (item.id.startsWith('cu-')) return 'CU';
-  if (item.id.startsWith('seven-')) return '세븐일레븐';
-  if (item.id.startsWith('news-')) return '뉴스';
-  return '기타';
-};
+/** 대기함 필터용 판매처 이름 (편의점·마트·브랜드) */
+const getSourceKey = (item: PendingProduct): string => item.stores[0] || '기타';
 
 const formatDate = (value: string) => {
   const date = new Date(value);
@@ -73,7 +65,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
 
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<ProductCategory | '전체'>('전체');
-  const [sourceFilter, setSourceFilter] = useState<SourceKey | '전체'>('전체');
+  const [sourceFilter, setSourceFilter] = useState<string>('전체');
   const [onlyMissingImage, setOnlyMissingImage] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -119,10 +111,14 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
     setVisibleCount(PAGE_SIZE);
   }, [search, categoryFilter, sourceFilter, onlyMissingImage]);
 
+  // 판매처별 건수 (많은 순)
   const sourceCounts = useMemo(() => {
-    const counts: Record<SourceKey, number> = { CU: 0, 세븐일레븐: 0, 뉴스: 0, 기타: 0 };
-    pendingProducts.forEach((item) => { counts[getSourceKey(item)] += 1; });
-    return counts;
+    const counts = new Map<string, number>();
+    pendingProducts.forEach((item) => {
+      const key = getSourceKey(item);
+      counts.set(key, (counts.get(key) || 0) + 1);
+    });
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [pendingProducts]);
 
   const missingImageCount = useMemo(() => pendingProducts.filter((p) => !p.image).length, [pendingProducts]);
@@ -256,13 +252,13 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
         </div>
       )}
 
-      {/* 1. 수집 */}
+      {/* 1. 수집 (공식 사이트 + 뉴스 통합) */}
       <div className={`p-5 rounded-2xl border space-y-4 ${cardBg}`}>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="space-y-1">
             <h2 className={`text-base font-black ${titleText}`}>신제품 수집</h2>
             <p className="text-xs text-slate-500 flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-3.5 h-3.5 shrink-0" />
               <span>매일 오전 9시에 자동으로 수집됩니다. 지금 바로 가져오려면 아래 버튼을 누르세요.</span>
             </p>
           </div>
@@ -275,55 +271,47 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
           </button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className={`p-4 rounded-xl border space-y-2.5 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50/70'}`}>
-            <div className={`text-xs font-bold flex items-center gap-1.5 ${titleText}`}>
-              <Store className="w-4 h-4 text-indigo-500" />
-              <span>편의점 공식 신상품</span>
-            </div>
-            <p className="text-[11px] text-slate-500">CU·세븐일레븐 공식 홈페이지의 신상품 목록에서 상품명·가격·이미지를 그대로 가져옵니다.</p>
-            <button
-              onClick={() => handleCollect('stores')}
-              disabled={collecting !== null}
-              className="w-full px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 disabled:opacity-50"
-            >
-              <RefreshCw className={`w-4 h-4 ${collecting === 'stores' ? 'animate-spin' : ''}`} />
-              <span>{collecting === 'stores' ? '가져오는 중...' : '편의점 신상품 가져오기'}</span>
-            </button>
-          </div>
+        <button
+          onClick={() => handleCollect('all')}
+          disabled={collecting !== null}
+          className="w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 disabled:opacity-50"
+        >
+          <RefreshCw className={`w-4 h-4 ${collecting === 'all' ? 'animate-spin' : ''}`} />
+          <span>{collecting === 'all' ? '전체 유통사에서 가져오는 중... (최대 1분)' : '신제품 전체 가져오기'}</span>
+        </button>
 
-          <div className={`p-4 rounded-xl border space-y-2.5 ${isDark ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-slate-50/70'}`}>
-            <div className={`text-xs font-bold flex items-center gap-1.5 ${titleText}`}>
-              <Newspaper className="w-4 h-4 text-amber-500" />
-              <span>뉴스에서 신제품 찾기</span>
-            </div>
-            <p className="text-[11px] text-slate-500">
-              최근 7일 출시 기사에서 상품명을 찾아옵니다. 가격은 기사로 확인되지 않아 비워 두니 승인 전에 입력해주세요.
+        <div className={`p-3 rounded-xl border text-[11px] space-y-1 ${isDark ? 'border-slate-800 bg-slate-950/50 text-slate-400' : 'border-slate-200 bg-slate-50/70 text-slate-500'}`}>
+          <p>
+            <strong className={titleText}>공식 홈페이지</strong> — CU, 세븐일레븐 신상품 코너에서 상품명·가격·이미지를 그대로 가져옵니다.
+          </p>
+          <p>
+            <strong className={titleText}>뉴스</strong> — GS25, 이마트24, 이마트, 트레이더스, 노브랜드, 홈플러스, 롯데마트, 롯데슈퍼, GS더프레시, 코스트코와
+            식품사·카페·외식 브랜드의 최근 7일 출시 기사에서 상품명을 찾습니다. 가격은 기사로 확인되지 않아 비워 두니 승인 전에 입력해주세요.
+          </p>
+          {!isNaverCollectAvailable && !pendingSetupError && (
+            <p className="text-amber-600 dark:text-amber-400">
+              서버에 네이버 검색 API 키(NAVER_CLIENT_ID / NAVER_CLIENT_SECRET)가 없어 뉴스 수집은 건너뜁니다.
             </p>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={newsQuery}
-                onChange={(e) => setNewsQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && isNaverCollectAvailable && collecting === null && handleCollect('news', newsQuery)}
-                placeholder="브랜드·키워드 (비우면 '편의점 신제품')"
-                className={`flex-1 min-w-0 px-3 py-2 rounded-xl text-xs border focus:outline-none ${inputBg}`}
-              />
-              <button
-                onClick={() => handleCollect('news', newsQuery)}
-                disabled={collecting !== null || !isNaverCollectAvailable}
-                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 disabled:opacity-50 shrink-0"
-              >
-                <Search className={`w-3.5 h-3.5 ${collecting === 'news' ? 'animate-pulse' : ''}`} />
-                <span>{collecting === 'news' ? '찾는 중...' : '찾기'}</span>
-              </button>
-            </div>
-            {!isNaverCollectAvailable && !pendingSetupError && (
-              <p className="text-[11px] text-amber-600 dark:text-amber-400">
-                서버에 네이버 검색 API 키(NAVER_CLIENT_ID / NAVER_CLIENT_SECRET)가 없어 사용할 수 없습니다. Vercel 환경변수에 추가하면 활성화됩니다.
-              </p>
-            )}
-          </div>
+          )}
+        </div>
+
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newsQuery}
+            onChange={(e) => setNewsQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && newsQuery.trim() && collecting === null && handleCollect('news', newsQuery)}
+            placeholder="특정 브랜드·상품만 찾기 (예: 홈플러스, 스타벅스, 두바이 초콜릿)"
+            className={`flex-1 min-w-0 px-3 py-2 rounded-xl text-xs border focus:outline-none ${inputBg}`}
+          />
+          <button
+            onClick={() => handleCollect('news', newsQuery)}
+            disabled={collecting !== null || !newsQuery.trim() || !isNaverCollectAvailable}
+            className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-1.5 disabled:opacity-50 shrink-0 ${subtleBtn}`}
+          >
+            <Search className={`w-3.5 h-3.5 ${collecting === 'news' ? 'animate-pulse' : ''}`} />
+            <span>{collecting === 'news' ? '찾는 중...' : '이 키워드로 찾기'}</span>
+          </button>
         </div>
 
         {reports.length > 0 && (
@@ -373,10 +361,10 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
           {view === 'pending' && pendingProducts.length > 0 && (
             <>
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                <button onClick={() => setSourceFilter('전체')} className={pill(sourceFilter === '전체')}>전체 출처</button>
-                {SOURCE_KEYS.filter((key) => sourceCounts[key] > 0).map((key) => (
+                <button onClick={() => setSourceFilter('전체')} className={pill(sourceFilter === '전체')}>전체 판매처</button>
+                {sourceCounts.map(([key, count]) => (
                   <button key={key} onClick={() => setSourceFilter(key)} className={pill(sourceFilter === key)}>
-                    {key} {sourceCounts[key]}
+                    {key} {count}
                   </button>
                 ))}
                 <span className={`w-px h-4 mx-1 shrink-0 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
@@ -438,7 +426,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
                 {pendingProducts.length === 0 ? '승인 대기 중인 신제품이 없습니다' : '조건에 맞는 상품이 없습니다'}
               </h3>
               {pendingProducts.length === 0 && (
-                <p className="text-xs text-slate-500">위의 [편의점 신상품 가져오기]를 누르면 새로 나온 상품이 여기에 쌓입니다.</p>
+                <p className="text-xs text-slate-500">위의 [신제품 전체 가져오기]를 누르면 새로 나온 상품이 여기에 쌓입니다.</p>
               )}
             </div>
           ) : (
