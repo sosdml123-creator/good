@@ -8,12 +8,13 @@
  *  POST { action: 'exchange', goodsCode }       포인트 차감 후 쿠폰 발급 (로그인 필요)
  *  POST { action: 'use', trId, isUsed }         내 쿠폰 사용완료 표시 (로그인 필요)
  *  GET  ?action=status           비즈머니 잔액 / 설정 상태 (관리자)
+ *  GET  /api/admob-reward        보상형 광고 시청 포인트 적립 (AdMob 서버 간 확인 콜백)
  *
  * 인증키는 서버 환경변수에만 둡니다. 기프티쇼 비즈 약관상 현금(PG) 결제 판매는 금지이며
  * 리워드 포인트 교환만 허용되므로, 결제 수단은 포인트뿐입니다.
  */
 
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash, createVerify, randomBytes } from 'node:crypto';
 import { verifyAdminRequest } from './_lib/adminAuth.js';
 
 export const config = { maxDuration: 60 };
@@ -349,6 +350,61 @@ async function exchange(user, goodsCode) {
   return { status: 200, body: { success: true, coupon: toClientOrder(order), balance: begin.balance } };
 }
 
+// ───────────────────────── 보상형 광고 (AdMob SSV) ─────────────────────────
+// 콜백 URL: /api/admob-reward (vercel.json 에서 이 함수로 rewrite)
+// 광고 시청이 끝나면 Google 서버가 서명된 GET 요청을 보냅니다. 서명·광고 단위를 확인한 뒤에만 포인트를 적립합니다.
+
+const ADMOB_KEYS_URL = 'https://www.gstatic.com/admob/reward/verifier-keys.json';
+// 다른 게시자가 자기 광고 단위의 콜백을 이 주소로 돌려 포인트를 받아 가지 못하도록, 등록된 광고 단위만 인정
+const ADMOB_REWARD_AD_UNITS = String(process.env.ADMOB_REWARD_AD_UNITS || '').split(',').map((s) => s.trim()).filter(Boolean);
+const ADMOB_REWARD_POINTS = Number(process.env.ADMOB_REWARD_POINTS) || 2;
+const ADMOB_REWARD_DAILY_LIMIT = Number(process.env.ADMOB_REWARD_DAILY_LIMIT) || 10;
+
+let admobKeys = null; // { at, byId: Map<keyId, pem> }
+
+async function getAdmobKey(keyId) {
+  if (!admobKeys || !admobKeys.byId.has(keyId) || Date.now() - admobKeys.at > 24 * 3600 * 1000) {
+    const json = await (await fetch(ADMOB_KEYS_URL, { signal: AbortSignal.timeout(8000) })).json();
+    admobKeys = { at: Date.now(), byId: new Map((json.keys || []).map((k) => [String(k.keyId), k.pem])) };
+  }
+  return admobKeys.byId.get(keyId) || null;
+}
+
+async function admobReward(req, res) {
+  res.setHeader('Cache-Control', 'no-store');
+  const q = req.query || {};
+  // 서명 없는 요청(주소 확인용 호출 등)은 아무것도 하지 않고 200
+  if (!q.signature || !q.key_id) return res.status(200).json({ ok: false, reason: 'no_signature' });
+
+  // 서명 대상은 원본 쿼리스트링에서 signature 앞까지
+  const rawQuery = String(req.url || '').split('?')[1] || '';
+  const sigAt = rawQuery.indexOf('&signature=');
+  const pem = await getAdmobKey(String(q.key_id));
+  const valid = Boolean(
+    pem && sigAt > 0 &&
+    createVerify('SHA256').update(rawQuery.slice(0, sigAt)).verify(pem, Buffer.from(String(q.signature), 'base64url'))
+  );
+  if (!valid) return res.status(403).json({ ok: false, reason: 'bad_signature' });
+
+  const userId = String(q.user_id || '');
+  const transactionId = String(q.transaction_id || '');
+  if (!/^[0-9a-f-]{36}$/i.test(userId) || !transactionId) return res.status(200).json({ ok: false, reason: 'no_user' });
+  if (!ADMOB_REWARD_AD_UNITS.includes(String(q.ad_unit || ''))) {
+    console.warn('[admob reward] unregistered ad unit', q.ad_unit);
+    return res.status(200).json({ ok: false, reason: 'ad_unit' });
+  }
+
+  // 실패(5xx) 시 AdMob 이 재시도하며, 같은 transaction_id 는 한 번만 적립됩니다
+  const result = await rpc('ad_reward_grant', {
+    p_user: userId,
+    p_transaction_id: transactionId,
+    p_points: ADMOB_REWARD_POINTS,
+    p_daily_limit: ADMOB_REWARD_DAILY_LIMIT,
+    p_ad_unit: String(q.ad_unit),
+  });
+  return res.status(200).json(result);
+}
+
 // ───────────────────────── handler ─────────────────────────
 
 export default async function handler(req, res) {
@@ -364,6 +420,10 @@ export default async function handler(req, res) {
   const action = String((req.method === 'GET' ? req.query?.action : req.body?.action) || '');
 
   try {
+    if (req.method === 'GET' && !action && (String(req.url || '').startsWith('/api/admob-reward') || req.query?.key_id)) {
+      return await admobReward(req, res);
+    }
+
     if (req.method === 'GET' && (action === 'goods' || action === 'detail')) {
       if (!isCatalogConfigured()) {
         return res.status(503).json({ success: false, error: 'e쿠폰 상점을 여는 중입니다. 잠시 후 다시 확인해 주세요.' });

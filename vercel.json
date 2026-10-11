@@ -27,6 +27,10 @@
   },
   "rewrites": [
     {
+      "source": "/api/admob-reward",
+      "destination": "/api/giftishow"
+    },
+    {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt).*)",
       "destination": "/index.html"
     }
