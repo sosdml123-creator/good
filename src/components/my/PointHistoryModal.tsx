@@ -123,7 +123,7 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
                 <div className="flex items-start gap-2">
                   <span className="text-base leading-none shrink-0">✍️</span>
                   <div>
-                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> <span className="text-amber-600 font-bold">+10P</span> (상품당 1회 · 하루 3건)
+                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> <span className="text-amber-600 font-bold">+10P</span> (상품당 1회 · 하루 10건)
                   </div>
                 </div>
                 <div className="flex items-start gap-2">

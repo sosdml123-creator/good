@@ -3,7 +3,7 @@
 --
 -- 적립 정책 축소(src/constants/pointPolicy.ts)에 맞춰 서버 상한도 낮춥니다.
 --   1회 최대 적립: 100P → 10P   (리뷰 1건 10P)
---   1일 최대 적립: 1,000P → 30P (리뷰 하루 3건)
+--   1일 최대 적립: 1,000P → 100P (리뷰 하루 10건)
 -- 가입 시 기본 100P, 관리자/service_role 예외, 감소 무제한은 그대로입니다.
 -- Supabase 대시보드 → SQL Editor 에서 이 파일 전체를 실행하세요. (여러 번 실행해도 안전)
 
@@ -15,7 +15,7 @@ SET search_path = public
 AS $$
 DECLARE
     c_step CONSTANT INT := 10;   -- 1회 최대 적립 (리뷰 1건)
-    c_daily CONSTANT INT := 30;  -- 1일 최대 적립 (리뷰 3건)
+    c_daily CONSTANT INT := 100; -- 1일 최대 적립 (리뷰 10건)
     v_today DATE := (NOW() AT TIME ZONE 'Asia/Seoul')::DATE;
     v_delta INT;
     v_earned INT;
