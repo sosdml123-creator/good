@@ -2,47 +2,47 @@
  "카페 아메리카노": {
   "price": 4700,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "카페 라떼": {
   "price": 5200,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "스타벅스 돌체 라떼": {
   "price": 6100,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "카라멜 마키아또": {
   "price": 6100,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "카푸치노": {
   "price": 5200,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "카페 모카": {
   "price": 5700,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "화이트 초콜릿 모카": {
   "price": 6100,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "콜드 브루": {
   "price": 5100,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "자몽 허니 블랙 티": {
   "price": 5900,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "아이스 자몽 허니 블랙 티": {
   "price": 5900,
@@ -52,21 +52,21 @@
  "망고 바나나 블렌디드": {
   "price": 6600,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "에스프레소 프라푸치노": {
   "price": 5700,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "자바 칩 프라푸치노": {
   "price": 6500,
   "kind": "store",
-  "stores": 24
+  "stores": 1
  },
  "체리&자두 에너지 피지오": {
   "price": 6300,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 바닐라 라떼": {
@@ -76,7 +76,7 @@
  },
  "바닐라 라떼": {
   "price": 5200,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 스타벅스 클래식 밀크 티": {
@@ -86,12 +86,12 @@
  },
  "스타벅스 클래식 밀크 티": {
   "price": 6100,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "망고 패션 프루트 블렌디드": {
   "price": 5600,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 제주 말차 라떼": {
@@ -101,7 +101,7 @@
  },
  "제주 말차 라떼": {
   "price": 6100,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 밀크 카라멜 라떼": {
@@ -116,17 +116,17 @@
  },
  "스타벅스 딸기 라떼": {
   "price": 6500,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "제주 말차 크림 프라푸치노": {
   "price": 6500,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "쿨 라임 피지오": {
   "price": 6100,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 카라멜 마키아또": {
@@ -141,7 +141,7 @@
  },
  "디카페인 카페 라떼": {
   "price": 5500,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 디카페인 카페 아메리카노": {
@@ -151,17 +151,17 @@
  },
  "디카페인 카페 아메리카노": {
   "price": 5000,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "딸기 딜라이트 요거트 블렌디드": {
   "price": 6500,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "초콜릿 크림 칩 프라푸치노": {
   "price": 6200,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 스타벅스 돌체 라떼": {
@@ -171,7 +171,7 @@
  },
  "돌체 콜드 브루": {
   "price": 6000,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "자몽허니 블랙티": {
@@ -191,7 +191,7 @@
  },
  "시그니처 핫 초콜릿": {
   "price": 5900,
-  "kind": "coupon",
+  "kind": "store",
   "stores": 1
  },
  "아이스 카페 라떼": {
@@ -202,6 +202,606 @@
  "아이스 카페 아메리카노": {
   "price": 4700,
   "kind": "coupon",
+  "stores": 1
+ },
+ "스타벅스 자몽 허니 에어로카노": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "블랙 글레이즈드 라떼": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "스타벅스 에어로카노": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 코르타도": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "밀크카라멜 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "플랫 화이트": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "커피 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "헤이즐넛 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "에스프레소": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 1
+ },
+ "에스프레소 마키아또": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 1
+ },
+ "에스프레소 콘 파나": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "더블 에스프레소 칩 프라푸치노": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "글레이즈드 폼 블랙 티": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "유자 말차 V 피지오": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "유자 V 피지오": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 아인슈페너 콜드 브루": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "프렌치 바닐라 콜드 브루": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 크림 콜드 브루": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "스위트 밀크 커피": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "브루드 커피": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "블루베리 딜라이트 요거트 블렌디드": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "자몽 허니 레몬 블렌디드": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "카라멜 프라푸치노": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "말차 글레이즈드 티 라떼": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "호지 글레이즈드 티 라떼": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "퓨어 말차": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 1
+ },
+ "퓨어 호지차": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 1
+ },
+ "복숭아 핫 티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "유자 민트 티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "제주 녹차": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "얼 그레이 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "잉글리쉬 브렉퍼스트 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "유스베리 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "히비스커스 블렌드 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "민트 블렌드 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "캐모마일 블렌드 티": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "핑크 피치 리프레셔": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 1
+ },
+ "피치 딸기 피지오": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "라이트 핑크 자몽 피지오": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "카스텔라 고구마 라떼": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 1
+ },
+ "스팀 우유": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "우유": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "스퀴즈드 오렌지 주스 100ML": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기주스 190ML": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "유기농 오렌지 100% 주스 190ML": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기 가득 요거트 190ML": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "햇사과 주스 190ML": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "망고주스 190ML": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "케일&사과주스 190ML": {
+  "price": 4000,
+  "kind": "store",
+  "stores": 1
+ },
+ "한라봉주스 190ML": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "블루베리 요거트 190ML": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "에비앙 500ML": {
+  "price": 3300,
+  "kind": "store",
+  "stores": 1
+ },
+ "에비앙 스파클링 330ML": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "유기농 스파클링 애플 주스 296ML": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 스타벅스 자몽 허니 에어로카노": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 스타벅스 자몽 허니 에어로카노": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 스타벅스 자몽 허니 에어로카노": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 블랙 글레이즈드 라떼": {
+  "price": 7000,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 블랙 글레이즈드 라떼": {
+  "price": 7000,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 블랙 글레이즈드 라떼": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 스타벅스 에어로카노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 스타벅스 에어로카노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 스타벅스 에어로카노": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 코르타도": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 코르타도": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "코르타도": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 밀크카라멜 라떼": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 밀크카라멜 라떼": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 밀크카라멜 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 플랫 화이트": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 플랫 화이트": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 플랫 화이트": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 카페 아메리카노": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 카페 아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 카페 라떼": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 카페 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 바닐라 라떼": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 바닐라 라떼": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 바닐라 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 스타벅스 돌체 라떼": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 스타벅스 돌체 라떼": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 스타벅스 돌체 라떼": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 카페 모카": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 카페 모카": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 카페 모카": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 카푸치노": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 카푸치노": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 카푸치노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 카라멜 마키아또": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 카라멜 마키아또": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 카라멜 마키아또": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 화이트 초콜릿 모카": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 화이트 초콜릿 모카": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 화이트 초콜릿 모카": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 커피 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 커피 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 커피 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 바닐라 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 바닐라 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 바닐라 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 헤이즐넛 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 헤이즐넛 스타벅스 더블 샷": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 헤이즐넛 스타벅스 더블 샷": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 에스프레소": {
+  "price": 4200,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 에스프레소": {
+  "price": 4200,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 에스프레소": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 에스프레소 마키아또": {
+  "price": 4200,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 에스프레소 마키아또": {
+  "price": 4200,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 에스프레소 마키아또": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 에스프레소 콘 파나": {
+  "price": 4400,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 에스프레소 콘 파나": {
+  "price": 4400,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 에스프레소 콘 파나": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 더블 에스프레소 칩 프라푸치노": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 더블 에스프레소 칩 프라푸치노": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 더블 에스프레소 칩 프라푸치노": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 에스프레소 프라푸치노": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "1/2디카페인 에스프레소 프라푸치노": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "블론드 에스프레소 프라푸치노": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "복숭아 아이스 티": {
+  "price": 6100,
+  "kind": "store",
   "stores": 1
  }
 }

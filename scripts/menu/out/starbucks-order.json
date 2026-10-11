@@ -1,0 +1,636 @@
+{
+ "key": "starbucks",
+ "brand": "스타벅스",
+ "items": [
+  {
+   "name": "디카페인 스타벅스 자몽 허니 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/07/%5B9200000007131%5D_20260729082321315.jpg",
+   "price": 6400,
+   "desc": "상큼한 자몽의 풍미와 벨벳같은 미세한 거품으로 부드러운 목넘김이 조화롭게 어우러져 밝고 산뜻하면서도 균형 잡힌 맛을 선사하는 에어로카노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000007131"
+  },
+  {
+   "name": "1/2디카페인 스타벅스 자몽 허니 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/07/%5B9200000007131%5D_20260729082321315.jpg",
+   "price": 6400,
+   "desc": "상큼한 자몽의 풍미와 벨벳같은 미세한 거품으로 부드러운 목넘김이 조화롭게 어우러져 밝고 산뜻하면서도 균형 잡힌 맛을 선사하는 에어로카노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000007131"
+  },
+  {
+   "name": "블론드 스타벅스 자몽 허니 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/07/%5B9200000007131%5D_20260729082321315.jpg",
+   "price": 6100,
+   "desc": "상큼한 자몽의 풍미와 벨벳같은 미세한 거품으로 부드러운 목넘김이 조화롭게 어우러져 밝고 산뜻하면서도 균형 잡힌 맛을 선사하는 에어로카노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000007131"
+  },
+  {
+   "name": "디카페인 블랙 글레이즈드 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/09/%5B9200000002259%5D_20260928101559278.jpg",
+   "price": 7000,
+   "desc": "가을 시즌 대표 음료! 돌아온 블랙 글레이즈드 라떼 짙고 풍부한 커피와 달콤하고 부드러운 글레이즈드 폼의 조화가 돋보이는 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002259"
+  },
+  {
+   "name": "1/2디카페인 블랙 글레이즈드 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/09/%5B9200000002259%5D_20260928101559278.jpg",
+   "price": 7000,
+   "desc": "가을 시즌 대표 음료! 돌아온 블랙 글레이즈드 라떼 짙고 풍부한 커피와 달콤하고 부드러운 글레이즈드 폼의 조화가 돋보이는 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002259"
+  },
+  {
+   "name": "블론드 블랙 글레이즈드 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/09/%5B9200000002259%5D_20260928101559278.jpg",
+   "price": 6700,
+   "desc": "가을 시즌 대표 음료! 돌아온 블랙 글레이즈드 라떼 짙고 풍부한 커피와 달콤하고 부드러운 글레이즈드 폼의 조화가 돋보이는 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002259"
+  },
+  {
+   "name": "디카페인 스타벅스 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/02/%5B9200000006840%5D_20260205135245242.jpg",
+   "price": 5200,
+   "desc": "아메리카노에 바리스타의 기술을 더해 벨벳 같은 미세한 거품층과 부드러운 목넘김을 즐길 수 있는 새로운 스타일의 음료 한층 풍부한 커피 풍미와 물결처럼 흘러내리는 캐스케이딩 비주얼의 에어로카노를 경험해보세요!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006840"
+  },
+  {
+   "name": "1/2디카페인 스타벅스 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/02/%5B9200000006840%5D_20260205135245242.jpg",
+   "price": 5200,
+   "desc": "아메리카노에 바리스타의 기술을 더해 벨벳 같은 미세한 거품층과 부드러운 목넘김을 즐길 수 있는 새로운 스타일의 음료 한층 풍부한 커피 풍미와 물결처럼 흘러내리는 캐스케이딩 비주얼의 에어로카노를 경험해보세요!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006840"
+  },
+  {
+   "name": "블론드 스타벅스 에어로카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2026/02/%5B9200000006840%5D_20260205135245242.jpg",
+   "price": 4900,
+   "desc": "아메리카노에 바리스타의 기술을 더해 벨벳 같은 미세한 거품층과 부드러운 목넘김을 즐길 수 있는 새로운 스타일의 음료 한층 풍부한 커피 풍미와 물결처럼 흘러내리는 캐스케이딩 비주얼의 에어로카노를 경험해보세요!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006840"
+  },
+  {
+   "name": "디카페인 밀크카라멜 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000006235%5D_20250604124942828.jpg",
+   "price": 6100,
+   "desc": "부드럽고 달콤한 밀크카라멜의 은은한 풍미와 풍부한 질감을 느낄 수 있는 특별한 우유가 만나 언제나 편안하게 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006235"
+  },
+  {
+   "name": "1/2디카페인 밀크카라멜 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000006235%5D_20250604124942828.jpg",
+   "price": 6100,
+   "desc": "부드럽고 달콤한 밀크카라멜의 은은한 풍미와 풍부한 질감을 느낄 수 있는 특별한 우유가 만나 언제나 편안하게 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006235"
+  },
+  {
+   "name": "블론드 밀크카라멜 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000006235%5D_20250604124942828.jpg",
+   "price": 5800,
+   "desc": "부드럽고 달콤한 밀크카라멜의 은은한 풍미와 풍부한 질감을 느낄 수 있는 특별한 우유가 만나 언제나 편안하게 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006235"
+  },
+  {
+   "name": "디카페인 플랫 화이트",
+   "sub": "리스트레또 비안코",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2024/03/%5B9200000005178%5D_20240326103727795.jpg",
+   "price": 6100,
+   "desc": "부드러운 리스트레토 샷과 완벽한 양의 스팀밀크를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000005178"
+  },
+  {
+   "name": "1/2디카페인 플랫 화이트",
+   "sub": "리스트레또 비안코",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2024/03/%5B9200000005178%5D_20240326103727795.jpg",
+   "price": 6100,
+   "desc": "부드러운 리스트레토 샷과 완벽한 양의 스팀밀크를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000005178"
+  },
+  {
+   "name": "블론드 플랫 화이트",
+   "sub": "리스트레또 비안코",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2024/03/%5B9200000005178%5D_20240326103727795.jpg",
+   "price": 5800,
+   "desc": "부드러운 리스트레토 샷과 완벽한 양의 스팀밀크를 더해, 카페 라떼보다 커피의 맛을 진하게 즐길 수 있는 에스프레소 음료입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000005178"
+  },
+  {
+   "name": "디카페인 카페 아메리카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B94%5D_20210430103337006.jpg",
+   "price": 5000,
+   "desc": "진한 에스프레소에 뜨거운 물을 더한 깊이와 풍미가 살아있는 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=94"
+  },
+  {
+   "name": "1/2디카페인 카페 아메리카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B94%5D_20210430103337006.jpg",
+   "price": 5000,
+   "desc": "진한 에스프레소에 뜨거운 물을 더한 깊이와 풍미가 살아있는 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=94"
+  },
+  {
+   "name": "블론드 카페 아메리카노",
+   "sub": "아메리카노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B94%5D_20210430103337006.jpg",
+   "price": 4700,
+   "desc": "진한 에스프레소에 뜨거운 물을 더한 깊이와 풍미가 살아있는 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=94"
+  },
+  {
+   "name": "디카페인 카페 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B41%5D_20210415133833725.jpg",
+   "price": 5500,
+   "desc": "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=41"
+  },
+  {
+   "name": "1/2디카페인 카페 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B41%5D_20210415133833725.jpg",
+   "price": 5500,
+   "desc": "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=41"
+  },
+  {
+   "name": "블론드 카페 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B41%5D_20210415133833725.jpg",
+   "price": 5200,
+   "desc": "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=41"
+  },
+  {
+   "name": "디카페인 바닐라 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/10/%5B9200000006343%5D_20251029141705796.jpg",
+   "price": 5500,
+   "desc": "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006343"
+  },
+  {
+   "name": "1/2디카페인 바닐라 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/10/%5B9200000006343%5D_20251029141705796.jpg",
+   "price": 5500,
+   "desc": "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006343"
+  },
+  {
+   "name": "블론드 바닐라 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/10/%5B9200000006343%5D_20251029141705796.jpg",
+   "price": 5200,
+   "desc": "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000006343"
+  },
+  {
+   "name": "디카페인 스타벅스 돌체 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128692%5D_20210426091933665.jpg",
+   "price": 6400,
+   "desc": "스타벅스의 다른 커피 음료보다 더욱 깊은 커피의 맛과 향에 깔끔한 무지방 우유와 부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128692"
+  },
+  {
+   "name": "1/2디카페인 스타벅스 돌체 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128692%5D_20210426091933665.jpg",
+   "price": 6400,
+   "desc": "스타벅스의 다른 커피 음료보다 더욱 깊은 커피의 맛과 향에 깔끔한 무지방 우유와 부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128692"
+  },
+  {
+   "name": "블론드 스타벅스 돌체 라떼",
+   "sub": "라떼",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128692%5D_20210426091933665.jpg",
+   "price": 6100,
+   "desc": "스타벅스의 다른 커피 음료보다 더욱 깊은 커피의 맛과 향에 깔끔한 무지방 우유와 부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128692"
+  },
+  {
+   "name": "디카페인 카페 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B46%5D_20210415134438165.jpg",
+   "price": 6000,
+   "desc": "진한 초콜릿 모카 시럽과 풍부한 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 진한 에스프레소와 초콜릿 맛이 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=46"
+  },
+  {
+   "name": "1/2디카페인 카페 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B46%5D_20210415134438165.jpg",
+   "price": 6000,
+   "desc": "진한 초콜릿 모카 시럽과 풍부한 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 진한 에스프레소와 초콜릿 맛이 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=46"
+  },
+  {
+   "name": "블론드 카페 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B46%5D_20210415134438165.jpg",
+   "price": 5700,
+   "desc": "진한 초콜릿 모카 시럽과 풍부한 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 진한 에스프레소와 초콜릿 맛이 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=46"
+  },
+  {
+   "name": "디카페인 카푸치노",
+   "sub": "카푸치노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B38%5D_20210415154821846.jpg",
+   "price": 5500,
+   "desc": "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=38"
+  },
+  {
+   "name": "1/2디카페인 카푸치노",
+   "sub": "카푸치노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B38%5D_20210415154821846.jpg",
+   "price": 5500,
+   "desc": "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=38"
+  },
+  {
+   "name": "블론드 카푸치노",
+   "sub": "카푸치노",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B38%5D_20210415154821846.jpg",
+   "price": 5200,
+   "desc": "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=38"
+  },
+  {
+   "name": "디카페인 카라멜 마키아또",
+   "sub": "마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B126197%5D_20210415154609863.jpg",
+   "price": 6400,
+   "desc": "향긋한 바닐라 시럽과 따뜻한 스팀 밀크 위에 풍성한 우유 거품을 얹고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=126197"
+  },
+  {
+   "name": "1/2디카페인 카라멜 마키아또",
+   "sub": "마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B126197%5D_20210415154609863.jpg",
+   "price": 6400,
+   "desc": "향긋한 바닐라 시럽과 따뜻한 스팀 밀크 위에 풍성한 우유 거품을 얹고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=126197"
+  },
+  {
+   "name": "블론드 카라멜 마키아또",
+   "sub": "마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B126197%5D_20210415154609863.jpg",
+   "price": 6100,
+   "desc": "향긋한 바닐라 시럽과 따뜻한 스팀 밀크 위에 풍성한 우유 거품을 얹고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=126197"
+  },
+  {
+   "name": "디카페인 화이트 초콜릿 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128192%5D_20210415155639126.jpg",
+   "price": 6400,
+   "desc": "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 달콤함과 강렬한 에스프레소가 부드럽게 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128192"
+  },
+  {
+   "name": "1/2디카페인 화이트 초콜릿 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128192%5D_20210415155639126.jpg",
+   "price": 6400,
+   "desc": "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 달콤함과 강렬한 에스프레소가 부드럽게 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128192"
+  },
+  {
+   "name": "블론드 화이트 초콜릿 모카",
+   "sub": "모카",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B128192%5D_20210415155639126.jpg",
+   "price": 6100,
+   "desc": "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료로 달콤함과 강렬한 에스프레소가 부드럽게 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=128192"
+  },
+  {
+   "name": "디카페인 커피 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110611%5D_20250626095539402.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 클래식 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110611"
+  },
+  {
+   "name": "1/2디카페인 커피 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110611%5D_20250626095539402.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 클래식 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110611"
+  },
+  {
+   "name": "블론드 커피 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110611%5D_20250626095539402.jpg",
+   "price": 5300,
+   "desc": "신선하게 제조된 더블 샷 믹스에 클래식 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110611"
+  },
+  {
+   "name": "디카페인 바닐라 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110612%5D_20250626095701777.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 바닐라 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110612"
+  },
+  {
+   "name": "1/2디카페인 바닐라 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110612%5D_20250626095701777.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 바닐라 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110612"
+  },
+  {
+   "name": "블론드 바닐라 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110612%5D_20250626095701777.jpg",
+   "price": 5300,
+   "desc": "신선하게 제조된 더블 샷 믹스에 바닐라 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110612"
+  },
+  {
+   "name": "디카페인 헤이즐넛 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110614%5D_20250626174624137.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 헤이즐넛 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110614"
+  },
+  {
+   "name": "1/2디카페인 헤이즐넛 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110614%5D_20250626174624137.jpg",
+   "price": 5600,
+   "desc": "신선하게 제조된 더블 샷 믹스에 헤이즐넛 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110614"
+  },
+  {
+   "name": "블론드 헤이즐넛 스타벅스 더블 샷",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B110614%5D_20250626174624137.jpg",
+   "price": 5300,
+   "desc": "신선하게 제조된 더블 샷 믹스에 헤이즐넛 시럽을 넣고 에스프레소 샷, 얼음이 어우러져 핸드 쉐이킹한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=110614"
+  },
+  {
+   "name": "디카페인 에스프레소",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B20%5D_20210415144112678.jpg",
+   "price": 4200,
+   "desc": "스타벅스 에스프레소는 향기로운 크레마 층과 바디 층, 하트 층으로 이루어져 있으며, 입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=20"
+  },
+  {
+   "name": "1/2디카페인 에스프레소",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B20%5D_20210415144112678.jpg",
+   "price": 4200,
+   "desc": "스타벅스 에스프레소는 향기로운 크레마 층과 바디 층, 하트 층으로 이루어져 있으며, 입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=20"
+  },
+  {
+   "name": "블론드 에스프레소",
+   "sub": "에스프레소",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B20%5D_20210415144112678.jpg",
+   "price": 3900,
+   "desc": "스타벅스 에스프레소는 향기로운 크레마 층과 바디 층, 하트 층으로 이루어져 있으며, 입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=20"
+  },
+  {
+   "name": "디카페인 에스프레소 마키아또",
+   "sub": "에스프레소 마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B25%5D_20210415144211211.jpg",
+   "price": 4200,
+   "desc": "신선한 에스프레소 샷에 우유 거품을 살짝 얹은 커피 음료로써, 강렬한 에스프레소의 맛과 우유의 부드러움을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=25"
+  },
+  {
+   "name": "1/2디카페인 에스프레소 마키아또",
+   "sub": "에스프레소 마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B25%5D_20210415144211211.jpg",
+   "price": 4200,
+   "desc": "신선한 에스프레소 샷에 우유 거품을 살짝 얹은 커피 음료로써, 강렬한 에스프레소의 맛과 우유의 부드러움을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=25"
+  },
+  {
+   "name": "블론드 에스프레소 마키아또",
+   "sub": "에스프레소 마키아또",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B25%5D_20210415144211211.jpg",
+   "price": 3900,
+   "desc": "신선한 에스프레소 샷에 우유 거품을 살짝 얹은 커피 음료로써, 강렬한 에스프레소의 맛과 우유의 부드러움을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=25"
+  },
+  {
+   "name": "디카페인 에스프레소 콘 파나",
+   "sub": "도피오",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B30%5D_20210415144252244.jpg",
+   "price": 4400,
+   "desc": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=30"
+  },
+  {
+   "name": "1/2디카페인 에스프레소 콘 파나",
+   "sub": "도피오",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B30%5D_20210415144252244.jpg",
+   "price": 4400,
+   "desc": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=30"
+  },
+  {
+   "name": "블론드 에스프레소 콘 파나",
+   "sub": "도피오",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/%5B30%5D_20210415144252244.jpg",
+   "price": 4100,
+   "desc": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=30"
+  },
+  {
+   "name": "디카페인 더블 에스프레소 칩 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000002760%5D_20250626095415811.jpg",
+   "price": 6800,
+   "desc": "리스트레토 에스프레소 2샷과 에스프레소 칩, 하프앤하프가 진하게 어우러진 커피의 기본에 충실한 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002760"
+  },
+  {
+   "name": "1/2디카페인 더블 에스프레소 칩 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000002760%5D_20250626095415811.jpg",
+   "price": 6800,
+   "desc": "리스트레토 에스프레소 2샷과 에스프레소 칩, 하프앤하프가 진하게 어우러진 커피의 기본에 충실한 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002760"
+  },
+  {
+   "name": "블론드 더블 에스프레소 칩 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B9200000002760%5D_20250626095415811.jpg",
+   "price": 6500,
+   "desc": "리스트레토 에스프레소 2샷과 에스프레소 칩, 하프앤하프가 진하게 어우러진 커피의 기본에 충실한 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=9200000002760"
+  },
+  {
+   "name": "디카페인 에스프레소 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B168007%5D_20250626095952087.jpg",
+   "price": 6000,
+   "desc": "풍부하고 진한 에스프레소 샷의 강렬함과 달콤함이 어우러져 깊은 커피의 풍미를 느낄 수 있는 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=168007"
+  },
+  {
+   "name": "1/2디카페인 에스프레소 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B168007%5D_20250626095952087.jpg",
+   "price": 6000,
+   "desc": "풍부하고 진한 에스프레소 샷의 강렬함과 달콤함이 어우러져 깊은 커피의 풍미를 느낄 수 있는 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=168007"
+  },
+  {
+   "name": "블론드 에스프레소 프라푸치노",
+   "sub": "블렌디드 커피",
+   "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2025/06/%5B168007%5D_20250626095952087.jpg",
+   "price": 5700,
+   "desc": "풍부하고 진한 에스프레소 샷의 강렬함과 달콤함이 어우러져 깊은 커피의 풍미를 느낄 수 있는 프라푸치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.starbucks.co.kr/menu/drink_view.do?product_cd=168007"
+  }
+ ]
+}
