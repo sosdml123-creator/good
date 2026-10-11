@@ -4,6 +4,7 @@ import {
   BannerAdPosition,
   BannerAdSize,
   BannerAdPluginEvents,
+  RewardAdPluginEvents,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
@@ -12,6 +13,7 @@ export const ADMOB_APP_ID = 'ca-app-pub-3878859120989916~2898554632';
 export const ADMOB_CLIENT_ID = 'ca-pub-3878859120989916';
 export const ADMOB_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/9433572199'; // 홈 피드 메인 배너
 export const ADMOB_SEARCH_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/1040251860'; // 검색창 추천 슬롯 배너
+export const ADMOB_REWARD_UNIT_ID = 'ca-app-pub-3878859120989916/2388345753'; // 광고 보고 포인트 받기 (보상형)
 export const ADMOB_SLOT_ID = '9433572199';
 export const ADMOB_HOME_SLOT_ID = '9433572199';
 export const ADMOB_SEARCH_SLOT_ID = '1040251860';
@@ -88,6 +90,33 @@ export const initAdMob = (): Promise<boolean> => {
     }
   })();
   return initPromise;
+};
+
+/**
+ * 보상형 광고를 불러와 전체 화면으로 보여 줍니다.
+ * 포인트는 Google 서버가 /api/admob-reward 로 직접 알려 줄 때 적립되므로, userId 를 광고에 실어 보냅니다.
+ */
+export const showRewardedAd = async (userId: string): Promise<'rewarded' | 'dismissed' | 'unavailable'> => {
+  if (!(await initAdMob())) return 'unavailable';
+  const handles: { remove: () => Promise<void> }[] = [];
+  try {
+    await AdMob.prepareRewardVideoAd({ adId: ADMOB_REWARD_UNIT_ID, ssv: { userId } });
+    let rewarded = false;
+    return await new Promise<'rewarded' | 'dismissed' | 'unavailable'>((resolve) => {
+      (async () => {
+        handles.push(await AdMob.addListener(RewardAdPluginEvents.Rewarded, () => { rewarded = true; }));
+        handles.push(await AdMob.addListener(RewardAdPluginEvents.Dismissed, () => resolve(rewarded ? 'rewarded' : 'dismissed')));
+        handles.push(await AdMob.addListener(RewardAdPluginEvents.FailedToShow, () => resolve('unavailable')));
+        // 끝까지 보지 않고 닫으면 이 Promise 는 끝나지 않으므로 결과는 위 이벤트로 판단
+        AdMob.showRewardVideoAd().catch(() => resolve('unavailable'));
+      })();
+    });
+  } catch (e) {
+    console.warn('[AdMob] rewarded ad failed:', e);
+    return 'unavailable';
+  } finally {
+    handles.forEach(h => h.remove().catch(() => {}));
+  }
 };
 
 /**

@@ -5,6 +5,7 @@
  *  GET  ?action=goods            판매중 상품 목록 (공개, CDN 캐시)
  *  GET  ?action=detail&code=...  상품 상세 설명 (공개, CDN 캐시)
  *  GET  ?action=my               내 교환 쿠폰 + 포인트 잔액 (로그인 필요)
+ *  GET  ?action=adstatus         보상형 광고 적립 현황: 1회 포인트 / 오늘 횟수 / 잔액 (로그인 필요)
  *  POST { action: 'exchange', goodsCode }       포인트 차감 후 쿠폰 발급 (로그인 필요)
  *  POST { action: 'use', trId, isUsed }         내 쿠폰 사용완료 표시 (로그인 필요)
  *  GET  ?action=status           비즈머니 잔액 / 설정 상태 (관리자)
@@ -356,7 +357,7 @@ async function exchange(user, goodsCode) {
 
 const ADMOB_KEYS_URL = 'https://www.gstatic.com/admob/reward/verifier-keys.json';
 // 다른 게시자가 자기 광고 단위의 콜백을 이 주소로 돌려 포인트를 받아 가지 못하도록, 등록된 광고 단위만 인정
-const ADMOB_REWARD_AD_UNITS = String(process.env.ADMOB_REWARD_AD_UNITS || '').split(',').map((s) => s.trim()).filter(Boolean);
+const ADMOB_REWARD_AD_UNITS = String(process.env.ADMOB_REWARD_AD_UNITS || '2388345753').split(',').map((s) => s.trim()).filter(Boolean);
 const ADMOB_REWARD_POINTS = Number(process.env.ADMOB_REWARD_POINTS) || 2;
 const ADMOB_REWARD_DAILY_LIMIT = Number(process.env.ADMOB_REWARD_DAILY_LIMIT) || 10;
 
@@ -514,6 +515,25 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         coupons: rows.map(toClientOrder),
+        balance: await getBalance(user.id),
+      });
+    }
+
+    if (req.method === 'GET' && action === 'adstatus') {
+      res.setHeader('Cache-Control', 'no-store');
+      const since = encodeURIComponent(`${kstDate()}T00:00:00+09:00`);
+      const countRes = await fetch(
+        `${supabaseUrl}/rest/v1/ad_rewards?user_id=eq.${encodeURIComponent(user.id)}&created_at=gte.${since}&select=transaction_id&limit=${ADMOB_REWARD_DAILY_LIMIT + 1}`,
+        { headers: serviceHeaders() }
+      );
+      // 적립 테이블이 아직 없으면(마이그레이션 전) 광고 적립을 닫아 둠
+      const rows = countRes.ok ? await countRes.json() : null;
+      return res.status(200).json({
+        success: true,
+        enabled: Boolean(rows),
+        points: ADMOB_REWARD_POINTS,
+        dailyLimit: ADMOB_REWARD_DAILY_LIMIT,
+        today: rows ? rows.length : 0,
         balance: await getBalance(user.id),
       });
     }

@@ -8,12 +8,14 @@ import {
   CheckCircle2,
   Search,
   Loader2,
+  PlayCircle,
   RefreshCw,
   X
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ECouponDetail, ECouponItem, PurchasedECoupon } from '../../types';
-import { couponImageSrc, couponThumbSrc, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../../services/couponApi';
+import { AdRewardStatus, couponImageSrc, couponThumbSrc, fetchAdRewardStatus, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../../services/couponApi';
+import { isNative, showRewardedAd } from '../../services/admobService';
 
 const PAGE_SIZE = 20;
 const MAIN_CATEGORIES = ['커피/음료', '편의점', '베이커리/도넛', '치킨', '버거', '피자', '아이스크림', '외식'];
@@ -32,8 +34,54 @@ export const CouponShopView: React.FC = () => {
     refreshPurchasedCoupons,
     purchaseCoupon,
     useCoupon,
-    userPoints
+    userPoints,
+    applyServerPoints,
+    openLoginModal
   } = useApp();
+
+  // 광고 보고 포인트 받기 (보상형 광고는 앱에서만 지원)
+  const [adStatus, setAdStatus] = useState<AdRewardStatus | null>(null);
+  const [isAdBusy, setIsAdBusy] = useState(false);
+  const [adMessage, setAdMessage] = useState('');
+
+  const loadAdStatus = async () => {
+    try {
+      const status = await fetchAdRewardStatus();
+      setAdStatus(status);
+      return status;
+    } catch {
+      return null;
+    }
+  };
+
+  const watchAd = async () => {
+    if (isAdBusy) return;
+    setAdMessage('');
+    setIsAdBusy(true);
+    try {
+      const before = await loadAdStatus();
+      if (!before) return openLoginModal();
+      if (!before.enabled) return setAdMessage('광고 적립을 준비 중입니다.');
+      if (before.today >= before.dailyLimit) return setAdMessage('오늘 받을 수 있는 횟수를 모두 채웠어요. 내일 다시 받아 보세요.');
+
+      const result = await showRewardedAd(before.userId);
+      if (result === 'unavailable') return setAdMessage('지금은 볼 수 있는 광고가 없습니다. 잠시 후 다시 시도해 주세요.');
+      if (result === 'dismissed') return setAdMessage('광고를 끝까지 보면 포인트가 적립됩니다.');
+
+      // 적립은 Google 서버가 우리 서버로 따로 알려 준 뒤 반영되므로 잠시 확인
+      for (let i = 0; i < 6; i++) {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        const after = await loadAdStatus();
+        if (after && after.today > before.today) {
+          applyServerPoints(after.balance);
+          return setAdMessage(`${before.points}P가 적립되었습니다.`);
+        }
+      }
+      setAdMessage('적립이 조금 늦어지고 있어요. 잠시 후 포인트에 반영됩니다.');
+    } finally {
+      setIsAdBusy(false);
+    }
+  };
 
   // 상품 목록
   const [goods, setGoods] = useState<ECouponItem[]>([]);
@@ -83,6 +131,7 @@ export const CouponShopView: React.FC = () => {
   useEffect(() => {
     loadGoods();
     refreshPurchasedCoupons();
+    if (isNative()) loadAdStatus();
   }, []);
 
   useEffect(() => {
@@ -201,6 +250,32 @@ export const CouponShopView: React.FC = () => {
           )}
         </button>
       </header>
+
+      {isNative() && (
+        <div className="px-4 pt-3">
+          <button
+            onClick={watchAd}
+            disabled={isAdBusy}
+            className="w-full flex items-center gap-3 bg-white border border-amber-200 rounded-2xl px-3.5 py-3 text-left disabled:opacity-60"
+          >
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600 shrink-0">
+              {isAdBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlayCircle className="w-5 h-5" />}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-black text-gray-900">
+                광고 보고 포인트 받기
+                {adStatus && adStatus.points > 0 && <span className="text-amber-600"> +{adStatus.points}P</span>}
+              </div>
+              <div className="text-[11px] text-gray-400 font-medium truncate">
+                {adMessage || (adStatus
+                  ? `오늘 ${adStatus.today}/${adStatus.dailyLimit}회 · 광고를 끝까지 보면 적립됩니다`
+                  : '광고를 끝까지 보면 포인트가 적립됩니다')}
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+          </button>
+        </div>
+      )}
 
       {/* 2. 검색 & 필터 */}
       <div className="bg-white border-b border-gray-100 pt-3 pb-2.5 space-y-2.5">

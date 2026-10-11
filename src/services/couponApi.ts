@@ -82,6 +82,33 @@ export const fetchMyCoupons = async (): Promise<{ coupons: PurchasedECoupon[]; b
   return { coupons: json.coupons || [], balance: json.balance ?? null };
 };
 
+export interface AdRewardStatus {
+  userId: string;
+  enabled: boolean;
+  points: number;
+  dailyLimit: number;
+  today: number;
+  balance: number | null;
+}
+
+/** 보상형 광고 적립 현황. 로그인하지 않은 경우 null */
+export const fetchAdRewardStatus = async (): Promise<AdRewardStatus | null> => {
+  const token = await getAccessToken();
+  const userId = token ? (await supabase!.auth.getSession()).data.session?.user.id : null;
+  if (!token || !userId) return null;
+  const res = await fetch(`${endpoint()}?action=adstatus`, { headers: { Authorization: `Bearer ${token}` } });
+  const json = await res.json();
+  if (!res.ok || !json.success) throw new Error(json.error || '광고 적립 정보를 불러오지 못했습니다.');
+  return {
+    userId,
+    enabled: json.enabled === true,
+    points: json.points || 0,
+    dailyLimit: json.dailyLimit || 0,
+    today: json.today || 0,
+    balance: json.balance ?? null,
+  };
+};
+
 export const exchangeCoupon = async (goodsCode: string): Promise<ExchangeResult> => {
   const token = await getAccessToken();
   if (!token) return { success: false, needLogin: true };

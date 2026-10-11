@@ -389,6 +389,7 @@ interface AppContextType {
   purchasedCoupons: PurchasedECoupon[];
   refreshPurchasedCoupons: () => Promise<void>;
   purchaseCoupon: (goodsCode: string) => Promise<PurchasedECoupon | null>;
+  applyServerPoints: (balance?: number | null) => void;
   useCoupon: (purchasedCouponId: string) => Promise<void>;
   addTestPoints: (amount?: number) => void;
 }
@@ -6436,6 +6437,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         purchasedCoupons,
         refreshPurchasedCoupons,
         purchaseCoupon,
+        applyServerPoints,
         useCoupon,
         addTestPoints,
       }}
