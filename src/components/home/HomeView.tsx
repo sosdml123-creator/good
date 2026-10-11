@@ -37,6 +37,59 @@ import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
 import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
 
+// 홈 구좌 공통 헤더 — 제목 16px / 배지 10px / 보조 문구 12px / 우측 액션 12px로 통일
+const SectionHeader: React.FC<{
+  title: string;
+  titleSuffix?: React.ReactNode;
+  badge?: React.ReactNode;
+  badgeClassName?: string;
+  subtitle?: React.ReactNode;
+  actionLabel?: string;
+  onAction?: () => void;
+  trailing?: React.ReactNode;
+  padded?: boolean;
+}> = ({
+  title,
+  titleSuffix,
+  badge,
+  badgeClassName = 'bg-gray-100 text-gray-700 border border-gray-200',
+  subtitle,
+  actionLabel,
+  onAction,
+  trailing,
+  padded = true,
+}) => (
+  <div className={`mb-3 ${padded ? 'px-4' : ''}`}>
+    <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center gap-1.5 min-w-0">
+        <h3 className="text-[16px] font-bold text-gray-900 leading-snug truncate">{title}</h3>
+        {titleSuffix}
+      </div>
+      {actionLabel ? (
+        <button
+          onClick={onAction}
+          className="shrink-0 text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
+        >
+          <span>{actionLabel}</span>
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      ) : trailing ? (
+        <span className="shrink-0 text-[12px] text-gray-400 font-medium">{trailing}</span>
+      ) : null}
+    </div>
+    {(badge || subtitle) && (
+      <p className="text-[12px] text-gray-400 leading-relaxed mt-1">
+        {badge && (
+          <span className={`inline-flex items-center gap-1 align-middle text-[10px] font-bold px-2 py-0.5 rounded-full mr-1.5 ${badgeClassName}`}>
+            {badge}
+          </span>
+        )}
+        {subtitle}
+      </p>
+    )}
+  </div>
+);
+
 export const HomeView: React.FC = () => {
   const { 
     products, 
@@ -503,34 +556,19 @@ export const HomeView: React.FC = () => {
       case 'new_products':
         return (
           <div key="new_products" className="bg-white mt-2 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-2.5">
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-black text-gray-900 bg-gray-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-gray-200/80">
-                    <Sparkles className="w-3 h-3 text-amber-500" /> {section.badgeText || 'NEW 신상'}
-                  </span>
-                  <span className="text-[11px] text-gray-400 font-medium">{section.subtitle || '편의점·마트 실시간 입고'}</span>
-                </div>
-                <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
-                  {section.title || '따끈따끈 새로 나온 신제품'}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    setSelectedCategory('신제품');
-                    setActiveTab('category');
-                  }}
-                  className="text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
-                >
-                  <span>전체보기</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
+            <SectionHeader
+              title={section.title || '따끈따끈 새로 나온 신제품'}
+              badge={<><Sparkles className="w-3 h-3 text-amber-500" /> {section.badgeText || 'NEW 신상'}</>}
+              subtitle={section.subtitle || '편의점·마트 실시간 입고'}
+              actionLabel="전체보기"
+              onAction={() => {
+                setSelectedCategory('신제품');
+                setActiveTab('category');
+              }}
+            />
 
             {/* Subcategory Filter Pills */}
-            <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4 mb-3.5">
+            <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4 mb-3">
               {newProductFilterCategories.map((cat) => {
                 const isSelected = newProductCategoryFilter === cat;
                 return (
@@ -582,7 +620,7 @@ export const HomeView: React.FC = () => {
                         {/* Badges - Only show today's new item badge if applicable */}
                         {p.isToday && (
                           <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
-                            <span className="text-[10px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
+                            <span className="text-[10px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
                               <Zap className="w-2.5 h-2.5 fill-current" /> 오늘신상
                             </span>
                           </div>
@@ -604,13 +642,13 @@ export const HomeView: React.FC = () => {
                       {/* Product Details */}
                       <div className="mt-2">
                         <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
-                        <div className="text-[12px] font-bold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-gray-700 transition-colors">
+                        <div className="text-[13px] font-semibold text-gray-900 leading-snug line-clamp-2 mt-0.5 group-hover:text-gray-700 transition-colors">
                           {p.name}
                         </div>
 
                         {/* Star Rating */}
                         {p.ratingCount > 0 && p.overallRating > 0 ? (
-                          <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
+                          <div className="flex items-center gap-1 mt-1 text-[11px] font-semibold text-gray-700">
                             <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
                             <span>{p.overallRating.toFixed(1)}</span>
                             <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
@@ -619,7 +657,7 @@ export const HomeView: React.FC = () => {
 
                         {/* Price */}
                         <div className="flex items-center gap-1 mt-0.5">
-                          <span className="text-[13px] font-black text-gray-900">{p.price.toLocaleString()}원</span>
+                          <span className="text-[13px] font-bold text-gray-900">{p.price.toLocaleString()}원</span>
                         </div>
                       </div>
                     </div>
@@ -627,7 +665,7 @@ export const HomeView: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="py-8 text-center text-gray-400 text-xs bg-gray-50/50 mx-4 rounded-xl">
+              <div className="py-8 text-center text-gray-400 text-[12px] bg-gray-50/50 mx-4 rounded-xl">
                 이번 주에 새로 나온 신상품이 아직 없어요.
               </div>
             )}
@@ -638,26 +676,14 @@ export const HomeView: React.FC = () => {
       case 'sale_events':
         return (
           <div key="sale_events" className="bg-white mt-2 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-2.5">
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-rose-100">
-                    <Tag className="w-3 h-3" /> {section.badgeText || '1+1 · 할인특가'}
-                  </span>
-                  <span className="text-[11px] text-gray-400 font-medium">{section.subtitle || '편의점·마트 실속 혜택'}</span>
-                </div>
-                <h3 className="text-[16px] font-black text-gray-900 mt-1 flex items-center gap-1.5">
-                  {section.title || '놓치면 손해! 이달의 행사소식'}
-                </h3>
-              </div>
-              <button
-                onClick={() => setActiveTab('calendar')}
-                className="text-[12px] text-rose-600 font-bold hover:underline flex items-center gap-0.5 transition-colors"
-              >
-                <span>전체보기</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            <SectionHeader
+              title={section.title || '놓치면 손해! 이달의 행사소식'}
+              badge={<><Tag className="w-3 h-3" /> {section.badgeText || '1+1 · 할인특가'}</>}
+              badgeClassName="bg-rose-50 text-rose-600 border border-rose-100"
+              subtitle={section.subtitle || '편의점·마트 실속 혜택'}
+              actionLabel="전체보기"
+              onAction={() => setActiveTab('calendar')}
+            />
 
             {/* Horizontal Sale Cards */}
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
@@ -672,7 +698,7 @@ export const HomeView: React.FC = () => {
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1">
-                          <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
                             item.dealType === '1+1'
                               ? 'bg-red-500 text-white animate-pulse'
                               : item.dealType === '2+1'
@@ -715,15 +741,15 @@ export const HomeView: React.FC = () => {
                           className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0 group-hover:scale-105 transition-transform" 
                         />
                         <div className="min-w-0 flex-1">
-                          <div className="text-[10px] text-gray-400 font-medium truncate">{item.brand}</div>
-                          <div className="text-xs font-bold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition-colors">
+                          <div className="text-[11px] text-gray-400 font-medium truncate">{item.brand}</div>
+                          <div className="text-[13px] font-semibold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition-colors">
                             {item.title}
                           </div>
-                          <div className="text-[11px] font-black text-rose-600 mt-0.5">
+                          <div className="text-[11px] font-bold text-rose-600 mt-0.5">
                             {item.unitPriceDescription}
                           </div>
                           {item.originalPrice > 0 && (
-                            <div className="text-[10px] text-gray-400 line-through">
+                            <div className="text-[11px] text-gray-400 line-through">
                               {item.originalPrice.toLocaleString()}원
                             </div>
                           )}
@@ -731,7 +757,7 @@ export const HomeView: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[10px]">
+                    <div className="mt-2.5 pt-2 border-t border-gray-200/60 flex items-center justify-between text-[11px]">
                       <span className="text-gray-500 font-medium truncate max-w-[120px]">
                         {item.benefitTag || item.description}
                       </span>
@@ -748,24 +774,13 @@ export const HomeView: React.FC = () => {
       case 'brand_hub':
         return (
           <div key="brand_hub" className="bg-white mt-2 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-2">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[15px] font-bold text-gray-900">{section.title || '인기 대표 브랜드관'}</span>
-                <span className="text-[10px] font-bold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border border-gray-200">
-                  {section.badgeText || '전용관'}
-                </span>
-              </div>
-              <button
-                onClick={() => setActiveTab('brand')}
-                className="text-[13px] text-gray-600 font-semibold hover:text-gray-900 flex items-center"
-              >
-                전체 브랜드 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-              </button>
-            </div>
-
-            <p className="px-4 text-[11px] text-gray-400 mb-3">
-              {section.subtitle || '스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기'}
-            </p>
+            <SectionHeader
+              title={section.title || '인기 대표 브랜드관'}
+              badge={section.badgeText || '전용관'}
+              subtitle={section.subtitle || '스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기'}
+              actionLabel="전체 브랜드"
+              onAction={() => setActiveTab('brand')}
+            />
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
               {(brands.filter(b => b.isPopular).length > 0 ? brands.filter(b => b.isPopular) : brands).map((b) => {
@@ -785,14 +800,14 @@ export const HomeView: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <div className="text-xs font-black text-gray-900 truncate max-w-[100px] group-hover:text-gray-700 transition-colors">
+                      <div className="text-[13px] font-semibold text-gray-900 truncate max-w-[100px] group-hover:text-gray-700 transition-colors">
                         {b.name}
                       </div>
-                      <div className="text-[10px] text-gray-400 font-medium">
+                      <div className="text-[11px] text-gray-400 font-medium">
                         {count > 0 ? `${count}개 메뉴` : b.category}
                       </div>
                     </div>
-                    <span className="text-[9px] font-bold text-gray-700 bg-white px-2 py-0.5 rounded-full shadow-2xs border border-gray-200">
+                    <span className="text-[10px] font-bold text-gray-700 bg-white px-2 py-0.5 rounded-full shadow-2xs border border-gray-200">
                       모아보기
                     </span>
                   </div>
@@ -806,27 +821,17 @@ export const HomeView: React.FC = () => {
       case 'search_trending':
         return (
           <div key="search_trending" className="bg-white mt-2 py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-3">
-              <span className="text-[15px] font-bold text-gray-900">{section.title || '요즘 주목받는 먹거리'}</span>
-              <button
-                onClick={() => setActiveTab('category')}
-                className="text-[13px] text-gray-400 font-medium hover:text-gray-700"
-              >
-                전체보기
-              </button>
-            </div>
-
-            {section.subtitle ? (
-              <p className="px-4 text-[11px] text-gray-400 mb-3">
-                {section.subtitle}
-              </p>
-            ) : null}
-
-            {searchTrending.isLive ? (
-              <p className="px-4 text-[11px] text-gray-400 mb-3">
-                네이버 검색량·쇼핑·블로그 종합 · {new Date(searchTrending.updatedAt).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })} 기준
-              </p>
-            ) : null}
+            <SectionHeader
+              title={section.title || '요즘 주목받는 먹거리'}
+              subtitle={[
+                section.subtitle,
+                searchTrending.isLive
+                  ? `네이버 검색량·쇼핑·블로그 종합 · ${new Date(searchTrending.updatedAt).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })} 기준`
+                  : '',
+              ].filter(Boolean).join(' · ')}
+              actionLabel="전체보기"
+              onAction={() => setActiveTab('category')}
+            />
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
               {searchTrending.products.map((p, index) => {
@@ -851,29 +856,29 @@ export const HomeView: React.FC = () => {
                       {/* Rank Badge without emojis */}
                       <div className="absolute top-1.5 left-1.5">
                         {rank === 1 && (
-                          <span className="text-[10px] font-black bg-gradient-to-r from-[#03C75A] to-emerald-600 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          <span className="text-[10px] font-bold bg-gradient-to-r from-[#03C75A] to-emerald-600 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                             1위
                           </span>
                         )}
                         {rank === 2 && (
-                          <span className="text-[10px] font-black bg-slate-800 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          <span className="text-[10px] font-bold bg-slate-800 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                             2위
                           </span>
                         )}
                         {rank === 3 && (
-                          <span className="text-[10px] font-black bg-amber-700 text-white px-1.5 py-0.5 rounded-md shadow-xs">
+                          <span className="text-[10px] font-bold bg-amber-700 text-white px-1.5 py-0.5 rounded-md shadow-xs">
                             3위
                           </span>
                         )}
                         {rank > 3 && (
-                          <span className="text-[10px] font-black bg-black/65 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                          <span className="text-[10px] font-bold bg-black/65 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
                             {rank}위
                           </span>
                         )}
                       </div>
 
                       {p.subCategory && (
-                        <span className="absolute bottom-1.5 left-1.5 text-[9px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
+                        <span className="absolute bottom-1.5 left-1.5 text-[10px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
                           {p.subCategory}
                         </span>
                       )}
@@ -887,13 +892,13 @@ export const HomeView: React.FC = () => {
 
                     <div className="mt-2">
                       <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand}</div>
-                      <div className="text-[12px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-gray-700 transition-colors">
+                      <div className="text-[13px] font-semibold text-gray-900 leading-snug mt-0.5 line-clamp-2 group-hover:text-gray-700 transition-colors">
                         {p.name}
                       </div>
 
                       {/* Yellow Star Rating */}
                       {p.ratingCount > 0 && p.overallRating > 0 ? (
-                        <div className="flex items-center gap-1 mt-1 text-[12px] font-semibold text-gray-800">
+                        <div className="flex items-center gap-1 mt-1 text-[11px] font-semibold text-gray-700">
                           <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
                           <span>{p.overallRating.toFixed(1)}</span>
                           <span className="text-[11px] text-gray-400 font-normal">({p.ratingCount})</span>
@@ -915,15 +920,12 @@ export const HomeView: React.FC = () => {
       case 'hot_events':
         return events.length > 0 ? (
           <div key="hot_events" id="section-hot-events" className="mt-2 bg-white py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-3">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[15px] font-black text-gray-900">{section.title || '진행 중인 핫 이벤트 & 체험단'}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-              </div>
-              <span className="text-[11px] text-gray-500 font-bold">
-                {events.length}개 진행중
-              </span>
-            </div>
+            <SectionHeader
+              title={section.title || '진행 중인 핫 이벤트 & 체험단'}
+              titleSuffix={<span className="shrink-0 w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>}
+              subtitle={section.subtitle}
+              trailing={`${events.length}개 진행중`}
+            />
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
               {events.map((ev) => (
@@ -943,7 +945,7 @@ export const HomeView: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     
-                    <span className="absolute top-2 left-2 text-[10px] font-black text-white bg-gray-900 px-2 py-0.5 rounded-full shadow-xs">
+                    <span className="absolute top-2 left-2 text-[10px] font-bold text-white bg-gray-900 px-2 py-0.5 rounded-full shadow-xs">
                       {ev.badge}
                     </span>
 
@@ -958,7 +960,7 @@ export const HomeView: React.FC = () => {
 
                   <div className="p-3 flex-1 flex flex-col justify-between">
                     <div>
-                      <h4 className="text-xs font-bold text-gray-900 line-clamp-1 leading-snug">
+                      <h4 className="text-[13px] font-semibold text-gray-900 line-clamp-1 leading-snug">
                         {ev.title}
                       </h4>
                       <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5">
@@ -970,7 +972,7 @@ export const HomeView: React.FC = () => {
                       <span className="text-[10px] font-bold text-gray-800 bg-gray-100 px-1.5 py-0.5 rounded">
                         {ev.reward.length > 14 ? ev.reward.slice(0, 14) + '...' : ev.reward}
                       </span>
-                      <span className="text-[10px] text-gray-400 font-medium">
+                      <span className="text-[11px] text-gray-400 font-medium">
                         {ev.participantsCount}명 참여
                       </span>
                     </div>
@@ -985,24 +987,14 @@ export const HomeView: React.FC = () => {
       case 'recipes':
         return (
           <div key="recipes" className="mt-2 bg-white py-4 border-b border-gray-100">
-            <div className="flex items-center justify-between px-4 mb-2">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[15px] font-black text-gray-900">{section.title || '화제의 편의점 꿀조합'}</span>
-                <span className="text-[10px] font-extrabold bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200">
-                  {section.badgeText || '맛잘알 추천'}
-                </span>
-              </div>
-              <button
-                onClick={() => setActiveTab('community')}
-                className="text-[13px] text-gray-600 font-semibold hover:text-gray-900 flex items-center"
-              >
-                수다방 레시피 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-              </button>
-            </div>
-
-            <p className="px-4 text-[11px] text-gray-400 mb-3">
-              {section.subtitle || '신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.'}
-            </p>
+            <SectionHeader
+              title={section.title || '화제의 편의점 꿀조합'}
+              badge={section.badgeText || '맛잘알 추천'}
+              badgeClassName="bg-amber-50 text-amber-700 border border-amber-200"
+              subtitle={section.subtitle || '신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.'}
+              actionLabel="수다방 레시피"
+              onAction={() => setActiveTab('community')}
+            />
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1">
               {recipes.map((recipe) => (
@@ -1024,10 +1016,10 @@ export const HomeView: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       
                       <div className="absolute top-2 left-2 flex gap-1">
-                        <span className="text-[9px] font-black bg-black/60 text-white px-2 py-0.5 rounded-full backdrop-blur-xs flex items-center gap-0.5">
+                        <span className="text-[10px] font-bold bg-black/60 text-white px-2 py-0.5 rounded-full backdrop-blur-xs flex items-center gap-0.5">
                           <Clock className="w-2.5 h-2.5" /> {recipe.prepTime}
                         </span>
-                        <span className="text-[9px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded-full shadow-xs">
+                        <span className="text-[10px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-full shadow-xs">
                           {recipe.difficulty}
                         </span>
                       </div>
@@ -1040,7 +1032,7 @@ export const HomeView: React.FC = () => {
                     </div>
 
                     <div className="p-3">
-                      <h4 className="text-xs font-bold text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-1 leading-snug">
+                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-1 leading-snug">
                         {recipe.title}
                       </h4>
                       <p className="text-[11px] text-gray-500 line-clamp-2 mt-1 leading-relaxed">
@@ -1050,7 +1042,7 @@ export const HomeView: React.FC = () => {
                   </div>
 
                   <div className="px-3 pb-3 pt-1 border-t border-gray-50 flex items-center justify-between text-[11px]">
-                    <span className="font-extrabold text-gray-900">
+                    <span className="font-bold text-gray-900">
                       약 {recipe.totalCost.toLocaleString()}원
                     </span>
                     <span className="text-gray-400 font-medium flex items-center gap-1">
@@ -1068,22 +1060,15 @@ export const HomeView: React.FC = () => {
       case 'battle':
         return (
           <div key="battle" className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <span className="text-[15px] font-bold text-gray-900">{section.title || battleConfig.title}</span>
-                <span className="text-[11px] font-bold text-white bg-gradient-to-r from-gray-900 to-slate-800 px-2 py-0.5 rounded-full">VS</span>
-              </div>
-              <button
-                onClick={() => setActiveTab('compare')}
-                className="text-[13px] text-gray-400 font-medium hover:text-gray-700"
-              >
-                비교표 보기
-              </button>
-            </div>
-
-            {(section.subtitle || battleConfig.subtitle) && (
-              <p className="text-[12px] text-gray-500 -mt-1.5 mb-3">{section.subtitle || battleConfig.subtitle}</p>
-            )}
+            <SectionHeader
+              padded={false}
+              title={section.title || battleConfig.title}
+              badge="VS"
+              badgeClassName="text-white bg-gradient-to-r from-gray-900 to-slate-800"
+              subtitle={section.subtitle || battleConfig.subtitle}
+              actionLabel="비교표 보기"
+              onAction={() => setActiveTab('compare')}
+            />
 
             {(() => {
               const allNew = products.filter(p => isRealNewProduct(p));
@@ -1118,7 +1103,7 @@ export const HomeView: React.FC = () => {
                     />
                     <div className="p-2.5">
                       <div className="text-[11px] text-slate-800 font-bold">{battleConfig.labelA || `${prodA.category || '인기'} 신상`}</div>
-                      <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
+                      <div className="text-[13px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
                       <div className="mt-1.5 flex items-center gap-1">
                         <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
                           <div className="bg-slate-800 h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
@@ -1146,7 +1131,7 @@ export const HomeView: React.FC = () => {
                     />
                     <div className="p-2.5">
                       <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category || '대세'} 신상`}</div>
-                      <div className="text-[12px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
+                      <div className="text-[13px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
                       <div className="mt-1.5 flex items-center gap-1">
                         <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
                           <div className="bg-orange-400 h-full rounded-full transition-all" style={{ width: `${percentB}%` }}></div>
@@ -1169,10 +1154,13 @@ export const HomeView: React.FC = () => {
       case 'popular_ranking':
         return (
           <div key="popular_ranking" className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[15px] font-bold text-gray-900">{section.title || '실시간 인기 품목 랭킹'}</span>
-              <button onClick={() => setActiveTab('ranking')} className="text-[13px] text-gray-500 font-semibold hover:text-gray-900">전체보기</button>
-            </div>
+            <SectionHeader
+              padded={false}
+              title={section.title || '실시간 인기 품목 랭킹'}
+              subtitle={section.subtitle}
+              actionLabel="전체보기"
+              onAction={() => setActiveTab('ranking')}
+            />
 
             <div className="space-y-4">
               {getPopularProducts(products, section.itemLimit || 5, reviews).map((p, i) => (
@@ -1192,7 +1180,7 @@ export const HomeView: React.FC = () => {
                     className="w-14 h-14 rounded-xl object-cover bg-gray-100 shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[11px] text-gray-400">{p.brand} {p.subCategory ? `· ${p.subCategory}` : ''}</div>
+                    <div className="text-[11px] text-gray-400 font-medium truncate">{p.brand} {p.subCategory ? `· ${p.subCategory}` : ''}</div>
                     <div className="text-[13px] font-semibold text-gray-900 truncate">{p.name}</div>
                     {p.ratingCount > 0 && p.overallRating > 0 ? (
                       <div className="flex items-center gap-2 mt-0.5">
@@ -1221,10 +1209,13 @@ export const HomeView: React.FC = () => {
       case 'reviews':
         return (
           <div key="reviews" className="mt-2 bg-white py-4 px-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[15px] font-bold text-gray-900">{section.title || '이번 주 실시간 솔직 후기'}</span>
-              <button onClick={() => setActiveTab('category')} className="text-[13px] text-gray-400">더보기</button>
-            </div>
+            <SectionHeader
+              padded={false}
+              title={section.title || '이번 주 실시간 솔직 후기'}
+              subtitle={section.subtitle}
+              actionLabel="더보기"
+              onAction={() => setActiveTab('category')}
+            />
 
             {reviews.length > 0 ? (
               <div className="space-y-4">
@@ -1275,7 +1266,7 @@ export const HomeView: React.FC = () => {
                       />
                     )}
 
-                    <div className="flex items-center gap-4 mt-2 text-[12px] text-gray-400">
+                    <div className="flex items-center gap-4 mt-2 text-[11px] text-gray-400">
                       <span>♡ 도움돼요 {r.likes}</span>
                       <span>💬 댓글 {r.commentsCount || 0}</span>
                     </div>
