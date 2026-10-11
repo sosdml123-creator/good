@@ -40,6 +40,7 @@ export const CouponShopView: React.FC = () => {
   } = useApp();
 
   // 광고 보고 포인트 받기 (보상형 광고는 앱에서만 지원)
+  const [tab, setTab] = useState<'shop' | 'charge'>('shop');
   const [adStatus, setAdStatus] = useState<AdRewardStatus | null>(null);
   const [isAdBusy, setIsAdBusy] = useState(false);
   const [adMessage, setAdMessage] = useState('');
@@ -56,6 +57,7 @@ export const CouponShopView: React.FC = () => {
 
   const watchAd = async () => {
     if (isAdBusy) return;
+    if (!isNative()) return setAdMessage('광고 적립은 신상픽 앱에서만 가능합니다.');
     setAdMessage('');
     setIsAdBusy(true);
     try {
@@ -131,7 +133,7 @@ export const CouponShopView: React.FC = () => {
   useEffect(() => {
     loadGoods();
     refreshPurchasedCoupons();
-    if (isNative()) loadAdStatus();
+    loadAdStatus();
   }, []);
 
   useEffect(() => {
@@ -251,8 +253,23 @@ export const CouponShopView: React.FC = () => {
         </button>
       </header>
 
-      {isNative() && (
+      <div className="bg-white border-b border-gray-100 px-4 flex">
+        {([['shop', 'e쿠폰'], ['charge', '충전소']] as const).map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={`flex-1 py-2.5 text-[13px] font-black border-b-2 transition-colors ${
+              tab === id ? 'text-gray-900 border-gray-900' : 'text-gray-400 border-transparent'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'charge' && (
         <div className="px-4 pt-3">
+          <p className="text-[11px] font-bold text-gray-400 mb-2">포인트를 모아 e쿠폰으로 교환해 보세요</p>
           <button
             onClick={watchAd}
             disabled={isAdBusy}
@@ -274,9 +291,13 @@ export const CouponShopView: React.FC = () => {
             </div>
             <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
           </button>
+          <p className="text-[10px] text-gray-400 leading-relaxed mt-3">
+            광고 적립은 신상픽 앱에서 하루 정해진 횟수까지 가능하며, 광고를 끝까지 시청해야 적립됩니다.
+          </p>
         </div>
       )}
 
+      {tab === 'shop' && (<>
       {/* 2. 검색 & 필터 */}
       <div className="bg-white border-b border-gray-100 pt-3 pb-2.5 space-y-2.5">
         <div className="px-4">
@@ -416,6 +437,7 @@ export const CouponShopView: React.FC = () => {
           상품공급자: 주식회사 케이티알파 / 발행: 신상픽
         </p>
       </div>
+      </>)}
 
       {/* 4. 상품 상세 & 교환 시트 */}
       {selectedGoods && (
