@@ -3,6 +3,7 @@ import { Product } from '../types';
 import {
   buildFoodTrendBatches,
   buildFoodTrendKeyword,
+  findMentionedProductIds,
   rankFoodTrendProducts,
   scoreFoodTrendSignals,
   selectFoodTrendCandidates,
@@ -44,6 +45,26 @@ describe('요즘 주목받는 먹거리 - 네이버 신호 순위', () => {
     // 날짜가 바뀌면 순환 후보가 달라진다
     const nextDay = selectFoodTrendCandidates(products, '2026-10-11');
     expect([...nextDay.keys()].sort()).not.toEqual([...first.keys()].sort());
+  });
+
+  it('네이버 최신 글에 언급된 등록 제품을 먼저 찾아 후보 맨 앞에 올린다', () => {
+    const products = [
+      ...Array.from({ length: 100 }, (_, i) => product({ id: `p${i}`, name: `제품${i} 스낵`, brand: `브랜드${i % 47}`, overallRating: 5, ratingCount: 10 })),
+      product({ id: 'new-snack', name: '오리온 미쯔 황치즈', brand: '오리온', itemType: 'packaged' }),
+      product({ id: 'new-menu', name: '스타벅스 블랙 글레이즈드 라떼', brand: '스타벅스', itemType: 'restaurant' }),
+      product({ id: 'generic-menu', name: '컴포즈커피 바닐라 라떼', brand: '컴포즈커피', itemType: 'restaurant' }),
+    ];
+    const texts = [
+      '편의점신상미쯔황치즈먹어본후기',
+      '미쯔황치즈진짜맛있네요',
+      '스타벅스신메뉴블랙글레이즈드라떼후기',
+      '집에서만든바닐라라떼레시피', // 브랜드가 없으므로 컴포즈커피 메뉴로 보지 않는다
+    ];
+    expect(findMentionedProductIds(products, texts)).toEqual(['new-snack', 'new-menu']);
+
+    const candidates = selectFoodTrendCandidates(products, '2026-10-10', ['new-snack', 'new-menu']);
+    expect([...candidates.keys()].slice(0, 2)).toEqual(['new-snack', 'new-menu']);
+    expect(candidates.size).toBe(60);
   });
 
   it('검색량·쇼핑·블로그·급상승을 종합해 순위를 매긴다', () => {

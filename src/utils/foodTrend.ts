@@ -20,10 +20,11 @@ export interface FoodTrendKeyword {
   alt: string; // 브랜드를 뺀 표기 (없으면 빈 문자열)
 }
 
-export const FOOD_TREND_BATCH_SIZE = 4;
-const POPULAR_POOL_SIZE = 24;
-const BUZZ_POOL_SIZE = 24;
-const DISCOVERY_POOL_SIZE = 12;
+// 키워드 1개 = 요청 1건: 후보 구성이 사용자마다 조금 달라도 같은 키워드는 서버 캐시를 그대로 공유합니다
+export const FOOD_TREND_BATCH_SIZE = 1;
+const POOL_SIZE = 60;
+const MENTIONED_POOL_SIZE = 32;
+const MENTIONED_BRAND_CAP = 4;
 const POPULAR_BRAND_CAP = 4;
 const ROTATING_BRAND_CAP = 2;
 const MAX_KEY_LENGTH = 36;
@@ -111,19 +112,61 @@ const takeWithBrandCap = (sorted: Product[], size: number, cap: number, usedKeys
 };
 
 /**
- * 네이버에 조회할 후보 제품을 고릅니다 (1,000개가 넘는 전 제품을 매번 조회할 수는 없으므로).
+ * 네이버 최신 블로그·뉴스 본문에 실제로 언급된 등록 제품을 언급 횟수순으로 찾습니다.
+ * 일반명사와 겹치는 오탐을 줄이기 위해 제품 고유 명칭이 붙어서 등장해야 하고, 매장 메뉴는 브랜드도 함께 나와야 합니다.
+ */
+export const findMentionedProductIds = (products: Product[], texts: string[]): string[] => {
+  const mentioned: { id: string; count: number }[] = [];
+  for (const product of products) {
+    const keyword = buildFoodTrendKeyword(product);
+    if (!keyword) continue;
+
+    let brand = '';
+    let phrase = compact(keyword.alt || keyword.key).toLowerCase();
+    if (product.itemType === 'restaurant') {
+      const [first, ...rest] = keyword.key.toLowerCase().split(' ');
+      brand = first;
+      phrase = rest.join('');
+    }
+    if (phrase.length < 3) continue;
+
+    let count = 0;
+    for (const text of texts) {
+      if (text.includes(phrase) && (!brand || text.includes(brand))) count += 1;
+    }
+    if (count > 0) mentioned.push({ id: product.id, count });
+  }
+  return mentioned.sort((a, b) => b.count - a.count || a.id.localeCompare(b.id)).map((m) => m.id);
+};
+
+/**
+ * 네이버에 검색량을 조회할 후보 제품을 고릅니다 (1,000개가 넘는 전 제품을 매번 조회할 수는 없으므로).
+ *  - 언급 후보: 네이버 최신 블로그·뉴스에 실제로 언급된 제품 (findMentionedProductIds 결과, 최우선)
  *  - 인기 후보: 앱 내 인기 점수 상위 제품 (브랜드 편중 방지)
  *  - 화제 후보: HOT·신제품으로 표시된 제품 중 날짜별로 바뀌는 일부
  *  - 발굴 후보: 나머지 제품 중 날짜별로 바뀌는 일부 — 표시가 없어도 실제로 뜨는 제품이 진입할 기회
  * 같은 날 같은 제품 목록이면 모든 사용자가 동일한 후보를 얻어 서버 캐시를 공유합니다.
  */
-export const selectFoodTrendCandidates = (products: Product[], dateKey: string): Map<string, FoodTrendKeyword> => {
+export const selectFoodTrendCandidates = (
+  products: Product[],
+  dateKey: string,
+  mentionedIds: string[] = []
+): Map<string, FoodTrendKeyword> => {
   const candidates = new Map<string, FoodTrendKeyword>();
   const usedKeys = new Set<string>();
 
+  const byId = new Map(products.map((product) => [product.id, product]));
+  const mentioned = mentionedIds.map((id) => byId.get(id)).filter((product): product is Product => Boolean(product));
+  takeWithBrandCap(mentioned, MENTIONED_POOL_SIZE, MENTIONED_BRAND_CAP, usedKeys, candidates);
+
+  // 남은 자리는 인기 40% · 화제 40% · 발굴 20%로 채웁니다
+  const remaining = POOL_SIZE - candidates.size;
+  const popularSize = Math.round(remaining * 0.4);
+  const buzzSize = Math.round(remaining * 0.4);
+
   const scored = products.map((product) => ({ product, popularity: calculateProductPopularity(product) }));
   scored.sort((a, b) => b.popularity - a.popularity || a.product.id.localeCompare(b.product.id));
-  takeWithBrandCap(scored.map((s) => s.product), POPULAR_POOL_SIZE, POPULAR_BRAND_CAP, usedKeys, candidates);
+  takeWithBrandCap(scored.map((s) => s.product), popularSize, POPULAR_BRAND_CAP, usedKeys, candidates);
 
   const rotateByDate = (pool: Product[]) => pool
     .filter((product) => !candidates.has(product.id))
@@ -132,8 +175,8 @@ export const selectFoodTrendCandidates = (products: Product[], dateKey: string):
     .map((entry) => entry.product);
 
   const buzzing = products.filter((product) => product.isHot || product.isToday || isRealNewProduct(product));
-  takeWithBrandCap(rotateByDate(buzzing), BUZZ_POOL_SIZE, ROTATING_BRAND_CAP, usedKeys, candidates);
-  takeWithBrandCap(rotateByDate(products), DISCOVERY_POOL_SIZE, ROTATING_BRAND_CAP, usedKeys, candidates);
+  takeWithBrandCap(rotateByDate(buzzing), buzzSize, ROTATING_BRAND_CAP, usedKeys, candidates);
+  takeWithBrandCap(rotateByDate(products), POOL_SIZE - candidates.size, ROTATING_BRAND_CAP, usedKeys, candidates);
 
   return candidates;
 };

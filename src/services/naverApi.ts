@@ -781,7 +781,7 @@ export const callNaverDataLabApi = async (
 
 /**
  * "요즘 주목받는 먹거리" 순위용 네이버 신호 조회 (검색량·쇼핑 클릭·블로그 언급, 서버에서 1시간 캐시).
- * batch는 "키워드~별칭|키워드~별칭" 형식(최대 4개)이며, 실패 시 빈 객체를 반환합니다.
+ * batch는 "키워드~별칭" 형식이며(서버는 "|"로 최대 4개까지 허용), 실패 시 빈 객체를 반환합니다.
  */
 export const fetchFoodTrendSignals = async (batch: string): Promise<Record<string, FoodTrendSignal>> => {
   try {
@@ -797,6 +797,21 @@ export const fetchFoodTrendSignals = async (batch: string): Promise<Record<strin
   } catch (err) {
     console.warn('[Food Trend Signals Failed]', err);
     return {};
+  }
+};
+
+/**
+ * 네이버 블로그·뉴스의 최신 먹거리 글 본문(공백 제거·소문자) 조회. 등록 제품 중 지금 언급되는 제품을 찾는 데 씁니다.
+ */
+export const fetchFoodBuzzTexts = async (): Promise<string[]> => {
+  try {
+    const res = await fetchWithTimeout(`${getNaverApiBaseUrl()}/api/naver?type=food_buzz`, undefined, 20000);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data?.texts) ? data.texts.filter((t: unknown) => typeof t === 'string') : [];
+  } catch (err) {
+    console.warn('[Food Buzz Texts Failed]', err);
+    return [];
   }
 };
 

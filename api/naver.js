@@ -13,6 +13,7 @@
  * 
  * 3. 요즘 주목받는 먹거리 실시간 신호 (GET, 1시간 엣지 캐시):
  *    - /api/naver?type=food_trend&kw=이름~별칭|이름~별칭 (최대 4개)
+ *    - /api/naver?type=food_buzz  최신 먹거리 블로그·뉴스 본문 (순위 후보 발굴용)
  *
  * 4. NAVER Search APIs (GET):
  *    - /api/naver?type=news|image|blog|shop|webkr&query=...&sort=...&display=...
@@ -21,7 +22,7 @@
  *    - /api/naver?type=nearby_stores&lat=...&lng=...&brand=CU|GS25|세븐일레븐|이마트24
  */
 
-import { collectFoodTrendSignals, parseTrendItems } from './_lib/foodTrend.js';
+import { collectFoodBuzzTexts, collectFoodTrendSignals, parseTrendItems } from './_lib/foodTrend.js';
 import { findNearbyStores } from './_lib/nearbyStores.js';
 
 export default async function handler(req, res) {
@@ -74,7 +75,7 @@ export default async function handler(req, res) {
     'datalab_device', 'shopping_device',
     'shopping_keyword_age', 'shopping_keyword_gender', 'shopping_keyword_device',
     'search_trend', 'datalab_search', 'trend',
-    'food_trend'
+    'food_trend', 'food_buzz'
   ];
 
   const safeType = ALLOWED_TYPES.includes(String(type)) ? String(type) : 'news';
@@ -101,6 +102,17 @@ export default async function handler(req, res) {
         ? 's-maxage=3600, stale-while-revalidate=86400'
         : 's-maxage=300');
       return res.status(200).json(signals);
+    }
+
+    if (safeType === 'food_buzz') {
+      const buzz = await collectFoodBuzzTexts({ clientId, clientSecret });
+      if (!buzz.ok) {
+        return res.status(502).json({ error: 'NAVER buzz texts are unavailable' });
+      }
+      res.setHeader('Cache-Control', buzz.complete
+        ? 's-maxage=3600, stale-while-revalidate=86400'
+        : 's-maxage=300');
+      return res.status(200).json(buzz);
     }
 
     // ----------------------------------------------------

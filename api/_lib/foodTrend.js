@@ -149,6 +149,44 @@ async function fetchBlogBuzz(item, credentials) {
   return round(relevant / spanDays);
 }
 
+// 지금 화제인 먹거리를 찾기 위해 훑어보는 검색어 (최신순 100건씩)
+const BUZZ_BLOG_QUERIES = [
+  '편의점 신상', '신제품 출시', '신메뉴 출시', '요즘 핫한 간식', '편의점 추천', '신상 과자', '신상 음료',
+  '카페 신메뉴', '신상 아이스크림', '라면 신제품', '디저트 신상', '마트 추천템', '신상 빵', '버거 신메뉴',
+];
+const BUZZ_NEWS_QUERIES = ['신제품 출시', '신메뉴 출시', '편의점 신상품'];
+
+/**
+ * 네이버 블로그·뉴스의 최신 먹거리 글을 모아, 제품명 대조용 본문(공백 제거·소문자)으로 반환합니다.
+ * 앱은 이 본문에 등장하는 등록 제품을 순위 후보로 우선 올립니다 (네이버에서 먼저 찾고 → 등록 제품과 매칭).
+ */
+export async function collectFoodBuzzTexts(credentials) {
+  const requests = [
+    ...BUZZ_BLOG_QUERIES.map((q) => ['blog', q]),
+    ...BUZZ_NEWS_QUERIES.map((q) => ['news', q]),
+  ];
+  const results = await Promise.allSettled(requests.map(([type, q]) =>
+    hubFetch(`/search/v1/${type}?query=${encodeURIComponent(q)}&display=100&sort=date`, credentials)
+  ));
+
+  const seen = new Set();
+  const texts = [];
+  let succeeded = 0;
+  for (const result of results) {
+    if (result.status === 'rejected') {
+      console.warn('[food-buzz]', result.reason?.message || result.reason);
+      continue;
+    }
+    succeeded += 1;
+    for (const post of result.value.items || []) {
+      if (seen.has(post.link)) continue;
+      seen.add(post.link);
+      texts.push(compact(`${post.title || ''} ${post.description || ''}`.replace(/<[^>]+>|&[a-z#0-9]+;/g, ' ')).toLowerCase());
+    }
+  }
+  return { ok: succeeded >= requests.length / 2, complete: succeeded === requests.length, updatedAt: new Date().toISOString(), texts };
+}
+
 /**
  * 키워드 묶음(최대 4개)의 네이버 신호를 수집합니다.
  * 일부 API가 실패하면 해당 신호만 null로 두고 나머지는 그대로 반환합니다.
