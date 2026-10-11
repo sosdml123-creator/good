@@ -61,24 +61,26 @@ async function reverseGeocode(lat, lng) {
 async function searchLocal(query, creds) {
   const qs = `?query=${encodeURIComponent(query)}&display=5&sort=random`;
   const attempts = [
-    [HUB_LOCAL_URL, { 'X-NCP-APIGW-API-KEY-ID': creds.hubId, 'X-NCP-APIGW-API-KEY': creds.hubSecret }],
+    ['hub', HUB_LOCAL_URL, { 'X-NCP-APIGW-API-KEY-ID': creds.hubId, 'X-NCP-APIGW-API-KEY': creds.hubSecret }],
   ];
   if (creds.openId && creds.openSecret) {
-    attempts.push([OPENAPI_LOCAL_URL, { 'X-Naver-Client-Id': creds.openId, 'X-Naver-Client-Secret': creds.openSecret }]);
+    attempts.push(['openapi', OPENAPI_LOCAL_URL, { 'X-Naver-Client-Id': creds.openId, 'X-Naver-Client-Secret': creds.openSecret }]);
   }
-  attempts.push([OPENAPI_LOCAL_URL, { 'X-Naver-Client-Id': creds.hubId, 'X-Naver-Client-Secret': creds.hubSecret }]);
+  attempts.push(['openapi(hub key)', OPENAPI_LOCAL_URL, { 'X-Naver-Client-Id': creds.hubId, 'X-Naver-Client-Secret': creds.hubSecret }]);
 
-  let lastStatus = 0;
-  for (const [url, headers] of attempts) {
+  // 실패 시 경로별 응답 코드·메시지를 남겨 어떤 API 권한이 빠졌는지 알 수 있게 합니다
+  const failures = [];
+  for (const [via, url, headers] of attempts) {
     try {
       const res = await fetch(url + qs, { headers });
-      lastStatus = res.status;
       if (res.ok) return { items: (await res.json()).items || [] };
+      const body = await res.json().catch(() => ({}));
+      failures.push({ via, status: res.status, message: body?.error?.message || body?.errorMessage || '' });
     } catch (e) {
-      // 다음 경로 시도
+      failures.push({ via, status: 0, message: 'network' });
     }
   }
-  return { items: [], status: lastStatus };
+  return { items: [], failures };
 }
 
 /**
@@ -106,7 +108,7 @@ export async function findNearbyStores({ lat, lng, brand, creds }) {
   const stores = [];
   let failed = 0;
   results.forEach((r, i) => {
-    if (r.status) failed += 1;
+    if (r.failures) failed += 1;
     const b = jobs[i].brand;
     for (const it of r.items) {
       const name = String(it.title || '').replace(/<[^>]+>/g, '').trim();
@@ -124,7 +126,7 @@ export async function findNearbyStores({ lat, lng, brand, creds }) {
   });
 
   if (stores.length === 0 && failed === jobs.length) {
-    return { status: 502, body: { error: `지역 검색 API 호출 실패 (${results[0]?.status || 'network'})`, region } };
+    return { status: 502, body: { error: '지역 검색 API 호출 실패', failures: results[0]?.failures || [], region } };
   }
 
   const label = [region.sido, region.sigungu, region.legalDong || region.admDong].filter(Boolean).join(' ');
