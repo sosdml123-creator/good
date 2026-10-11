@@ -361,6 +361,7 @@ const ADMOB_REWARD_POINTS = Number(process.env.ADMOB_REWARD_POINTS) || 2;
 const ADMOB_REWARD_DAILY_LIMIT = Number(process.env.ADMOB_REWARD_DAILY_LIMIT) || 10;
 
 let admobKeys = null; // { at, byId: Map<keyId, pem> }
+let lastSsvFailure = null;
 
 async function getAdmobKey(keyId) {
   if (!admobKeys || !admobKeys.byId.has(keyId) || Date.now() - admobKeys.at > 24 * 3600 * 1000) {
@@ -390,11 +391,15 @@ async function admobReward(req, res) {
     join(sorted, encodeURIComponent),
     join(signed, (v) => encodeURIComponent(v).replace(/%20/g, '+')),
     join(signed, (v) => v),
+    // Java URLEncoder 방식 (공백은 +, !'()~ 는 인코딩)
+    join(signed, (v) => encodeURIComponent(v).replace(/%20/g, '+').replace(/[!'()~]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)),
   ])].filter(Boolean);
   const signature = Buffer.from(String(q.signature), 'base64url');
   const valid = Boolean(pem) && candidates.some((c) => createVerify('SHA256').update(c).verify(pem, signature));
   if (!valid) {
     console.warn('[admob reward] bad signature', { keyFound: Boolean(pem), url: req.url });
+    // TODO(임시 진단): AdMob 콘솔 URL 확인이 통과하면 제거
+    lastSsvFailure = { at: new Date().toISOString(), keyFound: Boolean(pem), url: String(req.url).slice(0, 1500), ua: req.headers['user-agent'] };
     return res.status(403).json({ ok: false, reason: 'bad_signature', keyFound: Boolean(pem), received: rawQuery.slice(0, 300) });
   }
 
@@ -432,6 +437,10 @@ export default async function handler(req, res) {
   const action = String((req.method === 'GET' ? req.query?.action : req.body?.action) || '');
 
   try {
+    if (req.method === 'GET' && action === 'ssvdebug') {
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(200).json({ lastSsvFailure, url: req.url, headers: Object.keys(req.headers) });
+    }
     if (req.method === 'GET' && !action && (String(req.url || '').startsWith('/api/admob-reward') || req.query?.key_id)) {
       return await admobReward(req, res);
     }
