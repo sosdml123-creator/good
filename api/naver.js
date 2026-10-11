@@ -16,9 +16,13 @@
  *
  * 4. NAVER Search APIs (GET):
  *    - /api/naver?type=news|image|blog|shop|webkr&query=...&sort=...&display=...
+ *
+ * 5. 내 주변 매장 (GET, NAVER Maps Reverse Geocoding + 지역 검색):
+ *    - /api/naver?type=nearby_stores&lat=...&lng=...&brand=CU|GS25|세븐일레븐|이마트24
  */
 
 import { collectFoodTrendSignals, parseTrendItems } from './_lib/foodTrend.js';
+import { findNearbyStores } from './_lib/nearbyStores.js';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -38,6 +42,28 @@ export default async function handler(req, res) {
   }
 
   const { type = 'news', query = '', sort = 'sim', display = '10', start = '1' } = req.query || {};
+
+  // 내 주변 매장 검색 (GET: /api/naver?type=nearby_stores&lat=..&lng=..&brand=CU)
+  if (String(type) === 'nearby_stores') {
+    try {
+      const { status, body } = await findNearbyStores({
+        lat: parseFloat(String(req.query.lat)),
+        lng: parseFloat(String(req.query.lng)),
+        brand: String(req.query.brand || ''),
+        creds: {
+          hubId: clientId.trim(),
+          hubSecret: clientSecret.trim(),
+          openId: (process.env.NAVER_OPENAPI_CLIENT_ID || '').trim(),
+          openSecret: (process.env.NAVER_OPENAPI_CLIENT_SECRET || '').trim(),
+        },
+      });
+      if (status === 200) res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=3600');
+      return res.status(status).json(body);
+    } catch (error) {
+      console.error('Nearby stores error:', error);
+      return res.status(500).json({ error: error.message || 'Internal Server Error' });
+    }
+  }
 
   const ALLOWED_TYPES = [
     'news', 'image', 'blog', 'shop', 'webkr',

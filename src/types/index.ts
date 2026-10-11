@@ -137,15 +137,13 @@ export interface StoreStockItem {
 
 export interface NearbyStore {
   id: string;
-  brand: 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '대형마트';
+  brand: 'CU' | 'GS25' | '세븐일레븐' | '이마트24';
   name: string;          // e.g. "CU 역삼타워점"
-  distance: string;      // e.g. "150m"
+  distance: number;      // 현재 위치로부터의 직선거리 (m)
   address: string;       // e.g. "서울 강남구 테헤란로 152"
-  phone: string;         // e.g. "02-555-1234"
-  stockCount: number;    // e.g. 7
-  stockStatus: '여유' | '품절임박' | '일시품절' | '예약가능';
-  badge?: string;        // '1+1 행사'
-  isOpen24h: boolean;
+  phone: string;         // 네이버 지역 검색이 내려준 경우에만 값이 있음
+  lat: number;
+  lng: number;
 }
 
 export type StoreStock = StoreStockItem;

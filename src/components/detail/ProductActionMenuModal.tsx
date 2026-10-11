@@ -85,9 +85,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'nearby_stock',
       icon: Store,
       iconBg: 'bg-emerald-50 text-emerald-600 border-emerald-100',
-      title: '실시간 편의점 재고 찾기',
-      description: '내 주변 CU · GS25 · 세븐일레븐 실시간 재고 & 행사',
-      badge: '재고확인',
+      title: '내 주변 편의점 찾기',
+      description: '지도에서 가까운 CU · GS25 · 세븐일레븐 · 이마트24 확인',
+      badge: '지도',
       badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200 border',
       onClick: () => {
         onClose();
