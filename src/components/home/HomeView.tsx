@@ -36,6 +36,7 @@ import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
 import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
 import { getBattlePercents } from '../../services/battleService';
+import { formatProductPrice } from '../../utils/formatters';
 
 // 홈 구좌 공통 헤더 — 제목 16px / 배지 10px / 보조 문구 12px / 우측 액션 12px로 통일
 const SectionHeader: React.FC<{
@@ -656,7 +657,7 @@ export const HomeView: React.FC = () => {
 
                         {/* Price */}
                         <div className="flex items-center gap-1 mt-0.5">
-                          <span className="text-[13px] font-bold text-gray-900">{p.price.toLocaleString()}원</span>
+                          <span className="text-[13px] font-bold text-gray-900">{formatProductPrice(p.price)}</span>
                         </div>
                       </div>
                     </div>
@@ -905,7 +906,7 @@ export const HomeView: React.FC = () => {
                       ) : null}
 
                       <div className="flex items-center gap-1 mt-0.5">
-                        <span className="text-[13px] font-bold text-gray-900">{p.price.toLocaleString()}원</span>
+                        <span className="text-[13px] font-bold text-gray-900">{formatProductPrice(p.price)}</span>
                       </div>
                     </div>
                   </div>

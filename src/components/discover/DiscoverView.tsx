@@ -6,6 +6,7 @@ import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
 import { SafeImage } from '../common/SafeImage';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
+import { formatProductPrice } from '../../utils/formatters';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 
@@ -470,7 +471,7 @@ export const DiscoverView: React.FC = () => {
                     {/* Price & KAMIS Trend */}
                     <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                       <span className="text-[13px] font-bold text-gray-900">
-                        {p.itemType === 'restaurant' ? '평균 ' : ''}{p.price.toLocaleString()}원
+                        {p.itemType === 'restaurant' && p.price ? '평균 ' : ''}{formatProductPrice(p.price)}
                       </span>
 
                       {p.kamisPriceInfo && (

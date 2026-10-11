@@ -19,6 +19,7 @@ import { getAggregatedBrands, getBrandLogo, ProcessedBrand } from '../../utils/b
 import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
+import { formatProductPrice } from '../../utils/formatters';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
 
@@ -243,7 +244,7 @@ export const BrandView: React.FC = () => {
 
           <div className="pt-1 border-t border-gray-50 flex items-center justify-between">
             <div className="text-xs font-black text-gray-900">
-              {p.price.toLocaleString()}원
+              {formatProductPrice(p.price)}
             </div>
             {p.ratingCount > 0 && p.overallRating > 0 ? (
               <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
@@ -798,7 +799,7 @@ export const BrandView: React.FC = () => {
                         />
                         <div className="overflow-hidden">
                           <div className="text-[10px] font-bold text-gray-800 truncate">{p.name}</div>
-                          <div className="text-[9px] text-gray-400">{p.price.toLocaleString()}원</div>
+                          <div className="text-[9px] text-gray-400">{formatProductPrice(p.price)}</div>
                         </div>
                       </div>
                     ))}

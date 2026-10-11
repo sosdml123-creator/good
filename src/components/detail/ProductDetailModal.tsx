@@ -32,6 +32,7 @@ import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { ReportModal } from '../common/ReportModal';
 import { KamisPriceTrendChart } from './KamisPriceTrendChart';
 import { COUPANG_AFFILIATE_URL, COUPANG_PARTNERS_NOTICE } from '../../constants/affiliate';
+import { formatProductPrice } from '../../utils/formatters';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -361,7 +362,7 @@ export const ProductDetailModal: React.FC = () => {
 
         <div className="flex items-center gap-2 mt-2">
           <span className="text-[20px] font-black text-gray-900">
-            {selectedProduct.itemType === 'restaurant' ? '평균 ' : ''}{(selectedProduct.price ?? 0).toLocaleString()}원
+            {selectedProduct.itemType === 'restaurant' && selectedProduct.price ? '평균 ' : ''}{formatProductPrice(selectedProduct.price)}
           </span>
         </div>
 
@@ -1165,7 +1166,7 @@ export const ProductDetailModal: React.FC = () => {
                     <div>
                       <span className="text-[11px] text-gray-500 font-medium block">실시간 판매 가격</span>
                       <span className="text-xl font-black text-gray-900 mt-0.5 block">
-                        {(selectedProduct.price ?? 0).toLocaleString()}원
+                        {formatProductPrice(selectedProduct.price)}
                       </span>
                     </div>
                     <div className="text-right">
@@ -1209,7 +1210,7 @@ export const ProductDetailModal: React.FC = () => {
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-base font-black text-gray-900">
-                {(selectedProduct.price ?? 0).toLocaleString()}원
+                {formatProductPrice(selectedProduct.price)}
               </span>
             </div>
           </div>

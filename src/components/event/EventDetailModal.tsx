@@ -13,6 +13,7 @@ import {
   Clock
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { formatProductPrice } from '../../utils/formatters';
 
 export const EventDetailModal: React.FC = () => {
   const { 
@@ -234,7 +235,7 @@ export const EventDetailModal: React.FC = () => {
                   {targetProduct.name}
                 </h4>
                 <div className="text-xs font-black text-gray-900 mt-0.5">
-                  {targetProduct.price.toLocaleString()}원
+                  {formatProductPrice(targetProduct.price)}
                 </div>
               </div>
             </div>

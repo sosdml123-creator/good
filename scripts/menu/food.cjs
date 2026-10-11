@@ -71,33 +71,6 @@ async function pizzaschool() {
   save('pizzaschool', '피자스쿨', items);
 }
 
-async function parisbaguette() {
-  const base = 'https://www.paris.co.kr';
-  const cats = { '브레드': '빵', '케이크': '케이크', '샌드위치-샐러드': '샌드위치·샐러드', '디저트-스낵': '디저트·스낵', '커피-음료': '커피·음료', '선물': '선물', '퍼스트클래스키친': '간편식' };
-  const items = [];
-  for (const [cat, sub] of Object.entries(cats)) {
-    for (let page = 1; page <= 30; page++) {
-      let html = '';
-      try {
-        html = await getText(`${base}/products/page/${page}/?cat1=${encodeURIComponent(cat)}`);
-      } catch {
-        break;
-      }
-      // 상단 '베스트 상품' 슬라이더는 제외하고 본 목록만 사용
-      const body = html.split('representation-products-slider')[1] ? html.split(/<\/ul>/).slice(1).join('</ul>') : html;
-      const found = [...body.matchAll(/<a href="(https:\/\/www\.paris\.co\.kr\/product\/[^"]+)" class="product-list-item">[\s\S]*?<img src="(https:[^"]+)" class="product-tb">[\s\S]*?class="product-name">([\s\S]*?)<\/h3>/g)];
-      if (found.length === 0) break;
-      const before = items.length;
-      for (const m of found) {
-        if (items.some((i) => i.url === m[1])) continue;
-        items.push({ name: m[3], sub, image: encodeURI(m[2].replace(/-600x600(\.\w+)$/, '$1')), url: m[1] });
-      }
-      if (items.length === before) break;
-    }
-  }
-  save('parisbaguette', '파리바게뜨', items);
-}
-
 // 파리바게뜨 상품 목록은 'SHOW MORE' ajax(pb_get_product_list)로 이어 받습니다.
 async function parisbaguetteAll() {
   const base = 'https://www.paris.co.kr';
@@ -124,34 +97,9 @@ async function parisbaguetteAll() {
   save('parisbaguette', '파리바게뜨', items);
 }
 
-async function papajohns() {
-  const base = 'https://pji.co.kr';
-  const cats = { pizza: '피자', side: '사이드', beverage: '음료', sauce: '소스', 'papa-plate': '파파플래터' };
-  const items = [];
-  for (const [slug, sub] of Object.entries(cats)) {
-    let html = '';
-    try {
-      html = await getText(`${base}/menu/${slug}`);
-    } catch {
-      continue;
-    }
-    for (const card of html.split('<a data-').slice(1)) {
-      const href = (card.match(/href="(\/menu\/[^"?]+\/\d+)"/) || [])[1];
-      if (!href) continue;
-      const image = (card.match(/<img[^>]+src="(https:\/\/imgcdn[^"]+)"/) || [])[1];
-      const name = (card.match(/text-left">([\s\S]*?)<\/p>/) || [])[1];
-      const desc = (card.match(/line-clamp-2[^>]*>([\s\S]*?)<\/span>/) || [])[1];
-      const price = (card.match(/<\/span>([\d,]{4,})<!-- -->원/) || card.match(/([\d,]{4,})<!-- -->원/) || [])[1];
-      const size = (card.match(/text-white">(\w+)<\/span>[\d,]{4,}<!-- -->원/) || [])[1];
-      items.push({ name, sub, image, price, desc, volume: size ? `${size} 사이즈 기준` : '', url: base + href });
-    }
-  }
-  save('papajohns', '파파존스', items);
-}
-
 (async () => {
   const only = process.argv.slice(2);
-  for (const job of [baskinrobbins, dominos, pizzaschool, parisbaguetteAll, papajohns]) {
+  for (const job of [baskinrobbins, dominos, pizzaschool, parisbaguetteAll]) {
     if (only.length && !only.includes(job.name)) continue;
     try {
       await job();

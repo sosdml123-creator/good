@@ -34,6 +34,7 @@ import {
 import type { ReviewExtraData } from '../types';
 import { BattleRound, fetchBattleRound, submitBattleVote } from '../services/battleService';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
+import { OFFICIAL_MENU_PRODUCTS } from '../data/officialMenuProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
 import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
 import { INITIAL_STORE_CHANNELS } from '../data/mockStores';
@@ -1160,6 +1161,24 @@ export const smartMergeProducts = (
   return [...customProducts, ...mergedOfficial];
 };
 
+const OFFICIAL_MENU_BY_ID = new Map(OFFICIAL_MENU_PRODUCTS.map(p => [p.id, p]));
+
+/**
+ * 기기 저장용 상품 목록. 공식 메뉴 상품(수천 건) 중 손대지 않은 것은 번들 데이터에서 그대로 복원되므로
+ * 저장에서 빼 localStorage 용량 한도(iOS 약 5MB)를 넘지 않게 합니다.
+ */
+export const serializeProductsForStorage = (products: Product[]): string =>
+  JSON.stringify(products.filter(p => {
+    const official = OFFICIAL_MENU_BY_ID.get(p.id);
+    if (!official) return true;
+    return !(
+      p.name === official.name && p.price === official.price && p.image === official.image &&
+      p.description === official.description && p.category === official.category &&
+      p.subCategory === official.subCategory && !p.isToday && !p.isHot && !p.discountRate &&
+      p.searchInfluxCount === undefined && !p.kamisPriceInfo
+    );
+  }));
+
 /**
  * Smart merge function for home sections
  * Preserves admin custom titles, subtitles, badge texts, item limits, and visibility states!
@@ -1910,7 +1929,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Sync state to localStorage
   useEffect(() => {
-    safeSetItem('sinsangpick_products', JSON.stringify(products));
+    safeSetItem('sinsangpick_products', serializeProductsForStorage(products));
   }, [products]);
 
   useEffect(() => {

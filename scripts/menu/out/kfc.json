@@ -1,0 +1,616 @@
+{
+ "key": "kfc",
+ "brand": "KFC",
+ "items": [
+  {
+   "name": "칰폴레맵징거더블다운",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249610_20260803102115926.png",
+   "price": 10100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249610"
+  },
+  {
+   "name": "칰폴레맵징거타워",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249605_20260803101341576.png",
+   "price": 8100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249605"
+  },
+  {
+   "name": "치즈징거통다리",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249520_20260803092743816.png",
+   "price": 8100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249520"
+  },
+  {
+   "name": "징거BLT",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249522_20260803093837916.png",
+   "price": 8000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249522"
+  },
+  {
+   "name": "징거타워",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249524_20260803094557160.png",
+   "price": 7800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249524"
+  },
+  {
+   "name": "칰폴레맵징거통다리",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249601_20260803100911037.png",
+   "price": 7700,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249601"
+  },
+  {
+   "name": "클래식징거통다리",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249521_20260803093124188.png",
+   "price": 7400,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249521"
+  },
+  {
+   "name": "징거",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249525_20260803095034459.png",
+   "price": 6800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249525"
+  },
+  {
+   "name": "툼켄치밥",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249517_20260803100148878.png",
+   "price": 6800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249517"
+  },
+  {
+   "name": "갓양념켄치밥",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249527_20260803095603116.png",
+   "price": 5800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249527"
+  },
+  {
+   "name": "트위스터",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1249526_20260803095406961.png",
+   "price": 5100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1249526"
+  },
+  {
+   "name": "버터갈릭라이스",
+   "sub": "버거",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346015_20260803100528358.png",
+   "price": 3300,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346015"
+  },
+  {
+   "name": "갓쏘이 통다리 8조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178153_20261006105823450.png",
+   "price": 29800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178153"
+  },
+  {
+   "name": "갓양념 통다리 8조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178147_20261006105015369.png",
+   "price": 29800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178147"
+  },
+  {
+   "name": "갓쏘이 치킨 8조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/BO_2178150_20261006105512116.png",
+   "price": 29000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178150"
+  },
+  {
+   "name": "갓양념 치킨 8조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178144_20261006104538479.png",
+   "price": 29000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178144"
+  },
+  {
+   "name": "핫윙 15조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177643_20260803112504691.png",
+   "price": 21300,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177643"
+  },
+  {
+   "name": "갓쏘이 통다리 5조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178152_20261006105739618.png",
+   "price": 19600,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178152"
+  },
+  {
+   "name": "갓양념 통다리 5조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178146_20261006104922378.png",
+   "price": 19600,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178146"
+  },
+  {
+   "name": "갓쏘이 치킨 5조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178149_20261006105411855.png",
+   "price": 19100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178149"
+  },
+  {
+   "name": "갓양념 치킨 5조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178143_20261006104444822.png",
+   "price": 19100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178143"
+  },
+  {
+   "name": "핫윙 10조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177642_20260803112432716.png",
+   "price": 15100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177642"
+  },
+  {
+   "name": "갓쏘이 통다리 3조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178151_20261006105639916.png",
+   "price": 11900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178151"
+  },
+  {
+   "name": "갓양념 통다리 3조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178145_20261006104807180.png",
+   "price": 11900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178145"
+  },
+  {
+   "name": "갓쏘이 치킨 3조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178148_20261006105317462.png",
+   "price": 11600,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178148"
+  },
+  {
+   "name": "갓양념 치킨 3조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178142_20261006104317190.png",
+   "price": 11600,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178142"
+  },
+  {
+   "name": "핫윙 5조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177776_20260803112403131.png",
+   "price": 8100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177776"
+  },
+  {
+   "name": "믹스드스낵",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2343278_20261001175503633.png",
+   "price": 6900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2343278"
+  },
+  {
+   "name": "텐더 4조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177638_20260803103759174.png",
+   "price": 6900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177638"
+  },
+  {
+   "name": "믹스드텐더",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178121_20261001175553023.png",
+   "price": 5900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178121"
+  },
+  {
+   "name": "갓쏘이켚스낵",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178054_20260907153524088.png",
+   "price": 5100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178054"
+  },
+  {
+   "name": "믹스드통다리",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2178122_20261001175636338.png",
+   "price": 4600,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2178122"
+  },
+  {
+   "name": "갓쏘이 통다리 1조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1172145_20261006105552425.png",
+   "price": 4000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1172145"
+  },
+  {
+   "name": "갓양념 통다리 1조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1172143_20261006104639965.png",
+   "price": 4000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1172143"
+  },
+  {
+   "name": "갓쏘이 치킨 1조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1172144_20261006105117561.png",
+   "price": 3900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1172144"
+  },
+  {
+   "name": "갓양념 치킨 1조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1172142_20261006104225646.png",
+   "price": 3900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1172142"
+  },
+  {
+   "name": "텐더 2조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177637_20260803103733376.png",
+   "price": 3700,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177637"
+  },
+  {
+   "name": "핫윙 2조각",
+   "sub": "치킨",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177640_20260803112335052.png",
+   "price": 3300,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2177640"
+  },
+  {
+   "name": "트러플치르르프라이",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346018_20260803103646506.png",
+   "price": 3300,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346018"
+  },
+  {
+   "name": "프렌치프라이L",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346017_20260803103600498.png",
+   "price": 3500,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346017"
+  },
+  {
+   "name": "프렌치프라이M",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346016_20260803103525349.png",
+   "price": 3000,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346016"
+  },
+  {
+   "name": "너겟 8조각",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2343127_20260803104033514.png",
+   "price": 5900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2343127"
+  },
+  {
+   "name": "매쉬포테이토 그레이비",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346020_20260803105133190.png",
+   "price": 3800,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346020"
+  },
+  {
+   "name": "버터비스켓",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2343125_20260803105210452.png",
+   "price": 3400,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2343125"
+  },
+  {
+   "name": "너겟 4조각",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2343126_20260803103957402.png",
+   "price": 3200,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/2343126"
+  },
+  {
+   "name": "에그타르트",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346022_20260803105307683.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346022"
+  },
+  {
+   "name": "코울슬로",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346050_20260803105330578.png",
+   "price": 2900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346050"
+  },
+  {
+   "name": "해쉬브라운",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1346023_20260803105403910.png",
+   "price": 2300,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1346023"
+  },
+  {
+   "name": "빅그레이비",
+   "sub": "사이드",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1545649_20260811134503543.png",
+   "price": 2100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1545649"
+  },
+  {
+   "name": "페트콜라500mL",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472196_20260803111630169.png",
+   "price": 3500,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472196"
+  },
+  {
+   "name": "코카콜라(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472185_20260803110956613.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472185"
+  },
+  {
+   "name": "코크제로(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472186_20260803111029203.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472186"
+  },
+  {
+   "name": "아이스아메리카노(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472195_20260803111554772.png",
+   "price": 3500,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472195"
+  },
+  {
+   "name": "닥터페퍼제로(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472184_20260803110921181.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472184"
+  },
+  {
+   "name": "스프라이트(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472188_20260803111203528.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472188"
+  },
+  {
+   "name": "스프라이트제로(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472187_20260803111111376.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472187"
+  },
+  {
+   "name": "아메리카노(M)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472193_20260803111448621.png",
+   "price": 2900,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472193"
+  },
+  {
+   "name": "환타오렌지(L)",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472189_20260803111232985.png",
+   "price": 3100,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472189"
+  },
+  {
+   "name": "아이스초코",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472192_20260803111414388.png",
+   "price": 3500,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472192"
+  },
+  {
+   "name": "핫초코",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472191_20260803111343920.png",
+   "price": 3500,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472191"
+  },
+  {
+   "name": "오렌지주스",
+   "sub": "음료",
+   "image": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1472190_20260803111311415.png",
+   "price": 3400,
+   "desc": "",
+   "calories": 0,
+   "volume": "딜리버리 가격 기준",
+   "url": "https://www.kfckorea.com/menu/detail/N/1472190"
+  }
+ ]
+}

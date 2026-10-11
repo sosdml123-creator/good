@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Bell, Check, Smartphone, MessageCircle } from 'lucide-react';
 import { Product } from '../../types';
 import { useApp } from '../../context/AppContext';
+import { formatProductPrice } from '../../utils/formatters';
 
 interface ProductStockAlertModalProps {
   product: Product;
@@ -90,7 +91,7 @@ export const ProductStockAlertModal: React.FC<ProductStockAlertModalProps> = ({
               {product.brand} · {product.category}
             </span>
             <div className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</div>
-            <div className="text-xs font-black text-gray-900 mt-0.5">{product.price.toLocaleString()}원</div>
+            <div className="text-xs font-black text-gray-900 mt-0.5">{formatProductPrice(product.price)}</div>
           </div>
         </div>
 

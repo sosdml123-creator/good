@@ -22,6 +22,7 @@ import { ProductCategory } from '../../types';
 import { NewProductRequestModal } from './NewProductRequestModal';
 import { compressAndResizeImage } from '../../utils/imageCompressor';
 import { ImageViewerModal } from '../common/ImageViewerModal';
+import { formatProductPrice } from '../../utils/formatters';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -418,7 +419,7 @@ export const WriteReviewModal: React.FC = () => {
                   {prod.name}
                 </div>
                 <div className="text-xs font-bold text-slate-700 mt-0.5">
-                  {prod.price.toLocaleString()}원
+                  {formatProductPrice(prod.price)}
                 </div>
               </div>
               <span className="text-xs text-slate-400 font-bold group-hover:text-slate-900 shrink-0">

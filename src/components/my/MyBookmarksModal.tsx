@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Heart, Star, Trash2, Scale } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { formatProductPrice } from '../../utils/formatters';
 
 interface MyBookmarksModalProps {
   isOpen: boolean;
@@ -67,7 +68,7 @@ export const MyBookmarksModal: React.FC<MyBookmarksModalProps> = ({ isOpen, onCl
                     <span className="text-[10px] text-gray-400 font-semibold">{p.brand} · {p.category}</span>
                     <h3 className="text-xs font-bold text-gray-900 truncate mt-0.5">{p.name}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs font-black text-gray-900">{p.price.toLocaleString()}원</span>
+                      <span className="text-xs font-black text-gray-900">{formatProductPrice(p.price)}</span>
                       {p.ratingCount > 0 && p.overallRating > 0 ? (
                         <div className="flex items-center gap-0.5 text-[11px] font-bold text-gray-700">
                           <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />

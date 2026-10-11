@@ -3,7 +3,11 @@ export const formatPrice = (price: number): string => {
   return new Intl.NumberFormat('ko-KR').format(safe) + '원';
 };
 
-export const formatCount = (count: number): string => {
+// 공식 가격이 공개되지 않은 제품(price 0)은 '0원' 대신 안내 문구를 보여줍니다.
+export const formatProductPrice = (price?: number | null): string =>
+  typeof price === 'number' && price > 0 ? formatPrice(price) : '가격 정보 없음';
+
+export const formatCount =(count: number): string => {
   const safe = typeof count === 'number' && !isNaN(count) ? count : 0;
   if (safe >= 10000) {
     return (safe / 10000).toFixed(1).replace(/\.0$/, '') + '만';

@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { Search, ChevronLeft, X, Star, Flame, ArrowRight, MapPin } from 'lucide-react';
 import { Product } from '../../types';
 import { SearchAdMobBannerSection } from './SearchAdMobBannerSection';
+import { formatProductPrice } from '../../utils/formatters';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -192,7 +193,7 @@ export const SearchModal: React.FC = () => {
                           <div className="flex items-center justify-between mt-1">
                             <div className="flex items-center gap-1.5">
                               <span className="text-xs font-black text-gray-900">
-                                {p.price.toLocaleString()}원
+                                {formatProductPrice(p.price)}
                               </span>
                             </div>
                             {p.ratingCount > 0 && p.overallRating > 0 ? (
@@ -265,7 +266,7 @@ export const SearchModal: React.FC = () => {
                           </h3>
                           <div className="flex items-center justify-between mt-1">
                             <span className="text-xs font-black text-gray-900">
-                              {p.price.toLocaleString()}원
+                              {formatProductPrice(p.price)}
                             </span>
                             {p.ratingCount > 0 && p.overallRating > 0 ? (
                               <div className="flex items-center gap-1 text-[11px] font-bold text-gray-700">

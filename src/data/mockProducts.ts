@@ -12,6 +12,7 @@ import { SAMYANG_PRODUCTS } from './samyangProducts';
 import { CONVENIENCE_EXCLUSIVE_PRODUCTS } from './convenienceProducts';
 import { AGRI_MARINE_PRODUCTS } from './agriMarineProducts';
 import { SUNGSIMDANG_PRODUCTS } from './sungsimdangProducts';
+import { OFFICIAL_MENU_PRODUCTS } from './officialMenuProducts';
 
 export const INITIAL_PRODUCTS: Product[] = [
   ...MEGA_COFFEE_BEVERAGES,
@@ -26,6 +27,7 @@ export const INITIAL_PRODUCTS: Product[] = [
   ...NO_BRAND_PRODUCTS,
   ...BIBIGO_PRODUCTS,
   ...COFFEE_BRAND_BEVERAGES,
+  ...OFFICIAL_MENU_PRODUCTS,
 {
     "id": "orion-001",
     "name": "오리온 스윙칩 까르보나라불닭맛",
