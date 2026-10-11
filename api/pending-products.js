@@ -4,7 +4,7 @@
  *
  *  GET  ?status=pending|rejected          대기함 목록 (관리자)
  *  GET  ?action=cron                       매일 자동 수집 (Vercel Cron)
- *  POST { action: 'collect', source, query }   수집 실행: source = 'all' | 'stores' | 'cu' | 'seven' | 'news'
+ *  POST { action: 'collect', source, query }   수집 실행: source = 'all' | 'stores' | 'cu' | 'seven' | 'news' | 'mfds'
  *  POST { action: 'add', items }               대기함에 직접 추가
  *  POST { action: 'update', id, patch }        대기 상품 정보 수정
  *  POST { action: 'set_status', ids, status }  반려('rejected') / 대기함 복원('pending')
@@ -21,6 +21,7 @@ import {
   collectDefaultNewsProducts,
   normalizeProductName,
 } from './_lib/storeCrawlers.js';
+import { collectMfdsProducts } from './_lib/mfdsProducts.js';
 
 export const config = { maxDuration: 60 };
 
@@ -28,6 +29,10 @@ const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 const TABLE_MISSING_MESSAGE = 'pending_products 테이블이 아직 없습니다. Supabase SQL Editor에서 supabase/migrations/20261010_create_pending_products.sql 을 한 번 실행해주세요.';
 
 const SOURCES = {
+  mfds: {
+    label: '식약처 품목제조보고 (주요 식품사)',
+    run: () => collectMfdsProducts({ apiKey: process.env.FOODSAFETY_API_KEY }),
+  },
   cu: { label: 'CU 공식 신상품', run: () => crawlCuNew() },
   seven: { label: '세븐일레븐 공식 신상품', run: () => crawlSevenNew(60) },
   news: {
@@ -228,7 +233,9 @@ export default async function handler(req, res) {
       if (!(await isCronAuthorized(req, db))) {
         return res.status(401).json({ success: false, error: 'Unauthorized' });
       }
-      const sources = naverConfigured ? ['cu', 'seven', 'news'] : ['cu', 'seven'];
+      const sources = ['cu', 'seven'];
+      if (naverConfigured) sources.push('news');
+      if (process.env.FOODSAFETY_API_KEY) sources.push('mfds');
       const reports = await runCollect(db, sources, '');
       return res.status(200).json({ success: true, reports });
     }
@@ -251,7 +258,7 @@ export default async function handler(req, res) {
 
     if (action === 'collect') {
       const source = String(body.source || 'all');
-      const sources = source === 'all' ? ['cu', 'seven', 'news'] : source === 'stores' ? ['cu', 'seven'] : [source];
+      const sources = source === 'all' ? ['cu', 'seven', 'news', 'mfds'] : source === 'stores' ? ['cu', 'seven'] : [source];
       if (!sources.every((key) => SOURCES[key])) {
         return res.status(400).json({ success: false, error: `알 수 없는 수집 소스: ${source}` });
       }
