@@ -66,6 +66,9 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({ isOpen, 
               현재 보유 중인 <strong className="text-rose-900">{userPoints.toLocaleString()}P</strong>의 포인트는 즉시 소멸되며 복구되지 않습니다.
             </li>
             <li>
+              쿠폰함의 e쿠폰은 탈퇴 후 다시 열 수 없습니다. 사용하지 않은 e쿠폰은 <strong className="text-rose-900">탈퇴 전에 사용하거나 바코드를 저장</strong>해 주세요.
+            </li>
+            <li>
               찜한 제품 <strong className="text-rose-900">{bookmarkedIds.length}개</strong> 및 알림 설정 내역이 모두 삭제됩니다.
             </li>
             <li>

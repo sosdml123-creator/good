@@ -21,7 +21,8 @@ import {
   ChevronDown, 
   ChevronUp,
   ShieldCheck,
-  Pencil
+  Pencil,
+  Megaphone
 } from 'lucide-react';
 import { PolicyModal } from './PolicyModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
@@ -129,7 +130,7 @@ export const SettingsView: React.FC = () => {
       icon: <Shield className="w-4 h-4 text-blue-600" />,
       title: '개인정보처리방침',
       badge: '필수',
-      desc: '데이터 수집, 이용 목적 및 파기 절차'
+      desc: '수집 항목, 광고·제휴 링크·e쿠폰 정보 처리 안내'
     },
     {
       id: 'terms',
@@ -143,7 +144,7 @@ export const SettingsView: React.FC = () => {
       icon: <MapPin className="w-4 h-4 text-amber-600" />,
       title: '위치기반서비스 이용약관',
       badge: '',
-      desc: '주변 편의점/마트 재고 탐색 위치정보 정책'
+      desc: '주변 편의점/마트 매장 탐색 위치정보 정책'
     },
     {
       id: 'youth',
@@ -447,6 +448,25 @@ export const SettingsView: React.FC = () => {
           </div>
 
           <div className="divide-y divide-gray-100">
+            {/* Ads & Affiliate Disclosure */}
+            <div
+              onClick={() => setSelectedPolicyId('privacy')}
+              className="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                  <Megaphone className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-bold text-gray-900">광고 · 제휴 링크 · e쿠폰 안내</div>
+                  <div className="text-[11px] text-gray-400 leading-relaxed mt-0.5">
+                    앱에는 광고가 표시되며, 구매처 링크 일부는 제휴 링크(쿠팡 파트너스·링크프라이스)로 구매 시 신상픽이 수수료를 받을 수 있습니다. e쿠폰은 연락처 수집 없이 앱 쿠폰함으로 발급됩니다.
+                  </div>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
+            </div>
+
             {/* Customer Contact */}
             <a
               href="mailto:contact@sinsangpick.com?subject=[신상픽 문의]"
@@ -501,6 +521,9 @@ export const SettingsView: React.FC = () => {
                   <div><strong>문의 이메일:</strong> contact@sinsangpick.com</div>
                   <div><strong>운영 시간:</strong> 평일 10:00 ~ 18:00 (공휴일 휴무)</div>
                   <div><strong>호스팅 서비스 제공자:</strong> Supabase, Inc. / Vercel Inc.</div>
+                  <div><strong>광고 서비스:</strong> Google AdMob</div>
+                  <div><strong>e쿠폰 발급 대행:</strong> 기프티쇼 비즈 (주식회사 케이티알파)</div>
+                  <div><strong>제휴 마케팅:</strong> 쿠팡 파트너스 / 링크프라이스 (순차 적용 예정)</div>
                 </div>
               )}
             </div>
@@ -567,7 +590,7 @@ export const SettingsView: React.FC = () => {
                 <Trash2 className="w-4 h-4 text-rose-500" />
                 <div>
                   <div className="text-xs font-bold">회원 탈퇴 (계정 삭제)</div>
-                  <div className="text-[10px] text-rose-400">모든 데이터 및 보유 포인트 영구 파기</div>
+                  <div className="text-[10px] text-rose-400">모든 데이터, 보유 포인트 및 쿠폰함 e쿠폰 영구 파기</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-rose-300" />
