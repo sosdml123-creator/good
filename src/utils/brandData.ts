@@ -22,16 +22,18 @@ export const getBrandLogo = (brandName: string, fallbackImage?: string): string 
   if (BRAND_SVG_LOGOS[alias]) return BRAND_SVG_LOGOS[alias];
   if (BRAND_SVG_LOGOS[norm]) return BRAND_SVG_LOGOS[norm];
   
-  // 4. Substring match
-  for (const [key, url] of Object.entries(OFFICIAL_BRAND_LOGOS)) {
-    if (norm.includes(key) || key.includes(norm)) {
-      return url;
+  // 4. Substring match (한 글자 브랜드명은 '삼' → '삼양식품' 처럼 엉뚱한 로고에 걸리므로 제외)
+  if (norm.length >= 2) {
+    for (const [key, url] of Object.entries(OFFICIAL_BRAND_LOGOS)) {
+      if (norm.includes(key) || key.includes(norm)) {
+        return url;
+      }
     }
-  }
 
-  for (const [key, url] of Object.entries(BRAND_LOGOS_MAP)) {
-    if (norm.includes(key) || key.includes(norm)) {
-      return url;
+    for (const [key, url] of Object.entries(BRAND_LOGOS_MAP)) {
+      if (norm.includes(key) || key.includes(norm)) {
+        return url;
+      }
     }
   }
 
@@ -724,7 +726,7 @@ export const getAggregatedBrands = (products: Product[], customBrands?: BrandInf
 
   brandMap.forEach((brandProducts, brandName) => {
     const knownMeta = brandList.find(
-      (b) => b.name.toLowerCase() === brandName.toLowerCase() || brandName.includes(b.name) || b.name.includes(brandName)
+      (b) => b.name.toLowerCase() === brandName.toLowerCase() || brandName.includes(b.name) || (brandName.length >= 2 && b.name.includes(brandName))
     );
 
     // Calculate rating and review counts

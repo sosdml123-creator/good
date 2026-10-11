@@ -46,8 +46,11 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   // 2. Vector SVG fallback
   const svgLogo = BRAND_SVG_LOGOS[normalized] || BRAND_SVG_LOGOS[raw];
   
+  // 인라인 SVG data URI 는 예전에 코드로 그려 넣던 임시 로고(기기에 저장된 값 포함)라서 쓰지 않는다
+  const customLogo = logoUrl && !logoUrl.startsWith('data:image/svg+xml') ? logoUrl : undefined;
+
   // Choose source: 1. Official file -> 2. SVG vector -> 3. custom logoUrl
-  const primarySrc = officialFile || svgLogo || logoUrl;
+  const primarySrc = officialFile || svgLogo || customLogo;
   const fallbackSrc = primarySrc !== svgLogo && svgLogo ? svgLogo : undefined;
   const imageSrc = !hasError ? primarySrc : fallbackSrc;
 
