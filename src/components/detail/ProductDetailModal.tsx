@@ -25,6 +25,7 @@ import { ReviewList } from './ReviewList';
 import { SafeImage } from '../common/SafeImage';
 import { searchFoodNutrition } from '../../services/nutritionApi';
 import { getProductShareUrl } from '../../utils/productCode';
+import { isAlcoholProduct } from '../../utils/alcohol';
 import { ProductActionMenuModal } from './ProductActionMenuModal';
 import { ProductEditRequestModal } from './ProductEditRequestModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
@@ -144,6 +145,9 @@ export const ProductDetailModal: React.FC = () => {
     prod.itemType === 'fresh' || 
     prod.category === '과일' || 
     Boolean(prod.produceDetails);
+
+  // 주류는 청소년 보호를 위해 판매처 탭을 노출하지 않음
+  const isAlcohol = isAlcoholProduct(prod);
 
   // Filter blocked users and hidden reviews (UGC Policy)
   const blockedUsers: string[] = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
@@ -465,19 +469,21 @@ export const ProductDetailModal: React.FC = () => {
             )}
           </button>
 
-          <button 
-            onClick={() => setDetailTab('stores')}
-            className={`flex-1 py-3 text-[13px] font-bold transition-all relative ${
-              detailTab === 'stores' 
-                ? 'text-gray-900' 
-                : 'text-gray-500 hover:text-gray-800'
-            }`}
-          >
-            {selectedProduct.itemType === 'restaurant' ? '맛집 위치' : '판매처'}
-            {detailTab === 'stores' && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
-            )}
-          </button>
+          {!isAlcohol && (
+            <button
+              onClick={() => setDetailTab('stores')}
+              className={`flex-1 py-3 text-[13px] font-bold transition-all relative ${
+                detailTab === 'stores'
+                  ? 'text-gray-900'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+            >
+              {selectedProduct.itemType === 'restaurant' ? '맛집 위치' : '판매처'}
+              {detailTab === 'stores' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
+              )}
+            </button>
+          )}
         </div>
       </div>
 
@@ -1067,7 +1073,7 @@ export const ProductDetailModal: React.FC = () => {
       )}
 
       {/* 8. TAB CONTENT 3: 판매처 & 맛집 위치 (Stores & Places) */}
-      {detailTab === 'stores' && (
+      {detailTab === 'stores' && !isAlcohol && (
         <div className="space-y-2 animate-in fade-in duration-200">
           
           {selectedProduct.itemType === 'restaurant' || selectedProduct.restaurantInfo ? (
@@ -1221,20 +1227,24 @@ export const ProductDetailModal: React.FC = () => {
               <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
             </button>
 
-            <button
-              onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
-              className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
-            >
-              <span>쿠팡 구매하기</span>
-              <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
-            </button>
+            {!isAlcohol && (
+              <button
+                onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
+              >
+                <span>쿠팡 구매하기</span>
+                <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
+              </button>
+            )}
           </div>
         </div>
 
         {/* 쿠팡 파트너스 하단 공정위 고지 문구 */}
-        <p className="text-[10px] text-gray-400 text-center leading-tight">
-          {COUPANG_PARTNERS_NOTICE}
-        </p>
+        {!isAlcohol && (
+          <p className="text-[10px] text-gray-400 text-center leading-tight">
+            {COUPANG_PARTNERS_NOTICE}
+          </p>
+        )}
       </div>
 
       {/* 10. Product Action Menu Modal (Hamburger / More Actions) */}
