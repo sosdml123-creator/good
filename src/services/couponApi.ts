@@ -31,6 +31,20 @@ const getAccessToken = async (): Promise<string | null> => {
 
 let catalogCache: { at: number; data: CouponCatalog } | null = null;
 const CATALOG_TTL_MS = 10 * 60 * 1000;
+const CATALOG_STORAGE_KEY = 'sinsangpick_coupon_catalog_v1';
+const CATALOG_STORAGE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+
+/** 지난 방문 때 받아 둔 목록. 화면을 먼저 그린 뒤 최신 목록으로 교체하는 용도 */
+export const getStoredCouponCatalog = (): CouponCatalog | null => {
+  if (catalogCache) return catalogCache.data;
+  try {
+    const saved = JSON.parse(localStorage.getItem(CATALOG_STORAGE_KEY) || 'null');
+    if (!saved || Date.now() - saved.at > CATALOG_STORAGE_MAX_AGE_MS || !Array.isArray(saved.data?.goods)) return null;
+    return saved.data;
+  } catch {
+    return null;
+  }
+};
 
 export const fetchCouponCatalog = async (force = false): Promise<CouponCatalog> => {
   if (!force && catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) return catalogCache.data;
@@ -43,6 +57,11 @@ export const fetchCouponCatalog = async (force = false): Promise<CouponCatalog> 
     userDailyLimit: json.userDailyLimit || 0,
   };
   catalogCache = { at: Date.now(), data };
+  try {
+    localStorage.setItem(CATALOG_STORAGE_KEY, JSON.stringify(catalogCache));
+  } catch {
+    // 저장 공간 부족 등은 무시
+  }
   return data;
 };
 
@@ -87,6 +106,13 @@ export const setCouponUsed = async (trId: string, isUsed: boolean): Promise<Purc
   const json = await res.json();
   if (!res.ok || !json.success) throw new Error(json.error || '사용 상태를 변경하지 못했습니다.');
   return json.coupon;
+};
+
+/** 기프티쇼 원본 상품 이미지는 장당 최대 400KB 라 목록에서는 Vercel 이미지 최적화로 줄인 썸네일을 씁니다. */
+export const couponThumbSrc = (url: string): string => {
+  if (import.meta.env.DEV || !url.startsWith('https://bizimg.giftishow.com/')) return url;
+  const base = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
+  return `${base}/_vercel/image?url=${encodeURIComponent(url)}&w=384&q=70`;
 };
 
 /** 기프티쇼 쿠폰 이미지는 http 로 내려오므로 https 페이지에서 보이도록 프록시를 거칩니다. */

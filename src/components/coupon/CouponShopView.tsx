@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Gift,
   Copy,
@@ -13,9 +13,9 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ECouponDetail, ECouponItem, PurchasedECoupon } from '../../types';
-import { couponImageSrc, fetchCouponCatalog, fetchCouponDetail } from '../../services/couponApi';
+import { couponImageSrc, couponThumbSrc, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../../services/couponApi';
 
-const PAGE_SIZE = 40;
+const PAGE_SIZE = 20;
 const MAIN_CATEGORIES = ['커피/음료', '편의점', '베이커리/도넛', '치킨', '버거', '피자', '아이스크림', '외식'];
 const SORT_OPTIONS = [
   { id: 'default', label: '추천순' },
@@ -61,14 +61,20 @@ export const CouponShopView: React.FC = () => {
   const unusedCount = purchasedCoupons.filter(c => !c.isUsed).length;
 
   const loadGoods = async (force = false) => {
-    setIsLoading(true);
+    // 지난번에 받아 둔 목록이 있으면 먼저 보여 주고 뒤에서 최신 목록으로 교체
+    const stored = force ? null : getStoredCouponCatalog();
+    if (stored) {
+      setGoods(stored.goods);
+      setExchangeEnabled(stored.exchangeEnabled);
+    }
+    setIsLoading(!stored);
     setLoadError(null);
     try {
       const catalog = await fetchCouponCatalog(force);
       setGoods(catalog.goods);
       setExchangeEnabled(catalog.exchangeEnabled);
     } catch (e: any) {
-      setLoadError(e?.message || 'e쿠폰 목록을 불러오지 못했습니다.');
+      if (!stored) setLoadError(e?.message || 'e쿠폰 목록을 불러오지 못했습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -107,6 +113,19 @@ export const CouponShopView: React.FC = () => {
     if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);
     return list;
   }, [inCategory, brand, query, sort, onlyAffordable, userPoints]);
+
+  // 목록 끝이 화면에 들어오면 다음 묶음을 이어서 표시
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const hasMore = visibleCount < filtered.length;
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el || !hasMore) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) setVisibleCount(v => v + PAGE_SIZE);
+    }, { rootMargin: '600px 0px' });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, visibleCount]);
 
   const openGoods = (item: ECouponItem) => {
     setSelectedGoods(item);
@@ -286,7 +305,16 @@ export const CouponShopView: React.FC = () => {
                   className="bg-white rounded-2xl border border-gray-100 overflow-hidden text-left active:scale-98 transition-transform"
                 >
                   <div className="aspect-square bg-gray-50">
-                    <img src={item.image} alt={item.name} loading="lazy" className="w-full h-full object-contain" />
+                    <img
+                      src={couponThumbSrc(item.image)}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        if (e.currentTarget.src !== item.image) e.currentTarget.src = item.image;
+                      }}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div className="p-2.5">
                     <div className="text-[10px] font-bold text-gray-400 truncate">{item.brand}</div>
@@ -300,13 +328,10 @@ export const CouponShopView: React.FC = () => {
                 </button>
               ))}
             </div>
-            {visibleCount < filtered.length && (
-              <button
-                onClick={() => setVisibleCount(v => v + PAGE_SIZE)}
-                className="w-full mt-3 py-3 bg-white border border-gray-200 rounded-xl text-[13px] font-bold text-gray-700"
-              >
-                더 보기 ({visibleCount}/{filtered.length})
-              </button>
+            {hasMore && (
+              <div ref={loadMoreRef} className="py-5 flex justify-center text-gray-400">
+                <Loader2 className="w-5 h-5 animate-spin" />
+              </div>
             )}
           </>
         )}

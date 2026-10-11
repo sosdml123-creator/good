@@ -9,6 +9,17 @@
       "schedule": "0 22 * * *"
     }
   ],
+  "images": {
+    "sizes": [384],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "bizimg.giftishow.com"
+      }
+    ],
+    "minimumCacheTTL": 2592000,
+    "formats": ["image/webp"]
+  },
   "functions": {
     "api/generate-content.ts": {
       "maxDuration": 60
