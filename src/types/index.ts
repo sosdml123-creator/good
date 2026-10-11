@@ -554,7 +554,7 @@ export interface PendingProduct {
 }
 
 export type SaleDealType = '1+1' | '2+1' | '할인특가' | '콤보할인' | '증정행사';
-export type SaleStoreType = 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '이마트' | '홈플러스' | '전체';
+export type SaleStoreType = 'CU' | 'GS25' | '세븐일레븐' | '이마트24' | '이마트' | '홈플러스' | '롯데마트' | '전체';
 
 export interface SalePromotionItem {
   id: string;

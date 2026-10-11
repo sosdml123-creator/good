@@ -1,5 +1,5 @@
 /**
- * Vercel Serverless Function: 편의점 이달의 행사상품 수집
+ * Vercel Serverless Function: 편의점 이달의 행사상품 · 대형마트 주간 전단 수집
  * Endpoint: /api/crawl-discounts
  *
  *  GET ?store=CU|세븐일레븐|이마트24&dealType=전체|1+1|2+1&onlyFood=true   한 매장 미리보기 (저장하지 않음)
@@ -14,9 +14,9 @@ import {
   resolveSaleStore,
   crawlStoreSales,
   mergeSalePromotions,
-  currentSalePeriod,
   kstToday,
 } from './_lib/saleCrawlers.js';
+import { MART_STORES, crawlMartSales } from './_lib/martFlyers.js';
 
 export const config = { maxDuration: 60 };
 
@@ -73,10 +73,17 @@ async function runScheduledCollect(req, res) {
     return res.status(401).json({ success: false, error: 'Unauthorized' });
   }
 
-  const reports = await Promise.all(Object.keys(SALE_STORES).map(async (store) => {
+  const signatures = before.saleFlyerSignatures || {};
+  const hasItems = (store) => (before.salePromotions || []).some((item) => item && item.store === store);
+  const collect = (store) => (MART_STORES[store]
+    // 저장된 상품이 없으면(관리자가 비웠거나 첫 실행) 전단이 그대로여도 다시 읽습니다.
+    ? crawlMartSales(store, hasItems(store) ? signatures[store] : undefined)
+    : crawlStoreSales(store));
+
+  const reports = await Promise.all([...Object.keys(SALE_STORES), ...Object.keys(MART_STORES)].map(async (store) => {
     try {
-      const result = await crawlStoreSales(store);
-      return { store, ok: true, items: result.items };
+      const result = await collect(store);
+      return { store, ok: true, items: result.items, unchanged: Boolean(result.unchanged), signature: result.signature };
     } catch (err) {
       console.error(`[crawl-discounts] ${store} 수집 실패:`, err.message);
       return { store, ok: false, items: [], error: err.message };
@@ -86,9 +93,10 @@ async function runScheduledCollect(req, res) {
   // 수집하는 동안 관리자가 저장했을 수 있으므로 최신 값을 다시 읽어 병합합니다.
   const nutrition = (await readNutrition()) || before;
   const today = kstToday();
-  const { monthKey } = currentSalePeriod(today);
-  // 자동 수집 id 에는 월이 들어가므로, 지난 달 삭제 기록은 더 이상 필요 없습니다.
-  const deletedSaleIds = (nutrition.deletedSaleIds || []).filter((id) => String(id).includes(`-${monthKey}-`));
+  // 자동 수집 id 에는 행사 월·종료일이 들어가 지난 삭제 기록은 다시 쓰이지 않으므로 최근 것만 남깁니다.
+  const deletedSaleIds = (nutrition.deletedSaleIds || []).slice(-1000);
+  const saleFlyerSignatures = { ...(nutrition.saleFlyerSignatures || {}) };
+  for (const r of reports) if (r.ok && r.signature) saleFlyerSignatures[r.store] = r.signature;
   const previous = Array.isArray(nutrition.salePromotions) ? nutrition.salePromotions : [];
   const salePromotions = mergeSalePromotions(previous, reports, deletedSaleIds, today);
   const now = new Date().toISOString();
@@ -97,7 +105,7 @@ async function runScheduledCollect(req, res) {
     method: 'PATCH',
     headers: { Prefer: 'return=minimal' },
     body: JSON.stringify({
-      nutrition: { ...nutrition, salePromotions, deletedSaleIds, saleCrawledAt: now, updatedAt: now },
+      nutrition: { ...nutrition, salePromotions, deletedSaleIds, saleFlyerSignatures, saleCrawledAt: now, updatedAt: now },
       updated_at: now,
     }),
   });
@@ -107,7 +115,13 @@ async function runScheduledCollect(req, res) {
     success: true,
     total: salePromotions.length,
     removed: previous.filter((item) => item && !keptIds.has(item.id)).length,
-    stores: reports.map((r) => ({ store: r.store, ok: r.ok, count: r.items.length, error: r.error })),
+    stores: reports.map((r) => ({
+      store: r.store,
+      ok: r.ok,
+      unchanged: Boolean(r.unchanged),
+      count: salePromotions.filter((item) => item.store === r.store && String(item.id).startsWith('sale-auto-')).length,
+      error: r.error,
+    })),
     salePromotions,
   });
 }

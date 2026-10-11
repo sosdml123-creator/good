@@ -326,7 +326,7 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
             className={`px-3 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border shadow-2xs transition-all active:scale-95 disabled:opacity-50 ${
               isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
             }`}
-            title="CU·세븐일레븐·이마트24 공식 행사상품을 지금 다시 수집하고 종료된 행사를 정리합니다 (매일 06:30 자동 실행)"
+            title="편의점 3사 행사상품과 이마트·롯데마트·홈플러스 전단을 지금 다시 수집하고 종료된 행사를 정리합니다 (매일 06:30 자동 실행)"
           >
             <RotateCcw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
             <span>{isRefreshing ? '수집 중...' : '지금 전체 수집'}</span>

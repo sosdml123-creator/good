@@ -29,7 +29,7 @@ export const SaleNewsView: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortOption, setSortOption] = useState<SortOption>('popular');
 
-  const storeChips = ['전체', 'CU', 'GS25', '세븐일레븐', '이마트24', '대형마트'];
+  const storeChips = ['전체', 'CU', '세븐일레븐', '이마트24', '이마트', '롯데마트', '홈플러스'];
 
   // Filter & Sort promotions
   const filteredPromotions = useMemo(() => {
@@ -47,13 +47,8 @@ export const SaleNewsView: React.FC = () => {
 
       // 2. Store Filter
       if (storeFilter !== '전체') {
-        if (storeFilter === '대형마트') {
-          const isMart = item.store === '이마트' || item.store === '홈플러스' || (item.stores && item.stores.some(s => s === '이마트' || s === '홈플러스'));
-          if (!isMart) return false;
-        } else {
-          const matchStore = item.store === storeFilter || (item.stores && item.stores.includes(storeFilter as SaleStoreType));
-          if (!matchStore) return false;
-        }
+        const matchStore = item.store === storeFilter || (item.stores && item.stores.includes(storeFilter as SaleStoreType));
+        if (!matchStore) return false;
       }
 
       // 3. Search Query

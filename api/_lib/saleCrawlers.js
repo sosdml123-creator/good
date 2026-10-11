@@ -22,7 +22,7 @@ import {
 /** 매장당 노출 상한 — 행사 목록은 시스템 레코드 한 건에 통째로 저장되므로 크기를 제한합니다. */
 export const MAX_ITEMS_PER_STORE = 120;
 
-const ALCOHOL_PATTERN = /맥주|소주|와인|위스키|칵테일|하이볼|막걸리|사케|보드카|럼주|데킬라|샴페인|스파클링와인|라거|에일|IPA|필스너|청하|백세주|복분자주|매화수|이슬톡톡|츄하이|사와|진토닉/i;
+export const ALCOHOL_PATTERN = /맥주|소주|와인|위스키|칵테일|하이볼|막걸리|사케|보드카|럼주|데킬라|샴페인|스파클링와인|라거|에일|IPA|필스너|청하|백세주|복분자주|매화수|이슬톡톡|츄하이|사와|진토닉/i;
 
 const stripTags = (html) => decodeEntities(String(html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '));
 const toPrice = (text) => parseInt(String(text || '').replace(/[^0-9]/g, ''), 10) || 0;
@@ -260,12 +260,13 @@ export async function crawlStoreSales(store, { onlyFood = true, dealType = '전�
 /**
  * 저장된 행사 목록에 새 수집 결과를 반영합니다.
  *  - 종료일이 지난 행사는 제거
- *  - 수집에 성공한 매장의 자동 수집분은 새 결과로 교체 (실패한 매장은 기존 것을 유지)
+ *  - 수집에 성공한 매장의 자동 수집분은 새 결과로 교체 (실패했거나 전단이 그대로인 매장은 기존 것을 유지)
  *  - 관리자가 직접 등록한 행사는 그대로 두고, 관리자가 지운 자동 수집분은 되살리지 않음
  */
 export function mergeSalePromotions(existing, reports, deletedIds = [], today = kstToday()) {
   const deleted = new Set(deletedIds);
-  const okStores = new Set(reports.filter((r) => r.ok).map((r) => r.store));
+  const replaced = reports.filter((r) => r.ok && !r.unchanged);
+  const okStores = new Set(replaced.map((r) => r.store));
   const alive = (Array.isArray(existing) ? existing : []).filter((item) => item && item.id && !isSaleExpired(item, today));
   const previous = new Map(alive.map((item) => [item.id, item]));
   const isAuto = (item) => String(item.id).startsWith('sale-auto-');
@@ -273,7 +274,7 @@ export function mergeSalePromotions(existing, reports, deletedIds = [], today = 
   const manual = alive.filter((item) => !isAuto(item));
   const keptAuto = alive.filter((item) => isAuto(item) && !okStores.has(item.store));
 
-  const freshByStore = reports.filter((r) => r.ok).map((r) => r.items
+  const freshByStore = replaced.map((r) => r.items
     .filter((item) => !deleted.has(item.id))
     .map((item) => {
       const before = previous.get(item.id);

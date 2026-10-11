@@ -5198,9 +5198,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
       setSalePromotions(json.salePromotions);
       safeSetItem('sinsangpick_sales_v1', JSON.stringify(json.salePromotions));
-      const summary = (json.stores as { store: string; ok: boolean; count: number }[])
-        .map(s => `${s.store} ${s.ok ? `${s.count}건` : '실패'}`).join(' · ');
+      const stores = json.stores as { store: string; ok: boolean; count: number; error?: string }[];
+      const summary = stores.map(s => `${s.store} ${s.ok ? `${s.count}건` : '실패'}`).join(' · ');
       showToast(`🏷️ 행사상품 수집 완료 — ${summary} (종료 ${json.removed}건 정리)`, 'success');
+      const failed = stores.filter(s => !s.ok);
+      if (failed.length > 0) {
+        setAdminSaveError(`[행사 자동 수집] 일부 매장 실패 — ${failed.map(s => `${s.store}: ${s.error || '알 수 없는 오류'}`).join(' / ')}`);
+      }
     } catch (e) {
       setAdminSaveError(`[행사 자동 수집] 실패 — ${e instanceof Error ? e.message : '알 수 없는 오류'}`);
     }
