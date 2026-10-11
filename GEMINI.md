@@ -1,27 +1,21 @@
 # Agent Guidelines - 신상픽 (Sinsangpick)
 
-## 🚀 기본 원칙: 모든 명령 및 작업 시 항상 배포까지 완수 (Every Task Auto-Deploy)
-- 사용자의 모든 명령 및 코드 수정/작업 완료 시, 매번 예외 없이 아래의 **배포 체크리스트**를 순차적으로 완수하여 원격 배포까지 자동 진행합니다.
-- 별도로 "배포해줘"라는 요청이 없더라도 모든 작업의 마무리 단계로 빌드, 동기화, 커밋, 푸시를 반드시 실행합니다.
+## 🚀 배포: 요청당 한 번, 명령 하나로
+- 코드를 수정한 요청은 "배포해줘"가 없어도 **마지막에 한 번만** 아래 명령으로 배포합니다 (중간 단계마다 배포 금지, 여러 수정은 묶어서 한 커밋).
+  - `node scripts/deploy.cjs "커밋 제목" "본문(선택)"`
+  - 빌드(`tsc && vite build`) → `npx cap sync ios` → `git add -A` → 커밋 → `git push origin HEAD:main`을 한 번에 실행하고 결과를 한 줄로 출력합니다. 실패 시 해당 단계 로그만 출력되므로 고친 뒤 같은 명령을 다시 실행합니다.
+  - build / cap sync / git add·commit·push를 따로 실행하지 않습니다.
+- 푸시하면 Vercel Production과 GitHub Actions(`ios-deploy.yml`)가 자동 트리거됩니다. 배포 후 파이프라인·사이트 확인은 사용자가 요청할 때만 합니다.
+- 코드 변경이 없는 질문·조사 요청은 배포하지 않습니다.
+- 결과 보고는 변경 내용과 배포 커밋을 3~5줄로 짧게 전달합니다.
 
-### 🚀 배포 체크리스트 (모든 작업 완료 시 필수 실행)
-1. **빌드 & 타입 체크 검증**
-   - `npm run build` (`tsc && vite build`) 통과 필수 (에러 0건)
-   - Capacitor iOS 동기화: `npx cap sync ios`
-2. **Git 커밋 & 원격 푸시 (배포 트리거)**
-   - `git add .`
-   - 작업 내용을 명확히 기술한 커밋 메시지로 `git commit -m "..."`
-   - `git push origin main` 실행
-   - GitHub Actions (`ios-deploy.yml` App Store Connect 업로드) 및 Vercel Production 자동 배포 트리거
-3. **결과 보고**
-   - 작업 내용 및 배포 커밋, 배포 파이프라인 트리거 완료 상황을 사용자에게 명확히 전달
+## 💡 토큰 절약
+- `src/data/mockProducts.ts`(1MB 이상)와 루트·`scripts/`의 대형 `*.json`은 통째로 읽지 않습니다. Grep(`head_limit` 지정)으로 필요한 줄만 찾고 `offset`/`limit`으로 부분만 읽습니다.
+- 수정할 파일만 읽고, 이미 읽은 파일을 다시 읽거나 수정 후 확인용으로 재조회하지 않습니다.
+- 빌드·테스트 전체 로그를 출력하지 않습니다 (배포 스크립트가 요약).
+- 브라우저 스크린샷 검증은 UI 변경을 사용자가 확인 요청했을 때만 합니다.
 
-## 🚫 절대 금지 규칙: Capacitor `server.url` 외부 원격 웹뷰 URL 설정 금지 (앱 먹통 방지)
-- **발생 배경 및 원인**:
-  - `capacitor.config.ts`의 `server.url`에 `'https://sinsangpick.vercel.app'` 등 외부 URL을 지정하면, 앱 시작 시 로컬 번들(`dist`) 대신 해당 원격 웹사이트로 리다이렉트됩니다.
-  - Vercel 배포 미존재(`404 DEPLOYMENT_NOT_FOUND`)나 네트워크 지연, 서버 장애 발생 시 iOS/Android 앱 전체가 에러 화면으로 즉시 먹통(Blackout)이 되어 사용자 접속이 전면 마비됩니다.
-  - 또한 오프라인 구동 불가로 인해 Apple App Store 가이드라인 4.2(웹 래퍼 / 최소 기능 미충족) 리젝 사유가 됩니다.
-- **영구 준수 철칙**:
-  - `capacitor.config.ts`의 `server` 객체에는 `server.url`을 **절대로** 추가하지 않습니다 (`androidScheme: 'https'`만 유지).
-  - 모바일 앱은 반드시 빌드된 로컬 번들(`webDir: 'dist'`)을 자체 로컬 서빙(`capacitor://localhost` / `https://localhost`)해야 합니다.
-  - 실시간 데이터(배너, 신제품, 랭킹 등)는 웹뷰 URL 변경이 아니라 Supabase REST / Realtime API를 통해 클라이언트 내부에서 동적으로 페치합니다.
+## 🚫 절대 금지: Capacitor `server.url` 설정 (앱 먹통 방지)
+- `capacitor.config.ts`의 `server`에는 `server.url`을 **절대로** 추가하지 않습니다 (`androidScheme: 'https'`만 유지).
+- 이유: 외부 URL을 지정하면 로컬 번들(`dist`) 대신 원격 사이트를 띄우므로, 배포 누락(404)·네트워크 장애 시 앱 전체가 먹통이 되고 App Store 가이드라인 4.2(웹 래퍼) 리젝 사유가 됩니다.
+- 앱은 반드시 로컬 번들(`webDir: 'dist'`)을 서빙하고, 실시간 데이터(배너, 신제품, 랭킹 등)는 Supabase REST / Realtime API로 클라이언트에서 페치합니다.
