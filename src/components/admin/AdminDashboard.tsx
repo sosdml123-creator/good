@@ -668,83 +668,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     }).length;
   }, [allProfiles]);
 
-  // 14-Day Activity Trend Data for SVG Chart
-  const trendDays = useMemo(() => {
-    const days: { dateStr: string; label: string; signups: number; products: number; reports: number }[] = [];
-    const now = new Date();
-    for (let i = 13; i >= 0; i--) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().slice(0, 10);
-      const month = d.getMonth() + 1;
-      const day = d.getDate();
-      const label = `${month}/${day}`;
-
-      const signups = allProfiles.filter(u => u.createdAt && u.createdAt.slice(0, 10) === dateStr).length;
-      const prods = products.filter(p => p.releaseDate && p.releaseDate.slice(0, 10) === dateStr).length;
-      const rep = reports.filter(r => r.createdAt && r.createdAt.slice(0, 10) === dateStr).length;
-
-      days.push({ dateStr, label, signups, products: prods, reports: rep });
-    }
-    return days;
-  }, [allProfiles, products, reports]);
-
-  const chartDimensions = { width: 800, height: 180, padX: 30, padY: 20 };
-  const maxTrendVal = useMemo(() => {
-    const m = Math.max(
-      ...trendDays.map(d => Math.max(d.signups, d.products, d.reports)),
-      4
-    );
-    return Math.ceil(m * 1.25);
-  }, [trendDays]);
-
-  const trendPoints = useMemo(() => {
-    const { width, height, padX, padY } = chartDimensions;
-    const plotW = width - padX * 2;
-    const plotH = height - padY * 2;
-    const count = trendDays.length;
-
-    return trendDays.map((d, i) => {
-      const x = padX + (i / (count - 1)) * plotW;
-      const ySignups = padY + plotH - (d.signups / maxTrendVal) * plotH;
-      const yProducts = padY + plotH - (d.products / maxTrendVal) * plotH;
-      const yReports = padY + plotH - (d.reports / maxTrendVal) * plotH;
-      return { x, ySignups, yProducts, yReports, ...d };
+  // 최근 14일 신규 가입자 수 (한국 시간 기준 날짜로 집계)
+  const signupTrend = useMemo(() => {
+    const KST_OFFSET = 9 * 60 * 60 * 1000;
+    const toKstDate = (time: number) => new Date(time + KST_OFFSET).toISOString().slice(0, 10);
+    const counts = new Map<string, number>();
+    allProfiles.forEach(u => {
+      const time = u.createdAt ? new Date(u.createdAt).getTime() : NaN;
+      if (Number.isNaN(time)) return;
+      const key = toKstDate(time);
+      counts.set(key, (counts.get(key) || 0) + 1);
     });
-  }, [trendDays, maxTrendVal]);
 
-  const createSmoothPath = (pts: { x: number; y: number }[]) => {
-    if (pts.length === 0) return '';
-    if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
-    let path = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
-    for (let i = 0; i < pts.length - 1; i++) {
-      const p0 = pts[Math.max(i - 1, 0)];
-      const p1 = pts[i];
-      const p2 = pts[i + 1];
-      const p3 = pts[Math.min(i + 2, pts.length - 1)];
-
-      const cp1x = p1.x + (p2.x - p0.x) / 6;
-      const cp1y = p1.y + (p2.y - p0.y) / 6;
-      const cp2x = p2.x - (p3.x - p1.x) / 6;
-      const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-      path += ` C ${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
-    }
-    return path;
-  };
-
-  const signupsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.ySignups }))), [trendPoints]);
-  const signupsAreaPath = useMemo(() => {
-    if (trendPoints.length === 0) return '';
-    const line = signupsLinePath;
-    const bottomY = chartDimensions.height - chartDimensions.padY;
-    const first = trendPoints[0];
-    const last = trendPoints[trendPoints.length - 1];
-    return `${line} L ${last.x.toFixed(1)} ${bottomY} L ${first.x.toFixed(1)} ${bottomY} Z`;
-  }, [signupsLinePath, trendPoints]);
-
-  const productsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.yProducts }))), [trendPoints]);
-  const reportsLinePath = useMemo(() => createSmoothPath(trendPoints.map(p => ({ x: p.x, y: p.yReports }))), [trendPoints]);
+    const now = Date.now();
+    const days = Array.from({ length: 14 }, (_, idx) => {
+      const dateStr = toKstDate(now - (13 - idx) * 24 * 60 * 60 * 1000);
+      const [, month, day] = dateStr.split('-').map(Number);
+      return { dateStr, label: `${month}/${day}`, signups: counts.get(dateStr) || 0, isToday: idx === 13 };
+    });
+    const total = days.reduce((sum, d) => sum + d.signups, 0);
+    const max = Math.max(...days.map(d => d.signups), 1);
+    return { days, total, max, today: days[13].signups };
+  }, [allProfiles]);
 
   const recentReportsList = useMemo(() => {
     return [...reports]
@@ -1999,87 +1944,43 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
               </div>
 
-              {/* 2. 14-Day Activity Trend Chart (Smooth Bezier Area/Line SVG Chart) */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              {/* 2. 최근 14일 신규 가입자 수 (막대 그래프) */}
+              <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
-                    <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <span>최근 14일 활동 트렌드</span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">실제 데이터</span>
-                    </h2>
-                    <p className="text-xs text-slate-400 mt-0.5">신규 가입자, 등록 신상품, 신고 접수 건수의 일별 추이를 시각화합니다.</p>
+                    <h2 className="text-base font-bold text-slate-900 dark:text-white">최근 14일 신규 가입자</h2>
+                    <p className="text-xs text-slate-400 mt-0.5">날짜별 가입자 수입니다. (한국 시간 기준)</p>
                   </div>
-                  
-                  {/* Legend */}
-                  <div className="flex items-center gap-4 text-xs font-semibold">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
-                      <span className="text-slate-600 dark:text-slate-300">신규 가입</span>
+                  <div className="flex items-end gap-6">
+                    <div className="text-right">
+                      <div className="text-[11px] font-semibold text-slate-400">오늘</div>
+                      <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400 leading-none mt-1">{signupTrend.today.toLocaleString()}<span className="text-sm font-bold ml-0.5">명</span></div>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-violet-500"></span>
-                      <span className="text-slate-600 dark:text-slate-300">등록 상품</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                      <span className="text-slate-600 dark:text-slate-300">신고 접수</span>
+                    <div className="text-right">
+                      <div className="text-[11px] font-semibold text-slate-400">14일 합계</div>
+                      <div className="text-2xl font-black text-slate-900 dark:text-white leading-none mt-1">{signupTrend.total.toLocaleString()}<span className="text-sm font-bold ml-0.5">명</span></div>
                     </div>
                   </div>
                 </div>
 
-                {/* SVG Area Chart */}
-                <div className="relative w-full h-52 select-none pt-2">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 800 180" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="signupsAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#6366f1" stopOpacity="0.22" />
-                        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Horizontal Grid lines */}
-                    <line x1="30" y1="20" x2="770" y2="20" stroke="currentColor" className="text-slate-100 dark:text-slate-800" strokeDasharray="3 3" />
-                    <line x1="30" y1="90" x2="770" y2="90" stroke="currentColor" className="text-slate-100 dark:text-slate-800" strokeDasharray="3 3" />
-                    <line x1="30" y1="160" x2="770" y2="160" stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
-
-                    {/* Shaded Area for Signups */}
-                    {signupsAreaPath && (
-                      <path d={signupsAreaPath} fill="url(#signupsAreaGrad)" />
-                    )}
-
-                    {/* Smooth Lines */}
-                    {signupsLinePath && (
-                      <path d={signupsLinePath} fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    )}
-                    {productsLinePath && (
-                      <path d={productsLinePath} fill="none" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 2" />
-                    )}
-                    {reportsLinePath && (
-                      <path d={reportsLinePath} fill="none" stroke="#f43f5e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    )}
-
-                    {/* Data Points */}
-                    {trendPoints.map((pt, i) => (
-                      <g key={i}>
-                        {pt.signups > 0 && (
-                          <circle cx={pt.x} cy={pt.ySignups} r="3.5" fill="#6366f1" className="stroke-white dark:stroke-slate-900 stroke-2" />
-                        )}
-                        {pt.products > 0 && (
-                          <circle cx={pt.x} cy={pt.yProducts} r="3" fill="#8b5cf6" className="stroke-white dark:stroke-slate-900 stroke-1.5" />
-                        )}
-                        {pt.reports > 0 && (
-                          <circle cx={pt.x} cy={pt.yReports} r="3" fill="#f43f5e" className="stroke-white dark:stroke-slate-900 stroke-1.5" />
-                        )}
-                      </g>
-                    ))}
-                  </svg>
+                <div className="flex items-stretch gap-1.5 sm:gap-2.5 h-56 border-b border-slate-200 dark:border-slate-700">
+                  {signupTrend.days.map(d => (
+                    <div key={d.dateStr} className="flex-1 min-w-0 flex flex-col justify-end items-center gap-1.5" title={`${d.dateStr} · ${d.signups}명`}>
+                      <span className={`text-xs sm:text-sm font-bold tabular-nums ${d.signups > 0 ? 'text-slate-900 dark:text-white' : 'text-slate-300 dark:text-slate-600'}`}>
+                        {d.signups}
+                      </span>
+                      <div
+                        className={`w-full max-w-10 rounded-t-md ${d.signups === 0 ? 'bg-slate-200 dark:bg-slate-700' : d.isToday ? 'bg-indigo-600 dark:bg-indigo-400' : 'bg-indigo-400 dark:bg-indigo-500/70'}`}
+                        style={{ height: d.signups === 0 ? '2px' : `${Math.max(6, (d.signups / signupTrend.max) * 82)}%` }}
+                      />
+                    </div>
+                  ))}
                 </div>
 
-                {/* X-Axis Day Labels */}
-                <div className="flex justify-between px-2 text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2">
-                  {trendDays.map((d, idx) => (
-                    <span key={idx} className={idx % 2 === 0 ? "font-semibold" : "hidden sm:inline"}>
-                      {d.label}
+                <div className="flex gap-1.5 sm:gap-2.5 text-[11px] font-mono">
+                  {signupTrend.days.map(d => (
+                    <span key={d.dateStr} className={`flex-1 min-w-0 text-center ${d.isToday ? 'font-bold text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}`}>
+                      {d.isToday ? '오늘' : d.label}
                     </span>
                   ))}
                 </div>
