@@ -441,6 +441,13 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
     }
   }
 
+  const realtimeOnlyResult = {
+    success: true,
+    notification: createdNotif,
+    targetTokensCount: 0,
+    fcm: { broadcasted: true, note: 'Supabase Realtime Live Broadcast' }
+  };
+
   // 2. Dispatch via Serverless FCM / APNs endpoint
   try {
     const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
@@ -464,16 +471,24 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
         notification: data.notification || createdNotif
       };
     }
+
+    // 앱 알림함에는 저장됐고(실시간 전달) 기기 푸시만 실패한 경우
+    if (dbSaved) return realtimeOnlyResult;
+
+    // 발송 실패를 성공으로 표시하지 않습니다.
+    let serverError = '';
+    try { serverError = (await response.json())?.error || ''; } catch { /* non-JSON */ }
+    return {
+      success: false,
+      error: serverError || (response.status === 401 || response.status === 403
+        ? '관리자 권한을 확인하지 못했습니다. 다시 로그인해주세요.'
+        : `알림 발송 서버 오류 (${response.status})`)
+    };
   } catch (error: any) {
     console.warn('[Notification Service] /api/send-fcm call warning:', error);
+    if (dbSaved) return realtimeOnlyResult;
+    return { success: false, error: '알림 발송 서버에 연결하지 못했습니다.' };
   }
-
-  return {
-    success: true,
-    notification: createdNotif,
-    targetTokensCount: 1,
-    fcm: { broadcasted: true, note: 'Supabase Realtime Live Broadcast' }
-  };
 };
 
 /**

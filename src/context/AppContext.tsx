@@ -73,16 +73,18 @@ import {
 } from '../services/supabase';
 import {
   fetchRemoteContent,
-  saveRemoteBannersAndSections,
-  saveRemoteEvents,
-  saveRemoteProduct,
-  deleteRemoteProduct,
+  adminApi,
+  AdminApiResult,
+  saveRemoteContent,
+  saveRemoteProducts,
   deleteRemoteProducts,
   deleteRemoteReview,
   deleteRemoteCommunityPost,
-  saveRemoteDeletedProducts,
+  updateRemoteReview,
+  updateRemoteCommunityPost,
   SYSTEM_BANNER_RECORD_ID
 } from '../services/siteContentService';
+import { isAdminSession } from '../services/adminAuth';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
@@ -373,6 +375,9 @@ interface AppContextType {
   // Global Remote Content Sync
   isContentSyncing: boolean;
   syncAllContentToCloud: () => Promise<void>;
+  adminSaveError: string | null;
+  clearAdminSaveError: () => void;
+  initAdminSession: () => Promise<void>;
   refreshRemoteContent: () => Promise<void>;
 
   // 🎁 e쿠폰 스토어 (Point Shop)
@@ -837,7 +842,8 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => {
     releaseDate: dbP.release_date || '',
     createdAt: dbP.created_at,
     price: dbP.price,
-    discountRate: undefined,
+    // 0 은 DB 기본값이라 "할인 없음"과 구분되지 않으므로 값이 있을 때만 사용
+    discountRate: dbP.discount_rate ? dbP.discount_rate : undefined,
     overallRating: Number(dbP.overall_rating) || 0,
   ratingCount: dbP.rating_count || 0,
   detailedRating: dbP.detailed_rating || { taste: 5, value: 5, portion: 5, repurchase: 5 },
@@ -861,10 +867,54 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => {
   shelfLife: dbP.shelf_life,
   precautions: dbP.precautions,
   storeStocks: dbP.store_stocks,
+  code: (dbP as any).code || undefined,
+  spiciness: (dbP as any).spiciness || undefined,
+  buyLink: (dbP as any).buy_link || undefined,
+  sourceName: (dbP as any).source_name || undefined,
+  sourceUrl: (dbP as any).source_url || undefined,
   searchInfluxCount: (dbP as any).search_influx_count || undefined,
   produceDetails: (dbP as any).produce_details || (dbP as any).produceDetails || undefined,
   };
 };
+
+// DB 에 값이 없는 항목(null/빈 문자열)이 기본 상품 정보를 지우지 않도록 걸러냅니다.
+const definedOnly = <T extends object>(obj: T): Partial<T> =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined && v !== null && v !== '')
+  ) as Partial<T>;
+
+// 관리자가 어드민에서 고칠 수 있는 상품 항목 (기기에만 남은 수정분을 찾을 때 비교)
+const ADMIN_EDITABLE_PRODUCT_FIELDS: (keyof Product)[] = [
+  'name', 'brand', 'category', 'subCategory', 'itemType', 'price', 'discountRate', 'description',
+  'stores', 'calories', 'volume', 'isToday', 'isHot', 'releaseDate', 'image', 'nutrition',
+  'ingredients', 'allergens', 'origin', 'manufacturer', 'storageMethod', 'shelfLife', 'precautions', 'buyLink',
+];
+
+// DB(JSONB)는 객체 키 순서를 바꿔 돌려주므로 키를 정렬해 비교합니다.
+const sortKeysDeep = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .filter(([, v]) => v !== undefined && v !== null)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([k, v]) => [k, sortKeysDeep(v)])
+    );
+  }
+  return value;
+};
+
+const normalizeForDiff = (value: unknown): string => {
+  if (value === undefined || value === null || value === '' || value === 0 || value === false) return '';
+  if (Array.isArray(value) && value.length === 0) return '';
+  return typeof value === 'object' ? JSON.stringify(sortKeysDeep(value)) : String(value);
+};
+
+export const hasAdminEditDiff = (local: Product, base: Product): boolean =>
+  ADMIN_EDITABLE_PRODUCT_FIELDS.some(field => {
+    if (field === 'image' && isAgriMarineProduct(local)) return false;
+    return normalizeForDiff(local[field]) !== normalizeForDiff(base[field]);
+  });
 
 const mapDBReviewToReview = (dbR: DBReview, isLiked: boolean, comments: ReviewComment[]): Review => ({
   id: dbR.id,
@@ -1047,7 +1097,9 @@ export const syncProductRatingsWithReviews = (prods: Product[], revs: Review[]):
 export const smartMergeProducts = (
   storedProducts: Product[] | null,
   initialProducts: Product[],
-  deletedProductIds: string[] = []
+  deletedProductIds: string[] = [],
+  // 서버(DB)에 있는 상품 ID. 넘기면 해당 상품은 기기에 저장된 값이 아니라 서버 값을 그대로 씁니다.
+  serverProductIds?: Set<string>
 ): Product[] => {
   const deletedSet = new Set(deletedProductIds);
   const validInitial = initialProducts.filter(p => !deletedSet.has(p.id));
@@ -1074,6 +1126,12 @@ export const smartMergeProducts = (
   // 1. Merge official products preserving admin modifications (name, price, image, stores, nutrition, isToday, isHot, etc.)
   const mergedOfficial: Product[] = validInitial.map(initP => {
     const stored = storedMap.get(initP.id);
+    if (stored && serverProductIds?.has(initP.id)) {
+      return resetProductRatings({
+        ...initP,
+        kamisPriceInfo: stored.kamisPriceInfo || initP.kamisPriceInfo,
+      });
+    }
     if (stored) {
       return resetProductRatings({
         ...initP,
@@ -1086,9 +1144,12 @@ export const smartMergeProducts = (
   });
 
   // 2. Keep any custom products added by admin (IDs not in INITIAL_PRODUCTS and not deleted)
-  const customProducts = storedProducts
-    .filter(p => !initialMap.has(p.id) && !deletedSet.has(p.id))
-    .map(resetProductRatings);
+  // 서버 기준 모드에서는 서버에 없는(저장되지 않은) 기기 전용 상품을 남기지 않습니다.
+  const customProducts = serverProductIds
+    ? []
+    : storedProducts
+        .filter(p => !initialMap.has(p.id) && !deletedSet.has(p.id))
+        .map(resetProductRatings);
 
   return [...customProducts, ...mergedOfficial];
 };
@@ -1230,6 +1291,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const [isContentSyncing, setIsContentSyncing] = useState<boolean>(false);
+
+  // 관리자 저장 실패 안내 — 토스트가 꺼져 있어 어드민 화면 상단 배너로 알립니다.
+  const [adminSaveError, setAdminSaveError] = useState<string | null>(null);
+  const clearAdminSaveError = () => setAdminSaveError(null);
+  const reportSave = (result: AdminApiResult, label: string): boolean => {
+    if (result.ok) return true;
+    setAdminSaveError(`[${label}] 서버 반영 실패 — ${result.error || '알 수 없는 오류'}`);
+    return false;
+  };
+  const persistContent = (changes: Parameters<typeof saveRemoteContent>[0], label = '설정') =>
+    saveRemoteContent(changes).then(r => reportSave(r, label));
+  const persistProducts = (list: Product[]) =>
+    saveRemoteProducts(list).then(r => reportSave(r, '상품'));
+  const persistProductDelete = (ids: string[]) =>
+    deleteRemoteProducts(ids).then(r => reportSave(r, '상품 삭제'));
+  const persistAdmin = (action: string, payload: Record<string, unknown>, label: string) =>
+    adminApi(action, payload).then(r => reportSave(r, label));
+  const sanctionsRef = useRef<Map<string, any>>(new Map());
 
   // 1. Deleted Product IDs Master Tracking
   const [deletedProductIds, setDeletedProductIds] = useState<string[]>(() => {
@@ -1922,6 +2001,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   }, []);
 
+  // 로그인한 회원 본인의 제재 상태(경고/정지)를 서버에서 불러와 이용 제한에 반영합니다.
+  useEffect(() => {
+    const uid = currentUser.uid;
+    if (!supabase || !isSupabaseConfigured || !uid || currentUser.isAnonymous) return;
+    let cancelled = false;
+    Promise.resolve(supabase.from('user_sanctions').select('*').eq('user_id', uid).maybeSingle())
+      .then(({ data, error }) => {
+        if (cancelled || error || !data) return;
+        const fields = {
+          status: data.status || 'active',
+          warningCount: Number(data.warning_count) || 0,
+          suspendedUntil: data.suspended_until || undefined,
+          statusReason: data.reason || undefined,
+          statusUpdatedAt: data.updated_at || undefined,
+        };
+        setCurrentUser(prev => (prev.uid === uid ? { ...prev, ...fields } : prev));
+        setAllProfiles(prev => prev.map(u => (u.uid === uid ? { ...u, ...fields } : u)));
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [currentUser.uid]);
+
+  // 관리자 설정 목록(브랜드·판매처·출시 캘린더·배틀)은 서버에 저장된 값이 있으면 그 값을 씁니다.
+  const applyRemoteAdminLists = (remote: { brands?: any; storeChannels?: any; calendarItems?: any; battleConfig?: any } | null | undefined) => {
+    if (!remote) return;
+    if (Array.isArray(remote.brands)) setBrands(remote.brands);
+    if (Array.isArray(remote.storeChannels)) setStoreChannels(remote.storeChannels);
+    if (Array.isArray(remote.calendarItems)) setCalendarItems(remote.calendarItems);
+    if (remote.battleConfig && typeof remote.battleConfig === 'object') {
+      setBattleConfig(prev => ({ ...prev, ...remote.battleConfig }));
+    }
+  };
+
   // Global Remote Content Sync Handlers
   const refreshRemoteContent = async () => {
     setIsContentSyncing(true);
@@ -1948,6 +2060,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSalePromotions(remote.salePromotions);
         safeSetItem('sinsangpick_sales_v1', JSON.stringify(remote.salePromotions));
       }
+      applyRemoteAdminLists(remote);
       let curDeletedEvents = deletedEventIdsRef.current;
       if (remote.deletedEventIds && Array.isArray(remote.deletedEventIds)) {
         curDeletedEvents = Array.from(new Set([...curDeletedEvents, ...remote.deletedEventIds]));
@@ -1980,10 +2093,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const syncAllContentToCloud = async () => {
     setIsContentSyncing(true);
     try {
-      await saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions, events, deletedEventIdsRef.current);
-      showToast('☁️ 배너, 홈 구좌, 체험단 및 1+1 행사 설정이 클라우드에 실시간 동기화되었습니다!', 'success');
-    } catch (e) {
-      showToast('동기화 중 오류가 발생했습니다.', 'error');
+      const ok = await persistContent({
+        banners, homeSections, salePromotions, events, brands, storeChannels, calendarItems, battleConfig,
+        deletedProductIds: deletedProductIdsRef.current,
+        deletedBannerIds: deletedBannerIdsRef.current,
+        deletedEventIds: deletedEventIdsRef.current,
+      }, '전체 설정');
+      if (ok) setAdminSaveError(null);
     } finally {
       setIsContentSyncing(false);
     }
@@ -2044,6 +2160,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setSalePromotions(systemBannerRecord.nutrition.salePromotions);
           safeSetItem('sinsangpick_sales_v1', JSON.stringify(systemBannerRecord.nutrition.salePromotions));
         }
+        applyRemoteAdminLists(systemBannerRecord.nutrition);
         if (Array.isArray(systemBannerRecord.nutrition.deletedEventIds)) {
           const mergedDeletedEvents = Array.from(new Set([...deletedEventIdsRef.current, ...systemBannerRecord.nutrition.deletedEventIds]));
           deletedEventIdsRef.current = mergedDeletedEvents;
@@ -2095,7 +2212,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           .map(initial => {
             const dbP = dbProductMap.get(initial.id);
             if (dbP) {
-              const mapped = mapDBProductToProduct(dbP);
+              const mapped = definedOnly(mapDBProductToProduct(dbP)) as Product;
               return {
                 ...initial,
                 ...mapped,
@@ -2121,7 +2238,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           .filter((dbP: any) => dbP.id && !initialIdSet.has(dbP.id) && dbP.id !== SYSTEM_BANNER_RECORD_ID && !deletedSet.has(dbP.id))
           .map((dbP: any) => mapDBProductToProduct(dbP));
 
-        const combinedProducts = smartMergeProducts(storedLocalProducts, [...mergedInitial, ...extraDbProducts], mergedDeletedIds);
+        // 서버 값이 기준입니다. 단, 관리자 기기에 남은 미저장 수정분을 서버로 올리기(initAdminSession) 전까지는
+        // 그 기기에서만 기존처럼 기기 값을 유지해 수정분이 사라지지 않게 합니다.
+        const serverIsSourceOfTruth = Boolean(systemBannerRecord?.nutrition?.adminLocalSyncedAt) || !(await isAdminSession());
+        const combinedProducts = smartMergeProducts(
+          storedLocalProducts,
+          [...mergedInitial, ...extraDbProducts],
+          mergedDeletedIds,
+          serverIsSourceOfTruth ? new Set(dbProductMap.keys()) : undefined
+        );
         setProducts(syncProductRatingsWithReviews(combinedProducts, reviews));
       }
 
@@ -4154,12 +4279,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (updatedData.detailedRating !== undefined) dbUpdates.detailed_rating = updatedData.detailedRating;
         if (updatedData.images !== undefined) dbUpdates.images = updatedData.images;
         if (updatedData.tags !== undefined) dbUpdates.tags = updatedData.tags;
-        if (updatedData.headline !== undefined) dbUpdates.headline = updatedData.headline;
-        if (updatedData.purchasePlace !== undefined) dbUpdates.purchase_place = updatedData.purchasePlace;
-        if (updatedData.purchaseEvent !== undefined) dbUpdates.purchase_event = updatedData.purchaseEvent;
-        if (updatedData.repurchaseIntent !== undefined) dbUpdates.repurchase_intent = updatedData.repurchaseIntent;
 
-        await supabase.from('reviews').update(dbUpdates).eq('id', reviewId);
+        // reviews 테이블에 없는 컬럼을 함께 보내면 수정 전체가 거부되므로 위 항목만 보냅니다.
+        if (Object.keys(dbUpdates).length > 0) {
+          reportSave(await updateRemoteReview(reviewId, dbUpdates), '리뷰 수정');
+        }
       } catch (err) {
         console.warn('[Supabase] Review update error:', err);
       }
@@ -4179,7 +4303,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setReviews(filteredReviews);
     setProducts(prev => syncProductRatingsWithReviews(prev, filteredReviews));
 
-    deleteRemoteReview(reviewId).catch(() => {});
+    deleteRemoteReview(reviewId).then(r => reportSave(r, '리뷰 삭제'));
     showToast('리뷰가 정상적으로 삭제되었습니다.', 'info');
   };
 
@@ -4198,7 +4322,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (updatedData.title !== undefined) dbUpdates.title = updatedData.title;
         if (updatedData.content !== undefined) dbUpdates.content = updatedData.content;
         if (updatedData.category !== undefined) dbUpdates.category = updatedData.category;
-        await supabase.from('community_posts').update(dbUpdates).eq('id', postId);
+        if (Object.keys(dbUpdates).length > 0) {
+          reportSave(await updateRemoteCommunityPost(postId, dbUpdates), '게시글 수정');
+        }
       } catch (err) {
         console.warn('[Supabase] Community post update error:', err);
       }
@@ -4214,7 +4340,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return next;
     });
     setCommunityPosts(prev => prev.filter(p => p.id !== postId));
-    deleteRemoteCommunityPost(postId).catch(() => {});
+    deleteRemoteCommunityPost(postId).then(r => reportSave(r, '게시글 삭제'));
     showToast('커뮤니티 게시글이 삭제되었습니다.', 'info');
   };
 
@@ -4232,7 +4358,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const next = [newEvent, ...prev];
       safeSetItem('sinsangpick_events', JSON.stringify(next));
       // Supabase & 클라우드 API 영구 저장
-      saveRemoteEvents(next, deletedEventIdsRef.current).catch(() => {});
+      persistContent({ events: next, deletedEventIds: deletedEventIdsRef.current }, '체험단·이벤트');
       return next;
     });
     showToast(`🎉 '${newEvent.title}' 체험단 구좌가 성공적으로 등록되었습니다!`, 'success');
@@ -4244,7 +4370,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const next = prev.map(e => e.id === id ? { ...e, ...updated } : e);
       safeSetItem('sinsangpick_events', JSON.stringify(next));
       // Supabase & 클라우드 API 영구 저장
-      saveRemoteEvents(next, deletedEventIdsRef.current).catch(() => {});
+      persistContent({ events: next, deletedEventIds: deletedEventIdsRef.current }, '체험단·이벤트');
       return next;
     });
     showToast('체험단 구좌 정보가 수정되었습니다.', 'success');
@@ -4261,7 +4387,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const next = prev.filter(e => e.id !== id);
       safeSetItem('sinsangpick_events', JSON.stringify(next));
       // Supabase & 클라우드 API 영구 삭제 동기화
-      saveRemoteEvents(next, nextDeleted).catch(() => {});
+      persistContent({ events: next, deletedEventIds: nextDeleted }, '체험단·이벤트');
       return next;
     });
     showToast('체험단 구좌가 성공적으로 삭제되었습니다.', 'info');
@@ -4272,7 +4398,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setEvents(newEvents);
     safeSetItem('sinsangpick_events', JSON.stringify(newEvents));
     // Supabase & 클라우드 API 영구 저장
-    saveRemoteEvents(newEvents, deletedEventIdsRef.current).catch(() => {});
+    persistContent({ events: newEvents, deletedEventIds: deletedEventIdsRef.current }, '체험단·이벤트');
     showToast('체험단 구좌 노출 순서가 변경되었습니다.', 'info');
   };
 
@@ -4364,6 +4490,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       });
       if (res && res.success) {
         showToast('📢 푸시 알림이 모든 사용자 기기로 실시간 발송되었습니다!', 'success');
+      } else {
+        reportSave({ ok: false, error: res?.error }, '푸시 알림 발송');
       }
     } catch (err) {
       console.warn('[AppContext] sendPushNotification broadcast warning:', err);
@@ -4388,6 +4516,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_notifications', JSON.stringify(next));
       return next;
     });
+    // 서버에서도 지워야 다른 기기의 알림함에서 사라집니다.
+    persistAdmin('delete_notification', { id }, '알림 삭제');
     showToast('알림 항목이 삭제되었습니다.', 'info');
   };
 
@@ -4511,10 +4641,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(list);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
-    showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다! (클라우드 동기화 완료)', 'success');
+    showToast('🎉 새 배너 구좌가 성공적으로 등록되었습니다!', 'success');
   };
 
   // Update Banner
@@ -4532,10 +4662,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(next);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
-    showToast('배너 구좌 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
+    showToast('배너 구좌 정보가 수정되었습니다.', 'success');
   };
 
   // Delete Banner (남은 구좌 번호 1부터 자동 재배열 및 즉시 영구 저장, deletedBannerIds 등록)
@@ -4549,10 +4679,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(prev.filter(b => b.id !== id));
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync with both deletedProductIds and deletedBannerIds
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, nextDeletedBanners).catch(() => {});
+      persistContent({ banners: normalized, deletedBannerIds: nextDeletedBanners }, '배너 삭제');
       return normalized;
     });
-    showToast('배너 구좌가 삭제되었습니다. (클라우드 동기화 완료)', 'info');
+    showToast('배너 구좌가 삭제되었습니다.', 'info');
   };
 
   // Toggle Banner Active
@@ -4562,7 +4692,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(next);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
   };
@@ -4584,7 +4714,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(newBanners);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
     showToast(`배너 구좌 순서가 ${direction === 'up' ? '상위' : '하위'}로 변경되었습니다.`, 'info');
@@ -4604,7 +4734,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(sorted);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
     showToast(`배너가 ${targetOrder}구좌로 이동되었습니다.`, 'success');
@@ -4629,7 +4759,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const normalized = normalizeBanners(sorted);
       safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
       // Cloud sync
-      saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
+      persistContent({ banners: normalized }, '배너');
       return normalized;
     });
     showToast('배너 구좌가 성공적으로 복제되었습니다!', 'success');
@@ -4641,8 +4771,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     safeSetItem('sinsangpick_banners', JSON.stringify(normalized));
     setBanners(normalized);
     // Cloud sync
-    saveRemoteBannersAndSections(normalized, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current).catch(() => {});
-    showToast('배너 구좌 순서가 저장되었습니다. (클라우드 동기화 완료)', 'success');
+    persistContent({ banners: normalized }, '배너');
+    showToast('배너 구좌 순서가 저장되었습니다.', 'success');
   };
 
   // Add Product
@@ -4678,28 +4808,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isHot: productData.isHot ?? false,
     };
     setProducts(prev => [newProduct, ...prev]);
-    saveRemoteProduct(newProduct).catch(() => {});
-    showToast(`📦 '${newProduct.name}' 상품이 등록되었습니다! (클라우드 동기화 완료)`, 'success');
+    persistProducts([newProduct]);
+    showToast(`📦 '${newProduct.name}' 상품이 등록되었습니다!`, 'success');
   };
 
   // Update Product
   const updateProduct = (id: string, updated: Partial<Product>) => {
-    let updatedTarget: Product | null = null;
+    const current = products.find(p => p.id === id);
+    if (!current) return;
+    // 상태 업데이트 함수는 나중에 실행될 수 있어, 서버로 보낼 값은 여기서 바로 만듭니다.
+    const updatedTarget: Product = { ...current, ...updated };
     setProducts(prev => {
-      const next = prev.map(p => {
-        if (p.id === id) {
-          updatedTarget = { ...p, ...updated };
-          return updatedTarget;
-        }
-        return p;
-      });
+      const next = prev.map(p => (p.id === id ? { ...p, ...updated } : p));
       safeSetItem('sinsangpick_products', JSON.stringify(next));
       return next;
     });
-    if (updatedTarget) {
-      saveRemoteProduct(updatedTarget).catch(() => {});
-    }
-    showToast('상품 정보가 수정되었습니다. (클라우드 동기화 완료)', 'success');
+    persistProducts([updatedTarget]);
+    showToast('상품 정보가 수정되었습니다.', 'success');
   };
 
   // Delete Product (Race-condition proof via ref and immediate cloud sync)
@@ -4708,15 +4833,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     deletedProductIdsRef.current = nextDeleted;
     setDeletedProductIds(nextDeleted);
     safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
-    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
     setProducts(prev => {
       const next = prev.filter(p => p.id !== id);
       safeSetItem('sinsangpick_products', JSON.stringify(next));
       return next;
     });
-    deleteRemoteProduct(id).catch(() => {});
-    showToast('상품이 삭제되었습니다. (클라우드 동기화 완료)', 'info');
+    persistProductDelete([id]);
+    showToast('상품이 삭제되었습니다.', 'info');
   };
 
   // Bulk Delete Products
@@ -4726,7 +4850,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     deletedProductIdsRef.current = nextDeleted;
     setDeletedProductIds(nextDeleted);
     safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
-    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
     const idSet = new Set(ids);
     setProducts(prev => {
@@ -4734,8 +4857,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_products', JSON.stringify(next));
       return next;
     });
-    deleteRemoteProducts(ids).catch(() => {});
-    showToast(`선택한 ${ids.length}개의 상품이 삭제되었습니다. (클라우드 동기화 완료)`, 'info');
+    persistProductDelete(ids);
+    showToast(`선택한 ${ids.length}개의 상품이 삭제되었습니다.`, 'info');
   };
 
   // Toggle Product Today
@@ -4745,7 +4868,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (p.id === id) {
           const nextToday = !p.isToday;
           const updated = { ...p, isToday: nextToday };
-          saveRemoteProduct(updated).catch(() => {});
+          persistProducts([updated]);
           return updated;
         }
         return p;
@@ -4763,7 +4886,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (p.id === id) {
           const nextHot = !p.isHot;
           const updated = { ...p, isHot: nextHot };
-          saveRemoteProduct(updated).catch(() => {});
+          persistProducts([updated]);
           return updated;
         }
         return p;
@@ -4779,6 +4902,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBattleConfig(prev => {
       const next = { ...prev, ...config };
       safeSetItem('sinsangpick_battle_config', JSON.stringify(next));
+      persistContent({ battleConfig: next }, '신상 배틀');
       return next;
     });
     showToast('신상 배틀 설정이 업데이트되었습니다.', 'success');
@@ -4789,10 +4913,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setHomeSections(prev => {
       const next = prev.map(sec => sec.id === id ? { ...sec, ...updates } : sec);
       safeSetItem('sinsangpick_home_sections', JSON.stringify(next));
-      saveRemoteBannersAndSections(banners, next, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
+      persistContent({ homeSections: next }, '홈 구좌');
       return next;
     });
-    showToast('홈 구좌 설정이 업데이트되었습니다. (클라우드 동기화 완료)', 'success');
+    showToast('홈 구좌 설정이 업데이트되었습니다.', 'success');
   };
 
   const toggleHomeSectionVisibility = (id: HomeSectionId) => {
@@ -4806,7 +4930,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return sec;
       });
       safeSetItem('sinsangpick_home_sections', JSON.stringify(next));
-      saveRemoteBannersAndSections(banners, next, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
+      persistContent({ homeSections: next }, '홈 구좌');
       return next;
     });
   };
@@ -4815,15 +4939,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const updated = sections.map((s, idx) => ({ ...s, order: idx + 1 }));
     setHomeSections(updated);
     safeSetItem('sinsangpick_home_sections', JSON.stringify(updated));
-    saveRemoteBannersAndSections(banners, updated, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
-    showToast('홈 구좌 순서가 변경되었습니다. (클라우드 동기화 완료)', 'success');
+    persistContent({ homeSections: updated }, '홈 구좌');
+    showToast('홈 구좌 순서가 변경되었습니다.', 'success');
   };
 
   const resetHomeSections = () => {
     setHomeSections(INITIAL_HOME_SECTIONS);
     safeSetItem('sinsangpick_home_sections', JSON.stringify(INITIAL_HOME_SECTIONS));
-    saveRemoteBannersAndSections(banners, INITIAL_HOME_SECTIONS, deletedProductIdsRef.current, deletedBannerIdsRef.current, salePromotions).catch(() => {});
-    showToast('홈 구좌 설정이 기본값으로 초기화되었습니다. (클라우드 동기화 완료)', 'info');
+    persistContent({ homeSections: INITIAL_HOME_SECTIONS }, '홈 구좌');
+    showToast('홈 구좌 설정이 기본값으로 초기화되었습니다.', 'info');
   };
 
   // --- Admin Brand Actions ---
@@ -4841,6 +4965,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBrands(prev => {
       const next = [newBrand, ...prev];
       safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      persistContent({ brands: next }, '브랜드');
       return next;
     });
     showToast(`🏢 '${newBrand.name}' 브랜드가 등록되었습니다.`, 'success');
@@ -4850,6 +4975,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBrands(prev => {
       const next = prev.map(b => b.id === id ? { ...b, ...updated } : b);
       safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      persistContent({ brands: next }, '브랜드');
       return next;
     });
     showToast('🏢 브랜드 정보가 업데이트되었습니다.', 'success');
@@ -4860,6 +4986,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBrands(prev => {
       const next = prev.filter(b => b.id !== id);
       safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      persistContent({ brands: next }, '브랜드');
       return next;
     });
     showToast(`🏢 '${target?.name || ''}' 브랜드가 삭제되었습니다.`, 'info');
@@ -4869,6 +4996,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBrands(prev => {
       const next = prev.map(b => b.id === id ? { ...b, isPopular: !b.isPopular } : b);
       safeSetItem('sinsangpick_brands_v1', JSON.stringify(next));
+      persistContent({ brands: next }, '브랜드');
       return next;
     });
     showToast('인기 브랜드 상태가 변경되었습니다.', 'info');
@@ -4888,6 +5016,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStoreChannels(prev => {
       const next = [...prev, newStore];
       safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      persistContent({ storeChannels: next }, '판매처');
       return next;
     });
     showToast(`🏪 '${newStore.name}' 판매처가 등록되었습니다.`, 'success');
@@ -4897,6 +5026,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStoreChannels(prev => {
       const next = prev.map(s => s.id === id ? { ...s, ...updated } : s);
       safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      persistContent({ storeChannels: next }, '판매처');
       return next;
     });
     showToast('🏪 판매처 정보가 업데이트되었습니다.', 'success');
@@ -4907,6 +5037,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStoreChannels(prev => {
       const next = prev.filter(s => s.id !== id);
       safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      persistContent({ storeChannels: next }, '판매처');
       return next;
     });
     showToast(`🏪 '${target?.name || ''}' 판매처가 삭제되었습니다.`, 'info');
@@ -4916,6 +5047,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStoreChannels(prev => {
       const next = prev.map(s => s.id === id ? { ...s, isActive: !s.isActive } : s);
       safeSetItem('sinsangpick_stores_v1', JSON.stringify(next));
+      persistContent({ storeChannels: next }, '판매처');
       return next;
     });
     showToast('판매처 노출 상태가 변경되었습니다.', 'info');
@@ -4935,7 +5067,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = [newSale, ...salePromotions];
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    persistContent({ salePromotions: next }, '행사 소식');
     showToast(`🏷️ '${newSale.title}' 행사 소식이 등록되었습니다.`, 'success');
   };
 
@@ -4946,7 +5078,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = [...toAdd, ...salePromotions];
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    persistContent({ salePromotions: next }, '행사 소식');
     showToast(`🏷️ 총 ${toAdd.length}건의 행사가 클라우드에 일괄 등록되었습니다.`, 'success');
   };
 
@@ -4954,7 +5086,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = salePromotions.map(s => s.id === id ? { ...s, ...updated } : s);
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    persistContent({ salePromotions: next }, '행사 소식');
     showToast('🏷️ 행사 소식이 업데이트되었습니다.', 'success');
   };
 
@@ -4963,7 +5095,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = salePromotions.filter(s => s.id !== id);
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    persistContent({ salePromotions: next }, '행사 소식');
     showToast(`🏷️ '${target?.title || ''}' 행사가 삭제되었습니다.`, 'info');
   };
 
@@ -4971,14 +5103,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = salePromotions.map(s => s.id === id ? { ...s, isHot: !s.isHot } : s);
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, next).catch(() => {});
+    persistContent({ salePromotions: next }, '행사 소식');
     showToast('🔥 핫딜 상태가 변경되었습니다.', 'info');
   };
 
   const resetSalePromotionsToDefault = () => {
     setSalePromotions(INITIAL_SALE_PROMOTIONS);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(INITIAL_SALE_PROMOTIONS));
-    saveRemoteBannersAndSections(banners, homeSections, deletedProductIdsRef.current, deletedBannerIdsRef.current, INITIAL_SALE_PROMOTIONS).catch(() => {});
+    persistContent({ salePromotions: INITIAL_SALE_PROMOTIONS }, '행사 소식');
     showToast('🏷️ 행사 소식이 기본 데이터로 초기화 및 클라우드에 동기화되었습니다.', 'success');
   };
 
@@ -4995,6 +5127,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCalendarItems(prev => {
       const next = [newCalendar, ...prev];
       safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      persistContent({ calendarItems: next }, '출시 캘린더');
       return next;
     });
     showToast(`📅 '${newCalendar.name}' 출시 일정이 등록되었습니다.`, 'success');
@@ -5004,6 +5137,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCalendarItems(prev => {
       const next = prev.map(c => c.id === id ? { ...c, ...updated } : c);
       safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      persistContent({ calendarItems: next }, '출시 캘린더');
       return next;
     });
     showToast('📅 출시 일정이 업데이트되었습니다.', 'success');
@@ -5014,6 +5148,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCalendarItems(prev => {
       const next = prev.filter(c => c.id !== id);
       safeSetItem('sinsangpick_calendar_v1', JSON.stringify(next));
+      persistContent({ calendarItems: next }, '출시 캘린더');
       return next;
     });
     showToast(`📅 '${target?.name || ''}' 일정이 삭제되었습니다.`, 'info');
@@ -5195,15 +5330,127 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     deletedProductIdsRef.current = nextDeleted;
     setDeletedProductIds(nextDeleted);
     safeSetItem('sinsangpick_deleted_products', JSON.stringify(nextDeleted));
-    saveRemoteDeletedProducts(nextDeleted).catch(() => {});
 
     setProducts(prev => prev.filter(p => !targetIds.includes(p.id)));
-    deleteRemoteProducts(targetIds).catch(() => {});
+    persistProductDelete(targetIds);
     setPendingProducts(prev => [...restored, ...prev]);
     showToast(`↩️ ${targets.length}건의 승인을 취소하고 대기함으로 되돌렸습니다.`, 'info');
   };
 
   const revokeApprovedProduct = (productId: string) => revokeAllApprovedProducts([productId]);
+
+  // 서버에 저장된 제재 상태 → 회원 프로필 필드
+  const sanctionFields = (sanction: any, existingP?: UserProfile) => sanction
+    ? {
+        status: (sanction.status || 'active') as UserAccountStatus,
+        warningCount: Number(sanction.warning_count) || 0,
+        suspendedUntil: sanction.suspended_until || undefined,
+        statusReason: sanction.reason || undefined,
+        statusUpdatedAt: sanction.updated_at || undefined,
+      }
+    : { status: existingP?.status || ('active' as UserAccountStatus), warningCount: existingP?.warningCount || 0 };
+
+  // 신고·제품 수정 요청·회원 제재·포인트 내역을 서버에서 불러옵니다. (테이블이 아직 없으면 기기 값 유지)
+  const refreshModeration = async () => {
+    const result = await adminApi('list_moderation');
+    if (!result.ok) {
+      if (result.code !== 'SIGNED_OUT' && result.code !== 'UNAUTHORIZED') reportSave(result, '신고·제재 내역 조회');
+      return;
+    }
+    const { reports: reportRows, editRequests, sanctions, pointTransactions: txRows } = result.data || {};
+
+    if (Array.isArray(reportRows)) {
+      setReports(reportRows.map((row: any) => ({ ...row.data, id: row.id, status: row.status })));
+    }
+    if (Array.isArray(editRequests)) {
+      setProductEditRequests(editRequests.map((row: any) => ({ ...row.data, id: row.id, status: row.status })));
+    }
+    if (Array.isArray(sanctions)) {
+      sanctionsRef.current = new Map(sanctions.map((row: any) => [row.user_id, row]));
+      setAllProfiles(prev => prev.map(u => {
+        const sanction = sanctionsRef.current.get(u.uid);
+        return sanction ? { ...u, ...sanctionFields(sanction, u) } : u;
+      }));
+    }
+    if (Array.isArray(txRows)) {
+      const serverIds = new Set(txRows.map((row: any) => row.id));
+      setPointTransactions(prev => {
+        const names = new Map(allProfiles.map(u => [u.uid, u]));
+        const fromServer: PointTransaction[] = txRows.map((row: any) => ({
+          id: row.id,
+          userId: row.user_id,
+          userName: names.get(row.user_id)?.displayName || '회원',
+          userAvatar: names.get(row.user_id)?.photoURL,
+          type: row.type,
+          amount: row.amount,
+          balanceAfter: row.balance_after,
+          reason: row.reason || '',
+          createdAt: new Date(row.created_at).toLocaleString('ko-KR', {
+            year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false
+          }),
+          adminMemo: row.admin_memo || undefined,
+        }));
+        // 관리자 지급/회수 내역은 서버가 원본, 그 외(본인 적립 등)는 기기 내역 유지
+        const localOnly = prev.filter(t => !serverIds.has(t.id) && t.type !== 'grant' && t.type !== 'revoke');
+        return [...fromServer, ...localOnly];
+      });
+    }
+  };
+
+  // 서버 저장이 막혀 있던 동안 이 기기에만 남은 관리자 수정분(상품·삭제 목록·브랜드 등)을 한 번 서버로 올립니다.
+  const publishLocalAdminEdits = async () => {
+    if (!supabase || !isSupabaseConfigured) return;
+    const { data: sysRow, error: sysErr } = await supabase
+      .from('products')
+      .select('nutrition')
+      .eq('id', SYSTEM_BANNER_RECORD_ID)
+      .maybeSingle();
+    if (sysErr) return;
+    const remote = sysRow?.nutrition || {};
+    if (remote.adminLocalSyncedAt) return;
+
+    const { data: dbRows, error } = await supabase.from('products').select('*').neq('id', SYSTEM_BANNER_RECORD_ID);
+    if (error || !dbRows) return;
+
+    // 다른 기기(서버 기준)에서 보이는 값과 다른 상품만 올립니다.
+    const initialMap = new Map(INITIAL_PRODUCTS.map(p => [p.id, p]));
+    const serverView = new Map<string, Product>();
+    dbRows.forEach((row: any) => {
+      const mapped = definedOnly(mapDBProductToProduct(row)) as Product;
+      const initial = initialMap.get(row.id);
+      // loadSupabaseData 와 같은 규칙: 임시(unsplash) 이미지는 기본 상품 이미지로 대체되어 보입니다.
+      const image = mapped.image && !mapped.image.includes('unsplash') ? mapped.image : (initial?.image || mapped.image);
+      serverView.set(row.id, { ...(initial || {}), ...mapped, image } as Product);
+    });
+    const changed = products.filter(p => {
+      const base = serverView.get(p.id) || initialMap.get(p.id);
+      return !base || hasAdminEditDiff(p, base);
+    });
+
+    for (let i = 0; i < changed.length; i += 15) {
+      const result = await saveRemoteProducts(changed.slice(i, i + 15));
+      if (!reportSave(result, '기존 상품 수정분 올리기')) return;
+    }
+
+    await persistContent({
+      ...(Array.isArray(remote.brands) ? {} : { brands }),
+      ...(Array.isArray(remote.storeChannels) ? {} : { storeChannels }),
+      ...(Array.isArray(remote.calendarItems) ? {} : { calendarItems }),
+      ...(remote.battleConfig ? {} : { battleConfig }),
+      ...(Array.isArray(remote.events) ? {} : { events }),
+      deletedProductIds: deletedProductIdsRef.current,
+      deletedBannerIds: deletedBannerIdsRef.current,
+      deletedEventIds: deletedEventIdsRef.current,
+      adminLocalSyncedAt: new Date().toISOString(),
+    }, '기존 수정분 올리기');
+  };
+
+  // 어드민 화면 진입 시 1회 실행
+  const initAdminSession = async () => {
+    if (!(await isAdminSession())) return;
+    await publishLocalAdminEdits();
+    await refreshModeration();
+  };
 
   // User & Points Management Actions (Admin)
   const fetchAllProfiles = async () => {
@@ -5255,9 +5502,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 provider: inferredProv,
                 createdAt: p.created_at || existingP?.createdAt || new Date().toISOString(),
                 lastActiveAt: p.last_active_at || p.updated_at || existingP?.lastActiveAt || undefined,
-                status: existingP?.status || 'active',
-                warningCount: existingP?.warningCount || 0,
-                role: existingP?.role || 'user'
+                ...sanctionFields(sanctionsRef.current.get(p.id), existingP),
+                role: p.is_admin ? 'admin' : 'user'
               };
             });
 
@@ -5297,80 +5543,60 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // 포인트 지급(+)/회수(-): 서버가 현재 잔액 기준으로 계산해 저장한 결과만 화면에 반영합니다.
+  const adjustPointsByAdmin = async (
+    userIds: string[],
+    delta: number,
+    reason: string,
+    memo: string | undefined
+  ): Promise<{ userId: string; before: number; after: number }[] | null> => {
+    const result = await adminApi('adjust_points', { ids: userIds, delta, reason, memo });
+    if (!reportSave(result, delta > 0 ? '포인트 지급' : '포인트 회수')) return null;
+
+    const balances: { userId: string; before: number; after: number }[] = result.data?.balances || [];
+    const balanceMap = new Map(balances.map(b => [b.userId, b]));
+    const nowStr = new Date().toLocaleString('ko-KR', {
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false
+    });
+
+    setAllProfiles(prev => prev.map(u => {
+      const b = balanceMap.get(u.uid);
+      return b ? { ...u, points: b.after, level: calculateLevel(b.after) } : u;
+    }));
+
+    const own = balanceMap.get(currentUser.uid);
+    if (own) {
+      setCurrentUser(prev => ({ ...prev, points: own.after, level: calculateLevel(own.after) }));
+    }
+
+    setPointTransactions(prev => [
+      ...balances.map((b, idx): PointTransaction => {
+        const target = allProfiles.find(u => u.uid === b.userId);
+        return {
+          id: `tx_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 8)}`,
+          userId: b.userId,
+          userName: target?.displayName || '회원',
+          userAvatar: target?.photoURL,
+          type: delta > 0 ? 'grant' : 'revoke',
+          amount: b.after - b.before,
+          balanceAfter: b.after,
+          reason,
+          createdAt: nowStr,
+          adminMemo: memo,
+        };
+      }),
+      ...prev,
+    ]);
+
+    return balances;
+  };
+
   const grantUserPoints = async (userId: string, amount: number, reason: string, memo?: string) => {
     if (amount <= 0) {
       showToast('지급할 포인트를 1P 이상 입력해주세요.', 'error');
       return;
     }
-
-    const targetUser = allProfiles.find(u => u.uid === userId);
-    const userName = targetUser ? targetUser.displayName : '회원';
-    const userAvatar = targetUser?.photoURL;
-    let newBalance = amount;
-
-    setAllProfiles(prev => {
-      return prev.map(u => {
-        if (u.uid === userId) {
-          const updatedPoints = (u.points || 0) + amount;
-          newBalance = updatedPoints;
-          return {
-            ...u,
-            points: updatedPoints,
-            level: calculateLevel(updatedPoints)
-          };
-        }
-        return u;
-      });
-    });
-
-    if (currentUser.uid === userId) {
-      setCurrentUser(prev => {
-        const nextPoints = (prev.points || 0) + amount;
-        return {
-          ...prev,
-          points: nextPoints,
-          level: calculateLevel(nextPoints)
-        };
-      });
-    }
-
-    const newTx: PointTransaction = {
-      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-      userId,
-      userName,
-      userAvatar,
-      type: 'grant',
-      amount: Math.abs(amount),
-      balanceAfter: newBalance,
-      reason: reason || '관리자 포인트 특별 지급',
-      createdAt: new Date().toLocaleString('ko-KR', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false 
-      }),
-      adminMemo: memo
-    };
-
-    setPointTransactions(prev => [newTx, ...prev]);
-
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase
-          .from('profiles')
-          .update({ 
-            points: newBalance,
-            level: calculateLevel(newBalance)
-          })
-          .eq('id', userId);
-      } catch (err) {
-        console.warn('[Supabase Points Update Error]', err);
-      }
-    }
-
-    showToast(`🎁 ${userName}님께 +${amount.toLocaleString()}P가 지급되었습니다!`, 'success');
+    await adjustPointsByAdmin([userId], Math.abs(amount), reason || '관리자 포인트 특별 지급', memo);
   };
 
   const revokeUserPoints = async (userId: string, amount: number, reason: string, memo?: string) => {
@@ -5378,227 +5604,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       showToast('회수할 포인트를 1P 이상 입력해주세요.', 'error');
       return;
     }
-
-    const targetUser = allProfiles.find(u => u.uid === userId);
-    if (!targetUser) return;
-    const currentPoints = targetUser.points || 0;
-    const actualDeduct = Math.min(currentPoints, amount);
-    const newBalance = Math.max(0, currentPoints - amount);
-    const userName = targetUser.displayName;
-    const userAvatar = targetUser.photoURL;
-
-    setAllProfiles(prev => {
-      return prev.map(u => {
-        if (u.uid === userId) {
-          return {
-            ...u,
-            points: newBalance,
-            level: calculateLevel(newBalance)
-          };
-        }
-        return u;
-      });
-    });
-
-    if (currentUser.uid === userId) {
-      setCurrentUser(prev => ({
-        ...prev,
-        points: newBalance,
-        level: calculateLevel(newBalance)
-      }));
-    }
-
-    const newTx: PointTransaction = {
-      id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-      userId,
-      userName,
-      userAvatar,
-      type: 'revoke',
-      amount: -actualDeduct,
-      balanceAfter: newBalance,
-      reason: reason || '관리자 포인트 회수/차감',
-      createdAt: new Date().toLocaleString('ko-KR', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false 
-      }),
-      adminMemo: memo
-    };
-
-    setPointTransactions(prev => [newTx, ...prev]);
-
-    if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase
-          .from('profiles')
-          .update({ 
-            points: newBalance,
-            level: calculateLevel(newBalance)
-          })
-          .eq('id', userId);
-      } catch (err) {
-        console.warn('[Supabase Points Update Error]', err);
-      }
-    }
-
-    showToast(`🔻 ${userName}님의 -${actualDeduct.toLocaleString()}P가 회수되었습니다.`, 'info');
+    await adjustPointsByAdmin([userId], -Math.abs(amount), reason || '관리자 포인트 회수/차감', memo);
   };
 
   const batchGrantPoints = async (userIds: string[], amount: number, reason: string, memo?: string) => {
-    if (userIds.length === 0) {
-      showToast('지급할 회원을 선택해주세요.', 'error');
+    if (userIds.length === 0 || amount <= 0) {
+      showToast('지급할 회원과 1P 이상의 포인트를 입력해주세요.', 'error');
       return;
     }
-    if (amount <= 0) {
-      showToast('지급할 포인트를 1P 이상 입력해주세요.', 'error');
-      return;
-    }
-
-    const targetSet = new Set(userIds);
-    const nowStr = new Date().toLocaleString('ko-KR', { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: false 
-    });
-
-    const newTransactions: PointTransaction[] = [];
-
-    setAllProfiles(prev => {
-      return prev.map(u => {
-        if (targetSet.has(u.uid)) {
-          const updatedPoints = (u.points || 0) + amount;
-          newTransactions.push({
-            id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-            userId: u.uid,
-            userName: u.displayName,
-            userAvatar: u.photoURL,
-            type: 'grant',
-            amount: Math.abs(amount),
-            balanceAfter: updatedPoints,
-            reason: reason || '관리자 일괄 포인트 지급',
-            createdAt: nowStr,
-            adminMemo: memo
-          });
-          return {
-            ...u,
-            points: updatedPoints,
-            level: calculateLevel(updatedPoints)
-          };
-        }
-        return u;
-      });
-    });
-
-    if (targetSet.has(currentUser.uid)) {
-      setCurrentUser(prev => {
-        const nextPoints = (prev.points || 0) + amount;
-        return {
-          ...prev,
-          points: nextPoints,
-          level: calculateLevel(nextPoints)
-        };
-      });
-    }
-
-    setPointTransactions(prev => [...newTransactions, ...prev]);
-
-    if (supabase && isSupabaseConfigured) {
-      for (const uid of userIds) {
-        const u = allProfiles.find(p => p.uid === uid);
-        const updatedPoints = (u?.points || 0) + amount;
-        supabase.from('profiles').update({
-          points: updatedPoints,
-          level: calculateLevel(updatedPoints)
-        }).eq('id', uid).then();
-      }
-    }
-
-    showToast(`🎉 총 ${userIds.length}명의 회원에게 각 +${amount.toLocaleString()}P가 일괄 지급되었습니다!`, 'success');
+    await adjustPointsByAdmin(userIds, Math.abs(amount), reason || '관리자 일괄 포인트 지급', memo);
   };
 
   const batchRevokePoints = async (userIds: string[], amount: number, reason: string, memo?: string) => {
-    if (userIds.length === 0) {
-      showToast('회수할 회원을 선택해주세요.', 'error');
+    if (userIds.length === 0 || amount <= 0) {
+      showToast('회수할 회원과 1P 이상의 포인트를 입력해주세요.', 'error');
       return;
     }
-    if (amount <= 0) {
-      showToast('회수할 포인트를 1P 이상 입력해주세요.', 'error');
-      return;
-    }
-
-    const targetSet = new Set(userIds);
-    const nowStr = new Date().toLocaleString('ko-KR', { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: false 
-    });
-
-    const newTransactions: PointTransaction[] = [];
-
-    setAllProfiles(prev => {
-      return prev.map(u => {
-        if (targetSet.has(u.uid)) {
-          const currentPoints = u.points || 0;
-          const actualDeduct = Math.min(currentPoints, amount);
-          const newBalance = Math.max(0, currentPoints - amount);
-
-          newTransactions.push({
-            id: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-            userId: u.uid,
-            userName: u.displayName,
-            userAvatar: u.photoURL,
-            type: 'revoke',
-            amount: -actualDeduct,
-            balanceAfter: newBalance,
-            reason: reason || '관리자 일괄 포인트 회수',
-            createdAt: nowStr,
-            adminMemo: memo
-          });
-
-          return {
-            ...u,
-            points: newBalance,
-            level: calculateLevel(newBalance)
-          };
-        }
-        return u;
-      });
-    });
-
-    if (targetSet.has(currentUser.uid)) {
-      setCurrentUser(prev => {
-        const newBalance = Math.max(0, (prev.points || 0) - amount);
-        return {
-          ...prev,
-          points: newBalance,
-          level: calculateLevel(newBalance)
-        };
-      });
-    }
-
-    setPointTransactions(prev => [...newTransactions, ...prev]);
-
-    if (supabase && isSupabaseConfigured) {
-      for (const uid of userIds) {
-        const u = allProfiles.find(p => p.uid === uid);
-        const newBalance = Math.max(0, (u?.points || 0) - amount);
-        supabase.from('profiles').update({
-          points: newBalance,
-          level: calculateLevel(newBalance)
-        }).eq('id', uid).then();
-      }
-    }
-
-    showToast(`🔻 총 ${userIds.length}명의 회원으로부터 각 -${amount.toLocaleString()}P가 일괄 회수되었습니다.`, 'info');
+    await adjustPointsByAdmin(userIds, -Math.abs(amount), reason || '관리자 일괄 포인트 회수', memo);
   };
 
   // 🚨 회원 상태 관리 (정상 / 경고 / 기간정지 / 영구정지)
@@ -5645,6 +5667,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         statusUpdatedAt: now.toISOString(),
       }));
     }
+
+    persistAdmin('set_user_status', {
+      ids: [userId],
+      status: newStatus,
+      warningDelta: options?.warningDelta,
+      suspendedUntil,
+      reason: options?.reason || (newStatus === 'active' ? undefined : '관리자 제재 조치'),
+    }, '회원 상태');
 
     const statusLabel = 
       newStatus === 'active' ? '정상 복원' :
@@ -5696,113 +5726,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return { isSuspended: false, reason: '' };
   };
 
-  // 🗑️ 관리자 회원 강제 영구 삭제 (개별)
-  const deleteUserByAdmin = async (userId: string): Promise<void> => {
-    try {
-      const targetUser = allProfiles.find(p => p.uid === userId);
-      const userName = targetUser?.displayName || userId;
-
-      if (supabase && isSupabaseConfigured) {
-        try {
-          await supabase.from('device_tokens').delete().eq('user_id', userId);
-          await supabase.from('review_likes').delete().eq('user_id', userId);
-          await supabase.from('post_likes').delete().eq('user_id', userId);
-          await supabase.from('review_comments').delete().eq('user_id', userId);
-          await supabase.from('post_comments').delete().eq('user_id', userId);
-          await supabase.from('point_transactions').delete().eq('user_id', userId);
-          await supabase.from('bookmarks').delete().eq('user_id', userId);
-          await supabase.from('reviews').delete().eq('user_id', userId);
-          await supabase.from('community_posts').delete().eq('author_id', userId);
-          await supabase.from('profiles').delete().eq('id', userId);
-          // Fallback Wipe
-          await supabase.from('profiles').update({
-            display_name: '탈퇴회원',
-            points: 0,
-            level: 'Lv.1',
-            updated_at: new Date().toISOString(),
-          }).eq('id', userId);
-        } catch (err) {
-          console.warn('[Supabase Admin Delete Error]', err);
-        }
-      }
-
-      setAllProfiles(prev => {
-        const updated = prev.filter(p => p.uid !== userId);
-        try {
-          localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(updated));
-        } catch {}
-        return updated;
-      });
-
-      setPointTransactions(prev => {
-        const updated = prev.filter(t => t.userId !== userId);
-        try {
-          localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
-        } catch {}
-        return updated;
-      });
-
-      showToast(`'${userName}' 회원이 정상적으로 삭제(탈퇴 처리)되었습니다.`, 'info');
-    } catch (e) {
-      console.error('Failed to delete user by admin:', e);
-      showToast('회원 삭제 처리 중 오류가 발생했습니다.', 'error');
-    }
-  };
-
-  // 🗑️ 관리자 회원 일괄 영구 삭제 (선택 삭제)
+  // 🗑️ 관리자 회원 강제 삭제 — 서버가 작성 글·프로필·로그인 계정을 지운 뒤에만 목록에서 뺍니다.
   const batchDeleteUsersByAdmin = async (userIds: string[]): Promise<void> => {
     if (!userIds || userIds.length === 0) {
       showToast('삭제할 회원을 선택해주세요.', 'error');
       return;
     }
-    try {
-      if (supabase && isSupabaseConfigured) {
-        try {
-          await supabase.from('device_tokens').delete().in('user_id', userIds);
-          await supabase.from('review_likes').delete().in('user_id', userIds);
-          await supabase.from('post_likes').delete().in('user_id', userIds);
-          await supabase.from('review_comments').delete().in('user_id', userIds);
-          await supabase.from('post_comments').delete().in('user_id', userIds);
-          await supabase.from('point_transactions').delete().in('user_id', userIds);
-          await supabase.from('bookmarks').delete().in('user_id', userIds);
-          await supabase.from('reviews').delete().in('user_id', userIds);
-          await supabase.from('community_posts').delete().in('author_id', userIds);
-          await supabase.from('profiles').delete().in('id', userIds);
-          // Fallback Wipe
-          await supabase.from('profiles').update({
-            display_name: '탈퇴회원',
-            points: 0,
-            level: 'Lv.1',
-            updated_at: new Date().toISOString(),
-          }).in('id', userIds);
-        } catch (err) {
-          console.warn('[Supabase Admin Batch Delete Error]', err);
-        }
-      }
+    const ok = await persistAdmin('delete_users', { ids: userIds }, '회원 삭제');
+    if (!ok) return;
 
-      const idSet = new Set(userIds);
-      setAllProfiles(prev => {
-        const updated = prev.filter(p => !idSet.has(p.uid));
-        try {
-          localStorage.setItem('sinsangpick_all_profiles', JSON.stringify(updated));
-        } catch {}
-        return updated;
-      });
-
-      setPointTransactions(prev => {
-        const updated = prev.filter(t => !idSet.has(t.userId));
-        try {
-          localStorage.setItem('sinsangpick_point_transactions', JSON.stringify(updated));
-        } catch {}
-        return updated;
-      });
-
-      showToast(`총 ${userIds.length}명의 회원이 성공적으로 삭제되었습니다.`, 'info');
-    } catch (e) {
-      console.error('Failed to batch delete users by admin:', e);
-      showToast('회원 일괄 삭제 중 오류가 발생했습니다.', 'error');
-    }
+    const idSet = new Set(userIds);
+    setAllProfiles(prev => prev.filter(p => !idSet.has(p.uid)));
+    setPointTransactions(prev => prev.filter(t => !idSet.has(t.userId)));
+    showToast(`총 ${userIds.length}명의 회원이 삭제되었습니다.`, 'info');
   };
+
+  const deleteUserByAdmin = (userId: string): Promise<void> => batchDeleteUsersByAdmin([userId]);
 
   // 🚨 신고 접수 액션
   const submitReport = async (reportData: Omit<ReportItem, 'id' | 'createdAt' | 'status'>): Promise<boolean> => {
@@ -5834,6 +5773,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     if (reportData.targetType === 'review') {
       setReviews(prev => prev.map(r => r.id === reportData.targetId ? { ...r, isReported: true } : r));
+    }
+
+    // 관리자 신고함으로 전달 (reports 테이블)
+    if (supabase && isSupabaseConfigured) {
+      try {
+        const { error } = await supabase.from('reports').insert({
+          id: newReport.id,
+          status: 'pending',
+          data: newReport,
+          created_at: newReport.createdAt,
+        });
+        if (error) console.warn('[Supabase] report insert warning:', error.message);
+      } catch (dbErr) {
+        console.warn('[Supabase] report insert error:', dbErr);
+      }
     }
 
     showToast('🚨 신고가 정상 접수되었습니다. 관리자 검토 후 신속히 조치됩니다.', 'success');
@@ -5869,6 +5823,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_reports', JSON.stringify(next));
       return next;
     });
+
+    persistAdmin('update_report', {
+      id: reportId,
+      updates: {
+        status: 'resolved',
+        actionTaken: action,
+        actionReason: actionReason || '운영 규정 위반 제재',
+        adminMemo: adminMemo || targetReport.adminMemo,
+        resolvedAt,
+      },
+    }, '신고 처리');
 
     // 피신고자 제재 자동 적용
     if (targetReport.targetUserId) {
@@ -5925,6 +5890,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_reports', JSON.stringify(next));
       return next;
     });
+    persistAdmin('update_report', {
+      id: reportId,
+      updates: {
+        status: 'dismissed',
+        actionTaken: 'none',
+        actionReason: reason || '검토 결과 이상 없음 (정상 판정)',
+        ...(adminMemo ? { adminMemo } : {}),
+        resolvedAt: new Date().toISOString(),
+      },
+    }, '신고 반려');
     showToast('신고 건을 반려(이상 없음) 처리했습니다.', 'info');
   };
 
@@ -5934,6 +5909,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_reports', JSON.stringify(next));
       return next;
     });
+    persistAdmin('delete_report', { id: reportId }, '신고 삭제');
     showToast('신고 내역을 삭제했습니다.', 'info');
   };
 
@@ -5957,21 +5933,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       if (supabase && isSupabaseConfigured) {
         try {
-          await supabase.from('product_edit_requests').insert({
+          const { error } = await supabase.from('product_edit_requests').insert({
             id: newRequest.id,
-            product_id: newRequest.productId,
-            product_name: newRequest.productName,
-            product_brand: newRequest.productBrand,
-            product_image: newRequest.productImage,
-            request_type: newRequest.requestType,
-            content: newRequest.content,
-            suggested_value: newRequest.suggestedValue,
-            source_url: newRequest.sourceUrl,
-            requester_id: newRequest.requesterId,
-            requester_name: newRequest.requesterName,
             status: 'pending',
+            data: newRequest,
             created_at: newRequest.createdAt
           });
+          if (error) console.warn('Supabase product_edit_requests insert warning:', error.message);
         } catch (dbErr) {
           console.warn('Supabase product_edit_requests insert error:', dbErr);
         }
@@ -6003,6 +5971,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
       return next;
     });
+    persistAdmin('update_edit_request', {
+      id: requestId,
+      updates: { status: 'approved', adminMemo: adminMemo || '관리자 확인 및 상품 정보 반영 완료', processedAt },
+    }, '수정 요청 처리');
     showToast('✅ 수정 요청을 [반영 완료]로 승인 처리했습니다.', 'success');
   };
 
@@ -6024,6 +5996,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_product_edit_requests', JSON.stringify(next));
       return next;
     });
+    persistAdmin('update_edit_request', {
+      id: requestId,
+      updates: { status: 'rejected', adminMemo: adminMemo || '확인 결과 기존 정보가 정확함 (반려)', processedAt },
+    }, '수정 요청 반려');
     showToast('ℹ️ 수정 요청을 [반려] 처리했습니다.', 'info');
   };
 
@@ -6387,6 +6363,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // Global Remote Content Sync
         isContentSyncing,
         syncAllContentToCloud,
+        adminSaveError,
+        clearAdminSaveError,
+        initAdminSession,
         refreshRemoteContent,
 
         // KAMIS Agricultural & Marine Product Live Prices

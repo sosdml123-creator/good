@@ -1,8 +1,8 @@
 import { Capacitor } from '@capacitor/core';
-import { supabase, DBProduct } from './supabase';
-import { BannerItem, Product, HomeSectionConfig, SalePromotionItem, PromotionEvent } from '../types';
+import { supabase } from './supabase';
+import { BannerItem, Product, HomeSectionConfig, SalePromotionItem, PromotionEvent, BrandInfo, StoreChannelInfo, ReleaseCalendarItem, BattleConfig } from '../types';
 import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
-import { getAdminAuthHeaders } from './adminAuth';
+import { getAdminAuthHeaders, isAdminSession } from './adminAuth';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -11,6 +11,12 @@ export interface RemoteContentPayload {
   homeSections?: HomeSectionConfig[];
   salePromotions?: SalePromotionItem[];
   events?: PromotionEvent[];
+  brands?: BrandInfo[];
+  storeChannels?: StoreChannelInfo[];
+  calendarItems?: ReleaseCalendarItem[];
+  battleConfig?: BattleConfig;
+  /** 관리자 기기에 남아 있던 수정분을 서버로 올린 시각 (이후로는 서버 값이 기준) */
+  adminLocalSyncedAt?: string;
   products?: Product[];
   deletedProductIds?: string[];
   deletedBannerIds?: string[];
@@ -22,6 +28,10 @@ export interface RemoteContentResult {
   homeSections: HomeSectionConfig[] | null;
   salePromotions: SalePromotionItem[] | null;
   events: PromotionEvent[] | null;
+  brands: BrandInfo[] | null;
+  storeChannels: StoreChannelInfo[] | null;
+  calendarItems: ReleaseCalendarItem[] | null;
+  battleConfig: BattleConfig | null;
   products: Product[];
   deletedProductIds: string[] | null;
   deletedBannerIds: string[] | null;
@@ -38,6 +48,10 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   let homeSections: HomeSectionConfig[] | null = null;
   let salePromotions: SalePromotionItem[] | null = null;
   let events: PromotionEvent[] | null = null;
+  let brands: BrandInfo[] | null = null;
+  let storeChannels: StoreChannelInfo[] | null = null;
+  let calendarItems: ReleaseCalendarItem[] | null = null;
+  let battleConfig: BattleConfig | null = null;
   let products: Product[] = [];
   let deletedProductIds: string[] | null = null;
   let deletedBannerIds: string[] | null = null;
@@ -71,6 +85,10 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (Array.isArray(sysData.nutrition.events)) {
           events = sysData.nutrition.events;
         }
+        if (Array.isArray(sysData.nutrition.brands)) brands = sysData.nutrition.brands;
+        if (Array.isArray(sysData.nutrition.storeChannels)) storeChannels = sysData.nutrition.storeChannels;
+        if (Array.isArray(sysData.nutrition.calendarItems)) calendarItems = sysData.nutrition.calendarItems;
+        if (sysData.nutrition.battleConfig && typeof sysData.nutrition.battleConfig === "object") battleConfig = sysData.nutrition.battleConfig;
         if (Array.isArray(sysData.nutrition.deletedProductIds)) {
           deletedProductIds = sysData.nutrition.deletedProductIds;
         }
@@ -110,6 +128,10 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (json.events !== undefined && Array.isArray(json.events)) {
           events = json.events;
         }
+        if (Array.isArray(json.brands)) brands = json.brands;
+        if (Array.isArray(json.storeChannels)) storeChannels = json.storeChannels;
+        if (Array.isArray(json.calendarItems)) calendarItems = json.calendarItems;
+        if (json.battleConfig && typeof json.battleConfig === "object") battleConfig = json.battleConfig;
         if (json.deletedProductIds !== undefined && Array.isArray(json.deletedProductIds)) {
           deletedProductIds = json.deletedProductIds;
         }
@@ -128,420 +150,113 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  return { banners, homeSections, salePromotions, events, products, deletedProductIds, deletedBannerIds, deletedEventIds, lastUpdated };
+  return { banners, homeSections, salePromotions, events, brands, storeChannels, calendarItems, battleConfig, products, deletedProductIds, deletedBannerIds, deletedEventIds, lastUpdated };
 };
 
-/**
- * Save updated banners, home sections, and deleted product/banner IDs to remote cloud
- * Updates both Supabase system record and Vercel serverless function
- */
-export const saveRemoteBannersAndSections = async (
-  banners: BannerItem[],
-  homeSections?: HomeSectionConfig[],
-  deletedProductIds?: string[],
-  deletedBannerIds?: string[],
-  salePromotions?: SalePromotionItem[],
-  events?: PromotionEvent[],
-  deletedEventIds?: string[]
-): Promise<boolean> => {
-  let saved = false;
+export interface AdminApiResult<T = any> {
+  ok: boolean;
+  error?: string;
+  code?: string;
+  /** 저장은 됐지만 일부(마이그레이션 전 컬럼·테이블)는 건너뜀 */
+  partial?: boolean;
+  data?: T;
+}
 
-  // 1. Save to Supabase system record
-  if (supabase) {
-    try {
-      // Read existing system container record with timeout
-      const { data: existing } = await withTimeout(
-        supabase
-          .from('products')
-          .select('nutrition')
-          .eq('id', SYSTEM_BANNER_RECORD_ID)
-          .maybeSingle(),
-        6000,
-        { data: null, error: null } as any
-      );
+const adminApiUrl = () =>
+  (Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '') + '/api/site-content';
 
-      const existingNutrition = existing?.nutrition || {};
+// 시스템 레코드는 읽고-합쳐-쓰는 방식이라, 요청이 겹치면 나중 응답이 앞선 저장을 덮어씁니다.
+// 관리자 쓰기는 한 줄로 세워 순서대로 보냅니다.
+let adminWriteQueue: Promise<unknown> = Promise.resolve();
 
-      const mergedDeletedBannerIds = Array.from(new Set([
-        ...(existingNutrition.deletedBannerIds || []),
-        ...(deletedBannerIds || [])
-      ]));
-
-      const mergedDeletedProductIds = Array.from(new Set([
-        ...(existingNutrition.deletedProductIds || []),
-        ...(deletedProductIds || [])
-      ]));
-
-      const mergedDeletedEventIds = Array.from(new Set([
-        ...(existingNutrition.deletedEventIds || []),
-        ...(deletedEventIds || [])
-      ]));
-
-      const payload: any = {
-        id: SYSTEM_BANNER_RECORD_ID,
-        name: 'SYSTEM_SETTINGS_CONTAINER',
-        brand: '신상픽_시스템',
-        category: '시스템',
-        price: 0,
-        image: '',
-        description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
-        is_today: false,
-        is_hot: false,
-        nutrition: {
-          ...existingNutrition,
-          banners: banners !== undefined ? banners : (existingNutrition.banners || []),
-          homeSections: homeSections !== undefined ? homeSections : existingNutrition.homeSections,
-          salePromotions: salePromotions !== undefined ? salePromotions : (existingNutrition.salePromotions || []),
-          events: events !== undefined ? events : (existingNutrition.events || []),
-          deletedProductIds: mergedDeletedProductIds,
-          deletedBannerIds: mergedDeletedBannerIds,
-          deletedEventIds: mergedDeletedEventIds,
-          updatedAt: new Date().toISOString()
-        },
-        updated_at: new Date().toISOString()
-      };
-
-      const { error } = await withTimeout(
-        supabase.from('products').upsert(payload, { onConflict: 'id' }),
-        7000,
-        { error: null } as any
-      );
-      if (!error) {
-        saved = true;
-      } else {
-        console.warn('[saveRemoteBanners] Supabase upsert error:', error.message);
-      }
-    } catch (e) {
-      console.warn('[saveRemoteBanners] Supabase upsert failed:', e);
-    }
-  }
-
-  // 2. Also send to /api/site-content if on Web
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetchWithTimeout('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({
-          banners,
-          homeSections,
-          salePromotions,
-          events,
-          deletedProductIds,
-          deletedBannerIds,
-          deletedEventIds,
-          timestamp: new Date().toISOString()
-        })
-      }, 5000);
-      saved = true;
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  return saved;
-};
-
-/**
- * Save updated promotion events and deleted event IDs to remote cloud (Supabase & Vercel API)
- */
-export const saveRemoteEvents = async (
-  events: PromotionEvent[],
-  deletedEventIds?: string[]
-): Promise<boolean> => {
-  let saved = false;
-
-  // 1. Save to Supabase system record
-  if (supabase) {
-    try {
-      const { data: existing } = await withTimeout(
-        supabase
-          .from('products')
-          .select('nutrition')
-          .eq('id', SYSTEM_BANNER_RECORD_ID)
-          .maybeSingle(),
-        6000,
-        { data: null, error: null } as any
-      );
-
-      const existingNutrition = existing?.nutrition || {};
-
-      const mergedDeletedEventIds = Array.from(new Set([
-        ...(existingNutrition.deletedEventIds || []),
-        ...(deletedEventIds || [])
-      ]));
-
-      const payload: any = {
-        id: SYSTEM_BANNER_RECORD_ID,
-        name: 'SYSTEM_SETTINGS_CONTAINER',
-        brand: '신상픽_시스템',
-        category: '시스템',
-        price: 0,
-        image: '',
-        description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
-        is_today: false,
-        is_hot: false,
-        nutrition: {
-          ...existingNutrition,
-          events: events !== undefined ? events : (existingNutrition.events || []),
-          deletedEventIds: mergedDeletedEventIds,
-          updatedAt: new Date().toISOString()
-        },
-        updated_at: new Date().toISOString()
-      };
-
-      const { error } = await withTimeout(
-        supabase.from('products').upsert(payload, { onConflict: 'id' }),
-        7000,
-        { error: null } as any
-      );
-      if (!error) {
-        saved = true;
-      } else {
-        console.warn('[saveRemoteEvents] Supabase upsert error:', error.message);
-      }
-    } catch (e) {
-      console.warn('[saveRemoteEvents] Supabase upsert failed:', e);
-    }
-  }
-
-  // 2. Also send to /api/site-content if on Web
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetchWithTimeout('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({
-          events,
-          deletedEventIds,
-          timestamp: new Date().toISOString()
-        })
-      }, 5000);
-      saved = true;
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  return saved;
-};
-
-/**
- * Save updated deleted product IDs to Supabase system record & API
- */
-export const saveRemoteDeletedProducts = async (deletedProductIds: string[]): Promise<boolean> => {
-  let saved = false;
-  if (supabase) {
-    try {
-      const { data: existing } = await supabase
-        .from('products')
-        .select('nutrition')
-        .eq('id', SYSTEM_BANNER_RECORD_ID)
-        .maybeSingle();
-
-      const existingNutrition = existing?.nutrition || {};
-
-      const payload: any = {
-        id: SYSTEM_BANNER_RECORD_ID,
-        name: 'SYSTEM_SETTINGS_CONTAINER',
-        brand: '신상픽_시스템',
-        category: '시스템',
-        price: 0,
-        image: '',
-        description: '신상픽 배너 및 홈 섹션 글로벌 동기화 컨테이너',
-        is_today: false,
-        is_hot: false,
-        nutrition: {
-          ...existingNutrition,
-          deletedProductIds,
-          updatedAt: new Date().toISOString()
-        },
-        updated_at: new Date().toISOString()
-      };
-
-      const { error } = await supabase.from('products').upsert(payload, { onConflict: 'id' });
-      if (!error) saved = true;
-    } catch (e) {
-      console.warn('[saveRemoteDeletedProducts] Error:', e);
-    }
-  }
-
-  // Backup sync to /api/site-content
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetch('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({ deletedProductIds })
-      });
-      saved = true;
-    } catch {
-      // ignore
-    }
-  }
-
-  return saved;
-};
-
-/**
- * Save / Update a single product to Supabase
- */
-export const saveRemoteProduct = async (product: Partial<Product> & { id: string; name: string }): Promise<boolean> => {
-  if (!supabase) return false;
-
+const sendAdminRequest = async (action: string, payload: Record<string, unknown>): Promise<AdminApiResult> => {
   try {
-    const dbPayload: Partial<DBProduct> = {
-      id: product.id,
-      name: product.name,
-      brand: product.brand || '기타',
-      category: product.category || '기타',
-      sub_category: product.subCategory,
-      item_type: product.itemType || 'packaged',
-      image: product.image || '',
-      release_date: product.releaseDate,
-      price: product.price || 0,
-      discount_rate: product.discountRate || 0,
-      overall_rating: product.overallRating || 5.0,
-      rating_count: product.ratingCount || 1,
-      description: product.description || '',
-      stores: product.stores || [],
-      calories: product.calories,
-      volume: product.volume,
-      is_today: product.isToday ?? false,
-      is_hot: product.isHot ?? false,
-      updated_at: new Date().toISOString()
-    };
-
-    const { error } = await supabase.from('products').upsert(dbPayload, { onConflict: 'id' });
-    if (error) {
-      console.warn('[saveRemoteProduct] Supabase upsert warning:', error.message);
-      return false;
+    const authHeaders = await getAdminAuthHeaders();
+    if (!authHeaders.Authorization) {
+      return { ok: false, code: 'SIGNED_OUT', error: '관리자 로그인이 필요합니다. 다시 로그인해주세요.' };
     }
-    return true;
+    const res = await fetchWithTimeout(adminApiUrl(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders },
+      body: JSON.stringify({ action, ...payload }),
+    }, 25000);
+
+    let json: any = null;
+    try { json = await res.json(); } catch { /* non-JSON error page */ }
+
+    if (res.ok && json?.success) {
+      return { ok: true, partial: Boolean(json.partial), data: json };
+    }
+    if (res.status === 401 || res.status === 403) {
+      return { ok: false, code: 'UNAUTHORIZED', error: '관리자 권한을 확인하지 못했습니다. 다시 로그인해주세요.' };
+    }
+    if (res.status === 413) {
+      return { ok: false, code: 'TOO_LARGE', error: '첨부한 이미지가 너무 큽니다. 더 작은 이미지나 이미지 주소(URL)를 사용해주세요.' };
+    }
+    return { ok: false, code: json?.code, error: json?.error || `서버 오류 (${res.status})` };
   } catch (e) {
-    console.warn('[saveRemoteProduct] Error:', e);
-    return false;
+    console.warn(`[adminApi] ${action} failed:`, e);
+    return { ok: false, code: 'NETWORK', error: '서버에 연결하지 못했습니다. 네트워크 상태를 확인해주세요.' };
   }
 };
 
 /**
- * Delete a product from Supabase and Serverless backend
+ * 관리자 쓰기 요청 (/api/site-content, service role 로 실행). 실패하면 ok:false 와 사유를 돌려줍니다.
  */
-export const deleteRemoteProduct = async (productId: string): Promise<boolean> => {
-  let success = false;
-  // 1. Direct Supabase client delete
-  if (supabase) {
-    try {
-      const { error } = await supabase.from('products').delete().eq('id', productId);
-      if (!error) success = true;
-    } catch (e) {
-      console.warn('[deleteRemoteProduct] Supabase delete warning:', e);
-    }
-  }
-
-  // 2. Serverless Service-Role hard delete (guarantees DB row deletion bypassing RLS limitations)
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetch('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({ action: 'delete_products', ids: [productId] })
-      });
-      success = true;
-    } catch {
-      // ignore
-    }
-  }
-
-  return success;
+export const adminApi = <T = any>(action: string, payload: Record<string, unknown> = {}): Promise<AdminApiResult<T>> => {
+  const run = () => sendAdminRequest(action, payload);
+  const next = adminWriteQueue.then(run, run);
+  adminWriteQueue = next;
+  return next as Promise<AdminApiResult<T>>;
 };
 
 /**
- * Delete multiple products from Supabase and Serverless backend
+ * 배너·홈 구좌·행사·체험단·브랜드·판매처·캘린더 설정 저장. 넘긴 키만 바뀌고 나머지는 서버 값이 유지됩니다.
  */
-export const deleteRemoteProducts = async (productIds: string[]): Promise<boolean> => {
-  if (!productIds || productIds.length === 0) return false;
-  let success = false;
+export const saveRemoteContent = (
+  changes: Omit<RemoteContentPayload, 'products'>
+): Promise<AdminApiResult> => adminApi('save_content', changes as Record<string, unknown>);
 
-  // 1. Direct Supabase client delete
-  if (supabase) {
-    try {
-      const { error } = await supabase.from('products').delete().in('id', productIds);
-      if (!error) success = true;
-    } catch (e) {
-      console.warn('[deleteRemoteProducts] Supabase delete warning:', e);
-    }
-  }
+export const saveRemoteProducts = (products: Product[]): Promise<AdminApiResult> =>
+  adminApi('upsert_products', { products });
 
-  // 2. Serverless Service-Role hard delete
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetch('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({ action: 'delete_products', ids: productIds })
-      });
-      success = true;
-    } catch {
-      // ignore
-    }
-  }
-
-  return success;
-};
+/** 상품 삭제 — DB 행 삭제와 삭제 목록(deletedProductIds) 기록을 함께 처리 */
+export const deleteRemoteProducts = (productIds: string[]): Promise<AdminApiResult> =>
+  productIds.length === 0 ? Promise.resolve({ ok: true }) : adminApi('delete_products', { ids: productIds });
 
 /**
- * Delete a review from Supabase and Serverless backend (Admin bypasses RLS)
+ * 리뷰·게시글 수정/삭제 — 본인 글은 RLS 로 직접 처리하고, 남의 글은 관리자일 때만 서버로 처리합니다.
  */
-export const deleteRemoteReview = async (reviewId: string): Promise<boolean> => {
-  let success = false;
+const writeOwnOrAdmin = async (
+  table: 'reviews' | 'community_posts',
+  id: string,
+  dbUpdates: Record<string, unknown> | null,
+  adminAction: string,
+  adminPayload: Record<string, unknown>
+): Promise<AdminApiResult> => {
   if (supabase) {
     try {
-      const { error } = await supabase.from('reviews').delete().eq('id', reviewId);
-      if (!error) success = true;
+      const query = dbUpdates
+        ? supabase.from(table).update(dbUpdates).eq('id', id).select('id')
+        : supabase.from(table).delete().eq('id', id).select('id');
+      const { data, error } = await query;
+      if (!error && Array.isArray(data) && data.length > 0) return { ok: true };
     } catch (e) {
-      console.warn('[deleteRemoteReview] Supabase error:', e);
+      console.warn(`[${table}] direct write warning:`, e);
     }
   }
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetch('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({ action: 'delete_review', id: reviewId })
-      });
-      success = true;
-    } catch {
-      // ignore
-    }
-  }
-  return success;
+  if (!(await isAdminSession())) return { ok: true };
+  return adminApi(adminAction, { id, ...adminPayload });
 };
 
-/**
- * Delete a community post from Supabase and Serverless backend (Admin bypasses RLS)
- */
-export const deleteRemoteCommunityPost = async (postId: string): Promise<boolean> => {
-  let success = false;
-  if (supabase) {
-    try {
-      const { error } = await supabase.from('community_posts').delete().eq('id', postId);
-      if (!error) success = true;
-    } catch (e) {
-      console.warn('[deleteRemoteCommunityPost] Supabase error:', e);
-    }
-  }
-  if (!Capacitor.isNativePlatform()) {
-    try {
-      await fetch('/api/site-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await getAdminAuthHeaders()) },
-        body: JSON.stringify({ action: 'delete_post', id: postId })
-      });
-      success = true;
-    } catch {
-      // ignore
-    }
-  }
-  return success;
-};
+export const deleteRemoteReview = (reviewId: string) =>
+  writeOwnOrAdmin('reviews', reviewId, null, 'delete_review', {});
+
+export const deleteRemoteCommunityPost = (postId: string) =>
+  writeOwnOrAdmin('community_posts', postId, null, 'delete_post', {});
+
+export const updateRemoteReview = (reviewId: string, dbUpdates: Record<string, unknown>) =>
+  writeOwnOrAdmin('reviews', reviewId, dbUpdates, 'update_review', { updates: dbUpdates });
+
+export const updateRemoteCommunityPost = (postId: string, dbUpdates: Record<string, unknown>) =>
+  writeOwnOrAdmin('community_posts', postId, dbUpdates, 'update_post', { updates: dbUpdates });

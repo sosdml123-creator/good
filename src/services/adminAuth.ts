@@ -50,3 +50,24 @@ export const getAdminAuthHeaders = async (): Promise<Record<string, string>> => 
     return {};
   }
 };
+
+let adminSessionCache: { userId: string; isAdmin: boolean } | null = null;
+
+/**
+ * 현재 세션이 관리자인지 (계정별로 한 번만 조회)
+ */
+export const isAdminSession = async (): Promise<boolean> => {
+  if (!supabase) return false;
+  try {
+    const { data } = await supabase.auth.getSession();
+    const userId = data?.session?.user?.id;
+    if (!userId) return false;
+    if (adminSessionCache?.userId === userId) return adminSessionCache.isAdmin;
+    const access = await checkAdminAccess();
+    if (access.status === 'error') return false;
+    adminSessionCache = { userId, isAdmin: access.status === 'admin' };
+    return adminSessionCache.isAdmin;
+  } catch {
+    return false;
+  }
+};

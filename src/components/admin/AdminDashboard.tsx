@@ -157,7 +157,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     productEditRequests,
     isContentSyncing,
     syncAllContentToCloud,
+    adminSaveError,
+    clearAdminSaveError,
+    initAdminSession,
   } = useApp();
+
+  // 어드민 진입 시: 이 기기에만 남은 수정분을 서버로 올리고, 신고·제재 내역을 서버에서 불러옵니다.
+  useEffect(() => {
+    initAdminSession().catch(() => {});
+  }, []);
 
   const handleAdminLogout = () => {
     clearAdminAuthenticated();
@@ -1627,6 +1635,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
       {/* ================= DESKTOP MAIN CONTENT AREA ================= */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+
+        {adminSaveError && (
+          <div className="shrink-0 flex items-start gap-3 px-8 py-3 bg-red-600 text-white text-sm font-semibold" role="alert">
+            <span className="flex-1 break-words">
+              ⚠️ {adminSaveError} · 서버에 반영되지 않은 변경은 다른 기기에 보이지 않습니다.
+            </span>
+            <button onClick={clearAdminSaveError} className="shrink-0 underline cursor-pointer">닫기</button>
+          </div>
+        )}
         
         {/* Desktop Sticky Header Bar (Sleek Clean Style) */}
         <header className={`h-16 px-8 border-b flex items-center justify-between shrink-0 z-10 transition-colors ${headerBg}`}>
