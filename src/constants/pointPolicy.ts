@@ -3,30 +3,16 @@
 export const POINT_POLICY = {
   nicknameBonus: 0, // 가입 기본 100P 외 추가 지급 없음
 
-  reviewBase: 10,
-  reviewPhotoBonus: 15,
-  reviewLongTextBonus: 5,
-  reviewLongTextMin: 50, // 글자 수
+  review: 10, // 사진·글자 수와 무관하게 동일
   reviewDailyLimit: 3, // 하루에 적립되는 리뷰 수 (상품당 1회)
 
-  recipe: 20,
-  recipeDailyLimit: 1,
-
-  post: 5,
-  postDailyLimit: 2,
-
-  dailyCap: 100, // 모든 활동 합산 하루 최대 적립
+  dailyCap: 30, // 모든 활동 합산 하루 최대 적립
 } as const;
 
-export const REVIEW_MAX_POINTS =
-  POINT_POLICY.reviewBase + POINT_POLICY.reviewPhotoBonus + POINT_POLICY.reviewLongTextBonus;
-
-export type PointRewardKind = 'review' | 'recipe' | 'post';
+export type PointRewardKind = 'review';
 
 const KIND_DAILY_LIMIT: Record<PointRewardKind, number> = {
   review: POINT_POLICY.reviewDailyLimit,
-  recipe: POINT_POLICY.recipeDailyLimit,
-  post: POINT_POLICY.postDailyLimit,
 };
 
 type DailyEarn = { day: string; total: number; counts: Partial<Record<PointRewardKind, number>> };

@@ -123,31 +123,13 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
                 <div className="flex items-start gap-2">
                   <span className="text-base leading-none shrink-0">✍️</span>
                   <div>
-                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> 기본 10P + 사진 첨부시 15P + 50자 이상 5P <span className="text-amber-600 font-bold">(최대 30P, 상품당 1회 · 하루 3건)</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-base leading-none shrink-0">🥪</span>
-                  <div>
-                    <strong className="text-gray-900 font-bold">꿀조합 레시피 등록:</strong> 나만의 먹조합 공유 시 <span className="text-amber-600 font-bold">+20P</span> (하루 1회)
+                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> <span className="text-amber-600 font-bold">+10P</span> (상품당 1회 · 하루 3건)
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-base leading-none shrink-0">🎉</span>
                   <div>
                     <strong className="text-gray-900 font-bold">신규 회원가입:</strong> 웰컴 축하 <span className="text-amber-600 font-bold">+100P</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-base leading-none shrink-0">💬</span>
-                  <div>
-                    <strong className="text-gray-900 font-bold">커뮤니티 글 작성:</strong> <span className="text-amber-600 font-bold">+5P</span> (하루 2회)
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-base leading-none shrink-0">⏱️</span>
-                  <div>
-                    <strong className="text-gray-900 font-bold">하루 적립 한도:</strong> 모든 활동 합산 <span className="text-amber-600 font-bold">최대 100P</span>
                   </div>
                 </div>
               </div>
@@ -286,7 +268,7 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
               </div>
               <div>
                 <div className="text-xs font-bold text-gray-900">신제품 리뷰 쓰고 포인트 받기</div>
-                <div className="text-[11px] text-gray-500">리뷰 1건당 최대 30P 적립</div>
+                <div className="text-[11px] text-gray-500">리뷰 1건당 10P 적립</div>
               </div>
             </div>
             <button

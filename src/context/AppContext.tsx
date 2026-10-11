@@ -3143,13 +3143,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {
       // ignore
     }
-    const earned = claimDailyReward(currentUser.uid, 'recipe', POINT_POLICY.recipe);
-    if (earned > 0) {
-      showToast(`🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (+${earned}P)`, 'success');
-      await grantUserPoints(currentUser.uid, earned, '꿀조합 레시피 등록 보너스');
-    } else {
-      showToast('🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (오늘 적립 한도 도달)', 'success');
-    }
+    showToast('🥪 나만의 신상 꿀조합 레시피가 등록되었습니다!', 'success');
   };
 
   const openProductDetail = (productId: string) => {
@@ -3836,12 +3830,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...(extra || {}),
     };
 
-    // 상품당 1회, 하루 한도 안에서만 적립 (기본 + 사진 + 장문 보너스)
+    // 상품당 1회, 하루 한도 안에서만 적립 (사진·글자 수와 무관하게 동일)
     const alreadyReviewed = reviews.some(r => r.userId === currentUser.uid && r.productId === targetProduct.id);
-    let earnedPoints: number = POINT_POLICY.reviewBase;
-    if (images && images.length > 0) earnedPoints += POINT_POLICY.reviewPhotoBonus;
-    if (content && content.trim().length >= POINT_POLICY.reviewLongTextMin) earnedPoints += POINT_POLICY.reviewLongTextBonus;
-    earnedPoints = alreadyReviewed ? 0 : claimDailyReward(currentUser.uid, 'review', earnedPoints);
+    const earnedPoints = alreadyReviewed ? 0 : claimDailyReward(currentUser.uid, 'review', POINT_POLICY.review);
 
     // 1. Optimistic Updates
     const nextReviews = [newReview, ...reviews];
@@ -4038,20 +4029,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Optimistic update
     setCommunityPosts(prev => [newPost, ...prev]);
-    const earnedPoints = claimDailyReward(currentUser.uid, 'post', POINT_POLICY.post);
-    const nextPoints = currentUser.points + earnedPoints;
-    if (earnedPoints > 0) {
-      setCurrentUser(prev => ({
-        ...prev,
-        points: nextPoints,
-        level: calculateLevel(nextPoints),
-      }));
-    }
-
-    showToast(
-      earnedPoints > 0 ? `💬 게시글이 등록되었습니다! (+${earnedPoints}P 적립)` : '💬 게시글이 등록되었습니다!',
-      'success'
-    );
+    showToast('💬 게시글이 등록되었습니다!', 'success');
 
     if (supabase && isSupabaseConfigured) {
       try {
@@ -4067,11 +4045,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           images: newPost.images,
           created_at: createdAt,
         });
-
-        await supabase
-          .from('profiles')
-          .update({ points: nextPoints, level: calculateLevel(nextPoints) })
-          .eq('id', currentUser.uid);
 
       } catch (err) {
         console.error('[Supabase] Add community post error:', err);

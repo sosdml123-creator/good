@@ -161,11 +161,7 @@ export const WriteRecipeModal: React.FC = () => {
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white sticky top-0 z-20">
           <div className="flex items-center gap-1.5 font-black text-sm text-gray-900">
             <ChefHat className="w-4 h-4 text-gray-900" />
-            <span>나만의 꿀조합 레시피 등록</span>
-            <span className="text-[10px] font-bold bg-amber-50 text-amber-600 px-1.5 py-0.2 rounded">
-              +20P 적립
-            </span>
-          </div>
+            <span>나만의 꿀조합 레시피 등록</span>          </div>
 
           <button
             onClick={closeWriteRecipe}
@@ -472,7 +468,7 @@ export const WriteRecipeModal: React.FC = () => {
               type="submit"
               className="w-full py-3 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-xl shadow-xs transition-colors active:scale-98"
             >
-              레시피 등록하고 20P 받기 ✨
+              레시피 등록하기 ✨
             </button>
           </div>
         </form>
