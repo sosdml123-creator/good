@@ -380,11 +380,23 @@ async function admobReward(req, res) {
   const rawQuery = String(req.url || '').split('?')[1] || '';
   const sigAt = rawQuery.indexOf('&signature=');
   const pem = await getAdmobKey(String(q.key_id));
-  const valid = Boolean(
-    pem && sigAt > 0 &&
-    createVerify('SHA256').update(rawQuery.slice(0, sigAt)).verify(pem, Buffer.from(String(q.signature), 'base64url'))
-  );
-  if (!valid) return res.status(403).json({ ok: false, reason: 'bad_signature' });
+  // rewrite 를 거치며 쿼리스트링이 다시 조립될 수 있어, 원본과 재조립한 형태를 모두 대조
+  const signed = Object.entries(q).filter(([k]) => k !== 'signature' && k !== 'key_id');
+  const join = (pairs, enc) => pairs.map(([k, v]) => `${k}=${enc(String(v))}`).join('&');
+  const sorted = [...signed].sort(([a], [b]) => (a < b ? -1 : 1));
+  const candidates = [...new Set([
+    sigAt > 0 ? rawQuery.slice(0, sigAt) : '',
+    join(signed, encodeURIComponent),
+    join(sorted, encodeURIComponent),
+    join(signed, (v) => encodeURIComponent(v).replace(/%20/g, '+')),
+    join(signed, (v) => v),
+  ])].filter(Boolean);
+  const signature = Buffer.from(String(q.signature), 'base64url');
+  const valid = Boolean(pem) && candidates.some((c) => createVerify('SHA256').update(c).verify(pem, signature));
+  if (!valid) {
+    console.warn('[admob reward] bad signature', { keyFound: Boolean(pem), url: req.url });
+    return res.status(403).json({ ok: false, reason: 'bad_signature', keyFound: Boolean(pem), received: rawQuery.slice(0, 300) });
+  }
 
   const userId = String(q.user_id || '');
   const transactionId = String(q.transaction_id || '');
