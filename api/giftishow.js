@@ -32,6 +32,8 @@ const CALLBACK_NO = String(process.env.GIFTISHOW_CALLBACK_NO || '').replace(/\D/
 const MAX_PRICE = Number(process.env.GIFTISHOW_MAX_PRICE) || 30000;
 const USER_DAILY_LIMIT = Number(process.env.GIFTISHOW_USER_DAILY_LIMIT) || 30000;
 const GLOBAL_DAILY_LIMIT = Number(process.env.GIFTISHOW_GLOBAL_DAILY_LIMIT) || 300000;
+// 목록 용량·로딩 시간을 줄이기 위해 이 금액 이상인 상품은 노출하지 않음
+const HIDE_PRICE_FROM = 10000;
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
 const anonKey = process.env.VITE_SUPABASE_ANON_KEY;
@@ -66,7 +68,7 @@ function isSellable(g, now) {
   if (g.goodsStateCd !== 'SALE') return false;
   // 현금성 상품권은 취급하지 않음
   if (g.goodsTypeNm === '상품권') return false;
-  if (!(g.realPrice > 0) || g.realPrice > MAX_PRICE) return false;
+  if (!(g.realPrice > 0) || g.realPrice > MAX_PRICE || g.realPrice >= HIDE_PRICE_FROM) return false;
   if (g.saleDateFlag === 'Y' && g.saleLimitEdDate && new Date(g.saleLimitEdDate).getTime() < now) return false;
   if (g.endDate && new Date(g.endDate).getTime() < now) return false;
   return true;

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { POINT_POLICY, claimDailyReward } from '../constants/pointPolicy';
 import { 
   Product, 
   Review, 
@@ -1176,7 +1177,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const completeNicknameSetup = async (newNickname: string) => {
     const uid = currentUser.uid;
-    const bonus = 100;
+    const bonus = POINT_POLICY.nicknameBonus;
     const nextPoints = currentUser.points + bonus;
     localStorage.setItem('sinsangpick_points', nextPoints.toString());
     localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
@@ -1209,11 +1210,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }),
       adminMemo: '신규 회원 닉네임 설정 보너스'
     };
-    setPointTransactions(prev => [newTx, ...prev]);
+    if (bonus > 0) setPointTransactions(prev => [newTx, ...prev]);
 
     setIsNicknameModalOpen(false);
     setIsGuestBrowse(true);
-    showToast(`🎉 닉네임이 설정되었습니다! 웰컴 ${bonus}P가 지급되었어요!`, 'success');
+    showToast(bonus > 0 ? `🎉 닉네임이 설정되었습니다! 웰컴 ${bonus}P가 지급되었어요!` : '🎉 닉네임이 설정되었습니다!', 'success');
 
     if (supabase && isSupabaseConfigured) {
       try {
@@ -1417,14 +1418,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {
       console.warn(e);
     }
-    const bonus = 20;
-    const nextPoints = currentUser.points + bonus;
-    setCurrentUser(prev => ({
-      ...prev,
-      points: nextPoints,
-      level: calculateLevel(nextPoints),
-    }));
-    showToast(`⚡ 신상 배틀 투표 완료! 참여 리워드 +${bonus}P가 적립되었습니다.`, 'success');
+    showToast('⚡ 신상 배틀 투표 완료!', 'success');
   };
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
@@ -3149,8 +3143,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {
       // ignore
     }
-    showToast('🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (+50P)', 'success');
-    await grantUserPoints(currentUser.uid, 50, '꿀조합 레시피 등록 보너스');
+    const earned = claimDailyReward(currentUser.uid, 'recipe', POINT_POLICY.recipe);
+    if (earned > 0) {
+      showToast(`🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (+${earned}P)`, 'success');
+      await grantUserPoints(currentUser.uid, earned, '꿀조합 레시피 등록 보너스');
+    } else {
+      showToast('🥪 나만의 신상 꿀조합 레시피가 등록되었습니다! (오늘 적립 한도 도달)', 'success');
+    }
   };
 
   const openProductDetail = (productId: string) => {
@@ -3837,10 +3836,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...(extra || {}),
     };
 
-    // Calculate dynamic points (Base 50P + Photo bonus 30P + Length bonus 20P)
-    let earnedPoints = 50;
-    if (images && images.length > 0) earnedPoints += 30;
-    if (content && content.trim().length >= 30) earnedPoints += 20;
+    // 상품당 1회, 하루 한도 안에서만 적립 (기본 + 사진 + 장문 보너스)
+    const alreadyReviewed = reviews.some(r => r.userId === currentUser.uid && r.productId === targetProduct.id);
+    let earnedPoints: number = POINT_POLICY.reviewBase;
+    if (images && images.length > 0) earnedPoints += POINT_POLICY.reviewPhotoBonus;
+    if (content && content.trim().length >= POINT_POLICY.reviewLongTextMin) earnedPoints += POINT_POLICY.reviewLongTextBonus;
+    earnedPoints = alreadyReviewed ? 0 : claimDailyReward(currentUser.uid, 'review', earnedPoints);
 
     // 1. Optimistic Updates
     const nextReviews = [newReview, ...reviews];
@@ -3873,9 +3874,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }),
       adminMemo: `리뷰 작성 (${rating}점${images && images.length > 0 ? ', 사진 포함' : ''})`
     };
-    setPointTransactions(prev => [newTx, ...prev]);
+    if (earnedPoints > 0) setPointTransactions(prev => [newTx, ...prev]);
 
-    showToast(`🎉 정성 가득 리뷰 등록 완료! (+${earnedPoints}P 적립)`, 'success');
+    showToast(
+      earnedPoints > 0
+        ? `🎉 정성 가득 리뷰 등록 완료! (+${earnedPoints}P 적립)`
+        : alreadyReviewed
+          ? '🎉 리뷰 등록 완료! (포인트는 상품당 1회만 적립돼요)'
+          : '🎉 리뷰 등록 완료! (오늘 적립 한도를 모두 채웠어요)',
+      'success'
+    );
     setSelectedProductId(targetProduct.id);
     setPreviousTab(activeTab);
     setActiveTabState('detail');
@@ -4030,14 +4038,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Optimistic update
     setCommunityPosts(prev => [newPost, ...prev]);
-    const nextPoints = currentUser.points + 20;
-    setCurrentUser(prev => ({
-      ...prev,
-      points: nextPoints,
-      level: calculateLevel(nextPoints),
-    }));
+    const earnedPoints = claimDailyReward(currentUser.uid, 'post', POINT_POLICY.post);
+    if (earnedPoints > 0) {
+      const nextPoints = currentUser.points + earnedPoints;
+      setCurrentUser(prev => ({
+        ...prev,
+        points: nextPoints,
+        level: calculateLevel(nextPoints),
+      }));
+    }
 
-    showToast('💬 게시글이 등록되었습니다! (+20P 적립)', 'success');
+    showToast(
+      earnedPoints > 0 ? `💬 게시글이 등록되었습니다! (+${earnedPoints}P 적립)` : '💬 게시글이 등록되었습니다!',
+      'success'
+    );
 
     if (supabase && isSupabaseConfigured) {
       try {
@@ -4305,13 +4319,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_events', JSON.stringify(next));
       return next;
     });
-    const nextPoints = currentUser.points + 50;
-    setCurrentUser(prev => ({
-      ...prev,
-      points: nextPoints,
-      level: calculateLevel(nextPoints),
-    }));
-    showToast('🎁 이벤트 신청이 완료되었습니다! (+50P 적립)', 'success');
+    showToast('🎁 이벤트 신청이 완료되었습니다!', 'success');
   };
 
   // Send Push Notification (Dispatches to Supabase Realtime & Device Push)
