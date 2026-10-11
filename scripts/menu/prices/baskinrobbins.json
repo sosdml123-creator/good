@@ -1,0 +1,847 @@
+{
+ "패밀리": {
+  "price": 26000,
+  "kind": "store",
+  "stores": 4
+ },
+ "하프갤론": {
+  "price": 31500,
+  "kind": "store",
+  "stores": 4
+ },
+ "파인트": {
+  "price": 9800,
+  "kind": "store",
+  "stores": 4
+ },
+ "쿼터": {
+  "price": 18500,
+  "kind": "store",
+  "stores": 4
+ },
+ "메가팩": {
+  "price": 53000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "[배민단독] 쿼터+먹을 복 담을 통": {
+  "price": 33900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[배민단독] 패밀리+먹을 복 담을 통": {
+  "price": 42000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[배민단독] 하프갤론+먹을 복 담을 통": {
+  "price": 48300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "4팩 버라이어티팩": {
+  "price": 17600,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "8팩 버라이어티팩": {
+  "price": 35200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "버라이어티팩": {
+  "price": 18400,
+  "kind": "store",
+  "stores": 1
+ },
+ "핸드팩세트": {
+  "price": 44000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "소금우유 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "엄마는 외계인 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "레인보우 샤베트 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "31요거트 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "오레오쿠키앤크림 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "베리베리 스트로베리 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "민트 초콜릿 칩 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "체리 쥬빌레 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아몬드봉봉 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "Lessly) 블록팩 (엄마는외계인)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "Lessly) 블록팩 (아몬드봉봉)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "Lessly) 블록팩 (민트초콜릿칩)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (베리베리스트로베리)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (레인보우샤베트)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (초콜릿)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (이상한 나라의 솜사탕)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "NEW 블록팩 (바람과 함께 사라지다)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (엄마는 외계인)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (민트초코봉봉)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (슈팅스타)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (뉴욕치즈케이크)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (쿠키앤크림)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "NEW 블록팩 (체리쥬빌레)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "NEW 블록팩 (아몬드봉봉)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 브라운 쿠키 밀크 샌드": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "리미티드) 미니 아이스 마카롱 세트": {
+  "price": 19500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "도쿄바나나 브륄레 랑그드샤 쿠키 샌드": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "두쫀아 모찌 피스타치오": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 바움쿠헨 아몬드봉봉": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아이스 마카롱 크림브륄레": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 쿠키 샌드 바닐라": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 모찌 아몬드봉봉": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥심 스틱바 슈프림골드": {
+  "price": 1900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 모나카 쫀떡 인절미": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "미니 아이스 스틱바 바닐라 (3개입)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 모나카 우유": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "초콜릿 무스 아이스 마카롱": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥심모카골드마일드 스틱바": {
+  "price": 1900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "소금우유 아이스 모찌": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "크림치즈 아이스 모찌": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "초코바닐라 아이스모찌": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "스트로베리 아이스모찌": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "그린티 아이스모찌": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "쿠키앤크림 아이스마카롱": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "몬가 귀여운 몬치치": {
+  "price": 41000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "비스코프 에스프레소 앤 카라멜": {
+  "price": 32500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "도쿄바나나 바삭 브륄레": {
+  "price": 35000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "해피 버스데이닷": {
+  "price": 32500,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "곰돌이푸의 스윗 파티": {
+  "price": 39000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "피글렛의 해피 데이": {
+  "price": 39000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "포키와 친구들의 파티 케이크": {
+  "price": 36000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "바닐라베리 마이원 케이크": {
+  "price": 36000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "초코앤쿠키 마이원 케이크": {
+  "price": 36000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바삭 쿠키 볼 와츄원": {
+  "price": 37000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "헬로키티의 스위티 데이": {
+  "price": 36000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "초코별에서 온 엄마는 외계인": {
+  "price": 33500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "톡톡 프루티 와츄원": {
+  "price": 37000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "골라먹는 27큐브": {
+  "price": 32500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "리얼 초코 27 큐브": {
+  "price": 32500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더 듬뿍 프루티 케이크": {
+  "price": 37000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "진정한 초콜릿 컬렉션": {
+  "price": 31000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해삐 잔망루피": {
+  "price": 36000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더 듬뿍 딸기 우유 케이크": {
+  "price": 38000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "사과 듬뿍 블라스트": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "산딸기연유블라스트": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "루피의트로피컬티블라스트": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "나미의밀키소다블라스트": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "피카츄의 망고 팝핑 블라스트": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "엄마는 외계인 블라스트 (Regular)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "아몬드 봉봉 블라스트 (Regular)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "[R]카푸치노블라스트 오리지널": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "[R]카푸치노블라스트 모카": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "설향딸기 블라스트": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "자모카훠지크림라떼 (ICED)": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아몬드봉봉크림라떼 (ICED)": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 자모카훠지크림라떼 (ICED)": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 아몬드봉봉크림라떼 (ICED)": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "스트로베리말차크림라떼 (ICED)": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "엄마는외계인크림라떼 (ICED)": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "고무고무열매 파인트": {
+  "price": 19100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "시그니처) 미니 아이스 마카롱 세트": {
+  "price": 19500,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "달콤함에 빠진 몬치치": {
+  "price": 39000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "골라먹는 미니 와츄원": {
+  "price": 26000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "새 친구 릴리패드의 등장": {
+  "price": 35000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "골든옐로우 폼폼푸린": {
+  "price": 13500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "스노우 볼 와츄원": {
+  "price": 32500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "메타몽의 포도 블라스트": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "와츄원 쉐이크": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "밀크쉐이크 (Regular)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "납작복숭아아샷추": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "디카페인 납작복숭아아샷추": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "킹 아메리카노 (ICED)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 킹 아메리카노 (ICED)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(HOT)디카페인 아메리카노": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(HOT)디카페인 카페라떼": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(HOT)디카페인 바닐라빈라떼": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(HOT)디카페인 연유라떼": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(ICED)디카페인 아메리카노": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(ICED)디카페인 카페라떼": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(ICED)디카페인 바닐라빈라떼": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "(ICED)디카페인 연유라떼": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아메리카노 (ICED)": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페라떼 (ICED)": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 라떼 (ICED)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아메리카노 (HOT)": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페라떼 (HOT)": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈라떼 (HOT)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "연유라떼 (HOT)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "연유라떼 (ICED)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "H)레드향캐모마일티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "H)자몽히비스커스티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "I)레드향캐모마일티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "I)자몽히비스커스티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "킹 납작복숭아 아이스티": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "납작복숭아 아이스티": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "싱글레귤러": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 4
+ },
+ "싱글킹": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 4
+ },
+ "더블쥬니어": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 4
+ },
+ "더블레귤러": {
+  "price": 7300,
+  "kind": "store",
+  "stores": 4
+ },
+ "[배민단독] 사각사각팩+먹을 복 담을 통": {
+  "price": 28400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[배민단독] 사각사각팩": {
+  "price": 15400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "애플망고 젤라또 라운드팩": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "에스프레소 쿠키 크런치 모찌": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "두바이 크런치 모찌 초코 헤이즐넛": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "신데렐라의 유리 구두": {
+  "price": 13500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "요정의 비비디 바비디 부": {
+  "price": 13500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "Lessly) 아몬드 봉봉 미니 케이크": {
+  "price": 25000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "바나나 카페라떼": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "디카페인 바나나 카페라떼": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그린 디노": {
+  "price": 29000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "오렌지 디노": {
+  "price": 29000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "Lessly) 엄마는 외계인 미니 케이크": {
+  "price": 25000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "L)트로피컬펀치비타프로스티": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블주니어": {
+  "price": 4300,
+  "kind": "store",
+  "stores": 1
+ },
+ "하프갤런": {
+  "price": 26500,
+  "kind": "store",
+  "stores": 1
+ },
+ "핸드팩 세트": {
+  "price": 31000,
+  "kind": "store",
+  "stores": 1
+ },
+ "아메리카노": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페 라떼": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페 모카": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "카라멜 마끼아또": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "연유 라떼": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라빈 라떼": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "그린티 레디팩": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "파이리의 수박 블라스트": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딸기 연유 블라스트": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "Lessly) 엄마는외계인쉐이크 (로어 슈가)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(ICED)카페모카엄마는외계인": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(HOT)카페모카엄마는외계인": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "L)레몬비타프로스티": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "L)믹솔로지비타프로스티": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "해-삐 잔망루피": {
+  "price": 33000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "자몽 히비스커스 티": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "연유라떼": {
+  "price": 4300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페라떼": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "L아메리카노": {
+  "price": 3900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "납작 복숭아 아이스티": {
+  "price": 2000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "맥심 스틱바 모카골드 마일드": {
+  "price": 1600,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

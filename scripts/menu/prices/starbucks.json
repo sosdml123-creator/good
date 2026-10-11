@@ -1,0 +1,207 @@
+{
+ "카페 아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 24
+ },
+ "카페 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 24
+ },
+ "스타벅스 돌체 라떼": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 24
+ },
+ "카라멜 마키아또": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 24
+ },
+ "카푸치노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 24
+ },
+ "카페 모카": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 24
+ },
+ "화이트 초콜릿 모카": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 24
+ },
+ "콜드 브루": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 24
+ },
+ "자몽 허니 블랙 티": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 24
+ },
+ "아이스 자몽 허니 블랙 티": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 24
+ },
+ "망고 바나나 블렌디드": {
+  "price": 6600,
+  "kind": "store",
+  "stores": 24
+ },
+ "에스프레소 프라푸치노": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 24
+ },
+ "자바 칩 프라푸치노": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 24
+ },
+ "체리&자두 에너지 피지오": {
+  "price": 6300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 바닐라 라떼": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라 라떼": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 스타벅스 클래식 밀크 티": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스타벅스 클래식 밀크 티": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "망고 패션 프루트 블렌디드": {
+  "price": 5600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 제주 말차 라떼": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주 말차 라떼": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 밀크 카라멜 라떼": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "밀크 카라멜 라떼": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스타벅스 딸기 라떼": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주 말차 크림 프라푸치노": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "쿨 라임 피지오": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 카라멜 마키아또": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 디카페인 카페 라떼": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 카페 라떼": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 디카페인 카페 아메리카노": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 카페 아메리카노": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "딸기 딜라이트 요거트 블렌디드": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초콜릿 크림 칩 프라푸치노": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 스타벅스 돌체 라떼": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "돌체 콜드 브루": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "자몽허니 블랙티": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 카페 모카": {
+  "price": 5700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 시그니처 초콜릿": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "시그니처 핫 초콜릿": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 카페 라떼": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 카페 아메리카노": {
+  "price": 4700,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

@@ -1,0 +1,712 @@
+{
+ "트러플 머쉬룸 와퍼": {
+  "price": 10700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "핫 트러플 머쉬룸 와퍼": {
+  "price": 10700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "메종 트러플 치즈 버거": {
+  "price": 11500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈3": {
+  "price": 19600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈": {
+  "price": 13000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "트러플 머쉬룸 와퍼세트": {
+  "price": 13400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "핫 트러플 머쉬룸 와퍼세트": {
+  "price": 13400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "메종 트러플 치즈 버거세트": {
+  "price": 14200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈 세트": {
+  "price": 15700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈2": {
+  "price": 16400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈2 세트": {
+  "price": 19100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터맥시멈3 세트": {
+  "price": 22300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "데리야킹 크리스퍼": {
+  "price": 7200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "데리야킹 크리스퍼 세트": {
+  "price": 9900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "펜타치즈와퍼": {
+  "price": 10800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "펜타치즈와퍼 세트": {
+  "price": 13500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "보일링씨푸드버거 버터갈릭": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "보일링씨푸드버거 버터갈릭 세트": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "보일링씨푸드버거 디아블로": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "보일링씨푸드버거 디아블로 세트": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "오리지널스 엘파소 치폴레": {
+  "price": 12000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "오리지널스 엘파소 치폴레 세트": {
+  "price": 14700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더 크리스퍼": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더 크리스퍼 세트": {
+  "price": 9400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더 크리스퍼 베이컨&치즈": {
+  "price": 7700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더크리스퍼 베이컨&치즈 세트": {
+  "price": 10400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "오리지널스 뉴욕 스테이크": {
+  "price": 12000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "오리지널스 뉴욕 스테이크 세트": {
+  "price": 14700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "BLT 오믈렛 크루아상위치": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "BLT 오믈렛 크루아상위치 콤보": {
+  "price": 7400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "BLT 오믈렛 크루아상위치 세트": {
+  "price": 8300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "잠봉햄&치즈 오믈렛 크루아상위치": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "잠봉햄&치즈 오믈렛 크루아상위치 콤보": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "잠봉햄&치즈 오믈렛 크루아상위치 세트": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "오믈렛 크루아상위치": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "오믈렛 크루아상위치 콤보": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "오믈렛 크루아상위치 세트": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해쉬브라운": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "더오치 맥시멈2 세트": {
+  "price": 14500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "베이컨치즈와퍼 세트": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터와퍼 세트": {
+  "price": 12800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "콰트로치즈와퍼 세트": {
+  "price": 11900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우와퍼세트": {
+  "price": 10400,
+  "kind": "store",
+  "stores": 8
+ },
+ "치즈와퍼 세트": {
+  "price": 11700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "갈릭불고기와퍼 세트": {
+  "price": 11400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "와퍼 세트": {
+  "price": 11100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "불고기와퍼세트": {
+  "price": 11100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터 주니어 세트": {
+  "price": 8400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우와퍼주니어세트": {
+  "price": 7800,
+  "kind": "store",
+  "stores": 8
+ },
+ "콰트로치즈와퍼주니어세트": {
+  "price": 7800,
+  "kind": "store",
+  "stores": 8
+ },
+ "치즈와퍼주니어세트": {
+  "price": 7500,
+  "kind": "store",
+  "stores": 8
+ },
+ "와퍼주니어세트": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 8
+ },
+ "불고기와퍼주니어세트": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "롱치킨버거 세트": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "불고기 롱치킨버거 세트": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨 치즈 마요 버거 세트": {
+  "price": 7400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더블비프불고기버거 세트": {
+  "price": 8500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨킹 세트": {
+  "price": 10500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨킹BLT 세트": {
+  "price": 11500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "비프불고기버거 세트": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우 슈림프버거 세트": {
+  "price": 9500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨버거 세트": {
+  "price": 7200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈버거 세트": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더오치 맥시멈2": {
+  "price": 11800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터와퍼": {
+  "price": 10600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "베이컨치즈와퍼": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "콰트로치즈와퍼 단품": {
+  "price": 9200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우와퍼": {
+  "price": 9200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈와퍼": {
+  "price": 9000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "갈릭불고기와퍼": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "와퍼": {
+  "price": 8400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "불고기와퍼": {
+  "price": 8400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "몬스터 주니어": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우와퍼주니어": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "콰트로치즈와퍼주니어": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈와퍼주니어": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "와퍼주니어": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "불고기와퍼주니어": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 8
+ },
+ "롱치킨버거": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "불고기 롱치킨버거": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨 치즈 마요 버거": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "더블비프불고기버거": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨킹": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨킹BLT": {
+  "price": 8800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "비프불고기버거": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "통새우 슈림프버거": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨버거": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈버거": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "딥 트러플 프라이": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "트러플 머쉬룸 파이 로얄": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "비프 킹 랩": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "애플파이 로얄": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "크리스퍼 랩": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "크리스퍼 텐더": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "리얼 어니언링 R": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "리얼 어니언링L": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "너겟킹4조각": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "너겟킹 8조각": {
+  "price": 5500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "너겟킹(10조각)": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "21치즈스틱": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "바삭킹8조각,스위트칠리소스": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "바삭킹8조각,디아블로소스": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "바삭킹2조각": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "바삭킹4조각": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "쉐이킹프라이 구운갈릭": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "쉐이킹프라이 매콤치즈": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "쉐이킹프라이 스윗어니언": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코코넛슈림프3조각+스위트칠리소스": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코코넛슈림프6조각+스위트칠리소스": {
+  "price": 8200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코코넛슈림프9조각+스위트칠리소스": {
+  "price": 11100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "프렌치프라이(L)": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "프렌치프라이(R)": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코울슬로": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "콘샐러드": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "빅 딥 체다치즈": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스위트칠리소스": {
+  "price": 600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "디아블로소스": {
+  "price": 600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "허니머드타드 소스": {
+  "price": 200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "구운갈릭 시즈닝": {
+  "price": 400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "매콤치즈 시즈닝": {
+  "price": 400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스윗어니언 시즈닝": {
+  "price": 400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "아메리카노": {
+  "price": 2600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "아이스 아메리카노": {
+  "price": 2600,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "닥터페퍼 제로(L)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "닥터페퍼 제로(R)": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코카콜라(L)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코카콜라(R)": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코카콜라 제로(L)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "코카콜라 제로(R)": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스프라이트(L)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스프라이트(R)": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스프라이트 제로L": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "스프라이트 제로R": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "미닛메이드": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "순수": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "와퍼세트": {
+  "price": 9600,
+  "kind": "store",
+  "stores": 8
+ },
+ "콰트로치즈와퍼세트": {
+  "price": 10400,
+  "kind": "store",
+  "stores": 8
+ },
+ "치즈와퍼세트": {
+  "price": 10200,
+  "kind": "store",
+  "stores": 8
+ },
+ "리얼 어니언링": {
+  "price": 2800,
+  "kind": "store",
+  "stores": 8
+ },
+ "핫초코": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "아이스초코": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "콰트로치즈와퍼": {
+  "price": 8200,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

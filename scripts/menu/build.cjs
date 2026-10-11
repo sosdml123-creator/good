@@ -43,6 +43,47 @@ const normalize = (name, brand) =>
     .replace(/[^0-9a-zA-Z가-힣]/g, '')
     .toLowerCase();
 
+// 가격 매칭용 키: 상표 기호·공백·브랜드명을 빼고, HOT/ICE 표기는 위치와 무관하게 따로 떼어 비교합니다.
+function priceKey(name, brand) {
+  const raw = String(name || '')
+    .replace(/[®™]/g, '')
+    // (시즌)·[배민단독]·[L/J]·(라지/점보) 같은 꼬리표는 메뉴 자체가 아니므로 제거
+    .replace(/\((시즌|NEW|new)\)|\[[^\]]*\]|\([^()]*\/[^()]*\)/g, '')
+    .replace(/w\s*노란\s*빨대/g, '')
+    // '아이스크림'·'아이스티'의 '아이스'가 온도 표기로 읽히지 않게 보호
+    .replace(/아이스(크림|티|박스)/g, 'AIS$1')
+    .replace(/small/gi, '스몰').replace(/medium/gi, '미디엄').replace(/large/gi, '라지');
+  const temp = /아이스|\bice[d]?\b|\(i\)|\[ice\]/i.test(raw) ? 'ice' : /핫|\bhot\b|\(h\)|\[hot\]|따뜻한/i.test(raw) ? 'hot' : '';
+  const base = normalize(raw.replace(/아이스|iced?|핫|hot|따뜻한/gi, ''), brand);
+  return { base, temp };
+}
+
+// scripts/menu/prices/<key>.json (네이버 플레이스 매장 메뉴판·배달 메뉴 가격) → 조회 함수
+function loadPriceLookup(key, brand) {
+  const file = path.join(__dirname, 'prices', `${key}.json`);
+  if (!fs.existsSync(file)) return () => 0;
+  const table = new Map();
+  for (const [name, info] of Object.entries(JSON.parse(fs.readFileSync(file, 'utf8')))) {
+    const { base, temp } = priceKey(name, brand);
+    if (!base) continue;
+    const id = `${base}|${temp}`;
+    // 같은 키가 겹치면 매장 메뉴판 가격을 우선
+    if (!table.has(id) || (table.get(id).kind !== 'store' && info.kind === 'store')) table.set(id, info);
+  }
+  return (name) => {
+    const { base, temp } = priceKey(name, brand);
+    const order = temp ? [temp, ''] : ['', 'ice', 'hot'];
+    // 사이즈 구분 없이 등록한 메뉴는 기본(미디엄/레귤러) 사이즈 가격을 사용
+    for (const size of ['', '미디엄', 'm', '레귤러', 'r']) {
+      for (const t of order) {
+        const hit = table.get(`${base}${size}|${t}`);
+        if (hit) return hit.price;
+      }
+    }
+    return 0;
+  };
+}
+
 function loadBundledProducts() {
   const tmp = path.join(os.tmpdir(), `sinsangpick-products-${process.pid}.cjs`);
   const esbuild = path.join(ROOT, 'node_modules', 'esbuild', 'bin', 'esbuild');
@@ -103,6 +144,11 @@ function commonPrefix(values) {
       names.add(n);
       return true;
     });
+    // 공식 홈페이지에 가격이 없는 메뉴는 수집해 둔 매장 가격으로 채웁니다.
+    const lookupPrice = loadPriceLookup(key, brand);
+    for (const item of fresh) {
+      if (!item.price) item.price = lookupPrice(item.name);
+    }
     const imageBase = commonPrefix(fresh.map((i) => i.image));
     const urlBase = commonPrefix(fresh.map((i) => i.url).filter(Boolean));
     const rows = fresh.map((item) => {
@@ -125,7 +171,7 @@ function commonPrefix(values) {
     });
     total += rows.length;
     groups.push({ key, brand, imageBase, urlBase, rows });
-    console.log(`${brand}: 수집 ${items.length}건 → 신규 ${rows.length}건`);
+    console.log(`${brand}: 수집 ${items.length}건 → 신규 ${rows.length}건 (가격 있음 ${fresh.filter((i) => i.price > 0).length}건)`);
   }
 
   const lines = [

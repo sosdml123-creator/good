@@ -1,0 +1,687 @@
+{
+ "맥크리스피™ 고추장 버터 세트": {
+  "price": 12100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 고추장 버터 세트": {
+  "price": 11100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 6조각 세트": {
+  "price": 14000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "그릴드 치킨 모닝 버거 세트": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "맥윙 6조각 콤보": {
+  "price": 12500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 2조각": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 4조각": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 8조각": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 맥스파이시 상하이 버거": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 맥스파이시 상하이 버거 세트": {
+  "price": 12600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 맥스파이시 상하이 버거 라지세트": {
+  "price": 13500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥너겟® 4조각": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥너겟® 6조각": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 2조각 콤보": {
+  "price": 6100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥윙 4조각 콤보": {
+  "price": 9300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 치킨텐더 2조각": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "그릴드 치킨 모닝 버거 라지세트": {
+  "price": 8200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "맥크리스피™ 고추장 버터 라지세트": {
+  "price": 13000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 고추장 버터 라지세트": {
+  "price": 12000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 디럭스 라지세트": {
+  "price": 10700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 클래식 라지세트": {
+  "price": 9700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "토마토 치즈 비프 버거 라지세트": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "트리플 치즈버거 라지 세트": {
+  "price": 9800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈비버거 라지 세트": {
+  "price": 10800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈슈버거 라지 세트": {
+  "price": 8300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "1955® 버거 라지 세트": {
+  "price": 10700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨® 라지 세트": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨® 모짜렐라 라지 세트": {
+  "price": 9600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "빅맥® 라지 세트": {
+  "price": 9900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 상하이버거 라지 세트": {
+  "price": 10000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 불고기버거 라지 세트": {
+  "price": 9100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "불고기버거 라지 세트": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "베이컨 토마토 디럭스™ 라지 세트": {
+  "price": 10300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 쿼터파운더™ 치즈 라지 세트": {
+  "price": 11900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "쿼터파운더™ 치즈 라지 세트": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "치즈버거 라지 세트": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 치즈버거 라지 세트": {
+  "price": 8600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥너겟® 6조각 라지 세트": {
+  "price": 8600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 디럭스 세트": {
+  "price": 9800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 클래식 세트": {
+  "price": 8800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "토마토 치즈 비프 버거 세트": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "트리플 치즈버거 세트": {
+  "price": 8900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈비버거 세트": {
+  "price": 9900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈슈버거 세트": {
+  "price": 7400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "1955® 버거 세트": {
+  "price": 9800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨® 세트": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨® 모짜렐라 세트": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "빅맥® 세트": {
+  "price": 9000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 상하이버거 세트": {
+  "price": 9100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 불고기버거 세트": {
+  "price": 8200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "불고기버거 세트": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "베이컨 토마토 디럭스™ 세트": {
+  "price": 9400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 쿼터파운더™ 치즈 세트": {
+  "price": 11000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "쿼터파운더™ 치즈 세트": {
+  "price": 9300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "치즈버거 세트": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 치즈버거 세트": {
+  "price": 7700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥너겟® 6조각 세트": {
+  "price": 7700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "그릴드 치킨 모닝 버거": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "맥크리스피™ 고추장 버터": {
+  "price": 9400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 고추장 버터": {
+  "price": 8400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 디럭스": {
+  "price": 7700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥크리스피™ 치킨 클래식": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "토마토 치즈 비프 버거": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "트리플 치즈버거": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈비버거": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "슈슈버거": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "1955® 버거": {
+  "price": 7600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨®": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥치킨® 모짜렐라": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "빅맥®": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "맥스파이시® 상하이버거": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 불고기 버거": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "불고기 버거": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "베이컨 토마토 디럭스™": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 쿼터파운더™ 치즈": {
+  "price": 8600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "쿼터파운더™ 치즈": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "치즈버거": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "더블 치즈버거": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "햄버거": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "홍천 우리쌀 칩": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코울슬로": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "골든 모짜렐라 치즈스틱 2조각": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "골든 모짜렐라 치즈스틱 4조각": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "상하이 치킨 스낵랩®": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "후렌치 후라이 스몰": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "후렌치 후라이 미디엄": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "후렌치 후라이 라지": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "고추장 버터 소스": {
+  "price": 600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "디핑 소스 스위트 앤 사워": {
+  "price": 300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "디핑 소스 스위트 칠리": {
+  "price": 300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "디핑 소스 케이준": {
+  "price": 300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "오레오 맥플러리®": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해피밀 치즈버거": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해피밀 맥너겟® 4조각": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해피밀 햄버거": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "해피밀 불고기버거": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "제주 풋귤 맥피즈 M": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "제주 풋귤 맥피즈 L": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "피치 아이스티 미디엄": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "피치 아이스티 라지": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "바닐라 라떼 미디엄": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "바닐라 라떼 라지": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 바닐라 라떼 미디엄": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 바닐라 라떼 라지": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코카 콜라® 미디엄": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코카 콜라® 라지": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코카 콜라® 제로 미디엄": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코카 콜라® 제로 라지": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "환타® 미디엄": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "환타® 라지": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "스프라이트® 미디엄": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "스프라이트® 라지": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "카페라떼 미디엄": {
+  "price": 4200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "카페라떼 라지": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "카푸치노 미디엄": {
+  "price": 4200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "카푸치노 라지": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아메리카노 미디엄": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아메리카노 라지": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "드립 커피 미디엄": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "드립 커피 라지": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 드립 커피(시럽없음) 미디엄": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 드립 커피(시럽없음) 라지": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 아메리카노(시럽없음) 미디엄": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 아메리카노(시럽없음) 라지": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 카페라떼(시럽없음) 미디엄": {
+  "price": 4200,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "아이스 카페라떼(시럽없음) 라지": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "딸기 쉐이크 미디엄": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "초코 쉐이크 미디엄": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "바닐라 쉐이크 미디엄": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "제주 풋귤 맥피즈 스프라이트 제로 M": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "제주 풋귤 맥피즈 스프라이트 제로 L": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "스프라이트® 제로 미디엄": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "스프라이트® 제로 라지": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "드립 커피 Large": {
+  "price": 2800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "드립 커피 Medium": {
+  "price": 2400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 드립 커피 Large": {
+  "price": 2800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 드립 커피 Medium": {
+  "price": 2400,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

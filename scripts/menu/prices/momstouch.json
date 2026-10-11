@@ -1,0 +1,932 @@
+{
+ "갓빠삭치킨(순살)": {
+  "price": 16600,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "불밝혀라 더블불고기세트": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "싸이버거 단품": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨&버거세트": {
+  "price": 19500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불고기페퍼로니 (싱글피자)": {
+  "price": 9700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "꽉트로미트피자": {
+  "price": 21500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "불밝혀라 스모키스매쉬세트": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트리플미트 (싱글피자)": {
+  "price": 9700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "더블치즈포테이토 (싱글피자)": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "싱글피자N버거세트": {
+  "price": 15300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "싱글피자N치킨세트 (순살)": {
+  "price": 22200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "로스트치킨": {
+  "price": 9900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "싱글피자N치킨세트 (로스트)": {
+  "price": 18300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "스매쉬버거 (프리미엄 호주산 와규패티)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "스매쉬버거 세트 (프리미엄 호주산 와규패티)": {
+  "price": 9500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "스모키스매쉬버거 (프리미엄 호주산 와규패티)": {
+  "price": 8600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "스모키스매쉬버거 세트 (프리미엄 호주산 와규패티)": {
+  "price": 11600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블스매쉬버거 (프리미엄 호주산 와규패티)": {
+  "price": 10700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블스매쉬버거 세트 (프리미엄 호주산 와규패티)": {
+  "price": 13700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "스트레스 빠삭세트(순살)": {
+  "price": 22300,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "스크류베리 스파쿨": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "꽉트로미트피자 피치세트(순살)": {
+  "price": 32200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "치킨&비프버거세트": {
+  "price": 21900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽 싱글세트": {
+  "price": 24100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽 커플세트": {
+  "price": 32400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "떡강정세트": {
+  "price": 11100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "맘스피자 피치세트(순살) M": {
+  "price": 29200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "맘스피자 피치세트(순살) L": {
+  "price": 33200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "매직풍피자": {
+  "price": 24900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "바삭옥수수통새우피자": {
+  "price": 25500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "싸이피자": {
+  "price": 25400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "BBQ플래터피자": {
+  "price": 23500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "콤비네이션 갈릭포테이토엣지": {
+  "price": 20500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "페퍼로니 슈레드햄엣지": {
+  "price": 20500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "불고기 대파크림치즈엣지": {
+  "price": 21500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "치즈피자": {
+  "price": 18500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "그릴드버거 세트": {
+  "price": 8000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그릴드불고기버거 세트": {
+  "price": 8700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그릴드베이컨버거 세트": {
+  "price": 9000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽싸이버거 세트": {
+  "price": 10200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "화이트갈릭버거 세트": {
+  "price": 9300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딥치즈버거 세트": {
+  "price": 9200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "휠렛버거 세트": {
+  "price": 8800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불고기버거 세트": {
+  "price": 8000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "통새우버거 세트": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블불고기 세트": {
+  "price": 9600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아라비아따치즈버거 세트": {
+  "price": 11500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딥치즈싸이버거 세트": {
+  "price": 9500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "화이트갈릭싸이버거 세트": {
+  "price": 9600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "싸이플렉스버거 세트": {
+  "price": 12700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "싸이버거 세트": {
+  "price": 9000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불싸이버거 세트": {
+  "price": 9200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그릴드버거 단품": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그릴드불고기버거 단품": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "그릴드베이컨버거 단품": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽싸이버거 단품": {
+  "price": 7200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "화이트갈릭버거 단품": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딥치즈버거 단품": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "휠렛버거 단품": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불고기버거 단품": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "통새우버거 단품": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블불고기 단품": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아라비아따치즈버거단품": {
+  "price": 8500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딥치즈싸이버거 단품": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "화이트갈릭싸이버거 단품": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "싸이플렉스버거 단품": {
+  "price": 9700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불싸이버거 단품": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치즈밤치킨(순살)": {
+  "price": 19200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "매직풍치킨(순살)": {
+  "price": 16200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽치킨(순살)": {
+  "price": 16200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치즈치킨(순살)": {
+  "price": 16200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "셰프스 버번치킨(순살)": {
+  "price": 16600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후라이드치킨(순살)": {
+  "price": 13600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "맘스양념치킨(순살)": {
+  "price": 15600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "간장마늘치킨(순살)": {
+  "price": 15600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "케이준떡강정": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈스낵업": {
+  "price": 9800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트리플스낵업": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "당근빵(2조각)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨치즈스틱": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "미트칠리감자": {
+  "price": 4100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "콘치즈 그라탕": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈오븐파스타": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "핫윙": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "바삭크림치즈볼": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "케이준양념감자": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈감자": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈스틱(2조각)": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "할라피뇨너겟": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "콘샐러드": {
+  "price": 1900,
+  "kind": "store",
+  "stores": 1
+ },
+ "코울슬로": {
+  "price": 1900,
+  "kind": "store",
+  "stores": 1
+ },
+ "맘스양념소스": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "랜치소스": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨무": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "피클": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "핫소스": {
+  "price": 100,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "펩시콜라": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "펩시콜라제로": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "사이다": {
+  "price": 2400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "펩시콜라 (500ml)": {
+  "price": 2600,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "사이다 (500ml)": {
+  "price": 2600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "펩시콜라제로 (500ml)": {
+  "price": 2600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "펩시콜라(1.25L)": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "사이다(1.25L)": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "펩시제로라임(1.25L)": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "갓빠삭빅싸이순살": {
+  "price": 15900,
+  "kind": "store",
+  "stores": 1
+ },
+ "핫치즈밤빅싸이순살": {
+  "price": 18500,
+  "kind": "store",
+  "stores": 1
+ },
+ "매직풍빅싸이순살": {
+  "price": 15500,
+  "kind": "store",
+  "stores": 1
+ },
+ "당근빵": {
+  "price": 2600,
+  "kind": "store",
+  "stores": 1
+ },
+ "후덕죽싸이버거": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 1
+ },
+ "후덕죽통새우버거": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 1
+ },
+ "후덕죽빅싸이순살": {
+  "price": 15500,
+  "kind": "store",
+  "stores": 1
+ },
+ "후라이드빅싸이순살": {
+  "price": 12900,
+  "kind": "store",
+  "stores": 1
+ },
+ "싸이플렉스버거": {
+  "price": 8900,
+  "kind": "store",
+  "stores": 1
+ },
+ "아라비아따치즈버거": {
+  "price": 7700,
+  "kind": "store",
+  "stores": 1
+ },
+ "싸이버거": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "언빌리버블버거": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "화이트갈릭버거": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "케이준양념감자(중)": {
+  "price": 2100,
+  "kind": "store",
+  "stores": 1
+ },
+ "바삭크림치즈볼(4조각)": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "후덕죽통새우버거 세트": {
+  "price": 10500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "언빌리버블버거 세트": {
+  "price": 10300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "새우불고기버거 세트": {
+  "price": 10400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "쉬림프싸이플렉스버거 세트": {
+  "price": 12000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽통새우버거 단품": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "언빌리버블버거 단품": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "새우불고기버거 단품": {
+  "price": 7400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "쉬림프싸이플렉스버거 단품": {
+  "price": 9000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "간장마늘떡강정": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "매직풍치킨(뼈)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후덕죽치킨(뼈)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치즈치킨(뼈)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후라이드치킨(뼈)": {
+  "price": 11400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "맘스양념치킨(뼈)": {
+  "price": 12400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "간장마늘치킨(뼈)": {
+  "price": 12400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후라이드통다리": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "갈릭김떡만/매콤김떡만": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "매콤치즈마요소스": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "내슈빌핫치킨버거 세트": {
+  "price": 9900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "내슈빌핫치킨버거": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "치파오떡강정": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치즈밤치킨(뼈)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "반반치킨(후라이드+양념1종 뼈치킨)": {
+  "price": 21400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "고메버터시즈닝": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "닭강정트리오": {
+  "price": 14600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "팝콘볼": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "청포도에이드": {
+  "price": 3100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "레몬에이드": {
+  "price": 3100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "오렌지주스": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(행사)갓빠삭치킨(순살)": {
+  "price": 17600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(비프)비프스테이크버거 세트": {
+  "price": 10800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "디럭스불고기버거 세트": {
+  "price": 10100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(비프)비프스테이크버거 단품": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(비프)그릴드비프버거 단품": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "(더블)그릴드더블비프버거 단품": {
+  "price": 10600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "디럭스불고기버거 단품": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "매직풍 빅싸이순살": {
+  "price": 17500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "꽉트로미트피자 투계더 BOX": {
+  "price": 36100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "투계더 BOX": {
+  "price": 33100,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "셰프스 버번치킨(뼈)": {
+  "price": 13400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딥스모크소스": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "후라이드 빅싸이순살": {
+  "price": 12900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "매직풍 피자": {
+  "price": 22900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후덕죽 빅싸이순살맥스": {
+  "price": 24000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후덕죽 빅싸이순살": {
+  "price": 15500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후덕죽 싸이버거 단품": {
+  "price": 6400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후덕죽 통새우버거 단품": {
+  "price": 6700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후라이드 빅싸이순살맥스": {
+  "price": 21400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "핫치즈 빅싸이순살맥스": {
+  "price": 24000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "핫치즈 빅싸이순살": {
+  "price": 15500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "맘스양념 빅싸이순살맥스": {
+  "price": 23400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "맘스양념 빅싸이순살": {
+  "price": 14900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "간장마늘 빅싸이순살맥스": {
+  "price": 23400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "간장마늘 빅싸이순살": {
+  "price": 14900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "핫치즈 치킨 한마리": {
+  "price": 20500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "셰프스 치킨 한마리": {
+  "price": 21500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후라이드치킨 반마리": {
+  "price": 9900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "간장마늘치킨 반마리": {
+  "price": 10900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "간장마늘치킨 한마리": {
+  "price": 19900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "맘스양념치킨 반마리": {
+  "price": 10900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "맘스양념치킨 한마리": {
+  "price": 19900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후라이드치킨 한마리": {
+  "price": 17900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "매콤김떡만": {
+  "price": 3600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후라이드통다리(1조각)": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "할라피뇨너겟(10조각)": {
+  "price": 4600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "케이준양념감자(대)": {
+  "price": 3600,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

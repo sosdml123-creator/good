@@ -1,0 +1,797 @@
+{
+ "비프타코피자": {
+  "price": 15900,
+  "kind": "store",
+  "stores": 15
+ },
+ "치킨타코피자": {
+  "price": 15900,
+  "kind": "store",
+  "stores": 15
+ },
+ "할라피뇨": {
+  "price": 500,
+  "kind": "store",
+  "stores": 15
+ },
+ "콘치즈피자": {
+  "price": 10900,
+  "kind": "store",
+  "stores": 15
+ },
+ "프리미엄스테이크피자": {
+  "price": 15900,
+  "kind": "store",
+  "stores": 15
+ },
+ "크림치즈꽈배기": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 15
+ },
+ "스리라차마요소스": {
+  "price": 500,
+  "kind": "store",
+  "stores": 15
+ },
+ "치즈피자": {
+  "price": 8900,
+  "kind": "store",
+  "stores": 15
+ },
+ "페퍼로니피자": {
+  "price": 9900,
+  "kind": "store",
+  "stores": 15
+ },
+ "콤비네이션피자": {
+  "price": 10900,
+  "kind": "store",
+  "stores": 15
+ },
+ "고구마피자": {
+  "price": 10900,
+  "kind": "store",
+  "stores": 15
+ },
+ "핫치킨피자": {
+  "price": 10900,
+  "kind": "store",
+  "stores": 15
+ },
+ "불고기피자": {
+  "price": 11900,
+  "kind": "store",
+  "stores": 15
+ },
+ "포테이토피자": {
+  "price": 11900,
+  "kind": "store",
+  "stores": 15
+ },
+ "나폴리피자": {
+  "price": 12900,
+  "kind": "store",
+  "stores": 15
+ },
+ "고르곤졸라피자": {
+  "price": 12900,
+  "kind": "store",
+  "stores": 15
+ },
+ "까르보네피자": {
+  "price": 12900,
+  "kind": "store",
+  "stores": 15
+ },
+ "아이리쉬포테이토피자": {
+  "price": 12900,
+  "kind": "store",
+  "stores": 15
+ },
+ "불닭고구마피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "트러플머쉬룸피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "트러플포테이토피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "야채퀘사디아피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "치킨퀘사디아": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "비프퀘사디아": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "더블갈릭바베큐피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "직화파인애플피자": {
+  "price": 13900,
+  "kind": "store",
+  "stores": 15
+ },
+ "깐쇼새우피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "닭안심살피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "직화홀릭바이트피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "도이치바이트피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "멕시칸바이트피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "오지치즈포테이토피자": {
+  "price": 14900,
+  "kind": "store",
+  "stores": 15
+ },
+ "미트러버피자": {
+  "price": 15900,
+  "kind": "store",
+  "stores": 15
+ },
+ "크림스파게티": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 15
+ },
+ "오지치즈그라탕": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 15
+ },
+ "치즈오븐스파게티": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 15
+ },
+ "치킨스틱&윙": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 15
+ },
+ "치킨텐더": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 15
+ },
+ "새우링": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 15
+ },
+ "트러플포테이토스틱": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 15
+ },
+ "갈릭포테이토": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 15
+ },
+ "크림치즈볼": {
+  "price": 4900,
+  "kind": "store",
+  "stores": 15
+ },
+ "비프퀘사디아피자": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치킨퀘사디아피자": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "크림 스파게티": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 6
+ },
+ "치즈시즈닝": {
+  "price": 100,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "파마산치즈가루": {
+  "price": 100,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "핫소스": {
+  "price": 100,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "갈릭디핑소스": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "스위트칠리소스": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "오이피클": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "트러플크림소스": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "허니시럽": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "갈릭스프레드": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "고구마무스": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "베이컨추가": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "블랙올리브추가": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "세블락소시지추가": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "페퍼로니추가": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "로인햄추가": {
+  "price": 1500,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "파인애플추가": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈크러스트": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "치즈토핑추가": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "치즈바이트": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "치즈바이트+고구마무스": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "사이다(스프라이트) 500ml(500ml)": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 6
+ },
+ "코카콜라 500ml(500ml)": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 8
+ },
+ "사이다(스프라이트) 1.5L(1.5L)": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "코카콜라 1.25L(1.25L)": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 9
+ },
+ "제로콜라 1.25L": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 7
+ },
+ "제로콜라 (CAN)": {
+  "price": 1500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "펩시제로라임 500ml": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "포테이토피자 (왕푸짐)": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "고구마피자 (피자스쿨을 일으킨 역대급 시그니처 피자)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈오븐스파게티 (꼭 비벼서 드세유~)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "크림스파게티 (찐한~ 크림맛~)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "New Menu 프리미엄스테이크피자": {
+  "price": 17900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈피자 (기본에 충실한)": {
+  "price": 10900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "페퍼로니피자 (소고기&돼지고기 살라미 페~~파로니~)": {
+  "price": 11900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "콤비네이션피자 (호불호 없는 맛~)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치킨피자 (난 치킨파~)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불고기피자 (난 불고기파~)": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "오지치즈포테이토피자 (꾸덕한 체다치즈 맛을 느껴봐요)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "콘치즈피자(1)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "고르곤졸라피자 (블루치즈 특유의 톡 쏘는 맛)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "까르보네피자 (여성 최고인기에요)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아이리쉬포테이토피자 (담백한 감자와 사워크림 듬뿍)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "나폴리피자 (이태리식 피자래유)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불닭고구마피자 (시그니처+불닭 조합~맵찔이는 못드세유)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블갈릭바베큐피자 ( 스모크바베큐와 마늘조합~ )": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "직화파인애플피자 (맵달끝판왕 직화향 술술~달달 파인 )": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "비프퀘사디아피자 (올라~ 살사~ 난 불고기파~)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "야채퀘사디아피자 (올라~ 살사~ 난 야채파~)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨퀘사디아피자 (올라~ 살사~ 난 치킨파)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트러플포테이토피자 (양념감자 좋아하시죠~)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트러플머쉬룸피자 (트러플향 최강 버섯좋아하시는분 강추~": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "깐쇼새우피자 (새우와 베이컨의 환상하모니)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "닭안심살피자 (닭안심살에 달달~한 칠리소스)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "도이치바이트피자 (가족들이 드시기에 좋은 피자)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "멕시칸바이트피자 (매콤매콤 최강~ 맵찔은 포기..)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "직화홀릭바이트피자 (직화향 술술~ 레전드 스쿨강추)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "미트러버피자 (5종류의 고기의 맛~)": {
+  "price": 17900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "크림치즈 꽈배기": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "스리라차마요": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈크러스트x2": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈토핑x2": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "칠성사이다 500ml(500ml)": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 6
+ },
+ "제로콜라 500ml": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 5
+ },
+ "칠성사이다 1.25L(1.25L)": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 4
+ },
+ "고구마피자(best)(오리지널)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "포테이토피자(오리지널)": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "더블갈릭바베큐피자(오리지널)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "멕시칸바이트피자(기본(치즈바이트))": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈오븐크림스파게티": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트러플 포테이토스틱": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "크림치즈볼(6개)": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "크림치즈꽈배기(4조각)": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈피자(오리지널)": {
+  "price": 10900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "페퍼로니피자(오리지널)": {
+  "price": 11900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "콤비네이션피자(오리지널)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "불고기피자(오리지널)": {
+  "price": 13900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치킨피자(오리지널)": {
+  "price": 12900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "고르곤졸라피자(오리지널)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "직화파인애플피자(오리지널)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "닭안심살피자(오리지널)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "나폴리피자(오리지널)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "까르보네피자(오리지널)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아이리쉬포테이토피자(오리지널)": {
+  "price": 14900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "트러플 포테이토피자": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "깐쇼새우피자(오리지널)": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "도이치바이트피자(기본(치즈바이트))": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "직화홀릭바이트피자(기본(치즈바이트))": {
+  "price": 16900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨퀘사디아피자(오리지널)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "비프퀘사디아피자(오리지널)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "야채퀘사디아피자(오리지널)": {
+  "price": 15900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "미트러버피자(오리지널)": {
+  "price": 17900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치킨 윙(6조각)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "새우링 5조각": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "피클": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "파마산 치즈가루": {
+  "price": 100,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "크러쉬드 레드페퍼(2g)": {
+  "price": 200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "제로 코카콜라 1.25L(제로)": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "제로콜라(펩시) 500ml(500ml)": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "사이다 스프라이트 1.5L(1.5L)": {
+  "price": 2700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "델몬트 오렌지 주스(190ml)": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "델몬트 사과 주스(190ml)": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "코카콜라 245ml": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "크러쉬드레드페퍼": {
+  "price": 200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "세블락소시지": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "블랙올리브": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "페파로니": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "로인햄": {
+  "price": 1500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "베이컨": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "파인애플토핑": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈토핑": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "치즈바이트+ 고구마무스": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "코카콜라(500ml)": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[제로]코카콜라 500ml": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[제로]코카콜라 1.25L": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 1
+ }
+}

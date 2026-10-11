@@ -1,0 +1,42 @@
+{
+ "밀크 아이스크림 (컵)": {
+  "price": 4300,
+  "kind": "store",
+  "stores": 24
+ },
+ "아이스크림 카페라떼": {
+  "price": 7500,
+  "kind": "store",
+  "stores": 16
+ },
+ "카페라떼": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 24
+ },
+ "에스프레소": {
+  "price": 4400,
+  "kind": "store",
+  "stores": 24
+ },
+ "룽고": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 24
+ },
+ "골든 바나나 브륄레 크림 드 라떼": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 1
+ },
+ "커피 크림 드 라떼": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "아이스크림 카페 라떼": {
+  "price": 7500,
+  "kind": "store",
+  "stores": 8
+ }
+}
