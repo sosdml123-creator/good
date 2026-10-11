@@ -7,6 +7,10 @@
     {
       "path": "/api/generate-content?daily=1",
       "schedule": "0 22 * * *"
+    },
+    {
+      "path": "/api/crawl-discounts?action=cron",
+      "schedule": "30 21 * * *"
     }
   ],
   "images": {
@@ -22,6 +26,9 @@
   },
   "functions": {
     "api/generate-content.ts": {
+      "maxDuration": 60
+    },
+    "api/crawl-discounts.js": {
       "maxDuration": 60
     }
   },

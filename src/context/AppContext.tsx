@@ -36,7 +36,6 @@ import { BattleRound, fetchBattleRound, submitBattleVote } from '../services/bat
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
 import { OFFICIAL_MENU_PRODUCTS } from '../data/officialMenuProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
-import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
 import { INITIAL_STORE_CHANNELS } from '../data/mockStores';
 import { INITIAL_RECIPES } from '../data/mockRecipes';
 import { INITIAL_REVIEWS } from '../data/mockReviews';
@@ -86,7 +85,8 @@ import {
   updateRemoteCommunityPost,
   SYSTEM_BANNER_RECORD_ID
 } from '../services/siteContentService';
-import { isAdminSession } from '../services/adminAuth';
+import { isAdminSession, getAdminAuthHeaders } from '../services/adminAuth';
+import { getActiveSalePromotions } from '../utils/salePeriod';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
@@ -365,7 +365,8 @@ interface AppContextType {
   updateSalePromotion: (id: string, updated: Partial<SalePromotionItem>) => void;
   deleteSalePromotion: (id: string) => void;
   toggleSaleHot: (id: string) => void;
-  resetSalePromotionsToDefault: () => void;
+  /** 편의점 공식 행사상품을 지금 다시 수집해 서버 목록을 갱신 (종료된 행사 정리 포함) */
+  refreshSalePromotionsFromStores: () => Promise<void>;
 
   recipes: RecipePost[];
   selectedRecipe: RecipePost | null;
@@ -1762,9 +1763,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           return parsed;
         }
       }
-      return INITIAL_SALE_PROMOTIONS;
+      return [];
     } catch {
-      return INITIAL_SALE_PROMOTIONS;
+      return [];
     }
   });
 
@@ -1775,6 +1776,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       console.error('Failed to save sale promotions to localStorage', e);
     }
   }, [salePromotions]);
+
+  // 화면에는 종료일이 지나지 않은 행사만, D-day 는 오늘 기준으로 계산해 보여줍니다.
+  const activeSalePromotions = React.useMemo(() => getActiveSalePromotions(salePromotions), [salePromotions]);
 
   const [savedSaleIds, setSavedSaleIds] = useState<string[]>(() => {
     try {
@@ -5172,7 +5176,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = salePromotions.filter(s => s.id !== id);
     setSalePromotions(next);
     safeSetItem('sinsangpick_sales_v1', JSON.stringify(next));
-    persistContent({ salePromotions: next }, '행사 소식');
+    // 자동 수집분은 삭제 기록을 남겨 다음 수집 때 되살아나지 않게 합니다.
+    persistContent({ salePromotions: next, ...(id.startsWith('sale-auto-') ? { deletedSaleIds: [id] } : {}) }, '행사 소식');
     showToast(`🏷️ '${target?.title || ''}' 행사가 삭제되었습니다.`, 'info');
   };
 
@@ -5184,11 +5189,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('🔥 핫딜 상태가 변경되었습니다.', 'info');
   };
 
-  const resetSalePromotionsToDefault = () => {
-    setSalePromotions(INITIAL_SALE_PROMOTIONS);
-    safeSetItem('sinsangpick_sales_v1', JSON.stringify(INITIAL_SALE_PROMOTIONS));
-    persistContent({ salePromotions: INITIAL_SALE_PROMOTIONS }, '행사 소식');
-    showToast('🏷️ 행사 소식이 기본 데이터로 초기화 및 클라우드에 동기화되었습니다.', 'success');
+  const refreshSalePromotionsFromStores = async () => {
+    try {
+      const res = await fetch('/api/crawl-discounts?action=cron', { headers: await getAdminAuthHeaders() });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success || !Array.isArray(json.salePromotions)) {
+        throw new Error(json?.error || `HTTP ${res.status}`);
+      }
+      setSalePromotions(json.salePromotions);
+      safeSetItem('sinsangpick_sales_v1', JSON.stringify(json.salePromotions));
+      const summary = (json.stores as { store: string; ok: boolean; count: number }[])
+        .map(s => `${s.store} ${s.ok ? `${s.count}건` : '실패'}`).join(' · ');
+      showToast(`🏷️ 행사상품 수집 완료 — ${summary} (종료 ${json.removed}건 정리)`, 'success');
+    } catch (e) {
+      setAdminSaveError(`[행사 자동 수집] 실패 — ${e instanceof Error ? e.message : '알 수 없는 오류'}`);
+    }
   };
 
   // --- Admin Calendar Actions ---
@@ -6197,7 +6212,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setPendingProducts([]);
     setBrands(POPULAR_BRANDS);
     setStoreChannels(INITIAL_STORE_CHANNELS);
-    setSalePromotions(INITIAL_SALE_PROMOTIONS);
+    setSalePromotions([]);
     setCalendarItems(INITIAL_CALENDAR_ITEMS);
     setHomeSections(INITIAL_HOME_SECTIONS);
     setPurchasedCoupons([]);
@@ -6419,7 +6434,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateCalendarItem,
         deleteCalendarItem,
 
-        salePromotions,
+        salePromotions: activeSalePromotions,
         savedSaleIds,
         toggleSaveSale,
         addSalePromotion,
@@ -6427,7 +6442,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateSalePromotion,
         deleteSalePromotion,
         toggleSaleHot,
-        resetSalePromotionsToDefault,
+        refreshSalePromotionsFromStores,
 
         recipes,
         selectedRecipe,

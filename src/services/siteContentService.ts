@@ -21,6 +21,8 @@ export interface RemoteContentPayload {
   deletedProductIds?: string[];
   deletedBannerIds?: string[];
   deletedEventIds?: string[];
+  /** 관리자가 지운 자동 수집 행사 id — 매일 수집 때 되살아나지 않도록 서버에 누적됩니다. */
+  deletedSaleIds?: string[];
 }
 
 export interface RemoteContentResult {

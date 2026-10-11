@@ -107,7 +107,7 @@ function todayKst() {
   return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0];
 }
 
-async function fetchText(url, init = {}, timeoutMs = 9000) {
+export async function fetchText(url, init = {}, timeoutMs = 9000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -313,7 +313,7 @@ const NEWS_BRANDS = [
 const NEWS_RELEASE_WORDS = /출시|신제품|신메뉴|선보|선봬|내놓|신상|론칭|런칭/;
 const NEWS_NAME_BLOCKLIST = /기자|대표|회장|사장|캠페인|이벤트|프로모션|페스티벌|팝업|어워드|협약|협업|매출|실적|주가|논란|불매|1위|브랜드|시즌|컬렉션|신제품|신상품|신메뉴|가성비|승부|차별화|대란|열풍|트렌드|에디션$|[다요]$/;
 
-function decodeEntities(text) {
+export function decodeEntities(text) {
   return String(text || '')
     .replace(/<[^>]+>/g, '')
     .replace(/&quot;/g, '"')
@@ -324,7 +324,7 @@ function decodeEntities(text) {
     .trim();
 }
 
-function hashString(text) {
+export function hashString(text) {
   let h = 5381;
   for (let i = 0; i < text.length; i++) h = ((h << 5) + h + text.charCodeAt(i)) >>> 0;
   return h.toString(36);

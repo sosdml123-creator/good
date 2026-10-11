@@ -15,7 +15,7 @@ const CONTENT_KEYS = [
   'banners', 'homeSections', 'salePromotions', 'events',
   'brands', 'storeChannels', 'calendarItems', 'battleConfig', 'adminLocalSyncedAt',
 ];
-const DELETED_KEYS = ['deletedProductIds', 'deletedBannerIds', 'deletedEventIds'];
+const DELETED_KEYS = ['deletedProductIds', 'deletedBannerIds', 'deletedEventIds', 'deletedSaleIds'];
 
 // products 테이블 기본 컬럼 (camelCase → snake_case)
 const PRODUCT_COLUMNS = {

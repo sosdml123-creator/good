@@ -1,4 +1,4 @@
-import { SalePromotionItem, SaleDealType, SaleStoreType, ProductCategory } from '../types';
+import { SalePromotionItem, SaleStoreType, ProductCategory } from '../types';
 
 export interface CvsStorePreset {
   key: SaleStoreType;
@@ -19,15 +19,6 @@ export const CVS_STORE_PRESETS: CvsStorePreset[] = [
     badgeBg: 'bg-purple-600 text-white',
     badgeText: 'CU 공식 1+1/2+1',
     description: 'CU 공식 웹사이트 행사상품(1+1, 2+1, 아침애 등) 실시간 연동'
-  },
-  {
-    key: 'GS25',
-    name: 'GS25 (GS리테일)',
-    url: 'https://gs25.gsretail.com/gscvs/ko/products/event-goods',
-    logo: '💙',
-    badgeBg: 'bg-sky-600 text-white',
-    badgeText: 'GS25 행사',
-    description: '우리동네GS 및 GS25 이달의 행사상품 연동'
   },
   {
     key: '세븐일레븐',
@@ -65,7 +56,6 @@ export interface DiscountCrawlResult {
   excludedCount: number;
   count: number;
   items: CollectedDiscountProduct[];
-  isFallback?: boolean;
 }
 
 /**
@@ -172,157 +162,7 @@ export function detectFoodSubCategory(name: string, category: ProductCategory): 
 }
 
 /**
- * Fallback real discount product presets
- */
-function getClientFallbackPresets(store: SaleStoreType = 'CU'): CollectedDiscountProduct[] {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const lastDay = new Date(year, now.getMonth() + 1, 0).getDate();
-  const period = `${month}.01 ~ ${month}.${lastDay}`;
-  const daysLeft = Math.max(1, lastDay - now.getDate());
-  const dDay = daysLeft <= 3 ? `D-${daysLeft} 마감임박` : `D-${daysLeft}`;
-
-  const baseItems: { name: string; brand: string; price: number; dealType: SaleDealType; image: string }[] = [
-    {
-      name: '리콜라 허브레몬 캔디',
-      brand: '삼경',
-      price: 3300,
-      dealType: '1+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/7610700607046.jpg'
-    },
-    {
-      name: '맥스봉 치즈 50g',
-      brand: 'CJ제일제당',
-      price: 2200,
-      dealType: '2+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801007021652.jpg'
-    },
-    {
-      name: '스프라이트 P500ml',
-      brand: '코카콜라',
-      price: 2400,
-      dealType: '1+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801094202606.png'
-    },
-    {
-      name: '펩시콜라 제로슈거 P600ml',
-      brand: '롯데칠성',
-      price: 2500,
-      dealType: '1+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801056193010.png'
-    },
-    {
-      name: '액티비아 업 딸기 210ml',
-      brand: '풀무원',
-      price: 2400,
-      dealType: '1+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8809274510893_1.png'
-    },
-    {
-      name: '양반 쇠고기죽 285g',
-      brand: '동원에프앤비',
-      price: 5200,
-      dealType: '1+1',
-      image: 'https://shopping-phinf.pstatic.net/main_4187063/41870638618.jpg'
-    },
-    {
-      name: '비비고 소고기미역국 500g',
-      brand: 'CJ제일제당',
-      price: 8500,
-      dealType: '1+1',
-      image: 'https://shopping-phinf.pstatic.net/main_4483921/44839218618.jpg'
-    },
-    {
-      name: '블랙보리 P520ml',
-      brand: '하이트진로',
-      price: 2500,
-      dealType: '1+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801007171210.jpg'
-    },
-    {
-      name: '킬바사 소시지 200g',
-      brand: '오뗄',
-      price: 6700,
-      dealType: '1+1',
-      image: 'https://shopping-phinf.pstatic.net/main_4329412/43294129618.jpg'
-    },
-    {
-      name: '더위사냥 액티브 빙과',
-      brand: '빙그레',
-      price: 2200,
-      dealType: '2+1',
-      image: 'https://shopping-phinf.pstatic.net/main_3919382/39193829618.jpg'
-    },
-    {
-      name: '맥스봉 숯불맛 핫바 90g',
-      brand: 'CJ제일제당',
-      price: 2700,
-      dealType: '2+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801007021652.jpg'
-    },
-    {
-      name: '오곡누룽지 P500ml',
-      brand: '웅진식품',
-      price: 2200,
-      dealType: '2+1',
-      image: 'https://tqklhszfkvzk6518638.edge.naverncp.com/product/8801382135036.png'
-    }
-  ];
-
-  return baseItems.map((item, idx) => {
-    const category = detectFoodCategory(item.name);
-    const subCategory = detectFoodSubCategory(item.name, category);
-    const dealType = item.dealType;
-    let originalPrice = item.price;
-    let salePrice = item.price;
-    let discountRate = 50;
-    let unitDesc = '';
-
-    if (dealType === '1+1') {
-      originalPrice = item.price * 2;
-      salePrice = item.price;
-      discountRate = 50;
-      unitDesc = `개당 ${Math.round(item.price / 2).toLocaleString()}원 꼴`;
-    } else if (dealType === '2+1') {
-      originalPrice = item.price * 3;
-      salePrice = item.price * 2;
-      discountRate = 33;
-      unitDesc = `개당 ${Math.round((item.price * 2) / 3).toLocaleString()}원 꼴`;
-    } else {
-      originalPrice = Math.round(item.price * 1.2);
-      salePrice = item.price;
-      discountRate = 20;
-      unitDesc = `${discountRate}% 할인`;
-    }
-
-    return {
-      id: `fallback-sale-${store.toLowerCase()}-${Date.now()}-${idx}`,
-      title: item.name,
-      brand: item.brand,
-      category,
-      subCategory,
-      store,
-      dealType,
-      badgeText: dealType,
-      originalPrice,
-      salePrice,
-      unitPriceDescription: unitDesc,
-      discountRate,
-      image: item.image,
-      period,
-      dDay,
-      benefitTag: `${store} 이달의 행사상품`,
-      description: `[${store}] ${item.name} ${dealType} 프로모션 행사 상품입니다.`,
-      isHot: idx < 3,
-      likeCount: Math.floor(Math.random() * 20) + 10,
-      crawledAt: new Date().toISOString()
-    };
-  });
-}
-
-/**
- * Real-time crawler function for convenience store discount products
+ * 편의점 공식 행사상품 미리보기 수집. 실패하면 예외를 던집니다 (대체용 가짜 상품 없음).
  */
 export async function crawlDiscountProducts(params: {
   store?: SaleStoreType;
@@ -331,60 +171,19 @@ export async function crawlDiscountProducts(params: {
   onlyFood?: boolean;
   dealType?: string;
 }): Promise<DiscountCrawlResult> {
-  const store = params.store || 'CU';
-  const page = params.page || 1;
-  const onlyFood = params.onlyFood !== false;
-  const dealType = params.dealType || '전체';
-
-  const sourceUrl = params.customUrl?.trim() || 
-    (store === 'CU' ? 'https://cu.bgfretail.com/event/plus.do?category=event&depth2=1&sf=N' :
-     store === 'GS25' ? 'https://gs25.gsretail.com/gscvs/ko/products/event-goods' :
-     store === '세븐일레븐' ? 'https://www.7-eleven.co.kr/product/presentList.asp' :
-     store === '이마트24' ? 'https://emart24.co.kr/goods/event' :
-     'https://cu.bgfretail.com/event/plus.do?category=event&depth2=1&sf=N');
-
-  try {
-    const queryParams = new URLSearchParams({
-      store,
-      page: String(page),
-      onlyFood: String(onlyFood),
-      dealType: dealType
-    });
-
-    const response = await fetch(`/api/crawl-discounts?${queryParams.toString()}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-
-    if (response.ok) {
-      const data: DiscountCrawlResult = await response.json();
-      if (data.items && data.items.length > 0) {
-        return data;
-      }
-    }
-  } catch (err) {
-    console.warn('[discountCrawler] API fetch failed, falling back to rich presets:', err);
-  }
-
-  // Fallback if API call is unavailable
-  const fallbackItems = getClientFallbackPresets(store).filter(item => {
-    if (dealType !== '전체' && item.dealType !== dealType) return false;
-    return true;
+  const queryParams = new URLSearchParams({
+    store: params.store || 'CU',
+    onlyFood: String(params.onlyFood !== false),
+    dealType: params.dealType || '전체'
   });
 
-  return {
-    success: true,
-    store,
-    sourceUrl,
-    page,
-    onlyFood,
-    totalParsed: fallbackItems.length + 18,
-    foodCount: fallbackItems.length,
-    excludedCount: 18, // 18 non-food items excluded
-    count: fallbackItems.length,
-    items: fallbackItems,
-    isFallback: true
-  };
+  const response = await fetch(`/api/crawl-discounts?${queryParams.toString()}`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' }
+  });
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !data?.success) {
+    throw new Error(data?.error || `행사상품 수집 실패 (HTTP ${response.status})`);
+  }
+  return data as DiscountCrawlResult;
 }

@@ -573,11 +573,15 @@ export interface SalePromotionItem {
   discountRate?: number;
   image: string;
   period: string;
+  /** 행사 시작·종료일 (YYYY-MM-DD). 종료일이 지나면 앱에서 숨기고 서버에서도 매일 정리합니다. */
+  startDate?: string;
+  endDate?: string;
   dDay: string;
   benefitTag?: string;
   description: string;
   isHot?: boolean;
   likeCount: number;
+  sourceUrl?: string;
 }
 
 export interface ReleaseCalendarItem {

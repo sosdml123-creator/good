@@ -29,10 +29,11 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
     updateSalePromotion, 
     deleteSalePromotion, 
     toggleSaleHot,
-    resetSalePromotionsToDefault,
+    refreshSalePromotionsFromStores,
     showToast 
   } = useApp();
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDealType, setSelectedDealType] = useState<string>('전체');
   const [selectedStore, setSelectedStore] = useState<string>('전체');
@@ -316,18 +317,19 @@ export const SalePromotionManagementTab: React.FC<SalePromotionManagementTabProp
           </button>
 
           <button
-            onClick={() => {
-              if (window.confirm('1+1 및 할인특가 행사 데이터를 기본 초기값(코카콜라 등 16개)으로 초기화하고 클라우드에 즉시 동기화하시겠습니까?')) {
-                resetSalePromotionsToDefault();
-              }
+            onClick={async () => {
+              setIsRefreshing(true);
+              await refreshSalePromotionsFromStores();
+              setIsRefreshing(false);
             }}
-            className={`px-3 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border shadow-2xs transition-all active:scale-95 ${
+            disabled={isRefreshing}
+            className={`px-3 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border shadow-2xs transition-all active:scale-95 disabled:opacity-50 ${
               isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700' : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
             }`}
-            title="기본 1+1 행사 데이터로 복원 및 클라우드 동기화"
+            title="CU·세븐일레븐·이마트24 공식 행사상품을 지금 다시 수집하고 종료된 행사를 정리합니다 (매일 06:30 자동 실행)"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>기본값 복원</span>
+            <RotateCcw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>{isRefreshing ? '수집 중...' : '지금 전체 수집'}</span>
           </button>
 
           <button
