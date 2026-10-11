@@ -338,116 +338,87 @@ export const calculateProductReviewScore = (
   };
 };
 
+/** 오늘신상 노출 기간: 출시(등록)일로부터 7일 */
+export const NEW_PRODUCT_WINDOW_DAYS = 7;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const startOfDay = (time: number): number => {
+  const d = new Date(time);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+};
+
 /**
- * Accurately determines if a product is a real new product (신제품).
- * Strictly filters out regular menu items, classic/steady-sellers, and fresh raw produce.
+ * Returns the launch day (local midnight timestamp) of a product, or null when unknown.
+ * A full date in releaseDate wins; otherwise the registration time (createdAt) is used.
+ * A month-only releaseDate ("2026.09 신메뉴") caps the launch day at the end of that month.
  */
-export const isRealNewProduct = (p: Product): boolean => {
+export const getProductLaunchTime = (p: Product): number | null => {
+  const rd = p.releaseDate || '';
+
+  const full = rd.match(/(20\d{2})\s*[.\-/년]\s*(\d{1,2})\s*[.\-/월]\s*(\d{1,2})/);
+  if (full) {
+    const month = Number(full[2]);
+    const day = Number(full[3]);
+    if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+      return new Date(Number(full[1]), month - 1, day).getTime();
+    }
+  }
+
+  const created = p.createdAt ? Date.parse(p.createdAt) : NaN;
+  if (isNaN(created)) return null;
+  const createdDay = startOfDay(created);
+
+  const monthOnly = rd.match(/(20\d{2})\s*[.\-/년]\s*(\d{1,2})(?!\d)/);
+  if (monthOnly) {
+    const month = Number(monthOnly[2]);
+    if (month >= 1 && month <= 12) {
+      const monthEnd = new Date(Number(monthOnly[1]), month, 0).getTime();
+      return Math.min(createdDay, monthEnd);
+    }
+  }
+
+  return createdDay;
+};
+
+/**
+ * Determines if a product belongs to 오늘신상: launched within the last 7 days.
+ * Older products stay in the app but drop out of 오늘신상 automatically.
+ * Fresh raw produce and products the admin switched off (isToday === false) are excluded.
+ */
+export const isRealNewProduct = (p: Product, now: number = Date.now()): boolean => {
   if (!p) return false;
 
-  // 1. Exclude natural fresh farm/marine produce (fruits, veggies, raw meats/fish)
-  const isFreshFarmProduce = 
+  const isFreshFarmProduce =
     (p.category === '과일' || p.category === '식재료' || p.category === '고기·수산' || p.itemType === 'fresh' || Boolean(p.produceDetails)) &&
     !p.name.includes('신제품') && !p.name.includes('신상') && p.category !== '신제품';
   if (isFreshFarmProduce) return false;
 
-  // 2. Exclude classic steady-sellers unless they have explicit recent launch year/tag
-  if (p.releaseDate) {
-    const rd = p.releaseDate;
-    const isClassic = 
-      rd.includes('스테디셀러') || 
-      rd.includes('베스트셀러') || 
-      rd.includes('판매 1위') || 
-      rd.includes('원조') || 
-      rd.includes('대표메뉴') ||
-      rd.includes('공식 전통') ||
-      rd.includes('산지직송');
-    
-    const isRecentNew = 
-      rd.includes('신제품') || 
-      rd.includes('신상') || 
-      rd.includes('신규') || 
-      rd.includes('2026') || 
-      rd.includes('2025') || 
-      rd.includes('리뉴얼') || 
-      rd.includes('출시');
+  if (p.isToday === false) return false;
 
-    if (isClassic && !isRecentNew) return false;
-  }
+  const launch = getProductLaunchTime(p);
+  if (launch === null) return false;
 
-  // 3. Category is explicitly 신제품
-  if (p.category === '신제품') return true;
+  const today = startOfDay(now);
+  return launch <= today && today - launch <= NEW_PRODUCT_WINDOW_DAYS * DAY_MS;
+};
 
-  // 4. Marked with isToday (today's newly dropped products)
-  if (p.isToday) {
-    return true;
-  }
-
-  // 5. Release date contains explicit new launch indicators
-  if (p.releaseDate) {
-    const rd = p.releaseDate;
-    if (
-      rd.includes('신규 출시') ||
-      rd.includes('오늘 출시') ||
-      rd.includes('신제품') ||
-      rd.includes('신상') ||
-      rd.includes('단독 출시') ||
-      rd.includes('신메뉴 출시') ||
-      rd.includes('한정 출시') ||
-      rd.includes('한정판') ||
-      rd.includes('시즌한정') ||
-      rd.includes('2026') ||
-      rd.includes('2025') ||
-      rd.includes('2024.1') ||
-      rd.includes('2024.2') ||
-      rd.includes('2024-1') ||
-      rd.includes('2024-2') ||
-      /\d{4}[.-]\d{1,2}\s*(신규|출시|신상)/.test(rd)
-    ) {
-      return true;
-    }
-  }
-
-  // 6. Name indicates newly launched product
-  if (
-    p.name.includes('신상') || 
-    p.name.includes('신제품') || 
-    p.name.includes('단독출시') ||
-    p.name.includes('신메뉴') ||
-    p.name.includes('한정판') ||
-    p.name.includes('시즌한정')
-  ) {
-    return true;
-  }
-
-  return false;
+/** Newest launch first; id as a tie-breaker so the order never changes between renders. */
+const compareByLaunchDesc = (a: Product, b: Product): number => {
+  const diff = (getProductLaunchTime(b) ?? 0) - (getProductLaunchTime(a) ?? 0);
+  if (diff !== 0) return diff;
+  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 };
 
 /**
- * Standard Fisher-Yates shuffle algorithm.
+ * Returns this week's new products (오늘신상) in a fixed order, newest first.
  */
-export const shuffleArray = <T>(array: T[]): T[] => {
-  const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-};
-
-/**
- * Returns a balanced, randomly shuffled list of ONLY real new products.
- * Never includes regular/classic products. Shuffles within the new product pool
- * across categories so users always discover fresh, diverse newly released items.
- */
-export const getBalancedShuffledNewProducts = (
+export const getWeeklyNewProducts = (
   products: Product[],
   categoryFilter: string = '전체'
 ): Product[] => {
-  // STRICTLY filter only authentic new products
-  const allNew = products.filter(p => isRealNewProduct(p));
+  const now = Date.now();
+  const allNew = products.filter(p => isRealNewProduct(p, now));
 
-  // Filter by category if specified
   const filteredNew = categoryFilter === '전체'
     ? allNew
     : allNew.filter((p) => {
@@ -461,40 +432,7 @@ export const getBalancedShuffledNewProducts = (
         return p.category === categoryFilter;
       });
 
-  if (filteredNew.length <= 1) return filteredNew;
-
-  // Group by category to achieve rich diversity among new products
-  const groups: Record<string, Product[]> = {};
-  for (const p of filteredNew) {
-    const cat = p.category || '기타';
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(p);
-  }
-
-  // Shuffle each category group independently
-  const shuffledGroupKeys = shuffleArray(Object.keys(groups));
-  for (const key of shuffledGroupKeys) {
-    groups[key] = shuffleArray(groups[key]);
-  }
-
-  // Interleave round-robin across categories
-  const interleaved: Product[] = [];
-  let hasMore = true;
-  let round = 0;
-
-  while (hasMore) {
-    hasMore = false;
-    for (const key of shuffledGroupKeys) {
-      const group = groups[key];
-      if (round < group.length) {
-        interleaved.push(group[round]);
-        hasMore = true;
-      }
-    }
-    round++;
-  }
-
-  return interleaved;
+  return [...filteredNew].sort(compareByLaunchDesc);
 };
 
 /**
@@ -559,9 +497,9 @@ export const getCategoryReviewRankedProducts = (
     return true;
   });
 
-  // Pre-shuffle for diverse brand representation if viewing new products or default list
+  // 신제품/최신순은 출시일 최신순의 고정된 순서를 기본으로 사용 (렌더링마다 순서가 바뀌지 않도록)
   const diversifiedList = category === '신제품' || sortBy === 'newest'
-    ? shuffleArray(filtered)
+    ? [...filtered].sort(compareByLaunchDesc)
     : filtered;
 
   // 2. Calculate review evaluation for each product with O(1) lookup
@@ -589,9 +527,8 @@ export const getCategoryReviewRankedProducts = (
       return b.totalReviewCount - a.totalReviewCount;
     }
     if (sortBy === 'newest') {
-      const isNewA = a.product.isToday ? 2 : a.product.isHot ? 1 : 0;
-      const isNewB = b.product.isToday ? 2 : b.product.isHot ? 1 : 0;
-      if (isNewB !== isNewA) return isNewB - isNewA;
+      const launchDiff = (getProductLaunchTime(b.product) ?? 0) - (getProductLaunchTime(a.product) ?? 0);
+      if (launchDiff !== 0) return launchDiff;
       return (b.product.releaseDate || '').localeCompare(a.product.releaseDate || '');
     }
     return b.reviewScore - a.reviewScore;

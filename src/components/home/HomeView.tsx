@@ -22,14 +22,13 @@ import {
   Beef,
   Beer,
   IceCream,
-  Plus,
-  RotateCw
+  Plus
 } from 'lucide-react';
-import { Product, ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
+import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
   isRealNewProduct,
-  getBalancedShuffledNewProducts
+  getWeeklyNewProducts
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
@@ -66,8 +65,6 @@ export const HomeView: React.FC = () => {
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
-  const [shuffleKey, setShuffleKey] = useState<number>(() => Math.floor(Math.random() * 100000));
-  const [isRefreshingNew, setIsRefreshingNew] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -80,51 +77,11 @@ export const HomeView: React.FC = () => {
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
-  // 1) 전체 신제품 ID 지문 (신제품 목록 구조 변경 감지용)
-  const newProductIdsFingerprint = useMemo(() => {
-    if (!products) return '';
-    return products.filter(p => isRealNewProduct(p)).map(p => p.id).sort().join(',');
-  }, [products]);
-
-  // 2) shuffleKey나 카테고리 필터 변경 시에만 셔플 순서를 새로 생성 (일반 products 상태 업데이트 시 순서 유지)
-  const stableShuffledProductIds = useMemo(() => {
-    if (!products || products.length === 0) return [];
-    const shuffled = getBalancedShuffledNewProducts(products, newProductCategoryFilter);
-    return shuffled.map(p => p.id);
-    // eslint-disable-next-deps
-  }, [shuffleKey, newProductCategoryFilter, newProductIdsFingerprint]);
-
-  // 3) stableShuffledProductIds 순서를 보장하면서 최신 제품 데이터(북마크, 별점, 가격 등) 바인딩
+  // 이번 주(출시 7일 이내) 신상만, 출시 최신순으로 고정 노출
   const displayedNewProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
-    const productMap = new Map(products.map(p => [p.id, p]));
-    const ordered = stableShuffledProductIds
-      .map(id => productMap.get(id))
-      .filter((p): p is Product => p !== undefined);
-
-    // 혹시 셔플 생성 후 추가된 신규 제품이 있다면 뒤에 보완
-    const existingSet = new Set(ordered.map(p => p.id));
-    const extras = products
-      .filter(p => isRealNewProduct(p) && !existingSet.has(p.id));
-    
-    return extras.length > 0 ? [...ordered, ...extras] : ordered;
-  }, [products, stableShuffledProductIds]);
-
-  const handleRefreshNewProducts = () => {
-    if (isRefreshingNew) return;
-    setIsRefreshingNew(true);
-
-    // 수평 스크롤 위치를 맨 앞으로 부드럽게 초기화
-    if (newProductsScrollRef.current) {
-      newProductsScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-    }
-
-    setShuffleKey(prev => prev + 1);
-
-    setTimeout(() => {
-      setIsRefreshingNew(false);
-    }, 350);
-  };
+    return getWeeklyNewProducts(products, newProductCategoryFilter);
+  }, [products, newProductCategoryFilter]);
 
   const displayBanners = useMemo(() => {
     const active = [...banners]
@@ -560,17 +517,6 @@ export const HomeView: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <button
-                  type="button"
-                  onClick={handleRefreshNewProducts}
-                  disabled={isRefreshingNew}
-                  className="flex items-center gap-1 text-[11px] font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 active:scale-95 px-2 py-1 rounded-full transition-all"
-                  title="다른 신제품 랜덤 추천"
-                  aria-label="신제품 새로고침"
-                >
-                  <RotateCw className={`w-3 h-3 text-gray-600 ${isRefreshingNew ? 'animate-spin text-amber-600' : ''}`} />
-                  <span className="hidden xs:inline">새로고침</span>
-                </button>
-                <button
                   onClick={() => {
                     setSelectedCategory('신제품');
                     setActiveTab('category');
@@ -613,9 +559,7 @@ export const HomeView: React.FC = () => {
             {displayedNewProducts.length > 0 ? (
               <div
                 ref={newProductsScrollRef}
-                className={`flex gap-3 overflow-x-auto no-scrollbar px-4 transition-all duration-300 ${
-                  isRefreshingNew ? 'opacity-40 scale-[0.98] blur-[0.5px]' : 'opacity-100 scale-100 blur-0'
-                }`}
+                className="flex gap-3 overflow-x-auto no-scrollbar px-4"
               >
                 {displayedNewProducts.slice(0, section.itemLimit || 12).map((p) => {
                   const isBookmarked = bookmarkedIds.includes(p.id);
@@ -684,7 +628,7 @@ export const HomeView: React.FC = () => {
               </div>
             ) : (
               <div className="py-8 text-center text-gray-400 text-xs bg-gray-50/50 mx-4 rounded-xl">
-                선택하신 카테고리의 새로운 신상품을 준비 중입니다.
+                이번 주에 새로 나온 신상품이 아직 없어요.
               </div>
             )}
           </div>
@@ -1144,13 +1088,13 @@ export const HomeView: React.FC = () => {
             {(() => {
               const allNew = products.filter(p => isRealNewProduct(p));
               const candidatePool = allNew.length >= 2 ? allNew : products;
-              // If admin configured specific product IDs, respect them. Otherwise, pick random products for fresh battle.
+              // If admin configured specific product IDs, respect them. Otherwise, use the newest products.
               const prodA = (battleConfig.productAId && products.find(p => p.id === battleConfig.productAId)) 
-                || candidatePool[shuffleKey % candidatePool.length] 
+                || candidatePool[0] 
                 || products[0];
               const prodB = (battleConfig.productBId && products.find(p => p.id === battleConfig.productBId)) 
                 || candidatePool.find(p => p.id !== prodA?.id) 
-                || candidatePool[(shuffleKey + 1) % candidatePool.length] 
+                || candidatePool[1] 
                 || products[1] 
                 || products[0];
 

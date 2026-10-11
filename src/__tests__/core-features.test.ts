@@ -212,21 +212,33 @@ describe('User Flow 2 & 3: Core Features (홈 탐색 → 상품 상세 → 검�
       expect(Number.isFinite(res.reviewScore)).toBe(true);
     });
 
-    it('[신제품] 진짜 신제품만 선별 및 농수산물/스테디셀러 제외 검증', () => {
-      const realNewItems = INITIAL_PRODUCTS.filter(isRealNewProduct);
-      expect(realNewItems.length).toBeGreaterThan(0);
-      expect(realNewItems.length).toBeLessThan(INITIAL_PRODUCTS.length);
-
-      // Raw farm produce must not be in real new items
-      const rawFruits = realNewItems.filter(p => p.category === '과일' || p.category === '식재료' || p.category === '고기·수산');
-      expect(rawFruits.length).toBe(0);
-
-      // getCategoryReviewRankedProducts with '신제품' returns only real new products
-      const rankedNew = getCategoryReviewRankedProducts(INITIAL_PRODUCTS, [], '신제품');
-      expect(rankedNew.length).toBe(realNewItems.length);
-      rankedNew.forEach(item => {
-        expect(isRealNewProduct(item.product)).toBe(true);
+    it('[신제품] 출시 7일 이내 상품만 오늘신상으로 선별하고 농수산물은 제외', () => {
+      const base = INITIAL_PRODUCTS.find(p => p.category === '과자') || INITIAL_PRODUCTS[0];
+      const daysAgo = (n: number) => new Date(Date.now() - n * 24 * 60 * 60 * 1000).toISOString();
+      const make = (id: string, extra: Partial<Product>): Product => ({
+        ...base, id, category: '과자', itemType: 'packaged', produceDetails: undefined, isToday: true, releaseDate: '', createdAt: undefined, ...extra,
       });
+
+      const fresh = make('t-fresh', { createdAt: daysAgo(2) });
+      const expired = make('t-expired', { createdAt: daysAgo(9) });
+      const undated = make('t-undated', {});
+      const switchedOff = make('t-off', { createdAt: daysAgo(1), isToday: false });
+      const oldMonth = make('t-old-month', { createdAt: daysAgo(1), releaseDate: '2020.01 신메뉴' });
+      const fruit = make('t-fruit', { createdAt: daysAgo(1), category: '과일' });
+
+      expect(isRealNewProduct(fresh)).toBe(true);
+      expect(isRealNewProduct(expired)).toBe(false);
+      expect(isRealNewProduct(undated)).toBe(false);
+      expect(isRealNewProduct(switchedOff)).toBe(false);
+      expect(isRealNewProduct(oldMonth)).toBe(false);
+      expect(isRealNewProduct(fruit)).toBe(false);
+
+      const newer = make('t-newer', { createdAt: daysAgo(0) });
+      const list = [expired, fresh, undated, newer, fruit];
+      const rankedNew = getCategoryReviewRankedProducts(list, [], '신제품');
+      expect(rankedNew.map(item => item.product.id)).toEqual(['t-newer', 't-fresh']);
+      // 순서는 호출할 때마다 동일해야 함 (랜덤 셔플 없음)
+      expect(getCategoryReviewRankedProducts(list, [], '신제품').map(item => item.product.id)).toEqual(['t-newer', 't-fresh']);
     });
   });
 });

@@ -158,6 +158,7 @@ export interface Product {
   itemType?: 'packaged' | 'fresh' | 'restaurant';
   image: string;
   releaseDate: string;
+  createdAt?: string; // 앱 등록 일시 (ISO) - 오늘신상 7일 노출 기준
   price: number;
   discountRate?: number;
   overallRating: number;

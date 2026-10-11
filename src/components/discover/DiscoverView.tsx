@@ -1,12 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { ChevronLeft, ChevronRight, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check } from 'lucide-react';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
 import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
 import { SafeImage } from '../common/SafeImage';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
-import { COUPANG_AFFILIATE_URL } from '../../constants/affiliate';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 
@@ -359,17 +358,6 @@ export const DiscoverView: React.FC = () => {
                           점수 {item.reviewScore}
                         </span>
                       )}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(COUPANG_AFFILIATE_URL, '_blank');
-                        }}
-                        className="px-1.5 py-0.5 rounded bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold flex items-center gap-0.5 shadow-2xs"
-                        title="쿠팡 최저가 바로가기"
-                      >
-                        <span>쿠팡</span>
-                        <ExternalLink className="w-2.5 h-2.5" />
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -503,19 +491,8 @@ export const DiscoverView: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Action Buttons (Buy Link & Bookmark) */}
+                  {/* Bookmark */}
                   <div className="flex items-center gap-1 shrink-0">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(COUPANG_AFFILIATE_URL, '_blank');
-                      }}
-                      className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-black flex items-center gap-0.5 border border-rose-200 transition-all active:scale-95 shadow-2xs"
-                      title="쿠팡 최저가 바로가기"
-                    >
-                      <span>쿠팡</span>
-                      <ExternalLink className="w-2.5 h-2.5 stroke-[2.5]" />
-                    </button>
                     <button
                       onClick={(e) => toggleBookmark(p.id, e)}
                       className="text-xl p-1 text-gray-300 hover:text-rose-500 transition-colors"
@@ -542,8 +519,8 @@ export const DiscoverView: React.FC = () => {
         ) : (
           <div className="text-center py-16 px-4 space-y-2 text-gray-400">
             <span className="text-3xl block">🍽️</span>
-            <p className="text-xs font-bold text-gray-700">해당 카테고리의 상품이 없습니다.</p>
-            <p className="text-[11px]">다른 카테고리나 하위 품목을 선택해보세요.</p>
+            <p className="text-xs font-bold text-gray-700">{selectedCategory === '신제품' ? '이번 주에 새로 나온 신상품이 아직 없어요.' : '해당 카테고리의 상품이 없습니다.'}</p>
+            <p className="text-[11px]">{selectedCategory === '신제품' ? '신상은 출시 후 일주일 동안만 이곳에 보여요.' : '다른 카테고리나 하위 품목을 선택해보세요.'}</p>
           </div>
         )}
       </div>

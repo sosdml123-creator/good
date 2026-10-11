@@ -13,7 +13,7 @@ import {
   ArrowUp
 } from 'lucide-react';
 import { Product } from '../../types';
-import { calculateProductPopularity, buildReviewsByProductId } from '../../utils/ranking';
+import { calculateProductPopularity, buildReviewsByProductId, isRealNewProduct } from '../../utils/ranking';
 
 type RankingSortType = 'popular' | 'rating' | 'reviews' | 'repurchase';
 
@@ -393,7 +393,7 @@ export const RankingView: React.FC = () => {
                         <span className="text-[10px] font-semibold text-gray-400 truncate">
                           {item.product.brand}
                         </span>
-                        {item.product.isToday && (
+                        {isRealNewProduct(item.product) && (
                           <span className="text-[9px] font-bold text-amber-600 bg-amber-50 px-1 rounded">
                             오늘신상
                           </span>
