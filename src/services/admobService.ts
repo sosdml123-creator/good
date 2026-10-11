@@ -96,11 +96,18 @@ export const initAdMob = (): Promise<boolean> => {
  * 보상형 광고를 불러와 전체 화면으로 보여 줍니다.
  * 포인트는 Google 서버가 /api/admob-reward 로 직접 알려 줄 때 적립되므로, userId 를 광고에 실어 보냅니다.
  */
+export let lastRewardedAdError = '';
+
 export const showRewardedAd = async (userId: string): Promise<'rewarded' | 'dismissed' | 'unavailable'> => {
+  lastRewardedAdError = '';
   if (!(await initAdMob())) return 'unavailable';
   const handles: { remove: () => Promise<void> }[] = [];
   try {
-    await AdMob.prepareRewardVideoAd({ adId: ADMOB_REWARD_UNIT_ID, ssv: { userId } });
+    // 광고 서버 응답이 없을 때 버튼이 계속 멈춰 있지 않도록 제한 시간을 둠
+    await Promise.race([
+      AdMob.prepareRewardVideoAd({ adId: ADMOB_REWARD_UNIT_ID, ssv: { userId } }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 20000)),
+    ]);
     let rewarded = false;
     return await new Promise<'rewarded' | 'dismissed' | 'unavailable'>((resolve) => {
       (async () => {
@@ -113,6 +120,7 @@ export const showRewardedAd = async (userId: string): Promise<'rewarded' | 'dism
     });
   } catch (e) {
     console.warn('[AdMob] rewarded ad failed:', e);
+    lastRewardedAdError = String((e as any)?.message || (e as any)?.code || e).slice(0, 80);
     return 'unavailable';
   } finally {
     handles.forEach(h => h.remove().catch(() => {}));

@@ -15,7 +15,7 @@ import {
 import { useApp } from '../../context/AppContext';
 import { ECouponDetail, ECouponItem, PurchasedECoupon } from '../../types';
 import { AdRewardStatus, couponImageSrc, couponThumbSrc, fetchAdRewardStatus, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../../services/couponApi';
-import { isNative, showRewardedAd } from '../../services/admobService';
+import { isNative, lastRewardedAdError, showRewardedAd } from '../../services/admobService';
 
 const PAGE_SIZE = 20;
 const MAIN_CATEGORIES = ['커피/음료', '편의점', '베이커리/도넛', '치킨', '버거', '피자', '아이스크림', '외식'];
@@ -61,13 +61,24 @@ export const CouponShopView: React.FC = () => {
     setAdMessage('');
     setIsAdBusy(true);
     try {
-      const before = await loadAdStatus();
-      if (!before) return openLoginModal();
-      if (!before.enabled) return setAdMessage('광고 적립을 준비 중입니다.');
+      let before: AdRewardStatus | null;
+      try {
+        before = await fetchAdRewardStatus();
+      } catch {
+        return setAdMessage('적립 정보를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 다시 눌러 주세요.');
+      }
+      setAdStatus(before);
+      if (!before) {
+        setAdMessage('로그인한 뒤 이용할 수 있습니다.');
+        return openLoginModal();
+      }
+      if (!before.enabled) return setAdMessage('광고 적립을 준비 중입니다. 곧 열릴 예정이에요.');
       if (before.today >= before.dailyLimit) return setAdMessage('오늘 받을 수 있는 횟수를 모두 채웠어요. 내일 다시 받아 보세요.');
 
       const result = await showRewardedAd(before.userId);
-      if (result === 'unavailable') return setAdMessage('지금은 볼 수 있는 광고가 없습니다. 잠시 후 다시 시도해 주세요.');
+      if (result === 'unavailable') {
+        return setAdMessage(`지금은 볼 수 있는 광고가 없습니다. 잠시 후 다시 시도해 주세요.${lastRewardedAdError ? ` (${lastRewardedAdError})` : ''}`);
+      }
       if (result === 'dismissed') return setAdMessage('광고를 끝까지 보면 포인트가 적립됩니다.');
 
       // 적립은 Google 서버가 우리 서버로 따로 알려 준 뒤 반영되므로 잠시 확인
@@ -284,13 +295,20 @@ export const CouponShopView: React.FC = () => {
                 {adStatus && adStatus.points > 0 && <span className="text-amber-600"> +{adStatus.points}P</span>}
               </div>
               <div className="text-[11px] text-gray-400 font-medium truncate">
-                {adMessage || (adStatus
-                  ? `오늘 ${adStatus.today}/${adStatus.dailyLimit}회 · 광고를 끝까지 보면 적립됩니다`
-                  : '광고를 끝까지 보면 포인트가 적립됩니다')}
+                {isAdBusy
+                  ? '광고를 불러오는 중입니다...'
+                  : adStatus
+                    ? `오늘 ${adStatus.today}/${adStatus.dailyLimit}회 · 광고를 끝까지 보면 적립됩니다`
+                    : '광고를 끝까지 보면 포인트가 적립됩니다'}
               </div>
             </div>
             <ChevronRight className="w-4 h-4 text-gray-300 shrink-0" />
           </button>
+          {adMessage && (
+            <div className="mt-2 px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[12px] font-bold text-amber-800 leading-snug">
+              {adMessage}
+            </div>
+          )}
           <p className="text-[10px] text-gray-400 leading-relaxed mt-3">
             광고 적립은 신상픽 앱에서 하루 정해진 횟수까지 가능하며, 광고를 끝까지 시청해야 적립됩니다.
           </p>
