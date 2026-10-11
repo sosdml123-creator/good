@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   X, 
   Edit3, 
-  Store, 
   Scale, 
   Bell, 
   Building2, 
@@ -20,7 +19,6 @@ interface ProductActionMenuModalProps {
   onClose: () => void;
   product: Product;
   onOpenEditRequest: () => void;
-  onOpenNearbyStock: () => void;
   onOpenStockAlert: () => void;
   onToggleCompare: () => void;
   isCompared: boolean;
@@ -34,7 +32,6 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
   onClose,
   product,
   onOpenEditRequest,
-  onOpenNearbyStock,
   onOpenStockAlert,
   onToggleCompare,
   isCompared,
@@ -79,19 +76,6 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       onClick: () => {
         onClose();
         onOpenEditRequest();
-      }
-    },
-    {
-      id: 'nearby_stock',
-      icon: Store,
-      iconBg: 'bg-emerald-50 text-emerald-600 border-emerald-100',
-      title: '내 주변 편의점 찾기',
-      description: '지도에서 가까운 CU · GS25 · 세븐일레븐 · 이마트24 확인',
-      badge: '지도',
-      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200 border',
-      onClick: () => {
-        onClose();
-        onOpenNearbyStock();
       }
     },
     {

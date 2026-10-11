@@ -27,7 +27,6 @@ import { searchFoodNutrition } from '../../services/nutritionApi';
 import { getProductShareUrl } from '../../utils/productCode';
 import { ProductActionMenuModal } from './ProductActionMenuModal';
 import { ProductEditRequestModal } from './ProductEditRequestModal';
-import { NearbyStoreStockModal } from './NearbyStoreStockModal';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { ReportModal } from '../common/ReportModal';
 import { KamisPriceTrendChart } from './KamisPriceTrendChart';
@@ -55,7 +54,6 @@ export const ProductDetailModal: React.FC = () => {
   // Modals state for Action Menu & Features
   const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
   const [isEditRequestModalOpen, setIsEditRequestModalOpen] = useState(false);
-  const [isNearbyStockModalOpen, setIsNearbyStockModalOpen] = useState(false);
   const [isStockAlertModalOpen, setIsStockAlertModalOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
@@ -1245,7 +1243,6 @@ export const ProductDetailModal: React.FC = () => {
         onClose={() => setIsActionMenuOpen(false)}
         product={selectedProduct}
         onOpenEditRequest={() => setIsEditRequestModalOpen(true)}
-        onOpenNearbyStock={() => setIsNearbyStockModalOpen(true)}
         onOpenStockAlert={() => setIsStockAlertModalOpen(true)}
         onToggleCompare={() => toggleCompare(selectedProduct.id)}
         isCompared={isCompared}
@@ -1258,13 +1255,6 @@ export const ProductDetailModal: React.FC = () => {
       <ProductEditRequestModal
         isOpen={isEditRequestModalOpen}
         onClose={() => setIsEditRequestModalOpen(false)}
-        product={selectedProduct}
-      />
-
-      {/* 12. Nearby Store Stock Modal */}
-      <NearbyStoreStockModal
-        isOpen={isNearbyStockModalOpen}
-        onClose={() => setIsNearbyStockModalOpen(false)}
         product={selectedProduct}
       />
 
