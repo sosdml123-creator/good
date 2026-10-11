@@ -87,8 +87,8 @@ export const NicknameSetupModal: React.FC = () => {
             <Gift className="w-4 h-4" />
           </div>
           <div className="text-left text-xs leading-tight">
-            <span className="font-extrabold text-amber-900">웰컴 100P 즉시 지급!</span>
-            <div className="text-[11px] text-amber-700 mt-0.5">닉네임 설정 완료 시 축하 포인트가 적립됩니다</div>
+            <span className="font-extrabold text-amber-900">가입 축하 100P 지급 완료!</span>
+            <div className="text-[11px] text-amber-700 mt-0.5">리뷰를 쓰면 포인트가 더 쌓이고 e쿠폰으로 교환할 수 있어요</div>
           </div>
         </div>
 

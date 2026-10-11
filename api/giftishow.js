@@ -29,9 +29,9 @@ const BIZ_USER_ID = (process.env.GIFTISHOW_USER_ID || '').trim();
 const CALLBACK_NO = String(process.env.GIFTISHOW_CALLBACK_NO || '').replace(/\D/g, '');
 
 // 포인트 위변조·오남용 시 비즈머니 손실을 제한하는 안전장치 (1P = 1원)
-const MAX_PRICE = Number(process.env.GIFTISHOW_MAX_PRICE) || 30000;
-const USER_DAILY_LIMIT = Number(process.env.GIFTISHOW_USER_DAILY_LIMIT) || 30000;
-const GLOBAL_DAILY_LIMIT = Number(process.env.GIFTISHOW_GLOBAL_DAILY_LIMIT) || 300000;
+const MAX_PRICE = Number(process.env.GIFTISHOW_MAX_PRICE) || 10000;
+const USER_DAILY_LIMIT = Number(process.env.GIFTISHOW_USER_DAILY_LIMIT) || 10000;
+const GLOBAL_DAILY_LIMIT = Number(process.env.GIFTISHOW_GLOBAL_DAILY_LIMIT) || 50000;
 // 목록 용량·로딩 시간을 줄이기 위해 이 금액 이상인 상품은 노출하지 않음
 const HIDE_PRICE_FROM = 10000;
 

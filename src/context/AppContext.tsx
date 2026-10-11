@@ -4039,8 +4039,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Optimistic update
     setCommunityPosts(prev => [newPost, ...prev]);
     const earnedPoints = claimDailyReward(currentUser.uid, 'post', POINT_POLICY.post);
+    const nextPoints = currentUser.points + earnedPoints;
     if (earnedPoints > 0) {
-      const nextPoints = currentUser.points + earnedPoints;
       setCurrentUser(prev => ({
         ...prev,
         points: nextPoints,

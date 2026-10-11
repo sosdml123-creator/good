@@ -406,7 +406,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
             아직 등록된 솔직 후기가 없습니다
           </div>
           <p className="text-[11px] text-gray-400">
-            이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요! (+50P 적립)
+            이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요! (최대 30P 적립)
           </p>
           <button
             onClick={() => setActiveTab('write')}

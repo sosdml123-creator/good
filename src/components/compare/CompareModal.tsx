@@ -176,7 +176,7 @@ export const CompareModal: React.FC = () => {
 
     setComments(prev => [newComment, ...prev]);
     setInputText('');
-    showToast('💬 배틀 의견이 등록되었습니다! (+10P)', 'success');
+    showToast('💬 배틀 의견이 등록되었습니다!', 'success');
   };
 
   // 공감(좋아요) 토글
@@ -602,9 +602,7 @@ export const CompareModal: React.FC = () => {
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-gray-800 flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> 내 응원 진영 선택:
-            </span>
-            <span className="text-[10px] text-gray-400">작성 시 +10P 적립</span>
-          </div>
+            </span>          </div>
 
           {/* 진영 선택 라디오 버튼 */}
           <div className="grid grid-cols-3 gap-1.5 mb-2.5">

@@ -200,7 +200,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
               <span className="text-4xl block">✍️</span>
               <div>
                 <p className="text-xs font-bold text-gray-800">아직 작성한 리뷰가 없습니다.</p>
-                <p className="text-[11px] text-gray-400 mt-0.5">신상을 맛보고 첫 솔직 리뷰를 남겨보세요! (+50P 적립)</p>
+                <p className="text-[11px] text-gray-400 mt-0.5">신상을 맛보고 첫 솔직 리뷰를 남겨보세요! (최대 30P 적립)</p>
               </div>
               <button
                 onClick={() => {

@@ -200,7 +200,7 @@ export const CommunityView: React.FC = () => {
                 🥪 편의점 맛잘알 공간
               </span>
               <h3 className="text-sm font-black">나만의 신상 꿀조합을 공유해보세요!</h3>
-              <p className="text-[11px] text-white/80 mt-0.5">등록 시 50P 즉시 지급 ✨</p>
+              <p className="text-[11px] text-white/80 mt-0.5">등록 시 20P 지급 (하루 1회) ✨</p>
             </div>
             <button
               onClick={openWriteRecipe}
@@ -318,7 +318,7 @@ export const CommunityView: React.FC = () => {
               {activeSubTab === '인기' ? '아직 등록된 게시글이 없습니다' : `'${activeSubTab}'에 첫 글을 남겨보세요!`}
             </div>
             <p className="text-xs text-gray-400 max-w-xs mx-auto">
-              새로 나온 신상 먹거리 후기나 질문, 자유로운 잡담을 회원들과 함께 나누어보세요. (+20P 적립)
+              새로 나온 신상 먹거리 후기나 질문, 자유로운 잡담을 회원들과 함께 나누어보세요. (+5P 적립, 하루 2회)
             </p>
             <div className="flex items-center justify-center gap-2 mt-2">
               <button
@@ -441,7 +441,7 @@ export const CommunityView: React.FC = () => {
                       <span>등록 중...</span>
                     </>
                   ) : (
-                    <span>등록 (+20P)</span>
+                    <span>등록 (+5P)</span>
                   )}
                 </button>
               </div>

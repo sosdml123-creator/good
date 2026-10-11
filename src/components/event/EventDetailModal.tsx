@@ -99,7 +99,7 @@ export const EventDetailModal: React.FC = () => {
 
     setComments(prev => [newComment, ...prev]);
     setCommentInput('');
-    showToast('기대평 댓글이 등록되었습니다! (+10P)', 'success');
+    showToast('기대평 댓글이 등록되었습니다!', 'success');
   };
 
   return (
@@ -256,9 +256,7 @@ export const EventDetailModal: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-xs font-black text-gray-900">
               💬 기대평 & 응원 댓글 ({comments.length})
-            </h3>
-            <span className="text-[10px] text-gray-400">댓글 작성 시 +10P</span>
-          </div>
+            </h3>          </div>
 
           {/* Comment Form */}
           <form onSubmit={handleAddComment} className="flex gap-2 mb-4">
