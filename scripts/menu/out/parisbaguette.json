@@ -1,0 +1,5196 @@
+{
+ "key": "parisbaguette",
+ "brand": "파리바게뜨",
+ "items": [
+  {
+   "name": "촉촉한 고칼슘 우유케익",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/10/PB_%EC%B4%89%EC%B4%89%ED%95%9C%EA%B3%A0%EC%B9%BC%EC%8A%98%EC%9A%B0%EC%9C%A0%EC%BC%80%EC%9D%B5-%EC%8B%9C%EB%AE%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soft-high-calcium-milk-cake-2/"
+  },
+  {
+   "name": "[파란라벨]식이섬유 메밀 토스트",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EC%8B%9D%EC%9D%B4%EC%84%AC%EC%9C%A0-%EB%A9%94%EB%B0%80-%ED%86%A0%EC%8A%A4%ED%8A%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/buckwheat-bread/"
+  },
+  {
+   "name": "[파란라벨]저당 메밀 단팥빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EC%A0%80%EB%8B%B9%EB%A9%94%EB%B0%80%EB%8B%A8%ED%8C%A5%EB%B9%B5%ED%8C%A8%ED%82%A4%EC%A7%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/buckwheat-red-bean-bun/"
+  },
+  {
+   "name": "[파란라벨]메밀 바게뜨",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EB%A9%94%EB%B0%80-%EB%B0%94%EA%B2%8C%EB%9C%A8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/buckwheat-baguette/"
+  },
+  {
+   "name": "[파란라벨]쌀 치아바타",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EC%8C%80-%EC%B9%98%EC%95%84%EB%B0%94%ED%83%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/rice-ciabatta/"
+  },
+  {
+   "name": "[파란라벨]통곡물 호밀 깜빠뉴",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%ED%86%B5%EA%B3%A1%EB%AC%BC-%ED%98%B8%EB%B0%80-%EA%B9%9C%EB%B9%A0%EB%89%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/whole-grain-rye-bread/"
+  },
+  {
+   "name": "[파란라벨]고단백 로만밀 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/260903_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8-%EA%B3%A0%EB%8B%A8%EB%B0%B1-%EB%A1%9C%EB%A7%8C%EB%B0%80-%EC%8B%9D%EB%B9%B5_%EC%B5%9C%EC%A2%85%EB%94%94%EC%9E%90%EC%9D%B8_%EC%A0%84%EB%A9%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/roman-meal-bread-3/"
+  },
+  {
+   "name": "[파란라벨]홀그레인 오트 식빵(11쪽)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%ED%99%80%EA%B7%B8%EB%A0%88%EC%9D%B8-%EC%98%A4%ED%8A%B8-%EC%8B%9D%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/whole-grain-oat-bread-11/"
+  },
+  {
+   "name": "단팥만주",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%8B%A8%ED%8C%A5%EB%A7%8C%EC%A3%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/red-bean-manju/"
+  },
+  {
+   "name": "치즈 소보루빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EC%B9%98%EC%A6%88%EC%86%8C%EB%B3%B4%EB%A3%A8%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cheese-soboro-bread/"
+  },
+  {
+   "name": "모짜렐라 치즈봉(2개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%B0%94%EC%82%AD%EB%AA%A8%EC%A7%9C%EB%A0%90%EB%9D%BC%EC%B9%98%EC%A6%88%EB%B4%89-2%EA%B0%9C%EC%9E%85.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mozzarella-cheese-sticks-2ea/"
+  },
+  {
+   "name": "고다치즈 올리브 식빵(1/2)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EA%B3%A0%EB%8B%A4%EC%B9%98%EC%A6%88-%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%8B%9D%EB%B9%B5-half.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/gouda-cheese-olive-bread-half/"
+  },
+  {
+   "name": "멕시칸 핫도그",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/5000240-%EB%A9%95%EC%8B%9C%EC%B9%B8%ED%95%AB%EB%8F%84%EA%B7%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mexican-hot-dog/"
+  },
+  {
+   "name": "크림치즈말랑",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88%EB%A7%90%EB%9E%91.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cream-cheese-bread/"
+  },
+  {
+   "name": "모짜렐라 치즈봉",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%B0%94%EC%82%AD%EB%AA%A8%EC%A7%9C%EB%A0%90%EB%9D%BC%EC%B9%98%EC%A6%88%EB%B4%89.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mozzarella-cheese-sticks-2/"
+  },
+  {
+   "name": "고다치즈 올리브 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EA%B3%A0%EB%8B%A4%EC%B9%98%EC%A6%88-%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%8B%9D%EB%B9%B5-Whole.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/gouda-cheese-olive-bread/"
+  },
+  {
+   "name": "초코쫀득츄러스",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EC%B4%88%EC%BD%94%EC%AB%80%EB%93%9D%EC%B8%84%EB%9F%AC%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-chewy-churros/"
+  },
+  {
+   "name": "카레 크로켓",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%B9%B4%EB%A0%88-%ED%81%AC%EB%A1%9C%EC%BC%93-%ED%99%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/curry-croquette/"
+  },
+  {
+   "name": "에그샐러드 크로켓",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%97%90%EA%B7%B8%EC%83%90%EB%9F%AC%EB%93%9C-%ED%81%AC%EB%A1%9C%EC%BC%93-%ED%99%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/egg-salad-croquette/"
+  },
+  {
+   "name": "감자쫀떡(2개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EA%B0%90%EC%9E%90%EC%AB%80%EB%96%A12%EA%B0%9C%EC%9E%85.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/potato-chewy-rice-cake-2pcs/"
+  },
+  {
+   "name": "감자쫀떡(1개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EA%B0%90%EC%9E%90%EC%AB%80%EB%96%A11%EA%B0%9C%EC%9E%85.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/potato-chewy-rice-cake-1pcs/"
+  },
+  {
+   "name": "단팥소보루빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%8B%A8%ED%8C%A5-%EC%86%8C%EB%B3%B4%EB%A3%A8%EB%B9%B5_%ED%8C%A8%ED%82%A4%EC%A7%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/red-bean-soboro-bread/"
+  },
+  {
+   "name": "연유크림이 토핑된 시나몬롤",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%8B%9C%EB%82%98%EB%AA%AC%EB%A1%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cinnamon-roll-with-fresh-cream/"
+  },
+  {
+   "name": "핫도그도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%ED%95%AB%EB%8F%84%EA%B7%B8%EB%8F%84%EB%84%9B-%EB%88%84%EB%81%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%95%ab%eb%8f%84%ea%b7%b8%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "초코바게뜨",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%B4%88%EC%BD%94%EB%B0%94%EA%B2%8C%EB%9C%A8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-baguette/"
+  },
+  {
+   "name": "흑임자 베이글",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%ED%9D%91%EC%9E%84%EC%9E%90%EB%B2%A0%EC%9D%B4%EA%B8%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-sesame-bagel/"
+  },
+  {
+   "name": "빅! 우피파이",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%B9%85%EC%9A%B0%ED%94%BC%ED%8C%8C%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/big-whoopie-pie/"
+  },
+  {
+   "name": "오리지널 쫀득 츄러스",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90%EC%AB%80%EB%93%9D%EC%B8%84%EB%9F%AC%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/original-chewy-churros/"
+  },
+  {
+   "name": "멕시칸소시지페스츄리(2개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%A9%95%EC%8B%9C%EC%B9%B8%EC%86%8C%EC%8B%9C%EC%A7%80%ED%8E%98%EC%8A%A4%EC%B8%84%EB%A6%AC_45%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mexican-sausage-pastry-2/"
+  },
+  {
+   "name": "시금치버터빵(1/2)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%8B%9C%EA%B8%88%EC%B9%98%EB%B2%84%ED%84%B0%EB%B9%B5-%ED%95%98%ED%94%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/spinach-butter-bread-half/"
+  },
+  {
+   "name": "감자 크로켓(2개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EA%B0%90%EC%9E%90%ED%81%AC%EB%A1%9C%EC%BC%93.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/potato-croquette-2/"
+  },
+  {
+   "name": "치즈 파운드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%B9%98%EC%A6%88-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8A%A4-%ED%8C%8C%EC%9A%B4%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cheese-pound/"
+  },
+  {
+   "name": "제주 천혜향 파운드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%A0%9C%EC%A3%BC%EC%B2%9C%ED%98%9C%ED%96%A5-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8A%A4-%ED%8C%8C%EC%9A%B4%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-cheonhyehyang-pound/"
+  },
+  {
+   "name": "감자 크로켓",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EA%B0%90%EC%9E%90%ED%81%AC%EB%A1%9C%EC%BC%93.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/potato-croquette/"
+  },
+  {
+   "name": "바질콘 피자빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%B0%94%EC%A7%88%EC%BD%98%EC%B9%98%EC%A6%88%ED%94%BC%EC%9E%90%EB%B9%B5_45%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/basil-corn-pizza-bread/"
+  },
+  {
+   "name": "멕시칸소시지페스츄리",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%A9%95%EC%8B%9C%EC%B9%B8%EC%86%8C%EC%8B%9C%EC%A7%80%ED%8E%98%EC%8A%A4%EC%B8%84%EB%A6%AC_45%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mexican-sausage-pastry/"
+  },
+  {
+   "name": "페퍼로니 피자빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%ED%8E%98%ED%8D%BC%EB%A1%9C%EB%8B%88%ED%94%BC%EC%9E%90%EB%B9%B5_45%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pepperoni-pizza-bread/"
+  },
+  {
+   "name": "[파란라벨]저당 요거트크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%A0%80%EB%8B%B9%EC%9A%94%EA%B1%B0%ED%8A%B8%ED%81%AC%EB%A6%BC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-yogurt-cream-bread/"
+  },
+  {
+   "name": "우리아이 한입 마들렌",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%9A%B0%EB%A6%AC%EC%95%84%EC%9D%B4%ED%95%9C%EC%9E%85%EB%A7%88%EB%93%A4%EB%A0%8C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/one-bite-madeleine/"
+  },
+  {
+   "name": "시금치버터빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8B%9C%EA%B8%88%EC%B9%98%EB%B2%84%ED%84%B0%EB%B9%B5-%ED%99%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/spinach-butter-bread/"
+  },
+  {
+   "name": "고소한 치즈 핑거스틱",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EA%B3%A0%EC%86%8C%ED%95%9C-%EC%B9%98%EC%A6%88-%ED%95%91%EA%B1%B0%EC%8A%A4%ED%8B%B1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cheese-finger-stick/"
+  },
+  {
+   "name": "소금버터식빵(1/2)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%86%94%ED%8B%B0%EB%B2%84%ED%84%B0%EC%8B%9D%EB%B9%B5-%EB%8B%A8%EB%A9%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/salted-butter-bread/"
+  },
+  {
+   "name": "우베생크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EB%B2%A0%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ube-fresh-cream-bread/"
+  },
+  {
+   "name": "인생크림빵 메론",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9D%B8%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B9%B5-%EB%A9%94%EB%A1%A0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/melon-fresh-cream-bread/"
+  },
+  {
+   "name": "LA초코쫀득도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/LA%EC%B4%88%EC%BD%94%EC%AB%80%EB%93%9D%EB%8F%84%EB%84%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/la-chocolate-chewy-donut/"
+  },
+  {
+   "name": "LA초코볼(3개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/LA%EC%B4%88%EC%BD%94%EB%B3%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/la-choco-ball-bread/"
+  },
+  {
+   "name": "우유크림도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EC%9C%A0%ED%81%AC%EB%A6%BC%EB%8F%84%EB%84%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/milk-cream-donut/"
+  },
+  {
+   "name": "쇼콜라크림도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%87%BC%EC%BD%9C%EB%9D%BC%ED%81%AC%EB%A6%BC%EB%8F%84%EB%84%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-cream-donut/"
+  },
+  {
+   "name": "촉촉한 딸기케익",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%B4%89%EC%B4%89%ED%95%9C%EB%94%B8%EA%B8%B0%EC%BC%80%EC%9D%B5-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soft-strawberry-cake-2/"
+  },
+  {
+   "name": "촉촉한 바나나케익",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%B4%89%EC%B4%89%ED%95%9C%EB%B0%94%EB%82%98%EB%82%98%EC%BC%80%EC%9D%B5-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soft-banana-cake-2/"
+  },
+  {
+   "name": "후레쉬 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%9B%84%EB%A0%88%EC%89%AC%EC%8B%9D%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fresh-bread/"
+  },
+  {
+   "name": "초코가 달콤한 시간",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%B4%88%EC%BD%94%EA%B0%80%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%8B%9C%EA%B0%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/rich-chocolate-cake-2/"
+  },
+  {
+   "name": "[파란라벨]오트그레인 깜빠뉴",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%98%A4%ED%8A%B8%EA%B7%B8%EB%A0%88%EC%9D%B8%EA%B9%9C%EB%B9%A0%EB%89%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/multigrain-oat-bread/"
+  },
+  {
+   "name": "[파란라벨]식이섬유 흑보리식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%ED%9D%91%EB%B3%B4%EB%A6%AC%EC%8B%9D%EB%B9%B5_%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-barley-bread-2/"
+  },
+  {
+   "name": "세 조각 카스테라(가성비)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%84%B8%EC%A1%B0%EA%B0%81%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/3-piece-castella/"
+  },
+  {
+   "name": "프렌치 붓세(가성비)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%ED%94%84%EB%A0%8C%EC%B9%98%EB%B6%93%EC%84%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/french-bouchee/"
+  },
+  {
+   "name": "[파란라벨]흑보리 깜빠뉴",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%ED%9D%91%EB%B3%B4%EB%A6%AC%EA%B9%9C%EB%B9%A0%EB%89%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-barley-bread/"
+  },
+  {
+   "name": "도넛 깨찰이(가성비)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/3.-%EB%8F%84%EB%84%9B-%EA%B9%A8%EC%B0%B0%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/seasame-chewy-donut/"
+  },
+  {
+   "name": "단짠 쏘시지(가성비)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/2.-%EB%8B%A8%EC%A7%A0-%EC%8F%98%EC%8B%9C%EC%A7%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sweet-salty-sausage-bread/"
+  },
+  {
+   "name": "갈릭 꼬구마(가성비)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/1.-%EA%B0%88%EB%A6%AD-%EA%BC%AC%EA%B5%AC%EB%A7%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/garlic-sweet-potato-pastry/"
+  },
+  {
+   "name": "LA우피파이",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/LAFC_%EC%9A%B0%ED%94%BC%ED%8C%8C%EC%9D%B4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/la-whoopie-pie/"
+  },
+  {
+   "name": "LA쫀득도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/LA%EC%AB%80%EB%93%9D%EB%8F%84%EB%84%9B.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-chewy-donut/"
+  },
+  {
+   "name": "그릴치즈 바질토마토",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/12/%EA%B7%B8%EB%A6%B4%EC%B9%98%EC%A6%88%EB%B0%94%EC%A7%88%ED%86%A0%EB%A7%88%ED%86%A0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/grilled-cheese-basil-tomato/"
+  },
+  {
+   "name": "그릴치즈 베이컨포테이토",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/12/%EA%B7%B8%EB%A6%B4%EC%B9%98%EC%A6%88%EB%B2%A0%EC%9D%B4%EC%BB%A8%ED%86%A0%EB%A7%88%ED%86%A0-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/grilled-cheese-bacon-potato/"
+  },
+  {
+   "name": "단팥빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/%EB%8B%A8%ED%8C%A5%EB%B9%B5-%EC%A0%90%ED%8F%AC%EC%A1%B0%EB%A6%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sweet-red-bean-bread/"
+  },
+  {
+   "name": "소보루빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/%EC%86%8C%EB%B3%B4%EB%A3%A8%EB%B9%B5%EC%A0%90%ED%8F%AC%EC%A1%B0%EB%A6%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/steusel-bread/"
+  },
+  {
+   "name": "촉촉한 치즈케익",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191105_1_910198.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b4%89%ec%b4%89%ed%95%9c-%ec%b9%98%ec%a6%88%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "맘모스브레드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/200508_%E1%84%86%E1%85%A1%E1%86%B7%E1%84%86%E1%85%A9%E1%84%89%E1%85%B3%E1%84%88%E1%85%A1%E1%86%BC_106.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a7%98%eb%aa%a8%ec%8a%a4%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "옛날왕슈크림도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/201119_%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%A8%E1%86%BA%E1%84%82%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%AA%E1%86%BC%E1%84%89%E1%85%B2%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%B7%E1%84%83%E1%85%A9%E1%84%82%E1%85%A5%E1%86%BA_01.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%98%9b%eb%82%a0-%ec%99%95%ec%8a%88%ed%81%ac%eb%a6%bc%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "슈크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/%EC%8A%88%ED%81%AC%EB%A6%BC%EB%B9%B5%EC%A0%90%ED%8F%AC%EC%A1%B0%EB%A6%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/custard-cream-bread/"
+  },
+  {
+   "name": "반반 후.크.샌 연유와 땅콩",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EB%B0%98%EB%B0%98-%ED%9B%84%ED%81%AC%EC%83%8C-%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/half-and-half-cream-sand-bread_fresh-peanut/"
+  },
+  {
+   "name": "치즈소시지페스츄리",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/930181-%EC%B9%98%EC%A6%88%EC%86%8C%EC%8B%9C%EC%A7%80%ED%8E%98%EC%8A%A4%EC%B8%84%EB%A6%AC_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b9%98%ec%a6%88%ec%86%8c%ec%8b%9c%ec%a7%80%ed%8e%98%ec%8a%a4%ec%b8%84%eb%a6%ac/"
+  },
+  {
+   "name": "모닝토스트",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574698-%EB%AA%A8%EB%8B%9D%ED%86%A0%EC%8A%A4%ED%8A%B8_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%aa%a8%eb%8b%9d%ed%86%a0%ec%8a%a4%ed%8a%b8/"
+  },
+  {
+   "name": "밤식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574706-%EB%B0%A4%EC%8B%9D%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%b0%a4%ec%8b%9d%eb%b9%b5/"
+  },
+  {
+   "name": "추억의 소시지빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574746-%EC%B6%94%EC%96%B5%EC%9D%98-%EC%86%8C%EC%8B%9C%EC%A7%80%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b6%94%ec%96%b5%ec%9d%98-%ec%86%8c%ec%8b%9c%ec%a7%80%eb%b9%b5/"
+  },
+  {
+   "name": "더 부드러워진 아다지오 커피번",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574745-%EC%95%84%EB%8B%A4%EC%A7%80%EC%98%A4-%EC%BB%A4%ED%94%BC%EB%B2%88_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%eb%8b%a4%ec%a7%80%ec%98%a4%ec%bb%a4%ed%94%bc%eb%b2%88/"
+  },
+  {
+   "name": "꽈배기도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574748-%EA%BD%88%EB%B0%B0%EA%B8%B0%EB%8F%84%EB%84%9B_%EC%8D%B8%EB%84%A4%EC%9D%BC01.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ea%bd%88%eb%b0%b0%ea%b8%b0%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "초코칩쏙쏙트위스트",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/12/%EC%B4%88%EC%BD%94%EC%B9%A9%EC%8F%99%EC%8F%99%EB%B8%8C%EB%A0%88%EB%93%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocochip-twist-pastry/"
+  },
+  {
+   "name": "한입에 두 번 반한 단팥크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/110149-%ED%95%9C%EC%9E%85%EC%97%90-%EB%91%90%EB%B2%88-%EB%B0%98%ED%95%9C-%EB%8B%A8%ED%8C%A5%ED%81%AC%EB%A6%BC%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%95%9c%ec%9e%85%ec%97%90-%eb%91%90%eb%b2%88-%eb%b0%98%ed%95%9c-%eb%8b%a8%ed%8c%a5%ed%81%ac%eb%a6%bc%eb%b9%b5/"
+  },
+  {
+   "name": "고소한 버터핑거스틱",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/110207-%EB%AA%A9%EC%B4%88%E6%9C%A8%E9%86%8B%EB%9E%80%EC%9C%BC%EB%A1%9C-%EB%A7%8C%EB%93%A0-%ED%95%91%EA%B1%B0%EC%8A%A4%ED%8B%B1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ea%b3%a0%ec%86%8c%ed%95%9c-%eb%b2%84%ed%84%b0%ed%95%91%ea%b1%b0%ec%8a%a4%ed%8b%b1/"
+  },
+  {
+   "name": "땅콩크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%95%85%EC%BD%A9%ED%81%AC%EB%A6%BC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%95%85%ec%bd%a9%ed%81%ac%eb%a6%bc%eb%b9%b5/"
+  },
+  {
+   "name": "밤소보루 맘모스",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574786-%EB%B0%A4%EC%86%8C%EB%B3%B4%EB%A3%A8-%EB%A7%98%EB%AA%A8%EC%8A%A4_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%b0%a4%ec%86%8c%eb%b3%b4%eb%a3%a8-%eb%a7%98%eb%aa%a8%ec%8a%a4/"
+  },
+  {
+   "name": "미니 찹쌀도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/572334-%EB%AF%B8%EB%8B%88%EC%B0%B9%EC%8C%80%EB%8F%84%EB%84%9B_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%af%b8%eb%8b%88-%ec%b0%b9%ec%8c%80%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "달콤고소한 밤소보루브레드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574788-%EB%8B%AC%EC%BD%A4%EA%B3%A0%EC%86%8C%ED%95%9C-%EB%B0%A4%EC%86%8C%EB%B3%B4%EB%A3%A8%EB%B8%8C%EB%A0%88%EB%93%9C_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%ac%ec%bd%a4%ea%b3%a0%ec%86%8c%ed%95%9c-%eb%b0%a4%ec%86%8c%eb%b3%b4%eb%a3%a8%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "[NEW] 카페모카빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574784-NEW%EC%B9%B4%ED%8E%98%EB%AA%A8%EC%B9%B4%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-new%ec%b9%b4%ed%8e%98%eb%aa%a8%ec%b9%b4%eb%b9%b5/"
+  },
+  {
+   "name": "치즈가 부드러운 시간",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%B9%98%EC%A6%88%EA%B0%80%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4%EC%8B%9C%EA%B0%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soft-cheese-cake-3/"
+  },
+  {
+   "name": "갈릭고구마페스츄리",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574756-%EA%B0%88%EB%A6%AD%EA%B3%A0%EA%B5%AC%EB%A7%88%ED%8E%98%EC%8A%A4%EC%B8%84%EB%A6%AC_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ea%b0%88%eb%a6%ad%ea%b3%a0%ea%b5%ac%eb%a7%88%ed%8e%98%ec%8a%a4%ec%b8%84%eb%a6%ac/"
+  },
+  {
+   "name": "연유크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%8B%AC%EC%BD%A4%EC%97%B0%EC%9C%A0-%ED%81%AC%EB%A6%BC%EB%B8%8C%EB%A0%88%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%ac%ec%bd%a4%ec%97%b0%ec%9c%a0-%ed%81%ac%eb%a6%bc%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "후레쉬 크림샌드빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/570764-%ED%9B%84%EB%A0%88%EC%89%AC-%ED%81%AC%EB%A6%BC%EC%83%8C%EB%93%9C%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%9b%84%eb%a0%88%ec%89%ac-%ed%81%ac%eb%a6%bc%ec%83%8c%eb%93%9c%eb%b9%b5/"
+  },
+  {
+   "name": "NEW 쫄깃한 피자빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574789-%EC%AB%84%EA%B9%83%ED%94%BC%EC%9E%90%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%ab%84%ea%b9%83%ed%95%9c-%ed%94%bc%ec%9e%90%eb%b9%b5-2/"
+  },
+  {
+   "name": "쫀득흑당호떡",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574755-%EC%AB%80%EB%93%9D%ED%9D%91%EB%8B%B9%ED%98%B8%EB%96%A1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/brown-sugar-hotteok/"
+  },
+  {
+   "name": "NO.1 우유식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EC%9A%B0%EC%9C%A0%EC%8B%9D%EB%B9%B5.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/no-1-milk-bread/"
+  },
+  {
+   "name": "그대로 토스트",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EA%B7%B8%EB%8C%80%EB%A1%9C%ED%86%A0%EC%8A%A4%ED%8A%B8%EC%A0%95%EB%A9%B4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/toast-bread/"
+  },
+  {
+   "name": "고소한 옥수수 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EA%B3%A0%EC%86%8C%ED%95%9C-%EC%98%A5%EC%88%98%EC%88%98-%EC%8B%9D%EB%B9%B5-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ea%b3%a0%ec%86%8c%ed%95%9c-%ec%98%a5%ec%88%98%ec%88%98-%ec%8b%9d%eb%b9%b5/"
+  },
+  {
+   "name": "부드러운 상미종 생(生)식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%83%81%EB%AF%B8%EC%A2%85-%EC%83%9D%EC%8B%9D%EB%B9%B5_%EC%8D%B8%EB%84%A4%EC%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pullman-bread/"
+  },
+  {
+   "name": "프렌치바게뜨",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%ED%94%84%EB%A0%8C%EC%B9%98%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-french-baguette/"
+  },
+  {
+   "name": "단팥 도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EB%8B%A8%ED%8C%A5%EB%8F%84%EB%84%9B_%EC%8D%B8%EB%84%A4%EC%9D%BC1_%EC%88%98%EC%A0%95.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%a8%ed%8c%a5-%eb%8f%84%eb%84%9b-2/"
+  },
+  {
+   "name": "찹쌀도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/572789-%EC%B0%B9%EC%8C%80%EB%8F%84%EB%84%9B_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b0%b9%ec%8c%80%eb%8f%84%eb%84%9b-2/"
+  },
+  {
+   "name": "프렌치크라상",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191007_1-3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%94%84%eb%a0%8c%ec%b9%98-%ed%81%ac%eb%9d%bc%ec%83%81/"
+  },
+  {
+   "name": "초코 소라빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%B4%88%EC%BD%94-%EC%86%8C%EB%9D%BC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b4%88%ec%bd%94%ec%86%8c%eb%9d%bc%eb%b9%b5/"
+  },
+  {
+   "name": "카스테라",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191023_1_140006.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b9%b4%ec%8a%a4%ed%85%8c%eb%9d%bc/"
+  },
+  {
+   "name": "순수(秀) 우유 후레쉬번",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191104_1_110211.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%88%9c%ec%88%98%e7%a7%80-%ec%9a%b0%ec%9c%a0-%ed%9b%84%eb%a0%88%ec%89%ac%eb%b2%88/"
+  },
+  {
+   "name": "플레인 베이글",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%ED%94%8C%EB%A0%88%EC%9D%B8%EB%B2%A0%EC%9D%B4%EA%B8%80_0001.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-plain-bagel/"
+  },
+  {
+   "name": "블랙올리브치즈 베이글",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EB%B8%94%EB%9E%99%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%B9%98%EC%A6%88%EB%B2%A0%EC%9D%B4%EA%B8%80_001.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-olive-cheese-bagel/"
+  },
+  {
+   "name": "양파치즈브레드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EC%96%91%ED%8C%8C%EC%B9%98%EC%A6%88%EB%B8%8C%EB%A0%88%EB%93%9C_%EC%8D%B8%EB%84%A4%EC%9D%BC_01.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%96%91%ed%8c%8c%ec%b9%98%ec%a6%88%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "우리찹쌀모카찰떡빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/221118_PB-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80-HMR%EB%B8%8C%EB%A0%88%EB%93%9C%ED%8C%A8%ED%82%A4%EC%A7%800019.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%9a%b0%eb%a6%ac%ec%b0%b9%ec%8c%80%eb%aa%a8%ec%b9%b4%ec%b0%b0%eb%96%a1%eb%b9%b5/"
+  },
+  {
+   "name": "인생크림빵 단팥",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/230308_PB_%EB%8B%A8%ED%8C%A5%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B9%B5_%EC%A0%9C%ED%92%88%EC%9D%B4%EB%AF%B8%EC%A7%80_%EB%8B%A8%EB%A9%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9d%b8%ec%83%9d%ed%81%ac%eb%a6%bc%eb%b9%b5-%eb%8b%a8%ed%8c%a5/"
+  },
+  {
+   "name": "인생크림빵 소보루",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/230308_PB_%EC%86%8C%EB%B3%B4%EB%A3%A8%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B9%B5_%EC%A0%9C%ED%92%88%EC%9D%B4%EB%AF%B8%EC%A7%80_%EB%8B%A8%EB%A9%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9d%b8%ec%83%9d%ed%81%ac%eb%a6%bc%eb%b9%b5-%ec%86%8c%eb%b3%b4%eb%a3%a8/"
+  },
+  {
+   "name": "인생크림빵 우유",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/230308_PB_%EC%9A%B0%EC%9C%A0%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B9%B5_%EC%A0%9C%ED%92%88%EC%9D%B4%EB%AF%B8%EC%A7%80_%EB%8B%A8%EB%A9%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9d%b8%ec%83%9d%ed%81%ac%eb%a6%bc%eb%b9%b5-%ec%9a%b0%ec%9c%a0/"
+  },
+  {
+   "name": "촉촉한 몽블랑",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%B4%89%EC%B4%89%ED%95%9C-%EB%AA%BD%EB%B8%94%EB%9E%91_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b4%89%ec%b4%89%ed%95%9c-%eb%aa%bd%eb%b8%94%eb%9e%91-2/"
+  },
+  {
+   "name": "쫀득치즈스틱",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/%EC%AB%80%EB%93%9D%EC%B9%98%EC%A6%88%EC%8A%A4%ED%8B%B1_1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%ab%80%eb%93%9d%ec%b9%98%ec%a6%88%ec%8a%a4%ed%8b%b1/"
+  },
+  {
+   "name": "소보루 완두앙금빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/%EC%86%8C%EB%B3%B4%EB%A3%A8%EC%99%84%EB%91%90%EC%95%99%EA%B8%88%EB%B9%B5__1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%86%8c%eb%b3%b4%eb%a3%a8-%ec%99%84%eb%91%90%ec%95%99%ea%b8%88%eb%b9%b5/"
+  },
+  {
+   "name": "메론크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/%EB%A9%94%EB%A1%A0%ED%81%AC%EB%A6%BC%EB%B9%B5__1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a9%94%eb%a1%a0%ed%81%ac%eb%a6%bc%eb%b9%b5/"
+  },
+  {
+   "name": "블랙 올리브 치즈 치아바타",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/04/2Q4A1661.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b8%94%eb%9e%99-%ec%98%ac%eb%a6%ac%eb%b8%8c-%ec%b9%98%ec%a6%88-%ec%b9%98%ec%95%84%eb%b0%94%ed%83%80/"
+  },
+  {
+   "name": "추억의 생도나스",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/05/230518_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%A0%9C%ED%92%88%ED%95%A9%EC%84%B1_%EC%B6%94%EC%96%B5%EC%9D%98%EC%83%9D%EB%8F%84%EB%82%98%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b6%94%ec%96%b5%ec%9d%98-%ec%83%9d%eb%8f%84%eb%82%98%ec%8a%a4/"
+  },
+  {
+   "name": "쫀득고소한 추억의 찰깨빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/05/230518_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%A0%9C%ED%92%88%ED%95%A9%EC%84%B1_%EC%B0%B0%EA%B9%A8%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%ab%80%eb%93%9d%ea%b3%a0%ec%86%8c%ed%95%9c-%ec%b6%94%ec%96%b5%ec%9d%98-%ec%b0%b0%ea%b9%a8%eb%b9%b5/"
+  },
+  {
+   "name": "모카크림샌드빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/12/%EB%AA%A8%EC%B9%B4%ED%81%AC%EB%A6%BC%EC%83%8C%EB%93%9C%EB%B9%B5-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mocha-cream-bread/"
+  },
+  {
+   "name": "블루베리 베이글",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/05/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC-%EB%B2%A0%EC%9D%B4%EA%B8%80.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%91%90-%eb%b2%88-%ec%ab%84%ea%b9%83-%eb%b8%94%eb%a3%a8%eb%b2%a0%eb%a6%ac-%eb%b2%a0%ec%9d%b4%ea%b8%80/"
+  },
+  {
+   "name": "길어서 더 든든한 롱롱소시지빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%A1%B1620_1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ea%b8%b8%ec%96%b4%ec%84%9c-%eb%8d%94-%eb%93%a0%eb%93%a0%ed%95%9c-%eb%a1%b1%eb%a1%b1%ec%86%8c%ec%8b%9c%ec%a7%80%eb%b9%b5/"
+  },
+  {
+   "name": "탱글탱글 뽀드득 소시지",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/06/%ED%83%B1%EA%B8%80%ED%83%B1%EA%B8%80%EB%BD%80%EB%93%9C%EB%93%9D%EC%86%8C%EC%8B%9C%EC%A7%80-%EC%A0%84%EB%A9%B4-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%83%b1%ea%b8%80%ed%83%b1%ea%b8%80-%eb%bd%80%eb%93%9c%eb%93%9d-%ec%86%8c%ec%8b%9c%ec%a7%80/"
+  },
+  {
+   "name": "우유 듬뿍 연유브레드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/06/%EC%9A%B0%EC%9C%A0%EB%93%AC%EB%BF%8D%EC%97%B0%EC%9C%A0%EB%B8%8C%EB%A0%88%EB%93%9C-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9a%b0%ec%9c%a0-%eb%93%ac%eb%bf%8d-%ec%97%b0%ec%9c%a0%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "호두아몬드 크림치즈빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/%ED%98%B8%EB%91%90%EC%95%84%EB%AA%AC%EB%93%9C-%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88%EB%B9%B5.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%98%b8%eb%91%90%ec%95%84%eb%aa%ac%eb%93%9c-%ed%81%ac%eb%a6%bc%ec%b9%98%ec%a6%88%eb%b9%b5/"
+  },
+  {
+   "name": "쫄깃담백 토종효모빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/%EC%AB%84%EA%B9%83%EB%8B%B4%EB%B0%B1-%ED%86%A0%EC%A2%85%ED%9A%A8%EB%AA%A8%EB%B9%B5.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%ab%84%ea%b9%83%eb%8b%b4%eb%b0%b1-%ed%86%a0%ec%a2%85%ed%9a%a8%eb%aa%a8%eb%b9%b5/"
+  },
+  {
+   "name": "체다치즈와 고다치즈를 더한 롤치즈빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/eumE0728-550-550x600.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b2%b4%eb%8b%a4%ec%b9%98%ec%a6%88%ec%99%80-%ea%b3%a0%eb%8b%a4%ec%b9%98%ec%a6%88%eb%a5%bc-%eb%8d%94%ed%95%9c-%eb%a1%a4%ec%b9%98%ec%a6%88%eb%b9%b5/"
+  },
+  {
+   "name": "부드럽고 촉촉한 굿모닝롤",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/%EA%B5%BF%EB%AA%A8%EB%8B%9D%EB%A1%A4-%EB%88%84%EB%81%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soft-good-morning-roll/"
+  },
+  {
+   "name": "스위트 밀크롤",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/08/%EC%8A%A4%EC%9C%84%ED%8A%B8%EB%B0%80%ED%81%AC%EB%A1%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%8a%a4%ec%9c%84%ed%8a%b8-%eb%b0%80%ed%81%ac%eb%a1%a4/"
+  },
+  {
+   "name": "버터롤",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/08/2Q4A2153.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b2%84%ed%84%b0%eb%a1%a4/"
+  },
+  {
+   "name": "발효버터 소금빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%B0%9C%ED%9A%A8%EB%B2%84%ED%84%B0%EC%86%8C%EA%B8%88%EB%B9%B5-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b0%9c%ed%9a%a8%eb%b2%84%ed%84%b0%ec%86%8c%ea%b8%88%eb%b9%b5/"
+  },
+  {
+   "name": "고구마 슈크림 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/09/d6761620-f8b5-44ff-a98f-56a65c0b87f0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ea%b3%a0%ea%b5%ac%eb%a7%88-%ec%8a%88%ed%81%ac%eb%a6%bc-%ec%8b%9d%eb%b9%b5-2/"
+  },
+  {
+   "name": "사각사각 애플파이",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/02%EC%82%AC%EA%B0%81%EC%82%AC%EA%B0%81%EC%95%A0%ED%94%8C%ED%8C%8C%EC%9D%B4_%EB%8B%A8%EB%A9%B4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/apple-pie/"
+  },
+  {
+   "name": "야채감자 샐러드고로케",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/07%EC%95%BC%EC%B0%A8%EA%B0%90%EC%9E%90%EA%B3%A0%EB%A1%9C%EC%BC%80_%EB%8B%A8%EB%A9%B4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vegetable-potato-croquette/"
+  },
+  {
+   "name": "명품 고기잡채고로케",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/04%EC%9E%A1%EC%B1%84%EA%B3%A0%EB%A1%9C%EC%BC%80_%EB%8B%A8%EB%A9%B4-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/meat-japchae-croquette/"
+  },
+  {
+   "name": "크림치즈 프레즐",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/02/%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88-%ED%94%84%EB%A0%88%EC%A6%90.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cream-cheese-pretzel/"
+  },
+  {
+   "name": "프랑스정통바게뜨",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%ED%94%84%EB%9E%91%EC%8A%A4-%EC%A0%95%ED%86%B5-%EB%B0%94%EA%B2%8C%EB%9C%A8-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/french-style-baguette/"
+  },
+  {
+   "name": "프렌치 뀐아망",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/04/201007_%EB%80%90%EC%95%84%EB%A7%9D-%ED%83%91-1_1000x1000.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/kouign-amann/"
+  },
+  {
+   "name": "부드러운 후레쉬 크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/12/%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4%ED%9B%84%EB%A0%88%EC%89%AC%ED%81%AC%EB%A6%BC%EB%B9%B5-%EC%8D%B8%EB%84%AC3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fresh-cream-bread/"
+  },
+  {
+   "name": "크림치즈롤 페스츄리",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88%EB%A1%A4-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cream-cheese-pasty/"
+  },
+  {
+   "name": "[파란라벨]쫄깃담백 루스틱",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EC%AB%84%EA%B9%83%EB%8B%B4%EB%B0%B1-%EB%A3%A8%EC%8A%A4%ED%8B%B1-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/whole-grain-sourdough-bread/"
+  },
+  {
+   "name": "[파란라벨]크랜베리 호밀 깜빠뉴",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%ED%81%AC%EB%9E%9C%EB%B2%A0%EB%A6%AC%ED%98%B8%EB%B0%80%EA%B9%9C%EB%B9%A0%EB%89%B4-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cranberry-rye-bread/"
+  },
+  {
+   "name": "[파란라벨]멀티그레인 호밀빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%A9%80%ED%8B%B0%EA%B7%B8%EB%A0%88%EC%9D%B8-%ED%98%B8%EB%B0%80%EB%B9%B5.jpg2_.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/multigrain-rye-bread/"
+  },
+  {
+   "name": "피자고로케",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%ED%94%BC%EC%9E%90%EA%B3%A0%EB%A1%9C%EC%BC%80-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pizza-croquettes/"
+  },
+  {
+   "name": "[파란라벨]고식이섬유 통밀 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%ED%86%B5%EB%B0%80%EC%8B%9D%EB%B9%B5-%EC%8D%B8%EB%84%AC-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/whole-wheat-bread/"
+  },
+  {
+   "name": "[파란라벨]홀그레인 오트 식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EC%98%A4%ED%8A%B8%EC%8B%9D%EB%B9%B5-%EC%8D%B8%EB%84%AC-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/whole-grain-oat-bread-2/"
+  },
+  {
+   "name": "딸기롤페스츄리",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%94%B8%EA%B8%B0%EB%A1%A4-%EA%B8%B0%EB%B3%B8%EC%8D%B8%EB%84%AC-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberry-jam-pastry/"
+  },
+  {
+   "name": "세가지 치즈베이글",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%84%B8%EA%B0%80%EC%A7%80-%EC%B9%98%EC%A6%88%EB%B2%A0%EC%9D%B4%EA%B8%80-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/triple-cheesse-bagel/"
+  },
+  {
+   "name": "[파란라벨]치즈감자 치아바타",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%B9%98%EC%A6%88%EA%B0%90%EC%9E%90%EC%B9%98%EC%95%84%EB%B0%94%ED%83%80_%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cheese-potato-ciabatta/"
+  },
+  {
+   "name": "치즈 듬뿍 어니언",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/200310_%E1%84%8E%E1%85%B5%E1%84%8C%E1%85%B3%E1%84%83%E1%85%B3%E1%86%B7%E1%84%88%E1%85%AE%E1%86%A8%E1%84%8B%E1%85%A5%E1%84%82%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AB_%E1%84%92%E1%85%A1%E1%86%B8%E1%84%89%E1%85%A5%E1%86%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b9%98%ec%a6%88%eb%93%ac%eb%bf%8d%ec%96%b4%eb%8b%88%ec%96%b8/"
+  },
+  {
+   "name": "뜯어먹는 롤치즈 브레드(1/2)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/302343-%EB%9C%AF%EC%96%B4%EB%A8%B9%EB%8A%94-%EB%A1%A4%EC%B9%98%EC%A6%88-%EB%B8%8C%EB%A0%88%EB%93%9C_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%9c%af%ec%96%b4%eb%a8%b9%eb%8a%94-%eb%a1%a4%ec%b9%98%ec%a6%88-%eb%b8%8c%eb%a0%88%eb%93%9c1-2/"
+  },
+  {
+   "name": "밤소보루 맘모스(1/2)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574786-%EB%B0%A4%EC%86%8C%EB%B3%B4%EB%A3%A8-%EB%A7%98%EB%AA%A8%EC%8A%A4_%EC%8D%B8%EB%84%A4%EC%9D%BC3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b0%a4%ec%86%8c%eb%b3%b4%eb%a3%a8-%eb%a7%98%eb%aa%a8%ec%8a%a41-2/"
+  },
+  {
+   "name": "달콤 꽈배기도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EB%8B%AC%EC%BD%A4%EA%BD%88%EB%B0%B0%EA%B8%B0%EB%8F%84%EB%84%9B_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%ac%ec%bd%a4-%ea%bd%88%eb%b0%b0%ea%b8%b0%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "다크초코츄잉스타",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EB%8B%A4%ED%81%AC%EC%B4%88%EC%BD%94%EC%B8%84%EC%9E%89%EC%8A%A4%ED%83%80_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%a4%ed%81%ac%ec%b4%88%ec%bd%94%ec%b8%84%ec%9e%89%ec%8a%a4%ed%83%80/"
+  },
+  {
+   "name": "우리찹쌀 왕꽈배기",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EC%9A%B0%EB%A6%AC%EC%B0%B9%EC%8C%80-%EC%99%95%EA%BD%88%EB%B0%B0%EA%B8%B001.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8b%ac%ec%bd%a4%ed%95%9c-%ec%9a%b0%eb%a6%ac%ec%b0%b9%ec%8c%80-%ec%99%95%ea%bd%88%eb%b0%b0%ea%b8%b0/"
+  },
+  {
+   "name": "생크림폭탄 도넛(3개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EC%83%9D%ED%81%AC%EB%A6%BC%ED%8F%AD%ED%83%84-%EB%8F%84%EB%84%9B3%EA%B0%9C%EC%9E%8501.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%83%9d%ed%81%ac%eb%a6%bc%ed%8f%ad%ed%83%84-%eb%8f%84%eb%84%9b/"
+  },
+  {
+   "name": "고소한 소보루데니쉬식빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/%EC%86%8C%EB%B3%B4%EB%A3%A8%EB%8D%B0%EB%8B%88%EC%89%AC_1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%86%8c%eb%b3%b4%eb%a3%a8%eb%93%ac%eb%bf%8d%eb%8d%b0%eb%8b%88%ec%89%ac%ec%8b%9d%eb%b9%b5-2/"
+  },
+  {
+   "name": "우유 듬뿍 연유브레드(대)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/06/%EC%9A%B0%EC%9C%A0%EB%93%AC%EB%BF%8D%EC%97%B0%EC%9C%A0%EB%B8%8C%EB%A0%88%EB%93%9C%EB%8C%80-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9a%b0%ec%9c%a0-%eb%93%ac%eb%bf%8d-%ec%97%b0%ec%9c%a0%eb%b8%8c%eb%a0%88%eb%93%9c%eb%8c%80/"
+  },
+  {
+   "name": "건강가득통밀브레드",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/KakaoTalk_20240510_091803963.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ea%b1%b4%ea%b0%95%ea%b0%80%eb%93%9d-%ed%86%b5%eb%b0%80%eb%b8%8c%eb%a0%88%eb%93%9c/"
+  },
+  {
+   "name": "미니 호두아몬드 크림치즈빵(5개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/%EB%AF%B8%EB%8B%88-%ED%98%B8%EB%91%90%EC%95%84%EB%AA%AC%EB%93%9C-%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88%EB%B9%B55%EA%B0%9C%EC%9E%85.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%af%b8%eb%8b%88-%ed%98%b8%eb%91%90%ec%95%84%eb%aa%ac%eb%93%9c-%ed%81%ac%eb%a6%bc%ec%b9%98%ec%a6%88%eb%b9%b55%ea%b0%9c%ec%9e%85/"
+  },
+  {
+   "name": "달콤바삭 크룽지",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/08/%EB%8B%AC%EC%BD%A4%EB%B0%94%EC%82%AD%ED%81%AC%EB%A3%BD%EC%A7%80.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%8b%ac%ec%bd%a4%eb%b0%94%ec%82%ad-%ed%81%ac%eb%a3%bd%ec%a7%80/"
+  },
+  {
+   "name": "마늘빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/%EB%A7%88%EB%8A%98%EB%B9%B5_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/garlic-bread/"
+  },
+  {
+   "name": "마늘빵 (5개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/712cb759-50a9-4521-a01c-2100e3716007.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/garlic-bread-5p/"
+  },
+  {
+   "name": "NEW 마늘바게뜨",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/NEW%EB%A7%88%EB%8A%98%EB%B0%94%EA%B2%8C%EB%9C%A8_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/garlic-baguette/"
+  },
+  {
+   "name": "한입 프레즐(6개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/06/%ED%95%9C%EC%9E%85%ED%94%84%EB%A0%88%EC%A6%90-2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mini-cream-cheese-pretzel/"
+  },
+  {
+   "name": "버터 크라상 파이(낱개)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EB%B2%84%ED%84%B0%ED%81%AC%EB%9D%BC%EC%83%81%ED%8C%8C%EC%9D%B4-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/butter-croissant-pie-2/"
+  },
+  {
+   "name": "부드러운 모닝롤(4개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4-%EB%AA%A8%EB%8B%9D%EB%A1%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-raisin-morning-roll-4pics/"
+  },
+  {
+   "name": "프랑스정통바게뜨(H)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%ED%94%84%EB%9E%91%EC%8A%A4-%EC%A0%95%ED%86%B5-%EB%B0%94%EA%B2%8C%EB%9C%A8-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/french-style-baguette-half/"
+  },
+  {
+   "name": "모카크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%AA%A8%EC%B9%B4%ED%81%AC%EB%A6%BC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%aa%a8%ec%b9%b4%ed%81%ac%eb%a6%bc%eb%b9%b5/"
+  },
+  {
+   "name": "딸기롤페스츄리(3개입)",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%94%B8%EA%B8%B0%EB%A1%A4-%EC%8D%B8%EB%84%AC-1-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberry-jam-pastry-3ea/"
+  },
+  {
+   "name": "반반 후.크.샌 연유와 옥수수",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EB%B0%98%EB%B0%98-%ED%9B%84%ED%81%AC%EC%84%BC_%EC%97%B0%EC%9C%A0%EC%98%A5%EC%88%98%EC%88%98-%EC%8D%B8%EB%84%AC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/half-and-half-cream-sand-bread_fresh-corn/"
+  },
+  {
+   "name": "카스테라생크림도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%83%9D%ED%81%AC%EB%A6%BC-%EB%8F%84%EB%84%9B%EB%8B%A8%EB%A9%B4-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/castella-cream-donut/"
+  },
+  {
+   "name": "케익꽈배기도넛",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EC%BC%80%EC%9D%B5%EA%BD%88%EB%B0%B0%EA%B8%B0%EB%8F%84%EB%84%9B-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/twist-cake-donuts/"
+  },
+  {
+   "name": "매콤 고추잡채고로케",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EB%A7%A4%EC%BD%A4-%EA%B3%A0%EC%B6%94%EC%9E%A1%EC%B1%84%EA%B3%A0%EB%A1%9C%EC%BC%80-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/spicy-japchae-croquet/"
+  },
+  {
+   "name": "카라멜 라떼 크림빵",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B9%B4%EB%9D%BC%EB%A9%9C-%EB%9D%BC%EB%96%BC-%ED%81%AC%EB%A6%BC%EB%B9%B5-%EC%8D%B8%EB%84%AC3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/caramel-latte-cream-bread/"
+  },
+  {
+   "name": "단팥소보루",
+   "sub": "빵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/PB020017152115695821992759TKMT1S.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%8b%a8%ed%8c%a5%ec%86%8c%eb%b3%b4%eb%a3%a8/"
+  },
+  {
+   "name": "샤인머스캣 레어치즈 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3-%EC%BC%80%EC%9D%B4%ED%81%AC-%EB%88%84%EB%81%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shine-muscat-rare-cheesecake/"
+  },
+  {
+   "name": "파베 초콜릿 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%B2%A0-%EC%B4%88%EC%BD%9C%EB%A6%BF-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pave-chocolate-cake/"
+  },
+  {
+   "name": "바스크 치즈 케익",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%B0%94%EC%8A%A4%ED%81%AC%EC%B9%98%EC%A6%88%EC%BC%80%EC%9D%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/basque-cheesecake/"
+  },
+  {
+   "name": "아워벌스데이 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%95%84%EC%9B%8C%EB%B2%8C%EC%8A%A4%EB%8D%B0%EC%9D%B4%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ourbirthday-cake/"
+  },
+  {
+   "name": "하트 윙크 춘식이",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%ED%95%98%ED%8A%B8-%EC%9C%99%ED%81%AC-%EC%B6%98%EC%8B%9D%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/heart-wink-chunsik/"
+  },
+  {
+   "name": "당근이세요? 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EB%8B%B9%EA%B7%BC%EC%9D%B4%EC%84%B8%EC%9A%94-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/carrot-cake/"
+  },
+  {
+   "name": "쿠키 앤 치즈 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%BF%A0%ED%82%A4%EC%95%A4%EC%B9%98%EC%A6%88-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cookie-and-cheese-cake/"
+  },
+  {
+   "name": "뽀로로와 놀이동산 가요",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%BD%80%EB%A1%9C%EB%A1%9C%EC%99%80-%EB%86%80%EC%9D%B4%EB%8F%99%EC%82%B0-%EA%B0%80%EC%9A%94.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lets-go-to-the-pororo-amusement-park/"
+  },
+  {
+   "name": "바닷속 아기상어 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%B0%94%EB%8B%B7%EC%86%8D-%EC%95%84%EA%B8%B0%EC%83%81%EC%96%B4-%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/under-the-sea-baby-shark-cake/"
+  },
+  {
+   "name": "[파란라벨]저당 말차 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%A0%80%EB%8B%B9%EB%A7%90%EC%B0%A8%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-matcha-cake/"
+  },
+  {
+   "name": "[파란라벨]저당 카카오 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%A0%80%EB%8B%B9%EC%B9%B4%EC%B9%B4%EC%98%A4%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-cacao-cake-renewal/"
+  },
+  {
+   "name": "LA올레 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/LA%EC%98%AC%EB%A0%88-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/la-ole-cake/"
+  },
+  {
+   "name": "치즈 수플레 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%B9%98%EC%A6%88-%EC%88%98%ED%94%8C%EB%A0%88-%EC%BC%80%EC%9D%B4%ED%81%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cheese-souffle-cake/"
+  },
+  {
+   "name": "[파란라벨]저당 카카오 케이크(조각)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%A0%80%EB%8B%B9%EC%B9%B4%EC%B9%B4%EC%98%A4%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%A1%B0%EA%B0%81.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-cacao-cake-2/"
+  },
+  {
+   "name": "두쫀팝케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EB%91%90%EC%AB%80%ED%8C%9D%EC%BC%80%EC%9D%B4%ED%81%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/dubai-style-chewy-cake/"
+  },
+  {
+   "name": "저당 그릭요거트 케이크(조각)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EC%A0%80%EB%8B%B9-%EA%B7%B8%EB%A6%AD%EC%9A%94%EA%B1%B0%ED%8A%B8-%EC%BC%80%EC%9D%B4%ED%81%AC%EC%A1%B0%EA%B0%81.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-greek-yogurt-cake/"
+  },
+  {
+   "name": "더피&서씨 복 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/12/%EC%8D%B8%EB%84%A4%EC%9D%BC_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pbxkpdh-derpy-sussie-bok-cake/"
+  },
+  {
+   "name": "베리밤 레드 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/12/%EB%B2%A0%EB%A6%AC%EB%B0%A4-%EB%A0%88%EB%93%9C%EC%BC%80%EC%9D%B4%ED%81%AC_%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/berrybomb-red-cake/"
+  },
+  {
+   "name": "헌트릭스 골든 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EA%B3%A8%EB%93%A0%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%8D%B8%EB%84%AC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/huntr-x-golden-cake/"
+  },
+  {
+   "name": "소다팝 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%86%8C%EB%8B%A4%ED%8C%9D%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soda-pop-cake/"
+  },
+  {
+   "name": "사파리 친구들 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%82%AC%ED%8C%8C%EB%A6%AC-%EC%B9%9C%EA%B5%AC%EB%93%A4-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%82%ac%ed%8c%8c%eb%a6%ac-%ec%b9%9c%ea%b5%ac%eb%93%a4-%ec%bc%80%ec%9d%b4%ed%81%ac/"
+  },
+  {
+   "name": "초코반딸기반케이크 (시즌과일)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/08/%EC%B4%88%EC%BD%94%EB%B0%98%EB%94%B8%EA%B8%B0%EB%B0%98%EA%B1%B0%EB%B4%89.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b4%88%ec%bd%94%eb%b0%98%eb%94%b8%ea%b8%b0%eb%b0%98%ec%bc%80%ec%9d%b4%ed%81%ac/"
+  },
+  {
+   "name": "고구마반생크림반케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EA%B3%A0%EA%B5%AC%EB%A7%88%EB%B0%98%EC%83%9D%ED%81%AC%EB%A6%BC%EB%B0%98%EC%B2%AD%ED%8F%AC%EB%8F%84.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ea%b3%a0%ea%b5%ac%eb%a7%88%eb%b0%98%ec%83%9d%ed%81%ac%eb%a6%bc%eb%b0%98%ec%bc%80%ec%9d%b4%ed%81%ac/"
+  },
+  {
+   "name": "블라썸 러브",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/131527-%EB%B8%94%EB%9D%BC%EC%8D%B8-%EB%9F%AC%EB%B8%8C_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%b8%94%eb%9d%bc%ec%8d%b8-%eb%9f%ac%eb%b8%8c/"
+  },
+  {
+   "name": "초코바닐라 마블쉬폰",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/08/%EC%B4%88%EC%BD%94%EB%B0%94%EB%8B%90%EB%9D%BC-%EC%89%AC%ED%8F%B0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%b4%88%ec%bd%94%eb%b0%94%eb%8b%90%eb%9d%bc-%eb%a7%88%eb%b8%94%ec%89%ac%ed%8f%b0/"
+  },
+  {
+   "name": "클래식 벨기에 화이트초코",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%ED%81%B4%EB%9E%98%EC%8B%9D-%EB%B2%A8%EC%A7%80%EC%97%90-%ED%99%94%EC%9D%B4%ED%8A%B8%EC%B4%88%EC%BD%94_%EC%8D%B8%EB%84%A4%EC%9D%BC01.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%81%b4%eb%9e%98%ec%8b%9d-%eb%b2%a8%ea%b8%b0%ec%97%90-%ed%99%94%ec%9d%b4%ed%8a%b8%ec%b4%88%ec%bd%94/"
+  },
+  {
+   "name": "마이넘버원",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EB%A7%88%EC%9D%B4%EB%84%98%EB%B2%84%EC%9B%90-%EB%A6%AC%EB%89%B4%EC%96%BC-%EC%8D%B8%EB%84%AC_250805-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/my-no1-cake/"
+  },
+  {
+   "name": "클래식고구마케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/230530_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%81%b4%eb%9e%98%ec%8b%9d%ea%b3%a0%ea%b5%ac%eb%a7%88%ec%bc%80%ec%9d%b4%ed%81%ac/"
+  },
+  {
+   "name": "별이 빛나는 밤에",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/05/%EB%B3%84%EC%9D%B4-%EB%B9%9B%EB%82%98%EB%8A%94-%EB%B0%A4%EC%97%90.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b3%84%ec%9d%b4-%eb%b9%9b%eb%82%98%eb%8a%94-%eb%b0%a4%ec%97%90/"
+  },
+  {
+   "name": "호두 버터 아몬드 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/06/%ED%98%B8%EB%91%90%EB%B2%84%ED%84%B0%EC%95%84%EB%AA%AC%EB%93%9C%EC%BC%80%EC%9D%B4%ED%81%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%98%b8%eb%91%90-%eb%b2%84%ed%84%b0-%ec%95%84%eb%aa%ac%eb%93%9c-%ec%bc%80%ec%9d%b4%ed%81%ac/"
+  },
+  {
+   "name": "클래식 가또쇼콜라",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/%ED%81%B4%EB%9E%98%EC%8B%9D%EA%B0%80%EB%98%90%EC%87%BC%EC%BD%9C%EB%9D%BC_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/classic-gateau-chocolat/"
+  },
+  {
+   "name": "우유퐁당 생크림케이크(15cm)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%9A%B0%EC%9C%A0%ED%90%81%EB%8B%B9-%EA%B1%B0%EB%B4%89-1%ED%98%B8-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9a%b0%ec%9c%a0%ed%90%81%eb%8b%b9-%ec%83%9d%ed%81%ac%eb%a6%bc%ec%bc%80%ec%9d%b4%ed%81%ac1%ed%98%b8/"
+  },
+  {
+   "name": "우유퐁당 생크림케이크(18cm)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%9A%B0%EC%9C%A0%ED%90%81%EB%8B%B9-%EA%B1%B0%EB%B4%89-2%ED%98%B8-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9a%b0%ec%9c%a0%ed%90%81%eb%8b%b9-%ec%83%9d%ed%81%ac%eb%a6%bc%ec%bc%80%ec%9d%b4%ed%81%ac2%ed%98%b8/"
+  },
+  {
+   "name": "티트라 얼그레이 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%ED%94%BC%EC%B9%98%EC%96%BC%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-earl-grey-cake/"
+  },
+  {
+   "name": "우유가득 생크림 케이크 (15cm)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/%EC%9A%B0%EC%9C%A0%EA%B0%80%EB%93%9D_%EC%9E%90%EB%AA%BD%EC%98%A4%EB%A0%8C%EC%A7%801%ED%98%B8_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fresh-cream-cake-15cm/"
+  },
+  {
+   "name": "우유가득 생크림 케이크 (18cm)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/%EC%9A%B0%EC%9C%A0%EA%B0%80%EB%93%9D_%EC%9E%90%EB%AA%BD%EC%98%A4%EB%A0%8C%EC%A7%802%ED%98%B8_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fresh-cream-cake-18cm/"
+  },
+  {
+   "name": "부드러운 초코가나슈 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/thum_%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4-%EC%B4%88%EC%BD%94%EA%B0%80%EB%82%98%EC%8A%88-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ganache-chocolate-cake/"
+  },
+  {
+   "name": "알록달록 레인보우 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/thum_%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A0%88%EC%9D%B8%EB%B3%B4%EC%9A%B0%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/seven-colors-short-cake/"
+  },
+  {
+   "name": "촉촉한 클래식 치즈케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%B4%89%EC%B4%89%ED%95%9C-%ED%81%B4%EB%9E%98%EC%8B%9D-%EC%B9%98%EC%A6%88%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/classic-cheese-cake/"
+  },
+  {
+   "name": "아름다운 시작",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%EC%95%84%EB%A6%84%EB%8B%A4%EC%9A%B4-%EC%8B%9C%EC%9E%91_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%95%84%eb%a6%84%eb%8b%a4%ec%9a%b4-%ec%8b%9c%ec%9e%91-21cm/"
+  },
+  {
+   "name": "영원한 사랑",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%EC%98%81%EC%9B%90%ED%95%9C-%EC%82%AC%EB%9E%91_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%98%81%ec%9b%90%ed%95%9c-%ec%82%ac%eb%9e%91-1%eb%8b%a815cm-2%eb%8b%a821cm/"
+  },
+  {
+   "name": "행복한 시간",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%ED%96%89%EB%B3%B5%ED%95%9C-%EC%8B%9C%EA%B0%84_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%96%89%eb%b3%b5%ed%95%9c-%ec%8b%9c%ea%b0%84/"
+  },
+  {
+   "name": "티라미수 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/08/%EB%AF%B8%EB%8B%88%ED%8B%B0%EB%9D%BC%EB%AF%B8%EC%88%98web-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/tiramisu-cake/"
+  },
+  {
+   "name": "티라미수 케이크 (조각)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%ED%8B%B0%EB%9D%BC%EB%AF%B8%EC%88%98-%EC%A1%B0%EA%B0%81-%EB%89%B4-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/tiramisu-cake-piece/"
+  },
+  {
+   "name": "모카넛츠케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/09/%EB%AA%A8%EC%B9%B4%EB%84%9B%EC%B8%A0%EC%BC%80%EC%9D%B4%ED%81%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mocha-nuts-cake/"
+  },
+  {
+   "name": "크레이프 케이크 (조각)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/05/%ED%81%AC%EB%A0%88%EC%9D%B4%ED%94%84%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%8D%B8%EB%84%AC-%EC%97%85%EB%8E%83.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/crepe-cake-piece/"
+  },
+  {
+   "name": "상큼한 블루베리 쉬폰 (2호)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC%EC%89%AC%ED%8F%B0%EC%BC%80%EC%9D%B4%ED%81%AC-%EB%A6%AC%EB%89%B4%EC%96%BC-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/blueberry-chiffon-2/"
+  },
+  {
+   "name": "고구마 케이크 (조각)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%A7%88%EC%9D%B4%EB%84%98%EB%B2%84%EC%9B%90-%EA%B3%A0%EA%B5%AC%EB%A7%88-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sweet-potato-cake-piece/"
+  },
+  {
+   "name": "클래식치즈케이크(2호)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/520597_%EC%A7%84%ED%95%9C-%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88-%EA%B0%80%EB%93%9D-%ED%81%B4%EB%9E%98%EC%8B%9D-%EC%B9%98%EC%A6%88-%EC%BC%80%EC%9D%B4%ED%81%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/classic-cheese-cake-no2/"
+  },
+  {
+   "name": "더피 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/10/%EB%8D%94%ED%94%BC%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%8D%B8%EB%84%AC3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/derpy-cake/"
+  },
+  {
+   "name": "헌트릭스 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%ED%97%8C%ED%8A%B8%EB%A6%AD%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%81%AC_%EC%8D%B8%EB%84%AC3.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/huntr-x-cake/"
+  },
+  {
+   "name": "딸기 블라썸 케이크(자몽/오렌지)",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%B2%B4%EB%A6%AC-%EB%B8%94%EB%9D%BC%EC%8D%B8-%EC%BC%80%EC%9D%B4%ED%81%AC-%EC%9E%90%EB%AA%BD%EC%98%A4%EB%A0%8C%EC%A7%80-%EC%8D%B8%EB%84%AC-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberry-blossom-cake/"
+  },
+  {
+   "name": "[파란라벨]저당 그릭요거트 케이크",
+   "sub": "케이크",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%ED%99%806.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-greek-yogurt-cake-whole/"
+  },
+  {
+   "name": "쉬림프 포테이토 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%89%AC%EB%A6%BC%ED%94%84-%ED%8F%AC%ED%85%8C%EC%9D%B4%ED%86%A0-%EC%83%90%EB%9F%AC%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shrimp-potato-salad/"
+  },
+  {
+   "name": "고추장 불고기 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EA%B3%A0%EC%B6%94%EC%9E%A5%EB%B6%88%EA%B3%A0%EA%B8%B0%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/gochujang-bulgogi-sandwich/"
+  },
+  {
+   "name": "햄에그 컵 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%ED%96%84%EC%97%90%EA%B7%B8%EC%BB%B5%EC%83%90%EB%9F%AC%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ham-egg-cup-salad/"
+  },
+  {
+   "name": "포테이토 크랩 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%ED%8F%AC%ED%85%8C%EC%9D%B4%ED%86%A0%ED%81%AC%EB%9E%A9%ED%8F%AC%EC%9E%A5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/potato-crab-sandwich/"
+  },
+  {
+   "name": "망고밤 샌드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EB%A7%9D%EA%B3%A0%EB%B0%A4%EC%83%8C%EB%93%9C%ED%8F%AC%EC%9E%A5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mango-bomb-sandwich/"
+  },
+  {
+   "name": "햄치즈 피크닉 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%91%90%EC%9E%85%EB%A7%8C%ED%96%84%EC%B9%98%EC%A6%88%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ham-and-cheese-picnic-sandwich/"
+  },
+  {
+   "name": "불고기 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/9000276-%EB%B6%88%EA%B3%A0%EA%B8%B0%EC%83%90%EB%9F%AC%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/bulgogi-salad/"
+  },
+  {
+   "name": "시저치킨 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/9000275-%EC%8B%9C%EC%A0%80%EC%B9%98%ED%82%A8%EC%83%90%EB%9F%AC%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/caesar-chicken-salad/"
+  },
+  {
+   "name": "저당 할라피뇨&랜치 드레싱",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/9000196-%EC%A0%80%EB%8B%B9%ED%95%A0%EB%9D%BC%ED%94%BC%EB%87%A8%EB%9E%9C%EC%B9%98%EB%93%9C%EB%A0%88%EC%8B%B1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-jalapenoranch-dressing/"
+  },
+  {
+   "name": "저당 애플&키위 드레싱",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/9000195-%EC%A0%80%EB%8B%B9%EC%95%A0%ED%94%8C%ED%82%A4%EC%9C%84%EB%93%9C%EB%A0%88%EC%8B%B1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-applekiwi-dressing/"
+  },
+  {
+   "name": "[파란라벨]저당 닭가슴살 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%A0%80%EB%8B%B9%EB%8B%AD%EA%B0%80%EC%8A%B4%EC%82%B4SW.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-chicken-breast-sandwich/"
+  },
+  {
+   "name": "한입만 햄치즈롤(가성비)",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%ED%95%9C%EC%9E%85%EB%A7%8C%ED%96%84%EC%B9%98%EC%A6%88%EB%A1%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hamcheese-sandwich/"
+  },
+  {
+   "name": "한입만 에그마요롤(가성비)",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%ED%95%9C%EC%9E%85%EB%A7%8C%EC%97%90%EA%B7%B8%EB%A7%88%EC%9A%94%EB%A1%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/egg-sandwich/"
+  },
+  {
+   "name": "시저치킨 멀티그레인 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%8B%9C%EC%A0%80%EC%B9%98%ED%82%A8%EB%A9%80%ED%8B%B0%EA%B7%B8%EB%A0%88%EC%9D%B8%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/caesar-chicken-sandwich-with-multigrain-bread/"
+  },
+  {
+   "name": "에그 베이컨 토스트",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%E1%84%8B%E1%85%A6%E1%84%80%E1%85%B3%E1%84%87%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A5%E1%86%AB%E1%84%90%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%97%90%ea%b7%b8-%eb%b2%a0%ec%9d%b4%ec%bb%a8-%ed%86%a0%ec%8a%a4%ed%8a%b8/"
+  },
+  {
+   "name": "발사믹 오일 드레싱",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%B0%9C%EC%82%AC%EB%AF%B9-%EC%98%A4%EC%9D%BC-%EB%93%9C%EB%A0%88%EC%8B%B1-%EB%88%84%EB%81%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b0%9c%ec%82%ac%eb%af%b9-%ec%98%a4%ec%9d%bc-%eb%93%9c%eb%a0%88%ec%8b%b1/"
+  },
+  {
+   "name": "시저 드레싱",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8B%9C%EC%A0%80%EB%93%9C%EB%A0%88%EC%8B%B1-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%8b%9c%ec%a0%80-%eb%93%9c%eb%a0%88%ec%8b%b1/"
+  },
+  {
+   "name": "스위트 머스타드 드레싱",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8A%A4%EC%9C%84%ED%8A%B8-%EB%A8%B8%EC%8A%A4%ED%83%80%EB%93%9C-%EB%93%9C%EB%A0%88%EC%8B%B1-%EB%88%84%EB%81%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%8a%a4%ec%9c%84%ed%8a%b8-%eb%a8%b8%ec%8a%a4%ed%83%80%eb%93%9c-%eb%93%9c%eb%a0%88%ec%8b%b1/"
+  },
+  {
+   "name": "크랩 샐러드랩",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/201222_%E1%84%80%E1%85%A5%E1%86%AB%E1%84%80%E1%85%A1%E1%86%BC%E1%84%92%E1%85%A1%E1%86%AB%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B8%E1%84%89%E1%85%A2%E1%86%AF%E1%84%85%E1%85%A5%E1%84%83%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%81%ac%eb%9e%a9-%ec%83%90%eb%9f%ac%eb%93%9c%eb%9e%a9/"
+  },
+  {
+   "name": "몬테크리스토샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/210930_PB%EB%AA%AC%ED%85%8C%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%86%A0%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-1280.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%aa%ac%ed%85%8c%ed%81%ac%eb%a6%ac%ec%8a%a4%ed%86%a0%ec%83%8c%eb%93%9c%ec%9c%84%ec%b9%98/"
+  },
+  {
+   "name": "건강한 로스트 치킨 브레스트",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EA%B1%B4%EA%B0%95%ED%95%9C-%EB%A1%9C%EC%8A%A4%ED%8A%B8%EC%B9%98%ED%82%A8%EB%B8%8C%EB%A0%88%EC%8A%A4%ED%8A%B8_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a1%9c%ec%8a%a4%ed%8a%b8-%ec%b9%98%ed%82%a8-%eb%b8%8c%eb%a0%88%ec%8a%a4%ed%8a%b8/"
+  },
+  {
+   "name": "fresh한입쏙미니버거",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/300542-%EB%AF%B8%EB%8B%88%EB%B2%84%EA%B1%B0-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%af%b8%eb%8b%88%eb%b2%84%ea%b1%b0-%ec%83%8c%eb%93%9c%ec%9c%84%ec%b9%98/"
+  },
+  {
+   "name": "파리의 토스트",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/535293-%ED%8C%8C%EB%A6%AC%EC%9D%98-%ED%86%A0%EC%8A%A4%ED%8A%B8_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%8c%8c%eb%a6%ac%ec%9d%98-%ed%86%a0%ec%8a%a4%ed%8a%b8/"
+  },
+  {
+   "name": "BELT샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/BELT-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/bacon-egg-lettuce-tomato-sandwich/"
+  },
+  {
+   "name": "크랜베리 치킨 브라운 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%ED%81%AC%EB%9E%9C%EB%B2%A0%EB%A6%AC%EC%B9%98%ED%82%A8-%EB%B8%8C%EB%9D%BC%EC%9A%B4-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cranberry-chicken-grain-sandwich/"
+  },
+  {
+   "name": "로만밀 에그타르타르 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/08/%EA%B1%B4%EA%B0%95%ED%95%9C-%EB%A1%9C%EB%A7%8C%EB%B0%80-%EC%97%90%EA%B7%B8%ED%83%80%EB%A5%B4%ED%83%80%EB%A5%B4-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ea%b1%b4%ea%b0%95%ed%95%9c-%eb%a1%9c%eb%a7%8c%eb%b0%80-%ec%97%90%ea%b7%b8%ed%83%80%eb%a5%b4%ed%83%80%eb%a5%b4-%ec%83%8c%eb%93%9c%ec%9c%84%ec%b9%98/"
+  },
+  {
+   "name": "브라운 디럭스 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%EB%B8%8C%EB%9D%BC%EC%9A%B4%EB%94%94%EB%9F%AD%EC%8A%A4%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/deluxe-grain-sandwich/"
+  },
+  {
+   "name": "치킨커틀릿 샐러드랩",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%B9%98%ED%82%A8%EC%BB%A4%ED%8B%80%EB%A6%BF%EC%83%90%EB%9F%AC%EB%93%9C%EB%9E%A9-%EC%8D%B8%EB%84%AC_251110.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/healthy-chicken-cutlet-salad-wrap/"
+  },
+  {
+   "name": "3가지맛 굿모닝 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/3%EA%B0%80%EC%A7%80%EB%A7%9B-%EA%B5%BF%EB%AA%A8%EB%8B%9D-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/good-morning-sandwich/"
+  },
+  {
+   "name": "토종효모빵 햄&에그 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/11/2Q4A7068.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sourdough-bread-ham-and-egg-sandwich/"
+  },
+  {
+   "name": "불고기 에그 샐러드랩",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/%EA%B1%B4%EA%B0%95%ED%95%9C-%EB%B6%88%EA%B3%A0%EA%B8%B0%EC%97%90%EA%B7%B8-%EC%83%90%EB%9F%AC%EB%93%9C%EB%9E%A9_1000x1000.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/bulgogi-egg-salad-wrap/"
+  },
+  {
+   "name": "어니언 크로크무슈",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/04/2Q4A5559_1000x1000.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/onion-croque-monsieur/"
+  },
+  {
+   "name": "햄치즈 오리지널 머핀",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%E1%84%92%E1%85%A2%E1%86%B7%E1%84%8B%E1%85%A6%E1%84%80%E1%85%B3%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%86%BC-1280x1280-2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%96%84%ec%b9%98%ec%a6%88-%ec%98%a4%eb%a6%ac%ec%a7%80%eb%84%90-%eb%a8%b8%ed%95%80/"
+  },
+  {
+   "name": "오늘하루 착한과일",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%98%A4%EB%8A%98%ED%95%98%EB%A3%A8-%EC%B0%A9%ED%95%9C%EA%B3%BC%EC%9D%BC%EC%B2%AD%ED%8F%AC%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-fruit/"
+  },
+  {
+   "name": "햄치즈 베이글 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/10/%ED%96%84%EC%B9%98%EC%A6%88-%EB%B2%A0%EC%9D%B4%EA%B8%80-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98web.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ham-cheese-bagel-sandwich/"
+  },
+  {
+   "name": "(실온)발사믹드레싱(3개입)",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%B0%9C%EC%82%AC%EB%AF%B9%EC%98%A4%EC%9D%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/balsamic-vinaigrette-dressing/"
+  },
+  {
+   "name": "트러플 에그 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%8A%B8%EB%9F%AC%ED%94%8C%EC%97%90%EA%B7%B8%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/truffle-egg-sandwich/"
+  },
+  {
+   "name": "곡물 가득 치킨 아몬드 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EA%B3%A1%EB%AC%BC%EA%B0%80%EB%93%9D-%EC%B9%98%ED%82%A8%EC%95%84%EB%AA%AC%EB%93%9C-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98_%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chicken-almond-sandwich/"
+  },
+  {
+   "name": "[파란라벨]잠봉치즈 머쉬룸 멀티그레인",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%9E%A0%EB%B4%89%EC%B9%98%EC%A6%88-%EB%A8%B8%EC%89%AC%EB%A3%B8-%EB%A9%80%ED%8B%B0%EA%B7%B8%EB%A0%88%EC%9D%B8_%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jambon-cheese-mushroom-sandwich/"
+  },
+  {
+   "name": "햄&치즈 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%96%84%EC%95%A4%EC%B9%98%EC%A6%88%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ham-and-cheese-sandwich/"
+  },
+  {
+   "name": "칠리크랩샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/200629_%E1%84%8E%E1%85%B5%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B8SW.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b9%a0%eb%a6%ac%ed%81%ac%eb%9e%a9%ec%83%8c%eb%93%9c%ec%9c%84%ec%b9%98/"
+  },
+  {
+   "name": "샐러드빵",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/201210_%E1%84%89%E1%85%A2%E1%86%AF%E1%84%85%E1%85%A5%E1%84%83%E1%85%B3%E1%84%88%E1%85%A1%E1%86%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%83%90%eb%9f%ac%eb%93%9c%eb%b9%b5/"
+  },
+  {
+   "name": "데리야끼 치킨 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%EB%8D%B0%EB%A6%AC%EC%95%BC%EB%81%BC-%EC%B9%98%ED%82%A8-%EC%83%90%EB%9F%AC%EB%93%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%8d%b0%eb%a6%ac%ec%95%bc%eb%81%bc%ec%b9%98%ed%82%a8%ec%83%90%eb%9f%ac%eb%93%9c/"
+  },
+  {
+   "name": "런치샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/300578-%EB%9F%B0%EC%B9%98-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-lunch-sandwich/"
+  },
+  {
+   "name": "치킨디럭스 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/07/%EC%B9%98%ED%82%A8%EB%94%94%EB%9F%AD%EC%8A%A4%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chicken-deluxe-sandwich/"
+  },
+  {
+   "name": "크리스피 치킨 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%94%BC-%EC%B9%98%ED%82%A8-%EC%83%90%EB%9F%AC%EB%93%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%81%ac%eb%a6%ac%ec%8a%a4%ed%94%bc-%ec%b9%98%ed%82%a8-%ec%83%90%eb%9f%ac%eb%93%9c/"
+  },
+  {
+   "name": "단백질듬뿍 치킨에그샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%EB%8B%A8%EB%B0%B1%EC%A7%88-%EB%93%AC%EB%BF%8D-%EC%97%90%EA%B7%B8-%EC%83%90%EB%9F%AC%EB%93%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chicken-egg-sandwich/"
+  },
+  {
+   "name": "크랜베리 치킨 리코타 샐러드",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/%ED%81%AC%EB%9E%9C%EB%B2%A0%EB%A6%AC-%EB%A6%AC%EC%BD%94%ED%83%80-%EC%83%90%EB%9F%AC%EB%93%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%81%ac%eb%9e%9c%eb%b2%a0%eb%a6%ac-%ec%b9%98%ed%82%a8-%eb%a6%ac%ec%bd%94%ed%83%80-%ec%83%90%eb%9f%ac%eb%93%9c/"
+  },
+  {
+   "name": "에그샐러드샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/06/%EC%97%90%EA%B7%B8%EC%83%90%EB%9F%AC%EB%93%9C%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/egg-salad-sandwich/"
+  },
+  {
+   "name": "햄치즈 크라상 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/08/323049%ED%96%84%EC%B9%98%EC%A6%88%ED%81%AC%EB%9D%BC%EC%83%81%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%96%84%ec%b9%98%ec%a6%88-%ed%81%ac%eb%9d%bc%ec%83%81-%ec%83%8c%eb%93%9c%ec%9c%84%ec%b9%98/"
+  },
+  {
+   "name": "블랙올리브 치즈 치아바타 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/04/%EB%B8%94%EB%9E%99%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%B9%98%EC%A6%88%EC%B9%98%EC%95%84%EB%B0%94%ED%83%80-%EB%88%84%EB%81%BC%EC%BB%B7-2.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-olive-cheese-ciabatta-sandwich/"
+  },
+  {
+   "name": "에그듬뿍햄치즈든든토스트",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/05/321719-2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ham-cheese-egg-toast/"
+  },
+  {
+   "name": "에그쉬림프 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/08/%EC%97%90%EA%B7%B8%EC%89%AC%EB%A6%BC%ED%94%84-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/egg-shrimp-sandwich/"
+  },
+  {
+   "name": "브라운 햄에그 샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%B8%8C%EB%9D%BC%EC%9A%B4-%ED%96%84%EC%97%90%EA%B7%B8-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/multigrain-ham-egg-sandwich/"
+  },
+  {
+   "name": "[파란라벨]바질리코타 호밀샌드위치",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%B0%94%EC%A7%88%EB%A6%AC%EC%BD%94%ED%83%80-%ED%98%B8%EB%B0%80-%EC%83%8C%EB%93%9C%EC%9C%84%EC%B9%98.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/basil-ricotta-sandwich/"
+  },
+  {
+   "name": "야채샐러드롤",
+   "sub": "샌드위치·샐러드",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%95%BC%EC%B1%84%EC%83%90%EB%9F%AC%EB%93%9C%EB%A1%A4-%ED%8C%8C%EB%9E%80%EB%9D%BC%EB%B2%A8-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/salad-roll/"
+  },
+  {
+   "name": "고단백 저당 넛츠바",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EA%B3%A0%EB%8B%A8%EB%B0%B1-%EC%A0%80%EB%8B%B9-%EB%84%9B%EC%B8%A0%EB%B0%94.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/high-protein-low-suagar-nuts-bar/"
+  },
+  {
+   "name": "파베블랑",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%ED%8C%8C%EB%B2%A0%EB%B8%94%EB%9E%91%EB%88%84%EB%81%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pave-blanc/"
+  },
+  {
+   "name": "브라우니 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EB%8B%88%EC%BF%A0%ED%82%A4-1%EA%B0%9C%EC%9E%85_%EC%8B%9C%EB%AE%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/brownie-cookie/"
+  },
+  {
+   "name": "1일1스틱 푸룬 젤리스틱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%ED%91%B8%EB%A3%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-prune-jelly-stick/"
+  },
+  {
+   "name": "1일1스틱 석류 젤리스틱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%84%9D%EB%A5%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-pomegranate-jelly-stick/"
+  },
+  {
+   "name": "1일1스틱 애사비 젤리스틱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%95%A0%EC%82%AC%EB%B9%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-apple-cider-vinegar-jelly-stick/"
+  },
+  {
+   "name": "젤리베어 사우어 청사과맛",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%A0%A4%EB%A6%AC%EB%B2%A0%EC%96%B4_%EC%B2%AD%EC%82%AC%EA%B3%BC%EB%A7%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jelly-bear-sour-green-apple/"
+  },
+  {
+   "name": "젤리베어 사우어 메론소다맛",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%A0%A4%EB%A6%AC%EB%B2%A0%EC%96%B4_%EB%A9%94%EB%A1%A0%EC%86%8C%EB%8B%A4%EB%A7%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jelly-bear-sour-melon-soda/"
+  },
+  {
+   "name": "젤리베어 네가지과일맛",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%A0%A4%EB%A6%AC%EB%B2%A0%EC%96%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jelly-bear-peach-orange-mango-green-apple/"
+  },
+  {
+   "name": "레피시에 미니딸기잼",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EB%AF%B8%EB%8B%88%EB%94%B8%EA%B8%B0%EC%9E%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lepicier-mini-strawberry-jam/"
+  },
+  {
+   "name": "제로투톤바 망고패션프룻",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%A0%9C%EB%A1%9C%ED%88%AC%ED%86%A4%EB%B0%94-%EB%A7%9D%EA%B3%A0%ED%8C%A8%EC%85%98%ED%94%84%EB%A3%BB.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mangopassion-fruits-zero-two-tone-bar/"
+  },
+  {
+   "name": "제로투톤바 베리베리",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%A0%9C%EB%A1%9C%ED%88%AC%ED%86%A4%EB%B0%94-%EB%B2%A0%EB%A6%AC%EB%B2%A0%EB%A6%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberryblueberry-zero-two-tone-bar/"
+  },
+  {
+   "name": "레피시에 저당딸기잼",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EB%A0%88%EC%8B%9C%ED%94%BC%EC%97%90%EC%A0%80%EB%8B%B9%EB%94%B8%EA%B8%B0%EC%9E%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lepcier-low-suagr-strawberry-jam/"
+  },
+  {
+   "name": "생강레몬 캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%83%9D%EA%B0%95%EB%A0%88%EB%AA%AC%EC%BA%94%EB%94%94-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ginger-lemon-candy/"
+  },
+  {
+   "name": "배도라지 캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%B0%B0%EB%8F%84%EB%9D%BC%EC%A7%80%EC%BA%94%EB%94%94-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pear-doraji-candy/"
+  },
+  {
+   "name": "초코 청크스콘",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%B4%88%EC%BD%94%EC%B2%AD%ED%81%AC%EC%8A%A4%EC%BD%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-chunk-scone/"
+  },
+  {
+   "name": "티라미수 젤라또바",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%ED%8B%B0%EB%9D%BC%EB%AF%B8%EC%88%98-%EC%A0%A4%EB%9D%BC%EB%98%90%EB%B0%94.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/tiramisu-gelato-ice-cream/"
+  },
+  {
+   "name": "바사삭 초코 딸기",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EB%B0%94%EC%82%AC%EC%82%AD%EC%B4%88%EC%BD%94%EB%94%B8%EA%B8%B0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/crispy-choco-strawberry/"
+  },
+  {
+   "name": "두쫀 타르트",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EB%91%90%EC%AB%80%ED%83%80%EB%A5%B4%ED%8A%B8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/dubai-style-chewy-tart/"
+  },
+  {
+   "name": "초코멜로베어 밀크",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EC%B4%88%EC%BD%94%EB%A9%9C%EB%A1%9C%EB%B2%A0%EC%96%B4-%EB%B0%80%ED%81%AC_%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocomallow-bear-milk/"
+  },
+  {
+   "name": "초코멜로베어 다크",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EC%B4%88%EC%BD%94%EB%A9%9C%EB%A1%9C%EB%B2%A0%EC%96%B4-%EB%8B%A4%ED%81%AC_%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocomallow-bear-dark/"
+  },
+  {
+   "name": "카우엣 피넛버터 크리미",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%ED%81%AC%EB%A6%AC%EB%AF%B8-%ED%94%BC%EB%84%9B%EB%B2%84%ED%84%B0-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/kahuet-creamy-peanut-butter/"
+  },
+  {
+   "name": "카우엣 피넛버터 크런치",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%ED%81%AC%EB%9F%B0%EC%B9%98-%ED%94%BC%EB%84%9B%EB%B2%84%ED%84%B0-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/kahuet-crunch-peanut-butter/"
+  },
+  {
+   "name": "레피시에 딸기잼",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EB%94%B8%EA%B8%B0%EC%9E%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lepicier-strawberry-jam/"
+  },
+  {
+   "name": "로스팅 호두로 더 고소한 조각호두파이",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/200203__102.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a1%9c%ec%8a%a4%ed%8c%85-%ed%98%b8%eb%91%90%eb%a1%9c-%eb%8d%94-%ea%b3%a0%ec%86%8c%ed%95%9c-%ec%a1%b0%ea%b0%81%ed%98%b8%eb%91%90%ed%8c%8c%ec%9d%b4/"
+  },
+  {
+   "name": "팥아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%ED%8C%A5-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%8c%a5-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94/"
+  },
+  {
+   "name": "딸기아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%94%B8%EA%B8%B0-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%94%b8%ea%b8%b0-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94/"
+  },
+  {
+   "name": "초코아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%B4%88%EC%BD%94-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b4%88%ec%bd%94-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94/"
+  },
+  {
+   "name": "레피시에 블루베리잼",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC%EC%9E%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lepicier-blueberry-jam/"
+  },
+  {
+   "name": "후르티아오젤리 석류",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/210104_%E1%84%92%E1%85%AE%E1%84%85%E1%85%B3%E1%84%90%E1%85%B5%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%AF%E1%84%85%E1%85%B5%E1%84%89%E1%85%A5%E1%86%A8%E1%84%85%E1%85%B2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ed%9b%84%eb%a5%b4%ed%8b%b0%ec%95%84%ec%98%a4%ec%a0%a4%eb%a6%ac-%ec%84%9d%eb%a5%98/"
+  },
+  {
+   "name": "초콜릿 머핀",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191104_1_140164.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b4%88%ec%bd%9c%eb%a6%bf%eb%a8%b8%ed%95%80/"
+  },
+  {
+   "name": "오리지널 머핀",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/191104_1_140163.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%98%a4%eb%a6%ac%ec%a7%80%eb%84%90%eb%a8%b8%ed%95%80/"
+  },
+  {
+   "name": "롱스틱파이",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/211109_PB%EB%B2%A0%EC%96%B43%EC%A2%85%EB%A1%B1%EC%8A%A4%ED%8B%B1%ED%8C%8C%EC%9D%B4-1280.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a1%b1%ec%8a%a4%ed%8b%b1%ed%8c%8c%ec%9d%b4-2/"
+  },
+  {
+   "name": "쿠키앤크림마카롱아이스크림",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2021/10/KakaoTalk_20230531_093810580_05.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%bf%a0%ed%82%a4%ec%95%a4%ed%81%ac%eb%a6%bc-%eb%a7%88%ec%b9%b4%eb%a1%b1-%ec%95%84%ec%9d%b4%ec%8a%a4%ed%81%ac%eb%a6%bc/"
+  },
+  {
+   "name": "메론아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%A9%94%EB%A1%A0-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a9%94%eb%a1%a0-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94/"
+  },
+  {
+   "name": "바닐라아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%B0%94%EB%8B%90%EB%9D%BC-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%b0%94%eb%8b%90%eb%9d%bc-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94-2/"
+  },
+  {
+   "name": "커피아이스캔디",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%BB%A4%ED%94%BC-%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%94%EB%94%94-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%bb%a4%ed%94%bc-%ec%95%84%ec%9d%b4%ec%8a%a4%ec%ba%94%eb%94%94/"
+  },
+  {
+   "name": "아기상어 젤리스틱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/2Q4A7995-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%95%84%ea%b8%b0%ec%83%81%ec%96%b4-%ec%a0%a4%eb%a6%ac%ec%8a%a4%ed%8b%b1/"
+  },
+  {
+   "name": "상어가족 롤리초코",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/230530_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%83%81%EC%96%B4%EA%B0%80%EC%A1%B1-%ED%99%95%EB%8C%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shark-family-lolli-choco/"
+  },
+  {
+   "name": "우유 모나카 아이스크림",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/01/%EC%9A%B0%EC%9C%A0-%EB%AA%A8%EB%82%98%EC%B9%B4-%EC%95%84%EC%9D%B4%EC%8A%A4%ED%81%AC%EB%A6%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%9a%b0%ec%9c%a0-%eb%aa%a8%eb%82%98%ec%b9%b4-%ec%95%84%ec%9d%b4%ec%8a%a4%ed%81%ac%eb%a6%bc/"
+  },
+  {
+   "name": "뽀로로 롤리초코",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/12/%EB%BD%80%EB%A1%9C%EB%A1%9C%EB%A1%A4%EB%A6%AC%EC%B4%88%EC%BD%94_%EB%B0%B0%EA%B2%BD.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pororo-lolli-choco/"
+  },
+  {
+   "name": "춘식, 어피치, 라이언 젤로미 롤리팝",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/02/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%A0%A4%EB%A1%9C%EB%AF%B8-%EB%A1%A4%EB%A6%AC%ED%8C%9D.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b6%98%ec%8b%9d-%ec%96%b4%ed%94%bc%ec%b9%98-%eb%9d%bc%ec%9d%b4%ec%96%b8-%ec%a0%a4%eb%a1%9c%eb%af%b8-%eb%a1%a4%eb%a6%ac%ed%8c%9d/"
+  },
+  {
+   "name": "블루베리 마카롱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574740-%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC-%EB%A7%88%EC%B9%B4%EB%A1%B1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/blueberry-macaron/"
+  },
+  {
+   "name": "바닐라 마카롱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574737-%EB%B0%94%EB%8B%90%EB%9D%BC-%EB%A7%88%EC%B9%B4%EB%A1%B1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vanilla-macaron/"
+  },
+  {
+   "name": "유자가나슈 마카롱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574736-%EC%9C%A0%EC%9E%90%EA%B0%80%EB%82%98%EC%8A%88-%EB%A7%88%EC%B9%B4%EB%A1%B1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/yuja-macaron/"
+  },
+  {
+   "name": "딸기가나슈 마카롱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574735-%EB%94%B8%EA%B8%B0%EA%B0%80%EB%82%98%EC%8A%88-%EB%A7%88%EC%B9%B4%EB%A1%B1-_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberry-macaron/"
+  },
+  {
+   "name": "초코마카롱",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/574734-%EC%B4%88%EC%BD%94%EB%A7%88%EC%B9%B4%EB%A1%B1_%EC%8D%B8%EB%84%A4%EC%9D%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-macaron/"
+  },
+  {
+   "name": "미스베어",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%AF%B8%EC%8A%A4%EB%B2%A0%EC%96%B4-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/miss-bear-madeleine/"
+  },
+  {
+   "name": "미스터베어",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%AF%B8%EC%8A%A4%ED%84%B0%EB%B2%A0%EC%96%B4-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mr-bear-madeleine/"
+  },
+  {
+   "name": "정통 에그타르트",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%A0%95%ED%86%B5%EC%97%90%EA%B7%B8%ED%83%80%EB%A5%B4%ED%8A%B8_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%a0%95%ed%86%b5-%ec%97%90%ea%b7%b8%ed%83%80%eb%a5%b4%ed%8a%b8/"
+  },
+  {
+   "name": "샤인머스캣 젤리",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shine-muscat-jelly/"
+  },
+  {
+   "name": "벨지안 초코 젤라또 콘 아이스크림",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EB%B2%A8%EC%A7%80%EC%95%88%EC%B4%88%EC%BD%94%EC%A0%A4%EB%9D%BC%EB%98%90%EC%BD%98%EC%95%84%EC%9D%B4%EC%8A%A4%ED%81%AC%EB%A6%BC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-gelato-cone-ice-cream/"
+  },
+  {
+   "name": "베리 오트밀 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%B2%A0%EB%A6%AC-%EC%98%A4%ED%8A%B8%EB%B0%80-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/berry-oatmeal-cookie/"
+  },
+  {
+   "name": "피칸 더블초코 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%ED%94%BC%EC%B9%B8-%EB%8D%94%EB%B8%94%EC%B4%88%EC%BD%94-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pecan-double-choco-cookie/"
+  },
+  {
+   "name": "온브레드크림치즈(플레인)",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/03/%EC%98%A8%EB%B8%8C%EB%A0%88%EB%93%9C%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%98%a8%eb%b8%8c%eb%a0%88%eb%93%9c%ed%81%ac%eb%a6%bc%ec%b9%98%ec%a6%88%ed%94%8c%eb%a0%88%ec%9d%b8/"
+  },
+  {
+   "name": "순수(秀)우유 콘 아이스크림",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%88%9C%EC%88%98%EC%9A%B0%EC%9C%A0-%EC%BD%98%EC%95%84%EC%9D%B4%EC%8A%A4%ED%81%AC%EB%A6%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fresh-milk-ice-cream-cone/"
+  },
+  {
+   "name": "상어가족 젤로미 롤리팝",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/05/230530_%ED%8C%8C%EB%A6%AC%EB%B0%94%EA%B2%8C%EB%9C%A8_%EC%83%81%EC%96%B4%EA%B0%80%EC%A1%B12-%ED%99%95%EB%8C%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shark-family-jellomi-lollipop/"
+  },
+  {
+   "name": "뉴욕치즈타르트",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%E1%84%82%E1%85%B2%E1%84%8B%E1%85%AD%E1%86%A8%E1%84%8E%E1%85%B5%E1%84%8C%E1%85%B3%E1%84%90%E1%85%A1%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3_%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%89%b4%ec%9a%95%ec%b9%98%ec%a6%88%ed%83%80%eb%a5%b4%ed%8a%b8/"
+  },
+  {
+   "name": "아삭복숭아 젤리",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%95%84%EC%82%AD%EB%B3%B5%EC%88%AD%EC%95%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/peach-jelly/"
+  },
+  {
+   "name": "스모어 마시멜로우 타르트",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EC%8A%A4%EB%AA%A8%EC%96%B4-%EB%A7%88%EC%8B%9C%EB%A9%9C%EB%A1%9C%EC%9A%B0-%ED%83%80%EB%A5%B4%ED%8A%B8.2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/smore-marshmallow-tart/"
+  },
+  {
+   "name": "말차 젤라또",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%A7%90%EC%B0%A8-%EC%A0%A4%EB%9D%BC%EB%98%90-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/matcha-gelato/"
+  },
+  {
+   "name": "체리 젤라또",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EC%B2%B4%EB%A6%AC-%EC%A0%A4%EB%9D%BC%EB%98%90-%EC%8D%B8%EB%84%AC-new.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cherry-gelato/"
+  },
+  {
+   "name": "초코칩 월넛 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%B4%88%EC%BD%94%EC%B9%A9-%EC%9B%94%EB%84%9B-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/choco-chip-walnut-cookie/"
+  },
+  {
+   "name": "아몬드 스프레드",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%95%84%EB%AA%AC%EB%93%9C-%EC%8A%A4%ED%94%84%EB%A0%88%EB%93%9C-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/almond-spread/"
+  },
+  {
+   "name": "저당 초코 오트밀 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%A0%80%EB%8B%B9%EC%BF%A0%ED%82%A4_%EC%B4%88%EC%BD%94%ED%98%B8%EB%91%90_%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-choco-oatmeal-cookie/"
+  },
+  {
+   "name": "저당 베리 통밀 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%A0%80%EB%8B%B9-%EB%B2%A0%EB%A6%AC-%ED%86%B5%EB%B0%80-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-berry-and-whole-wheat-cookie/"
+  },
+  {
+   "name": "저당 그래놀라",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%A0%80%EB%8B%B9-%EA%B7%B8%EB%9E%98%EB%86%80%EB%9D%BC_%EC%8D%B8%EB%84%AC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-granola/"
+  },
+  {
+   "name": "두부크런치 오트 현미",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EB%91%90%EB%B6%80%ED%81%AC%EB%9F%B0%EC%B9%98_%EC%98%A4%ED%8A%B8%ED%98%84%EB%AF%B8_%EC%8D%B8%EB%84%AC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/tofu-crunch-oat-brown-rice/"
+  },
+  {
+   "name": "진한 초코 브라우니 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%A7%84%ED%95%9C%EC%B4%88%EC%BD%94%EB%B8%8C%EB%9D%BC%EC%9A%B0%EB%8B%88%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/deep-chocolate-brownie-cookie/"
+  },
+  {
+   "name": "스모어 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8A%A4%EB%AA%A8%EC%96%B4-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/smore-cookie/"
+  },
+  {
+   "name": "두부크런치 아몬드 피칸",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EB%91%90%EB%B6%80%ED%81%AC%EB%9F%B0%EC%B9%98_%EC%95%84%EB%AA%AC%EB%93%9C%ED%94%BC%EC%B9%B8_%EC%8D%B8%EB%84%AC1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/tofu-crunch-almond-pecan/"
+  },
+  {
+   "name": "자이언트 스모어 쿠키",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%9E%90%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%8A%A4%EB%AA%A8%EC%96%B4-%EC%BF%A0%ED%82%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/giant-smores-cookie/"
+  },
+  {
+   "name": "온브레드 크림치즈(갈릭)",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%98%A8%EB%B8%8C%EB%A0%88%EB%93%9C-%ED%81%AC%EB%A6%BC%EC%B9%98%EC%A6%88-%EA%B0%88%EB%A6%AD-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/on-bread-cream-cheese-garlic/"
+  },
+  {
+   "name": "슈크림슈",
+   "sub": "디저트·스낵",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EB%B0%94%EB%8B%90%EB%9D%BC%EB%B9%88%EC%8A%88%ED%81%AC%EB%A6%BC-%EC%8A%88-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vanilla-bean-custard-cream-choux/"
+  },
+  {
+   "name": "티트라 베르가못 밀크티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%B2%A0%EB%A5%B4%EA%B0%80%EB%AA%BB%EB%B0%80%ED%81%AC%ED%8B%B0%ED%95%AB.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-bergamot-milk-tea-hot/"
+  },
+  {
+   "name": "아이스 티트라 베르가못 밀크티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%B2%A0%EB%A5%B4%EA%B0%80%EB%AA%BB%EB%B0%80%ED%81%AC%ED%8B%B0%EC%95%84%EC%9D%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-bergamot-milk-tea-iced/"
+  },
+  {
+   "name": "티트라 민트 유자티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%AF%BC%ED%8A%B8%EC%9C%A0%EC%9E%90%ED%8B%B0%ED%95%AB.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-mint-yuja-tea-hot/"
+  },
+  {
+   "name": "아이스 티트라 민트 유자티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EB%AF%BC%ED%8A%B8%EC%9C%A0%EC%9E%90%ED%8B%B0%EC%95%84%EC%9D%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-mint-yuja-tea-iced/"
+  },
+  {
+   "name": "샤인머스캣 그린티 제로",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3-%EA%B7%B8%EB%A6%B0%ED%8B%B0-%EC%A0%9C%EB%A1%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shine-muscat-green-tea-zero/"
+  },
+  {
+   "name": "썸머 복숭아 에이드",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%8D%B8%EB%A8%B8-%EB%B3%B5%EC%88%AD%EC%95%84-%EC%97%90%EC%9D%B4%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/summer-peach-ade/"
+  },
+  {
+   "name": "시칠리아 레몬 에이드",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/06/%EC%8B%9C%EC%B9%A0%EB%A6%AC%EC%95%84-%EB%A0%88%EB%AA%AC%EC%97%90%EC%9D%B4%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sicily-lemon-ade/"
+  },
+  {
+   "name": "쏘유 저당 렌틸콩 두유",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%8F%98%EC%9C%A0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soybean-low-suagr-lentil-plain/"
+  },
+  {
+   "name": "우베컵빙수",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EB%B2%A0%EC%BB%B5%EB%B9%99%EC%88%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ube-cup-shaved-ice/"
+  },
+  {
+   "name": "우베라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EB%B2%A0%EB%9D%BC%EB%96%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ube-latte/"
+  },
+  {
+   "name": "우베카페라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EB%B2%A0%ED%81%AC%EB%A6%BC-%EC%B9%B4%ED%8E%98%EB%9D%BC%EB%96%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ube-cafe-latte/"
+  },
+  {
+   "name": "우베코코넛워터",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%9A%B0%EB%B2%A0%EC%BD%94%EC%BD%94%EB%84%9B%EC%9B%8C%ED%84%B0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ube-coconut-water/"
+  },
+  {
+   "name": "아이스 티트라 얼그레이",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%95%84%EC%9D%B4%EC%8A%A4%EC%96%BC%EA%B7%B8%EB%A0%88%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-ice-earl-grey/"
+  },
+  {
+   "name": "티트라 얼그레이",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%96%BC%EA%B7%B8%EB%A0%88%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-earl-grey/"
+  },
+  {
+   "name": "아이스 티트라 캐모마일",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%95%84%EC%9D%B4%EC%8A%A4%EC%BA%90%EB%AA%A8%EB%A7%88%EC%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-ice-chamomile/"
+  },
+  {
+   "name": "티트라 캐모마일",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%BA%90%EB%AA%A8%EB%A7%88%EC%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-chamomile/"
+  },
+  {
+   "name": "인절미 컵빙수",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EC%9D%B8%EC%A0%88%EB%AF%B8-%EC%BB%B5%EB%B9%99%EC%88%98.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/injeolmi-cup-shaved-ice/"
+  },
+  {
+   "name": "베리밤 팥빙수",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EB%B2%A0%EB%A6%AC%EB%B0%A4-%ED%8C%A5%EB%B9%99%EC%88%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/berrybomb-red-bean-shaved-ice/"
+  },
+  {
+   "name": "비타 크러시",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EB%B9%84%ED%83%80%ED%8C%8C%EC%9B%8C-%ED%81%AC%EB%9F%AC%EC%8B%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vita-crush/"
+  },
+  {
+   "name": "멜론 크러시",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EB%A9%9C%EB%A1%A0-%ED%81%AC%EB%9F%AC%EC%8B%9C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/melon-crush/"
+  },
+  {
+   "name": "제로 자몽허니 아이스티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%A0%9C%EB%A1%9C-%EC%9E%90%EB%AA%BD%ED%97%88%EB%8B%88-%EC%95%84%EC%9D%B4%EC%8A%A4%ED%8B%B0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/grapefruit-honey-iced-tea-zero/"
+  },
+  {
+   "name": "11곡물 검은콩 프로틴 쉐이크",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EC%8D%B8%EB%84%A4%EC%9D%BC_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/11-grain-black-bean-protein-shake-powder/"
+  },
+  {
+   "name": "비다 민티 라임향",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/VIDA-%EB%AF%BC%ED%8B%B0%EB%9D%BC%EC%9E%84.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vida-zero-minty-lime/"
+  },
+  {
+   "name": "비다 오리지날 시트러스향",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/VIDA-%EC%98%A4%EB%A6%AC%EC%A7%80%EB%82%A0%EC%8B%9C%ED%8A%B8%EB%9F%AC%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vida-zero-original-citrus/"
+  },
+  {
+   "name": "쏘유두유플레인",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/00.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/soyu-soymilk-plain/"
+  },
+  {
+   "name": "흑미보리차",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2021/05/%ED%9D%91%EB%AF%B8%EB%B3%B4%EB%A6%AC%EC%B0%A8%ED%95%98%ED%94%84%EB%9D%BC%EB%B2%A8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/black-barley-tea/"
+  },
+  {
+   "name": "주스레드 (JUS레드)",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/09/%EC%A3%BC%EC%8A%A4%EB%A0%88%EB%93%9C-JUS%EB%A0%88%EB%93%9C_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/juice-red-jus-red/"
+  },
+  {
+   "name": "티트라 민트티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC%EB%AF%BC%ED%8A%B8%ED%8B%B0%ED%95%AB.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-mint-tea-hot/"
+  },
+  {
+   "name": "아이스 티트라 민트티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC%EB%AF%BC%ED%8A%B8%ED%8B%B0%EC%95%84%EC%9D%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-mint-tea-iced/"
+  },
+  {
+   "name": "스파클링 라임",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%8A%A4%ED%8C%8C%ED%81%B4%EB%A7%81%EB%9D%BC%EC%9E%84_%EC%8D%B8%EB%84%A4%EC%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sparkling-lime/"
+  },
+  {
+   "name": "수박주스",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%88%98%EB%B0%95%EC%A3%BC%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/watermelon-juice/"
+  },
+  {
+   "name": "오(EAU)생수 라벨프리",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/10/230126_PB_%EC%98%A4%EC%83%9D%EC%88%98_01.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/o-eau-bottled-water-label-free/"
+  },
+  {
+   "name": "아침엔초코우유 200㎖",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%EC%B4%88%EC%BD%94-%EC%9A%B0%EC%9C%A0-200%E3%8E%96_%EC%8D%B8%EB%84%A4%EC%9D%BC1-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%ec%b9%a8%ec%97%94%ec%b4%88%ec%bd%94%ec%9a%b0%ec%9c%a0-200%e3%8e%96/"
+  },
+  {
+   "name": "아침엔후레쉬우유 200㎖",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%ED%9B%84%EB%A0%88%EC%89%AC%EC%9A%B0%EC%9C%A0-200%E3%8E%96_%EC%8D%B8%EB%84%A4%EC%9D%BC1-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%ec%b9%a8%ed%9b%84%eb%a0%88%ec%89%ac%ec%9a%b0%ec%9c%a0-200%e3%8e%96/"
+  },
+  {
+   "name": "아침엔후레쉬우유 930㎖",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%ED%9B%84%EB%A0%88%EC%89%AC%EC%9A%B0%EC%9C%A0-930%E3%8E%96_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%ec%b9%a8%ed%9b%84%eb%a0%88%ec%89%ac%ec%9a%b0%ec%9c%a0-930%e3%8e%96/"
+  },
+  {
+   "name": "아침엔후레쉬우유 450㎖",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%ED%9B%84%EB%A0%88%EC%89%AC%EC%9A%B0%EC%9C%A0-450%E3%8E%96_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%ec%b9%a8%ed%9b%84%eb%a0%88%ec%89%ac%ec%9a%b0%ec%9c%a0-450%e3%8e%96/"
+  },
+  {
+   "name": "아침엔딸기우유 200㎖",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%EC%97%94%EB%94%B8%EA%B8%B0%EC%9A%B0%EC%9C%A0200ml_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%95%84%ec%b9%a8%ec%97%94%eb%94%b8%ea%b8%b0%ec%9a%b0%ec%9c%a0-200%e3%8e%96/"
+  },
+  {
+   "name": "아침엔바나나우유 200ml",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/%EC%95%84%EC%B9%A8%EC%97%94%EB%B0%94%EB%82%98%EB%82%98%EC%9A%B0%EC%9C%A0200ml_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/morning-banana-milk-200ml/"
+  },
+  {
+   "name": "주스옐로우 (JUS옐로우)",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/JUS-%E1%84%8C%E1%85%AE%E1%84%89%E1%85%B3-%E1%84%8B%E1%85%A8%E1%86%AF%E1%84%85%E1%85%A9%E1%84%8B%E1%85%AE.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/juice-yellow-jus-yellow/"
+  },
+  {
+   "name": "아이스 티트라 하동녹차",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EC%95%84%EC%9D%B4%EC%8A%A4-%ED%8B%B0%ED%8A%B8%EB%9D%BC-%ED%95%98%EB%8F%99%EB%85%B9%EC%B0%A8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/iced-teatra-fruity-hadong/"
+  },
+  {
+   "name": "아이스 티트라 루이보스",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%95%84%EC%9D%B4%EC%8A%A4-%ED%8B%B0%ED%8A%B8%EB%9D%BC-%EB%A3%A8%EC%9D%B4%EB%B3%B4%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/iced-teatra-rooibos/"
+  },
+  {
+   "name": "데일리주스 복숭아&망고",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/07/%EC%8D%B8%EB%84%A4%EC%9D%BC_%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A3%BC%EC%8A%A4_02_%ED%94%BC%EC%B9%98%EB%A7%9D%EA%B3%A0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-juice-peach-mango/"
+  },
+  {
+   "name": "애플망고 POP빙수",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EC%95%A0%ED%94%8C%EB%A7%9D%EA%B3%A0-%EB%B9%99%EC%88%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/apple-mango-pop-shaved-ice/"
+  },
+  {
+   "name": "짱구는 못말려 청포도맛(PET)",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/11/%EC%A7%B1%EA%B5%AC%EB%8A%94-%EB%AA%BB%EB%A7%90%EB%A0%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/crayon-shinchan-green-grape-juice/"
+  },
+  {
+   "name": "쏘유두유검은콩",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/12/%EC%86%8C%EC%9C%A0%EB%91%90%EC%9C%A0%EA%B2%80%EC%9D%80%EC%BD%A9.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-soyu-black-beans/"
+  },
+  {
+   "name": "치키 피치티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/01/%EC%9D%8C%EB%A3%8C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-cheeky-peach-tea/"
+  },
+  {
+   "name": "11곡 미숫가루 프로틴 쉐이크",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/03/0327_%EC%83%81%ED%92%88%EB%93%B1%EB%A1%9D_%EC%8D%B8%EB%84%A4%EC%9D%BC_1000x1000.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/11-grains-powder-shake/"
+  },
+  {
+   "name": "아이스 문경 오미자차",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/03/%EB%AC%B8%EA%B2%BD%EC%98%A4%EB%AF%B8%EC%9E%90%EC%B0%A8%EC%95%84%EC%9D%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/icemungyeong-schisandra-tea/"
+  },
+  {
+   "name": "데일리주스포도",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A3%BC%EC%8A%A4-%ED%8F%AC%EB%8F%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/daily-juice-grape/"
+  },
+  {
+   "name": "생생 제주 유기농 감귤",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%EC%83%9D%EC%83%9D%EC%A0%9C%EC%A3%BC%EC%9C%A0%EA%B8%B0%EB%86%8D%EA%B0%90%EA%B7%A4-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-organic-citrus-juice/"
+  },
+  {
+   "name": "비타톤 포도맛",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/10/%EB%B9%84%ED%83%80%ED%86%A4-%ED%8F%AC%EB%8F%84-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/molang-grape-juice/"
+  },
+  {
+   "name": "비타톤 사과맛",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/10/%EB%B9%84%ED%83%80%ED%86%A4-%EC%82%AC%EA%B3%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/molang-apple-juice/"
+  },
+  {
+   "name": "우유 팥빙수",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/05/%EC%9A%B0%EC%9C%A0-%ED%8C%A5%EB%B9%99%EC%88%98.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/milk-red-bean-shaved-ice/"
+  },
+  {
+   "name": "카페모카",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%B9%B4%ED%8E%98%EB%AA%A8%EC%B9%B4-%ED%95%AB-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-cafe-mocha/"
+  },
+  {
+   "name": "카라멜 마끼아또",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/310302-%EC%B9%B4%EB%9D%BC%EB%A9%9C-%EB%A7%88%EB%81%BC%EC%95%84%EB%98%90-%ED%95%AB.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-caramel-macchiato/"
+  },
+  {
+   "name": "아이스 카라멜 마끼아또",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/310297-%EC%B9%B4%EB%9D%BC%EB%A9%9C-%EB%A7%88%EB%81%BC%EC%95%84%EB%98%90-%EC%95%84%EC%9D%B4%EC%8A%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ice-caramel-macchiato/"
+  },
+  {
+   "name": "리얼 딸기라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/02/%EB%A6%AC%EC%96%BC%EB%94%B8%EA%B8%B0%EB%9D%BC%EB%96%BC_230323.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%94%b8%ea%b8%b0%eb%9d%bc%eb%96%bc/"
+  },
+  {
+   "name": "바닐라라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/200507_%EC%B9%B4%ED%8E%98%EB%9D%BC%EB%96%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vanilla-latte/"
+  },
+  {
+   "name": "따자몽",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%94%B0%EC%9E%90%EB%AA%BD.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-grapefruit-tea/"
+  },
+  {
+   "name": "티트라 하동녹차",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC-%ED%95%98%EB%8F%99%EB%85%B9%EC%B0%A8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%85%b9%ec%b0%a8/"
+  },
+  {
+   "name": "복숭아 아이스티",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/%EB%B3%B5%EC%88%AD%EC%95%84%EC%95%84%EC%9D%B4%EC%8A%A4%ED%8B%B0-%EC%82%AC%EC%9D%B4%EC%A6%88%EC%97%85.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/peach-iced-tea/"
+  },
+  {
+   "name": "티트라 루이보스",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%ED%8B%B0%ED%8A%B8%EB%9D%BC-%EB%A3%A8%EC%9D%B4%EB%B3%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/rooibos_orange/"
+  },
+  {
+   "name": "빅 아이스 아메리카노",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/211001_%EB%B9%85%EC%95%84%EC%9D%B4%EC%8A%A4%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4%EB%85%B8-1280.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/big-ice-americano/"
+  },
+  {
+   "name": "문경 오미자차",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%AC%B8%EA%B2%BD%EC%98%A4%EB%AF%B8%EC%9E%90%EC%B0%A8%ED%95%AB.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hotmungyeong-schisandra-tea/"
+  },
+  {
+   "name": "문경 오미자 에이드",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%AC%B8%EA%B2%BD%EC%98%A4%EB%AF%B8%EC%9E%90%EC%97%90%EC%9D%B4%EB%93%9C.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mungyeong-schisandra-ade/"
+  },
+  {
+   "name": "아메리카노",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/200406_HOT%E1%84%8B%E1%85%A1%E1%84%86%E1%85%A6%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A1%E1%84%82%E1%85%A9-1280x1280-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-caramel-macchiato-2/"
+  },
+  {
+   "name": "카페라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/200406_HOT%E1%84%85%E1%85%A1%E1%84%84%E1%85%A6-1280x1280-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-cafe-latte/"
+  },
+  {
+   "name": "아이스 아메리카노",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/%E1%84%8B%E1%85%A1%E1%84%86%E1%85%A6%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A1%E1%84%82%E1%85%A9-1280x1280-1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ice-americano/"
+  },
+  {
+   "name": "아이스 카페라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/10/%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3%E1%84%85%E1%85%A1%E1%84%84%E1%85%A6-1280x1280-2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%95%84%ec%9d%b4%ec%8a%a4-%ec%b9%b4%ed%8e%98%eb%9d%bc%eb%96%bc/"
+  },
+  {
+   "name": "디카페인 빅 아이스 아메리카노",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/12/%EB%94%94%EC%B9%B4%ED%8E%98%EC%9D%B8-%EB%B9%85%EC%95%84%EC%9D%B4%EC%8A%A4%EC%95%84%EB%A9%94%EB%A6%AC%EC%B9%B4%EB%85%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/decaffeinated-big-ice-americano/"
+  },
+  {
+   "name": "아이스 바닐라라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/12/%EC%95%84%EC%9D%B4%EC%8A%A4%EB%B0%94%EB%8B%90%EB%9D%BC%EB%9D%BC%EB%96%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/iced-vanilla-latte/"
+  },
+  {
+   "name": "핫초코포레누아",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%ED%95%AB%EC%B4%88%EC%BD%94%ED%8F%AC%EB%A0%88%EB%88%84%EC%95%84.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-choco-black-forest/"
+  },
+  {
+   "name": "아이스초코포레누아",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/11/%EC%95%84%EC%9D%B4%EC%8A%A4%EC%B4%88%EC%BD%94%ED%8F%AC%EB%A0%88%EB%88%84%EC%95%84.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ice-choco-black-forest/"
+  },
+  {
+   "name": "제주감귤크러시",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/01/%EA%B0%90%EA%B7%A4%ED%81%AC%EB%9F%AC%EC%89%AC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-mandarin-crush/"
+  },
+  {
+   "name": "제주감귤주스",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/01/%EA%B0%90%EA%B7%A4%EC%A3%BC%EC%8A%A4-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-mandarin-juice/"
+  },
+  {
+   "name": "따유자",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EB%94%B0%EC%9C%A0%EC%9E%90.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/hot-yuja-tea/"
+  },
+  {
+   "name": "제주 말차 라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%A0%9C%EC%A3%BC%EB%A7%90%EC%B0%A8%EB%9D%BC%EB%96%BC-%ED%95%AB-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-matcha-latte/"
+  },
+  {
+   "name": "아이스 제주 말차 라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EC%A0%9C%EC%A3%BC%EB%A7%90%EC%B0%A8%EB%9D%BC%EB%96%BC-%EC%95%84%EC%9D%B4%EC%8A%A4-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-matcha-latte-iced/"
+  },
+  {
+   "name": "아이스 카페모카",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/200507_%EC%95%84%EC%9D%B4%EC%8A%A4%EC%B4%88%EC%BD%94.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/ice-cafe-mocha/"
+  },
+  {
+   "name": "저당 요거트 쉐이크",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/PSD-%EC%A0%80%EB%8B%B9-%EC%9A%94%EA%B1%B0%ED%8A%B8-%EC%89%90%EC%9D%B4%ED%81%AC-%ED%99%8D%EB%B3%B4%EB%AC%BC-%EC%8D%B8%EB%84%A4%EC%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-sugar-yogurtshake/"
+  },
+  {
+   "name": "카페 아다지오 딥쇼콜라라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B9%B4%ED%8E%98%EC%95%84%EB%8B%A4%EC%A7%80%EC%98%A4-%EC%BB%B5%EC%BB%A4%ED%94%BC-%EB%94%A5%EC%87%BC%EC%BD%9C%EB%9D%BC-%EB%9D%BC%EB%96%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cafe-adagio-mocha-latte/"
+  },
+  {
+   "name": "카페 아다지오 크림라떼",
+   "sub": "커피·음료",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B9%B4%ED%8E%98%EC%95%84%EB%8B%A4%EC%A7%80%EC%98%A4-%EC%BB%B5%EC%BB%A4%ED%94%BC-%ED%81%AC%EB%A6%BC%EB%9D%BC%EB%96%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cafe-adagio-cream-latte/"
+  },
+  {
+   "name": "[안녕K파바]제주 청보리빵",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%95%88%EB%85%95K%ED%8C%8C%EB%B0%94-%EC%A0%9C%EC%A3%BC%EC%B2%AD%EB%B3%B4%EB%A6%AC%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-green-barley-bread/"
+  },
+  {
+   "name": "[안녕K파바]제주 메밀 카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%95%88%EB%85%95K%ED%8C%8C%EB%B0%94-%EC%A0%9C%EC%A3%BC%EB%A9%94%EB%B0%80%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-buckwheat-castella/"
+  },
+  {
+   "name": "만월빵",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/1000551-%EB%A7%8C%EC%9B%94%EB%B9%B5%EB%A6%AC%EB%89%B4%EC%96%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/moon-sand/"
+  },
+  {
+   "name": "구움과자 아뜰리에 (10개입)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/1000550-%EA%B5%AC%EC%9B%80%EA%B3%BC%EC%9E%90-%EC%95%84%EB%9C%B0%EB%A6%AC%EC%97%9010%EA%B0%9C%EC%9E%85.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/financier-madeleine-gift-set-10pcs/"
+  },
+  {
+   "name": "구움과자 아뜰리에 (15개입)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/1000549-%EA%B5%AC%EC%9B%80%EA%B3%BC%EC%9E%90-%EC%95%84%EB%9C%B0%EB%A6%AC%EC%97%9015%EA%B0%9C%EC%9E%85.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/financier-madeleine-gift-set-15pcs/"
+  },
+  {
+   "name": "레몬 크림 마들렌",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/07/%EB%A0%88%EB%AA%AC%ED%81%AC%EB%A6%BC%EB%A7%88%EB%93%A4%EB%A0%8C-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lemon-cream-madeleine-set/"
+  },
+  {
+   "name": "제주 천혜향 파운드 케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%A0%9C%EC%A3%BC%EC%B2%9C%ED%98%9C%ED%96%A5%ED%8C%8C%EC%9A%B4%EB%93%9C-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-cheonhyehyang-pound-cake-2/"
+  },
+  {
+   "name": "[파란라벨]저당 발효버터 롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EC%A0%80%EB%8B%B9%EB%B0%9C%ED%9A%A8%EB%B2%84%ED%84%B0%EB%A1%A4-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/low-suagr-lactic-acid-better-rollcake/"
+  },
+  {
+   "name": "티트라 블렌딩 컬렉션",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC%EB%B8%94%EB%A0%8C%EB%8B%B9%EC%BD%9C%EB%A0%89%EC%85%98-%EC%A0%9C%ED%92%88.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/teatra-blending-collection/"
+  },
+  {
+   "name": "커즈 마인",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%AF%B8%EB%8B%88%ED%8C%A9%EC%BB%A4%EC%A6%88%EB%A7%88%EC%9D%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chamomile/"
+  },
+  {
+   "name": "쇼콜라티 실론",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B4%EC%BA%94%EC%87%BC%EC%BD%9C%EB%9D%BC%ED%8B%B0%EC%8B%A4%EB%A1%A0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolaty-ceylon/"
+  },
+  {
+   "name": "프리미엄 선물세트",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC%ED%84%B4%EC%BC%80%EC%9D%B4%EC%8A%A43%EC%A2%85-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/premium-gift-set/"
+  },
+  {
+   "name": "미니팩 선물세트",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B0%ED%8A%B8%EB%9D%BC%EB%AF%B8%EB%8B%88%ED%8C%A94%EC%A2%85-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/mini-pack-gift-set/"
+  },
+  {
+   "name": "말차라떼 랑그드샤",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/PB-%EB%9E%91%EA%B7%B8%EB%93%9C%EC%83%A4_%EB%A7%90%EC%B0%A8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/matcha-chocolate-langue-de-chat/"
+  },
+  {
+   "name": "곰곰이 베리 하트해",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EA%B3%B0%EA%B3%B0%EC%9D%B4%EB%B2%A0%EB%A6%AC%ED%95%98%ED%8A%B8%ED%95%B4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/bear-heart-chocolate-2/"
+  },
+  {
+   "name": "크랜베리 사브레",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%ED%81%AC%EB%9E%9C%EB%B2%A0%EB%A6%AC-%EC%82%AC%EB%B8%8C%EB%A0%88.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/cranberry-sable/"
+  },
+  {
+   "name": "바삭한 우리찹쌀 모나카",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EB%AA%A8%EB%82%98%EC%B9%B4%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/monaka-traditional-gift-set/"
+  },
+  {
+   "name": "고구마양갱",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EA%B3%A0%EA%B5%AC%EB%A7%88-%EC%96%91%EA%B0%B1-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sweet-potato-jelly/"
+  },
+  {
+   "name": "밤양갱",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%EB%B0%A4-%EC%96%91%EA%B0%B1-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chestnut-jelly/"
+  },
+  {
+   "name": "팥양갱",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/11/%ED%8C%A5%EC%96%91%EA%B0%B1-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/red-bean-jelly/"
+  },
+  {
+   "name": "화과자 오감(대)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%ED%99%94%EA%B3%BC%EC%9E%90%EC%98%A4%EA%B0%90%EB%8C%80.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/manju-assortment-large/"
+  },
+  {
+   "name": "화과자 오감(소)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%ED%99%94%EA%B3%BC%EC%9E%90%EC%98%A4%EA%B0%90%EC%86%8C.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/manju-assortment-small/"
+  },
+  {
+   "name": "블루베리 듬뿍 롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%B8%94%EB%A3%A8%EB%B2%A0%EB%A6%AC%EB%93%AC%EB%BF%8D-%EB%A1%A4%EC%BC%80%EC%9D%B5-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%b8%94%eb%a3%a8%eb%b2%a0%eb%a6%ac-%eb%93%ac%eb%bf%8d-%eb%a1%a4%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "카페모카롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B9%B4%ED%8E%98%EB%AA%A8%EC%B9%B4-%EB%A1%A4%EC%BC%80%EC%9D%B5-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b9%b4%ed%8e%98%eb%aa%a8%ec%b9%b4%eb%a1%a4%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "로스팅 호두 듬뿍 호두파이",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2019/11/200203_%ED%98%B8%EB%91%90_33.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%eb%a1%9c%ec%8a%a4%ed%8c%85-%ed%98%b8%eb%91%90%eb%a1%9c-%eb%8d%94-%ea%b3%a0%ec%86%8c%ed%95%9c-%ed%98%b8%eb%91%90%ed%8c%8c%ec%9d%b4/"
+  },
+  {
+   "name": "벨지엄 쿠키세트",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%B2%A8%EC%A7%80%EC%97%84-%EC%BF%A0%ED%82%A4%EC%84%B8%ED%8A%B8-new-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/belgium-cookie-set/"
+  },
+  {
+   "name": "정통 파운드케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EC%A0%95%ED%86%B5%ED%8C%8C%EC%9A%B4%EB%93%9C%EC%BC%80%EC%9D%B5-%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%a0%95%ed%86%b5-%ed%8c%8c%ec%9a%b4%eb%93%9c%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "산딸기 듬뿍 롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%82%B0%EB%94%B8%EA%B8%B0%EB%93%AC%EB%BF%8D-%EB%A1%A4%EC%BC%80%EC%9D%B5-%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%82%b0%eb%94%b8%ea%b8%b0-%eb%93%ac%eb%bf%8d-%eb%a1%a4%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "실키롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%8B%A4%ED%82%A4%EB%A1%A4%EC%BC%80%EC%9D%B5-%EB%A6%AC%EB%89%B4%EC%96%BC_%EC%97%90%EC%89%AC%EB%A0%88%EB%B2%84%ED%84%B0%EB%A1%9C%EA%B3%A0_0805.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%97%90%ec%89%ac%eb%a0%88-%eb%b2%84%ed%84%b0%eb%a1%9c-%ed%92%8d%eb%af%b8%eb%a5%bc-%eb%8d%94%ed%95%9c-%ec%8b%a4%ed%82%a4%eb%a1%a4%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "호두 파운드케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%ED%98%B8%EC%9A%B0%ED%8C%8C%EC%9A%B4%EB%93%9C-%EC%BC%80%EC%9D%B5-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ed%98%b8%eb%91%90-%ed%8c%8c%ec%9a%b4%eb%93%9c%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "오렌지 보스",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%AF%B8%EB%8B%88%ED%8C%A9%EC%98%A4%EB%A0%8C%EC%A7%80%EB%B3%B4%EC%8A%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/orange-rooibos/"
+  },
+  {
+   "name": "명가명품 우리벌꿀 카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%AA%85%EA%B0%80%EB%AA%85%ED%92%88-%EC%9A%B0%EB%A6%AC%EB%B2%8C%EA%BF%80-%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%aa%85%ea%b0%80%eb%aa%85%ed%92%88-%ec%9a%b0%eb%a6%ac%eb%b2%8c%ea%bf%80-%ec%b9%b4%ec%8a%a4%ed%85%8c%eb%9d%bc/"
+  },
+  {
+   "name": "명가명품 제주말차 카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%A0%9C%EC%A3%BC%EB%A7%90%EC%B0%A8-%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%aa%85%ea%b0%80%eb%aa%85%ed%92%88-%ec%a0%9c%ec%a3%bc%eb%a7%90%ec%b0%a8-%ec%b9%b4%ec%8a%a4%ed%85%8c%eb%9d%bc/"
+  },
+  {
+   "name": "그린 말차 본델리슈",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/11/%EA%B7%B8%EB%A6%B0%EB%A7%90%EC%B0%A8%EB%B3%B8%EB%8D%B8%EB%A6%AC%EC%8A%88_%EC%8D%B8%EB%84%A4%EC%9D%BC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ea%b7%b8%eb%a6%b0-%eb%a7%90%ec%b0%a8-%eb%b3%b8%eb%8d%b8%eb%a6%ac%ec%8a%88/"
+  },
+  {
+   "name": "청송사과롤케익",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B2%AD%EC%86%A1%EC%82%AC%EA%B3%BC-%EB%A1%A4%EC%BC%80%EC%9D%B5-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/%ec%b2%ad%ec%86%a1%ec%82%ac%ea%b3%bc%eb%a1%a4%ec%bc%80%ec%9d%b5/"
+  },
+  {
+   "name": "샤인머스캣 그린티",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B4%EC%BA%94%EC%83%A4%EC%9D%B8%EB%A8%B8%EC%8A%A4%EC%BA%A3-%EA%B7%B8%EB%A6%B0%ED%8B%B0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shine-muscat-green-tea/"
+  },
+  {
+   "name": "프루티 하동: 그린티",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%AF%B8%EB%8B%88%ED%8C%A9%ED%94%84%EB%A3%A8%ED%8B%B0%ED%95%98%EB%8F%99.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/fruity-green-tea/"
+  },
+  {
+   "name": "영 그레이",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%EB%AF%B8%EB%8B%88%ED%8C%A9%EC%98%81%EA%B7%B8%EB%A0%88%EC%9D%B4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/earl-grey-tea/"
+  },
+  {
+   "name": "딸기라떼 랑그드샤",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/PB-%EB%9E%91%EA%B7%B8%EB%93%9C%EC%83%A4_%EB%94%B8%EA%B8%B0.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/strawberry-langue-de-chat/"
+  },
+  {
+   "name": "초코티라미수 랑그드샤",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/PB-%EB%9E%91%EA%B7%B8%EB%93%9C%EC%83%A4_%EC%B4%88%EC%BD%94.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/choco-tiramisu-langue-de-chat/"
+  },
+  {
+   "name": "플로럴 캐모마일",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/%ED%8B%B4%EC%BA%94%ED%94%8C%EB%A1%9C%EB%9F%B4-%EC%BA%90%EB%AA%A8%EB%A7%88%EC%9D%BC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/floral-chamomile-2/"
+  },
+  {
+   "name": "라고 카카오 웨하스",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8B%A0%EA%B7%9C-%EB%9D%BC%EA%B3%A0_%EC%B9%B4%EC%B9%B4%EC%98%A4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lago-cacao-wafers/"
+  },
+  {
+   "name": "라고 헤이즐넛 웨하스",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8B%A0%EA%B7%9C-%EB%9D%BC%EA%B3%A0_%ED%97%A4%EC%9D%B4%EC%A6%90%EB%84%9B.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lago-hazelnut-wafers/"
+  },
+  {
+   "name": "위토스하트(골든)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/11/%EC%9C%84%ED%86%A0%EC%8A%A4-%ED%95%98%ED%8A%B8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/wetos-heart/"
+  },
+  {
+   "name": "초코초코 롤리초코",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%EC%B4%88%EC%BD%94%EC%B4%88%EC%BD%94%EB%A1%A4%EB%A6%AC%EC%B4%88%EC%BD%94.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolate-shape-stick-chocolate/"
+  },
+  {
+   "name": "만월전병",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/08/%EB%A7%8C%EC%9B%94%EC%A0%84%EB%B3%91_%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/buckwheat-crepe/"
+  },
+  {
+   "name": "복덕밤만주",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/02/%EB%B3%B5%EB%8D%95%EB%B0%A4%EB%A7%8C%EC%A3%BC_%EC%A0%9C%ED%92%88.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chestnut-manju/"
+  },
+  {
+   "name": "고운단팥행복만주(낱개)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/10/%ED%96%89%EB%B3%B5%EB%A7%8C%EC%A3%BC-%EC%9B%B93.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/happy-clover-redbean-bread-3/"
+  },
+  {
+   "name": "에쉬레 랑그드샤",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/02/%EC%97%90%EC%89%AC%EB%A0%88-%EB%9E%91%EA%B7%B8%EB%93%9C%EC%83%A4.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/dechire-milk-cookie-set/"
+  },
+  {
+   "name": "초코카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/12/%EC%B4%88%EC%BD%94%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%8D%B8%EB%84%AC1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/choco-castella/"
+  },
+  {
+   "name": "하트초코 프레첼",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%ED%95%98%ED%8A%B8%EC%B4%88%EC%BD%94%ED%94%84%EB%A0%88%EC%B2%BC-%EC%8D%B8%EB%84%AC-1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/heart-choco-pretzel/"
+  },
+  {
+   "name": "라고 바닐라 웨하스",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/05/%EC%8B%A0%EA%B7%9C-%EB%9D%BC%EA%B3%A0_%EB%B0%94%EB%8B%90%EB%9D%BC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/lago-vanilla-wafers/"
+  },
+  {
+   "name": "행복만주 세트",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%ED%96%89%EB%B3%B5%EB%A7%8C%EC%A3%BC%EC%84%B8%ED%8A%B8.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/happy-clover-bread-set-redbean-chestnut/"
+  },
+  {
+   "name": "양갱미감",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/10/%EC%96%91%EA%B0%B1%EB%AF%B8%EA%B0%90.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/korean-traditional-jelly-gift-set/"
+  },
+  {
+   "name": "제주 우도 땅콩빵",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/08/%EC%A0%9C%EC%A3%BC-%EC%9A%B0%EB%8F%84-%EB%95%85%EC%BD%A9%EB%B9%B5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/jeju-udo-peanut-bread/"
+  },
+  {
+   "name": "[파란라벨]고단백 서리태 카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/09/%EA%B3%A0%EB%8B%A8%EB%B0%B1-%EC%84%9C%EB%A6%AC%ED%83%9C-%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/high-protein-castella-with-black-soybeans/"
+  },
+  {
+   "name": "통통하트 롤리팝",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/01/%ED%86%B5%ED%86%B5%ED%95%98%ED%8A%B8%EB%A1%A4%EB%A6%AC%ED%8C%9D.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/heart-shape-stick-chocolate/"
+  },
+  {
+   "name": "명가명품 제주 천혜향 카스테라",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/06/%EC%B2%9C%ED%98%9C%ED%96%A5-%EC%B9%B4%EC%8A%A4%ED%85%8C%EB%9D%BC-%EC%8D%B8%EB%84%AC.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%eb%aa%85%ea%b0%80%eb%aa%85%ed%92%88-%ec%a0%9c%ec%a3%bc-%ec%b2%9c%ed%98%9c%ed%96%a5-%ec%b9%b4%ec%8a%a4%ed%85%8c%eb%9d%bc/"
+  },
+  {
+   "name": "합격기원엿",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2023/11/%ED%95%A9%EA%B2%A9%EA%B8%B0%EC%9B%90%EC%97%BF.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/passion-prayer-taffy/"
+  },
+  {
+   "name": "하트딸기 프레첼",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EB%94%B8%EA%B8%B0%EC%B4%88%EC%BD%94%ED%94%84%EB%A0%88%EC%B2%BC-%EC%8D%B8%EB%84%AC2.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/heart-strawberry-pretzel/"
+  },
+  {
+   "name": "버터 크라상 파이(8개입)",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EB%B2%84%ED%84%B0%ED%81%AC%EB%9D%BC%EC%83%81%ED%8C%8C%EC%9D%B4-%EB%A6%AC%EB%89%B4%EC%96%BC-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/butter-croissant-pie-set/"
+  },
+  {
+   "name": "쇼콜라 사브레",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%87%BC%EC%BD%9C%EB%9D%BC-%EC%83%A4%EB%B8%8C%EB%A0%88-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chocolat-sable/"
+  },
+  {
+   "name": "바닐라 사브레",
+   "sub": "선물",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EB%B0%94%EB%8B%90%EB%9D%BC-%EC%82%AC%EB%B8%8C%EB%A0%88-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/vanilla-sable/"
+  },
+  {
+   "name": "미트볼 토마토 파스타",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EB%AF%B8%ED%8A%B8%EB%B3%BC-%ED%86%A0%EB%A7%88%ED%86%A0-%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/meatball-tomato-pasta/"
+  },
+  {
+   "name": "트러플오일 버섯크림 파스타",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%ED%8A%B8%EB%9F%AC%ED%94%8C%EC%98%A4%EC%9D%BC-%EB%B2%84%EC%84%AF%ED%81%AC%EB%A6%BC-%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/truffle-oil-mushroom-cream-pasta/"
+  },
+  {
+   "name": "트러플오일 까르보나라",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%ED%8A%B8%EB%9F%AC%ED%94%8C%EC%98%A4%EC%9D%BC-%EA%B9%8C%EB%A5%B4%EB%B3%B4%EB%82%98%EB%9D%BC-%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/truffle-oil-carbonara-pasta/"
+  },
+  {
+   "name": "쉬림프 투움바 파스타",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EC%89%AC%EB%A6%BC%ED%94%84-%ED%88%AC%EC%9B%80%EB%B0%94-%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shrimp-toowoomba-pasta/"
+  },
+  {
+   "name": "바질 리코타 토마토 파스타",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EB%B0%94%EC%A7%88-%EB%A6%AC%EC%BD%94%ED%83%80-%ED%86%A0%EB%A7%88%ED%86%A0-%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/basil-ricotta-tomato-pasta/"
+  },
+  {
+   "name": "쉬림프 비스큐 리조또",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EC%89%AC%EB%A6%BC%ED%94%84-%EB%B9%84%EC%8A%A4%ED%81%90-%EB%A6%AC%EC%A1%B0%EB%98%90_%EC%8B%9C%EB%AE%AC%EC%A0%9C%ED%92%88.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shrimp-bisque-risotto/"
+  },
+  {
+   "name": "치즈듬뿍 볼로네제 파스타",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EC%B9%98%EC%A6%88%EB%93%AC%EB%BF%8D-%EB%B3%BC%EB%A1%9C%EB%84%A4%EC%A0%9C-%ED%8C%8C%EC%8A%A4%ED%83%80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/extra-cheesy-bolognese-pasta/"
+  },
+  {
+   "name": "치즈듬뿍 치킨로제 도리아",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/04/HMR-%EC%B9%98%EC%A6%88%EB%93%AC%EB%BF%8D-%EC%B9%98%ED%82%A8%EB%A1%9C%EC%A0%9C-%EB%8F%84%EB%A6%AC%EC%95%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/extra-cheesy-chicken-rose-doria/"
+  },
+  {
+   "name": "단호박 스프",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/03/%EB%8B%A8%ED%98%B8%EB%B0%95%EC%8A%A4%ED%94%84_.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/sweet-pumpkin-soup/"
+  },
+  {
+   "name": "양송이 스프",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2026/09/%EC%96%91%EC%86%A1%EC%9D%B4%EC%8A%A4%ED%94%84.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/new-%ec%96%91%ec%86%a1%ec%9d%b4-%ec%8a%a4%ed%94%84/"
+  },
+  {
+   "name": "마르게리타 피자",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/10/HMR_%EB%A7%88%EB%A5%B4%EA%B2%8C%EB%A6%AC%EB%94%B0%ED%94%BC%EC%9E%90.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/margherita-pizza/"
+  },
+  {
+   "name": "단백가득 닭가슴살바 청양고추",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2022/07/%EB%8B%A8%EB%B0%B1%EA%B0%80%EB%93%9D%EB%8B%AD%EA%B0%80%EC%8A%B4%EC%82%B4%EB%B0%94%EC%B2%AD%EC%96%91%EA%B3%A0%EC%B6%94_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/protein-filled-chicken-breast-bar-cheongyang-peppe/"
+  },
+  {
+   "name": "중화 울면",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/04/%EC%A4%91%ED%99%94%EC%9A%B8%EB%A9%B4-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chinese-ulmyeon/"
+  },
+  {
+   "name": "더블 페퍼로니 피자",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2024/06/2Q4A3885_1000x1000.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/pepperoni-pizza/"
+  },
+  {
+   "name": "새우갈릭볶음밥",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%83%88%EC%9A%B0%EA%B0%88%EB%A6%AD%EB%B3%B6%EC%9D%8C%EB%B0%A5-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/shrimp-garlic-fried-rice/"
+  },
+  {
+   "name": "중화풍 잡채볶음밥",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/08/%EC%A4%91%ED%99%94%ED%92%8D%EC%9E%A1%EC%B1%84%EB%B3%B6%EC%9D%8C%EB%B0%A5-%EC%8D%B8%EB%84%AC.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/chinese-style-japchae-fried-rice/"
+  },
+  {
+   "name": "베이컨스크램블드에그베이글",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EB%B2%A0%EC%9D%B4%EC%BB%A8%EC%8A%A4%ED%81%AC%EB%9E%A8%EB%B8%94%EB%93%9C-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/bacon-scrambled-egg-bagel/"
+  },
+  {
+   "name": "대파듬뿍크림치즈베이글샌드",
+   "sub": "간편식",
+   "image": "https://d2afncas1tel3t.cloudfront.net/wp-content/uploads/2025/07/%EB%8C%80%ED%8C%8C%EB%B2%A0%EC%9D%B4%EA%B8%80-%EC%8D%B8%EB%84%AC2.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.paris.co.kr/product/green-onion-cream-cheese-bagel/"
+  }
+ ]
+}

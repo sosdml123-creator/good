@@ -1,0 +1,506 @@
+{
+ "key": "dominos",
+ "brand": "도미노피자",
+ "items": [
+  {
+   "name": "레몬 버터 더블 살시챠",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260922_0qUG2aeW.jpg",
+   "price": 33900,
+   "desc": "상큼한 레몬 버터 소스와 두 가지 이탈리아 정통 소시지 살시챠의 이색적인 풍미 이준 셰프 x 도미노 콜라보 메뉴",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ424SL&dough_gb=203"
+  },
+  {
+   "name": "무진장 슈림프 스테이크",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_ZMFv4HoT.jpg",
+   "price": 36900,
+   "desc": "[도미노피자 x 무신사] No.1 피자 도미노와 No.1 패션 플랫폼 무신사가 만났다! 큼직한 자이언트 새우, 육즙 가득 칼집 스테이크로 무진장 시선을 사로잡는 한판!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ416SL&dough_gb=203"
+  },
+  {
+   "name": "LA 치즈폴레 스테이크",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_T6bthBwz.jpg",
+   "price": 33900,
+   "desc": "LA의 자유로운 미식 감성과 치폴레에 마일드함을 더한 스테이크 피자 치즈폴레 소스를 부어먹고, 찍어먹고! 취향대로 더 맛있게!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ391SL&dough_gb=203"
+  },
+  {
+   "name": "랍스터 슈림프",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_OOXZ67NE.jpg",
+   "price": 33900,
+   "desc": "3가지 씨푸드와 파이브 치즈 소스로 완성한 도미노 역대급 씨푸드 한 판! 새우를 안은 랍스터 슈림프와 버터 소스로페어링한 부드러운 스퀴드(오징어)로 바다향 물씬!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ371SL&dough_gb=203"
+  },
+  {
+   "name": "와일드 와일드 웨스트 스테이크",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_o7HzEP5C.jpg",
+   "price": 33900,
+   "desc": "‘카우보이’들이 즐겨 먹던 정통 ‘그릴드 비프 스테이크'의 재현! ‘그릴드 비프’와 ‘카우보이 버터 치즈 소스’로 만들어 내는 맛의 조화!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ271SL&dough_gb=203"
+  },
+  {
+   "name": "블랙타이거 슈림프",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_X5uAwpYf.jpg",
+   "price": 36900,
+   "desc": "바다와 육지의 대왕이 하나로",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ147SL&dough_gb=203"
+  },
+  {
+   "name": "베스트 콰트로",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_iTgzt6F2.jpg",
+   "price": 36900,
+   "desc": "블랙타이거 슈림프+포테이토+와일드 와일드 웨스트 스테이크+슈퍼 디럭스 도미노 베스트 피자 4가지를 한 판에!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0101&code_01=RPZ162SL&dough_gb=203"
+  },
+  {
+   "name": "무진장 슈림프 스테이크+포테이토",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260706_aWrcsy8I.jpg",
+   "price": 33400,
+   "desc": "[도미노피자 x 무신사] 무진장 큰 토핑들과 포테이토의 만남! 큼직한 자이언트 새우, 육즙 가득 칼집 스테이크로 무진장 시선을 사로잡는 하프앤하프 피자",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "무진장 슈림프 스테이크+랍스터 슈림프",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260706_gN8CXaTO.jpg",
+   "price": 36400,
+   "desc": "[도미노피자 x 무신사] 무진장 큰 토핑들과 3가지 씨푸드의 만남! 큼직한 자이언트 새우, 육즙 가득 칼집 스테이크로 무진장 시선을 사로잡는 하프앤하프 피자",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "더블 미트 할라피뇨",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260430_c6iZ5zLj.jpg",
+   "price": 29900,
+   "desc": "슈레드 햄&이탈리안 페퍼 소시지로 풍성한 더블 미트 식감과 맛! 할라피뇨로 느끼하지 않고 끝까지 맛있게!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "그릴드 패티 치즈 버거",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260430_DB6fYS0E.jpg",
+   "price": 29900,
+   "desc": "녹진한 치즈의 풍미, 육즙 가득 그릴드 패티까지! 달콤짭짤한 버거 맛 그대로 즐기는 피자",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "필라델피아 치즈 스테이크",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20251231_s60oItzP.jpg",
+   "price": 28900,
+   "desc": "도미노 고객님들이 직접 뽑은 월드 베스트 피자! 불고기와 두 가지 치즈로 한 입 가득 고소, 짭짤, 달콤함을!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "포테이토",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_W6qO55B1.jpg",
+   "price": 27900,
+   "desc": "도미노피자 No.1 레전드",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "리얼불고기",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200508_gH22my39.jpg",
+   "price": 29900,
+   "desc": "프리미엄 불고기 토핑이 듬뿍",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "우리 고구마",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20230619_F33836Pn.jpg",
+   "price": 30900,
+   "desc": "고구마 큐브&무스가 듬뿍!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "슈퍼디럭스",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260914_yd4LDxWV.jpg",
+   "price": 28900,
+   "desc": "누구나 사랑하는 베이직 피자",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "슈퍼슈프림",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20230619_x2PSzFyC.jpg",
+   "price": 27900,
+   "desc": "콘과 파인애플의 달콤한 조화",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "베이컨체더치즈",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200311_Qtn75KSM.jpg",
+   "price": 27900,
+   "desc": "베이컨 매니아들의 원 픽",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "페퍼로니",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200311_x8StB1t3.jpg",
+   "price": 25900,
+   "desc": "짭짤한 풍미가 일품",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "치즈",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200311_TI57KvOH.jpg",
+   "price": 23900,
+   "desc": "토마토 소스와 풍부한 모차렐라",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "포테이토 Subzza",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20250605_R8FNCZhQ.jpg",
+   "price": 7900,
+   "desc": "도미노피자 No.1 레전드 스포츠 응원할 땐 썹자!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "리얼 불고기 Subzza",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20250605_eMXvdd1P.jpg",
+   "price": 7900,
+   "desc": "프리미엄 불고기 토핑이 듬뿍 스포츠 응원할 땐 썹자!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "소시지 맥스 Subzza",
+   "sub": "피자",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20250605_ZXMbwmM4.jpg",
+   "price": 7900,
+   "desc": "이탈리안 페퍼 소시지, 페퍼로니, 포크, 햄, 불고기까지 5가지 미트를 맥스하게! 스포츠 응원할 땐 썹자!",
+   "calories": 0,
+   "volume": "L 사이즈 기준",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101"
+  },
+  {
+   "name": "콘샐러드 콤보 (코카콜라 1.25L)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260312_eeDCKwqQ.jpg",
+   "price": 3900,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0201"
+  },
+  {
+   "name": "파스타 콤보(코카콜라 1.25L)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20230901_BobKiGYD.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0201"
+  },
+  {
+   "name": "핫 윙 콤보(코카콜라 1.25L)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20230901_MFKm8uY6.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0201"
+  },
+  {
+   "name": "파스타 콤보(코카콜라 제로 1.25L)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20251028_U4Vw2Bd6.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0201"
+  },
+  {
+   "name": "무진장 치킨 박스",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260721_hX0mY1gb.jpg",
+   "price": 13800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD246M1&dough_gb="
+  },
+  {
+   "name": "스와이시 치킨 윙(7조각)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260224_m422PUzc.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD243M1&dough_gb="
+  },
+  {
+   "name": "도미노 콘샐러드",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260123_89Cd98W4.jpg",
+   "price": 2400,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD240P1&dough_gb="
+  },
+  {
+   "name": "콘 크런치 치킨(7조각)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20251210_bC0nqPpc.jpg",
+   "price": 7800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD238M1&dough_gb="
+  },
+  {
+   "name": "하프&하프 스파게티 (NEW 치즈&베이컨 까르보나라)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20240411_WUb7FhFZ.jpg",
+   "price": 10800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD217M1&dough_gb="
+  },
+  {
+   "name": "베이컨 까르보나라 스파게티",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20240411_204X0EOd.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD216M1&dough_gb="
+  },
+  {
+   "name": "NEW 치즈 볼로네즈 스파게티",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_nwnlf8dv.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD031M1&dough_gb="
+  },
+  {
+   "name": "웨스턴 핫 윙(8조각)",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20220304_CN2qUKo1.jpg",
+   "price": 9800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD192M1&dough_gb="
+  },
+  {
+   "name": "도미노 코울슬로",
+   "sub": "사이드디시",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_Z7RyBpr3.jpg",
+   "price": 2400,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/detail?dsp_ctgr=C0201&code_01=RSD112P1&dough_gb="
+  },
+  {
+   "name": "코카콜라 1.25L",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_J6k5xlTF.jpg",
+   "price": 2500,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "코카콜라 500ml",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_I66431RB.jpg",
+   "price": 1800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "코카콜라 제로 1.25L",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20220114_k0Aiv1oB.jpg",
+   "price": 2500,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "코카콜라 제로 500ml",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_X06fBD28.jpg",
+   "price": 1800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "스프라이트 1.5L",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_e8O16s77.jpg",
+   "price": 2600,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "스프라이트 500ml",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_2668REKI.jpg",
+   "price": 1800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "스프라이트 제로 1.5L",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260421_jjFau230.jpg",
+   "price": 2600,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "스프라이트 제로 500ml",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20260421_QUWXVHB9.jpg",
+   "price": 1800,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "우리 피클 L",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_MXEjFuAB.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "우리 피클 M",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_77sWF5Y1.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "치즈폴레 소스 30g",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20251212_9p3V6b0V.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "갈릭 디핑 소스 L 30g",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20240308_B39TEq9W.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "갈릭 디핑 소스 M 15g",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_At51TPit.jpg",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  },
+  {
+   "name": "핫소스",
+   "sub": "음료·기타",
+   "image": "https://cdn.dominos.co.kr/admin/upload/goods/20200309_nzPC41sE.jpg",
+   "price": 2020,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://web.dominos.co.kr/goods/list?dsp_ctgr=C0202"
+  }
+ ]
+}

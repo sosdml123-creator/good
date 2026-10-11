@@ -1,0 +1,916 @@
+{
+ "key": "mcdonalds",
+ "brand": "맥도날드",
+ "items": [
+  {
+   "name": "1955® 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723564262197.png",
+   "price": 0,
+   "desc": "113g 두툼한 순 쇠고기 패티, 특별한 1955 소스에 깊은 풍미의 그릴드 어니언까지! 맥도날드가 처음 생긴 1955년의 맛을 담은 영원한 오리지널 1955 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/2/1/1"
+  },
+  {
+   "name": "더블 쿼터파운더® 치즈",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563759418.png",
+   "price": 0,
+   "desc": "좋아하는건 더 많이 즐기시라고, 두 배 이상 커진 1/4 파운드 비프 패티가 두 장 (226그램)! 육즙이 풍부한 고기 맛을 그대로 살린 100% 순 쇠고기 패티 두 장과 치즈 두 장이 입안 가득 완벽하게 조화되는 놀라운 맛",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/189/2/1"
+  },
+  {
+   "name": "쿼터파운더® 치즈",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563812629.png",
+   "price": 0,
+   "desc": "쿼터파운더라는 이름에서 알 수 있듯이 두 배 이상 커진 1/4파운드(113그램) 비프와 부드러운 치즈 두 장의 환상궁합! 두툼한 순 쇠고기 패티와 신선한 치즈의 풍부한 맛으로 세계적으로 사랑받고 있는 맥도날드의 대표적인 프리미엄 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/188/3/1"
+  },
+  {
+   "name": "베이컨 토마토 디럭스",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563896442.png",
+   "price": 0,
+   "desc": "두 장의 100% 순 쇠고기 패티에 그릴에 구워 더욱 고소한 1장의 베이컨을 얹고, 신선한 토마토와 양상추, 매콤달콤한 스위트 칠리 소스, 치즈, 마요네즈를 더해 더욱 풍부하고 신선한 맛의 프리미엄 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/187/4/1"
+  },
+  {
+   "name": "빅맥®",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25EB%25B9%2585%25EB%25A7%25A5%25C2%25AE_%25EC%2584%25B8%25ED%258A%25B8.png",
+   "price": 0,
+   "desc": "100% 순 쇠고기 패티 두 장에 빅맥®만의 특별한 소스. 입안에서 살살 녹는 치즈와 신선한 양상추, 양파, 그리고 피클까지. 50년 넘게 전 세계인의 입맛을 사로 잡은 버거의 대명사.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/178/5/1"
+  },
+  {
+   "name": "토마토 치즈 비프 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742426716721.png",
+   "price": 0,
+   "desc": "신선한 토마토와 고소한 치즈버거의 조화",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/606/6/1"
+  },
+  {
+   "name": "트리플 치즈버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1744956010637.png",
+   "price": 0,
+   "desc": "부드러운 치즈와 풍부한 육즙의 패티를 세배 더 진하게 즐길 수 있는 트리플 치즈버거 *매장별 상황에 따라 해당 제품이 제공되지 않을 수 있습니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/331/7/1"
+  },
+  {
+   "name": "더블 치즈버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563512104.png",
+   "price": 0,
+   "desc": "고소하고 부드러운 치즈와 100% 순 쇠고기 패티가 두개 맥도날드만의 더블 치즈버거!!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/224/8/1"
+  },
+  {
+   "name": "치즈버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563067813.png",
+   "price": 0,
+   "desc": "고소하고 부드러운 치즈와 100% 순 쇠고기 패티, 맥도날드만의 심플한 클래식 치즈버거.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/318/9/1"
+  },
+  {
+   "name": "햄버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25ED%2596%2584%25EB%25B2%2584%25EA%25B1%25B0.png",
+   "price": 0,
+   "desc": "100% 순 쇠고기 패티에 상큼한 피클과 양파, 기본에 충실한 맥도날드 햄버거.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/26/10/1"
+  },
+  {
+   "name": "맥크리스피™ 고추장 버터",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/09/Corp_PC_VIEW_772x530_%25EA%25B3%25A0%25EC%25B6%2594%25EC%259E%25A5%25EB%25B2%2584%25ED%2584%25B0_%25EB%25A7%25A5%25ED%2581%25AC%25EB%25A6%25AC%25EC%258A%25A4%25ED%2594%25BC_EVM.png",
+   "price": 0,
+   "desc": "100% 통닭다리살 겉바속촉 케이준 치킨 패티와 부드럽고 매콤한 고추장 버터 소스의 조화",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/843/1/2"
+  },
+  {
+   "name": "맥스파이시® 고추장 버터",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/09/Corp_PC_VIEW_772x530_%25EA%25B3%25A0%25EC%25B6%2594%25EC%259E%25A5%25EB%25B2%2584%25ED%2584%25B0_%25EB%25A7%25A5%25EC%258A%25A4%25ED%258C%258C%25EC%259D%25B4%25EC%258B%259C_EVM.png",
+   "price": 0,
+   "desc": "쌀가루로 더 바삭해진 100% 닭가슴살 패티와 부드럽고 매콤한 고추장 버터 소스의 조화",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/841/2/2"
+  },
+  {
+   "name": "더블 맥스파이시® 상하이 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_772x530_%25EB%258D%2594%25EB%25B8%2594%25EC%2583%2581%25ED%2595%2598%25EC%259D%25B4_EVM.png",
+   "price": 0,
+   "desc": "쌀가루로 더 바삭해진 매콤한 닭가슴살 패티를 하나 더! 두 장으로 꽉 채운 매콤 바삭한 맛",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/796/3/2"
+  },
+  {
+   "name": "맥스파이시® 상하이 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723562660091.png",
+   "price": 0,
+   "desc": "쌀가루가 더해져 더 바삭해진 100% 닭가슴살 패티에 아삭아삭한 양상추와 신선한 토마토까지! 더 바삭하고 맛있어진 NEW 맥스파이시 상하이 버거로 입맛도 기분도 화끈하게!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/603/4/2"
+  },
+  {
+   "name": "맥크리스피™ 치킨 디럭스",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_%25EB%25A7%25A5%25ED%2581%25AC%25EB%25A6%25AC%25ED%2594%25BC_%25EC%25B9%2598%25ED%2582%25A8_%25EB%2594%2594%25EB%259F%25AD%25EC%258A%25A4_772x530_new.png",
+   "price": 0,
+   "desc": "100% 통닭다리살 겉바속촉 케이준 치킨 패티, 촉촉한 포테이토 브리오쉬 번, 스페셜 스모키 소스가 선사하는 놀랍도록 새로운 맛의 치킨 버거!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/471/5/2"
+  },
+  {
+   "name": "맥크리스피™ 치킨 클래식",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_%25EB%25A7%25A5%25ED%2581%25AC%25EB%25A6%25AC%25ED%2594%25BC_%25EC%25B9%2598%25ED%2582%25A8_%25ED%2581%25B4%25EB%259E%2598%25EC%258B%259D_772x530_new.png",
+   "price": 0,
+   "desc": "100% 통닭다리살 겉바속촉 케이준 치킨 패티! 치킨 버거 본연의 맛에 충실한 클래식 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/470/6/2"
+  },
+  {
+   "name": "맥치킨® 모짜렐라",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563301214.png",
+   "price": 0,
+   "desc": "든든한 맥치킨에 골든 모짜렐라 치즈 스틱 2개와매콤한 아라비아따 소스를 더해강렬하게 재탄생한 맥치킨 모짜렐라!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/293/7/2"
+  },
+  {
+   "name": "맥치킨®",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563415066.png",
+   "price": 0,
+   "desc": "바삭한 치킨 패티, 고소한 화이트 마요 소스와아삭한 양상추가 함께!더 업그레이드된 맛으로 돌아온 맥치킨",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/291/8/2"
+  },
+  {
+   "name": "그릴드 치킨 모닝 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/10/Corp_PC_VIEW_772x530_%25EA%25B7%25B8%25EB%25A6%25B4%25EB%2593%259C%25EC%25B9%2598%25ED%2582%25A8%25EB%25B2%2584%25EA%25B1%25B0_EVM.png",
+   "price": 0,
+   "desc": "100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/845/9/2"
+  },
+  {
+   "name": "더블 불고기 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563975095.png",
+   "price": 0,
+   "desc": "진한 불고기 소스의 패티가 두 장! 여기에 고소한 치즈와 마요네즈, 신선한 양상추를 곁들인 깊고 풍부한 맛.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/186/1/17"
+  },
+  {
+   "name": "불고기 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723564031536.png",
+   "price": 0,
+   "desc": "한국인의 입맛에 딱 맞는 불고기 소스에 잘 재운 패티와 고소한 마요네즈, 신선한 양상추의 맛있는 조합.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/181/2/17"
+  },
+  {
+   "name": "슈비 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723564188909.png",
+   "price": 0,
+   "desc": "탱~글한 통새우살에 비프 패티를 더해 푸짐하게~ 슈비 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/81/3/17"
+  },
+  {
+   "name": "슈슈 버거",
+   "sub": "버거",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1723563590522.png",
+   "price": 0,
+   "desc": "탱~글한 통새우살 가득~ 슈슈 버거",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/220/4/17"
+  },
+  {
+   "name": "홍천 우리쌀 칩",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/07/Corp_PC_VIEW_772x530_%25ED%2599%258D%25EC%25B2%259C%25EC%259A%25B0%25EB%25A6%25AC%25EC%258C%2580%25EC%25B9%25A9_New%25EB%25A1%259C%25EA%25B3%25A0_%25EC%2588%2598%25EC%25A0%2595.png",
+   "price": 0,
+   "desc": "홍천 우리 쌀로 만든 바삭 고소한 쌀칩",
+   "calories": 117,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/829/1/8"
+  },
+  {
+   "name": "맥윙™ 2조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/03/Corp_PC_view_772x530_%25EB%25A7%25A5%25EC%259C%2599-2pc.png",
+   "price": 0,
+   "desc": "짭조롬하게 시즈닝 된 바삭한 껍질과 쫄깃한 속살의 조화로운 맛, 맥윙",
+   "calories": 228,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/783/2/8"
+  },
+  {
+   "name": "맥윙™ 4조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/03/Corp_PC_view_772x530_%25EB%25A7%25A5%25EC%259C%2599-4pc.png",
+   "price": 0,
+   "desc": "짭조롬하게 시즈닝 된 바삭한 껍질과 쫄깃한 속살의 조화로운 맛, 맥윙",
+   "calories": 455,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/782/3/8"
+  },
+  {
+   "name": "맥윙™ 8조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/03/Corp_PC_view_772x530_%25EB%25A7%25A5%25EC%259C%2599-8pc.png",
+   "price": 0,
+   "desc": "짭조롬하게 시즈닝 된 바삭한 껍질과 쫄깃한 속살의 조화로운 맛, 맥윙",
+   "calories": 910,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/781/4/8"
+  },
+  {
+   "name": "맥윙™ 2조각 콤보",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/03/Corp_PC_view772x530_%25EB%25A7%25A5%25EC%259C%2599_combo-2pc.png",
+   "price": 0,
+   "desc": "짭조롬하게 시즈닝 된 바삭한 껍질과 쫄깃한 속살의 조화로운 맛, 맥윙",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/780/5/8"
+  },
+  {
+   "name": "맥윙™ 4조각 콤보",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/03/Corp_PC_view772x530_%25EB%25A7%25A5%25EC%259C%2599_combo-4pc.png",
+   "price": 0,
+   "desc": "짭조롬하게 시즈닝 된 바삭한 껍질과 쫄깃한 속살의 조화로운 맛, 맥윙",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/779/6/8"
+  },
+  {
+   "name": "맥너겟® 4조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1612402131024.png",
+   "price": 0,
+   "desc": "바삭하고 촉촉한 치킨이 한 입에 쏙! 다양한 소스로 입맛에 맞게 즐겨보세요!",
+   "calories": 163,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/284/7/8"
+  },
+  {
+   "name": "맥너겟® 6조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25EB%25A7%25A5%25EB%2584%2588%25EA%25B2%259F%25C2%25AE6%25EC%25A1%25B0%25EA%25B0%2581.png",
+   "price": 0,
+   "desc": "바삭하고 촉촉한 치킨이 한 입에 쏙! 다양한 소스로 입맛에 맞게 즐겨보세요!",
+   "calories": 244,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/722/8/8"
+  },
+  {
+   "name": "골든 모짜렐라 치즈스틱 2조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201902080435496530.png",
+   "price": 0,
+   "desc": "속이 꽉 찬 황금빛 바삭함! 자연 모짜렐라 치즈로 빈틈 없이 고소한 맥도날드 치즈스틱을 다양하게 즐겨보세요!",
+   "calories": 165,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/143/9/8"
+  },
+  {
+   "name": "골든 모짜렐라 치즈스틱 4조각",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25EA%25B3%25A8%25EB%2593%25A0_%25EB%25AA%25A8%25EC%25A7%259C%25EB%25A0%2590%25EB%259D%25BC_%25EC%25B9%2598%25EC%25A6%2588%25EC%258A%25A4%25ED%258B%25B1_4%25EC%25A1%25B0%25EA%25B0%2581.png",
+   "price": 0,
+   "desc": "속이 꽉 찬 황금빛 바삭함! 자연 모짜렐라 치즈로 빈틈 없이 고소한 맥도날드 치즈스틱을 다양하게 즐겨보세요!",
+   "calories": 330,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/719/10/8"
+  },
+  {
+   "name": "후렌치 후라이 Small",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25ED%259B%2584%25EB%25A0%258C%25EC%25B9%2598_%25ED%259B%2584%25EB%259D%25BC%25EC%259D%25B4_Small.png",
+   "price": 0,
+   "desc": "통으로 썰어낸 감자를 맥도날드만의 노하우로 튀겨낸 남다른 맛과 바삭함! 맥도날드의 역사가 담긴 월드 클래스 후렌치 후라이",
+   "calories": 210,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/88/11/8"
+  },
+  {
+   "name": "후렌치 후라이 Medium",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25ED%259B%2584%25EB%25A0%258C%25EC%25B9%2598_%25ED%259B%2584%25EB%259D%25BC%25EC%259D%25B4_Medium.png",
+   "price": 0,
+   "desc": "통으로 썰어낸 감자를 맥도날드만의 노하우로 튀겨낸 남다른 맛과 바삭함! 맥도날드의 역사가 담긴 월드 클래스 후렌치 후라이",
+   "calories": 324,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/720/12/8"
+  },
+  {
+   "name": "후렌치 후라이 Large",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/2025/08/%25ED%259B%2584%25EB%25A0%258C%25EC%25B9%2598_%25ED%259B%2584%25EB%259D%25BC%25EC%259D%25B4_Large.png",
+   "price": 0,
+   "desc": "통으로 썰어낸 감자를 맥도날드만의 노하우로 튀겨낸 남다른 맛과 바삭함! 맥도날드의 역사가 담긴 월드 클래스 후렌치 후라이",
+   "calories": 397,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/721/13/8"
+  },
+  {
+   "name": "상하이 치킨 스낵랩",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201902080435011620.png",
+   "price": 0,
+   "desc": "매콤한 치킨에 달콤한 화이트 마요 소스로 매콤달콤하게! 베이컨에 양상추, 또띠아까지 어우러져 씹는 맛까지 즐겁다!",
+   "calories": 303,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/196/14/8"
+  },
+  {
+   "name": "맥스파이시® 치킨 텐더",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1612402252126.png",
+   "price": 0,
+   "desc": "부드러운 100% 닭안심살을 스파이시 시즈닝으로 매콤 바삭하게 튀겨낸 치킨 텐더! 2가지 소스로 입맛에 맞게 즐겨보세요!",
+   "calories": 197,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/193/15/8"
+  },
+  {
+   "name": "해쉬 브라운",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742426888535.png",
+   "price": 0,
+   "desc": "씹으면 바삭바삭, 속은 부드러운 감자의 고소함.",
+   "calories": 162,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/126/16/8"
+  },
+  {
+   "name": "코울슬로",
+   "sub": "사이드",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1680761626050.png",
+   "price": 0,
+   "desc": "양배추, 당근, 양파가 상큼하고 크리미한 마요 드레싱과 어우러져 아삭하게 씹히는 샐러드",
+   "calories": 179,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/467/17/8"
+  },
+  {
+   "name": "오레오 맥플러리",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1615378578396.png",
+   "price": 0,
+   "desc": "우유 듬뿍 신선한 아이스크림에 아삭아삭 오레오 쿠키가 가득!",
+   "calories": 332,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/56/1/7"
+  },
+  {
+   "name": "딸기 오레오 맥플러리",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1615378509519.png",
+   "price": 0,
+   "desc": "상큼한 딸기와 달콤한 오레오 쿠키가 신선한 우유 아이스크림에 퐁당!",
+   "calories": 304,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/57/2/7"
+  },
+  {
+   "name": "초코 오레오 맥플러리",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1615378451271.png",
+   "price": 0,
+   "desc": "초콜릿 퍼지와 오레오 쿠키까지! 달달함이 두 배로!",
+   "calories": 388,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/58/3/7"
+  },
+  {
+   "name": "베리 스트로베리 맥플러리",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1617837982953.png",
+   "price": 0,
+   "desc": "신선한 1등급 원유에 국내산 딸기 과즙이 들어간 스트로베리 아이스크림에 오레오가 블랜드 되어 있는 맥플러리",
+   "calories": 325,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/380/4/7"
+  },
+  {
+   "name": "스트로베리콘",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_772x530_%25EC%258A%25A4%25ED%258A%25B8%25EB%25A1%259C%25EB%25B2%25A0%25EB%25A6%25AC%25EC%25BD%2598.png",
+   "price": 0,
+   "desc": "신선한 1등급 원유와 딸기과즙으로 만든 아이스크림",
+   "calories": 142,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/381/5/7"
+  },
+  {
+   "name": "아이스크림콘",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_772x530_%25EC%2595%2584%25EC%259D%25B4%25EC%258A%25A4%25ED%2581%25AC%25EB%25A6%25BC%25EC%25BD%2598.png",
+   "price": 0,
+   "desc": "신선한 우유로 만든 부드러운 아이스크림 콘.",
+   "calories": 146,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/64/6/7"
+  },
+  {
+   "name": "초코 선데이 아이스크림",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290248295110.png",
+   "price": 0,
+   "desc": "신선한 우유로 만든 아이스크림에 달콤한 초콜렛 시럽이 입안 가득.",
+   "calories": 323,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/62/7/7"
+  },
+  {
+   "name": "딸기 선데이 아이스크림",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290248522410.png",
+   "price": 0,
+   "desc": "신선한 우유와 딸기가 아이스크림으로 만났다!",
+   "calories": 277,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/60/8/7"
+  },
+  {
+   "name": "바닐라 선데이 아이스크림",
+   "sub": "디저트",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1657246845162.png",
+   "price": 0,
+   "desc": "신선한 우유로 만든 부드럽고 달콤한 아이스크림",
+   "calories": 201,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/61/9/7"
+  },
+  {
+   "name": "진주 고추 크림치즈 머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/07/Corp_PC_VIEW_772x530_%25EA%25B3%25A0%25EC%25B6%2594%25ED%2581%25AC%25EB%25A6%25BC%25EC%25B9%2598%25EC%25A6%2588%25EB%25A8%25B8%25ED%2595%2580_EVB.png",
+   "price": 0,
+   "desc": "빠삭한 맥치킨 패티에 진주 고추 크림치즈를 더해 완성한 매콤 든든한 아침!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/834/1/3"
+  },
+  {
+   "name": "그릴드 치킨 모닝 버거 콤보",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/06/Corp_PC_VIEW_772x530_%25EA%25B7%25B8%25EB%25A6%25B4%25EB%2593%259C%25EC%25B9%2598%25ED%2582%25A8%25EB%25AA%25A8%25EB%258B%259D%25EB%25B2%2584%25EA%25B1%25B0_%25EC%25BD%25A4%25EB%25B3%25B4_1.png",
+   "price": 0,
+   "desc": "100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/822/2/3"
+  },
+  {
+   "name": "더블 그릴드 치킨 모닝 버거 콤보",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/06/Corp_PC_VIEW_772x530_%25EB%258D%2594%25EB%25B8%2594%25EA%25B7%25B8%25EB%25A6%25B4%25EB%2593%259C%25EC%25B9%2598%25ED%2582%25A8%25EB%25AA%25A8%25EB%258B%259D%25EB%25B2%2584%25EA%25B1%25B0_%25EC%25BD%25A4%25EB%25B3%25B4_1.png",
+   "price": 0,
+   "desc": "100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티 2장에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/820/4/3"
+  },
+  {
+   "name": "더블 그릴드 치킨 모닝 버거",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/06/Corp_PC_VIEW_772x530_%25EB%258D%2594%25EB%25B8%2594%25EA%25B7%25B8%25EB%25A6%25B4%25EB%2593%259C%25EC%25B9%2598%25ED%2582%25A8%25EB%25AA%25A8%25EB%258B%259D%25EB%25B2%2584%25EA%25B1%25B0_EVB_1.png",
+   "price": 0,
+   "desc": "100% 국내산 닭가슴살을 구워 담백한 그릴드 치킨 패티 2장에 홀그레인 타르타르 소스를 더하고 부드러운 소프트 번으로 완성한 건강한 맥모닝!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/819/5/3"
+  },
+  {
+   "name": "베이컨 토마토 에그 머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742427076140.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 갓 구워내 따뜻하고 신선한 베이컨 토마토 에그 머핀 세트",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/366/6/3"
+  },
+  {
+   "name": "에그 맥머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742427597295.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 바삭바삭 고소한 해쉬 브라운, 신선한 에그 맥머핀으로 즐기는 제대로 된 아침 식사. 이제 맥모닝 세트로 아침을 깨워보세요.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/135/7/3"
+  },
+  {
+   "name": "베이컨 에그 맥머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742427316786.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 바삭바삭 고소한 해쉬 브라운, 신선한 베이컨 에그 맥머핀으로 즐기는 제대로 된 아침 식사. 이제 맥모닝 세트로 아침을 깨워보세요.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/115/8/3"
+  },
+  {
+   "name": "소시지 에그 맥머핀 콤보",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677677701120.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 신선한 소시지 에그 맥머핀, 커피 한 잔 가격으로 가볍게 즐기는 맥모닝 콤보!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/317/9/3"
+  },
+  {
+   "name": "소시지 에그 맥머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742427539029.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 바삭바삭 고소한 해쉬 브라운, 신선한 소시지 에그 맥머핀으로 즐기는 제대로 된 아침 식사. 이제 맥모닝 세트로 아침을 깨워보세요.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/127/10/3"
+  },
+  {
+   "name": "치킨 치즈 머핀",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742427704912.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 바삭한 치킨 패티와 고소한 치즈로 아침에도 든든하게!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/295/11/3"
+  },
+  {
+   "name": "핫케익 2조각",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201902111059484930.png",
+   "price": 0,
+   "desc": "부드럽게 구워낸 핫케이크에 향긋한 버터와 달콤한 시럽을 살며시 부어 오늘 하루도 기분 좋게 시작하세요.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/80/1/4"
+  },
+  {
+   "name": "핫케익 3조각",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677678180571.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 함께 즐기는 핫케익 3조각 세트!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/133/2/4"
+  },
+  {
+   "name": "디럭스 브렉퍼스트",
+   "sub": "맥모닝",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677678243866.png",
+   "price": 0,
+   "desc": "100% 아라비카로 내린 드립 커피와 함께 즐기는 디럭스 브런치 세트!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/132/1/19"
+  },
+  {
+   "name": "아메리카노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677680290018.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 더 신선하게! 더 풍부하게!",
+   "calories": 12,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/28/1/9"
+  },
+  {
+   "name": "디카페인 아메리카노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677679725954.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 더 신선하게! 더 풍부하게! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 12,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/309/3/9"
+  },
+  {
+   "name": "아이스 아메리카노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1610887631017.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 더 신선하게! 더 풍부하게!",
+   "calories": 9,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/209/5/9"
+  },
+  {
+   "name": "디카페인 아이스 아메리카노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1610889486625.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 더 신선하게! 더 풍부하게! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 8,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/312/7/9"
+  },
+  {
+   "name": "카페라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677680118201.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피가 신선한 우유를 만나 더 신선하고 부드럽게!",
+   "calories": 149,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/29/9/9"
+  },
+  {
+   "name": "디카페인 카페라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677679216326.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피가 신선한 우유를 만나 더 신선하고 부드럽게! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 150,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/311/11/9"
+  },
+  {
+   "name": "아이스 카페라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1610885477469.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피가 신선한 우유를 만나 더 신선하고 부드럽게!",
+   "calories": 108,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/203/13/9"
+  },
+  {
+   "name": "디카페인 아이스 카페라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1610887233610.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피가 신선한 우유를 만나 더 신선하고 부드럽게! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 114,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/313/15/9"
+  },
+  {
+   "name": "바닐라 라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677678794782.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피의 진한 맛과 향, 1A등급 우유, 그리고 천연 바닐라 향으로 달콤함까지!",
+   "calories": 227,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/421/17/9"
+  },
+  {
+   "name": "디카페인 바닐라 라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_772x530_%25EB%2594%2594%25EC%25B9%25B4%25ED%258E%2598%25EC%259D%25B8_%25EB%25B0%2594%25EB%258B%2590%25EB%259D%25BC%25EB%259D%25BC%25EB%2597%25B4_M.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피의 진한 맛과 향, 1A등급 우유, 그리고 천연 바닐라 향으로 달콤함까지! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 227,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/786/19/9"
+  },
+  {
+   "name": "아이스 바닐라 라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1654652269651.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피의 진한 맛과 향, 1A등급 우유, 그리고 천연 바닐라 향으로 달콤함까지!",
+   "calories": 186,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/422/21/9"
+  },
+  {
+   "name": "디카페인 아이스 바닐라 라떼",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/02/Corp_PC_VIEW_772x530_%25EB%25B0%2594%25EB%258B%2590%25EB%259D%25BC%25EB%259D%25BC%25EB%2596%25BC_%25EB%2594%2594%25EC%25B9%25B4%25ED%258E%2598_M.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피의 진한 맛과 향, 1A등급 우유, 그리고 천연 바닐라 향으로 달콤함까지! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 191,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/788/23/9"
+  },
+  {
+   "name": "카푸치노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677679951061.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 추출한 에스프레소 위에 갓 만든 우유 거품으로 더 부드럽게!",
+   "calories": 93,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/30/25/9"
+  },
+  {
+   "name": "디카페인 카푸치노",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677679486199.png",
+   "price": 0,
+   "desc": "바로 내린 100% 친환경 커피로 추출한 에스프레소 위에 갓 만든 우유 거품으로 더 부드럽게! 이제 디카페인으로도 즐겨보세요! *일부 매장 판매 제외",
+   "calories": 89,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/310/27/9"
+  },
+  {
+   "name": "드립 커피",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1677680459621.png",
+   "price": 0,
+   "desc": "100% 아라비카 원두를 드립 커피의 부드러움으로 만나보세요.",
+   "calories": 10,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/27/29/9"
+  },
+  {
+   "name": "아이스 드립 커피",
+   "sub": "맥카페",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1610889861261.png",
+   "price": 0,
+   "desc": "100% 아라비카로 풍부한 아로마의 드립 커피를 시원하게 만나보세요!",
+   "calories": 10,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/230/31/9"
+  },
+  {
+   "name": "제주 풋귤 맥피즈",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/08/Corp_PC_view_772x530_%25EC%25A0%259C%25EC%25A3%25BC%25ED%2592%258B%25EA%25B7%25A4%25EB%25A7%25A5%25ED%2594%25BC%25EC%25A6%2588.png",
+   "price": 0,
+   "desc": "제주 풋귤의 상큼새콤한 맛을 담은 청량한 맥피즈",
+   "calories": 164,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/839/1/10"
+  },
+  {
+   "name": "제주 풋귤 맥피즈 스프라이트 제로",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/08/Corp_PC_view_772x530_%25EC%25A0%259C%25EC%25A3%25BC%25ED%2592%258B%25EA%25B7%25A4%25EB%25A7%25A5%25ED%2594%25BC%25EC%25A6%2588%25EC%25A0%259C%25EB%25A1%259C.png",
+   "price": 0,
+   "desc": "제로 스프라이트로 제주 풋귤의 상큼새콤한 맛은 그대로, 당과 칼로리는 낮춘 청량한 맥피즈",
+   "calories": 65,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/837/3/10"
+  },
+  {
+   "name": "코카-콜라",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1583889967380.png",
+   "price": 0,
+   "desc": "갈증해소 뿐만이 아니라 기분까지 상쾌하게! 코카-콜라",
+   "calories": 133,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/35/5/10"
+  },
+  {
+   "name": "코카-콜라 제로",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1583890021601.png",
+   "price": 0,
+   "desc": "상쾌한 맛은 살리면서 웰빙 트렌드에 맞춰 설탕과 칼로리를 제로로 줄인 코카-콜라 제로",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/34/7/10"
+  },
+  {
+   "name": "스프라이트",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1703512982605.png",
+   "price": 0,
+   "desc": "청량함에 레몬, 라임향을 더한 시원함!",
+   "calories": 140,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/36/9/10"
+  },
+  {
+   "name": "스프라이트 제로",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/2026/04/corp._%25EC%258A%25A4%25ED%2594%2584%25EB%259D%25BC%25EC%259D%25B4%25ED%258A%25B8_1.png",
+   "price": 0,
+   "desc": "청량한 맛은 살리면서 웰빙 트렌드에 맞춰 설탕과 칼로리를 제로로 줄인 스프라이트 제로",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/801/11/10"
+  },
+  {
+   "name": "환타",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1631160688795.png",
+   "price": 0,
+   "desc": "톡 쏘는 오렌지 향!",
+   "calories": 62,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/37/13/10"
+  },
+  {
+   "name": "피치 아이스티",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1742516130042.png",
+   "price": 0,
+   "desc": "세계 3대 홍차, 우바산 홍차 베이스로 향긋하게 즐기는 복숭아 아이스티",
+   "calories": 162,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/683/15/10"
+  },
+  {
+   "name": "바닐라 쉐이크",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290255488970.png",
+   "price": 0,
+   "desc": "신선한 우유에 달콤한 바닐라 시럽으로 맛을 더한 깔끔한 쉐이크!",
+   "calories": 366,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/256/17/10"
+  },
+  {
+   "name": "딸기 쉐이크",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290257347040.png",
+   "price": 0,
+   "desc": "신선한 우유에 상큼한 딸기 시럽으로 맛을 더한 부드러운 쉐이크!",
+   "calories": 367,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/257/18/10"
+  },
+  {
+   "name": "초코 쉐이크",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290257444650.png",
+   "price": 0,
+   "desc": "신선한 우유에 달콤함 초코렛 시럽이 들어간 부드러운 쉐이크!",
+   "calories": 375,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/258/19/10"
+  },
+  {
+   "name": "오렌지 주스",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/upload/product/pcfile/1734681316004.png",
+   "price": 0,
+   "desc": "정상적인 면역기능에 필요한 아연이 풍부한, 세계 1위 미닛메이드의 오렌지 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/649/20/10"
+  },
+  {
+   "name": "생수",
+   "sub": "음료",
+   "image": "https://www.mcdonalds.co.kr/uploadFolder/product/prov_201901290258201760.png",
+   "price": 0,
+   "desc": "활력을 되찾아주는 깔끔한 미네랄 생수.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.mcdonalds.co.kr/kor/menu/detail/33/21/10"
+  }
+ ]
+}

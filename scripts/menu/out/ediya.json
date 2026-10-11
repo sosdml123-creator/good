@@ -1,0 +1,2686 @@
+{
+ "key": "ediya",
+ "brand": "이디야커피",
+ "items": [
+  {
+   "name": "HOT 가나 시그니처 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790644382294.png",
+   "price": 0,
+   "desc": "바디감 있는 시그니처밀크에 '가나'만의 딥한 초콜릿을 더한 묵직한 초코 음료",
+   "calories": 548,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 가나 시그니처 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790644461569.png",
+   "price": 0,
+   "desc": "바디감 있는 시그니처밀크에 '가나'만의 딥한 초콜릿을 더한 묵직한 초코 음료",
+   "calories": 437,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 가나 초코 크림 오트",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790644526228.png",
+   "price": 0,
+   "desc": "담백한 오트에 달콤한 초코크림과 초콜릿칩을 더해 부드럽게 즐길 수 있는 겨울철 오트 음료",
+   "calories": 479,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 가나 초코 크림 오트",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790644590333.png",
+   "price": 0,
+   "desc": "담백한 오트에 달콤한 초코크림과 초콜릿칩을 더해 부드럽게 즐길 수 있는 겨울철 오트 음료",
+   "calories": 402,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 오트 커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790124345508.png",
+   "price": 0,
+   "desc": "고소한 오트와 진한 에스프레소가 부드럽게 어우러지는 커피 음료",
+   "calories": 211,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 오트 커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790124499317.png",
+   "price": 0,
+   "desc": "고소한 오트와 진한 에스프레소가 부드럽게 어우러지는 커피 음료",
+   "calories": 139,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 오트 콜드브루",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790124920548.png",
+   "price": 0,
+   "desc": "고소한 오트 위에 콜드브루를 더해 깔끔하고 고소하게 즐기는 콜드브루 음료",
+   "calories": 153,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 달달퐁당 오트 피스타치오",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1788999992703.png",
+   "price": 0,
+   "desc": "고소한 피스타치오와 부드러운 오트밀크에 휘핑크림, 초코시럽과 바삭한 구운 카다이프를 더해 달콤하게 즐기는 논커피 음료",
+   "calories": 446,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 달달퐁당 오트 피스타치오",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1789000115767.png",
+   "price": 0,
+   "desc": "고소한 피스타치오와 부드러운 오트밀크에 휘핑크림, 초코시럽과 바삭한 구운 카다이프를 더해 달콤하게 즐기는 논커피 음료",
+   "calories": 505,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 딸기퐁당 오트 피스타치오",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1789000235337.png",
+   "price": 0,
+   "desc": "상큼달콤한 딸기 과육과 오트밀크가 어우러진 음료에 진하고 달콤한 피스타치오 크림과 바삭한 구운 카다이프를 더한 논커피 음료",
+   "calories": 429,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스크림 가나 초코라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790644990119.png",
+   "price": 0,
+   "desc": "부드러운 소프트아이스크림에 달콤한 가나 초코가 더해져 더욱 진한 초코를 즐길 수 있는 아이스크림 라떼",
+   "calories": 465,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "가나 초코 소프트 아이스크림",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790645054742.png",
+   "price": 0,
+   "desc": "달콤하게 녹아드는 가나 초코를 소프트아이스크림과 더욱 부드럽게 즐길 수 있는 아이스크림 메뉴",
+   "calories": 402,
+   "volume": "178g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "가나 초코 소프트 아이스크림 아포가토",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1790645208764.png",
+   "price": 0,
+   "desc": "달콤하게 녹아드는 가나 초코와 소프트아이스크림, 커피가 만나 깊은 풍미로 함께 즐길 수 있는 아이스크림 아포가토",
+   "calories": 343,
+   "volume": "209g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 흑임자 크림 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787729650325.png",
+   "price": 0,
+   "desc": "연유가 들어간 달달한 우유 위에 고소한 흑임자 크림을 더해 부드럽고 깊은 풍미를 즐길 수 있는 라떼",
+   "calories": 501,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 흑임자 크림 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787729386389.png",
+   "price": 0,
+   "desc": "연유가 들어간 달달한 우유 위에 고소한 흑임자 크림을 더해 부드럽고 깊은 풍미를 즐길 수 있는 라떼",
+   "calories": 422,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 밤 크림 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787730202415.png",
+   "price": 0,
+   "desc": "진한 밤 라떼에 달콤한 플로팅 크림과 코코아파우더 토핑이 어우러져 가을 분위기를 느낄 수 있는 디저트형 라떼",
+   "calories": 426,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 밤 크림 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787729988293.png",
+   "price": 0,
+   "desc": "진한 밤 라떼에 달콤한 플로팅 크림과 코코아파우더 토핑이 어우러져 가을 분위기를 느낄 수 있는 디저트형 라떼",
+   "calories": 346,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 히비스커스 청귤티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787730676527.png",
+   "price": 0,
+   "desc": "달콤쌉쌀한 청귤과 산뜻한 히비스커스가 조화롭게 균형을 이루는 리프레싱 티",
+   "calories": 242,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 히비스커스 청귤티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1787730431669.png",
+   "price": 0,
+   "desc": "달콤쌉쌀한 청귤과 산뜻한 히비스커스가 조화롭게 균형을 이루는 리프레싱 티",
+   "calories": 242,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 말차폼 자스민티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1785992366347.png",
+   "price": 0,
+   "desc": "은은한 자스민티베이스에 달콤 쌉싸름한 말차폼이 더해져 향긋하게 즐길 수 있는 메뉴",
+   "calories": 355,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 구망추",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1785993336297.png",
+   "price": 0,
+   "desc": "상큼한 구아바에 달콤한 망고가 더해져 열대과일의 풍미를 더욱 진하게 즐길 수 있는 메뉴",
+   "calories": 243,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 구아바 자스민 에이드",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1785992975586.png",
+   "price": 0,
+   "desc": "상큼한 구아바와 향긋한 자스민티, 탄산수가 더해져 향긋하면서도 시원하게 즐길 수 있는 메뉴",
+   "calories": 157,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 제로슈가 아샷추 복숭아",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765785622706.png",
+   "price": 0,
+   "desc": "홍차의 깊은 맛과 풍부한 복숭아 향이 어우러진 아이스티에 이디야 에스프레소가 어우러진 음료​※대체당(에리스리톨)은 개인의 체질에 따라 과다 섭취 시 복통 및 설사 등을 유발할 수 있습니다.​​",
+   "calories": 43,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 헤이즐넛 아메리카노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1756702033875.png",
+   "price": 0,
+   "desc": "헤이즐넛 파우더를 더해 부드럽고 고소한 너트향의 풍성한 여운을 더한 아메리카노​",
+   "calories": 150,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "흑당 콜드브루",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765780359240.png",
+   "price": 0,
+   "desc": "이디야의 밸런스 잡힌 콜드브루에 진하고 달콤한 흑당과 고소한 우유가 어우러진 커피음료",
+   "calories": 306,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 시그니처 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1730080275823.png",
+   "price": 0,
+   "desc": "생크림이 함유되어 부드럽고 풍부한 시그니처밀크와 이디야의 진하고 고소한 에스프레소가 조화를 이뤄, 깊고 고소한 맛을 선사하는 특별한 라떼​",
+   "calories": 404,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 민트 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671588213206.png",
+   "price": 0,
+   "desc": "상쾌한 민트향이 더해진 진한 모카와 부드러운 휘핑크림이 잘 어울리는 음료",
+   "calories": 435,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 민트 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671588274664.png",
+   "price": 0,
+   "desc": "상쾌한 민트향이 더해진 진한 모카와 부드러운 휘핑크림이 잘 어울리는 음료",
+   "calories": 373,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 쉐이크",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765789826353.png",
+   "price": 0,
+   "desc": "부드러운 우유의 맛과 국내산 딸기의 달콤함이 조화로운 쉐이크",
+   "calories": 492,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코쿠키 쉐이크",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765789999101.png",
+   "price": 0,
+   "desc": "초코쿠키의 달콤함과 바삭함을 느낄 수 있어, 어린이와 청소년에게 인기 있는 쉐이크",
+   "calories": 483,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아샷추 복숭아",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1751350827666.png",
+   "price": 0,
+   "desc": "홍차의 깊은 맛과 풍부한 복숭아 향이 어우러진 아이스티에 이디야 디카페인 에스프레소가 어우러진 음료",
+   "calories": 252,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 시그니처 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1730081473743.png",
+   "price": 0,
+   "desc": "생크림이 함유되어 부드럽고 풍부한 시그니처밀크와 이디야의 진하고 고소한 에스프레소가 조화를 이뤄, 깊고 고소한 맛을 선사하는 특별한 라떼​",
+   "calories": 306,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 헤이즐넛 아메리카노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1756701200554.png",
+   "price": 0,
+   "desc": "헤이즐넛 파우더를 더해 부드럽고 고소한 너트향의 풍성한 여운을 더한 아메리카노​",
+   "calories": 150,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "에스프레소 쉐이크",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765791015694.png",
+   "price": 0,
+   "desc": "이디야 에스프레소와 부드러운 우유가 어우러진 달콤하고 시원한 쉐이크",
+   "calories": 406,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "콜드브루",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1647320328440.png",
+   "price": 0,
+   "desc": "(디카페인)이디야만의 블렌딩을 통해 커피의 깊은 단맛과 바디감,균형잡힌 밸런스를 느낄 수 있는 시원한 콜드브루 커피",
+   "calories": 10,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "연유 콜드브루",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1647387558230.png",
+   "price": 0,
+   "desc": "(디카페인) 베트남풍 연유의 달콤한 맛과 밸런스 잡힌 이디야 콜드브루가 어우러져 특색있게 즐길 수 있는 음료",
+   "calories": 313,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "말차 초코 쉐이크",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765790503815.png",
+   "price": 0,
+   "desc": "쌉쌀한 말차와 달콤한 초콜릿이 조화된 진하고 부드러운 쉐이크",
+   "calories": 435,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "콜드브루 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1647320345410.png",
+   "price": 0,
+   "desc": "(디카페인)콜드브루의 깔끔하고 쌉싸름한 풍미가 고소한 우유와 만나 누구나 부담없이 즐길 수 있는 음료",
+   "calories": 156,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "밀크 쉐이크",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765789733734.png",
+   "price": 0,
+   "desc": "우유 그대로의 부드러운 맛을 느낄 수 있으며, 어린이와 청소년도 즐겨 먹을 수 있는 쉐이크",
+   "calories": 566,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "생수박 과일 화채",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779088916433.png",
+   "price": 0,
+   "desc": "톡 쏘는 탄산 화채 베이스에 시원한 수박과 달콤상큼한 냉동 망고·블루베리, 쫄깃한 나타드코코를 더해 과일의 풍미와 풍부한 식감을 즐길 수 있는 화채 음료",
+   "calories": 263,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "컵 팥절빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777424070507.png",
+   "price": 0,
+   "desc": "얼음의 아삭한 식감과 팥의 달콤함에 쫀득한 미니 인절미떡을 더한 핸디 팥빙수",
+   "calories": 582,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "컵 망코빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777423915788.png",
+   "price": 0,
+   "desc": "상단은 망고와 코코넛그래놀라의 바삭한 식감을 망고빙수과 함께, 하단은 코코넛밀크와 망고빙수를 부드럽게 즐길 수 있는 핸디 망고빙수",
+   "calories": 470,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "컵 두초빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777423770639.png",
+   "price": 0,
+   "desc": "상단은 초코쉘을 깨먹고 초콜릿칩에 카다이프면의 다양한 식감을 즐길 수 있으며, 하단은 크림의 부드러움을 함께 즐길 수 있는 핸디 피스타치오 빙수",
+   "calories": 715,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "접시 팥절빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777423610111.png",
+   "price": 0,
+   "desc": "쫄깃한 미니 인절미, 달콤한 팥, 고소한 곡물이 조화로운 팥인절미 빙수",
+   "calories": 700,
+   "volume": "490g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "접시 망코빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777423393615.png",
+   "price": 0,
+   "desc": "바닐라 아이스크림으로 풍성함을 더하고 망고와 코코넛 그래놀라로 식감을 더한 망고코코넛빙수",
+   "calories": 636,
+   "volume": "579g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "접시 두초빙",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1777423232646.png",
+   "price": 0,
+   "desc": "바닐라아이스크림 위 초코쉘을 깨먹고 구운 카다이프, 쿠키분태, 초콜릿칩의 다양한 식감을 더한 두바이스타일초콜릿빙수",
+   "calories": 966,
+   "volume": "515g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "모구모구(리치)",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779322754749.png",
+   "price": 0,
+   "desc": "과즙의 달콤함과 코코넛 젤리의 쫄깃한 식감을 함께 즐기는 이색 음료",
+   "calories": 115,
+   "volume": "220ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "모구모구(복숭아)",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779322791381.png",
+   "price": 0,
+   "desc": "과즙의 달콤함과 코코넛 젤리의 쫄깃한 식감을 함께 즐기는 이색 음료",
+   "calories": 110,
+   "volume": "220ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스크림 스무디볼 딸기",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779088558734.png",
+   "price": 0,
+   "desc": "(*일부 매장 판매)​ 부드럽게 믹싱된 딸기 소프트아이스크림에 다양한 토핑이 더해져 더욱 풍부하게 즐길 수 있는 아이스크림 스무디볼 디저트",
+   "calories": 446,
+   "volume": "250g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스크림 스무디볼 망고",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779088647303.png",
+   "price": 0,
+   "desc": "(*일부 매장 판매)​ 부드럽게 믹싱된 망고 소프트아이스크림에 다양한 토핑이 더해져 더욱 풍부하게 즐길 수 있는 아이스크림 스무디볼 디저트",
+   "calories": 441,
+   "volume": "250g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스크림 스무디볼 블루베리",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1779088447486.png",
+   "price": 0,
+   "desc": "(*일부 매장 판매)부드럽게 믹싱된 블루베리 소프트아이스크림에 다양한 토핑이 더해져 더욱 풍부하게 즐길 수 있는 아이스크림 스무디볼 디저트",
+   "calories": 396,
+   "volume": "236g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(병)프루츠 스파클링 사과",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1772604360699.png",
+   "price": 0,
+   "desc": "상큼한 사과 풍미에 식이섬유를 더해 가볍고 청량하게 즐길 수 있는 저당·기능성· 탄산음료",
+   "calories": 39,
+   "volume": "250ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(병)프루츠 스파클링 복숭아",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1772604519491.png",
+   "price": 0,
+   "desc": "은은한 복숭아 향과 비오틴을 함유해 일상 속 부담없이 마실 수 있는 저당·기능성· 탄산음료",
+   "calories": 23,
+   "volume": "250ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(병)프루츠 스파클링 체리",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1772604508412.png",
+   "price": 0,
+   "desc": "체리 맛에 테아닌을 더해 일상을 환기할 수 있는 저당·기능성· 탄산음료",
+   "calories": 23,
+   "volume": "250ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 말차라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765781675701.png",
+   "price": 0,
+   "desc": "진한 말차의 깊은 풍미와 부드러운 우유가 어우러진 달콤쌉쌀한 음료",
+   "calories": 357,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 말차라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765781949718.png",
+   "price": 0,
+   "desc": "진한 말차의 깊은 풍미와 부드러운 우유가 어우러진 달콤쌉쌀한 음료",
+   "calories": 283,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 민트 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765783174820.png",
+   "price": 0,
+   "desc": "상쾌한 민트향이 가득한 진한 초콜렛 위에 달콤한 휘핑크림으로 마무리 한 이디야의 인기메뉴",
+   "calories": 555,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(콘)소프트 아이스크림(일부 매장 판매)",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1770252417504.png",
+   "price": 0,
+   "desc": "(일부 매장 판매)담백하고 부드러운 우유 풍미를 바삭한 와플콘과 함께 즐기는 아이스크림​",
+   "calories": 287,
+   "volume": "145g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 민트 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765783396464.png",
+   "price": 0,
+   "desc": "상쾌한 민트향이 가득한 진한 초콜렛 위에 달콤한 휘핑크림으로 마무리 한 이디야의 인기메뉴",
+   "calories": 504,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 말차초코라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765785925140.png",
+   "price": 0,
+   "desc": "진한 말차와 달콤한 초콜릿이 어우러져 풍부한 맛의 조화를 느낄 수 있는 음료",
+   "calories": 311,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 딸기 초코 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765786253491.png",
+   "price": 0,
+   "desc": "달콤한 딸기와 진한 초콜릿이 어우러진 부드럽고 달콤한 라떼",
+   "calories": 249,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "더블베리 아이스크림 파르페",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1767924695793.png",
+   "price": 0,
+   "desc": "우유 풍미가 가득한 소프트 아이스크림에 딸기 베이스, 블루베리, 아몬드 시리얼을 쌓아 올린 아이스크림 디저트",
+   "calories": 578,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "더블초코 아이스크림 파르페",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1767924703224.png",
+   "price": 0,
+   "desc": "우유 풍미가 가득한 소프트 아이스크림에 초코 베이스, 쿠키, 아몬드 시리얼, 초콜릿 칩을 쌓아 올린 아이스크림 디저트",
+   "calories": 686,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "망고 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765786567175.png",
+   "price": 0,
+   "desc": "열대과일인 망고의 달콤하고 진한 맛을 그대로 담아낸 여름철 인기 메뉴",
+   "calories": 345,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 자몽차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765778582293.png",
+   "price": 0,
+   "desc": "풍부한 자몽 과육으로 신맛과 쓴맛을 내는 과일차​",
+   "calories": 228,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 카페 아메리카노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671581625569.png",
+   "price": 0,
+   "desc": "구운 견과류의 고소한 향미와 다크초콜렛의 Bitter sweet 깊고 깔끔한 애프터테이스트가 특징인 이디야의 대표음료",
+   "calories": 16,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 에스프레소",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765780417305.png",
+   "price": 0,
+   "desc": "정통 이탈리안 방식으로 고압을 이용하여 빠르게 추출된 커피 이디야의 모든 음료의 기본",
+   "calories": 5,
+   "volume": "30g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "내맘대로 요거트",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750827580459.png",
+   "price": 0,
+   "desc": "무지방 우유로 만든 요거트 아이스크림에 원하는 토핑을 취향껏 선택해서 즐길 수 있는 고객 커스터마이징​",
+   "calories": 175,
+   "volume": "150ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 카라멜 마끼아또",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671585699141.png",
+   "price": 0,
+   "desc": "폼 밀크 속에 감춰진 카라멜의 달콤함과 에스프레소의 진한 맛이 돋보이는 이디야의 인기 메뉴",
+   "calories": 307,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 살얼음 식혜",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784140538.png",
+   "price": 0,
+   "desc": "밥알이 씹히는 정성 가득 식혜에 살얼음을 띄워 더욱 시원하게 즐길 수 있는 메뉴",
+   "calories": 241,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 연유 카페 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721112509173.png",
+   "price": 0,
+   "desc": "베트남풍 연유의 달콤한 맛과 에스프레소가 절묘하게 어우러져 누구나 쉽게 즐길 수 있는 부드러운 커피 음료",
+   "calories": 542,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 연유 카페 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721112356312.png",
+   "price": 0,
+   "desc": "베트남풍 연유의 달콤한 맛과 에스프레소가 절묘하게 어우러져 누구나 쉽게 즐길 수 있는 부드러운 커피 음료",
+   "calories": 314,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "플레인 요거트 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765788846894.png",
+   "price": 0,
+   "desc": "요거트 고유의 새콤달콤한 맛을 그대로 살린 메뉴로 여성들에게 인기가 좋은 음료",
+   "calories": 659,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 카라멜 마끼아또",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671585861402.png",
+   "price": 0,
+   "desc": "폼 밀크 속에 감춰진 카라멜의 달콤함과 에스프레소의 진한 맛이 돋보이는 이디야의 인기 메뉴",
+   "calories": 253,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 루이보스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765777005263.png",
+   "price": 0,
+   "desc": "복숭아 한 조각을 베어 문 잔향이 입안에 남는 맑은 수색의 루이보스 티",
+   "calories": 8,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 달달커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765779348377.png",
+   "price": 0,
+   "desc": "이디야의 노하우가 집약된 커피믹스의 맛을 즐길 수 있는 음료",
+   "calories": 417,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "달콤 초코",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750827896209.png",
+   "price": 0,
+   "desc": "무지방 우유로 만든 요거트 아이스크림에 달콤한 초코쉘과 생초코릿 토핑을 조합​",
+   "calories": 416,
+   "volume": "193g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 바닐라 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1764057115455.png",
+   "price": 0,
+   "desc": "부드러운 라떼에 은은한 바닐라 향이 더해져 더욱 달콤하게 즐길 수 있는 음료",
+   "calories": 345,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 루이보스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765777099660.png",
+   "price": 0,
+   "desc": "복숭아 한 조각을 베어 문 잔향이 입안에 남는 맑은 수색의 루이보스 티",
+   "calories": 8,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "블루베리 요거트 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765789146688.png",
+   "price": 0,
+   "desc": "블루베리 본연의 맛과 상큼한 요거트의 조화를 이룬 새콤달콤한 요거트 플랫치노",
+   "calories": 525,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 꿀화이트 아메리카노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1742279237605.png",
+   "price": 0,
+   "desc": "향긋한 사양 벌꿀과 부드럽고 풍부한 시그니처 밀크, 이디야의 진하고 고소한 에스프레소의 완벽한 조화를 느낄 수 있는 음료​",
+   "calories": 284,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 바닐라 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1764057139672.png",
+   "price": 0,
+   "desc": "부드러운 라떼에 은은한 바닐라 향이 더해져 더욱 달콤하게 즐길 수 있는 음료",
+   "calories": 271,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 히비스커스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765777252198.png",
+   "price": 0,
+   "desc": "사과, 오렌지, 레몬그라스 등이 블렌딩된 과일향 가득한 새콤달콤한 맛의 허브티",
+   "calories": 8,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 히비스커스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765777455699.png",
+   "price": 0,
+   "desc": "사과, 오렌지, 레몬그라스 등이 블렌딩된 과일향 가득한 새콤달콤한 맛의 허브티",
+   "calories": 8,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 카페 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721113750256.png",
+   "price": 0,
+   "desc": "모카시럽을 만나 한층 풍부해진 에스프레소에 우유로 부드러움을 더한 달콤한 휘핑크림이 곁들여진 음료",
+   "calories": 384,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "상큼 자몽",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750828050353.png",
+   "price": 0,
+   "desc": "무지방 우유로 만든 요거트 아이스크림에 초코쉘을 더하고 상품한 냉동 자몽과 아몬드 시리얼, 유산균 마시멜로우, 꿀베이스 토핑을 조합​",
+   "calories": 453,
+   "volume": "261g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 제로슈가 달달커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765779612637.png",
+   "price": 0,
+   "desc": "이디야의 노하우가 집약된 커피믹스의 맛을 제로슈가로 즐길 수 있는 음료* 대체당(에리스리톨 등)은 개인의 체질에 따라 과다 섭취 시 복통 및 설사 등을 유발할 수 있습니다.​",
+   "calories": 151,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 넛츠 크림 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671587873712.png",
+   "price": 0,
+   "desc": "부드러운 크림과 에스프레소, 너티 플레이버가 어우러져 만들어진 완벽한 한 잔의 라떼",
+   "calories": 391,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 고구마 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784347729.png",
+   "price": 0,
+   "desc": "호박고구마를 활용하여 달콤하고 고소한 고구마의 풍미가 진하게 느껴지는 음료",
+   "calories": 407,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 카페 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721113857534.png",
+   "price": 0,
+   "desc": "모카시럽을 만나 한층 풍부해진 에스프레소에 우유로 부드러움을 더한 달콤한 휘핑크림이 곁들여진 음료",
+   "calories": 322,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 화이트 초콜릿 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671587353689.png",
+   "price": 0,
+   "desc": "화이트 초콜렛과 에스프레소의 조화로운 만남에 달콤한 휘핑크림까지 함께 즐길 수 있는 음료",
+   "calories": 443,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 캐모마일",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765776525679.png",
+   "price": 0,
+   "desc": "캐모마일과 루이보스, 레몬그라스 등이 블렌딩되어 은은함이 돋보이는 허브티",
+   "calories": 7,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 캐모마일",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765776632124.png",
+   "price": 0,
+   "desc": "캐모마일과 루이보스, 레몬그라스 등이 블렌딩되어 은은함이 돋보이는 허브티",
+   "calories": 7,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 화이트 초콜릿 모카",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671587593517.png",
+   "price": 0,
+   "desc": "화이트 초콜렛과 에스프레소의 조화로운 만남에 달콤한 휘핑크림까지 함께 즐길 수 있는 음료",
+   "calories": 381,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 배모과차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765780857837.png",
+   "price": 0,
+   "desc": "배와 모과를 활용한 과일차로, 달콤하고 향긋한 향을 즐길 수 있는 음료",
+   "calories": 263,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "꿀복숭아 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765787009348.png",
+   "price": 0,
+   "desc": "복숭아의 리얼한 풍미와 꿀의 달콤함이 최적의 조화를 이룬 달콤하고 시원한 플랫치노",
+   "calories": 460,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "블루베리바나나주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754633302341.png",
+   "price": 0,
+   "desc": "상큼한 블루베리와 부드러운 바나나가조화를 이루는 향긋한 과일 스무디​",
+   "calories": 353,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아포가토 오리지널",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1756434711893.png",
+   "price": 0,
+   "desc": "대중들에게 가장 친숙한 타입의 아포가토로 이디야 빙볼에 에스프레소와 아몬드를 토핑한 제품",
+   "calories": 150,
+   "volume": "112g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 생강차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765781383858.png",
+   "price": 0,
+   "desc": "생강 특유의 진하고 풍부한 맛과 향미를 느낄 수 있으며, 은은하고 부드러운 단맛의 유자와 꿀이 더해진 음료",
+   "calories": 339,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "레몬 아이스티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1751350513156.png",
+   "price": 0,
+   "desc": "입안 가득 상큼한 레몬향이 퍼지는 새콤달콤한 맛의 아이스티",
+   "calories": 238,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 쌍화차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765782630836.png",
+   "price": 0,
+   "desc": "전통 쌍화차를 이디야의 색깔로 재해석해 다양한 연령층이 즐길 수 있는 은은한 향과 고소함이 특징인 음료",
+   "calories": 244,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 달달커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1713744638856.png",
+   "price": 0,
+   "desc": "이디야의 노하우가 집약된 커피믹스의 맛을 즐길 수 있는 음료",
+   "calories": 278,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "토피넛 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765787846122.png",
+   "price": 0,
+   "desc": "고소한 아몬드의 맛과 달콤한 코코아가 조화롭게 어우러진 달콤한 플랫치노",
+   "calories": 397,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "머스캣 모히또 에이드",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721096519205.png",
+   "price": 0,
+   "desc": "샤인머스캣의 달콤함과 민트의 향긋함을 동시에 즐길 수 있는 상큼한 에이드​",
+   "calories": 159,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754628536587.png",
+   "price": 0,
+   "desc": "새콤달콤한 딸기 과육을 그대로 담아, 딸기 본연의 풍미를 즐길 수 있는 과일 스무디​",
+   "calories": 199,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "감귤 레몬 에이드",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765773540652.png",
+   "price": 0,
+   "desc": "레몬의 상큼함과 감귤의 달달함을 더욱 즐길 수 있는 달달한 에이드​",
+   "calories": 156,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 레몬차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765780242692.png",
+   "price": 0,
+   "desc": "비타민이 풍부한 레몬으로 맛을 내어 새콤달콤한 맛이 특징인 과일차",
+   "calories": 323,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "사과당근클렌즈주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754634228211.png",
+   "price": 0,
+   "desc": "사과의 상큼함과 당근의 자연스러운 단맛이 어우러진, 부담 없이 즐기는 클렌즈 주스 (비타민A,비타민C 함유)​",
+   "calories": 164,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "유자몽 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765787532816.png",
+   "price": 0,
+   "desc": "상큼한 유자와 자몽이 어우러져 청량하고 시트러스한 맛을 즐길 수 있는 플랫치노",
+   "calories": 325,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "망고바나나주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754632571472.png",
+   "price": 0,
+   "desc": "진한 망고의 풍미에 바나나의 부드러움을 더한 달콤한 과일 스무디​",
+   "calories": 436,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 로열 밀크티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765783977819.png",
+   "price": 0,
+   "desc": "잉글리시 브랙퍼스트 따뜻한 우유가 어우러져 은은하게 퍼지는 향이 돋보이는 음료",
+   "calories": 346,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 얼그레이",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1671596309362.png",
+   "price": 0,
+   "desc": "깊고 그윽한 홍차와 달콤한 복숭아 향이 어우러지는 깔끔한 맛의 얼그레이 티",
+   "calories": 16,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스크림 카페라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765872889466.png",
+   "price": 0,
+   "desc": "고소한 라떼 위에 우유의 풍미가 가득한 아이스크림을 토핑하여 부드럽게 마실 수 있는 음료 (이디야커피 일부 매장에서만 판매하는 제품입니다.)",
+   "calories": 318,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 페퍼민트",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765776769472.png",
+   "price": 0,
+   "desc": "입안 가득 청량함이 느껴지는 상쾌한 허브티",
+   "calories": 7,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초콜릿 칩 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765788196213.png",
+   "price": 0,
+   "desc": "트리플 모카시럽에 초콜릿 칩이 더해져 씹는 재미가 있는 달콤한 플랫치노",
+   "calories": 621,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 생강차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765781060257.png",
+   "price": 0,
+   "desc": "생강 특유의 진하고 풍부한 맛과 향미를 느낄 수 있으며, 은은하고 부드러운 단맛의 유자와 꿀이 더해진 음료",
+   "calories": 241,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "망고주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754628933284.png",
+   "price": 0,
+   "desc": "부드럽고 진한 달콤함이 살아있는, 망고 본연의 풍미를 담은 과일 스무디​",
+   "calories": 460,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "샹그리아 에이드",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765774989668.png",
+   "price": 0,
+   "desc": "다양한 과일에 와인베이스를 더해 다채롭고 풍성한 맛을 진하게 즐길 수 있는 논알콜 에이드",
+   "calories": 263,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 로열 밀크티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765783401430.png",
+   "price": 0,
+   "desc": "잉글리시 브랙퍼스트 따뜻한 우유가 어우러져 은은하게 퍼지는 향이 돋보이는 음료",
+   "calories": 325,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 미숫가루 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784706293.png",
+   "price": 0,
+   "desc": "고소한 곡물의 풍미와 부드러운 우유가 조화된 한국 전통 음료",
+   "calories": 524,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 카페 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721106247362.png",
+   "price": 0,
+   "desc": "진한 에스프레소와 부드러운 우유가 만나 고소한 풍미를 더하는 메뉴 가장 대중적인 메뉴",
+   "calories": 304,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 콤부차 복숭아 망고",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1716354699267.png",
+   "price": 0,
+   "desc": "홍차와 녹차의 추출액과 프락토올리고당, 스코비로 발효한 콤부차 원액과 정제수, 이디야의 노하우가 담긴 과일 티 농축액을 블렌딩하여 만든 프리바이오틱스를 함유한 병음료 콤부차",
+   "calories": 142,
+   "volume": "315ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 레몬차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765779762340.png",
+   "price": 0,
+   "desc": "비타민이 풍부한 레몬으로 맛을 내어 새콤달콤한 맛이 특징인 과일차",
+   "calories": 323,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 고구마 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765783985332.png",
+   "price": 0,
+   "desc": "호박고구마를 활용하여 달콤하고 고소한 고구마의 풍미가 진하게 느껴지는 음료",
+   "calories": 344,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 토피넛 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765782452900.png",
+   "price": 0,
+   "desc": "고소한 아몬드의 맛과 달콤한 코코아가 조화롭게 어우러진 달콤한 음료",
+   "calories": 270,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 카푸치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721117534865.png",
+   "price": 0,
+   "desc": "에스프레소에 부드러운 우유 거품을 풍부하게 올린 음료, 시나몬파우더가 첨가되어 강렬한 향과 커피의 풍부함을 즐길 수 있는 음료",
+   "calories": 140,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 카페 아메리카노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721106994373.png",
+   "price": 0,
+   "desc": "구운 견과류의 고소한 향미와 다크초콜렛의 Bitter sweet 깊고 깔끔한 애프터테이스트가 특징인 이디야의 대표음료",
+   "calories": 11,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "민트 초콜릿칩 플랫치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765788293786.png",
+   "price": 0,
+   "desc": "진한 민트향이 더해진 초코렛에 초콜렛칩이 가득 들어있는 젊은 감성의 이디야 플랫치노",
+   "calories": 580,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 카페 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721106299584.png",
+   "price": 0,
+   "desc": "진한 에스프레소와 부드러운 우유가 만나 고소한 풍미를 더하는 메뉴 가장 대중적인 메뉴",
+   "calories": 137,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 유자차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765777940884.png",
+   "price": 0,
+   "desc": "국내산 유자를 사용하고 유자과육이 풍부한 홈메이드 방식의 달콤한 과일차",
+   "calories": 315,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 듬뿍 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1703040183528.png",
+   "price": 0,
+   "desc": "달콤한 딸기의 식감과 상큼함을 듬뿍 담은 딸기라떼",
+   "calories": 262,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 제로슈가 달달커피",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1749106722121.png",
+   "price": 0,
+   "desc": "이디야의 노하우가 집약된 커피믹스의 맛을 제로슈가로 즐길 수 있는 음료* 대체당(에리스리톨 등)은 개인의 체질에 따라 과다 섭취 시 복통 및 설사 등을 유발할 수 있습니다.​ ​​​",
+   "calories": 227,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 페퍼민트",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765776837499.png",
+   "price": 0,
+   "desc": "입안 가득 청량함이 느껴지는 상쾌한 허브티",
+   "calories": 7,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 콤부차 청포도 레몬",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1716354818562.png",
+   "price": 0,
+   "desc": "홍차와 녹차의 추출액과 프락토올리고당, 스코비로 발효한 콤부차 원액과 정제수, 이디야의 노하우가 담긴 과일 티 농축액을 블렌딩하여 만든 프리바이오틱스를 함유한 병음료 콤부차",
+   "calories": 142,
+   "volume": "315ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 복분자 뱅쇼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784706333.png",
+   "price": 0,
+   "desc": "다양한 과일에 와인베이스를 더해 다채롭고 풍성한 맛을 진하게 즐길 수 있는 논알콜 음료",
+   "calories": 295,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 배모과차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765780408338.png",
+   "price": 0,
+   "desc": "배와 모과를 활용한 과일차로, 달콤하고 향긋한 향을 즐길 수 있는 음료",
+   "calories": 184,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 카푸치노",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721117444125.png",
+   "price": 0,
+   "desc": "에스프레소에 부드러운 우유 거품을 풍부하게 올린 음료, 시나몬파우더가 첨가되어 강렬한 향과 커피의 풍부함을 즐길 수 있는 음료",
+   "calories": 141,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "키위케일샐러리클렌즈주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754634427750.png",
+   "price": 0,
+   "desc": "키위의 상큼함, 케일의 풍부함, 샐러리의 깔끔한 향이 조화를 이루는 상쾌한 클렌즈 주스 (프리바이오틱스 함유)​",
+   "calories": 0,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 흑당 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765786427682.png",
+   "price": 0,
+   "desc": "진하고 달콤한 흑당과 고소한 우유가 어우러진 논커피 음료",
+   "calories": 315,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 유자차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765778231618.png",
+   "price": 0,
+   "desc": "국내산 유자를 사용하고 유자과육이 풍부한 홈메이드 방식의 달콤한 과일차",
+   "calories": 315,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "복숭아 아이스티",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1751350279391.png",
+   "price": 0,
+   "desc": "홍차의 깊은 맛과 풍부한 복숭아 향이 어우러진 달콤한 여름철 인기 음료",
+   "calories": 247,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야키즈 뽀로로 오렌지",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1709599223774.png",
+   "price": 0,
+   "desc": "맛있는 과즙이 쑥쑥~ 이디야키즈 뽀로로 오렌지",
+   "calories": 45,
+   "volume": "100ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "팝핑캔디",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750840560494.png",
+   "price": 0,
+   "desc": "",
+   "calories": 33,
+   "volume": "9g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 쌍화차",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765782515613.png",
+   "price": 0,
+   "desc": "전통 쌍화차를 이디야의 색깔로 재해석해 다양한 연령층이 즐길 수 있는 은은한 향과 고소함이 특징인 음료전",
+   "calories": 0,
+   "volume": "650ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코쿠키 아이스크림",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1715912592793.png",
+   "price": 0,
+   "desc": "소프트 밀크 아이스크림의 부드러움, 바삭한 초코쿠키와 달콤 쌉싸름한 코코아의 풍미를 즐길 수 있는 아이스크림 (이디야커피 일부 매장에서만 판매하는 제품입니다.)",
+   "calories": 278,
+   "volume": "146g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야키즈 뽀로로 사과매실",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1709599391117.png",
+   "price": 0,
+   "desc": "맛있는 과즙이 쑥쑥~ 이디야키즈 뽀로로 사과매실",
+   "calories": 45,
+   "volume": "100ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아망추 복숭아",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1751350603739.png",
+   "price": 0,
+   "desc": "홍차의 깊은 맛과 풍부한 복숭아 향이 어우러진 아이스티에 달콤 망고가 올라가 더욱 달콤하게 즐길 수 있는 음료",
+   "calories": 247,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "꿀복숭아 에이드",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1721101484760.png",
+   "price": 0,
+   "desc": "꿀의 달콤함과 씹히는 복숭아 과육을 즐길 수 있는 달콤한 에이드​",
+   "calories": 288,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 버블 흑당 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765786494516.png",
+   "price": 0,
+   "desc": "진하고 달콤한 흑당에 쫄깃한 버블이 어우러진 논커피 음료",
+   "calories": 0,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 콤부차 석류애플라임",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1716354959737.png",
+   "price": 0,
+   "desc": "홍차와 녹차의 추출액과 프락토올리고당, 스코비로 발효한 콤부차 원액과 정제수, 이디야의 노하우가 담긴 과일 티 농축액을 블렌딩하여 만든 프리바이오틱스를 함유한 병음료 콤부차",
+   "calories": 126,
+   "volume": "315ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "카라멜 소스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750837909557.png",
+   "price": 0,
+   "desc": "",
+   "calories": 30,
+   "volume": "10g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "비타민 주스 애플망고",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1722475731399.png",
+   "price": 0,
+   "desc": "부드럽고 달달한 애플망고 맛이 기분 좋게 느껴지는 과일 주스(비타민 6종 1일 영양성분 기준치 함유)​",
+   "calories": 136,
+   "volume": "250ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 화이트 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1764566754730.png",
+   "price": 0,
+   "desc": "화이트 초콜렛 위에 곁들여진 휘핑크림의 달콤함과 부드러움이 단연 돋보이는 음료",
+   "calories": 465,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 달고나 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1647321929656.png",
+   "price": 0,
+   "desc": "달콤한 달고나와 우유가 조화롭게 어우러져, 달고나 분태의 바삭한 식감과 함께 즐길 수 있는 제품",
+   "calories": 349,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "블루베리 시럽",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750838011607.png",
+   "price": 0,
+   "desc": "",
+   "calories": 41,
+   "volume": "24g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "ICED 미숫가루 라떼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784928311.png",
+   "price": 0,
+   "desc": "고소한 곡물의 풍미와 부드러운 우유가 조화된 한국 전통 음료",
+   "calories": 427,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 초콜릿",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765782625802.png",
+   "price": 0,
+   "desc": "진한 모카시럽과 부드러운 우유, 그리고 달콤한 휘핑크림의 삼박자가 조화를 이루는 음료",
+   "calories": 438,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "HOT 복분자 뱅쇼",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1765784803857.png",
+   "price": 0,
+   "desc": "다양한 과일에 와인베이스를 더해 다채롭고 풍성한 맛을 진하게 즐길 수 있는 논알콜 음료",
+   "calories": 228,
+   "volume": "520ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "냉동블루베리",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750839463590.png",
+   "price": 0,
+   "desc": "",
+   "calories": 7,
+   "volume": "15g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코 시럽",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750837803226.png",
+   "price": 0,
+   "desc": "",
+   "calories": 27,
+   "volume": "10g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "그래놀라",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750840680762.png",
+   "price": 0,
+   "desc": "",
+   "calories": 60,
+   "volume": "12g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "블루베리주스",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1754630635273.png",
+   "price": 0,
+   "desc": "향긋하고 상큼한 블루베리의 맛을 그대로 담아낸 과일 스무디​",
+   "calories": 438,
+   "volume": "670ml",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 과육",
+   "sub": "음료",
+   "image": "https://www.ediya.com/files/menu/IMG_1750838336491.png",
+   "price": 0,
+   "desc": "",
+   "calories": 34,
+   "volume": "25g",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "씨앗호떡",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229157735.png",
+   "price": 0,
+   "desc": "각종 씨앗들과 흑설탕의 조화로 고소함과 달콤함을 동시에 즐길수 있는 호떡",
+   "calories": 307,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "잡채호떡",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229273613.png",
+   "price": 0,
+   "desc": "풍성한 잡채 토핑으로 식사대용까지 가능한 든든한 간식",
+   "calories": 241,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "피자호떡",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229417736.png",
+   "price": 0,
+   "desc": "치즈와 피자 토핑을 활용해 젊은 고객층 선호도를 반영한 이색 메뉴",
+   "calories": 267,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "팥붕어빵",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229610752.png",
+   "price": 0,
+   "desc": "겨울철 대표 간식으로 남녀노소 부담없이 즐길 수 있는 메뉴",
+   "calories": 372,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "슈크림붕어빵",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229736855.png",
+   "price": 0,
+   "desc": "부드럽고 달콤한 슈크림 필링을 가득 담아 달콤한 풍미를 느낄 수 있는 간식",
+   "calories": 364,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "햄치즈계란빵",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788229957476.png",
+   "price": 0,
+   "desc": "짭쪼름한 햄과 고소한 치즈를 담은 든든한 계란빵 간식",
+   "calories": 194,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "반반붕어빵",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1788239727799.png",
+   "price": 0,
+   "desc": "팥붕어빵과 슈크림붕어빵 두 종 모두 함께 즐길 수 있는 형식의 간식",
+   "calories": 368,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "우리땅 고구마 말랭이",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1789000674501.png",
+   "price": 0,
+   "desc": "국내산 고구마 원물을 그대로 담아낸 쫀득하고 촉촉한 제품",
+   "calories": 177,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 쇼콜라 크런치(박스)",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1787730951636.png",
+   "price": 0,
+   "desc": "진한 초콜릿의 달콤함과 바삭한 크런치 식감, 상큼한 딸기크림 필링이 어우러진 제품",
+   "calories": 1250,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 쇼콜라 크런치(낱개)",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1787731103323.png",
+   "price": 0,
+   "desc": "진한 초콜릿의 달콤함과 바삭한 크런치 식감, 상큼한 딸기크림 필링이 어우러진 제품",
+   "calories": 125,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "햄 치즈 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1785472058743.png",
+   "price": 0,
+   "desc": "햄과 치즈 시그니처 소스가 토핑된 식사용 샌드위치",
+   "calories": 210,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "에그 포테이토 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1785472133865.png",
+   "price": 0,
+   "desc": "계란과 감자샐러드가 샌드된 식사용 샌드위치",
+   "calories": 180,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "딸기 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1785472226666.png",
+   "price": 0,
+   "desc": "달콤한 딸기 잼과 딸기크림이 샌드된 간식용 샌드위치",
+   "calories": 194,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "땅콩 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1785472286878.png",
+   "price": 0,
+   "desc": "고소한 땅콩 잼과 크림이 샌드된 간식용 샌드위치",
+   "calories": 240,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "바스크치즈케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1781506976892.png",
+   "price": 0,
+   "desc": "진하게 구운 상단과 진한 크림치즈맛의 조각케익",
+   "calories": 306,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "현미 소불고기볶음밥",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1774920189102.png",
+   "price": 0,
+   "desc": "고슬고슬한 현미밥에 달콤짜조름한 소불고기를 더한 든든한 한끼",
+   "calories": 420,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림 퐁듀 김치볶음밥",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1774920059295.png",
+   "price": 0,
+   "desc": "매콤한 김치볶음밥에 부드러운 크림치즈 봉듀 소스를 더한 든든한 한끼",
+   "calories": 505,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "저당 오리지널 떡볶이",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1774920418522.png",
+   "price": 0,
+   "desc": "당류를 낮춰 부담을 줄인 오리지널 떡볶이와 밥김말이를 함께 즐기는 제품",
+   "calories": 494,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "저당 짜장 떡볶이",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1774920527668.png",
+   "price": 0,
+   "desc": "당류를 낮춰 부담을 줄인 짜장 떡볶이와 밥김말이를 함께 즐기는 제품",
+   "calories": 495,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "저당 마라로제 떡볶이",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1774920628819.png",
+   "price": 0,
+   "desc": "당류를 낮춰 부담을 줄인 마라로제 떡볶이와 밥김말이를 함께 즐기는 제품",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "멕시칸타코 베이글칩",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1776325476173.png",
+   "price": 0,
+   "desc": "바삭한 베이글칩에 멕시칸타코 시즈닝을 더해 짭짤한 맛이 특징인 제품",
+   "calories": 313,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "불닭 베이글칩",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1776325596448.png",
+   "price": 0,
+   "desc": "바삭한 베이글칩에 불닭 시즈닝을 더해 매콤한 맛이 특징인 제품",
+   "calories": 317,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "미니말차크런치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1770254480149.png",
+   "price": 0,
+   "desc": "현미 과자의 바삭함과 달콤한 녹차 크림이 어우려져 한 입에 즐거움을 느낄 수 있는 제품​",
+   "calories": 517,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "미니코코크런치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1770598102194.png",
+   "price": 0,
+   "desc": "초코 과자의 바삭함과 달콤한 크림이 어우려져 한 입에 즐거움을 느낄 수 있는 제품",
+   "calories": 530,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "미니프레첼 볶음양념맛",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1588119806103.png",
+   "price": 0,
+   "desc": "씹을수록 고소함이 가득한 프레첼 모양의 과자 위에 볶음양념 특유의 감칠맛과 짭조름함이 어우러진 시즈닝이 잘 어우러진 스낵",
+   "calories": 320,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "저당 제육 단백 브리또",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1760920461346.png",
+   "price": 0,
+   "desc": "매콤 달콤한 저당 제육 소스로 건강하게 즐길 수 있는 브리또",
+   "calories": 335,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "저당 찜닭 단백브리또",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1760920612554.png",
+   "price": 0,
+   "desc": "매콤하고 감칠맛이 특징인 저당 찜닭 소스로 건강하게 즐길 수 있는 브리또",
+   "calories": 315,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "두쫀쿠",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1769473204559.png",
+   "price": 0,
+   "desc": "카다이프의 바삭한 식감과 꾸덕한 초코의 쫀득함으로 한입에 다양한 만족감이 동시에 퍼지는 두바이 스타일 디저트",
+   "calories": 181,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코프레첼 미니",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1649289699539.png",
+   "price": 0,
+   "desc": "바삭한 프레첼의 식감에 달콤한 초콜릿 코팅과 짭짤한 소금의 조화로 단짠단짠의 매력을 느낄 수 있는 스낵",
+   "calories": 213,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "떠먹는 티라미수",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1781506858546.png",
+   "price": 0,
+   "desc": "진한 에스프레소 시럽에 부드러운 크림과 코코아파우더를 토핑한 티라미수 케이크​",
+   "calories": 296,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "플레인 베이글",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1709012624866.png",
+   "price": 0,
+   "desc": "더 커지고 더 쫀쫀해져 크림치즈와 함께 먹으면 더욱 맛있는 베이글",
+   "calories": 283,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "버터 팬케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1688352074797.png",
+   "price": 0,
+   "desc": "버터가 올라간 부드러운 팬케이크 위에 달콤한 메이플 시럽을 부어서 음료 등과 가볍게 먹기 좋은 팬케이크",
+   "calories": 412,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코렛 청크 쿠키",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1641945771372.png",
+   "price": 0,
+   "desc": "초콜릿칩이 씹히는 진하고 부드러운 쿠키",
+   "calories": 360,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "플레인 와플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1548049744616.png",
+   "price": 0,
+   "desc": "펄 슈가가 들어 있어 한입 베어 물 때마다 톡톡 씹히는 재미와 달콤한 맛을 함께 느낄 수 있는 정통 벨기에 와플",
+   "calories": 327,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이너츠",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1535348836201.png",
+   "price": 0,
+   "desc": "매일 간편하게 즐기는 이디야의 견과류",
+   "calories": 132,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "데블스 초코 케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1717115024189.png",
+   "price": 0,
+   "desc": "진한 초콜릿과 코코아 시트로 만든 초콜릿 케이크",
+   "calories": 426,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "메이플 와플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1548049771356.png",
+   "price": 0,
+   "desc": "펄 슈가가 들어 있어 한입 베어 물 때마다 톡톡 씹히는 재미와 메이플 향이 입안 가득 은은하게 퍼지는 와플",
+   "calories": 354,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "에그 베이컨 과카몰리 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1572224047505.png",
+   "price": 0,
+   "desc": "겉은 바삭하고 속은 부드러운 깜빠뉴 사이에 촉촉한 과카몰리 샐러드와 바삭한 베이컨, 치즈, 달걀 프라이가 조화를 이룬 제품",
+   "calories": 392,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "아이스콘 초코",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1588120936170.png",
+   "price": 0,
+   "desc": "튀기지 않고 오븐에 직접 구운 고소하고 바삭한 콘 모양의 과자",
+   "calories": 362,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "달고나 아이스크림 와플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1757404686175.png",
+   "price": 0,
+   "desc": "쫄깃한 와플에 부드럽고 달콤한 아이스크림을 더하고, 달콤쌉싸름한 달고나의 깊고 진한 풍미와 바삭한 식감까지 느낄 수 있는 메뉴",
+   "calories": 562,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "스노우 쿠키슈",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510908976337.png",
+   "price": 0,
+   "desc": "부드럽고 시원한 크림과 바삭한 쿠키가 조화로운 이디야 디저트",
+   "calories": 215,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "펄 슈가 카스테라",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1705884751335.png",
+   "price": 0,
+   "desc": "오독오독 씹히는 펄슈가(크리스탈슈가)와 촉촉한 식감을 즐길 수 있는 정석대로 만든 펄슈가 카스테라",
+   "calories": 242,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림치즈 와플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1722470932674.png",
+   "price": 0,
+   "desc": "펄 슈가가 들어 있어 한입 베어 물 때마다 톡톡 씹히는 재미와 고소하고 진한 크림치즈의 풍미를 더한 와플",
+   "calories": 415,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "페퍼로니 피자 샌드위치",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1572224265674.png",
+   "price": 0,
+   "desc": "겉은 바삭하고 속은 부드러운 깜빠뉴 사이에 토마토 소스와 갈린 불고기, 쫄깃한 모짜렐라 치즈가 페퍼로니와 조화를 이룬 제품",
+   "calories": 398,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "레몬 아이싱 파운드",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1705885241399.png",
+   "price": 0,
+   "desc": "은은한 레몬향과 아삭한 아이싱이 씹히는 레몬즙과 제스트를 넣어 만든 맛있는 레몬 아이싱 파운드",
+   "calories": 308,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "플레인 크로플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1633651297107.png",
+   "price": 0,
+   "desc": "크루아상을 와플 모양으로 찍어 만든 크로플 위에 메이플 시럽과 슈가파우더가 올라간 기본 타입 크로플",
+   "calories": 265,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코 생크림 케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1717115973587.png",
+   "price": 0,
+   "desc": "진한 초콜릿 생크림으로, 달콤하고 고소한 초콜릿의 맛이 특징인 조각케익",
+   "calories": 242,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크로크 무슈",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510910024686.png",
+   "price": 0,
+   "desc": "햄과 치즈가 들어있어 담백하고 고소한 맛을 즐길 수 있는, 한끼 식사 대용으로 좋은 제품",
+   "calories": 430,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "프레즐",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510909812531.png",
+   "price": 0,
+   "desc": "따뜻하게 데우면 프레즐 속 숨어있던 달콤한크림치즈가 녹으면서 부드러운 향이 살아나는 이디야의 대표 인기메뉴",
+   "calories": 250,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "메이플 넛 브레드",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510910209786.png",
+   "price": 0,
+   "desc": "메이플 향이 풍부한 브레드에 풍성한 휘핑크림과 몸에 좋은 호두와 아몬드가 더해진 중독성 강한 허니브레드",
+   "calories": 850,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "우유 생크림 케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1717115735866.png",
+   "price": 0,
+   "desc": "신선한 우유생크림이 들어가서 더욱 부드럽고 고소한 맛이 특징인 조각케익",
+   "calories": 248,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크리미피넛 감자쿠키",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1719891676557.png",
+   "price": 0,
+   "desc": "슬림한 감자 크래커에 달달하고 고소한 피넛 크림이 샌딩되어 있는 쿠키 스낵​",
+   "calories": 402,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "잉글리쉬 머핀",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510909920359.png",
+   "price": 0,
+   "desc": "폭신한 잉글리쉬 머핀에 달걀, 햄, 치즈, 그리고 홀머스터드가 발라진 영국식 아침 식사 대용 제품",
+   "calories": 278,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "플레인 치즈 스틱케익",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1718669584342.png",
+   "price": 0,
+   "desc": "부드러운 크림치즈 본연의 맛이 잘 느껴지는, 먹기 간편한 스틱형태 케익",
+   "calories": 166,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "허니 카라멜 브레드",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510911706733.png",
+   "price": 0,
+   "desc": "은은한 시나몬과 진한 카라멜 코팅이 된 허니브레드에 휘핑크림을 더해 한결 부드러워진 맛의 허니브레드",
+   "calories": 746,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크리미초코 감자쿠키",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1719885133252.png",
+   "price": 0,
+   "desc": "슬림한 감자 크래커에 달콤한 초콜렛이 샌딩되어 있는 쿠키 스낵",
+   "calories": 403,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코 치즈 스틱 케익",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1718669705468.png",
+   "price": 0,
+   "desc": "달콤한 초콜릿과 부드러운 크림치즈가 조화롭게 어우러지는 스틱형태 케익",
+   "calories": 199,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "화이트초코 마카다미아 쿠키",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1641946096782.png",
+   "price": 0,
+   "desc": "마카다미아 넛의 고소함과 화이트초콜렛의 달콤함이 조화를 이루는 쿠키",
+   "calories": 356,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크루아상",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1566779269364.png",
+   "price": 0,
+   "desc": "프랑스산 버터를 듬뿍 넣어 롤링한 크루아상으로 버터 특유의 고소함과 담백함을 풍부하게 느낄 수 있는 제품",
+   "calories": 260,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "쌍쌍 츄로스",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1645420645211.png",
+   "price": 0,
+   "desc": "시나몬슈가로 마무리한 바삭한 식감을 가진 츄로스. 커피와 함께 할 경우 더욱 풍부한 맛을 느낄 수 있는 베이커리",
+   "calories": 265,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "소금빵",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1678683033413.png",
+   "price": 0,
+   "desc": "겉은 바삭하고 속은 촉촉한 겉바속촉 소금빵",
+   "calories": 228,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "초코 티라미수 케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1717115080162.png",
+   "price": 0,
+   "desc": "크림치즈와 달콤한 초콜렛이 조화를 이루고 진하고 고운 코코아 파우더가 맛에 깊이를 더하는 메뉴",
+   "calories": 340,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "대파베이컨 크림치즈 베이글",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1692175574629.png",
+   "price": 0,
+   "desc": "치즈가 토핑된 베이글에 대파와 베이컨이 들어간 크림치즈를 발라서 부드럽고 깔끔한 맛으로 음료와 잘 어울리는 제품",
+   "calories": 445,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "수플레 치즈 케이크",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1717115058488.png",
+   "price": 0,
+   "desc": "치즈 고유의 부드러움과 촉촉함이 살아있는 케이크",
+   "calories": 370,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림 와플",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1548049712448.png",
+   "price": 0,
+   "desc": "펄 슈가가 들어 있어 한입 베어 물 때마다 톡톡 씹히는 재미와 크림의 달콤함을 함께 즐길 수 있는 와플",
+   "calories": 397,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "까르보나라 구운주먹밥",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1637053177551.png",
+   "price": 0,
+   "desc": "까르보나라 소스와 베이컨이 부드러운 모짜렐라 치즈가 잘 어우러진 쫀득하고 고소한 오븐에 구운 주먹밥",
+   "calories": 211,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "오리지널 핫 번",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1510909897190.png",
+   "price": 0,
+   "desc": "따뜻한 번을 감싼 커피크림과 빵속에 부드럽게 녹아 든 버터가 조화를 이뤄 달콤 짭쪼름한 맛이 일품인 오리지널 번",
+   "calories": 240,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "매콤 로제 구운주먹밥",
+   "sub": "베이커리",
+   "image": "https://www.ediya.com/files/menu/IMG_1637053197787.png",
+   "price": 0,
+   "desc": "매콤하고 부드러운 로제 떡볶이 양념과 부드러운 모짜렐라 치즈가 잘 어우러진 쫀득하고 고소한 오븐에 구운 주먹밥",
+   "calories": 209,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 골드 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1787631197143.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 블루 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1787631222689.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 핸드드립 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1775106797850.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 라떼 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1775106747866.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 커피믹스 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1775106775300.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "WCIGS 월드 팸피언 바리스타 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1775106837361.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(선물세트) 이디야 복담은 제주 티 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1767763439769.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(선물세트) 이디야 새해정(情)커피 & 머그 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1767763398834.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(선물세트) 이디야 다정한 라떼 & 믹스 선물세트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1767763287469.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "스페클 플랫 텀블러(아이보리)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1732600456193.png",
+   "price": 0,
+   "desc": "스페클 패턴을 활용한 디자인에 음용구, 빨대 삽입구 이중 사용으로 실용성 강화한 텀블러​",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "스페클 핸들 텀블러 (다크바이올렛)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1732600535787.png",
+   "price": 0,
+   "desc": "스페클 패턴을 활용한 디자인에 휴대가 용이한 \"손잡이\"형 리드를 활용한 텀블러​",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "스페클 스트로 텀블러 (바이올렛)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1732600580383.png",
+   "price": 0,
+   "desc": "스페클 패턴을 활용한 디자인에 \"스트로\" 사용을 주 특징으로 하는 텀블러​",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)이디야 석류애플라임티",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1650853827815.png",
+   "price": 0,
+   "desc": "산뜻한 석류에 다양한 과일과 꽃, 그리고 샴페인의 향이 더해져 깊고 중후한 맛이 느껴지는 블렌딩티 * 과일청 50~60g에 뜨거운 물 150~200ml와 티백을 넣고 잘 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)이디야 제주청귤블라썸티",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642379575366.png",
+   "price": 0,
+   "desc": "청귤의 새콤함이 사과, 포도 등의 다양한 과일향과 함께 어우러져 밸런스가 훌륭한 블렌딩티 * 과일청 50~60g에 뜨거운 물 150~200ml와 티백을 넣고 잘 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)이디야 자몽네이블오렌지티",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642380078719.png",
+   "price": 0,
+   "desc": "자몽청에 오렌지, 로즈힙, 사과 등을 넣어 부드러운 신맛과 오렌지향을 즐길 수 있는 블렌딩티 * 과일청 50~60g에 뜨거운 물 150~200ml와 티백을 넣고 잘 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "멜로우 마일드 캡슐커피",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1737591043230.png",
+   "price": 0,
+   "desc": "달콤한 향미를 감싸는 부드러운 바디감이 특징​",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "인텐소 다크 캡슐커피",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1737591095180.png",
+   "price": 0,
+   "desc": "진한 다크 초콜릿 향미와 풍부한 바디감이 특징​",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 머그 (블루)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1510793893117.png",
+   "price": 0,
+   "desc": "투톤 컬러를 사용하여 고급스러운 기본 머그 (용량 : 400ml)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "엑스트라 콜드컵(아이보리)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1626162568510.png",
+   "price": 0,
+   "desc": "미세한 펄 입자가 반짝이는 유광으로 보다 깔끔함이 느껴지는 상품(스트로우 및 세척솔 포함 구성)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "엑스트라 콜드컵(베이비 블루)",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1626162631579.png",
+   "price": 0,
+   "desc": "매트한 파우더 코팅으로 감촉이 매끄럽고, 고급스러움을 더한 상품(스트로우 및 세척솔 포함 구성)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)샤인히비스커스",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642404943480.png",
+   "price": 0,
+   "desc": "사과, 오렌지, 패션후르츠 등의 과일향이 가득 블렌딩된 새콤달콤한 허브티 (10개입) * 90℃ 온수 270ml에 2분간 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)스프링캐모마일",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1730967735692.png",
+   "price": 0,
+   "desc": "캐모마일과 루이보스의 은은한 달콤함에 상큼한 레몬그라스향이 더해진 허브티 (10개입) * 90℃ 온수 270ml에 2분간 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)그린루이보스",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642405057527.png",
+   "price": 0,
+   "desc": "그린 루이보스의 깔끔한 맛에 복숭아 한 조각을 베어 문 듯한 잔향의 허브티 (10개입) * 90℃ 온수 270ml에 2분간 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)퓨어페퍼민트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642405114484.png",
+   "price": 0,
+   "desc": "막 피어난 싱싱하고 여린 페퍼민트의 청량함이 입 안 가득 느껴지는 허브티 (10개입) * 90℃ 온수 270ml에 2분간 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "(MD)피치얼그레이",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1642405206272.png",
+   "price": 0,
+   "desc": "깊고 그윽한 홍차와 달콤한 복숭아 향이 조화롭게 어우러진 블랙티 (10개입) * 90℃ 온수 270ml에 2분간 우려낸 후 드세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 블루 블렌드",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1709600489113.png",
+   "price": 0,
+   "desc": "콜롬비아, 에티오피아, 과테말라 원두를 블렌딩하여 바닐라와 피칸의 단맛과 고소함, 진한 초콜렛의 후미와 묵직한 바디감을 누구나 즐길 수 있는 원두",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 에티오피아 레켐티",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1709600687712.png",
+   "price": 0,
+   "desc": "에티오피아 서쪽 고지대에서 자란 원두로, 은은한 과일의 향미와 브라운 슈가의 단맛을 조화롭게 즐길 수 있는 원두",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 디카페인",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1709600805551.png",
+   "price": 0,
+   "desc": "워터프로세스 공법으로 안전하게 카페인을 제거하여 깊고 풍부한 향미와 진한 단맛을 중심으로 긴 여운의 밸런스를 느낄 수 있는 원두",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 핸드드립 커피 콜롬비아 슈프리모",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1637543184885.png",
+   "price": 0,
+   "desc": "부드러운 바닐라와 아몬드의 고소함, 은은한 향미의 안정적인 밸런스가 특징",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 핸드드립 커피 에티오피아 리무",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1637543408136.png",
+   "price": 0,
+   "desc": "은은하고 선명한 플로럴한 향미와 케인슈가의 달콤한 후미가 특징",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 핸드드립 커피 브라질 세하도",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1709598061526.png",
+   "price": 0,
+   "desc": "고소한 너트류의 맛, 적은 산미, 부드러운 단맛의 밸런스가 특징",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "이디야 핸드드립 커피 페르소나 블렌드",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1637543625450.png",
+   "price": 0,
+   "desc": "다크 초콜렛, 카라멜, 견과류의 고소함 및 부드러운 바디감이 특징",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림 드립 포트",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1666053776630.png",
+   "price": 0,
+   "desc": "아기자기한 사이즈의 주전자 타입의 포트(용량 : 350ml)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "커피 드리퍼",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1666053619328.png",
+   "price": 0,
+   "desc": "열에 강하고 휴대성을 겸비한 가벼운 PP재질의 드리퍼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림 드립 텀블러",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1666053918753.png",
+   "price": 0,
+   "desc": "미니 드리퍼가 내장되어 있어 휴대가 용이한 크림 색상의 드립 텀블러",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "글라스 서버",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1666053710194.png",
+   "price": 0,
+   "desc": "300ml당 용량 표시선이 있는 내열 강화유리 재질의 유리 서버(용량 : 700ml)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  },
+  {
+   "name": "크림 전동 그라인더",
+   "sub": "스낵·MD",
+   "image": "https://www.ediya.com/files/menu/IMG_1666053982244.png",
+   "price": 0,
+   "desc": "버튼을 누르면서 갈리는 수동식 전동 그라인더",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.ediya.com/contents/drink.html"
+  }
+ ]
+}

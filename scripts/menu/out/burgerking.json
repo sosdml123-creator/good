@@ -1,0 +1,886 @@
+{
+ "key": "burgerking",
+ "brand": "버거킹",
+ "items": [
+  {
+   "name": "몬스터 맥시멈",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/08/11/d6d143b1-6d4e-42cf-b155-e0746eac89d0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "몬스터 맥시멈2",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/08/11/cbcc591c-4fa1-4409-a1b6-3f2088214eb5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "몬스터 맥시멈3",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/08/11/f7f790ce-3ad4-485b-9807-9ef26948c192.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "더오치 맥시멈2",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/08/07/d426a52d-4137-4406-9e9c-a7d8b252c281.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "오리지널스 엘파소 치폴레",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/05/20/ea8f8fca-c784-4795-ab83-cad5bb16ad0b.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "오리지널스 뉴욕 스테이크",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/05/16/de79cfd1-e414-4bf7-9e5f-c7a5afcd80c5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "트러플 머쉬룸 와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/09/07/e160391f-9dda-4d94-a81e-0db7c82f8f2b.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "핫 트러플 머쉬룸 와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/09/07/a5db9372-c8d1-4d94-8bce-8be2be3c2506.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "메종 트러플치즈 버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/09/07/a6526eec-6344-443a-b0b1-c7f3bbbd9543.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "펜타치즈와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/14/f130ec3b-290d-4929-9f97-fcb3d6e1285f.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "보일링 씨푸드 버거 버터갈릭",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/06/19/cbbd9f10-f6e4-4a60-b141-f78c993b0bdf.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "보일링 씨푸드 버거 디아블로",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/06/19/d7eaf8a2-0e16-43cf-bd09-74c5e3bb05a4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "몬스터와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/ffefc938-62f3-4bc0-8a54-bad31db5d63a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "베이컨치즈와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/cafd8a5d-fbed-42c6-946d-c2f9cf009446.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "콰트로치즈와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/fe3b84c2-1e1c-47c1-aea2-a8a7f6d5a069.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "통새우와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b29489df-fafb-43f1-b0e1-21ab7b0c19e3.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/c9811022-3678-4988-9fa4-1d3fc6a69bf5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치즈와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/d14c3a22-568d-41f8-ba30-02ee39bfe647.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "불고기와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/fc969a33-3281-4601-91bb-b3aa789afc11.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "갈릭불고기와퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/c84d6cc7-298a-440f-8328-1839031ef46e.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "콰트로치즈와퍼주니어",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/03/19/d948f0bc-05bf-4c8e-9acb-cf9d3b18cc66.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "통새우와퍼주니어",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/04/f9899937-0f95-4d89-9a9a-5fef132a7346.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "더블비프불고기버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/d8688732-ccfa-41b1-8afa-ff3646d45c2a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "와퍼주니어",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/04/da324f38-2864-4382-ae9a-a97faf5bd265.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치즈와퍼주니어",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b1b8de28-8b85-450a-9c58-c40a9a2fad3d.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "불고기와퍼주니어",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b3cc4d6e-7a84-472a-ae04-061151ba70d1.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "비프불고기버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/e8510c49-b02b-4f6f-97e3-e0f5b7ed649c.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치즈버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/d7977b8b-93c0-403f-834b-d9164f06cad6.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "데리야킹 크리스퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/08/06/da546811-ea24-4c90-9178-8ab2f5be7924.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "더 크리스퍼",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/01/13/d895878b-82cf-4563-8b0e-ae369eabd10f.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "더 크리스퍼 베이컨&치즈",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/01/13/e7067ea7-1992-4fae-bb9e-8ab039e5d72e.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "크리스퍼 랩",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/21/f8a73788-9144-41dd-959f-9d45779373eb.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치킨킹BLT",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/fd99206f-4072-4c2f-955c-12386291073a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치킨킹",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b24d04e3-96d6-4cc1-b07d-fc171a7fc6b8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "통새우슈림프버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b14f9d55-6932-4b58-8bfe-2a21ed63f376.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치킨 치즈 마요 버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/22/bed42084-4793-41bc-b89f-9cae7bc211d7.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "치킨버거",
+   "sub": "버거",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/eea3248f-3d79-4618-a87d-c9e07b61c432.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "롱치킨버거",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/06/01/db0cc305-f7e3-4feb-a5e3-740ded880c2a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "불고기 롱치킨버거",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/06/01/a1ee1a78-7098-496d-bdf5-bfc1120e6fa4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "몬스터 주니어",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/06/11/aa9ef4a9-ec10-4664-9080-d9b07f368867.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "크리스퍼 텐더",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/21/ae5df265-3f21-4e94-9565-6ad44ad45cf8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "리얼어니언링(R)",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/08/d5c11ba6-9247-4bce-91e4-b845300130d8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "애플 파이 로얄",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/23/ac22d4d1-883a-445b-90b5-7efeeb6ef3ec.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "21치즈스틱",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/b9b45861-8b06-4342-a3ef-ed6405f5457a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "초코 선데",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/04/28/c3a36287-7c00-4bd3-9d0c-1269126b14de.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "밀크 선데",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/04/28/e4c9587f-7cde-4915-b7df-2899f07cb763.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "코카콜라 제로(L)",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/08/cd076f7f-e50a-4b25-a89b-eaad8aa78b8d.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "닥터페퍼 제로(L)",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/08/dc9f0dd6-8b95-457e-b94b-f90765a04231.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "스프라이트 제로(L)",
+   "sub": "스낵",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/07/08/ad779e88-ea8f-40d6-b3ef-97be1514d129.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "오믈렛 크루아상위치",
+   "sub": "모닝",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/e90735ef-aa9c-4654-ae8c-1ce4c6061dd7.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "잠봉햄&치즈오믈렛 크루아상위치",
+   "sub": "모닝",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/d71b149f-6be2-414e-a572-2e9dbe8420e0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "BLT 오믈렛 크루아상위치",
+   "sub": "모닝",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/b823f884-42ac-4008-9256-a45c90d84458.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "비프 킹 랩",
+   "sub": "모닝",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/08/06/e0c72d14-2d2d-4518-9aca-70d86890a532.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "해쉬브라운",
+   "sub": "모닝",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/f9510eb7-4fb1-4a26-9649-94abd5a57f8a.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "딥 트러플 프라이",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/09/14/ecff7e64-6b1c-461b-ac11-f74dcf52e403.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "트러플 머쉬룸 파이 로얄",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/09/14/e9ac9f0a-0ecb-40f6-9ecd-5d22a2e17a2d.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "바삭킹2조각",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/f3792d8c-339f-47fd-bb5b-f40733991c1f.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "바삭킹4조각",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/ab34a753-5337-4f98-a3ef-3b82f56a8a6b.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "리얼 어니언링(L)",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bfef1373-5221-43a9-a89e-cde77f384208.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "너겟킹 8조각",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/05/aabaf89c-0ebf-4629-8667-9ed5ce5c4be8.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "너겟킹 10조각",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/e0890014-66be-4f39-826b-74a428d6e410.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "너겟킹 4조각",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/dfc0294f-d53b-4dfc-b2eb-eaf313d4f77b.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "쉐이킹프라이 매콤치즈",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/02/05/d0a70146-03b3-4069-8494-71bd4f0dbe0d.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "쉐이킹프라이 스윗어니언",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/02/05/b00b84bf-5db1-421f-945c-519771706719.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "쉐이킹프라이 구운갈릭",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/02/05/de724408-8d82-4417-8a0e-beb0b8baa149.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "프렌치프라이(R)",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/05/d601acd4-19ac-4462-9fdc-0d170e4d04e4.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "프렌치프라이(L)",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/05/bb859c97-0a00-4082-8fb7-0a8e67fe0ab5.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "코울슬로",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/d5da97e1-c516-4ebc-bbae-a41502e2b4d9.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "콘샐러드",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/05/ddaf5550-6e96-4b86-9798-150571843d34.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "빅 딥 체다치즈",
+   "sub": "사이드",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/06/01/fefc1187-09bd-4ae2-ab18-f54f13e4f2fb.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "카페라떼",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/b1111bf2-02e1-414c-9b14-3e63549fd13c.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "아이스 카페라떼",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/27/cb880df5-1be0-436c-bc81-5afdcb34925c.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "킹플로트 소다",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/14/b7748e07-968f-4d9e-9047-cc7c0b32a735.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "킹플로트 메론",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2026/07/14/d37fbbfe-9811-4dc7-98c8-f21bf91f06d9.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "킹플로트(닥터페퍼 제로)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/05/22/bec2c132-481a-43fe-a4cc-1d97cd20d12c.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "아메리카노",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/c77ae44c-30a2-4b09-9438-4a072ce7299e.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "아이스 아메리카노",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/ca880124-cf85-4412-a939-4ea32c9ab70c.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "닥터페퍼 제로(R)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/05/16/edcc6fb6-5524-4ae5-948b-c8db24c87ace.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "코카콜라(R)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bd5158be-277d-483e-a5af-b3827feaf821.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "코카콜라(L)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/be1dfb8d-4ca6-4c23-a46e-b9ffc70999c0.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "코카콜라 제로(R)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bd7340ae-59d5-4b43-a638-e41fe1d77717.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "스프라이트(L)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/ce899031-ae52-43d2-9bdd-e8572eed1051.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "스프라이트(R)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bd460290-b640-47a8-8e26-0351951a1f80.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "스프라이트 제로(R)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bd2f513d-848c-4c7a-ac48-bc891c090aca.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "미닛메이드 오렌지",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/fc7f243f-afa2-4315-a1b4-e53e83e855ec.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "순수(미네랄워터)",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2024/12/05/e8a25b53-a554-4869-bc92-0184f1ede143.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "아이스초코",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/c88ce7dd-34fd-4167-bfbb-75ecf167c1d2.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  },
+  {
+   "name": "핫초코",
+   "sub": "음료·디저트",
+   "image": "https://mob-prd.burgerking.co.kr/images/menu/web/main/2025/01/06/bbea6272-3573-42b1-aed4-f62402c810c3.png",
+   "price": 0,
+   "desc": "",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.burgerking.co.kr/menu/main"
+  }
+ ]
+}
