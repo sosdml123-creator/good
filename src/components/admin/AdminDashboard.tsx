@@ -87,6 +87,7 @@ import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
 import { ProductIntakeTab } from './ProductIntakeTab';
+import { BattleRound, fetchBattleRound, setBattlePair } from '../../services/battleService';
 
 export type AdminTab = 
   | 'overview' 
@@ -141,6 +142,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     toggleProductToday, 
     toggleProductHot,
     updateBattleConfig,
+    refreshBattleRound,
     resetAllDataToDefaults,
     setActiveTab,
     showToast,
@@ -563,7 +565,37 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   const [battleLabelA, setBattleLabelA] = useState(battleConfig.labelA);
   const [battleProductBId, setBattleProductBId] = useState(battleConfig.productBId);
   const [battleLabelB, setBattleLabelB] = useState(battleConfig.labelB);
-  const [battlePercentA, setBattlePercentA] = useState(battleConfig.percentA);
+  // 이번 주 대결과 실제 득표수 (서버 기준)
+  const [adminBattleRound, setAdminBattleRound] = useState<BattleRound | null>(null);
+  const [battleSaveStatus, setBattleSaveStatus] = useState<{ ok: boolean; message: string } | null>(null);
+  const [isSavingBattle, setIsSavingBattle] = useState(false);
+
+  const applyAdminBattleRound = (round: BattleRound | null | undefined) => {
+    if (!round) return;
+    setAdminBattleRound(round);
+    setBattleProductAId(round.productA.id);
+    setBattleProductBId(round.productB.id);
+  };
+
+  useEffect(() => {
+    if (activeAdminTab !== 'battle' && activeAdminTab !== 'overview') return;
+    fetchBattleRound({ admin: true }).then(result => {
+      if (result.ok) applyAdminBattleRound(result.round);
+    });
+  }, [activeAdminTab]);
+
+  const battleVoteLabel = (side: 'A' | 'B') => {
+    const counts = adminBattleRound?.counts;
+    if (!counts) return '집계 대기';
+    const total = counts.A + counts.B;
+    const count = counts[side];
+    return total > 0 ? `${count.toLocaleString()}표 (${Math.round((count / total) * 100)}%)` : '0표';
+  };
+  const battleBarPercentA = (() => {
+    const counts = adminBattleRound?.counts;
+    const total = counts ? counts.A + counts.B : 0;
+    return counts && total > 0 ? (counts.A / total) * 100 : 50;
+  })();
 
   // Image zoom modal
   const [previewImageModalUrl, setPreviewImageModalUrl] = useState<string | null>(null);
@@ -1141,7 +1173,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
   };
 
   // Battle save helper
-  const handleSaveBattle = () => {
+  const handleSaveBattle = async () => {
+    if (!battleProductAId || !battleProductBId || battleProductAId === battleProductBId) {
+      setBattleSaveStatus({ ok: false, message: '서로 다른 두 상품을 선택해주세요.' });
+      return;
+    }
+    setIsSavingBattle(true);
+    setBattleSaveStatus(null);
     updateBattleConfig({
       title: battleTitle,
       subtitle: battleSubtitle,
@@ -1149,9 +1187,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       labelA: battleLabelA,
       productBId: battleProductBId,
       labelB: battleLabelB,
-      percentA: battlePercentA
     });
-    showToast('신상 배틀 설정이 저장되었습니다.', 'success');
+    const result = await setBattlePair(battleProductAId, battleProductBId);
+    setIsSavingBattle(false);
+    if (!result.ok) {
+      setBattleSaveStatus({ ok: false, message: result.error || '대결 상품을 저장하지 못했습니다.' });
+      return;
+    }
+    applyAdminBattleRound(result.round);
+    refreshBattleRound();
+    setBattleSaveStatus({ ok: true, message: '이번 주 대결에 반영했습니다.' });
   };
 
   // Export JSON helper
@@ -2213,7 +2258,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       <div className="truncate">
                         <span className="text-[10px] font-bold text-blue-600 bg-blue-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelA}</span>
                         <p className="text-xs font-bold truncate mt-0.5 text-slate-900 dark:text-white">{prodA?.name}</p>
-                        <p className="text-xs font-mono font-bold text-blue-600">{battlePercentA}%</p>
+                        <p className="text-xs font-mono font-bold text-blue-600">{battleVoteLabel('A')}</p>
                       </div>
                     </div>
 
@@ -2225,7 +2270,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       <div className="truncate">
                         <span className="text-[10px] font-bold text-rose-600 bg-rose-500/10 px-1.5 py-0.5 rounded">{battleConfig.labelB}</span>
                         <p className="text-xs font-bold truncate mt-0.5 text-slate-900 dark:text-white">{prodB?.name}</p>
-                        <p className="text-xs font-mono font-bold text-rose-600">{100 - battlePercentA}%</p>
+                        <p className="text-xs font-mono font-bold text-rose-600">{battleVoteLabel('B')}</p>
                       </div>
                       <img src={prodB?.image} alt={prodB?.name} className="w-12 h-12 object-cover rounded-xl border border-rose-500/30 shrink-0" />
                     </div>
@@ -4227,7 +4272,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   <span>신상 배틀 실시간 맞대결 설정</span>
                 </h2>
                 <p className="text-xs text-slate-500 mt-1">
-                  모바일 홈 화면 하단에 노출되는 대형 투표 위젯입니다. 두 개의 라이벌 신제품을 골라 실시간 투표를 유도할 수 있습니다.
+                  월~금 투표 → 토·일 결과 공개 → 매주 월요일 0시에 최근 대결에 나오지 않은 신상품으로 자동 교체됩니다. 아래에서 이번 주 대결 상품을 직접 지정할 수도 있습니다 (상품을 바꾸면 이번 주 표는 초기화됩니다).
                 </p>
               </div>
 
@@ -4305,35 +4350,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       </select>
                     </div>
 
-                    {/* Vote Percent Slider */}
-                    <div>
-                      <div className="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                        <span>A 파이터 기준 득표율 설정: <strong className="text-blue-600">{battlePercentA}%</strong></span>
-                        <span>B 파이터: <strong className="text-rose-600">{100 - battlePercentA}%</strong></span>
-                      </div>
-                      <input
-                        type="range"
-                        min="1"
-                        max="99"
-                        value={battlePercentA}
-                        onChange={e => setBattlePercentA(Number(e.target.value))}
-                        className="w-full accent-indigo-600 cursor-pointer"
-                      />
-                    </div>
-
                     <button
                       onClick={handleSaveBattle}
-                      className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-98"
+                      disabled={isSavingBattle}
+                      className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-98"
                     >
-                      배틀 매치업 즉시 저장 & 반영
+                      {isSavingBattle ? '저장 중...' : '배틀 매치업 즉시 저장 & 반영'}
                     </button>
+                    {battleSaveStatus && (
+                      <p className={`text-xs font-bold ${battleSaveStatus.ok ? 'text-emerald-600' : 'text-rose-600'}`}>
+                        {battleSaveStatus.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 {/* Right: Live Battle Showdown Arena Preview */}
                 <div className={`p-6 rounded-2xl border shadow-sm space-y-6 ${cardBg}`}>
                   <div>
-                    <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">실시간 모바일 렌더링 미리보기</span>
+                    <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">
+                      {adminBattleRound ? `이번 주 대결 (${adminBattleRound.weekKey} 시작) · 실제 득표 ${adminBattleRound.totalVotes.toLocaleString()}표` : '이번 주 대결 미리보기'}
+                    </span>
                     <h3 className={`text-lg font-black mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{battleTitle}</h3>
                     <p className="text-xs text-slate-400">{battleSubtitle}</p>
                   </div>
@@ -4353,7 +4390,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <div>
                           <p className="text-[11px] text-slate-400">{prodA?.brand}</p>
                           <p className={`text-xs font-black line-clamp-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodA?.name}</p>
-                          <p className="text-sm font-mono font-black text-blue-600 mt-1">{battlePercentA}%</p>
+                          <p className="text-sm font-mono font-black text-blue-600 mt-1">{battleVoteLabel('A')}</p>
                         </div>
                       </div>
 
@@ -4368,7 +4405,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                         <div>
                           <p className="text-[11px] text-slate-400">{prodB?.brand}</p>
                           <p className={`text-xs font-black line-clamp-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{prodB?.name}</p>
-                          <p className="text-sm font-mono font-black text-rose-600 mt-1">{100 - battlePercentA}%</p>
+                          <p className="text-sm font-mono font-black text-rose-600 mt-1">{battleVoteLabel('B')}</p>
                         </div>
                       </div>
 
@@ -4382,8 +4419,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     {/* Progress Bar */}
                     <div className="mt-5">
                       <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex">
-                        <div className="bg-gradient-to-r from-blue-600 to-indigo-500 h-full" style={{ width: `${battlePercentA}%` }} />
-                        <div className="bg-gradient-to-r from-rose-500 to-amber-500 h-full" style={{ width: `${100 - battlePercentA}%` }} />
+                        <div className="bg-gradient-to-r from-blue-600 to-indigo-500 h-full" style={{ width: `${battleBarPercentA}%` }} />
+                        <div className="bg-gradient-to-r from-rose-500 to-amber-500 h-full" style={{ width: `${100 - battleBarPercentA}%` }} />
                       </div>
                     </div>
                   </div>

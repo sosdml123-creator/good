@@ -32,6 +32,7 @@ import {
   PurchasedECoupon
 } from '../types';
 import type { ReviewExtraData } from '../types';
+import { BattleRound, fetchBattleRound, submitBattleVote } from '../services/battleService';
 import { INITIAL_PRODUCTS, INITIAL_BANNERS, INITIAL_BATTLE_CONFIG, INITIAL_EVENTS, INITIAL_NOTIFICATIONS, INITIAL_HOME_SECTIONS } from '../data/mockProducts';
 import { INITIAL_CALENDAR_ITEMS } from '../data/mockCalendar';
 import { INITIAL_SALE_PROMOTIONS } from '../data/mockSalePromotions';
@@ -109,8 +110,12 @@ interface AppContextType {
   communityPosts: CommunityPost[];
   banners: BannerItem[];
   battleConfig: BattleConfig;
+  /** 이번 주 신상 배틀 (서버 기준). 불러오기 전이거나 대결이 없으면 null */
+  battleRound: BattleRound | null;
   battleChoice: 'A' | 'B' | null;
+  battleVoteError: string | null;
   voteBattle: (choice: 'A' | 'B') => void;
+  refreshBattleRound: () => Promise<void>;
   events: PromotionEvent[];
   selectedEventId: string;
   selectedEvent: PromotionEvent;
@@ -1480,24 +1485,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  const [battleChoice, setBattleChoice] = useState<'A' | 'B' | null>(() => {
+  // 신상 배틀: 대결 상품·투표·결과는 모두 서버(/api/battle) 값이 기준입니다.
+  const [battleRound, setBattleRound] = useState<BattleRound | null>(() => {
     try {
-      const stored = localStorage.getItem('sinsangpick_battle_choice');
-      return stored === 'A' || stored === 'B' ? stored : null;
+      const stored = localStorage.getItem('sinsangpick_battle_round');
+      const parsed: BattleRound | null = stored ? JSON.parse(stored) : null;
+      // 다음 대결이 이미 시작된 뒤라면 지난 캐시는 쓰지 않습니다.
+      return parsed && Date.parse(parsed.nextRoundAt) > Date.now() ? parsed : null;
     } catch {
       return null;
     }
   });
+  const [battleVoteError, setBattleVoteError] = useState<string | null>(null);
+  const battleChoice = battleRound?.myChoice ?? null;
 
-  const voteBattle = (choice: 'A' | 'B') => {
-    if (battleChoice === choice) return;
-    setBattleChoice(choice);
+  const applyBattleRound = (round: BattleRound | null) => {
+    setBattleRound(round);
     try {
-      localStorage.setItem('sinsangpick_battle_choice', choice);
+      if (round) safeSetItem('sinsangpick_battle_round', JSON.stringify(round));
+      else localStorage.removeItem('sinsangpick_battle_round');
     } catch (e) {
       console.warn(e);
     }
-    showToast('⚡ 신상 배틀 투표 완료!', 'success');
+  };
+
+  const refreshBattleRound = async () => {
+    const result = await fetchBattleRound();
+    if (result.ok) applyBattleRound(result.round ?? null);
+  };
+
+  const voteBattle = async (choice: 'A' | 'B') => {
+    if (!battleRound || battleRound.phase !== 'voting' || battleRound.myChoice === choice) return;
+    const before = battleRound;
+    setBattleVoteError(null);
+    setBattleRound({
+      ...before,
+      myChoice: choice,
+      totalVotes: before.totalVotes + (before.myChoice ? 0 : 1),
+    });
+
+    const result = await submitBattleVote(choice);
+    if (result.ok && result.round) {
+      applyBattleRound(result.round);
+      return;
+    }
+    setBattleRound(before);
+    if (result.code === 'SIGNED_OUT') {
+      openLoginModal();
+      return;
+    }
+    setBattleVoteError(result.error || '투표를 저장하지 못했어요. 잠시 후 다시 시도해주세요.');
+    if (result.code === 'CLOSED' || result.code === 'NO_ROUND') refreshBattleRound();
   };
 
   const [likedReviewIds, setLikedReviewIds] = useState<string[]>(() => {
@@ -2022,6 +2060,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       .catch(() => {});
     return () => { cancelled = true; };
   }, [currentUser.uid]);
+
+  // 신상 배틀: 시작·로그인 계정 변경·앱 복귀 때 다시 불러오고, 결과 공개(토)·새 대결(월) 시각에 맞춰 갱신합니다.
+  useEffect(() => {
+    refreshBattleRound();
+    const handleVisible = () => {
+      if (document.visibilityState === 'visible') refreshBattleRound();
+    };
+    document.addEventListener('visibilitychange', handleVisible);
+    return () => document.removeEventListener('visibilitychange', handleVisible);
+  }, [currentUser.uid]);
+
+  useEffect(() => {
+    if (!battleRound) return;
+    const nextChangeAt = Date.parse(battleRound.phase === 'voting' ? battleRound.resultAt : battleRound.nextRoundAt);
+    if (isNaN(nextChangeAt)) return;
+    const timer = setTimeout(refreshBattleRound, Math.max(nextChangeAt - Date.now(), 0) + 2000);
+    return () => clearTimeout(timer);
+  }, [battleRound?.weekKey, battleRound?.phase]);
 
   // 관리자 설정 목록(브랜드·판매처·출시 캘린더·배틀)은 서버에 저장된 값이 있으면 그 값을 씁니다.
   const applyRemoteAdminLists = (remote: { brands?: any; storeChannels?: any; calendarItems?: any; battleConfig?: any } | null | undefined) => {
@@ -3827,6 +3883,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_guest_browse');
       localStorage.removeItem('sinsangpick_permissions_reviewed');
       localStorage.removeItem('sinsangpick_battle_choice');
+      localStorage.removeItem('sinsangpick_battle_round');
       localStorage.removeItem('sinsangpick_review_likes');
       localStorage.removeItem('sinsangpick_post_likes');
       localStorage.removeItem('sinsangpick_push_enabled');
@@ -6152,8 +6209,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         communityPosts,
         banners,
         battleConfig,
+        battleRound,
         battleChoice,
+        battleVoteError,
         voteBattle,
+        refreshBattleRound,
         events,
         selectedEventId,
         selectedEvent,

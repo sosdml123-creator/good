@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { safeLocalStorageGet, safeLocalStorageSet } from '../../utils/safeStorage';
+import { getBattlePercents } from '../../services/battleService';
 import { 
   ChevronLeft, 
   Star, 
@@ -38,72 +39,6 @@ export interface BattleComment {
   replies: BattleCommentReply[];
 }
 
-const INITIAL_BATTLE_COMMENTS: BattleComment[] = [
-  {
-    id: 'b-cmt-1',
-    userName: '편의점탐험가',
-    userAvatar: DEFAULT_AVATAR,
-    choice: 'A',
-    content: '이번 신상은 국물이 진짜 깊고 진해요 ㅋㅋㅋ 특유의 불향이 살아있어서 밥까지 말아먹었습니다. 완전 강추!',
-    likes: 24,
-    isLiked: false,
-    createdAt: '15분 전',
-    replies: [
-      {
-        id: 'b-rep-1',
-        userName: '라면마스터',
-        userAvatar: DEFAULT_AVATAR,
-        content: '인정합니다! 어제 GS25에서 사먹어봤는데 면발 탄력도 역대급이더라고요.',
-        createdAt: '10분 전'
-      }
-    ]
-  },
-  {
-    id: 'b-cmt-2',
-    userName: '알뜰식탐러',
-    userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
-    choice: 'B',
-    content: '가성비랑 양 생각하면 무조건 B가 승리입니다 ㅋㅋㅋ 편의점에서 2+1 행사도 하고 있어서 쟁여두기 딱 좋아요. 달콤매콤해서 중독성 대박!',
-    likes: 19,
-    isLiked: false,
-    createdAt: '32분 전',
-    replies: []
-  },
-  {
-    id: 'b-cmt-3',
-    userName: '신상얼리어답터',
-    userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
-    choice: 'NONE',
-    content: '둘 다 개성이 확실해서 취향 차이일 듯해요! 얼큰하고 진한 자극을 원할 땐 A, 가볍고 감칠맛 있는 한 끼엔 B 추천합니다. 둘 다 신상치고 완성도 높아요 👍',
-    likes: 14,
-    isLiked: false,
-    createdAt: '1시간 전',
-    replies: []
-  },
-  {
-    id: 'b-cmt-4',
-    userName: '매운맛챌린저',
-    userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-    choice: 'A',
-    content: '매운 거 좋아하시는 분들은 망설이지 말고 A 가세요! 스트레스 확 풀리는 알싸함입니다 🔥',
-    likes: 9,
-    isLiked: false,
-    createdAt: '2시간 전',
-    replies: []
-  },
-  {
-    id: 'b-cmt-5',
-    userName: '간식요정',
-    userAvatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80',
-    choice: 'B',
-    content: 'B는 치즈나 반숙란 살짝 얹어서 같이 먹으면 진짜 꿀맛탱이에요.. 무조건 꿀조합으로 드셔보세요!',
-    likes: 17,
-    isLiked: false,
-    createdAt: '3시간 전',
-    replies: []
-  }
-];
-
 export const CompareModal: React.FC = () => {
   const { 
     products, 
@@ -112,7 +47,9 @@ export const CompareModal: React.FC = () => {
     openProductDetail, 
     goBack,
     battleConfig,
+    battleRound,
     battleChoice,
+    battleVoteError,
     voteBattle,
     currentUser,
     showToast
@@ -121,23 +58,28 @@ export const CompareModal: React.FC = () => {
   const compared = products.filter(p => comparedIds.includes(p.id));
   const isCustomCompare = compared.length >= 2;
 
-  // 배틀 모드일 경우 관리자 설정 상품 A & B 자동 연결
-  const p1 = isCustomCompare 
-    ? compared[0] 
-    : (products.find(p => p.id === battleConfig.productAId) || products[0]);
-    
-  const p2 = isCustomCompare 
-    ? (compared[1] || compared[0]) 
-    : (products.find(p => p.id === battleConfig.productBId) || products[1] || products[0]);
+  // 배틀 모드일 경우 이번 주 대결 상품 A & B 자동 연결
+  const p1 = isCustomCompare
+    ? compared[0]
+    : (products.find(p => p.id === battleRound?.productA.id) || products[0]);
 
-  // 실시간 투표 득표율 계산
-  const percentA = battleChoice === 'A' ? 62 : battleChoice === 'B' ? 48 : (battleConfig.percentA || 55);
-  const percentB = 100 - percentA;
+  const p2 = isCustomCompare
+    ? (compared[1] || compared[0])
+    : (products.find(p => p.id === battleRound?.productB.id) || products[1] || products[0]);
 
-  // 댓글 목록 상태 (localStorage 연동)
+  // 득표율은 결과 공개(토·일) 때만 내려옵니다.
+  const battlePercents = getBattlePercents(battleRound?.counts);
+  const isBattleClosed = battleRound?.phase === 'result';
+
+  // 댓글 목록 상태 (localStorage 연동, 대결이 바뀌면 의견도 새로 시작)
+  const commentsKey = `sinsangpick_battle_comments_${battleRound?.weekKey || 'none'}`;
   const [comments, setComments] = useState<BattleComment[]>(() => {
-    return safeLocalStorageGet<BattleComment[]>('sinsangpick_battle_comments', INITIAL_BATTLE_COMMENTS);
+    return safeLocalStorageGet<BattleComment[]>(commentsKey, []);
   });
+
+  useEffect(() => {
+    setComments(safeLocalStorageGet<BattleComment[]>(commentsKey, []));
+  }, [commentsKey]);
 
   // 댓글 작성 관련 상태
   const [selectedChoice, setSelectedChoice] = useState<'A' | 'B' | 'NONE'>('A');
@@ -150,7 +92,7 @@ export const CompareModal: React.FC = () => {
   const [replyTextMap, setReplyTextMap] = useState<{ [id: string]: string }>({});
 
   useEffect(() => {
-    safeLocalStorageSet('sinsangpick_battle_comments', comments);
+    safeLocalStorageSet(commentsKey, comments);
   }, [comments]);
 
   // 댓글 등록 핸들러
@@ -309,13 +251,15 @@ export const CompareModal: React.FC = () => {
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-black text-gray-900 bg-gray-100 border border-gray-200/80 px-2 py-0.5 rounded-full">
-              {battleConfig.labelA || '매치업'} VS {battleConfig.labelB || '매치업'}
+              {p1.brand} VS {p2.brand}
             </span>
-            <span className="text-[11px] text-gray-500 font-medium">실시간 대결</span>
+            <span className="text-[11px] text-gray-500 font-medium">{isBattleClosed ? '투표 마감' : '이번 주 대결'}</span>
           </div>
-          <span className="text-[11px] font-semibold text-gray-400">
-            총 {comments.length + 148}명 참여 중
-          </span>
+          {battleRound && (
+            <span className="text-[11px] font-semibold text-gray-400">
+              총 {battleRound.totalVotes.toLocaleString()}명 참여
+            </span>
+          )}
         </div>
         <h2 className="text-lg font-black text-gray-900 leading-snug">
           {battleConfig.title || '🥊 이번 주 신상 배틀 투표'}
@@ -326,53 +270,66 @@ export const CompareModal: React.FC = () => {
           </p>
         )}
 
-        {/* 실시간 득표율 게이지 바 */}
+        {/* 투표 · 결과 (월~금 투표, 토·일 결과 공개) */}
+        {battleRound && (
         <div className="mt-3.5 bg-white p-3 rounded-2xl border border-gray-200/80 shadow-xs">
           <div className="flex justify-between items-center text-xs font-black mb-1.5">
             <span className="text-gray-900 flex items-center gap-1">
-              ⚫ {p1.brand} ({percentA}%)
+              ⚫ {p1.brand}{battlePercents && ` (${battlePercents.A}%)`}
               {battleChoice === 'A' && <span className="text-[10px] bg-gray-100 text-gray-900 px-1 py-0.2 rounded font-bold">내 선택</span>}
             </span>
             <span className="text-orange-500 flex items-center gap-1">
               {battleChoice === 'B' && <span className="text-[10px] bg-orange-50 text-orange-500 px-1 py-0.2 rounded font-bold">내 선택</span>}
-              🟠 {p2.brand} ({percentB}%)
+              🟠 {p2.brand}{battlePercents && ` (${battlePercents.B}%)`}
             </span>
           </div>
-          <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden flex shadow-inner">
-            <div 
-              className="bg-gradient-to-r from-gray-900 to-slate-700 h-full transition-all duration-500 flex items-center justify-end pr-1 text-[9px] font-bold text-white"
-              style={{ width: `${percentA}%` }}
-            />
-            <div 
-              className="bg-gradient-to-r from-orange-400 to-amber-500 h-full transition-all duration-500 flex items-center justify-start pl-1 text-[9px] font-bold text-white"
-              style={{ width: `${percentB}%` }}
-            />
-          </div>
-          <div className="flex gap-2 mt-2.5">
-            <button
-              onClick={() => voteBattle('A')}
-              className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
-                battleChoice === 'A'
-                  ? 'bg-gray-900 text-white border-gray-900 shadow-xs'
-                  : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
-              }`}
-            >
-              {battleChoice === 'A' && <Check className="w-3.5 h-3.5" />}
-              <span>{p1.name.slice(0, 10)} 투표</span>
-            </button>
-            <button
-              onClick={() => voteBattle('B')}
-              className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
-                battleChoice === 'B'
-                  ? 'bg-orange-500 text-white border-orange-500 shadow-xs'
-                  : 'bg-white text-gray-700 border-gray-200 hover:border-orange-300'
-              }`}
-            >
-              {battleChoice === 'B' && <Check className="w-3.5 h-3.5" />}
-              <span>{p2.name.slice(0, 10)} 투표</span>
-            </button>
-          </div>
+          {battlePercents ? (
+            <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden flex shadow-inner">
+              <div
+                className="bg-gradient-to-r from-gray-900 to-slate-700 h-full transition-all duration-500"
+                style={{ width: `${battlePercents.A}%` }}
+              />
+              <div
+                className="bg-gradient-to-r from-orange-400 to-amber-500 h-full transition-all duration-500"
+                style={{ width: `${battlePercents.B}%` }}
+              />
+            </div>
+          ) : (
+            <p className="text-[11px] text-gray-500 text-center py-0.5">
+              {isBattleClosed ? '이번 주 투표가 마감됐어요.' : '결과는 토요일에 공개돼요.'}
+            </p>
+          )}
+          {isBattleClosed ? (
+            <p className="text-[11px] text-gray-400 text-center mt-2">월요일에 새 대결이 시작돼요.</p>
+          ) : (
+            <div className="flex gap-2 mt-2.5">
+              <button
+                onClick={() => voteBattle('A')}
+                className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
+                  battleChoice === 'A'
+                    ? 'bg-gray-900 text-white border-gray-900 shadow-xs'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
+                }`}
+              >
+                {battleChoice === 'A' && <Check className="w-3.5 h-3.5" />}
+                <span>{p1.name.slice(0, 10)} 투표</span>
+              </button>
+              <button
+                onClick={() => voteBattle('B')}
+                className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 ${
+                  battleChoice === 'B'
+                    ? 'bg-orange-500 text-white border-orange-500 shadow-xs'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-orange-300'
+                }`}
+              >
+                {battleChoice === 'B' && <Check className="w-3.5 h-3.5" />}
+                <span>{p2.name.slice(0, 10)} 투표</span>
+              </button>
+            </div>
+          )}
+          {battleVoteError && <p className="text-[11px] text-rose-500 text-center mt-2">{battleVoteError}</p>}
         </div>
+        )}
       </div>
 
       {/* 3. 2 Products Side-by-Side Cards */}

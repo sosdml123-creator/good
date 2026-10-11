@@ -27,7 +27,6 @@ import {
 import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
   getPopularProducts, 
-  isRealNewProduct,
   getWeeklyNewProducts
 } from '../../utils/ranking';
 import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
@@ -36,6 +35,7 @@ import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
 import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
+import { getBattlePercents } from '../../services/battleService';
 
 // 홈 구좌 공통 헤더 — 제목 16px / 배지 10px / 보조 문구 12px / 우측 액션 12px로 통일
 const SectionHeader: React.FC<{
@@ -97,7 +97,9 @@ export const HomeView: React.FC = () => {
     banners,
     brands,
     battleConfig,
+    battleRound,
     battleChoice,
+    battleVoteError,
     voteBattle,
     events,
     salePromotions,
@@ -278,9 +280,6 @@ export const HomeView: React.FC = () => {
     }
     setIsPaused(false);
   };
-
-  const percentA = battleChoice === 'A' ? 62 : battleChoice === 'B' ? 48 : (battleConfig.percentA || 55);
-  const percentB = 100 - percentA;
 
   // Clean, modern Lucide SVG icons instead of emojis
   const quickIcons = [
@@ -1057,7 +1056,40 @@ export const HomeView: React.FC = () => {
         );
 
       // 10. 신상 배틀 VS
-      case 'battle':
+      case 'battle': {
+        if (!battleRound) return null;
+
+        const isResult = battleRound.phase === 'result';
+        const percents = getBattlePercents(battleRound.counts);
+        const winner = !isResult || !battleRound.counts || battleRound.counts.A === battleRound.counts.B
+          ? null
+          : battleRound.counts.A > battleRound.counts.B ? 'A' : 'B';
+        const previous = battleRound.previous;
+        const previousPercents = getBattlePercents(previous?.counts);
+
+        const fighters = ([
+          { side: 'A', info: battleRound.productA, configId: battleConfig.productAId, configLabel: battleConfig.labelA, fallbackLabel: '인기' },
+          { side: 'B', info: battleRound.productB, configId: battleConfig.productBId, configLabel: battleConfig.labelB, fallbackLabel: '대세' },
+        ] as const).map(f => ({
+          side: f.side,
+          product: products.find(p => p.id === f.info.id) || f.info,
+          // 관리자가 직접 지정한 대결일 때만 지정 라벨을 씁니다.
+          label: (f.configId === f.info.id && f.configLabel) || `${f.info.category || f.fallbackLabel} 신상`,
+        }));
+
+        let hint: string;
+        if (battleVoteError) {
+          hint = battleVoteError;
+        } else if (isResult) {
+          hint = percents
+            ? `투표 결과 · 총 ${battleRound.totalVotes.toLocaleString()}표 · 월요일에 새 대결이 시작돼요`
+            : '이번 주 투표가 마감됐어요 · 월요일에 새 대결이 시작돼요';
+        } else if (battleChoice) {
+          hint = `투표 완료! 결과는 토요일에 공개돼요 · ${battleRound.totalVotes.toLocaleString()}명 참여 중`;
+        } else {
+          hint = '눌러서 투표해보세요 · 결과는 토요일에 공개돼요';
+        }
+
         return (
           <div key="battle" className="mt-2 bg-white py-4 px-4 border-b border-gray-100">
             <SectionHeader
@@ -1065,90 +1097,75 @@ export const HomeView: React.FC = () => {
               title={section.title || battleConfig.title}
               badge="VS"
               badgeClassName="text-white bg-gradient-to-r from-gray-900 to-slate-800"
-              subtitle={section.subtitle || battleConfig.subtitle}
+              subtitle={isResult ? '이번 주 투표 결과가 나왔어요' : (section.subtitle || battleConfig.subtitle)}
               actionLabel="비교표 보기"
               onAction={() => setActiveTab('compare')}
             />
 
-            {(() => {
-              const allNew = products.filter(p => isRealNewProduct(p));
-              const candidatePool = allNew.length >= 2 ? allNew : products;
-              // If admin configured specific product IDs, respect them. Otherwise, use the newest products.
-              const prodA = (battleConfig.productAId && products.find(p => p.id === battleConfig.productAId)) 
-                || candidatePool[0] 
-                || products[0];
-              const prodB = (battleConfig.productBId && products.find(p => p.id === battleConfig.productBId)) 
-                || candidatePool.find(p => p.id !== prodA?.id) 
-                || candidatePool[1] 
-                || products[1] 
-                || products[0];
-
-              if (!prodA || !prodB) return null;
-
-              return (
-                <div className="flex items-center gap-3">
-                  {/* Fighter A */}
-                  <div
-                    onClick={() => voteBattle('A')}
-                    className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-                      battleChoice === 'A' ? 'border-slate-800 bg-slate-50/40 shadow-xs' : 'border-gray-200'
-                    }`}
-                  >
-                    <SafeImage
-                      src={prodA.image}
-                      alt={prodA.name}
-                      fallbackName={prodA.name}
-                      fallbackCategory={prodA.category}
-                      className="w-full aspect-square object-cover"
-                    />
-                    <div className="p-2.5">
-                      <div className="text-[11px] text-slate-800 font-bold">{battleConfig.labelA || `${prodA.category || '인기'} 신상`}</div>
-                      <div className="text-[13px] font-semibold text-gray-900 line-clamp-1">{prodA.name}</div>
-                      <div className="mt-1.5 flex items-center gap-1">
-                        <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                          <div className="bg-slate-800 h-full rounded-full transition-all" style={{ width: `${percentA}%` }}></div>
-                        </div>
-                        <span className="text-[11px] font-bold text-slate-800">{percentA}%</span>
+            <div className="flex items-center gap-3">
+              {fighters.map((f, idx) => {
+                const isA = f.side === 'A';
+                const isMine = battleChoice === f.side;
+                const isWinner = winner === f.side;
+                const percent = percents ? percents[f.side] : null;
+                return (
+                  <React.Fragment key={f.side}>
+                    {idx === 1 && <div className="text-gray-300 font-black text-xl">VS</div>}
+                    {/* 투표 기간에는 눌러서 투표, 결과 기간에는 상품 상세로 이동 */}
+                    <div
+                      onClick={() => (isResult ? openProductDetail(f.product.id) : voteBattle(f.side))}
+                      className={`flex-1 min-w-0 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all relative ${
+                        (isResult ? isWinner : isMine)
+                          ? (isA ? 'border-slate-800 bg-slate-50/40 shadow-xs' : 'border-orange-500 bg-orange-50/20 shadow-xs')
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      {isWinner && (
+                        <span className={`absolute top-2 left-2 z-10 text-[11px] font-black text-white px-2 py-0.5 rounded-full ${isA ? 'bg-slate-800' : 'bg-orange-500'}`}>
+                          승리
+                        </span>
+                      )}
+                      <SafeImage
+                        src={f.product.image}
+                        alt={f.product.name}
+                        fallbackName={f.product.name}
+                        fallbackCategory={f.product.category}
+                        className="w-full aspect-square object-cover"
+                      />
+                      <div className="p-2.5">
+                        <div className={`text-[11px] font-bold ${isA ? 'text-slate-800' : 'text-orange-500'}`}>{f.label}</div>
+                        <div className="text-[13px] font-semibold text-gray-900 line-clamp-1">{f.product.name}</div>
+                        {percent !== null ? (
+                          <div className="mt-1.5 flex items-center gap-1">
+                            <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                              <div className={`h-full rounded-full transition-all ${isA ? 'bg-slate-800' : 'bg-orange-400'}`} style={{ width: `${percent}%` }}></div>
+                            </div>
+                            <span className={`text-[11px] font-bold ${isA ? 'text-slate-800' : 'text-orange-400'}`}>{percent}%</span>
+                          </div>
+                        ) : (
+                          <div className={`mt-1.5 text-[11px] font-bold ${isMine ? (isA ? 'text-slate-800' : 'text-orange-500') : 'text-gray-400'}`}>
+                            {isMine ? '✓ 내 선택' : isResult ? '투표 마감' : '투표하기'}
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
+                  </React.Fragment>
+                );
+              })}
+            </div>
 
-                  <div className="text-gray-300 font-black text-xl">VS</div>
+            <p className={`text-center text-[12px] mt-2.5 ${battleVoteError ? 'text-rose-500' : 'text-gray-400'}`}>{hint}</p>
 
-                  {/* Fighter B */}
-                  <div
-                    onClick={() => voteBattle('B')}
-                    className={`flex-1 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all ${
-                      battleChoice === 'B' ? 'border-orange-500 bg-orange-50/20 shadow-xs' : 'border-gray-200'
-                    }`}
-                  >
-                    <SafeImage
-                      src={prodB.image}
-                      alt={prodB.name}
-                      fallbackName={prodB.name}
-                      fallbackCategory={prodB.category}
-                      className="w-full aspect-square object-cover"
-                    />
-                    <div className="p-2.5">
-                      <div className="text-[11px] text-orange-500 font-bold">{battleConfig.labelB || `${prodB.category || '대세'} 신상`}</div>
-                      <div className="text-[13px] font-semibold text-gray-900 line-clamp-1">{prodB.name}</div>
-                      <div className="mt-1.5 flex items-center gap-1">
-                        <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                          <div className="bg-orange-400 h-full rounded-full transition-all" style={{ width: `${percentB}%` }}></div>
-                        </div>
-                        <span className="text-[11px] font-bold text-orange-400">{percentB}%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
-
-            <p className="text-center text-[12px] text-gray-400 mt-2.5">
-              {battleChoice ? '투표해주셔서 감사해요! 결과는 주말에 공개됩니다' : '눌러서 투표해보세요'}
-            </p>
+            {!isResult && previous && previousPercents && (
+              <p className="text-center text-[12px] text-gray-500 mt-1">
+                {previousPercents.A === previousPercents.B
+                  ? `지난주 결과: ${previous.productA.name} vs ${previous.productB.name} 무승부`
+                  : `지난주 승자: ${(previousPercents.A > previousPercents.B ? previous.productA : previous.productB).name} (${Math.max(previousPercents.A, previousPercents.B)}%)`}
+              </p>
+            )}
           </div>
         );
+      }
 
       // 11. 실시간 품목별 인기 랭킹
       case 'popular_ranking':
