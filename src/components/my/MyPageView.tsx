@@ -30,7 +30,7 @@ export const MyPageView: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const myReviewsCount = reviews.filter(r => r.userName === currentUser.displayName).length;
+  const myReviewsCount = reviews.filter(r => r.userId ? r.userId === currentUser.uid : r.userName === currentUser.displayName).length;
 
   const handleOpenAlbum = () => {
     if (isProcessingImage) return;

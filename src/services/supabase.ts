@@ -405,7 +405,6 @@ export const signInWithApple = async () => {
     }
 
     const payload = parseJwtPayload(res.response.identityToken);
-    const appleSubId = res.response.user || payload?.sub || ('apple_' + Math.random().toString(36).substring(2, 9));
     const appleEmail = res.response.email || payload?.email || '';
     const givenName = res.response.givenName;
     const familyName = res.response.familyName;
@@ -446,14 +445,13 @@ export const signInWithApple = async () => {
       }).catch(() => {});
     }
 
+    if (!sessionUser) {
+      // 세션 없이 로그인된 것처럼 보이면 이후 저장이 전부 조용히 실패합니다.
+      throw new Error('Apple 로그인 세션을 만들지 못했습니다. 잠시 후 다시 시도해 주세요.');
+    }
+
     return {
-      user: sessionUser || {
-        id: appleSubId,
-        email: appleEmail,
-        user_metadata: { full_name: fullName, name: fullName },
-        app_metadata: { provider: 'apple' },
-        is_anonymous: false,
-      },
+      user: sessionUser,
       displayName: fullName,
       provider: 'apple' as const,
     };
@@ -480,92 +478,75 @@ export const signOutSupabase = async () => {
 };
 
 /**
- * Deletes current authenticated user account and their profile data from Supabase.
- * - Calls SECURITY DEFINER RPC delete_user_account() to remove auth.users & related rows.
- * - Falls back to direct row deletion if RPC is not available.
- * - Cleans up current session.
+ * 사용자가 고른 사진(data URL)을 Storage 에 올리고 공개 URL 을 돌려줍니다.
+ * 버킷이 없거나 업로드가 실패하면 받은 값을 그대로 돌려줘 기존 방식(행에 직접 저장)으로 동작합니다.
+ */
+export const uploadImageDataUrl = async (dataUrl: string, userId: string, folder: 'avatar' | 'review' | 'post'): Promise<string> => {
+  if (!supabase || !dataUrl || !dataUrl.startsWith('data:image/')) return dataUrl;
+  try {
+    const blob = await (await fetch(dataUrl)).blob();
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(blob.type)) return dataUrl;
+    const ext = blob.type === 'image/png' ? 'png' : blob.type === 'image/webp' ? 'webp' : 'jpg';
+    const path = `${userId}/${folder}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await withTimeout(
+      supabase.storage.from('user-uploads').upload(path, blob, { contentType: blob.type, cacheControl: '31536000' }),
+      15000,
+      { data: null, error: new Error('Upload Timeout') } as any
+    );
+    if (error) return dataUrl;
+    return supabase.storage.from('user-uploads').getPublicUrl(path).data.publicUrl || dataUrl;
+  } catch {
+    return dataUrl;
+  }
+};
+
+/**
+ * 회원 탈퇴: SECURITY DEFINER RPC delete_user_account() 가 auth.users 와 딸린 데이터를 모두 지웁니다.
+ * RPC 가 아직 설치되지 않은 DB 에서는 본인이 지울 수 있는 데이터만 지웁니다.
+ * 삭제에 실패하면 예외를 던지고, 성공했을 때만 세션을 정리합니다.
  */
 export const deleteCurrentUserAccount = async (): Promise<void> => {
   if (!supabase) return;
 
+  const { data: { session } } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+
+  if (userId) {
+    const { error: rpcError } = await supabase.rpc('delete_user_account');
+    if (rpcError) {
+      const rpcMissing = rpcError.code === 'PGRST202' || rpcError.code === '42883';
+      if (!rpcMissing) throw rpcError;
+      console.warn('[Supabase Auth] delete_user_account RPC 미설치 — 본인 데이터만 삭제합니다.');
+      for (const [table, column] of [
+        ['device_tokens', 'user_id'], ['review_likes', 'user_id'], ['post_likes', 'user_id'],
+        ['review_comments', 'user_id'], ['post_comments', 'user_id'],
+        ['reviews', 'user_id'], ['community_posts', 'author_id'],
+      ]) {
+        const { error } = await supabase.from(table).delete().eq(column, userId);
+        if (error) console.warn(`[Supabase Auth] ${table} delete:`, error.message);
+      }
+      await supabase.from('profiles').update({
+        display_name: '탈퇴회원_' + userId.replace(/-/g, '').slice(0, 10),
+        avatar_url: '/logo.png',
+        points: 0,
+      }).eq('id', userId);
+    }
+  }
+
   try {
-    const { data: { user } } = await supabase.auth.getUser();
-    const userId = user?.id;
+    await supabase.auth.signOut({ scope: 'global' });
+  } catch {
+    try { await supabase.auth.signOut(); } catch {}
+  }
 
-    if (userId) {
-      // 1. Client-accessible tables cleanup
-      try { await supabase.from('device_tokens').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('review_likes').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('post_likes').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('review_comments').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('post_comments').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('point_transactions').delete().eq('user_id', userId); } catch {}
-      try { await supabase.from('bookmarks').delete().eq('user_id', userId); } catch {}
-
-      // 2. Permanently delete user reviews and community posts
-      try {
-        await supabase.from('reviews').delete().eq('user_id', userId);
-      } catch {}
-
-      try {
-        await supabase.from('community_posts').delete().eq('author_id', userId);
-      } catch {}
-
-      // 3. Delete profile row from DB
-      try {
-        const { error: delProfileErr } = await supabase.from('profiles').delete().eq('id', userId);
-        if (delProfileErr) {
-          console.warn('[Supabase Auth] profiles delete returned error, applying fallback wipe:', delProfileErr);
-        }
-      } catch (err) {
-        console.warn('[Supabase Auth] profiles delete exception, applying fallback wipe:', err);
-      }
-
-      // 4. Fallback Wipe: If the profile row remains due to RLS/foreign key constraints,
-      // overwrite all sensitive data, points, and nickname to a fresh baseline (100P, Lv.1)
-      try {
-        await supabase.from('profiles').update({
-          display_name: '신상러버_' + Math.floor(100 + Math.random() * 900),
-          avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-          points: 100,
-          level: 'Lv.1',
-          email: null,
-          updated_at: new Date().toISOString(),
-        }).eq('id', userId);
-      } catch {}
-    }
-
-    // 5. Try secure RPC delete_user_account for complete database & auth wipe
+  if (typeof localStorage !== 'undefined') {
     try {
-      const { error: rpcError } = await supabase.rpc('delete_user_account');
-      if (rpcError) {
-        console.warn('[Supabase Auth] RPC delete_user_account fallback/warning:', rpcError.message);
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('sb-')) keysToRemove.push(k);
       }
-    } catch (e) {
-      console.warn('[Supabase Auth] RPC execution error:', e);
-    }
-  } catch (err) {
-    console.warn('[Supabase Auth] deleteCurrentUserAccount exception:', err);
-  } finally {
-    // Always sign out globally to clear cached auth tokens and sessions
-    try {
-      await supabase.auth.signOut({ scope: 'global' });
-    } catch {
-      try { await supabase.auth.signOut(); } catch {}
-    }
-
-    // Clean up local Supabase auth tokens from localStorage
-    if (typeof localStorage !== 'undefined') {
-      try {
-        const keysToRemove: string[] = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const k = localStorage.key(i);
-          if (k && k.startsWith('sb-')) {
-            keysToRemove.push(k);
-          }
-        }
-        keysToRemove.forEach(k => localStorage.removeItem(k));
-      } catch {}
-    }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+    } catch {}
   }
 };

@@ -65,6 +65,7 @@ import {
   signInWithKakao as supabaseSignInWithKakao,
   signOutSupabase,
   deleteCurrentUserAccount,
+  uploadImageDataUrl,
   handleAuthCallbackUrl,
   DBProduct,
   DBReview,
@@ -101,7 +102,7 @@ import {
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
-import { DEFAULT_AVATAR, isValidCustomPhoto, isKakaoOrSocialRawAvatar, extractProviderFromAvatar, getProviderLogoUrl } from '../utils/avatars';
+import { DEFAULT_AVATAR, isValidCustomPhoto, extractProviderFromAvatar, getProviderLogoUrl } from '../utils/avatars';
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 import { withTimeout, parseNetworkError } from '../utils/networkUtils';
 
@@ -594,18 +595,7 @@ export const safeUpsertProfile = async (
     console.warn('[safeUpsertProfile] base upsert exception:', e);
   }
 
-  // 3. 만약 DB에 provider 또는 email 컬럼이 추가된 환경이라면 확장 필드도 조용히 update 시도
-  if (profileData.provider || profileData.email) {
-    try {
-      const extraPayload: any = {};
-      if (profileData.provider) extraPayload.provider = profileData.provider;
-      if (profileData.email) extraPayload.email = profileData.email;
-      Promise.resolve(client.from('profiles').update(extraPayload).eq('id', profileData.id)).catch(() => {});
-    } catch {
-      // DB 컬럼 미존재 시 무시 (400 방어)
-    }
-  }
-
+  // provider 는 avatar_url 의 prov 힌트로만 남깁니다. 이메일은 공개 조회되는 profiles 에 저장하지 않습니다.
   return success;
 };
 
@@ -782,7 +772,8 @@ export const isInvalidOrSocialRealName = (displayName?: string | null, user?: an
     trimmed === '신상러버' ||
     trimmed === '서현정' ||
     trimmed === '이예진' ||
-    /^신상러버_[a-z0-9]{4}$/i.test(trimmed)
+    // 예전 임시 이름(신상러버_ + id 앞 4자리). 숫자만 있는 것은 정상 순번 닉네임(신상러버_1000 이상)
+    (/^신상러버_[a-z0-9]{4}$/i.test(trimmed) && !/^신상러버_\d+$/.test(trimmed))
   ) {
     return true;
   }
@@ -799,6 +790,43 @@ export const isInvalidOrSocialRealName = (displayName?: string | null, user?: an
 export const isKakaoAvatarUrl = (url?: string | null): boolean => {
   if (!url || typeof url !== 'string') return false;
   return /kakaocdn\.net|kakao\.com|daumcdn\.net/i.test(url);
+};
+
+/**
+ * 로그인 직후 프로필 확정. DB 에 저장된 닉네임·사진·포인트가 기준입니다.
+ * (기기에 남은 값이나 기본값으로 덮어쓰면 재로그인·기기 변경 때 닉네임/사진/포인트가 초기화됩니다.)
+ * 포인트는 여기서 절대 쓰지 않고, 프로필이 아예 없을 때만 새로 만듭니다.
+ */
+const resolveSignedInProfile = async (
+  client: any,
+  user: { id: string; [key: string]: any },
+  providerName?: string | null
+): Promise<{ displayName: string; photoURL: string; points: number }> => {
+  const { data: dbProfile, error } = await client
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+  if (error) throw error;
+
+  const keepName = Boolean(dbProfile?.display_name) && !isInvalidOrSocialRealName(dbProfile.display_name, user);
+  const displayName: string = keepName ? dbProfile.display_name : await getNextSequentialNickname(client);
+  const photoURL: string = dbProfile?.avatar_url && !dbProfile.avatar_url.startsWith(DEFAULT_AVATAR) && isValidCustomPhoto(dbProfile.avatar_url, user.id)
+    ? dbProfile.avatar_url
+    : getProviderLogoUrl(providerName);
+  const points = typeof dbProfile?.points === 'number' ? dbProfile.points : 100;
+
+  if (!dbProfile) {
+    await safeUpsertProfile(client, { id: user.id, display_name: displayName, avatar_url: photoURL, points: 100, level: 'Lv.1' });
+  } else if (dbProfile.display_name !== displayName || dbProfile.avatar_url !== photoURL) {
+    const { error: fixErr } = await client
+      .from('profiles')
+      .update({ display_name: displayName, avatar_url: photoURL })
+      .eq('id', user.id);
+    if (fixErr) console.warn('[resolveSignedInProfile] profile fix warning:', fixErr.message);
+  }
+
+  return { displayName, photoURL, points };
 };
 
 // Initial User Profile
@@ -1260,6 +1288,53 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsNicknameModalOpen(true);
       }
     }
+  };
+
+  // 현재 화면에 반영된 로그인 세션의 uid (같은 로그인 이벤트를 여러 경로에서 중복 처리하지 않기 위함)
+  const sessionUidRef = useRef('');
+
+  // 로그인 세션이 확인되면 호출: DB 프로필을 기준으로 화면 상태를 맞추고 데이터를 불러옵니다.
+  const applySignedInUser = async (client: any, user: any, options: { announce?: boolean } = {}) => {
+    if (!user?.id || sessionUidRef.current === user.id) return;
+    sessionUidRef.current = user.id;
+    try {
+      const providerName = inferUserProvider(user);
+      const { displayName, photoURL, points } = await resolveSignedInProfile(client, user, providerName);
+
+      localStorage.setItem('sinsangpick_uid', user.id);
+      localStorage.setItem('sinsangpick_name', displayName);
+      localStorage.setItem('sinsangpick_photo', photoURL);
+      localStorage.setItem('sinsangpick_points', String(points));
+
+      setCurrentUser(prev => ({
+        ...prev,
+        uid: user.id,
+        displayName,
+        photoURL,
+        points,
+        level: calculateLevel(points),
+        isAnonymous: user.is_anonymous || false,
+        provider: providerName,
+        email: user.email || prev.email,
+      }));
+
+      if (!user.is_anonymous) {
+        setIsLoginModalOpen(false);
+        setIsGuestBrowse(true);
+        if (options.announce) checkAndOpenPostLoginModals(user.id);
+      }
+    } catch (err) {
+      sessionUidRef.current = '';
+      throw err;
+    }
+    await loadSupabaseData(user.id);
+  };
+
+  // 비회원이 글쓰기·좋아요 등을 누르면 저장되지 않으므로 로그인 창을 띄웁니다. (true = 중단)
+  const requireLogin = (): boolean => {
+    if (!supabase || !isSupabaseConfigured || !currentUser.isAnonymous) return false;
+    openLoginModal();
+    return true;
   };
 
   const completeNicknameSetup = async (newNickname: string) => {
@@ -2330,18 +2405,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setProducts(syncProductRatingsWithReviews(combinedProducts, reviews));
       }
 
-      // 2. Fetch User Likes
-      const { data: revLikes } = await supabase
-        .from('review_likes')
-        .select('review_id')
-        .eq('user_id', uid);
+      // 2. Fetch User Likes (비회원은 건너뜀)
+      const isMember = uid.length === 36;
+      const { data: revLikes } = isMember
+        ? await supabase.from('review_likes').select('review_id').eq('user_id', uid)
+        : { data: null };
       const userRevLikes = revLikes ? revLikes.map(r => r.review_id) : [];
       setLikedReviewIds(userRevLikes);
 
-      const { data: pLikes } = await supabase
-        .from('post_likes')
-        .select('post_id')
-        .eq('user_id', uid);
+      const { data: pLikes } = isMember
+        ? await supabase.from('post_likes').select('post_id').eq('user_id', uid)
+        : { data: null };
       const userPostLikes = pLikes ? pLikes.map(p => p.post_id) : [];
       setLikedPostIds(userPostLikes);
 
@@ -2408,69 +2482,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCommunityPosts(parsedPosts);
       }
 
-      // 5. Fetch Current User Profile
-      const isWithdrawn = (() => {
-        try {
-          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-          return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
-        } catch { return false; }
-      })();
+      // 5. Fetch Current User Profile — DB 값이 기준 (조회 실패 시에는 화면 값을 건드리지 않음)
+      if (isMember) {
+        const { data: profile, error: profileErr } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', uid)
+          .maybeSingle();
 
-      const { data: profile } = isWithdrawn ? { data: null } : await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', uid)
-        .maybeSingle();
-
-      if (profile) {
-        setCurrentUser(prev => {
-          const isCustomizedName = localStorage.getItem('sinsangpick_custom_nickname_' + uid) === 'true';
-          const hasCustomPhoto = localStorage.getItem('sinsangpick_custom_photo_' + uid) === 'true';
-          let finalDisplayName = prev.displayName;
-          let finalPhotoURL = prev.photoURL;
-
-          // 닉네임 결정: 사용자가 직접 변경한 닉네임이거나 순번 닉네임(^신상러버_\d+$)인 경우만 유지
-          // 실명("서현정", "이예진" 등)이나 '사용자', '신상러버' 단독 텍스트는 순번 닉네임으로 강제 교체
-          if (profile.display_name && !profile.display_name.includes('사용자') && profile.display_name !== '신상러버' && profile.display_name !== '서현정' && profile.display_name !== '이예진') {
-            if (isCustomizedName || /^신상러버_\d+$/.test(profile.display_name)) {
-              finalDisplayName = profile.display_name;
-            }
-          }
-
-          // 프로필 사진 결정:
-          // 1) 사용자가 직접 설정한 커스텀 아바타 또는 프리셋인 경우 유지
-          // 2) 카카오/소셜 원본 사진이거나 더미 Unsplash인 경우 공식 로고(제공자 메타 포함)로 통일
-          if (hasCustomPhoto && profile.avatar_url && isValidCustomPhoto(profile.avatar_url, uid)) {
-            finalPhotoURL = profile.avatar_url;
-            localStorage.setItem('sinsangpick_photo', finalPhotoURL);
-          } else {
-            finalPhotoURL = getProviderLogoUrl(prev.provider);
-            localStorage.setItem('sinsangpick_photo', finalPhotoURL);
-          }
-
-          const userPoints = typeof profile.points === 'number' ? profile.points : 100;
-          return {
-            ...prev,
-            displayName: finalDisplayName,
-            photoURL: finalPhotoURL,
-            points: userPoints,
-            level: calculateLevel(userPoints),
-          };
-        });
-      } else {
-        // 프로필이 없는 경우 (탈퇴 후 재가입 / 신규 가입)
-        setCurrentUser(prev => ({
-          ...prev,
-          points: 100,
-          level: 'Lv.1',
-        }));
+        if (profile && !profileErr) {
+          setCurrentUser(prev => {
+            if (prev.uid !== uid) return prev;
+            const displayName = isInvalidOrSocialRealName(profile.display_name) ? prev.displayName : profile.display_name;
+            const photoURL = profile.avatar_url && !profile.avatar_url.startsWith(DEFAULT_AVATAR) && isValidCustomPhoto(profile.avatar_url, uid)
+              ? profile.avatar_url
+              : getProviderLogoUrl(prev.provider);
+            const userPoints = typeof profile.points === 'number' ? profile.points : prev.points;
+            localStorage.setItem('sinsangpick_name', displayName);
+            localStorage.setItem('sinsangpick_photo', photoURL);
+            return {
+              ...prev,
+              displayName,
+              photoURL,
+              points: userPoints,
+              level: calculateLevel(userPoints),
+            };
+          });
+        }
       }
 
-      // 6. Fetch All Profiles (for Admin Points & Member Management)
+      // 6. Fetch All Profiles (닉네임 중복 확인 / 관리자 회원 관리)
+      // 프로필 사진(용량 큼)은 관리자 화면에서만 필요하므로 일반 회원은 가벼운 컬럼만 받습니다.
+      const profileColumns = (await isAdminSession()) ? '*' : 'id, display_name, level, points, created_at, updated_at';
       const { data: dbAllProfiles } = await supabase
         .from('profiles')
-        .select('*')
-        .order('points', { ascending: false });
+        .select(profileColumns)
+        .order('points', { ascending: false }) as { data: any[] | null };
 
       if (dbAllProfiles && dbAllProfiles.length > 0) {
         setAllProfiles(prev => {
@@ -2539,17 +2586,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
           return [...updated, ...extraUsers];
         });
-
-        // 🩺 Self-Healing: 현재 로그인 세션이 소셜(Apple/Kakao)인데 DB에 anonymous로 남아있다면 DB provider 즉시 자동 보정
-        if (currentUser?.uid && ['apple', 'kakao', 'google'].includes(currentUser.provider || '')) {
-          safeUpsertProfile(supabase, {
-            id: currentUser.uid,
-            display_name: currentUser.displayName,
-            avatar_url: currentUser.photoURL,
-            provider: currentUser.provider,
-            email: currentUser.email || undefined,
-          }).catch(() => {});
-        }
       }
 
     } catch (err: any) {
@@ -2591,7 +2627,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent)));
 
       const currentUrl = window.location.href;
-      if (!Capacitor.isNativePlatform() && (currentUrl.includes('code=') || currentUrl.includes('access_token=') || currentUrl.includes('error='))) {
+      const cameFromOAuth = !Capacitor.isNativePlatform() && (currentUrl.includes('code=') || currentUrl.includes('access_token=') || currentUrl.includes('error='));
+      if (cameFromOAuth) {
         try {
           await handleAuthCallbackUrl(currentUrl);
           // On mobile, keep URL params for AuthCallbackBridge to hand off to native scheme, clean up on desktop
@@ -2607,270 +2644,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       refreshRemoteContent().catch(() => {});
 
       const { user } = await ensureSupabaseAuth();
-      if (!isMounted || !user) return;
+      if (!isMounted) return;
 
       setIsSupabaseConnected(true);
-      const uid = user.id;
-      const providerName = inferUserProvider(user);
-
-      // Check if user has withdrawn previously
-      const isWithdrawn = (() => {
+      if (user) {
         try {
-          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-          return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
-        } catch { return false; }
-      })();
-
-      // Fetch DB profile to check if valid profile already exists
-      let dbProfile: any = null;
-      if (!isWithdrawn) {
-        try {
-          const { data } = await client
-            .from('profiles')
-            .select('*')
-            .eq('id', uid)
-            .maybeSingle();
-          dbProfile = data;
+          await applySignedInUser(client, user, { announce: cameFromOAuth });
         } catch (e) {
-          console.warn('[Supabase Profile Init Query Error]', e);
+          console.warn('[Supabase Profile Init Error]', e);
+          await loadSupabaseData(user.id);
         }
       } else {
-        // 탈퇴 후 재가입: 기존 잔존 DB 프로필 무시 및 플래그 정리
-        localStorage.removeItem('sinsangpick_withdrawn_uid_' + uid);
-        try {
-          const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-          const filtered = list.filter((id: string) => id !== uid);
-          localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
-        } catch {}
+        // 비회원 둘러보기: 리뷰·게시글 등 공개 데이터는 로그인 없이도 불러옵니다.
+        await loadSupabaseData('');
       }
 
-      let resolvedDisplayName: string | null = null;
-      let resolvedPhotoURL: string = getProviderLogoUrl(providerName);
+      // Subscribe to Realtime Postgres Changes (연속 이벤트는 한 번의 새로고침으로 묶음)
+      let reloadTimer: ReturnType<typeof setTimeout> | null = null;
+      const scheduleReload = (withContent = false) => {
+        if (withContent) refreshRemoteContent();
+        if (reloadTimer) clearTimeout(reloadTimer);
+        reloadTimer = setTimeout(() => {
+          reloadTimer = null;
+          if (isMounted) loadSupabaseData(sessionUidRef.current);
+        }, 1500);
+      };
+      let channel = client.channel('public:db-changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => scheduleReload(true));
+      for (const table of ['reviews', 'community_posts', 'review_likes', 'post_likes', 'review_comments', 'post_comments']) {
+        channel = channel.on('postgres_changes', { event: '*', schema: 'public', table }, () => scheduleReload());
+      }
+      channel.subscribe((status) => {
+        console.info('[Supabase Realtime] Channel status:', status);
+      });
 
-      if (dbProfile) {
-        if (dbProfile.display_name && !isInvalidOrSocialRealName(dbProfile.display_name, user)) {
-          resolvedDisplayName = dbProfile.display_name;
-        } else {
-          resolvedDisplayName = await getNextSequentialNickname(client, allProfiles);
+      // Listen for Auth State Changes (Apple / Kakao 로그인 완료, 로그아웃)
+      const { data: { subscription: authSub } } = client.auth.onAuthStateChange((event, session) => {
+        if (!isMounted) return;
+        if (event === 'SIGNED_OUT' || !session?.user) {
+          if (event === 'SIGNED_OUT') sessionUidRef.current = '';
+          return;
         }
-
-        if (dbProfile.avatar_url && isValidCustomPhoto(dbProfile.avatar_url, uid)) {
-          resolvedPhotoURL = dbProfile.avatar_url;
+        const u = session.user;
+        if (event === 'SIGNED_IN' && (window.location.hash.includes('access_token=') || window.location.search.includes('code='))) {
+          window.history.replaceState(null, '', window.location.pathname);
         }
-      } else {
-        resolvedDisplayName = await getNextSequentialNickname(client, allProfiles);
-      }
-
-      localStorage.setItem('sinsangpick_uid', uid);
-      localStorage.setItem('sinsangpick_name', resolvedDisplayName!);
-      localStorage.setItem('sinsangpick_photo', resolvedPhotoURL);
-      const initialPoints = isWithdrawn ? 100 : (dbProfile?.points ?? currentUser.points ?? 100);
-
-      setCurrentUser(prev => ({
-        ...prev,
-        uid,
-        displayName: resolvedDisplayName!,
-        photoURL: resolvedPhotoURL,
-        isAnonymous: user.is_anonymous || false,
-        provider: providerName,
-        email: user.email || prev.email,
-        points: initialPoints,
-        level: calculateLevel(initialPoints),
-      }));
-
-      // Update DB profile safely without overwriting established custom attributes
-      if (providerName && ['apple', 'kakao', 'google'].includes(providerName)) {
-        safeUpsertProfile(client, {
-          id: uid,
-          display_name: resolvedDisplayName!,
-          avatar_url: resolvedPhotoURL,
-          provider: providerName,
-          email: user.email || undefined,
-          points: isWithdrawn ? 100 : (dbProfile?.points ?? undefined),
-          level: isWithdrawn ? 'Lv.1' : (dbProfile?.level ?? undefined),
-        }).catch(() => {});
-
-        setAllProfiles(prev => {
-          const exists = prev.some(p => p.uid === uid);
-          if (exists) {
-            return prev.map(p => p.uid === uid ? {
-              ...p,
-              displayName: resolvedDisplayName!,
-              photoURL: resolvedPhotoURL,
-              provider: providerName,
-              email: user.email || p.email,
-              lastActiveAt: new Date().toISOString(),
-            } : p);
-          }
-          return prev;
-        });
-      }
-
-      await loadSupabaseData(uid);
-
-      // Subscribe to Realtime Postgres Changes
-      const channel = client.channel('public:db-changes')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
-          loadSupabaseData(uid);
-          refreshRemoteContent();
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'reviews' }, () => {
-          loadSupabaseData(uid);
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'community_posts' }, () => {
-          loadSupabaseData(uid);
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'review_likes' }, () => {
-          loadSupabaseData(uid);
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'post_likes' }, () => {
-          loadSupabaseData(uid);
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'review_comments' }, () => {
-          loadSupabaseData(uid);
-        })
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
-          loadSupabaseData(uid);
-        })
-        .subscribe((status) => {
-          console.info('[Supabase Realtime] Channel status:', status);
-        });
-      // 6. Listen for Auth State Changes (Apple / Google / Kakao OAuth redirect)
-      const { data: { subscription: authSub } } = client.auth.onAuthStateChange(async (event, session) => {
-        if (session?.user && isMounted) {
-          const u = session.user;
-          const providerName = inferUserProvider(u);
-
-          // Check if user has withdrawn previously
-          const isWithdrawn = (() => {
-            try {
-              const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-              return list.includes(u.id) || localStorage.getItem('sinsangpick_withdrawn_uid_' + u.id) === 'true';
-            } catch { return false; }
-          })();
-
-          // Fetch DB profile to check if established custom profile already exists
-          let dbProfileData: any = null;
-          if (!isWithdrawn) {
-            try {
-              const { data: profileData } = await client
-                .from('profiles')
-                .select('*')
-                .eq('id', u.id)
-                .maybeSingle();
-              dbProfileData = profileData;
-            } catch (e) {
-              console.warn('[Supabase Profile Check Error]', e);
-            }
-          } else {
-            // 탈퇴 후 재가입: 기존 잔존 DB 프로필 무시 및 플래그 정리
-            localStorage.removeItem('sinsangpick_withdrawn_uid_' + u.id);
-            try {
-              const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-              const filtered = list.filter((id: string) => id !== u.id);
-              localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
-            } catch {}
-          }
-
-          let displayName: string | null = null;
-          let photoURL: string = getProviderLogoUrl(providerName);
-
-          if (dbProfileData) {
-            if (dbProfileData.display_name && !isInvalidOrSocialRealName(dbProfileData.display_name, u)) {
-              displayName = dbProfileData.display_name;
-            } else {
-              displayName = await getNextSequentialNickname(client, allProfiles);
-            }
-
-            if (dbProfileData.avatar_url && isValidCustomPhoto(dbProfileData.avatar_url, u.id)) {
-              photoURL = dbProfileData.avatar_url;
-            }
-          } else {
-            displayName = await getNextSequentialNickname(client, allProfiles);
-          }
-
-          // 소셜 원본 프로필 사진(개인 실명/얼굴 사진)인 경우에만 기본 아바타로 안전하게 동기화
-          if (dbProfileData?.avatar_url && isKakaoOrSocialRawAvatar(dbProfileData.avatar_url) && client) {
-            client.from('profiles').update({ avatar_url: getProviderLogoUrl(providerName) }).eq('id', u.id).then(() => {});
-          }
-
-          const targetPoints = isWithdrawn ? 100 : (dbProfileData?.points ?? 100);
-
-          localStorage.setItem('sinsangpick_photo', photoURL);
-          localStorage.setItem('sinsangpick_uid', u.id);
-          localStorage.setItem('sinsangpick_name', displayName!);
-          localStorage.setItem('sinsangpick_points', String(targetPoints));
-          localStorage.setItem('sinsangpick_nickname_set_' + u.id, 'true');
-          setIsLoginModalOpen(false);
-          setIsGuestBrowse(true);
-          checkAndOpenPostLoginModals(u.id);
-
-          setCurrentUser(prev => ({
-            ...prev,
-            uid: u.id,
-            displayName: displayName!,
-            photoURL: photoURL,
-            points: targetPoints,
-            level: calculateLevel(targetPoints),
-            isAnonymous: false,
-            provider: providerName,
-            email: u.email || prev.email,
-          }));
-
-          if (event === 'SIGNED_IN') {
-            const providerMsg = providerName === 'apple' 
-              ? '🍎 Apple 계정으로 로그인되었습니다!' 
-              : providerName === 'kakao'
-              ? '💬 카카오 계정으로 로그인되었습니다!'
-              : '🌐 Google 계정으로 로그인되었습니다!';
-            showToast(providerMsg, 'success');
-            if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
-              window.history.replaceState(null, '', window.location.pathname);
-            }
-          }
-
-          await safeUpsertProfile(client, {
-            id: u.id,
-            display_name: displayName!,
-            avatar_url: photoURL,
-            provider: providerName,
-            email: u.email || undefined,
-            points: isWithdrawn ? 100 : (dbProfileData?.points ?? undefined),
-            level: isWithdrawn ? 'Lv.1' : (dbProfileData?.level ?? undefined),
+        // 콜백 안에서 supabase 호출을 await 하면 auth 잠금과 맞물려 멈출 수 있어 다음 틱으로 넘깁니다.
+        setTimeout(() => {
+          applySignedInUser(client, u, { announce: true }).catch(e => {
+            console.warn('[Supabase Auth] Failed to apply signed-in user:', e);
           });
-
-          // allProfiles 메모리 상태에도 즉시 provider 동기화
-          setAllProfiles(prev => {
-            const exists = prev.some(p => p.uid === u.id);
-            if (exists) {
-              return prev.map(p => p.uid === u.id ? {
-                ...p,
-                displayName: displayName!,
-                photoURL: photoURL,
-                provider: providerName,
-                email: u.email || p.email,
-                lastActiveAt: new Date().toISOString(),
-              } : p);
-            }
-            return [{
-              uid: u.id,
-              displayName: displayName!,
-              photoURL: photoURL,
-              level: calculateLevel(dbProfileData?.points ?? 100),
-              points: dbProfileData?.points ?? 100,
-              isAnonymous: false,
-              provider: providerName,
-              email: u.email || undefined,
-              createdAt: new Date().toISOString(),
-              lastActiveAt: new Date().toISOString(),
-              status: 'active',
-              warningCount: 0,
-              role: 'user',
-            }, ...prev];
-          });
-
-          loadSupabaseData(u.id);
-        }
+        }, 0);
       });
 
       return () => {
@@ -2905,54 +2729,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           // Always ensure in-app browser sheet is closed
           await Browser.close().catch(() => {});
 
-          if (success) {
-            setIsLoginModalOpen(false);
-            setIsGuestBrowse(true);
-            showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
-
-            // Sync user data & provider
-            if (supabase) {
-              const { data: { user } } = await supabase.auth.getUser();
-              if (user) {
-                const pName = inferUserProvider(user) || 'kakao';
-                const isCustom = localStorage.getItem('sinsangpick_custom_nickname_' + user.id) === 'true';
-                let dName = localStorage.getItem('sinsangpick_name');
-                if (!dName || !isCustom || dName.includes('사용자') || dName === '신상러버' || dName === '서현정' || dName === '이예진') {
-                  dName = await getNextSequentialNickname(supabase, allProfiles);
-                  localStorage.setItem('sinsangpick_name', dName);
-                }
-                const photoURL = getProviderLogoUrl(pName);
-                localStorage.setItem('sinsangpick_photo', photoURL);
-
-                setCurrentUser(prev => ({
-                  ...prev,
-                  uid: user.id,
-                  displayName: dName!,
-                  photoURL: photoURL,
-                  provider: pName,
-                  email: user.email || prev.email,
-                  isAnonymous: false,
-                }));
-
-                await safeUpsertProfile(supabase, {
-                  id: user.id,
-                  display_name: dName!,
-                  avatar_url: photoURL,
-                  provider: pName,
-                  email: user.email || undefined,
-                });
-
-                setAllProfiles(prev => prev.map(p => p.uid === user.id ? {
-                  ...p,
-                  displayName: dName!,
-                  photoURL: photoURL,
-                  provider: pName,
-                  email: user.email || p.email,
-                  lastActiveAt: new Date().toISOString(),
-                } : p));
-
-                await loadSupabaseData(user.id);
-              }
+          if (success && supabase) {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+              await applySignedInUser(supabase, session.user, { announce: true });
             }
           }
         } catch (err) {
@@ -2988,10 +2768,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               const { data: { session } } = await supabase.auth.getSession();
               if (session?.user && !session.user.is_anonymous && session.user.id !== currentUser.uid) {
                 await Browser.close().catch(() => {});
-                setIsLoginModalOpen(false);
-                setIsGuestBrowse(true);
-                showToast('💬 카카오 계정으로 로그인되었습니다!', 'success');
-                await loadSupabaseData(session.user.id);
+                await applySignedInUser(supabase, session.user, { announce: true });
               }
             } catch (e) {}
           }
@@ -3457,11 +3234,51 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateUserProfile = async (updates: { displayName?: string; photoURL?: string }) => {
     const trimmed = updates.displayName?.trim();
-    const photo = updates.photoURL;
+    let photo = updates.photoURL;
+    const uid = currentUser.uid;
+    const previousName = currentUser.displayName;
 
     // 닉네임 중복 체크 (자기 자신 제외)
-    if (trimmed && isNicknameTaken(trimmed, currentUser.uid)) {
+    if (trimmed && isNicknameTaken(trimmed, uid)) {
       throw new Error('이미 다른 회원이 사용 중인 닉네임입니다.');
+    }
+
+    // 서버에 먼저 저장하고, 성공했을 때만 화면에 반영합니다. (실패한 변경이 저장된 것처럼 보이지 않게)
+    if (supabase && isSupabaseConfigured && !currentUser.isAnonymous) {
+      const saveFailed = '프로필을 저장하지 못했습니다. 네트워크를 확인하고 다시 시도해 주세요.';
+      if (trimmed) {
+        const { data: taken, error: checkErr } = await supabase
+          .from('profiles')
+          .select('id')
+          .ilike('display_name', trimmed.replace(/[\%_]/g, '\$&'))
+          .neq('id', uid)
+          .limit(1);
+        if (checkErr) throw new Error(saveFailed);
+        if (taken && taken.length > 0) throw new Error('이미 다른 회원이 사용 중인 닉네임입니다.');
+      }
+
+      if (photo) photo = await uploadImageDataUrl(photo, uid, 'avatar');
+
+      const dbUpdates: any = {};
+      if (trimmed) dbUpdates.display_name = trimmed;
+      if (photo !== undefined) dbUpdates.avatar_url = photo;
+      const { error } = await supabase.from('profiles').update(dbUpdates).eq('id', uid);
+      if (error) {
+        console.warn('[Supabase] Failed to update profile:', error.message);
+        throw new Error(error.code === '23505' ? '이미 다른 회원이 사용 중인 닉네임입니다.' : saveFailed);
+      }
+
+      // 내가 쓴 리뷰·게시글에 표시되는 이름/사진도 함께 갱신 (실패해도 프로필 변경은 유지)
+      const reviewPatch: any = {};
+      const postPatch: any = {};
+      if (trimmed) { reviewPatch.user_name = trimmed; postPatch.author_name = trimmed; }
+      if (photo !== undefined) { reviewPatch.user_avatar = photo; postPatch.author_avatar = photo; }
+      const [revRes, postRes] = await Promise.all([
+        supabase.from('reviews').update(reviewPatch).eq('user_id', uid),
+        supabase.from('community_posts').update(postPatch).eq('author_id', uid),
+      ]);
+      if (revRes.error) console.warn('[Supabase] Failed to sync review author:', revRes.error.message);
+      if (postRes.error) console.warn('[Supabase] Failed to sync post author:', postRes.error.message);
     }
 
     setCurrentUser(prev => ({
@@ -3471,83 +3288,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
 
     // Synchronize local reviews and community posts with updated profile
-    if (trimmed || photo !== undefined) {
-      setReviews(prev => prev.map(r => {
-        const isMine = (r.userId && r.userId === currentUser.uid) || (r.userName === currentUser.displayName);
-        if (isMine) {
-          return {
-            ...r,
-            userName: trimmed || r.userName,
-            userAvatar: photo !== undefined ? photo : r.userAvatar,
-          };
-        }
-        return r;
-      }));
+    setReviews(prev => prev.map(r => {
+      const isMine = r.userId ? r.userId === uid : r.userName === previousName;
+      if (!isMine) return r;
+      return {
+        ...r,
+        userName: trimmed || r.userName,
+        userAvatar: photo !== undefined ? photo : r.userAvatar,
+      };
+    }));
 
-      setCommunityPosts(prev => prev.map(p => {
-        const isMine = ((p as any).userId && (p as any).userId === currentUser.uid) || (p.author === currentUser.displayName);
-        if (isMine) {
-          return {
-            ...p,
-            author: trimmed || p.author,
-            authorAvatar: photo !== undefined ? photo : p.authorAvatar,
-          };
-        }
-        return p;
-      }));
-    }
+    setCommunityPosts(prev => prev.map(p => {
+      const postUserId = (p as any).userId;
+      const isMine = postUserId ? postUserId === uid : p.author === previousName;
+      if (!isMine) return p;
+      return {
+        ...p,
+        author: trimmed || p.author,
+        authorAvatar: photo !== undefined ? photo : p.authorAvatar,
+      };
+    }));
 
-    if (trimmed) {
-      try {
+    try {
+      if (trimmed) {
         localStorage.setItem('sinsangpick_name', trimmed);
-        localStorage.setItem('sinsangpick_custom_nickname_' + currentUser.uid, 'true');
-      } catch (e) {
-        console.warn('Failed to save nickname to localStorage', e);
+        localStorage.setItem('sinsangpick_custom_nickname_' + uid, 'true');
       }
-    }
-
-    if (photo !== undefined) {
-      try {
+      if (photo !== undefined) {
         localStorage.setItem('sinsangpick_photo', photo);
-        if (photo === DEFAULT_AVATAR || photo === '/logo.png') {
-          localStorage.removeItem('sinsangpick_custom_photo_' + currentUser.uid);
-        } else {
-          localStorage.setItem('sinsangpick_custom_photo_' + currentUser.uid, 'true');
-        }
-      } catch (e) {
-        console.warn('Failed to save photo to localStorage', e);
       }
-    }
-
-    if (supabase && isSupabaseConfigured) {
-      try {
-        const dbUpdates: any = {};
-        if (trimmed) dbUpdates.display_name = trimmed;
-        if (photo !== undefined) dbUpdates.avatar_url = photo;
-        await supabase
-          .from('profiles')
-          .update(dbUpdates)
-          .eq('id', currentUser.uid);
-
-        if (trimmed) {
-          await supabase
-            .from('reviews')
-            .update({ user_name: trimmed })
-            .eq('user_id', currentUser.uid);
-
-          await supabase
-            .from('community_posts')
-            .update({ author: trimmed })
-            .eq('author_id', currentUser.uid);
-        }
-      } catch (err) {
-        console.warn('[Supabase] Failed to update profile:', err);
-      }
+    } catch (e) {
+      console.warn('Failed to save profile to localStorage', e);
     }
 
     setAllProfiles(prev =>
       prev.map(p => {
-        if (p.uid === currentUser.uid) {
+        if (p.uid === uid) {
           return {
             ...p,
             ...(trimmed ? { displayName: trimmed } : {}),
@@ -3557,14 +3333,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return p;
       })
     );
-
-    if (trimmed && photo === undefined) {
-      showToast('닉네임이 성공적으로 변경되었습니다.', 'success');
-    } else if (photo !== undefined && !trimmed) {
-      showToast('프로필 사진이 성공적으로 변경되었습니다.', 'success');
-    } else {
-      showToast('프로필이 성공적으로 변경되었습니다.', 'success');
-    }
   };
 
   const updateUserNickname = async (newName: string) => {
@@ -3606,119 +3374,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const res: any = await supabaseSignInWithApple();
 
       if (res && res.user) {
-        const u = res.user;
-        const uid = u.id || u.uid;
-
-        const isWithdrawn = (() => {
-          try {
-            const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-            return list.includes(uid) || localStorage.getItem('sinsangpick_withdrawn_uid_' + uid) === 'true';
-          } catch { return false; }
-        })();
-
-        if (isWithdrawn) {
-          localStorage.removeItem('sinsangpick_name');
-          localStorage.removeItem('sinsangpick_points');
-          localStorage.removeItem('sinsangpick_withdrawn_uid_' + uid);
-          try {
-            const list = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-            const filtered = list.filter((id: string) => id !== uid);
-            localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(filtered));
-          } catch {}
-        }
-
-        // Check if user already has an established custom nickname
-        let assignedName = isWithdrawn ? null : localStorage.getItem('sinsangpick_name');
-        if (
-          !assignedName ||
-          assignedName.includes('사용자') ||
-          assignedName === '신상러버' ||
-          /^신상러버_[a-z0-9]{4}$/i.test(assignedName)
-        ) {
-          try {
-            const { data: dbProfile } = !isWithdrawn ? await supabase
-              .from('profiles')
-              .select('display_name')
-              .eq('id', uid)
-              .maybeSingle() : { data: null };
-            if (
-              dbProfile?.display_name &&
-              !dbProfile.display_name.includes('사용자') &&
-              dbProfile.display_name !== '신상러버'
-            ) {
-              assignedName = dbProfile.display_name;
-            } else {
-              assignedName = await getNextSequentialNickname(supabase, allProfiles);
-            }
-          } catch {
-            assignedName = await getNextSequentialNickname(supabase, allProfiles);
-          }
-        }
-
-        const photoURL = getProviderLogoUrl('apple');
-
-        setCurrentUser(prev => ({
-          ...prev,
-          uid,
-          displayName: assignedName!,
-          photoURL: photoURL,
-          level: 'Lv.1',
-          points: 100,
-          isAnonymous: false,
-          email: u.email,
-          provider: 'apple',
-        }));
-
-        localStorage.setItem('sinsangpick_uid', uid);
-        localStorage.setItem('sinsangpick_name', assignedName!);
-        localStorage.setItem('sinsangpick_points', '100');
-        localStorage.setItem('sinsangpick_photo', photoURL);
-        localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true');
-        setIsLoginModalOpen(false);
-        setIsGuestBrowse(true);
-        checkAndOpenPostLoginModals(uid);
-        showToast('🍎 Apple 계정으로 로그인되었습니다!', 'success');
-
-        await safeUpsertProfile(supabase, {
-          id: uid,
-          display_name: assignedName!,
-          avatar_url: photoURL,
-          provider: 'apple',
-          email: u.email || undefined,
-          points: 100,
-          level: 'Lv.1',
-        });
-
-        setAllProfiles(prev => {
-          const exists = prev.some(p => p.uid === uid);
-          if (exists) {
-            return prev.map(p => p.uid === uid ? {
-              ...p,
-              displayName: assignedName!,
-              photoURL: photoURL,
-              provider: 'apple',
-              email: u.email || p.email,
-              lastActiveAt: new Date().toISOString(),
-            } : p);
-          }
-          return [{
-            uid,
-            displayName: assignedName!,
-            photoURL: photoURL,
-            level: 'Lv.1',
-            points: 100,
-            isAnonymous: false,
-            provider: 'apple',
-            email: u.email || undefined,
-            createdAt: new Date().toISOString(),
-            lastActiveAt: new Date().toISOString(),
-            status: 'active',
-            warningCount: 0,
-            role: 'user',
-          }, ...prev];
-        });
-
-        loadSupabaseData(uid);
+        await applySignedInUser(supabase, res.user, { announce: true });
       }
     } catch (err: any) {
       const errMsg = err?.message || String(err || '');
@@ -3808,6 +3464,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (supabase && isSupabaseConfigured) {
         await signOutSupabase();
       }
+      sessionUidRef.current = '';
       deleteDeviceToken().catch(() => {});
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
@@ -3829,65 +3486,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const uidToDelete = currentUser.uid;
 
-      // 0. 탈퇴 대상 UID를 로컬에 기록하여 재로그인 시 과거 캐시나 잔존 DB 프로필 복원 원천 차단
-      try {
-        localStorage.setItem('sinsangpick_withdrawn_uid_' + uidToDelete, 'true');
-        const withdrawnList = JSON.parse(localStorage.getItem('sinsangpick_withdrawn_uids') || '[]');
-        if (!withdrawnList.includes(uidToDelete)) {
-          withdrawnList.push(uidToDelete);
-          localStorage.setItem('sinsangpick_withdrawn_uids', JSON.stringify(withdrawnList));
-        }
-      } catch {}
-
-      // 1. Supabase 원격 DB 및 Auth 사용자 영구 삭제 (테이블 직접 삭제 + 익명화 + Fallback Reset + RPC)
-      if (supabase && isSupabaseConfigured) {
-        try {
-          // A. 사용자 부가 데이터 테이블 영구 삭제
-          try { await supabase.from('device_tokens').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('review_likes').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('post_likes').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('review_comments').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('post_comments').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('point_transactions').delete().eq('user_id', uidToDelete); } catch {}
-          try { await supabase.from('bookmarks').delete().eq('user_id', uidToDelete); } catch {}
-
-          // B. 작성한 리뷰 & 커뮤니티 게시글 일괄 영구 삭제
-          try {
-            await supabase.from('reviews').delete().eq('user_id', uidToDelete);
-          } catch {}
-
-          try {
-            await supabase.from('community_posts').delete().eq('author_id', uidToDelete);
-          } catch {}
-
-          // C. 프로필 행 완전 삭제 시도
-          try {
-            const { error: delErr } = await supabase.from('profiles').delete().eq('id', uidToDelete);
-            if (delErr) {
-              console.warn('[Supabase] Profiles delete error:', delErr.message);
-            }
-          } catch {}
-
-          // D. Fallback Reset (2중 방어): RLS 정책이나 외래키로 행이 완전히 삭제되지 않고 남아있더라도
-          // 보유 포인트는 100P로 강제 초기화하고 닉네임/프로필 정보를 완전 백지화
-          try {
-            await supabase.from('profiles').update({
-              display_name: '신상러버_' + Math.floor(100 + Math.random() * 900),
-              avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-              points: 100,
-              level: 'Lv.1',
-              email: null,
-              provider: 'anonymous',
-              updated_at: new Date().toISOString(),
-            }).eq('id', uidToDelete);
-          } catch {}
-
-          // E. Supabase Auth 사용자 영구 삭제 RPC 및 전역 로그아웃 실행
-          await deleteCurrentUserAccount();
-        } catch (err) {
-          console.warn('[Supabase] Failed to delete user profile from DB:', err);
-        }
+      // 1. 서버의 계정과 데이터를 영구 삭제합니다. 실패하면 여기서 중단되어 기기 데이터도 그대로 남습니다.
+      if (supabase && isSupabaseConfigured && !currentUser.isAnonymous) {
+        await deleteCurrentUserAccount();
       }
+      sessionUidRef.current = '';
 
       // 디바이스 푸시 토큰 레코드 및 로컬 저장소 완전 파기
       try {
@@ -4003,6 +3606,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     tags?: string[],
     extra?: ReviewExtraData
   ) => {
+    if (requireLogin()) return;
+
     // 🚨 활동 정지 계정 검사
     const suspension = isCurrentUserSuspended();
     if (suspension.isSuspended) {
@@ -4092,6 +3697,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // 2. Supabase Insert (Server-side Trigger automatically updates products.overall_rating & rating_count!)
     if (supabase && isSupabaseConfigured) {
       try {
+        // 사진은 Storage 에 올리고 행에는 주소만 저장 (실패 시 기존처럼 원본 그대로 저장)
+        const storedImages = await Promise.all(
+          (newReview.images || []).map(img => uploadImageDataUrl(img, currentUser.uid, 'review'))
+        );
+
         const { error } = await supabase.from('reviews').insert({
           id: reviewId,
           product_id: targetProduct.id,
@@ -4104,7 +3714,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           rating,
           detailed_rating: detailedRating,
           content: newReview.content,
-          images: newReview.images,
+          images: storedImages,
           tags: newReview.tags,
           created_at: createdAt,
         });
@@ -4112,19 +3722,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (error) throw error;
 
         // Update profile points
-        await supabase
-          .from('profiles')
-          .update({ points: nextPoints, level: calculateLevel(nextPoints) })
-          .eq('id', currentUser.uid);
+        if (earnedPoints > 0) {
+          await supabase
+            .from('profiles')
+            .update({ points: nextPoints, level: calculateLevel(nextPoints) })
+            .eq('id', currentUser.uid);
+        }
 
       } catch (err) {
         console.error('[Supabase] Review submission error:', err);
+        // 서버에 저장되지 않은 리뷰가 등록된 것처럼 남지 않도록 되돌립니다.
+        setReviews(prev => prev.filter(r => r.id !== reviewId));
+        setProducts(prev => syncProductRatingsWithReviews(prev, reviews));
+        if (earnedPoints > 0) {
+          setCurrentUser(prev => {
+            const points = Math.max(0, prev.points - earnedPoints);
+            return { ...prev, points, level: calculateLevel(points) };
+          });
+          setPointTransactions(prev => prev.filter(t => t.id !== newTx.id));
+        }
+        alert('리뷰를 저장하지 못했습니다. 네트워크를 확인하고 다시 시도해 주세요.');
       }
     }
   };
 
   // Toggle Like Review (Duplicate prevention via review_likes PK)
   const toggleLikeReview = async (reviewId: string) => {
+    if (requireLogin()) return;
     const isCurrentlyLiked = likedReviewIds.includes(reviewId);
 
     // Optimistic update
@@ -4157,6 +3781,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Add Comment to Review
   const addReviewComment = async (reviewId: string, text: string) => {
     if (!text.trim()) return;
+    if (requireLogin()) throw new Error('LOGIN_REQUIRED');
     const commentId = 'rc-' + Date.now();
     const createdAt = new Date().toISOString();
 
@@ -4207,6 +3832,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     content: string,
     images?: string[]
   ) => {
+    if (requireLogin()) throw new Error('LOGIN_REQUIRED');
+
     // 🚨 활동 정지 계정 검사
     const suspension = isCurrentUserSuspended();
     if (suspension.isSuspended) {
@@ -4238,28 +3865,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('💬 게시글이 등록되었습니다!', 'success');
 
     if (supabase && isSupabaseConfigured) {
-      try {
-        await supabase.from('community_posts').insert({
-          id: postId,
-          category,
-          title: title.trim(),
-          content: content.trim(),
-          author_id: currentUser.uid,
-          author_name: currentUser.displayName,
-          author_avatar: currentUser.photoURL,
-          author_level: currentUser.level,
-          images: newPost.images,
-          created_at: createdAt,
-        });
+      const storedImages = await Promise.all(
+        (newPost.images || []).map(img => uploadImageDataUrl(img, currentUser.uid, 'post'))
+      );
+      const { error } = await supabase.from('community_posts').insert({
+        id: postId,
+        category,
+        title: title.trim(),
+        content: content.trim(),
+        author_id: currentUser.uid,
+        author_name: currentUser.displayName,
+        author_avatar: currentUser.photoURL,
+        author_level: currentUser.level,
+        images: storedImages,
+        created_at: createdAt,
+      });
 
-      } catch (err) {
-        console.error('[Supabase] Add community post error:', err);
+      if (error) {
+        console.error('[Supabase] Add community post error:', error);
+        // 서버에 저장되지 않은 글이 등록된 것처럼 남지 않도록 되돌리고, 작성 화면이 내용을 유지하도록 알립니다.
+        setCommunityPosts(prev => prev.filter(p => p.id !== postId));
+        alert('게시글을 저장하지 못했습니다. 네트워크를 확인하고 다시 시도해 주세요.');
+        throw error;
       }
     }
   };
 
   // Toggle Like Post (Duplicate prevention via post_likes PK)
   const toggleLikePost = async (postId: string) => {
+    if (requireLogin()) return;
     const isCurrentlyLiked = likedPostIds.includes(postId);
 
     // Optimistic update
@@ -4292,6 +3926,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Add Comment to Community Post
   const addPostComment = async (postId: string, text: string) => {
     if (!text.trim()) return;
+    if (requireLogin()) throw new Error('LOGIN_REQUIRED');
     const commentId = 'pc-' + Date.now();
     const createdAt = new Date().toISOString();
 
