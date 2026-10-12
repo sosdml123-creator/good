@@ -150,7 +150,8 @@ export const App: React.FC = () => {
         <PushBanner />
 
         {/* Scrollable Main Content Area */}
-        <main ref={mainRef} className="flex-1 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA]">
+        {/* 자식은 shrink-0: min-h-full 페이지가 화면 높이로 줄어들어 하단 여백(pb)이 사라지고 탭바에 가려지는 것 방지 */}
+        <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA] [&>*]:shrink-0">
           {/* Dynamic Route/Tab Display - each tab is independently lazy loaded */}
           <Suspense fallback={<TabFallback />}>
             {activeTab === 'home' && (
