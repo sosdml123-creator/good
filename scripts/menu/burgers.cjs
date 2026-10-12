@@ -24,7 +24,7 @@ async function mcdonalds() {
         bySeq.set(p.seq, {
           name,
           sub: main === 1 ? '버거' : main === 2 ? '맥모닝' : clean(sub.korName).replace(/ 메뉴$/, '') || mainName,
-          image: encodeURI(absolute(p.pcImageUrl, base)),
+          image: encodeURI(decodeURI(absolute(p.pcImageUrl, base))),
           desc: clean(String(p.korContent || '').split(/\*\s*판매/)[0]),
           calories: hasSingle ? '' : p.calorie,
           url: `${base}/kor/menu/detail/${p.seq}/${p.rnum}/${sub.seq}`,
