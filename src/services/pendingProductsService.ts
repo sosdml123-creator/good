@@ -17,6 +17,9 @@ export interface CollectReport {
   found: number;
   inserted: number;
   duplicates: number;
+  /** 확인된 제품 사진이 없어 담지 않은 건수 */
+  noImage?: number;
+  warning?: string;
   error?: string;
   code?: string;
 }

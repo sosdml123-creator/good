@@ -77,6 +77,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
   const [editing, setEditing] = useState<PendingProduct | null>(null);
   const [isImageSearchOpen, setIsImageSearchOpen] = useState(false);
   const [isNutritionSearchOpen, setIsNutritionSearchOpen] = useState(false);
+  const [zoomed, setZoomed] = useState<{ src: string; name: string } | null>(null);
 
   const cardBg = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200/90 shadow-xs';
   const inputBg = isDark
@@ -288,6 +289,9 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
             <strong className={titleText}>뉴스</strong> — GS25, 이마트24, 이마트, 트레이더스, 노브랜드, 홈플러스, 롯데마트, 롯데슈퍼, GS더프레시, 코스트코와
             식품사·카페·외식 브랜드의 최근 7일 출시 기사에서 상품명을 찾습니다. 가격은 기사로 확인되지 않아 비워 두니 승인 전에 입력해주세요.
           </p>
+          <p>
+            <strong className={titleText}>사진</strong> — 제품 사진이 확인된 상품만 담습니다. 사진이 없거나 사람이 나온 사진뿐인 상품은 제외하고 다음 수집 때 다시 찾습니다.
+          </p>
           {!isNaverCollectAvailable && !pendingSetupError && (
             <p className="text-amber-600 dark:text-amber-400">
               서버에 네이버 검색 API 키(NAVER_CLIENT_ID / NAVER_CLIENT_SECRET)가 없어 뉴스 수집은 건너뜁니다.
@@ -322,8 +326,9 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
                 <span>
                   <strong>{r.label}</strong>:{' '}
                   {r.ok
-                    ? `${r.found}건 확인 → 새 상품 ${r.inserted}건 추가 (이미 있는 ${r.duplicates}건 제외)`
+                    ? `${r.found}건 확인 → 새 상품 ${r.inserted}건 추가 (이미 있는 ${r.duplicates}건${r.noImage ? `, 제품 사진 없는 ${r.noImage}건` : ''} 제외)`
                     : `수집 실패 — ${r.error}`}
+                  {r.ok && r.warning && <span className="text-amber-600 dark:text-amber-400"> · {r.warning}</span>}
                 </span>
               </p>
             ))}
@@ -460,9 +465,9 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-3">
                               <button
-                                onClick={() => setEditing(item)}
-                                className={`w-12 h-12 rounded-lg border overflow-hidden shrink-0 flex items-center justify-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}
-                                title="클릭하여 수정"
+                                onClick={() => (item.image ? setZoomed({ src: item.image, name: item.name }) : setEditing(item))}
+                                className={`w-12 h-12 rounded-lg border overflow-hidden shrink-0 flex items-center justify-center ${item.image ? 'cursor-zoom-in' : ''} ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}
+                                title={item.image ? '클릭하여 크게 보기' : '클릭하여 이미지 등록'}
                               >
                                 {item.image
                                   ? <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
@@ -577,7 +582,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
                 <div key={item.id} className="px-4 py-2.5 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-lg border overflow-hidden shrink-0 flex items-center justify-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
                     {item.image
-                      ? <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
+                      ? <img src={item.image} alt={item.name} onClick={() => setZoomed({ src: item.image, name: item.name })} title="클릭하여 크게 보기" style={{ cursor: 'zoom-in' }} className="w-full h-full object-cover" loading="lazy" />
                       : <ImageIcon className="w-4 h-4 text-slate-400" />}
                   </div>
                   <div className="min-w-0 flex-1">
@@ -670,7 +675,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
               <div className="flex items-center gap-2">
                 <div className={`w-11 h-11 rounded-lg border overflow-hidden shrink-0 flex items-center justify-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
                   {editing.image
-                    ? <img src={editing.image} alt={editing.name} className="w-full h-full object-cover" />
+                    ? <img src={editing.image} alt={editing.name} onClick={() => setZoomed({ src: editing.image, name: editing.name })} title="클릭하여 크게 보기" style={{ cursor: 'zoom-in' }} className="w-full h-full object-cover" />
                     : <ImageIcon className="w-4 h-4 text-slate-400" />}
                 </div>
                 <input type="text" value={editing.image} onChange={(e) => setEditing({ ...editing, image: e.target.value.trim() })} placeholder="이미지 주소(URL)" className={`flex-1 min-w-0 p-2.5 rounded-xl border ${inputBg}`} />
@@ -714,6 +719,17 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* 4. 이미지 크게 보기 */}
+      {zoomed && (
+        <div className="fixed inset-0 z-[70] bg-black/80 flex flex-col items-center justify-center gap-3 p-4 cursor-zoom-out" onClick={() => setZoomed(null)}>
+          <button onClick={() => setZoomed(null)} className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white" title="닫기">
+            <X className="w-5 h-5" />
+          </button>
+          <img src={zoomed.src} alt={zoomed.name} className="max-w-full max-h-[80vh] rounded-xl bg-white object-contain shadow-2xl" />
+          <p className="text-white text-sm font-bold text-center">{zoomed.name}</p>
         </div>
       )}
 

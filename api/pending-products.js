@@ -22,6 +22,8 @@ import {
   normalizeProductName,
 } from './_lib/storeCrawlers.js';
 import { collectMfdsProducts } from './_lib/mfdsProducts.js';
+import { attachProductImages } from './_lib/productImages.js';
+import { getAiEngine } from './_lib/aiJson.js';
 
 export const config = { maxDuration: 60 };
 
@@ -86,9 +88,12 @@ function inList(ids) {
   return `in.(${ids.map((id) => `"${String(id).replace(/"/g, '')}"`).join(',')})`;
 }
 
-/** 이미 등록된 상품 + 대기/승인/반려 이력 전체를 기준으로 새 항목만 골라 저장 */
-async function insertNewRows(db, rows) {
-  if (rows.length === 0) return { inserted: 0, duplicates: 0 };
+/**
+ * 이미 등록된 상품 + 대기/승인/반려 이력 전체를 기준으로 새 항목만 골라 저장.
+ * 확인된 제품 사진이 없는 항목은 저장하지 않습니다 (다음 수집 때 다시 시도).
+ */
+async function insertNewRows(db, rows, imageOptions) {
+  if (rows.length === 0) return { inserted: 0, duplicates: 0, noImage: 0, aiErrors: 0 };
 
   const [products, pending] = await Promise.all([
     db(`products?select=name&id=neq.${SYSTEM_RECORD_ID}`),
@@ -108,17 +113,31 @@ async function insertNewRows(db, rows) {
     fresh.push({ ...row, status: 'pending', crawled_at: now });
   }
 
-  if (fresh.length > 0) {
+  const { aiErrors } = await attachProductImages(fresh, imageOptions);
+  const ready = fresh.filter((row) => row.image);
+
+  if (ready.length > 0) {
     await db('pending_products?on_conflict=id', {
       method: 'POST',
       headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
-      body: JSON.stringify(fresh),
+      body: JSON.stringify(ready),
     });
   }
-  return { inserted: fresh.length, duplicates: rows.length - fresh.length };
+  return {
+    inserted: ready.length,
+    duplicates: rows.length - fresh.length,
+    noImage: fresh.length - ready.length,
+    aiErrors,
+  };
 }
 
-async function runCollect(db, sourceKeys, query) {
+async function runCollect(db, sourceKeys, query, deadline) {
+  const imageOptions = {
+    deadline,
+    naver: { clientId: process.env.NAVER_CLIENT_ID, clientSecret: process.env.NAVER_CLIENT_SECRET },
+    engine: getAiEngine(),
+  };
+
   // 테이블이 없으면 외부 사이트를 긁기 전에 바로 알려줍니다.
   await db('pending_products?select=id&limit=1');
 
@@ -135,14 +154,26 @@ async function runCollect(db, sourceKeys, query) {
         found: 0,
         inserted: 0,
         duplicates: 0,
+        noImage: 0,
         error: result.reason?.name === 'AbortError' ? '응답 시간 초과' : (result.reason?.message || '수집 실패'),
         code: result.reason?.code,
       });
       continue;
     }
     // 소스 간 이름 중복이 있을 수 있으므로 순서대로 저장합니다.
-    const { inserted, duplicates } = await insertNewRows(db, result.value);
-    reports.push({ source: key, label: SOURCES[key].label, ok: true, found: result.value.length, inserted, duplicates });
+    const { inserted, duplicates, noImage, aiErrors } = await insertNewRows(db, result.value, imageOptions);
+    reports.push({
+      source: key,
+      label: SOURCES[key].label,
+      ok: true,
+      found: result.value.length,
+      inserted,
+      duplicates,
+      noImage,
+      warning: !imageOptions.engine && key !== 'cu' && key !== 'seven'
+        ? 'AI 키(ANTHROPIC_API_KEY / GEMINI_API_KEY)가 없어 사람 사진 검수 없이 검색 이미지만 사용했습니다.'
+        : aiErrors > 0 ? `사진 검수 실패 ${aiErrors}회` : undefined,
+    });
   }
   return reports;
 }
@@ -220,6 +251,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  // 함수 실행 제한(60초) 안에 끝나도록 제품 사진 확인에 쓸 시간을 제한합니다.
+  const deadline = Date.now() + 47000;
+
   const db = createDb();
   if (!db) {
     return res.status(500).json({ success: false, error: 'SUPABASE_SERVICE_ROLE_KEY 가 서버 환경변수에 설정되어 있지 않습니다.' });
@@ -236,7 +270,7 @@ export default async function handler(req, res) {
       const sources = ['cu', 'seven'];
       if (naverConfigured) sources.push('news');
       if (process.env.FOODSAFETY_API_KEY) sources.push('mfds');
-      const reports = await runCollect(db, sources, '');
+      const reports = await runCollect(db, sources, '', deadline);
       return res.status(200).json({ success: true, reports });
     }
 
@@ -262,7 +296,7 @@ export default async function handler(req, res) {
       if (!sources.every((key) => SOURCES[key])) {
         return res.status(400).json({ success: false, error: `알 수 없는 수집 소스: ${source}` });
       }
-      const reports = await runCollect(db, sources, String(body.query || '').trim().slice(0, 60));
+      const reports = await runCollect(db, sources, String(body.query || '').trim().slice(0, 60), deadline);
       return res.status(200).json({ success: true, reports, naverConfigured });
     }
 
