@@ -13,8 +13,23 @@ const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 // 시스템 레코드(products.nutrition JSON)에 통째로 저장하는 관리자 설정 키
 const CONTENT_KEYS = [
   'banners', 'homeSections', 'salePromotions', 'events',
-  'brands', 'storeChannels', 'calendarItems', 'battleConfig', 'adminLocalSyncedAt',
+  'brands', 'storeChannels', 'calendarItems', 'battleConfig', 'adminLocalSyncedAt', 'pointPolicy',
 ];
+
+// 포인트 정책 허용 범위 (supabase/migrations/20261012_point_policy_settings.sql 의 상한과 맞춥니다)
+const POINT_POLICY_MAX = {
+  signup: 10000, review: 1000, reviewDailyLimit: 100, dailyCap: 10000,
+  adReward: 1000, adDailyLimit: 100, couponUserDailyLimit: 1000000,
+};
+
+function sanitizePointPolicy(input) {
+  const policy = {};
+  for (const [key, max] of Object.entries(POINT_POLICY_MAX)) {
+    const value = Number(input?.[key]);
+    if (Number.isFinite(value)) policy[key] = Math.min(max, Math.max(0, Math.trunc(value)));
+  }
+  return policy;
+}
 const DELETED_KEYS = ['deletedProductIds', 'deletedBannerIds', 'deletedEventIds', 'deletedSaleIds'];
 
 // products 테이블 기본 컬럼 (camelCase → snake_case)
@@ -401,7 +416,7 @@ export default async function handler(req, res) {
         }
         const changes = {};
         for (const key of CONTENT_KEYS) {
-          if (body[key] !== undefined) changes[key] = body[key];
+          if (body[key] !== undefined) changes[key] = key === 'pointPolicy' ? sanitizePointPolicy(body[key]) : body[key];
         }
         const deletedAdds = {};
         for (const key of DELETED_KEYS) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, PenSquare, Star, Heart, MessageSquare, ExternalLink, ZoomIn, Pencil, Trash2 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { POINT_POLICY } from '../../constants/pointPolicy';
 import { ImageViewerModal } from '../common/ImageViewerModal';
 import { EditReviewModal } from '../review/EditReviewModal';
 import { Review } from '../../types';
@@ -200,7 +201,7 @@ export const MyReviewsModal: React.FC<MyReviewsModalProps> = ({ isOpen, onClose 
               <span className="text-4xl block">✍️</span>
               <div>
                 <p className="text-xs font-bold text-gray-800">아직 작성한 리뷰가 없습니다.</p>
-                <p className="text-[11px] text-gray-400 mt-0.5">신상을 맛보고 첫 솔직 리뷰를 남겨보세요! (+10P 적립)</p>
+                <p className="text-[11px] text-gray-400 mt-0.5">신상을 맛보고 첫 솔직 리뷰를 남겨보세요! (+{POINT_POLICY.review}P 적립)</p>
               </div>
               <button
                 onClick={() => {

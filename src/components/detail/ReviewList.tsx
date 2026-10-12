@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { POINT_POLICY } from '../../constants/pointPolicy';
 import { Star, Heart, MessageSquare, Send, Flag, ZoomIn, Menu, Pencil, Trash2 } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { SafeImage } from '../common/SafeImage';
@@ -406,7 +407,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
             아직 등록된 솔직 후기가 없습니다
           </div>
           <p className="text-[11px] text-gray-400">
-            이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요! (+10P 적립)
+            이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요! (+{POINT_POLICY.review}P 적립)
           </p>
           <button
             onClick={() => setActiveTab('write')}

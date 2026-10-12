@@ -193,7 +193,6 @@ const kstDate = (offsetDays = 0) => {
 const LIMIT_MESSAGES = {
   no_profile: '회원 정보를 찾을 수 없습니다. 다시 로그인해 주세요.',
   insufficient: '포인트가 부족합니다.',
-  user_limit: `하루에 교환할 수 있는 한도(${USER_DAILY_LIMIT.toLocaleString()}P)를 넘었습니다. 내일 다시 시도해 주세요.`,
   global_limit: '오늘 준비된 e쿠폰 수량이 모두 소진되었습니다. 내일 다시 시도해 주세요.',
   invalid: '교환할 수 없는 상품입니다.',
 };
@@ -209,6 +208,7 @@ async function exchange(user, goodsCode) {
   const trId = `ssp_${kstDate().replace(/-/g, '')}_${randomBytes(5).toString('hex')}`;
   const expires = kstDate(Number(goods.limitDay) || 30);
 
+  const { userDailyLimit } = await getPointLimits();
   const begin = await rpc('coupon_exchange_begin', {
     p_user: user.id,
     p_tr_id: trId,
@@ -219,7 +219,7 @@ async function exchange(user, goodsCode) {
     p_points: points,
     p_cost: goods.discountPrice,
     p_expires: expires,
-    p_user_daily_limit: USER_DAILY_LIMIT,
+    p_user_daily_limit: userDailyLimit,
     p_global_daily_limit: GLOBAL_DAILY_LIMIT,
   });
   if (!begin?.ok) {
@@ -228,7 +228,9 @@ async function exchange(user, goodsCode) {
       body: {
         success: false,
         reason: begin?.reason,
-        error: LIMIT_MESSAGES[begin?.reason] || '교환을 진행할 수 없습니다.',
+        error: begin?.reason === 'user_limit'
+          ? `하루에 교환할 수 있는 한도(${userDailyLimit.toLocaleString()}P)를 넘었습니다. 내일 다시 시도해 주세요.`
+          : LIMIT_MESSAGES[begin?.reason] || '교환을 진행할 수 없습니다.',
         balance: begin?.balance,
       },
     };
@@ -361,6 +363,32 @@ const ADMOB_REWARD_AD_UNITS = String(process.env.ADMOB_REWARD_AD_UNITS || '23883
 const ADMOB_REWARD_POINTS = Number(process.env.ADMOB_REWARD_POINTS) || 2;
 const ADMOB_REWARD_DAILY_LIMIT = Number(process.env.ADMOB_REWARD_DAILY_LIMIT) || 10;
 
+// 어드민 '포인트 정책'에서 저장한 값(시스템 레코드)이 있으면 환경변수 기본값보다 우선합니다.
+const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
+let pointLimitsCache = null; // { at, limits }
+
+async function getPointLimits() {
+  if (pointLimitsCache && Date.now() - pointLimitsCache.at < 60 * 1000) return pointLimitsCache.limits;
+  let saved = {};
+  try {
+    const r = await fetch(`${supabaseUrl}/rest/v1/products?id=eq.${SYSTEM_RECORD_ID}&select=nutrition`, {
+      headers: serviceHeaders(),
+      signal: AbortSignal.timeout(5000),
+    });
+    if (r.ok) saved = (await r.json())?.[0]?.nutrition?.pointPolicy || {};
+  } catch {
+    // 기본값 사용
+  }
+  const pick = (v, fallback) => (Number.isInteger(v) && v >= 0 ? v : fallback);
+  const limits = {
+    adPoints: pick(saved.adReward, ADMOB_REWARD_POINTS),
+    adDailyLimit: pick(saved.adDailyLimit, ADMOB_REWARD_DAILY_LIMIT),
+    userDailyLimit: pick(saved.couponUserDailyLimit, USER_DAILY_LIMIT),
+  };
+  pointLimitsCache = { at: Date.now(), limits };
+  return limits;
+}
+
 let admobKeys = null; // { at, byId: Map<keyId, pem> }
 let lastSsvFailure = null;
 
@@ -413,11 +441,12 @@ async function admobReward(req, res) {
   }
 
   // 실패(5xx) 시 AdMob 이 재시도하며, 같은 transaction_id 는 한 번만 적립됩니다
+  const adLimits = await getPointLimits();
   const result = await rpc('ad_reward_grant', {
     p_user: userId,
     p_transaction_id: transactionId,
-    p_points: ADMOB_REWARD_POINTS,
-    p_daily_limit: ADMOB_REWARD_DAILY_LIMIT,
+    p_points: adLimits.adPoints,
+    p_daily_limit: adLimits.adDailyLimit,
     p_ad_unit: String(q.ad_unit),
   });
   return res.status(200).json(result);
@@ -457,7 +486,7 @@ export default async function handler(req, res) {
         return res.status(200).json({
           success: true,
           exchangeEnabled: isExchangeConfigured(),
-          userDailyLimit: USER_DAILY_LIMIT,
+          userDailyLimit: (await getPointLimits()).userDailyLimit,
           goods: Array.from(catalog.byCode.values(), toListItem),
         });
       }
@@ -491,7 +520,7 @@ export default async function handler(req, res) {
         exchangeConfigured: isExchangeConfigured(),
         hasUserId: Boolean(BIZ_USER_ID),
         hasCallbackNo: Boolean(CALLBACK_NO),
-        limits: { maxPrice: MAX_PRICE, userDaily: USER_DAILY_LIMIT, globalDaily: GLOBAL_DAILY_LIMIT },
+        limits: { maxPrice: MAX_PRICE, userDaily: (await getPointLimits()).userDailyLimit, globalDaily: GLOBAL_DAILY_LIMIT },
         bizmoney,
       });
     }
@@ -521,18 +550,19 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET' && action === 'adstatus') {
       res.setHeader('Cache-Control', 'no-store');
+      const adLimits = await getPointLimits();
       const since = encodeURIComponent(`${kstDate()}T00:00:00+09:00`);
       const countRes = await fetch(
-        `${supabaseUrl}/rest/v1/ad_rewards?user_id=eq.${encodeURIComponent(user.id)}&created_at=gte.${since}&select=transaction_id&limit=${ADMOB_REWARD_DAILY_LIMIT + 1}`,
+        `${supabaseUrl}/rest/v1/ad_rewards?user_id=eq.${encodeURIComponent(user.id)}&created_at=gte.${since}&select=transaction_id&limit=${adLimits.adDailyLimit + 1}`,
         { headers: serviceHeaders() }
       );
       // 적립 테이블이 아직 없으면(마이그레이션 전) 광고 적립을 닫아 둠
       const rows = countRes.ok ? await countRes.json() : null;
       return res.status(200).json({
         success: true,
-        enabled: Boolean(rows),
-        points: ADMOB_REWARD_POINTS,
-        dailyLimit: ADMOB_REWARD_DAILY_LIMIT,
+        enabled: Boolean(rows) && adLimits.adPoints > 0 && adLimits.adDailyLimit > 0,
+        points: adLimits.adPoints,
+        dailyLimit: adLimits.adDailyLimit,
         today: rows ? rows.length : 0,
         balance: await getBalance(user.id),
       });

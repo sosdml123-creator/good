@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { POINT_POLICY } from '../../constants/pointPolicy';
 import { Sparkles, Check, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -87,7 +88,7 @@ export const NicknameSetupModal: React.FC = () => {
             <Gift className="w-4 h-4" />
           </div>
           <div className="text-left text-xs leading-tight">
-            <span className="font-extrabold text-amber-900">가입 축하 100P 지급 완료!</span>
+            <span className="font-extrabold text-amber-900">가입 축하 {POINT_POLICY.signup}P 지급 완료!</span>
             <div className="text-[11px] text-amber-700 mt-0.5">리뷰를 쓰면 포인트가 더 쌓이고 e쿠폰으로 교환할 수 있어요</div>
           </div>
         </div>

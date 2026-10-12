@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
-import { POINT_POLICY, claimDailyReward } from '../constants/pointPolicy';
+import { POINT_POLICY, PointPolicySettings, applyPointPolicy, claimDailyReward } from '../constants/pointPolicy';
 import { 
   Product, 
   Review, 
@@ -287,6 +287,8 @@ interface AppContextType {
   // User & Points Management (Admin & App)
   allProfiles: UserProfile[];
   pointTransactions: PointTransaction[];
+  savedPointPolicy: Partial<PointPolicySettings> | null;
+  savePointPolicy: (policy: PointPolicySettings) => Promise<boolean>;
   grantUserPoints: (userId: string, amount: number, reason: string, memo?: string) => Promise<void>;
   revokeUserPoints: (userId: string, amount: number, reason: string, memo?: string) => Promise<void>;
   batchGrantPoints: (userIds: string[], amount: number, reason: string, memo?: string) => Promise<void>;
@@ -817,7 +819,7 @@ const resolveSignedInProfile = async (
   const points = typeof dbProfile?.points === 'number' ? dbProfile.points : 100;
 
   if (!dbProfile) {
-    await safeUpsertProfile(client, { id: user.id, display_name: displayName, avatar_url: photoURL, points: 100, level: 'Lv.1' });
+    await safeUpsertProfile(client, { id: user.id, display_name: displayName, avatar_url: photoURL, points: POINT_POLICY.signup, level: 'Lv.1' });
   } else if (dbProfile.display_name !== displayName || dbProfile.avatar_url !== photoURL) {
     const { error: fixErr } = await client
       .from('profiles')
@@ -1409,6 +1411,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     deleteRemoteProducts(ids).then(r => reportSave(r, '상품 삭제'));
   const persistAdmin = (action: string, payload: Record<string, unknown>, label: string) =>
     adminApi(action, payload).then(r => reportSave(r, label));
+
+  // 어드민에서 저장한 포인트 정책 (저장 전이면 null → 기본값 사용)
+  const [savedPointPolicy, setSavedPointPolicy] = useState<Partial<PointPolicySettings> | null>(null);
+  const savePointPolicy = async (policy: PointPolicySettings): Promise<boolean> => {
+    const ok = await persistAdmin('save_content', { pointPolicy: policy }, '포인트 정책');
+    if (ok) {
+      applyPointPolicy(policy);
+      setSavedPointPolicy(policy);
+    }
+    return ok;
+  };
   const sanctionsRef = useRef<Map<string, any>>(new Map());
 
   // 1. Deleted Product IDs Master Tracking
@@ -2179,8 +2192,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [battleRound?.weekKey, battleRound?.phase]);
 
   // 관리자 설정 목록(브랜드·판매처·출시 캘린더·배틀)은 서버에 저장된 값이 있으면 그 값을 씁니다.
-  const applyRemoteAdminLists = (remote: { brands?: any; storeChannels?: any; calendarItems?: any; battleConfig?: any } | null | undefined) => {
+  const applyRemoteAdminLists = (remote: { brands?: any; storeChannels?: any; calendarItems?: any; battleConfig?: any; pointPolicy?: any } | null | undefined) => {
     if (!remote) return;
+    if (remote.pointPolicy && typeof remote.pointPolicy === 'object') {
+      applyPointPolicy(remote.pointPolicy);
+      setSavedPointPolicy(remote.pointPolicy);
+    }
     if (Array.isArray(remote.brands)) setBrands(remote.brands);
     if (Array.isArray(remote.storeChannels)) setStoreChannels(remote.storeChannels);
     if (Array.isArray(remote.calendarItems)) setCalendarItems(remote.calendarItems);
@@ -3353,7 +3370,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           displayName: nextNickname,
           photoURL: DEFAULT_AVATAR,
           level: 'Lv.1',
-          points: 100,
+          points: POINT_POLICY.signup,
           isAnonymous: false,
           provider: 'apple',
           email: 'user@icloud.com',
@@ -3402,7 +3419,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           displayName: nextNickname,
           photoURL: DEFAULT_AVATAR,
           level: 'Lv.1',
-          points: 100,
+          points: POINT_POLICY.signup,
           isAnonymous: false,
           provider: 'google',
           email: 'user@gmail.com',
@@ -3435,7 +3452,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           displayName: nextNickname,
           photoURL: getProviderLogoUrl('kakao'),
           level: 'Lv.1',
-          points: 100,
+          points: POINT_POLICY.signup,
           isAnonymous: false,
           provider: 'kakao',
           email: 'user@kakao.com',
@@ -6027,6 +6044,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // User & Points Management
         allProfiles,
         pointTransactions,
+        savedPointPolicy,
+        savePointPolicy,
         grantUserPoints,
         revokeUserPoints,
         batchGrantPoints,

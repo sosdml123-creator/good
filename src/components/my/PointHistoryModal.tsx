@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { X, Coins, Sparkles, TrendingUp, TrendingDown, HelpCircle, ChevronRight, PenTool, Gift } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { POINT_POLICY } from '../../constants/pointPolicy';
 import { PointTransaction } from '../../types';
 
 interface PointHistoryModalProps {
@@ -123,13 +124,13 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
                 <div className="flex items-start gap-2">
                   <span className="text-base leading-none shrink-0">✍️</span>
                   <div>
-                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> <span className="text-amber-600 font-bold">+10P</span> (상품당 1회 · 하루 10건)
+                    <strong className="text-gray-900 font-bold">신제품 리뷰 작성:</strong> <span className="text-amber-600 font-bold">+{POINT_POLICY.review}P</span> (상품당 1회 · 하루 {POINT_POLICY.reviewDailyLimit}건)
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-base leading-none shrink-0">🎉</span>
                   <div>
-                    <strong className="text-gray-900 font-bold">신규 회원가입:</strong> 웰컴 축하 <span className="text-amber-600 font-bold">+100P</span>
+                    <strong className="text-gray-900 font-bold">신규 회원가입:</strong> 웰컴 축하 <span className="text-amber-600 font-bold">+{POINT_POLICY.signup}P</span>
                   </div>
                 </div>
               </div>
@@ -268,7 +269,7 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
               </div>
               <div>
                 <div className="text-xs font-bold text-gray-900">신제품 리뷰 쓰고 포인트 받기</div>
-                <div className="text-[11px] text-gray-500">리뷰 1건당 10P 적립</div>
+                <div className="text-[11px] text-gray-500">리뷰 1건당 {POINT_POLICY.review}P 적립</div>
               </div>
             </div>
             <button

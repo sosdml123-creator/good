@@ -1,14 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { POINT_POLICY } from '../../constants/pointPolicy';
+import { POINT_POLICY, PointPolicySettings } from '../../constants/pointPolicy';
 import { fetchAdRewardStatus, fetchCouponCatalog, getStoredCouponCatalog } from '../../services/couponApi';
-import { Award, Search, X, Plus, Minus, RefreshCw } from 'lucide-react';
+import { Award, Search, X, Plus, Minus, RefreshCw, Save } from 'lucide-react';
 
 interface PointManagementTabProps {
   isDark: boolean;
 }
 
-const SIGNUP_POINTS = 100; // supabase guard_profiles_points 의 가입 기본 포인트
+// 입력 허용 범위는 api/site-content.js 의 POINT_POLICY_MAX 와 맞춥니다.
+const POLICY_FIELDS: { key: keyof PointPolicySettings; title: string; unit: string; max: number; note: string }[] = [
+  { key: 'signup', title: '회원 가입 지급', unit: 'P', max: 10000, note: '가입 시 1회 지급' },
+  { key: 'review', title: '리뷰 작성 적립', unit: 'P', max: 1000, note: '리뷰 1건당 (상품당 1회)' },
+  { key: 'reviewDailyLimit', title: '리뷰 하루 적립 횟수', unit: '건', max: 100, note: '하루에 적립되는 리뷰 수' },
+  { key: 'dailyCap', title: '하루 최대 적립', unit: 'P', max: 10000, note: '리뷰 등 활동 적립 합산 (광고 보상·관리자 지급은 별도)' },
+  { key: 'adReward', title: '광고 시청 보상', unit: 'P', max: 1000, note: '광고 1회 시청당 (0이면 광고 적립 중지)' },
+  { key: 'adDailyLimit', title: '광고 하루 시청 횟수', unit: '회', max: 100, note: '1인 하루 광고 보상 횟수' },
+  { key: 'couponUserDailyLimit', title: 'e쿠폰 하루 교환 한도', unit: 'P', max: 1000000, note: '1인 하루 교환 가능 포인트 (1P = 1원)' },
+];
 
 export const PointManagementTab: React.FC<PointManagementTabProps> = ({ isDark }) => {
   const {
@@ -17,23 +26,65 @@ export const PointManagementTab: React.FC<PointManagementTabProps> = ({ isDark }
     batchGrantPoints,
     batchRevokePoints,
     fetchAllProfiles,
+    savedPointPolicy,
+    savePointPolicy,
   } = useApp();
 
-  // 광고·e쿠폰 한도는 서버 환경변수로 정해지므로 실제 적용 중인 값을 불러옵니다.
-  const [adPolicy, setAdPolicy] = useState<{ points: number; dailyLimit: number; enabled: boolean } | null>(null);
-  const [couponDailyLimit, setCouponDailyLimit] = useState<number | null>(
-    () => getStoredCouponCatalog()?.userDailyLimit ?? null
-  );
+  // 광고·e쿠폰 한도는 저장값이 없으면 서버 기본값을 쓰므로, 실제 적용 중인 값을 불러옵니다.
+  const [serverLimits, setServerLimits] = useState<Partial<PointPolicySettings>>(() => {
+    const limit = getStoredCouponCatalog()?.userDailyLimit;
+    return limit ? { couponUserDailyLimit: limit } : {};
+  });
 
   useEffect(() => {
     fetchAllProfiles().catch(() => {});
     fetchAdRewardStatus()
-      .then(s => s && setAdPolicy({ points: s.points, dailyLimit: s.dailyLimit, enabled: s.enabled }))
+      .then(s => s && setServerLimits(prev => ({ ...prev, adReward: s.points, adDailyLimit: s.dailyLimit })))
       .catch(() => {});
     fetchCouponCatalog()
-      .then(c => setCouponDailyLimit(c.userDailyLimit))
+      .then(c => setServerLimits(prev => ({ ...prev, couponUserDailyLimit: c.userDailyLimit })))
       .catch(() => {});
   }, []);
+
+  // 현재 적용 중인 정책: 저장값 > 서버에서 확인한 값 > 기본값
+  const currentPolicy: PointPolicySettings = useMemo(() => ({
+    signup: POINT_POLICY.signup,
+    review: POINT_POLICY.review,
+    reviewDailyLimit: POINT_POLICY.reviewDailyLimit,
+    dailyCap: POINT_POLICY.dailyCap,
+    adReward: 2,
+    adDailyLimit: 10,
+    couponUserDailyLimit: 10000,
+    ...serverLimits,
+    ...(savedPointPolicy || {}),
+  }), [serverLimits, savedPointPolicy]);
+
+  const [policyDraft, setPolicyDraft] = useState<Partial<Record<keyof PointPolicySettings, string>>>({});
+  const [policySaving, setPolicySaving] = useState(false);
+  const [policySavedAt, setPolicySavedAt] = useState<string | null>(null);
+
+  const policyValue = (key: keyof PointPolicySettings) => policyDraft[key] ?? String(currentPolicy[key]);
+  const policyInvalid = POLICY_FIELDS.some(({ key, max }) => {
+    const raw = policyValue(key).trim();
+    const n = Number(raw);
+    return raw === '' || !Number.isInteger(n) || n < 0 || n > max;
+  });
+  const policyDirty = POLICY_FIELDS.some(({ key }) => policyValue(key).trim() !== String(currentPolicy[key]));
+
+  const handlePolicySave = async () => {
+    if (policyInvalid || !policyDirty || policySaving) return;
+    const next = { ...currentPolicy };
+    for (const { key } of POLICY_FIELDS) next[key] = Number(policyValue(key));
+    setPolicySaving(true);
+    try {
+      if (await savePointPolicy(next)) {
+        setPolicyDraft({});
+        setPolicySavedAt(new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }));
+      }
+    } finally {
+      setPolicySaving(false);
+    }
+  };
 
   const [mode, setMode] = useState<'grant' | 'revoke'>('grant');
   const [query, setQuery] = useState('');
@@ -92,35 +143,6 @@ export const PointManagementTab: React.FC<PointManagementTabProps> = ({ isDark }
   const label = `block text-xs font-bold mb-1.5 ${isDark ? 'text-slate-300' : 'text-slate-600'}`;
   const sub = isDark ? 'text-slate-400' : 'text-slate-500';
 
-  const policyRows: { title: string; value: string; note: string }[] = [
-    { title: '회원 가입', value: `${SIGNUP_POINTS}P`, note: '가입 시 1회 지급' },
-    {
-      title: '리뷰 작성',
-      value: `${POINT_POLICY.review}P`,
-      note: `상품당 1회, 하루 ${POINT_POLICY.reviewDailyLimit}건까지 (사진·글자 수 무관)`,
-    },
-    {
-      title: '광고 보고 포인트 받기',
-      value: adPolicy ? `${adPolicy.points}P` : '확인 중',
-      note: adPolicy
-        ? `하루 ${adPolicy.dailyLimit}회까지${adPolicy.enabled ? '' : ' · 현재 적립 꺼짐'}`
-        : '서버 설정값을 불러오는 중입니다',
-    },
-    {
-      title: '하루 최대 적립',
-      value: `${POINT_POLICY.dailyCap}P`,
-      note: '리뷰 등 활동 적립 합산 (광고 보상·관리자 지급은 별도)',
-    },
-    {
-      title: 'e쿠폰 교환 (사용)',
-      value: '1P = 1원',
-      note: couponDailyLimit
-        ? `1인 하루 ${couponDailyLimit.toLocaleString()}P까지 교환, 발급 실패 시 자동 환급`
-        : '발급 실패 시 자동 환급',
-    },
-    { title: '회원 탈퇴', value: '즉시 소멸', note: '보유 포인트는 복구되지 않습니다' },
-  ];
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -132,7 +154,7 @@ export const PointManagementTab: React.FC<PointManagementTabProps> = ({ isDark }
               포인트 관리
             </h2>
             <p className={`text-xs mt-1 ${sub}`}>
-              현재 적용 중인 포인트 정책을 확인하고, 회원에게 포인트를 지급하거나 회수합니다.
+              포인트 정책을 수정·저장하고, 회원에게 포인트를 지급하거나 회수합니다.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -155,19 +177,62 @@ export const PointManagementTab: React.FC<PointManagementTabProps> = ({ isDark }
 
       {/* 포인트 정책 */}
       <div className={card}>
-        <h3 className={`text-sm font-black mb-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>현재 포인트 정책</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {policyRows.map(row => (
-            <div
-              key={row.title}
-              className={`rounded-xl border p-3.5 ${isDark ? 'border-slate-800 bg-slate-950/40' : 'border-slate-200 bg-slate-50'}`}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <h3 className={`text-sm font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>포인트 정책</h3>
+          <div className="flex items-center gap-2">
+            {policySavedAt && !policyDirty && (
+              <span className="text-[11px] font-bold text-emerald-500">{policySavedAt} 저장됨</span>
+            )}
+            {policyDirty && (
+              <button
+                onClick={() => setPolicyDraft({})}
+                className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer ${sub}`}
+              >
+                되돌리기
+              </button>
+            )}
+            <button
+              onClick={handlePolicySave}
+              disabled={policyInvalid || !policyDirty || policySaving}
+              className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-all active:scale-95 disabled:opacity-40 flex items-center gap-1.5 cursor-pointer"
             >
-              <div className={`text-[11px] font-bold ${sub}`}>{row.title}</div>
-              <div className={`text-base font-black font-mono mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>{row.value}</div>
-              <div className={`text-[11px] mt-1 ${sub}`}>{row.note}</div>
-            </div>
-          ))}
+              <Save className="w-3.5 h-3.5" />
+              {policySaving ? '저장 중...' : '정책 저장'}
+            </button>
+          </div>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {POLICY_FIELDS.map(({ key, title, unit, max, note }) => {
+            const raw = policyValue(key).trim();
+            const n = Number(raw);
+            const invalid = raw === '' || !Number.isInteger(n) || n < 0 || n > max;
+            return (
+              <div
+                key={key}
+                className={`rounded-xl border p-3.5 ${isDark ? 'border-slate-800 bg-slate-950/40' : 'border-slate-200 bg-slate-50'}`}
+              >
+                <label className={`block text-[11px] font-bold mb-1.5 ${sub}`}>{title}</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min={0}
+                    max={max}
+                    value={policyValue(key)}
+                    onChange={e => setPolicyDraft(prev => ({ ...prev, [key]: e.target.value }))}
+                    className={`${input} font-mono font-bold ${invalid ? 'border-rose-500' : ''}`}
+                  />
+                  <span className={`text-sm font-bold shrink-0 ${sub}`}>{unit}</span>
+                </div>
+                <div className={`text-[11px] mt-1.5 ${invalid ? 'text-rose-500' : sub}`}>
+                  {invalid ? `0 ~ ${max.toLocaleString()} 사이의 정수를 입력해 주세요` : note}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <p className={`text-[11px] mt-3 ${sub}`}>
+          저장하면 서버에 바로 반영되고, 회원 앱에는 다음 실행(새로고침) 때 적용됩니다. 회원 탈퇴 시 보유 포인트는 즉시 소멸됩니다.
+        </p>
       </div>
 
       {/* 지급 / 회수 */}

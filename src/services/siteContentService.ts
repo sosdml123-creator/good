@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import { supabase } from './supabase';
 import { BannerItem, Product, HomeSectionConfig, SalePromotionItem, PromotionEvent, BrandInfo, StoreChannelInfo, ReleaseCalendarItem, BattleConfig } from '../types';
 import { fetchWithTimeout, withTimeout } from '../utils/networkUtils';
+import { PointPolicySettings } from '../constants/pointPolicy';
 import { getAdminAuthHeaders, isAdminSession } from './adminAuth';
 
 export const SYSTEM_BANNER_RECORD_ID = '__sinsangpick_system_banners__';
@@ -34,6 +35,7 @@ export interface RemoteContentResult {
   storeChannels: StoreChannelInfo[] | null;
   calendarItems: ReleaseCalendarItem[] | null;
   battleConfig: BattleConfig | null;
+  pointPolicy: Partial<PointPolicySettings> | null;
   products: Product[];
   deletedProductIds: string[] | null;
   deletedBannerIds: string[] | null;
@@ -54,6 +56,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
   let storeChannels: StoreChannelInfo[] | null = null;
   let calendarItems: ReleaseCalendarItem[] | null = null;
   let battleConfig: BattleConfig | null = null;
+  let pointPolicy: Partial<PointPolicySettings> | null = null;
   let products: Product[] = [];
   let deletedProductIds: string[] | null = null;
   let deletedBannerIds: string[] | null = null;
@@ -91,6 +94,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (Array.isArray(sysData.nutrition.storeChannels)) storeChannels = sysData.nutrition.storeChannels;
         if (Array.isArray(sysData.nutrition.calendarItems)) calendarItems = sysData.nutrition.calendarItems;
         if (sysData.nutrition.battleConfig && typeof sysData.nutrition.battleConfig === "object") battleConfig = sysData.nutrition.battleConfig;
+        if (sysData.nutrition.pointPolicy && typeof sysData.nutrition.pointPolicy === "object") pointPolicy = sysData.nutrition.pointPolicy;
         if (Array.isArray(sysData.nutrition.deletedProductIds)) {
           deletedProductIds = sysData.nutrition.deletedProductIds;
         }
@@ -134,6 +138,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
         if (Array.isArray(json.storeChannels)) storeChannels = json.storeChannels;
         if (Array.isArray(json.calendarItems)) calendarItems = json.calendarItems;
         if (json.battleConfig && typeof json.battleConfig === "object") battleConfig = json.battleConfig;
+        if (json.pointPolicy && typeof json.pointPolicy === "object") pointPolicy = json.pointPolicy;
         if (json.deletedProductIds !== undefined && Array.isArray(json.deletedProductIds)) {
           deletedProductIds = json.deletedProductIds;
         }
@@ -152,7 +157,7 @@ export const fetchRemoteContent = async (): Promise<RemoteContentResult> => {
     }
   }
 
-  return { banners, homeSections, salePromotions, events, brands, storeChannels, calendarItems, battleConfig, products, deletedProductIds, deletedBannerIds, deletedEventIds, lastUpdated };
+  return { banners, homeSections, salePromotions, events, brands, storeChannels, calendarItems, battleConfig, pointPolicy, products, deletedProductIds, deletedBannerIds, deletedEventIds, lastUpdated };
 };
 
 export interface AdminApiResult<T = any> {
