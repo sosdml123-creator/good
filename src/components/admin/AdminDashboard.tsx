@@ -80,6 +80,7 @@ import { EventManagementTab } from './EventManagementTab';
 import { NotificationManagementTab } from './NotificationManagementTab';
 import { getProductCode, generateNextProductCode } from '../../utils/productCode';
 import { UserManagementTab } from './UserManagementTab';
+import { PointManagementTab } from './PointManagementTab';
 import { ReportManagementTab } from './ReportManagementTab';
 import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 import { ProductEditManagementTab } from './ProductEditManagementTab';
@@ -1263,6 +1264,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 }`}>
                   {allProfiles.length}명
                 </span>
+              </button>
+
+              <button
+                onClick={() => setActiveAdminTab('points')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'points'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Award className={`w-4 h-4 ${activeAdminTab === 'points' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>포인트 정책·지급/회수</span>
+                </div>
               </button>
 
               <button
@@ -2913,7 +2928,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               TAB: POINTS & USER MANAGEMENT (회원 및 포인트 관리 통합)
              ======================================================== */}
           {activeAdminTab === 'points' && (
-            <UserManagementTab isDark={isDark} />
+            <PointManagementTab isDark={isDark} />
           )}
 
           {/* ========================================================
