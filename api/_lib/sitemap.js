@@ -6,11 +6,13 @@
  * 관리자가 삭제한 상품(시스템 레코드의 deletedProductIds)은 제외합니다.
  */
 
-const SITE_URL = 'https://www.sinsangpick.kr';
+const DEFAULT_SITE_URL = 'https://www.sinsangpick.kr';
+// pc.sinsangpick.kr 로 요청하면 PC 주소 목록을 내보냅니다 (네이버·구글에 사이트별로 제출).
+const ALLOWED_HOSTS = new Set(['www.sinsangpick.kr', 'pc.sinsangpick.kr']);
 const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 const MAX_PRODUCTS = 45000; // 사이트맵 한 파일 상한(5만 URL) 이내
 
-const STATIC_PAGES = [
+const staticPages = (SITE_URL) => [
   { loc: `${SITE_URL}/`, changefreq: 'daily', priority: '1.0' },
   { loc: `${SITE_URL}/?tab=category&cat=${encodeURIComponent('신제품')}`, changefreq: 'daily', priority: '0.9' },
   { loc: `${SITE_URL}/?tab=ranking`, changefreq: 'daily', priority: '0.8' },
@@ -32,6 +34,8 @@ const toDate = (value) => {
 };
 
 export async function sendSitemap(req, res) {
+  const host = String(req.headers?.['x-forwarded-host'] || req.headers?.host || '').toLowerCase();
+  const SITE_URL = ALLOWED_HOSTS.has(host) ? `https://${host}` : DEFAULT_SITE_URL;
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
@@ -60,7 +64,7 @@ export async function sendSitemap(req, res) {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  const urls = STATIC_PAGES.map(p =>
+  const urls = staticPages(SITE_URL).map(p =>
     `  <url><loc>${escapeXml(p.loc)}</loc><lastmod>${today}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>`
   );
 
