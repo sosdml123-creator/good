@@ -38,7 +38,11 @@
       "destination": "/api/giftishow"
     },
     {
-      "source": "/((?!api/|app-ads\\.txt|robots\\.txt).*)",
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
     }
   ],
