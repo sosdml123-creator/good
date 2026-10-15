@@ -14,10 +14,12 @@ export const SearchModal: React.FC = () => {
     addRecentSearch, 
     removeRecentSearch, 
     clearRecentSearches,
-    recordSearchInflux
+    recordSearchInflux,
+    searchQuery
   } = useApp();
 
-  const [inputQuery, setInputQuery] = useState('');
+  // PC 헤더 검색창에서 넘어온 검색어로 시작합니다 (모바일은 빈 값).
+  const [inputQuery, setInputQuery] = useState(() => searchQuery || '');
 
   const popularKeywords = [
     '새우',

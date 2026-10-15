@@ -172,19 +172,6 @@ export const ensureSupabaseAuth = async (): Promise<{ user: User | null; session
  * Native iOS/Android apps use custom URL scheme 'sinsangpick://auth-callback',
  * while Web browsers use window.location.origin.
  */
-/** Set when an OAuth login is started from the web (read by index.html and AuthCallbackBridge). */
-export const WEB_OAUTH_PENDING_KEY = 'sinsangpick_web_oauth_started';
-
-/** True if a web-initiated OAuth login started within the last 15 minutes. */
-export const isWebOAuthPending = (): boolean => {
-  try {
-    const startedAt = Number(localStorage.getItem(WEB_OAUTH_PENDING_KEY) || 0);
-    return startedAt > 0 && Date.now() - startedAt < 15 * 60 * 1000;
-  } catch {
-    return false;
-  }
-};
-
 export const getAuthRedirectUri = (): string => {
   if (Capacitor.isNativePlatform()) {
     return 'sinsangpick://auth-callback';
@@ -329,9 +316,7 @@ const startOAuth = async (provider: 'apple' | 'google' | 'kakao') => {
       });
     }
   } else {
-    // Web browser flow: mark that this login started on the web so the callback
-    // stays in the browser instead of bouncing to the native app scheme.
-    try { localStorage.setItem(WEB_OAUTH_PENDING_KEY, String(Date.now())); } catch {}
+    // Web browser flow
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {

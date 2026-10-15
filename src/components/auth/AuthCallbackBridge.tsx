@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Smartphone, CheckCircle2, ArrowRight } from 'lucide-react';
-import { isWebOAuthPending } from '../../services/supabase';
 
 export const AuthCallbackBridge: React.FC = () => {
   const [shouldShow, setShouldShow] = useState(false);
@@ -33,13 +32,6 @@ export const AuthCallbackBridge: React.FC = () => {
       Boolean(storedTarget);
 
     if (!hasAuthPayload) {
-      return;
-    }
-
-    // Login started in this browser: let Supabase finish the session on the web.
-    // (The flag expires on its own; the bridge can mount several times during one callback.)
-    if (isWebOAuthPending()) {
-      try { sessionStorage.removeItem('sinsangpick_auth_callback_url'); } catch (e) {}
       return;
     }
 

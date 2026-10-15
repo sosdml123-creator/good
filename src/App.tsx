@@ -7,7 +7,7 @@ import { ToastContainer } from './components/common/Toast';
 import { BottomNav } from './components/common/BottomNav';
 import { PushBanner } from './components/common/PushBanner';
 import { AuthCallbackBridge } from './components/auth/AuthCallbackBridge';
-import { AppInstallBanner, DesktopIntroPanel, DesktopDownloadPanel } from './components/common/WebAppPromo';
+import { isPcSite } from './pc/isPcSite';
 
 // Lazy-loaded view components (code split per route)
 const Header = lazy(() => import('./components/common/Header').then(m => ({ default: m.Header })));
@@ -34,6 +34,7 @@ const CouponShopView = lazy(() => import('./components/coupon/CouponShopView').t
 const LoginModal = lazy(() => import('./components/common/LoginModal').then(m => ({ default: m.LoginModal })));
 const AuthOnboardingView = lazy(() => import('./components/auth/AuthOnboardingView').then(m => ({ default: m.AuthOnboardingView })));
 const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupModal').then(m => ({ default: m.NicknameSetupModal })));
+const PcApp = lazy(() => import('./pc/PcApp').then(m => ({ default: m.PcApp })));
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
 
 import { hideBanner } from './services/admobService';
@@ -126,8 +127,17 @@ export const App: React.FC = () => {
     );
   }
 
-  // First-time Launch / Unauthenticated Onboarding Auth View (앱 전용: 웹은 로그인 없이 바로 둘러보기)
-  if (Capacitor.isNativePlatform() && currentUser.isAnonymous && !isGuestBrowse) {
+  // PC 버전 (pc.sinsangpick.kr): 별도 PC 레이아웃
+  if (isPcSite()) {
+    return (
+      <Suspense fallback={<TabFallback />}>
+        <PcApp />
+      </Suspense>
+    );
+  }
+
+  // First-time Launch / Unauthenticated Onboarding Auth View
+  if (currentUser.isAnonymous && !isGuestBrowse) {
     return (
       <>
         <AuthCallbackBridge />
@@ -141,11 +151,9 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full flex justify-center xl:gap-16 bg-[#F2F4F7]">
+    <div className="min-h-screen w-full flex justify-center bg-[#F2F4F7]">
       <AuthCallbackBridge />
-      <DesktopIntroPanel />
       <div className="w-full max-w-[430px] h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-sm">
-        <AppInstallBanner />
 
         <NetworkStatusBar />
         <ToastContainer />
@@ -192,7 +200,6 @@ export const App: React.FC = () => {
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
         <BottomNav />
       </div>
-      <DesktopDownloadPanel />
     </div>
   );
 };
