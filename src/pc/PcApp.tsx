@@ -254,9 +254,10 @@ export const PcApp: React.FC = () => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
   }, [activeTab]);
 
+  // 상품 상세는 PcProductDetail 이 상품별 제목을 정합니다.
   useEffect(() => {
-    document.title = '신상픽 - 편의점·카페 신제품 발견 & 솔직 리뷰';
-  }, []);
+    if (activeTab !== 'detail') document.title = '신상픽 - 편의점·카페 신제품 발견 & 솔직 리뷰';
+  }, [activeTab]);
 
   // PC 버전은 로그인 없이 둘러보고, 리뷰 쓰기·찜 등 필요한 순간에만 로그인 창을 띄웁니다.
   const V = Views;

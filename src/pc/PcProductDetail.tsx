@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { ExternalLink, Heart, PenLine, Scale, Star, Share2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Product } from '../types';
@@ -77,6 +77,10 @@ export const PcProductDetail: React.FC = () => {
     () => (p ? products.filter(x => x.id !== p.id && x.category === p.category).slice(0, 5) : []),
     [products, p]
   );
+
+  useEffect(() => {
+    if (p) document.title = `${p.name} - ${p.brand} 리뷰·가격 | 신상픽`;
+  }, [p]);
 
   if (!p) {
     return (
