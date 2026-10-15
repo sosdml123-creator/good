@@ -67,6 +67,7 @@ import {
   deleteCurrentUserAccount,
   uploadImageDataUrl,
   handleAuthCallbackUrl,
+  isWebOAuthPending,
   DBProduct,
   DBReview,
   DBCommunityPost,
@@ -2648,8 +2649,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (cameFromOAuth) {
         try {
           await handleAuthCallbackUrl(currentUrl);
-          // On mobile, keep URL params for AuthCallbackBridge to hand off to native scheme, clean up on desktop
-          if (!isMobileDevice && (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error='))) {
+          // On mobile, keep URL params for AuthCallbackBridge to hand off to native scheme (unless the login started on the web)
+          if ((!isMobileDevice || isWebOAuthPending()) && (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error='))) {
             window.history.replaceState(null, '', window.location.pathname);
           }
         } catch (e) {
