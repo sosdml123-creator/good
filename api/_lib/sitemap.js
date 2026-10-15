@@ -1,6 +1,6 @@
 /**
- * Vercel Serverless Function: 검색엔진용 사이트맵
- * Endpoint: /sitemap.xml (vercel.json rewrite → /api/sitemap)
+ * 검색엔진용 사이트맵 (Hobby 요금제 함수 12개 한도 때문에 /api/site-content 안에서 처리)
+ * Endpoint: /sitemap.xml (vercel.json rewrite → /api/site-content?sitemap=1)
  *
  * 주요 페이지와 실제 DB에 등록된 상품 상세 주소(/?p=<id>)를 내보냅니다.
  * 관리자가 삭제한 상품(시스템 레코드의 deletedProductIds)은 제외합니다.
@@ -31,7 +31,7 @@ const toDate = (value) => {
   return Number.isNaN(d.getTime()) ? null : d.toISOString().slice(0, 10);
 };
 
-export default async function handler(req, res) {
+export async function sendSitemap(req, res) {
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 

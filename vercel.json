@@ -39,7 +39,7 @@
     },
     {
       "source": "/sitemap.xml",
-      "destination": "/api/sitemap"
+      "destination": "/api/site-content?sitemap=1"
     },
     {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",

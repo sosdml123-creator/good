@@ -7,6 +7,7 @@
  */
 
 import { verifyAdminRequest } from './_lib/adminAuth.js';
+import { sendSitemap } from './_lib/sitemap.js';
 
 const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -86,6 +87,11 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // 검색엔진 사이트맵 (/sitemap.xml)
+  if (req.method === 'GET' && req.query?.sitemap) {
+    return sendSitemap(req, res);
   }
 
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
