@@ -2,7 +2,7 @@
  * 검색엔진용 사이트맵 (Hobby 요금제 함수 12개 한도 때문에 /api/site-content 안에서 처리)
  * Endpoint: /sitemap.xml (vercel.json rewrite → /api/site-content?sitemap=1)
  *
- * 주요 페이지와 실제 DB에 등록된 상품 상세 주소(/?p=<id>)를 내보냅니다.
+ * 주요 페이지와 실제 DB에 등록된 상품 상세 주소(/product/<id>)를 내보냅니다.
  * 관리자가 삭제한 상품(시스템 레코드의 deletedProductIds)은 제외합니다.
  */
 
@@ -72,7 +72,7 @@ export async function sendSitemap(req, res) {
     if (!p?.id || deletedIds.has(String(p.id))) continue;
     const lastmod = toDate(p.updated_at) || toDate(p.created_at) || today;
     urls.push(
-      `  <url><loc>${escapeXml(`${SITE_URL}/?p=${encodeURIComponent(p.id)}`)}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>`
+      `  <url><loc>${escapeXml(`${SITE_URL}/product/${encodeURIComponent(p.id)}`)}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>`
     );
   }
 

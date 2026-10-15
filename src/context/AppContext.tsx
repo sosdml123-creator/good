@@ -106,6 +106,18 @@ import { DEFAULT_AVATAR, isValidCustomPhoto, extractProviderFromAvatar, getProvi
 import { getProductCode, findProductByCodeOrId, generateNextProductCode } from '../utils/productCode';
 import { withTimeout, parseNetworkError } from '../utils/networkUtils';
 
+/** 웹 상품 주소(/product/:id)에서 상품 ID를 읽습니다. */
+const getProductPathId = (): string | null => {
+  if (typeof window === 'undefined') return null;
+  const m = window.location.pathname.match(/^\/product\/([^/]+)\/?$/);
+  if (!m) return null;
+  try {
+    return decodeURIComponent(m[1]);
+  } catch {
+    return m[1];
+  }
+};
+
 interface AppContextType {
   products: Product[];
   reviews: Review[];
@@ -1669,7 +1681,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const initialUrlParams = React.useMemo(() => {
     if (typeof window === 'undefined') return {};
     const params = new URLSearchParams(window.location.search);
-    const p = params.get('p') || params.get('product') || params.get('pid') || params.get('code');
+    const p = getProductPathId() || params.get('p') || params.get('product') || params.get('pid') || params.get('code');
     const tab = params.get('tab') as ActiveTab | null;
     const cat = params.get('cat') || params.get('category');
     const brand = params.get('b') || params.get('brand');
@@ -2877,11 +2889,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return;
     }
 
-    // Preserve policy / legal paths like /privacy
-    const currentPath = window.location.pathname;
+    // Preserve policy / legal paths like /privacy (상품 주소 /product/:id 는 앱 화면이므로 계속 갱신)
+    const isProductPath = Boolean(getProductPathId());
+    const currentPath = isProductPath ? '/' : window.location.pathname;
     if (currentPath !== '/' && currentPath !== '' && currentPath !== '/index.html') {
       return;
     }
+
+    // 웹에서는 상품 상세를 검색엔진용 주소(/product/:id)로 표시합니다. 앱(네이티브)은 기존 ?p= 형식을 유지합니다.
+    const useProductPath = tab === 'detail' && Boolean(prodId) && !Capacitor.isNativePlatform();
 
     const params = new URLSearchParams();
 
@@ -2924,7 +2940,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     const query = params.toString();
-    const targetUrl = query ? `${currentPath || '/'}?${query}` : (currentPath || '/');
+    const productForPath = useProductPath ? findProductByCodeOrId(products, prodId as string) : null;
+    const targetUrl = useProductPath
+      ? `/product/${encodeURIComponent(productForPath ? productForPath.id : (prodId as string))}`
+      : query ? `${currentPath || '/'}?${query}` : (currentPath || '/');
     const currentFull = window.location.pathname + window.location.search;
 
     if (currentFull !== targetUrl) {
@@ -2942,7 +2961,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (typeof window === 'undefined') return;
       isPopStateRef.current = true;
       const params = new URLSearchParams(window.location.search);
-      const p = params.get('p') || params.get('product') || params.get('code');
+      const p = getProductPathId() || params.get('p') || params.get('product') || params.get('code');
       const tab = params.get('tab') as ActiveTab | null;
       const cat = params.get('cat') || params.get('category');
       const brand = params.get('b') || params.get('brand');
@@ -2981,7 +3000,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
-    const p = params.get('p') || params.get('product') || params.get('code');
+    const p = getProductPathId() || params.get('p') || params.get('product') || params.get('code');
     if (p && products.length > 0) {
       const matched = findProductByCodeOrId(products, p);
       if (matched && matched.id !== selectedProductId) {

@@ -8,6 +8,7 @@
 
 import { verifyAdminRequest } from './_lib/adminAuth.js';
 import { sendSitemap } from './_lib/sitemap.js';
+import { sendProductPage } from './_lib/productPage.js';
 
 const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -100,6 +101,11 @@ export default async function handler(req, res) {
 
   if (!supabaseUrl || !supabaseKey) {
     return res.status(500).json({ success: false, error: 'Database credentials not configured in environment.' });
+  }
+
+  // 상품 상세 HTML (/product/:id) — 검색엔진·링크 미리보기용
+  if (req.method === 'GET' && req.query?.page === 'product') {
+    return sendProductPage(req, res, { supabaseUrl, supabaseKey });
   }
 
   const headers = {

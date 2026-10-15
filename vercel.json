@@ -42,6 +42,10 @@
       "destination": "/api/site-content?sitemap=1"
     },
     {
+      "source": "/product/:id",
+      "destination": "/api/site-content?page=product&id=:id"
+    },
+    {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
     }

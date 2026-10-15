@@ -244,10 +244,12 @@ export function findProductByCodeOrId(products: Product[], codeOrId: string): Pr
 }
 
 /**
- * 상품 공유 및 딥링크용 정규 URL을 생성합니다. (예: https://www.sinsangpick.kr/?p=11102001)
+ * 상품 공유용 URL을 만듭니다. (예: https://www.sinsangpick.kr/product/prod-01)
+ * /product/:id 는 서버에서 상품별 제목·이미지를 넣어 주므로 카톡·검색 미리보기가 상품별로 나옵니다.
+ * 앱(네이티브)에서는 origin 이 capacitor://localhost 라서 웹 주소로 고정합니다.
  */
 export function getProductShareUrl(product: Product): string {
-  const code = getProductCode(product);
-  const baseUrl = window.location.origin;
-  return `${baseUrl}/?p=${encodeURIComponent(code)}`;
+  const origin = window.location.origin;
+  const baseUrl = /^https:\/\/(www|pc)\.sinsangpick\.kr$/.test(origin) ? origin : 'https://www.sinsangpick.kr';
+  return `${baseUrl}/product/${encodeURIComponent(product.id)}`;
 }
