@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { Bell, PenLine, Search, Sparkles, Star, Gift } from 'lucide-react';
+import { Bell, PenLine, Search } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ActiveTab } from '../types';
 import { NetworkStatusBar } from '../components/common/NetworkStatusBar';
@@ -173,81 +173,6 @@ const PcFooter: React.FC = () => (
   </footer>
 );
 
-/** PC 로그인 화면: 앱과 같이 Apple·카카오 로그인 후 이용합니다. */
-const PcLoginPage: React.FC = () => {
-  const { loginWithApple, loginWithKakao } = useApp();
-  const features = [
-    { icon: Sparkles, title: '매일 업데이트되는 신상', desc: '편의점·카페·마트 신제품을 한곳에서' },
-    { icon: Star, title: '먹어본 사람들의 솔직 리뷰', desc: '사기 전에 맛·가격 평가 확인' },
-    { icon: Gift, title: '리뷰 쓰고 포인트 적립', desc: '모은 포인트로 e쿠폰 교환' },
-  ];
-
-  return (
-    <div className="min-h-screen w-full bg-[#F4F5F7] flex items-center justify-center p-10">
-      <AuthCallbackBridge />
-      <NetworkStatusBar />
-      <ToastContainer />
-      <div className="w-full max-w-[960px] grid grid-cols-2 bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
-        <div className="p-14 bg-gradient-to-br from-violet-50 to-white flex flex-col justify-center gap-10">
-          <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="신상픽" className="w-14 h-14 rounded-2xl border border-gray-100 bg-white" />
-            <div>
-              <p className="text-[24px] font-black text-gray-900 tracking-tight">신상픽</p>
-              <p className="text-[13px] text-gray-500">신제품 실시간 탐색 & 솔직 리뷰</p>
-            </div>
-          </div>
-          <h1 className="text-[30px] leading-snug font-black text-gray-900 tracking-tight">
-            새로 나온 먹거리,<br />
-            <span className="text-violet-600">먹어보기 전에</span> 먼저 확인하세요
-          </h1>
-          <ul className="space-y-4">
-            {features.map(({ icon: Icon, title, desc }) => (
-              <li key={title} className="flex items-start gap-3">
-                <span className="w-9 h-9 shrink-0 rounded-xl bg-white text-violet-600 flex items-center justify-center border border-violet-100">
-                  <Icon className="w-[18px] h-[18px]" />
-                </span>
-                <span>
-                  <span className="block text-[15px] font-bold text-gray-900">{title}</span>
-                  <span className="block text-[13px] text-gray-500">{desc}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="p-14 flex flex-col justify-center">
-          <h2 className="text-[22px] font-black text-gray-900">로그인</h2>
-          <p className="mt-1 text-[13px] text-gray-500">앱과 같은 계정으로 PC에서도 이어서 이용할 수 있어요.</p>
-          <div className="mt-8 space-y-3">
-            <button
-              onClick={loginWithKakao}
-              className="w-full py-3.5 bg-[#FEE500] hover:bg-[#FADA0A] text-[#191919] rounded-2xl flex items-center justify-center gap-2.5 font-bold text-[15px] cursor-pointer"
-            >
-              <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
-                <path d="M12 3c-5.523 0-10 3.582-10 8 0 2.868 1.865 5.385 4.674 6.756l-.973 3.61c-.085.316.273.57.544.385l4.316-2.915c.471.054.951.084 1.439.084 5.523 0 10-3.582 10-8s-4.477-8-10-8z" />
-              </svg>
-              카카오로 시작하기
-            </button>
-            <button
-              onClick={loginWithApple}
-              className="w-full py-3.5 bg-black hover:bg-neutral-900 text-white rounded-2xl flex items-center justify-center gap-2.5 font-bold text-[15px] cursor-pointer"
-            >
-              <svg className="w-4 h-4 fill-current shrink-0 -mt-0.5" viewBox="0 0 24 24">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.87-.93.04-2.02.63-2.66 1.38-.56.65-1.06 1.71-.93 2.74 1.04.08 2.07-.5 2.67-1.25z" />
-              </svg>
-              Apple로 계속하기
-            </button>
-          </div>
-          <p className="mt-8 text-[12px] text-gray-400">
-            시작 시 <a href="/terms" target="_blank" rel="noreferrer" className="underline hover:text-gray-600">이용약관</a> 및{' '}
-            <a href="/privacy" target="_blank" rel="noreferrer" className="underline hover:text-gray-600">개인정보처리방침</a>에 동의합니다.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 /** 앱 화면을 PC 가운데 칸에 그대로 보여주는 영역 (상세·마이·수다방 등) */
 const PcContentColumn: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="w-full max-w-[720px] mx-auto bg-white min-h-full border-x border-gray-100 flex flex-col [&>*]:shrink-0">
@@ -256,7 +181,7 @@ const PcContentColumn: React.FC<{ children: React.ReactNode }> = ({ children }) 
 );
 
 export const PcApp: React.FC = () => {
-  const { activeTab, currentUser, isGuestBrowse } = useApp();
+  const { activeTab } = useApp();
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -267,10 +192,7 @@ export const PcApp: React.FC = () => {
     document.title = '신상픽 PC - 식음료 신제품 발견 & 솔직 리뷰';
   }, []);
 
-  // 앱과 동일: 로그인 전에는 로그인 화면을 먼저 보여줍니다.
-  if (currentUser.isAnonymous && !isGuestBrowse) {
-    return <PcLoginPage />;
-  }
+  // PC 버전은 로그인 없이 둘러보고, 리뷰 쓰기·찜 등 필요한 순간에만 로그인 창을 띄웁니다.
 
   const V = Views;
   const isWidePage = activeTab === 'home' || activeTab === 'category';
