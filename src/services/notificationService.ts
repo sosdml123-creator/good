@@ -119,6 +119,17 @@ export const deleteDeviceToken = async (token?: string): Promise<boolean> => {
 };
 
 /**
+ * Android FCM은 google-services.json(Firebase 설정)이 있어야 동작합니다.
+ * 설정 없이 PushNotifications.register()를 호출하면 네이티브에서
+ * "Default FirebaseApp is not initialized" 예외로 앱이 강제종료되므로(JS try/catch로 못 잡음)
+ * Firebase를 연결하기 전까지 Android에서는 네이티브 푸시 등록을 건너뜁니다.
+ */
+const ANDROID_FCM_CONFIGURED = false;
+
+const canRegisterNativePush = (): boolean =>
+  Capacitor.getPlatform() !== 'android' || ANDROID_FCM_CONFIGURED;
+
+/**
  * Initialize Push Notifications for Native iOS/Android and Web
  */
 export const initPushNotifications = async (callbacks: {
@@ -131,6 +142,7 @@ export const initPushNotifications = async (callbacks: {
   const platform = Capacitor.getPlatform() as 'ios' | 'android' | 'web';
 
   if (isNative) {
+    if (!canRegisterNativePush()) return;
     try {
       // 1. Check current permissions
       let permStatus = await PushNotifications.checkPermissions();
@@ -234,7 +246,7 @@ export const requestPushPermission = async (): Promise<boolean> => {
     try {
       const result = await PushNotifications.requestPermissions();
       if (result.receive === 'granted') {
-        await PushNotifications.register();
+        if (canRegisterNativePush()) await PushNotifications.register();
         return true;
       }
       return false;
