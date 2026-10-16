@@ -11,8 +11,16 @@ import { Capacitor } from '@capacitor/core';
 // Google AdMob 공식 앱 ID & 배너 광고 단위 ID
 export const ADMOB_APP_ID = 'ca-app-pub-3878859120989916~2898554632';
 export const ADMOB_CLIENT_ID = 'ca-pub-3878859120989916';
-export const ADMOB_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/9433572199'; // 홈 피드 메인 배너
-export const ADMOB_SEARCH_BANNER_UNIT_ID = 'ca-app-pub-3878859120989916/1040251860'; // 검색창 추천 슬롯 배너
+// 홈 피드 메인 배너 (iOS 앱 / 안드로이드 앱은 AdMob에서 앱이 달라 광고 단위도 따로)
+export const ADMOB_BANNER_UNIT_ID =
+  Capacitor.getPlatform() === 'android'
+    ? 'ca-app-pub-3878859120989916/7525100286'
+    : 'ca-app-pub-3878859120989916/9433572199';
+// 검색창 추천 슬롯 배너 (안드로이드는 안드로이드 앱의 배너 단위를 같이 사용)
+export const ADMOB_SEARCH_BANNER_UNIT_ID =
+  Capacitor.getPlatform() === 'android'
+    ? 'ca-app-pub-3878859120989916/7525100286'
+    : 'ca-app-pub-3878859120989916/1040251860';
 export const ADMOB_REWARD_UNIT_ID = 'ca-app-pub-3878859120989916/2388345753'; // 광고 보고 포인트 받기 (보상형)
 export const ADMOB_SLOT_ID = '9433572199';
 export const ADMOB_HOME_SLOT_ID = '9433572199';
@@ -39,9 +47,10 @@ export const getSafeAreaTop = (): number => {
     document.body.appendChild(el);
     const val = parseFloat(window.getComputedStyle(el).paddingTop) || 0;
     document.body.removeChild(el);
-    if (val > 0) return val;
+    return val;
   } catch {}
-  return Capacitor.getPlatform() === 'ios' ? 47 : 0;
+  // 네이티브 앱은 웹뷰가 상태바 아래에서 시작하므로(MainViewController / MainActivity) 보정값이 0
+  return 0;
 };
 
 /**
@@ -213,6 +222,14 @@ type InlineAdMessage =
   | { action: 'reset' };
 
 const postInlineAd = (msg: InlineAdMessage): boolean => {
+  if (Capacitor.getPlatform() === 'android') {
+    // InlineAdManager.java (Capacitor 로컬 플러그인)
+    const plugin = (Capacitor as unknown as { Plugins: Record<string, { postMessage?: (m: InlineAdMessage) => Promise<void> }> })
+      .Plugins.InlineAd;
+    if (!plugin?.postMessage) return false;
+    plugin.postMessage(msg).catch(() => {});
+    return true;
+  }
   const bridge = (
     window as unknown as {
       webkit?: { messageHandlers?: { inlineAd?: { postMessage: (m: InlineAdMessage) => void } } };
@@ -223,7 +240,8 @@ const postInlineAd = (msg: InlineAdMessage): boolean => {
   return true;
 };
 
-export const supportsInlineBanner = (): boolean => Capacitor.getPlatform() === 'ios';
+export const supportsInlineBanner = (): boolean =>
+  Capacitor.getPlatform() === 'ios' || Capacitor.getPlatform() === 'android';
 
 let inlineAdReady = false;
 

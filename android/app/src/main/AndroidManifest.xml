@@ -45,7 +45,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3878859120989916~2898554632"/>
+            android:value="ca-app-pub-3878859120989916~1275211694"/>
         <meta-data
             android:name="com.google.android.gms.ads.INTEGRATION_MANAGER"
             android:value="webview"/>

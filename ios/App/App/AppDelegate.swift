@@ -3,6 +3,30 @@ import Capacitor
 import GoogleMobileAds
 import WebKit
 
+/// 웹뷰를 상태바(노치·다이내믹 아일랜드) 아래부터 그리도록 컨테이너에 넣는다.
+/// 하단 홈 인디케이터 영역은 웹(BottomNav의 safe-area-inset-bottom)이 처리하므로 화면 끝까지 둔다.
+/// Main.storyboard의 루트 뷰 컨트롤러가 이 클래스를 사용한다.
+class MainViewController: CAPBridgeViewController {
+    override func capacitorDidLoad() {
+        super.capacitorDidLoad()
+        guard let webView = webView else { return }
+
+        let container = UIView(frame: webView.frame)
+        container.backgroundColor = .white
+        view = container
+
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(webView)
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: container.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+        ])
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
