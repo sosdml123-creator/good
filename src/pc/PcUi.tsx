@@ -34,7 +34,7 @@ export const PcTextTabs: React.FC<{ items: string[]; value: string; onChange: (v
         key={item}
         onClick={() => onChange(item)}
         className={`px-4 h-9 rounded-full text-[14px] cursor-pointer transition-colors ${
-          value === item ? 'bg-gray-900 text-white font-semibold' : 'text-gray-600 hover:bg-gray-100'
+          value === item ? 'bg-violet-600 text-white font-semibold' : 'text-gray-600 hover:bg-violet-50 hover:text-violet-700'
         }`}
       >
         {item}

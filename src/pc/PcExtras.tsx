@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { CalendarDays, ChevronLeft, ChevronRight, ShoppingBasket, Store } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Product } from '../types';
 import { getProductLaunchTime } from '../utils/ranking';
@@ -9,10 +9,10 @@ import { PcProductCard } from './PcProductCard';
 import { PcBreadcrumb, PcContainer, PcEmpty, PcTextTabs } from './PcUi';
 
 const STORES: { name: string; color: string; bg: string }[] = [
-  { name: 'CU', color: 'text-gray-900', bg: 'bg-[#F7F7F8]' },
-  { name: 'GS25', color: 'text-gray-900', bg: 'bg-[#F7F7F8]' },
-  { name: '세븐일레븐', color: 'text-gray-900', bg: 'bg-[#F7F7F8]' },
-  { name: '이마트24', color: 'text-gray-900', bg: 'bg-[#F7F7F8]' },
+  { name: 'CU', color: 'text-[#652F8D]', bg: 'bg-[#F7F7F8]' },
+  { name: 'GS25', color: 'text-[#0072CE]', bg: 'bg-[#F7F7F8]' },
+  { name: '세븐일레븐', color: 'text-[#00804A]', bg: 'bg-[#F7F7F8]' },
+  { name: '이마트24', color: 'text-[#B8860B]', bg: 'bg-[#F7F7F8]' },
 ];
 
 const STORE_CATEGORIES = ['전체', '과자', '음료', '간편식', '빵·디저트', '아이스크림'];
@@ -25,7 +25,7 @@ const PcPageHero: React.FC<{ crumb: string; title: string; subtitle: string; ton
     <section className={`${tone} border-b border-gray-100`}>
       <PcContainer className="pt-6 pb-10">
         <PcBreadcrumb items={[{ label: '홈', onClick: () => setActiveTab('home') }, { label: crumb }]} />
-        <span className="mt-6 inline-block px-2 py-0.5 rounded border border-gray-300 text-gray-500 text-[12px] font-medium">PC 전용</span>
+        <span className="mt-6 inline-block px-2 py-0.5 rounded bg-violet-100 text-violet-700 text-[12px] font-bold">PC 전용</span>
         <h1 className="mt-3 text-[32px] font-bold text-gray-900 tracking-tight">{title}</h1>
         <p className="mt-2 text-[15px] text-gray-600">{subtitle}</p>
       </PcContainer>
@@ -65,7 +65,7 @@ export const PcStores: React.FC = () => {
 
   return (
     <div className="bg-white pb-24">
-      <PcPageHero crumb="편의점 비교" title="편의점 4사 신상 한눈에 비교" subtitle="CU · GS25 · 세븐일레븐 · 이마트24 신상을 나란히 놓고 최신순으로 비교해 보세요." tone="bg-white" />
+      <PcPageHero crumb="편의점 비교" title="편의점 4사 신상 한눈에 비교" subtitle="CU · GS25 · 세븐일레븐 · 이마트24 신상을 나란히 놓고 최신순으로 비교해 보세요." tone="bg-[#F7F5FF]" />
       <PcContainer className="pt-10">
         <PcTextTabs items={STORE_CATEGORIES} value={category} onChange={(v) => { setCategory(v); setLimit(10); }} />
         <div className="mt-8 grid grid-cols-4 gap-4">
@@ -146,7 +146,7 @@ export const PcReleases: React.FC = () => {
 
   return (
     <div className="bg-white pb-24">
-      <PcPageHero crumb="출시 캘린더" title="신상 출시 캘린더" subtitle="언제 어떤 신상이 나왔는지 달력으로 한눈에 확인하세요." tone="bg-white" />
+      <PcPageHero crumb="출시 캘린더" title="신상 출시 캘린더" subtitle="언제 어떤 신상이 나왔는지 달력으로 한눈에 확인하세요." tone="bg-[#F7F5FF]" />
       <PcContainer className="pt-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -170,9 +170,9 @@ export const PcReleases: React.FC = () => {
               <button
                 key={k}
                 onClick={() => setSelected(k)}
-                className={`h-[120px] p-2 border-r border-b border-gray-200 text-left flex flex-col cursor-pointer transition-colors ${isSelected ? 'bg-gray-100 ring-2 ring-inset ring-gray-900' : 'hover:bg-gray-50'}`}
+                className={`h-[120px] p-2 border-r border-b border-gray-200 text-left flex flex-col cursor-pointer transition-colors ${isSelected ? 'bg-violet-50 ring-2 ring-inset ring-violet-500' : 'hover:bg-gray-50'}`}
               >
-                <span className={`text-[13px] font-semibold ${k === todayKey ? 'w-6 h-6 rounded-full bg-gray-900 text-white flex items-center justify-center' : 'text-gray-700'}`}>{day}</span>
+                <span className={`text-[13px] font-semibold ${k === todayKey ? 'w-6 h-6 rounded-full bg-violet-600 text-white flex items-center justify-center' : 'text-gray-700'}`}>{day}</span>
                 {list.length > 0 && (
                   <span className="mt-auto flex items-center">
                     {list.slice(0, 3).map(p => (
@@ -207,18 +207,18 @@ export const PcReleases: React.FC = () => {
 export const PcExclusiveStrip: React.FC = () => {
   const { setActiveTab } = useApp();
   const items = [
-    { tab: 'market' as const, title: '오늘의 장바구니 시세', desc: '채소·과일·축산·수산물 소매가 등락을 매일 확인', tone: '' },
-    { tab: 'stores' as const, title: '편의점 4사 신상 비교', desc: 'CU·GS25·세븐일레븐·이마트24를 나란히', tone: '' },
-    { tab: 'releases' as const, title: '신상 출시 캘린더', desc: '날짜별로 어떤 신상이 나왔는지 달력으로', tone: '' },
+    { tab: 'market' as const, title: '오늘의 장바구니 시세', desc: '채소·과일·축산·수산물 소매가 등락을 매일 확인', icon: ShoppingBasket },
+    { tab: 'stores' as const, title: '편의점 4사 신상 비교', desc: 'CU·GS25·세븐일레븐·이마트24를 나란히', icon: Store },
+    { tab: 'releases' as const, title: '신상 출시 캘린더', desc: '날짜별로 어떤 신상이 나왔는지 달력으로', icon: CalendarDays },
   ];
   return (
     <div className="grid grid-cols-3 gap-5">
       {items.map(it => (
-        <button key={it.tab} onClick={() => setActiveTab(it.tab)} className="group text-left rounded-2xl border border-gray-200 bg-white p-6 cursor-pointer hover:border-gray-900 transition-colors">
-          <span className="inline-block px-2 py-0.5 rounded border border-gray-300 text-gray-500 text-[11px] font-medium">PC 전용</span>
+        <button key={it.tab} onClick={() => setActiveTab(it.tab)} className="group text-left rounded-2xl border border-violet-100 bg-[#FAF8FF] p-6 cursor-pointer hover:border-violet-400 hover:shadow-sm transition-all">
+          <span className="flex items-center justify-between"><span className="w-11 h-11 rounded-xl bg-violet-600 text-white flex items-center justify-center"><it.icon className="w-5 h-5" /></span><span className="px-2 py-0.5 rounded bg-violet-100 text-violet-700 text-[11px] font-bold">PC 전용</span></span>
           <p className="mt-3 text-[19px] font-bold text-gray-900">{it.title}</p>
           <p className="mt-1 text-[13px] text-gray-500">{it.desc}</p>
-          <span className="mt-4 inline-flex items-center text-[13px] font-semibold text-gray-900">바로가기 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" /></span>
+          <span className="mt-4 inline-flex items-center text-[13px] font-semibold text-violet-700">바로가기 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" /></span>
         </button>
       ))}
     </div>

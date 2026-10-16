@@ -37,7 +37,6 @@ import { formatProductPrice } from '../../utils/formatters';
 export const ProductDetailModal: React.FC = () => {
   const {
     selectedProduct,
-    products,
     reviews,
     goBack,
     toggleCompare,
@@ -115,7 +114,7 @@ export const ProductDetailModal: React.FC = () => {
     return () => { isMounted = false; };
   }, [selectedProduct?.id, selectedProduct?.name]);
 
-  const prod = selectedProduct || (products && products.length > 0 ? products[0] : null);
+  const prod = selectedProduct;
   if (!prod) {
     return (
       <div className="bg-[#F8F9FA] min-h-screen flex flex-col items-center justify-center p-6 text-center">

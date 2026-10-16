@@ -14,7 +14,7 @@ import { PcBreadcrumb, PcContainer } from './PcUi';
 const Stars: React.FC<{ value: number; size?: string }> = ({ value, size = 'w-4 h-4' }) => (
   <span className="flex items-center gap-0.5">
     {[1, 2, 3, 4, 5].map(n => (
-      <Star key={n} className={`${size} ${n <= Math.round(value) ? 'fill-gray-900 text-gray-900' : 'fill-gray-200 text-gray-200'}`} />
+      <Star key={n} className={`${size} ${n <= Math.round(value) ? 'fill-amber-400 text-amber-400' : 'fill-gray-200 text-gray-200'}`} />
     ))}
   </span>
 );
@@ -184,7 +184,7 @@ export const PcProductDetail: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('write')}
-                className="h-14 flex-1 rounded-xl border border-gray-900 text-gray-900 text-[15px] font-bold flex items-center justify-center gap-1.5 hover:bg-gray-50 cursor-pointer"
+                className="h-14 flex-1 rounded-xl border border-violet-600 text-violet-700 text-[15px] font-bold flex items-center justify-center gap-1.5 hover:bg-violet-50 cursor-pointer"
               >
                 <PenLine className="w-4 h-4" />
                 리뷰 쓰기
@@ -192,7 +192,7 @@ export const PcProductDetail: React.FC = () => {
               {!isAlcohol && (
                 <button
                   onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank', 'noopener,noreferrer')}
-                  className="h-14 flex-1 rounded-xl bg-gray-900 text-white text-[15px] font-bold flex items-center justify-center gap-1.5 hover:bg-black cursor-pointer"
+                  className="h-14 flex-1 rounded-xl bg-violet-600 text-white text-[15px] font-bold flex items-center justify-center gap-1.5 hover:bg-violet-700 cursor-pointer"
                 >
                   쿠팡에서 구매하기
                   <ExternalLink className="w-4 h-4" />
@@ -232,7 +232,7 @@ export const PcProductDetail: React.FC = () => {
                   <div key={m.label} className="flex items-center gap-4 text-[14px]">
                     <span className="w-14 text-gray-600">{m.label}</span>
                     <span className="flex-1 h-2 rounded-full bg-gray-200 overflow-hidden">
-                      <span className="block h-full bg-gray-900 rounded-full" style={{ width: `${Math.min(100, (m.val / 5) * 100)}%` }} />
+                      <span className="block h-full bg-violet-600 rounded-full" style={{ width: `${Math.min(100, (m.val / 5) * 100)}%` }} />
                     </span>
                     <span className="w-8 text-right font-semibold text-gray-900">{m.val.toFixed(1)}</span>
                   </div>

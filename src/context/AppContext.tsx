@@ -140,7 +140,8 @@ interface AppContextType {
   previousTab: ActiveTab;
   selectedCategory: ProductCategory;
   selectedBrand: string | null;
-  selectedProduct: Product;
+  // 목록에 없는 ID(삭제·잘못된 링크)면 undefined — 다른 상품으로 대신 보여주지 않습니다.
+  selectedProduct: Product | undefined;
   selectedProductId: string;
   bookmarkedIds: string[];
   comparedIds: string[];
@@ -1206,6 +1207,18 @@ export const smartMergeProducts = (
 
 const OFFICIAL_MENU_BY_ID = new Map(OFFICIAL_MENU_PRODUCTS.map(p => [p.id, p]));
 
+// 마지막으로 DB에서 받은 상품 ID 목록. 오프라인·첫 화면에서도 DB에 있던 상품만 보이게 합니다.
+const SERVER_PRODUCT_IDS_KEY = 'sinsangpick_server_product_ids_v1';
+const loadCachedServerProductIds = (): Set<string> | null => {
+  try {
+    const raw = localStorage.getItem(SERVER_PRODUCT_IDS_KEY);
+    const ids = raw ? JSON.parse(raw) : null;
+    return Array.isArray(ids) ? new Set(ids.filter((id: unknown): id is string => typeof id === 'string')) : null;
+  } catch {
+    return null;
+  }
+};
+
 /**
  * 기기 저장용 상품 목록. 공식 메뉴 상품(수천 건) 중 손대지 않은 것은 번들 데이터에서 그대로 복원되므로
  * 저장에서 빼 localStorage 용량 한도(iOS 약 5MB)를 넘지 않게 합니다.
@@ -1536,10 +1549,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           initialRevs = parsedR.filter(r => !delRevSet.has(r.id) && r.userName !== '탈퇴한 회원' && r.userName !== '탈퇴회원' && !mockPrefixes.some(prefix => r.id.startsWith(prefix)));
         }
       }
-      const merged = smartMergeProducts(parsed, INITIAL_PRODUCTS, parsedDel);
-      return syncProductRatingsWithReviews(merged, initialRevs);
+      // 상품은 DB 기준입니다. 마지막으로 받은 DB 상품 ID에 있는 것만 기기 캐시에서 먼저 보여주고,
+      // 번들(목업) 상품은 DB에 없으면 쓰지 않습니다.
+      const serverIds = loadCachedServerProductIds();
+      if (!parsed || !serverIds) return [];
+      const delSet = new Set(parsedDel);
+      const cached = parsed.filter(p => p && serverIds.has(p.id) && !delSet.has(p.id));
+      return syncProductRatingsWithReviews(smartMergeProducts(cached, cached, parsedDel), initialRevs);
     } catch {
-      return syncProductRatingsWithReviews(smartMergeProducts(null, INITIAL_PRODUCTS, []), []);
+      return [];
     }
   });
 
@@ -2387,12 +2405,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } catch {}
 
       if (!dbProducts || dbProducts.length === 0) {
-        const baseInitial = smartMergeProducts(storedLocalProducts, INITIAL_PRODUCTS.filter(p => !deletedSet.has(p.id)), mergedDeletedIds);
-        setProducts(syncProductRatingsWithReviews(baseInitial, reviews));
+        // DB를 못 받았으면 번들(목업) 상품으로 채우지 않고, 지금 목록(마지막 DB 캐시)에서 삭제분만 뺍니다.
+        setProducts(prev => prev.filter(p => !deletedSet.has(p.id)));
       } else {
-        // Filter INITIAL_PRODUCTS by deletedSet and merge DB fields
+        // 상품 목록은 DB에 있는 상품만입니다. 번들 데이터는 같은 ID의 DB 상품에 빈 필드를 채우는 데만 씁니다.
+        const bundledById = new Map(INITIAL_PRODUCTS.map(p => [p.id, p]));
         const mergedInitial = INITIAL_PRODUCTS
-          .filter(initial => !deletedSet.has(initial.id))
+          .filter(initial => !deletedSet.has(initial.id) && dbProductMap.has(initial.id))
           .map(initial => {
             const dbP = dbProductMap.get(initial.id);
             if (dbP) {
@@ -2425,8 +2444,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // 서버 값이 기준입니다. 단, 관리자 기기에 남은 미저장 수정분을 서버로 올리기(initAdminSession) 전까지는
         // 그 기기에서만 기존처럼 기기 값을 유지해 수정분이 사라지지 않게 합니다.
         const serverIsSourceOfTruth = Boolean(systemBannerRecord?.nutrition?.adminLocalSyncedAt) || !(await isAdminSession());
+        safeSetItem(SERVER_PRODUCT_IDS_KEY, JSON.stringify([...mergedInitial, ...extraDbProducts].map(p => p.id)));
+        // 기기 캐시에 남은 번들 상품(DB에 없는 것)은 관리자 기기에서도 되살리지 않습니다.
+        const storedWithoutBundled = storedLocalProducts
+          ? storedLocalProducts.filter(p => p && (!bundledById.has(p.id) || dbProductMap.has(p.id)))
+          : null;
         const combinedProducts = smartMergeProducts(
-          storedLocalProducts,
+          storedWithoutBundled,
           [...mergedInitial, ...extraDbProducts],
           mergedDeletedIds,
           serverIsSourceOfTruth ? new Set(dbProductMap.keys()) : undefined
@@ -2850,7 +2874,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     })));
   }, [likedPostIds]);
 
-  const selectedProduct = products.find(p => p.id === selectedProductId) || products[0] || INITIAL_PRODUCTS[0];
+  const selectedProduct = products.find(p => p.id === selectedProductId);
   const DEFAULT_EMPTY_EVENT: PromotionEvent = {
     id: '',
     title: '진행 중인 이벤트가 없습니다.',
@@ -3654,6 +3678,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     const targetProduct = products.find(p => p.id === productId) || selectedProduct;
+    if (!targetProduct) {
+      showToast('삭제되었거나 찾을 수 없는 상품이에요.', 'error');
+      return;
+    }
     const reviewId = 'rev-' + Date.now();
     const createdAt = new Date().toISOString();
 
@@ -5877,7 +5905,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Reset All to Defaults
   const resetAllDataToDefaults = () => {
-    setProducts(INITIAL_PRODUCTS);
+    // 상품은 DB 기준이라 번들(목업) 목록으로 되돌리지 않고 DB에 있던 상품만 남깁니다.
+    const serverIds = loadCachedServerProductIds();
+    setProducts(prev => (serverIds ? prev.filter(p => serverIds.has(p.id)) : prev));
     setBanners(INITIAL_BANNERS);
     setBattleConfig(INITIAL_BATTLE_CONFIG);
     setEvents(INITIAL_EVENTS);

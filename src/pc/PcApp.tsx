@@ -58,7 +58,7 @@ const HeaderIconButton: React.FC<{ label: string; onClick: () => void; badge?: n
     {children}
     <span className="text-[11px]">{label}</span>
     {badge !== undefined && badge > 0 && (
-      <span className="absolute -top-1 right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gray-900 text-white text-[10px] font-bold flex items-center justify-center">
+      <span className="absolute -top-1 right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-violet-600 text-white text-[10px] font-bold flex items-center justify-center">
         {badge > 99 ? '99+' : badge}
       </span>
     )}
@@ -136,7 +136,7 @@ const PcHeader: React.FC = () => {
           <span className="text-[26px] font-black text-gray-900 tracking-tight">신상픽</span>
         </button>
 
-        <form onSubmit={submitSearch} className="flex-1 max-w-[460px] h-12 rounded-full border-2 border-gray-900 flex items-center pl-5 pr-2">
+        <form onSubmit={submitSearch} className="flex-1 max-w-[460px] h-12 rounded-full border-2 border-violet-600 flex items-center pl-5 pr-2">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -199,12 +199,12 @@ const PcHeader: React.FC = () => {
               key={item.label}
               onClick={() => handleNav(item)}
               className={`relative h-full px-4 text-[16px] cursor-pointer ${
-                isNavActive(item) ? 'font-bold text-gray-900' : 'font-medium text-gray-800 hover:text-gray-900'
+                isNavActive(item) ? 'font-bold text-violet-700' : 'font-medium text-gray-800 hover:text-violet-700'
               }`}
             >
               {item.label}
-              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-semibold text-gray-400">PC</span>}
-              {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-gray-900" />}
+              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-bold text-violet-500">PC</span>}
+              {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-violet-600" />}
             </button>
           ))}
         </nav>
