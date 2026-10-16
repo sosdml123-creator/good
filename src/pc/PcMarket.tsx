@@ -3,9 +3,10 @@ import { ArrowDown, ArrowUp, ChevronRight, Minus, Search, TrendingDown, Trending
 import { useApp } from '../context/AppContext';
 import { MARKET_CATEGORIES, MarketCategory, MarketPriceRow, formatWon, useMarketPrices } from './useMarketPrices';
 import { PcBreadcrumb, PcContainer, PcEmpty, PcTextTabs } from './PcUi';
+import { PcMarketItemModal } from './PcMarketDetail';
 
 /** 홈 위젯에 보여줄 장바구니 대표 품목 (있는 것만 표시) */
-const BASKET_ITEMS = ['배추', '무', '양파', '대파', '감자', '사과', '배', '감귤', '쌀', '달걀', '돼지고기', '고등어'];
+const BASKET_ITEMS = ['배추', '무', '양파', '대파', '감자', '사과', '배', '감귤', '쌀', '계란', '돼지', '고등어'];
 
 export const ChangeBadge: React.FC<{ rate: number | null; size?: 'sm' | 'md' }> = ({ rate, size = 'md' }) => {
   const text = size === 'sm' ? 'text-[12px]' : 'text-[13px]';
@@ -23,6 +24,12 @@ export const ChangeBadge: React.FC<{ rate: number | null; size?: 'sm' | 'md' }> 
   );
 };
 
+const formatCheckedAt = (t: number | null) => {
+  if (!t) return '';
+  const d = new Date(t);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+};
+
 const formatDateLabel = (d: string) => {
   const m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   return m ? `${Number(m[2])}월 ${Number(m[3])}일` : d;
@@ -30,7 +37,7 @@ const formatDateLabel = (d: string) => {
 
 /** 같은 품목이 여러 품종·등급이면 대표 한 줄(상품 등급 우선)만 고릅니다. */
 const pickRepresentative = (rows: MarketPriceRow[], itemName: string) => {
-  const matches = rows.filter(r => r.itemName === itemName);
+  const matches = rows.filter(r => r.itemName === itemName || r.kindName === itemName);
   return matches.find(r => r.rank === '상품') || matches[0];
 };
 
@@ -38,6 +45,7 @@ const pickRepresentative = (rows: MarketPriceRow[], itemName: string) => {
 export const PcMarketWidget: React.FC = () => {
   const { setActiveTab } = useApp();
   const { rows, date, status } = useMarketPrices();
+  const [selected, setSelected] = useState<MarketPriceRow | null>(null);
   const basket = useMemo(
     () => BASKET_ITEMS.map(name => pickRepresentative(rows, name)).filter((r): r is MarketPriceRow => Boolean(r)).slice(0, 8),
     [rows]
@@ -61,17 +69,20 @@ export const PcMarketWidget: React.FC = () => {
       {status === 'ready' && (
         <ul className="grid grid-cols-4">
           {basket.map((r, i) => (
-            <li key={r.key} className={`px-6 py-4 ${i % 4 !== 3 ? 'border-r' : ''} ${i < 4 ? 'border-b' : ''} border-gray-100`}>
-              <p className="text-[14px] font-semibold text-gray-900">{r.itemName} <span className="text-[12px] font-normal text-gray-400">{r.unit}</span></p>
+            <li key={r.key} className={`${i % 4 !== 3 ? 'border-r' : ''} ${i < 4 ? 'border-b' : ''} border-gray-100`}>
+              <button onClick={() => setSelected(r)} className="w-full text-left px-6 py-4 hover:bg-gray-50 cursor-pointer">
+              <p className="text-[14px] font-semibold text-gray-900">{r.kindName && r.itemName === '파' ? r.kindName : r.itemName} <span className="text-[12px] font-normal text-gray-400">{r.unit}</span></p>
               <p className="mt-1 text-[17px] font-bold text-gray-900">{formatWon(r.today)}</p>
               <div className="mt-0.5 flex items-center gap-1.5">
                 <ChangeBadge rate={r.changeRate} size="sm" />
                 <span className="text-[11px] text-gray-400">{r.changeLabel}</span>
               </div>
+              </button>
             </li>
           ))}
         </ul>
       )}
+      {selected && <PcMarketItemModal row={selected} date={date} onClose={() => setSelected(null)} />}
     </div>
   );
 };
@@ -81,7 +92,8 @@ type SortKey = 'name' | 'today' | 'change' | 'year';
 /** PC 전용: 오늘의 농축수산물 시세 페이지 */
 export const PcMarket: React.FC = () => {
   const { setActiveTab } = useApp();
-  const { rows, date, status } = useMarketPrices();
+  const { rows, date, status, checkedAt } = useMarketPrices();
+  const [selected, setSelected] = useState<MarketPriceRow | null>(null);
   const [category, setCategory] = useState<MarketCategory | '전체'>('전체');
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<{ key: SortKey; desc: boolean }>({ key: 'change', desc: true });
@@ -136,7 +148,7 @@ export const PcMarket: React.FC = () => {
       ) : (
         <ol className="mt-4 space-y-3">
           {items.map(({ r, rate }, i) => (
-            <li key={r.key} className="flex items-center gap-3 text-[14px]">
+            <li key={r.key} onClick={() => setSelected(r)} className="flex items-center gap-3 text-[14px] cursor-pointer rounded-md -mx-2 px-2 py-0.5 hover:bg-gray-50">
               <span className="w-4 text-gray-400 font-semibold">{i + 1}</span>
               <span className="flex-1 min-w-0 truncate text-gray-900">{r.itemName} <span className="text-gray-400 text-[12px]">{r.kindName}</span></span>
               <span className="text-gray-600 tabular-nums">{formatWon(r.today)}</span>
@@ -161,6 +173,7 @@ export const PcMarket: React.FC = () => {
             <div className="text-right text-[13px] text-gray-500">
               <p className="text-[20px] font-bold text-gray-900">{date ? formatDateLabel(date) : '-'} 기준</p>
               <p className="mt-1">출처: KAMIS 농산물유통정보(aT 한국농수산식품유통공사)</p>
+              <p className="mt-0.5">하루 한 번(평일 오후) 공시 · 화면을 켜 두면 30분마다 새 공시 확인{checkedAt ? ` · 마지막 확인 ${formatCheckedAt(checkedAt)}` : ''}</p>
             </div>
           </div>
         </PcContainer>
@@ -204,7 +217,7 @@ export const PcMarket: React.FC = () => {
               </thead>
               <tbody>
                 {filtered.map(r => (
-                  <tr key={r.key} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={r.key} onClick={() => setSelected(r)} className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer">
                     <td className="py-3.5 px-4 font-semibold text-gray-900">{r.itemName}</td>
                     <td className="py-3.5 px-4 text-gray-600">{r.kindName} <span className="text-gray-400">· {r.rank}</span></td>
                     <td className="py-3.5 px-4 text-gray-500">{r.unit}</td>
@@ -218,12 +231,14 @@ export const PcMarket: React.FC = () => {
               </tbody>
             </table>
             {filtered.length === 0 && <PcEmpty message="조건에 맞는 품목이 없어요." />}
+            <p className="mt-4 text-[13px] text-gray-500">품목을 누르면 가격 추이 그래프와 기간별 비교를 볼 수 있어요.</p>
             <p className="mt-6 text-[12px] text-gray-400">
               등락은 전일 가격 기준이며, 전일 공시가 없으면 1주 전 또는 2주 전 가격과 비교해요. 가격은 전국 주요 소매점 조사 평균이라 실제 매장 가격과 다를 수 있어요.
             </p>
           </>
         )}
       </PcContainer>
+      {selected && <PcMarketItemModal row={selected} date={date} onClose={() => setSelected(null)} />}
     </div>
   );
 };

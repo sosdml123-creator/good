@@ -69,6 +69,49 @@ async function findLatestAvailableDate(certKey, certId, productClsCode = '01') {
   return fallbackDate || formatDate(new Date(now.getTime() - 86400000));
 }
 
+/**
+ * 품목 하나의 기간별 소매가 (전국 평균) — KAMIS periodProductList
+ * 응답: { success, points: [{ date: 'YYYY-MM-DD', price }] } (오래된 날짜 → 최근 순)
+ */
+async function sendPeriodPrices(req, res, certKey, certId, productClsCode) {
+  const pick = (v, re) => (re.test(String(v || '')) ? String(v) : '');
+  const category = pick(req.query.category, /^\d{3}$/);
+  const item = pick(req.query.item, /^\d{3}$/);
+  const kind = pick(req.query.kind, /^\d{2}$/);
+  const rank = pick(req.query.rank, /^\d{2}$/);
+  const days = Math.min(365, Math.max(7, Number(req.query.days) || 90));
+  if (!category || !item || !kind || !rank) {
+    return res.status(400).json({ success: false, error: 'category, item, kind, rank are required' });
+  }
+
+  const end = new Date();
+  const start = new Date(end.getTime() - days * 86400000);
+  const url = `https://www.kamis.or.kr/service/price/xml.do?action=periodProductList&p_productclscode=${productClsCode}&p_startday=${formatDate(start)}&p_endday=${formatDate(end)}&p_itemcategorycode=${category}&p_itemcode=${item}&p_kindcode=${kind}&p_productrankcode=${rank}&p_convert_kg_yn=N&p_cert_key=${certKey}&p_cert_id=${certId}&p_returntype=json`;
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 9000);
+  try {
+    const r = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    const json = r.ok ? await r.json() : null;
+    const rows = Array.isArray(json?.data?.item) ? json.data.item : [];
+    const points = [];
+    for (const row of rows) {
+      // 지역별 행 중 전국 '평균' 행만 씁니다.
+      if (row.countyname && row.countyname !== '평균') continue;
+      const price = Number(String(row.price || '').replace(/,/g, ''));
+      const md = String(row.regday || '').match(/(\d{1,2})\/(\d{1,2})/);
+      if (!Number.isFinite(price) || price <= 0 || !md || !row.yyyy) continue;
+      points.push({ date: `${row.yyyy}-${md[1].padStart(2, '0')}-${md[2].padStart(2, '0')}`, price });
+    }
+    points.sort((a, b) => a.date.localeCompare(b.date));
+    return res.status(200).json({ success: points.length > 0, points });
+  } catch (err) {
+    clearTimeout(timeoutId);
+    return res.status(200).json({ success: false, points: [], error: err.message || 'period fetch failed' });
+  }
+}
+
 export default async function handler(req, res) {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -90,6 +133,11 @@ export default async function handler(req, res) {
     regday = '',
     productClsCode = '01' // 01: retail, 02: wholesale
   } = req.query;
+
+  // 품목별 기간 시세 (그래프용): /api/kamis?action=period&category=200&item=246&kind=00&rank=04&days=90
+  if (req.query.action === 'period') {
+    return sendPeriodPrices(req, res, certKey, certId, productClsCode);
+  }
 
   try {
     let targetDate = regday;
