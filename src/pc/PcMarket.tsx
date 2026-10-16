@@ -150,7 +150,7 @@ export const PcMarket: React.FC = () => {
 
   return (
     <div className="bg-white pb-24">
-      <section className="bg-[#F7F5FF] border-b border-violet-100">
+      <section className="bg-white border-b border-gray-100">
         <PcContainer className="pt-6 pb-10">
           <PcBreadcrumb items={[{ label: '홈', onClick: () => setActiveTab('home') }, { label: '오늘의 시세' }]} />
           <div className="mt-6 flex items-end justify-between">

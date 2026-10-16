@@ -16,17 +16,17 @@ import { PcExclusiveStrip } from './PcExtras';
 const NEW_FILTERS = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
 const CATEGORY_SHORTCUTS: { label: string; cat: ProductCategory; icon: React.ElementType; color: string }[] = [
-  { label: '신제품', cat: '신제품', icon: Sparkles, color: 'text-violet-600' },
-  { label: '과자', cat: '과자', icon: Cookie, color: 'text-violet-600' },
-  { label: '음료', cat: '음료', icon: Coffee, color: 'text-violet-600' },
-  { label: '빵·디저트', cat: '빵·디저트', icon: Croissant, color: 'text-violet-600' },
-  { label: '아이스크림', cat: '아이스크림', icon: IceCream, color: 'text-violet-600' },
-  { label: '간편식', cat: '간편식', icon: UtensilsCrossed, color: 'text-violet-600' },
-  { label: '패스트푸드', cat: '패스트푸드', icon: Sandwich, color: 'text-violet-600' },
-  { label: '과일', cat: '과일', icon: Apple, color: 'text-violet-600' },
-  { label: '식재료', cat: '식재료', icon: Egg, color: 'text-violet-600' },
-  { label: '고기·수산', cat: '고기·수산', icon: Beef, color: 'text-violet-600' },
-  { label: '기타', cat: '기타', icon: Beer, color: 'text-violet-600' },
+  { label: '신제품', cat: '신제품', icon: Sparkles, color: 'text-gray-700' },
+  { label: '과자', cat: '과자', icon: Cookie, color: 'text-gray-700' },
+  { label: '음료', cat: '음료', icon: Coffee, color: 'text-gray-700' },
+  { label: '빵·디저트', cat: '빵·디저트', icon: Croissant, color: 'text-gray-700' },
+  { label: '아이스크림', cat: '아이스크림', icon: IceCream, color: 'text-gray-700' },
+  { label: '간편식', cat: '간편식', icon: UtensilsCrossed, color: 'text-gray-700' },
+  { label: '패스트푸드', cat: '패스트푸드', icon: Sandwich, color: 'text-gray-700' },
+  { label: '과일', cat: '과일', icon: Apple, color: 'text-gray-700' },
+  { label: '식재료', cat: '식재료', icon: Egg, color: 'text-gray-700' },
+  { label: '고기·수산', cat: '고기·수산', icon: Beef, color: 'text-gray-700' },
+  { label: '기타', cat: '기타', icon: Beer, color: 'text-gray-700' },
 ];
 
 export const PcHome: React.FC = () => {
@@ -94,7 +94,7 @@ export const PcHome: React.FC = () => {
   return (
     <div className="bg-white pb-24">
       {/* 상단 비주얼: 배너(이미지 전체 노출) + 이번 주 신상 요약 카드 */}
-      <section className="bg-[#F7F5FF]">
+      <section className="bg-white">
         <PcContainer className="py-8 grid grid-cols-[1fr_340px] gap-6">
           {banner ? (
             <div className="relative rounded-2xl overflow-hidden bg-gray-100 aspect-[1376/768]">
@@ -127,12 +127,12 @@ export const PcHome: React.FC = () => {
             <div className="rounded-2xl bg-white aspect-[1376/768]" />
           )}
 
-          <div className="rounded-2xl bg-violet-600 text-white p-7 flex flex-col">
-            <p className="text-[13px] font-semibold text-white/70">THIS WEEK</p>
+          <div className="rounded-2xl bg-[#F5F5F7] text-gray-900 p-7 flex flex-col">
+            <p className="text-[13px] font-semibold text-violet-600">THIS WEEK</p>
             <p className="mt-2 text-[26px] leading-snug font-bold">
               이번 주 새로 나온<br />신상 {weeklyAll.length}개
             </p>
-            <p className="mt-3 text-[14px] text-white/70 leading-relaxed">
+            <p className="mt-3 text-[14px] text-gray-500 leading-relaxed">
               편의점·카페·마트 신제품을<br />먹어본 사람들의 평가와 함께 확인하세요.
             </p>
             <div className="mt-auto flex -space-x-3">
@@ -143,13 +143,13 @@ export const PcHome: React.FC = () => {
                   alt=""
                   fallbackCategory={p.category}
                   fallbackName={p.name}
-                  className="w-14 h-14 rounded-full object-cover bg-white border-2 border-violet-600"
+                  className="w-14 h-14 rounded-full object-cover bg-white border-2 border-[#F5F5F7]"
                 />
               ))}
             </div>
             <button
               onClick={() => goCategory('신제품')}
-              className="mt-5 h-12 rounded-xl bg-white text-violet-700 text-[15px] font-bold hover:bg-violet-50 cursor-pointer"
+              className="mt-5 h-12 rounded-xl bg-gray-900 text-white text-[15px] font-bold hover:bg-black cursor-pointer"
             >
               신상 보러가기
             </button>
@@ -162,7 +162,7 @@ export const PcHome: React.FC = () => {
         <div className="grid grid-cols-11 gap-2">
           {CATEGORY_SHORTCUTS.map(({ label, cat, icon: Icon, color }) => (
             <button key={label} onClick={() => goCategory(cat)} className="group flex flex-col items-center gap-2.5 cursor-pointer">
-              <span className="w-16 h-16 rounded-full bg-violet-50 flex items-center justify-center transition-colors group-hover:bg-violet-100">
+              <span className="w-16 h-16 rounded-full bg-[#F5F5F7] flex items-center justify-center transition-colors group-hover:bg-gray-200">
                 <Icon className={`w-7 h-7 stroke-[1.5] ${color}`} />
               </span>
               <span className="text-[13px] text-gray-700 group-hover:text-gray-900">{label}</span>

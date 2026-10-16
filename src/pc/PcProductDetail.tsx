@@ -184,7 +184,7 @@ export const PcProductDetail: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('write')}
-                className="h-14 flex-1 rounded-xl border border-violet-600 text-violet-700 text-[15px] font-bold flex items-center justify-center gap-1.5 hover:bg-violet-50 cursor-pointer"
+                className="h-14 flex-1 rounded-xl border border-gray-300 text-gray-900 text-[15px] font-bold flex items-center justify-center gap-1.5 hover:border-gray-900 cursor-pointer"
               >
                 <PenLine className="w-4 h-4" />
                 리뷰 쓰기
@@ -232,7 +232,7 @@ export const PcProductDetail: React.FC = () => {
                   <div key={m.label} className="flex items-center gap-4 text-[14px]">
                     <span className="w-14 text-gray-600">{m.label}</span>
                     <span className="flex-1 h-2 rounded-full bg-gray-200 overflow-hidden">
-                      <span className="block h-full bg-violet-600 rounded-full" style={{ width: `${Math.min(100, (m.val / 5) * 100)}%` }} />
+                      <span className="block h-full bg-gray-800 rounded-full" style={{ width: `${Math.min(100, (m.val / 5) * 100)}%` }} />
                     </span>
                     <span className="w-8 text-right font-semibold text-gray-900">{m.val.toFixed(1)}</span>
                   </div>

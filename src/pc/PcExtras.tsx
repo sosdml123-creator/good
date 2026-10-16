@@ -63,7 +63,7 @@ export const PcStores: React.FC = () => {
 
   return (
     <div className="bg-white pb-24">
-      <PcPageHero crumb="편의점 비교" title="편의점 4사 신상 한눈에 비교" subtitle="CU · GS25 · 세븐일레븐 · 이마트24 신상을 나란히 놓고 최신순으로 비교해 보세요." tone="bg-[#F7F5FF]" />
+      <PcPageHero crumb="편의점 비교" title="편의점 4사 신상 한눈에 비교" subtitle="CU · GS25 · 세븐일레븐 · 이마트24 신상을 나란히 놓고 최신순으로 비교해 보세요." tone="bg-white" />
       <PcContainer className="pt-10">
         <PcTextTabs items={STORE_CATEGORIES} value={category} onChange={(v) => { setCategory(v); setLimit(10); }} />
         <div className="mt-8 grid grid-cols-4 gap-4">
@@ -105,11 +105,11 @@ export const PcExclusiveStrip: React.FC = () => {
   return (
     <div className="grid grid-cols-2 gap-5">
       {items.map(it => (
-        <button key={it.tab} onClick={() => setActiveTab(it.tab)} className="group text-left rounded-2xl border border-violet-100 bg-[#FAF8FF] p-6 cursor-pointer hover:border-violet-400 hover:shadow-sm transition-all">
-          <span className="w-11 h-11 rounded-xl bg-violet-600 text-white flex items-center justify-center"><it.icon className="w-5 h-5" /></span>
+        <button key={it.tab} onClick={() => setActiveTab(it.tab)} className="group text-left rounded-2xl border border-gray-200 bg-white p-6 cursor-pointer hover:border-gray-400 transition-all">
+          <span className="w-11 h-11 rounded-xl bg-gray-100 text-gray-800 flex items-center justify-center"><it.icon className="w-5 h-5" /></span>
           <p className="mt-3 text-[19px] font-bold text-gray-900">{it.title}</p>
           <p className="mt-1 text-[13px] text-gray-500">{it.desc}</p>
-          <span className="mt-4 inline-flex items-center text-[13px] font-semibold text-violet-700">바로가기 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" /></span>
+          <span className="mt-4 inline-flex items-center text-[13px] font-semibold text-gray-900">바로가기 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" /></span>
         </button>
       ))}
     </div>

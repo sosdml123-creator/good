@@ -39,7 +39,7 @@ export const PcProductCard: React.FC<PcProductCardProps> = ({ product, rating, r
         {rank !== undefined && (
           <span
             className={`absolute top-0 left-0 w-8 h-8 flex items-center justify-center text-[14px] font-black text-white rounded-br-xl ${
-              rank <= 3 ? 'bg-violet-600' : 'bg-gray-900/70'
+              rank <= 3 ? 'bg-gray-900' : 'bg-gray-900/70'
             }`}
           >
             {rank}
