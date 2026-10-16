@@ -12,7 +12,7 @@ import { PcProductList } from './PcProductList';
 import { PcProductDetail } from './PcProductDetail';
 import { PcRanking, PcSearch, PcBrand } from './PcPages';
 import { PcMarket } from './PcMarket';
-import { PcStores, PcReleases } from './PcExtras';
+import { PcStores } from './PcExtras';
 import { PcContainer } from './PcUi';
 
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
@@ -38,15 +38,14 @@ const Spinner = () => (
   </div>
 );
 
-type NavItem = { label: string; tab: ActiveTab; pcOnly?: boolean };
+type NavItem = { label: string; tab: ActiveTab };
 
 const NAV_ITEMS: NavItem[] = [
   { label: '신상품', tab: 'category' },
   { label: '랭킹', tab: 'ranking' },
   { label: '브랜드관', tab: 'brand' },
-  { label: '오늘의 시세', tab: 'market', pcOnly: true },
-  { label: '편의점 비교', tab: 'stores', pcOnly: true },
-  { label: '출시 캘린더', tab: 'releases', pcOnly: true },
+  { label: '오늘의 시세', tab: 'market' },
+  { label: '편의점 비교', tab: 'stores' },
   { label: '행사·할인', tab: 'calendar' },
   { label: '수다방', tab: 'community' },
 ];
@@ -203,7 +202,6 @@ const PcHeader: React.FC = () => {
               }`}
             >
               {item.label}
-              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-bold text-violet-500">PC</span>}
               {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-violet-600" />}
             </button>
           ))}
@@ -277,7 +275,7 @@ export const PcApp: React.FC = () => {
     activeTab === 'brand' ? <PcBrand /> :
     activeTab === 'market' ? <PcMarket /> :
     activeTab === 'stores' ? <PcStores /> :
-    activeTab === 'releases' ? <PcReleases /> :
+    activeTab === 'releases' ? <PcHome /> : // 출시 캘린더는 삭제됨: 예전 주소는 홈으로
     null;
 
   return (

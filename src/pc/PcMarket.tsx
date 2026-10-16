@@ -155,8 +155,7 @@ export const PcMarket: React.FC = () => {
           <PcBreadcrumb items={[{ label: '홈', onClick: () => setActiveTab('home') }, { label: '오늘의 시세' }]} />
           <div className="mt-6 flex items-end justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded bg-violet-100 text-violet-700 text-[12px] font-bold">PC 전용</span>
-              <h1 className="mt-3 text-[32px] font-bold text-gray-900 tracking-tight">오늘의 장바구니 시세</h1>
+              <h1 className="mt-1 text-[32px] font-bold text-gray-900 tracking-tight">오늘의 장바구니 시세</h1>
               <p className="mt-2 text-[15px] text-gray-600">채소·과일·축산·수산물의 전국 평균 소매가격을 매일 확인하세요.</p>
             </div>
             <div className="text-right text-[13px] text-gray-500">
