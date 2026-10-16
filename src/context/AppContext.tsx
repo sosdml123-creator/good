@@ -2935,6 +2935,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       params.set('tab', 'write');
     } else if (tab === 'admin') {
       params.set('tab', 'admin');
+    } else if (tab === 'market' || tab === 'stores' || tab === 'releases') {
+      params.set('tab', tab);
     } else {
       // Home tab - clean URL
     }

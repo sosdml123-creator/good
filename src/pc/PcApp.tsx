@@ -11,6 +11,8 @@ import { PcHome } from './PcHome';
 import { PcProductList } from './PcProductList';
 import { PcProductDetail } from './PcProductDetail';
 import { PcRanking, PcSearch, PcBrand } from './PcPages';
+import { PcMarket } from './PcMarket';
+import { PcStores, PcReleases } from './PcExtras';
 import { PcContainer } from './PcUi';
 
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
@@ -36,15 +38,17 @@ const Spinner = () => (
   </div>
 );
 
-type NavItem = { label: string; tab: ActiveTab };
+type NavItem = { label: string; tab: ActiveTab; pcOnly?: boolean };
 
 const NAV_ITEMS: NavItem[] = [
   { label: '신상품', tab: 'category' },
   { label: '랭킹', tab: 'ranking' },
   { label: '브랜드관', tab: 'brand' },
+  { label: '오늘의 시세', tab: 'market', pcOnly: true },
+  { label: '편의점 비교', tab: 'stores', pcOnly: true },
+  { label: '출시 캘린더', tab: 'releases', pcOnly: true },
   { label: '행사·할인', tab: 'calendar' },
   { label: '수다방', tab: 'community' },
-  { label: 'e쿠폰', tab: 'coupon' },
 ];
 
 const HeaderIconButton: React.FC<{ label: string; onClick: () => void; badge?: number; children: React.ReactNode }> = ({
@@ -120,6 +124,8 @@ const PcHeader: React.FC = () => {
           <button onClick={openLoginModal} className="hover:text-gray-900 cursor-pointer">로그인 · 회원가입</button>
         )}
         <span className="w-px h-2.5 bg-gray-300" />
+        <button onClick={() => setActiveTab('coupon')} className="hover:text-gray-900 cursor-pointer">e쿠폰</button>
+        <span className="w-px h-2.5 bg-gray-300" />
         <button onClick={() => setActiveTab('settings')} className="hover:text-gray-900 cursor-pointer">고객센터</button>
       </PcContainer>
 
@@ -192,12 +198,13 @@ const PcHeader: React.FC = () => {
             <button
               key={item.label}
               onClick={() => handleNav(item)}
-              className={`relative h-full px-5 text-[16px] cursor-pointer ${
+              className={`relative h-full px-4 text-[16px] cursor-pointer ${
                 isNavActive(item) ? 'font-bold text-violet-700' : 'font-medium text-gray-800 hover:text-violet-700'
               }`}
             >
               {item.label}
-              {isNavActive(item) && <span className="absolute left-5 right-5 bottom-0 h-[3px] bg-violet-600" />}
+              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-bold text-emerald-600">PC</span>}
+              {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-violet-600" />}
             </button>
           ))}
         </nav>
@@ -268,6 +275,9 @@ export const PcApp: React.FC = () => {
     activeTab === 'ranking' ? <PcRanking /> :
     activeTab === 'search' ? <PcSearch /> :
     activeTab === 'brand' ? <PcBrand /> :
+    activeTab === 'market' ? <PcMarket /> :
+    activeTab === 'stores' ? <PcStores /> :
+    activeTab === 'releases' ? <PcReleases /> :
     null;
 
   return (

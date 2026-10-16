@@ -10,6 +10,8 @@ import { SafeImage } from '../components/common/SafeImage';
 import { BrandLogo } from '../components/brand/BrandLogo';
 import { PcProductCard } from './PcProductCard';
 import { PcContainer, PcSectionHeader, PcTextTabs, PcEmpty } from './PcUi';
+import { PcMarketWidget } from './PcMarket';
+import { PcExclusiveStrip } from './PcExtras';
 
 const NEW_FILTERS = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
@@ -169,6 +171,11 @@ export const PcHome: React.FC = () => {
         </div>
       </PcContainer>
 
+      {/* PC 전용 기능 소개 */}
+      <PcContainer className="pt-12">
+        <PcExclusiveStrip />
+      </PcContainer>
+
       {/* 이번 주 신상 */}
       <PcContainer className="pt-16">
         <PcSectionHeader
@@ -205,6 +212,11 @@ export const PcHome: React.FC = () => {
           </PcContainer>
         </section>
       )}
+
+      {/* 오늘의 장바구니 시세 (PC 전용) */}
+      <PcContainer className="pt-20">
+        <PcMarketWidget />
+      </PcContainer>
 
       {/* 브랜드관 */}
       {popularBrands.length > 0 && (

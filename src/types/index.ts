@@ -456,7 +456,11 @@ export type ActiveTab =
   | 'event_detail'
   | 'ranking'
   | 'coupon'
-  | 'calendar';
+  | 'calendar'
+  // PC 버전 전용 화면 (pc.sinsangpick.kr)
+  | 'market'
+  | 'stores'
+  | 'releases';
 
 export interface BrandInfo {
   id: string;

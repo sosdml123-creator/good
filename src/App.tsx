@@ -168,7 +168,8 @@ export const App: React.FC = () => {
         <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto no-scrollbar relative flex flex-col bg-[#F8F9FA] [&>*]:shrink-0">
           {/* Dynamic Route/Tab Display - each tab is independently lazy loaded */}
           <Suspense fallback={<TabFallback />}>
-            {activeTab === 'home' && (
+            {(activeTab === 'home' || activeTab === 'market' || activeTab === 'stores' || activeTab === 'releases') && (
+              // market·stores·releases 는 PC 전용 화면이라 모바일에서는 홈을 보여줍니다.
               <>
                 <Header />
                 <HomeView />
