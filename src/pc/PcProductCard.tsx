@@ -39,7 +39,7 @@ export const PcProductCard: React.FC<PcProductCardProps> = ({ product, rating, r
         {rank !== undefined && (
           <span
             className={`absolute top-0 left-0 w-8 h-8 flex items-center justify-center text-[14px] font-black text-white rounded-br-xl ${
-              rank <= 3 ? 'bg-violet-600' : 'bg-gray-900/80'
+              rank <= 3 ? 'bg-gray-900' : 'bg-gray-900/80'
             }`}
           >
             {rank}
@@ -62,7 +62,7 @@ export const PcProductCard: React.FC<PcProductCardProps> = ({ product, rating, r
         <p className="mt-1.5 flex items-center gap-1 text-[12px] text-gray-400">
           {shownCount > 0 ? (
             <>
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-gray-900 text-gray-900" />
               <span className="font-semibold text-gray-700">{shownRating.toFixed(1)}</span>
               <span>리뷰 {shownCount.toLocaleString()}</span>
             </>

@@ -103,7 +103,7 @@ export const PcSearch: React.FC = () => {
         {query ? (
           <>
             <p className="mt-12 pb-4 mb-8 border-b border-gray-200 text-[16px] text-gray-700">
-              <span className="font-bold text-gray-900">'{searchQuery}'</span> 검색 결과 <span className="font-bold text-violet-700">{results.length.toLocaleString()}</span>개
+              <span className="font-bold text-gray-900">'{searchQuery}'</span> 검색 결과 <span className="font-bold text-gray-900">{results.length.toLocaleString()}</span>개
             </p>
             {results.length > 0 ? (
               <div className="grid grid-cols-5 gap-x-5 gap-y-12">

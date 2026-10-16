@@ -49,7 +49,7 @@ export const PcProductList: React.FC = () => {
               <button
                 key={sub}
                 onClick={() => setSubCategory(sub)}
-                className={`text-[14px] cursor-pointer ${subCategory === sub ? 'font-bold text-violet-700' : 'text-gray-600 hover:text-gray-900'}`}
+                className={`text-[14px] cursor-pointer ${subCategory === sub ? 'font-bold text-gray-900' : 'text-gray-600 hover:text-gray-900'}`}
               >
                 {sub}
               </button>
@@ -66,7 +66,7 @@ export const PcProductList: React.FC = () => {
                   <button
                     onClick={() => setSelectedCategory(cat)}
                     className={`w-full text-left py-2 text-[14px] cursor-pointer ${
-                      selectedCategory === cat ? 'font-bold text-violet-700' : 'text-gray-600 hover:text-gray-900'
+                      selectedCategory === cat ? 'font-bold text-gray-900' : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     {cat}

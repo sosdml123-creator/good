@@ -34,7 +34,7 @@ const NicknameSetupModal = lazy(() => import('../components/auth/NicknameSetupMo
 
 const Spinner = () => (
   <div className="py-40 flex items-center justify-center">
-    <div className="w-7 h-7 border-2 border-gray-200 border-t-violet-600 rounded-full animate-spin" />
+    <div className="w-7 h-7 border-2 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
   </div>
 );
 
@@ -54,11 +54,11 @@ const NAV_ITEMS: NavItem[] = [
 const HeaderIconButton: React.FC<{ label: string; onClick: () => void; badge?: number; children: React.ReactNode }> = ({
   label, onClick, badge, children,
 }) => (
-  <button onClick={onClick} className="relative flex flex-col items-center gap-1 w-14 text-gray-800 hover:text-violet-700 cursor-pointer">
+  <button onClick={onClick} className="relative flex flex-col items-center gap-1 w-14 text-gray-800 hover:text-gray-900 cursor-pointer">
     {children}
     <span className="text-[11px]">{label}</span>
     {badge !== undefined && badge > 0 && (
-      <span className="absolute -top-1 right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-violet-600 text-white text-[10px] font-bold flex items-center justify-center">
+      <span className="absolute -top-1 right-2.5 min-w-[18px] h-[18px] px-1 rounded-full bg-gray-900 text-white text-[10px] font-bold flex items-center justify-center">
         {badge > 99 ? '99+' : badge}
       </span>
     )}
@@ -118,7 +118,7 @@ const PcHeader: React.FC = () => {
       <PcContainer className="h-9 flex items-center justify-end gap-4 text-[12px] text-gray-500">
         {isLoggedIn ? (
           <button onClick={() => setActiveTab('my')} className="hover:text-gray-900 cursor-pointer">
-            <span className="font-semibold text-violet-700">{currentUser.displayName}</span>님
+            <span className="font-semibold text-gray-900">{currentUser.displayName}</span>님
           </button>
         ) : (
           <button onClick={openLoginModal} className="hover:text-gray-900 cursor-pointer">로그인 · 회원가입</button>
@@ -136,14 +136,14 @@ const PcHeader: React.FC = () => {
           <span className="text-[26px] font-black text-gray-900 tracking-tight">신상픽</span>
         </button>
 
-        <form onSubmit={submitSearch} className="flex-1 max-w-[460px] h-12 rounded-full border-2 border-violet-600 flex items-center pl-5 pr-2">
+        <form onSubmit={submitSearch} className="flex-1 max-w-[460px] h-12 rounded-full border-2 border-gray-900 flex items-center pl-5 pr-2">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="신상품, 브랜드를 검색해 보세요"
             className="flex-1 min-w-0 text-[15px] text-gray-900 placeholder:text-gray-400 outline-none bg-transparent"
           />
-          <button type="submit" aria-label="검색" className="w-9 h-9 rounded-full flex items-center justify-center text-violet-700 hover:bg-violet-50 cursor-pointer">
+          <button type="submit" aria-label="검색" className="w-9 h-9 rounded-full flex items-center justify-center text-gray-900 hover:bg-gray-50 cursor-pointer">
             <Search className="w-5 h-5" />
           </button>
         </form>
@@ -173,7 +173,7 @@ const PcHeader: React.FC = () => {
         <div className="relative h-full" onMouseEnter={() => setIsCategoryOpen(true)} onMouseLeave={() => setIsCategoryOpen(false)}>
           <button
             onClick={() => setIsCategoryOpen(v => !v)}
-            className="h-full flex items-center gap-2 text-[16px] font-semibold text-gray-900 hover:text-violet-700 cursor-pointer"
+            className="h-full flex items-center gap-2 text-[16px] font-semibold text-gray-900 hover:text-gray-900 cursor-pointer"
           >
             <Menu className="w-5 h-5" />
             카테고리
@@ -184,7 +184,7 @@ const PcHeader: React.FC = () => {
                 <li key={cat}>
                   <button
                     onClick={() => goCategory(cat)}
-                    className="w-full text-left px-5 py-2.5 text-[14px] text-gray-700 hover:bg-violet-50 hover:text-violet-700 cursor-pointer"
+                    className="w-full text-left px-5 py-2.5 text-[14px] text-gray-700 hover:bg-gray-50 hover:text-gray-900 cursor-pointer"
                   >
                     {cat}
                   </button>
@@ -199,12 +199,12 @@ const PcHeader: React.FC = () => {
               key={item.label}
               onClick={() => handleNav(item)}
               className={`relative h-full px-4 text-[16px] cursor-pointer ${
-                isNavActive(item) ? 'font-bold text-violet-700' : 'font-medium text-gray-800 hover:text-violet-700'
+                isNavActive(item) ? 'font-bold text-gray-900' : 'font-medium text-gray-800 hover:text-gray-900'
               }`}
             >
               {item.label}
-              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-bold text-emerald-600">PC</span>}
-              {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-violet-600" />}
+              {item.pcOnly && <span className="absolute top-2.5 right-0 text-[9px] font-semibold text-gray-400">PC</span>}
+              {isNavActive(item) && <span className="absolute left-4 right-4 bottom-0 h-[3px] bg-gray-900" />}
             </button>
           ))}
         </nav>

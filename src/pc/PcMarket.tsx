@@ -150,12 +150,12 @@ export const PcMarket: React.FC = () => {
 
   return (
     <div className="bg-white pb-24">
-      <section className="bg-gradient-to-r from-emerald-50 to-white border-b border-emerald-100">
+      <section className="bg-white border-b border-gray-100">
         <PcContainer className="pt-6 pb-10">
           <PcBreadcrumb items={[{ label: '홈', onClick: () => setActiveTab('home') }, { label: '오늘의 시세' }]} />
           <div className="mt-6 flex items-end justify-between">
             <div>
-              <span className="inline-block px-2.5 py-1 rounded-md bg-emerald-600 text-white text-[12px] font-bold">PC 전용</span>
+              <span className="inline-block px-2 py-0.5 rounded border border-gray-300 text-gray-500 text-[12px] font-medium">PC 전용</span>
               <h1 className="mt-3 text-[32px] font-bold text-gray-900 tracking-tight">오늘의 장바구니 시세</h1>
               <p className="mt-2 text-[15px] text-gray-600">채소·과일·축산·수산물의 전국 평균 소매가격을 매일 확인하세요.</p>
             </div>
@@ -173,9 +173,9 @@ export const PcMarket: React.FC = () => {
         {status === 'ready' && (
           <>
             <div className="grid grid-cols-3 gap-5">
-              <RankList title="많이 오른 품목" icon={<TrendingUp className="w-5 h-5" />} tone="text-rose-600" items={risers.map(r => ({ r, rate: r.changeRate }))} />
-              <RankList title="많이 내린 품목" icon={<TrendingDown className="w-5 h-5" />} tone="text-blue-600" items={fallers.map(r => ({ r, rate: r.changeRate }))} />
-              <RankList title="1년 전보다 비싸진 품목" icon={<TrendingUp className="w-5 h-5" />} tone="text-amber-600" items={vsYear} />
+              <RankList title="많이 오른 품목" icon={<TrendingUp className="w-5 h-5" />} tone="text-gray-900" items={risers.map(r => ({ r, rate: r.changeRate }))} />
+              <RankList title="많이 내린 품목" icon={<TrendingDown className="w-5 h-5" />} tone="text-gray-900" items={fallers.map(r => ({ r, rate: r.changeRate }))} />
+              <RankList title="1년 전보다 비싸진 품목" icon={<TrendingUp className="w-5 h-5" />} tone="text-gray-900" items={vsYear} />
             </div>
 
             <div className="mt-14 flex items-center justify-between gap-6">
