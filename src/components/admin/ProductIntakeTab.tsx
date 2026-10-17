@@ -155,8 +155,9 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
       const inserted = result.reduce((sum, r) => sum + r.inserted, 0);
       if (result.length > 0) {
         showToast(
-          inserted > 0 ? `새 상품 ${inserted}건을 대기함에 담았습니다.` : '새로 추가된 상품이 없습니다. (이미 수집·등록·반려된 상품 제외)',
-          inserted > 0 ? 'success' : 'info'
+          inserted > 0 ? `새 상품 ${inserted}건을 대기함에 담았습니다.` : result.some(r => !r.ok)
+            ? '일부 수집에 실패했습니다. 아래 소스별 오류를 확인해주세요.' : '추가된 상품이 없습니다. 중복·사진 검수 결과를 확인해주세요.',
+          inserted > 0 ? 'success' : result.some(r => !r.ok) ? 'error' : 'info'
         );
       }
     } finally {
@@ -168,8 +169,8 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
     if (ids.length === 0 || busy) return;
     setBusy(true);
     try {
-      await approvePendingProducts(ids);
-      setSelectedIds((prev) => prev.filter((id) => !ids.includes(id)));
+      const approved = await approvePendingProducts(ids);
+      if (approved > 0) setSelectedIds((prev) => prev.filter((id) => !ids.includes(id)));
     } finally {
       setBusy(false);
     }
@@ -224,8 +225,9 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
         nutrition: editing.nutrition,
       });
       if (!saved) return;
-      if (approveAfter) await approvePendingProducts([editing.id]);
-      else showToast('대기 상품 정보를 저장했습니다.', 'success');
+      if (approveAfter) {
+        if (!(await approvePendingProducts([editing.id]))) return;
+      } else showToast('대기 상품 정보를 저장했습니다.', 'success');
       setEditing(null);
     } finally {
       setBusy(false);
@@ -278,25 +280,35 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
           className="w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 disabled:opacity-50"
         >
           <RefreshCw className={`w-4 h-4 ${collecting === 'all' ? 'animate-spin' : ''}`} />
-          <span>{collecting === 'all' ? '전체 유통사에서 가져오는 중... (최대 1분)' : '신제품 전체 가져오기'}</span>
+          <span>{collecting === 'all' ? '공식 홈페이지·뉴스·블로그 수집 및 사진 검수 중... (최대 5분)' : '신제품 전체 가져오기'}</span>
         </button>
 
         <div className={`p-3 rounded-xl border text-[11px] space-y-1 ${isDark ? 'border-slate-800 bg-slate-950/50 text-slate-400' : 'border-slate-200 bg-slate-50/70 text-slate-500'}`}>
           <p>
-            <strong className={titleText}>공식 홈페이지</strong> — CU, 세븐일레븐 신상품 코너에서 상품명·가격·이미지를 그대로 가져옵니다.
+            <strong className={titleText}>공식 홈페이지</strong> — CU·세븐일레븐 신상품, 스타벅스·메가MGC커피·빽다방 신메뉴에서 상품명과 제품 사진을 가져옵니다. 가격은 공식 표기가 있을 때만 입력됩니다.
           </p>
           <p>
-            <strong className={titleText}>뉴스</strong> — GS25, 이마트24, 이마트, 트레이더스, 노브랜드, 홈플러스, 롯데마트, 롯데슈퍼, GS더프레시, 코스트코와
-            식품사·카페·외식 브랜드의 최근 7일 출시 기사에서 상품명을 찾습니다. 가격은 기사로 확인되지 않아 비워 두니 승인 전에 입력해주세요.
+            <strong className={titleText}>뉴스·블로그</strong> — GS25, 이마트24, 이마트, 트레이더스, 노브랜드, 홈플러스, 롯데마트, 롯데슈퍼, GS더프레시, 코스트코와
+            식품사·카페·외식 브랜드의 최근 30일 출시 소식을 찾습니다. 블로그 후보는 출시 여부를 원문에서 검토해주세요. 확인되지 않은 가격·출시일은 비워 둡니다.
           </p>
           <p>
             <strong className={titleText}>사진</strong> — 제품 사진이 확인된 상품만 담습니다. 사진이 없거나 사람이 나온 사진뿐인 상품은 제외하고 다음 수집 때 다시 찾습니다.
           </p>
           {!isNaverCollectAvailable && !pendingSetupError && (
             <p className="text-amber-600 dark:text-amber-400">
-              서버에 네이버 검색 API 키(NAVER_CLIENT_ID / NAVER_CLIENT_SECRET)가 없어 뉴스 수집은 건너뜁니다.
+              네이버 검색 API 키가 없어 뉴스·블로그를 수집할 수 없습니다. 공식 홈페이지 수집은 가능합니다.
             </p>
           )}
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {([['stores', '공식 홈페이지만'], ['news', '뉴스'], ['blog', '블로그']] as [CollectSource, string][]).map(([source, label]) => (
+            <button key={source} onClick={() => handleCollect(source, source === 'stores' ? undefined : newsQuery)}
+              disabled={collecting !== null || (source !== 'stores' && !isNaverCollectAvailable)}
+              className={`px-3 py-2 rounded-xl text-xs font-bold border disabled:opacity-50 ${subtleBtn}`}>
+              {collecting === source ? `${label} 수집 중...` : label}
+            </button>
+          ))}
         </div>
 
         <div className="flex gap-2">

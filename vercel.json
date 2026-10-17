@@ -25,6 +25,9 @@
     "formats": ["image/webp"]
   },
   "functions": {
+    "api/pending-products.js": {
+      "maxDuration": 300
+    },
     "api/generate-content.ts": {
       "maxDuration": 60
     },

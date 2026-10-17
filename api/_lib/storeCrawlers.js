@@ -92,8 +92,7 @@ export function cleanStoreProductName(rawName, storeBrand) {
 export function normalizeProductName(name) {
   return String(name || '')
     .replace(/^[^()\s]{1,10}\)/, '')
-    .replace(/\([^)]*\)/g, '')
-    .replace(/\[[^\]]*\]/g, '')
+    .replace(/[()[\]]/g, '')
     .replace(/\s+/g, '')
     .toLowerCase();
 }
@@ -101,10 +100,6 @@ export function normalizeProductName(name) {
 function extractVolume(name) {
   const m = String(name || '').match(/(\d+(?:\.\d+)?\s?(?:ml|l|g|kg|입|개입|t|p))\s*$/i);
   return m ? m[1].replace(/\s+/g, '') : null;
-}
-
-function todayKst() {
-  return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0];
 }
 
 export async function fetchText(url, init = {}, timeoutMs = 9000) {
@@ -134,7 +129,7 @@ function toStoreRow({ idPrefix, externalId, rawName, price, image, store, source
     sub_category: detectFoodSubCategory(rawName, category) || null,
     item_type: 'packaged',
     image: image || '',
-    release_date: todayKst(),
+    release_date: null,
     price: price || 0,
     discount_rate: 0,
     stores: [store],
@@ -285,7 +280,7 @@ export async function crawlSevenNew(pageSize = 60) {
 // 네이버 뉴스
 // ---------------------------------------------------------------------------
 
-const NEWS_BRANDS = [
+export const NEWS_BRANDS = [
   // [기사에 등장하는 표기, 저장할 브랜드명, 판매처 유형]
   // 편의점·마트·슈퍼 (긴 이름이 먼저 매칭되도록 순서 유지: 이마트24 → 이마트, 노브랜드 버거 → 노브랜드)
   ['CU', 'CU', 'store'], ['GS25', 'GS25', 'store'], ['세븐일레븐', '세븐일레븐', 'store'], ['이마트24', '이마트24', 'store'],

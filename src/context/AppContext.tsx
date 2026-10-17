@@ -4986,7 +4986,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // 3. 승인 — 서버가 products 테이블에 등록하고 대기 상태를 approved로 바꾼 뒤 화면에 반영
   const approvePendingProducts = async (pendingIds: string[]): Promise<number> => {
-    const targets = pendingProducts.filter(p => pendingIds.includes(p.id) && p.image);
+    // 수정 직후 승인할 때 React의 이전 상태가 아니라 저장된 상품 정보를 사용합니다.
+    let latest: PendingProduct[];
+    try { latest = (await fetchPendingProducts()).items; }
+    catch (err) { handlePendingError(err, '승인할 상품을 불러오지 못했습니다.'); return 0; }
+    const targets = latest.filter(p => pendingIds.includes(p.id) && p.image);
     if (targets.length === 0) {
       showToast('승인할 수 있는 상품이 없습니다. 이미지가 없는 상품은 먼저 이미지를 등록해주세요.', 'info');
       return 0;

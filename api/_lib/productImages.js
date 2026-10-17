@@ -6,6 +6,7 @@
  */
 
 import { askAiForJson } from './aiJson.js';
+import { searchNaver } from './intakeSearch.js';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const AI_MEDIA_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -14,21 +15,12 @@ const MAX_SEARCH_CANDIDATES = 3;
 const CONCURRENCY = 10;
 
 /** 공식 홈페이지 상품 목록에서 가져온 이미지는 제품 컷이므로 그대로 씁니다. */
-const isOfficialImage = (row) => /^(cu|seven)-/.test(row.id) && Boolean(row.image);
+const isOfficialImage = (row) => /^(cu|seven|starbucks|mega|paik)-/.test(row.id) && Boolean(row.image);
 
 async function searchImageCandidates(row, naver) {
-  if (!naver?.clientId || !naver?.clientSecret) return [];
   const query = `${row.brand && row.brand !== '기타' ? `${row.brand} ` : ''}${row.name}`;
   try {
-    const res = await fetch(
-      `https://naverapihub.apigw.ntruss.com/search/v1/image?query=${encodeURIComponent(query)}&display=${MAX_SEARCH_CANDIDATES + 2}&sort=sim`,
-      {
-        headers: { 'X-NCP-APIGW-API-KEY-ID': naver.clientId, 'X-NCP-APIGW-API-KEY': naver.clientSecret },
-        signal: AbortSignal.timeout(5000),
-      }
-    );
-    if (!res.ok) return [];
-    const items = (await res.json()).items || [];
+    const items = await searchNaver('image', query, MAX_SEARCH_CANDIDATES + 2);
     return items
       .map((it) => String(it.link || '').replace(/^http:\/\//, 'https://'))
       .filter((url) => /^https:\/\//.test(url))
@@ -53,7 +45,7 @@ async function downloadImage(url) {
   }
 }
 
-async function isProductPhoto(engine, row, image) {
+async function isProductPhoto(engine, row, image, deadline) {
   const verdict = await askAiForJson(engine, {
     system: '당신은 식품 신제품 앱의 상품 이미지 검수자입니다. 반드시 JSON 객체 하나만 답합니다.',
     text: `상품: ${row.brand} ${row.name}\n`
@@ -63,7 +55,7 @@ async function isProductPhoto(engine, row, image) {
       + '형식: {"product": true|false, "person": true|false}',
     image,
     maxTokens: 1000,
-    timeoutMs: 12000,
+    timeoutMs: Math.max(1, Math.min(12000, deadline - Date.now())),
   });
   return verdict.product === true && verdict.person === false;
 }
@@ -76,13 +68,18 @@ async function isProductPhoto(engine, row, image) {
  */
 export async function attachProductImages(rows, { deadline, naver, engine }) {
   const stats = { aiErrors: 0 };
-  const queue = rows.filter((row) => !isOfficialImage(row));
+  const queue = [...rows];
 
   const resolve = async (row) => {
+    if (isOfficialImage(row)) {
+      // 공식 이미지도 만료·404·HTML 오류 응답이면 승인 대기함에 담지 않습니다.
+      if (Date.now() < deadline && await downloadImage(row.image)) return;
+      row.image = '';
+    }
     // AI 검수를 못 하면 기사 사진(인물 사진일 수 있음)은 쓰지 않고 검색 이미지만 씁니다.
     const articleImage = engine && row.image ? [row.image] : [];
     row.image = '';
-    if (Date.now() > deadline) return;
+    if (Date.now() > deadline || !engine) return;
 
     const candidates = [...articleImage, ...(await searchImageCandidates(row, naver))];
     for (const url of [...new Set(candidates)]) {
@@ -91,7 +88,7 @@ export async function attachProductImages(rows, { deadline, naver, engine }) {
       if (!image) continue;
       if (engine) {
         try {
-          if (!(await isProductPhoto(engine, row, image))) continue;
+          if (!(await isProductPhoto(engine, row, image, deadline))) continue;
         } catch {
           stats.aiErrors++;
           continue;
