@@ -5,7 +5,8 @@ import {
   Package, 
   Swords, 
   Database, 
-  Sparkles, 
+  Sparkles,
+  Send,
   Plus, 
   Trash2, 
   Edit3, 
@@ -87,6 +88,7 @@ import { HomeSectionsManagementTab } from './HomeSectionsManagementTab';
 import { ProductEditManagementTab } from './ProductEditManagementTab';
 import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
+import { SnsQueueTab } from './SnsQueueTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
 import { ProductIntakeTab } from './ProductIntakeTab';
 import { DonkiManagementTab } from './DonkiManagementTab';
@@ -114,6 +116,7 @@ export type AdminTab =
   | 'banners' 
   | 'battle' 
   | 'insta_generator'
+  | 'sns_queue'
   | 'ai_agents'
   | 'data';
 
@@ -1507,6 +1510,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               </button>
 
               <button
+                onClick={() => setActiveAdminTab('sns_queue')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'sns_queue'
+                    ? 'bg-amber-500 text-black font-black shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Send className={`w-4 h-4 ${activeAdminTab === 'sns_queue' ? 'text-black' : 'text-pink-400'}`} />
+                  <span>SNS 예약 게시</span>
+                </div>
+              </button>
+
+              <button
                 onClick={() => setActiveAdminTab('banners')}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
                   activeAdminTab === 'banners'
@@ -1696,6 +1713,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'notifications' ? '앱 푸시 & 알림 발송' :
                activeAdminTab === 'ai_agents' ? 'AI 전문가 에이전트' :
                activeAdminTab === 'insta_generator' ? '인스타 콘텐츠 생성기' :
+               activeAdminTab === 'sns_queue' ? 'SNS 예약 게시' :
                activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
                activeAdminTab === 'kamis' ? 'KAMIS시세' :
                activeAdminTab === 'donki' ? '돈키호테 가이드 관리' : '설정'}
@@ -4575,6 +4593,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           {activeAdminTab === 'insta_generator' && (
             <InstagramContentGeneratorTab onNotify={showToast} />
           )}
+
+          {/* ========================================================
+              TAB: SNS 예약 게시 (인스타·스레드 승인·예약 큐)
+             ======================================================== */}
+          {activeAdminTab === 'sns_queue' && <SnsQueueTab isDark={isDark} />}
 
         </main>
 
