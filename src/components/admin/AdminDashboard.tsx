@@ -1461,7 +1461,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               >
                 <div className="flex items-center gap-3">
                   <ShoppingBag className={`w-4 h-4 ${activeAdminTab === 'donki' ? 'text-white' : 'text-gray-400'}`} />
-                  <span>돈키호테 필수템</span>
+                  <span>돈키호테 가이드</span>
                 </div>
               </button>
             </div>
@@ -1698,7 +1698,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'insta_generator' ? '인스타 콘텐츠 생성기' :
                activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
                activeAdminTab === 'kamis' ? 'KAMIS시세' :
-               activeAdminTab === 'donki' ? '돈키호테 필수템 관리' : '설정'}
+               activeAdminTab === 'donki' ? '돈키호테 가이드 관리' : '설정'}
             </h1>
           </div>
 

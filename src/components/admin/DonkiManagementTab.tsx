@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { adminApi } from '../../services/siteContentService';
 import { supabase, uploadImageDataUrl } from '../../services/supabase';
 import { DonkiCategory } from '../../services/donkiService';
+import { DonkiStoresSection } from './DonkiStoresSection';
 
 interface DonkiRow {
   id: string;
@@ -28,8 +29,8 @@ const emptyForm = (rank: number): DonkiRow => ({
 
 const inputCls = 'w-full px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-indigo-500 bg-white text-gray-900';
 
-/** 관리자: 돈키호테 필수템 목록 추가·수정·숨김·삭제 */
-export const DonkiManagementTab: React.FC = () => {
+/** 필수템 목록 추가·수정·숨김·삭제 */
+const DonkiItemsSection: React.FC = () => {
   const { showToast } = useApp();
   const [rows, setRows] = useState<DonkiRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -222,6 +223,27 @@ export const DonkiManagementTab: React.FC = () => {
           </table>
         )}
       </div>
+    </div>
+  );
+};
+
+/** 관리자: 돈키호테 가이드 (필수템 · 추천 매장) */
+export const DonkiManagementTab: React.FC = () => {
+  const [section, setSection] = useState<'items' | 'stores'>('items');
+  return (
+    <div className="space-y-4">
+      <div className="inline-flex p-1 rounded-xl bg-gray-100">
+        {([['items', '필수템'], ['stores', '추천 매장']] as const).map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => setSection(id)}
+            className={`px-4 py-1.5 rounded-lg text-[13px] font-bold ${section === id ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'}`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      {section === 'items' ? <DonkiItemsSection /> : <DonkiStoresSection />}
     </div>
   );
 };

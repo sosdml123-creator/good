@@ -57,3 +57,22 @@ export const setDonkiPick = async (itemId: string, picked: boolean): Promise<'ok
   if (error) throw error;
   return 'ok';
 };
+
+export interface DonkiStore {
+  id: string;
+  city: string;
+  name: string;
+  nameJa: string;
+  area: string | null;
+  feature: string | null;
+}
+
+/** 여행객이 많이 가는 돈키호테 매장 (관리자 탭에서 관리) */
+export const fetchDonkiStores = async (): Promise<DonkiStore[]> => {
+  if (!supabase) throw new Error('서버에 연결할 수 없어요.');
+  const { data, error } = await supabase.from('donki_stores').select('*').order('sort_order', { ascending: true });
+  if (error) throw error;
+  return (data || []).map((r: any) => ({
+    id: r.id, city: r.city, name: r.name, nameJa: r.name_ja, area: r.area, feature: r.feature,
+  }));
+};

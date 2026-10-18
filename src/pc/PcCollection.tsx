@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { BannerItem } from '../types';
 import { PcProductCard } from './PcProductCard';
@@ -12,7 +12,9 @@ export const PcCollection: React.FC<{ banner: BannerItem; onClose: () => void }>
   const { products } = useApp();
   const [sortBy, setSortBy] = useState<SortOption>('curated');
 
-  useEffect(() => { window.scrollTo({ top: 0 }); }, [banner.id]);
+  // PC 는 main 이 스크롤 영역이라 화면 맨 위로 올려 줍니다.
+  const topRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { topRef.current?.scrollIntoView({ block: 'start' }); }, [banner.id]);
 
   // 관리자가 지정한 순서를 기본으로 하고, 삭제된 상품은 빠집니다.
   const items = useMemo(() => {
@@ -25,7 +27,7 @@ export const PcCollection: React.FC<{ banner: BannerItem; onClose: () => void }>
   }, [products, banner.linkProductIds, sortBy]);
 
   return (
-    <div className="pb-24">
+    <div ref={topRef} className="pb-24">
       <PcContainer className="pt-6">
         <PcBreadcrumb items={[{ label: '홈', onClick: onClose }, { label: '기획전' }, { label: banner.title || '기획전' }]} />
       </PcContainer>

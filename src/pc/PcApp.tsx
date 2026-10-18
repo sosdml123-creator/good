@@ -13,6 +13,7 @@ import { PcProductDetail } from './PcProductDetail';
 import { PcRanking, PcSearch, PcBrand } from './PcPages';
 import { PcMarket } from './PcMarket';
 import { PcStores } from './PcExtras';
+import { PcDonki } from './PcDonki';
 import { PcContainer } from './PcUi';
 
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
@@ -25,7 +26,6 @@ const Views = {
   EventDetailModal: lazy(() => import('../components/event/EventDetailModal').then(m => ({ default: m.EventDetailModal }))),
   SettingsView: lazy(() => import('../components/settings/SettingsView').then(m => ({ default: m.SettingsView }))),
   SaleNewsView: lazy(() => import('../components/sale/SaleNewsView').then(m => ({ default: m.SaleNewsView }))),
-  DonkiRankingView: lazy(() => import('../components/donki/DonkiRankingView').then(m => ({ default: m.DonkiRankingView }))),
   CouponShopView: lazy(() => import('../components/coupon/CouponShopView').then(m => ({ default: m.CouponShopView }))),
 };
 const RecipeDetailModal = lazy(() => import('../components/recipe/RecipeDetailModal').then(m => ({ default: m.RecipeDetailModal })));
@@ -277,6 +277,7 @@ export const PcApp: React.FC = () => {
     activeTab === 'brand' ? <PcBrand /> :
     activeTab === 'market' ? <PcMarket /> :
     activeTab === 'stores' ? <PcStores /> :
+    activeTab === 'donki' ? <PcDonki /> :
     activeTab === 'releases' ? <PcHome /> : // 출시 캘린더는 삭제됨: 예전 주소는 홈으로
     null;
 
@@ -301,7 +302,6 @@ export const PcApp: React.FC = () => {
                 {activeTab === 'alert_settings' && <V.NotificationModal />}
                 {activeTab === 'settings' && <V.SettingsView />}
                 {activeTab === 'coupon' && <V.CouponShopView />}
-                {activeTab === 'donki' && <V.DonkiRankingView />}
                 {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <V.SaleNewsView />}
               </PcAppPanel>
             )}

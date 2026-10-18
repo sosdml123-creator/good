@@ -448,6 +448,37 @@ export default async function handler(req, res) {
         break;
       }
 
+      // 돈키호테 매장 목록 (숨김 포함)
+      case 'list_donki_stores': {
+        result.donkiStores = await dbOptional('donki_stores?select=*&order=sort_order.asc');
+        break;
+      }
+
+      case 'upsert_donki_store': {
+        const STORE_COLUMNS = Object.fromEntries(['city', 'name', 'name_ja', 'area', 'feature', 'sort_order', 'is_active'].map((c) => [c, c]));
+        const store = body.store || {};
+        const id = String(store.id || '').trim();
+        if (!id || !store.city || !store.name || !store.name_ja) {
+          return res.status(400).json({ success: false, error: '매장 ID·도시·매장명·일본어 매장명은 꼭 입력해주세요.' });
+        }
+        const row = { id, ...pickColumns(store, STORE_COLUMNS) };
+        if (row.sort_order !== undefined) {
+          const n = Number(row.sort_order);
+          row.sort_order = Number.isFinite(n) ? Math.round(n) : 999;
+        }
+        await db('donki_stores?on_conflict=id', {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
+          body: JSON.stringify(row),
+        });
+        break;
+      }
+
+      case 'delete_donki_store': {
+        if (ids.length > 0) await db(`donki_stores?id=${inList(ids)}`, { method: 'DELETE' });
+        break;
+      }
+
       // 관리자 화면용 조회 (없는 테이블은 null → 화면에서 설정 안내)
       case 'list_moderation': {
         const [reports, editRequests, sanctions, pointTransactions] = await Promise.all([
