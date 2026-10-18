@@ -30,6 +30,7 @@ const SaleNewsView = lazy(() => import('./components/sale/SaleNewsView').then(m 
 const RecipeDetailModal = lazy(() => import('./components/recipe/RecipeDetailModal').then(m => ({ default: m.RecipeDetailModal })));
 const WriteRecipeModal = lazy(() => import('./components/recipe/WriteRecipeModal').then(m => ({ default: m.WriteRecipeModal })));
 const RankingView = lazy(() => import('./components/ranking/RankingView').then(m => ({ default: m.RankingView })));
+const TteokView = lazy(() => import('./components/tteok/TteokView').then(m => ({ default: m.TteokView })));
 const DonkiRankingView = lazy(() => import('./components/donki/DonkiRankingView').then(m => ({ default: m.DonkiRankingView })));
 const CouponShopView = lazy(() => import('./components/coupon/CouponShopView').then(m => ({ default: m.CouponShopView })));
 const LoginModal = lazy(() => import('./components/common/LoginModal').then(m => ({ default: m.LoginModal })));
@@ -190,6 +191,7 @@ export const App: React.FC = () => {
             {activeTab === 'ranking' && <RankingView />}
             {activeTab === 'coupon' && <CouponShopView />}
             {activeTab === 'donki' && <DonkiRankingView />}
+            {activeTab === 'tteok' && <TteokView />}
             {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <SaleNewsView />}
           </Suspense>
         </main>

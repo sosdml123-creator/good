@@ -460,6 +460,7 @@ export type ActiveTab =
   | 'coupon'
   | 'calendar'
   | 'donki'
+  | 'tteok'
   // PC 버전 전용 화면 (pc.sinsangpick.kr)
   | 'market'
   | 'stores'

@@ -14,6 +14,7 @@ import { PcRanking, PcSearch, PcBrand } from './PcPages';
 import { PcMarket } from './PcMarket';
 import { PcStores } from './PcExtras';
 import { PcDonki } from './PcDonki';
+import { PcTteok } from './PcTteok';
 import { PcContainer } from './PcUi';
 
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
@@ -47,6 +48,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: '브랜드관', tab: 'brand' },
   { label: '오늘의 시세', tab: 'market' },
   { label: '돈키호테', tab: 'donki' },
+  { label: '떡집', tab: 'tteok' },
   { label: '편의점 비교', tab: 'stores' },
   { label: '행사·할인', tab: 'calendar' },
   { label: '수다방', tab: 'community' },
@@ -278,6 +280,7 @@ export const PcApp: React.FC = () => {
     activeTab === 'market' ? <PcMarket /> :
     activeTab === 'stores' ? <PcStores /> :
     activeTab === 'donki' ? <PcDonki /> :
+    activeTab === 'tteok' ? <PcTteok /> :
     activeTab === 'releases' ? <PcHome /> : // 출시 캘린더는 삭제됨: 예전 주소는 홈으로
     null;
 
