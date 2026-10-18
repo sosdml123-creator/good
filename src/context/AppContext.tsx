@@ -283,7 +283,7 @@ interface AppContextType {
   addReviewComment: (reviewId: string, text: string) => Promise<void>;
 
   addCommunityPost: (
-    category: '인기글' | '자유게시판' | '질문/답변' | '이벤트',
+    category: '인기글' | '자유게시판' | '질문/답변' | '이벤트' | '돈키호테',
     title: string,
     content: string,
     images?: string[]
@@ -3893,7 +3893,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Add Community Post
   const addCommunityPost = async (
-    category: '인기글' | '자유게시판' | '질문/답변' | '이벤트',
+    category: '인기글' | '자유게시판' | '질문/답변' | '이벤트' | '돈키호테',
     title: string,
     content: string,
     images?: string[]

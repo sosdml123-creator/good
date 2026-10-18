@@ -6,10 +6,12 @@ import {
 import { useApp } from '../../context/AppContext';
 import { DonkiCategory, DonkiItem } from '../../services/donkiService';
 import { useDonki } from '../../hooks/useDonki';
-import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal, speakJapanese } from '../../data/donkiGuide';
+import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal, speakJapanese, comparePrice, won } from '../../data/donkiGuide';
 import { DonkiShowCard, ShowCardContent } from './DonkiShowCard';
+import { DonkiItemDetail } from './DonkiItemDetail';
+import { DonkiTalk } from './DonkiTalk';
 
-type Tab = 'rank' | 'list' | 'phrase' | 'store' | 'tip';
+type Tab = 'rank' | 'list' | 'talk' | 'phrase' | 'store' | 'tip';
 const CATEGORY_FILTERS: ('전체' | DonkiCategory)[] = ['전체', '의약품', '화장품', '과자·식품', '생활용품'];
 
 const CATEGORY_STYLE: Record<DonkiCategory, { icon: React.ReactNode; color: string }> = {
@@ -40,6 +42,8 @@ export const DonkiRankingView: React.FC = () => {
   const [showCard, setShowCard] = useState<ShowCardContent | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [detailId, setDetailId] = useState<string | null>(null);
+  const detailItem = detailId ? d.ranked.find(r => r.item.id === detailId)?.item : undefined;
 
   const speak = (text: string) => {
     if (!speakJapanese(text)) showToast('이 기기에서는 일본어 음성을 지원하지 않아요. 크게 보기로 보여주세요.', 'info');
@@ -48,6 +52,7 @@ export const DonkiRankingView: React.FC = () => {
   const TABS: { id: Tab; label: string }[] = [
     { id: 'rank', label: '필수템' },
     { id: 'list', label: `쇼핑리스트${d.myPicks.size ? ` ${d.myPicks.size}` : ''}` },
+    { id: 'talk', label: '수다' },
     { id: 'phrase', label: '일본어' },
     { id: 'store', label: '매장' },
     { id: 'tip', label: '꿀팁' },
@@ -57,7 +62,7 @@ export const DonkiRankingView: React.FC = () => {
     const picked = d.myPicks.has(item.id);
     return (
       <button
-        onClick={() => d.togglePick(item)}
+        onClick={(e) => { e.stopPropagation(); d.togglePick(item); }}
         disabled={d.busyId === item.id}
         className={`shrink-0 h-9 px-3.5 rounded-full text-[12.5px] font-bold flex items-center justify-center gap-1 transition-colors focus:outline-none active:scale-95 disabled:opacity-60 ${
           picked ? 'bg-black text-[#FFE600]' : 'bg-[#FFE600] text-black'
@@ -67,6 +72,15 @@ export const DonkiRankingView: React.FC = () => {
         {picked ? '담았어요' : '살게요'}
       </button>
     );
+  };
+
+  // 카드 둘째 줄: 한국 가격 비교 (없으면 국내 판매 상황)
+  const krwLine = (item: DonkiItem) => {
+    const c = comparePrice(item.priceYen, item.priceKrw, d.rate?.rate ?? null);
+    if (c.pct != null && c.pct > 0) return `한국보다 ${c.pct}% 저렴`;
+    if (item.priceKrw) return `한국 ${won(item.priceKrw)}`;
+    if (item.krwNote?.includes('해외직구')) return '한국 미판매템';
+    return item.pickCount > 0 ? `${item.pickCount}명 담음` : (item.nameJa || '');
   };
 
   const keyword = query.trim().toLowerCase();
@@ -121,7 +135,7 @@ export const DonkiRankingView: React.FC = () => {
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`relative flex-1 py-3 text-[13.5px] transition-colors ${tab === t.id ? 'font-black text-gray-900' : 'font-medium text-gray-400'}`}
+              className={`relative flex-1 whitespace-nowrap py-3 text-[13px] transition-colors ${tab === t.id ? 'font-black text-gray-900' : 'font-medium text-gray-400'}`}
             >
               {t.label}
               {tab === t.id && <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[3px] w-10 rounded-full bg-[#FFD400]" />}
@@ -186,7 +200,7 @@ export const DonkiRankingView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3 px-4 mt-4">
             {filtered.map(({ item, rank }) => (
-              <div key={item.id} className="bg-white rounded-[22px] p-3 shadow-[0_1px_4px_rgba(0,0,0,0.05)] flex flex-col">
+              <div key={item.id} onClick={() => setDetailId(item.id)} className="bg-white rounded-[22px] p-3 shadow-[0_1px_4px_rgba(0,0,0,0.05)] flex flex-col cursor-pointer active:scale-[0.99] transition-transform">
                 <div className="relative">
                   <div className="aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center">
                     {item.imageUrl
@@ -202,13 +216,13 @@ export const DonkiRankingView: React.FC = () => {
                     <span className="absolute top-0 right-0 px-2 py-0.5 rounded-md bg-rose-50 text-rose-500 text-[10.5px] font-bold">{item.badge}</span>
                   )}
                 </div>
-                <p className="mt-2.5 text-[11px] text-gray-400">{item.category}</p>
+                <p className="mt-2.5 text-[11px] text-gray-400 flex items-center gap-1">{item.category}{item.reviewCount > 0 && item.avgRating != null && <span className="flex items-center gap-0.5 text-gray-600 font-semibold"><Star className="w-3 h-3 fill-amber-400 text-amber-400" />{item.avgRating.toFixed(1)}<span className="text-gray-400 font-normal">({item.reviewCount})</span></span>}</p>
                 <h3 className="text-[14.5px] font-black text-gray-900 leading-snug line-clamp-1">{item.name}</h3>
                 <p className="mt-1 text-[11.5px] text-gray-500 leading-snug line-clamp-2 flex-1">{item.description}</p>
                 <div className="mt-2.5 flex items-end justify-between gap-1">
                   <div className="min-w-0">
                     <p className="text-[17px] font-black text-gray-900 leading-none">{item.priceYen ? `¥${item.priceYen.toLocaleString()}` : '-'}</p>
-                    <p className="mt-1 text-[11px] font-bold text-rose-500 truncate">{item.pickCount > 0 ? `${item.pickCount}명 담음` : item.nameJa}</p>
+                    <p className="mt-1 text-[11px] font-bold text-rose-500 truncate">{krwLine(item)}</p>
                   </div>
                   {pickButton(item)}
                 </div>
@@ -275,7 +289,7 @@ export const DonkiRankingView: React.FC = () => {
                         {done && <Check className="w-4 h-4 text-[#FFE600]" />}
                       </button>
                       <Thumb item={item} className="w-12 h-12" />
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1 min-w-0" onClick={() => setDetailId(item.id)}>
                         <p className={`text-[13px] font-bold text-gray-900 truncate ${done ? 'line-through' : ''}`}>{item.name}</p>
                         <p className="text-[11px] text-gray-500 truncate">{item.nameJa}</p>
                         {item.priceYen ? <p className="text-[11px] font-semibold text-gray-700">약 ¥{item.priceYen.toLocaleString()}</p> : null}
@@ -295,6 +309,9 @@ export const DonkiRankingView: React.FC = () => {
           )}
         </div>
       )}
+
+      {/* 2.5 돈키 수다방 */}
+      {tab === 'talk' && <DonkiTalk variant="mobile" />}
 
       {/* 3. 쇼핑 일본어 */}
       {tab === 'phrase' && (
@@ -400,6 +417,19 @@ export const DonkiRankingView: React.FC = () => {
         </div>
       )}
 
+      {detailItem && (
+        <DonkiItemDetail
+          variant="mobile"
+          item={detailItem}
+          rate={d.rate}
+          picked={d.myPicks.has(detailItem.id)}
+          busy={d.busyId === detailItem.id}
+          onTogglePick={() => d.togglePick(detailItem)}
+          onShow={() => setShowCard({ ja: detailItem.nameJa || detailItem.name, ko: detailItem.name, image: detailItem.imageUrl, ...WHERE_IS })}
+          onClose={() => setDetailId(null)}
+          onReviewsChanged={(count, avg) => d.updateItem(detailItem.id, { reviewCount: count, avgRating: avg })}
+        />
+      )}
       {showCard && <DonkiShowCard content={showCard} onClose={() => setShowCard(null)} />}
     </div>
   );

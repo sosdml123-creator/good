@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { DonkiItem, DonkiStore, fetchDonkiRanking, fetchDonkiStores, fetchMyDonkiPicks, setDonkiPick } from '../services/donkiService';
+import { DonkiItem, DonkiStore, fetchDonkiRanking, fetchDonkiStores, fetchJpyKrwRate, fetchMyDonkiPicks, setDonkiPick } from '../services/donkiService';
 
 const BOUGHT_KEY = 'sinsangpick_donki_bought';
 
@@ -18,6 +18,13 @@ export const useDonki = () => {
   const [bought, setBought] = useState<Set<string>>(readBought);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [rate, setRate] = useState<{ rate: number; date: string } | null>(null);
+
+  useEffect(() => { fetchJpyKrwRate().then(setRate); }, []);
+
+  /** 리뷰 작성·삭제 후 카드의 별점·리뷰 수 갱신 */
+  const updateItem = (id: string, patch: Partial<DonkiItem>) =>
+    setItems(prev => prev.map(i => (i.id === id ? { ...i, ...patch } : i)));
 
   const load = async () => {
     setStatus('loading');
@@ -82,6 +89,6 @@ export const useDonki = () => {
 
   return {
     status, load, ranked, stores, cities, myPicks, myList, myTotalYen,
-    bought, boughtCount, toggleBought, togglePick, busyId,
+    bought, boughtCount, toggleBought, togglePick, busyId, rate, updateItem,
   };
 };

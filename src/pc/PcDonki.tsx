@@ -3,11 +3,13 @@ import { Check, Plus, Volume2, Maximize2, MapPin, ExternalLink, Crown, RefreshCw
 import { useApp } from '../context/AppContext';
 import { DonkiCategory, DonkiItem } from '../services/donkiService';
 import { useDonki } from '../hooks/useDonki';
-import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal, speakJapanese } from '../data/donkiGuide';
+import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal, speakJapanese, comparePrice, won } from '../data/donkiGuide';
 import { DonkiShowCard, ShowCardContent } from '../components/donki/DonkiShowCard';
+import { DonkiItemDetail } from '../components/donki/DonkiItemDetail';
+import { DonkiTalk } from '../components/donki/DonkiTalk';
 import { PcBreadcrumb, PcContainer, PcEmpty, PcTextTabs } from './PcUi';
 
-const TABS = ['필수템 순위', '내 쇼핑리스트', '쇼핑 일본어', '매장 찾기', '쇼핑 꿀팁'] as const;
+const TABS = ['필수템 순위', '내 쇼핑리스트', '돈키 수다방', '쇼핑 일본어', '매장 찾기', '쇼핑 꿀팁'] as const;
 type Tab = typeof TABS[number];
 const CATEGORY_FILTERS: ('전체' | DonkiCategory)[] = ['전체', '의약품', '화장품', '과자·식품', '생활용품'];
 const WHERE_IS = { sub: 'これはどこにありますか？', subKo: '이거 어디에 있어요?' };
@@ -20,6 +22,20 @@ export const PcDonki: React.FC = () => {
   const [category, setCategory] = useState<typeof CATEGORY_FILTERS[number]>('전체');
   const [city, setCity] = useState('전체');
   const [showCard, setShowCard] = useState<ShowCardContent | null>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
+  const detailItem = detailId ? d.ranked.find(r => r.item.id === detailId)?.item : undefined;
+
+  // 한국 가격 비교 한 줄
+  const krwBadge = (item: DonkiItem) => {
+    const c = comparePrice(item.priceYen, item.priceKrw, d.rate?.rate ?? null);
+    if (c.pct != null && c.pct > 0) return <span className="text-rose-500 font-bold">한국 {won(item.priceKrw!)}보다 {c.pct}% 저렴</span>;
+    if (item.priceKrw) return <span className="text-gray-500">한국 {won(item.priceKrw)}</span>;
+    if (item.krwNote?.includes('해외직구')) return <span className="text-gray-500">한국 미판매템</span>;
+    return null;
+  };
+  const rating = (item: DonkiItem) => item.reviewCount > 0 && item.avgRating != null
+    ? <span className="text-gray-600 font-semibold">★ {item.avgRating.toFixed(1)} <span className="text-gray-400 font-normal">({item.reviewCount})</span></span>
+    : null;
 
   const speak = (text: string) => {
     if (!speakJapanese(text)) showToast('이 브라우저에서는 일본어 음성을 지원하지 않아요.', 'info');
@@ -113,7 +129,7 @@ export const PcDonki: React.FC = () => {
             {category === '전체' && filtered.length >= 3 && (
               <div className="mt-8 grid grid-cols-3 gap-6">
                 {filtered.slice(0, 3).map(({ item, rank }) => (
-                  <div key={item.id} className="rounded-3xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                  <div key={item.id} onClick={() => setDetailId(item.id)} className="rounded-3xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="relative aspect-[4/3] bg-white">
                       {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="absolute inset-0 w-full h-full object-contain p-6" />}
                       <span className="absolute top-4 left-4 h-11 min-w-11 px-3 rounded-full bg-black text-[#FFE600] text-[20px] font-black flex items-center justify-center gap-1">
@@ -128,7 +144,8 @@ export const PcDonki: React.FC = () => {
                       <div className="mt-4 flex items-end justify-between">
                         <div>
                           {item.priceYen ? <p className="text-[20px] font-black text-gray-900">약 ¥{item.priceYen.toLocaleString()}</p> : null}
-                          <p className="text-[13px] text-rose-500 font-semibold">{item.pickCount > 0 ? `${item.pickCount}명이 담았어요` : '아직 담은 사람이 없어요'}</p>
+                          <p className="text-[13px]">{krwBadge(item) || <span className="text-gray-400">{item.pickCount > 0 ? `${item.pickCount}명이 담았어요` : item.nameJa}</span>}</p>
+                          {rating(item) && <p className="text-[12px] mt-0.5">{rating(item)}</p>}
                         </div>
                         {pickButton(item)}
                       </div>
@@ -140,7 +157,7 @@ export const PcDonki: React.FC = () => {
 
             <div className="mt-10 grid grid-cols-5 gap-x-5 gap-y-10">
               {(category === '전체' ? filtered.slice(3) : filtered).map(({ item, rank }) => (
-                <div key={item.id} className="group min-w-0">
+                <div key={item.id} onClick={() => setDetailId(item.id)} className="group min-w-0 cursor-pointer">
                   <div className="relative aspect-square rounded-xl border border-gray-100 bg-white overflow-hidden">
                     {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" loading="lazy" />}
                     <span className="absolute top-2.5 left-2.5 h-8 min-w-8 px-2 rounded-full bg-black text-[#FFE600] text-[14px] font-black flex items-center justify-center">{rank}</span>
@@ -151,8 +168,9 @@ export const PcDonki: React.FC = () => {
                   <p className="mt-1.5 text-[13px] text-gray-600 leading-snug line-clamp-2 min-h-[36px]">{item.description}</p>
                   <div className="mt-2 flex items-center gap-2 text-[13px]">
                     {item.priceYen ? <span className="font-black text-gray-900">약 ¥{item.priceYen.toLocaleString()}</span> : null}
-                    {item.pickCount > 0 && <span className="text-rose-500 font-semibold">{item.pickCount}명 담음</span>}
+                    {rating(item)}
                   </div>
+                  <p className="mt-0.5 text-[12px] truncate">{krwBadge(item)}</p>
                   <div className="mt-3">{pickButton(item, 'lg')}</div>
                 </div>
               ))}
@@ -228,6 +246,9 @@ export const PcDonki: React.FC = () => {
             </div>
           )
         )}
+
+        {/* 돈키 수다방 */}
+        {tab === '돈키 수다방' && <DonkiTalk variant="pc" />}
 
         {/* 쇼핑 일본어 */}
         {tab === '쇼핑 일본어' && (
@@ -322,6 +343,19 @@ export const PcDonki: React.FC = () => {
         )}
       </PcContainer>
 
+      {detailItem && (
+        <DonkiItemDetail
+          variant="pc"
+          item={detailItem}
+          rate={d.rate}
+          picked={d.myPicks.has(detailItem.id)}
+          busy={d.busyId === detailItem.id}
+          onTogglePick={() => d.togglePick(detailItem)}
+          onShow={() => setShowCard({ ja: detailItem.nameJa || detailItem.name, ko: detailItem.name, image: detailItem.imageUrl, ...WHERE_IS })}
+          onClose={() => setDetailId(null)}
+          onReviewsChanged={(count, avg) => d.updateItem(detailItem.id, { reviewCount: count, avgRating: avg })}
+        />
+      )}
       {showCard && <DonkiShowCard content={showCard} onClose={() => setShowCard(null)} />}
     </div>
   );

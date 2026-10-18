@@ -422,19 +422,19 @@ export default async function handler(req, res) {
       }
 
       case 'upsert_donki': {
-        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'badge', 'editor_rank', 'is_active'].map((c) => [c, c]));
+        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'badge', 'price_krw', 'krw_note', 'krw_checked_on', 'editor_rank', 'is_active'].map((c) => [c, c]));
         const item = body.item || {};
         const id = String(item.id || '').trim();
         if (!id || !item.name || !item.brand || !item.category || !item.description) {
           return res.status(400).json({ success: false, error: '상품 ID·이름·브랜드·분류·설명은 꼭 입력해주세요.' });
         }
         const row = { id, ...pickColumns(item, DONKI_COLUMNS) };
-        for (const column of ['price_yen', 'editor_rank']) {
+        for (const column of ['price_yen', 'price_krw', 'editor_rank']) {
           if (row[column] === undefined) continue;
           const n = Number(row[column]);
           row[column] = Number.isFinite(n) && String(row[column]).trim() !== '' ? Math.round(n) : (column === 'editor_rank' ? 999 : null);
         }
-        for (const column of ['name_ja', 'image_url', 'badge']) if (row[column] === '') row[column] = null;
+        for (const column of ['name_ja', 'image_url', 'badge', 'krw_note', 'krw_checked_on']) if (row[column] === '') row[column] = null;
         await db('donki_items?on_conflict=id', {
           method: 'POST',
           headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
@@ -445,6 +445,17 @@ export default async function handler(req, res) {
 
       case 'delete_donki': {
         if (ids.length > 0) await db(`donki_items?id=${inList(ids)}`, { method: 'DELETE' });
+        break;
+      }
+
+      // 돈키호테 상품 리뷰 관리 (신고 처리용)
+      case 'list_donki_reviews': {
+        result.donkiReviews = await dbOptional('donki_reviews?select=*&order=created_at.desc&limit=300');
+        break;
+      }
+
+      case 'delete_donki_review': {
+        if (ids.length > 0) await db(`donki_reviews?id=${inList(ids)}`, { method: 'DELETE' });
         break;
       }
 

@@ -24,11 +24,11 @@ export const CommunityView: React.FC = () => {
     isDataLoading
   } = useApp();
 
-  const [activeSubTab, setActiveSubTab] = useState<'인기' | '꿀조합' | '자유게시판' | '질문/답변' | '이벤트'>('인기');
+  const [activeSubTab, setActiveSubTab] = useState<'인기' | '꿀조합' | '자유게시판' | '질문/답변' | '돈키호테' | '이벤트'>('인기');
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
-  const [newCategory, setNewCategory] = useState<'자유게시판' | '질문/답변' | '이벤트'>('자유게시판');
+  const [newCategory, setNewCategory] = useState<'자유게시판' | '질문/답변' | '돈키호테' | '이벤트'>('자유게시판');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Selected post for comment view
@@ -117,7 +117,7 @@ export const CommunityView: React.FC = () => {
 
         {/* Subtabs */}
         <div className="flex border-b border-gray-100 overflow-x-auto no-scrollbar">
-          {(['인기', '꿀조합', '자유게시판', '질문/답변', '이벤트'] as const).map((t) => (
+          {(['인기', '꿀조합', '자유게시판', '질문/답변', '돈키호테', '이벤트'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setActiveSubTab(t)}
@@ -365,7 +365,7 @@ export const CommunityView: React.FC = () => {
               <div>
                 <label className="text-xs font-bold text-gray-700 block mb-1.5">카테고리</label>
                 <div className="flex gap-2">
-                  {(['자유게시판', '질문/답변', '이벤트'] as const).map((cat) => (
+                  {(['자유게시판', '질문/답변', '돈키호테', '이벤트'] as const).map((cat) => (
                     <button
                       type="button"
                       key={cat}

@@ -5,6 +5,7 @@ import { adminApi } from '../../services/siteContentService';
 import { supabase, uploadImageDataUrl } from '../../services/supabase';
 import { DonkiCategory } from '../../services/donkiService';
 import { DonkiStoresSection } from './DonkiStoresSection';
+import { DonkiReviewsSection } from './DonkiReviewsSection';
 
 interface DonkiRow {
   id: string;
@@ -16,6 +17,9 @@ interface DonkiRow {
   description: string;
   image_url: string | null;
   badge: string | null;
+  price_krw: number | null;
+  krw_note: string | null;
+  krw_checked_on: string | null;
   editor_rank: number;
   is_active: boolean;
   pick_count: number;
@@ -25,7 +29,7 @@ const CATEGORIES: DonkiCategory[] = ['의약품', '화장품', '과자·식품',
 
 const emptyForm = (rank: number): DonkiRow => ({
   id: '', name: '', name_ja: '', brand: '', category: '의약품', price_yen: null,
-  description: '', image_url: '', badge: '', editor_rank: rank, is_active: true, pick_count: 0,
+  description: '', image_url: '', badge: '', price_krw: null, krw_note: '', krw_checked_on: new Date().toISOString().slice(0, 10), editor_rank: rank, is_active: true, pick_count: 0,
 });
 
 const inputCls = 'w-full px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-indigo-500 bg-white text-gray-900';
@@ -146,6 +150,17 @@ const DonkiItemsSection: React.FC = () => {
               </label>
             </div>
           </div>
+          <div className="grid grid-cols-3 gap-3">
+            <label className="text-[12px] text-gray-600">한국 최저가 (원, 비우면 비교 안 함)
+              <input className={inputCls} type="number" value={form.price_krw ?? ''} onChange={e => setForm({ ...form, price_krw: e.target.value === '' ? null : Number(e.target.value) })} />
+            </label>
+            <label className="text-[12px] text-gray-600">한국 가격 기준 (예: 18매 기준)
+              <input className={inputCls} value={form.krw_note || ''} onChange={e => setForm({ ...form, krw_note: e.target.value })} />
+            </label>
+            <label className="text-[12px] text-gray-600">조사일
+              <input className={inputCls} type="date" value={form.krw_checked_on || ''} onChange={e => setForm({ ...form, krw_checked_on: e.target.value })} />
+            </label>
+          </div>
           <label className="block text-[12px] text-gray-600">카드 라벨 (예: 스테디셀러, 선물용 · 비우면 표시 안 함)
             <input className={inputCls} value={form.badge || ''} maxLength={8} onChange={e => setForm({ ...form, badge: e.target.value })} />
           </label>
@@ -185,7 +200,7 @@ const DonkiItemsSection: React.FC = () => {
                 <th className="py-2.5 px-3 text-left">순서</th>
                 <th className="py-2.5 px-3 text-left">상품</th>
                 <th className="py-2.5 px-3 text-left">분류</th>
-                <th className="py-2.5 px-3 text-right">참고가</th>
+                <th className="py-2.5 px-3 text-right">돈키 / 한국</th>
                 <th className="py-2.5 px-3 text-right">담은 회원</th>
                 <th className="py-2.5 px-3 text-right">관리</th>
               </tr>
@@ -206,7 +221,7 @@ const DonkiItemsSection: React.FC = () => {
                     </div>
                   </td>
                   <td className="py-2.5 px-3 text-gray-600">{r.category}</td>
-                  <td className="py-2.5 px-3 text-right text-gray-900">{r.price_yen ? `¥${r.price_yen.toLocaleString()}` : '-'}</td>
+                  <td className="py-2.5 px-3 text-right text-gray-900">{r.price_yen ? `¥${r.price_yen.toLocaleString()}` : '-'}<span className="block text-[11px] text-gray-400">{r.price_krw ? `${r.price_krw.toLocaleString()}원` : '한국가 없음'}</span></td>
                   <td className="py-2.5 px-3 text-right font-semibold text-gray-900">{r.pick_count.toLocaleString()}</td>
                   <td className="py-2.5 px-3">
                     <div className="flex justify-end gap-1">
@@ -233,11 +248,11 @@ const DonkiItemsSection: React.FC = () => {
 
 /** 관리자: 돈키호테 가이드 (필수템 · 추천 매장) */
 export const DonkiManagementTab: React.FC = () => {
-  const [section, setSection] = useState<'items' | 'stores'>('items');
+  const [section, setSection] = useState<'items' | 'stores' | 'reviews'>('items');
   return (
     <div className="space-y-4">
       <div className="inline-flex p-1 rounded-xl bg-gray-100">
-        {([['items', '필수템'], ['stores', '추천 매장']] as const).map(([id, label]) => (
+        {([['items', '필수템'], ['stores', '추천 매장'], ['reviews', '상품 리뷰']] as const).map(([id, label]) => (
           <button
             key={id}
             onClick={() => setSection(id)}
@@ -247,7 +262,7 @@ export const DonkiManagementTab: React.FC = () => {
           </button>
         ))}
       </div>
-      {section === 'items' ? <DonkiItemsSection /> : <DonkiStoresSection />}
+      {section === 'items' ? <DonkiItemsSection /> : section === 'stores' ? <DonkiStoresSection /> : <DonkiReviewsSection />}
     </div>
   );
 };

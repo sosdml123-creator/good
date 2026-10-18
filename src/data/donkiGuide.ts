@@ -129,3 +129,13 @@ export const openExternal = async (url: string) => {
   } catch { /* 웹에서는 새 탭 */ }
   window.open(url, '_blank', 'noopener,noreferrer');
 };
+
+/** 돈키호테 참고가(엔)를 원화로 바꿔 한국 판매가와 비교 */
+export const comparePrice = (priceYen: number | null, priceKrw: number | null, rate: number | null) => {
+  const donkiKrw = priceYen && rate ? Math.round((priceYen * rate) / 10) * 10 : null;
+  if (!donkiKrw || !priceKrw) return { donkiKrw, diff: null as number | null, pct: null as number | null };
+  const diff = priceKrw - donkiKrw;
+  return { donkiKrw, diff, pct: Math.round((diff / priceKrw) * 100) };
+};
+
+export const won = (n: number) => `${n.toLocaleString()}원`;

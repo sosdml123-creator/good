@@ -255,7 +255,7 @@ export interface PostComment {
 
 export interface CommunityPost {
   id: string;
-  category: '인기글' | '자유게시판' | '질문/답변' | '이벤트';
+  category: '인기글' | '자유게시판' | '질문/답변' | '이벤트' | '돈키호테';
   title: string;
   content: string;
   author: string;
