@@ -422,7 +422,7 @@ export default async function handler(req, res) {
       }
 
       case 'upsert_donki': {
-        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'editor_rank', 'is_active'].map((c) => [c, c]));
+        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'badge', 'editor_rank', 'is_active'].map((c) => [c, c]));
         const item = body.item || {};
         const id = String(item.id || '').trim();
         if (!id || !item.name || !item.brand || !item.category || !item.description) {
@@ -434,7 +434,7 @@ export default async function handler(req, res) {
           const n = Number(row[column]);
           row[column] = Number.isFinite(n) && String(row[column]).trim() !== '' ? Math.round(n) : (column === 'editor_rank' ? 999 : null);
         }
-        for (const column of ['name_ja', 'image_url']) if (row[column] === '') row[column] = null;
+        for (const column of ['name_ja', 'image_url', 'badge']) if (row[column] === '') row[column] = null;
         await db('donki_items?on_conflict=id', {
           method: 'POST',
           headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },

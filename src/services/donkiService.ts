@@ -11,6 +11,7 @@ export interface DonkiItem {
   priceYen: number | null;
   description: string;
   imageUrl: string | null;
+  badge: string | null;
   pickCount: number;
 }
 
@@ -28,6 +29,7 @@ export const fetchDonkiRanking = async (): Promise<DonkiItem[]> => {
     priceYen: r.price_yen,
     description: r.description,
     imageUrl: r.image_url,
+    badge: r.badge ?? null,
     pickCount: Number(r.pick_count) || 0,
   }));
 };

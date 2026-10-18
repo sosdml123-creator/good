@@ -15,6 +15,7 @@ interface DonkiRow {
   price_yen: number | null;
   description: string;
   image_url: string | null;
+  badge: string | null;
   editor_rank: number;
   is_active: boolean;
   pick_count: number;
@@ -24,7 +25,7 @@ const CATEGORIES: DonkiCategory[] = ['의약품', '화장품', '과자·식품',
 
 const emptyForm = (rank: number): DonkiRow => ({
   id: '', name: '', name_ja: '', brand: '', category: '의약품', price_yen: null,
-  description: '', image_url: '', editor_rank: rank, is_active: true, pick_count: 0,
+  description: '', image_url: '', badge: '', editor_rank: rank, is_active: true, pick_count: 0,
 });
 
 const inputCls = 'w-full px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:border-indigo-500 bg-white text-gray-900';
@@ -145,6 +146,9 @@ const DonkiItemsSection: React.FC = () => {
               </label>
             </div>
           </div>
+          <label className="block text-[12px] text-gray-600">카드 라벨 (예: 스테디셀러, 선물용 · 비우면 표시 안 함)
+            <input className={inputCls} value={form.badge || ''} maxLength={8} onChange={e => setForm({ ...form, badge: e.target.value })} />
+          </label>
           <label className="block text-[12px] text-gray-600">한 줄 설명 (왜 사야 하는지)
             <textarea className={`${inputCls} h-16 resize-none`} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
           </label>

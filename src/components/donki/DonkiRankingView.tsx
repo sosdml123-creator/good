@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   ChevronLeft, Pill, Sparkles, Cookie, Package, Check, Plus, Loader2, RefreshCw,
-  Volume2, Maximize2, MapPin, ExternalLink, Crown, ShoppingBag,
+  Volume2, Maximize2, MapPin, ExternalLink, Crown, ShoppingBag, Search, X, Star, ShoppingCart,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { DonkiCategory, DonkiItem } from '../../services/donkiService';
@@ -38,6 +38,8 @@ export const DonkiRankingView: React.FC = () => {
   const [category, setCategory] = useState<typeof CATEGORY_FILTERS[number]>('전체');
   const [city, setCity] = useState('전체');
   const [showCard, setShowCard] = useState<ShowCardContent | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   const speak = (text: string) => {
     if (!speakJapanese(text)) showToast('이 기기에서는 일본어 음성을 지원하지 않아요. 크게 보기로 보여주세요.', 'info');
@@ -51,77 +53,105 @@ export const DonkiRankingView: React.FC = () => {
     { id: 'tip', label: '꿀팁' },
   ];
 
-  const pickButton = (item: DonkiItem, dark = false) => {
+  const pickButton = (item: DonkiItem) => {
     const picked = d.myPicks.has(item.id);
     return (
       <button
         onClick={() => d.togglePick(item)}
         disabled={d.busyId === item.id}
-        className={`shrink-0 px-3 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1 transition-colors focus:outline-none disabled:opacity-60 ${
-          picked ? 'bg-black text-[#FFE600]' : dark ? 'bg-[#FFE600] text-black' : 'bg-gray-100 text-gray-700'
+        className={`shrink-0 h-9 px-3.5 rounded-full text-[12.5px] font-bold flex items-center justify-center gap-1 transition-colors focus:outline-none active:scale-95 disabled:opacity-60 ${
+          picked ? 'bg-black text-[#FFE600]' : 'bg-[#FFE600] text-black'
         }`}
       >
-        {picked ? <Check className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-        {picked ? '담았어요' : '살 거예요'}
+        {picked ? <Check className="w-4 h-4 stroke-[3]" /> : <Plus className="w-4 h-4 stroke-[3]" />}
+        {picked ? '담았어요' : '살게요'}
       </button>
     );
   };
 
-  const filtered = d.ranked.filter(r => category === '전체' || r.item.category === category);
-  const podium = category === '전체' ? filtered.slice(0, 3) : [];
-  const rest = category === '전체' ? filtered.slice(3) : filtered;
+  const keyword = query.trim().toLowerCase();
+  const filtered = d.ranked.filter(r =>
+    (category === '전체' || r.item.category === category) &&
+    (!keyword || [r.item.name, r.item.nameJa, r.item.brand].some(v => v?.toLowerCase().includes(keyword)))
+  );
 
   const stores = d.stores.filter(s => city === '전체' || s.city === city);
   const taxFreeLeft = Math.max(0, 5000 - d.myTotalYen);
   const couponLeft = d.myTotalYen < 10000 ? 10000 - d.myTotalYen : d.myTotalYen < 30000 ? 30000 - d.myTotalYen : 0;
 
+  const STATS = [
+    { n: d.ranked.length, l: '필수템', icon: <Star className="w-4 h-4 text-amber-500 fill-amber-400" /> },
+    { n: d.stores.length, l: '추천 매장', icon: <ShoppingCart className="w-4 h-4 text-amber-600" /> },
+    { n: PHRASE_GROUPS.reduce((s, g) => s + g.phrases.length, 0), l: '쇼핑 일본어', icon: <MapPin className="w-4 h-4 text-amber-600" /> },
+  ];
+
   return (
-    <div className="flex-1 flex flex-col bg-[#F6F6F4] pb-28">
+    <div className="flex-1 flex flex-col bg-[#F7F7F5] pb-28">
       {/* 헤더 + 탭 */}
-      <header className="sticky top-0 z-20 bg-black text-white">
-        <div className="flex items-center gap-1 px-2 h-12">
-          <button onClick={() => setActiveTab('home')} className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 active:bg-white/10" aria-label="뒤로">
+      <header className="sticky top-0 z-20 bg-white border-b border-gray-100">
+        <div className="relative flex items-center justify-between px-2 h-12">
+          <button onClick={() => setActiveTab('home')} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-900 active:bg-gray-100" aria-label="뒤로">
             <ChevronLeft className="w-6 h-6" />
           </button>
-          <h1 className="text-[16px] font-black tracking-tight">돈키호테 쇼핑 가이드</h1>
-          <span className="ml-1 px-1.5 py-0.5 rounded bg-[#FFE600] text-black text-[10px] font-black">ドンキ</span>
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+            <h1 className="text-[17px] font-black tracking-tight text-gray-900">돈키호테 쇼핑 가이드</h1>
+            <span className="px-1.5 py-0.5 rounded-md bg-[#FFE600] text-black text-[10px] font-black">돈키</span>
+          </div>
+          <button
+            onClick={() => { setSearchOpen(o => !o); setTab('rank'); if (searchOpen) setQuery(''); }}
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-900 active:bg-gray-100"
+            aria-label="필수템 검색"
+          >
+            {searchOpen ? <X className="w-5 h-5" /> : <Search className="w-5 h-5" />}
+          </button>
         </div>
-        <div className="flex px-2">
+        {searchOpen && (
+          <div className="px-4 pb-2">
+            <input
+              autoFocus
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="상품명·브랜드·일본어로 찾기"
+              className="w-full h-10 px-4 rounded-full bg-gray-100 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FFE600]"
+            />
+          </div>
+        )}
+        <div className="flex px-1">
           {TABS.map(t => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`flex-1 py-2.5 text-[12.5px] font-bold border-b-[3px] transition-colors ${
-                tab === t.id ? 'border-[#FFE600] text-[#FFE600]' : 'border-transparent text-white/55'
-              }`}
+              className={`relative flex-1 py-3 text-[13.5px] transition-colors ${tab === t.id ? 'font-black text-gray-900' : 'font-medium text-gray-400'}`}
             >
               {t.label}
+              {tab === t.id && <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[3px] w-10 rounded-full bg-[#FFD400]" />}
             </button>
           ))}
         </div>
       </header>
 
       {/* 히어로 */}
-      {tab === 'rank' && (
-        <section className="bg-[#FFE600] px-5 pt-5 pb-6 relative overflow-hidden">
-          <p className="text-[11px] font-black tracking-widest text-black/50">DON QUIJOTE MUST-BUY</p>
-          <h2 className="mt-1 text-[24px] leading-[1.2] font-black text-black">
+      {tab === 'rank' && !keyword && (
+        <section className="mx-0 bg-[#FFE600] rounded-b-[28px] px-5 pt-5 pb-5 relative overflow-hidden">
+          <p className="text-[10.5px] font-black tracking-[0.18em] text-black/55">DON QUIJOTE MUST-BUY</p>
+          <h2 className="mt-1.5 text-[26px] leading-[1.18] font-black text-black tracking-tight">
             돈키호테에서<br />이건 꼭 사야 해요
           </h2>
-          <p className="mt-2 text-[12px] text-black/70 font-medium">신상픽 회원이 '살 거예요'로 담은 수로 순위를 매겨요</p>
-          <div className="mt-4 flex gap-2">
-            {[
-              { n: d.ranked.length, l: '필수템' },
-              { n: d.stores.length, l: '추천 매장' },
-              { n: PHRASE_GROUPS.reduce((s, g) => s + g.phrases.length, 0), l: '쇼핑 일본어' },
-            ].map(s => (
-              <div key={s.l} className="flex-1 rounded-2xl bg-black/90 px-3 py-2.5">
-                <p className="text-[18px] font-black text-[#FFE600] leading-none">{s.n}</p>
-                <p className="text-[10px] text-white/70 mt-1">{s.l}</p>
+          <p className="mt-2.5 text-[12.5px] leading-relaxed text-black/70">
+            스테디셀러부터 선물용까지<br />현지에서 꼭 담아야 할 필수템만 모았어요.
+          </p>
+          <ShoppingBag className="absolute right-4 top-6 w-24 h-24 text-black/10 -rotate-6" strokeWidth={1.5} />
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {STATS.map(s => (
+              <div key={s.l} className="rounded-2xl bg-white/75 px-2.5 py-2.5 flex items-center gap-2">
+                <span className="w-8 h-8 shrink-0 rounded-full bg-[#FFF3A0] flex items-center justify-center">{s.icon}</span>
+                <div className="min-w-0">
+                  <p className="text-[17px] font-black text-gray-900 leading-none">{s.n}</p>
+                  <p className="text-[10.5px] text-gray-600 mt-1 truncate">{s.l}</p>
+                </div>
               </div>
             ))}
           </div>
-          <ShoppingBag className="absolute -right-6 -top-4 w-36 h-36 text-black/[0.06] rotate-12" />
         </section>
       )}
 
@@ -140,68 +170,54 @@ export const DonkiRankingView: React.FC = () => {
       {/* 1. 필수템 순위 */}
       {d.status === 'ready' && tab === 'rank' && (
         <div>
-          <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4 pt-4">
+          <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 pt-4">
             {CATEGORY_FILTERS.map(f => (
               <button
                 key={f}
                 onClick={() => setCategory(f)}
-                className={`shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-bold ${category === f ? 'bg-black text-[#FFE600]' : 'bg-white text-gray-600 border border-gray-200'}`}
+                className={`shrink-0 h-9 px-4 rounded-full text-[13px] font-bold transition-colors ${
+                  category === f ? 'bg-black text-[#FFE600]' : 'bg-white text-gray-700 shadow-[0_1px_3px_rgba(0,0,0,0.06)]'
+                }`}
               >
                 {f}
               </button>
             ))}
           </div>
 
-          {podium.length > 0 && (
-            <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pt-4 snap-x">
-              {podium.map(({ item, rank }) => (
-                <div key={item.id} className="snap-start shrink-0 w-[200px] rounded-3xl bg-white border border-gray-100 shadow-2xs overflow-hidden">
-                  <div className="relative bg-white">
+          <div className="grid grid-cols-2 gap-3 px-4 mt-4">
+            {filtered.map(({ item, rank }) => (
+              <div key={item.id} className="bg-white rounded-[22px] p-3 shadow-[0_1px_4px_rgba(0,0,0,0.05)] flex flex-col">
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center">
                     {item.imageUrl
-                      ? <img src={item.imageUrl} alt={item.name} className="w-full aspect-square object-contain p-3" loading="lazy" />
-                      : <Thumb item={item} className="w-full aspect-square" />}
-                    <span className="absolute top-2.5 left-2.5 h-8 min-w-8 px-2 rounded-full bg-black text-[#FFE600] text-[14px] font-black flex items-center justify-center gap-1">
-                      {rank === 1 && <Crown className="w-3.5 h-3.5" />}{rank}
-                    </span>
+                      ? <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain" loading="lazy" />
+                      : <Thumb item={item} className="w-full h-full" />}
                   </div>
-                  <div className="px-3.5 pb-3.5">
-                    <p className="text-[10px] text-gray-400 font-semibold truncate">{item.brand} · {item.category}</p>
-                    <p className="text-[14px] font-black text-gray-900 truncate">{item.name}</p>
-                    <p className="text-[10px] text-gray-400 truncate">{item.nameJa}</p>
-                    <div className="flex items-center justify-between mt-2.5">
-                      <div className="text-[11px]">
-                        {item.priceYen ? <p className="font-black text-gray-900">약 ¥{item.priceYen.toLocaleString()}</p> : null}
-                        <p className="text-rose-500 font-semibold">{item.pickCount > 0 ? `${item.pickCount}명 담음` : '첫 번째로 담기'}</p>
-                      </div>
-                      {pickButton(item, true)}
-                    </div>
-                  </div>
+                  <span className={`absolute -top-0.5 -left-0.5 h-8 min-w-8 px-2 rounded-full text-[14px] font-black flex items-center justify-center gap-0.5 ${
+                    rank === 1 ? 'bg-black text-[#FFE600] ring-2 ring-[#FFE600]' : 'bg-black text-white'
+                  }`}>
+                    {rank === 1 && <Crown className="w-3.5 h-3.5 fill-[#FFE600]" />}{rank}
+                  </span>
+                  {item.badge && (
+                    <span className="absolute top-0 right-0 px-2 py-0.5 rounded-md bg-rose-50 text-rose-500 text-[10.5px] font-bold">{item.badge}</span>
+                  )}
                 </div>
-              ))}
-            </div>
-          )}
-
-          <div className="px-4 mt-4 space-y-2">
-            {rest.map(({ item, rank }) => (
-              <div key={item.id} className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-3">
-                <span className="w-6 shrink-0 text-center text-[17px] font-black italic text-gray-300">{rank}</span>
-                <Thumb item={item} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] text-gray-400 font-semibold truncate">{item.brand} · {item.category}</p>
-                  <h3 className="text-[13px] font-bold text-gray-900 truncate">{item.name}</h3>
-                  <p className="text-[11px] text-gray-500 leading-snug line-clamp-2 mt-0.5">{item.description}</p>
-                  <div className="flex items-center gap-2 mt-1 text-[11px]">
-                    {item.priceYen ? <span className="font-bold text-gray-900">약 ¥{item.priceYen.toLocaleString()}</span> : null}
-                    {item.pickCount > 0 && <span className="text-rose-500 font-semibold">{item.pickCount}명 담음</span>}
+                <p className="mt-2.5 text-[11px] text-gray-400">{item.category}</p>
+                <h3 className="text-[14.5px] font-black text-gray-900 leading-snug line-clamp-1">{item.name}</h3>
+                <p className="mt-1 text-[11.5px] text-gray-500 leading-snug line-clamp-2 flex-1">{item.description}</p>
+                <div className="mt-2.5 flex items-end justify-between gap-1">
+                  <div className="min-w-0">
+                    <p className="text-[17px] font-black text-gray-900 leading-none">{item.priceYen ? `¥${item.priceYen.toLocaleString()}` : '-'}</p>
+                    <p className="mt-1 text-[11px] font-bold text-rose-500 truncate">{item.pickCount > 0 ? `${item.pickCount}명 담음` : item.nameJa}</p>
                   </div>
+                  {pickButton(item)}
                 </div>
-                {pickButton(item)}
               </div>
             ))}
-            {filtered.length === 0 && <p className="py-16 text-center text-[12px] text-gray-400">표시할 상품이 없어요.</p>}
           </div>
+          {filtered.length === 0 && <p className="py-16 text-center text-[12px] text-gray-400">{keyword ? `'${query}'에 맞는 상품이 없어요.` : '표시할 상품이 없어요.'}</p>}
           <p className="px-4 mt-4 text-[10px] text-gray-400 leading-relaxed">
-            가격은 세전 참고가로 매장·시기마다 달라요. 신상픽이 만든 여행 가이드이며 돈키호테 공식 서비스가 아니에요.
+            순위는 신상픽 회원이 '살게요'로 담은 수예요. 가격은 세전 참고가로 매장·시기마다 달라요. 신상픽이 만든 여행 가이드이며 돈키호테 공식 서비스가 아니에요.
           </p>
         </div>
       )}
