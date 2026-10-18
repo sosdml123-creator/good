@@ -1059,6 +1059,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     if (!banner.linkType) {
       if (banner.linkUrl) inferredLinkType = 'url';
       else if (banner.linkEventId) inferredLinkType = 'event';
+      else if (banner.linkProductIds?.length) inferredLinkType = 'collection';
       else if (banner.linkProductId) inferredLinkType = 'product';
       else if (banner.linkCategory) inferredLinkType = 'category';
     }
@@ -1074,6 +1075,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       linkUrl: banner.linkUrl || '',
       linkEventId: banner.linkEventId || (events.length > 0 ? events[0].id : ''),
       linkProductId: banner.linkProductId || (products.length > 0 ? products[0].id : ''),
+      linkProductIds: banner.linkProductIds || [],
       disclaimer: banner.disclaimer || '',
       isActive: banner.isActive,
       order: banner.order || 1,
@@ -1103,6 +1105,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       linkEventId: bannerForm.linkType === 'event' ? bannerForm.linkEventId : undefined,
       linkProductId: bannerForm.linkType === 'product' ? bannerForm.linkProductId : undefined,
       linkCategory: bannerForm.linkType === 'category' ? bannerForm.linkCategory : undefined,
+      linkProductIds: bannerForm.linkType === 'collection'
+        ? (bannerForm.linkProductIds || []).map(id => id.trim()).filter(Boolean)
+        : undefined,
       disclaimer: bannerForm.disclaimer?.trim() || defaultDisclaimer,
       isActive: bannerForm.isActive,
       order: bannerForm.order,
@@ -4056,6 +4061,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                                     <><ExternalLink className="w-3 h-3 text-cyan-300" /><span>웹 링크</span></>
                                   ) : banner.linkEventId ? (
                                     <><Gift className="w-3 h-3 text-pink-300" /><span>이벤트</span></>
+                                  ) : banner.linkProductIds?.length ? (
+                                    <><Package className="w-3 h-3 text-amber-300" /><span>기획전 {banner.linkProductIds.length}개</span></>
                                   ) : banner.linkProductId ? (
                                     <><Package className="w-3 h-3 text-amber-300" /><span>상품 상세</span></>
                                   ) : banner.linkCategory ? (
@@ -5635,12 +5642,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       <span>배너 클릭 시 연결 대상 설정 *</span>
                     </label>
                     {/* Link Type Selector Tabs */}
-                    <div className="grid grid-cols-5 gap-1.5 bg-slate-200 dark:bg-slate-800 p-1 rounded-xl">
+                    <div className="grid grid-cols-6 gap-1.5 bg-slate-200 dark:bg-slate-800 p-1 rounded-xl">
                       {[
                         { type: 'url' as BannerLinkType, label: '웹 주소' },
                         { type: 'event' as BannerLinkType, label: '이벤트' },
                         { type: 'product' as BannerLinkType, label: '상품' },
                         { type: 'category' as BannerLinkType, label: '카테고리' },
+                        { type: 'collection' as BannerLinkType, label: '기획전' },
                         { type: 'none' as BannerLinkType, label: '없음' },
                       ].map(item => (
                         <button
@@ -5736,6 +5744,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                           <option key={c} value={c}>{c}</option>
                         ))}
                       </select>
+                    </div>
+                  )}
+
+                  {bannerForm.linkType === 'collection' && (
+                    <div className="space-y-1 animate-in fade-in">
+                      <label className="block text-[11px] font-medium text-slate-500">
+                        기획전 상품 ID (한 줄에 하나, 적은 순서대로 노출)
+                      </label>
+                      <textarea
+                        rows={6}
+                        value={(bannerForm.linkProductIds || []).join('\n')}
+                        onChange={e => setBannerForm({ ...bannerForm, linkProductIds: e.target.value.split('\n') })}
+                        className={`w-full p-2.5 rounded-xl border font-mono text-[11px] ${inputBg}`}
+                      />
+                      <p className="text-[11px] text-slate-400">
+                        {(bannerForm.linkProductIds || []).filter(id => products.some(p => p.id === id.trim())).length}개 상품 연결됨 (없는 ID는 화면에서 빠집니다)
+                      </p>
                     </div>
                   )}
 
@@ -5854,6 +5879,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                       {bannerForm.linkType === 'url' ? '🌐 외부 웹 링크' :
                        bannerForm.linkType === 'event' ? '🎁 이벤트 상세' :
                        bannerForm.linkType === 'product' ? '📦 상품 상세' :
+                       bannerForm.linkType === 'collection' ? '🛍️ 기획전' :
                        bannerForm.linkType === 'none' ? '🚫 연결 없음' :
                        '🏷️ 카테고리 탭'}
                     </span>
@@ -5862,6 +5888,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                     {bannerForm.linkType === 'url' ? (bannerForm.linkUrl || '(URL 미입력)') :
                      bannerForm.linkType === 'event' ? (events.find(e => e.id === bannerForm.linkEventId)?.title || bannerForm.linkEventId || '선택된 이벤트 없음') :
                      bannerForm.linkType === 'product' ? (products.find(p => p.id === bannerForm.linkProductId)?.name || bannerForm.linkProductId || '선택된 상품 없음') :
+                     bannerForm.linkType === 'collection' ? `상품 ${(bannerForm.linkProductIds || []).filter(id => id.trim()).length}개` :
                      bannerForm.linkType === 'none' ? '배너 탭 시 이동하지 않습니다' :
                      `카테고리: ${bannerForm.linkCategory || '신제품'}`}
                   </p>

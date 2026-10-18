@@ -35,11 +35,15 @@ import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
 import { AdMobBannerSection } from './AdMobBannerSection';
+import { CollectionModal } from './CollectionModal';
 import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
 import { getBattlePercents } from '../../services/battleService';
 import { formatProductPrice } from '../../utils/formatters';
 
 // 홈 구좌 공통 헤더 — 제목 16px / 배지 10px / 보조 문구 12px / 우측 액션 12px로 통일
+// 기획전에서 상품 상세로 갔다가 돌아오면 같은 기획전을 다시 열어 둡니다.
+let lastOpenCollectionId: string | null = null;
+
 const SectionHeader: React.FC<{
   title: string;
   titleSuffix?: React.ReactNode;
@@ -121,6 +125,11 @@ export const HomeView: React.FC = () => {
   } = useApp();
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
+  const [openCollectionId, setOpenCollectionIdState] = useState<string | null>(lastOpenCollectionId);
+  const setOpenCollectionId = (id: string | null) => {
+    lastOpenCollectionId = id;
+    setOpenCollectionIdState(id);
+  };
   const [newProductCategoryFilter, setNewProductCategoryFilter] = useState<string>('전체');
   const [isPaused, setIsPaused] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -315,6 +324,13 @@ export const HomeView: React.FC = () => {
   const handleBannerClick = (banner?: BannerItem) => {
     const target = banner || displayBanners[currentBannerIdx] || displayBanners[0];
     if (!target) return;
+
+    if (target.linkType === 'none') return;
+
+    if (target.linkType === 'collection' && target.linkProductIds?.length) {
+      setOpenCollectionId(target.id);
+      return;
+    }
 
     if (target.linkUrl && target.linkUrl.trim()) {
       const rawUrl = target.linkUrl.trim();
@@ -1330,6 +1346,11 @@ export const HomeView: React.FC = () => {
       >
         <Plus className="w-7 h-7 stroke-[2.8] text-white group-hover:rotate-90 transition-transform duration-300" />
       </button>
+
+      {(() => {
+        const collection = openCollectionId ? banners.find(b => b.id === openCollectionId) : undefined;
+        return collection ? <CollectionModal banner={collection} onClose={() => setOpenCollectionId(null)} /> : null;
+      })()}
     </div>
   );
 };

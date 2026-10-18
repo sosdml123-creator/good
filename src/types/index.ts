@@ -384,7 +384,7 @@ export interface ProductEditRequest {
   processedAt?: string;       // 처리 일시
 }
 
-export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'none';
+export type BannerLinkType = 'url' | 'event' | 'product' | 'category' | 'collection' | 'none';
 
 export interface BannerItem {
   id: string;
@@ -398,6 +398,8 @@ export interface BannerItem {
   linkEventId?: string;
   linkCategory?: ProductCategory;
   linkProductId?: string;
+  /** 기획전(collection) 배너: 탭하면 이 순서대로 상품 목록을 보여줍니다. */
+  linkProductIds?: string[];
   isActive: boolean;
   order: number;
   disclaimer?: string;

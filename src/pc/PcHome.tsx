@@ -12,6 +12,7 @@ import { PcProductCard } from './PcProductCard';
 import { PcContainer, PcSectionHeader, PcTextTabs, PcEmpty } from './PcUi';
 import { PcMarketWidget } from './PcMarket';
 import { PcExclusiveStrip } from './PcExtras';
+import { CollectionModal } from '../components/home/CollectionModal';
 
 const NEW_FILTERS = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
@@ -76,8 +77,13 @@ export const PcHome: React.FC = () => {
     setActiveTab('category');
   };
 
+  const [openCollection, setOpenCollection] = useState<BannerItem | null>(null);
+
   const handleBannerClick = (banner: BannerItem) => {
-    if (banner.linkUrl && banner.linkUrl.trim()) {
+    if (banner.linkType === 'none') return;
+    if (banner.linkType === 'collection' && banner.linkProductIds?.length) {
+      setOpenCollection(banner);
+    } else if (banner.linkUrl && banner.linkUrl.trim()) {
       const raw = banner.linkUrl.trim();
       window.open(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`, '_blank', 'noopener,noreferrer');
     } else if (banner.linkEventId) {
@@ -277,6 +283,8 @@ export const PcHome: React.FC = () => {
           </div>
         </PcContainer>
       )}
+
+      {openCollection && <CollectionModal banner={openCollection} onClose={() => setOpenCollection(null)} />}
     </div>
   );
 };
