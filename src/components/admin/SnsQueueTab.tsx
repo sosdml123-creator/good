@@ -26,6 +26,7 @@ interface SnsPost {
   scheduled_at: string;
   text: string;
   image_url: string | null;
+  image_urls: string[] | null;
   topic: string | null;
   status: SnsStatus;
   approved_at: string | null;
@@ -35,6 +36,18 @@ interface SnsPost {
 }
 
 type Filter = 'all' | SnsStatus;
+
+// 사진 목록: 여러 장이면 image_urls, 한 장이면 image_url
+const mediaOf = (p: SnsPost): string[] =>
+  p.image_urls && p.image_urls.length ? p.image_urls : p.image_url ? [p.image_url] : [];
+
+// 게시 형식 라벨: 인스타는 1장=릴스, 여러 장=캐러셀 / 스레드는 1장=이미지, 여러 장=캐러셀
+const formatLabel = (p: SnsPost) => {
+  const n = mediaOf(p).length;
+  if (!n) return '텍스트';
+  if (p.channel === 'instagram') return n === 1 ? '릴스' : `캐러셀 ${n}장`;
+  return n === 1 ? '사진 1장' : `캐러셀 ${n}장`;
+};
 
 const STATUS_LABEL: Record<SnsStatus, string> = {
   draft: '승인 대기',
@@ -77,7 +90,7 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
   const [draftText, setDraftText] = useState('');
   const [draftTime, setDraftTime] = useState('');
   const [busyId, setBusyId] = useState<string | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<{ urls: string[]; index: number } | null>(null);
 
   const card = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200';
   const muted = isDark ? 'text-slate-400' : 'text-slate-500';
@@ -232,13 +245,13 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
               return (
                 <article key={p.id} className={`rounded-2xl border p-4 flex gap-4 ${card}`}>
                   <button
-                    onClick={() => p.image_url && setPreview(p.image_url)}
+                    onClick={() => mediaOf(p).length && setPreview({ urls: mediaOf(p), index: 0 })}
                     className={`shrink-0 w-24 h-[170px] rounded-xl overflow-hidden border flex items-center justify-center ${
                       isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-slate-50'
                     }`}
                   >
-                    {p.image_url ? (
-                      <img src={p.image_url} alt="" className="w-full h-full object-cover" />
+                    {mediaOf(p).length ? (
+                      <img src={mediaOf(p)[0]} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <span className={`flex flex-col items-center gap-1 text-[10px] ${muted}`}>
                         <ImageIcon className="w-4 h-4" /> 텍스트만
@@ -260,6 +273,7 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
                         <Clock className="w-3 h-3" /> {kstTime(p.scheduled_at)}
                       </span>
                       <span className={`px-2 py-0.5 rounded-full font-bold ${statusClass(p.status)}`}>{STATUS_LABEL[p.status]}</span>
+                      <span className={`px-2 py-0.5 rounded-full font-semibold ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>{formatLabel(p)}</span>
                       {p.published_at && <span className={muted}>게시 {kstDate(p.published_at)} {kstTime(p.published_at)}</span>}
                     </div>
 
@@ -361,8 +375,25 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
       )}
 
       {preview && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6" onClick={() => setPreview(null)}>
-          <img src={preview} alt="" className="max-h-full max-w-full rounded-2xl shadow-2xl" />
+        <div className="fixed inset-0 z-50 bg-black/70 flex flex-col items-center justify-center gap-4 p-6" onClick={() => setPreview(null)}>
+          <div className="flex items-center gap-4" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setPreview({ ...preview, index: (preview.index - 1 + preview.urls.length) % preview.urls.length })}
+              disabled={preview.urls.length < 2}
+              className="px-3 py-2 rounded-full bg-white/90 text-black text-sm font-bold disabled:opacity-30"
+            >
+              ‹
+            </button>
+            <img src={preview.urls[preview.index]} alt="" className="max-h-[80vh] max-w-[70vw] rounded-2xl shadow-2xl" />
+            <button
+              onClick={() => setPreview({ ...preview, index: (preview.index + 1) % preview.urls.length })}
+              disabled={preview.urls.length < 2}
+              className="px-3 py-2 rounded-full bg-white/90 text-black text-sm font-bold disabled:opacity-30"
+            >
+              ›
+            </button>
+          </div>
+          <p className="text-white text-xs">{preview.index + 1} / {preview.urls.length}</p>
         </div>
       )}
     </div>
