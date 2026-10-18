@@ -409,6 +409,45 @@ export default async function handler(req, res) {
         break;
       }
 
+      // 돈키호테 필수템: 목록(숨김 포함)과 담은 수 조회
+      case 'list_donki': {
+        const [donkiItems, picks] = await Promise.all([
+          dbOptional('donki_items?select=*&order=editor_rank.asc'),
+          dbOptional('donki_picks?select=item_id'),
+        ]);
+        const counts = {};
+        for (const p of picks || []) counts[p.item_id] = (counts[p.item_id] || 0) + 1;
+        result.donkiItems = (donkiItems || []).map((i) => ({ ...i, pick_count: counts[i.id] || 0 }));
+        break;
+      }
+
+      case 'upsert_donki': {
+        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'editor_rank', 'is_active'].map((c) => [c, c]));
+        const item = body.item || {};
+        const id = String(item.id || '').trim();
+        if (!id || !item.name || !item.brand || !item.category || !item.description) {
+          return res.status(400).json({ success: false, error: '상품 ID·이름·브랜드·분류·설명은 꼭 입력해주세요.' });
+        }
+        const row = { id, ...pickColumns(item, DONKI_COLUMNS) };
+        for (const column of ['price_yen', 'editor_rank']) {
+          if (row[column] === undefined) continue;
+          const n = Number(row[column]);
+          row[column] = Number.isFinite(n) && String(row[column]).trim() !== '' ? Math.round(n) : (column === 'editor_rank' ? 999 : null);
+        }
+        for (const column of ['name_ja', 'image_url']) if (row[column] === '') row[column] = null;
+        await db('donki_items?on_conflict=id', {
+          method: 'POST',
+          headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
+          body: JSON.stringify(row),
+        });
+        break;
+      }
+
+      case 'delete_donki': {
+        if (ids.length > 0) await db(`donki_items?id=${inList(ids)}`, { method: 'DELETE' });
+        break;
+      }
+
       // 관리자 화면용 조회 (없는 테이블은 null → 화면에서 설정 안내)
       case 'list_moderation': {
         const [reports, editRequests, sanctions, pointTransactions] = await Promise.all([

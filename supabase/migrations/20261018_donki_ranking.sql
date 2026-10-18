@@ -72,3 +72,6 @@ INSERT INTO public.donki_items (id, name, name_ja, brand, category, price_yen, d
   ('kororo', '코로로 젤리', 'コロロ', 'UHA미각당', '과자·식품', 150, '진짜 과일 같은 식감의 젤리. 맛별로 골라 사는 재미', 14),
   ('salonpas', '사론파스', 'サロンパス', '히사미쓰제약', '의약품', 800, '근육통·결림용 붙이는 파스. 부모님 선물 단골', 15)
 ON CONFLICT (id) DO NOTHING;
+
+-- 2026-10-18: 상품 사진 (앱 번들 public/donki/*.jpg)
+UPDATE public.donki_items SET image_url = '/donki/' || id || '.jpg' WHERE image_url IS NULL;

@@ -104,7 +104,7 @@ export const DonkiRankingView: React.FC = () => {
       <div className="mx-4 mt-3 rounded-2xl bg-gradient-to-r from-yellow-300 to-amber-400 px-4 py-3 text-gray-900 shadow-2xs">
         <p className="text-[13px] font-black flex items-center gap-1.5"><ShoppingBag className="w-4 h-4" /> 쇼핑 전 꿀팁</p>
         <p className="text-[11px] font-medium mt-1 leading-relaxed">
-          한 매장에서 세전 5,000엔 이상 사면 여권으로 면세를 받을 수 있어요. 2026년 11월부터는 출국할 때 돌려받는 환급 방식으로 바뀌니 매장 안내를 확인하세요. 가격은 참고가이며 매장·시기마다 달라요.
+          같은 날 한 매장에서 세전 5,000엔 이상 사면 면세 대상이에요. 2026년 11월 1일부터는 계산할 때 세금까지 내고, 출국할 때 공항에서 돌려받는 방식으로 바뀌어요. 산 물건은 일본에서 뜯어 쓰면 환급이 안 돼요. 가격은 참고가이며 매장·시기마다 달라요.
         </p>
       </div>
 
@@ -139,7 +139,7 @@ export const DonkiRankingView: React.FC = () => {
             <div key={item.id} className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-3 shadow-2xs">
               <span className={`w-6 shrink-0 text-center text-lg font-black italic ${rankColor(rank)}`}>{rank}</span>
               <div className={`w-14 h-14 shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${style.color}`}>
-                {item.imageUrl ? <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" loading="lazy" /> : style.icon}
+                {item.imageUrl ? <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain bg-white" loading="lazy" /> : style.icon}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 text-[10px] text-gray-400 font-semibold">

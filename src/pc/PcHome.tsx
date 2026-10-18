@@ -12,7 +12,10 @@ import { PcProductCard } from './PcProductCard';
 import { PcContainer, PcSectionHeader, PcTextTabs, PcEmpty } from './PcUi';
 import { PcMarketWidget } from './PcMarket';
 import { PcExclusiveStrip } from './PcExtras';
-import { CollectionModal } from '../components/home/CollectionModal';
+import { PcCollection } from './PcCollection';
+
+// 기획전에서 상품 상세로 갔다가 돌아오면 같은 기획전을 다시 보여줍니다.
+let lastOpenCollectionId: string | null = null;
 
 const NEW_FILTERS = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
@@ -77,7 +80,12 @@ export const PcHome: React.FC = () => {
     setActiveTab('category');
   };
 
-  const [openCollection, setOpenCollection] = useState<BannerItem | null>(null);
+  const [openCollectionId, setOpenCollectionIdState] = useState<string | null>(lastOpenCollectionId);
+  const setOpenCollection = (b: BannerItem | null) => {
+    lastOpenCollectionId = b ? b.id : null;
+    setOpenCollectionIdState(lastOpenCollectionId);
+  };
+  const openCollection = openCollectionId ? banners.find(b => b.id === openCollectionId) : undefined;
 
   const handleBannerClick = (banner: BannerItem) => {
     if (banner.linkType === 'none') return;
@@ -96,6 +104,8 @@ export const PcHome: React.FC = () => {
   };
 
   const banner = activeBanners.length > 0 ? activeBanners[bannerIdx % activeBanners.length] : null;
+
+  if (openCollection) return <PcCollection banner={openCollection} onClose={() => setOpenCollection(null)} />;
 
   return (
     <div className="bg-white pb-24">
@@ -284,7 +294,6 @@ export const PcHome: React.FC = () => {
         </PcContainer>
       )}
 
-      {openCollection && <CollectionModal banner={openCollection} onClose={() => setOpenCollection(null)} />}
     </div>
   );
 };

@@ -29,6 +29,7 @@ import {
   ThumbsUp,
   Award,
   Activity,
+  ShoppingBag,
   Globe,
   AlertTriangle,
   Upload,
@@ -88,11 +89,13 @@ import { KamisPriceManagementTab } from './KamisPriceManagementTab';
 import { InstagramContentGeneratorTab } from './instagram/InstagramContentGeneratorTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
 import { ProductIntakeTab } from './ProductIntakeTab';
+import { DonkiManagementTab } from './DonkiManagementTab';
 import { BattleRound, fetchBattleRound, setBattlePair } from '../../services/battleService';
 
 export type AdminTab = 
   | 'overview' 
   | 'kamis'
+  | 'donki'
   | 'approval' 
   | 'sections'
   | 'products' 
@@ -1447,6 +1450,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   실시간
                 </span>
               </button>
+
+              <button
+                onClick={() => setActiveAdminTab('donki')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
+                  activeAdminTab === 'donki'
+                    ? 'bg-indigo-600 text-white font-bold shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/60'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <ShoppingBag className={`w-4 h-4 ${activeAdminTab === 'donki' ? 'text-white' : 'text-gray-400'}`} />
+                  <span>돈키호테 필수템</span>
+                </div>
+              </button>
             </div>
 
             {/* 4. 전시 & 프로모션 */}
@@ -1680,7 +1697,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'ai_agents' ? 'AI 전문가 에이전트' :
                activeAdminTab === 'insta_generator' ? '인스타 콘텐츠 생성기' :
                activeAdminTab === 'analytics' ? '네이버 쇼핑트렌드 분석' :
-               activeAdminTab === 'kamis' ? 'KAMIS시세' : '설정'}
+               activeAdminTab === 'kamis' ? 'KAMIS시세' :
+               activeAdminTab === 'donki' ? '돈키호테 필수템 관리' : '설정'}
             </h1>
           </div>
 
@@ -2338,6 +2356,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
              ======================================================== */}
           {activeAdminTab === 'kamis' && (
             <KamisPriceManagementTab />
+          )}
+
+          {activeAdminTab === 'donki' && (
+            <DonkiManagementTab />
           )}
 
           {/* ========================================================
