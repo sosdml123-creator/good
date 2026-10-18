@@ -25,6 +25,7 @@ const Views = {
   EventDetailModal: lazy(() => import('../components/event/EventDetailModal').then(m => ({ default: m.EventDetailModal }))),
   SettingsView: lazy(() => import('../components/settings/SettingsView').then(m => ({ default: m.SettingsView }))),
   SaleNewsView: lazy(() => import('../components/sale/SaleNewsView').then(m => ({ default: m.SaleNewsView }))),
+  DonkiRankingView: lazy(() => import('../components/donki/DonkiRankingView').then(m => ({ default: m.DonkiRankingView }))),
   CouponShopView: lazy(() => import('../components/coupon/CouponShopView').then(m => ({ default: m.CouponShopView }))),
 };
 const RecipeDetailModal = lazy(() => import('../components/recipe/RecipeDetailModal').then(m => ({ default: m.RecipeDetailModal })));
@@ -45,6 +46,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: '랭킹', tab: 'ranking' },
   { label: '브랜드관', tab: 'brand' },
   { label: '오늘의 시세', tab: 'market' },
+  { label: '돈키호테', tab: 'donki' },
   { label: '편의점 비교', tab: 'stores' },
   { label: '행사·할인', tab: 'calendar' },
   { label: '수다방', tab: 'community' },
@@ -299,6 +301,7 @@ export const PcApp: React.FC = () => {
                 {activeTab === 'alert_settings' && <V.NotificationModal />}
                 {activeTab === 'settings' && <V.SettingsView />}
                 {activeTab === 'coupon' && <V.CouponShopView />}
+                {activeTab === 'donki' && <V.DonkiRankingView />}
                 {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <V.SaleNewsView />}
               </PcAppPanel>
             )}

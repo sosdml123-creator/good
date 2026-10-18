@@ -22,7 +22,8 @@ import {
   Beef,
   Beer,
   IceCream,
-  Plus
+  Plus,
+  ShoppingBag
 } from 'lucide-react';
 import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
 import { 
@@ -289,6 +290,8 @@ export const HomeView: React.FC = () => {
     { label: '브랜드관', icon: <Building2 className="w-5 h-5 text-slate-700" />, color: 'bg-slate-100 text-slate-700', action: 'brand' },
     { label: '신상배틀', icon: <Swords className="w-5 h-5 text-purple-600" />, color: 'bg-purple-50 text-purple-600', action: 'compare' },
     { label: '체험단', icon: <Gift className="w-5 h-5 text-emerald-600" />, color: 'bg-emerald-50 text-emerald-600', action: 'event' },
+    // 두 번째 줄 첫 칸 = 오늘신상 바로 아래
+    { label: '돈키호테', icon: <ShoppingBag className="w-5 h-5 text-yellow-600" />, color: 'bg-yellow-50 text-yellow-700', action: 'donki' },
   ];
 
   const categoryIcons: { label: string; icon: React.ReactNode; cat: ProductCategory }[] = [
@@ -501,6 +504,8 @@ export const HomeView: React.FC = () => {
                       } else {
                         showToast('현재 모집 중인 체험단 구좌가 없습니다.', 'info');
                       }
+                    } else if (m.action === 'donki') {
+                      setActiveTab('donki');
                     } else if (m.action === 'my') {
                       setActiveTab('my');
                     } else {

@@ -457,6 +457,7 @@ export type ActiveTab =
   | 'ranking'
   | 'coupon'
   | 'calendar'
+  | 'donki'
   // PC 버전 전용 화면 (pc.sinsangpick.kr)
   | 'market'
   | 'stores'
