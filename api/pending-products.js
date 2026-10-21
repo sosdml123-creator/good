@@ -48,7 +48,9 @@ const SOURCES = {
   },
 };
 const STORE_SOURCES = ['cu', 'seven', 'starbucks', 'mega', 'paik'];
-const ALL_SOURCES = [...STORE_SOURCES, 'news', 'blog', 'mfds'];
+const SEARCH_SOURCES = ['news', 'blog'];
+// 검색 소스는 가장 늦게 끝나므로 맨 뒤에 둡니다 (앞 소스부터 순서대로 저장).
+const ALL_SOURCES = [...STORE_SOURCES, 'mfds', ...SEARCH_SOURCES];
 
 const EDITABLE_COLUMNS = {
   name: 'name', brand: 'brand', category: 'category', subCategory: 'sub_category', itemType: 'item_type',
@@ -92,6 +94,7 @@ function inList(ids) {
 /**
  * 이미 등록된 상품 + 대기/승인/반려 이력 전체를 기준으로 새 항목만 골라 저장.
  * 확인된 제품 사진이 없는 항목은 저장하지 않습니다 (다음 수집 때 다시 시도).
+ * 단, keepWithoutImage(뉴스·블로그)면 사진 없이 저장하고 관리자가 사진을 등록한 뒤 승인합니다.
  */
 export async function insertNewRows(db, rows, imageOptions) {
   if (rows.length === 0) return { inserted: 0, duplicates: 0, noImage: 0, aiErrors: 0 };
@@ -119,7 +122,7 @@ export async function insertNewRows(db, rows, imageOptions) {
   }
 
   const { aiErrors } = await attachProductImages(fresh, imageOptions);
-  const ready = fresh.filter((row) => row.image);
+  const ready = imageOptions.keepWithoutImage ? fresh : fresh.filter((row) => row.image);
 
   let saved = [];
   if (ready.length > 0) {
@@ -132,7 +135,7 @@ export async function insertNewRows(db, rows, imageOptions) {
   return {
     inserted: saved.length,
     duplicates: rows.length - fresh.length + ready.length - saved.length,
-    noImage: fresh.length - ready.length,
+    noImage: fresh.filter((row) => !row.image).length,
     aiErrors,
   };
 }
@@ -158,7 +161,9 @@ async function runCollect(db, sourceKeys, query, deadline) {
 
   const reports = [];
   // 느린 검색 소스를 기다리는 동안 준비된 공식 상품부터 검수·저장합니다.
-  const settled = sourceKeys.map(key => Promise.resolve().then(() => SOURCES[key].run(query, Math.min(deadline - 60000, Date.now() + 100000)))
+  // 뉴스·블로그는 검색 뒤 AI 분석까지 해야 하므로 저장·사진 검수 시간(90초)만 남기고 나머지를 줍니다.
+  const settled = sourceKeys.map(key => Promise.resolve().then(() => SOURCES[key].run(query,
+    SEARCH_SOURCES.includes(key) ? deadline - 90000 : Math.min(deadline - 60000, Date.now() + 100000)))
     .then(value => ({ status: 'fulfilled', value }), reason => ({ status: 'rejected', reason })));
   for (let i = 0; i < sourceKeys.length; i++) {
     const key = sourceKeys[i];
@@ -181,6 +186,7 @@ async function runCollect(db, sourceKeys, query, deadline) {
     try {
     const { inserted, duplicates, noImage, aiErrors } = await insertNewRows(db, result.value, {
       ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) ? 15000 : 45000)),
+      keepWithoutImage: SEARCH_SOURCES.includes(key),
     });
     reports.push({
       source: key,
@@ -292,8 +298,8 @@ export default async function handler(req, res) {
         return res.status(401).json({ success: false, error: 'Unauthorized' });
       }
       const sources = [...STORE_SOURCES];
-      if (naverConfigured) sources.push('news', 'blog');
       if (process.env.FOODSAFETY_API_KEY) sources.push('mfds');
+      if (naverConfigured) sources.push(...SEARCH_SOURCES);
       const reports = await runCollect(db, sources, '', deadline);
       return res.status(200).json({ success: true, reports });
     }
