@@ -135,7 +135,9 @@ export async function insertNewRows(db, rows, imageOptions) {
   return {
     inserted: saved.length,
     duplicates: rows.length - fresh.length + ready.length - saved.length,
-    noImage: fresh.filter((row) => !row.image).length,
+    // 사진 없이 저장한 것은 제외 건수가 아니라 별도로 알립니다.
+    noImage: imageOptions.keepWithoutImage ? 0 : fresh.length - ready.length,
+    withoutImage: imageOptions.keepWithoutImage ? saved.filter((row) => !row.image).length : 0,
     aiErrors,
   };
 }
@@ -161,9 +163,9 @@ async function runCollect(db, sourceKeys, query, deadline) {
 
   const reports = [];
   // 느린 검색 소스를 기다리는 동안 준비된 공식 상품부터 검수·저장합니다.
-  // 뉴스·블로그는 검색 뒤 AI 분석까지 해야 하므로 저장·사진 검수 시간(90초)만 남기고 나머지를 줍니다.
+  // 뉴스·블로그는 검색 뒤 AI 분석까지 해야 하므로 저장·사진 검수와 사진 재시도 시간(110초)만 남기고 나머지를 줍니다.
   const settled = sourceKeys.map(key => Promise.resolve().then(() => SOURCES[key].run(query,
-    SEARCH_SOURCES.includes(key) ? deadline - 90000 : Math.min(deadline - 60000, Date.now() + 100000)))
+    SEARCH_SOURCES.includes(key) ? deadline - 110000 : Math.min(deadline - 60000, Date.now() + 100000)))
     .then(value => ({ status: 'fulfilled', value }), reason => ({ status: 'rejected', reason })));
   for (let i = 0; i < sourceKeys.length; i++) {
     const key = sourceKeys[i];
@@ -177,15 +179,17 @@ async function runCollect(db, sourceKeys, query, deadline) {
         inserted: 0,
         duplicates: 0,
         noImage: 0,
-        error: result.reason?.name === 'AbortError' ? '응답 시간 초과' : (result.reason?.message || '수집 실패'),
+        // 'fetch failed' 만으로는 원인을 알 수 없어 네트워크 오류 코드를 덧붙입니다.
+        error: result.reason?.name === 'AbortError' ? '응답 시간 초과'
+          : `${result.reason?.message || '수집 실패'}${result.reason?.cause?.code ? ` (${result.reason.cause.code})` : ''}`,
         code: result.reason?.code,
       });
       continue;
     }
     // 소스 간 이름 중복이 있을 수 있으므로 순서대로 저장합니다.
     try {
-    const { inserted, duplicates, noImage, aiErrors } = await insertNewRows(db, result.value, {
-      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) ? 15000 : 45000)),
+    const { inserted, duplicates, noImage, withoutImage, aiErrors } = await insertNewRows(db, result.value, {
+      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) ? 15000 : 35000)),
       keepWithoutImage: SEARCH_SOURCES.includes(key),
     });
     reports.push({
@@ -196,8 +200,8 @@ async function runCollect(db, sourceKeys, query, deadline) {
       inserted,
       duplicates,
       noImage,
-      warning: [result.value.warning, !imageOptions.engine && !STORE_SOURCES.includes(key)
-        ? 'AI 키가 없어 사진을 검수할 수 없습니다. 뉴스·블로그 사진은 검수 후에만 저장합니다.'
+      warning: [result.value.warning, withoutImage ? `사진을 못 찾은 ${withoutImage}건은 사진 없이 저장(다음 수집 때 다시 찾음)` : '', !imageOptions.engine && !STORE_SOURCES.includes(key)
+        ? 'AI 키가 없어 쇼핑몰 포장 사진만 씁니다.'
         : aiErrors > 0 ? `사진 검수 실패 ${aiErrors}회` : '', Date.now() >= deadline ? '시간 제한으로 남은 상품은 다음 수집 때 재시도합니다.' : ''].filter(Boolean).join(' · '),
     });
     } catch (err) {
@@ -205,7 +209,32 @@ async function runCollect(db, sourceKeys, query, deadline) {
         inserted: 0, duplicates: 0, error: `저장 실패: ${err.message}`, code: err.code });
     }
   }
+  if (Date.now() < deadline - 10000) {
+    try {
+      reports.push({ source: 'images', label: '사진 없는 대기 상품 사진 채우기', ok: true,
+        ...(await retryMissingImages(db, { ...imageOptions, deadline })) });
+    } catch (err) {
+      reports.push({ source: 'images', label: '사진 없는 대기 상품 사진 채우기', ok: false, found: 0, inserted: 0, duplicates: 0, error: err.message });
+    }
+  }
   return reports;
+}
+
+/** 사진 없이 저장된 승인 대기 상품(뉴스·블로그)의 사진을 다시 찾아 채웁니다. 오래된 것부터 30개씩. */
+export async function retryMissingImages(db, imageOptions) {
+  const rows = await db('pending_products?select=id,name,brand,item_type,image&status=eq.pending&image=eq.&order=crawled_at.asc&limit=30');
+  if (!rows.length) return { found: 0, inserted: 0, duplicates: 0, noImage: 0 };
+  const { aiErrors } = await attachProductImages(rows, imageOptions);
+  const fixed = rows.filter((row) => row.image);
+  for (const row of fixed) {
+    await db(`pending_products?id=eq.${encodeURIComponent(row.id)}`, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({ image: row.image }),
+    });
+  }
+  return { found: rows.length, inserted: fixed.length, duplicates: 0, noImage: rows.length - fixed.length,
+    warning: [`사진 ${fixed.length}/${rows.length}개 채움`, aiErrors ? `사진 검수 실패 ${aiErrors}회` : ''].filter(Boolean).join(' · ') };
 }
 
 function toPendingRow(item) {
