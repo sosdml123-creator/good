@@ -30,7 +30,7 @@ import {
   getPopularProducts, 
   getWeeklyNewProducts
 } from '../../utils/ranking';
-import { ILLUSTRATION_FRUIT_BANNER } from '../../utils/productIllustrations';
+import { COUPANG_HOME_BANNER } from '../../constants/homeBanner';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
@@ -100,7 +100,6 @@ export const HomeView: React.FC = () => {
   const { 
     products, 
     reviews, 
-    banners,
     brands,
     battleConfig,
     battleRound,
@@ -149,23 +148,7 @@ export const HomeView: React.FC = () => {
     return getWeeklyNewProducts(products, newProductCategoryFilter);
   }, [products, newProductCategoryFilter]);
 
-  const displayBanners = useMemo(() => {
-    const active = [...banners]
-      .filter(b => b.isActive)
-      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-    if (active.length > 0) return active;
-    return [{
-      id: 'default',
-      image: ILLUSTRATION_FRUIT_BANNER,
-      badge: '먹거리 전체 탐색 & 평가',
-      title: '신제품부터 산지직송 제철 먹거리까지',
-      subtitle: '솔직한 먹거리 품목별 랭킹',
-      buttonText: '인기 품목 둘러보기',
-      linkCategory: '과일' as ProductCategory,
-      isActive: true,
-      order: 1,
-    }];
-  }, [banners]);
+  const displayBanners = [COUPANG_HOME_BANNER];
   const totalBanners = displayBanners.length;
 
   // Safe current index clamp
@@ -430,12 +413,12 @@ export const HomeView: React.FC = () => {
                       alt={banner.title || '메인 배너'}
                       draggable={false}
                       onError={(e) => {
-                        e.currentTarget.src = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80';
+                        e.currentTarget.onerror = null; e.currentTarget.src = COUPANG_HOME_BANNER.image;
                       }}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 pointer-events-none select-none"
                     />
                     {(banner.disclaimer || (banner.linkUrl && banner.linkUrl.includes('coupang.com'))) && (
-                      <div className="absolute bottom-2 left-2.5 z-10 pointer-events-none select-none">
+                      <div className="absolute bottom-2 left-2.5 right-2.5 z-10 pointer-events-none select-none">
                         <p className="text-[10px] text-amber-200 font-medium tracking-tight bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded max-w-fit shadow-xs">
                           ※ {banner.disclaimer || '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.'}
                         </p>

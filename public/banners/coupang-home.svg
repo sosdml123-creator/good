@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="720" height="480" fill="#eff8ff"/><circle cx="620" cy="110" r="150" fill="#dceeff"/>
+<g font-family="Pretendard, Apple SD Gothic Neo, Malgun Gothic, sans-serif" text-anchor="middle">
+<text x="360" y="125" font-size="49" font-weight="900" letter-spacing="-2"><tspan fill="#9b613b">c</tspan><tspan fill="#ed4346">o</tspan><tspan fill="#f79728">u</tspan><tspan fill="#f6c729">p</tspan><tspan fill="#80ba40">a</tspan><tspan fill="#24b7c9">n</tspan><tspan fill="#2096d2">g</tspan></text>
+<text x="360" y="202" font-size="38" font-weight="800" fill="#172b47">맛있는 발견, 쿠팡에서</text>
+<text x="360" y="247" font-size="23" fill="#52647b">간식부터 매일 먹는 식재료까지</text>
+<rect x="224" y="282" width="272" height="64" rx="32" fill="#087cde"/>
+<text x="360" y="323" font-size="23" font-weight="700" fill="white">쿠팡 둘러보기 →</text>
+<text x="360" y="390" font-size="16" fill="#60758e">신상픽 · 쿠팡 파트너스</text></g></svg>

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BannerItem, ProductCategory } from '../types';
+import { COUPANG_HOME_BANNER } from '../constants/homeBanner';
 import { getPopularProducts, getWeeklyNewProducts } from '../utils/ranking';
 import { SafeImage } from '../components/common/SafeImage';
 import { BrandLogo } from '../components/brand/BrandLogo';
@@ -37,7 +38,6 @@ export const PcHome: React.FC = () => {
   const {
     products,
     reviews,
-    banners,
     brands,
     setActiveTab,
     setSelectedCategory,
@@ -49,10 +49,7 @@ export const PcHome: React.FC = () => {
   const [newFilter, setNewFilter] = useState('전체');
   const [bannerIdx, setBannerIdx] = useState(0);
 
-  const activeBanners = useMemo(
-    () => [...banners].filter(b => b.isActive).sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
-    [banners]
-  );
+  const activeBanners = [COUPANG_HOME_BANNER];
   const weeklyAll = useMemo(() => getWeeklyNewProducts(products, '전체'), [products]);
   const newProducts = useMemo(() => getWeeklyNewProducts(products, newFilter), [products, newFilter]);
   const popular = useMemo(() => getPopularProducts(products, 10, reviews), [products, reviews]);
@@ -117,6 +114,7 @@ export const PcHome: React.FC = () => {
               <button onClick={() => handleBannerClick(banner)} className="block w-full h-full cursor-pointer">
                 <SafeImage src={banner.image} alt={banner.title || '배너'} className="w-full h-full object-cover" />
               </button>
+              <p className="absolute bottom-3 left-3 right-3 text-[11px] text-gray-600 bg-white/90 rounded px-2 py-1 pointer-events-none">※ {banner.disclaimer}</p>
               {activeBanners.length > 1 && (
                 <div className="absolute bottom-4 right-4 flex items-center gap-1.5">
                   <button
