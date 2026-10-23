@@ -38,6 +38,7 @@ export const PcHome: React.FC = () => {
   const {
     products,
     reviews,
+    banners,
     brands,
     setActiveTab,
     setSelectedCategory,

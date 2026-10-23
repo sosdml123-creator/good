@@ -64,3 +64,21 @@ export function parsePaikProducts(html) {
 export async function crawlPaikNew() {
   return parsePaikProducts(await fetchText('https://paikdabang.com/menu/menu_new/'));
 }
+
+export function parseEdiyaProducts(html) {
+  if (!html.includes('show_slide_detail')) throw new Error('이디야 신메뉴 목록을 찾지 못했습니다.');
+  const rows = html.split(/<li\b[^>]*>/i).flatMap(block => {
+    if (!block.includes('new_icon')) return [];
+    const id = block.match(/show_slide_detail\('([0-9]+)'\)/)?.[1];
+    // NEW 아이콘 이미지를 상품 사진으로 잘못 가져오지 않습니다.
+    const match = block.match(/<img[^>]+src="(\/files\/menu\/[^"\s]+)"[^>]+alt="([^"]+)"/);
+    if (!id || !match || !isFoodProduct(match[2])) return [];
+    return [{ ...row('이디야커피', 'ediya', match[2], `https://www.ediya.com${match[1]}`,
+      'https://www.ediya.com/contents/drink.html', '', /아이스크림/.test(match[2]) ? '아이스크림' : '음료'), id: `ediya-${id}` }];
+  });
+  return [...new Map(rows.map(r => [r.id, r])).values()];
+}
+
+export async function crawlEdiyaNew() {
+  return parseEdiyaProducts(await fetchText('https://www.ediya.com/contents/drink.html'));
+}

@@ -21,6 +21,8 @@ import {
   CollectSource,
   fetchPendingProducts,
   setPendingStatus,
+  fetchIntakeCatalog,
+  IntakeSource,
 } from '../../services/pendingProductsService';
 import { FoodNutritionData } from '../../services/nutritionApi';
 import { ProductImageSelectorModal } from './ProductImageSelectorModal';
@@ -62,6 +64,10 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
   const [collecting, setCollecting] = useState<CollectSource | null>(null);
   const [reports, setReports] = useState<CollectReport[]>([]);
   const [newsQuery, setNewsQuery] = useState('');
+  const [catalog, setCatalog] = useState<IntakeSource[]>([]);
+  const [catalogGroup, setCatalogGroup] = useState('전체');
+  const [catalogError, setCatalogError] = useState('');
+  const [aiConfigured, setAiConfigured] = useState<boolean | null>(null);
 
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<ProductCategory | '전체'>('전체');
@@ -90,6 +96,8 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
 
   useEffect(() => {
     refreshPendingProducts();
+    fetchIntakeCatalog().then(data => { setCatalog(data.sources); setAiConfigured(data.aiConfigured); })
+      .catch(() => setCatalogError('수집 대상 목록을 불러오지 못했습니다. 새로고침 후 다시 확인해주세요.'));
   }, []);
 
   const loadRejected = async () => {
@@ -285,11 +293,10 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
 
         <div className={`p-3 rounded-xl border text-[11px] space-y-1 ${isDark ? 'border-slate-800 bg-slate-950/50 text-slate-400' : 'border-slate-200 bg-slate-50/70 text-slate-500'}`}>
           <p>
-            <strong className={titleText}>공식 홈페이지</strong> — CU·세븐일레븐 신상품, 스타벅스·메가MGC커피·빽다방 신메뉴에서 상품명과 제품 사진을 가져옵니다. 가격은 공식 표기가 있을 때만 입력됩니다.
+            <strong className={titleText}>공식 홈페이지</strong> — 편의점·카페 전용 수집기에 이디야를 추가하고, 이마트·롯데마트·동서식품·성심당·한정선 등은 공식 뉴스·상품 페이지와 상세 글을 탐색합니다. 출시 근거가 있는 먹거리만 사진 검수를 거쳐 담습니다.
           </p>
           <p>
-            <strong className={titleText}>뉴스·블로그</strong> — GS25, 이마트24, 이마트, 트레이더스, 노브랜드, 홈플러스, 롯데마트, 롯데슈퍼, GS더프레시, 코스트코와
-            식품사·카페·외식 브랜드의 최근 30일 출시 소식을 찾습니다. 블로그 후보는 출시 여부를 원문에서 검토해주세요. 확인되지 않은 가격·출시일은 비워 둡니다.
+            <strong className={titleText}>뉴스·블로그</strong> — 마트·편의점, 카페, 식품 제조사, 베이커리·디저트, 외식 브랜드와 지역 가게의 최근 30일 출시 소식을 찾습니다. 아래 기본 목록에 없는 브랜드도 원문 근거가 확인되면 수집합니다. 가격·출시일은 추정하지 않습니다.
           </p>
           <p>
             <strong className={titleText}>사진</strong> — 제품 사진이 확인된 상품만 담습니다. 사진이 없거나 사람이 나온 사진뿐인 상품은 제외하고 다음 수집 때 다시 찾습니다.
@@ -299,7 +306,29 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
               네이버 검색 API 키가 없어 뉴스·블로그를 수집할 수 없습니다. 공식 홈페이지 수집은 가능합니다.
             </p>
           )}
+          {aiConfigured === false && <p className="text-amber-600 dark:text-amber-400">AI 키 미설정: 공식 뉴스·상품 페이지 분석과 뉴스·블로그 사진 검수는 실행할 수 없습니다. 전용 메뉴 수집기는 사용할 수 있습니다.</p>}
         </div>
+
+        <details className={`p-3 rounded-xl border ${subtleBtn}`}>
+          <summary className="text-xs font-bold cursor-pointer">수집 대상 {catalog.length}개 브랜드 · 공식 출처와 검색 범위 보기</summary>
+          {catalogError && <p className="text-xs text-rose-500 mt-2">{catalogError}</p>}
+          <p className="text-[11px] text-slate-500 mt-3">목록은 우선 검색 대상입니다. 모든 매장의 전체 메뉴를 신제품으로 등록하지 않습니다. 공식 페이지가 없거나 접근할 수 없는 브랜드는 뉴스·블로그로 찾습니다.</p>
+          <div className="flex flex-wrap gap-2 my-3">
+            {['전체', ...new Set(catalog.map(s => s.group))].map(group => <button key={group} className={pill(group === catalogGroup)} onClick={() => setCatalogGroup(group)}>{group}</button>)}
+          </div>
+          <div className="max-h-80 overflow-y-auto grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {catalog.filter(s => catalogGroup === '전체' || s.group === catalogGroup).map(source => (
+              <div key={source.brand} className={`rounded-lg p-2 border ${cardBg}`}>
+                <div className="flex justify-between gap-2 items-center">
+                  <strong className="text-xs">{source.brand}</strong>
+                  <button disabled={collecting !== null} className="text-xs text-indigo-500 disabled:opacity-40" onClick={() => handleCollect('brand', source.brand)}>수집</button>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-1">{source.method === 'direct' ? '공식 메뉴 직접 수집 + 뉴스·블로그' : source.method === 'official-pages' ? '공식 페이지 분석 + 뉴스·블로그' : '뉴스·블로그 검색'}</p>
+                {source.officialUrls[0] && <a className="text-[10px] text-indigo-500" href={source.officialUrls[0]} target="_blank" rel="noreferrer">공식 출처 열기 ↗</a>}
+              </div>
+            ))}
+          </div>
+        </details>
 
         <div className="flex flex-wrap gap-2">
           {([['stores', '공식 홈페이지만'], ['news', '뉴스'], ['blog', '블로그']] as [CollectSource, string][]).map(([source, label]) => (
@@ -316,17 +345,17 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
             type="text"
             value={newsQuery}
             onChange={(e) => setNewsQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && newsQuery.trim() && collecting === null && handleCollect('news', newsQuery)}
+            onKeyDown={(e) => e.key === 'Enter' && newsQuery.trim() && collecting === null && handleCollect('brand', newsQuery)}
             placeholder="특정 브랜드·상품만 찾기 (예: 홈플러스, 스타벅스, 두바이 초콜릿)"
             className={`flex-1 min-w-0 px-3 py-2 rounded-xl text-xs border focus:outline-none ${inputBg}`}
           />
           <button
-            onClick={() => handleCollect('news', newsQuery)}
-            disabled={collecting !== null || !newsQuery.trim() || !isNaverCollectAvailable}
+            onClick={() => handleCollect('brand', newsQuery)}
+            disabled={collecting !== null || !newsQuery.trim()}
             className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-1.5 disabled:opacity-50 shrink-0 ${subtleBtn}`}
           >
-            <Search className={`w-3.5 h-3.5 ${collecting === 'news' ? 'animate-pulse' : ''}`} />
-            <span>{collecting === 'news' ? '찾는 중...' : '이 키워드로 찾기'}</span>
+            <Search className={`w-3.5 h-3.5 ${collecting === 'brand' ? 'animate-pulse' : ''}`} />
+            <span>{collecting === 'brand' ? '찾는 중...' : '이 브랜드·키워드로 찾기'}</span>
           </button>
         </div>
 
@@ -341,6 +370,7 @@ export const ProductIntakeTab: React.FC<ProductIntakeTabProps> = ({ isDark }) =>
                     ? `${r.found}건 확인 → 새 상품 ${r.inserted}건 추가 (이미 있는 ${r.duplicates}건${r.noImage ? `, 제품 사진 없는 ${r.noImage}건` : ''} 제외)`
                     : `수집 실패 — ${r.error}`}
                   {r.ok && r.warning && <span className="text-amber-600 dark:text-amber-400"> · {r.warning}</span>}
+                  {r.details && <span className="block mt-1 text-[11px]">{r.details.map(d => `${d.brand}: ${d.pages}페이지·후보 ${d.found}건${d.error ? ` (${d.error})` : ''}`).join(' / ')}</span>}
                 </span>
               </p>
             ))}

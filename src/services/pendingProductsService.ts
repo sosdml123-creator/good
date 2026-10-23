@@ -8,7 +8,15 @@ import { getAdminAuthHeaders } from './adminAuth';
  */
 const API_URL = `${Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : ''}/api/pending-products`;
 
-export type CollectSource = 'all' | 'stores' | 'cu' | 'seven' | 'starbucks' | 'mega' | 'paik' | 'news' | 'blog' | 'mfds';
+export type CollectSource = 'all' | 'stores' | 'cu' | 'seven' | 'starbucks' | 'mega' | 'paik' | 'ediya' | 'official' | 'brand' | 'news' | 'blog' | 'mfds';
+
+export interface IntakeSource {
+  brand: string;
+  group: string;
+  kind: string;
+  officialUrls: string[];
+  method: 'direct' | 'official-pages' | 'search';
+}
 
 export interface CollectReport {
   source: string;
@@ -22,6 +30,7 @@ export interface CollectReport {
   warning?: string;
   error?: string;
   code?: string;
+  details?: { brand: string; pages: number; found: number; error?: string }[];
 }
 
 export class PendingApiError extends Error {
@@ -92,6 +101,8 @@ export const collectPendingProducts = async (source: CollectSource, query?: stri
   const data = await request({ method: 'POST', body: { action: 'collect', source, query } });
   return data.reports || [];
 };
+
+export const fetchIntakeCatalog = () => request<{ sources: IntakeSource[]; naverConfigured: boolean; aiConfigured: boolean }>({ method: 'GET', query: '?action=catalog' });
 
 export const addPendingItems = async (items: PendingProduct[]): Promise<void> => {
   await request({ method: 'POST', body: { action: 'add', items } });

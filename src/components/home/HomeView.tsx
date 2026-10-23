@@ -100,6 +100,7 @@ export const HomeView: React.FC = () => {
   const { 
     products, 
     reviews, 
+    banners,
     brands,
     battleConfig,
     battleRound,

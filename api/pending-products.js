@@ -22,8 +22,10 @@ import {
 import { collectMfdsProducts } from './_lib/mfdsProducts.js';
 import { attachProductImages } from './_lib/productImages.js';
 import { getAiEngine } from './_lib/aiJson.js';
-import { crawlStarbucksNew, crawlMegaNew, crawlPaikNew } from './_lib/cafeCrawlers.js';
+import { crawlStarbucksNew, crawlMegaNew, crawlPaikNew, crawlEdiyaNew } from './_lib/cafeCrawlers.js';
 import { collectSearchProducts, searchConfigured } from './_lib/intakeSearch.js';
+import { collectOfficialProducts } from './_lib/officialIntake.js';
+import { INTAKE_CATALOG, canonicalIntakeBrand } from './_lib/intakeCatalog.js';
 
 export const config = { maxDuration: 300 };
 
@@ -31,6 +33,8 @@ const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 const TABLE_MISSING_MESSAGE = 'pending_products 테이블이 아직 없습니다. Supabase SQL Editor에서 supabase/migrations/20261010_create_pending_products.sql 을 한 번 실행해주세요.';
 
 const SOURCES = {
+  ediya: { label: '이디야 공식 신메뉴', run: () => crawlEdiyaNew() },
+  official: { label: '유통·제조사·카페·베이커리 공식 페이지', run: (query, deadline) => collectOfficialProducts(query, deadline) },
   starbucks: { label: '스타벅스 공식 신메뉴', run: () => crawlStarbucksNew() },
   mega: { label: '메가MGC커피 공식 신메뉴', run: () => crawlMegaNew() },
   paik: { label: '빽다방 공식 신메뉴', run: () => crawlPaikNew() },
@@ -47,10 +51,9 @@ const SOURCES = {
     run: (query, deadline) => collectSearchProducts('news', query, deadline),
   },
 };
-const STORE_SOURCES = ['cu', 'seven', 'starbucks', 'mega', 'paik'];
-const SEARCH_SOURCES = ['news', 'blog'];
-// 검색 소스는 가장 늦게 끝나므로 맨 뒤에 둡니다 (앞 소스부터 순서대로 저장).
-const ALL_SOURCES = [...STORE_SOURCES, 'mfds', ...SEARCH_SOURCES];
+const DIRECT_BRANDS = { CU: 'cu', '세븐일레븐': 'seven', '스타벅스': 'starbucks', '메가MGC커피': 'mega', '빽다방': 'paik', '이디야커피': 'ediya' };
+const STORE_SOURCES = ['cu', 'seven', 'starbucks', 'mega', 'paik', 'ediya', 'official'];
+const ALL_SOURCES = [...STORE_SOURCES, 'news', 'blog', 'mfds'];
 
 const EDITABLE_COLUMNS = {
   name: 'name', brand: 'brand', category: 'category', subCategory: 'sub_category', itemType: 'item_type',
@@ -94,7 +97,6 @@ function inList(ids) {
 /**
  * 이미 등록된 상품 + 대기/승인/반려 이력 전체를 기준으로 새 항목만 골라 저장.
  * 확인된 제품 사진이 없는 항목은 저장하지 않습니다 (다음 수집 때 다시 시도).
- * 단, keepWithoutImage(뉴스·블로그)면 사진 없이 저장하고 관리자가 사진을 등록한 뒤 승인합니다.
  */
 export async function insertNewRows(db, rows, imageOptions) {
   if (rows.length === 0) return { inserted: 0, duplicates: 0, noImage: 0, aiErrors: 0 };
@@ -122,7 +124,7 @@ export async function insertNewRows(db, rows, imageOptions) {
   }
 
   const { aiErrors } = await attachProductImages(fresh, imageOptions);
-  const ready = imageOptions.keepWithoutImage ? fresh : fresh.filter((row) => row.image);
+  const ready = fresh.filter((row) => row.image);
 
   let saved = [];
   if (ready.length > 0) {
@@ -135,9 +137,7 @@ export async function insertNewRows(db, rows, imageOptions) {
   return {
     inserted: saved.length,
     duplicates: rows.length - fresh.length + ready.length - saved.length,
-    // 사진 없이 저장한 것은 제외 건수가 아니라 별도로 알립니다.
-    noImage: imageOptions.keepWithoutImage ? 0 : fresh.length - ready.length,
-    withoutImage: imageOptions.keepWithoutImage ? saved.filter((row) => !row.image).length : 0,
+    noImage: fresh.length - ready.length,
     aiErrors,
   };
 }
@@ -163,9 +163,7 @@ async function runCollect(db, sourceKeys, query, deadline) {
 
   const reports = [];
   // 느린 검색 소스를 기다리는 동안 준비된 공식 상품부터 검수·저장합니다.
-  // 뉴스·블로그는 검색 뒤 AI 분석까지 해야 하므로 저장·사진 검수와 사진 재시도 시간(110초)만 남기고 나머지를 줍니다.
-  const settled = sourceKeys.map(key => Promise.resolve().then(() => SOURCES[key].run(query,
-    SEARCH_SOURCES.includes(key) ? deadline - 110000 : Math.min(deadline - 60000, Date.now() + 100000)))
+  const settled = sourceKeys.map(key => Promise.resolve().then(() => SOURCES[key].run(query, Math.min(deadline - 60000, Date.now() + 100000)))
     .then(value => ({ status: 'fulfilled', value }), reason => ({ status: 'rejected', reason })));
   for (let i = 0; i < sourceKeys.length; i++) {
     const key = sourceKeys[i];
@@ -179,18 +177,15 @@ async function runCollect(db, sourceKeys, query, deadline) {
         inserted: 0,
         duplicates: 0,
         noImage: 0,
-        // 'fetch failed' 만으로는 원인을 알 수 없어 네트워크 오류 코드를 덧붙입니다.
-        error: result.reason?.name === 'AbortError' ? '응답 시간 초과'
-          : `${result.reason?.message || '수집 실패'}${result.reason?.cause?.code ? ` (${result.reason.cause.code})` : ''}`,
+        error: result.reason?.name === 'AbortError' ? '응답 시간 초과' : (result.reason?.message || '수집 실패'),
         code: result.reason?.code,
       });
       continue;
     }
     // 소스 간 이름 중복이 있을 수 있으므로 순서대로 저장합니다.
     try {
-    const { inserted, duplicates, noImage, withoutImage, aiErrors } = await insertNewRows(db, result.value, {
-      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) ? 15000 : 35000)),
-      keepWithoutImage: SEARCH_SOURCES.includes(key),
+    const { inserted, duplicates, noImage, aiErrors } = await insertNewRows(db, result.value, {
+      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) && key !== 'official' ? 15000 : 45000)),
     });
     reports.push({
       source: key,
@@ -200,8 +195,9 @@ async function runCollect(db, sourceKeys, query, deadline) {
       inserted,
       duplicates,
       noImage,
-      warning: [result.value.warning, withoutImage ? `사진을 못 찾은 ${withoutImage}건은 사진 없이 저장(다음 수집 때 다시 찾음)` : '', !imageOptions.engine && !STORE_SOURCES.includes(key)
-        ? 'AI 키가 없어 쇼핑몰 포장 사진만 씁니다.'
+      details: result.value.details,
+      warning: [result.value.warning, !imageOptions.engine && !STORE_SOURCES.includes(key)
+        ? 'AI 키가 없어 사진을 검수할 수 없습니다. 뉴스·블로그 사진은 검수 후에만 저장합니다.'
         : aiErrors > 0 ? `사진 검수 실패 ${aiErrors}회` : '', Date.now() >= deadline ? '시간 제한으로 남은 상품은 다음 수집 때 재시도합니다.' : ''].filter(Boolean).join(' · '),
     });
     } catch (err) {
@@ -209,32 +205,7 @@ async function runCollect(db, sourceKeys, query, deadline) {
         inserted: 0, duplicates: 0, error: `저장 실패: ${err.message}`, code: err.code });
     }
   }
-  if (Date.now() < deadline - 10000) {
-    try {
-      reports.push({ source: 'images', label: '사진 없는 대기 상품 사진 채우기', ok: true,
-        ...(await retryMissingImages(db, { ...imageOptions, deadline })) });
-    } catch (err) {
-      reports.push({ source: 'images', label: '사진 없는 대기 상품 사진 채우기', ok: false, found: 0, inserted: 0, duplicates: 0, error: err.message });
-    }
-  }
   return reports;
-}
-
-/** 사진 없이 저장된 승인 대기 상품(뉴스·블로그)의 사진을 다시 찾아 채웁니다. 오래된 것부터 30개씩. */
-export async function retryMissingImages(db, imageOptions) {
-  const rows = await db('pending_products?select=id,name,brand,item_type,image&status=eq.pending&image=eq.&order=crawled_at.asc&limit=30');
-  if (!rows.length) return { found: 0, inserted: 0, duplicates: 0, noImage: 0 };
-  const { aiErrors } = await attachProductImages(rows, imageOptions);
-  const fixed = rows.filter((row) => row.image);
-  for (const row of fixed) {
-    await db(`pending_products?id=eq.${encodeURIComponent(row.id)}`, {
-      method: 'PATCH',
-      headers: { Prefer: 'return=minimal' },
-      body: JSON.stringify({ image: row.image }),
-    });
-  }
-  return { found: rows.length, inserted: fixed.length, duplicates: 0, noImage: rows.length - fixed.length,
-    warning: [`사진 ${fixed.length}/${rows.length}개 채움`, aiErrors ? `사진 검수 실패 ${aiErrors}회` : ''].filter(Boolean).join(' · ') };
 }
 
 function toPendingRow(item) {
@@ -327,14 +298,19 @@ export default async function handler(req, res) {
         return res.status(401).json({ success: false, error: 'Unauthorized' });
       }
       const sources = [...STORE_SOURCES];
+      if (naverConfigured) sources.push('news', 'blog');
       if (process.env.FOODSAFETY_API_KEY) sources.push('mfds');
-      if (naverConfigured) sources.push(...SEARCH_SOURCES);
       const reports = await runCollect(db, sources, '', deadline);
       return res.status(200).json({ success: true, reports });
     }
 
     const auth = await verifyAdminRequest(req);
     if (!auth.ok) return res.status(auth.status).json({ success: false, error: auth.error });
+
+    if (req.method === 'GET' && req.query?.action === 'catalog') {
+      return res.status(200).json({ success: true, sources: INTAKE_CATALOG,
+        naverConfigured, aiConfigured: Boolean(getAiEngine()) });
+    }
 
     if (req.method === 'GET') {
       const status = req.query?.status === 'rejected' ? 'rejected' : 'pending';
@@ -351,11 +327,16 @@ export default async function handler(req, res) {
 
     if (action === 'collect') {
       const source = String(body.source || 'all');
-      const sources = source === 'all' ? ALL_SOURCES.filter(key => key !== 'mfds' || process.env.FOODSAFETY_API_KEY) : source === 'stores' ? STORE_SOURCES : [source];
+      const query = canonicalIntakeBrand(String(body.query || '').trim().slice(0, 60));
+      const brand = INTAKE_CATALOG.find(s => s.brand === query);
+      const sources = source === 'brand'
+        ? [...(DIRECT_BRANDS[query] ? [DIRECT_BRANDS[query]] : brand?.method === 'official-pages' ? ['official'] : []), 'news', 'blog']
+        : source === 'all' ? ALL_SOURCES.filter(key => key !== 'mfds' || process.env.FOODSAFETY_API_KEY) : source === 'stores' ? STORE_SOURCES : [source];
+      if (source === 'brand' && !query) return res.status(400).json({ success: false, error: '찾을 브랜드를 입력해주세요.' });
       if (!sources.every((key) => SOURCES[key])) {
         return res.status(400).json({ success: false, error: `알 수 없는 수집 소스: ${source}` });
       }
-      const reports = await runCollect(db, sources, String(body.query || '').trim().slice(0, 60), deadline);
+      const reports = await runCollect(db, sources, query, deadline);
       return res.status(200).json({ success: true, reports, naverConfigured });
     }
 
