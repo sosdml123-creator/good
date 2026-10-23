@@ -33,6 +33,7 @@ import { ReportModal } from '../common/ReportModal';
 import { KamisPriceTrendChart } from './KamisPriceTrendChart';
 import { COUPANG_AFFILIATE_URL, COUPANG_PARTNERS_NOTICE } from '../../constants/affiliate';
 import { formatProductPrice } from '../../utils/formatters';
+import { t } from '../../i18n';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -122,17 +123,17 @@ export const ProductDetailModal: React.FC = () => {
           🔍
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-1.5">
-          상품 정보를 찾을 수 없습니다
+          {t('상품 정보를 찾을 수 없습니다')}
         </h3>
         <p className="text-xs text-gray-500 max-w-[280px] mb-6 leading-relaxed">
-          삭제되었거나 잘못된 링크입니다.<br />
-          홈 화면으로 이동하여 다른 신상품을 둘러보세요.
+          {t('삭제되었거나 잘못된 링크입니다.')}<br />
+          {t('홈 화면으로 이동하여 다른 신상품을 둘러보세요.')}
         </p>
         <button
           onClick={() => setActiveTab('home')}
           className="px-6 py-2.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 cursor-pointer"
         >
-          홈으로 돌아가기
+          {t('홈으로 돌아가기')}
         </button>
       </div>
     );
@@ -194,16 +195,16 @@ export const ProductDetailModal: React.FC = () => {
   const metrics = actualReviewCount > 0
     ? (avgDetailed && avgDetailed.count > 0
         ? [
-            { label: '맛', val: Number((avgDetailed.taste / avgDetailed.count).toFixed(1)) },
-            { label: '가성비', val: Number((avgDetailed.value / avgDetailed.count).toFixed(1)) },
-            { label: '양', val: Number((avgDetailed.portion / avgDetailed.count).toFixed(1)) },
-            { label: '재구매 의사', val: Number((avgDetailed.repurchase / avgDetailed.count).toFixed(1)) },
+            { label: t('맛'), val: Number((avgDetailed.taste / avgDetailed.count).toFixed(1)) },
+            { label: t('가성비'), val: Number((avgDetailed.value / avgDetailed.count).toFixed(1)) },
+            { label: t('양'), val: Number((avgDetailed.portion / avgDetailed.count).toFixed(1)) },
+            { label: t('재구매 의사'), val: Number((avgDetailed.repurchase / avgDetailed.count).toFixed(1)) },
           ]
         : [
-            { label: '맛', val: actualOverallRating },
-            { label: '가성비', val: actualOverallRating },
-            { label: '양', val: actualOverallRating },
-            { label: '재구매 의사', val: actualOverallRating },
+            { label: t('맛'), val: actualOverallRating },
+            { label: t('가성비'), val: actualOverallRating },
+            { label: t('양'), val: actualOverallRating },
+            { label: t('재구매 의사'), val: actualOverallRating },
           ])
     : [];
 
@@ -220,7 +221,7 @@ export const ProductDetailModal: React.FC = () => {
         </button>
 
         <span className="text-sm font-bold text-gray-800 truncate max-w-[200px]">
-          {selectedProduct.subCategory ? `${selectedProduct.subCategory} 탐색` : selectedProduct.name}
+          {selectedProduct.subCategory ? t('{c} 탐색', { c: t(selectedProduct.subCategory) }) : selectedProduct.name}
         </span>
 
         <div className="flex items-center gap-2 text-gray-700">
@@ -242,17 +243,17 @@ export const ProductDetailModal: React.FC = () => {
               if (navigator.clipboard) {
                 navigator.clipboard.writeText(shareUrl);
               }
-              showToast(`🔗 상품 링크가 복사되었습니다!\n(${shareUrl})`);
+              showToast(`${t('🔗 상품 링크가 복사되었습니다!')}\n(${shareUrl})`);
             }}
             className="p-1 hover:text-gray-900 transition-colors"
-            title="공유하기"
+            title={t('공유하기')}
           >
             <Share2 className="w-5 h-5" />
           </button>
           <button 
             onClick={() => setIsActionMenuOpen(true)}
             className="p-1 hover:text-gray-900 transition-colors"
-            title="메뉴 더보기"
+            title={t('메뉴 더보기')}
           >
             <MoreVertical className="w-5 h-5" />
           </button>
@@ -269,11 +270,11 @@ export const ProductDetailModal: React.FC = () => {
           className="w-64 h-64 object-cover rounded-2xl shadow-xs"
         />
         <span className="absolute top-4 left-4 bg-black/75 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-xs flex items-center gap-1">
-          <span>📁 {selectedProduct.category}{selectedProduct.subCategory ? ` · ${selectedProduct.subCategory}` : ''}</span>
+          <span>📁 {t(selectedProduct.category)}{selectedProduct.subCategory ? ` · ${t(selectedProduct.subCategory)}` : ''}</span>
         </span>
         {selectedProduct.isHot && (
           <span className="absolute top-4 right-4 bg-rose-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5 shadow-sm">
-            <Flame className="w-3 h-3" /> 인기 급상승
+            <Flame className="w-3 h-3" /> {t('인기 급상승')}
           </span>
         )}
       </div>
@@ -288,7 +289,7 @@ export const ProductDetailModal: React.FC = () => {
             >
               <span>{selectedProduct.brand}</span>
               <span className="text-[10px] font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200 group-hover:bg-gray-200 transition-colors">
-                브랜드관 →
+                {t('브랜드관 →')}
               </span>
             </button>
             {/* 브랜드관 이동 버튼 */}
@@ -304,7 +305,7 @@ export const ProductDetailModal: React.FC = () => {
             <span className={isBookmarked ? 'text-rose-500 font-black' : 'text-gray-400'}>
               {isBookmarked ? '♥' : '♡'}
             </span>
-            <span>{isBookmarked ? '찜완료' : '찜하기'}</span>
+            <span>{isBookmarked ? t('찜완료') : t('찜하기')}</span>
           </button>
         </div>
 
@@ -314,7 +315,7 @@ export const ProductDetailModal: React.FC = () => {
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
             <span className="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
               <span>🌿</span>
-              <span>100% 산지직송 자연 원물</span>
+              <span>{t('100% 산지직송 자연 원물')}</span>
             </span>
             {selectedProduct.produceDetails?.sizeGrade && (
               <span className="text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
@@ -340,20 +341,20 @@ export const ProductDetailModal: React.FC = () => {
               <span className="text-[15px] font-bold text-gray-800">
                 {actualOverallRating.toFixed(1)}
               </span>
-              <span className="text-[12px] text-gray-400">({actualReviewCount}명 평가)</span>
+              <span className="text-[12px] text-gray-400">{t('({n}명 평가)', { n: actualReviewCount })}</span>
               {selectedProduct.repurchasePercent && selectedProduct.repurchasePercent > 0 ? (
                 <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md ml-auto">
-                  재구매율 {selectedProduct.repurchasePercent}%
+                  {t('재구매율 {n}%', { n: selectedProduct.repurchasePercent })}
                 </span>
               ) : null}
             </>
           ) : (
             <div className="flex items-center gap-1.5 py-0.5">
               <span className="text-[11px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md font-medium">
-                평가 미등록
+                {t('평가 미등록')}
               </span>
               <span className="text-[11px] text-indigo-600 font-bold">
-                첫 리뷰를 남겨보세요!
+                {t('첫 리뷰를 남겨보세요!')}
               </span>
             </div>
           )}
@@ -361,7 +362,7 @@ export const ProductDetailModal: React.FC = () => {
 
         <div className="flex items-center gap-2 mt-2">
           <span className="text-[20px] font-black text-gray-900">
-            {selectedProduct.itemType === 'restaurant' && selectedProduct.price ? '평균 ' : ''}{formatProductPrice(selectedProduct.price)}
+            {selectedProduct.itemType === 'restaurant' && selectedProduct.price ? t('평균') + ' ' : ''}{formatProductPrice(selectedProduct.price)}
           </span>
         </div>
 
@@ -371,17 +372,17 @@ export const ProductDetailModal: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <span className="text-base">🌾</span>
-                <span className="text-xs font-black text-emerald-950">KAMIS 농수산물유통정보 공시 시세</span>
+                <span className="text-xs font-black text-emerald-950">{t('KAMIS 농수산물유통정보 공시 시세')}</span>
               </div>
               <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-full">
-                {selectedProduct.kamisPriceInfo.latestDate} 기준
+                {t('{d} 기준', { d: selectedProduct.kamisPriceInfo.latestDate })}
               </span>
             </div>
 
             <div className="mt-2 flex items-baseline justify-between flex-wrap gap-2">
               <div className="flex items-baseline gap-1.5">
                 <span className="text-[20px] font-black text-gray-900">
-                  {selectedProduct.kamisPriceInfo.todayPrice.toLocaleString()}원
+                  {t('{n}원', { n: selectedProduct.kamisPriceInfo.todayPrice.toLocaleString() })}
                 </span>
                 <span className="text-xs font-bold text-gray-500">
                   / {selectedProduct.kamisPriceInfo.unit} {selectedProduct.kamisPriceInfo.rank ? `(${selectedProduct.kamisPriceInfo.rank})` : ''}
@@ -393,18 +394,18 @@ export const ProductDetailModal: React.FC = () => {
                 {selectedProduct.kamisPriceInfo.trend === 'up' && (
                   <span className="text-xs font-black text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
                     <TrendingUp className="w-3 h-3" />
-                    <span>▲ +{selectedProduct.kamisPriceInfo.priceChange.toLocaleString()}원 (+{selectedProduct.kamisPriceInfo.changeRate}%)</span>
+                    <span>▲ +{t('{n}원', { n: selectedProduct.kamisPriceInfo.priceChange.toLocaleString() })} (+{selectedProduct.kamisPriceInfo.changeRate}%)</span>
                   </span>
                 )}
                 {selectedProduct.kamisPriceInfo.trend === 'down' && (
                   <span className="text-xs font-black text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-0.5">
                     <TrendingDown className="w-3 h-3" />
-                    <span>▼ {Math.abs(selectedProduct.kamisPriceInfo.priceChange).toLocaleString()}원 ({selectedProduct.kamisPriceInfo.changeRate}%)</span>
+                    <span>▼ {t('{n}원', { n: Math.abs(selectedProduct.kamisPriceInfo.priceChange).toLocaleString() })} ({selectedProduct.kamisPriceInfo.changeRate}%)</span>
                   </span>
                 )}
                 {selectedProduct.kamisPriceInfo.trend === 'same' && (
                   <span className="text-xs font-black text-gray-600 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full">
-                    - 전일 동일 (보합)
+                    {t('- 전일 동일 (보합)')}
                   </span>
                 )}
               </div>
@@ -413,13 +414,13 @@ export const ProductDetailModal: React.FC = () => {
             {/* 1개월 전 대비 코멘트 */}
             {selectedProduct.kamisPriceInfo.monthAgoChangeRate !== undefined && (
               <div className="mt-2 pt-2 border-t border-emerald-100 flex items-center justify-between text-[11px]">
-                <span className="text-gray-500">1개월 전 대비</span>
+                <span className="text-gray-500">{t('1개월 전 대비')}</span>
                 <span className={`font-bold ${
                   selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? 'text-blue-600' : 'text-rose-600'
                 }`}>
                   {selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? '▼ ' : '▲ +'}
                   {selectedProduct.kamisPriceInfo.monthAgoChangeRate}%
-                  {selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? ' (한 달 전보다 저렴해요! 🛒)' : ''}
+                  {selectedProduct.kamisPriceInfo.monthAgoChangeRate < 0 ? t(' (한 달 전보다 저렴해요! 🛒)') : ''}
                 </span>
               </div>
             )}
@@ -449,7 +450,7 @@ export const ProductDetailModal: React.FC = () => {
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
-            소비자 리뷰 ({actualReviewCount})
+            {t('소비자 리뷰')} ({actualReviewCount})
             {detailTab === 'reviews' && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
@@ -463,7 +464,7 @@ export const ProductDetailModal: React.FC = () => {
                 : 'text-gray-500 hover:text-gray-800'
             }`}
           >
-            품목 정보
+            {t('품목 정보')}
             {detailTab === 'info' && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
             )}
@@ -478,7 +479,7 @@ export const ProductDetailModal: React.FC = () => {
                   : 'text-gray-500 hover:text-gray-800'
               }`}
             >
-              {selectedProduct.itemType === 'restaurant' ? '맛집 위치' : '판매처'}
+              {selectedProduct.itemType === 'restaurant' ? t('맛집 위치') : t('판매처')}
               {detailTab === 'stores' && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900" />
               )}
@@ -501,13 +502,13 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-[14px] font-black text-gray-900">
-                      {selectedProduct.category === '과일' ? '과일 핵심 스펙 & 사이즈·당도 분석' : '농수산물 핵심 품위 & 사이즈·품질 분석'}
+                      {selectedProduct.category === '과일' ? t('과일 핵심 스펙 & 사이즈·당도 분석') : t('농수산물 핵심 품위 & 사이즈·품질 분석')}
                     </h3>
-                    <p className="text-[10px] text-gray-400">실측 데이터 기반 사이즈 평균, 당도, 선별 규격</p>
+                    <p className="text-[10px] text-gray-400">{t('실측 데이터 기반 사이즈 평균, 당도, 선별 규격')}</p>
                   </div>
                 </div>
                 <span className="text-[10px] text-emerald-700 font-black bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
-                  품목 정보 검증
+                  {t('품목 정보 검증')}
                 </span>
               </div>
 
@@ -516,7 +517,7 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900">
                     <span>📐</span>
-                    <span>사이즈 평균 & 선별 규격</span>
+                    <span>{t('사이즈 평균 & 선별 규격')}</span>
                   </div>
                   {selectedProduct.produceDetails?.seasonalPeak && (
                     <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
@@ -527,27 +528,27 @@ export const ProductDetailModal: React.FC = () => {
 
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
-                    <span className="text-[10px] text-gray-400 block">평균 규격 / 크기</span>
+                    <span className="text-[10px] text-gray-400 block">{t('평균 규격 / 크기')}</span>
                     <span className="font-black text-gray-900 text-[12px] block mt-0.5">
-                      {selectedProduct.produceDetails?.averageSize || (selectedProduct.volume ? `평균 ${selectedProduct.volume}` : '실측 선별 규격')}
+                      {selectedProduct.produceDetails?.averageSize || (selectedProduct.volume ? `${t('평균')} ${selectedProduct.volume}` : t('실측 선별 규격'))}
                     </span>
                   </div>
                   <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
-                    <span className="text-[10px] text-gray-400 block">선별 등급</span>
+                    <span className="text-[10px] text-gray-400 block">{t('선별 등급')}</span>
                     <span className="font-black text-gray-900 text-[12px] block mt-0.5">
-                      {selectedProduct.produceDetails?.sizeGrade || '특과·로얄과 선별'}
+                      {selectedProduct.produceDetails?.sizeGrade || t('특과·로얄과 선별')}
                     </span>
                   </div>
                   <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
-                    <span className="text-[10px] text-gray-400 block">수율 / 가식부</span>
+                    <span className="text-[10px] text-gray-400 block">{t('수율 / 가식부')}</span>
                     <span className="font-bold text-gray-800 text-[11px] block mt-0.5">
-                      {selectedProduct.produceDetails?.fleshYield || '과육 비율 90% 이상'}
+                      {selectedProduct.produceDetails?.fleshYield || t('과육 비율 90% 이상')}
                     </span>
                   </div>
                   <div className="bg-white/90 p-2 rounded-lg border border-gray-100 shadow-2xs">
-                    <span className="text-[10px] text-gray-400 block">선별 및 유통 방식</span>
+                    <span className="text-[10px] text-gray-400 block">{t('선별 및 유통 방식')}</span>
                     <span className="font-bold text-gray-800 text-[11px] block mt-0.5 truncate">
-                      {selectedProduct.produceDetails?.freshnessGrade || '산지 비파괴 선별'}
+                      {selectedProduct.produceDetails?.freshnessGrade || t('산지 비파괴 선별')}
                     </span>
                   </div>
                 </div>
@@ -556,29 +557,29 @@ export const ProductDetailModal: React.FC = () => {
               {/* 🍯 2. 당도 & 수분율 & 신선도 핵심 지표 */}
               <div className="grid grid-cols-3 gap-2 text-center mb-3">
                 <div className="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200">
-                  <div className="text-[10px] text-amber-800 font-bold">보증 당도 (Brix)</div>
+                  <div className="text-[10px] text-amber-800 font-bold">{t('보증 당도 (Brix)')}</div>
                   <div className="text-sm font-black text-amber-950 mt-0.5">
                     {selectedProduct.produceDetails?.brixGrade?.split(' ')[0] || (selectedProduct.freshMetrics?.sweetness ? `${(selectedProduct.freshMetrics.sweetness * 3).toFixed(1)} Brix` : '14.0 Brix')}
                   </div>
                   <div className="text-[9px] text-amber-700 mt-0.5 truncate">
-                    {selectedProduct.produceDetails?.sugarAcidRatio?.split(' ')[0] || '비파괴 선별'}
+                    {selectedProduct.produceDetails?.sugarAcidRatio?.split(' ')[0] || t('비파괴 선별')}
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <div className="text-[10px] text-slate-700 font-bold">수분율 & 과즙</div>
+                  <div className="text-[10px] text-slate-700 font-bold">{t('수분율 & 과즙')}</div>
                   <div className="text-sm font-black text-slate-900 mt-0.5">
                     {selectedProduct.produceDetails?.waterContent?.split(' ')[0] || '89%'}
                   </div>
-                  <div className="text-[9px] text-slate-600 mt-0.5">천연 과즙 가득</div>
+                  <div className="text-[9px] text-slate-600 mt-0.5">{t('천연 과즙 가득')}</div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
-                  <div className="text-[10px] text-emerald-800 font-bold">신선도 등급</div>
+                  <div className="text-[10px] text-emerald-800 font-bold">{t('신선도 등급')}</div>
                   <div className="text-sm font-black text-emerald-950 mt-0.5">
-                    {selectedProduct.freshMetrics ? `${selectedProduct.freshMetrics.freshness.toFixed(1)} / 5.0` : '5.0 (최상)'}
+                    {selectedProduct.freshMetrics ? `${selectedProduct.freshMetrics.freshness.toFixed(1)} / 5.0` : t('5.0 (최상)')}
                   </div>
-                  <div className="text-[9px] text-emerald-700 mt-0.5">산지직송</div>
+                  <div className="text-[9px] text-emerald-700 mt-0.5">{t('산지직송')}</div>
                 </div>
               </div>
 
@@ -586,7 +587,7 @@ export const ProductDetailModal: React.FC = () => {
               {selectedProduct.produceDetails?.keyNutrients && selectedProduct.produceDetails.keyNutrients.length > 0 && (
                 <div className="mb-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
                   <span className="text-[11px] font-bold text-gray-700 block mb-2">
-                    🧬 핵심 영양 성분 및 함량
+                    {t('🧬 핵심 영양 성분 및 함량')}
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     {selectedProduct.produceDetails.keyNutrients.map((nut, idx) => (
@@ -605,7 +606,7 @@ export const ProductDetailModal: React.FC = () => {
               {/* 건강 효능 체크리스트 */}
               {selectedProduct.produceDetails?.healthBenefits && selectedProduct.produceDetails.healthBenefits.length > 0 && (
                 <div className="mb-3 space-y-1.5">
-                  <span className="text-[11px] font-bold text-gray-700 block">✨ 주요 건강 효능 & 섭취 장점</span>
+                  <span className="text-[11px] font-bold text-gray-700 block">{t('✨ 주요 건강 효능 & 섭취 장점')}</span>
                   {selectedProduct.produceDetails.healthBenefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-start gap-1.5 text-[11px] text-gray-600">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -620,7 +621,7 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="p-2.5 rounded-xl bg-orange-50/70 border border-orange-200 text-[11px] text-orange-950 flex items-start gap-2">
                   <span className="text-sm shrink-0">💡</span>
                   <div>
-                    <span className="font-bold text-orange-900 block">가장 맛있게 먹는 섭취·보관 꿀팁</span>
+                    <span className="font-bold text-orange-900 block">{t('가장 맛있게 먹는 섭취·보관 꿀팁')}</span>
                     <p className="text-orange-800 mt-0.5 leading-relaxed">
                       {selectedProduct.produceDetails.tasteTip}
                     </p>
@@ -640,13 +641,13 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-[14px] font-black text-gray-900">
-                      어디가 제일 맛있을까? 맛 보증 판매처 & 산지 랭킹
+                      {t('어디가 제일 맛있을까? 맛 보증 판매처 & 산지 랭킹')}
                     </h3>
-                    <p className="text-[10px] text-gray-400">실제 소비자 당도·과즙·맛 검증 데이터 기준 순위</p>
+                    <p className="text-[10px] text-gray-400">{t('실제 소비자 당도·과즙·맛 검증 데이터 기준 순위')}</p>
                   </div>
                 </div>
                 <span className="text-[10px] text-amber-800 font-bold bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                  맛 순위 TOP {selectedProduct.brandRankings.length}
+                  {t('맛 순위 TOP {n}', { n: selectedProduct.brandRankings.length })}
                 </span>
               </div>
 
@@ -700,7 +701,7 @@ export const ProductDetailModal: React.FC = () => {
                           </div>
                           {br.price && (
                             <span className="text-xs font-black text-gray-900 block mt-0.5">
-                              {br.price.toLocaleString()}원
+                              {t('{n}원', { n: br.price.toLocaleString() })}
                             </span>
                           )}
                         </div>
@@ -709,7 +710,7 @@ export const ProductDetailModal: React.FC = () => {
                       {/* 맛 특장점 설명 */}
                       {br.tasteDescription && (
                         <div className="mt-2 text-[11px] text-gray-700 bg-gray-50/80 px-2.5 py-1.5 rounded-lg border border-gray-100">
-                          <span className="font-bold text-gray-900">맛 평가: </span>
+                          <span className="font-bold text-gray-900">{t('맛 평가:')} </span>
                           <span>{br.tasteDescription}</span>
                         </div>
                       )}
@@ -724,7 +725,7 @@ export const ProductDetailModal: React.FC = () => {
                       {/* 배송 및 바로가기 버튼 */}
                       <div className="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between">
                         <span className="text-[10px] text-gray-400 font-medium">
-                          {br.deliveryBadge || '산지직송 새벽배송 🚀'}
+                          {t(br.deliveryBadge || '산지직송 새벽배송 🚀')}
                         </span>
                         <button
                           onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
@@ -734,7 +735,7 @@ export const ProductDetailModal: React.FC = () => {
                               : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                           }`}
                         >
-                          <span>쿠팡 구매</span>
+                          <span>{t('쿠팡 구매')}</span>
                           <ExternalLink className="w-3 h-3" />
                         </button>
                       </div>
@@ -750,10 +751,10 @@ export const ProductDetailModal: React.FC = () => {
             <div className="bg-white px-4 py-4 border-b border-gray-100">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[14px] font-bold text-gray-900">
-                  세부 평점 지표
+                  {t('세부 평점 지표')}
                 </span>
                 <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">
-                  소비자 실측 기준 ({actualReviewCount}명)
+                  {t('소비자 실측 기준 ({n}명)', { n: actualReviewCount })}
                 </span>
               </div>
 
@@ -780,14 +781,14 @@ export const ProductDetailModal: React.FC = () => {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span className="text-[14px] font-bold text-gray-900">한줄평 BEST</span>
+                  <span className="text-[14px] font-bold text-gray-900">{t('한줄평 BEST')}</span>
                 </div>
                 {quotes.length > 2 && (
                   <button 
                     onClick={() => setShowAllQuotes(!showAllQuotes)}
                     className="text-[12px] text-gray-700 hover:text-gray-900 font-semibold hover:underline"
                   >
-                    {showAllQuotes ? '접기' : '더보기'}
+                    {showAllQuotes ? t('접기') : t('더보기')}
                   </button>
                 )}
               </div>
@@ -813,12 +814,12 @@ export const ProductDetailModal: React.FC = () => {
                   <PenSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">이 먹거리 직접 맛보셨나요?</div>
-                  <div className="text-[11px] text-gray-500 font-semibold mt-0.5">솔직한 생생 후기를 남겨주세요</div>
+                  <div className="text-xs font-bold text-gray-900">{t('이 먹거리 직접 맛보셨나요?')}</div>
+                  <div className="text-[11px] text-gray-500 font-semibold mt-0.5">{t('솔직한 생생 후기를 남겨주세요')}</div>
                 </div>
               </div>
               <button className="px-3 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs">
-                쓰기
+                {t('쓰기')}
               </button>
             </div>
           </div>
@@ -826,8 +827,8 @@ export const ProductDetailModal: React.FC = () => {
           {/* Full Review List with sorting and comments */}
           <div className="bg-white px-4 py-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[14px] font-bold text-gray-900">전체 리뷰 목록</span>
-              <span className="text-[12px] text-gray-400">총 {actualReviewCount}개</span>
+              <span className="text-[14px] font-bold text-gray-900">{t('전체 리뷰 목록')}</span>
+              <span className="text-[12px] text-gray-400">{t('총 {n}개', { n: actualReviewCount })}</span>
             </div>
             <ReviewList productId={selectedProduct.id} />
           </div>
@@ -843,45 +844,45 @@ export const ProductDetailModal: React.FC = () => {
           <div className="bg-white px-4 py-4 border-b border-gray-100">
             <div className="flex items-center gap-1.5 mb-3">
               <Info className="w-4 h-4 text-gray-900" />
-              <span className="text-[14px] font-bold text-gray-900">품목 기본 정보</span>
+              <span className="text-[14px] font-bold text-gray-900">{t('품목 기본 정보')}</span>
             </div>
 
             <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
               <div className="flex py-2.5 px-3 bg-gray-50/60">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">품목 / 분류</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('품목 / 분류')}</span>
                 <span className="text-gray-900 font-bold">{selectedProduct.category} {selectedProduct.subCategory ? `> ${selectedProduct.subCategory}` : ''}</span>
               </div>
               <div className="flex py-2.5 px-3">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">브랜드 / 생산자</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('브랜드 / 생산자')}</span>
                 <span className="text-gray-900 font-bold">{selectedProduct.brand}</span>
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">제조원 / 유통원</span>
-                <span className="text-gray-900">{selectedProduct.manufacturer || `${selectedProduct.brand} 공식 파트너`}</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('제조원 / 유통원')}</span>
+                <span className="text-gray-900">{selectedProduct.manufacturer || t('{b} 공식 파트너', { b: selectedProduct.brand })}</span>
               </div>
               <div className="flex py-2.5 px-3">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">규격 / 내용량</span>
-                <span className="text-gray-900">{selectedProduct.volume || '상세 규격 참조'}</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('규격 / 내용량')}</span>
+                <span className="text-gray-900">{selectedProduct.volume || t('상세 규격 참조')}</span>
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">보관 방법</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('보관 방법')}</span>
                 <span className="text-gray-900">
                   {selectedProduct.storageMethod || (
                     selectedProduct.category === '과일' || selectedProduct.category === '고기·수산' 
-                      ? '0~5℃ 신선 냉장보관 권장' 
+                      ? t('0~5℃ 신선 냉장보관 권장') 
                       : selectedProduct.category === '간편식' 
-                        ? '-18℃ 이하 냉동보관 또는 냉장' 
-                        : '직사광선을 피해 서늘하고 건조한 실온보관'
+                        ? t('-18℃ 이하 냉동보관 또는 냉장') 
+                        : t('직사광선을 피해 서늘하고 건조한 실온보관')
                   )}
                 </span>
               </div>
               <div className="flex py-2.5 px-3">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">소비 / 유통기한</span>
-                <span className="text-gray-900">{selectedProduct.shelfLife || '제품 후면 별도 표기일까지'}</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('소비 / 유통기한')}</span>
+                <span className="text-gray-900">{selectedProduct.shelfLife || t('제품 후면 별도 표기일까지')}</span>
               </div>
               <div className="flex py-2.5 px-3 bg-gray-50/60">
-                <span className="w-24 text-gray-500 font-semibold shrink-0">소비자 재구매율</span>
-                <span className="text-emerald-700 font-black">{selectedProduct.repurchasePercent || 95}% 추천</span>
+                <span className="w-24 text-gray-500 font-semibold shrink-0">{t('소비자 재구매율')}</span>
+                <span className="text-emerald-700 font-black">{t('{n}% 추천', { n: selectedProduct.repurchasePercent || 95 })}</span>
               </div>
             </div>
 
@@ -889,9 +890,9 @@ export const ProductDetailModal: React.FC = () => {
             <div className="mt-3 p-3 rounded-xl bg-amber-50/70 border border-amber-200/60 flex items-start gap-2.5 text-[11px] text-amber-800 leading-relaxed">
               <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div>
-                <span className="font-semibold text-amber-900 block mb-0.5">품목 및 영양성분 정보 안내</span>
+                <span className="font-semibold text-amber-900 block mb-0.5">{t('품목 및 영양성분 정보 안내')}</span>
                 <span>
-                  제조사 사정, 제품 리뉴얼 또는 원료 수급 시점에 따라 실제 영양성분 및 제품 정보와 차이가 있을 수 있습니다. 정확한 정보는 제품 포장의 표시 사항을 확인해 주세요.
+                  {t('제조사 사정, 제품 리뉴얼 또는 원료 수급 시점에 따라 실제 영양성분 및 제품 정보와 차이가 있을 수 있습니다. 정확한 정보는 제품 포장의 표시 사항을 확인해 주세요.')}
                 </span>
               </div>
             </div>
@@ -903,35 +904,35 @@ export const ProductDetailModal: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-gray-900" />
                 <span className="text-[14px] font-bold text-gray-900">
-                  {selectedProduct.freshMetrics && actualReviewCount > 0 ? '신선 먹거리 품질 지표' : '영양 성분 분석표 (식약처 기준)'}
+                  {selectedProduct.freshMetrics && actualReviewCount > 0 ? t('신선 먹거리 품질 지표') : t('영양 성분 분석표 (식약처 기준)')}
                 </span>
               </div>
               {(!selectedProduct.freshMetrics || actualReviewCount === 0) && (
-                <span className="text-[10px] text-gray-400">1일 영양성분 기준치 비율(%)</span>
+                <span className="text-[10px] text-gray-400">{t('1일 영양성분 기준치 비율(%)')}</span>
               )}
             </div>
 
             {selectedProduct.freshMetrics && actualReviewCount > 0 ? (
               <div className="grid grid-cols-2 gap-2.5 text-center">
                 <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100">
-                  <div className="text-[11px] text-emerald-700 font-bold">당도 (Brix)</div>
+                  <div className="text-[11px] text-emerald-700 font-bold">{t('당도 (Brix)')}</div>
                   <div className="text-base font-black text-emerald-800 mt-0.5">{selectedProduct.freshMetrics.sweetness} / 5.0</div>
-                  <div className="text-[10px] text-emerald-600 mt-0.5">비파괴 고당도 선별</div>
+                  <div className="text-[10px] text-emerald-600 mt-0.5">{t('비파괴 고당도 선별')}</div>
                 </div>
                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <div className="text-[11px] text-slate-700 font-bold">신선도 등급</div>
+                  <div className="text-[11px] text-slate-700 font-bold">{t('신선도 등급')}</div>
                   <div className="text-base font-black text-slate-900 mt-0.5">{selectedProduct.freshMetrics.freshness} / 5.0</div>
-                  <div className="text-[10px] text-slate-600 mt-0.5">산지직송 콜드체인</div>
+                  <div className="text-[10px] text-slate-600 mt-0.5">{t('산지직송 콜드체인')}</div>
                 </div>
                 <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-100">
-                  <div className="text-[11px] text-amber-700 font-bold">식감 만족도</div>
+                  <div className="text-[11px] text-amber-700 font-bold">{t('식감 만족도')}</div>
                   <div className="text-base font-black text-amber-800 mt-0.5">{selectedProduct.freshMetrics.texture} / 5.0</div>
-                  <div className="text-[10px] text-amber-600 mt-0.5">탱글하고 아삭한 식감</div>
+                  <div className="text-[10px] text-amber-600 mt-0.5">{t('탱글하고 아삭한 식감')}</div>
                 </div>
                 <div className="p-3 bg-purple-50/60 rounded-xl border border-purple-100">
-                  <div className="text-[11px] text-purple-700 font-bold">가격 가성비</div>
+                  <div className="text-[11px] text-purple-700 font-bold">{t('가격 가성비')}</div>
                   <div className="text-base font-black text-purple-800 mt-0.5">{selectedProduct.freshMetrics.value} / 5.0</div>
-                  <div className="text-[10px] text-purple-600 mt-0.5">소비자 체감 평점</div>
+                  <div className="text-[10px] text-purple-600 mt-0.5">{t('소비자 체감 평점')}</div>
                 </div>
               </div>
             ) : (() => {
@@ -943,10 +944,10 @@ export const ProductDetailModal: React.FC = () => {
                 return (
                   <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-center text-slate-500 text-xs space-y-1 border border-slate-100 dark:border-slate-700">
                     <p className="font-bold text-slate-700 dark:text-slate-300">
-                      식약처 DB 미등록 상품 (영양성분 미표기)
+                      {t('식약처 DB 미등록 상품 (영양성분 미표기)')}
                     </p>
                     <p className="text-[11px] text-slate-400">
-                      식품의약품안전처 공공데이터에서 검색되지 않는 상품은 규정에 따라 영양성분을 표기하지 않습니다.
+                      {t('식품의약품안전처 공공데이터에서 검색되지 않는 상품은 규정에 따라 영양성분을 표기하지 않습니다.')}
                     </p>
                   </div>
                 );
@@ -957,45 +958,45 @@ export const ProductDetailModal: React.FC = () => {
                   {isOfficialVerified ? (
                     <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold border border-emerald-200 dark:border-emerald-800 animate-in fade-in">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span>🌿 식품의약품안전처 공식 식품영양성분DB 검증</span>
+                      <span>{t('🌿 식품의약품안전처 공식 식품영양성분DB 검증')}</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 text-[10px]">
                       <Info className="w-3 h-3 text-slate-400 shrink-0" />
-                      <span>제조사 공개 영양성분 기준</span>
+                      <span>{t('제조사 공개 영양성분 기준')}</span>
                     </div>
                   )}
                   <div className="rounded-xl border border-gray-100 divide-y divide-gray-100 text-xs overflow-hidden">
                     <div className="flex justify-between items-center py-2.5 px-3 bg-gray-50/70 font-bold">
-                      <span className="text-gray-700">열량 (칼로리)</span>
+                      <span className="text-gray-700">{t('열량 (칼로리)')}</span>
                       <span className="text-gray-900 font-bold">
-                        {displayCalories ? `${displayCalories} kcal` : '상세 표기 참조'}
+                        {displayCalories ? `${displayCalories} kcal` : t('상세 표기 참조')}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
-                      <span className="text-gray-600">나트륨</span>
+                      <span className="text-gray-600">{t('나트륨')}</span>
                       <span className="font-semibold text-gray-900">{activeNutrition.sodium || '-'}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
-                      <span className="text-gray-600">탄수화물 / 당류</span>
+                      <span className="text-gray-600">{t('탄수화물 / 당류')}</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition.carbs || '-'} {activeNutrition.sugar ? `(당류 ${activeNutrition.sugar})` : ''}
+                        {activeNutrition.carbs || '-'} {activeNutrition.sugar ? `(${t('당류')} ${activeNutrition.sugar})` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
-                      <span className="text-gray-600">지방 / 트랜스지방</span>
+                      <span className="text-gray-600">{t('지방 / 트랜스지방')}</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition.fat || '-'} {activeNutrition.transFat ? `(트랜스 ${activeNutrition.transFat})` : ''}
+                        {activeNutrition.fat || '-'} {activeNutrition.transFat ? `(${t('트랜스')} ${activeNutrition.transFat})` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3 bg-gray-50/40">
-                      <span className="text-gray-600">포화지방 / 콜레스테롤</span>
+                      <span className="text-gray-600">{t('포화지방 / 콜레스테롤')}</span>
                       <span className="font-semibold text-gray-900">
-                        {activeNutrition.satFat ? `포화 ${activeNutrition.satFat}` : '-'} {activeNutrition.cholesterol ? `· 콜레스테롤 ${activeNutrition.cholesterol}` : ''}
+                        {activeNutrition.satFat ? `${t('포화')} ${activeNutrition.satFat}` : '-'} {activeNutrition.cholesterol ? `· ${t('콜레스테롤')} ${activeNutrition.cholesterol}` : ''}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-2 px-3">
-                      <span className="text-gray-600">단백질</span>
+                      <span className="text-gray-600">{t('단백질')}</span>
                       <span className="font-bold text-gray-900">{activeNutrition.protein || '-'}</span>
                     </div>
                   </div>
@@ -1004,8 +1005,8 @@ export const ProductDetailModal: React.FC = () => {
             })()}
 
             <div className="mt-2 text-[10px] text-gray-400 space-y-0.5">
-              <p>* 1일 영양성분 기준치(2,000 kcal)에 대한 비율(%)이며, 개인의 필요 열량에 따라 다를 수 있습니다.</p>
-              <p>* 실제 영양성분 및 제품 정보는 제조사 사정이나 리뉴얼 시점에 따라 실제 포장 표기와 다를 수 있습니다.</p>
+              <p>{t('* 1일 영양성분 기준치(2,000 kcal)에 대한 비율(%)이며, 개인의 필요 열량에 따라 다를 수 있습니다.')}</p>
+              <p>{t('* 실제 영양성분 및 제품 정보는 제조사 사정이나 리뉴얼 시점에 따라 실제 포장 표기와 다를 수 있습니다.')}</p>
             </div>
           </div>
 
@@ -1017,10 +1018,10 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-amber-500" />
                   <span className="text-[14px] font-bold text-gray-900">
-                    {selectedProduct.subCategory} 브랜드·산지별 랭킹 비교
+                    {t(selectedProduct.subCategory || '')} {t('브랜드·산지별 랭킹 비교')}
                   </span>
                 </div>
-                <span className="text-[11px] text-gray-400">평점 순</span>
+                <span className="text-[11px] text-gray-400">{t('평점 순')}</span>
               </div>
 
               <div className="space-y-2">
@@ -1059,7 +1060,7 @@ export const ProductDetailModal: React.FC = () => {
                         onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
                         className="text-[10px] font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2 py-1 rounded-md ml-1 flex items-center gap-0.5"
                       >
-                        <span>쿠팡</span>
+                        <span>{t('쿠팡')}</span>
                         <ExternalLink className="w-2.5 h-2.5" />
                       </button>
                     </div>
@@ -1082,9 +1083,9 @@ export const ProductDetailModal: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="w-4 h-4 text-gray-900" />
-                  <span className="text-[14px] font-bold text-gray-900">전국 대표 맛집 위치 및 랭킹</span>
+                  <span className="text-[14px] font-bold text-gray-900">{t('전국 대표 맛집 위치 및 랭킹')}</span>
                 </div>
-                <span className="text-[11px] text-gray-500 font-bold">인기순</span>
+                <span className="text-[11px] text-gray-500 font-bold">{t('인기순')}</span>
               </div>
 
               {selectedProduct.restaurantInfo?.popularVariations && (
@@ -1108,7 +1109,7 @@ export const ProductDetailModal: React.FC = () => {
                           </span>
                           <span className="text-xs font-bold text-gray-900">{rr.restaurantName}</span>
                         </div>
-                        <span className="text-[11px] text-gray-500 mt-1 block">대표: {rr.signatureMenu} ({rr.priceRange})</span>
+                        <span className="text-[11px] text-gray-500 mt-1 block">{t('대표:')} {rr.signatureMenu} ({rr.priceRange})</span>
                         <button
                           onClick={() => {
                             const url = `https://map.naver.com/v5/search/${encodeURIComponent(rr.restaurantName + ' ' + (rr.region || ''))}`;
@@ -1117,7 +1118,7 @@ export const ProductDetailModal: React.FC = () => {
                           className="mt-2 text-[11px] font-bold text-gray-800 flex items-center gap-1 hover:underline"
                         >
                           <MapPin className="w-3 h-3" />
-                          <span>네이버 지도 길찾기</span>
+                          <span>{t('네이버 지도 길찾기')}</span>
                           <ExternalLink className="w-3 h-3" />
                         </button>
                       </div>
@@ -1127,7 +1128,7 @@ export const ProductDetailModal: React.FC = () => {
                           <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
                           <span>{rr.rating.toFixed(1)}</span>
                         </div>
-                        <span className="text-[10px] text-gray-400">리뷰 {rr.reviewCount}개</span>
+                        <span className="text-[10px] text-gray-400">{t('리뷰 {n}개', { n: rr.reviewCount })}</span>
                       </div>
                     </div>
                   ))}
@@ -1145,16 +1146,16 @@ export const ProductDetailModal: React.FC = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[15px] font-black text-gray-900">쿠팡 (Coupang)</span>
+                        <span className="text-[15px] font-black text-gray-900">{t('쿠팡 (Coupang)')}</span>
                         <span className="text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded">
-                          공식 제휴
+                          {t('공식 제휴')}
                         </span>
                       </div>
-                      <span className="text-[11px] text-gray-500 block mt-0.5">신상품 공식 특가 & 로켓배송</span>
+                      <span className="text-[11px] text-gray-500 block mt-0.5">{t('신상품 공식 특가 & 로켓배송')}</span>
                     </div>
                   </div>
                   <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <span>로켓배송</span>
+                    <span>{t('로켓배송')}</span>
                     <span>🚀</span>
                   </span>
                 </div>
@@ -1163,16 +1164,16 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-50 via-gray-50 to-rose-50/20 border border-gray-200/90 shadow-2xs space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[11px] text-gray-500 font-medium block">실시간 판매 가격</span>
+                      <span className="text-[11px] text-gray-500 font-medium block">{t('실시간 판매 가격')}</span>
                       <span className="text-xl font-black text-gray-900 mt-0.5 block">
                         {formatProductPrice(selectedProduct.price)}
                       </span>
                     </div>
                     <div className="text-right">
                       <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md inline-block">
-                        당일 / 새벽 도착 보장
+                        {t('당일 / 새벽 도착 보장')}
                       </span>
-                      <span className="text-[10px] text-gray-400 block mt-0.5">와우회원 무료배송 혜택</span>
+                      <span className="text-[10px] text-gray-400 block mt-0.5">{t('와우회원 무료배송 혜택')}</span>
                     </div>
                   </div>
 
@@ -1180,7 +1181,7 @@ export const ProductDetailModal: React.FC = () => {
                     onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
                     className="w-full py-3 bg-gradient-to-r from-rose-500 via-rose-600 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
                   >
-                    <span>쿠팡에서 최저가 구매하기</span>
+                    <span>{t('쿠팡에서 최저가 구매하기')}</span>
                     <ExternalLink className="w-4 h-4 stroke-[2.5]" />
                   </button>
                 </div>
@@ -1189,7 +1190,7 @@ export const ProductDetailModal: React.FC = () => {
                 <div className="mt-3.5 p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 flex items-start gap-2 text-[11px] text-amber-900 leading-relaxed">
                   <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-amber-950 block mb-0.5">쿠팡 파트너스 안내</span>
+                    <span className="font-bold text-amber-950 block mb-0.5">{t('쿠팡 파트너스 안내')}</span>
                     <span>{COUPANG_PARTNERS_NOTICE}</span>
                   </div>
                 </div>
@@ -1205,7 +1206,7 @@ export const ProductDetailModal: React.FC = () => {
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col min-w-0">
             <span className="text-[11px] text-gray-500 font-medium truncate">
-              {selectedProduct.brand} {selectedProduct.discountRate ? `· ${selectedProduct.discountRate}% 할인` : ''}
+              {selectedProduct.brand} {selectedProduct.discountRate ? t('· {n}% 할인', { n: selectedProduct.discountRate }) : ''}
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-base font-black text-gray-900">
@@ -1222,7 +1223,7 @@ export const ProductDetailModal: React.FC = () => {
                   ? 'border-rose-200 bg-rose-50 text-rose-600' 
                   : 'border-gray-200 text-gray-400 hover:bg-gray-50'
               }`}
-              aria-label={isBookmarked ? '찜 취소' : '찜하기'}
+              aria-label={isBookmarked ? t('찜 취소') : t('찜하기')}
             >
               <Heart className={`w-5 h-5 ${isBookmarked ? 'fill-rose-500 text-rose-500' : 'text-gray-400'}`} />
             </button>
@@ -1232,7 +1233,7 @@ export const ProductDetailModal: React.FC = () => {
                 onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
                 className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
               >
-                <span>쿠팡 구매하기</span>
+                <span>{t('쿠팡 구매하기')}</span>
                 <ExternalLink className="w-3.5 h-3.5 stroke-[2.5]" />
               </button>
             )}

@@ -9,6 +9,7 @@ import { EditReviewModal } from '../review/EditReviewModal';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { Review } from '../../types';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
+import { t } from '../../i18n';
 
 interface ReviewListProps {
   productId?: string;
@@ -84,7 +85,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
   };
 
   const handleDeleteReview = (reviewId: string) => {
-    if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?\n삭제된 리뷰는 복구할 수 없습니다.')) {
+    if (window.confirm(t('정말 이 리뷰를 삭제하시겠습니까?') + '\n' + t('삭제된 리뷰는 복구할 수 없습니다.'))) {
       deleteReview(reviewId);
     }
   };
@@ -102,7 +103,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
-            {s}
+            {t(s)}
           </button>
         ))}
       </div>
@@ -127,7 +128,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                   <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden shrink-0 border border-gray-200/80">
                     <img
                       src={avatarSrc}
-                      alt={r.userName || '리뷰 작성자'}
+                      alt={r.userName || t('리뷰 작성자')}
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         const img = e.currentTarget as HTMLImageElement;
@@ -151,7 +152,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                       <span className="text-xs font-bold text-gray-900">{r.userName}</span>
                       {isMine && (
                         <span className="text-[9px] bg-gray-900 text-white font-bold px-1.5 py-0.5 rounded-full">
-                          내 글
+                          {t('내 글')}
                         </span>
                       )}
                     </div>
@@ -178,8 +179,8 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                         setOpenMenuReviewId(openMenuReviewId === r.id ? null : r.id);
                       }}
                       className="p-1.5 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
-                      title="리뷰 관리 메뉴"
-                      aria-label="리뷰 관리 메뉴"
+                      title={t('리뷰 관리 메뉴')}
+                      aria-label={t('리뷰 관리 메뉴')}
                     >
                       <Menu className="w-4 h-4" />
                     </button>
@@ -205,7 +206,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                             className="w-full px-3 py-2 text-left text-xs font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors"
                           >
                             <Pencil className="w-3.5 h-3.5 text-gray-500" />
-                            <span>수정하기</span>
+                            <span>{t('수정하기')}</span>
                           </button>
                           <button
                             onClick={() => {
@@ -215,7 +216,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                             className="w-full px-3 py-2 text-left text-xs font-semibold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5 text-rose-500" />
-                            <span>삭제하기</span>
+                            <span>{t('삭제하기')}</span>
                           </button>
                         </div>
                       </>
@@ -233,7 +234,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                       setIsReportOpen(true);
                     }}
                     className="p-1.5 text-gray-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
-                    title="리뷰 신고 및 작성자 차단"
+                    title={t('리뷰 신고 및 작성자 차단')}
                   >
                     <Flag className="w-3.5 h-3.5" />
                   </button>
@@ -254,7 +255,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 )}
                 {r.isReceiptVerified && (
                   <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
-                    ✓ 내돈내산 인증
+                    {t('✓ 내돈내산 인증')}
                   </span>
                 )}
               </div>
@@ -271,17 +272,17 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                 <div className="flex flex-wrap gap-1 mb-2">
                   {r.flavorProfile.sweetness && (
                     <span className="text-[10px] font-semibold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                      단맛: {r.flavorProfile.sweetness}
+                      {t('단맛')}: {r.flavorProfile.sweetness}
                     </span>
                   )}
                   {r.flavorProfile.spiciness && (
                     <span className="text-[10px] font-semibold text-red-800 bg-red-50 px-1.5 py-0.5 rounded border border-red-200">
-                      매운맛: {r.flavorProfile.spiciness}
+                      {t('매운맛')}: {r.flavorProfile.spiciness}
                     </span>
                   )}
                   {r.flavorProfile.texture && (
                     <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                      식감: {r.flavorProfile.texture}
+                      {t('식감')}: {r.flavorProfile.texture}
                     </span>
                   )}
                 </div>
@@ -294,9 +295,9 @@ export const ReviewList: React.FC<ReviewListProps> = ({
               {/* Target & Keywords Tags */}
               {r.tags && r.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
-                  {r.tags.map((t, idx) => (
+                  {r.tags.map((tag, idx) => (
                     <span key={idx} className="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
-                      {t}
+                      {tag}
                     </span>
                   ))}
                 </div>
@@ -314,7 +315,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                         className={`relative group rounded-xl overflow-hidden border border-gray-200/80 cursor-pointer shrink-0 bg-gray-50 transition-all duration-200 hover:shadow-md hover:border-gray-400 active:scale-[0.98] ${
                           imgList.length > 1 ? 'w-36 h-28' : 'w-full max-w-sm h-48'
                         }`}
-                        title="클릭하여 사진 크게보기"
+                        title={t('클릭하여 사진 크게보기')}
                       >
                         <SafeImage 
                           src={imgSrc} 
@@ -324,7 +325,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center">
                           <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 backdrop-blur-xs shadow-sm">
-                            <ZoomIn className="w-3 h-3" /> 크게보기
+                            <ZoomIn className="w-3 h-3" /> {t('크게보기')}
                           </span>
                         </div>
                         {imgList.length > 1 && (
@@ -346,14 +347,14 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                   }`}
                 >
                   <Heart className={`w-3.5 h-3.5 ${r.isLiked ? 'fill-rose-500' : ''}`} />
-                  <span>도움돼요 {r.likes || 0}</span>
+                  <span>{t('도움돼요')} {r.likes || 0}</span>
                 </button>
                 <button
                   onClick={() => setOpenCommentReviewId(openCommentReviewId === r.id ? null : r.id)}
                   className="flex items-center gap-1 hover:text-gray-700 transition-colors"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>댓글 {r.commentsCount || r.comments?.length || 0}</span>
+                  <span>{t('댓글')} {r.commentsCount || r.comments?.length || 0}</span>
                 </button>
               </div>
 
@@ -371,7 +372,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                       </div>
                     ))
                   ) : (
-                    <p className="text-xs text-gray-400 text-center py-1">등록된 댓글이 없습니다.</p>
+                    <p className="text-xs text-gray-400 text-center py-1">{t('등록된 댓글이 없습니다.')}</p>
                   )}
 
                   {/* Comment Input */}
@@ -383,7 +384,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') handleAddComment(r.id);
                       }}
-                      placeholder="답글을 남겨보세요"
+                      placeholder={t('답글을 남겨보세요')}
                       className="flex-1 bg-white border border-gray-200 rounded-full px-3 py-1.5 text-xs text-gray-800 outline-none placeholder-gray-400"
                     />
                     <button
@@ -404,16 +405,16 @@ export const ReviewList: React.FC<ReviewListProps> = ({
         <div className="text-center py-10 px-4 bg-gray-50 rounded-2xl space-y-2.5">
           <div className="text-3xl">✨</div>
           <div className="text-xs font-bold text-gray-800">
-            아직 등록된 솔직 후기가 없습니다
+            {t('아직 등록된 솔직 후기가 없습니다')}
           </div>
           <p className="text-[11px] text-gray-400">
-            이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요! (+{POINT_POLICY.review}P 적립)
+            {t('이 상품을 가장 먼저 맛보고 첫 번째 후기를 남겨주세요!')} (+{POINT_POLICY.review}P)
           </p>
           <button
             onClick={() => setActiveTab('write')}
             className="mt-2 px-4 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs transition-colors"
           >
-            리뷰 작성하기
+            {t('리뷰 작성하기')}
           </button>
         </div>
       )}

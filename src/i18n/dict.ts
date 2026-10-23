@@ -1,4 +1,6 @@
 // 한국어 원문 → [영어, 일본어, 중국어(간체)]. 키에 없는 문구는 한국어 원문이 그대로 표시됩니다.
+import { DETAIL_ROWS } from './dictDetail';
+
 type Row = [string, string, string, string];
 
 const ROWS: Row[] = [
@@ -257,7 +259,7 @@ const ROWS: Row[] = [
 
 function build(index: 1 | 2 | 3): Record<string, string> {
   const out: Record<string, string> = {};
-  for (const row of ROWS) out[row[0]] = row[index];
+  for (const row of [...ROWS, ...DETAIL_ROWS]) out[row[0]] = row[index];
   return out;
 }
 

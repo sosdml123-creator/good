@@ -13,6 +13,7 @@ import {
 import { Product } from '../../types';
 import { SafeImage } from '../common/SafeImage';
 import { getProductShareUrl } from '../../utils/productCode';
+import { t } from '../../i18n';
 
 interface ProductActionMenuModalProps {
   isOpen: boolean;
@@ -59,7 +60,7 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareUrl);
     }
-    showToast(`🔗 상품 링크가 복사되었습니다!\n(${shareUrl})`, 'success');
+    showToast(`${t('🔗 상품 링크가 복사되었습니다!')}\n(${shareUrl})`, 'success');
     onClose();
   };
 
@@ -68,9 +69,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'edit_request',
       icon: Edit3,
       iconBg: 'bg-indigo-50 text-indigo-600 border-indigo-100',
-      title: '제품 정보 수정 요청',
-      description: '가격, 판매처, 행사, 영양성분, 단종 등 오류 제보',
-      badge: '제보하기',
+      title: t('제품 정보 수정 요청'),
+      description: t('가격, 판매처, 행사, 영양성분, 단종 등 오류 제보'),
+      badge: t('제보하기'),
       badgeColor: 'bg-indigo-600 text-white',
       highlight: true,
       onClick: () => {
@@ -82,9 +83,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'compare',
       icon: Scale,
       iconBg: isCompared ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-blue-50 text-blue-600 border-blue-100',
-      title: isCompared ? '1:1 비교함에서 제거' : '1:1 비교함에 담기',
-      description: '다른 신제품과 영양성분 · 당도 · 가성비 맞비교',
-      badge: isCompared ? '담김' : '비교',
+      title: isCompared ? t('1:1 비교함에서 제거') : t('1:1 비교함에 담기'),
+      description: t('다른 신제품과 영양성분 · 당도 · 가성비 맞비교'),
+      badge: isCompared ? t('담김') : t('비교'),
       badgeColor: isCompared ? 'bg-indigo-600 text-white' : 'bg-blue-50 text-blue-700 border-blue-200 border',
       onClick: () => {
         onToggleCompare();
@@ -95,9 +96,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'stock_alert',
       icon: Bell,
       iconBg: 'bg-amber-50 text-amber-600 border-amber-100',
-      title: '재입고 & 1+1 행사 알림 신청',
-      description: '편의점 입고 및 1+1 / 2+1 할인 시작 시 즉시 알림',
-      badge: '알림받기',
+      title: t('재입고 & 1+1 행사 알림 신청'),
+      description: t('편의점 입고 및 1+1 / 2+1 할인 시작 시 즉시 알림'),
+      badge: t('알림받기'),
       badgeColor: 'bg-amber-50 text-amber-700 border-amber-200 border',
       onClick: () => {
         onClose();
@@ -108,9 +109,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'brand_view',
       icon: Building2,
       iconBg: 'bg-purple-50 text-purple-600 border-purple-100',
-      title: `${product.brand} 브랜드관 바로가기`,
-      description: `${product.brand}의 모든 출시 신제품과 랭킹 모아보기`,
-      badge: '브랜드관',
+      title: t('{b} 브랜드관 바로가기', { b: product.brand }),
+      description: t('{b}의 모든 출시 신제품과 랭킹 모아보기', { b: product.brand }),
+      badge: t('브랜드관'),
       badgeColor: 'bg-purple-50 text-purple-700 border-purple-200 border',
       onClick: () => {
         onClose();
@@ -121,9 +122,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'share',
       icon: Share2,
       iconBg: 'bg-sky-50 text-sky-600 border-sky-100',
-      title: '상품 링크 공유하기',
-      description: '친구와 메신저에 상품 바로가기 링크 공유',
-      badge: '공유',
+      title: t('상품 링크 공유하기'),
+      description: t('친구와 메신저에 상품 바로가기 링크 공유'),
+      badge: t('공유'),
       badgeColor: 'bg-sky-50 text-sky-700 border-sky-200 border',
       onClick: handleShare
     },
@@ -131,9 +132,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
       id: 'report',
       icon: ShieldAlert,
       iconBg: 'bg-rose-50 text-rose-600 border-rose-100',
-      title: '부적절한 정보 및 불량 리뷰 신고',
-      description: '허위 사실 유포 및 불건전 콘텐츠 신고 모더레이션',
-      badge: '신고',
+      title: t('부적절한 정보 및 불량 리뷰 신고'),
+      description: t('허위 사실 유포 및 불건전 콘텐츠 신고 모더레이션'),
+      badge: t('신고'),
       badgeColor: 'bg-rose-50 text-rose-600 border-rose-200 border',
       onClick: () => {
         onClose();
@@ -151,9 +152,9 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
         {/* Header Bar */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center gap-2">
-            <span className="text-base font-black text-gray-900 tracking-tight">더보기 옵션</span>
+            <span className="text-base font-black text-gray-900 tracking-tight">{t('더보기 옵션')}</span>
             <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
-              신상 메뉴
+              {t('신상 메뉴')}
             </span>
           </div>
           <button
@@ -179,7 +180,7 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
             </div>
             <p className="text-xs font-bold text-gray-900 truncate mt-0.5">{product.name}</p>
             <p className="text-[11px] font-semibold text-rose-600">
-              {product.price ? `${product.price.toLocaleString()}원` : '가격 정보 없음'}
+              {product.price ? t('{n}원', { n: product.price.toLocaleString() }) : t('가격 정보 없음')}
               {product.volume ? ` (${product.volume})` : ''}
             </p>
           </div>
@@ -210,7 +211,7 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
                       </span>
                       {item.highlight && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-black bg-indigo-600 text-white px-1.5 py-0.2 rounded-full">
-                          <Sparkles className="w-2.5 h-2.5" /> 추천
+                          <Sparkles className="w-2.5 h-2.5" /> {t('추천')}
                         </span>
                       )}
                     </div>
@@ -237,7 +238,7 @@ export const ProductActionMenuModal: React.FC<ProductActionMenuModalProps> = ({
             onClick={onClose}
             className="w-full py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-100 transition-colors"
           >
-            닫기
+            {t('닫기')}
           </button>
         </div>
       </div>

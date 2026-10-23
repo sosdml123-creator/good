@@ -23,6 +23,7 @@ import { NewProductRequestModal } from './NewProductRequestModal';
 import { compressAndResizeImage } from '../../utils/imageCompressor';
 import { ImageViewerModal } from '../common/ImageViewerModal';
 import { formatProductPrice } from '../../utils/formatters';
+import { t } from '../../i18n';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -139,73 +140,73 @@ export const WriteReviewModal: React.FC = () => {
 
     if (has('커피', '라떼', '아메리카노', '콜드브루', '에스프레소', '카페')) {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '커피 맛과 풍미가 뛰어난가요?' },
-        { label: '산미', val: metric2, set: setMetric2, desc: '산미가 기분 좋게 느껴지나요?' },
-        { label: '고소함·향', val: metric3, set: setMetric3, desc: '고소함과 원두 향이 풍부한가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 커피인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('커피 맛과 풍미가 뛰어난가요?') },
+        { label: t('산미'), val: metric2, set: setMetric2, desc: t('산미가 기분 좋게 느껴지나요?') },
+        { label: t('고소함·향'), val: metric3, set: setMetric3, desc: t('고소함과 원두 향이 풍부한가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사마시고 싶은 커피인가요?') },
       ];
     }
     if (has('라면', '국수', '우동', '짬뽕', '파스타', '냉면')) {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '국물/소스와 전반적인 맛이 훌륭한가요?' },
-        { label: '면발·식감', val: metric2, set: setMetric2, desc: '면이 쫄깃하고 조화로운가요?' },
-        { label: '매운맛·얼큰함', val: metric3, set: setMetric3, desc: '맵기와 국물 감칠맛이 적당한가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 라면인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('국물/소스와 전반적인 맛이 훌륭한가요?') },
+        { label: t('면발·식감'), val: metric2, set: setMetric2, desc: t('면이 쫄깃하고 조화로운가요?') },
+        { label: t('매운맛·얼큰함'), val: metric3, set: setMetric3, desc: t('맵기와 국물 감칠맛이 적당한가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶은 라면인가요?') },
       ];
     }
     if (has('아이스크림', '빙수', '젤라또') && cat !== '과자') {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '달콤하고 재료 본연의 맛이 진한가요?' },
-        { label: '부드러움·식감', val: metric2, set: setMetric2, desc: '입에서 부드럽게 녹나요?' },
-        { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격 대비 용량이 만족스러운가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 아이스크림인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('달콤하고 재료 본연의 맛이 진한가요?') },
+        { label: t('부드러움·식감'), val: metric2, set: setMetric2, desc: t('입에서 부드럽게 녹나요?') },
+        { label: t('가성비·양'), val: metric3, set: setMetric3, desc: t('가격 대비 용량이 만족스러운가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶은 아이스크림인가요?') },
       ];
     }
     if (['과일', '고기·수산', '식재료'].includes(cat) || name.includes('수박') || name.includes('과일')) {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '당도와 본연의 풍미가 뛰어난가요?' },
-        { label: '신선도', val: metric2, set: setMetric2, desc: '싱싱하고 신선한가요?' },
-        { label: '식감', val: metric3, set: setMetric3, desc: '아삭함/부드러움 식감이 좋은가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 구매하고 싶을 정도인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('당도와 본연의 풍미가 뛰어난가요?') },
+        { label: t('신선도'), val: metric2, set: setMetric2, desc: t('싱싱하고 신선한가요?') },
+        { label: t('식감'), val: metric3, set: setMetric3, desc: t('아삭함/부드러움 식감이 좋은가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 구매하고 싶을 정도인가요?') },
       ];
     }
     if (cat === '음료') {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '음료 맛과 풍미가 뛰어난가요?' },
-        { label: '청량감·목넘김', val: metric2, set: setMetric2, desc: '청량하고 목넘김이 깔끔한가요?' },
-        { label: '단맛 밸런스', val: metric3, set: setMetric3, desc: '너무 달지 않고 적당한가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사마시고 싶은 음료인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('음료 맛과 풍미가 뛰어난가요?') },
+        { label: t('청량감·목넘김'), val: metric2, set: setMetric2, desc: t('청량하고 목넘김이 깔끔한가요?') },
+        { label: t('단맛 밸런스'), val: metric3, set: setMetric3, desc: t('너무 달지 않고 적당한가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사마시고 싶은 음료인가요?') },
       ];
     }
     if (cat === '과자') {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '단짠 조화와 스낵 맛이 훌륭한가요?' },
-        { label: '바삭함·식감', val: metric2, set: setMetric2, desc: '바삭바삭 식감이 살아있나요?' },
-        { label: '양·가성비', val: metric3, set: setMetric3, desc: '질소 없이 알차고 가성비가 좋은가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 과자인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('단짠 조화와 스낵 맛이 훌륭한가요?') },
+        { label: t('바삭함·식감'), val: metric2, set: setMetric2, desc: t('바삭바삭 식감이 살아있나요?') },
+        { label: t('양·가성비'), val: metric3, set: setMetric3, desc: t('질소 없이 알차고 가성비가 좋은가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶은 과자인가요?') },
       ];
     }
     if (cat === '빵·디저트') {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '디저트 본연의 맛이 뛰어난가요?' },
-        { label: '촉촉함·식감', val: metric2, set: setMetric2, desc: '촉촉하고 부드러운가요?' },
-        { label: '크림·속재료', val: metric3, set: setMetric3, desc: '속재료가 알차게 들어있나요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 디저트인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('디저트 본연의 맛이 뛰어난가요?') },
+        { label: t('촉촉함·식감'), val: metric2, set: setMetric2, desc: t('촉촉하고 부드러운가요?') },
+        { label: t('크림·속재료'), val: metric3, set: setMetric3, desc: t('속재료가 알차게 들어있나요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶은 디저트인가요?') },
       ];
     }
     if (['간편식', '패스트푸드'].includes(cat)) {
       return [
-        { label: '맛', val: metric1, set: setMetric1, desc: '입맛에 딱 맞고 맛있는가요?' },
-        { label: '푸짐함·양', val: metric2, set: setMetric2, desc: '한 끼 식사로 알차고 푸짐한가요?' },
-        { label: '조리 편의성', val: metric3, set: setMetric3, desc: '데우거나 먹기 편리한가요?' },
-        { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶은 상품인가요?' },
+        { label: t('맛'), val: metric1, set: setMetric1, desc: t('입맛에 딱 맞고 맛있는가요?') },
+        { label: t('푸짐함·양'), val: metric2, set: setMetric2, desc: t('한 끼 식사로 알차고 푸짐한가요?') },
+        { label: t('조리 편의성'), val: metric3, set: setMetric3, desc: t('데우거나 먹기 편리한가요?') },
+        { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶은 상품인가요?') },
       ];
     }
     return [
-      { label: '맛', val: metric1, set: setMetric1, desc: '전반적인 맛이 훌륭한가요?' },
-      { label: '식감·특징', val: metric2, set: setMetric2, desc: '식감이나 특징이 인상적인가요?' },
-      { label: '가성비·양', val: metric3, set: setMetric3, desc: '가격과 양이 만족스러운가요?' },
-      { label: '재구매 의사', val: metric4, set: setMetric4, desc: '다시 사먹고 싶을 정도인가요?' },
+      { label: t('맛'), val: metric1, set: setMetric1, desc: t('전반적인 맛이 훌륭한가요?') },
+      { label: t('식감·특징'), val: metric2, set: setMetric2, desc: t('식감이나 특징이 인상적인가요?') },
+      { label: t('가성비·양'), val: metric3, set: setMetric3, desc: t('가격과 양이 만족스러운가요?') },
+      { label: t('재구매 의사'), val: metric4, set: setMetric4, desc: t('다시 사먹고 싶을 정도인가요?') },
     ];
   }, [prod, metric1, metric2, metric3, metric4]);
 
@@ -258,7 +259,7 @@ export const WriteReviewModal: React.FC = () => {
       );
 
       setImages(prev => [...prev, ...compressedUrls].slice(0, 5));
-      showToast(`📸 사진 ${compressedUrls.length}장이 최적화되어 첨부되었습니다.`, 'success');
+      showToast(t('📸 사진 {n}장이 최적화되어 첨부되었습니다.', { n: compressedUrls.length }), 'success');
     } catch (err) {
       console.error('Image compression failed:', err);
       showToast('사진을 처리하는 중 오류가 발생했습니다.', 'error');
@@ -296,7 +297,7 @@ export const WriteReviewModal: React.FC = () => {
     // 2. 카테고리 세부 별점 평가 여부 검사 (초기 0점에서 모두 선택했는지)
     if (unratedMetrics.length > 0) {
       const missingLabels = unratedMetrics.map(m => m.label).join(', ');
-      showToast(`⭐ 세부 별점을 모두 선택해주세요! (${missingLabels})`, 'error');
+      showToast(`${t('⭐ 세부 별점을 모두 선택해주세요!')} (${missingLabels})`, 'error');
       metricsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       setHighlightedSection('metrics');
       setTimeout(() => setHighlightedSection(null), 2500);
@@ -314,7 +315,7 @@ export const WriteReviewModal: React.FC = () => {
     }
 
     if (text.trim().length < 5) {
-      showToast(`📝 맛 후기가 너무 짧아요! 최소 5자 이상 작성해주세요. (현재 ${text.trim().length}자)`, 'error');
+      showToast(t('📝 맛 후기가 너무 짧아요! 최소 5자 이상 작성해주세요. (현재 {n}자)', { n: text.trim().length }), 'error');
       textSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       textSectionRef.current?.focus();
       setHighlightedSection('text');
@@ -357,7 +358,7 @@ export const WriteReviewModal: React.FC = () => {
           <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
         </button>
         <div className="text-center">
-          <span className="text-[15px] font-black text-gray-900 block leading-tight tracking-tight">신상 솔직 리뷰 작성</span>
+          <span className="text-[15px] font-black text-gray-900 block leading-tight tracking-tight">{t('신상 솔직 리뷰 작성')}</span>
         </div>
         <button 
           onClick={handleSubmit} 
@@ -370,7 +371,7 @@ export const WriteReviewModal: React.FC = () => {
                 : 'bg-gray-900 text-white shadow-sm hover:bg-black active:scale-95'
           }`}
         >
-          {isSubmitting ? '등록중' : '등록 완료'}
+          {isSubmitting ? t('등록중') : t('등록 완료')}
         </button>
       </div>
 
@@ -387,14 +388,14 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-black text-gray-700 flex items-center gap-1.5">
               <Store className="w-4 h-4 text-gray-900" />
-              리뷰 대상 상품
+              {t('리뷰 대상 상품')}
             </span>
             <button
               onClick={() => setIsSearchModalOpen(true)}
               className="text-[11px] font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full flex items-center gap-1 transition-colors active:scale-95"
             >
               <Search className="w-3 h-3 text-gray-500" />
-              {prod ? '상품 변경' : '상품 선택'}
+              {prod ? t('상품 변경') : t('상품 선택')}
             </button>
           </div>
 
@@ -423,7 +424,7 @@ export const WriteReviewModal: React.FC = () => {
                 </div>
               </div>
               <span className="text-xs text-slate-400 font-bold group-hover:text-slate-900 shrink-0">
-                변경 &gt;
+                {t('변경')} &gt;
               </span>
             </div>
           ) : (
@@ -432,8 +433,8 @@ export const WriteReviewModal: React.FC = () => {
               className="border-2 border-dashed border-gray-200 bg-slate-50/50 rounded-xl p-5 text-center cursor-pointer hover:bg-slate-100/80 hover:border-gray-300 transition-all active:scale-[0.99]"
             >
               <Search className="w-8 h-8 text-gray-400 mx-auto mb-2 stroke-[1.5]" />
-              <div className="text-xs font-black text-gray-900">어떤 신상품을 드셔보셨나요?</div>
-              <p className="text-[11px] text-gray-500 mt-1">터치하여 리뷰할 상품을 검색해 선택해주세요</p>
+              <div className="text-xs font-black text-gray-900">{t('어떤 신상품을 드셔보셨나요?')}</div>
+              <p className="text-[11px] text-gray-500 mt-1">{t('터치하여 리뷰할 상품을 검색해 선택해주세요')}</p>
             </div>
           )}
         </div>
@@ -442,9 +443,9 @@ export const WriteReviewModal: React.FC = () => {
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              📸 생생한 사진 첨부
+              {t('📸 생생한 사진 첨부')}
             </span>
-            <span className="text-xs font-bold text-gray-400">{images.length} / 5장</span>
+            <span className="text-xs font-bold text-gray-400">{t('{n} / 5장', { n: images.length })}</span>
           </div>
 
           <input 
@@ -466,12 +467,12 @@ export const WriteReviewModal: React.FC = () => {
               {isCompressing ? (
                 <>
                   <Loader2 className="w-5 h-5 text-amber-500 animate-spin" />
-                  <span className="text-[10px] font-black text-amber-600">압축중...</span>
+                  <span className="text-[10px] font-black text-amber-600">{t('압축중...')}</span>
                 </>
               ) : (
                 <>
                   <Camera className="w-5 h-5 text-gray-400" />
-                  <span className="text-[11px] font-black text-gray-600">사진 추가</span>
+                  <span className="text-[11px] font-black text-gray-600">{t('사진 추가')}</span>
                 </>
               )}
             </button>
@@ -484,7 +485,7 @@ export const WriteReviewModal: React.FC = () => {
                   isOpen: true,
                   images,
                   initialIndex: idx,
-                  title: prod?.name || '리뷰 첨부 사진 미리보기'
+                  title: prod?.name || t('리뷰 첨부 사진 미리보기')
                 })}
               >
                 <img src={imgSrc} alt="preview" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105" />
@@ -493,7 +494,7 @@ export const WriteReviewModal: React.FC = () => {
                 </div>
                 {idx === 0 && (
                   <span className="absolute bottom-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md">
-                    대표
+                    {t('대표')}
                   </span>
                 )}
                 <button
@@ -503,7 +504,7 @@ export const WriteReviewModal: React.FC = () => {
                     removeImage(idx);
                   }}
                   className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/70 text-white flex items-center justify-center text-[10px] hover:bg-rose-500 transition-colors shadow-xs z-10"
-                  title="사진 삭제"
+                  title={t('사진 삭제')}
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -514,7 +515,7 @@ export const WriteReviewModal: React.FC = () => {
 
         {/* 5. 종합 만족도 별점 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 text-center">
-          <div className="text-xs font-black text-gray-500 mb-1">종합 만족도 평점</div>
+          <div className="text-xs font-black text-gray-500 mb-1">{t('종합 만족도 평점')}</div>
           <div className="flex items-center justify-center gap-2 py-1.5">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -534,10 +535,10 @@ export const WriteReviewModal: React.FC = () => {
             ))}
           </div>
           <div className="text-center text-xs font-black text-gray-900 mt-1 bg-amber-50/70 text-amber-900 py-1.5 px-3 rounded-full inline-block border border-amber-200/50">
-            {rating === 5 ? '정말 최고예요! 무조건 강력 추천 ⭐⭐⭐⭐⭐' : 
-             rating === 4 ? '맛있고 기대 이상이에요 👍' : 
-             rating === 3 ? '무난하고 평범해요 😐' : 
-             rating === 2 ? '기대에는 조금 못 미쳐요 💦' : '많이 아쉬워요 😢'}
+            {rating === 5 ? t('정말 최고예요! 무조건 강력 추천 ⭐⭐⭐⭐⭐') : 
+             rating === 4 ? t('맛있고 기대 이상이에요 👍') : 
+             rating === 3 ? t('무난하고 평범해요 😐') : 
+             rating === 2 ? t('기대에는 조금 못 미쳐요 💦') : t('많이 아쉬워요 😢')}
           </div>
         </div>
 
@@ -546,9 +547,9 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-              다시 구매하시겠어요?
+              {t('다시 구매하시겠어요?')}
             </span>
-            <span className="text-[10px] text-gray-400 font-medium">솔직한 평가</span>
+            <span className="text-[10px] text-gray-400 font-medium">{t('솔직한 평가')}</span>
           </div>
 
           <div className="grid grid-cols-5 gap-1.5">
@@ -567,7 +568,7 @@ export const WriteReviewModal: React.FC = () => {
                 >
                   <span className="text-2xl drop-shadow-2xs transition-transform duration-200">{opt.emoji}</span>
                   <span className="text-[10px] font-black text-center leading-tight">
-                    {opt.label}
+                    {t(opt.label)}
                   </span>
                 </button>
               );
@@ -575,7 +576,7 @@ export const WriteReviewModal: React.FC = () => {
           </div>
 
           <div className="text-center text-xs font-bold text-gray-700 bg-slate-50 py-2 px-3 rounded-xl border border-slate-100 flex items-center justify-center gap-1.5">
-            <span>선택한 의견:</span>
+            <span>{t('선택한 의견:')}</span>
             <span className="text-slate-900 font-black underline underline-offset-2">{repurchaseIntent}</span>
           </div>
         </div>
@@ -592,14 +593,14 @@ export const WriteReviewModal: React.FC = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
               <Award className="w-4 h-4 text-amber-500" />
-              {prod ? `'${prod.category}'` : '상품'} 카테고리 세부 별점
+              {prod ? `'${t(prod.category)}'` : t('상품')} {t('카테고리 세부 별점')}
             </span>
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
               unratedMetrics.length === 0
                 ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
                 : 'text-rose-600 bg-rose-50 border border-rose-200 animate-pulse'
             }`}>
-              {unratedMetrics.length === 0 ? '✓ 4개 평가 완료' : `필수 선택 (${unratedMetrics.length}개 남음)`}
+              {unratedMetrics.length === 0 ? t('✓ 4개 평가 완료') : t('필수 선택 ({n}개 남음)', { n: unratedMetrics.length })}
             </span>
           </div>
 
@@ -613,7 +614,7 @@ export const WriteReviewModal: React.FC = () => {
                       ? 'text-rose-500 bg-rose-50/70 border-rose-200' 
                       : 'text-amber-600 bg-amber-50 border-amber-200/50'
                   }`}>
-                    {item.val === 0 ? '별점 선택 필요 (0/5)' : `${item.val}점 / 5점`}
+                    {item.val === 0 ? t('별점 선택 필요 (0/5)') : t('{n}점 / 5점', { n: item.val })}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -655,10 +656,10 @@ export const WriteReviewModal: React.FC = () => {
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-              📝 솔직한 상세 맛 후기
+              {t('📝 솔직한 상세 맛 후기')}
             </span>
             <span className={`text-[10px] font-bold ${text.trim().length >= 30 ? 'text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full' : 'text-gray-400'}`}>
-              {text.trim().length >= 30 ? '✓ 30자 달성' : `${text.length}/30자`}
+              {text.trim().length >= 30 ? t('✓ 30자 달성') : t('{n}/30자', { n: text.length })}
             </span>
           </div>
           <textarea
@@ -671,13 +672,13 @@ export const WriteReviewModal: React.FC = () => {
                 setText(e.target.value);
               }
             }}
-            placeholder="포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최대 300자, 최소 5자 이상)"
+            placeholder={t('포장 개봉 시 향, 첫 맛과 식감, 양, 가성비, 어떤 음료나 간식과 어울리는지 솔직하게 작성해주세요! (최대 300자, 최소 5자 이상)')}
             className="w-full bg-slate-50/70 rounded-xl p-3 text-xs font-medium text-gray-900 placeholder-gray-400 border border-gray-200 outline-none resize-none leading-relaxed focus:border-slate-900 focus:bg-white transition-colors break-words break-all"
           />
           <div className="flex items-center justify-between text-[11px] pt-0.5">
-            <span className="text-gray-400">정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.</span>
+            <span className="text-gray-400">{t('정성스러운 후기는 다른 유저들에게 큰 도움이 됩니다.')}</span>
             <span className={`font-bold ${text.length >= 300 ? 'text-rose-500' : text.length >= 250 ? 'text-amber-600' : 'text-gray-400'}`}>
-              {text.length}/300자
+              {t('{n}/300자', { n: text.length })}
             </span>
           </div>
         </div>
@@ -689,7 +690,7 @@ export const WriteReviewModal: React.FC = () => {
               <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div className="flex-1 space-y-1.5">
                 <div className="font-black text-[12px] text-amber-950">
-                  리뷰 등록을 위해 아래 필수 항목을 작성해주세요:
+                  {t('리뷰 등록을 위해 아래 필수 항목을 작성해주세요:')}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5">
                   {!isProductSelected && (
@@ -702,7 +703,7 @@ export const WriteReviewModal: React.FC = () => {
                       className="cursor-pointer bg-white text-rose-600 border border-rose-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-rose-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
                     >
                       <span>⚠️</span>
-                      <span>상품 선택 필요</span>
+                      <span>{t('상품 선택 필요')}</span>
                     </button>
                   )}
                   {!isMetricsValid && (
@@ -715,7 +716,7 @@ export const WriteReviewModal: React.FC = () => {
                       className="cursor-pointer bg-white text-rose-600 border border-rose-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-rose-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
                     >
                       <span>⭐</span>
-                      <span>세부 별점 ({unratedMetrics.length}개 남음)</span>
+                      <span>{t('세부 별점 ({n}개 남음)', { n: unratedMetrics.length })}</span>
                     </button>
                   )}
                   {!isTextValid && (
@@ -729,7 +730,7 @@ export const WriteReviewModal: React.FC = () => {
                       className="cursor-pointer bg-white text-amber-700 border border-amber-200 font-extrabold px-2.5 py-1 rounded-lg text-[11px] hover:bg-amber-50 active:scale-95 transition-all flex items-center gap-1 shadow-2xs"
                     >
                       <span>📝</span>
-                      <span>맛 후기 최소 5자 ({text.trim().length}/5자)</span>
+                      <span>{t('맛 후기 최소 5자 ({n}/5자)', { n: text.trim().length })}</span>
                     </button>
                   )}
                 </div>
@@ -738,7 +739,7 @@ export const WriteReviewModal: React.FC = () => {
           ) : (
             <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-center gap-2 text-xs font-black text-emerald-800 shadow-2xs">
               <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
-              <span>모든 필수 항목 작성이 완료되었습니다! 지금 등록해보세요.</span>
+              <span>{t('모든 필수 항목 작성이 완료되었습니다! 지금 등록해보세요.')}</span>
             </div>
           )}
 
@@ -756,10 +757,10 @@ export const WriteReviewModal: React.FC = () => {
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>리뷰 등록중...</span>
+                <span>{t('리뷰 등록중...')}</span>
               </>
             ) : (
-              <span>리뷰 등록하기</span>
+              <span>{t('리뷰 등록하기')}</span>
             )}
           </button>
         </div>
@@ -777,9 +778,9 @@ export const WriteReviewModal: React.FC = () => {
               <div>
                 <h3 className="text-sm font-black text-gray-900 flex items-center gap-1.5">
                   <Store className="w-4 h-4 text-emerald-600" />
-                  리뷰할 상품 선택
+                  {t('리뷰할 상품 선택')}
                 </h3>
-                <p className="text-[11px] text-gray-500 mt-0.5">원하는 먹거리나 신상품을 검색해보세요</p>
+                <p className="text-[11px] text-gray-500 mt-0.5">{t('원하는 먹거리나 신상품을 검색해보세요')}</p>
               </div>
               <button
                 onClick={() => {
@@ -803,7 +804,7 @@ export const WriteReviewModal: React.FC = () => {
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="상품명, 브랜드(오리온, 농심 등) 검색..."
+                  placeholder={t('상품명, 브랜드(오리온, 농심 등) 검색...')}
                   className="w-full bg-transparent text-xs text-gray-900 outline-none font-bold placeholder-gray-400"
                 />
                 {searchQuery && (
@@ -831,7 +832,7 @@ export const WriteReviewModal: React.FC = () => {
                             : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
                         }`}
                       >
-                        {cat}
+                        {t(cat)}
                       </button>
                     );
                   })}
@@ -841,14 +842,14 @@ export const WriteReviewModal: React.FC = () => {
                   <button
                     onClick={() => setViewMode('list')}
                     className={`p-1 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white text-gray-900 shadow-2xs' : 'text-gray-500 hover:text-gray-700'}`}
-                    title="리스트 뷰"
+                    title={t('리스트 뷰')}
                   >
                     <List className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setViewMode('grid')}
                     className={`p-1 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-white text-gray-900 shadow-2xs' : 'text-gray-500 hover:text-gray-700'}`}
-                    title="2열 그리드 뷰"
+                    title={t('2열 그리드 뷰')}
                   >
                     <LayoutGrid className="w-3.5 h-3.5" />
                   </button>
@@ -859,9 +860,9 @@ export const WriteReviewModal: React.FC = () => {
             {/* Results Count Header */}
             <div className="px-4 py-2 flex items-center justify-between text-[11px] font-bold text-gray-400 bg-white shrink-0 border-b border-gray-50">
               <span>
-                {searchQuery ? `검색 결과 (${filteredProducts.length}개)` : `전체 상품 (${filteredProducts.length}개)`}
+                {searchQuery ? t('검색 결과 ({n}개)', { n: filteredProducts.length }) : t('전체 상품 ({n}개)', { n: filteredProducts.length })}
               </span>
-              <span className="text-emerald-600 font-extrabold">터치하여 선택</span>
+              <span className="text-emerald-600 font-extrabold">{t('터치하여 선택')}</span>
             </div>
 
             {/* Search Results List / Grid */}
@@ -904,7 +905,7 @@ export const WriteReviewModal: React.FC = () => {
                               </div>
                               <div className="flex items-center gap-2 mt-1">
                                 <span className="text-[11px] font-black text-slate-800">
-                                  {item.price.toLocaleString()}원
+                                  {t('{n}원', { n: item.price.toLocaleString() })}
                                 </span>
                                 {item.ratingCount && item.ratingCount > 0 && item.overallRating ? (
                                   <span className="text-[10px] text-amber-500 font-black flex items-center">
@@ -920,7 +921,7 @@ export const WriteReviewModal: React.FC = () => {
                                 </div>
                               ) : (
                                 <span className="text-[11px] font-extrabold text-gray-700 bg-gray-100 hover:bg-slate-900 hover:text-white px-2.5 py-1 rounded-full border border-gray-200 transition-colors">
-                                  선택
+                                  {t('선택')}
                                 </span>
                               )}
                             </div>
@@ -974,7 +975,7 @@ export const WriteReviewModal: React.FC = () => {
 
                             <div className="flex items-center justify-between mt-2 pt-1 border-t border-gray-50">
                               <span className="text-xs font-black text-slate-900">
-                                {item.price.toLocaleString()}원
+                                {t('{n}원', { n: item.price.toLocaleString() })}
                               </span>
                               {item.ratingCount && item.ratingCount > 0 && item.overallRating ? (
                                 <span className="text-[10px] text-amber-500 font-black">
@@ -996,7 +997,7 @@ export const WriteReviewModal: React.FC = () => {
                         onClick={() => setDisplayLimit(prev => prev + 24)}
                         className="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-full border border-gray-200 transition-all active:scale-95"
                       >
-                        상품 더보기 ({visibleProducts.length} / {filteredProducts.length})
+                        {t('상품 더보기')} ({visibleProducts.length} / {filteredProducts.length})
                       </button>
                     </div>
                   )}
@@ -1006,9 +1007,9 @@ export const WriteReviewModal: React.FC = () => {
                     <div className="min-w-0 flex-1">
                       <p className="text-xs font-black text-gray-800 flex items-center gap-1">
                         <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                        <span>원하는 상품이 목록에 없나요?</span>
+                        <span>{t('원하는 상품이 목록에 없나요?')}</span>
                       </p>
-                      <p className="text-[10px] text-gray-400 truncate">직접 신규 상품 등록을 요청해보세요</p>
+                      <p className="text-[10px] text-gray-400 truncate">{t('직접 신규 상품 등록을 요청해보세요')}</p>
                     </div>
                     <button
                       type="button"
@@ -1016,7 +1017,7 @@ export const WriteReviewModal: React.FC = () => {
                       className="shrink-0 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-black text-white text-[11px] font-extrabold shadow-2xs active:scale-95 transition-all flex items-center gap-1"
                     >
                       <PlusCircle className="w-3 h-3 text-amber-400" />
-                      <span>등록 요청</span>
+                      <span>{t('등록 요청')}</span>
                     </button>
                   </div>
                 </>
@@ -1027,11 +1028,11 @@ export const WriteReviewModal: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-sm font-black text-gray-900">
-                      {searchQuery ? `'${searchQuery}' 일치하는 상품이 없습니다` : '일치하는 상품이 없습니다'}
+                      {searchQuery ? t("'{q}' 일치하는 상품이 없습니다", { q: searchQuery }) : t('일치하는 상품이 없습니다')}
                     </div>
                     <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-                      찾으시는 신상품이 아직 목록에 등록되지 않았나요?<br />
-                      운영진에게 등록을 요청해주시면 빠르게 추가해 드려요!
+                      {t('찾으시는 신상품이 아직 목록에 등록되지 않았나요?')}<br />
+                      {t('운영진에게 등록을 요청해주시면 빠르게 추가해 드려요!')}
                     </p>
                   </div>
 
@@ -1042,7 +1043,7 @@ export const WriteReviewModal: React.FC = () => {
                       className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-xs shadow-md shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-1.5"
                     >
                       <Sparkles className="w-4 h-4" />
-                      <span>'{searchQuery || '원하는 상품'}' 등록 요청하기</span>
+                      <span>{t("'{q}' 등록 요청하기", { q: searchQuery || t('원하는 상품') })}</span>
                     </button>
 
                     {(searchQuery || selectedSearchCategory !== '전체') && (
@@ -1054,7 +1055,7 @@ export const WriteReviewModal: React.FC = () => {
                         }}
                         className="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-gray-700 font-bold text-xs transition-colors"
                       >
-                        전체 상품 다시보기
+                        {t('전체 상품 다시보기')}
                       </button>
                     )}
                   </div>
@@ -1065,13 +1066,13 @@ export const WriteReviewModal: React.FC = () => {
             {/* Modal Bottom Close Bar */}
             <div className="p-3 border-t border-gray-100 bg-slate-50 shrink-0 text-center flex items-center justify-between">
               <span className="text-[11px] text-gray-400 font-medium">
-                탭하면 바로 리뷰 상품으로 등록됩니다.
+                {t('탭하면 바로 리뷰 상품으로 등록됩니다.')}
               </span>
               <button
                 onClick={() => setIsSearchModalOpen(false)}
                 className="text-xs font-bold text-gray-700 bg-white hover:bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 transition-colors"
               >
-                닫기
+                {t('닫기')}
               </button>
             </div>
 

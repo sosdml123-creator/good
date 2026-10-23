@@ -16,6 +16,7 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
+import { t } from '../../i18n';
 
 export interface BattleCommentReply {
   id: string;
@@ -106,13 +107,13 @@ export const CompareModal: React.FC = () => {
     const newComment: BattleComment = {
       id: `b-cmt-${Date.now()}`,
       userId: currentUser.uid || 'user_me',
-      userName: currentUser.displayName || '신상러버',
+      userName: currentUser.displayName || t('신상러버'),
       userAvatar: currentUser.photoURL || DEFAULT_AVATAR,
       choice: selectedChoice,
       content: inputText.trim(),
       likes: 0,
       isLiked: false,
-      createdAt: '방금 전',
+      createdAt: t('방금 전'),
       replies: []
     };
 
@@ -147,10 +148,10 @@ export const CompareModal: React.FC = () => {
     const newReply: BattleCommentReply = {
       id: `b-rep-${Date.now()}`,
       userId: currentUser.uid || 'user_me',
-      userName: currentUser.displayName || '신상러버',
+      userName: currentUser.displayName || t('신상러버'),
       userAvatar: currentUser.photoURL,
       content: text,
-      createdAt: '방금 전'
+      createdAt: t('방금 전')
     };
 
     setComments(prev => prev.map(c => {
@@ -211,13 +212,13 @@ export const CompareModal: React.FC = () => {
           <button
             onClick={goBack}
             className="p-1 -ml-1 text-gray-800 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="뒤로가기"
+            aria-label={t('뒤로가기')}
           >
             <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
           </button>
           <div className="flex items-center gap-1.5">
             <h1 className="text-base font-black text-gray-900">
-              {isCustomCompare ? '신상 비교함' : '⚔️ 신상 배틀'}
+              {isCustomCompare ? t('신상 비교함') : t('⚔️ 신상 배틀')}
             </h1>
             {!isCustomCompare && (
               <span className="text-[10px] font-bold text-rose-500 bg-rose-50 px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
@@ -231,7 +232,7 @@ export const CompareModal: React.FC = () => {
           <button
             onClick={handleShare}
             className="p-1.5 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-            title="공유하기"
+            title={t('공유하기')}
           >
             <Share2 className="w-4 h-4" />
           </button>
@@ -240,7 +241,7 @@ export const CompareModal: React.FC = () => {
               onClick={clearCompare}
               className="text-xs font-bold text-gray-700 hover:text-gray-900 px-2 py-1 bg-gray-100 rounded-lg"
             >
-              비교함 비우기
+              {t('비교함 비우기')}
             </button>
           )}
         </div>
@@ -253,16 +254,16 @@ export const CompareModal: React.FC = () => {
             <span className="text-xs font-black text-gray-900 bg-gray-100 border border-gray-200/80 px-2 py-0.5 rounded-full">
               {p1.brand} VS {p2.brand}
             </span>
-            <span className="text-[11px] text-gray-500 font-medium">{isBattleClosed ? '투표 마감' : '이번 주 대결'}</span>
+            <span className="text-[11px] text-gray-500 font-medium">{isBattleClosed ? t('투표 마감') : t('이번 주 대결')}</span>
           </div>
           {battleRound && (
             <span className="text-[11px] font-semibold text-gray-400">
-              총 {battleRound.totalVotes.toLocaleString()}명 참여
+              {t('총 {n}명 참여', { n: battleRound.totalVotes.toLocaleString() })}
             </span>
           )}
         </div>
         <h2 className="text-lg font-black text-gray-900 leading-snug">
-          {battleConfig.title || '🥊 이번 주 신상 배틀 투표'}
+          {t(battleConfig.title || '🥊 이번 주 신상 배틀 투표')}
         </h2>
         {battleConfig.subtitle && (
           <p className="text-xs text-gray-500 mt-0.5">
@@ -276,10 +277,10 @@ export const CompareModal: React.FC = () => {
           <div className="flex justify-between items-center text-xs font-black mb-1.5">
             <span className="text-gray-900 flex items-center gap-1">
               ⚫ {p1.brand}{battlePercents && ` (${battlePercents.A}%)`}
-              {battleChoice === 'A' && <span className="text-[10px] bg-gray-100 text-gray-900 px-1 py-0.2 rounded font-bold">내 선택</span>}
+              {battleChoice === 'A' && <span className="text-[10px] bg-gray-100 text-gray-900 px-1 py-0.2 rounded font-bold">{t('내 선택')}</span>}
             </span>
             <span className="text-orange-500 flex items-center gap-1">
-              {battleChoice === 'B' && <span className="text-[10px] bg-orange-50 text-orange-500 px-1 py-0.2 rounded font-bold">내 선택</span>}
+              {battleChoice === 'B' && <span className="text-[10px] bg-orange-50 text-orange-500 px-1 py-0.2 rounded font-bold">{t('내 선택')}</span>}
               🟠 {p2.brand}{battlePercents && ` (${battlePercents.B}%)`}
             </span>
           </div>
@@ -296,11 +297,11 @@ export const CompareModal: React.FC = () => {
             </div>
           ) : (
             <p className="text-[11px] text-gray-500 text-center py-0.5">
-              {isBattleClosed ? '이번 주 투표가 마감됐어요.' : '결과는 토요일에 공개돼요.'}
+              {isBattleClosed ? t('이번 주 투표가 마감됐어요.') : t('결과는 토요일에 공개돼요.')}
             </p>
           )}
           {isBattleClosed ? (
-            <p className="text-[11px] text-gray-400 text-center mt-2">월요일에 새 대결이 시작돼요.</p>
+            <p className="text-[11px] text-gray-400 text-center mt-2">{t('월요일에 새 대결이 시작돼요.')}</p>
           ) : (
             <div className="flex gap-2 mt-2.5">
               <button
@@ -312,7 +313,7 @@ export const CompareModal: React.FC = () => {
                 }`}
               >
                 {battleChoice === 'A' && <Check className="w-3.5 h-3.5" />}
-                <span>{p1.name.slice(0, 10)} 투표</span>
+                <span>{p1.name.slice(0, 10)} {t('투표')}</span>
               </button>
               <button
                 onClick={() => voteBattle('B')}
@@ -323,7 +324,7 @@ export const CompareModal: React.FC = () => {
                 }`}
               >
                 {battleChoice === 'B' && <Check className="w-3.5 h-3.5" />}
-                <span>{p2.name.slice(0, 10)} 투표</span>
+                <span>{p2.name.slice(0, 10)} {t('투표')}</span>
               </button>
             </div>
           )}
@@ -359,7 +360,7 @@ export const CompareModal: React.FC = () => {
                 <span className="text-gray-400 font-normal text-[11px]">({p1.ratingCount})</span>
               </div>
             ) : (
-              <span className="text-gray-400 font-medium text-[11px] mt-1 block">평가 대기</span>
+              <span className="text-gray-400 font-medium text-[11px] mt-1 block">{t('평가 대기')}</span>
             )}
             <button
               onClick={(e) => {
@@ -368,7 +369,7 @@ export const CompareModal: React.FC = () => {
               }}
               className="mt-2.5 w-full py-1.5 text-[11px] font-bold text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors flex items-center justify-center gap-0.5"
             >
-              <span>리뷰 보기</span>
+              <span>{t('리뷰 보기')}</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>
@@ -378,7 +379,7 @@ export const CompareModal: React.FC = () => {
             <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-gray-800 to-gray-600 text-white text-xs font-black flex items-center justify-center shadow-md">
               VS
             </div>
-            <span className="text-[10px] font-bold text-gray-400 mt-1">맞대결</span>
+            <span className="text-[10px] font-bold text-gray-400 mt-1">{t('맞대결')}</span>
           </div>
 
           {/* Product 2 (B) */}
@@ -405,7 +406,7 @@ export const CompareModal: React.FC = () => {
                 <span className="text-gray-400 font-normal text-[11px]">({p2.ratingCount})</span>
               </div>
             ) : (
-              <span className="text-gray-400 font-medium text-[11px] mt-1 block">평가 대기</span>
+              <span className="text-gray-400 font-medium text-[11px] mt-1 block">{t('평가 대기')}</span>
             )}
             <button
               onClick={(e) => {
@@ -414,7 +415,7 @@ export const CompareModal: React.FC = () => {
               }}
               className="mt-2.5 w-full py-1.5 text-[11px] font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors flex items-center justify-center gap-0.5"
             >
-              <span>리뷰 보기</span>
+              <span>{t('리뷰 보기')}</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>
@@ -424,15 +425,15 @@ export const CompareModal: React.FC = () => {
       {/* 4. Comparison Rating Bars */}
       <div className="p-4 bg-white border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-gray-700">📊 항목별 스펙 비교</span>
-          <span className="text-[11px] text-gray-400">실제 구매자 평점 기준</span>
+          <span className="text-xs font-bold text-gray-700">{t('📊 항목별 스펙 비교')}</span>
+          <span className="text-[11px] text-gray-400">{t('실제 구매자 평점 기준')}</span>
         </div>
 
         {((p1.ratingCount && p1.ratingCount > 0) || (p2.ratingCount && p2.ratingCount > 0)) ? (
           <div className="space-y-3.5 text-xs font-bold">
             {/* 맛 */}
             <div className="flex items-center">
-              <span className="w-16 text-gray-600 text-[11px]">맛 평가</span>
+              <span className="w-16 text-gray-600 text-[11px]">{t('맛 평가')}</span>
               <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.taste || 0).toFixed(1)}</span>
               <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
                 <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.taste || 0) / 5) * 100}%` }} />
@@ -445,7 +446,7 @@ export const CompareModal: React.FC = () => {
 
             {/* 가성비 */}
             <div className="flex items-center">
-              <span className="w-16 text-gray-600 text-[11px]">가성비</span>
+              <span className="w-16 text-gray-600 text-[11px]">{t('가성비')}</span>
               <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.value || 0).toFixed(1)}</span>
               <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
                 <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.value || 0) / 5) * 100}%` }} />
@@ -458,7 +459,7 @@ export const CompareModal: React.FC = () => {
 
             {/* 양 */}
             <div className="flex items-center">
-              <span className="w-16 text-gray-600 text-[11px]">푸짐함(양)</span>
+              <span className="w-16 text-gray-600 text-[11px]">{t('푸짐함(양)')}</span>
               <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.portion || 0).toFixed(1)}</span>
               <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
                 <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.portion || 0) / 5) * 100}%` }} />
@@ -471,7 +472,7 @@ export const CompareModal: React.FC = () => {
 
             {/* 재구매 의사 */}
             <div className="flex items-center">
-              <span className="w-16 text-gray-600 text-[11px]">재구매 의사</span>
+              <span className="w-16 text-gray-600 text-[11px]">{t('재구매 의사')}</span>
               <span className="w-7 text-left font-bold text-gray-900 text-[11px]">{(p1.detailedRating?.repurchase || 0).toFixed(1)}</span>
               <div className="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden flex justify-end mr-1">
                 <div className="bg-gray-900 h-full rounded-l-full" style={{ width: `${((p1.detailedRating?.repurchase || 0) / 5) * 100}%` }} />
@@ -484,7 +485,7 @@ export const CompareModal: React.FC = () => {
           </div>
         ) : (
           <div className="py-6 text-center text-gray-400 text-xs bg-gray-50 rounded-xl">
-            아직 두 상품 모두 등록된 소비자 상세 평점이 없습니다.
+            {t('아직 두 상품 모두 등록된 소비자 상세 평점이 없습니다.')}
           </div>
         )}
       </div>
@@ -495,7 +496,7 @@ export const CompareModal: React.FC = () => {
         {/* 타이틀 및 헤더 */}
         <div className="flex items-center justify-between pb-3 border-b border-gray-100">
           <div className="flex items-center gap-1.5">
-            <span className="text-[15px] font-black text-gray-900">💬 실시간 배틀 톡</span>
+            <span className="text-[15px] font-black text-gray-900">{t('💬 실시간 배틀 톡')}</span>
             <span className="text-xs font-bold text-white bg-gray-900 px-2 py-0.5 rounded-full">
               {comments.length}
             </span>
@@ -506,14 +507,14 @@ export const CompareModal: React.FC = () => {
               onClick={() => setSortOrder('POPULAR')}
               className={`hover:text-gray-900 transition-colors ${sortOrder === 'POPULAR' ? 'text-gray-900 font-bold' : ''}`}
             >
-              공감순
+              {t('공감순')}
             </button>
             <span>·</span>
             <button 
               onClick={() => setSortOrder('LATEST')}
               className={`hover:text-gray-900 transition-colors ${sortOrder === 'LATEST' ? 'text-gray-900 font-bold' : ''}`}
             >
-              최신순
+              {t('최신순')}
             </button>
           </div>
         </div>
@@ -528,7 +529,7 @@ export const CompareModal: React.FC = () => {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
-            전체 의견 ({comments.length})
+            {t('전체 의견')} ({comments.length})
           </button>
           <button
             onClick={() => setFilterChoice('A')}
@@ -538,7 +539,7 @@ export const CompareModal: React.FC = () => {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            <span>⚫ {p1.name.slice(0, 7)} 파</span>
+            <span>⚫ {p1.name.slice(0, 7)} {t('파')}</span>
             <span className="opacity-80 font-normal">({countA})</span>
           </button>
           <button
@@ -549,7 +550,7 @@ export const CompareModal: React.FC = () => {
                 : 'bg-orange-50 text-orange-600 hover:bg-orange-100'
             }`}
           >
-            <span>🟠 {p2.name.slice(0, 7)} 파</span>
+            <span>🟠 {p2.name.slice(0, 7)} {t('파')}</span>
             <span className="opacity-80 font-normal">({countB})</span>
           </button>
         </div>
@@ -558,7 +559,7 @@ export const CompareModal: React.FC = () => {
         <div className="bg-gray-50/90 rounded-2xl p-3.5 border border-gray-200/80 mb-5 shadow-2xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-gray-800 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> 내 응원 진영 선택:
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> {t('내 응원 진영 선택:')}
             </span>          </div>
 
           {/* 진영 선택 라디오 버튼 */}
@@ -572,7 +573,7 @@ export const CompareModal: React.FC = () => {
                   : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
               }`}
             >
-              ⚫ {p1.brand} 지지
+              ⚫ {p1.brand} {t('지지')}
             </button>
             <button
               type="button"
@@ -583,7 +584,7 @@ export const CompareModal: React.FC = () => {
                   : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
               }`}
             >
-              🟠 {p2.brand} 지지
+              🟠 {p2.brand} {t('지지')}
             </button>
             <button
               type="button"
@@ -594,7 +595,7 @@ export const CompareModal: React.FC = () => {
                   : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
               }`}
             >
-              💬 중립 / 둘 다
+              {t('💬 중립 / 둘 다')}
             </button>
           </div>
 
@@ -606,10 +607,10 @@ export const CompareModal: React.FC = () => {
               onChange={(e) => setInputText(e.target.value)}
               placeholder={`${
                 selectedChoice === 'A' 
-                  ? `[${p1.name.slice(0, 8)}] 추천 이유나 솔직한 한마디...` 
+                  ? `[${p1.name.slice(0, 8)}] ${t('추천 이유나 솔직한 한마디...')}` 
                   : selectedChoice === 'B' 
-                  ? `[${p2.name.slice(0, 8)}] 추천 이유나 솔직한 한마디...` 
-                  : '두 신상품에 대한 의견을 자유롭게 나눠보세요!'
+                  ? `[${p2.name.slice(0, 8)}] ${t('추천 이유나 솔직한 한마디...')}` 
+                  : t('두 신상품에 대한 의견을 자유롭게 나눠보세요!')
               }`}
               className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gray-900 shadow-2xs"
             />
@@ -617,7 +618,7 @@ export const CompareModal: React.FC = () => {
               type="submit"
               className="px-3.5 py-2.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1 shrink-0 transition-colors shadow-xs"
             >
-              <span>등록</span>
+              <span>{t('등록')}</span>
               <Send className="w-3.5 h-3.5" />
             </button>
           </form>
@@ -649,17 +650,17 @@ export const CompareModal: React.FC = () => {
                       <div className="mt-0.5">
                         {comment.choice === 'A' && (
                           <span className="text-[10px] font-bold text-gray-800 bg-gray-100 px-1.5 py-0.2 rounded inline-block">
-                            ⚫ {p1.name.slice(0, 10)} 지지
+                            ⚫ {p1.name.slice(0, 10)} {t('지지')}
                           </span>
                         )}
                         {comment.choice === 'B' && (
                           <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-1.5 py-0.2 rounded inline-block">
-                            🟠 {p2.name.slice(0, 10)} 지지
+                            🟠 {p2.name.slice(0, 10)} {t('지지')}
                           </span>
                         )}
                         {comment.choice === 'NONE' && (
                           <span className="text-[10px] font-bold text-gray-600 bg-gray-100 px-1.5 py-0.2 rounded inline-block">
-                            💬 중립 / 비교 의견
+                            {t('💬 중립 / 비교 의견')}
                           </span>
                         )}
                       </div>
@@ -671,7 +672,7 @@ export const CompareModal: React.FC = () => {
                     <button
                       onClick={() => handleDeleteComment(comment.id)}
                       className="text-gray-400 hover:text-rose-500 p-1"
-                      title="댓글 삭제"
+                      title={t('댓글 삭제')}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -696,7 +697,7 @@ export const CompareModal: React.FC = () => {
                       }`}
                     >
                       <ThumbsUp className={`w-3 h-3 ${comment.isLiked ? 'fill-rose-500' : ''}`} />
-                      <span>공감 {comment.likes}</span>
+                      <span>{t('공감')} {comment.likes}</span>
                     </button>
 
                     {/* 답글 버튼 */}
@@ -705,7 +706,7 @@ export const CompareModal: React.FC = () => {
                       className="flex items-center gap-1 text-[11px] font-medium text-gray-500 hover:text-gray-800 px-2 py-1 rounded-full hover:bg-gray-50 transition-colors"
                     >
                       <MessageSquare className="w-3 h-3" />
-                      <span>답글 {comment.replies?.length > 0 ? comment.replies.length : ''}</span>
+                      <span>{t('답글')} {comment.replies?.length > 0 ? comment.replies.length : ''}</span>
                     </button>
                   </div>
                 </div>
@@ -737,14 +738,14 @@ export const CompareModal: React.FC = () => {
                               handleAddReply(comment.id);
                             }
                           }}
-                          placeholder="답글을 남겨보세요..."
+                          placeholder={t('답글을 남겨보세요...')}
                           className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs text-gray-800 outline-none focus:border-gray-900"
                         />
                         <button
                           onClick={() => handleAddReply(comment.id)}
                           className="px-2.5 py-1.5 bg-gray-900 hover:bg-black text-white rounded-xl text-xs font-bold shrink-0 transition-colors"
                         >
-                          등록
+                          {t('등록')}
                         </button>
                       </div>
                     )}
@@ -756,8 +757,8 @@ export const CompareModal: React.FC = () => {
           ) : (
             <div className="text-center py-10 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
               <MessageSquare className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-xs font-bold text-gray-600">아직 등록된 의견이 없습니다.</p>
-              <p className="text-[11px] text-gray-400 mt-0.5">가장 먼저 배틀 의견을 남기고 10P를 받아보세요!</p>
+              <p className="text-xs font-bold text-gray-600">{t('아직 등록된 의견이 없습니다.')}</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">{t('가장 먼저 배틀 의견을 남기고 10P를 받아보세요!')}</p>
             </div>
           )}
         </div>
