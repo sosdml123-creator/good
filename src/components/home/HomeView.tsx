@@ -39,6 +39,7 @@ import { CollectionModal } from './CollectionModal';
 import { useFoodTrendRanking } from '../../hooks/useFoodTrendRanking';
 import { getBattlePercents } from '../../services/battleService';
 import { formatProductPrice } from '../../utils/formatters';
+import { useT } from '../../i18n';
 
 // 홈 구좌 공통 헤더 — 제목 16px / 배지 10px / 보조 문구 12px / 우측 액션 12px로 통일
 // 기획전에서 상품 상세로 갔다가 돌아오면 같은 기획전을 다시 열어 둡니다.
@@ -64,11 +65,13 @@ const SectionHeader: React.FC<{
   onAction,
   trailing,
   padded = true,
-}) => (
+}) => {
+  const t = useT();
+  return (
   <div className={`mb-3 ${padded ? 'px-4' : ''}`}>
     <div className="flex items-center justify-between gap-2">
       <div className="flex items-center gap-1.5 min-w-0">
-        <h3 className="text-[16px] font-bold text-gray-900 leading-snug truncate">{title}</h3>
+        <h3 className="text-[16px] font-bold text-gray-900 leading-snug truncate">{t(title)}</h3>
         {titleSuffix}
       </div>
       {actionLabel ? (
@@ -76,7 +79,7 @@ const SectionHeader: React.FC<{
           onClick={onAction}
           className="shrink-0 text-[12px] text-gray-400 font-medium hover:text-gray-700 flex items-center gap-0.5 transition-colors"
         >
-          <span>{actionLabel}</span>
+          <span>{t(actionLabel)}</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       ) : trailing ? (
@@ -87,14 +90,15 @@ const SectionHeader: React.FC<{
       <p className="text-[12px] text-gray-400 leading-relaxed mt-1">
         {badge && (
           <span className={`inline-flex items-center gap-1 align-middle text-[10px] font-bold px-2 py-0.5 rounded-full mr-1.5 ${badgeClassName}`}>
-            {badge}
+            {typeof badge === 'string' ? t(badge) : badge}
           </span>
         )}
-        {subtitle}
+        {typeof subtitle === 'string' ? t(subtitle) : subtitle}
       </p>
     )}
   </div>
-);
+  );
+};
 
 export const HomeView: React.FC = () => {
   const { 
@@ -123,6 +127,7 @@ export const HomeView: React.FC = () => {
     showToast,
     homeSections = []
   } = useApp();
+  const t = useT();
 
   const [currentBannerIdx, setCurrentBannerIdx] = useState(0);
   const [openCollectionId, setOpenCollectionIdState] = useState<string | null>(lastOpenCollectionId);
@@ -503,7 +508,7 @@ export const HomeView: React.FC = () => {
                       if (targetEvent && targetEvent.id) {
                         openEventDetail(targetEvent.id);
                       } else {
-                        showToast('현재 모집 중인 체험단 구좌가 없습니다.', 'info');
+                        showToast(t('현재 모집 중인 체험단 구좌가 없습니다.'), 'info');
                       }
                     } else if (m.action === 'donki') {
                       setActiveTab('donki');
@@ -521,7 +526,7 @@ export const HomeView: React.FC = () => {
                     {m.icon}
                   </div>
                   <span className="text-[11px] text-gray-600 font-medium">
-                    {m.label}
+                    {t(m.label)}
                   </span>
                 </button>
               ))}
@@ -544,7 +549,7 @@ export const HomeView: React.FC = () => {
                     {c.icon}
                   </div>
                   <span className="text-[11px] text-gray-600 font-medium">
-                    {c.label}
+                    {t(c.label)}
                   </span>
                 </button>
               ))}
@@ -566,7 +571,7 @@ export const HomeView: React.FC = () => {
           <div key="new_products" className="bg-white mt-2 py-4 border-b border-gray-100">
             <SectionHeader
               title={section.title || '따끈따끈 새로 나온 신제품'}
-              badge={<><Sparkles className="w-3 h-3 text-amber-500" /> {section.badgeText || 'NEW 신상'}</>}
+              badge={<><Sparkles className="w-3 h-3 text-amber-500" /> {t(section.badgeText || 'NEW 신상')}</>}
               subtitle={section.subtitle || '편의점·마트 실시간 입고'}
               actionLabel="전체보기"
               onAction={() => {
@@ -595,7 +600,7 @@ export const HomeView: React.FC = () => {
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
-                    {cat}
+                    {t(cat)}
                   </button>
                 );
               })}
@@ -629,7 +634,7 @@ export const HomeView: React.FC = () => {
                         {p.isToday && (
                           <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
                             <span className="text-[10px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-md shadow-xs flex items-center gap-0.5">
-                              <Zap className="w-2.5 h-2.5 fill-current" /> 오늘신상
+                              <Zap className="w-2.5 h-2.5 fill-current" /> {t('오늘신상')}
                             </span>
                           </div>
                         )}
@@ -674,7 +679,7 @@ export const HomeView: React.FC = () => {
               </div>
             ) : (
               <div className="py-8 text-center text-gray-400 text-[12px] bg-gray-50/50 mx-4 rounded-xl">
-                이번 주에 새로 나온 신상품이 아직 없어요.
+                {t('이번 주에 새로 나온 신상품이 아직 없어요.')}
               </div>
             )}
           </div>
@@ -686,7 +691,7 @@ export const HomeView: React.FC = () => {
           <div key="sale_events" className="bg-white mt-2 py-4 border-b border-gray-100">
             <SectionHeader
               title={section.title || '놓치면 손해! 이달의 행사소식'}
-              badge={<><Tag className="w-3 h-3" /> {section.badgeText || '1+1 · 할인특가'}</>}
+              badge={<><Tag className="w-3 h-3" /> {t(section.badgeText || '1+1 · 할인특가')}</>}
               badgeClassName="bg-rose-50 text-rose-600 border border-rose-100"
               subtitle={section.subtitle || '편의점·마트 실속 혜택'}
               actionLabel="전체보기"
@@ -784,7 +789,7 @@ export const HomeView: React.FC = () => {
           <div key="brand_hub" className="bg-white mt-2 py-4 border-b border-gray-100">
             <SectionHeader
               title={section.title || '인기 대표 브랜드관'}
-              badge={section.badgeText || '전용관'}
+              badge={t(section.badgeText || '전용관')}
               subtitle={section.subtitle || '스타벅스, 컴포즈, 빽다방, 이디야, 투썸, 맥도날드 등 브랜드별 제품 모아보기'}
               actionLabel="전체 브랜드"
               onAction={() => setActiveTab('brand')}
@@ -812,11 +817,11 @@ export const HomeView: React.FC = () => {
                         {b.name}
                       </div>
                       <div className="text-[11px] text-gray-400 font-medium">
-                        {count > 0 ? `${count}개 메뉴` : b.category}
+                        {count > 0 ? t('{n}개 메뉴', { n: count }) : t(b.category)}
                       </div>
                     </div>
                     <span className="text-[10px] font-bold text-gray-700 bg-white px-2 py-0.5 rounded-full shadow-2xs border border-gray-200">
-                      모아보기
+                      {t('모아보기')}
                     </span>
                   </div>
                 );
@@ -865,22 +870,22 @@ export const HomeView: React.FC = () => {
                       <div className="absolute top-1.5 left-1.5">
                         {rank === 1 && (
                           <span className="text-[10px] font-bold bg-gradient-to-r from-[#03C75A] to-emerald-600 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                            1위
+                            {t('{n}위', { n: 1 })}
                           </span>
                         )}
                         {rank === 2 && (
                           <span className="text-[10px] font-bold bg-slate-800 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                            2위
+                            {t('{n}위', { n: 2 })}
                           </span>
                         )}
                         {rank === 3 && (
                           <span className="text-[10px] font-bold bg-amber-700 text-white px-1.5 py-0.5 rounded-md shadow-xs">
-                            3위
+                            {t('{n}위', { n: 3 })}
                           </span>
                         )}
                         {rank > 3 && (
                           <span className="text-[10px] font-bold bg-black/65 text-white px-1.5 py-0.5 rounded-md backdrop-blur-xs">
-                            {rank}위
+                            {t('{n}위', { n: rank })}
                           </span>
                         )}
                       </div>
@@ -932,7 +937,7 @@ export const HomeView: React.FC = () => {
               title={section.title || '진행 중인 핫 이벤트 & 체험단'}
               titleSuffix={<span className="shrink-0 w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>}
               subtitle={section.subtitle}
-              trailing={`${events.length}개 진행중`}
+              trailing={t('{n}개 진행중', { n: events.length })}
             />
 
             <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
@@ -981,7 +986,7 @@ export const HomeView: React.FC = () => {
                         {ev.reward.length > 14 ? ev.reward.slice(0, 14) + '...' : ev.reward}
                       </span>
                       <span className="text-[11px] text-gray-400 font-medium">
-                        {ev.participantsCount}명 참여
+                        {t('{n}명 참여', { n: ev.participantsCount })}
                       </span>
                     </div>
                   </div>
@@ -997,7 +1002,7 @@ export const HomeView: React.FC = () => {
           <div key="recipes" className="mt-2 bg-white py-4 border-b border-gray-100">
             <SectionHeader
               title={section.title || '화제의 편의점 꿀조합'}
-              badge={section.badgeText || '맛잘알 추천'}
+              badge={t(section.badgeText || '맛잘알 추천')}
               badgeClassName="bg-amber-50 text-amber-700 border border-amber-200"
               subtitle={section.subtitle || '신상과 편의점 음식의 기막힌 만남! 클릭해서 조리법과 재료를 확인해보세요.'}
               actionLabel="수다방 레시피"
@@ -1131,7 +1136,7 @@ export const HomeView: React.FC = () => {
                     >
                       {isWinner && (
                         <span className={`absolute top-2 left-2 z-10 text-[11px] font-black text-white px-2 py-0.5 rounded-full ${isA ? 'bg-slate-800' : 'bg-orange-500'}`}>
-                          승리
+                          {t('승리')}
                         </span>
                       )}
                       <SafeImage
@@ -1153,7 +1158,7 @@ export const HomeView: React.FC = () => {
                           </div>
                         ) : (
                           <div className={`mt-1.5 text-[11px] font-bold ${isMine ? (isA ? 'text-slate-800' : 'text-orange-500') : 'text-gray-400'}`}>
-                            {isMine ? '✓ 내 선택' : isResult ? '투표 마감' : '투표하기'}
+                            {isMine ? t('✓ 내 선택') : isResult ? t('투표 마감') : t('투표하기')}
                           </div>
                         )}
                       </div>
@@ -1293,21 +1298,21 @@ export const HomeView: React.FC = () => {
                     )}
 
                     <div className="flex items-center gap-4 mt-2 text-[11px] text-gray-400">
-                      <span>♡ 도움돼요 {r.likes}</span>
-                      <span>💬 댓글 {r.commentsCount || 0}</span>
+                      <span>♡ {t('도움돼요')} {r.likes}</span>
+                      <span>💬 {t('댓글')} {r.commentsCount || 0}</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-6 text-gray-400 bg-gray-50 rounded-2xl p-4">
-                <p className="text-[13px] font-semibold text-gray-700">아직 등록된 후기가 없습니다</p>
-                <p className="text-[11px] text-gray-400 mt-1">맛있는 신상을 맛보고 첫 번째 솔직 후기를 남겨보세요!</p>
+                <p className="text-[13px] font-semibold text-gray-700">{t('아직 등록된 후기가 없습니다')}</p>
+                <p className="text-[11px] text-gray-400 mt-1">{t('맛있는 신상을 맛보고 첫 번째 솔직 후기를 남겨보세요!')}</p>
                 <button
                   onClick={() => setActiveTab('write')}
                   className="mt-3 px-4 py-1.5 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-xs transition-colors"
                 >
-                  리뷰 작성하러 가기
+                  {t('리뷰 작성하러 가기')}
                 </button>
               </div>
             )}

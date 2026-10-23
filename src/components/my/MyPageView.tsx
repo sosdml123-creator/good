@@ -6,6 +6,7 @@ import { MyReviewsModal } from './MyReviewsModal';
 import { PointHistoryModal } from './PointHistoryModal';
 import { EditNicknameModal } from './EditNicknameModal';
 import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
+import { useT } from '../../i18n';
 
 export const MyPageView: React.FC = () => {
   const { 
@@ -21,6 +22,7 @@ export const MyPageView: React.FC = () => {
     openNotificationCenter,
     updateUserProfile
   } = useApp();
+  const t = useT();
 
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
@@ -62,30 +64,30 @@ export const MyPageView: React.FC = () => {
   };
 
   const menuItems = [
-    { label: '내가 쓴 리뷰', sub: `${myReviewsCount}개`, action: () => setIsReviewsOpen(true) },
-    { label: '찜한 제품', sub: `${bookmarkedIds.length}개`, action: () => setIsBookmarksOpen(true) },
-    { label: '비교함', sub: `${comparedIds.length}개`, action: () => setActiveTab('compare') },
-    { label: '🏷️ 편의점·마트 행사소식', sub: `${savedSaleIds.length}개 찜`, hi: true, action: () => setActiveTab('calendar') },
+    { label: '내가 쓴 리뷰', sub: t('{n}개', { n: myReviewsCount }), action: () => setIsReviewsOpen(true) },
+    { label: '찜한 제품', sub: t('{n}개', { n: bookmarkedIds.length }), action: () => setIsBookmarksOpen(true) },
+    { label: '비교함', sub: t('{n}개', { n: comparedIds.length }), action: () => setActiveTab('compare') },
+    { label: '🏷️ 편의점·마트 행사소식', sub: t('{n}개 찜', { n: savedSaleIds.length }), hi: true, action: () => setActiveTab('calendar') },
     { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
-    { label: '🛡️ 앱 알림 & 권한 안내', sub: '마케팅·신제품·위치', action: () => openPermissionModal() },
+    { label: '🛡️ 앱 알림 & 권한 안내', sub: t('마케팅·신제품·위치'), action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
-    { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: `${purchasedCoupons.filter(c => !c.isUsed).length > 0 ? `${purchasedCoupons.filter(c => !c.isUsed).length}개 보유` : '포인트로 교환하기'}`, hi: true, action: () => setActiveTab('coupon') },
+    { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: purchasedCoupons.filter(c => !c.isUsed).length > 0 ? t('{n}개 보유', { n: purchasedCoupons.filter(c => !c.isUsed).length }) : t('포인트로 교환하기'), hi: true, action: () => setActiveTab('coupon') },
     { label: '✏️ 닉네임 수정', sub: currentUser.displayName, action: () => setIsEditNicknameOpen(true) },
-    { label: '설정', sub: '알림·약관·계정관리', action: () => setActiveTab('settings') },
+    { label: '설정', sub: t('알림·약관·계정관리'), action: () => setActiveTab('settings') },
   ];
 
   const getProviderBadge = () => {
     if (currentUser.provider === 'apple') {
       return (
         <span className="text-[11px] bg-black/30 text-white px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
-          🍎 Apple 연동
+          🍎 {t('Apple 연동')}
         </span>
       );
     }
     if (currentUser.provider === 'kakao') {
       return (
         <span className="text-[11px] bg-[#FEE500]/30 text-amber-200 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
-          💬 카카오 연동
+          💬 {t('카카오 연동')}
         </span>
       );
     }
@@ -98,7 +100,7 @@ export const MyPageView: React.FC = () => {
     }
     return (
       <span className="text-[11px] bg-white/20 text-white/90 px-2 py-0.5 rounded-full font-medium">
-        신상픽 회원
+        {t('신상픽 회원')}
       </span>
     );
   };
@@ -175,7 +177,7 @@ export const MyPageView: React.FC = () => {
             <button
               onClick={() => setActiveTab('settings')}
               className="p-1.5 text-white/80 hover:text-white"
-              title="설정"
+              title={t('설정')}
             >
               <Settings className="w-5 h-5" />
             </button>
@@ -192,7 +194,7 @@ export const MyPageView: React.FC = () => {
             title="내가 쓴 리뷰 보기"
           >
             <div className="text-[20px] font-black text-gray-900">{myReviewsCount}</div>
-            <div className="text-[11px] text-gray-500 font-semibold mt-0.5">내가 쓴 리뷰</div>
+            <div className="text-[11px] text-gray-500 font-semibold mt-0.5">{t('내가 쓴 리뷰')}</div>
           </div>
           <div 
             onClick={() => setIsPointHistoryOpen(true)}
@@ -201,7 +203,7 @@ export const MyPageView: React.FC = () => {
           >
             <div className="text-[20px] font-black text-amber-500">{userPoints.toLocaleString()}P</div>
             <div className="text-[11px] text-gray-500 font-semibold mt-0.5 flex items-center justify-center gap-0.5">
-              <span>보유 포인트</span>
+              <span>{t('보유 포인트')}</span>
               <ChevronRight className="w-3 h-3 text-gray-400" />
             </div>
           </div>
@@ -211,7 +213,7 @@ export const MyPageView: React.FC = () => {
             title="찜한 제품 목록 보기"
           >
             <div className="text-[20px] font-black text-gray-900">{bookmarkedIds.length}</div>
-            <div className="text-[11px] text-gray-500 font-semibold mt-0.5">찜한 제품</div>
+            <div className="text-[11px] text-gray-500 font-semibold mt-0.5">{t('찜한 제품')}</div>
           </div>
         </div>
       </div>
@@ -225,7 +227,7 @@ export const MyPageView: React.FC = () => {
             className="flex items-center justify-between px-4 py-3.5 cursor-pointer active:bg-gray-50 hover:bg-gray-50/60 transition-colors"
           >
             <span className="text-[14px] font-semibold text-gray-800">
-              {m.label}
+              {t(m.label)}
             </span>
             <div className="flex items-center gap-2">
               {m.sub && (

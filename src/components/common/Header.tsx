@@ -1,9 +1,11 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { Search, Bell } from 'lucide-react';
+import { useT } from '../../i18n';
 
 export const Header: React.FC = () => {
   const { setActiveTab, openNotificationCenter, unreadNotificationCount } = useApp();
+  const t = useT();
 
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-2xs">
@@ -15,14 +17,14 @@ export const Header: React.FC = () => {
         >
           <Search className="w-4 h-4 text-gray-400 group-hover:text-gray-600 shrink-0 transition-colors" />
           <span className="text-xs text-gray-500 font-medium truncate">
-            신상품, 편의점 행사, 브랜드 검색...
+            {t('신상품, 편의점 행사, 브랜드 검색...')}
           </span>
         </button>
 
         <button
           onClick={() => openNotificationCenter('inbox')}
           className="relative p-2 text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
-          title="알림 센터"
+          title={t('알림 센터')}
         >
           <Bell className="w-5 h-5 stroke-[2]" />
           {unreadNotificationCount > 0 && (

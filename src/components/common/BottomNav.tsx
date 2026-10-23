@@ -2,9 +2,11 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { Home, Compass, Gift, MessageSquare, User } from 'lucide-react';
 import { ActiveTab } from '../../types';
+import { useT } from '../../i18n';
 
 export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, setSelectedCategory } = useApp();
+  const t = useT();
 
   const hiddenTabs: ActiveTab[] = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
   if (hiddenTabs.includes(activeTab)) {
@@ -49,7 +51,7 @@ export const BottomNav: React.FC = () => {
                 )}
               </div>
               <span className="text-[10px] font-semibold mt-0.5">
-                {item.label}
+                {t(item.label)}
               </span>
             </button>
           );

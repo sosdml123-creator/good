@@ -30,8 +30,11 @@ import { BlockedUsersModal } from './BlockedUsersModal';
 import { EditNicknameModal } from '../my/EditNicknameModal';
 import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
+import { useT } from '../../i18n';
+import { LanguageSwitcher } from '../common/LanguageSwitcher';
 
 export const SettingsView: React.FC = () => {
+  const t = useT();
   const { 
     currentUser, 
     logout, 
@@ -176,11 +179,11 @@ export const SettingsView: React.FC = () => {
         <button
           onClick={goBack}
           className="p-1 -ml-1 text-gray-800 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
-          aria-label="뒤로가기"
+          aria-label={t('뒤로가기')}
         >
           <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
         </button>
-        <h1 className="text-base font-black text-gray-900">설정</h1>
+        <h1 className="text-base font-black text-gray-900">{t('설정')}</h1>
         <div className="w-6" /> {/* Placeholder for balance */}
       </div>
 
@@ -194,6 +197,12 @@ export const SettingsView: React.FC = () => {
       />
 
       <div className="p-4 space-y-4">
+        {/* 0. Language */}
+        <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-2xs">
+          <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Language / 언어 / 言語 / 语言</div>
+          <LanguageSwitcher />
+        </div>
+
         {/* 2. Account Profile Card */}
         <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-2xs">
           <div className="flex items-center gap-3.5">
@@ -273,7 +282,7 @@ export const SettingsView: React.FC = () => {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden">
           <div className="px-4 pt-3.5 pb-2 border-b border-gray-50">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-              알림 설정
+              {t('알림 설정')}
             </h2>
           </div>
 
@@ -285,8 +294,8 @@ export const SettingsView: React.FC = () => {
                   <Bell className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">푸시 알림 허용</div>
-                  <div className="text-[11px] text-gray-400">신제품 출시 및 주요 프로모션 알림</div>
+                  <div className="text-xs font-bold text-gray-900">{t('푸시 알림 허용')}</div>
+                  <div className="text-[11px] text-gray-400">{t('신제품 출시 및 주요 프로모션 알림')}</div>
                 </div>
               </div>
               <button
@@ -311,8 +320,8 @@ export const SettingsView: React.FC = () => {
                   <Moon className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">야간 혜택 알림 허용</div>
-                  <div className="text-[11px] text-gray-400">밤 9시 ~ 아침 8시 사이 특가/체험단 알림</div>
+                  <div className="text-xs font-bold text-gray-900">{t('야간 혜택 알림 허용')}</div>
+                  <div className="text-[11px] text-gray-400">{t('밤 9시 ~ 아침 8시 사이 특가/체험단 알림')}</div>
                 </div>
               </div>
               <button
@@ -340,8 +349,8 @@ export const SettingsView: React.FC = () => {
                   <SlidersHorizontal className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">관심 카테고리 출시알림 설정</div>
-                  <div className="text-[11px] text-gray-400">과자, 음료, 디저트 등 선택 알림</div>
+                  <div className="text-xs font-bold text-gray-900">{t('관심 카테고리 출시알림 설정')}</div>
+                  <div className="text-[11px] text-gray-400">{t('과자, 음료, 디저트 등 선택 알림')}</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300" />
@@ -358,10 +367,10 @@ export const SettingsView: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                    <span>마케팅 알림 &amp; 앱 접근 권한 안내</span>
+                    <span>{t('마케팅 알림 & 앱 접근 권한 안내')}</span>
                     <span className="text-[9px] font-extrabold bg-blue-50 text-blue-600 px-1.5 py-0.2 rounded-full">안내</span>
                   </div>
-                  <div className="text-[11px] text-gray-400">신제품·할인 알림, 카메라, 위치 권한 확인 및 동의</div>
+                  <div className="text-[11px] text-gray-400">{t('신제품·할인 알림, 카메라, 위치 권한 확인 및 동의')}</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300" />
@@ -373,7 +382,7 @@ export const SettingsView: React.FC = () => {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden">
           <div className="px-4 pt-3.5 pb-2 border-b border-gray-50 flex items-center justify-between">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-              약관 및 정책 (Legal)
+              {t('약관 및 정책 (Legal)')}
             </h2>
             <span className="text-[10px] text-gray-700 font-semibold bg-gray-100 px-2 py-0.5 rounded-full">
               스토어 심사 기준 준수
@@ -394,14 +403,14 @@ export const SettingsView: React.FC = () => {
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-gray-900 truncate">
-                      차단한 사용자 관리
+                      {t('차단한 사용자 관리')}
                     </span>
                     <span className="text-[9px] font-extrabold bg-gray-100 text-gray-700 px-1.5 py-0.2 rounded">
                       스토어 심사 기준
                     </span>
                   </div>
                   <div className="text-[11px] text-gray-400 truncate mt-0.5">
-                    내가 차단한 사용자의 글과 댓글 목록 확인 및 해제
+                    {t('내가 차단한 사용자의 글과 댓글 목록 확인 및 해제')}
                   </div>
                 </div>
               </div>
@@ -420,16 +429,16 @@ export const SettingsView: React.FC = () => {
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <span className="text-xs font-bold text-gray-900 truncate">
-                        {item.title}
+                        {t(item.title)}
                       </span>
                       {item.badge && (
                         <span className="text-[9px] font-extrabold bg-gray-100 text-gray-700 px-1.5 py-0.2 rounded">
-                          {item.badge}
+                          {t(item.badge)}
                         </span>
                       )}
                     </div>
                     <div className="text-[11px] text-gray-400 truncate mt-0.5">
-                      {item.desc}
+                      {t(item.desc)}
                     </div>
                   </div>
                 </div>
@@ -443,7 +452,7 @@ export const SettingsView: React.FC = () => {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden">
           <div className="px-4 pt-3.5 pb-2 border-b border-gray-50">
             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-              고객지원 및 서비스 정보
+              {t('고객지원 및 서비스 정보')}
             </h2>
           </div>
 
@@ -458,7 +467,7 @@ export const SettingsView: React.FC = () => {
                   <Megaphone className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-gray-900">광고 · 제휴 링크 · e쿠폰 안내</div>
+                  <div className="text-xs font-bold text-gray-900">{t('광고 · 제휴 링크 · e쿠폰 안내')}</div>
                   <div className="text-[11px] text-gray-400 leading-relaxed mt-0.5">
                     앱에는 광고가 표시되며, 구매처 링크 일부는 제휴 링크(쿠팡 파트너스·링크프라이스)로 구매 시 신상픽이 수수료를 받을 수 있습니다. e쿠폰은 연락처 수집 없이 앱 쿠폰함으로 발급됩니다.
                   </div>
@@ -477,7 +486,7 @@ export const SettingsView: React.FC = () => {
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">고객센터 / 문의하기</div>
+                  <div className="text-xs font-bold text-gray-900">{t('고객센터 / 문의하기')}</div>
                   <div className="text-[11px] text-gray-400">contact@sinsangpick.com</div>
                 </div>
               </div>
@@ -491,12 +500,12 @@ export const SettingsView: React.FC = () => {
                   <img src="/logo.png" alt="신상픽" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-gray-900">신상픽 공식 앱 버전</div>
+                  <div className="text-xs font-bold text-gray-900">{t('신상픽 공식 앱 버전')}</div>
                   <div className="text-[11px] text-gray-400">최신 정식 릴리즈 v1.0.3</div>
                 </div>
               </div>
               <span className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-full">
-                최신 버전
+                {t('최신 버전')}
               </span>
             </div>
 
@@ -578,7 +587,7 @@ export const SettingsView: React.FC = () => {
               className="w-full px-4 py-3.5 flex items-center gap-3 text-gray-700 hover:bg-gray-50 transition-colors text-left cursor-pointer"
             >
               <LogOut className="w-4 h-4 text-gray-400" />
-              <span className="text-xs font-bold">로그아웃</span>
+              <span className="text-xs font-bold">{t('로그아웃')}</span>
             </button>
 
             {/* Delete Account (Apple Store Guideline 5.1.1(v) Requirement) */}
@@ -589,8 +598,8 @@ export const SettingsView: React.FC = () => {
               <div className="flex items-center gap-3">
                 <Trash2 className="w-4 h-4 text-rose-500" />
                 <div>
-                  <div className="text-xs font-bold">회원 탈퇴 (계정 삭제)</div>
-                  <div className="text-[10px] text-rose-400">모든 데이터, 보유 포인트 및 쿠폰함 e쿠폰 영구 파기</div>
+                  <div className="text-xs font-bold">{t('회원 탈퇴 (계정 삭제)')}</div>
+                  <div className="text-[10px] text-rose-400">{t('모든 데이터, 보유 포인트 및 쿠폰함 e쿠폰 영구 파기')}</div>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-rose-300" />

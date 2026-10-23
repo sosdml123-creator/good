@@ -4,6 +4,7 @@ import { Search, ChevronLeft, X, Star, Flame, ArrowRight, MapPin } from 'lucide-
 import { Product } from '../../types';
 import { SearchAdMobBannerSection } from './SearchAdMobBannerSection';
 import { formatProductPrice } from '../../utils/formatters';
+import { useT } from '../../i18n';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -17,6 +18,7 @@ export const SearchModal: React.FC = () => {
     recordSearchInflux,
     searchQuery
   } = useApp();
+  const t = useT();
 
   // PC 헤더 검색창에서 넘어온 검색어로 시작합니다 (모바일은 빈 값).
   const [inputQuery, setInputQuery] = useState(() => searchQuery || '');
@@ -87,7 +89,7 @@ export const SearchModal: React.FC = () => {
                 handleSearch(inputQuery);
               }
             }}
-            placeholder="제품명, 브랜드, 카테고리 검색"
+            placeholder={t('제품명, 브랜드, 카테고리 검색')}
             className="flex-1 bg-transparent text-xs text-gray-900 outline-none placeholder-gray-400"
           />
           {inputQuery && (
@@ -104,7 +106,7 @@ export const SearchModal: React.FC = () => {
           onClick={() => handleSearch(inputQuery)}
           className="text-xs font-bold text-gray-900 px-2 py-1 shrink-0"
         >
-          검색
+          {t('검색')}
         </button>
       </div>
 
@@ -288,7 +290,7 @@ export const SearchModal: React.FC = () => {
           ) : (
             <div className="text-center py-16 text-gray-400 space-y-2">
               <span className="text-3xl block">🔍</span>
-              <p className="text-xs font-medium">검색된 먹거리가 없습니다.</p>
+              <p className="text-xs font-medium">{t('검색된 먹거리가 없습니다.')}</p>
               <p className="text-[11px] text-gray-400">‘새우’, ‘복숭아’, ‘수박’ 등으로 다시 검색해보세요.</p>
             </div>
           )}
@@ -302,12 +304,12 @@ export const SearchModal: React.FC = () => {
           {recentSearches.length > 0 && (
             <div>
               <div className="flex items-center justify-between text-xs font-bold text-gray-900 mb-2.5">
-                <span>최근 검색어</span>
+                <span>{t('최근 검색어')}</span>
                 <button
                   onClick={clearRecentSearches}
                   className="text-[11px] text-gray-400 hover:text-gray-600 font-normal"
                 >
-                  모두 지우기
+                  {t('모두 지우기')}
                 </button>
               </div>
 
@@ -339,7 +341,7 @@ export const SearchModal: React.FC = () => {
           <div>
             <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900 mb-3">
               <Flame className="w-4 h-4 text-rose-500" />
-              <span>실시간 인기 검색어</span>
+              <span>{t('실시간 인기 검색어')}</span>
             </div>
 
             <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">

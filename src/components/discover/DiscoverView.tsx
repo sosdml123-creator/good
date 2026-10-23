@@ -7,6 +7,7 @@ import { getCategoryReviewRankedProducts } from '../../utils/ranking';
 import { SafeImage } from '../common/SafeImage';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 import { formatProductPrice } from '../../utils/formatters';
+import { useT } from '../../i18n';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
 
@@ -29,6 +30,7 @@ export const DiscoverView: React.FC = () => {
     goBack,
     setActiveTab,
   } = useApp();
+  const t = useT();
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('전체');
   const [sortBy, setSortBy] = useState<SortOption>('review_rank');
@@ -113,7 +115,7 @@ export const DiscoverView: React.FC = () => {
             className="flex-1 flex items-center gap-2 bg-gray-100 rounded-full px-3.5 py-2 cursor-pointer"
           >
             <Search className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-400">신상품, 먹거리, 브랜드 검색</span>
+            <span className="text-sm text-gray-400">{t('신상품, 먹거리, 브랜드 검색')}</span>
           </div>
 
           <button 
@@ -156,7 +158,7 @@ export const DiscoverView: React.FC = () => {
                     : 'text-gray-500 hover:text-gray-900'
                 }`}
               >
-                {c}
+                {t(c)}
               </button>
             ))}
           </div>
@@ -206,7 +208,7 @@ export const DiscoverView: React.FC = () => {
                         : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    {sub}
+                    {t(sub)}
                   </button>
                 );
               })}
@@ -229,15 +231,15 @@ export const DiscoverView: React.FC = () => {
         {/* Result count & interactive sorting dropdown */}
         <div className="relative px-4 py-2 flex items-center justify-between text-[12px] bg-white">
           <span className="text-gray-500">
-            {selectedSubCategory !== '전체' ? `${selectedSubCategory} · ` : ''}
-            총 <span className="font-bold text-gray-800">{rankedItems.length}</span>개 발견
+            {selectedSubCategory !== '전체' ? `${t(selectedSubCategory)} · ` : ''}
+            {t('총 {n}개 발견', { n: rankedItems.length })}
           </span>
           
           <button
             onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
             className="flex items-center gap-1 text-gray-700 font-bold px-2 py-1 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 transition-colors"
           >
-            <span>{SORT_LABELS[sortBy]}</span>
+            <span>{t(SORT_LABELS[sortBy])}</span>
             <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
           </button>
 
@@ -255,7 +257,7 @@ export const DiscoverView: React.FC = () => {
                     sortBy === opt ? 'font-bold text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-50'
                   }`}
                 >
-                  <span>{SORT_LABELS[opt]}</span>
+                  <span>{t(SORT_LABELS[opt])}</span>
                   {sortBy === opt && <Check className="w-3.5 h-3.5 text-gray-900" />}
                 </button>
               ))}
@@ -512,7 +514,7 @@ export const DiscoverView: React.FC = () => {
                   onClick={() => setDisplayLimit((prev) => prev + 30)}
                   className="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-4 py-2 rounded-xl shadow-2xs hover:bg-gray-50 active:scale-95 transition-all"
                 >
-                  신제품 더보기 ({visibleRankedItems.length} / {rankedItems.length})
+                  {t('신제품 더보기')} ({visibleRankedItems.length} / {rankedItems.length})
                 </button>
               </div>
             )}
@@ -520,8 +522,8 @@ export const DiscoverView: React.FC = () => {
         ) : (
           <div className="text-center py-16 px-4 space-y-2 text-gray-400">
             <span className="text-3xl block">🍽️</span>
-            <p className="text-xs font-bold text-gray-700">{selectedCategory === '신제품' ? '이번 주에 새로 나온 신상품이 아직 없어요.' : '해당 카테고리의 상품이 없습니다.'}</p>
-            <p className="text-[11px]">{selectedCategory === '신제품' ? '신상은 출시 후 일주일 동안만 이곳에 보여요.' : '다른 카테고리나 하위 품목을 선택해보세요.'}</p>
+            <p className="text-xs font-bold text-gray-700">{selectedCategory === '신제품' ? t('이번 주에 새로 나온 신상품이 아직 없어요.') : t('해당 카테고리의 상품이 없습니다.')}</p>
+            <p className="text-[11px]">{selectedCategory === '신제품' ? t('신상은 출시 후 일주일 동안만 이곳에 보여요.') : t('다른 카테고리나 하위 품목을 선택해보세요.')}</p>
           </div>
         )}
       </div>
