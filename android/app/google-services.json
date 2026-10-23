@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "955908566576",
+    "project_id": "tttt-be56f",
+    "storage_bucket": "tttt-be56f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955908566576:android:db6a0e1bed3a6be17687f5",
+        "android_client_info": {
+          "package_name": "com.sinsangpick.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxscTb1Bcb_XLgbTvNj3h2VrJ7WTeQP3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

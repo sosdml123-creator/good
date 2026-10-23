@@ -124,7 +124,7 @@ export const deleteDeviceToken = async (token?: string): Promise<boolean> => {
  * "Default FirebaseApp is not initialized" 예외로 앱이 강제종료되므로(JS try/catch로 못 잡음)
  * Firebase를 연결하기 전까지 Android에서는 네이티브 푸시 등록을 건너뜁니다.
  */
-const ANDROID_FCM_CONFIGURED = false;
+const ANDROID_FCM_CONFIGURED = true;
 
 const canRegisterNativePush = (): boolean =>
   Capacitor.getPlatform() !== 'android' || ANDROID_FCM_CONFIGURED;
