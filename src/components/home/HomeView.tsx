@@ -291,6 +291,7 @@ export const HomeView: React.FC = () => {
     // 두 번째 줄 첫 칸 = 오늘신상 바로 아래
     { label: '돈키호테', icon: <ShoppingBag className="w-5 h-5 text-yellow-600" />, color: 'bg-yellow-50 text-yellow-700', action: 'donki' },
     { label: '떡집', icon: <span className="text-[18px] leading-none">🍡</span>, color: 'bg-rose-50 text-rose-600', action: 'tteok' },
+    { label: '농수산물', icon: <span className="text-[18px] leading-none">🥬</span>, color: 'bg-emerald-50 text-emerald-600', action: 'agri' },
   ];
 
   const categoryIcons: { label: string; icon: React.ReactNode; cat: ProductCategory }[] = [
@@ -514,6 +515,8 @@ export const HomeView: React.FC = () => {
                       setActiveTab('donki');
                     } else if (m.action === 'tteok') {
                       setActiveTab('tteok');
+                    } else if (m.action === 'agri') {
+                      setActiveTab('agri');
                     } else if (m.action === 'my') {
                       setActiveTab('my');
                     } else {

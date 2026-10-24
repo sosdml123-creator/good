@@ -461,6 +461,7 @@ export type ActiveTab =
   | 'calendar'
   | 'donki'
   | 'tteok'
+  | 'agri'
   // PC 버전 전용 화면 (pc.sinsangpick.kr)
   | 'market'
   | 'stores'

@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+
+/** 앱(네이티브)에서는 로컬 번들이라 서버 주소가 필요합니다. 웹은 같은 도메인의 /api 를 씁니다. */
+const KAMIS_URL = `${Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : ''}/api/kamis`;
 
 /** KAMIS(aT 농수산물유통정보) 소매가격 한 줄 */
 export interface MarketPriceRow {
@@ -87,7 +91,7 @@ export const useMarketPrices = () => {
       try {
         const results = await Promise.all(
           MARKET_CATEGORIES.map(async ({ code, name }) => {
-            const r = await fetch(`/api/kamis?category=${code}`);
+            const r = await fetch(`${KAMIS_URL}?category=${code}`);
             if (!r.ok) return { rows: [] as MarketPriceRow[], date: '' };
             const json = await r.json();
             const items: Record<string, string>[] = Array.isArray(json?.items) ? json.items : [];
@@ -126,7 +130,7 @@ export interface PricePoint { date: string; price: number }
 export const fetchPeriodPrices = async (row: MarketPriceRow, days: number): Promise<PricePoint[]> => {
   const q = new URLSearchParams({ action: 'period', category: row.categoryCode, item: row.itemCode, kind: row.kindCode, rank: row.rankCode, days: String(days) });
   try {
-    const r = await fetch(`/api/kamis?${q.toString()}`);
+    const r = await fetch(`${KAMIS_URL}?${q.toString()}`);
     const json = r.ok ? await r.json() : null;
     return Array.isArray(json?.points) ? json.points : [];
   } catch {
