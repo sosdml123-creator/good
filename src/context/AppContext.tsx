@@ -1306,14 +1306,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const checkAndOpenPostLoginModals = (uid: string) => {
-    const hasReviewedPermissions = localStorage.getItem('sinsangpick_permissions_reviewed') === 'true';
-    if (!hasReviewedPermissions) {
-      setIsPermissionModalOpen(true);
-    } else {
-      const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
-      if (!hasSetNickname) {
-        setIsNicknameModalOpen(true);
-      }
+    // 알림 동의 안내는 AppPermissionModal이 앱 진입 후 스스로 띄웁니다. (로그인 여부와 무관)
+    const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
+    if (!hasSetNickname) {
+      setIsNicknameModalOpen(true);
     }
   };
 
@@ -3571,6 +3567,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_alert_cats');
       localStorage.removeItem('sinsangpick_guest_browse');
       localStorage.removeItem('sinsangpick_permissions_reviewed');
+      localStorage.removeItem('sinsangpick_permission_snooze');
       localStorage.removeItem('sinsangpick_battle_choice');
       localStorage.removeItem('sinsangpick_battle_round');
       localStorage.removeItem('sinsangpick_review_likes');

@@ -144,25 +144,10 @@ export const initPushNotifications = async (callbacks: {
   if (isNative) {
     if (!canRegisterNativePush()) return;
     try {
-      // 1. Check current permissions
-      let permStatus = await PushNotifications.checkPermissions();
-
-      if (permStatus.receive === 'prompt' || permStatus.receive === 'prompt-with-rationale') {
-        permStatus = await PushNotifications.requestPermissions();
-      }
-
-      if (permStatus.receive !== 'granted') {
-        console.log('[Push Notification] Permission not granted:', permStatus.receive);
-        return;
-      }
-
-      // 2. Register with APNs / FCM
-      await PushNotifications.register();
-
-      // 3. Remove old listeners to avoid duplicates
+      // 1. Remove old listeners to avoid duplicates (리스너를 먼저 달아야 register() 직후 토큰을 놓치지 않습니다)
       await PushNotifications.removeAllListeners();
 
-      // 4. Token registration success listener
+      // 2. Token registration success listener
       PushNotifications.addListener('registration', async (token: Token) => {
         console.log('[Push Notification] Registration success token:', token.value);
         await saveDeviceToken({
@@ -213,6 +198,13 @@ export const initPushNotifications = async (callbacks: {
         }
       });
 
+      // 3. 이미 허용된 기기만 바로 토큰 등록. 아직 묻지 않은 기기는 동의 안내 화면 뒤에 OS 권한창을 띄웁니다.
+      const permStatus = await PushNotifications.checkPermissions();
+      if (permStatus.receive === 'granted') {
+        await PushNotifications.register();
+      } else {
+        console.log('[Push Notification] Permission not granted yet:', permStatus.receive);
+      }
     } catch (e) {
       console.warn('[Push Notification] Native init error:', e);
     }
@@ -294,10 +286,56 @@ export const openDeviceSettings = async (): Promise<void> => {
     try {
       if (Capacitor.getPlatform() === 'ios') {
         window.location.href = 'app-settings:';
+      } else {
+        // Android: 앱 정보 화면(알림 권한)으로 이동
+        window.location.href = 'intent:#Intent;action=android.settings.APPLICATION_DETAILS_SETTINGS;data=package:com.sinsangpick.app;end';
       }
     } catch (e) {
       console.warn('[Push Notification] Failed to open device settings:', e);
     }
+  }
+};
+
+const PERMISSION_REVIEWED_KEY = 'sinsangpick_permissions_reviewed';
+const PERMISSION_SNOOZE_KEY = 'sinsangpick_permission_snooze';
+const SNOOZE_DAYS = 3;
+const MAX_ASKS = 4;
+
+/**
+ * 알림 동의 안내를 지금 보여줄지 결정합니다.
+ * - 한 번도 안 물어봤으면 보여줌
+ * - "나중에"를 눌렀다면 3일 뒤 다시 (최대 4회까지) — 이미 허용/거부한 사용자는 다시 묻지 않음
+ */
+export const shouldShowPushPrompt = (): boolean => {
+  try {
+    const raw = localStorage.getItem(PERMISSION_SNOOZE_KEY);
+    if (raw === 'done') return false;
+    if (!raw) return true; // 처음이거나, 예전 버전에서 한 번 넘기고 끝난 사용자도 한 번 더 안내
+    const { at, count } = JSON.parse(raw) as { at: number; count: number };
+    if (count >= MAX_ASKS) return false;
+    return Date.now() - at >= SNOOZE_DAYS * 86400000;
+  } catch {
+    return false;
+  }
+};
+
+export const snoozePushPrompt = (): void => {
+  try {
+    const prev = JSON.parse(localStorage.getItem(PERMISSION_SNOOZE_KEY) || 'null');
+    const count = (prev && typeof prev.count === 'number' ? prev.count : 0) + 1;
+    localStorage.setItem(PERMISSION_SNOOZE_KEY, JSON.stringify({ at: Date.now(), count }));
+    localStorage.setItem(PERMISSION_REVIEWED_KEY, 'true');
+  } catch {
+    // ignore
+  }
+};
+
+export const completePushPrompt = (): void => {
+  try {
+    localStorage.setItem(PERMISSION_SNOOZE_KEY, 'done');
+    localStorage.setItem(PERMISSION_REVIEWED_KEY, 'true');
+  } catch {
+    // ignore
   }
 };
 
