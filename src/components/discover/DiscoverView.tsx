@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
-import { ChevronLeft, ChevronRight, Search, SlidersHorizontal, Heart, Star, Award, ChevronDown, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, SlidersHorizontal, Heart, Star, ChevronDown, Check } from 'lucide-react';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../../data/mockProducts';
 import { ProductCategory, Product } from '../../types';
 import { getCategoryReviewRankedProducts } from '../../utils/ranking';
@@ -268,101 +268,45 @@ export const DiscoverView: React.FC = () => {
 
       {/* 2. Highlight: 게시된 리뷰 반영 실시간 랭킹 TOP 3 */}
       {top3Ranked.length > 0 && (
-        <div className="mx-4 my-3 p-3.5 bg-gradient-to-br from-amber-50/90 via-slate-50/70 to-orange-50/30 rounded-2xl border border-amber-200/80 shadow-2xs">
-          <div className="flex items-center justify-between mb-2.5">
-            <div className="flex items-center gap-1.5">
-              <Award className="w-4 h-4 text-amber-500" />
-              <span className="text-xs font-black text-gray-900">
-                👑 {selectedCategory === '전체' ? '전체' : selectedCategory} 실시간 리뷰 평가 랭킹 TOP 3
-              </span>
-            </div>
-            <span className="text-[10px] text-amber-700 font-bold bg-amber-100 px-2 py-0.5 rounded-full">
-              실제 리뷰 반영
-            </span>
+        <div className="px-4 pt-4 pb-2 border-b border-gray-100">
+          <div className="flex items-baseline justify-between mb-1">
+            <h2 className="text-[15px] font-bold text-gray-900">
+              {selectedCategory === '전체' ? '지금' : selectedCategory} 리뷰 좋은 신상
+            </h2>
+            <span className="text-[11px] text-gray-400">리뷰 기준 TOP 3</span>
           </div>
 
-          <div className="space-y-2">
+          <div className="divide-y divide-gray-100">
             {top3Ranked.map((item) => {
               const p = item.product;
-              const isFirst = item.reviewRank === 1;
-              const isSecond = item.reviewRank === 2;
-
               return (
                 <div
                   key={p.id}
                   onClick={() => openProductDetail(p.id)}
-                  className={`bg-white p-2.5 rounded-xl border transition-all cursor-pointer shadow-2xs hover:shadow-xs flex items-center justify-between ${
-                    isFirst ? 'border-amber-300 ring-1 ring-amber-200/50' : isSecond ? 'border-gray-300' : 'border-gray-200'
-                  }`}
+                  className="flex items-center gap-3 py-2.5 cursor-pointer active:bg-gray-50"
                 >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <span className={`w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center shrink-0 shadow-2xs ${
-                      isFirst
-                        ? 'bg-amber-500 text-white'
-                        : isSecond
-                        ? 'bg-slate-400 text-white'
-                        : 'bg-amber-700 text-white'
-                    }`}>
-                      {item.reviewRank}
-                    </span>
-
-                    <SafeImage
-                      src={p.image}
-                      alt={p.name}
-                      fallbackCategory={p.category}
-                      fallbackName={p.name}
-                      className="w-10 h-10 rounded-lg object-cover bg-gray-100 shrink-0"
-                    />
-                    
-                    <div className="min-w-0">
-                      <div className="text-xs font-bold text-gray-900 truncate">{p.name}</div>
-                      
-                      <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                        <span className="text-[10px] text-gray-400">{p.brand}</span>
-                        {item.topKeyword && (
-                          <span className="text-[9px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
-                            #{item.topKeyword}
-                          </span>
-                        )}
-                        {/* 농수산물 사이즈 / 당도 배지 */}
-                        {p.produceDetails?.sizeGrade && (
-                          <span className="text-[9px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.2 rounded">
-                            📐 {p.produceDetails.sizeGrade.split(' ')[0]}
-                          </span>
-                        )}
-                        {p.produceDetails?.brixGrade && (
-                          <span className="text-[9px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">
-                            🍯 {p.produceDetails.brixGrade.split(' ')[0]}
-                          </span>
-                        )}
-                        {p.kamisPriceInfo && (
-                          <span className={`text-[9px] font-black px-1.5 py-0.2 rounded ${
-                            p.kamisPriceInfo.trend === 'up' ? 'text-rose-600 bg-rose-50' : p.kamisPriceInfo.trend === 'down' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 bg-gray-100'
-                          }`}>
-                            KAMIS {p.kamisPriceInfo.trend === 'up' ? '▲' : p.kamisPriceInfo.trend === 'down' ? '▼' : '-'}
-                            {p.kamisPriceInfo.changeRate !== 0 ? `${Math.abs(p.kamisPriceInfo.changeRate)}%` : ''}
-                          </span>
-                        )}
-                      </div>
+                  <span className="w-4 text-center text-sm font-bold text-gray-900 shrink-0">{item.reviewRank}</span>
+                  <SafeImage
+                    src={p.image}
+                    alt={p.name}
+                    fallbackCategory={p.category}
+                    fallbackName={p.name}
+                    className="w-11 h-11 rounded-lg object-cover bg-gray-100 shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[13px] font-medium text-gray-900 truncate">{p.name}</div>
+                    <div className="text-[11px] text-gray-400 mt-0.5 truncate">
+                      {p.brand}
+                      {item.topKeyword ? ` · ${item.topKeyword}` : ''}
                     </div>
                   </div>
-
-                  <div className="flex flex-col items-end shrink-0 ml-2">
-                    {item.totalReviewCount > 0 && item.effectiveRating > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                        <span className="text-xs font-black text-gray-900">{item.effectiveRating.toFixed(1)}</span>
-                        <span className="text-[10px] text-gray-400">({item.totalReviewCount})</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-1 mt-0.5">
-                      {item.totalReviewCount > 0 && item.reviewScore > 0 && (
-                        <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded">
-                          점수 {item.reviewScore}
-                        </span>
-                      )}
+                  {item.totalReviewCount > 0 && item.effectiveRating > 0 && (
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
+                      <span className="text-[13px] font-semibold text-gray-900">{item.effectiveRating.toFixed(1)}</span>
+                      <span className="text-[11px] text-gray-400">({item.totalReviewCount})</span>
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
