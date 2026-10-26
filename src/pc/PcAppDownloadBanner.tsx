@@ -5,7 +5,7 @@ const DISMISS_KEY = 'pc_app_banner_dismissed_until';
 const DISMISS_MS = 24 * 60 * 60 * 1000;
 
 const STORE_LINKS = [
-  { label: 'App Store', href: 'https://apps.apple.com/kr/search?term=%EC%8B%A0%EC%83%81%ED%94%BD' },
+  { label: 'App Store', href: 'https://apps.apple.com/kr/iphone/search?term=%EC%8B%A0%EC%83%81%ED%94%BD' },
   { label: 'Google Play', href: 'https://play.google.com/store/search?q=%EC%8B%A0%EC%83%81%ED%94%BD&c=apps' },
 ];
 
