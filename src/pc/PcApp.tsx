@@ -16,6 +16,7 @@ import { PcStores } from './PcExtras';
 import { PcDonki } from './PcDonki';
 import { PcTteok } from './PcTteok';
 import { PcContainer } from './PcUi';
+import { PcAppDownloadBanner } from './PcAppDownloadBanner';
 
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
 const Views = {
@@ -291,6 +292,7 @@ export const PcApp: React.FC = () => {
       <ToastContainer />
       <PushBanner />
       <PcHeader />
+      <PcAppDownloadBanner />
 
       <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto flex flex-col">
         <Suspense fallback={<Spinner />}>
