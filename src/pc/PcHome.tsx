@@ -6,6 +6,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { BannerItem, ProductCategory } from '../types';
 import { HOME_BANNERS, WEEKLY_NEW_BANNER_ID } from '../constants/homeBanner';
+import { useHomeBanners } from '../hooks/useHomeBanners';
 import { getPopularProducts, getWeeklyNewProducts } from '../utils/ranking';
 import { SafeImage } from '../components/common/SafeImage';
 import { BrandLogo } from '../components/brand/BrandLogo';
@@ -50,7 +51,7 @@ export const PcHome: React.FC = () => {
   const [newFilter, setNewFilter] = useState('전체');
   const [bannerIdx, setBannerIdx] = useState(0);
 
-  const activeBanners = HOME_BANNERS;
+  const activeBanners = useHomeBanners();
   const weeklyAll = useMemo(() => getWeeklyNewProducts(products, '전체'), [products]);
   const newProducts = useMemo(() => getWeeklyNewProducts(products, newFilter), [products, newFilter]);
   const popular = useMemo(() => getPopularProducts(products, 10, reviews), [products, reviews]);

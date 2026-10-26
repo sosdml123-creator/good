@@ -31,6 +31,7 @@ import {
   getWeeklyNewProducts
 } from '../../utils/ranking';
 import { COUPANG_HOME_BANNER, HOME_BANNERS, WEEKLY_NEW_BANNER_ID } from '../../constants/homeBanner';
+import { useHomeBanners } from '../../hooks/useHomeBanners';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
@@ -154,7 +155,7 @@ export const HomeView: React.FC = () => {
     return getWeeklyNewProducts(products, newProductCategoryFilter);
   }, [products, newProductCategoryFilter]);
 
-  const displayBanners = HOME_BANNERS;
+  const displayBanners = useHomeBanners();
   const totalBanners = displayBanners.length;
 
   // Safe current index clamp
