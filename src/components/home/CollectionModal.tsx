@@ -1,19 +1,27 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, Heart, Star } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { BannerItem } from '../../types';
 import { SafeImage } from '../common/SafeImage';
 import { formatProductPrice } from '../../utils/formatters';
+import { WEEKLY_NEW_BANNER_ID } from '../../constants/homeBanner';
+import { getWeeklyNewProducts } from '../../utils/ranking';
+
+const WEEKLY_FILTERS = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
 // 기획전 배너(linkType: 'collection')를 탭하면 뜨는 상품 목록 화면
 export const CollectionModal: React.FC<{ banner: BannerItem; onClose: () => void }> = ({ banner, onClose }) => {
   const { products, openProductDetail, toggleBookmark, bookmarkedIds } = useApp();
+  const isWeekly = banner.id === WEEKLY_NEW_BANNER_ID;
+  const [filter, setFilter] = useState('전체');
 
-  // 관리자가 지정한 순서를 유지하고, 삭제된 상품은 빠집니다.
+  // 관리자가 지정한 순서를 유지하고, 삭제된 상품은 빠집니다. (이번주 신상은 이번 주 등록분을 자동 수집)
+  const weeklyAll = useMemo(() => (isWeekly ? getWeeklyNewProducts(products, '전체') : []), [isWeekly, products]);
   const items = useMemo(() => {
+    if (isWeekly) return getWeeklyNewProducts(products, filter);
     const byId = new Map(products.map(p => [p.id, p]));
     return (banner.linkProductIds || []).map(id => byId.get(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
-  }, [products, banner.linkProductIds]);
+  }, [isWeekly, products, filter, banner.linkProductIds]);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -44,8 +52,24 @@ export const CollectionModal: React.FC<{ banner: BannerItem; onClose: () => void
             <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 mb-1.5">{banner.badge}</span>
           )}
           {banner.subtitle && <p className="text-[13px] text-gray-500 leading-relaxed">{banner.subtitle}</p>}
-          <p className="text-[12px] text-gray-400 mt-1">총 {items.length}개 상품</p>
+          <p className="text-[12px] text-gray-400 mt-1">
+            {isWeekly ? `이번 주 신상 총 ${weeklyAll.length}개` : `총 ${items.length}개 상품`}
+          </p>
         </div>
+
+        {isWeekly && (
+          <div className="flex gap-2 overflow-x-auto px-4 pb-2 no-scrollbar">
+            {WEEKLY_FILTERS.map(f => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`shrink-0 h-8 px-3.5 rounded-full text-[12px] font-bold ${filter === f ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'}`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-5 px-4 pt-2">
           {items.map(p => {
@@ -86,7 +110,7 @@ export const CollectionModal: React.FC<{ banner: BannerItem; onClose: () => void
         </div>
 
         {items.length === 0 && (
-          <p className="text-center text-[13px] text-gray-400 py-16">등록된 기획전 상품이 없습니다.</p>
+          <p className="text-center text-[13px] text-gray-400 py-16">{isWeekly ? '이번 주 등록된 신상이 아직 없어요.' : '등록된 기획전 상품이 없습니다.'}</p>
         )}
         </div>
       </div>

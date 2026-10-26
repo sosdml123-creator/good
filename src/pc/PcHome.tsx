@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { BannerItem, ProductCategory } from '../types';
-import { COUPANG_HOME_BANNER } from '../constants/homeBanner';
+import { HOME_BANNERS, WEEKLY_NEW_BANNER_ID } from '../constants/homeBanner';
 import { getPopularProducts, getWeeklyNewProducts } from '../utils/ranking';
 import { SafeImage } from '../components/common/SafeImage';
 import { BrandLogo } from '../components/brand/BrandLogo';
@@ -50,7 +50,7 @@ export const PcHome: React.FC = () => {
   const [newFilter, setNewFilter] = useState('전체');
   const [bannerIdx, setBannerIdx] = useState(0);
 
-  const activeBanners = [COUPANG_HOME_BANNER];
+  const activeBanners = HOME_BANNERS;
   const weeklyAll = useMemo(() => getWeeklyNewProducts(products, '전체'), [products]);
   const newProducts = useMemo(() => getWeeklyNewProducts(products, newFilter), [products, newFilter]);
   const popular = useMemo(() => getPopularProducts(products, 10, reviews), [products, reviews]);
@@ -83,11 +83,11 @@ export const PcHome: React.FC = () => {
     lastOpenCollectionId = b ? b.id : null;
     setOpenCollectionIdState(lastOpenCollectionId);
   };
-  const openCollection = openCollectionId ? banners.find(b => b.id === openCollectionId) : undefined;
+  const openCollection = openCollectionId ? [...HOME_BANNERS, ...banners].find(b => b.id === openCollectionId) : undefined;
 
   const handleBannerClick = (banner: BannerItem) => {
     if (banner.linkType === 'none') return;
-    if (banner.linkType === 'collection' && banner.linkProductIds?.length) {
+    if (banner.linkType === 'collection' && (banner.id === WEEKLY_NEW_BANNER_ID || banner.linkProductIds?.length)) {
       setOpenCollection(banner);
     } else if (banner.linkUrl && banner.linkUrl.trim()) {
       const raw = banner.linkUrl.trim();
@@ -115,7 +115,9 @@ export const PcHome: React.FC = () => {
               <button onClick={() => handleBannerClick(banner)} className="block w-full h-full cursor-pointer">
                 <SafeImage src={banner.image} alt={banner.title || '배너'} className="w-full h-full object-cover" />
               </button>
-              <p className="absolute bottom-3 left-3 right-3 text-[11px] text-gray-600 bg-white/90 rounded px-2 py-1 pointer-events-none">※ {banner.disclaimer}</p>
+              {banner.disclaimer && (
+                <p className="absolute bottom-3 left-3 right-3 text-[11px] text-gray-600 bg-white/90 rounded px-2 py-1 pointer-events-none">※ {banner.disclaimer}</p>
+              )}
               {activeBanners.length > 1 && (
                 <div className="absolute bottom-4 right-4 flex items-center gap-1.5">
                   <button

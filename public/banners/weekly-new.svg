@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1376" height="768" viewBox="0 0 1376 768">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a5f"/><stop offset="0.55" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ffc83d"/></linearGradient>
+</defs>
+<rect width="1376" height="768" fill="url(#bg)"/>
+<circle cx="1180" cy="120" r="260" fill="#fff" fill-opacity="0.14"/>
+<circle cx="140" cy="700" r="230" fill="#fff" fill-opacity="0.12"/>
+<circle cx="1080" cy="640" r="90" fill="#fff" fill-opacity="0.16"/>
+<g fill="#fff"><path d="M250 150l10 26 26 10-26 10-10 26-10-26-26-10 26-10z"/><path d="M1130 330l8 20 20 8-20 8-8 20-8-20-20-8 20-8z" fill-opacity="0.9"/><path d="M1010 120l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill-opacity="0.8"/></g>
+<g font-family="Pretendard, Apple SD Gothic Neo, Malgun Gothic, sans-serif" text-anchor="middle">
+<rect x="548" y="165" width="280" height="64" rx="32" fill="#fff"/>
+<text x="688" y="209" font-size="30" font-weight="800" fill="#ff5a3d">NEW · 매주 업데이트</text>
+<text x="688" y="388" font-size="150" font-weight="900" fill="#fff" letter-spacing="-6">이번주 신상</text>
+<text x="688" y="470" font-size="40" font-weight="700" fill="#fff" fill-opacity="0.95">편의점·카페·마트 새로 나온 간식, 한눈에</text>
+<rect x="528" y="525" width="320" height="86" rx="43" fill="#fff"/>
+<text x="688" y="581" font-size="36" font-weight="900" fill="#ff5a3d">지금 보러가기 →</text>
+</g></svg>

@@ -30,7 +30,7 @@ import {
   getPopularProducts, 
   getWeeklyNewProducts
 } from '../../utils/ranking';
-import { COUPANG_HOME_BANNER } from '../../constants/homeBanner';
+import { COUPANG_HOME_BANNER, HOME_BANNERS, WEEKLY_NEW_BANNER_ID } from '../../constants/homeBanner';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
 import { BrandLogo } from '../brand/BrandLogo';
 import { SafeImage } from '../common/SafeImage';
@@ -154,7 +154,7 @@ export const HomeView: React.FC = () => {
     return getWeeklyNewProducts(products, newProductCategoryFilter);
   }, [products, newProductCategoryFilter]);
 
-  const displayBanners = [COUPANG_HOME_BANNER];
+  const displayBanners = HOME_BANNERS;
   const totalBanners = displayBanners.length;
 
   // Safe current index clamp
@@ -318,7 +318,7 @@ export const HomeView: React.FC = () => {
 
     if (target.linkType === 'none') return;
 
-    if (target.linkType === 'collection' && target.linkProductIds?.length) {
+    if (target.linkType === 'collection' && (target.id === WEEKLY_NEW_BANNER_ID || target.linkProductIds?.length)) {
       setOpenCollectionId(target.id);
       return;
     }
@@ -1343,7 +1343,7 @@ export const HomeView: React.FC = () => {
       </button>
 
       {(() => {
-        const collection = openCollectionId ? banners.find(b => b.id === openCollectionId) : undefined;
+        const collection = openCollectionId ? [...HOME_BANNERS, ...banners].find(b => b.id === openCollectionId) : undefined;
         return collection ? <CollectionModal banner={collection} onClose={() => setOpenCollectionId(null)} /> : null;
       })()}
     </div>
