@@ -268,42 +268,41 @@ export const DiscoverView: React.FC = () => {
 
       {/* 2. Highlight: 게시된 리뷰 반영 실시간 랭킹 TOP 3 */}
       {top3Ranked.length > 0 && (
-        <div className="px-4 pt-4 pb-2 border-b border-gray-100">
-          <div className="flex items-baseline justify-between mb-1">
+        <div className="pt-4 pb-3 border-b border-gray-100">
+          <div className="flex items-baseline justify-between px-4 mb-2.5">
             <h2 className="text-[15px] font-bold text-gray-900">
               {selectedCategory === '전체' ? '지금' : selectedCategory} 리뷰 좋은 신상
             </h2>
             <span className="text-[11px] text-gray-400">리뷰 기준 TOP 3</span>
           </div>
 
-          <div className="divide-y divide-gray-100">
+          <div className="flex gap-3 overflow-x-auto px-4 pb-1 snap-x" style={{ scrollbarWidth: 'none' }}>
             {top3Ranked.map((item) => {
               const p = item.product;
               return (
                 <div
                   key={p.id}
                   onClick={() => openProductDetail(p.id)}
-                  className="flex items-center gap-3 py-2.5 cursor-pointer active:bg-gray-50"
+                  className="w-[132px] shrink-0 snap-start cursor-pointer active:opacity-80"
                 >
-                  <span className="w-4 text-center text-sm font-bold text-gray-900 shrink-0">{item.reviewRank}</span>
-                  <SafeImage
-                    src={p.image}
-                    alt={p.name}
-                    fallbackCategory={p.category}
-                    fallbackName={p.name}
-                    className="w-11 h-11 rounded-lg object-cover bg-gray-100 shrink-0"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[13px] font-medium text-gray-900 truncate">{p.name}</div>
-                    <div className="text-[11px] text-gray-400 mt-0.5 truncate">
-                      {p.brand}
-                      {item.topKeyword ? ` · ${item.topKeyword}` : ''}
-                    </div>
+                  <div className="relative w-[132px] h-[132px] rounded-2xl overflow-hidden bg-gray-100">
+                    <SafeImage
+                      src={p.image}
+                      alt={p.name}
+                      fallbackCategory={p.category}
+                      fallbackName={p.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute left-0 top-0 bg-gray-900/85 text-white text-[12px] font-bold px-2.5 py-1 rounded-br-xl">
+                      {item.reviewRank}
+                    </span>
                   </div>
+                  <div className="mt-2 text-[11px] text-gray-400 truncate">{p.brand}</div>
+                  <div className="text-[13px] font-medium text-gray-900 leading-snug line-clamp-2">{p.name}</div>
                   {item.totalReviewCount > 0 && item.effectiveRating > 0 && (
-                    <div className="flex items-center gap-1 shrink-0">
-                      <Star className="w-3.5 h-3.5 fill-[#FFC107] text-[#FFC107]" />
-                      <span className="text-[13px] font-semibold text-gray-900">{item.effectiveRating.toFixed(1)}</span>
+                    <div className="flex items-center gap-1 mt-1">
+                      <Star className="w-3 h-3 fill-[#FFC107] text-[#FFC107]" />
+                      <span className="text-[12px] font-semibold text-gray-900">{item.effectiveRating.toFixed(1)}</span>
                       <span className="text-[11px] text-gray-400">({item.totalReviewCount})</span>
                     </div>
                   )}
