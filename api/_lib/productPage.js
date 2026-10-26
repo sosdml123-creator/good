@@ -72,7 +72,23 @@ function buildHead(template, { title, description, image, canonical, alternate, 
   return html.replace('</head>', `    ${extra}\n  </head>`);
 }
 
-function buildBody(p, reviews, related, origin) {
+/** 상품 DB 필드만으로 만든 소개 문장 (리뷰가 없어도 읽을 글이 있도록). 없는 값은 건너뜁니다. */
+function buildSummary(p, reviews) {
+  const stores = Array.isArray(p.stores) ? p.stores.filter(Boolean) : [];
+  const price = formatPrice(p.price);
+  return [
+    `${p.brand} ${p.name}은(는) ${p.category ? `${p.category} 분야의 ` : ''}신제품이에요.`,
+    p.release_date ? `${p.release_date}에 출시됐어요.` : '',
+    price ? `가격은 ${price}${p.volume ? `(${p.volume})` : ''}이에요.` : (p.volume ? `용량은 ${p.volume}이에요.` : ''),
+    p.calories ? `열량은 ${p.calories}kcal예요.` : '',
+    stores.length > 0 ? `${stores.join(', ')}에서 만나볼 수 있어요.` : '',
+    reviews.length > 0
+      ? `신상픽에서는 먹어본 사람들의 리뷰 ${reviews.length}개를 볼 수 있어요.`
+      : '신상픽에서 먹어본 사람들의 별점과 솔직한 후기를 모아볼 수 있어요.',
+  ].filter(Boolean).join(' ');
+}
+
+function buildBody(p, reviews, related, sameBrand, origin) {
   const price = formatPrice(p.price);
   const info = [
     ['브랜드', p.brand],
@@ -91,6 +107,9 @@ function buildBody(p, reviews, related, origin) {
           <p>${escapeHtml(truncate(r.content, 500))}</p>
         </li>`).join('');
 
+  const brandItems = sameBrand.map(x => `
+        <li><a href="${origin}/product/${encodeURIComponent(x.id)}">${escapeHtml(x.brand)} ${escapeHtml(x.name)}</a></li>`).join('');
+
   const relatedItems = related.map(x => `
         <li><a href="${origin}/product/${encodeURIComponent(x.id)}">${escapeHtml(x.brand)} ${escapeHtml(x.name)}</a></li>`).join('');
 
@@ -102,11 +121,13 @@ function buildBody(p, reviews, related, origin) {
         <h1>${escapeHtml(p.name)}</h1>
         <p>${escapeHtml(p.brand)}${price ? ` · ${price}` : ''}</p>
         ${p.description ? `<p>${escapeHtml(p.description)}</p>` : ''}
+        <p>${escapeHtml(buildSummary(p, reviews))}</p>
         <dl>${info.map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>
         <section>
           <h2>${escapeHtml(p.name)} 리뷰 ${reviews.length}개</h2>
           ${reviews.length > 0 ? `<ul>${reviewItems}\n      </ul>` : '<p>아직 등록된 리뷰가 없어요. 신상픽에서 첫 리뷰를 남겨보세요.</p>'}
         </section>
+        ${brandItems ? `<section><h2>${escapeHtml(p.brand)} 다른 신상</h2><ul>${brandItems}\n      </ul></section>` : ''}
         ${relatedItems ? `<section><h2>함께 보면 좋은 ${escapeHtml(p.category)}</h2><ul>${relatedItems}\n      </ul></section>` : ''}
       </article>
     </main>`;
@@ -144,6 +165,7 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
   let product = null;
   let reviews = [];
   let related = [];
+  let sameBrand = [];
   try {
     const [prodRes, revRes, sysRes] = await Promise.all([
       fetch(`${supabaseUrl}/rest/v1/products?select=*&id=eq.${encodeURIComponent(id)}&limit=1`, { headers }),
@@ -165,6 +187,13 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
         { headers }
       );
       if (relRes.ok) related = await relRes.json();
+    }
+    if (product?.brand) {
+      const brandRes = await fetch(
+        `${supabaseUrl}/rest/v1/products?select=id,name,brand&brand=eq.${encodeURIComponent(product.brand)}&id=neq.${encodeURIComponent(id)}&order=created_at.desc&limit=8`,
+        { headers }
+      );
+      if (brandRes.ok) sameBrand = await brandRes.json();
     }
   } catch (err) {
     console.error('[product-page] data error:', err);
@@ -219,7 +248,7 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
     alternate: `${MOBILE_ORIGIN}${path}`,
     ld,
   });
-  html = html.replace(/<div id="root"><\/div>/, `<div id="root">${buildBody(product, reviews, related, origin)}\n    </div>`);
+  html = html.replace(/<div id="root"><\/div>/, `<div id="root">${buildBody(product, reviews, related, sameBrand, origin)}\n    </div>`);
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   // PC 주소는 휴대폰 방문자를 www 로 보내야 해서 CDN 에 캐시하지 않습니다.
