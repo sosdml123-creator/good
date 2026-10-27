@@ -4,4 +4,3 @@ NSCameraUsageDescription = "新商品の正直なレビュー作成やレシー�
 NSPhotoLibraryUsageDescription = "新商品レビューやコミュニティ投稿に写真を添付するため、写真ライブラリへのアクセスが必要です。";
 NSPhotoLibraryAddUsageDescription = "レビューや商品画像を写真ライブラリに保存するため、許可が必要です。";
 NSUserTrackingUsageDescription = "パーソナライズされた特典や新商品イベントの情報をお知らせするため、許可をお願いします。";
-NSLocationWhenInUseUsageDescription = "近くのコンビニやスーパーで新商品の在庫位置を確認するため、位置情報へのアクセスが必要です。";
