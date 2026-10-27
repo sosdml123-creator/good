@@ -67,8 +67,8 @@ function buildHead(template, { title, description, image, canonical, alternate, 
   const extra = [
     `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
     `<link rel="alternate" media="only screen and (max-width: 640px)" href="${escapeHtml(alternate)}" />`,
-    `<script type="application/ld+json">${jsonLd(ld)}</script>`,
-  ].join('\n    ');
+    ld && `<script type="application/ld+json">${jsonLd(ld)}</script>`,
+  ].filter(Boolean).join('\n    ');
   return html.replace('</head>', `    ${extra}\n  </head>`);
 }
 
@@ -240,13 +240,16 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
     }));
   }
 
+  // 구글 제품 스니펫은 가격(offers)·별점(aggregateRating)·리뷰(review) 중 하나가 있어야 합니다.
+  // 셋 다 없는 상품(가격 없음 + 리뷰 없음)은 조건을 못 채우는 Product 마크업이 되므로 넣지 않습니다.
+  const hasProductSignal = Boolean(ld.offers || ld.aggregateRating);
   let html = buildHead(template, {
     title,
     description,
     image: product.image || `${MOBILE_ORIGIN}/logo.png`,
     canonical: `${PC_ORIGIN}${path}`,
     alternate: `${MOBILE_ORIGIN}${path}`,
-    ld,
+    ld: hasProductSignal ? ld : null,
   });
   html = html.replace(/<div id="root"><\/div>/, `<div id="root">${buildBody(product, reviews, related, sameBrand, origin)}\n    </div>`);
 
