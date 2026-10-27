@@ -23,6 +23,7 @@ type SnsStatus = 'draft' | 'approved' | 'publishing' | 'published' | 'failed';
 interface SnsPost {
   id: string;
   channel: 'instagram' | 'threads';
+  account: 'kr' | 'jp';
   scheduled_at: string;
   text: string;
   image_url: string | null;
@@ -263,11 +264,13 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span
                         className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-bold ${
-                          p.channel === 'instagram' ? 'bg-pink-100 text-pink-700' : 'bg-slate-200 text-slate-800'
+                          p.channel === 'instagram'
+                            ? p.account === 'jp' ? 'bg-violet-100 text-violet-700' : 'bg-pink-100 text-pink-700'
+                            : 'bg-slate-200 text-slate-800'
                         }`}
                       >
                         {p.channel === 'instagram' ? <Instagram className="w-3 h-3" /> : <MessageCircle className="w-3 h-3" />}
-                        {p.channel === 'instagram' ? '인스타' : '스레드'}
+                        {p.channel === 'instagram' ? (p.account === 'jp' ? '인스타 JP' : '인스타') : '스레드'}
                       </span>
                       <span className={`flex items-center gap-1 font-semibold ${strong}`}>
                         <Clock className="w-3 h-3" /> {kstTime(p.scheduled_at)}
