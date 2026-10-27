@@ -1,0 +1,7 @@
+/* English app name and permission descriptions */
+CFBundleDisplayName = "Sinsangpick";
+NSCameraUsageDescription = "Camera access is needed to take photos for honest product reviews and receipt verification.";
+NSPhotoLibraryUsageDescription = "Photo library access is needed to attach photos to product reviews and community posts.";
+NSPhotoLibraryAddUsageDescription = "Permission is needed to save reviews and product images to your photo library.";
+NSUserTrackingUsageDescription = "We request permission to show you personalized offers and new product event information.";
+NSLocationWhenInUseUsageDescription = "Location access is needed to check the stock location of new products at convenience stores and supermarkets near you.";
