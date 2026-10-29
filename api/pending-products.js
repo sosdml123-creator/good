@@ -26,6 +26,7 @@ import { crawlStarbucksNew, crawlMegaNew, crawlPaikNew, crawlEdiyaNew } from './
 import { collectSearchProducts, searchConfigured } from './_lib/intakeSearch.js';
 import { collectOfficialProducts } from './_lib/officialIntake.js';
 import { INTAKE_CATALOG, canonicalIntakeBrand } from './_lib/intakeCatalog.js';
+import { sendReleasePushes } from './_lib/devicePush.js';
 
 export const config = { maxDuration: 300 };
 
@@ -403,7 +404,20 @@ export default async function handler(req, res) {
         body: JSON.stringify({ status: 'approved' }),
       });
 
-      return res.status(200).json({ success: true, approved: approvable });
+      // 승인 = 출시: 관심 카테고리가 맞는 기기에만 개인별 출시 알림을 보냅니다. 실패해도 승인 결과는 그대로 둡니다.
+      const releasedProducts = approvable.map((p) => {
+        const row = byId.get(p.pendingId);
+        return { id: p.productId, name: row.name, brand: row.brand, category: row.category };
+      });
+      let releasePush;
+      try {
+        releasePush = await sendReleasePushes(releasedProducts);
+      } catch (pushErr) {
+        console.error('[pending-products] release push error', pushErr);
+        releasePush = { error: pushErr.message || 'release_push_error' };
+      }
+
+      return res.status(200).json({ success: true, approved: approvable, releasePush });
     }
 
     return res.status(400).json({ success: false, error: `알 수 없는 action: ${action}` });

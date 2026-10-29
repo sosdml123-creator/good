@@ -53,6 +53,19 @@ async function getAccessToken(config) {
 }
 
 /**
+ * FCM 서비스 계정 점검 (OAuth 토큰 발급까지만 확인하고 기기로는 아무것도 보내지 않습니다).
+ * @returns {Promise<{ ok: boolean, reason: string }>}
+ */
+export async function checkFcmAuth(config) {
+  try {
+    await getAccessToken(config);
+    return { ok: true, reason: 'ok' };
+  } catch (err) {
+    return { ok: false, reason: err.message || 'fcm_auth_failed' };
+  }
+}
+
+/**
  * @returns {Promise<{ sentCount: number, failedCount: number, invalidTokens: string[], errors: Record<string, number> }>}
  */
 export async function sendFcmNotifications(config, tokens, { title, body, data = {} }) {

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { X, Bell, ChevronRight } from 'lucide-react';
-import { formatRelativeTime } from '../../services/notificationService';
+import { formatRelativeTime, shouldShowInAppBanner } from '../../services/notificationService';
 
 export const PushBanner: React.FC = () => {
-  const { 
-    incomingPush, 
-    dismissIncomingPush, 
-    openEventDetail, 
-    openProductDetail, 
-    markNotificationAsRead 
+  const {
+    incomingPush,
+    dismissIncomingPush,
+    openEventDetail,
+    openProductDetail,
+    markNotificationAsRead,
+    pushPermissionStatus
   } = useApp();
 
   useEffect(() => {
@@ -22,7 +23,8 @@ export const PushBanner: React.FC = () => {
     return () => clearTimeout(timer);
   }, [incomingPush, dismissIncomingPush]);
 
-  if (!incomingPush) return null;
+  // 푸시를 끈 기기, 또는 iOS 기기 알림 배너가 이미 뜨는 경우에는 인앱 배너를 띄우지 않습니다 (알림함에는 저장됨)
+  if (!incomingPush || !shouldShowInAppBanner(pushPermissionStatus)) return null;
 
   const handleClick = () => {
     markNotificationAsRead(incomingPush.id);

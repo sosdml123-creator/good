@@ -20,7 +20,16 @@ import {
   Check,
   ChevronRight
 } from 'lucide-react';
-import { getFcmStatus, getStoredDeviceToken, FcmStatusInfo, formatRelativeTime } from '../../services/notificationService';
+import {
+  getFcmStatus,
+  getStoredDeviceToken,
+  FcmStatusInfo,
+  formatRelativeTime,
+  checkPushConnections,
+  describePushResult,
+  PushConnectionCheck,
+  SendPushResult
+} from '../../services/notificationService';
 
 export const NotificationManagementTab: React.FC = () => {
   const { 
@@ -57,6 +66,9 @@ export const NotificationManagementTab: React.FC = () => {
   const [fcmInfo, setFcmInfo] = useState<FcmStatusInfo | null>(null);
   const [isLoadingStatus, setIsLoadingStatus] = useState(false);
   const [copiedToken, setCopiedToken] = useState(false);
+  const [lastResult, setLastResult] = useState<SendPushResult | null>(null);
+  const [connection, setConnection] = useState<{ apns: PushConnectionCheck; fcm: PushConnectionCheck } | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
 
   const currentToken = getStoredDeviceToken();
 
@@ -76,6 +88,18 @@ export const NotificationManagementTab: React.FC = () => {
   useEffect(() => {
     loadStatus();
   }, []);
+
+  // APNs·FCM 인증 키가 실제로 통하는지 확인 (기기로는 아무것도 보내지 않음)
+  const runConnectionCheck = async () => {
+    setIsChecking(true);
+    try {
+      setConnection(await checkPushConnections());
+    } catch (err: any) {
+      showToast(err.message || '연결 점검에 실패했습니다.', 'error');
+    } finally {
+      setIsChecking(false);
+    }
+  };
 
   // Quick preset templates
   const applyPreset = (presetType: 'product' | 'event' | 'notice') => {
@@ -153,7 +177,8 @@ export const NotificationManagementTab: React.FC = () => {
         tokens: sendScope === 'test' && currentToken ? [currentToken] : undefined
       };
 
-      await sendPushNotification(payload);
+      const result = await sendPushNotification(payload);
+      setLastResult(result);
       await loadStatus();
       await refreshNotifications();
 
@@ -284,22 +309,45 @@ export const NotificationManagementTab: React.FC = () => {
           </p>
         </div>
 
-        {/* FCM Server Configuration */}
+        {/* Device Push Server Configuration */}
         <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-2xs">
           <div className="flex items-center justify-between text-gray-500 mb-2">
             <span className="text-xs font-bold">기기 푸시 발송 상태</span>
             <ShieldCheck className="w-4 h-4 text-blue-500" />
           </div>
-          <div>
-            <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 inline-block">
-              {fcmInfo?.hasFcmKey ? 'APNs 발송 활성 (iOS)' : '푸시 키 미설정'}
+          <div className="flex flex-wrap gap-1.5">
+            <span className={`text-[11px] font-bold px-2 py-0.5 rounded border ${fcmInfo?.hasApnsKey ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-gray-50 text-gray-500 border-gray-200'}`}>
+              iOS {fcmInfo?.hasApnsKey ? '연결됨' : '키 없음'}
+            </span>
+            <span className={`text-[11px] font-bold px-2 py-0.5 rounded border ${fcmInfo?.hasFcmKey ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-gray-50 text-gray-500 border-gray-200'}`}>
+              Android {fcmInfo?.hasFcmKey ? '연결됨' : '키 없음'}
             </span>
           </div>
           <p className="mt-2 text-[11px] text-gray-500">
-            {fcmInfo?.hasFcmKey
-              ? '인앱 알림함 + iOS 기기 푸시 동시 발송'
-              : '인앱 알림함에만 저장되며 기기 푸시는 발송되지 않습니다'}
+            푸시를 허용한 기기 {fcmInfo?.registeredTokens ?? 0}대에 실제 기기 알림으로 보냅니다. 신제품을 승인하면 관심 카테고리가 맞는 기기에만 출시 알림이 자동으로 갑니다.
           </p>
+          <button
+            type="button"
+            onClick={runConnectionCheck}
+            disabled={isChecking}
+            className="mt-2 text-[11px] font-bold text-indigo-600 hover:text-indigo-800 underline disabled:opacity-50"
+          >
+            {isChecking ? '점검 중...' : '연결 점검 (실제 기기로는 보내지 않음)'}
+          </button>
+          {connection && (
+            <div className="mt-2 space-y-1 text-[11px] font-medium">
+              <p className={connection.apns.ok ? 'text-emerald-700' : 'text-red-600'}>
+                APNs: {connection.apns.configured
+                  ? (connection.apns.ok ? '인증 통과' : `실패 — ${connection.apns.reason}`)
+                  : connection.apns.reason}
+              </p>
+              <p className={connection.fcm.ok ? 'text-emerald-700' : 'text-red-600'}>
+                FCM: {connection.fcm.configured
+                  ? (connection.fcm.ok ? '인증 통과' : `실패 — ${connection.fcm.reason}`)
+                  : connection.fcm.reason}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -481,7 +529,7 @@ export const NotificationManagementTab: React.FC = () => {
                     className="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
                   />
                   <span className="text-xs font-bold text-gray-800">
-                    전체 회원 발송 ({fcmInfo?.registeredTokens || 0}개 기기 + 인앱 알림함)
+                    전체 회원 발송 (푸시 허용 기기 {fcmInfo?.registeredTokens ?? 0}대 + 인앱 알림함)
                   </span>
                 </label>
 
@@ -524,6 +572,16 @@ export const NotificationManagementTab: React.FC = () => {
                 )}
               </button>
             </div>
+            {/* 발송 결과: 실제로 기기에 몇 대 갔는지 표시 */}
+            {lastResult && (
+              <div className={`p-3 rounded-xl border text-[11px] font-bold leading-relaxed ${
+                lastResult.success && !lastResult.pushError && (lastResult.push?.sentCount ?? 0) > 0 && (lastResult.push?.failedCount ?? 0) === 0
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                  : 'bg-amber-50 border-amber-200 text-amber-900'
+              }`}>
+                {describePushResult(lastResult)}
+              </div>
+            )}
           </form>
         </div>
 

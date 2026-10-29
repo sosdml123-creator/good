@@ -129,3 +129,62 @@ export async function sendApnsNotifications(config, tokens, { title, body, data 
 
   return result;
 }
+
+/**
+ * APNs 인증 키 점검. 실제 기기로는 아무것도 보내지 않고, 존재하지 않는 더미 토큰으로 한 번 요청합니다.
+ * 403(InvalidProviderToken 등)이면 키·키ID·팀ID가 틀린 것이고, 그 밖의 응답은 인증이 통과했다는 뜻입니다.
+ * @returns {Promise<{ ok: boolean, reason: string }>}
+ */
+export function checkApnsAuth(config) {
+  return new Promise((resolve) => {
+    const providerToken = createProviderToken(config);
+    const client = http2.connect(APNS_HOST);
+    let settled = false;
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
+      client.close();
+      resolve(result);
+    };
+
+    client.on('error', (err) => finish({ ok: false, reason: err.message || 'connection_error' }));
+    try {
+      const req = client.request({
+        ':method': 'POST',
+        ':path': `/3/device/${'0'.repeat(64)}`,
+        authorization: `bearer ${providerToken}`,
+        'apns-topic': config.bundleId,
+        'apns-push-type': 'alert',
+        'apns-priority': '10',
+        'content-type': 'application/json',
+      });
+      let status = 0;
+      let raw = '';
+      req.setEncoding('utf8');
+      req.on('response', (headers) => {
+        status = Number(headers[':status']) || 0;
+      });
+      req.on('data', (chunk) => {
+        raw += chunk;
+      });
+      req.on('end', () => {
+        let reason = '';
+        try {
+          reason = raw ? JSON.parse(raw).reason || '' : '';
+        } catch {
+          // ignore non-JSON body
+        }
+        if (status === 403) finish({ ok: false, reason: reason || 'http_403' });
+        else finish({ ok: true, reason: reason || `http_${status}` });
+      });
+      req.on('error', (err) => finish({ ok: false, reason: err.message || 'request_error' }));
+      req.setTimeout(10000, () => {
+        req.close();
+        finish({ ok: false, reason: 'timeout' });
+      });
+      req.end('{"aps":{}}');
+    } catch (err) {
+      finish({ ok: false, reason: err.message || 'request_error' });
+    }
+  });
+}

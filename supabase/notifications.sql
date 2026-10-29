@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS public.device_tokens (
     user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
     user_name TEXT,
     device_info JSONB,
+    alert_categories TEXT[],                      -- 관심 카테고리 출시 알림 (NULL = 기본 카테고리)
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );

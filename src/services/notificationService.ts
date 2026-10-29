@@ -12,6 +12,7 @@ export interface DeviceTokenRecord {
 }
 
 export interface SendPushPayload {
+  id?: string;
   title: string;
   body: string;
   type: 'event' | 'product' | 'notice';
@@ -21,8 +22,34 @@ export interface SendPushPayload {
   tokens?: string[];
 }
 
+/** 기기 푸시(APNs·FCM) 실제 발송 결과 */
+export interface PushDeliveryResult {
+  targetCount: number;
+  sentCount: number;
+  failedCount: number;
+  errors?: Record<string, number>;
+  prefsSupported?: boolean;
+}
+
+export interface SendPushResult {
+  success: boolean;
+  notification?: AppNotification;
+  targetTokensCount?: number;
+  dbSaved?: boolean;
+  push?: PushDeliveryResult;
+  pushError?: string;
+  error?: string;
+}
+
+export interface PushConnectionCheck {
+  configured: boolean;
+  ok: boolean;
+  reason?: string;
+}
+
 export interface FcmStatusInfo {
   status: string;
+  hasApnsKey?: boolean;
   hasFcmKey: boolean;
   registeredTokens: number;
   tokensByPlatform: { ios: number; android: number; web: number };
@@ -45,6 +72,71 @@ export const isPushEnabledInApp = (): boolean => {
   } catch {
     return true;
   }
+};
+
+/** 관심 카테고리 출시 알림 설정 (이 기기에 저장하고 서버 device_tokens 에도 동기화) */
+export const ALERT_CATEGORY_STORAGE_KEY = 'sinsangpick_alert_cats';
+/** 저장한 적 없을 때 기본 선택 카테고리 (서버 api/_lib/devicePush.js 의 DEFAULT_ALERT_CATEGORIES 와 같아야 함) */
+export const DEFAULT_ALERT_CATEGORIES = ['과자', '음료', '빵·디저트', '간편식'];
+
+/** 저장된 관심 카테고리. 한 번도 저장하지 않았으면 null (서버가 기본값을 적용) */
+const readStoredAlertCategories = (): string[] | null => {
+  try {
+    const raw = localStorage.getItem(ALERT_CATEGORY_STORAGE_KEY);
+    if (raw === null) return null;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((c): c is string => typeof c === 'string') : null;
+  } catch {
+    return null;
+  }
+};
+
+export const getSavedAlertCategories = (): string[] => readStoredAlertCategories() ?? [...DEFAULT_ALERT_CATEGORIES];
+
+export const saveAlertCategories = (categories: string[]): void => {
+  try {
+    localStorage.setItem(ALERT_CATEGORY_STORAGE_KEY, JSON.stringify(categories));
+  } catch {
+    // ignore
+  }
+};
+
+/**
+ * 이 기기의 관심 카테고리를 서버에 저장합니다. 출시 자동 알림 대상을 고를 때 씁니다.
+ * 토큰 행이 없으면(권한 미허용, 알림 끔) 아무것도 하지 않고, 토큰이 생길 때 등록 흐름에서 다시 보냅니다.
+ */
+export const syncDevicePushPrefs = async (): Promise<boolean> => {
+  const token = currentDeviceToken;
+  if (!token) return false;
+  try {
+    const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
+    const res = await fetch(`${baseUrl}/api/send-fcm`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'prefs',
+        token,
+        alertCategories: readStoredAlertCategories(),
+      }),
+    });
+    if (!res.ok) return false;
+    const data = await res.json().catch(() => ({}));
+    return data.saved === true;
+  } catch (e) {
+    console.warn('[Notification Service] Device push prefs sync failed:', e);
+    return false;
+  }
+};
+
+/**
+ * 화면 위 인앱 배너를 띄울지 정합니다. 알림함 저장은 항상 합니다.
+ *  - 알림을 끈 기기는 배너를 띄우지 않습니다.
+ *  - iOS 는 앱이 열려 있어도 기기 알림 배너를 띄우므로(presentationOptions), 인앱 배너와 겹치지 않게 생략합니다.
+ */
+export const shouldShowInAppBanner = (permission: 'granted' | 'denied' | 'prompt'): boolean => {
+  if (!isPushEnabledInApp()) return false;
+  if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios' && permission === 'granted') return false;
+  return true;
 };
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -211,6 +303,8 @@ export const initPushNotifications = async (callbacks: {
           userId: callbacks.userId,
           userName: callbacks.userName
         });
+        // 토큰이 생긴 뒤에야 서버에 기기 설정(푸시 허용·관심 카테고리)을 올릴 수 있습니다
+        await syncDevicePushPrefs();
       });
 
       // 5. Registration error listener
@@ -224,7 +318,8 @@ export const initPushNotifications = async (callbacks: {
         const data = notification.data || {};
         const nowIso = new Date().toISOString();
         const appNotif: AppNotification = {
-          id: 'notif-' + (notification.id || Date.now()),
+          // 서버가 보낸 알림 id 가 있으면 같은 알림의 실시간 전달과 합쳐져 알림함에 두 번 쌓이지 않습니다
+          id: data.notifId ? String(data.notifId) : 'notif-' + (notification.id || Date.now()),
           title: notification.title || '신상픽 알림',
           body: notification.body || '',
           type: (data.type as 'event' | 'product' | 'notice') || 'notice',
@@ -509,14 +604,9 @@ export const subscribeToNotifications = (onNotification: (notif: AppNotification
 /**
  * Send Admin Push Notification (Saves to Supabase Realtime & dispatches FCM/APNs push)
  */
-export const sendAdminPushNotification = async (payload: SendPushPayload): Promise<{
-  success: boolean;
-  notification?: AppNotification;
-  targetTokensCount?: number;
-  fcm?: any;
-  error?: string;
-}> => {
-  const notifId = 'notif-' + Date.now();
+export const sendAdminPushNotification = async (payload: SendPushPayload): Promise<SendPushResult> => {
+  // 호출한 쪽이 정한 id 가 있으면 그대로 써서, 화면의 임시 항목과 DB 행이 같은 알림으로 합쳐지게 합니다
+  const notifId = payload.id && /^notif-\d+$/.test(payload.id) ? payload.id : 'notif-' + Date.now();
   const nowIso = new Date().toISOString();
   const createdNotif: AppNotification = {
     id: notifId,
@@ -556,12 +646,13 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
     }
   }
 
-  const realtimeOnlyResult = {
+  // 알림함 저장(실시간 전달)은 됐지만 기기 푸시 발송 결과를 받지 못한 경우
+  const realtimeOnlyResult = (pushError: string): SendPushResult => ({
     success: true,
     notification: createdNotif,
-    targetTokensCount: 0,
-    fcm: { broadcasted: true, note: 'Supabase Realtime Live Broadcast' }
-  };
+    dbSaved,
+    pushError,
+  });
 
   // 2. Dispatch via Serverless FCM / APNs endpoint
   try {
@@ -574,6 +665,7 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
       },
       body: JSON.stringify({
         ...payload,
+        id: notifId,
         badge: createdNotif.badge,
         saveToDb: !dbSaved // If already saved directly, avoid double insertion
       })
@@ -583,12 +675,13 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
       const data = await response.json();
       return {
         ...data,
-        notification: data.notification || createdNotif
+        notification: data.notification || createdNotif,
+        dbSaved: dbSaved || data.dbSaved === true
       };
     }
 
     // 앱 알림함에는 저장됐고(실시간 전달) 기기 푸시만 실패한 경우
-    if (dbSaved) return realtimeOnlyResult;
+    if (dbSaved) return realtimeOnlyResult('기기 푸시 서버 응답 오류');
 
     // 발송 실패를 성공으로 표시하지 않습니다.
     let serverError = '';
@@ -601,7 +694,7 @@ export const sendAdminPushNotification = async (payload: SendPushPayload): Promi
     };
   } catch (error: any) {
     console.warn('[Notification Service] /api/send-fcm call warning:', error);
-    if (dbSaved) return realtimeOnlyResult;
+    if (dbSaved) return realtimeOnlyResult('알림 발송 서버에 연결하지 못했습니다.');
     return { success: false, error: '알림 발송 서버에 연결하지 못했습니다.' };
   }
 };
@@ -644,6 +737,50 @@ export const getFcmStatus = async (): Promise<FcmStatusInfo> => {
     registeredTokens: count,
     tokensByPlatform
   };
+};
+
+const PUSH_ERROR_LABELS: Record<string, string> = {
+  apns_not_configured: 'APNs 키 미설정',
+  fcm_not_configured: 'FCM 키 미설정',
+  InvalidProviderToken: 'APNs 키·키ID·팀ID 불일치',
+  ExpiredProviderToken: 'APNs 키 만료',
+  BadTopic: 'APNs 번들ID 불일치',
+  TopicDisallowed: 'APNs 앱 푸시 권한 없음',
+  MissingProviderToken: 'APNs 인증 누락',
+  SENDER_ID_MISMATCH: 'FCM 프로젝트 불일치',
+  THIRD_PARTY_AUTH_ERROR: 'FCM 인증 오류',
+};
+
+/** 관리자 화면 토스트 문구: 실제로 기기에 몇 대 갔는지 그대로 보여줍니다 */
+export const describePushResult = (res: SendPushResult): string => {
+  if (res.pushError) return `알림함에는 저장됐지만 기기 푸시는 보내지 못했습니다 (${res.pushError})`;
+
+  const push = res.push;
+  if (!push) return '인앱 알림함에 저장됐습니다.';
+
+  if (push.targetCount === 0) return '푸시를 허용한 기기가 없어 기기 알림은 보내지 않았습니다.';
+
+  const parts = [`푸시 허용 기기 ${push.targetCount}대 중 ${push.sentCount}대 발송`];
+  if (push.failedCount > 0) {
+    const reasons = Object.keys(push.errors || {}).map((key) => PUSH_ERROR_LABELS[key] || key);
+    parts.push(`${push.failedCount}대 실패${reasons.length ? `(${reasons.join(', ')})` : ''}`);
+  }
+  return `📢 ${parts.join(' · ')}`;
+};
+
+/**
+ * 관리자 전용: APNs·FCM 인증 키가 실제로 통하는지 점검합니다. 기기로는 아무것도 보내지 않습니다.
+ */
+export const checkPushConnections = async (): Promise<{ apns: PushConnectionCheck; fcm: PushConnectionCheck }> => {
+  const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
+  const res = await fetch(`${baseUrl}/api/send-fcm?check=1`, {
+    headers: await getAdminAuthHeaders(),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data?.error || `연결 점검 실패 (${res.status})`);
+  }
+  return { apns: data.apns, fcm: data.fcm };
 };
 
 export function formatRelativeTime(dateStr?: string | null, fallbackId?: string): string {

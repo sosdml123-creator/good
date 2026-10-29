@@ -91,13 +91,19 @@ import { getActiveSalePromotions } from '../utils/salePeriod';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
-import { 
+import {
   requestPushPermission as requestPushPermissionService,
+  checkPushPermissionStatus,
   initPushNotifications,
   subscribeToNotifications,
   fetchNotificationsFromSupabase,
   sendAdminPushNotification,
-  deleteDeviceToken
+  deleteDeviceToken,
+  getSavedAlertCategories,
+  saveAlertCategories,
+  syncDevicePushPrefs,
+  describePushResult,
+  SendPushResult
 } from '../services/notificationService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
@@ -206,7 +212,7 @@ interface AppContextType {
   deleteEvent: (id: string) => void;
   reorderEvents: (newEvents: PromotionEvent[]) => void;
   participateInEvent: (eventId: string) => void;
-  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => void;
+  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => Promise<SendPushResult>;
   dismissIncomingPush: () => void;
   alertCenterSubTab: 'inbox' | 'settings';
   setAlertCenterSubTab: (tab: 'inbox' | 'settings') => void;
@@ -1785,7 +1791,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const [comparedIds, setComparedIds] = useState<string[]>(['snack-01', 'snack-03']);
-  const [alertCategories, setAlertCategories] = useState<string[]>(['과자', '음료', '빵·디저트', '간편식']);
+  const [alertCategories, setAlertCategories] = useState<string[]>(() => getSavedAlertCategories());
   const [searchQuery, setSearchQuery] = useState('');
   const [recentSearches, setRecentSearches] = useState<string[]>([
     '꼬북칩',
@@ -3242,11 +3248,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const toggleAlertCategory = (cat: string) => {
-    if (alertCategories.includes(cat)) {
-      setAlertCategories(prev => prev.filter(c => c !== cat));
-    } else {
-      setAlertCategories(prev => [...prev, cat]);
-    }
+    const next = alertCategories.includes(cat)
+      ? alertCategories.filter(c => c !== cat)
+      : [...alertCategories, cat];
+    setAlertCategories(next);
+    // 이 기기에 저장하고, 서버가 출시 알림 대상을 고를 수 있도록 동기화합니다
+    saveAlertCategories(next);
+    syncDevicePushPrefs();
   };
 
   const addRecentSearch = (keyword: string) => {
@@ -4256,9 +4264,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     }
 
-    // 🚀 Supabase Realtime 및 디바이스 푸시로 전체 기기 브로드캐스트 전송
+    // 🚀 인앱 알림함 저장 + 기기 푸시(iOS APNs · Android FCM) 발송. 같은 id 를 써서 두 경로가 한 번만 보이게 합니다.
     try {
       const res = await sendAdminPushNotification({
+        id: newNotif.id,
         title: notif.title,
         body: notif.body,
         type: notif.type,
@@ -4268,12 +4277,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         tokens: notif.tokens
       });
       if (res && res.success) {
-        showToast('📢 푸시 알림이 모든 사용자 기기로 실시간 발송되었습니다!', 'success');
+        const allSent = Boolean(res.push && res.push.sentCount > 0 && res.push.failedCount === 0 && !res.pushError);
+        showToast(describePushResult(res), allSent ? 'success' : 'info');
       } else {
         reportSave({ ok: false, error: res?.error }, '푸시 알림 발송');
       }
+      return res;
     } catch (err) {
       console.warn('[AppContext] sendPushNotification broadcast warning:', err);
+      return { success: false, error: '알림 발송 중 오류가 발생했습니다.' };
     }
   };
 
@@ -4350,6 +4362,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         } catch {}
       }
     });
+
+    // 기기 알림 권한 상태를 네이티브 기준으로 맞춥니다 (인앱 배너 표시 여부 판단에 씁니다)
+    checkPushPermissionStatus().then(setPushPermissionStatus).catch(() => {});
 
     // 3. 디바이스 푸시 초기화 (권한 확인, APNs/FCM 토큰 발급 및 Supabase device_tokens 저장)
     initPushNotifications({

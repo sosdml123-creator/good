@@ -15,8 +15,8 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { AppNotification } from '../../types';
-import { 
-  checkPushPermissionStatus, 
+import {
+  checkPushPermissionStatus,
   openDeviceSettings,
   setMarketingConsentStatus,
   formatRelativeTime,
@@ -118,9 +118,11 @@ export const NotificationModal: React.FC = () => {
     { id: '음료', label: '음료', icon: '🥤' },
     { id: '빵·디저트', label: '빵·디저트', icon: '🥐' },
     { id: '간편식', label: '간편식', icon: '🍲' },
+    { id: '패스트푸드', label: '패스트푸드', icon: '🍔' },
     { id: '과일', label: '과일', icon: '🍑' },
     { id: '식재료', label: '식재료', icon: '🥚' },
     { id: '고기·수산', label: '고기·수산', icon: '🥩' },
+    { id: '아이스크림', label: '아이스크림', icon: '🍦' },
     { id: '기타', label: '기타', icon: '🍺' },
   ];
 

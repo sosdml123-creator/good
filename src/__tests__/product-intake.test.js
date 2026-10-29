@@ -105,7 +105,7 @@ it('승인 재시도 시 동일 상품 ID를 사용하고 기존 제품 평점�
     const res = response();
     await handler({ method: 'POST', headers: {}, body: { action: 'approve', items: [{ pendingId: pending.id, productId }] } }, res);
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ success: true, approved: [{ pendingId: pending.id, productId: 'prod-intake-cu-123' }] });
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ success: true, approved: [{ pendingId: pending.id, productId: 'prod-intake-cu-123' }] }));
   }
   const inserts = writes.filter(w => w.method === 'POST');
   expect(inserts).toHaveLength(2);
