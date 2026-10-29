@@ -7,7 +7,9 @@ import {
   setMarketingConsentStatus,
   formatRelativeTime,
   sendAdminPushNotification,
-  checkPushPermissionStatus
+  checkPushPermissionStatus,
+  unregisterDevicePush,
+  isPushEnabledInApp
 } from '../services/notificationService';
 
 // Mock Supabase
@@ -239,6 +241,40 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
     it('[웹 환경] Notification API 미지원 또는 기본 상태에서 prompt/denied 반환', async () => {
       const status = await checkPushPermissionStatus();
       expect(['granted', 'denied', 'prompt']).toContain(status);
+    });
+  });
+
+  describe('6. 알림 끈 기기 토큰 해제 (unregisterDevicePush)', () => {
+    beforeEach(() => {
+      global.fetch = vi.fn() as any;
+    });
+
+    it('[기본] 알림 설정 값이 없으면 켜진 것으로 봅니다', () => {
+      expect(isPushEnabledInApp()).toBe(true);
+      localStorage.setItem('sinsangpick_push_enabled', 'false');
+      expect(isPushEnabledInApp()).toBe(false);
+    });
+
+    it('[정상] 끄면 서버에 토큰 삭제를 요청하고 이 기기의 토큰 기록을 지웁니다', async () => {
+      await saveDeviceToken({ token: 'token-off-device-1', platform: 'web' });
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 }) as any;
+
+      await unregisterDevicePush();
+
+      const [url, init] = (global.fetch as any).mock.calls[0];
+      expect(url).toBe('/api/send-fcm');
+      expect(JSON.parse(init.body)).toEqual({ action: 'unregister', token: 'token-off-device-1' });
+      expect(getStoredDeviceToken()).toBeNull();
+      expect(localStorage.getItem('sinsangpick_device_token')).toBeNull();
+    });
+
+    it('[엣지] 서버 요청이 실패하면 토큰 기록을 남겨 다음 실행 때 다시 시도합니다', async () => {
+      await saveDeviceToken({ token: 'token-off-device-2', platform: 'web' });
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 502 }) as any;
+
+      await unregisterDevicePush();
+
+      expect(getStoredDeviceToken()).toBe('token-off-device-2');
     });
   });
 });

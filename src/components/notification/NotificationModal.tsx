@@ -19,7 +19,8 @@ import {
   checkPushPermissionStatus, 
   openDeviceSettings,
   setMarketingConsentStatus,
-  formatRelativeTime
+  formatRelativeTime,
+  unregisterDevicePush
 } from '../../services/notificationService';
 import { Capacitor } from '@capacitor/core';
 
@@ -85,6 +86,7 @@ export const NotificationModal: React.FC = () => {
         showToast('스마트폰 기기 설정에서 알림 허용이 필요합니다.', 'info');
       }
     } else {
+      await unregisterDevicePush();
       showToast('푸시 알림 수신이 비활성화되었습니다.', 'info');
     }
   };

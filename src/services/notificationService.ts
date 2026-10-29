@@ -38,6 +38,15 @@ try {
 
 export const getStoredDeviceToken = (): string | null => currentDeviceToken;
 
+/** 앱 설정에서 알림을 끈 상태인지 (기본값은 켜짐) */
+export const isPushEnabledInApp = (): boolean => {
+  try {
+    return localStorage.getItem('sinsangpick_push_enabled') !== 'false';
+  } catch {
+    return true;
+  }
+};
+
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 /**
@@ -119,6 +128,47 @@ export const deleteDeviceToken = async (token?: string): Promise<boolean> => {
 };
 
 /**
+ * 알림을 끈 기기의 토큰을 서버 발송 대상에서 뺍니다.
+ * 행 삭제는 서버(서비스 키)에서 합니다. 앱의 익명 키로 지우면 RLS에 막혀도 에러 없이 0건 삭제될 수 있습니다.
+ * 서버 요청이 실패하면 로컬 토큰을 남겨 두어, 다음 실행 때 다시 시도합니다.
+ */
+export const unregisterDevicePush = async (token?: string): Promise<void> => {
+  let target = token || currentDeviceToken;
+  try {
+    target = target || localStorage.getItem('sinsangpick_device_token');
+  } catch {
+    // ignore
+  }
+  if (!target) return;
+
+  try {
+    const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
+    const res = await fetch(`${baseUrl}/api/send-fcm`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'unregister', token: target })
+    });
+    if (!res.ok) {
+      console.warn('[Notification Service] Unregister failed:', res.status);
+      return;
+    }
+  } catch (err) {
+    console.warn('[Notification Service] Unregister error:', err);
+    return;
+  }
+
+  if (currentDeviceToken === target) currentDeviceToken = null;
+  try {
+    if (localStorage.getItem('sinsangpick_device_token') === target) {
+      localStorage.removeItem('sinsangpick_device_token');
+      localStorage.removeItem('sinsangpick_device_platform');
+    }
+  } catch {
+    // ignore
+  }
+};
+
+/**
  * Android FCM은 google-services.json(Firebase 설정)이 있어야 동작합니다.
  * 설정 없이 PushNotifications.register()를 호출하면 네이티브에서
  * "Default FirebaseApp is not initialized" 예외로 앱이 강제종료되므로(JS try/catch로 못 잡음)
@@ -150,6 +200,11 @@ export const initPushNotifications = async (callbacks: {
       // 2. Token registration success listener
       PushNotifications.addListener('registration', async (token: Token) => {
         console.log('[Push Notification] Registration success token:', token.value);
+        if (!isPushEnabledInApp()) {
+          // 알림을 끈 기기는 토큰을 저장하지 않고, 저장돼 있던 행이 있으면 지웁니다
+          await unregisterDevicePush(token.value);
+          return;
+        }
         await saveDeviceToken({
           token: token.value,
           platform: platform === 'ios' ? 'ios' : 'android',
@@ -199,6 +254,12 @@ export const initPushNotifications = async (callbacks: {
       });
 
       // 3. 이미 허용된 기기만 바로 토큰 등록. 아직 묻지 않은 기기는 동의 안내 화면 뒤에 OS 권한창을 띄웁니다.
+      //    알림을 끈 기기는 등록하지 않고, 예전에 저장된 토큰이 있으면 서버에서 지웁니다.
+      if (!isPushEnabledInApp()) {
+        console.log('[Push Notification] Turned off in app; skip registration');
+        await unregisterDevicePush();
+        return;
+      }
       const permStatus = await PushNotifications.checkPermissions();
       if (permStatus.receive === 'granted') {
         await PushNotifications.register();
@@ -211,6 +272,10 @@ export const initPushNotifications = async (callbacks: {
   } else {
     // Web Browser environment
     if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (!isPushEnabledInApp()) {
+        await unregisterDevicePush();
+        return;
+      }
       // Create or load a unique web device token
       let webToken = localStorage.getItem('sinsangpick_device_token');
       if (!webToken) {

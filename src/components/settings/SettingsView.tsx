@@ -32,6 +32,7 @@ import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
 import { useT } from '../../i18n';
 import { LanguageSwitcher } from '../common/LanguageSwitcher';
+import { unregisterDevicePush } from '../../services/notificationService';
 
 export const SettingsView: React.FC = () => {
   const t = useT();
@@ -43,6 +44,7 @@ export const SettingsView: React.FC = () => {
     openLoginModal,
     openPermissionModal,
     openNotificationCenter,
+    requestPushPermission,
     updateUserProfile
   } = useApp();
 
@@ -93,10 +95,15 @@ export const SettingsView: React.FC = () => {
     return localStorage.getItem('sinsangpick_night_push') === 'true';
   });
 
-  const handleTogglePush = () => {
+  const handleTogglePush = async () => {
     const next = !pushEnabled;
     setPushEnabled(next);
     localStorage.setItem('sinsangpick_push_enabled', String(next));
+    if (next) {
+      await requestPushPermission(); // 다시 켜면 기기 토큰을 새로 등록합니다
+    } else {
+      await unregisterDevicePush(); // 끄면 서버 발송 대상에서 뺍니다
+    }
   };
 
   const handleToggleNightPush = () => {

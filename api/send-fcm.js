@@ -60,6 +60,37 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
   }
 
+  // 알림을 끈 기기: 앱이 자기 토큰 한 개만 발송 대상에서 뺍니다.
+  // 관리자 인증 없이 동작하지만, 토큰 값과 정확히 일치하는 행 하나만 지웁니다 (토큰은 기기 밖에 노출되지 않습니다).
+  if (req.body && req.body.action === 'unregister') {
+    const token = String(req.body.token || '');
+    if (!/^[A-Za-z0-9:_-]{8,300}$/.test(token)) {
+      return res.status(400).json({ error: 'invalid token' });
+    }
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !serviceKey) {
+      return res.status(500).json({ error: 'Supabase service key is not configured' });
+    }
+    try {
+      const delRes = await fetch(`${supabaseUrl}/rest/v1/device_tokens?token=eq.${encodeURIComponent(token)}`, {
+        method: 'DELETE',
+        headers: {
+          apikey: serviceKey,
+          Authorization: `Bearer ${serviceKey}`,
+          Prefer: 'return=representation'
+        }
+      });
+      if (!delRes.ok) {
+        return res.status(502).json({ error: `token delete failed (${delRes.status})` });
+      }
+      const removed = await delRes.json();
+      return res.status(200).json({ success: true, removed: Array.isArray(removed) ? removed.length : 0 });
+    } catch (err) {
+      console.warn('[FCM Handler] Unregister warning:', err.message);
+      return res.status(502).json({ error: 'token delete failed' });
+    }
+  }
+
   // Admin / Service Authentication Check
   const auth = await verifyAdminRequest(req);
   if (!auth.ok) {
