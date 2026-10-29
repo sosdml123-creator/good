@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Check,
   Clock,
+  Copy,
   Edit3,
   Image as ImageIcon,
   Instagram,
@@ -10,19 +11,21 @@ import {
   RefreshCw,
   RotateCcw,
   Trash2,
+  Video,
   X,
 } from 'lucide-react';
 import { supabase } from '../../services/supabase';
 
-// 인스타·스레드 예약 게시 큐 (sns_posts).
-// 글과 이미지는 로컬 SNS 플러그인(D:\sinsangpick-sns)이 draft로 올리고,
-// 여기서 승인하면 로컬 작업 스케줄러(10분 간격)가 예약 시간에 게시한다.
+// 인스타·스레드·틱톡 예약 게시 큐 (sns_posts).
+// 글과 이미지·영상은 로컬 SNS 플러그인(D:\sinsangpick-sns)이 draft로 올리고,
+// 여기서 승인하면 서버(pg_cron → sns-publish)가 1분마다 확인해 예약 시간에 게시한다.
+// 틱톡은 계정 연결을 이 탭에서 하고, 영상은 틱톡 받은편지함으로 올라가 틱톡 앱에서 게시를 마무리한다.
 
 type SnsStatus = 'draft' | 'approved' | 'publishing' | 'published' | 'failed';
 
 interface SnsPost {
   id: string;
-  channel: 'instagram' | 'threads';
+  channel: 'instagram' | 'threads' | 'tiktok';
   account: 'kr' | 'jp';
   scheduled_at: string;
   text: string;
@@ -36,6 +39,17 @@ interface SnsPost {
   error: string | null;
 }
 
+// sns-tiktok 함수의 status 응답 (토큰은 내려오지 않는다)
+interface TikTokStatus {
+  app_ready: boolean;
+  connected: boolean;
+  display_name: string | null;
+  open_id: string | null;
+  post_mode: 'inbox' | 'direct';
+  privacy_level: string;
+  refresh_expires_at: string | null;
+}
+
 type Filter = 'all' | SnsStatus;
 
 // 사진 목록: 여러 장이면 image_urls, 한 장이면 image_url
@@ -45,6 +59,7 @@ const mediaOf = (p: SnsPost): string[] =>
 // 게시 형식 라벨: 인스타는 1장=릴스, 여러 장=캐러셀 / 스레드는 1장=이미지, 여러 장=캐러셀
 const formatLabel = (p: SnsPost) => {
   const n = mediaOf(p).length;
+  if (p.channel === 'tiktok') return `영상 · 사진 ${n}장`;
   if (!n) return '텍스트';
   if (p.channel === 'instagram') return n === 1 ? '릴스' : `캐러셀 ${n}장`;
   return n === 1 ? '사진 1장' : `캐러셀 ${n}장`;
@@ -92,6 +107,9 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
   const [draftTime, setDraftTime] = useState('');
   const [busyId, setBusyId] = useState<string | null>(null);
   const [preview, setPreview] = useState<{ urls: string[]; index: number } | null>(null);
+  const [tiktok, setTiktok] = useState<TikTokStatus | null>(null);
+  const [tiktokError, setTiktokError] = useState<string | null>(null);
+  const [tiktokBusy, setTiktokBusy] = useState(false);
 
   const card = isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200';
   const muted = isDark ? 'text-slate-400' : 'text-slate-500';
@@ -113,11 +131,25 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
     setLoading(false);
   }, []);
 
+  const loadTiktok = useCallback(async () => {
+    if (!supabase) return;
+    const { data, error: e } = await supabase.functions.invoke('sns-tiktok', { body: { action: 'status' } });
+    if (e) setTiktokError(e.message);
+    else {
+      setTiktokError(null);
+      setTiktok(data as TikTokStatus);
+    }
+  }, []);
+
   useEffect(() => {
     load();
-    const t = setInterval(load, 60_000);
+    loadTiktok();
+    const t = setInterval(() => {
+      load();
+      loadTiktok();
+    }, 60_000);
     return () => clearInterval(t);
-  }, [load]);
+  }, [load, loadTiktok]);
 
   const update = async (id: string, patch: Partial<SnsPost>) => {
     if (!supabase) return;
@@ -157,6 +189,30 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
     setEditingId(null);
   };
 
+  // 틱톡 로그인은 새 창에서 연다. 창을 먼저 열어 두어야 팝업 차단을 피한다
+  const connectTiktok = async () => {
+    if (!supabase) return;
+    const win = window.open('', '_blank');
+    setTiktokBusy(true);
+    const { data, error: e } = await supabase.functions.invoke('sns-tiktok', { body: { action: 'start' } });
+    setTiktokBusy(false);
+    if (e || !data?.url) {
+      win?.close();
+      setError(`틱톡 연결을 시작하지 못했습니다: ${e?.message ?? data?.error ?? '알 수 없는 오류'}`);
+      return;
+    }
+    if (win) win.location.href = data.url;
+    else setError('팝업이 차단되었습니다. 브라우저에서 팝업을 허용한 뒤 다시 눌러 주세요.');
+  };
+
+  const disconnectTiktok = async () => {
+    if (!supabase || !window.confirm('틱톡 계정 연결을 해제할까요? 연결이 끊긴 동안 틱톡 글은 실패로 남습니다.')) return;
+    setTiktokBusy(true);
+    await supabase.functions.invoke('sns-tiktok', { body: { action: 'disconnect' } });
+    setTiktokBusy(false);
+    await loadTiktok();
+  };
+
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: posts.length };
     for (const p of posts) c[p.status] = (c[p.status] ?? 0) + 1;
@@ -187,9 +243,9 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
       <div className={`rounded-2xl border p-5 ${card}`}>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className={`text-lg font-bold ${strong}`}>인스타·스레드 예약 게시</h2>
+            <h2 className={`text-lg font-bold ${strong}`}>인스타·스레드·틱톡 예약 게시</h2>
             <p className={`text-xs mt-1 ${muted}`}>
-              SNS 플러그인이 만든 글이 여기 올라옵니다. 승인한 글만 예약 시간에 자동 게시돼요 (PC 작업 스케줄러, 10분 간격).
+              SNS 플러그인이 만든 글이 여기 올라옵니다. 승인한 글은 서버가 1분마다 확인해서 예약 시간에 자동 게시해요 (PC가 꺼져 있어도 됩니다).
             </p>
           </div>
           <div className="flex gap-2">
@@ -221,6 +277,43 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
               {f.label} {counts[f.id] ?? 0}
             </button>
           ))}
+        </div>
+      </div>
+
+      <div className={`rounded-2xl border p-5 ${card}`}>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 className={`text-sm font-bold ${strong}`}>틱톡 계정</h3>
+            <p className={`text-xs mt-1 ${muted}`}>
+              {tiktokError
+                ? `상태를 불러오지 못했어요: ${tiktokError}`
+                : !tiktok
+                  ? '불러오는 중…'
+                  : !tiktok.app_ready
+                    ? 'PC에서 node tiktok-cli.cjs set-app 으로 틱톡 앱 키를 먼저 저장하세요.'
+                    : tiktok.connected
+                      ? `연결됨 · ${tiktok.display_name ? `@${tiktok.display_name}` : tiktok.open_id ?? ''} · ${tiktok.post_mode === 'direct' ? '바로 게시 모드' : '받은편지함 모드 (틱톡 앱에서 게시 마무리)'}`
+                      : '연결 안 됨 · 연결하면 예약 시간에 영상이 틱톡으로 올라갑니다.'}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            {tiktok?.connected && (
+              <button
+                onClick={disconnectTiktok}
+                disabled={tiktokBusy}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border ${input}`}
+              >
+                <X className="w-3.5 h-3.5" /> 연결 해제
+              </button>
+            )}
+            <button
+              onClick={connectTiktok}
+              disabled={tiktokBusy || !tiktok?.app_ready}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-black text-white disabled:opacity-40"
+            >
+              <Video className="w-3.5 h-3.5" /> {tiktok?.connected ? '다시 연결' : '틱톡 계정 연결'}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -266,11 +359,11 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
                         className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-bold ${
                           p.channel === 'instagram'
                             ? p.account === 'jp' ? 'bg-violet-100 text-violet-700' : 'bg-pink-100 text-pink-700'
-                            : 'bg-slate-200 text-slate-800'
+                            : p.channel === 'tiktok' ? 'bg-black text-white' : 'bg-slate-200 text-slate-800'
                         }`}
                       >
-                        {p.channel === 'instagram' ? <Instagram className="w-3 h-3" /> : <MessageCircle className="w-3 h-3" />}
-                        {p.channel === 'instagram' ? (p.account === 'jp' ? '인스타 JP' : '인스타') : '스레드'}
+                        {p.channel === 'instagram' ? <Instagram className="w-3 h-3" /> : p.channel === 'tiktok' ? <Video className="w-3 h-3" /> : <MessageCircle className="w-3 h-3" />}
+                        {p.channel === 'instagram' ? (p.account === 'jp' ? '인스타 JP' : '인스타') : p.channel === 'tiktok' ? '틱톡' : '스레드'}
                       </span>
                       <span className={`flex items-center gap-1 font-semibold ${strong}`}>
                         <Clock className="w-3 h-3" /> {kstTime(p.scheduled_at)}
@@ -295,7 +388,7 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
                           className={`w-full px-3 py-2 rounded-lg border text-xs leading-relaxed ${input}`}
                         />
                         <p className={`text-[11px] ${muted}`}>
-                          {[...draftText].length}자{p.channel === 'threads' ? ' / 500자' : ''}
+                          {[...draftText].length}자{p.channel === 'threads' ? ' / 500자' : p.channel === 'tiktok' ? ' / 2200자' : ''}
                         </p>
                       </div>
                     ) : (
@@ -308,13 +401,26 @@ export const SnsQueueTab: React.FC<SnsQueueTabProps> = ({ isDark }) => {
                       </p>
                     )}
 
+                    {p.channel === 'tiktok' && (
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          onClick={() => navigator.clipboard?.writeText(p.text)}
+                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border ${input}`}
+                        >
+                          <Copy className="w-3 h-3" /> 캡션 복사
+                        </button>
+                        {p.status === 'published' && p.post_id?.startsWith('inbox:') && (
+                          <span className={`text-[11px] ${muted}`}>틱톡 앱 알림에서 캡션을 붙여넣고 게시하세요</span>
+                        )}
+                      </div>
+                    )}
                     {!locked && (
                       <div className="flex flex-wrap gap-2 pt-1">
                         {editing ? (
                           <>
                             <button
                               onClick={() => saveEdit(p)}
-                              disabled={busyId === p.id || (p.channel === 'threads' && [...draftText].length > 500)}
+                              disabled={busyId === p.id || (p.channel === 'threads' && [...draftText].length > 500) || (p.channel === 'tiktok' && [...draftText].length > 2200)}
                               className="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white disabled:opacity-40"
                             >
                               저장
