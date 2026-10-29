@@ -28,7 +28,8 @@ import {
   checkPushConnections,
   describePushResult,
   PushConnectionCheck,
-  SendPushResult
+  SendPushResult,
+  isNightNowKst
 } from '../../services/notificationService';
 
 export const NotificationManagementTab: React.FC = () => {
@@ -55,6 +56,8 @@ export const NotificationManagementTab: React.FC = () => {
   const [targetId, setTargetId] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [sendScope, setSendScope] = useState<'all' | 'test'>('all');
+  // 광고·혜택은 마케팅 동의 기기만, 서비스 안내는 푸시 허용 기기 전체에 보냅니다
+  const [messageKind, setMessageKind] = useState<'marketing' | 'service'>('marketing');
   const [isSending, setIsSending] = useState(false);
 
   // Target pickers
@@ -104,6 +107,7 @@ export const NotificationManagementTab: React.FC = () => {
   // Quick preset templates
   const applyPreset = (presetType: 'product' | 'event' | 'notice') => {
     setNotifType(presetType);
+    setMessageKind(presetType === 'notice' ? 'service' : 'marketing');
     if (presetType === 'product') {
       const randomProduct = products[0] || null;
       setBadgeText('신제품');
@@ -134,6 +138,7 @@ export const NotificationManagementTab: React.FC = () => {
   // Product selection handler
   const handleSelectProduct = (product: typeof products[0]) => {
     setNotifType('product');
+    setMessageKind('marketing');
     setBadgeText('신제품');
     setTitle(`⚡ [신제품] ${product.name} 출시!`);
     setBody(`${product.brand} | ${product.category} 신상! 편의점·마트 입고 정보를 확인하세요.`);
@@ -146,6 +151,7 @@ export const NotificationManagementTab: React.FC = () => {
   // Event selection handler
   const handleSelectEvent = (event: typeof events[0]) => {
     setNotifType('event');
+    setMessageKind('marketing');
     setBadgeText('이벤트');
     setTitle(`🎁 [이벤트] ${event.title}`);
     setBody(`${event.reward || '특별 선물'} 혜택 놓치지 마세요!`);
@@ -174,6 +180,7 @@ export const NotificationManagementTab: React.FC = () => {
         targetId: targetId.trim(),
         imageUrl: imageUrl.trim() || undefined,
         badge: badgeText.trim() || '알림',
+        messageKind,
         tokens: sendScope === 'test' && currentToken ? [currentToken] : undefined
       };
 
@@ -400,6 +407,7 @@ export const NotificationManagementTab: React.FC = () => {
                       type="button"
                       onClick={() => {
                         setNotifType(t);
+                        setMessageKind(t === 'notice' ? 'service' : 'marketing');
                         if (t === 'product') setBadgeText('신제품');
                         else if (t === 'event') setBadgeText('이벤트');
                         else setBadgeText('공지');
@@ -546,6 +554,44 @@ export const NotificationManagementTab: React.FC = () => {
                   </span>
                 </label>
               </div>
+            </div>
+
+            {/* Message Kind: 광고·혜택은 마케팅 동의 기기만, 서비스 안내는 푸시 허용 기기 전체 */}
+            <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-2.5">
+              <span className="text-xs font-bold text-gray-800 block">메시지 성격 (발송 대상 기준)</span>
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="messageKind"
+                  checked={messageKind === 'marketing'}
+                  onChange={() => setMessageKind('marketing')}
+                  className="mt-0.5 w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                />
+                <span className="text-xs text-gray-800">
+                  <span className="font-bold">광고·혜택</span>
+                  <span className="text-gray-500"> · 마케팅 동의 기기만 ({fcmInfo?.consent?.marketing ?? 0}대)</span>
+                  <span className="block text-[11px] text-gray-500 mt-0.5">할인·행사·신상 소식처럼 구매를 권하는 알림입니다. 밤 9시~아침 8시에는 야간 혜택 동의 기기만 받습니다.</span>
+                </span>
+              </label>
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="messageKind"
+                  checked={messageKind === 'service'}
+                  onChange={() => setMessageKind('service')}
+                  className="mt-0.5 w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                />
+                <span className="text-xs text-gray-800">
+                  <span className="font-bold">서비스 안내</span>
+                  <span className="text-gray-500"> · 푸시 허용 기기 전체 ({fcmInfo?.registeredTokens ?? 0}대)</span>
+                  <span className="block text-[11px] text-gray-500 mt-0.5">점검·업데이트처럼 광고가 아닌 안내에만 고르세요.</span>
+                </span>
+              </label>
+              {messageKind === 'marketing' && isNightNowKst() && (
+                <p className="text-[11px] font-bold text-amber-700">
+                  지금은 밤 9시~아침 8시입니다. 광고·혜택은 야간 혜택 동의 기기에만 나갑니다.
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}

@@ -32,7 +32,7 @@ import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { UserX } from 'lucide-react';
 import { useT } from '../../i18n';
 import { LanguageSwitcher } from '../common/LanguageSwitcher';
-import { unregisterDevicePush } from '../../services/notificationService';
+import { unregisterDevicePush, syncDeviceConsent } from '../../services/notificationService';
 
 export const SettingsView: React.FC = () => {
   const t = useT();
@@ -101,6 +101,7 @@ export const SettingsView: React.FC = () => {
     localStorage.setItem('sinsangpick_push_enabled', String(next));
     if (next) {
       await requestPushPermission(); // 다시 켜면 기기 토큰을 새로 등록합니다
+      await syncDeviceConsent();
     } else {
       await unregisterDevicePush(); // 끄면 서버 발송 대상에서 뺍니다
     }
@@ -110,6 +111,7 @@ export const SettingsView: React.FC = () => {
     const next = !nightPushEnabled;
     setNightPushEnabled(next);
     localStorage.setItem('sinsangpick_night_push', String(next));
+    syncDeviceConsent();
   };
 
   const getProviderBadge = () => {

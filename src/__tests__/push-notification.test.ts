@@ -9,7 +9,13 @@ import {
   sendAdminPushNotification,
   checkPushPermissionStatus,
   unregisterDevicePush,
-  isPushEnabledInApp
+  isPushEnabledInApp,
+  syncDeviceConsent,
+  isMarketingNotification,
+  isNotificationVisible,
+  canShowMarketingBannerNow,
+  isNightNowKst,
+  describePushResult
 } from '../services/notificationService';
 
 // Mock Supabase
@@ -65,6 +71,8 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
   beforeEach(() => {
     localStorage.clear();
     vi.clearAllMocks();
+    // 기기 요청(해제·동의 값)은 서버를 부르지 않도록 기본 응답을 흉내 냅니다
+    global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({}) }) as any;
   });
 
   describe('1. 디바이스 토큰 관리 (saveDeviceToken & deleteDeviceToken)', () => {
@@ -219,7 +227,7 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
       global.fetch = originalFetch;
     });
 
-    it('[정상] 백엔드 API 실패 시에도 로컬 브로드캐스트 모드로 안전하게 성공 반환', async () => {
+    it('[엣지] 백엔드 API 실패 시 알림함 저장만 되고 기기 푸시 실패로 표시합니다', async () => {
       const originalFetch = global.fetch;
       global.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
@@ -231,7 +239,7 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
       });
 
       expect(result.success).toBe(true);
-      expect(result.notification?.badge).toBe('이벤트');
+      expect(result.pushError).toBe('알림 발송 서버에 연결하지 못했습니다.');
 
       global.fetch = originalFetch;
     });
@@ -275,6 +283,100 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
       await unregisterDevicePush();
 
       expect(getStoredDeviceToken()).toBe('token-off-device-2');
+    });
+
+    it('[정상] 로그아웃 등으로 삭제할 때 서버에서도 토큰을 지웁니다', async () => {
+      await saveDeviceToken({ token: 'token-logout-1', platform: 'ios' });
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 }) as any;
+
+      await deleteDeviceToken();
+
+      expect(JSON.parse((global.fetch as any).mock.calls[0][1].body)).toEqual({ action: 'unregister', token: 'token-logout-1' });
+    });
+  });
+
+  describe('7. 동의 값 서버 동기화 (syncDeviceConsent)', () => {
+    it('[정상] 마케팅·야간 동의 값을 서버에 올립니다', async () => {
+      await saveDeviceToken({ token: 'token-consent-1', platform: 'ios' });
+      setMarketingConsentStatus(true);
+      localStorage.setItem('sinsangpick_night_push', 'true');
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 }) as any;
+
+      await syncDeviceConsent();
+
+      const [url, init] = (global.fetch as any).mock.calls[0];
+      expect(url).toBe('/api/send-fcm');
+      expect(JSON.parse(init.body)).toEqual({ action: 'consent', token: 'token-consent-1', marketingAgreed: true, nightAgreed: true });
+    });
+
+    it('[정상] 알림을 껐다면 두 동의 값을 모두 false로 올립니다', async () => {
+      await saveDeviceToken({ token: 'token-consent-2', platform: 'ios' });
+      setMarketingConsentStatus(true);
+      localStorage.setItem('sinsangpick_night_push', 'true');
+      localStorage.setItem('sinsangpick_push_enabled', 'false');
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 }) as any;
+
+      await syncDeviceConsent();
+
+      expect(JSON.parse((global.fetch as any).mock.calls[0][1].body)).toEqual({ action: 'consent', token: 'token-consent-2', marketingAgreed: false, nightAgreed: false });
+    });
+
+    it('[엣지] 기기 토큰이 없으면 서버에 아무것도 보내지 않습니다', async () => {
+      await deleteDeviceToken();
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 }) as any;
+
+      await syncDeviceConsent();
+
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('8. 광고성 알림 표시와 발송 결과 요약', () => {
+    it('[정상] 광고성 알림은 마케팅 동의 기기에서만 보입니다', () => {
+      expect(isMarketingNotification({ id: 'promo-1' })).toBe(true);
+      expect(isMarketingNotification({ id: 'notif-1' })).toBe(false);
+      setMarketingConsentStatus(false);
+      expect(isNotificationVisible({ id: 'promo-1' })).toBe(false);
+      expect(isNotificationVisible({ id: 'notif-1' })).toBe(true);
+      setMarketingConsentStatus(true);
+      expect(isNotificationVisible({ id: 'promo-1' })).toBe(true);
+    });
+
+    it('[정상] 밤 9시~아침 8시에는 야간 혜택 동의가 있어야 광고성 배너를 울립니다', () => {
+      vi.useFakeTimers({ toFake: ['Date'] });
+      try {
+        vi.setSystemTime(new Date('2026-10-29T13:30:00Z')); // 한국 시간 22:30
+        expect(isNightNowKst()).toBe(true);
+        setMarketingConsentStatus(true);
+        expect(canShowMarketingBannerNow()).toBe(false);
+        localStorage.setItem('sinsangpick_night_push', 'true');
+        expect(canShowMarketingBannerNow()).toBe(true);
+
+        vi.setSystemTime(new Date('2026-10-29T05:00:00Z')); // 한국 시간 14:00
+        expect(isNightNowKst()).toBe(false);
+        localStorage.removeItem('sinsangpick_night_push');
+        expect(canShowMarketingBannerNow()).toBe(true);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('[정상] 광고·혜택 발송 결과에 동의하지 않아 제외된 기기 수를 보여 줍니다', () => {
+      const text = describePushResult({
+        success: true,
+        push: { targetCount: 2, sentCount: 2, failedCount: 0 },
+        audience: { messageKind: 'marketing', nightWindow: true, eligible: 2, skippedNoMarketing: 3, skippedNoNight: 1 }
+      });
+      expect(text).toBe('📢 광고·혜택 · 푸시 허용 기기 2대 중 2대 발송 · 마케팅 미동의 3대, 야간 미동의 1대 제외');
+    });
+
+    it('[정상] 동의 항목이 아직 서버에 없으면 광고·혜택은 보내지 않았다고 알려 줍니다', () => {
+      const text = describePushResult({
+        success: true,
+        push: { targetCount: 0, sentCount: 0, failedCount: 0 },
+        audience: { messageKind: 'marketing', nightWindow: false, eligible: 0, skippedNoMarketing: 0, skippedNoNight: 0, consentUnavailable: true }
+      });
+      expect(text).toBe('📢 광고·혜택 알림은 보내지 않았습니다 (기기 동의 설정이 아직 서버에 적용되지 않았습니다).');
     });
   });
 });

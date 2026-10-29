@@ -23,10 +23,11 @@ const IOS_C = 'c'.repeat(64); // 음료 관심
 const IOS_D = 'd'.repeat(64); // 설정 없음 → 기본 카테고리(과자·음료 포함)
 
 // 알림을 끈 기기는 앱이 행을 지우므로 여기에 없습니다
+// 출시 알림은 광고성이라 마케팅 동의 기기에만 갑니다 (밤 시간대 대비 야간 혜택 동의도 함께 둡니다)
 const deviceRows = [
-  { token: IOS_A, platform: 'ios', alert_categories: ['과자'] },
-  { token: IOS_C, platform: 'ios', alert_categories: ['음료'] },
-  { token: IOS_D, platform: 'ios', alert_categories: null },
+  { token: IOS_A, platform: 'ios', alert_categories: ['과자'], marketing_agreed: true, night_agreed: true },
+  { token: IOS_C, platform: 'ios', alert_categories: ['음료'], marketing_agreed: true, night_agreed: true },
+  { token: IOS_D, platform: 'ios', alert_categories: null, marketing_agreed: true, night_agreed: true },
 ];
 
 const products = [
@@ -122,6 +123,22 @@ describe('출시 자동 알림 대상 (sendReleasePushes)', () => {
 
     const toD = calls.find(([, tokens]) => tokens.includes(IOS_D));
     expect(toD?.[2].title).toContain('2개');
+  });
+
+  it('마케팅 동의가 없는 기기에는 출시 알림을 보내지 않는다', async () => {
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init?: RequestInit) => {
+      if (init?.method) return new Response('', { status: 204 });
+      return new Response(JSON.stringify([
+        { token: IOS_A, platform: 'ios', alert_categories: ['과자'], marketing_agreed: false, night_agreed: false },
+        { token: IOS_C, platform: 'ios', alert_categories: ['음료'], marketing_agreed: true, night_agreed: true },
+      ]), { status: 200 });
+    }));
+
+    const summary = await sendReleasePushes(products);
+
+    expect(summary.targetCount).toBe(1);
+    const calls = vi.mocked(apns.sendApnsNotifications).mock.calls;
+    expect(calls.flatMap(([, tokens]) => tokens)).toEqual([IOS_C]);
   });
 
   it('기기 설정 컬럼이 아직 없으면 아무 출시 알림도 보내지 않는다', async () => {

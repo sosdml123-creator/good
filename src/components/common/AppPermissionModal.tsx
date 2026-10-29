@@ -5,11 +5,11 @@ import {
   requestPushPermission,
   checkPushPermissionStatus,
   openDeviceSettings,
-  getMarketingConsentStatus,
   setMarketingConsentStatus,
   shouldShowPushPrompt,
   snoozePushPrompt,
-  completePushPrompt
+  completePushPrompt,
+  syncDeviceConsent
 } from '../../services/notificationService';
 
 type DevicePermission = 'granted' | 'denied' | 'prompt';
@@ -33,7 +33,7 @@ export const AppPermissionModal: React.FC = () => {
       if (!shouldShowPushPrompt()) return;
       const status = await checkPushPermissionStatus().catch(() => 'prompt' as DevicePermission);
       if (status === 'granted') {
-        if (!getMarketingConsentStatus()) setMarketingConsentStatus(true);
+        // 마케팅 동의는 '알림 받기'를 직접 눌렀을 때만 기록합니다 (OS 권한이 이미 있다고 동의로 보지 않습니다)
         completePushPrompt();
         return;
       }
@@ -73,6 +73,7 @@ export const AppPermissionModal: React.FC = () => {
       const granted = await requestPushPermission();
       setMarketingConsentStatus(granted);
       localStorage.setItem('sinsangpick_push_enabled', String(granted));
+      await syncDeviceConsent();
       if (granted) {
         completePushPrompt();
         showToast('🔔 알림이 켜졌어요. 신상·행사 소식을 가장 먼저 알려드릴게요!', 'success');

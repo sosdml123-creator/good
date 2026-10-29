@@ -103,7 +103,10 @@ import {
   saveAlertCategories,
   syncDevicePushPrefs,
   describePushResult,
-  SendPushResult
+  SendPushResult,
+  isMarketingNotification,
+  isNotificationVisible,
+  canShowMarketingBannerNow
 } from '../services/notificationService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
@@ -212,7 +215,7 @@ interface AppContextType {
   deleteEvent: (id: string) => void;
   reorderEvents: (newEvents: PromotionEvent[]) => void;
   participateInEvent: (eventId: string) => void;
-  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; tokens?: string[] }) => Promise<SendPushResult>;
+  sendPushNotification: (notif: { title: string; body: string; type: 'event' | 'product' | 'notice'; targetId: string; imageUrl?: string; badge?: string; messageKind?: 'marketing' | 'service'; tokens?: string[] }) => Promise<SendPushResult>;
   dismissIncomingPush: () => void;
   alertCenterSubTab: 'inbox' | 'settings';
   setAlertCenterSubTab: (tab: 'inbox' | 'settings') => void;
@@ -2896,7 +2899,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     createdAt: ''
   };
   const selectedEvent = events.find(e => e.id === selectedEventId) || events[0] || DEFAULT_EMPTY_EVENT;
-  const unreadNotificationCount = notifications.filter(n => !n.isRead).length;
+  const unreadNotificationCount = notifications.filter(n => !n.isRead && isNotificationVisible(n)).length;
 
   const isPopStateRef = React.useRef(false);
 
@@ -3583,6 +3586,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('sinsangpick_push_enabled');
       localStorage.removeItem('sinsangpick_marketing_agreed');
       localStorage.removeItem('sinsangpick_marketing_agreed_date');
+      localStorage.removeItem('sinsangpick_night_push');
       localStorage.removeItem('sinsangpick_nickname_onboarded');
 
       try {
@@ -4216,11 +4220,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     targetId: string;
     imageUrl?: string;
     badge?: string;
+    messageKind?: 'marketing' | 'service';
     tokens?: string[];
   }) => {
     const nowIso = new Date().toISOString();
+    // 광고·혜택은 promo-, 서비스 안내는 notif- 로 시작합니다 (서버와 같은 규칙, 같은 id 로 한 번만 보이게 합니다)
     const newNotif: AppNotification = {
-      id: 'notif-' + Date.now(),
+      id: (notif.messageKind === 'service' ? 'notif-' : 'promo-') + Date.now(),
       title: notif.title,
       body: notif.body,
       type: notif.type,
@@ -4274,6 +4280,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         targetId: notif.targetId,
         imageUrl: notif.imageUrl,
         badge: newNotif.badge,
+        messageKind: notif.messageKind,
         tokens: notif.tokens
       });
       if (res && res.success) {
@@ -4353,13 +4360,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (prev.some(n => n.id === newNotif.id)) return prev;
         return [newNotif, ...prev];
       });
-      setIncomingPush(newNotif);
+      // 광고·혜택 알림은 마케팅 동의(밤이면 야간 혜택 동의)가 있는 기기에서만 배너·진동으로 알립니다
+      if (!isMarketingNotification(newNotif) || canShowMarketingBannerNow()) {
+        setIncomingPush(newNotif);
 
-      // 모바일 진동 햅틱 지원 시 실행
-      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-        try {
-          navigator.vibrate([100, 50, 100]);
-        } catch {}
+        // 모바일 진동 햅틱 지원 시 실행
+        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+          try {
+            navigator.vibrate([100, 50, 100]);
+          } catch {}
+        }
       }
     });
 

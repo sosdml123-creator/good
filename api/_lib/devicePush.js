@@ -19,7 +19,7 @@ export const DEFAULT_ALERT_CATEGORIES = ['과자', '음료', '빵·디저트', '
 
 const PUSH_PLATFORMS = ['ios', 'android'];
 const PAGE_SIZE = 1000;
-const PREFS_SELECT = 'token,platform,alert_categories';
+const PREFS_SELECT = 'token,platform,alert_categories,marketing_agreed,night_agreed';
 const BASE_SELECT = 'token,platform';
 const PUSH_TOKEN_REGEX = /^[A-Za-z0-9_:-]{20,512}$/;
 
@@ -80,6 +80,9 @@ export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens
     token: row.token,
     platform: row.platform || 'web',
     alertCategories: Array.isArray(row.alert_categories) ? row.alert_categories : null,
+    // 동의 컬럼이 없으면 false 로 둡니다 (광고성 알림은 보내지 않는 쪽)
+    marketingAgreed: row.marketing_agreed === true,
+    nightAgreed: row.night_agreed === true,
   }));
   return { devices, prefsSupported };
 }
@@ -88,6 +91,46 @@ export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens
 export function matchesAlertCategories(productCategory, alertCategories) {
   if (alertCategories.includes('전체') || alertCategories.includes('신제품')) return true;
   return alertCategories.includes(productCategory);
+}
+
+const KST_OFFSET_MS = 9 * 60 * 60 * 1000;
+
+/** 한국 시간 기준 밤 9시~아침 8시인지 */
+export function isNightKst(date = new Date()) {
+  const kstHour = new Date(date.getTime() + KST_OFFSET_MS).getUTCHours();
+  return kstHour >= 21 || kstHour < 8;
+}
+
+/**
+ * 발송 성격에 맞는 기기만 고릅니다.
+ *  - service: 서비스 안내. 푸시를 허용한 기기 전체.
+ *  - marketing: 광고·혜택. 마케팅 동의 기기만, 밤 9시~아침 8시에는 야간 혜택 동의 기기만.
+ * 동의 값을 알 수 없는 기기(동의 컬럼 미적용 포함)는 동의하지 않은 것으로 보고 빼냅니다.
+ * @returns {{ devices: object[], audience: { messageKind: string, nightWindow: boolean, eligible: number, skippedNoMarketing: number, skippedNoNight: number } }}
+ */
+export function selectMessageDevices(devices, messageKind, now = new Date()) {
+  const kind = messageKind === 'service' ? 'service' : 'marketing';
+  const nightWindow = isNightKst(now);
+  const audience = { messageKind: kind, nightWindow, eligible: 0, skippedNoMarketing: 0, skippedNoNight: 0 };
+  if (kind === 'service') {
+    audience.eligible = devices.length;
+    return { devices: [...devices], audience };
+  }
+
+  const eligible = [];
+  for (const device of devices) {
+    if (device.marketingAgreed !== true) {
+      audience.skippedNoMarketing += 1;
+      continue;
+    }
+    if (nightWindow && device.nightAgreed !== true) {
+      audience.skippedNoNight += 1;
+      continue;
+    }
+    eligible.push(device);
+  }
+  audience.eligible = eligible.length;
+  return { devices: eligible, audience };
 }
 
 /**
@@ -200,9 +243,12 @@ export async function sendReleasePushes(products) {
     return { ...emptySummary(), groupCount: 0, skipped: 'prefs_unavailable' };
   }
 
+  // 광고성 출시 알림이므로 마케팅 동의 기기(밤에는 야간 혜택 동의 기기)에만 보냅니다
+  const { devices: consented, audience } = selectMessageDevices(devices, 'marketing');
+
   // 같은 상품 묶음을 받는 기기끼리 모아서 한 번에 보냅니다 (기기마다 문구가 달라질 수 있음)
   const groups = new Map();
-  for (const device of devices) {
+  for (const device of consented) {
     if (!PUSH_PLATFORMS.includes(device.platform)) continue;
     const alerts = device.alertCategories ?? DEFAULT_ALERT_CATEGORIES;
     const matched = products.filter((p) => matchesAlertCategories(p.category, alerts));
@@ -213,7 +259,11 @@ export async function sendReleasePushes(products) {
     groups.get(groupKey).devices.push(device);
   }
 
-  const summary = { ...emptySummary(), groupCount: groups.size };
+  const summary = {
+    ...emptySummary(),
+    groupCount: groups.size,
+    consentSkipped: audience.skippedNoMarketing + audience.skippedNoNight,
+  };
   for (const { matched, devices: targets } of groups.values()) {
     const part = await dispatchDevicePush({
       url,

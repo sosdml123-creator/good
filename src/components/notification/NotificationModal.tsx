@@ -20,7 +20,9 @@ import {
   openDeviceSettings,
   setMarketingConsentStatus,
   formatRelativeTime,
-  unregisterDevicePush
+  unregisterDevicePush,
+  syncDeviceConsent,
+  isNotificationVisible
 } from '../../services/notificationService';
 import { Capacitor } from '@capacitor/core';
 
@@ -78,6 +80,7 @@ export const NotificationModal: React.FC = () => {
 
     if (next) {
       const ok = await requestPushPermission();
+      await syncDeviceConsent();
       if (ok) {
         setDevicePermission('granted');
         showToast('🔔 푸시 알림 허용이 켜졌습니다. 신제품과 할인 정보를 받아보세요!', 'success');
@@ -95,6 +98,7 @@ export const NotificationModal: React.FC = () => {
     const next = !nightPushEnabled;
     setNightPushEnabled(next);
     localStorage.setItem('sinsangpick_night_push', String(next));
+    syncDeviceConsent();
     if (next) {
       showToast('🌙 야간 혜택 알림(21시~08시)이 허용되었습니다.', 'success');
     } else {
@@ -135,7 +139,9 @@ export const NotificationModal: React.FC = () => {
     }
   };
 
-  const unreadCount = notifications.filter(n => !n.isRead).length;
+  // 광고·혜택 알림은 마케팅 동의 기기의 알림함에서만 보입니다
+  const visibleNotifications = notifications.filter(isNotificationVisible);
+  const unreadCount = visibleNotifications.filter(n => !n.isRead).length;
 
   return (
     <div className="bg-[#F8F9FA] min-h-full pb-16">
@@ -197,9 +203,9 @@ export const NotificationModal: React.FC = () => {
           {/* Inbox Header Actions */}
           <div className="flex items-center justify-between px-1">
             <span className="text-xs text-gray-500 font-medium">
-              받은 알림 ({notifications.length})
+              받은 알림 ({visibleNotifications.length})
             </span>
-            {notifications.length > 0 && (
+            {visibleNotifications.length > 0 && (
               <button
                 onClick={clearAllNotifications}
                 className="text-[11px] text-gray-400 hover:text-red-500 flex items-center gap-1 transition-colors"
@@ -211,7 +217,7 @@ export const NotificationModal: React.FC = () => {
           </div>
 
           {/* Notifications List */}
-          {notifications.length === 0 ? (
+          {visibleNotifications.length === 0 ? (
             <div className="bg-white rounded-2xl p-10 text-center border border-gray-100 mt-2 shadow-2xs">
               <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto mb-3">
                 <Bell className="w-6 h-6" />
@@ -221,7 +227,7 @@ export const NotificationModal: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-2.5">
-              {notifications.map((n) => (
+              {visibleNotifications.map((n) => (
                 <div
                   key={n.id}
                   onClick={() => handleNotificationClick(n)}

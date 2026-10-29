@@ -11,6 +11,19 @@ export interface DeviceTokenRecord {
   userName?: string;
 }
 
+/** 발송 성격: marketing = 광고·혜택(마케팅 동의 기기만), service = 서비스 안내(푸시 허용 기기 전체) */
+export type PushMessageKind = 'marketing' | 'service';
+
+/** 서버가 고른 발송 대상 요약 */
+export interface PushAudience {
+  messageKind: PushMessageKind;
+  nightWindow: boolean;
+  eligible: number;
+  skippedNoMarketing: number;
+  skippedNoNight: number;
+  consentUnavailable?: boolean;
+}
+
 export interface SendPushPayload {
   id?: string;
   title: string;
@@ -19,6 +32,7 @@ export interface SendPushPayload {
   targetId: string;
   imageUrl?: string;
   badge?: string;
+  messageKind?: PushMessageKind;
   tokens?: string[];
 }
 
@@ -37,6 +51,7 @@ export interface SendPushResult {
   targetTokensCount?: number;
   dbSaved?: boolean;
   push?: PushDeliveryResult;
+  audience?: PushAudience;
   pushError?: string;
   error?: string;
 }
@@ -53,6 +68,7 @@ export interface FcmStatusInfo {
   hasFcmKey: boolean;
   registeredTokens: number;
   tokensByPlatform: { ios: number; android: number; web: number };
+  consent?: { marketing: number; night: number };
 }
 
 // Memory cache for current device push token
@@ -139,6 +155,70 @@ export const shouldShowInAppBanner = (permission: 'granted' | 'denied' | 'prompt
   return true;
 };
 
+/** 밤 9시~아침 8시에 받는 야간 혜택 알림에 동의했는지 (기본값은 동의 안 함) */
+export const getNightPushConsent = (): boolean => {
+  try {
+    return localStorage.getItem('sinsangpick_night_push') === 'true';
+  } catch {
+    return false;
+  }
+};
+
+/** 지금이 한국 시간 밤 9시~아침 8시인지 */
+export const isNightNowKst = (): boolean => {
+  const kstHour = new Date(Date.now() + 9 * 60 * 60 * 1000).getUTCHours();
+  return kstHour >= 21 || kstHour < 8;
+};
+
+/**
+ * 광고·혜택 알림은 알림함에 이 접두사로 저장됩니다 (서버와 앱이 같은 규칙을 씁니다).
+ * 이 기기에서 알림함과 배너를 가릴 때 씁니다.
+ */
+export const MARKETING_NOTIFICATION_PREFIX = 'promo-';
+
+export const isMarketingNotification = (notif: { id: string }): boolean =>
+  String(notif.id || '').startsWith(MARKETING_NOTIFICATION_PREFIX);
+
+/** 광고·혜택 알림을 이 기기 알림함에 보여도 되는지 (알림을 켜 두고 마케팅 동의) */
+export const canSeeMarketingNotification = (): boolean =>
+  isPushEnabledInApp() && getMarketingConsentStatus();
+
+/** 광고·혜택 배너·진동을 지금 울려도 되는지 (마케팅 동의, 밤이면 야간 혜택 동의까지) */
+export const canShowMarketingBannerNow = (): boolean =>
+  canSeeMarketingNotification() && (!isNightNowKst() || getNightPushConsent());
+
+/** 이 기기 알림함에 보여 줄 알림인지 */
+export const isNotificationVisible = (notif: { id: string }): boolean =>
+  !isMarketingNotification(notif) || canSeeMarketingNotification();
+
+/**
+ * 이 기기의 광고·혜택 동의 값을 서버에 올립니다. 서버는 이 값으로 광고·혜택 발송 대상을 고릅니다.
+ * 알림을 껐다면 두 값 모두 false 로 올립니다.
+ */
+export const syncDeviceConsent = async (): Promise<boolean> => {
+  const token = currentDeviceToken;
+  if (!token) return false;
+  const pushOn = isPushEnabledInApp();
+  try {
+    const baseUrl = Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '';
+    const res = await fetch(`${baseUrl}/api/send-fcm`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'consent',
+        token,
+        marketingAgreed: pushOn && getMarketingConsentStatus(),
+        nightAgreed: pushOn && getNightPushConsent(),
+      }),
+    });
+    if (!res.ok) console.warn('[Notification Service] Consent sync failed:', res.status);
+    return res.ok;
+  } catch (e) {
+    console.warn('[Notification Service] Consent sync error:', e);
+    return false;
+  }
+};
+
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 /**
@@ -192,6 +272,8 @@ export const saveDeviceToken = async (record: DeviceTokenRecord): Promise<boolea
  */
 export const deleteDeviceToken = async (token?: string): Promise<boolean> => {
   const tokenToDelete = token || currentDeviceToken;
+  // 서버(서비스 키)에서 먼저 지웁니다. 앱의 익명 키로는 RLS 때문에 지워지지 않을 수 있습니다.
+  if (tokenToDelete) await unregisterDevicePush(tokenToDelete);
   currentDeviceToken = null;
   try {
     localStorage.removeItem('sinsangpick_device_token');
@@ -305,6 +387,8 @@ export const initPushNotifications = async (callbacks: {
         });
         // 토큰이 생긴 뒤에야 서버에 기기 설정(푸시 허용·관심 카테고리)을 올릴 수 있습니다
         await syncDevicePushPrefs();
+        // 광고·혜택 동의 값도 같은 시점에 올립니다
+        await syncDeviceConsent();
       });
 
       // 5. Registration error listener
@@ -606,7 +690,9 @@ export const subscribeToNotifications = (onNotification: (notif: AppNotification
  */
 export const sendAdminPushNotification = async (payload: SendPushPayload): Promise<SendPushResult> => {
   // 호출한 쪽이 정한 id 가 있으면 그대로 써서, 화면의 임시 항목과 DB 행이 같은 알림으로 합쳐지게 합니다
-  const notifId = payload.id && /^notif-\d+$/.test(payload.id) ? payload.id : 'notif-' + Date.now();
+  // 광고·혜택은 promo-, 서비스 안내는 notif- 로 시작합니다 (서버도 같은 규칙으로 id 를 정합니다)
+  const kindPrefix = payload.messageKind === 'service' ? 'notif' : 'promo';
+  const notifId = `${kindPrefix}-${/-(\d+)$/.exec(payload.id || '')?.[1] || Date.now()}`;
   const nowIso = new Date().toISOString();
   const createdNotif: AppNotification = {
     id: notifId,
@@ -758,13 +844,26 @@ export const describePushResult = (res: SendPushResult): string => {
   const push = res.push;
   if (!push) return '인앱 알림함에 저장됐습니다.';
 
-  if (push.targetCount === 0) return '푸시를 허용한 기기가 없어 기기 알림은 보내지 않았습니다.';
+  const audience = res.audience;
+  const label = audience ? (audience.messageKind === 'marketing' ? '광고·혜택' : '서비스 안내') : '';
+  if (audience?.messageKind === 'marketing' && audience.consentUnavailable) {
+    return '📢 광고·혜택 알림은 보내지 않았습니다 (기기 동의 설정이 아직 서버에 적용되지 않았습니다).';
+  }
+  const excluded: string[] = [];
+  if (audience && audience.skippedNoMarketing > 0) excluded.push(`마케팅 미동의 ${audience.skippedNoMarketing}대`);
+  if (audience && audience.skippedNoNight > 0) excluded.push(`야간 미동의 ${audience.skippedNoNight}대`);
 
-  const parts = [`푸시 허용 기기 ${push.targetCount}대 중 ${push.sentCount}대 발송`];
+  if (push.targetCount === 0) {
+    const why = excluded.length ? ` (${excluded.join(', ')} 제외)` : '';
+    return `${label ? `📢 ${label} · ` : ''}푸시를 허용하고 동의한 기기가 없어 기기 알림은 보내지 않았습니다${why}.`;
+  }
+
+  const parts = [`${label ? `${label} · ` : ''}푸시 허용 기기 ${push.targetCount}대 중 ${push.sentCount}대 발송`];
   if (push.failedCount > 0) {
     const reasons = Object.keys(push.errors || {}).map((key) => PUSH_ERROR_LABELS[key] || key);
     parts.push(`${push.failedCount}대 실패${reasons.length ? `(${reasons.join(', ')})` : ''}`);
   }
+  if (excluded.length) parts.push(`${excluded.join(', ')} 제외`);
   return `📢 ${parts.join(' · ')}`;
 };
 

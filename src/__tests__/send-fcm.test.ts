@@ -79,7 +79,7 @@ describe('/api/send-fcm 핸들러', () => {
     await handler({
       method: 'POST',
       headers: {},
-      body: { title: '공지', body: '내용입니다', type: 'notice', id: 'notif-1793251902934' },
+      body: { title: '공지', body: '내용입니다', type: 'notice', messageKind: 'service', id: 'notif-1793251902934' },
     }, res);
 
     expect(res.status).toHaveBeenCalledWith(200);

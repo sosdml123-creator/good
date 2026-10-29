@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS public.device_tokens (
     device_info JSONB,
     alert_categories TEXT[],                      -- 관심 카테고리 출시 알림 (NULL = 기본 카테고리)
     created_at TIMESTAMPTZ DEFAULT NOW(),
+    marketing_agreed BOOLEAN NOT NULL DEFAULT FALSE, -- 광고·혜택 알림 동의 (마케팅)
+    night_agreed BOOLEAN NOT NULL DEFAULT FALSE,     -- 밤 9시~아침 8시 광고·혜택 알림 동의 (야간 혜택)
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
