@@ -4,12 +4,29 @@ on:
   push:
     branches:
       - main
+    # 앱 번들에 들어가지 않는 경로만 바뀐 푸시는 macOS 빌드를 건너뛴다 (macOS 분은 10배로 차감)
+    paths-ignore:
+      - '.claude/**'
+      - 'android/**'
+      - 'api/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'supabase/**'
+      - 'vercel.json'
+      - '**/*.md'
   workflow_dispatch:
+
+# 새 실행이 들어오면 같은 브랜치의 진행 중인 이전 빌드를 취소한다
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
     name: Build & Upload iOS App to App Store Connect
     runs-on: macos-15
+    # 멈춘 단계가 기본 6시간 동안 macOS 분을 쓰지 않도록 상한을 둔다
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository
@@ -124,7 +141,6 @@ jobs:
             $(security list-keychains -d user | tr -d '"')
 
           cd ios/App
-          xcrun agvtool new-version -all ${{ github.run_number }} || true
 
           if [ "$HAS_APPLE_SIGNIN" = "true" ]; then
             ENTITLEMENTS="$GITHUB_WORKSPACE/ios/App/App/App.entitlements"
@@ -143,6 +159,7 @@ jobs:
             echo "Added aps-environment entitlement (Push Notifications)"
           fi
 
+          # 빌드 번호는 실행 번호로 고정 (기존 agvtool 호출은 `|| true`로 실패가 가려져 있었음)
           xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
@@ -155,6 +172,7 @@ jobs:
             PROVISIONING_PROFILE="$PROFILE_UUID" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
             CODE_SIGN_ENTITLEMENTS="$ENTITLEMENTS" \
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/app-signing.keychain-db" \
             -allowProvisioningUpdates
 
