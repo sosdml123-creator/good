@@ -1,19 +1,7 @@
 name: iOS App Store Deploy
 
 on:
-  push:
-    branches:
-      - main
-    # 앱 번들에 들어가지 않는 경로만 바뀐 푸시는 macOS 빌드를 건너뛴다 (macOS 분은 10배로 차감)
-    paths-ignore:
-      - '.claude/**'
-      - 'android/**'
-      - 'api/**'
-      - 'docs/**'
-      - 'scripts/**'
-      - 'supabase/**'
-      - 'vercel.json'
-      - '**/*.md'
+  # 자동 실행 없음: 앱 업로드가 필요할 때만 Actions 탭에서 Run workflow로 수동 실행
   workflow_dispatch:
 
 # 새 실행이 들어오면 같은 브랜치의 진행 중인 이전 빌드를 취소한다

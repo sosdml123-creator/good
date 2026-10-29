@@ -5,7 +5,7 @@
   - `node scripts/deploy.cjs "커밋 제목" "본문(선택)"`
   - 빌드(`tsc && vite build`) → `npx cap sync ios` → `git add -A` → 커밋 → `git push origin HEAD:main`을 한 번에 실행하고 결과를 한 줄로 출력합니다. 실패 시 해당 단계 로그만 출력되므로 고친 뒤 같은 명령을 다시 실행합니다.
   - build / cap sync / git add·commit·push를 따로 실행하지 않습니다.
-- 푸시하면 Vercel Production과 GitHub Actions(`ios-deploy.yml`)가 자동 트리거됩니다. 배포 후 파이프라인·사이트 확인은 사용자가 요청할 때만 합니다.
+- 푸시하면 Vercel Production이 자동 배포됩니다. iOS(`ios-deploy.yml`)는 자동 실행하지 않고, 앱 업로드가 필요할 때 Actions 탭에서 Run workflow로 수동 실행합니다 (macOS 분 과금). 배포 후 파이프라인·사이트 확인은 사용자가 요청할 때만 합니다.
 - 코드 변경이 없는 질문·조사 요청은 배포하지 않습니다.
 - 결과 보고는 변경 내용과 배포 커밋을 3~5줄로 짧게 전달합니다.
 
