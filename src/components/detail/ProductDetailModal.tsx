@@ -28,6 +28,7 @@ import { getProductShareUrl } from '../../utils/productCode';
 import { isAlcoholProduct } from '../../utils/alcohol';
 import { ProductActionMenuModal } from './ProductActionMenuModal';
 import { ProductEditRequestModal } from './ProductEditRequestModal';
+import { AdMobBannerSection } from '../home/AdMobBannerSection';
 import { ProductStockAlertModal } from './ProductStockAlertModal';
 import { ReportModal } from '../common/ReportModal';
 import { KamisPriceTrendChart } from './KamisPriceTrendChart';
@@ -365,6 +366,9 @@ export const ProductDetailModal: React.FC = () => {
             {selectedProduct.itemType === 'restaurant' && selectedProduct.price ? t('평균') + ' ' : ''}{formatProductPrice(selectedProduct.price)}
           </span>
         </div>
+
+        {/* 가격 아래 고정형 광고 구좌 */}
+        <AdMobBannerSection slot="product" />
 
         {/* 🌾 KAMIS 농수산물 실시간 공시 시세 & 가격 변동 배너 */}
         {selectedProduct.kamisPriceInfo && (

@@ -21,7 +21,11 @@ export const ADMOB_SEARCH_BANNER_UNIT_ID =
   Capacitor.getPlatform() === 'android'
     ? 'ca-app-pub-3878859120989916/7525100286'
     : 'ca-app-pub-3878859120989916/1040251860';
-export const ADMOB_REWARD_UNIT_ID = 'ca-app-pub-3878859120989916/2388345753'; // 광고 보고 포인트 받기 (보상형)
+// 광고 보고 포인트 받기 (보상형, iOS 앱 / 안드로이드 앱은 AdMob에서 앱이 달라 광고 단위도 따로)
+export const ADMOB_REWARD_UNIT_ID =
+  Capacitor.getPlatform() === 'android'
+    ? 'ca-app-pub-3878859120989916/6754261901'
+    : 'ca-app-pub-3878859120989916/2388345753';
 export const ADMOB_SLOT_ID = '9433572199';
 export const ADMOB_HOME_SLOT_ID = '9433572199';
 export const ADMOB_SEARCH_SLOT_ID = '1040251860';

@@ -24,6 +24,7 @@ import { compressAndResizeImage } from '../../utils/imageCompressor';
 import { ImageViewerModal } from '../common/ImageViewerModal';
 import { formatProductPrice } from '../../utils/formatters';
 import { t } from '../../i18n';
+import { AdMobBannerSection } from '../home/AdMobBannerSection';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -438,6 +439,9 @@ export const WriteReviewModal: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* 상품 선택 아래 고정형 광고 구좌 (리뷰 작성 화면 1개) */}
+        <AdMobBannerSection slot="review" />
 
         {/* 4. 사진 첨부 섹션 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">
