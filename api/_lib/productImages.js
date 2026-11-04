@@ -19,6 +19,15 @@ const isOfficialImage = (row) => /^(cu|seven|starbucks|mega|paik|ediya)-/.test(r
 
 const toHttps = (url) => String(url || '').replace(/^http:\/\//, 'https://');
 
+/** 커뮤니티 퍼온 사진, 1년 넘은 네이버 뉴스 자료 사진은 신제품 사진일 수 없어 후보에서 뺍니다. */
+function isUnusableImageUrl(url) {
+  let full = url;
+  try { full = `${url} ${decodeURIComponent(new URL(url).searchParams.get('src') || '')}`; } catch { /* 그대로 검사 */ }
+  if (/dcimg\d*\.dcinside|dcinside\.com|fmkorea|theqoo|ruliweb|instiz/i.test(full)) return true;
+  const dated = full.match(/imgnews\.naver\.net\/image\/\d+\/(\d{4})\/(\d{2})\/(\d{2})\//);
+  return Boolean(dated && Date.now() - Date.parse(`${dated[1]}-${dated[2]}-${dated[3]}`) > 365 * 86400000);
+}
+
 /**
  * 검색 이미지 후보: 원본(link)은 차단·지연이 잦아 검수는 네이버 썸네일로 하고,
  * 저장할 때 원본이 열리지 않으면 썸네일을 씁니다.
@@ -62,8 +71,9 @@ async function pickProductPhoto(engine, row, images, deadline) {
       + `이미지 ${images.length}장이 순서대로 1번부터 ${images.length}번까지 주어집니다.\n`
       + '앱 상품 목록의 대표 사진으로 쓸 수 있는 이미지 중 가장 좋은 것의 번호를 고르세요.\n'
       + '- 쓸 수 있는 사진: 위 상품(또는 같은 상품으로 보이는 것)의 포장이나 음식·음료 자체가 주인공으로 또렷하게 보이는 사진.\n'
-      + '- 쓸 수 없는 사진: 다른 상품, 로고·매장·행사 사진, 글자만 있는 이미지, 사람의 얼굴이나 몸이 보이는 사진(모델·연예인·직원이 상품을 들고 있는 홍보 사진 포함).\n'
-      + '쓸 수 있는 사진이 없으면 0.\n'
+      + '- 쓸 수 없는 사진: 다른 상품, 여러 상품을 늘어놓은 단체 사진, 로고·매장·행사·공장·회사 건물 사진, 글자나 표·그래프가 대부분인 이미지, 기사용 자료 사진, 사람의 얼굴이나 몸이 보이는 사진(모델·연예인·직원이 상품을 들고 있는 홍보 사진 포함).\n'
+      + '- 상품명이 실제 제품 이름이 아니라 기사 제목·문장·홍보 문구로 보이면 무조건 0.\n'
+      + '확실하지 않으면 0. 쓸 수 있는 사진이 없으면 0.\n'
       + '형식: {"best": 번호}',
     image: images,
     maxTokens: 200,
@@ -97,7 +107,7 @@ export async function attachProductImages(rows, { deadline, naver, engine }) {
 
     const seen = new Set();
     const candidates = [...articleImage, ...(await searchImageCandidates(row, naver))]
-      .filter((c) => !seen.has(c.url) && seen.add(c.url));
+      .filter((c) => !isUnusableImageUrl(c.url) && !isUnusableImageUrl(c.checkUrl) && !seen.has(c.url) && seen.add(c.url));
     const downloaded = await Promise.all(candidates.map(async (c) => ({ ...c, image: await downloadImage(c.checkUrl) })));
     const usable = downloaded.filter((c) => c.image);
     if (usable.length === 0 || Date.now() > deadline) return;
