@@ -46,27 +46,35 @@ async function fetchCategory(categoryCode, dateStr, certKey, certId, productClsC
 }
 
 /**
+ * 따뜻한 인스턴스에서 재사용하는 메모리 캐시 (최신 공시일 · 카테고리별 응답)
+ */
+const MEMO_MS = 10 * 60 * 1000;
+const memo = new Map();
+function memoGet(key) {
+  const hit = memo.get(key);
+  return hit && Date.now() - hit.at < MEMO_MS ? hit.value : null;
+}
+function memoSet(key, value) {
+  memo.set(key, { at: Date.now(), value });
+}
+
+/**
  * Find the latest available date for KAMIS by checking up to 7 days back.
- * Prioritizes dates that have active trading price quotes (dpr1 !== '-').
+ * 8일치를 한꺼번에 병렬 조회하고, 시세(dpr1)가 있는 가장 최근 날짜를 고릅니다.
+ * 조회한 과일류(400) 결과는 본 요청에서 다시 쓰도록 함께 돌려줍니다.
  */
 async function findLatestAvailableDate(certKey, certId, productClsCode = '01') {
+  const cached = memoGet(`date:${productClsCode}`);
+  if (cached) return cached;
+
   const now = new Date();
-  let fallbackDate = null;
-  for (let i = 0; i <= 7; i++) {
-    const d = new Date(now.getTime() - i * 86400000);
-    const dateStr = formatDate(d);
-    // Test with category 400 (과일류)
-    const result = await fetchCategory('400', dateStr, certKey, certId, productClsCode);
-    if (result.ok && result.items.length > 0) {
-      if (result.hasValidPrice) {
-        return dateStr;
-      }
-      if (!fallbackDate) {
-        fallbackDate = dateStr;
-      }
-    }
-  }
-  return fallbackDate || formatDate(new Date(now.getTime() - 86400000));
+  const dates = Array.from({ length: 8 }, (_, i) => formatDate(new Date(now.getTime() - i * 86400000)));
+  const results = await Promise.all(dates.map(d => fetchCategory('400', d, certKey, certId, productClsCode)));
+  const best = results.find(r => r.ok && r.hasValidPrice) || results.find(r => r.ok && r.items.length > 0);
+  if (!best) return { date: dates[1], probe: null };
+  const found = { date: best.date, probe: best };
+  memoSet(`date:${productClsCode}`, found);
+  return found;
 }
 
 /**
@@ -141,25 +149,31 @@ export default async function handler(req, res) {
 
   try {
     let targetDate = regday;
+    let probe = null;
     if (!targetDate) {
-      targetDate = await findLatestAvailableDate(certKey, certId, productClsCode);
+      ({ date: targetDate, probe } = await findLatestAvailableDate(certKey, certId, productClsCode));
     }
 
-    const categoriesToFetch = category === 'all' 
-      ? MAJOR_CATEGORIES 
+    const categoriesToFetch = category === 'all'
+      ? MAJOR_CATEGORIES
       : (MAJOR_CATEGORIES.includes(category) ? [category] : ['400']);
 
-    const fetchPromises = categoriesToFetch.map(cat => 
-      fetchCategory(cat, targetDate, certKey, certId, productClsCode)
-    );
-
-    const results = await Promise.all(fetchPromises);
+    const results = await Promise.all(categoriesToFetch.map(async cat => {
+      if (cat === '400' && probe) return probe;
+      const key = `cat:${productClsCode}:${cat}:${targetDate}`;
+      const hit = memoGet(key);
+      if (hit) return hit;
+      const r = await fetchCategory(cat, targetDate, certKey, certId, productClsCode);
+      if (r.ok) memoSet(key, r);
+      return r;
+    }));
     const allItems = [];
-    for (const r of results) {
+    results.forEach((r, i) => {
       if (r.ok && Array.isArray(r.items)) {
-        allItems.push(...r.items);
+        // 화면에서 카테고리별로 나눌 수 있도록 카테고리 코드를 붙입니다.
+        allItems.push(...r.items.map(item => ({ ...item, category_code: categoriesToFetch[i] })));
       }
-    }
+    });
 
     return res.status(200).json({
       success: true,

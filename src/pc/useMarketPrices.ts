@@ -72,12 +72,27 @@ const toRow = (raw: Record<string, string>, category: MarketCategory, categoryCo
   };
 };
 
-let cache: { at: number; rows: MarketPriceRow[]; date: string } | null = null;
+const STORAGE_KEY = 'sinsangpick_market_prices_v1';
+const CATEGORY_NAME: Record<string, MarketCategory> = Object.fromEntries(MARKET_CATEGORIES.map(c => [c.code, c.name]));
+
+type MarketCache = { at: number; rows: MarketPriceRow[]; date: string };
+
+/** 마지막으로 받은 시세를 저장해 두었다가 다음 실행 때 바로 보여 줍니다. */
+const readStored = (): MarketCache | null => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    return parsed && Array.isArray(parsed.rows) && parsed.rows.length > 0 ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+let cache: MarketCache | null = readStored();
 const CACHE_MS = 10 * 60 * 1000;
 /** KAMIS 는 하루 한 번(평일 오후) 공시하므로 화면을 켜 두면 30분마다 새 공시가 있는지 확인합니다. */
 const REFRESH_MS = 30 * 60 * 1000;
 
-/** 오늘의 농축수산물 소매 시세 (실제 KAMIS 공시가, 카테고리별 /api/kamis 호출) */
+/** 오늘의 농축수산물 소매 시세 (실제 KAMIS 공시가, /api/kamis?category=all 한 번 호출) */
 export const useMarketPrices = () => {
   const [rows, setRows] = useState<MarketPriceRow[]>(cache?.rows ?? []);
   const [date, setDate] = useState(cache?.date ?? '');
@@ -89,23 +104,21 @@ export const useMarketPrices = () => {
     const load = async (force: boolean) => {
       if (!force && cache && Date.now() - cache.at < CACHE_MS) return;
       try {
-        const results = await Promise.all(
-          MARKET_CATEGORIES.map(async ({ code, name }) => {
-            const r = await fetch(`${KAMIS_URL}?category=${code}`);
-            if (!r.ok) return { rows: [] as MarketPriceRow[], date: '' };
-            const json = await r.json();
-            const items: Record<string, string>[] = Array.isArray(json?.items) ? json.items : [];
-            return { rows: items.map(i => toRow(i, name, code)).filter(x => x.today !== null), date: String(json?.latestDate || '') };
-          })
-        );
-        const all = results.flatMap(r => r.rows);
-        const latest = results.map(r => r.date).filter(Boolean).sort().pop() || '';
+        const r = await fetch(`${KAMIS_URL}?category=all`);
+        const json = r.ok ? await r.json() : null;
+        const items: Record<string, string>[] = Array.isArray(json?.items) ? json.items : [];
+        const all = items
+          .filter(i => CATEGORY_NAME[i.category_code])
+          .map(i => toRow(i, CATEGORY_NAME[i.category_code], i.category_code))
+          .filter(x => x.today !== null);
+        const latest = String(json?.latestDate || '');
         if (!alive) return;
         if (all.length === 0) {
           if (!cache) setStatus('error');
           return;
         }
         cache = { at: Date.now(), rows: all, date: latest };
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cache)); } catch { /* 저장 공간 부족은 무시 */ }
         setRows(all);
         setDate(latest);
         setCheckedAt(cache.at);
