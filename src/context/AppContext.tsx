@@ -2990,7 +2990,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const handlePopState = () => {
       if (typeof window === 'undefined') return;
-      isPopStateRef.current = true;
       const params = new URLSearchParams(window.location.search);
       const p = getProductPathId() || params.get('p') || params.get('product') || params.get('code');
       const tab = params.get('tab') as ActiveTab | null;
@@ -3100,6 +3099,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       updateBrowserUrl('home', undefined, selectedCategory, selectedBrand, null);
     }
   };
+
+  // 🤖 Android 하드웨어 뒤로가기: 앱 화면 기준으로 한 단계 뒤로, 홈에서는 앱 종료
+  const backButtonHandlerRef = React.useRef<() => void>(() => {});
+  backButtonHandlerRef.current = () => {
+    if (activeTab === 'home') {
+      CapacitorApp.exitApp();
+      return;
+    }
+    goBack();
+    window.scrollTo({ top: 0 });
+  };
+
+  useEffect(() => {
+    if (Capacitor.getPlatform() !== 'android') return;
+    let backSub: any = null;
+    CapacitorApp.addListener('backButton', () => backButtonHandlerRef.current())
+      .then((sub) => { backSub = sub; });
+    return () => { backSub?.remove(); };
+  }, []);
 
   // 📅 Calendar Handlers
   const toggleCalendarReminder = (id: string) => {
