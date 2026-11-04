@@ -17,6 +17,86 @@ export function getAiEngine() {
   return null;
 }
 
+// Gemini 무료 등급은 분당·일일 요청 수 한도가 낮아 한 번의 수집에서 동시에 수백 건을 보내면 429/503이 쏟아집니다.
+// 한 함수 실행 안의 모든 호출을 줄 세워 동시 개수와 간격을 제한하고, 일시 오류는 잠깐 기다렸다가 다시 시도합니다.
+const GEMINI_CONCURRENCY = Math.max(1, Number(process.env.GEMINI_CONCURRENCY) || 2);
+const GEMINI_MIN_INTERVAL_MS = Math.max(0, Number(process.env.GEMINI_MIN_INTERVAL_MS) || 4000);
+let geminiActive = 0;
+let geminiLastStart = 0;
+let geminiQuotaBlockedUntil = 0;
+const geminiWaiters = [];
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function pumpGemini() {
+  if (geminiActive >= GEMINI_CONCURRENCY || geminiWaiters.length === 0) return;
+  const wait = geminiLastStart + GEMINI_MIN_INTERVAL_MS - Date.now();
+  if (wait > 0) {
+    setTimeout(pumpGemini, wait);
+    return;
+  }
+  geminiActive += 1;
+  geminiLastStart = Date.now();
+  geminiWaiters.shift()();
+  pumpGemini();
+}
+
+async function withGeminiSlot(endAt, task) {
+  await new Promise((resolve) => { geminiWaiters.push(resolve); pumpGemini(); });
+  try {
+    if (endAt - Date.now() < 1500) throw new Error('Gemini 무료 한도 속도 조절로 대기하다 시간이 끝났습니다.');
+    return await task();
+  } finally {
+    geminiActive -= 1;
+    pumpGemini();
+  }
+}
+
+function retryDelayMs(body, attempt) {
+  const match = body.match(/"retryDelay":\s*"(\d+(?:\.\d+)?)s"/);
+  return match ? Math.ceil(Number(match[1]) * 1000) : 2000 * 2 ** attempt;
+}
+
+async function askGemini(engine, { system, text, image, maxTokens, timeoutMs }) {
+  if (Date.now() < geminiQuotaBlockedUntil) throw new Error('Gemini 무료 등급의 오늘 사용 한도를 모두 썼습니다. 내일 다시 시도해주세요.');
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest';
+  const parts = [];
+  if (image) parts.push({ inline_data: { mime_type: image.mediaType, data: image.base64 } });
+  parts.push({ text });
+  const body = JSON.stringify({
+    systemInstruction: { parts: [{ text: system }] },
+    contents: [{ role: 'user', parts }],
+    generationConfig: { responseMimeType: 'application/json', maxOutputTokens: maxTokens },
+  });
+  const endAt = Date.now() + timeoutMs;
+
+  for (let attempt = 0; ; attempt += 1) {
+    const response = await withGeminiSlot(endAt, () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-goog-api-key': engine.apiKey },
+      signal: AbortSignal.timeout(Math.max(1, endAt - Date.now())),
+      body,
+    }));
+    if (response.ok) {
+      const data = await response.json();
+      const out = (data?.candidates?.[0]?.content?.parts || []).map((part) => part?.text || '').join('');
+      if (!out) throw new Error(`Gemini가 응답을 만들지 못했습니다 (${data?.candidates?.[0]?.finishReason || '빈 응답'}).`);
+      return extractJsonObject(out);
+    }
+    const errorBody = await response.text();
+    if (response.status === 429 && /PerDay/i.test(errorBody)) {
+      geminiQuotaBlockedUntil = Date.now() + 60 * 60 * 1000;
+      throw new Error('Gemini 무료 등급의 오늘 사용 한도를 모두 썼습니다. 내일 다시 시도해주세요.');
+    }
+    const delay = retryDelayMs(errorBody, attempt);
+    const retryable = response.status === 429 || response.status === 503;
+    if (!retryable || attempt >= 3 || Date.now() + delay > endAt - 3000) {
+      throw new Error(`Gemini API 오류 (${response.status}): ${errorBody.slice(0, 200)}`);
+    }
+    await sleep(delay);
+  }
+}
+
 function extractJsonObject(text) {
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
@@ -29,27 +109,7 @@ function extractJsonObject(text) {
  * @param {{ system: string, text: string, image?: { mediaType: string, base64: string }, maxTokens?: number, timeoutMs?: number }} request
  */
 export async function askAiForJson(engine, { system, text, image, maxTokens = 16000, timeoutMs = 45000 }) {
-  if (engine.provider === 'gemini') {
-    const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
-    const parts = [];
-    if (image) parts.push({ inline_data: { mime_type: image.mediaType, data: image.base64 } });
-    parts.push({ text });
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-goog-api-key': engine.apiKey },
-      signal: AbortSignal.timeout(timeoutMs),
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents: [{ role: 'user', parts }],
-        generationConfig: { responseMimeType: 'application/json', maxOutputTokens: maxTokens },
-      }),
-    });
-    if (!response.ok) throw new Error(`Gemini API 오류 (${response.status}): ${(await response.text()).slice(0, 200)}`);
-    const data = await response.json();
-    const out = (data?.candidates?.[0]?.content?.parts || []).map((part) => part?.text || '').join('');
-    if (!out) throw new Error(`Gemini가 응답을 만들지 못했습니다 (${data?.candidates?.[0]?.finishReason || '빈 응답'}).`);
-    return extractJsonObject(out);
-  }
+  if (engine.provider === 'gemini') return askGemini(engine, { system, text, image, maxTokens, timeoutMs });
 
   const content = [];
   if (image) content.push({ type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.base64 } });
