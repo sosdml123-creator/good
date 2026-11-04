@@ -80,6 +80,49 @@ function pickColumns(source, columnMap) {
   return row;
 }
 
+const VERCEL_TEAM_ID = 'team_N9Es9LgaYcMlNfzLuDper9wL';
+const VERCEL_PROJECT_ID = 'prj_vVz2o7a73zvdZDfzXIMETb8ap3zd';
+const PC_PATH_FILTER = "startswith(requestPath, '/pc')";
+
+// 최근 14일(UTC 날짜) PC 방문자. 웹 분석 스크립트가 PC 방문 경로 앞에 /pc를 붙여 기록합니다.
+async function fetchPcVisitors() {
+  const token = process.env.VERCEL_ANALYTICS_TOKEN;
+  if (!token) return { configured: false };
+
+  const until = new Date();
+  const since = new Date(until.getTime() - 13 * 24 * 60 * 60 * 1000);
+  since.setUTCHours(0, 0, 0, 0);
+  const query = (path, extra = {}) => {
+    const params = new URLSearchParams({
+      projectId: VERCEL_PROJECT_ID,
+      teamId: VERCEL_TEAM_ID,
+      since: since.toISOString(),
+      until: until.toISOString(),
+      filter: PC_PATH_FILTER,
+      ...extra,
+    });
+    return fetch(`https://api.vercel.com/v1/query/web-analytics/visits/${path}?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then(async (r) => {
+      const json = await r.json().catch(() => null);
+      if (!r.ok) throw new Error(json?.error?.message || `Vercel Analytics 오류 (${r.status})`);
+      return json;
+    });
+  };
+
+  const [daily, total] = await Promise.all([query('aggregate', { by: 'day' }), query('count')]);
+  return {
+    configured: true,
+    days: (daily?.data || []).map((d) => ({
+      date: String(d.timestamp).slice(0, 10),
+      visitors: d.visitors || 0,
+      pageviews: d.pageviews || 0,
+    })),
+    totalVisitors: total?.data?.visitors || 0,
+    totalPageviews: total?.data?.pageviews || 0,
+  };
+}
+
 export default async function handler(req, res) {
   // Enable CORS for web and Capacitor native apps (capacitor://localhost, ionic://localhost, etc.)
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -499,6 +542,12 @@ export default async function handler(req, res) {
           dbOptional('point_transactions?select=*&order=created_at.desc&limit=500'),
         ]);
         Object.assign(result, { reports, editRequests, sanctions, pointTransactions });
+        break;
+      }
+
+      // PC 사이트(pc.sinsangpick.kr) 방문자 수: Vercel Web Analytics에서 /pc 경로만 집계
+      case 'pc_visitors': {
+        Object.assign(result, await fetchPcVisitors());
         break;
       }
 

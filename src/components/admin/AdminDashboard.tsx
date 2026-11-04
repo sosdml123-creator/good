@@ -92,6 +92,7 @@ import { SnsQueueTab } from './SnsQueueTab';
 import { AiAgentsManagementTab } from './aiAgents/AiAgentsManagementTab';
 import { ProductIntakeTab } from './ProductIntakeTab';
 import { DonkiManagementTab } from './DonkiManagementTab';
+import { PcVisitorsCard } from './PcVisitorsCard';
 import { BattleRound, fetchBattleRound, setBattlePair } from '../../services/battleService';
 
 export type AdminTab = 
@@ -2041,6 +2042,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   ))}
                 </div>
               </div>
+
+              <PcVisitorsCard />
 
               {/* 3. 2-Column Section: 최근 접수된 신고 & 최근 가입한 회원 */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
