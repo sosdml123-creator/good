@@ -80,49 +80,6 @@ function pickColumns(source, columnMap) {
   return row;
 }
 
-const VERCEL_TEAM_ID = 'team_N9Es9LgaYcMlNfzLuDper9wL';
-const VERCEL_PROJECT_ID = 'prj_vVz2o7a73zvdZDfzXIMETb8ap3zd';
-const PC_PATH_FILTER = "startswith(requestPath, '/pc')";
-
-// 최근 14일(UTC 날짜) PC 방문자. 웹 분석 스크립트가 PC 방문 경로 앞에 /pc를 붙여 기록합니다.
-async function fetchPcVisitors() {
-  const token = process.env.VERCEL_ANALYTICS_TOKEN;
-  if (!token) return { configured: false };
-
-  const until = new Date();
-  const since = new Date(until.getTime() - 13 * 24 * 60 * 60 * 1000);
-  since.setUTCHours(0, 0, 0, 0);
-  const query = (path, extra = {}) => {
-    const params = new URLSearchParams({
-      projectId: VERCEL_PROJECT_ID,
-      teamId: VERCEL_TEAM_ID,
-      since: since.toISOString(),
-      until: until.toISOString(),
-      filter: PC_PATH_FILTER,
-      ...extra,
-    });
-    return fetch(`https://api.vercel.com/v1/query/web-analytics/visits/${path}?${params}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }).then(async (r) => {
-      const json = await r.json().catch(() => null);
-      if (!r.ok) throw new Error(json?.error?.message || `Vercel Analytics 오류 (${r.status})`);
-      return json;
-    });
-  };
-
-  const [daily, total] = await Promise.all([query('aggregate', { by: 'day' }), query('count')]);
-  return {
-    configured: true,
-    days: (daily?.data || []).map((d) => ({
-      date: String(d.timestamp).slice(0, 10),
-      visitors: d.visitors || 0,
-      pageviews: d.pageviews || 0,
-    })),
-    totalVisitors: total?.data?.visitors || 0,
-    totalPageviews: total?.data?.pageviews || 0,
-  };
-}
-
 export default async function handler(req, res) {
   // Enable CORS for web and Capacitor native apps (capacitor://localhost, ionic://localhost, etc.)
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -545,9 +502,21 @@ export default async function handler(req, res) {
         break;
       }
 
-      // PC 사이트(pc.sinsangpick.kr) 방문자 수: Vercel Web Analytics에서 /pc 경로만 집계
+      // PC 사이트(pc.sinsangpick.kr) 최근 14일 방문자 수 (pc_visits, 한국 시간 날짜)
       case 'pc_visitors': {
-        Object.assign(result, await fetchPcVisitors());
+        const rpc = (fn) => db(`rpc/${fn}`, { method: 'POST', body: JSON.stringify({ days: 14 }) });
+        try {
+          const [daily, total] = await Promise.all([rpc('pc_visitor_daily'), rpc('pc_visitor_total')]);
+          Object.assign(result, {
+            configured: true,
+            days: (daily || []).map((d) => ({ date: d.day, visitors: Number(d.visitors), pageviews: Number(d.pageviews) })),
+            totalVisitors: Number(total) || 0,
+          });
+        } catch (err) {
+          // 마이그레이션(20261104_pc_visits.sql) 적용 전
+          if (!(err instanceof DbError && (err.code === 'PGRST202' || err.tableMissing))) throw err;
+          result.configured = false;
+        }
         break;
       }
 

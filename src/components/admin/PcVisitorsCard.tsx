@@ -11,10 +11,9 @@ interface PcVisitorsData {
   configured: boolean;
   days?: PcVisitorDay[];
   totalVisitors?: number;
-  totalPageviews?: number;
 }
 
-/** 최근 14일 PC 사이트(pc.sinsangpick.kr) 방문자 수 (Vercel Web Analytics) */
+/** 최근 14일 PC 사이트(pc.sinsangpick.kr) 방문자 수 (Supabase pc_visits) */
 export const PcVisitorsCard: React.FC = () => {
   const [data, setData] = useState<PcVisitorsData | null>(null);
   const [error, setError] = useState('');
@@ -38,7 +37,7 @@ export const PcVisitorsCard: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <h2 className="text-base font-bold text-slate-900 dark:text-white">최근 14일 PC 방문자</h2>
-          <p className="text-xs text-slate-400 mt-0.5">pc.sinsangpick.kr 날짜별 방문자 수입니다. (Vercel 집계, 세계 표준시 날짜 기준)</p>
+          <p className="text-xs text-slate-400 mt-0.5">pc.sinsangpick.kr 날짜별 방문자 수입니다. (한국 시간 기준)</p>
         </div>
         {data?.configured && (
           <div className="flex items-end gap-6">
@@ -59,7 +58,7 @@ export const PcVisitorsCard: React.FC = () => {
       ) : !data ? (
         <p className="text-sm text-slate-400">불러오는 중...</p>
       ) : !data.configured ? (
-        <p className="text-sm text-slate-500">Vercel 환경변수 <code className="font-mono">VERCEL_ANALYTICS_TOKEN</code>을 등록하면 PC 방문자 수가 표시됩니다.</p>
+        <p className="text-sm text-slate-500">Supabase에 <code className="font-mono">20261104_pc_visits.sql</code>을 적용하면 PC 방문자 수가 표시됩니다.</p>
       ) : (
         <>
           <div className="flex items-stretch gap-1.5 sm:gap-2.5 h-40 border-b border-slate-200 dark:border-slate-700">
