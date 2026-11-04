@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { normalizePrivateKey } from './pem.js';
 
 /**
  * Android 기기 푸시: Firebase Cloud Messaging HTTP v1 API.
@@ -10,15 +11,17 @@ import crypto from 'node:crypto';
 const CONCURRENCY = 50;
 
 export function getFcmConfig() {
-  const raw = (process.env.FCM_SERVICE_ACCOUNT || '').trim();
+  let raw = (process.env.FCM_SERVICE_ACCOUNT || '').trim().replace(/^'|'$/g, '');
   if (!raw) return null;
+  // JSON 파일을 base64 로 인코딩해 넣은 경우도 받아줍니다
+  if (!raw.startsWith('{')) raw = Buffer.from(raw, 'base64').toString('utf8').trim();
   try {
     const json = JSON.parse(raw);
     if (!json.client_email || !json.private_key || !json.project_id) return null;
     return {
       projectId: json.project_id,
       clientEmail: json.client_email,
-      privateKey: String(json.private_key).replace(/\\n/g, '\n'),
+      privateKey: normalizePrivateKey(json.private_key),
     };
   } catch {
     return null;

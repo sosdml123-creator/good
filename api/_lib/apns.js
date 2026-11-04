@@ -1,5 +1,6 @@
 import http2 from 'node:http2';
 import crypto from 'node:crypto';
+import { normalizePrivateKey } from './pem.js';
 
 /**
  * Direct Apple Push Notification service (APNs) sender.
@@ -17,7 +18,7 @@ const CONCURRENCY = 100;
 export function getApnsConfig() {
   const keyId = (process.env.APNS_KEY_ID || '').trim();
   const teamId = (process.env.APNS_TEAM_ID || '').trim();
-  const privateKey = (process.env.APNS_PRIVATE_KEY || '').replace(/\\n/g, '\n').trim();
+  const privateKey = normalizePrivateKey(process.env.APNS_PRIVATE_KEY);
   if (!keyId || !teamId || !privateKey) return null;
 
   return {
