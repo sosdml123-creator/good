@@ -24,12 +24,14 @@ const GEMINI_MIN_INTERVAL_MS = Math.max(0, Number(process.env.GEMINI_MIN_INTERVA
 let geminiActive = 0;
 let geminiLastStart = 0;
 let geminiQuotaBlockedUntil = 0;
+// 사진 검수는 분석이 끝난 상품을 실제로 저장하게 만드는 마지막 단계라 문서 분석보다 먼저 보냅니다.
 const geminiWaiters = [];
+const geminiPriorityWaiters = [];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function pumpGemini() {
-  if (geminiActive >= GEMINI_CONCURRENCY || geminiWaiters.length === 0) return;
+  if (geminiActive >= GEMINI_CONCURRENCY || geminiWaiters.length + geminiPriorityWaiters.length === 0) return;
   const wait = geminiLastStart + GEMINI_MIN_INTERVAL_MS - Date.now();
   if (wait > 0) {
     setTimeout(pumpGemini, wait);
@@ -37,12 +39,12 @@ function pumpGemini() {
   }
   geminiActive += 1;
   geminiLastStart = Date.now();
-  geminiWaiters.shift()();
+  (geminiPriorityWaiters.shift() || geminiWaiters.shift())();
   pumpGemini();
 }
 
-async function withGeminiSlot(endAt, task) {
-  await new Promise((resolve) => { geminiWaiters.push(resolve); pumpGemini(); });
+async function withGeminiSlot(endAt, priority, task) {
+  await new Promise((resolve) => { (priority ? geminiPriorityWaiters : geminiWaiters).push(resolve); pumpGemini(); });
   try {
     if (endAt - Date.now() < 1500) throw new Error('Gemini 무료 한도 속도 조절로 대기하다 시간이 끝났습니다.');
     return await task();
@@ -57,11 +59,11 @@ function retryDelayMs(body, attempt) {
   return match ? Math.ceil(Number(match[1]) * 1000) : 2000 * 2 ** attempt;
 }
 
-async function askGemini(engine, { system, text, image, maxTokens, timeoutMs }) {
+async function askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority }) {
   if (Date.now() < geminiQuotaBlockedUntil) throw new Error('Gemini 무료 등급의 오늘 사용 한도를 모두 썼습니다. 내일 다시 시도해주세요.');
   const model = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest';
   const parts = [];
-  if (image) parts.push({ inline_data: { mime_type: image.mediaType, data: image.base64 } });
+  for (const image of images) parts.push({ inline_data: { mime_type: image.mediaType, data: image.base64 } });
   parts.push({ text });
   const body = JSON.stringify({
     systemInstruction: { parts: [{ text: system }] },
@@ -71,7 +73,7 @@ async function askGemini(engine, { system, text, image, maxTokens, timeoutMs }) 
   const endAt = Date.now() + timeoutMs;
 
   for (let attempt = 0; ; attempt += 1) {
-    const response = await withGeminiSlot(endAt, () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    const response = await withGeminiSlot(endAt, priority, () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-goog-api-key': engine.apiKey },
       signal: AbortSignal.timeout(Math.max(1, endAt - Date.now())),
@@ -106,13 +108,15 @@ function extractJsonObject(text) {
 
 /**
  * @param engine getAiEngine() 결과
- * @param {{ system: string, text: string, image?: { mediaType: string, base64: string }, maxTokens?: number, timeoutMs?: number }} request
+ * @param {{ system: string, text: string, image?: { mediaType: string, base64: string } | { mediaType: string, base64: string }[], maxTokens?: number, timeoutMs?: number, priority?: boolean }} request
+ *   image 에 배열을 주면 여러 장을 한 번에 보냅니다. priority 는 Gemini 대기열에서 먼저 처리됩니다.
  */
-export async function askAiForJson(engine, { system, text, image, maxTokens = 16000, timeoutMs = 45000 }) {
-  if (engine.provider === 'gemini') return askGemini(engine, { system, text, image, maxTokens, timeoutMs });
+export async function askAiForJson(engine, { system, text, image, maxTokens = 16000, timeoutMs = 45000, priority = false }) {
+  const images = Array.isArray(image) ? image : image ? [image] : [];
+  if (engine.provider === 'gemini') return askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority });
 
   const content = [];
-  if (image) content.push({ type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.base64 } });
+  for (const image of images) content.push({ type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.base64 } });
   content.push({ type: 'text', text });
 
   const response = await engine.client.beta.messages.create(
