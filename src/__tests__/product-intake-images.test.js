@@ -29,14 +29,14 @@ it('AI 키가 없으면 검수되지 않은 뉴스·검색 이미지를 승인 �
 });
 it('다른 상품·인물 사진을 거부한다', async () => {
   vi.stubGlobal('fetch', vi.fn(async () => imageFetch()));
-  askAiForJson.mockResolvedValue({ product: true, person: true });
+  askAiForJson.mockResolvedValue({ best: 0 });
   const rows = [{ id: 'discovery-1', name: '딸기 라떼', brand: '스타벅스', image: '' }];
   await attachProductImages(rows, options());
   expect(rows[0].image).toBe('');
 });
 it('상품 일치 검수를 통과한 사진만 연결한다', async () => {
   vi.stubGlobal('fetch', vi.fn(async () => imageFetch()));
-  askAiForJson.mockResolvedValue({ product: true, person: false });
+  askAiForJson.mockResolvedValue({ best: 1 });
   const rows = [{ id: 'discovery-1', name: '딸기 라떼', brand: '스타벅스', image: '' }];
   await attachProductImages(rows, options());
   expect(rows[0].image).toBe('https://example.com/product.jpg');

@@ -40,3 +40,5 @@ ios_cert
 *_products.json
 dup_images.json
 products_summary.json
+# 스크래핑 임시 산출물 (.tmp-intake-*.html 등)
+.tmp-*

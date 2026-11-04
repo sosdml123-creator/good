@@ -390,7 +390,6 @@ async function getPointLimits() {
 }
 
 let admobKeys = null; // { at, byId: Map<keyId, pem> }
-let lastSsvFailure = null;
 
 async function getAdmobKey(keyId) {
   if (!admobKeys || !admobKeys.byId.has(keyId) || Date.now() - admobKeys.at > 24 * 3600 * 1000) {
@@ -427,9 +426,7 @@ async function admobReward(req, res) {
   const valid = Boolean(pem) && candidates.some((c) => createVerify('SHA256').update(c).verify(pem, signature));
   if (!valid) {
     console.warn('[admob reward] bad signature', { keyFound: Boolean(pem), url: req.url });
-    // TODO(임시 진단): AdMob 콘솔 URL 확인이 통과하면 제거
-    lastSsvFailure = { at: new Date().toISOString(), keyFound: Boolean(pem), url: String(req.url).slice(0, 1500), ua: req.headers['user-agent'] };
-    return res.status(403).json({ ok: false, reason: 'bad_signature', keyFound: Boolean(pem), received: rawQuery.slice(0, 300) });
+    return res.status(403).json({ ok: false, reason: 'bad_signature' });
   }
 
   const userId = String(q.user_id || '');
@@ -467,10 +464,6 @@ export default async function handler(req, res) {
   const action = String((req.method === 'GET' ? req.query?.action : req.body?.action) || '');
 
   try {
-    if (req.method === 'GET' && action === 'ssvdebug') {
-      res.setHeader('Cache-Control', 'no-store');
-      return res.status(200).json({ lastSsvFailure, url: req.url, headers: Object.keys(req.headers) });
-    }
     if (req.method === 'GET' && !action && (String(req.url || '').startsWith('/api/admob-reward') || req.query?.key_id)) {
       return await admobReward(req, res);
     }
