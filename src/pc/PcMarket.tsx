@@ -1,3 +1,4 @@
+import { MarketPlanner } from '../components/agri/MarketPlanner';
 import React, { useMemo, useState } from 'react';
 import { ArrowDown, ArrowUp, ChevronRight, Minus, Search, TrendingDown, TrendingUp } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -180,6 +181,7 @@ export const PcMarket: React.FC = () => {
       </section>
 
       <PcContainer className="pt-10">
+        <MarketPlanner rows={rows} date={date} />
         {status === 'loading' && <PcEmpty message="오늘의 시세를 불러오는 중이에요…" />}
         {status === 'error' && <PcEmpty message="지금은 시세를 불러오지 못했어요. 잠시 후 다시 시도해 주세요." />}
         {status === 'ready' && (

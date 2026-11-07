@@ -1,3 +1,4 @@
+import { MarketPlanner } from './MarketPlanner';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronDown, Search, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
@@ -12,22 +13,6 @@ const CATS: Cat[] = ['전체', ...MARKET_CATEGORIES.map(c => c.name)];
 
 const EMOJI: Record<MarketCategory, string> = {
   식량작물: '🌾', 채소류: '🥬', 과일류: '🍎', 축산물: '🥩', 수산물: '🐟',
-};
-
-/** 월별 제철 품목 (시세가 있는 것만 배너에 노출) */
-const SEASONAL: Record<number, string[]> = {
-  1: ['귤', '감귤', '딸기', '시금치', '굴', '대구'],
-  2: ['딸기', '시금치', '달래', '냉이', '꼬막', '굴'],
-  3: ['딸기', '냉이', '달래', '주꾸미', '도다리', '쑥'],
-  4: ['딸기', '참외', '미나리', '두릅', '주꾸미', '바지락'],
-  5: ['참외', '양파', '마늘', '매실', '완두', '멸치'],
-  6: ['수박', '참외', '감자', '매실', '복숭아', '오이'],
-  7: ['수박', '복숭아', '옥수수', '토마토', '오이', '전복'],
-  8: ['수박', '복숭아', '포도', '옥수수', '고구마', '전복'],
-  9: ['사과', '배', '포도', '밤', '꽃게', '전어'],
-  10: ['사과', '배', '감', '단감', '고구마', '밤', '꽃게', '전어', '대하'],
-  11: ['배추', '무', '감귤', '귤', '사과', '굴', '고등어'],
-  12: ['귤', '감귤', '배추', '무', '굴', '명태', '대구'],
 };
 
 const pct = (r: number | null) => (r === null ? null : Math.round(r * 10) / 10);
@@ -89,7 +74,7 @@ const RankCard: React.FC<{ rank: number; row: MarketPriceRow; grades: MarketPric
 
   return (
     <div className={`rounded-2xl bg-white overflow-hidden ${rank === 1 ? 'border border-blue-500' : ''}`}>
-      <button onClick={onToggle} className="w-full px-4 py-3.5 text-left">
+      <button onClick={onToggle} aria-expanded={open} className="w-full px-4 py-3.5 text-left">
         <div className="flex items-center gap-2.5">
           <span className="text-[17px] font-black text-gray-900 w-5">{rank}</span>
           <span className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-[17px]">{EMOJI[row.category]}</span>
@@ -148,30 +133,21 @@ export const AgriView: React.FC = () => {
     });
   }, [rows]);
 
-  const seasonal = useMemo(() => {
-    const names = SEASONAL[new Date().getMonth() + 1] || [];
-    const seen = new Set<string>();
-    return names.filter(n => groups.some(g => g.rep.itemName === n) && !seen.has(n) && seen.add(n)).slice(0, 4);
-  }, [groups]);
-
   const list = useMemo(() => {
     const q = query.trim();
     const filtered = groups.filter(g =>
       (cat === '전체' || g.rep.category === cat) &&
       (!q || `${g.rep.itemName}${g.rep.kindName}`.includes(q)) &&
-      (q || g.rep.changeRate !== null)
+      true
     );
-    if (q) return filtered;
-    return filtered.sort((a, b) => sort === 'down' ? a.rep.changeRate! - b.rep.changeRate! : b.rep.changeRate! - a.rep.changeRate!);
+
+    return filtered.sort((a, b) => { if (a.rep.changeRate === null) return b.rep.changeRate === null ? 0 : 1; if (b.rep.changeRate === null) return -1; return sort === 'down' ? a.rep.changeRate - b.rep.changeRate : b.rep.changeRate - a.rep.changeRate; });
   }, [groups, cat, sort, query]);
 
   const shown = showAll || query ? list : list.slice(0, 10);
-  const m = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  const dateLabel = m ? `${Number(m[2])}월 ${Number(m[3])}일 기준` : '';
-  const month = new Date().getMonth() + 1;
 
   return (
-    <div className="pb-24 bg-white min-h-full">
+    <div className="pb-24 bg-slate-50 min-h-full">
       <header className="sticky top-0 z-20 bg-white">
         <div className="relative flex items-center justify-between px-2 h-12">
           <button onClick={() => setActiveTab('home')} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-900 active:bg-gray-100" aria-label="뒤로">
@@ -202,14 +178,7 @@ export const AgriView: React.FC = () => {
       </header>
 
       <div className="px-4">
-        {/* 이달의 제철 배너 */}
-        <div className="mt-1 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 px-5 py-5">
-          <p className="text-[21px] font-black text-gray-900">{month}월 제철 농수산물</p>
-          <p className="mt-2 text-[13px] text-gray-600">
-            {seasonal.length > 0 ? seasonal.join('  |  ') : '지금 가장 맛있는 먹거리'}
-          </p>
-          <p className="mt-3 text-[11px] text-gray-400">{dateLabel && `${dateLabel} · `}전국 평균 소매가 · 출처 KAMIS(aT)</p>
-        </div>
+        <MarketPlanner rows={rows} date={date} />
 
         <p className="mt-7 text-[19px] font-black text-gray-900">오늘 시세, 뭐가 좋을까?</p>
 
@@ -246,7 +215,7 @@ export const AgriView: React.FC = () => {
               rank={i + 1}
               row={g.rep}
               grades={g.grades}
-              open={openKey === g.rep.key || (openKey === null && i === 0 && !query)}
+              open={openKey === g.rep.key}
               onToggle={() => setOpenKey(openKey === g.rep.key ? '' : g.rep.key)}
             />
           ))}
