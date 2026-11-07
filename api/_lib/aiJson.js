@@ -59,7 +59,7 @@ function retryDelayMs(body, attempt) {
   return match ? Math.ceil(Number(match[1]) * 1000) : 2000 * 2 ** attempt;
 }
 
-async function askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority }) {
+async function askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority, waitUntil }) {
   if (Date.now() < geminiQuotaBlockedUntil) throw new Error('Gemini 무료 등급의 오늘 사용 한도를 모두 썼습니다. 내일 다시 시도해주세요.');
   const model = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest';
   const parts = [];
@@ -70,13 +70,15 @@ async function askGemini(engine, { system, text, images, maxTokens, timeoutMs, p
     contents: [{ role: 'user', parts }],
     generationConfig: { responseMimeType: 'application/json', maxOutputTokens: maxTokens },
   });
-  const endAt = Date.now() + timeoutMs;
+  // 대기열에서 차례를 기다리는 시간은 waitUntil까지 허용하고, timeoutMs는 실제 요청 하나에만 적용합니다.
+  // (대기 시간까지 timeoutMs에 포함하면 다른 수집 소스가 몰릴 때 차례가 오기 전에 실패합니다.)
+  const endAt = Math.max(Date.now() + timeoutMs, Number(waitUntil) || 0);
 
   for (let attempt = 0; ; attempt += 1) {
     const response = await withGeminiSlot(endAt, priority, () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-goog-api-key': engine.apiKey },
-      signal: AbortSignal.timeout(Math.max(1, endAt - Date.now())),
+      signal: AbortSignal.timeout(Math.max(1, Math.min(timeoutMs, endAt - Date.now()))),
       body,
     }));
     if (response.ok) {
@@ -108,12 +110,13 @@ function extractJsonObject(text) {
 
 /**
  * @param engine getAiEngine() 결과
- * @param {{ system: string, text: string, image?: { mediaType: string, base64: string } | { mediaType: string, base64: string }[], maxTokens?: number, timeoutMs?: number, priority?: boolean }} request
+ * @param {{ system: string, text: string, image?: { mediaType: string, base64: string } | { mediaType: string, base64: string }[], maxTokens?: number, timeoutMs?: number, priority?: boolean, waitUntil?: number }} request
  *   image 에 배열을 주면 여러 장을 한 번에 보냅니다. priority 는 Gemini 대기열에서 먼저 처리됩니다.
+ *   waitUntil(절대 시각 ms)을 주면 Gemini 대기열에서 그때까지 차례를 기다릴 수 있습니다.
  */
-export async function askAiForJson(engine, { system, text, image, maxTokens = 16000, timeoutMs = 45000, priority = false }) {
+export async function askAiForJson(engine, { system, text, image, maxTokens = 16000, timeoutMs = 45000, priority = false, waitUntil }) {
   const images = Array.isArray(image) ? image : image ? [image] : [];
-  if (engine.provider === 'gemini') return askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority });
+  if (engine.provider === 'gemini') return askGemini(engine, { system, text, images, maxTokens, timeoutMs, priority, waitUntil });
 
   const content = [];
   for (const image of images) content.push({ type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.base64 } });

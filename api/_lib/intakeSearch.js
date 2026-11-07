@@ -140,7 +140,7 @@ export async function collectSearchProducts(type, query, deadline) {
           text: `최근 출시 또는 신메뉴라고 명시된 개별 먹거리만 추출하세요. 이름·브랜드는 원문 그대로. 지역 빵집, 독립 카페, 디저트 가게, 제조사 등 브랜드 목록 제한은 없습니다. kind는 restaurant/store/manufacturer. releaseEvidence는 상품명과 출시 사실을 함께 포함한 원문 인용입니다.\n`
             + '상품명은 매장에서 파는 실제 제품 이름이어야 합니다 (예: "바나나킥 초코맛", "흑임자 크림 라떼"). 기사 제목, 따옴표 안 인용 문구·홍보 문구("다시 팔아주세요", "작다고 얕보지 마세요"), 문장 조각, "K푸드"·"사이드메뉴" 같은 일반 명칭, 먹거리가 아닌 상품(주식·전자제품 등)은 절대 넣지 마세요. 확실한 상품명이 없는 문서는 건너뛰세요.\n'
             + `형식: {"products":[{"index":0,"name":"원문 상품명","brand":"브랜드","kind":"restaurant","releaseEvidence":"상품명을 포함한 출시 근거 원문"}]}\n${JSON.stringify(batch.map((a, index) => ({ index, title: a.title, summary: a.summary })))}`,
-          maxTokens: 4000, timeoutMs: Math.min(18000, deadline - Date.now() - 5000),
+          maxTokens: 4000, timeoutMs: Math.min(18000, deadline - Date.now() - 5000), waitUntil: deadline - 5000,
         });
         for (const product of Array.isArray(data.products) ? data.products : []) {
           const article = Number.isInteger(product.index) && batch[product.index];
