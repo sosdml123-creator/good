@@ -55,6 +55,8 @@ async function loadTemplate(origin) {
 /** <head> 의 공통 메타를 상품용으로 바꾸고, 새 태그를 </head> 앞에 넣습니다. */
 function buildHead(template, { title, description, image, canonical, alternate, ld }) {
   let html = template
+    // 메인 페이지용 canonical/alternate는 상품 주소로 다시 넣으므로 제거
+    .replace(/\s*<link rel="(?:canonical|alternate)"[^>]*>/g, '')
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${escapeHtml(description)}" />`)
     .replace(/<meta property="og:type"[^>]*>/, '<meta property="og:type" content="product" />')
