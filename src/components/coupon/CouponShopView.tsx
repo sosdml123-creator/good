@@ -234,7 +234,7 @@ export const CouponShopView: React.FC = () => {
   const detail = goodsDetail && selectedGoods && goodsDetail.code === selectedGoods.code ? goodsDetail : null;
 
   return (
-    <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-screen pb-24 select-none">
+    <div className="flex-1 flex flex-col bg-[#F8F9FA] min-h-full pb-24 select-none">
       {/* 1. Header */}
       <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2">

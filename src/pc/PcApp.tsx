@@ -21,7 +21,7 @@ import { PcAppDownloadBanner } from './PcAppDownloadBanner';
 // PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
 const Views = {
   CommunityView: lazy(() => import('../components/community/CommunityView').then(m => ({ default: m.CommunityView }))),
-  MyPageView: lazy(() => import('../components/my/MyPageView').then(m => ({ default: m.MyPageView }))),
+  PcMyPage: lazy(() => import('./PcMyPage').then(m => ({ default: m.PcMyPage }))),
   WriteReviewModal: lazy(() => import('../components/review/WriteReviewModal').then(m => ({ default: m.WriteReviewModal }))),
   CompareModal: lazy(() => import('../components/compare/CompareModal').then(m => ({ default: m.CompareModal }))),
   NotificationModal: lazy(() => import('../components/notification/NotificationModal').then(m => ({ default: m.NotificationModal }))),
@@ -255,7 +255,8 @@ const PcFooter: React.FC = () => {
 /** 앱 화면을 PC 가운데 카드로 보여주는 영역 (수다방·마이·e쿠폰 등) */
 const PcAppPanel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="bg-[#F5F5F7] py-10">
-    <div className="w-full max-w-[640px] mx-auto bg-white rounded-2xl border border-gray-200 overflow-hidden min-h-[640px] flex flex-col [&>*]:shrink-0">
+    {/* overflow:clip 은 스크롤 컨테이너를 만들지 않아 안쪽 sticky 헤더가 PC 스크롤에도 붙어 있습니다 */}
+    <div data-pc-panel className="w-full max-w-[720px] mx-auto bg-white rounded-2xl border border-gray-200 [overflow:clip] min-h-[640px] flex flex-col [&>*]:shrink-0">
       {children}
     </div>
   </div>
@@ -287,6 +288,7 @@ export const PcApp: React.FC = () => {
     activeTab === 'stores' ? <PcStores /> :
     activeTab === 'donki' ? <PcDonki /> :
     activeTab === 'tteok' ? <PcTteok /> :
+    activeTab === 'my' ? <V.PcMyPage /> :
     activeTab === 'releases' ? <PcHome /> : // 출시 캘린더는 삭제됨: 예전 주소는 홈으로
     null;
 
@@ -306,7 +308,6 @@ export const PcApp: React.FC = () => {
               <PcAppPanel>
                 {activeTab === 'write' && <V.WriteReviewModal />}
                 {activeTab === 'community' && <V.CommunityView />}
-                {activeTab === 'my' && <V.MyPageView />}
                 {activeTab === 'event_detail' && <V.EventDetailModal />}
                 {activeTab === 'compare' && <V.CompareModal />}
                 {activeTab === 'alert_settings' && <V.NotificationModal />}

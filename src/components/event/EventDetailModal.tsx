@@ -13,6 +13,7 @@ import {
   Clock
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { isPcSite } from '../../pc/isPcSite';
 import { formatProductPrice } from '../../utils/formatters';
 
 export const EventDetailModal: React.FC = () => {
@@ -37,7 +38,7 @@ export const EventDetailModal: React.FC = () => {
 
   if (!selectedEvent || !selectedEvent.id) {
     return (
-      <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-full flex-1 bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center">
         <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-3xl mb-4 shadow-sm">
           🎉
         </div>
@@ -329,7 +330,8 @@ export const EventDetailModal: React.FC = () => {
       </div>
 
       {/* 8. Fixed Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 backdrop-blur-md border-t border-gray-100 p-3 z-40 shadow-lg">
+      {/* PC에서는 화면 맨 아래에 떠 있지 않고 가운데 카드 안 하단에 붙습니다 */}
+      <div className={`${isPcSite() ? 'sticky' : 'fixed left-0 right-0 max-w-[430px] mx-auto'} bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-100 p-3 z-40 shadow-lg`}>
         {selectedEvent.isParticipated ? (
           <div className="w-full py-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-black flex items-center justify-center gap-2 shadow-xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
