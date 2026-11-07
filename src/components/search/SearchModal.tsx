@@ -5,7 +5,7 @@ import { Product } from '../../types';
 import { SearchAdMobBannerSection } from './SearchAdMobBannerSection';
 import { formatProductPrice } from '../../utils/formatters';
 import { useT } from '../../i18n';
-import { buildSearchMatcher } from '../../utils/searchAlias';
+import { filterBySearch } from '../../utils/searchAlias';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -44,9 +44,9 @@ export const SearchModal: React.FC = () => {
 
   // Enhanced search matching across name, brand, category, subcategory, ingredients, and description
   // 줄임말·유사어(배라, 맘터, 맥날 등)와 띄어쓰기 차이까지 함께 찾습니다.
-  const matcher = buildSearchMatcher(query);
-  const filteredProducts = matcher
-    ? products.filter((p) => matcher([p.name, p.brand, p.category, p.subCategory, p.ingredients, p.description]))
+  // 정확히 맞는 제품이 없으면 오타를 허용해 비슷한 제품을 보여 줍니다.
+  const filteredProducts = query
+    ? filterBySearch(products, query, (p) => [p.name, p.brand, p.category, p.subCategory, p.ingredients, p.description])
     : [];
 
   // Helper to distinguish fresh / raw biological items from packaged/processed goods

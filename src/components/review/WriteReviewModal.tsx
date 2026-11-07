@@ -25,7 +25,7 @@ import { ImageViewerModal } from '../common/ImageViewerModal';
 import { formatProductPrice } from '../../utils/formatters';
 import { t } from '../../i18n';
 import { AdMobBannerSection } from '../home/AdMobBannerSection';
-import { buildSearchMatcher } from '../../utils/searchAlias';
+import { filterBySearch } from '../../utils/searchAlias';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -214,12 +214,8 @@ export const WriteReviewModal: React.FC = () => {
 
   // 검색 결과 필터링
   const filteredProducts = useMemo(() => {
-    const matcher = buildSearchMatcher(searchQuery);
-    return products.filter(p => {
-      const matchCat = selectedSearchCategory === '전체' || p.category === selectedSearchCategory;
-      if (!matcher) return matchCat;
-      return matchCat && matcher([p.name, p.brand, p.category, p.subCategory]);
-    });
+    const inCat = products.filter(p => selectedSearchCategory === '전체' || p.category === selectedSearchCategory);
+    return filterBySearch(inCat, searchQuery, p => [p.name, p.brand, p.category, p.subCategory]);
   }, [products, searchQuery, selectedSearchCategory]);
 
   // 성능 최적화된 렌더링 목록 (slice 적용)

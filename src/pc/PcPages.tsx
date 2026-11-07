@@ -6,7 +6,7 @@ import { getAggregatedBrands } from '../utils/brandData';
 import { BrandLogo } from '../components/brand/BrandLogo';
 import { PcProductCard } from './PcProductCard';
 import { PcBreadcrumb, PcContainer, PcEmpty, PcTextTabs } from './PcUi';
-import { buildSearchMatcher } from '../utils/searchAlias';
+import { filterBySearch } from '../utils/searchAlias';
 
 const RANKING_CATEGORIES = ['전체', '과자', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '과일', '기타'];
 
@@ -52,9 +52,8 @@ export const PcSearch: React.FC = () => {
 
   const query = searchQuery.trim().toLowerCase();
   const results = useMemo(() => {
-    const matcher = buildSearchMatcher(query);
-    if (!matcher) return [];
-    return products.filter(p => matcher([p.name, p.brand, p.category, p.subCategory, p.ingredients, p.description]));
+    if (!query) return [];
+    return filterBySearch(products, query, p => [p.name, p.brand, p.category, p.subCategory, p.ingredients, p.description]);
   }, [products, query]);
 
   const run = (q: string) => {

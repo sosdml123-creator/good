@@ -16,7 +16,7 @@ import { useApp } from '../../context/AppContext';
 import { ECouponDetail, ECouponItem, PurchasedECoupon } from '../../types';
 import { AdRewardStatus, couponImageSrc, couponThumbSrc, fetchAdRewardStatus, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../../services/couponApi';
 import { isNative, lastRewardedAdError, showRewardedAd } from '../../services/admobService';
-import { buildSearchMatcher } from '../../utils/searchAlias';
+import { filterBySearch } from '../../utils/searchAlias';
 
 const PAGE_SIZE = 20;
 const MAIN_CATEGORIES = ['커피/음료', '편의점', '베이커리/도넛', '치킨', '버거', '피자', '아이스크림', '외식'];
@@ -166,11 +166,13 @@ export const CouponShopView: React.FC = () => {
   }, [inCategory]);
 
   const filtered = useMemo(() => {
-    const matcher = buildSearchMatcher(query);
-    let list = inCategory.filter(g =>
-      (brand === '전체' || g.brand === brand) &&
-      (!onlyAffordable || g.price <= userPoints) &&
-      (!matcher || matcher([g.name, g.brand]))
+    let list = filterBySearch(
+      inCategory.filter(g =>
+        (brand === '전체' || g.brand === brand) &&
+        (!onlyAffordable || g.price <= userPoints)
+      ),
+      query,
+      g => [g.name, g.brand]
     );
     if (sort === 'low') list = [...list].sort((a, b) => a.price - b.price);
     if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);

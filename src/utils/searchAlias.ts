@@ -116,3 +116,142 @@ export const matchesSearch = (rawQuery: string, fields: Array<string | null | un
   const matcher = buildSearchMatcher(rawQuery);
   return matcher ? matcher(fields) : true;
 };
+
+/* ───────────────────────── 오타 허용 검색 ─────────────────────────
+ * 정확히 맞는 결과가 하나도 없을 때만 사용합니다 (엉뚱한 결과가 섞이지 않게).
+ * 한글을 자모(ㄱ,ㅏ,…)로 풀어 비교하므로 "배스킨러빈스", "맘스터지", "쵸코파이"처럼
+ * 한두 글자 틀려도 찾고, 한/영 전환을 잊고 친 "akaxj"(=맘터)도 찾습니다.
+ */
+
+const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+const JUNG = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅗㅏ', 'ㅗㅐ', 'ㅗㅣ', 'ㅛ', 'ㅜ', 'ㅜㅓ', 'ㅜㅔ', 'ㅜㅣ', 'ㅠ', 'ㅡ', 'ㅡㅣ', 'ㅣ'];
+const JONG = ['', 'ㄱ', 'ㄲ', 'ㄱㅅ', 'ㄴ', 'ㄴㅈ', 'ㄴㅎ', 'ㄷ', 'ㄹ', 'ㄹㄱ', 'ㄹㅁ', 'ㄹㅂ', 'ㄹㅅ', 'ㄹㅌ', 'ㄹㅍ', 'ㄹㅎ', 'ㅁ', 'ㅂ', 'ㅂㅅ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+// 낱자 겹모음·겹받침도 같은 방식으로 풀어 줍니다.
+const COMPAT_SPLIT: Record<string, string> = {
+  'ㅘ': 'ㅗㅏ', 'ㅙ': 'ㅗㅐ', 'ㅚ': 'ㅗㅣ', 'ㅝ': 'ㅜㅓ', 'ㅞ': 'ㅜㅔ', 'ㅟ': 'ㅜㅣ', 'ㅢ': 'ㅡㅣ',
+  'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ', 'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ',
+};
+// 헷갈리기 쉬운 모음은 같은 것으로 봅니다 (ㅔ/ㅐ, ㅖ/ㅒ).
+const SOUND_ALIKE: Record<string, string> = { 'ㅔ': 'ㅐ', 'ㅖ': 'ㅒ' };
+
+const toJamo = (text: string): string => {
+  let out = '';
+  for (const ch of normalizeSearchText(text)) {
+    const code = ch.charCodeAt(0) - 0xac00;
+    if (code >= 0 && code < 11172) {
+      out += CHO[Math.floor(code / 588)] + JUNG[Math.floor((code % 588) / 28)] + JONG[code % 28];
+    } else {
+      out += COMPAT_SPLIT[ch] ?? ch;
+    }
+  }
+  return out.replace(/[ㅔㅖ]/g, c => SOUND_ALIKE[c]);
+};
+
+// 두벌식 자판: 영문 상태로 친 글자를 한글 자모로 바꿉니다.
+const KEY_TO_JAMO: Record<string, string> = {
+  q: 'ㅂ', w: 'ㅈ', e: 'ㄷ', r: 'ㄱ', t: 'ㅅ', y: 'ㅛ', u: 'ㅕ', i: 'ㅑ', o: 'ㅐ', p: 'ㅔ',
+  a: 'ㅁ', s: 'ㄴ', d: 'ㅇ', f: 'ㄹ', g: 'ㅎ', h: 'ㅗ', j: 'ㅓ', k: 'ㅏ', l: 'ㅣ',
+  z: 'ㅋ', x: 'ㅌ', c: 'ㅊ', v: 'ㅍ', b: 'ㅠ', n: 'ㅜ', m: 'ㅡ',
+  Q: 'ㅃ', W: 'ㅉ', E: 'ㄸ', R: 'ㄲ', T: 'ㅆ', O: 'ㅒ', P: 'ㅖ',
+};
+const latinKeysToJamo = (raw: string): string | null => {
+  const s = raw.replace(/\s+/g, '');
+  if (s.length < 2 || !/^[a-zA-Z]+$/.test(s)) return null;
+  const out = s.split('').map(c => KEY_TO_JAMO[c] ?? KEY_TO_JAMO[c.toLowerCase()]).join('');
+  return out.replace(/[ㅔㅖ]/g, c => SOUND_ALIKE[c]);
+};
+
+/** 단어 길이(자모 수)에 따라 허용할 오타 수 — 짧은 말은 오타를 허용하지 않습니다. */
+const allowedTypos = (len: number) => (len >= 12 ? 2 : len >= 6 ? 1 : 0);
+
+/** text 안 어딘가에 pattern과 k개 이하로만 다른 부분이 있으면 그 차이 수를, 없으면 -1 */
+const fuzzySubstringDistance = (pattern: string, text: string, k: number): number => {
+  const m = pattern.length;
+  if (m === 0) return 0;
+  let prev = new Array(m + 1);
+  for (let i = 0; i <= m; i++) prev[i] = i;
+  let best = prev[m];
+  for (let j = 1; j <= text.length; j++) {
+    const cur = new Array(m + 1);
+    cur[0] = 0; // 어디서든 시작할 수 있음
+    const tc = text[j - 1];
+    for (let i = 1; i <= m; i++) {
+      cur[i] = Math.min(prev[i] + 1, cur[i - 1] + 1, prev[i - 1] + (pattern[i - 1] === tc ? 0 : 1));
+    }
+    if (cur[m] < best) best = cur[m];
+    if (best === 0) return 0;
+    prev = cur;
+  }
+  return best <= k ? best : -1;
+};
+
+/**
+ * 오타 허용 비교 함수. 일치하면 오타 수(작을수록 비슷함), 아니면 -1을 돌려줍니다.
+ * 긴 설명문까지 비교하면 느리고 엉뚱한 결과가 나오므로 이름·브랜드 같은 짧은 항목만 넘기세요.
+ */
+export const buildTypoMatcher = (rawQuery: string): ((fields: Array<string | null | undefined>) => number) | null => {
+  const latin = latinKeysToJamo(rawQuery);
+  // 영타 → 자모가 줄임말과 같으면 그 묶음 전체로 찾습니다 ("akaxj" = 맘터 → 맘스터치)
+  const latinPatterns: string[] = [];
+  if (latin) {
+    latinPatterns.push(latin);
+    for (const group of ALIAS_GROUPS) {
+      if (group.some(a => toJamo(a) === latin)) group.forEach(a => latinPatterns.push(toJamo(a)));
+    }
+  }
+  const words = rawQuery.split(/\s+/).map(toJamo).filter(Boolean);
+  const whole = toJamo(rawQuery);
+  if (!whole) return null;
+  const wholeK = latin ? 1 : allowedTypos(whole.length);
+  if (!latin && wholeK === 0 && words.every(w => allowedTypos(w.length) === 0)) return null;
+
+  return (fields) => {
+    const hay = fields.filter(Boolean).map(f => toJamo(String(f))).join('|');
+    for (const p of latinPatterns) {
+      const d = fuzzySubstringDistance(p, hay, allowedTypos(p.length));
+      if (d >= 0) return d;
+    }
+    if (wholeK > 0) {
+      const d = fuzzySubstringDistance(whole, hay, wholeK);
+      if (d >= 0) return d;
+    }
+    if (words.length > 1) {
+      let total = 0;
+      for (const w of words) {
+        const d = fuzzySubstringDistance(w, hay, allowedTypos(w.length));
+        if (d < 0) return -1;
+        total += d;
+      }
+      return total;
+    }
+    return -1;
+  };
+};
+
+/**
+ * 목록을 검색어로 거릅니다.
+ * 1) 줄임말·유사어·띄어쓰기를 반영한 정확 검색 → 결과가 있으면 그대로 반환
+ * 2) 하나도 없으면 오타 허용 검색(가까운 순 정렬)
+ * @param getFields 정확 검색에 쓸 항목들
+ * @param getTypoFields 오타 검색에 쓸 짧은 항목들 (생략 시 getFields의 앞 2개)
+ */
+export function filterBySearch<T>(
+  items: T[],
+  rawQuery: string,
+  getFields: (item: T) => Array<string | null | undefined>,
+  getTypoFields?: (item: T) => Array<string | null | undefined>
+): T[] {
+  const matcher = buildSearchMatcher(rawQuery);
+  if (!matcher) return items;
+  const exact = items.filter(it => matcher(getFields(it)));
+  if (exact.length > 0) return exact;
+
+  const typo = buildTypoMatcher(rawQuery);
+  if (!typo) return exact;
+  const pick = getTypoFields ?? ((it: T) => getFields(it).slice(0, 2));
+  return items
+    .map(it => ({ it, d: typo(pick(it)) }))
+    .filter(x => x.d >= 0)
+    .sort((a, b) => a.d - b.d)
+    .map(x => x.it);
+}

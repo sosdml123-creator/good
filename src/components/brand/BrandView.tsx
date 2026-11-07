@@ -20,7 +20,7 @@ import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 import { formatProductPrice } from '../../utils/formatters';
-import { buildSearchMatcher } from '../../utils/searchAlias';
+import { filterBySearch } from '../../utils/searchAlias';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
 
@@ -92,9 +92,7 @@ export const BrandView: React.FC = () => {
 
   // Filtered brands in Directory mode
   const filteredBrands = useMemo(() => {
-    const matcher = buildSearchMatcher(directorySearchQuery);
-    return allBrands.filter(brand => {
-      const matchSearch = !matcher || matcher([brand.name, brand.engName, brand.category]);
+    const inTab = allBrands.filter(brand => {
 
       const matchCategory = selectedCategoryTab === '전체' || 
         brand.category.includes(selectedCategoryTab) ||
@@ -118,8 +116,9 @@ export const BrandView: React.FC = () => {
         )) ||
         (selectedCategoryTab === '라면·간편식' && (brand.category.includes('간편식') || brand.category.includes('식재료') || brand.name === '노브랜드'));
 
-      return matchSearch && matchCategory;
+      return matchCategory;
     });
+    return filterBySearch(inTab, directorySearchQuery, b => [b.name, b.engName, b.category], b => [b.name, b.engName]);
   }, [allBrands, directorySearchQuery, selectedCategoryTab]);
 
   // Brand subcategories (e.g. 냉동/간편식, 스낵/과자, 식품, 음료/차 등)
@@ -139,10 +138,7 @@ export const BrandView: React.FC = () => {
     let list = [...currentBrand.products];
 
     // In-brand search query filter
-    const itemMatcher = buildSearchMatcher(brandItemSearchQuery);
-    if (itemMatcher) {
-      list = list.filter(p => itemMatcher([p.name, p.subCategory, p.category, p.description]));
-    }
+    list = filterBySearch(list, brandItemSearchQuery, p => [p.name, p.subCategory, p.category, p.description], p => [p.name]);
 
     if (selectedSubCategory !== '전체') {
       list = list.filter(p => p.subCategory === selectedSubCategory || p.category === selectedSubCategory);
