@@ -2,7 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import { PushNotifications, Token, ActionPerformed, PushNotificationSchema } from '@capacitor/push-notifications';
 import { supabase } from './supabase';
 import { getAdminAuthHeaders } from './adminAuth';
-import { AppNotification } from '../types';
+import { AppNotification, NotificationKind, NotificationRoute, NotificationTargetType } from '../types';
 
 export interface DeviceTokenRecord {
   token: string;
@@ -117,6 +117,116 @@ export const saveAlertCategories = (categories: string[]): void => {
   }
 };
 
+/** 알림 종류별 수신 설정 (댓글 · 좋아요 · 새로운 콘텐츠). 기본값은 모두 켜짐. 이벤트·혜택은 마케팅 동의 값을 씁니다. */
+export type PushKind = 'comment' | 'like' | 'content';
+export type PushKindSettings = Record<PushKind, boolean>;
+const PUSH_KIND_KEYS: Record<PushKind, string> = {
+  comment: 'sinsangpick_push_comment',
+  like: 'sinsangpick_push_like',
+  content: 'sinsangpick_push_content',
+};
+
+export const getPushKindSettings = (): PushKindSettings => {
+  const read = (k: PushKind) => {
+    try {
+      return localStorage.getItem(PUSH_KIND_KEYS[k]) !== 'false';
+    } catch {
+      return true;
+    }
+  };
+  return { comment: read('comment'), like: read('like'), content: read('content') };
+};
+
+export const setPushKindSetting = (kind: PushKind, enabled: boolean): void => {
+  try {
+    localStorage.setItem(PUSH_KIND_KEYS[kind], String(enabled));
+  } catch {
+    // ignore
+  }
+};
+
+const apiBase = () => (Capacitor.isNativePlatform() ? 'https://www.sinsangpick.kr' : '');
+
+/** 지금 로그인한 세션의 access token (없으면 '') */
+const getSessionAccessToken = async (): Promise<string> => {
+  if (!supabase) return '';
+  try {
+    const { data } = await supabase.auth.getSession();
+    return data?.session?.access_token || '';
+  } catch {
+    return '';
+  }
+};
+
+/** 계정 단위 알림 설정 (다른 기기로 로그인해도 같은 설정). 테이블이 없거나 로그인 전이면 null */
+export interface AccountNotificationSettings {
+  pushEnabled: boolean;
+  comment: boolean;
+  like: boolean;
+  content: boolean;
+  event: boolean;
+}
+
+export const loadAccountNotificationSettings = async (userId: string): Promise<AccountNotificationSettings | null> => {
+  if (!supabase || !userId) return null;
+  try {
+    const { data, error } = await supabase
+      .from('notification_settings')
+      .select('push_enabled,comment_enabled,like_enabled,content_enabled,event_enabled')
+      .eq('user_id', userId)
+      .maybeSingle();
+    if (error || !data) return null;
+    return {
+      pushEnabled: data.push_enabled !== false,
+      comment: data.comment_enabled !== false,
+      like: data.like_enabled !== false,
+      content: data.content_enabled !== false,
+      event: data.event_enabled === true,
+    };
+  } catch {
+    return null;
+  }
+};
+
+/** 이 기기의 현재 설정을 계정에 저장합니다 (로그인한 경우만) */
+export const saveAccountNotificationSettings = async (userId?: string): Promise<boolean> => {
+  if (!supabase || !userId) return false;
+  const kinds = getPushKindSettings();
+  try {
+    const { error } = await supabase.from('notification_settings').upsert(
+      {
+        user_id: userId,
+        push_enabled: isPushEnabledInApp(),
+        comment_enabled: kinds.comment,
+        like_enabled: kinds.like,
+        content_enabled: kinds.content,
+        event_enabled: getMarketingConsentStatus(),
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id' }
+    );
+    return !error;
+  } catch {
+    return false;
+  }
+};
+
+/** 로그인하면 계정에 저장된 설정을 이 기기에 적용합니다 (저장된 적 없으면 지금 기기 설정을 계정에 올림) */
+export const applyAccountNotificationSettings = async (userId: string): Promise<boolean> => {
+  const saved = await loadAccountNotificationSettings(userId);
+  if (!saved) {
+    await saveAccountNotificationSettings(userId);
+    return false;
+  }
+  setPushKindSetting('comment', saved.comment);
+  setPushKindSetting('like', saved.like);
+  setPushKindSetting('content', saved.content);
+  setMarketingConsentStatus(saved.event);
+  await syncDevicePushPrefs();
+  await syncDeviceConsent();
+  return true;
+};
+
 /**
  * 이 기기의 관심 카테고리를 서버에 저장합니다. 출시 자동 알림 대상을 고를 때 씁니다.
  * 토큰 행이 없으면(권한 미허용, 알림 끔) 아무것도 하지 않고, 토큰이 생길 때 등록 흐름에서 다시 보냅니다.
@@ -133,6 +243,7 @@ export const syncDevicePushPrefs = async (): Promise<boolean> => {
         action: 'prefs',
         token,
         alertCategories: readStoredAlertCategories(),
+        kinds: getPushKindSettings(),
       }),
     });
     if (!res.ok) return false;
@@ -233,36 +344,61 @@ export const saveDeviceToken = async (record: DeviceTokenRecord): Promise<boolea
     // ignore
   }
 
-  if (!supabase) return false;
-
+  // 서버가 로그인 세션(JWT)을 직접 확인해 토큰을 그 사용자에게만 연결합니다.
+  // 앱 익명 키로 upsert 하면 RLS 때문에 다른 계정에 묶여 있던 토큰의 user_id 가 바뀌지 않아
+  // 계정을 바꿔도 이전 계정의 알림이 이 기기로 올 수 있었습니다.
+  const validUserId = record.userId && UUID_REGEX.test(record.userId) ? record.userId : null;
+  let accessToken = validUserId ? await getSessionAccessToken() : '';
+  // 로그인 직후에는 세션 저장이 조금 늦을 수 있어 잠깐 기다렸다가 다시 확인합니다
+  for (let i = 0; validUserId && !accessToken && i < 3; i++) {
+    await new Promise((r) => setTimeout(r, 1500));
+    accessToken = await getSessionAccessToken();
+  }
+  if (validUserId && !accessToken) {
+    // 세션이 아직 준비되지 않았으면 계정 연결 없이 덮어쓰지 않습니다 (세션이 생기면 다시 등록)
+    console.warn('[Notification Service] Session not ready; skip device registration');
+    return false;
+  }
   try {
-    const validUserId = record.userId && UUID_REGEX.test(record.userId) ? record.userId : null;
-    const { error } = await supabase
-      .from('device_tokens')
-      .upsert(
-        {
-          token: record.token,
-          platform: record.platform,
-          user_id: validUserId,
-          user_name: record.userName || null,
-          device_info: {
-            userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-            platform: record.platform,
-            registeredAt: new Date().toISOString()
-          },
-          updated_at: new Date().toISOString()
-        },
-        { onConflict: 'token' }
-      );
-
-    if (error) {
-      console.warn('[Notification Service] Device token upsert warning:', error.message);
+    const res = await fetch(`${apiBase()}/api/send-fcm`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+      },
+      body: JSON.stringify({
+        action: 'register',
+        token: record.token,
+        platform: record.platform,
+        userName: record.userName || null,
+      }),
+    });
+    if (!res.ok) {
+      console.warn('[Notification Service] Device token register failed:', res.status);
       return false;
     }
-    console.log('[Notification Service] Device token registered in Supabase:', record.token.slice(0, 10) + '...');
     return true;
   } catch (err) {
     console.warn('[Notification Service] Failed to save device token:', err);
+    return false;
+  }
+};
+
+/**
+ * 로그아웃: 이 기기의 계정 연결만 끊습니다. 공지·신제품 알림은 계속 받고,
+ * 이전 계정의 댓글·좋아요·포인트 알림은 더 이상 이 기기로 오지 않습니다.
+ */
+export const detachDeviceAccount = async (token?: string): Promise<boolean> => {
+  const target = token || currentDeviceToken;
+  if (!target) return false;
+  try {
+    const res = await fetch(`${apiBase()}/api/send-fcm`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'detach', token: target }),
+    });
+    return res.ok;
+  } catch {
     return false;
   }
 };
@@ -356,14 +492,79 @@ const canRegisterNativePush = (): boolean =>
 /**
  * Initialize Push Notifications for Native iOS/Android and Web
  */
+/** 서버(api/_lib/fcm.js ANDROID_CHANNEL_ID)와 같아야 합니다 */
+export const ANDROID_PUSH_CHANNEL_ID = 'sinsangpick_default';
+
+const TARGET_TYPES: NotificationTargetType[] = ['post', 'review', 'product', 'points', 'notice', 'event', 'none'];
+const NOTIFICATION_KINDS: NotificationKind[] = ['comment', 'like', 'point', 'content', 'event', 'notice'];
+
+/**
+ * 푸시 data(또는 알림함 항목)로 이동할 화면을 정합니다.
+ *  - 개인 알림: targetType(post/review/points …)
+ *  - 예전 형식(관리자 발송): type(product/event/notice) + targetId
+ */
+export const resolveNotificationRoute = (data: Record<string, any>): NotificationRoute | null => {
+  const str = (v: unknown) => (v === undefined || v === null ? '' : String(v));
+  const kind = NOTIFICATION_KINDS.includes(data.kind) ? (data.kind as NotificationKind) : undefined;
+  const notifId = str(data.notifId) || undefined;
+  let targetType = TARGET_TYPES.includes(data.targetType) ? (data.targetType as NotificationTargetType) : 'none';
+  const targetId = str(data.targetId);
+  if (targetType === 'none') {
+    if (data.type === 'product' && targetId) targetType = 'product';
+    else if (data.type === 'event' && targetId) targetType = 'event';
+    else targetType = 'notice';
+  }
+  return { targetType, targetId, productId: str(data.productId) || undefined, kind, notifId };
+};
+
+const KIND_BADGE: Record<NotificationKind, string> = {
+  comment: '댓글',
+  like: '좋아요',
+  point: '포인트',
+  content: '신제품',
+  event: '이벤트',
+  notice: '공지',
+};
+
+/** 기기 푸시 data → 알림함 항목. 서버 알림 id(notifId)를 그대로 써서 실시간·알림함 기록과 한 번만 합쳐집니다. */
+export const pushPayloadToAppNotification = (
+  data: Record<string, any>,
+  meta: { id?: string; title?: string; body?: string } = {}
+): AppNotification => {
+  const nowIso = new Date().toISOString();
+  const route = resolveNotificationRoute(data);
+  const personal = data.personal === '1' || data.personal === true;
+  return {
+    id: data.notifId ? String(data.notifId) : 'notif-' + (meta.id || Date.now()),
+    title: meta.title || '신상픽 알림',
+    body: meta.body || '',
+    type: (['event', 'product', 'notice'].includes(data.type) ? data.type : 'notice') as AppNotification['type'],
+    targetId: data.targetId ? String(data.targetId) : '',
+    imageUrl: data.imageUrl || undefined,
+    timestamp: data.createdAt || data.timestamp || nowIso,
+    createdAt: data.createdAt || data.timestamp || nowIso,
+    isRead: false,
+    badge: data.badge || (route?.kind ? KIND_BADGE[route.kind] : '알림'),
+    ...(personal ? { userId: getStoredUserIdForPush() || undefined } : {}),
+    kind: route?.kind,
+    targetType: route?.targetType,
+    productId: route?.productId,
+  };
+};
+
+// 개인 알림을 받은 계정 (로그아웃 시 알림함에서 지우기 위해 기억)
+let pushUserId: string | null = null;
+const getStoredUserIdForPush = () => pushUserId;
+
 export const initPushNotifications = async (callbacks: {
   onNotificationReceived?: (notification: AppNotification) => void;
-  onNotificationActionPerformed?: (targetId: string, type: 'event' | 'product' | 'notice') => void;
+  onNotificationActionPerformed?: (route: NotificationRoute) => void;
   userId?: string;
   userName?: string;
 }) => {
   const isNative = Capacitor.isNativePlatform();
   const platform = Capacitor.getPlatform() as 'ios' | 'android' | 'web';
+  pushUserId = callbacks.userId && UUID_REGEX.test(callbacks.userId) ? callbacks.userId : null;
 
   if (isNative) {
     if (!canRegisterNativePush()) return;
@@ -397,40 +598,39 @@ export const initPushNotifications = async (callbacks: {
       });
 
       // 6. Foreground notification received listener
+      //    앱이 열려 있을 때도 OS 상단 배너는 presentationOptions(iOS·Android)로 표시되고, 여기서는 알림함에만 반영합니다.
       PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
-        console.log('[Push Notification] Received in foreground:', notification);
-        const data = notification.data || {};
-        const nowIso = new Date().toISOString();
-        const appNotif: AppNotification = {
-          // 서버가 보낸 알림 id 가 있으면 같은 알림의 실시간 전달과 합쳐져 알림함에 두 번 쌓이지 않습니다
-          id: data.notifId ? String(data.notifId) : 'notif-' + (notification.id || Date.now()),
-          title: notification.title || '신상픽 알림',
-          body: notification.body || '',
-          type: (data.type as 'event' | 'product' | 'notice') || 'notice',
-          targetId: data.targetId || '',
-          imageUrl: (notification as any).largeBody || data.imageUrl || undefined,
-          timestamp: data.createdAt || data.timestamp || nowIso,
-          createdAt: data.createdAt || data.timestamp || nowIso,
-          isRead: false,
-          badge: data.badge || '알림'
-        };
-
+        const appNotif = pushPayloadToAppNotification(notification.data || {}, {
+          id: notification.id,
+          title: notification.title,
+          body: notification.body,
+        });
         if (callbacks.onNotificationReceived) {
           callbacks.onNotificationReceived(appNotif);
         }
       });
 
-      // 7. Notification tap/action performed listener
+      // 7. 알림 탭: 앱이 꺼져 있던 경우에도 플러그인이 이 이벤트를 보관했다가 리스너가 붙는 즉시 전달합니다.
       PushNotifications.addListener('pushNotificationActionPerformed', (action: ActionPerformed) => {
-        console.log('[Push Notification] Action performed:', action);
-        const data = action.notification.data || {};
-        const targetId = data.targetId;
-        const type = (data.type as 'event' | 'product' | 'notice') || 'notice';
-
-        if (targetId && callbacks.onNotificationActionPerformed) {
-          callbacks.onNotificationActionPerformed(targetId, type);
+        const route = resolveNotificationRoute(action.notification.data || {});
+        if (route && callbacks.onNotificationActionPerformed) {
+          callbacks.onNotificationActionPerformed(route);
         }
       });
+
+      // 8. Android 8+ 알림 채널: 중요도 '높음'이어야 상단 배너(헤즈업)·잠금화면·소리·진동이 동작합니다.
+      if (platform === 'android') {
+        await PushNotifications.createChannel({
+          id: ANDROID_PUSH_CHANNEL_ID,
+          name: '신상픽 알림',
+          description: '댓글 · 좋아요 · 포인트 · 신제품 · 공지 알림',
+          importance: 5,
+          visibility: 1,
+          sound: 'default',
+          vibration: true,
+          lights: true,
+        }).catch((e) => console.warn('[Push Notification] createChannel failed:', e));
+      }
 
       // 3. 이미 허용된 기기만 바로 토큰 등록. 아직 묻지 않은 기기는 동의 안내 화면 뒤에 OS 권한창을 띄웁니다.
       //    알림을 끈 기기는 등록하지 않고, 예전에 저장된 토큰이 있으면 서버에서 지웁니다.
@@ -641,6 +841,94 @@ export const fetchNotificationsFromSupabase = async (): Promise<AppNotification[
   } catch (err) {
     console.warn('[Notification Service] Error fetching notifications:', err);
     return [];
+  }
+};
+
+// ================= 개인 알림함 (댓글 · 좋아요 · 포인트) =================
+
+const userNotificationRowToApp = (row: any): AppNotification => {
+  const data = row.data && typeof row.data === 'object' ? row.data : {};
+  const kind = NOTIFICATION_KINDS.includes(row.kind) ? (row.kind as NotificationKind) : 'notice';
+  const targetType = TARGET_TYPES.includes(row.target_type) ? (row.target_type as NotificationTargetType) : 'none';
+  const created = row.created_at || new Date().toISOString();
+  return {
+    id: row.id,
+    title: row.title,
+    body: row.body,
+    type: targetType === 'product' ? 'product' : targetType === 'event' ? 'event' : 'notice',
+    targetId: row.target_id || '',
+    timestamp: created,
+    createdAt: created,
+    isRead: row.is_read === true,
+    badge: KIND_BADGE[kind],
+    userId: row.user_id,
+    kind,
+    targetType,
+    productId: data.productId ? String(data.productId) : undefined,
+  };
+};
+
+/** 내 개인 알림 최근 100개 (테이블이 아직 없거나 로그인 전이면 빈 배열) */
+export const fetchUserNotifications = async (userId: string): Promise<AppNotification[]> => {
+  if (!supabase || !userId || !UUID_REGEX.test(userId)) return [];
+  try {
+    const { data, error } = await supabase
+      .from('user_notifications')
+      .select('id,user_id,kind,title,body,target_type,target_id,data,is_read,created_at')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(100);
+    if (error) return [];
+    return (data || []).map(userNotificationRowToApp);
+  } catch {
+    return [];
+  }
+};
+
+/** 내 개인 알림 실시간 구독 (RLS 로 본인 행만 전달됩니다) */
+export const subscribeToUserNotifications = (userId: string, onNotification: (notif: AppNotification) => void) => {
+  if (!supabase || !userId || !UUID_REGEX.test(userId)) return null;
+  try {
+    return supabase
+      .channel(`user_notifications:${userId}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'user_notifications', filter: `user_id=eq.${userId}` },
+        (payload) => {
+          if (payload.new && (payload.new as any).user_id === userId) {
+            onNotification(userNotificationRowToApp(payload.new));
+          }
+        }
+      )
+      .subscribe();
+  } catch {
+    return null;
+  }
+};
+
+export const isPersonalNotificationId = (id: string) => String(id || '').startsWith('un-');
+
+/** 개인 알림 읽음 처리 (여러 기기에서 같은 읽음 상태가 보이도록 서버에도 저장) */
+export const markUserNotificationsRead = async (ids: string[]): Promise<void> => {
+  const targets = ids.filter(isPersonalNotificationId);
+  if (!supabase || targets.length === 0) return;
+  try {
+    await supabase
+      .from('user_notifications')
+      .update({ is_read: true, read_at: new Date().toISOString() })
+      .in('id', targets);
+  } catch {
+    // ignore
+  }
+};
+
+export const deleteUserNotifications = async (ids: string[]): Promise<void> => {
+  const targets = ids.filter(isPersonalNotificationId);
+  if (!supabase || targets.length === 0) return;
+  try {
+    await supabase.from('user_notifications').delete().in('id', targets);
+  } catch {
+    // ignore
   }
 };
 

@@ -12,17 +12,29 @@ import {
   Moon,
   ExternalLink,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  MessageCircle,
+  Heart,
+  Gift,
+  Megaphone,
+  X
 } from 'lucide-react';
 import { AppNotification } from '../../types';
 import {
   checkPushPermissionStatus,
   openDeviceSettings,
   setMarketingConsentStatus,
+  getMarketingConsentStatus,
   formatRelativeTime,
   unregisterDevicePush,
   syncDeviceConsent,
-  isNotificationVisible
+  syncDevicePushPrefs,
+  isNotificationVisible,
+  getPushKindSettings,
+  setPushKindSetting,
+  saveAccountNotificationSettings,
+  resolveNotificationRoute,
+  PushKind
 } from '../../services/notificationService';
 import { Capacitor } from '@capacitor/core';
 
@@ -33,16 +45,48 @@ export const NotificationModal: React.FC = () => {
     notifications,
     markNotificationAsRead,
     clearAllNotifications,
-    openEventDetail,
-    openProductDetail,
     goBack,
     alertCenterSubTab,
     setAlertCenterSubTab,
     requestPushPermission,
-    showToast
+    showToast,
+    currentUser,
+    openNotificationRoute,
+    pendingNotificationRoute,
+    clearPendingNotificationRoute
   } = useApp();
 
   const [activeSubTab, setActiveSubTab] = useState<'inbox' | 'settings'>(alertCenterSubTab || 'inbox');
+  const [kindSettings, setKindSettings] = useState(getPushKindSettings);
+  const [marketingEnabled, setMarketingEnabled] = useState<boolean>(getMarketingConsentStatus);
+  const [detailNotif, setDetailNotif] = useState<AppNotification | null>(null);
+  const accountUserId = currentUser && !currentUser.isAnonymous ? currentUser.uid : undefined;
+
+  // 공지 알림을 눌러 들어오면 해당 공지 상세를 엽니다
+  useEffect(() => {
+    if (pendingNotificationRoute?.targetType !== 'notice') return;
+    const found = notifications.find(n => n.id === pendingNotificationRoute.notifId);
+    if (found) setDetailNotif(found);
+    setActiveSubTab('inbox');
+    clearPendingNotificationRoute();
+  }, [pendingNotificationRoute, notifications]);
+
+  const handleToggleKind = async (kind: PushKind) => {
+    const next = !kindSettings[kind];
+    setKindSettings(prev => ({ ...prev, [kind]: next }));
+    setPushKindSetting(kind, next);
+    const label = kind === 'comment' ? '댓글' : kind === 'like' ? '좋아요' : '새로운 콘텐츠';
+    showToast(`${label} 알림을 ${next ? '켰' : '껐'}습니다.`, 'info');
+    await Promise.all([syncDevicePushPrefs(), saveAccountNotificationSettings(accountUserId)]);
+  };
+
+  const handleToggleMarketing = async () => {
+    const next = !marketingEnabled;
+    setMarketingEnabled(next);
+    setMarketingConsentStatus(next);
+    showToast(next ? '🎁 이벤트·혜택 알림 수신에 동의했습니다.' : '이벤트·혜택 알림 수신을 철회했습니다.', next ? 'success' : 'info');
+    await Promise.all([syncDeviceConsent(), saveAccountNotificationSettings(accountUserId)]);
+  };
 
   // Push notification toggles & status
   const [pushEnabled, setPushEnabled] = useState<boolean>(() => {
@@ -76,22 +120,24 @@ export const NotificationModal: React.FC = () => {
     const next = !pushEnabled;
     setPushEnabled(next);
     localStorage.setItem('sinsangpick_push_enabled', String(next));
-    setMarketingConsentStatus(next);
 
     if (next) {
+      // 권한을 받으면 토큰이 발급되고, 등록 흐름에서 종류별 설정·동의 값이 함께 서버에 올라갑니다
       const ok = await requestPushPermission();
       await syncDeviceConsent();
       if (ok) {
         setDevicePermission('granted');
-        showToast('🔔 푸시 알림 허용이 켜졌습니다. 신제품과 할인 정보를 받아보세요!', 'success');
+        showToast('🔔 푸시 알림이 켜졌습니다.', 'success');
       } else {
         checkPushPermissionStatus().then(status => setDevicePermission(status)).catch(() => {});
         showToast('스마트폰 기기 설정에서 알림 허용이 필요합니다.', 'info');
       }
     } else {
+      // 이 기기를 서버 발송 대상에서 뺍니다 (알림함에는 계속 쌓입니다)
       await unregisterDevicePush();
       showToast('푸시 알림 수신이 비활성화되었습니다.', 'info');
     }
+    saveAccountNotificationSettings(accountUserId);
   };
 
   const handleToggleNightPush = () => {
@@ -132,12 +178,40 @@ export const NotificationModal: React.FC = () => {
 
   const handleNotificationClick = (n: AppNotification) => {
     markNotificationAsRead(n.id);
-    if (n.type === 'event' && n.targetId) {
-      openEventDetail(n.targetId);
-    } else if (n.type === 'product' && n.targetId) {
-      openProductDetail(n.targetId);
+    const route = resolveNotificationRoute({
+      kind: n.kind,
+      targetType: n.targetType,
+      targetId: n.targetId,
+      productId: n.productId,
+      type: n.type,
+    });
+    // 이동할 화면이 없는 공지는 알림함 안에서 상세를 보여 줍니다
+    if (!route || route.targetType === 'notice' || route.targetType === 'none') {
+      setDetailNotif(n);
+      return;
     }
+    openNotificationRoute({ ...route, notifId: n.id });
   };
+
+  const renderSwitch = (on: boolean, onClick: () => void, label: string, disabled = false) => (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors shrink-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+        on ? 'bg-gray-900' : 'bg-gray-200'
+      }`}
+      aria-label={label}
+      aria-pressed={on}
+    >
+      <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${on ? 'translate-x-5' : 'translate-x-0'}`} />
+    </button>
+  );
+
+  const kindRows: { kind: PushKind; title: string; desc: string; icon: React.ReactNode }[] = [
+    { kind: 'comment', title: '댓글 알림', desc: '내 글·리뷰에 새 댓글이 달리면 알려드려요', icon: <MessageCircle className="w-4 h-4" /> },
+    { kind: 'like', title: '좋아요 알림', desc: '내 글·리뷰를 누군가 좋아하면 알려드려요', icon: <Heart className="w-4 h-4" /> },
+    { kind: 'content', title: '새로운 콘텐츠 알림', desc: '관심 카테고리 신제품 출시 소식', icon: <Sparkles className="w-4 h-4" /> },
+  ];
 
   // 광고·혜택 알림은 마케팅 동의 기기의 알림함에서만 보입니다
   const visibleNotifications = notifications.filter(isNotificationVisible);
@@ -246,7 +320,11 @@ export const NotificationModal: React.FC = () => {
                     />
                   ) : (
                     <div className="w-12 h-12 rounded-xl bg-gray-100 text-gray-900 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-5 h-5" />
+                      {n.kind === 'comment' ? <MessageCircle className="w-5 h-5" />
+                        : n.kind === 'like' ? <Heart className="w-5 h-5 text-rose-500" />
+                        : n.kind === 'point' ? <Gift className="w-5 h-5 text-amber-600" />
+                        : n.type === 'notice' && !n.targetId ? <Megaphone className="w-5 h-5" />
+                        : <Sparkles className="w-5 h-5" />}
                     </div>
                   )}
 
@@ -295,13 +373,10 @@ export const NotificationModal: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-black text-gray-900 flex items-center gap-1.5">
-                    <span>신상픽 앱 푸시 알림 허용</span>
-                    <span className="text-[9px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full">
-                      신제품·할인
-                    </span>
+                    <span>전체 푸시 알림</span>
                   </div>
                   <p className="text-[11px] text-gray-500 mt-0.5 leading-relaxed">
-                    실시간 신제품 출시 소식과 1+1 · 2+1 특가 할인, 프로모션 혜택을 푸시로 알려드립니다.
+                    앱을 열지 않아도 휴대폰 상단·잠금화면·알림센터로 알려드립니다. 끄면 이 기기로 푸시가 오지 않고 알림함에만 쌓입니다.
                   </p>
                 </div>
               </div>
@@ -328,6 +403,36 @@ export const NotificationModal: React.FC = () => {
               <span className="font-medium">
                 알림을 켜두시면 전국 편의점·마트 신상 소식과 특가 할인 행사를 가장 먼저 확인하실 수 있습니다.
               </span>
+            </div>
+          </div>
+
+          {/* Section 1-2: 알림 종류별 설정 (서버에 저장되어 실제 발송에 적용) */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs divide-y divide-gray-100">
+            {kindRows.map(row => (
+              <div key={row.kind} className="p-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-gray-50 text-gray-700 flex items-center justify-center shrink-0 border border-gray-100">
+                    {row.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-gray-900">{row.title}</div>
+                    <div className="text-[11px] text-gray-400">{row.desc}</div>
+                  </div>
+                </div>
+                {renderSwitch(pushEnabled && kindSettings[row.kind], () => handleToggleKind(row.kind), `${row.title} 토글`, !pushEnabled)}
+              </div>
+            ))}
+            <div className="p-4 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 border border-rose-100">
+                  <Gift className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-bold text-gray-900">이벤트 및 혜택 알림</div>
+                  <div className="text-[11px] text-gray-400">특가·할인·이벤트 등 광고성 정보 수신 동의</div>
+                </div>
+              </div>
+              {renderSwitch(pushEnabled && marketingEnabled, handleToggleMarketing, '이벤트 및 혜택 알림 토글', !pushEnabled)}
             </div>
           </div>
 
@@ -433,6 +538,35 @@ export const NotificationModal: React.FC = () => {
                 );
               })}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 공지 상세 (푸시를 눌러 들어오거나 알림함에서 공지를 누르면 표시) */}
+      {detailNotif && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-end justify-center" onClick={() => setDetailNotif(null)}>
+          <div
+            className="w-full max-w-md bg-white rounded-t-3xl p-5 pb-8 max-h-[80vh] overflow-y-auto"
+            onClick={e => e.stopPropagation()}
+            role="dialog"
+            aria-label="알림 상세"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
+                {detailNotif.badge || '공지'}
+              </span>
+              <button onClick={() => setDetailNotif(null)} className="p-1 text-gray-400 hover:text-gray-700" aria-label="닫기">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <h3 className="text-base font-black text-gray-900 leading-snug">{detailNotif.title}</h3>
+            <p className="text-[11px] text-gray-400 mt-1">
+              {formatRelativeTime(detailNotif.createdAt || detailNotif.timestamp, detailNotif.id)}
+            </p>
+            {detailNotif.imageUrl && (
+              <img src={detailNotif.imageUrl} alt="" className="w-full rounded-2xl mt-3 border border-gray-100 object-cover" />
+            )}
+            <p className="text-sm text-gray-700 mt-3 leading-relaxed whitespace-pre-wrap break-words">{detailNotif.body}</p>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Search, Bell, Plus, Heart, MessageSquare, X, Send, Sparkles, Flag, Loader2, RefreshCw } from 'lucide-react';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
@@ -21,7 +21,9 @@ export const CommunityView: React.FC = () => {
     addPostComment, 
     showToast,
     retrySync,
-    isDataLoading
+    isDataLoading,
+    pendingNotificationRoute,
+    clearPendingNotificationRoute
   } = useApp();
 
   const [activeSubTab, setActiveSubTab] = useState<'인기' | '꿀조합' | '자유게시판' | '질문/답변' | '돈키호테' | '이벤트'>('인기');
@@ -36,6 +38,25 @@ export const CommunityView: React.FC = () => {
   const [commentText, setCommentText] = useState('');
   const [reportTarget, setReportTarget] = useState<ReportTarget | null>(null);
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const commentsRef = useRef<HTMLDivElement | null>(null);
+
+  // 알림(댓글·좋아요)을 눌러 들어오면 해당 게시글을 열고, 댓글 알림이면 댓글 영역으로 스크롤합니다.
+  // 앱이 막 켜진 경우 글 목록을 다 불러올 때까지 기다립니다.
+  useEffect(() => {
+    const route = pendingNotificationRoute;
+    if (!route || route.targetType !== 'post') return;
+    const post = communityPosts.find(p => p.id === route.targetId);
+    if (post) {
+      setSelectedPost(post);
+      clearPendingNotificationRoute();
+      if (route.kind === 'comment') {
+        setTimeout(() => commentsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+      }
+    } else if (!isDataLoading && communityPosts.length > 0) {
+      clearPendingNotificationRoute();
+      showToast('삭제되었거나 볼 수 없는 게시글입니다.', 'info');
+    }
+  }, [pendingNotificationRoute, communityPosts, isDataLoading]);
 
   // Filter blocked users and hidden posts (App Store UGC Requirement)
   const blockedUsers: string[] = safeLocalStorageGet<string[]>('sinsangpick_blocked_users', []);
@@ -505,7 +526,7 @@ export const CommunityView: React.FC = () => {
               </div>
 
               {/* Comments Section */}
-              <div className="pt-3">
+              <div className="pt-3" ref={commentsRef}>
                 <div className="text-xs font-bold text-gray-800 mb-2">
                   댓글 ({selectedPost.commentsCount || selectedPost.comments?.length || 0})
                 </div>

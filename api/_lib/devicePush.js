@@ -19,8 +19,9 @@ export const DEFAULT_ALERT_CATEGORIES = ['과자', '음료', '빵·디저트', '
 
 const PUSH_PLATFORMS = ['ios', 'android'];
 const PAGE_SIZE = 1000;
-const PREFS_SELECT = 'token,platform,alert_categories,marketing_agreed,night_agreed';
-const BASE_SELECT = 'token,platform';
+const FULL_SELECT = 'token,platform,user_id,alert_categories,marketing_agreed,night_agreed,push_comment,push_like,push_content';
+const PREFS_SELECT = 'token,platform,user_id,alert_categories,marketing_agreed,night_agreed';
+const BASE_SELECT = 'token,platform,user_id';
 const PUSH_TOKEN_REGEX = /^[A-Za-z0-9_:-]{20,512}$/;
 
 export const isPushToken = (token) => typeof token === 'string' && PUSH_TOKEN_REGEX.test(token);
@@ -48,8 +49,9 @@ export function sanitizeAlertCategories(input) {
  * @param {{ url: string, key: string, platforms?: string[] | null, tokens?: string[] | null }} opts
  * @returns {Promise<{ devices: Array<{ token: string, platform: string, alertCategories: string[] | null }>, prefsSupported: boolean }>}
  */
-export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens = null }) {
+export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens = null, userId = null }) {
   const filters = [];
+  if (userId) filters.push(`user_id=eq.${encodeURIComponent(userId)}`);
   if (platforms) filters.push(`platform=in.(${platforms.join(',')})`);
   if (tokens) filters.push(`token=in.(${tokens.map((t) => `"${t}"`).join(',')})`);
   const filterQuery = filters.map((f) => `&${f}`).join('');
@@ -69,7 +71,9 @@ export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens
   };
 
   let prefsSupported = true;
-  let result = await fetchAll(PREFS_SELECT);
+  // 알림 종류 컬럼(push_*)은 20261107 마이그레이션 이후에만 있습니다. 없으면 모두 켜진 것으로 봅니다.
+  let result = await fetchAll(FULL_SELECT);
+  if (!result.ok) result = await fetchAll(PREFS_SELECT);
   if (!result.ok) {
     prefsSupported = false;
     result = await fetchAll(BASE_SELECT);
@@ -83,6 +87,10 @@ export async function loadDevices({ url, key, platforms = PUSH_PLATFORMS, tokens
     // 동의 컬럼이 없으면 false 로 둡니다 (광고성 알림은 보내지 않는 쪽)
     marketingAgreed: row.marketing_agreed === true,
     nightAgreed: row.night_agreed === true,
+    userId: row.user_id || null,
+    pushComment: row.push_comment !== false,
+    pushLike: row.push_like !== false,
+    pushContent: row.push_content !== false,
   }));
   return { devices, prefsSupported };
 }
@@ -108,10 +116,16 @@ export function isNightKst(date = new Date()) {
  * 동의 값을 알 수 없는 기기(동의 컬럼 미적용 포함)는 동의하지 않은 것으로 보고 빼냅니다.
  * @returns {{ devices: object[], audience: { messageKind: string, nightWindow: boolean, eligible: number, skippedNoMarketing: number, skippedNoNight: number } }}
  */
-export function selectMessageDevices(devices, messageKind, now = new Date()) {
+export function selectMessageDevices(devices, messageKind, now = new Date(), { contentType = '' } = {}) {
   const kind = messageKind === 'service' ? 'service' : 'marketing';
   const nightWindow = isNightKst(now);
-  const audience = { messageKind: kind, nightWindow, eligible: 0, skippedNoMarketing: 0, skippedNoNight: 0 };
+  const audience = { messageKind: kind, nightWindow, eligible: 0, skippedNoMarketing: 0, skippedNoNight: 0, skippedNoContent: 0 };
+  // 새 콘텐츠(신제품) 알림은 '새로운 콘텐츠 알림'을 끈 기기에 보내지 않습니다
+  if (contentType === 'product') {
+    const before = devices.length;
+    devices = devices.filter((d) => d.pushContent !== false);
+    audience.skippedNoContent = before - devices.length;
+  }
   if (kind === 'service') {
     audience.eligible = devices.length;
     return { devices: [...devices], audience };
@@ -217,6 +231,7 @@ export async function dispatchDevicePush({ url, key, devices, message }) {
   }
 
   const staleTokens = [...new Set(invalidTokens)].filter(isPushToken);
+  summary.invalidCount = staleTokens.length;
   if (staleTokens.length > 0 && url && key) {
     const inQuery = staleTokens.map((t) => `"${t}"`).join(',');
     await fetch(`${url}/rest/v1/device_tokens?token=in.(${inQuery})`, {
@@ -244,7 +259,7 @@ export async function sendReleasePushes(products) {
   }
 
   // 광고성 출시 알림이므로 마케팅 동의 기기(밤에는 야간 혜택 동의 기기)에만 보냅니다
-  const { devices: consented, audience } = selectMessageDevices(devices, 'marketing');
+  const { devices: consented, audience } = selectMessageDevices(devices, 'marketing', new Date(), { contentType: 'product' });
 
   // 같은 상품 묶음을 받는 기기끼리 모아서 한 번에 보냅니다 (기기마다 문구가 달라질 수 있음)
   const groups = new Map();
@@ -262,7 +277,7 @@ export async function sendReleasePushes(products) {
   const summary = {
     ...emptySummary(),
     groupCount: groups.size,
-    consentSkipped: audience.skippedNoMarketing + audience.skippedNoNight,
+    consentSkipped: audience.skippedNoMarketing + audience.skippedNoNight + audience.skippedNoContent,
   };
   for (const { matched, devices: targets } of groups.values()) {
     const part = await dispatchDevicePush({
@@ -289,4 +304,115 @@ export async function checkPushProviders() {
     : { configured: false, ok: false, reason: 'FCM_SERVICE_ACCOUNT 가 설정되지 않았습니다' };
 
   return { apns, fcm };
+}
+
+// ================= 개인 알림 발송 큐 (댓글 · 좋아요 · 포인트) =================
+
+/** 알림 종류별로 이 기기가 받는지. 포인트·공지는 푸시를 켠 기기면 항상 받습니다. */
+export function deviceAcceptsKind(device, kind) {
+  if (kind === 'comment') return device.pushComment !== false;
+  if (kind === 'like') return device.pushLike !== false;
+  if (kind === 'content') return device.pushContent !== false;
+  if (kind === 'event') return device.marketingAgreed === true && (!isNightKst() || device.nightAgreed === true);
+  return true;
+}
+
+/** 실패 후 다시 보낼 때까지 기다리는 시간 (1분 · 5분 · 30분 · 2시간). 다섯 번째 실패면 포기합니다. */
+export const PUSH_RETRY_DELAYS_MS = [60_000, 5 * 60_000, 30 * 60_000, 2 * 60 * 60_000];
+export const PUSH_MAX_ATTEMPTS = PUSH_RETRY_DELAYS_MS.length + 1;
+
+/**
+ * 발송 결과로 큐 항목의 다음 상태를 정합니다.
+ *  - 한 기기라도 받았으면 sent
+ *  - 보낼 기기가 없으면 skipped (로그아웃·알림 끔·종류 끔)
+ *  - 모두 무효 토큰이면 failed (다시 보내도 소용없음)
+ *  - 그 밖의 실패(네트워크·APNs/FCM 일시 오류·키 미설정)는 재시도, 횟수를 넘기면 failed
+ */
+export function nextOutboxState({ attempts, targetCount, sentCount, failedCount, invalidCount = 0, errors = {} }, now = Date.now()) {
+  const errorText = Object.entries(errors).map(([k, v]) => `${k}:${v}`).join(', ').slice(0, 500) || null;
+  if (targetCount === 0) return { status: 'skipped', last_error: 'no_eligible_device', next_attempt_at: null };
+  if (sentCount > 0) return { status: 'sent', last_error: failedCount > 0 ? errorText : null, next_attempt_at: null };
+  if (invalidCount >= failedCount) return { status: 'failed', last_error: errorText || 'invalid_tokens', next_attempt_at: null };
+  if (attempts >= PUSH_MAX_ATTEMPTS) return { status: 'failed', last_error: errorText, next_attempt_at: null };
+  const delay = PUSH_RETRY_DELAYS_MS[Math.max(0, attempts - 1)] ?? PUSH_RETRY_DELAYS_MS.at(-1);
+  return { status: 'pending', last_error: errorText, next_attempt_at: new Date(now + delay).toISOString() };
+}
+
+/** 푸시 data (앱이 알림을 눌렀을 때 화면 이동에 씁니다. 값은 모두 문자열) */
+export function buildPersonalPushData(item) {
+  const extra = item.data && typeof item.data === 'object' ? item.data : {};
+  return {
+    notifId: item.notification_id,
+    kind: item.kind,
+    type: 'notice',
+    targetType: item.target_type || 'none',
+    targetId: item.target_id || '',
+    productId: extra.productId ? String(extra.productId) : '',
+    commentId: extra.commentId ? String(extra.commentId) : '',
+    createdAt: item.created_at || '',
+    personal: '1',
+  };
+}
+
+/**
+ * 큐(push_outbox)에서 보낼 항목을 가져와 받는 사람의 기기로 보냅니다.
+ * 받는 사람의 user_id 로 등록된 기기에만 보내므로, 로그아웃했거나 다른 계정으로 바뀐 기기에는 가지 않습니다.
+ * @returns {Promise<{ claimed: number, sent: number, skipped: number, retry: number, failed: number }>}
+ */
+export async function processPushOutbox({ limit = 50 } = {}) {
+  const { url, key } = getSupabaseEnv();
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const stats = { claimed: 0, sent: 0, skipped: 0, retry: 0, failed: 0 };
+  if (!url || !serviceKey) return { ...stats, error: 'supabase_service_key_missing' };
+
+  const claimRes = await fetch(`${url}/rest/v1/rpc/claim_push_outbox`, {
+    method: 'POST',
+    headers: { ...restHeaders(serviceKey), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_limit: limit }),
+  });
+  if (!claimRes.ok) return { ...stats, error: `claim_failed_${claimRes.status}` };
+  const items = await claimRes.json().catch(() => []);
+  stats.claimed = Array.isArray(items) ? items.length : 0;
+  if (!stats.claimed) return stats;
+
+  // 같은 사람에게 가는 알림은 기기 목록을 한 번만 읽습니다
+  const devicesByUser = new Map();
+  for (const item of items) {
+    let summary;
+    try {
+      if (!devicesByUser.has(item.user_id)) {
+        const { devices } = await loadDevices({ url, key: serviceKey, userId: item.user_id });
+        devicesByUser.set(item.user_id, devices);
+      }
+      const targets = devicesByUser.get(item.user_id).filter((d) => d.userId === item.user_id && deviceAcceptsKind(d, item.kind));
+      summary = await dispatchDevicePush({
+        url,
+        key: serviceKey,
+        devices: targets,
+        message: { title: item.title, body: item.body, data: buildPersonalPushData(item) },
+      });
+    } catch (err) {
+      summary = { targetCount: 1, sentCount: 0, failedCount: 1, invalidCount: 0, errors: { [err.message || 'dispatch_error']: 1 } };
+    }
+
+    const next = nextOutboxState({ attempts: item.attempts, ...summary });
+    stats[next.status === 'pending' ? 'retry' : next.status] += 1;
+    const patch = {
+      status: next.status,
+      last_error: next.last_error,
+      locked_at: null,
+      result: { targetCount: summary.targetCount, sentCount: summary.sentCount, failedCount: summary.failedCount, errors: summary.errors },
+      ...(next.next_attempt_at ? { next_attempt_at: next.next_attempt_at } : {}),
+      ...(next.status === 'sent' ? { sent_at: new Date().toISOString() } : {}),
+    };
+    await fetch(`${url}/rest/v1/push_outbox?id=eq.${encodeURIComponent(item.outbox_id)}`, {
+      method: 'PATCH',
+      headers: { ...restHeaders(serviceKey), 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(patch),
+    }).catch((err) => console.warn('[Push outbox] status update failed:', err.message));
+    if (next.status !== 'sent' && next.status !== 'skipped') {
+      console.warn('[Push outbox]', item.notification_id, next.status, next.last_error);
+    }
+  }
+  return stats;
 }

@@ -54,6 +54,9 @@ vi.mock('../services/supabase', () => {
         on: vi.fn().mockReturnThis(),
         subscribe: vi.fn().mockReturnValue({ unsubscribe: vi.fn() }),
       })),
+      auth: {
+        getSession: vi.fn().mockResolvedValue({ data: { session: { access_token: 'test-user-jwt' } } }),
+      },
     },
     isSupabaseConfigured: true,
   };
@@ -89,6 +92,11 @@ describe('Push Notifications & Device Token Suite (푸시 알림 및 디바이�
       expect(getStoredDeviceToken()).toBe(token);
       expect(localStorage.getItem('sinsangpick_device_token')).toBe(token);
       expect(localStorage.getItem('sinsangpick_device_platform')).toBe('web');
+      // 토큰-계정 연결은 서버가 로그인 세션(JWT)을 확인해서 합니다 (앱 익명 키 upsert 금지)
+      const [url, init] = (global.fetch as any).mock.calls[0];
+      expect(url).toBe('/api/send-fcm');
+      expect(init.headers.Authorization).toBe('Bearer test-user-jwt');
+      expect(JSON.parse(init.body)).toMatchObject({ action: 'register', token, platform: 'web' });
     });
 
     it('[정상] 비-UUID userId 전달 시 에러 없이 안전하게 null 처리되어 저장 성공', async () => {

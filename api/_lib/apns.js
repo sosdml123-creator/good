@@ -52,9 +52,10 @@ export async function sendApnsNotifications(config, tokens, { title, body, data 
 
   const providerToken = createProviderToken(config);
   const payload = JSON.stringify({
-    aps: { alert: { title, body }, sound: 'default' },
+    aps: { alert: { title, body }, sound: 'default', 'thread-id': String(data.kind || data.type || 'sinsangpick') },
     ...data,
   });
+  const collapseId = data.notifId && Buffer.byteLength(String(data.notifId)) <= 64 ? String(data.notifId) : '';
 
   const client = http2.connect(APNS_HOST);
   client.on('error', (err) => console.error('[APNs] connection error:', err.message));
@@ -79,6 +80,8 @@ export async function sendApnsNotifications(config, tokens, { title, body, data 
           'apns-push-type': 'alert',
           'apns-priority': '10',
           'content-type': 'application/json',
+          // 같은 알림이 다시 도착하면 알림센터에 하나만 남깁니다 (재시도·중복 발송 대비)
+          ...(collapseId ? { 'apns-collapse-id': collapseId } : {}),
         });
         req.setEncoding('utf8');
         req.on('response', (headers) => {

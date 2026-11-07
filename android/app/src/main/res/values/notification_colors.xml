@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 푸시 알림 아이콘 강조색 -->
+    <color name="notification_accent">#FF5A1F</color>
+</resources>

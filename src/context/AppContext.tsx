@@ -16,6 +16,7 @@ import {
   PendingProduct,
   PromotionEvent,
   AppNotification,
+  NotificationRoute,
   PointTransaction,
   ReleaseCalendarItem,
   SalePromotionItem,
@@ -99,12 +100,20 @@ import {
   fetchNotificationsFromSupabase,
   sendAdminPushNotification,
   deleteDeviceToken,
+  detachDeviceAccount,
+  fetchUserNotifications,
+  subscribeToUserNotifications,
+  markUserNotificationsRead,
+  deleteUserNotifications,
+  isPersonalNotificationId,
+  applyAccountNotificationSettings,
   getSavedAlertCategories,
   saveAlertCategories,
   syncDevicePushPrefs,
   describePushResult,
   SendPushResult,
   isMarketingNotification,
+  isPushEnabledInApp,
   isNotificationVisible,
   canShowMarketingBannerNow
 } from '../services/notificationService';
@@ -225,6 +234,11 @@ interface AppContextType {
   openNotificationCenter: (tab?: 'inbox' | 'settings') => void;
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
+  /** 알림(푸시 탭 · 알림함)이 가리키는 화면으로 이동합니다 */
+  openNotificationRoute: (route: NotificationRoute) => void;
+  /** 이동 후 해당 화면이 처리할 요청 (게시글 열기 · 포인트 내역 · 공지 상세) */
+  pendingNotificationRoute: NotificationRoute | null;
+  clearPendingNotificationRoute: () => void;
 
   // Admin Banner Actions
   addBanner: (banner: Omit<BannerItem, 'id' | 'order'>, targetOrder?: number) => void;
@@ -1775,7 +1789,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const stored = localStorage.getItem('sinsangpick_notifications');
       if (stored !== null) {
-        return JSON.parse(stored);
+        // 개인 알림은 지금 로그인한 계정 것만 남깁니다 (계정 전환 시 다른 사람 알림 노출 방지)
+        const uid = localStorage.getItem('sinsangpick_uid') || '';
+        const parsed: AppNotification[] = JSON.parse(stored);
+        return Array.isArray(parsed) ? parsed.filter(n => !n.userId || n.userId === uid) : INITIAL_NOTIFICATIONS;
       }
       return INITIAL_NOTIFICATIONS;
     } catch {
@@ -1783,6 +1800,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
   const [incomingPush, setIncomingPush] = useState<AppNotification | null>(null);
+  // 알림(기기 푸시 탭 · 알림함)에서 들어온 화면 이동 요청. 해당 화면이 열리면서 처리하고 비웁니다.
+  const [pendingNotificationRoute, setPendingNotificationRoute] = useState<NotificationRoute | null>(null);
   const [pushPermissionStatus, setPushPermissionStatus] = useState<'granted' | 'denied' | 'prompt'>(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
       if (Notification.permission === 'granted') return 'granted';
@@ -1790,6 +1809,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     return 'prompt';
   });
+  const pushPermissionRef = useRef(pushPermissionStatus);
+  pushPermissionRef.current = pushPermissionStatus;
 
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
@@ -3559,7 +3580,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         await signOutSupabase();
       }
       sessionUidRef.current = '';
-      deleteDeviceToken().catch(() => {});
+      // 기기는 공지·신제품 알림을 계속 받고, 이 계정의 개인 알림(댓글·좋아요·포인트)만 끊습니다
+      detachDeviceAccount().catch(() => {});
+      // 다른 사람이 이 기기로 로그인해도 이전 계정의 개인 알림이 알림함에 보이지 않게 지웁니다
+      setNotifications(prev => {
+        const next = prev.filter(n => !n.userId);
+        safeSetItem('sinsangpick_notifications', JSON.stringify(next));
+        return next;
+      });
       localStorage.removeItem('sinsangpick_uid');
       localStorage.removeItem('sinsangpick_name');
       localStorage.removeItem('sinsangpick_points');
@@ -4333,6 +4361,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_notifications', JSON.stringify(next));
       return next;
     });
+    // 개인 알림은 서버에도 읽음으로 저장해 다른 기기 알림함·개수도 맞춥니다
+    if (isPersonalNotificationId(id)) markUserNotificationsRead([id]);
   };
 
   const deleteNotification = (id: string) => {
@@ -4341,10 +4371,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_notifications', JSON.stringify(next));
       return next;
     });
-    // 서버에서도 지워야 다른 기기의 알림함에서 사라집니다.
-    persistAdmin('delete_notification', { id }, '알림 삭제');
+    if (isPersonalNotificationId(id)) {
+      deleteUserNotifications([id]);
+    } else {
+      // 서버에서도 지워야 다른 기기의 알림함에서 사라집니다.
+      persistAdmin('delete_notification', { id }, '알림 삭제');
+    }
     showToast('알림 항목이 삭제되었습니다.', 'info');
   };
+
+  const clearPendingNotificationRoute = () => setPendingNotificationRoute(null);
+
+  /**
+   * 알림이 가리키는 화면으로 이동합니다 (기기 푸시 탭 · 알림함 탭 공통).
+   *  댓글·좋아요(게시글) → 커뮤니티 게시글(댓글 알림이면 댓글 영역)
+   *  댓글·좋아요(리뷰)   → 리뷰가 있는 상품 상세
+   *  신제품             → 상품 상세 / 이벤트 → 이벤트 상세
+   *  포인트             → 마이페이지 포인트 내역
+   *  공지               → 알림함의 공지 상세
+   */
+  const openNotificationRoute = (route: NotificationRoute) => {
+    if (route.notifId) markNotificationAsRead(route.notifId);
+    switch (route.targetType) {
+      case 'post':
+        if (!route.targetId) break;
+        setPendingNotificationRoute(route);
+        setActiveTab('community');
+        return;
+      case 'review':
+        if (route.productId) {
+          openProductDetail(route.productId);
+          return;
+        }
+        break;
+      case 'product':
+        if (route.targetId) {
+          openProductDetail(route.targetId);
+          return;
+        }
+        break;
+      case 'event':
+        if (route.targetId) {
+          openEventDetail(route.targetId);
+          return;
+        }
+        break;
+      case 'points':
+        setPendingNotificationRoute(route);
+        setActiveTab('my');
+        return;
+      default:
+        break;
+    }
+    // 공지 또는 이동할 곳이 없는 알림: 알림함에서 해당 알림 상세를 엽니다
+    setPendingNotificationRoute({ ...route, targetType: 'notice' });
+    openNotificationCenter('inbox');
+  };
+  // 푸시 리스너는 한 번 등록되므로 항상 최신 함수를 가리키게 합니다 (앱 종료 상태에서 탭해도 동작)
+  const openNotificationRouteRef = useRef(openNotificationRoute);
+  openNotificationRouteRef.current = openNotificationRoute;
 
   const refreshNotifications = async () => {
     try {
@@ -4387,6 +4472,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (prev.some(n => n.id === newNotif.id)) return prev;
         return [newNotif, ...prev];
       });
+      // 기기 푸시를 받는 네이티브 앱은 같은 알림이 OS 상단 배너로 뜨므로 인앱 배너를 겹쳐 띄우지 않습니다
+      if (Capacitor.isNativePlatform() && pushPermissionRef.current === 'granted' && isPushEnabledInApp()) return;
       // 광고·혜택 알림은 마케팅 동의(밤이면 야간 혜택 동의)가 있는 기기에서만 배너·진동으로 알립니다
       if (!isMarketingNotification(newNotif) || canShowMarketingBannerNow()) {
         setIncomingPush(newNotif);
@@ -4403,30 +4490,60 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // 기기 알림 권한 상태를 네이티브 기준으로 맞춥니다 (인앱 배너 표시 여부 판단에 씁니다)
     checkPushPermissionStatus().then(setPushPermissionStatus).catch(() => {});
 
-    // 3. 디바이스 푸시 초기화 (권한 확인, APNs/FCM 토큰 발급 및 Supabase device_tokens 저장)
+    // 3. 내 개인 알림(댓글·좋아요·포인트) 불러오기 + 실시간 구독. 로그인 계정 것만 알림함에 둡니다.
+    const uid = currentUser?.uid || '';
+    let userChannel: any = null;
+    setNotifications(prev => {
+      const next = prev.filter(n => !n.userId || n.userId === uid);
+      return next.length === prev.length ? prev : next;
+    });
+    if (uid && !currentUser?.isAnonymous) {
+      fetchUserNotifications(uid).then(rows => {
+        if (rows.length === 0) return;
+        setNotifications(prev => {
+          const byId = new Map(rows.map(r => [r.id, r]));
+          // 서버 읽음 상태를 우선합니다 (다른 기기에서 읽은 알림)
+          const merged = prev.map(n => (byId.has(n.id) ? { ...n, isRead: n.isRead || byId.get(n.id)!.isRead } : n));
+          const existing = new Set(prev.map(n => n.id));
+          const added = rows.filter(r => !existing.has(r.id));
+          const next = [...added, ...merged].sort((a, b) =>
+            String(b.createdAt || b.timestamp).localeCompare(String(a.createdAt || a.timestamp))
+          );
+          safeSetItem('sinsangpick_notifications', JSON.stringify(next));
+          return next;
+        });
+      });
+      userChannel = subscribeToUserNotifications(uid, (notif) => {
+        setNotifications(prev => (prev.some(n => n.id === notif.id) ? prev : [notif, ...prev]));
+        // 네이티브 앱은 OS 상단 배너가 이미 뜨므로 인앱 배너는 웹에서만 띄웁니다
+        if (!Capacitor.isNativePlatform()) setIncomingPush(notif);
+      });
+      // 계정에 저장된 알림 설정을 이 기기에 적용합니다
+      applyAccountNotificationSettings(uid).catch(() => {});
+    }
+
+    // 4. 디바이스 푸시 초기화 (권한 확인, APNs/FCM 토큰 발급 및 서버에서 로그인 계정과 연결)
     initPushNotifications({
-      userId: currentUser?.uid,
+      userId: currentUser?.isAnonymous ? undefined : currentUser?.uid,
       userName: currentUser?.displayName,
       onNotificationReceived: (notif) => {
-        console.log('[AppContext] Push notification received foreground:', notif);
         setNotifications(prev => {
           if (prev.some(n => n.id === notif.id)) return prev;
           return [notif, ...prev];
         });
-        setIncomingPush(notif);
+        // 앱 실행 중에도 OS 상단 배너가 표시되므로(presentationOptions) 인앱 배너는 겹쳐 띄우지 않습니다
       },
-      onNotificationActionPerformed: (targetId, type) => {
-        if (type === 'event') {
-          openEventDetail(targetId);
-        } else if (type === 'product') {
-          openProductDetail(targetId);
-        }
+      onNotificationActionPerformed: (route) => {
+        openNotificationRouteRef.current(route);
       }
     });
 
     return () => {
       if (channel) {
         channel.unsubscribe();
+      }
+      if (userChannel) {
+        userChannel.unsubscribe();
       }
     };
   }, [currentUser?.uid, currentUser?.displayName]);
@@ -4450,7 +4567,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const clearAllNotifications = () => {
+    // 개인 알림은 서버에서도 지워 다른 기기 알림함·개수와 맞춥니다
+    deleteUserNotifications(notifications.filter(n => isPersonalNotificationId(n.id)).map(n => n.id));
     setNotifications([]);
+    safeSetItem('sinsangpick_notifications', '[]');
     showToast('알림 내역이 모두 삭제되었습니다.', 'info');
   };
 
@@ -6100,6 +6220,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setAlertCenterSubTab,
         openNotificationCenter,
         markNotificationAsRead,
+        openNotificationRoute,
+        pendingNotificationRoute,
+        clearPendingNotificationRoute,
         clearAllNotifications,
 
         // Admin Actions

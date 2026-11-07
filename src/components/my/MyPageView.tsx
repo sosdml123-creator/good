@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Settings, ChevronRight, Camera, Loader2, Pencil } from 'lucide-react';
 import { MyBookmarksModal } from './MyBookmarksModal';
@@ -20,13 +20,23 @@ export const MyPageView: React.FC = () => {
     setActiveTab,
     openPermissionModal,
     openNotificationCenter,
-    updateUserProfile
+    updateUserProfile,
+    pendingNotificationRoute,
+    clearPendingNotificationRoute
   } = useApp();
   const t = useT();
 
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const [isPointHistoryOpen, setIsPointHistoryOpen] = useState(false);
+
+  // 포인트 적립 알림을 눌러 들어오면 포인트 내역을 바로 엽니다
+  useEffect(() => {
+    if (pendingNotificationRoute?.targetType === 'points') {
+      setIsPointHistoryOpen(true);
+      clearPendingNotificationRoute();
+    }
+  }, [pendingNotificationRoute]);
   const [isEditNicknameOpen, setIsEditNicknameOpen] = useState(false);
   const [isProcessingImage, setIsProcessingImage] = useState(false);
 
@@ -68,7 +78,7 @@ export const MyPageView: React.FC = () => {
     { label: '찜한 제품', sub: t('{n}개', { n: bookmarkedIds.length }), action: () => setIsBookmarksOpen(true) },
     { label: '비교함', sub: t('{n}개', { n: comparedIds.length }), action: () => setActiveTab('compare') },
     { label: '🏷️ 편의점·마트 행사소식', sub: t('{n}개 찜', { n: savedSaleIds.length }), hi: true, action: () => setActiveTab('calendar') },
-    { label: '출시알림 설정', sub: '', action: () => openNotificationCenter('settings') },
+    { label: '🔔 알림 설정', sub: t('푸시·댓글·좋아요·신제품'), action: () => openNotificationCenter('settings') },
     { label: '🛡️ 앱 알림 & 권한 안내', sub: t('마케팅·신제품·위치'), action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
     { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: purchasedCoupons.filter(c => !c.isUsed).length > 0 ? t('{n}개 보유', { n: purchasedCoupons.filter(c => !c.isUsed).length }) : t('포인트로 교환하기'), hi: true, action: () => setActiveTab('coupon') },

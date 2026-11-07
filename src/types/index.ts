@@ -527,6 +527,26 @@ export interface AppNotification {
   createdAt?: string;
   isRead: boolean;
   badge?: string;
+  /** 개인 알림(댓글·좋아요·포인트)이면 받는 사람 id. 공지·신제품 같은 전체 알림은 없음 */
+  userId?: string;
+  /** 개인 알림 종류 */
+  kind?: NotificationKind;
+  /** 눌렀을 때 이동할 화면 */
+  targetType?: NotificationTargetType;
+  /** 리뷰 알림의 상품 id 등 이동에 필요한 값 */
+  productId?: string;
+}
+
+export type NotificationKind = 'comment' | 'like' | 'point' | 'content' | 'event' | 'notice';
+export type NotificationTargetType = 'post' | 'review' | 'product' | 'points' | 'notice' | 'event' | 'none';
+
+/** 알림을 눌렀을 때 화면 이동 정보 (기기 푸시 탭 · 알림함 탭 공통) */
+export interface NotificationRoute {
+  targetType: NotificationTargetType;
+  targetId: string;
+  productId?: string;
+  kind?: NotificationKind;
+  notifId?: string;
 }
 
 export interface PendingProduct {

@@ -43,6 +43,17 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
 
+        <!-- 푸시 알림 기본값: 상태바 아이콘 · 강조색 · 채널 (앱이 만드는 중요 채널 sinsangpick_default) -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_notify" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/notification_accent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="sinsangpick_default" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3878859120989916~1275211694"/>

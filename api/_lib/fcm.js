@@ -9,6 +9,8 @@ import { normalizePrivateKey } from './pem.js';
  * 앱 쪽에는 android/app/google-services.json 이 있어야 기기가 FCM 토큰을 발급받습니다.
  */
 const CONCURRENCY = 50;
+/** 앱(src/services/notificationService.ts)이 만드는 알림 채널 id 와 같아야 합니다 */
+export const ANDROID_CHANNEL_ID = 'sinsangpick_default';
 
 export function getFcmConfig() {
   let raw = (process.env.FCM_SERVICE_ACCOUNT || '').trim().replace(/^'|'$/g, '');
@@ -94,7 +96,23 @@ export async function sendFcmNotifications(config, tokens, { title, body, data =
             token,
             notification: { title, body },
             data: stringData,
-            android: { priority: 'HIGH', notification: { sound: 'default' } },
+            android: {
+              priority: 'HIGH',
+              ...(stringData.notifId ? { collapse_key: stringData.notifId.slice(0, 64) } : {}),
+              notification: {
+                sound: 'default',
+                // 앱이 만든 '중요' 채널: 잠금화면·상단 배너(헤즈업)·소리·진동 (기기 설정을 따름)
+                channel_id: ANDROID_CHANNEL_ID,
+                notification_priority: 'PRIORITY_HIGH',
+                visibility: 'PUBLIC',
+                default_vibrate_timings: true,
+                default_sound: true,
+                icon: 'ic_stat_notify',
+                color: '#FF5A1F',
+                // 같은 알림이 다시 오면 기존 알림을 바꿔 끼워 두 개가 쌓이지 않습니다
+                ...(stringData.notifId ? { tag: stringData.notifId } : {}),
+              },
+            },
           },
         }),
       });
