@@ -1,0 +1,52 @@
+[
+ {
+  "mode": "card",
+  "aspect": "9:16",
+  "out": "D:/good/store-assets/store-kr/raw4/kr_1_new.png",
+  "refs": [
+   "D:/good/store-assets/apptech-carousel/_ref/style_A.png",
+   "D:/good/store-assets/ad-creatives/shots/home.png"
+  ],
+  "prompt": "App Store screenshot, 9:16 tall. OVERRIDE background: pure clean WHITE background exactly like Image 1. Same style as Image 1 (ultra-bold black Korean headline, black modern iPhone mockup). LAYOUT is very important: the canvas will be center-cropped to a taller shape, so keep EVERYTHING (chip, headline, subline, phone) inside the central 74% of the width with at least 13% empty white margin on both left and right. Headline text must be smaller than Image 1: each headline line fits within 74% of the width. Put a small chip near the top (6% from top), the 2-line headline right below it, the one-line subline right below that, so the whole text block ends at about 22% of the height. The iPhone top edge starts at about 25% of the height, the phone is clearly SMALLER than before: its outer width is only about 58% of the image width, centered, with a wide empty white margin (at least 21%) on both the left and right of the phone, and it bleeds off the bottom edge. Image 2 is a REAL app screenshot (home screen with new products): show it inside the phone exactly as is, cropped to its top part, no changes to its UI. Exact Korean text, nothing else:\nSmall rounded black chip: \"NEW\"\nHeadline line 1 (black): \"오늘 나온 신상,\"\nHeadline line 2: \"한눈에\" in vivid orange #FF5A1F + \" 모아보기\" in black\nSub line (medium weight, dark gray, smaller): \"편의점·카페·마트 신제품을 매일 업데이트\"\nNo logo, no buttons, no doodles, no extra words. Do not put any text outside the central 74% width. Every headline line must fit fully inside the central 70% of the width."
+ },
+ {
+  "mode": "card",
+  "aspect": "9:16",
+  "out": "D:/good/store-assets/store-kr/raw4/kr_2_rank.png",
+  "refs": [
+   "D:/good/store-assets/apptech-carousel/_ref/style_A.png",
+   "D:/good/store-assets/ad-creatives/shots/new.png"
+  ],
+  "prompt": "App Store screenshot, 9:16 tall. OVERRIDE background: pure clean WHITE background exactly like Image 1. Same style as Image 1 (ultra-bold black Korean headline, black modern iPhone mockup). LAYOUT is very important: the canvas will be center-cropped to a taller shape, so keep EVERYTHING (chip, headline, subline, phone) inside the central 74% of the width with at least 13% empty white margin on both left and right. Headline text must be smaller than Image 1: each headline line fits within 74% of the width. Put a small chip near the top (6% from top), the 2-line headline right below it, the one-line subline right below that, so the whole text block ends at about 22% of the height. The iPhone top edge starts at about 25% of the height, the phone is clearly SMALLER than before: its outer width is only about 58% of the image width, centered, with a wide empty white margin (at least 21%) on both the left and right of the phone, and it bleeds off the bottom edge. Image 2 is a REAL app screenshot (new products with real-review ranking TOP 3): show it inside the phone exactly as is, cropped to its top part, no changes to its UI. Exact Korean text, nothing else:\nSmall rounded black chip: \"RANKING\"\nHeadline line 1 (black): \"후기로 뽑은\"\nHeadline line 2: \"신상 랭킹\" in vivid orange #FF5A1F\nSub line (medium weight, dark gray, smaller): \"먹어본 사람들의 솔직 리뷰로 매겨요\"\nNo logo, no buttons, no doodles, no extra words. Do not put any text outside the central 74% width. Every headline line must fit fully inside the central 70% of the width."
+ },
+ {
+  "mode": "card",
+  "aspect": "9:16",
+  "out": "D:/good/store-assets/store-kr/raw4/kr_3_review.png",
+  "refs": [
+   "D:/good/store-assets/apptech-carousel/_ref/style_A.png",
+   "D:/good/store-assets/ad-creatives/shots/write.png"
+  ],
+  "prompt": "App Store screenshot, 9:16 tall. OVERRIDE background: pure clean WHITE background exactly like Image 1. Same style as Image 1 (ultra-bold black Korean headline, black modern iPhone mockup). LAYOUT is very important: the canvas will be center-cropped to a taller shape, so keep EVERYTHING (chip, headline, subline, phone) inside the central 74% of the width with at least 13% empty white margin on both left and right. Headline text must be smaller than Image 1: each headline line fits within 74% of the width. Put a small chip near the top (6% from top), the 2-line headline right below it, the one-line subline right below that, so the whole text block ends at about 22% of the height. The iPhone top edge starts at about 25% of the height, the phone is clearly SMALLER than before: its outer width is only about 58% of the image width, centered, with a wide empty white margin (at least 21%) on both the left and right of the phone, and it bleeds off the bottom edge. Image 2 is a REAL app screenshot (review writing screen): show it inside the phone exactly as is, cropped to its top part, no changes to its UI. Exact Korean text, nothing else:\nSmall rounded black chip: \"REVIEW\"\nHeadline line 1 (black): \"리뷰 쓰면\"\nHeadline line 2: \"10P\" in vivid orange #FF5A1F + \" 적립\" in black\nSub line (medium weight, dark gray, smaller): \"사진·글자 수 상관없이 1건당 10P\"\nNo logo, no buttons, no doodles, no extra words. Do not put any text outside the central 74% width. Every headline line must fit fully inside the central 70% of the width."
+ },
+ {
+  "mode": "card",
+  "aspect": "9:16",
+  "out": "D:/good/store-assets/store-kr/raw4/kr_4_coupon.png",
+  "refs": [
+   "D:/good/store-assets/apptech-carousel/_ref/style_A.png",
+   "D:/good/store-assets/ad-creatives/shots/coupon.png"
+  ],
+  "prompt": "App Store screenshot, 9:16 tall. OVERRIDE background: pure clean WHITE background exactly like Image 1. Same style as Image 1 (ultra-bold black Korean headline, black modern iPhone mockup). LAYOUT is very important: the canvas will be center-cropped to a taller shape, so keep EVERYTHING (chip, headline, subline, phone) inside the central 74% of the width with at least 13% empty white margin on both left and right. Headline text must be smaller than Image 1: each headline line fits within 74% of the width. Put a small chip near the top (6% from top), the 2-line headline right below it, the one-line subline right below that, so the whole text block ends at about 22% of the height. The iPhone top edge starts at about 25% of the height, the phone is clearly SMALLER than before: its outer width is only about 58% of the image width, centered, with a wide empty white margin (at least 21%) on both the left and right of the phone, and it bleeds off the bottom edge. Image 2 is a REAL app screenshot (e-coupon shop with point prices like 3,500P): show it inside the phone exactly as is, cropped to its top part, no changes to its UI. Exact Korean text, nothing else:\nSmall rounded black chip: \"e쿠폰\"\nHeadline line 1 (black): \"모은 포인트로\"\nHeadline line 2: \"e쿠폰\" in vivid orange #FF5A1F + \" 교환\" in black\nSub line (medium weight, dark gray, smaller): \"1P = 1원 · 편의점·카페·아이스크림 쿠폰\"\nNo logo, no buttons, no doodles, no extra words. Do not put any text outside the central 74% width. Every headline line must fit fully inside the central 70% of the width."
+ },
+ {
+  "mode": "card",
+  "aspect": "9:16",
+  "out": "D:/good/store-assets/store-kr/raw4/kr_5_signup.png",
+  "refs": [
+   "D:/good/store-assets/apptech-carousel/_ref/style_A.png",
+   "D:/good/store-assets/ad-creatives/shots/my.png"
+  ],
+  "prompt": "App Store screenshot, 9:16 tall. OVERRIDE background: pure clean WHITE background exactly like Image 1. Same style as Image 1 (ultra-bold black Korean headline, black modern iPhone mockup). LAYOUT is very important: the canvas will be center-cropped to a taller shape, so keep EVERYTHING (chip, headline, subline, phone) inside the central 74% of the width with at least 13% empty white margin on both left and right. Headline text must be smaller than Image 1: each headline line fits within 74% of the width. Put a small chip near the top (6% from top), the 2-line headline right below it, the one-line subline right below that, so the whole text block ends at about 22% of the height. The iPhone top edge starts at about 25% of the height, the phone is clearly SMALLER than before: its outer width is only about 58% of the image width, centered, with a wide empty white margin (at least 21%) on both the left and right of the phone, and it bleeds off the bottom edge. Image 2 is a REAL app screenshot (My page showing 100P points): show it inside the phone exactly as is, cropped to its top part, no changes to its UI. Exact Korean text, nothing else:\nSmall rounded black chip: \"가입 혜택\"\nHeadline line 1 (black): \"가입만 해도\"\nHeadline line 2: \"100P\" in vivid orange #FF5A1F + \" 지급\" in black\nSub line (medium weight, dark gray, smaller): \"보고 · 쓰고 · 교환까지 한 앱에서\"\nNo logo, no buttons, no doodles, no extra words. Do not put any text outside the central 74% width. Every headline line must fit fully inside the central 70% of the width."
+ }
+]

@@ -1,3 +1,4 @@
+import { FlyerSection } from '../flyer/FlyerSection';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useApp, resolveUserProfileProvider } from '../../context/AppContext';
 import {
@@ -105,6 +106,7 @@ export type AdminTab =
   | 'product_edits'
   | 'brands'
   | 'stores'
+  | 'flyers'
   | 'sales'
   | 'calendar'
   | 'events'
@@ -1618,6 +1620,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                 </div>
               </button>
 
+              <button onClick={() => setActiveAdminTab('flyers')} className="w-full text-left px-4 py-3 rounded-xl font-bold">전단지 관리</button>
               <button
                 onClick={() => setActiveAdminTab('sales')}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium transition-all ${
@@ -1707,6 +1710,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                activeAdminTab === 'stores' ? '판매처채널' :
                activeAdminTab === 'banners' ? '배너관리' :
                activeAdminTab === 'sections' ? '홈섹션관리' :
+               activeAdminTab === 'flyers' ? '전단지 관리' :
                activeAdminTab === 'sales' ? '편의점행사' :
                activeAdminTab === 'battle' ? '신상배틀' :
                activeAdminTab === 'calendar' ? '신제품 출시 캘린더' :
@@ -4435,6 +4439,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
           {/* ========================================================
               TAB: SALE PROMOTIONS (1+1 & 특가 행사소식 관리)
              ======================================================== */}
+          {activeAdminTab === 'flyers' && <FlyerSection admin />}
           {activeAdminTab === 'sales' && (
             <SalePromotionManagementTab isDark={isDark} />
           )}

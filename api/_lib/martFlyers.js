@@ -59,7 +59,7 @@ async function fetchEmartFlyer() {
 
 const LOTTE_URL = 'https://www.mlotte.net/leaflet?rst1=HYPER';
 
-async function fetchLotteFlyer() {
+async function fetchLotteFlyer(kind = 'HYPER') {
   const body = await fetchText('https://www.lottemartgo.com/apis/fo/product/leaflet/plate/select', {
     method: 'POST',
     headers: {
@@ -68,16 +68,16 @@ async function fetchLotteFlyer() {
       Origin: 'https://www.mlotte.net',
       Referer: 'https://www.mlotte.net/',
     },
-    body: JSON.stringify({ str_cd: '', rst1: 'HYPER', is_group: '0' }),
+    body: JSON.stringify({ str_cd: '', rst1: kind, is_group: '0' }),
   }, 12000);
   const leaflet = JSON.parse(body)?.data?.plate_leaflet_list?.[0];
   const pages = (leaflet?.leaflet_img_list || [])
-    .filter((p) => p.img_url && String(p.img_desc || '').length > 50)
+    .filter((p) => p.img_url)
     .map((p) => ({ image: p.img_url, text: String(p.img_desc) }));
   const startDate = String(leaflet?.post_start_dt || '').slice(0, 10);
   const endDate = String(leaflet?.post_end_dt || '').slice(0, 10);
   if (pages.length === 0 || !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) throw new Error('롯데마트 전단을 읽지 못했습니다 (API 변경 가능성)');
-  return { sourceUrl: LOTTE_URL, startDate, endDate, pages };
+  return { sourceUrl: `https://www.mlotte.net/leaflet?rst1=${kind}`, startDate, endDate, pages };
 }
 
 const HOMEPLUS_URL = 'https://my.homeplus.co.kr/leaflet';
@@ -246,3 +246,5 @@ export async function crawlMartSales(store, previousSignature) {
 
   return { store, signature, items: items.slice(0, MAX_ITEMS_PER_STORE) };
 }
+
+export const FLYER_SOURCES = { 홈플러스: fetchHomeplusFlyer, 이마트: fetchEmartFlyer, 롯데슈퍼: () => fetchLotteFlyer("SUPER"), 롯데마트: fetchLotteFlyer };
