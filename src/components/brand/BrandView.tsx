@@ -20,6 +20,7 @@ import { BrandLogo } from './BrandLogo';
 import { Product } from '../../types';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 import { formatProductPrice } from '../../utils/formatters';
+import { buildSearchMatcher } from '../../utils/searchAlias';
 
 type SortOption = 'popular' | 'rating' | 'newest' | 'price_asc' | 'price_desc';
 
@@ -91,11 +92,9 @@ export const BrandView: React.FC = () => {
 
   // Filtered brands in Directory mode
   const filteredBrands = useMemo(() => {
+    const matcher = buildSearchMatcher(directorySearchQuery);
     return allBrands.filter(brand => {
-      const matchSearch = directorySearchQuery.trim() === '' || 
-        brand.name.toLowerCase().includes(directorySearchQuery.toLowerCase()) ||
-        (brand.engName && brand.engName.toLowerCase().includes(directorySearchQuery.toLowerCase())) ||
-        brand.category.toLowerCase().includes(directorySearchQuery.toLowerCase());
+      const matchSearch = !matcher || matcher([brand.name, brand.engName, brand.category]);
 
       const matchCategory = selectedCategoryTab === '전체' || 
         brand.category.includes(selectedCategoryTab) ||
@@ -140,14 +139,9 @@ export const BrandView: React.FC = () => {
     let list = [...currentBrand.products];
 
     // In-brand search query filter
-    if (brandItemSearchQuery.trim() !== '') {
-      const q = brandItemSearchQuery.trim().toLowerCase();
-      list = list.filter(p => 
-        p.name.toLowerCase().includes(q) ||
-        (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
-        (p.category && p.category.toLowerCase().includes(q)) ||
-        (p.description && p.description.toLowerCase().includes(q))
-      );
+    const itemMatcher = buildSearchMatcher(brandItemSearchQuery);
+    if (itemMatcher) {
+      list = list.filter(p => itemMatcher([p.name, p.subCategory, p.category, p.description]));
     }
 
     if (selectedSubCategory !== '전체') {

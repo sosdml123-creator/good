@@ -4,6 +4,7 @@ import { useApp } from '../context/AppContext';
 import { ECouponDetail, ECouponItem, PurchasedECoupon } from '../types';
 import { couponImageSrc, couponThumbSrc, fetchCouponCatalog, fetchCouponDetail, getStoredCouponCatalog } from '../services/couponApi';
 import { PcContainer, PcEmpty } from './PcUi';
+import { buildSearchMatcher } from '../utils/searchAlias';
 
 const PAGE_SIZE = 40;
 const MAIN_CATEGORIES = ['커피/음료', '편의점', '베이커리/도넛', '치킨', '버거', '피자', '아이스크림', '외식'];
@@ -81,11 +82,11 @@ export const PcCoupon: React.FC = () => {
   }, [inCategory]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const matcher = buildSearchMatcher(query);
     let list = inCategory.filter(g =>
       (brand === '전체' || g.brand === brand) &&
       (!onlyAffordable || g.price <= userPoints) &&
-      (!q || g.name.toLowerCase().includes(q) || g.brand.toLowerCase().includes(q)));
+      (!matcher || matcher([g.name, g.brand])));
     if (sort === 'low') list = [...list].sort((a, b) => a.price - b.price);
     if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);
     return list;

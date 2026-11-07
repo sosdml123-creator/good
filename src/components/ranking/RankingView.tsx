@@ -15,6 +15,7 @@ import {
 import { Product } from '../../types';
 import { getFallbackImage } from '../../utils/fallbackImages';
 import { calculateProductPopularity, buildReviewsByProductId, isRealNewProduct } from '../../utils/ranking';
+import { buildSearchMatcher } from '../../utils/searchAlias';
 
 type RankingSortType = 'popular' | 'rating' | 'reviews' | 'repurchase';
 
@@ -72,14 +73,9 @@ export const RankingView: React.FC = () => {
     let list = products;
 
     // 1. Search filter
-    if (searchQuery.trim()) {
-      const q = searchQuery.trim().toLowerCase();
-      list = list.filter(
-        (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.brand.toLowerCase().includes(q) ||
-          (p.description && p.description.toLowerCase().includes(q))
-      );
+    const matcher = buildSearchMatcher(searchQuery);
+    if (matcher) {
+      list = list.filter((p) => matcher([p.name, p.brand, p.description]));
     }
 
     // 2. Category filter

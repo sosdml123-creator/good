@@ -25,6 +25,7 @@ import { ImageViewerModal } from '../common/ImageViewerModal';
 import { formatProductPrice } from '../../utils/formatters';
 import { t } from '../../i18n';
 import { AdMobBannerSection } from '../home/AdMobBannerSection';
+import { buildSearchMatcher } from '../../utils/searchAlias';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -213,16 +214,11 @@ export const WriteReviewModal: React.FC = () => {
 
   // 검색 결과 필터링
   const filteredProducts = useMemo(() => {
+    const matcher = buildSearchMatcher(searchQuery);
     return products.filter(p => {
       const matchCat = selectedSearchCategory === '전체' || p.category === selectedSearchCategory;
-      const q = searchQuery.trim().toLowerCase();
-      if (!q) return matchCat;
-      const matchText = 
-        p.name.toLowerCase().includes(q) || 
-        p.brand.toLowerCase().includes(q) || 
-        p.category.toLowerCase().includes(q) ||
-        (p.subCategory && p.subCategory.toLowerCase().includes(q));
-      return matchCat && matchText;
+      if (!matcher) return matchCat;
+      return matchCat && matcher([p.name, p.brand, p.category, p.subCategory]);
     });
   }, [products, searchQuery, selectedSearchCategory]);
 

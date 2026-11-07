@@ -5,6 +5,7 @@ import { Product } from '../../types';
 import { SearchAdMobBannerSection } from './SearchAdMobBannerSection';
 import { formatProductPrice } from '../../utils/formatters';
 import { useT } from '../../i18n';
+import { buildSearchMatcher } from '../../utils/searchAlias';
 
 export const SearchModal: React.FC = () => {
   const { 
@@ -42,16 +43,10 @@ export const SearchModal: React.FC = () => {
   const query = inputQuery.trim().toLowerCase();
 
   // Enhanced search matching across name, brand, category, subcategory, ingredients, and description
-  const filteredProducts = query
-    ? products.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.brand.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query) ||
-          (p.subCategory && p.subCategory.toLowerCase().includes(query)) ||
-          (p.ingredients && p.ingredients.toLowerCase().includes(query)) ||
-          (p.description && p.description.toLowerCase().includes(query))
-      )
+  // 줄임말·유사어(배라, 맘터, 맥날 등)와 띄어쓰기 차이까지 함께 찾습니다.
+  const matcher = buildSearchMatcher(query);
+  const filteredProducts = matcher
+    ? products.filter((p) => matcher([p.name, p.brand, p.category, p.subCategory, p.ingredients, p.description]))
     : [];
 
   // Helper to distinguish fresh / raw biological items from packaged/processed goods
