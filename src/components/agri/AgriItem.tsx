@@ -4,7 +4,7 @@ import { PeriodDetail, fetchPeriodDetail } from '../../pc/useMarketPrices';
 import { useAgri } from './AgriContext';
 import {
   Item, NORMAL_NOTE, SHORT_CAT, currentMonth, fmtDate, gradeLabel, itemSpec, itemTitle, judgePrice, marketLabel,
-  isChainStore, originOf, pctChange, relatedProducts, reviewsForItem, seafoodState, seasonMonths,
+  isChainStore, isGeneratedPhoto, originOf, pctChange, productForRow, reviewMetrics, reviewsForItem, seafoodState, seasonMonths,
   summarizeRegions, tipsFor, won,
 } from './agriModel';
 import { ReviewLine } from './AgriRows';
@@ -93,7 +93,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
     [items, r, item],
   );
   const itemReviews = useMemo(() => (r ? reviewsForItem(r.itemName, reviews, products) : []), [r, reviews, products]);
-  const writable = r ? relatedProducts(r.itemName, products)[0] : undefined;
+  const writable = r ? productForRow(r, products) : undefined;
 
   if (!item || !r) {
     return (
@@ -104,7 +104,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
     );
   }
 
-  const img = photo(r.itemName);
+  const img = photo(r);
   const watched = isWatched(item.id);
   const verdict = judgePrice(r);
   const cut = (days: number) => {
@@ -140,10 +140,12 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
     { label: '평년', price: r.normal },
   ];
 
-  const metricAvg = (k: 'freshness' | 'texture' | 'sweetness' | 'value') => {
-    const xs = itemReviews.map(rv => rv.freshMetrics?.[k]).filter((x): x is number => typeof x === 'number' && x > 0);
-    return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
-  };
+  // 항목별 평균 (후기마다 저장 형식이 달라 이름 기준으로 모읍니다)
+  const metricAvgs = (() => {
+    const sum = new Map<string, number[]>();
+    itemReviews.forEach(rv => reviewMetrics(rv).forEach(([l, v]) => sum.set(l, [...(sum.get(l) || []), v])));
+    return [...sum.entries()].map(([l, xs]) => [l, xs.reduce((a, b) => a + b, 0) / xs.length] as [string, number]);
+  })();
   const ratingAvg = itemReviews.length ? itemReviews.reduce((a, b) => a + b.rating, 0) / itemReviews.length : null;
 
   return (
@@ -162,7 +164,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
       {img && (
         <figure className="relative">
           <img src={img} alt={`${r.itemName} 사진`} className="w-full h-[220px] object-cover bg-[#F1F2F4]" />
-          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">판매 상품 사진 · 참고용</figcaption>
+          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">{isGeneratedPhoto(img) ? 'AI 생성 참고 이미지 · 실제와 다를 수 있어요' : '판매 상품 사진 · 참고용'}</figcaption>
         </figure>
       )}
 
@@ -399,10 +401,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
         {itemReviews.length > 0 && (
           <div className="px-4 pb-3 flex items-center gap-4 text-[12.5px] text-[#5A626B]">
             <Stars value={ratingAvg!} size={13} />
-            {([['신선도', 'freshness'], ['식감', 'texture'], ['맛', 'sweetness'], ['가성비', 'value']] as const).map(([l, k]) => {
-              const v = metricAvg(k);
-              return v ? <span key={k}>{l} <b className="font-semibold text-[#191C20] tabular-nums">{v.toFixed(1)}</b></span> : null;
-            })}
+            {metricAvgs.map(([l, v]) => <span key={l}>{l} <b className="font-semibold text-[#191C20] tabular-nums">{v.toFixed(1)}</b></span>)}
           </div>
         )}
         {itemReviews.length ? itemReviews.slice(0, 3).map(rv => <ReviewLine key={rv.id} review={rv} />) : (

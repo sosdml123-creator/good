@@ -119,14 +119,29 @@ const ITEM_TO_SUB: Record<string, string> = {
 export const isFreshProduct = (p: Product) =>
   p.itemType === 'fresh' || Boolean(p.produceDetails) || ['과일', '식재료', '고기·수산'].includes(p.category as string);
 
+/** 농수산물 품목 상품 (id: kamis-품목코드[-품종코드], 소분류 = KAMIS 품목명) */
+export const isMarketItemProduct = (p: Product) => p.id.startsWith('kamis-');
+
 export const relatedProducts = (itemName: string, products: Product[]): Product[] => {
   const sub = ITEM_TO_SUB[itemName];
-  if (!sub) return [];
-  return products.filter(p => isFreshProduct(p) && p.subCategory === sub);
+  return products.filter(p =>
+    isMarketItemProduct(p) ? p.subCategory === itemName : Boolean(sub) && isFreshProduct(p) && p.subCategory === sub);
 };
 
-export const photoFor = (itemName: string, products: Product[]): string | null =>
-  relatedProducts(itemName, products).find(p => p.image)?.image || null;
+/** 시세 한 줄에 맞는 상품: 같은 품목 중 부위·품종 이름이 맞는 품목 상품을 먼저 고릅니다 (돼지 삼겹살 / 돼지 목심). */
+export const productForRow = (r: MarketPriceRow, products: Product[]): Product | undefined => {
+  const list = relatedProducts(r.itemName, products);
+  // kamis-품목코드-품종코드 상품은 그 품종 행에만 붙입니다 (돼지 삼겹살 / 돼지 목심, 한우 등심).
+  const market = list.filter(isMarketItemProduct).filter(p => { const k = p.id.split('-')[2]; return !k || k === r.kindCode; });
+  if (list.some(isMarketItemProduct)) return market[0];
+  return list[0];
+};
+
+export const photoFor = (r: MarketPriceRow, products: Product[]): string | null =>
+  productForRow(r, products)?.image || null;
+
+/** 품목 사진이 AI 생성 참고 이미지인지 (품목 상품의 이미지는 Codex로 만든 참고 이미지예요) */
+export const isGeneratedPhoto = (src: string | null | undefined) => Boolean(src && src.includes('/produce-img/'));
 
 /* ───────────── 후기 ───────────── */
 
@@ -138,7 +153,7 @@ const visibleReview = () => {
 };
 
 export const freshReviews = (reviews: Review[], products: Product[]): Review[] => {
-  const ids = new Set(products.filter(isFreshProduct).map(p => p.id));
+  const ids = new Set(products.filter(p => isFreshProduct(p) || isMarketItemProduct(p)).map(p => p.id));
   const ok = visibleReview();
   return reviews.filter(r => ok(r) && ids.has(r.productId));
 };
@@ -151,8 +166,23 @@ export const reviewsForItem = (itemName: string, reviews: Review[], products: Pr
 /** 후기의 상품 → KAMIS 품목명 (시세 화면으로 연결) */
 export const itemNameForProduct = (p: Product | undefined): string | null => {
   if (!p?.subCategory) return null;
+  if (isMarketItemProduct(p)) return p.subCategory;
   const hit = Object.entries(ITEM_TO_SUB).find(([, sub]) => sub === p.subCategory);
   return hit ? hit[0] : null;
+};
+
+/**
+ * 후기 항목별 평가. 농수산물 후기 작성 화면은 detailed_rating 에
+ * taste=맛, value=신선도, portion=식감, repurchase=재구매 로 저장합니다. (예전 fresh_metrics 형식도 읽어요)
+ */
+export const reviewMetrics = (r: Review): [string, number][] => {
+  const m = r.freshMetrics;
+  if (m && (m.freshness || m.texture || m.sweetness || m.value)) {
+    return ([['신선도', m.freshness], ['식감', m.texture], ['맛', m.sweetness], ['가성비', m.value]] as [string, number][]).filter(([, v]) => v > 0);
+  }
+  const d = r.detailedRating;
+  if (!d) return [];
+  return ([['맛', d.taste], ['신선도', d.value], ['식감', d.portion], ['재구매', d.repurchase]] as [string, number][]).filter(([, v]) => v > 0);
 };
 
 /* ───────────── 등락 · 가격 판단 ───────────── */

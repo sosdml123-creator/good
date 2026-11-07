@@ -16,7 +16,7 @@ export const ItemRow: React.FC<{ item: Item; rank?: number; showWatch?: boolean;
     <div className="flex items-center pl-4 pr-1.5 border-b border-[#F1F2F4] last:border-b-0">
       <button onClick={() => openItem(item.id)} className="flex-1 min-w-0 flex items-center gap-3 py-2.5 text-left active:bg-[#F7F8F9]">
         {rank !== undefined && <span className="w-4 shrink-0 text-[14px] font-semibold text-[#5A626B] tabular-nums">{rank}</span>}
-        <Thumb src={photo(r.itemName)} name={r.itemName} size={40} />
+        <Thumb src={photo(r)} name={r.itemName} size={40} />
         <span className="flex-1 min-w-0">
           <span className="flex items-center gap-1.5">
             <span className="truncate text-[15px] font-semibold text-[#191C20]">{itemTitle(r)}</span>

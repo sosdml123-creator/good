@@ -4,13 +4,11 @@ import { useApp } from '../../context/AppContext';
 import type { Review } from '../../types';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { useAgri } from './AgriContext';
-import { fmtDot, isFreshProduct, itemNameForProduct, relTime, won } from './agriModel';
+import { fmtDot, isFreshProduct, isMarketItemProduct, itemNameForProduct, relTime, reviewMetrics, won } from './agriModel';
 import { C, Empty, Stars, Thumb, TopBar } from './AgriUi';
 
 type Sort = 'latest' | 'popular';
 
-/** 후기 저장 카테고리: 신선도 · 식감 · 맛(당도) · 가성비 (작성 화면의 농수산물 평가 항목) */
-const METRICS = [['신선도', 'freshness'], ['식감', 'texture'], ['맛', 'sweetness'], ['가성비', 'value']] as const;
 
 const Avatar: React.FC<{ src?: string; name: string; size?: number }> = ({ src, name, size = 32 }) => {
   const [failed, setFailed] = useState(false);
@@ -35,9 +33,7 @@ const PurchaseLine: React.FC<{ review: Review }> = ({ review }) => {
 };
 
 const MetricInline: React.FC<{ review: Review }> = ({ review }) => {
-  const m = review.freshMetrics;
-  if (!m) return null;
-  const parts = METRICS.map(([l, k]) => (m[k] ? `${l} ${m[k]}` : null)).filter(Boolean);
+  const parts = reviewMetrics(review).map(([l, v]) => `${l} ${v}`);
   return parts.length ? <span className="text-[12px] text-[#5A626B]">{parts.join(' · ')}</span> : null;
 };
 
@@ -153,7 +149,7 @@ export const AgriReviews: React.FC = () => {
           title={reviews.length === 0 ? '아직 등록된 농수산물 후기가 없어요' : '조건에 맞는 후기가 없어요'}
           desc={reviews.length > 0
             ? '필터를 바꿔 보세요.'
-            : products.some(isFreshProduct)
+            : products.some(p => isFreshProduct(p) || isMarketItemProduct(p))
               ? '신상픽 회원이 직접 산 농수산물 후기만 보여 드려요. 시세에서 품목을 열고 ‘구매 후기 쓰기’로 첫 후기를 남겨 주세요.'
               : '신상픽 회원이 직접 산 농수산물 후기만 보여 드려요. 후기를 남길 수 있는 농수산물 상품이 등록되면 품목 상세에서 바로 쓸 수 있어요.'}
           action={reviews.length === 0 ? (
@@ -264,7 +260,7 @@ export const AgriReviewDetail: React.FC<{ id: string }> = ({ id }) => {
         disabled={!marketItem}
         className="mx-4 mt-4 w-[calc(100%-32px)] flex items-center gap-3 p-2.5 rounded-[8px] border border-[#ECEEF0] text-left disabled:cursor-default"
       >
-        <Thumb src={product?.image || (itemName ? photo(itemName) : null)} name={review.productName} size={44} />
+        <Thumb src={product?.image || (marketItem ? photo(marketItem.rep) : null)} name={review.productName} size={44} />
         <span className="flex-1 min-w-0">
           <span className="block text-[13.5px] text-[#191C20] truncate">{review.productName}</span>
           {marketItem ? (
@@ -288,12 +284,11 @@ export const AgriReviewDetail: React.FC<{ id: string }> = ({ id }) => {
           <Stars value={review.rating} size={15} />
           <span className="text-[15px] font-bold tabular-nums text-[#191C20]">{review.rating.toFixed(1)}</span>
         </div>
-        {review.freshMetrics && (
+        {reviewMetrics(review).length > 0 && (
           <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2">
-            {METRICS.map(([l, k]) => {
-              const v = review.freshMetrics![k] || 0;
+            {reviewMetrics(review).map(([l, v]) => {
               return (
-                <div key={k} className="flex items-center gap-2 text-[12.5px]">
+                <div key={l} className="flex items-center gap-2 text-[12.5px]">
                   <span className="w-10 text-[#5A626B]">{l}</span>
                   <span className="flex-1 h-1 rounded-full bg-[#ECEEF0] overflow-hidden"><span className="block h-full bg-[#1F6B62]" style={{ width: `${(v / 5) * 100}%` }} /></span>
                   <span className="w-5 text-right tabular-nums text-[#191C20]">{v || '-'}</span>

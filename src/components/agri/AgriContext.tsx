@@ -26,7 +26,7 @@ interface AgriCtx {
   itemById: Map<string, Item>;
   products: Product[];
   reviews: Review[];
-  photo: (itemName: string) => string | null;
+  photo: (r: MarketPriceRow) => string | null;
   watches: Watch[];
   isWatched: (key: string) => boolean;
   toggleWatch: (item: Item) => void;
@@ -83,12 +83,13 @@ export const AgriProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return m;
   }, [items]);
 
-  const reviews = useMemo(() => freshReviews(app.reviews, app.products), [app.reviews, app.products]);
-  const photoCache = useMemo(() => new Map<string, string | null>(), [app.products]);
-  const photo = useCallback((name: string) => {
-    if (!photoCache.has(name)) photoCache.set(name, photoFor(name, app.products));
-    return photoCache.get(name) ?? null;
-  }, [photoCache, app.products]);
+  const products = app.allProducts;
+  const reviews = useMemo(() => freshReviews(app.reviews, products), [app.reviews, products]);
+  const photoCache = useMemo(() => new Map<string, string | null>(), [products]);
+  const photo = useCallback((r: MarketPriceRow) => {
+    if (!photoCache.has(r.key)) photoCache.set(r.key, photoFor(r, products));
+    return photoCache.get(r.key) ?? null;
+  }, [photoCache, products]);
 
   const notify = useCallback((msg: string) => app.showToast(msg, 'success'), [app]);
 
@@ -132,7 +133,7 @@ export const AgriProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const value: AgriCtx = {
-    rows, date, status, checkedAt, items, itemById, products: app.products, reviews, photo,
+    rows, date, status, checkedAt, items, itemById, products, reviews, photo,
     watches,
     isWatched: key => watches.some(w => w.key === key),
     toggleWatch, updateWatch, alerts, recent, savedReviews, toggleSaveReview,

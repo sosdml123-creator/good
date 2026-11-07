@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import type { MarketPriceRow } from '../pc/useMarketPrices';
 import {
-  alertHit, buildItems, isChainStore, itemSpec, judgePrice, loadWatches, marketLabel, seafoodState, summarizeRegions,
+  alertHit, buildItems, productForRow, reviewMetrics, isChainStore, itemSpec, judgePrice, loadWatches, marketLabel, seafoodState, summarizeRegions,
 } from '../components/agri/agriModel';
 
 const row = (p: Partial<MarketPriceRow>): MarketPriceRow => ({
@@ -60,5 +60,18 @@ describe('장보기 시세 모델', () => {
   it('이전 장보기 도우미의 관심 품목을 옮겨 온다', () => {
     localStorage.setItem('sinsangpick-market-favorites-v1', JSON.stringify(['a', 'b']));
     expect(loadWatches().map(w => w.key)).toEqual(['a', 'b']);
+  });
+
+  it('품목 상품은 품종 코드가 맞는 행에만 붙는다', () => {
+    const p = (id: string, name: string, sub: string) => ({ id, name, subCategory: sub, category: '고기·수산', itemType: 'fresh', image: '/produce-img/x.jpg' } as never);
+    const products = [p('kamis-4304-27', '돼지 삼겹살', '돼지'), p('kamis-4304-68', '돼지 목심', '돼지'), p('kamis-611', '고등어', '고등어'), p('prod-1', '고등어 과자', '고등어')];
+    expect(productForRow(row({ itemName: '돼지', kindCode: '27' }), products)?.id).toBe('kamis-4304-27');
+    expect(productForRow(row({ itemName: '돼지', kindCode: '25' }), products)).toBeUndefined();
+    expect(productForRow(row({ itemName: '고등어', kindCode: '05' }), products)?.id).toBe('kamis-611');
+  });
+
+  it('농수산물 후기 평가는 detailed_rating(맛·신선도·식감·재구매)에서도 읽는다', () => {
+    const r = { detailedRating: { taste: 5, value: 4, portion: 3, repurchase: 0 } } as never;
+    expect(reviewMetrics(r)).toEqual([['맛', 5], ['신선도', 4], ['식감', 3]]);
   });
 });

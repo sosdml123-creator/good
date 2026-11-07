@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { POINT_POLICY, PointPolicySettings, applyPointPolicy, claimDailyReward } from '../constants/pointPolicy';
 import { 
   Product, 
@@ -128,7 +128,10 @@ const getProductPathId = (): string | null => {
 };
 
 interface AppContextType {
+  /** 신상 목록용 상품 (농수산물 품목 상품 kamis-* 제외) */
   products: Product[];
+  /** 농수산물 품목 상품까지 포함한 전체 상품 (농수산물 시세·후기 작성용) */
+  allProducts: Product[];
   reviews: Review[];
   communityPosts: CommunityPost[];
   banners: BannerItem[];
@@ -887,7 +890,9 @@ const mapDBProductToProduct = (dbP: DBProduct): Product => {
     itemType: dbP.item_type,
   });
   const rawImage = dbP.image;
-  const image = isAgri && (!rawImage || rawImage.includes('unsplash') || !rawImage.startsWith('data:image/svg+xml'))
+  // 농수산물 품목 상품(kamis-*)은 앱에 들어 있는 품목 이미지(/produce-img/)를 그대로 씁니다.
+  const keepImage = dbP.id.startsWith('kamis-') && Boolean(rawImage);
+  const image = !keepImage && isAgri && (!rawImage || rawImage.includes('unsplash') || !rawImage.startsWith('data:image/svg+xml'))
     ? getProductIllustration({ id: dbP.id, name: dbP.name, category: dbP.category, subCategory: dbP.sub_category, itemType: dbP.item_type })
     : (rawImage || '');
 
@@ -5987,10 +5992,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('모든 데이터가 기본값으로 초기화되었습니다.', 'info');
   };
 
+  // 농수산물 품목 상품(kamis-*)은 시세·후기용이라 신상 목록·랭킹·검색에는 넣지 않습니다.
+  const feedProducts = useMemo(() => products.filter(p => !p.id.startsWith('kamis-')), [products]);
+
   return (
     <AppContext.Provider
       value={{
-        products,
+        products: feedProducts,
+        allProducts: products,
         reviews,
         communityPosts,
         banners,

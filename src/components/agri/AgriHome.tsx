@@ -141,7 +141,7 @@ export const AgriHome: React.FC = () => {
           <div className="flex gap-3 overflow-x-auto px-4 pb-5 no-scrollbar">
             {seasonal.map(i => (
               <button key={i.id} onClick={() => openItem(i.id)} className="shrink-0 w-[92px] text-left">
-                <Thumb src={photo(i.rep.itemName)} name={i.rep.itemName} size={92} rounded={6} />
+                <Thumb src={photo(i.rep)} name={i.rep.itemName} size={92} rounded={6} />
                 <span className="block mt-1.5 text-[13.5px] font-semibold text-[#191C20] truncate">{i.rep.itemName}</span>
                 <span className="block text-[13px] font-bold text-[#191C20] tabular-nums">{i.rep.today?.toLocaleString('ko-KR')}원</span>
                 <span className="block text-[11px] text-[#8A929A] truncate">{i.rep.unit} · <Change rate={i.rep.changeRate} /></span>

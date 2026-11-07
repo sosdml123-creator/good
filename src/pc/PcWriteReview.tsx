@@ -71,7 +71,7 @@ const StarRow: React.FC<{ value: number; onChange: (v: number) => void; size: st
 
 /** PC 리뷰 쓰기: 왼쪽 상품 검색 · 오른쪽 작성 폼 (모바일 리뷰 작성과 별도) */
 export const PcWriteReview: React.FC = () => {
-  const { products, selectedProductId, submitReview, showToast } = useApp();
+  const { allProducts: products, selectedProductId, submitReview, showToast } = useApp();
 
   const [productId, setProductId] = useState<string | null>(selectedProductId || null);
   const [query, setQuery] = useState('');

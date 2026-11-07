@@ -209,6 +209,6 @@ export const Empty: React.FC<{ title: string; desc?: string; action?: React.Reac
 export const SourceFooter: React.FC<{ date?: string; extra?: string }> = ({ date, extra }) => (
   <p className="px-4 py-5 text-[11.5px] leading-relaxed text-[#8A929A]">
     출처: KAMIS(한국농수산식품유통공사) 농산물유통정보 소매가격{date ? ` · ${date} 공시` : ''}.
-    전국 평균 가격으로 실제 매장 판매가와 다를 수 있어요.{extra ? ` ${extra}` : ''}
+    전국 평균 가격으로 실제 매장 판매가와 다를 수 있어요.{extra ? ` ${extra}` : ''} 품목 이미지는 AI로 만든 참고 이미지예요.
   </p>
 );

@@ -73,7 +73,7 @@ const SEARCH_CATEGORIES: (ProductCategory | '전체')[] = [
 ];
 
 export const WriteReviewModal: React.FC = () => {
-  const { products, selectedProductId, submitReview, goBack, showToast } = useApp();
+  const { allProducts: products, selectedProductId, submitReview, goBack, showToast } = useApp();
 
   // 1. 상품 선택 상태
   const [currentProductId, setCurrentProductId] = useState<string | null>(selectedProductId || null);
