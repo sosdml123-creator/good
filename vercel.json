@@ -51,6 +51,11 @@
     },
     {
       "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
+      "has": [{ "type": "host", "value": "pc.sinsangpick.kr" }],
+      "destination": "/pc.html"
+    },
+    {
+      "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
     }
   ],
