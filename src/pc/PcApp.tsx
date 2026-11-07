@@ -226,7 +226,12 @@ const PcFooter: React.FC = () => {
           <p className="mt-3 text-[13px] text-gray-500 leading-relaxed">
             새로 나온 먹거리를 가장 먼저 발견하고,<br />먹어본 사람들의 솔직한 평가를 확인하세요.
           </p>
-          <p className="mt-6 text-[12px] text-gray-400">© 신상픽. All rights reserved.</p>
+          <div className="mt-6 text-[12px] text-gray-500 leading-relaxed space-y-0.5">
+            <p>상호: 플레이팅 · 대표자: 양승현 · 사업자등록번호: 618-09-34774</p>
+            <p>사업장 소재지: 서울특별시 양천구 목동중앙남로3가길 108, B02호(목동)</p>
+            <p>이메일: contact@sinsangpick.com</p>
+          </div>
+          <p className="mt-4 text-[12px] text-gray-400">© 플레이팅 (신상픽). All rights reserved.</p>
         </div>
         <div className="flex gap-16 text-[13px]">
           <div className="space-y-2.5">

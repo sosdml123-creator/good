@@ -535,6 +535,10 @@ export const SettingsView: React.FC = () => {
               {showBusinessInfo && (
                 <div className="mt-3 p-3 bg-gray-50 rounded-xl text-[11px] text-gray-500 space-y-1 leading-relaxed border border-gray-100">
                   <div><strong>서비스명:</strong> 신상픽 (Sinsangpick)</div>
+                  <div><strong>상호:</strong> 플레이팅</div>
+                  <div><strong>대표자:</strong> 양승현</div>
+                  <div><strong>사업자등록번호:</strong> 618-09-34774</div>
+                  <div><strong>사업장 소재지:</strong> 서울특별시 양천구 목동중앙남로3가길 108, B02호(목동)</div>
                   <div><strong>개인정보 보호책임관:</strong> 신상픽 정보보호팀</div>
                   <div><strong>문의 이메일:</strong> contact@sinsangpick.com</div>
                   <div><strong>운영 시간:</strong> 평일 10:00 ~ 18:00 (공휴일 휴무)</div>
