@@ -36,6 +36,30 @@
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"WebSite","name":"신상픽","alternateName":["SinSangPick","신상픽 앱"],"url":"https://pc.sinsangpick.kr/","description":"편의점·카페·마트 신제품 정보와 솔직 리뷰, 신상 랭킹"}
     </script>
+    <script>
+      // PC(데스크톱)에서 www로 들어오면 같은 경로의 PC 버전(pc.sinsangpick.kr)으로 이동.
+      // 모바일·앱·로그인 콜백은 그대로. ?mobile=1 로 들어오면 이 브라우저에서는 이동하지 않음 (?mobile=0 으로 해제).
+      (function() {
+        try {
+          var loc = window.location;
+          if (loc.hostname !== 'www.sinsangpick.kr' && loc.hostname !== 'sinsangpick.kr') return;
+          if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) return;
+          var ua = navigator.userAgent || '';
+          var isMobile = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(ua) || (navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua));
+          if (isMobile) return;
+          if (/(Yeti|bot|crawler|spider)/i.test(ua)) return;
+          var q = loc.search || '';
+          try {
+            if (/[?&]mobile=1/.test(q)) localStorage.setItem('sinsangpick_stay_mobile', '1');
+            if (/[?&]mobile=0/.test(q)) localStorage.removeItem('sinsangpick_stay_mobile');
+            if (localStorage.getItem('sinsangpick_stay_mobile') === '1') return;
+          } catch (e) {}
+          var h = loc.hash || '';
+          if (h.indexOf('access_token=') !== -1 || q.indexOf('code=') !== -1 || loc.pathname.indexOf('auth-callback') !== -1) return;
+          loc.replace('https://pc.sinsangpick.kr' + loc.pathname + q + h);
+        } catch (e) {}
+      })();
+    </script>
     <!-- Google AdMob / AdSense SDK for Web -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916" crossorigin="anonymous"></script>
     <script>
