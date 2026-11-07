@@ -180,7 +180,8 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
         </div>
         <p className="mt-1 text-[14px] flex items-center gap-1.5">
           <span className="text-[#5A626B]">{r.changeLabel || '전일 대비'}</span>
-          <Diff value={r.today && (r.dayAgo ?? r.weekAgo) ? r.today - (r.dayAgo ?? r.weekAgo)! : null} />
+          {/* 등락률의 비교 기준(전일·1주·2주 전) 가격에서 차액을 되짚어 냅니다 */}
+          <Diff value={r.today && r.changeRate !== null ? Math.round(r.today - r.today / (1 + r.changeRate / 100)) : null} />
           <Change rate={r.changeRate} size="md" />
         </p>
         <p className="mt-2 text-[12px] text-[#8A929A]">{date ? `${fmtDate(date)} 공시` : ''} · KAMIS 전국 평균 소매가</p>
