@@ -60,6 +60,20 @@
         } catch (e) {}
       })();
     </script>
+    <!-- 애드센스: PC 사이트(pc.sinsangpick.kr)에서만 로드. pc.html에는 빌드 때 정적 태그가 들어가므로 중복 방지 -->
+    <script>
+      (function() {
+        try {
+          if (location.hostname !== 'pc.sinsangpick.kr') return;
+          if (document.querySelector('script[src*="adsbygoogle.js"]')) return;
+          var s = document.createElement('script');
+          s.async = true;
+          s.crossOrigin = 'anonymous';
+          s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916';
+          document.head.appendChild(s);
+        } catch (e) {}
+      })();
+    </script>
     <script>
       (function() {
         try {
