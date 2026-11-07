@@ -14,8 +14,27 @@ export const isSupabaseConfigured = Boolean(
   !supabaseUrl.includes('your-project-id')
 );
 
+// ⏱️ 요청 시간 제한: 토큰 갱신(/auth/v1/token)이 응답 없이 멈추면 supabase-js 가 모든 DB 요청을
+// 그 뒤에 묶어 두어 앱이 아무 데이터도 못 불러오고 먹통이 됩니다 (안드로이드 앱에서 실제 발생).
+// 인증·REST 요청에만 제한을 걸고, 업로드(storage)·함수 호출은 그대로 둡니다.
+const fetchWithTimeout: typeof fetch = (input, init) => {
+  const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+  const timeoutMs = url.includes('/auth/v1/') ? 8000 : url.includes('/rest/v1/') ? 20000 : 0;
+  if (!timeoutMs || typeof AbortController === 'undefined') return fetch(input, init);
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const outerSignal = init?.signal;
+  if (outerSignal) {
+    if (outerSignal.aborted) controller.abort();
+    else outerSignal.addEventListener('abort', () => controller.abort(), { once: true });
+  }
+  return fetch(input, { ...init, signal: controller.signal }).finally(() => clearTimeout(timer));
+};
+
 export const supabase: SupabaseClient | null = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey, {
+      global: { fetch: fetchWithTimeout },
       auth: {
         persistSession: true,
         autoRefreshToken: true,
