@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getProductIllustration } from '../../utils/productIllustrations';
+import { getFallbackImage } from '../../utils/fallbackImages';
 
 export interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackCategory?: string;
@@ -31,11 +31,10 @@ export const SafeImage: React.FC<SafeImageProps> = ({
       if (fallbackSrc) {
         setImgSrc(fallbackSrc);
       } else {
-        const illustration = getProductIllustration({
+        setImgSrc(getFallbackImage({
           name: fallbackName || alt || '',
           category: fallbackCategory || '',
-        });
-        setImgSrc(illustration);
+        }));
       }
     }
     if (onError) {

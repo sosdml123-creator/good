@@ -13,6 +13,7 @@ import {
   ArrowUp
 } from 'lucide-react';
 import { Product } from '../../types';
+import { getFallbackImage } from '../../utils/fallbackImages';
 import { calculateProductPopularity, buildReviewsByProductId, isRealNewProduct } from '../../utils/ranking';
 
 type RankingSortType = 'popular' | 'rating' | 'reviews' | 'repurchase';
@@ -377,7 +378,7 @@ export const RankingView: React.FC = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                         onError={(e) => {
-                          e.currentTarget.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80';
+                          e.currentTarget.onerror = null; e.currentTarget.src = getFallbackImage(item.product);
                         }}
                       />
                       {item.product.stores && item.product.stores[0] && (
@@ -565,7 +566,7 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
           onError={(e) => {
-            e.currentTarget.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=80';
+            e.currentTarget.onerror = null; e.currentTarget.src = getFallbackImage(item.product);
           }}
         />
         {item.product.stores && item.product.stores[0] && (

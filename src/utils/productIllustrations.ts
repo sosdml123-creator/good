@@ -3,6 +3,8 @@
  * 군더더기 없는 미니멀하고 화사한 3D 볼륨감과 부드러운 파스텔 톤온톤 배경을 제공합니다.
  */
 
+import { fallbackImageUrl, getFallbackImage } from './fallbackImages';
+
 // Helper to encode SVG string safely for data URI
 export const svgToDataUri = (svgString: string): string => {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString.trim())}`;
@@ -979,6 +981,10 @@ export const isAgriMarineProduct = (product?: {
   // 1. Direct ID match
   if (product.id && PRODUCT_ID_ILLUSTRATIONS[product.id]) return true;
 
+  // 가공식품 카테고리(음료·과자 등)는 이름에 '복숭아' 같은 단어가 있어도 농수산물이 아니다
+  const processedCategories = ['과자', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림'];
+  if (product.category && processedCategories.includes(product.category)) return false;
+
   // 2. Category match
   if (product.category === '과일' || product.category === '고기·수산') return true;
 
@@ -1015,46 +1021,11 @@ export const getProductIllustration = (product?: {
   subCategory?: string;
   itemType?: string;
 }): string => {
-  if (!product) return ILLUSTRATION_PEACH;
-
-  // 1. Exact ID match
-  if (product.id && PRODUCT_ID_ILLUSTRATIONS[product.id]) {
-    return PRODUCT_ID_ILLUSTRATIONS[product.id];
-  }
-
-  const name = (product.name || '').toLowerCase();
-  const subCat = (product.subCategory || '').toLowerCase();
-  const cat = (product.category || '').toLowerCase();
-
-  // 2. Fruit items
-  if (name.includes('복숭아') || subCat.includes('복숭아')) return ILLUSTRATION_PEACH;
-  if (name.includes('수박') || subCat.includes('수박')) return ILLUSTRATION_WATERMELON;
-  if (name.includes('사과') || subCat.includes('사과')) return ILLUSTRATION_APPLE;
-  if (name.includes('딸기') || subCat.includes('딸기')) return ILLUSTRATION_STRAWBERRY;
-  if (name.includes('귤') || name.includes('감귤') || subCat.includes('귤')) return ILLUSTRATION_CITRUS;
-  if (name.includes('포도') || name.includes('샤인머스캣') || subCat.includes('포도')) return ILLUSTRATION_GRAPES;
-  if (name.includes('바나나') || subCat.includes('바나나')) return ILLUSTRATION_BANANA;
-
-  // 3. Meat items
-  if (name.includes('소고기') || name.includes('한우') || name.includes('꽃등심') || subCat.includes('소고기')) return ILLUSTRATION_BEEF;
-  if (name.includes('돼지') || name.includes('오겹살') || name.includes('삼겹살') || subCat.includes('돼지고기')) return ILLUSTRATION_PORK;
-  if (name.includes('닭') || name.includes('치킨') || subCat.includes('닭고기')) return ILLUSTRATION_CHICKEN;
-
-  // 4. Seafood items
-  if (name.includes('연어') || subCat.includes('연어')) return ILLUSTRATION_SALMON;
-  if (name.includes('새우') || name.includes('대하') || subCat.includes('새우')) return ILLUSTRATION_SHRIMP;
-
-  // 5. Fresh ingredients & vegetables
-  if (name.includes('란') || name.includes('달걀') || name.includes('계란') || subCat.includes('계란')) return ILLUSTRATION_EGG;
-  if (name.includes('두부') || subCat.includes('두부')) return ILLUSTRATION_TOFU;
-  if (name.includes('당근') || name.includes('채소') || name.includes('야채') || subCat.includes('채소')) return ILLUSTRATION_VEGETABLE;
-
-  // Fallbacks by category
-  if (cat === '과일') return ILLUSTRATION_PEACH;
-  if (cat === '고기·수산') return ILLUSTRATION_BEEF;
-  if (cat === '식재료') return ILLUSTRATION_EGG;
-
-  return ILLUSTRATION_PEACH;
+  if (!product) return fallbackImageUrl('etc');
+  if (product.category === '과일') return fallbackImageUrl('fruit');
+  if (product.category === '고기·수산') return fallbackImageUrl('meat');
+  if (product.category === '식재료') return fallbackImageUrl('grocery');
+  return getFallbackImage({ name: `${product.name || ''} ${product.subCategory || ''}`, category: product.category });
 };
 
 /**
