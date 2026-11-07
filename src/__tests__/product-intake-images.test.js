@@ -1,5 +1,5 @@
 import { it, expect, vi, afterEach } from 'vitest';
-import { attachProductImages } from '../../api/_lib/productImages.js';
+import { attachProductImages, upgradeNaverThumbnail } from '../../api/_lib/productImages.js';
 import { askAiForJson } from '../../api/_lib/aiJson.js';
 import { searchNaver } from '../../api/_lib/intakeSearch.js';
 vi.mock('../../api/_lib/aiJson.js', () => ({ askAiForJson: vi.fn() }));
@@ -40,4 +40,15 @@ it('상품 일치 검수를 통과한 사진만 연결한다', async () => {
   const rows = [{ id: 'discovery-1', name: '딸기 라떼', brand: '스타벅스', image: '' }];
   await attachProductImages(rows, options());
   expect(rows[0].image).toBe('https://example.com/product.jpg');
+});
+it('원본이 안 열리면 네이버 150px 썸네일 대신 같은 사진의 고화질 주소를 쓴다', async () => {
+  const thumb = 'https://search.pstatic.net/common/?type=b150&src=http%3A%2F%2Fshop1.phinf.naver.net%2F20261005_78%2Fabc_JPEG%2F1.jpg';
+  const hiRes = 'https://shop-phinf.pstatic.net/20261005_78/abc_JPEG/1.jpg?type=m1000_pd';
+  searchNaver.mockResolvedValueOnce([{ link: 'https://blocked.example.com/1.jpg', thumbnail: thumb }]);
+  vi.stubGlobal('fetch', vi.fn(async (url) => (url.includes('blocked') ? new Response('', { status: 403 }) : imageFetch())));
+  askAiForJson.mockResolvedValue({ best: 1 });
+  const rows = [{ id: 'seven-1', name: '감자스틱', brand: 'CJ', image: '' }];
+  await attachProductImages(rows, options());
+  expect(rows[0].image).toBe(hiRes);
+  expect(upgradeNaverThumbnail('https://example.com/a.jpg')).toBeNull();
 });

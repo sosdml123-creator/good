@@ -29,8 +29,25 @@ function isUnusableImageUrl(url) {
 }
 
 /**
+ * 네이버 검색 썸네일(search.pstatic.net ?type=b150, 150px)이 네이버 쇼핑 원본을 가리키면
+ * 같은 사진의 1000px 주소(shop-phinf.pstatic.net ?type=m1000_pd)로 바꿉니다. 아니면 null.
+ */
+export function upgradeNaverThumbnail(url) {
+  try {
+    const u = new URL(url);
+    if (u.host !== 'search.pstatic.net') return null;
+    const src = new URL(u.searchParams.get('src') || '');
+    return /(^|\.)phinf\.naver\.net$|^shop-phinf\.pstatic\.net$/.test(src.host)
+      ? `https://shop-phinf.pstatic.net${src.pathname}?type=m1000_pd`
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * 검색 이미지 후보: 원본(link)은 차단·지연이 잦아 검수는 네이버 썸네일로 하고,
- * 저장할 때 원본이 열리지 않으면 썸네일을 씁니다.
+ * 저장할 때 원본이 열리지 않으면 썸네일의 고화질 주소 → 썸네일 순으로 씁니다.
  */
 async function searchImageCandidates(row, naver) {
   const query = `${row.brand && row.brand !== '기타' ? `${row.brand} ` : ''}${row.name}`;
@@ -121,8 +138,13 @@ export async function attachProductImages(rows, { deadline, naver, engine }) {
     }
     if (!best) return;
     const chosen = usable[best - 1];
-    // 검수는 썸네일로 했으므로 원본이 열리는지 확인하고, 안 열리면 검수한 썸네일을 씁니다.
-    row.image = chosen.url === chosen.checkUrl || await downloadImage(chosen.url) ? chosen.url : chosen.fallbackUrl;
+    // 검수는 썸네일로 했으므로 원본이 열리는지 확인하고, 안 열리면 같은 사진의 고화질 주소, 그것도 안 되면 썸네일을 씁니다.
+    if (chosen.url === chosen.checkUrl || await downloadImage(chosen.url)) {
+      row.image = chosen.url;
+    } else {
+      const hiRes = upgradeNaverThumbnail(chosen.fallbackUrl);
+      row.image = hiRes && await downloadImage(hiRes) ? hiRes : chosen.fallbackUrl;
+    }
   };
 
   const workers = Array.from({ length: Math.min(CONCURRENCY, queue.length) }, async () => {
