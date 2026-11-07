@@ -26,6 +26,7 @@ import { formatProductPrice } from '../../utils/formatters';
 import { t } from '../../i18n';
 import { AdMobBannerSection } from '../home/AdMobBannerSection';
 import { filterBySearch } from '../../utils/searchAlias';
+import { PurchaseInfoFields, asksPurchaseInfo, toPurchasePrice } from './PurchaseInfoFields';
 
 
 // 재구매 의사 5단계 (왼쪽 → 오른쪽으로 갈수록 긍정)
@@ -101,6 +102,8 @@ export const WriteReviewModal: React.FC = () => {
 
   // 3. 확장 메타데이터
   const [repurchaseIntent, setRepurchaseIntent] = useState<string>('무조건 또 사먹어요!');
+  const [purchasePrice, setPurchasePrice] = useState('');
+  const [purchasePlace, setPurchasePlace] = useState('');
 
   // 4. 본문 & 사진
   const [text, setText] = useState('');
@@ -334,6 +337,7 @@ export const WriteReviewModal: React.FC = () => {
         extraTags,
         {
           repurchaseIntent,
+          ...(asksPurchaseInfo(prod) ? { purchasePrice: toPurchasePrice(purchasePrice), purchasePlace: purchasePlace || undefined } : {}),
         }
       );
     } catch (err) {
@@ -537,6 +541,11 @@ export const WriteReviewModal: React.FC = () => {
              rating === 2 ? t('기대에는 조금 못 미쳐요 💦') : t('많이 아쉬워요 😢')}
           </div>
         </div>
+
+        {/* 농수산물: 구매 가격 · 구매처 */}
+        {asksPurchaseInfo(prod) && (
+          <PurchaseInfoFields price={purchasePrice} onPrice={setPurchasePrice} place={purchasePlace} onPlace={setPurchasePlace} unitHint={prod?.volume} />
+        )}
 
         {/* 7. 재구매 의사 */}
         <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 space-y-3">

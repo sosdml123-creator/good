@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Camera, Check, Loader2, PlusCircle, Search, Star, X } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { PurchaseInfoFields, asksPurchaseInfo, toPurchasePrice } from '../components/review/PurchaseInfoFields';
 import { Product, ProductCategory } from '../types';
 import { NewProductRequestModal } from '../components/review/NewProductRequestModal';
 import { ImageViewerModal } from '../components/common/ImageViewerModal';
@@ -82,6 +83,8 @@ export const PcWriteReview: React.FC = () => {
   const [rating, setRating] = useState(5);
   const [metrics, setMetrics] = useState([0, 0, 0, 0]);
   const [repurchase, setRepurchase] = useState('무조건 또 사먹어요!');
+  const [purchasePrice, setPurchasePrice] = useState('');
+  const [purchasePlace, setPurchasePlace] = useState('');
   const [text, setText] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [isCompressing, setIsCompressing] = useState(false);
@@ -144,7 +147,10 @@ export const PcWriteReview: React.FC = () => {
         text.trim().slice(0, 300),
         images,
         [],
-        { repurchaseIntent: repurchase },
+        {
+          repurchaseIntent: repurchase,
+          ...(asksPurchaseInfo(prod) ? { purchasePrice: toPurchasePrice(purchasePrice), purchasePlace: purchasePlace || undefined } : {}),
+        },
       );
     } catch {
       showToast('리뷰 등록 중 오류가 발생했습니다.', 'error');
@@ -271,6 +277,10 @@ export const PcWriteReview: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            {asksPurchaseInfo(prod) && (
+              <PurchaseInfoFields price={purchasePrice} onPrice={setPurchasePrice} place={purchasePlace} onPlace={setPurchasePlace} unitHint={prod?.volume} />
+            )}
 
             <div>
               <p className="text-[16px] font-bold text-gray-900">4. 다시 구매하시겠어요?</p>

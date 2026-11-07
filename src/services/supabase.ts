@@ -106,6 +106,9 @@ export interface DBReview {
   rating: number;
   detailed_rating?: any;
   fresh_metrics?: any;
+  /** 농수산물 실구매 후기의 구매 가격·구매처 (선택) */
+  purchase_price?: number | null;
+  purchase_place?: string | null;
   content: string;
   images?: string[];
   likes_count: number;
