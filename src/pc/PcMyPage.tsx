@@ -77,7 +77,7 @@ export const PcMyPage: React.FC = () => {
       title: '계정 · 설정',
       items: [
         { label: '닉네임 수정', sub: currentUser.displayName, icon: Pencil, action: () => setIsEditNicknameOpen(true) },
-        { label: '출시알림 설정', icon: Bell, action: () => openNotificationCenter('settings') },
+        { label: '알림함', icon: Bell, action: () => openNotificationCenter('inbox') },
         { label: '알림 & 권한 안내', sub: '마케팅·신제품·위치', icon: ShieldCheck, action: () => openPermissionModal() },
         { label: '설정', sub: '알림·약관·계정관리', icon: Settings, action: () => setActiveTab('settings') },
       ],

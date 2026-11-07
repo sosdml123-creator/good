@@ -18,17 +18,17 @@ import { PcTteok } from './PcTteok';
 import { PcContainer } from './PcUi';
 import { PcAppDownloadBanner } from './PcAppDownloadBanner';
 
-// PC 전용 화면이 없는 기능은 앱 화면을 가운데 카드 안에 그대로 보여줍니다.
+// 자주 열지 않는 PC 화면은 필요할 때 불러옵니다. (모바일 화면은 PC에서 쓰지 않습니다)
 const Views = {
-  CommunityView: lazy(() => import('../components/community/CommunityView').then(m => ({ default: m.CommunityView }))),
   PcMyPage: lazy(() => import('./PcMyPage').then(m => ({ default: m.PcMyPage }))),
-  WriteReviewModal: lazy(() => import('../components/review/WriteReviewModal').then(m => ({ default: m.WriteReviewModal }))),
-  CompareModal: lazy(() => import('../components/compare/CompareModal').then(m => ({ default: m.CompareModal }))),
-  NotificationModal: lazy(() => import('../components/notification/NotificationModal').then(m => ({ default: m.NotificationModal }))),
-  EventDetailModal: lazy(() => import('../components/event/EventDetailModal').then(m => ({ default: m.EventDetailModal }))),
-  SettingsView: lazy(() => import('../components/settings/SettingsView').then(m => ({ default: m.SettingsView }))),
-  SaleNewsView: lazy(() => import('../components/sale/SaleNewsView').then(m => ({ default: m.SaleNewsView }))),
-  CouponShopView: lazy(() => import('../components/coupon/CouponShopView').then(m => ({ default: m.CouponShopView }))),
+  PcWriteReview: lazy(() => import('./PcWriteReview').then(m => ({ default: m.PcWriteReview }))),
+  PcCommunity: lazy(() => import('./PcCommunity').then(m => ({ default: m.PcCommunity }))),
+  PcEventDetail: lazy(() => import('./PcEventDetail').then(m => ({ default: m.PcEventDetail }))),
+  PcCompare: lazy(() => import('./PcCompare').then(m => ({ default: m.PcCompare }))),
+  PcNotifications: lazy(() => import('./PcNotifications').then(m => ({ default: m.PcNotifications }))),
+  PcSettings: lazy(() => import('./PcSettings').then(m => ({ default: m.PcSettings }))),
+  PcCoupon: lazy(() => import('./PcCoupon').then(m => ({ default: m.PcCoupon }))),
+  PcSale: lazy(() => import('./PcSale').then(m => ({ default: m.PcSale }))),
 };
 const RecipeDetailModal = lazy(() => import('../components/recipe/RecipeDetailModal').then(m => ({ default: m.RecipeDetailModal })));
 const WriteRecipeModal = lazy(() => import('../components/recipe/WriteRecipeModal').then(m => ({ default: m.WriteRecipeModal })));
@@ -252,16 +252,6 @@ const PcFooter: React.FC = () => {
   );
 };
 
-/** 앱 화면을 PC 가운데 카드로 보여주는 영역 (수다방·마이·e쿠폰 등) */
-const PcAppPanel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="bg-[#F5F5F7] py-10">
-    {/* overflow:clip 은 스크롤 컨테이너를 만들지 않아 안쪽 sticky 헤더가 PC 스크롤에도 붙어 있습니다 */}
-    <div data-pc-panel className="w-full max-w-[720px] mx-auto bg-white rounded-2xl border border-gray-200 [overflow:clip] min-h-[640px] flex flex-col [&>*]:shrink-0">
-      {children}
-    </div>
-  </div>
-);
-
 export const PcApp: React.FC = () => {
   const { activeTab } = useApp();
   const mainRef = useRef<HTMLElement>(null);
@@ -289,6 +279,14 @@ export const PcApp: React.FC = () => {
     activeTab === 'donki' ? <PcDonki /> :
     activeTab === 'tteok' ? <PcTteok /> :
     activeTab === 'my' ? <V.PcMyPage /> :
+    activeTab === 'write' ? <V.PcWriteReview /> :
+    activeTab === 'community' ? <V.PcCommunity /> :
+    activeTab === 'event_detail' ? <V.PcEventDetail /> :
+    activeTab === 'compare' ? <V.PcCompare /> :
+    activeTab === 'alert_settings' ? <V.PcNotifications /> :
+    activeTab === 'settings' ? <V.PcSettings /> :
+    activeTab === 'coupon' ? <V.PcCoupon /> :
+    activeTab === 'calendar' || (activeTab as string) === 'sale' ? <V.PcSale /> :
     activeTab === 'releases' ? <PcHome /> : // 출시 캘린더는 삭제됨: 예전 주소는 홈으로
     null;
 
@@ -305,16 +303,7 @@ export const PcApp: React.FC = () => {
         <Suspense fallback={<Spinner />}>
           <div className="flex-1">
             {pcPage ?? (
-              <PcAppPanel>
-                {activeTab === 'write' && <V.WriteReviewModal />}
-                {activeTab === 'community' && <V.CommunityView />}
-                {activeTab === 'event_detail' && <V.EventDetailModal />}
-                {activeTab === 'compare' && <V.CompareModal />}
-                {activeTab === 'alert_settings' && <V.NotificationModal />}
-                {activeTab === 'settings' && <V.SettingsView />}
-                {activeTab === 'coupon' && <V.CouponShopView />}
-                {(activeTab === 'calendar' || (activeTab as string) === 'sale') && <V.SaleNewsView />}
-              </PcAppPanel>
+              <PcHome /> // PC 화면이 없는 주소는 홈으로
             )}
           </div>
           <PcFooter />

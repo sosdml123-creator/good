@@ -5,9 +5,6 @@ import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { getPopularCommunityPosts } from '../../utils/ranking';
 import { CommunityPost } from '../../types';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
-import { isPcSite } from '../../pc/isPcSite';
-
-const isPc = isPcSite();
 
 export const CommunityView: React.FC = () => {
   const { 
@@ -109,25 +106,12 @@ export const CommunityView: React.FC = () => {
         <div className="flex items-center justify-between px-4 py-3">
           <span className="text-[17px] font-bold text-gray-900">신상 수다방</span>
           <div className="flex items-center gap-2 text-gray-700">
-            {isPc ? (
-              // PC는 상단 검색창이 있으므로 글쓰기 버튼만 둡니다 (모바일용 떠 있는 + 버튼 대신)
-              <button
-                onClick={() => setIsWriteModalOpen(true)}
-                className="h-9 px-4 rounded-full bg-gray-900 hover:bg-black text-white text-[13px] font-bold flex items-center gap-1 cursor-pointer"
-              >
-                <Plus className="w-4 h-4 stroke-[2.5]" />
-                글쓰기
-              </button>
-            ) : (
-              <>
-                <button onClick={() => setActiveTab('search')} className="p-1 hover:text-gray-900">
-                  <Search className="w-5 h-5" />
-                </button>
-                <button onClick={() => setActiveTab('alert_settings')} className="p-1 hover:text-gray-900">
-                  <Bell className="w-5 h-5" />
-                </button>
-              </>
-            )}
+            <button onClick={() => setActiveTab('search')} className="p-1 hover:text-gray-900">
+              <Search className="w-5 h-5" />
+            </button>
+            <button onClick={() => setActiveTab('alert_settings')} className="p-1 hover:text-gray-900">
+              <Bell className="w-5 h-5" />
+            </button>
           </div>
         </div>
 
@@ -357,14 +341,14 @@ export const CommunityView: React.FC = () => {
       </div>
       )}
 
-      {/* 4. Write FAB (모바일 전용) */}
-      {!isPc && <button
+      {/* 4. Write FAB */}
+      <button
         onClick={() => setIsWriteModalOpen(true)}
         className="fixed bottom-20 right-5 w-12 h-12 rounded-full bg-gray-900 hover:bg-black text-white shadow-lg flex items-center justify-center z-30 active:scale-95 transition-transform"
         title="글쓰기"
       >
         <Plus className="w-6 h-6 stroke-[2.5]" />
-      </button>}
+      </button>
 
       {/* 5. Write Post Modal */}
       {isWriteModalOpen && (
