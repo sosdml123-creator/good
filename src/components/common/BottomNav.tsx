@@ -8,7 +8,8 @@ export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, setSelectedCategory } = useApp();
   const t = useT();
 
-  const hiddenTabs: ActiveTab[] = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings'];
+  // 농수산물(agri)은 전용 하단 탭을 씁니다.
+  const hiddenTabs: ActiveTab[] = ['detail', 'write', 'search', 'compare', 'event_detail', 'alert_settings', 'settings', 'agri'];
   if (hiddenTabs.includes(activeTab)) {
     return null;
   }

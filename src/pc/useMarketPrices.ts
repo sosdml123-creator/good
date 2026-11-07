@@ -139,14 +139,41 @@ export const formatWon = (n: number | null) => (n === null ? '-' : `${n.toLocale
 
 export interface PricePoint { date: string; price: number }
 
-/** 품목 하나의 기간별 소매가 (그래프용). 실패하면 points 가 빈 배열입니다. */
-export const fetchPeriodPrices = async (row: MarketPriceRow, days: number): Promise<PricePoint[]> => {
+/** 지역·시장 한 곳의 조사 가격 (KAMIS 소매가격 조사처) */
+export interface MarketQuote { region: string; market: string; price: number }
+
+export interface PeriodDetail {
+  points: PricePoint[];
+  /** 같은 날짜의 평년 가격 */
+  normal: PricePoint[];
+  /** 가장 최근 조사일의 지역·시장별 가격 */
+  markets: MarketQuote[];
+  marketDate: string | null;
+}
+
+const periodMemo = new Map<string, Promise<PeriodDetail>>();
+
+/** 품목 하나의 기간별 소매가 + 평년가 + 지역·시장별 가격. 실패하면 빈 배열입니다. */
+export const fetchPeriodDetail = (row: MarketPriceRow, days: number): Promise<PeriodDetail> => {
   const q = new URLSearchParams({ action: 'period', category: row.categoryCode, item: row.itemCode, kind: row.kindCode, rank: row.rankCode, days: String(days) });
-  try {
-    const r = await fetch(`${KAMIS_URL}?${q.toString()}`);
-    const json = r.ok ? await r.json() : null;
-    return Array.isArray(json?.points) ? json.points : [];
-  } catch {
-    return [];
-  }
+  const key = q.toString();
+  const hit = periodMemo.get(key);
+  if (hit) return hit;
+  const task = (async (): Promise<PeriodDetail> => {
+    try {
+      const r = await fetch(`${KAMIS_URL}?${key}`);
+      const json = r.ok ? await r.json() : null;
+      const list = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+      return { points: list(json?.points), normal: list(json?.normal), markets: list(json?.markets), marketDate: json?.marketDate || null };
+    } catch {
+      periodMemo.delete(key);
+      return { points: [], normal: [], markets: [], marketDate: null };
+    }
+  })();
+  periodMemo.set(key, task);
+  return task;
 };
+
+/** 품목 하나의 기간별 소매가 (그래프용). 실패하면 points 가 빈 배열입니다. */
+export const fetchPeriodPrices = async (row: MarketPriceRow, days: number): Promise<PricePoint[]> =>
+  (await fetchPeriodDetail(row, days)).points;

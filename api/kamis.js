@@ -104,16 +104,26 @@ async function sendPeriodPrices(req, res, certKey, certId, productClsCode) {
     const json = r.ok ? await r.json() : null;
     const rows = Array.isArray(json?.data?.item) ? json.data.item : [];
     const points = [];
+    const normal = [];
+    const marketRows = [];
     for (const row of rows) {
-      // 지역별 행 중 전국 '평균' 행만 씁니다.
-      if (row.countyname && row.countyname !== '평균') continue;
       const price = Number(String(row.price || '').replace(/,/g, ''));
       const md = String(row.regday || '').match(/(\d{1,2})\/(\d{1,2})/);
       if (!Number.isFinite(price) || price <= 0 || !md || !row.yyyy) continue;
-      points.push({ date: `${row.yyyy}-${md[1].padStart(2, '0')}-${md[2].padStart(2, '0')}`, price });
+      const date = `${row.yyyy}-${md[1].padStart(2, '0')}-${md[2].padStart(2, '0')}`;
+      // 전국 '평균'은 그래프, '평년'은 비교선, 나머지는 지역·시장별 조사 가격입니다.
+      if (!row.countyname || row.countyname === '평균') points.push({ date, price });
+      else if (row.countyname === '평년') normal.push({ date, price });
+      else if (typeof row.marketname === 'string' && row.marketname) {
+        marketRows.push({ date, region: String(row.countyname), market: row.marketname, price });
+      }
     }
     points.sort((a, b) => a.date.localeCompare(b.date));
-    return res.status(200).json({ success: points.length > 0, points });
+    normal.sort((a, b) => a.date.localeCompare(b.date));
+    // 지역·시장별 가격은 가장 최근 조사일 것만 돌려줍니다.
+    const lastDay = marketRows.reduce((m, r) => (r.date > m ? r.date : m), '');
+    const markets = marketRows.filter(r => r.date === lastDay).map(({ region, market, price }) => ({ region, market, price }));
+    return res.status(200).json({ success: points.length > 0, points, normal, markets, marketDate: lastDay || null });
   } catch (err) {
     clearTimeout(timeoutId);
     return res.status(200).json({ success: false, points: [], error: err.message || 'period fetch failed' });
