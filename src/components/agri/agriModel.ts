@@ -136,25 +136,25 @@ export const productForRow = (r: MarketPriceRow, products: Product[]): Product |
   return list[0];
 };
 
-export const photoFor = (r: MarketPriceRow, products: Product[]): string | null =>
-  productForRow(r, products)?.image || fallbackProducePhoto(r.itemName, r.category);
+export const photoFor = (r: MarketPriceRow, products: Product[]): string | null => {
+  const current = productForRow(r, products)?.image;
+  // Preserve existing locally generated product photos; replace externally hosted/crawled photos with our local set.
+  return current?.startsWith('/produce-img/') ? current : fallbackProducePhoto(r.itemName, r.category);
+};
 
 // KAMIS 조사 품목 대부분은 별도 상품 카탈로그가 없어도 사진을 보여 주도록 준비한 품목별 실사 사진.
 const PRODUCE_PHOTOS: Record<string, string> = {
-  사과:'photo-1560806887-1e4cd0b6cbd6', 배:'photo-1519996529931-28324d7a630e', 복숭아:'photo-1629828874514-c1e5103d4e70',
-  딸기:'photo-1464965911861-746a04b4bca6', 수박:'photo-1587049352851-8d4e89133924', 참외:'photo-1571575173700-afb9492e6a50',
-  감귤:'photo-1547514701-42782101795e', 포도:'photo-1537640538966-79f369143f8f', 바나나:'photo-1571771894821-ce9b6c11b08e',
-  감자:'photo-1518977676601-b53f82aba655', 고구마:'photo-1596097635121-14b63b7a0c19', 양파:'photo-1508747703725-719777637510',
-  배추:'photo-1594282486552-05b4d80fbb9f', 무:'photo-1598170845058-32b9d6a5da37', 토마토:'photo-1546094096-0df4bcaaa337',
-  오이:'photo-1604977042946-1eecc30f269e', 풋고추:'photo-1588252303782-cb80119abd6d', 브로콜리:'photo-1459411621453-7b03977f4bfc',
-  고등어:'photo-1510130387422-82bed34b37e9', 갈치:'photo-1510130387422-82bed34b37e9', 전복:'photo-1559737558-2f5a35f4523b',
-  굴:'photo-1565680018434-b513d5e5fd47', 꽃게:'photo-1559737558-2f5a35f4523b', 새우:'photo-1565680018434-b513d5e5fd47',
-  소:'photo-1607623814075-e51df1bdc82f', 돼지:'photo-1602470520998-f4a52199a3d6', 닭:'photo-1604503468506-a8da13d82791', 계란:'photo-1506976785307-8732e854ad03', 쌀:'photo-1586201375761-83865001e31c',
+  사과:'apple.jpg', 배:'pear.jpg', 복숭아:'generated-koreanmelon.jpg', 딸기:'generated-strawberry.jpg', 수박:'generated-watermelon.jpg', 참외:'generated-koreanmelon.jpg',
+  감귤:'tangerine.jpg', 포도:'generated-grapes.jpg', 바나나:'banana.jpg', 감자:'potato.jpg', 고구마:'sweetpotato.jpg', 양파:'onion.jpg',
+  배추:'generated-napa.jpg', 무:'radish.jpg', 토마토:'tomato.jpg', 방울토마토:'generated-cherrytomato.jpg', 오이:'generated-cucumber.jpg', 애호박:'generated-zucchini.jpg',
+  풋고추:'generated-greenchili.jpg', 고추:'generated-greenchili.jpg', 브로콜리:'generated-broccoli.jpg', 가지:'generated-eggplant.jpg', 깻잎:'generated-minari.jpg', 미나리:'generated-minari.jpg', 파:'greenonion.jpg',
+  고등어:'mackerel.jpg', 갈치:'hairtail.jpg', 명태:'pollock.jpg', 전복:'abalone.jpg', 굴:'oyster.jpg', 꽃게:'crab.jpg', 새우:'shrimp.jpg', 오징어:'squid.jpg', 물오징어:'squid.jpg',
+  소:'beefsirloin.jpg', 등심:'generated-ribeye.jpg', 한우:'beefsirloin.jpg', 돼지:'porkbelly.jpg', 닭:'chicken.jpg', 계란:'egg.jpg', 쌀:'rice.jpg',
 };
 const fallbackProducePhoto = (name: string, category: MarketCategory) => {
   const key = Object.keys(PRODUCE_PHOTOS).sort((a,b)=>b.length-a.length).find(k=>name.includes(k));
-  const id = key ? PRODUCE_PHOTOS[key] : category === '수산물' ? PRODUCE_PHOTOS['고등어'] : category === '축산물' ? PRODUCE_PHOTOS['소'] : PRODUCE_PHOTOS['토마토'];
-  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=240&h=240&q=75`;
+  const file = key ? PRODUCE_PHOTOS[key] : category === '수산물' ? PRODUCE_PHOTOS['고등어'] : category === '축산물' ? PRODUCE_PHOTOS['소'] : PRODUCE_PHOTOS['토마토'];
+  return `/produce-img/${file}`;
 };
 
 /** 로컬 품목 사진은 실제 판매 상품 사진이 아닌 품목 참고 이미지입니다. */

@@ -390,8 +390,8 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
           <figure className="mt-3 overflow-hidden rounded-[8px] border border-[#ECEEF0]">
             <img
               src={r.itemName.includes('수박')
-                ? 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=900&h=440&q=80'
-                : 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&h=440&q=80'}
+                ? '/produce-img/generated-watermelon.jpg'
+                : '/produce-img/generated-ribeye.jpg'}
               alt={r.itemName.includes('수박') ? '수박 껍질과 꼭지를 살펴보는 참고 사진' : '소고기 등심 마블링 참고 사진'}
               loading="lazy" className="w-full h-[150px] object-cover"
             />
