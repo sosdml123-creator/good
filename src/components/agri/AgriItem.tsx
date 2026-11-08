@@ -164,7 +164,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
       {img && (
         <figure className="relative">
           <img src={img} alt={`${r.itemName} 사진`} className="w-full h-[220px] object-cover bg-[#F1F2F4]" />
-          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">품목 참고 이미지 · 실제 판매 상품과 다를 수 있어요</figcaption>
+          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">AI 생성 품목 참고 이미지 · 실제 판매 상품과 다를 수 있어요</figcaption>
         </figure>
       )}
 

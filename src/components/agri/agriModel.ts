@@ -1,4 +1,5 @@
 import type { Product, Review } from '../../types';
+import { preciseProducePhoto } from './producePhotos';
 import type { MarketCategory, MarketPriceRow, MarketQuote } from '../../pc/useMarketPrices';
 
 /* ───────────── 분류 ───────────── */
@@ -139,26 +140,11 @@ export const productForRow = (r: MarketPriceRow, products: Product[]): Product |
 export const photoFor = (r: MarketPriceRow, products: Product[]): string | null => {
   const current = productForRow(r, products)?.image;
   // Preserve existing locally generated product photos; replace externally hosted/crawled photos with our local set.
-  return current?.startsWith('/produce-img/') ? current : fallbackProducePhoto(r.itemName, r.category);
-};
-
-// KAMIS 조사 품목 대부분은 별도 상품 카탈로그가 없어도 사진을 보여 주도록 준비한 품목별 실사 사진.
-const PRODUCE_PHOTOS: Record<string, string> = {
-  사과:'apple.jpg', 배:'pear.jpg', 복숭아:'generated-koreanmelon.jpg', 딸기:'generated-strawberry.jpg', 수박:'generated-watermelon.jpg', 참외:'generated-koreanmelon.jpg',
-  감귤:'tangerine.jpg', 포도:'generated-grapes.jpg', 바나나:'banana.jpg', 감자:'potato.jpg', 고구마:'sweetpotato.jpg', 양파:'onion.jpg',
-  배추:'generated-napa.jpg', 무:'radish.jpg', 토마토:'tomato.jpg', 방울토마토:'generated-cherrytomato.jpg', 오이:'generated-cucumber.jpg', 애호박:'generated-zucchini.jpg',
-  풋고추:'generated-greenchili.jpg', 고추:'generated-greenchili.jpg', 브로콜리:'generated-broccoli.jpg', 가지:'generated-eggplant.jpg', 깻잎:'generated-minari.jpg', 미나리:'generated-minari.jpg', 파:'greenonion.jpg',
-  고등어:'mackerel.jpg', 갈치:'hairtail.jpg', 명태:'pollock.jpg', 전복:'abalone.jpg', 굴:'oyster.jpg', 꽃게:'crab.jpg', 새우:'shrimp.jpg', 오징어:'squid.jpg', 물오징어:'squid.jpg',
-  소:'beefsirloin.jpg', 등심:'generated-ribeye.jpg', 한우:'beefsirloin.jpg', 돼지:'porkbelly.jpg', 닭:'chicken.jpg', 계란:'egg.jpg', 쌀:'rice.jpg',
-};
-const fallbackProducePhoto = (name: string, category: MarketCategory) => {
-  const key = Object.keys(PRODUCE_PHOTOS).sort((a,b)=>b.length-a.length).find(k=>name.includes(k));
-  const file = key ? PRODUCE_PHOTOS[key] : category === '수산물' ? PRODUCE_PHOTOS['고등어'] : category === '축산물' ? PRODUCE_PHOTOS['소'] : PRODUCE_PHOTOS['토마토'];
-  return `/produce-img/${file}`;
+  return preciseProducePhoto(r) || (current?.startsWith('/produce-img/') ? current : null);
 };
 
 /** 로컬 품목 사진은 실제 판매 상품 사진이 아닌 품목 참고 이미지입니다. */
-export const isGeneratedPhoto = (_src: string | null | undefined) => false;
+export const isGeneratedPhoto = (src: string | null | undefined) => Boolean(src?.startsWith('/produce-img/'));
 
 /* ───────────── 후기 ───────────── */
 
