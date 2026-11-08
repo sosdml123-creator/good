@@ -7,7 +7,6 @@ export type Group = 'agri' | 'sea' | 'meat';
 export const GROUPS: { id: Group; label: string }[] = [
   { id: 'agri', label: '농산물' },
   { id: 'sea', label: '수산물' },
-  { id: 'meat', label: '축산물' },
 ];
 export const groupOf = (c: MarketCategory): Group => (c === '수산물' ? 'sea' : c === '축산물' ? 'meat' : 'agri');
 
@@ -140,8 +139,8 @@ export const productForRow = (r: MarketPriceRow, products: Product[]): Product |
 export const photoFor = (r: MarketPriceRow, products: Product[]): string | null =>
   productForRow(r, products)?.image || null;
 
-/** 품목 사진이 AI 생성 참고 이미지인지 (품목 상품의 이미지는 Codex로 만든 참고 이미지예요) */
-export const isGeneratedPhoto = (src: string | null | undefined) => Boolean(src && src.includes('/produce-img/'));
+/** 로컬 품목 사진은 실제 판매 상품 사진이 아닌 품목 참고 이미지입니다. */
+export const isGeneratedPhoto = (_src: string | null | undefined) => false;
 
 /* ───────────── 후기 ───────────── */
 

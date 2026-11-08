@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Bell, ChevronLeft, Heart, Search } from 'lucide-react';
+import { Bell, ChevronLeft, Heart, Search, TrendingDown, TrendingUp } from 'lucide-react';
 import type { MarketCategory } from '../../pc/useMarketPrices';
 import { useAgri } from './AgriContext';
 import { Item, SEASONS, SHORT_CAT, currentMonth, fmtDate, itemTitle, pctChange } from './agriModel';
@@ -13,7 +13,7 @@ const median = (xs: number[]) => {
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 };
 
-const CAT_ORDER: MarketCategory[] = ['채소류', '과일류', '수산물', '축산물', '식량작물'];
+const CAT_ORDER: MarketCategory[] = ['채소류', '과일류', '수산물', '식량작물'];
 
 export const AgriHome: React.FC = () => {
   const { items, date, status, checkedAt, watches, itemById, alerts, recent, reviews, photo, openItem, openPrices, goTab, exit, setReviewItem } = useAgri();
@@ -50,7 +50,7 @@ export const AgriHome: React.FC = () => {
           <button onClick={exit} aria-label="신상픽 홈으로" className="w-10 h-10 flex items-center justify-center text-[#191C20]">
             <ChevronLeft className="w-6 h-6" />
           </button>
-          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">장보기 시세</h1>
+          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">오늘의 농수산물 시세</h1>
           <button onClick={() => goTab('saved')} aria-label={`가격 알림 ${alerts.length}건`} className="relative w-10 h-10 flex items-center justify-center text-[#191C20]">
             <Bell className="w-[22px] h-[22px]" strokeWidth={1.8} />
             {alerts.length > 0 && <span className="absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#D23F35] text-white text-[10px] font-bold leading-4 text-center">{alerts.length}</span>}
@@ -66,6 +66,17 @@ export const AgriHome: React.FC = () => {
           </button>
         </div>
       </header>
+
+      <div className="grid grid-cols-2 border-y border-[#ECEEF0]">
+        <button onClick={() => openPrices({ sort: 'down' })} className="flex items-center gap-2 px-4 py-2.5 text-left">
+          <TrendingDown className="h-4 w-4 text-[#2D64CF]" />
+          <span className="text-[13px] text-[#5A626B]">하락 <b className="ml-1 text-[#191C20]">{summary.down}개</b></span>
+        </button>
+        <button onClick={() => openPrices({ sort: 'up' })} className="flex items-center gap-2 px-4 py-2.5 text-left border-l border-[#ECEEF0]">
+          <TrendingUp className="h-4 w-4 text-[#D23F35]" />
+          <span className="text-[13px] text-[#5A626B]">상승 <b className="ml-1 text-[#191C20]">{summary.up}개</b></span>
+        </button>
+      </div>
 
       {watched.length > 0 && (
         <section aria-label="관심 품목" className="pb-3">

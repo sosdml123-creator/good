@@ -13,7 +13,7 @@ const SORTS: { id: Sort; label: string }[] = [
   { id: 'name', label: '이름순' },
 ];
 
-/** 시세 목록: 농산물/수산물/축산물 탭, 분류 칩, 검색, 정렬. 카드 대신 촘촘한 리스트로 여러 품목을 한눈에 비교합니다. */
+/** 시세 목록: 농산물/수산물 탭, 분류 칩, 검색, 정렬. 카드 대신 촘촘한 리스트로 여러 품목을 한눈에 비교합니다. */
 export const AgriPrices: React.FC = () => {
   const { items, date, status, preset } = useAgri();
   const [group, setGroup] = useState<Group>(preset.group || 'agri');

@@ -4,7 +4,7 @@ import { PeriodDetail, fetchPeriodDetail } from '../../pc/useMarketPrices';
 import { useAgri } from './AgriContext';
 import {
   Item, NORMAL_NOTE, SHORT_CAT, currentMonth, fmtDate, gradeLabel, itemSpec, itemTitle, judgePrice, marketLabel,
-  isChainStore, isGeneratedPhoto, originOf, pctChange, productForRow, reviewMetrics, reviewsForItem, seafoodState, seasonMonths,
+  isChainStore, originOf, pctChange, productForRow, reviewMetrics, reviewsForItem, seafoodState, seasonMonths,
   summarizeRegions, tipsFor, won,
 } from './agriModel';
 import { ReviewLine } from './AgriRows';
@@ -164,7 +164,7 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
       {img && (
         <figure className="relative">
           <img src={img} alt={`${r.itemName} 사진`} className="w-full h-[220px] object-cover bg-[#F1F2F4]" />
-          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">{isGeneratedPhoto(img) ? 'AI 생성 참고 이미지 · 실제와 다를 수 있어요' : '판매 상품 사진 · 참고용'}</figcaption>
+          <figcaption className="absolute right-2 bottom-2 px-1.5 py-0.5 rounded-[3px] bg-black/45 text-[10.5px] text-white">품목 참고 이미지 · 실제 판매 상품과 다를 수 있어요</figcaption>
         </figure>
       )}
 
