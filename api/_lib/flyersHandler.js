@@ -1,10 +1,11 @@
-import { verifyAdminRequest } from './_lib/adminAuth.js';
-import { FLYER_SOURCES } from './_lib/martFlyers.js';
-export const config = { maxDuration: 60 };
+// 전단지 코너 API. Vercel Hobby 함수 12개 한도 때문에 별도 함수가 아니라
+// api/crawl-discounts.js 가 ?fn=flyers 로 이 핸들러를 호출합니다 (vercel.json 에서 /api/flyers 를 그쪽으로 연결).
+import { verifyAdminRequest } from './adminAuth.js';
+import { FLYER_SOURCES } from './martFlyers.js';
 const prefix = '__flyer_';
 const today = () => new Date(Date.now()+32400000).toISOString().slice(0,10);
 const validDate = d => /^\d{4}-\d{2}-\d{2}$/.test(d) && !isNaN(Date.parse(d)) && new Date(d).toISOString().slice(0,10) === d;
-export default async function handler(req,res) {
+export default async function flyersHandler(req,res) {
   try {
     const key=process.env.SUPABASE_SERVICE_ROLE_KEY, url=process.env.SUPABASE_URL||process.env.VITE_SUPABASE_URL;
     if(!key||!url) throw new Error('서버 저장소 설정이 필요합니다.');

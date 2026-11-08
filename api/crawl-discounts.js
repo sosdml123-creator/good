@@ -9,6 +9,7 @@
  */
 
 import { verifyAdminRequest } from './_lib/adminAuth.js';
+import flyersHandler from './_lib/flyersHandler.js';
 import {
   SALE_STORES,
   resolveSaleStore,
@@ -133,6 +134,11 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // 전단지 코너 (/api/flyers → 이 함수, vercel.json rewrite). 함수 12개 한도 때문에 여기서 함께 처리합니다.
+  if (req.query?.fn === 'flyers') {
+    return flyersHandler(req, res);
   }
 
   const query = req.query || {};

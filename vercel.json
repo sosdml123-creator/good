@@ -1,7 +1,7 @@
 {
   "regions": ["icn1"],
   "crons": [
-    { "path": "/api/flyers?action=cron", "schedule": "0 22 * * *" },
+    { "path": "/api/crawl-discounts?fn=flyers&action=cron", "schedule": "0 22 * * *" },
     {
       "path": "/api/pending-products?action=cron",
       "schedule": "0 0 * * *"
@@ -41,6 +41,10 @@
     {
       "source": "/api/admob-reward",
       "destination": "/api/giftishow"
+    },
+    {
+      "source": "/api/flyers",
+      "destination": "/api/crawl-discounts?fn=flyers"
     },
     {
       "source": "/sitemap.xml",
