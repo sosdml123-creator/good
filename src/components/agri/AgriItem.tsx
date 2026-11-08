@@ -400,7 +400,8 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
             </figcaption>
           </figure>
         )}
-        <p className="mt-2 text-[11.5px] text-[#8A929A]">일반적인 참고 정보예요.</p>
+        <p className="mt-3 text-[11.5px] leading-relaxed text-[#8A929A]">품종·숙도·유통 상태에 따라 차이가 있는 일반 구매 참고 정보예요. 외관만으로 맛이나 안전성을 보장할 수는 없어요.</p>
+        <a href="https://www.fsis.go.kr/front/contents/cmsView.do?cate_id=0401&cnts_id=38467&select_list_no=3" target="_blank" rel="noreferrer" className="mt-1 inline-block text-[11.5px] text-[#1F6B62] underline underline-offset-2">보관·운반 참고: 식약처 장보기 안내</a>
       </section>
 
       <Band />
