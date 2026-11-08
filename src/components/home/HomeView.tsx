@@ -141,6 +141,7 @@ export const HomeView: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [showTodayFlyers, setShowTodayFlyers] = useState(false);
 
   const dragStartX = useRef<number | null>(null);
   const dragStartY = useRef<number | null>(null);
@@ -500,7 +501,9 @@ export const HomeView: React.FC = () => {
                 <button
                   key={m.label}
                   onClick={() => {
-                    if (m.action === 'calendar') {
+                    if (m.label === '오늘신상') {
+                      setShowTodayFlyers(value => !value);
+                    } else if (m.action === 'calendar') {
                       setActiveTab('calendar');
                     } else if (m.action === 'brand') {
                       setActiveTab('brand');
@@ -536,6 +539,7 @@ export const HomeView: React.FC = () => {
                 </button>
               ))}
             </div>
+            {showTodayFlyers && <div className="mt-3"><FlyerSection /></div>}
           </div>
         );
 
@@ -1331,7 +1335,6 @@ export const HomeView: React.FC = () => {
 
   return (
     <div className="bg-[#F6F7F9] min-h-screen pb-20 select-none relative">
-      <FlyerSection />
       {sortedHomeSections.map((section) => renderSection(section))}
 
       {/* 6. Floating Action Button (+) for Instant Review Writing */}

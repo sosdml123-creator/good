@@ -1,4 +1,3 @@
-import { FlyerSection } from '../components/flyer/FlyerSection';
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Bell, Heart, Menu, PenLine, Search, User } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -303,7 +302,6 @@ export const PcApp: React.FC = () => {
       <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto flex flex-col">
         <Suspense fallback={<Spinner />}>
           <div className="flex-1">
-            {activeTab === 'home' && <FlyerSection />}
             {pcPage ?? (
               <PcHome /> // PC 화면이 없는 주소는 홈으로
             )}
