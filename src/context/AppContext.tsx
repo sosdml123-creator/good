@@ -90,6 +90,7 @@ import {
 import { isAdminSession, getAdminAuthHeaders } from '../services/adminAuth';
 import { getActiveSalePromotions } from '../utils/salePeriod';
 import { App as CapacitorApp } from '@capacitor/app';
+import { agriBack } from '../components/agri/agriBack';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import {
@@ -3135,6 +3136,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       CapacitorApp.exitApp();
       return;
     }
+    // 농수산물 상세(품목·후기)는 먼저 한 단계씩 닫습니다.
+    if (activeTab === 'agri' && agriBack.current?.()) return;
     goBack();
     window.scrollTo({ top: 0 });
   };

@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { Bell, ChevronLeft, Heart, Search, TrendingDown, TrendingUp } from 'lucide-react';
+import { Bell, Heart, Search, TrendingDown, TrendingUp } from 'lucide-react';
 import type { MarketCategory } from '../../pc/useMarketPrices';
 import { useAgri } from './AgriContext';
 import { Item, SEASONS, SHORT_CAT, currentMonth, fmtDate, itemTitle, pctChange } from './agriModel';
 import { ItemRow, ReviewLine } from './AgriRows';
-import { Band, C, Change, Empty, SectionHead, SourceFooter, Thumb } from './AgriUi';
+import { Band, C, Change, Empty, ExitHomeButton, SectionHead, SourceFooter, Thumb } from './AgriUi';
 
 const median = (xs: number[]) => {
   if (!xs.length) return null;
@@ -16,7 +16,7 @@ const median = (xs: number[]) => {
 const CAT_ORDER: MarketCategory[] = ['채소류', '과일류', '수산물', '식량작물'];
 
 export const AgriHome: React.FC = () => {
-  const { items, date, status, checkedAt, watches, itemById, alerts, recent, reviews, photo, openItem, openPrices, goTab, exit, setReviewItem } = useAgri();
+  const { items, date, status, checkedAt, watches, itemById, alerts, recent, reviews, photo, openItem, openPrices, goTab, setReviewItem } = useAgri();
   const month = currentMonth();
 
   const rated = useMemo(() => items.filter(i => i.rep.changeRate !== null), [items]);
@@ -46,11 +46,9 @@ export const AgriHome: React.FC = () => {
   return (
     <div className="bg-white min-h-full pb-24">
       <header className="sticky top-0 z-20 bg-white">
-        <div className="flex items-center h-12 pl-1.5 pr-2">
-          <button onClick={exit} aria-label="신상픽 홈으로" className="w-10 h-10 flex items-center justify-center text-[#191C20]">
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">오늘의 농수산물 시세</h1>
+        <div className="flex items-center h-12 pl-3 pr-2 gap-2">
+          <ExitHomeButton />
+          <h1 className="flex-1 min-w-0 truncate text-[17px] font-bold text-[#191C20] tracking-[-0.02em]">농수산물 시세</h1>
           <button onClick={() => goTab('saved')} aria-label={`가격 알림 ${alerts.length}건`} className="relative w-10 h-10 flex items-center justify-center text-[#191C20]">
             <Bell className="w-[22px] h-[22px]" strokeWidth={1.8} />
             {alerts.length > 0 && <span className="absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#D23F35] text-white text-[10px] font-bold leading-4 text-center">{alerts.length}</span>}

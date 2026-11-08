@@ -5,7 +5,7 @@ import { useAgri } from './AgriContext';
 import { Item, NORMAL_NOTE, Watch, fmtDate, fmtDot, itemSpec, itemTitle, pctChange, won } from './agriModel';
 import { ItemRow, ReviewLine } from './AgriRows';
 import { AlertSheet } from './AgriItem';
-import { Band, Change, Empty, SectionHead, SourceFooter } from './AgriUi';
+import { Band, Change, Empty, ExitHomeButton, SectionHead, SourceFooter } from './AgriUi';
 
 /** 관심: 가격 알림 · 관심 품목(담은 후 변동) · 품목 비교 · 최근 본 품목 */
 export const AgriSaved: React.FC = () => {
@@ -21,9 +21,10 @@ export const AgriSaved: React.FC = () => {
   return (
     <div className="bg-white min-h-full pb-24">
       <header className="sticky top-0 z-20 bg-white border-b border-[#ECEEF0]">
-        <div className="flex items-center h-12 px-4">
-          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">관심</h1>
-          <span className="text-[12px] text-[#8A929A]">{date ? `${fmtDate(date)} 공시 기준` : ''}</span>
+        <div className="flex items-center h-12 pl-3 pr-4 gap-2">
+          <ExitHomeButton />
+          <h1 className="flex-1 min-w-0 truncate text-[17px] font-bold text-[#191C20] tracking-[-0.02em]">관심</h1>
+          <span className="shrink-0 text-[12px] text-[#8A929A]">{date ? `${fmtDate(date)} 공시 기준` : ''}</span>
         </div>
       </header>
 
@@ -151,8 +152,9 @@ export const AgriMy: React.FC = () => {
   return (
     <div className="bg-white min-h-full pb-24">
       <header className="sticky top-0 z-20 bg-white border-b border-[#ECEEF0]">
-        <div className="flex items-center h-12 px-4">
-          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">마이</h1>
+        <div className="flex items-center h-12 pl-3 pr-4 gap-2">
+          <ExitHomeButton />
+          <h1 className="flex-1 min-w-0 truncate text-[17px] font-bold text-[#191C20] tracking-[-0.02em]">마이</h1>
         </div>
       </header>
 

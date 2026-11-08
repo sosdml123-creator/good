@@ -5,7 +5,7 @@ import type { Review } from '../../types';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { useAgri } from './AgriContext';
 import { fmtDot, isFreshProduct, isMarketItemProduct, itemNameForProduct, relTime, reviewMetrics, won } from './agriModel';
-import { C, Empty, Stars, Thumb, TopBar } from './AgriUi';
+import { C, Empty, ExitHomeButton, Stars, Thumb, TopBar } from './AgriUi';
 
 type Sort = 'latest' | 'popular';
 
@@ -112,9 +112,10 @@ export const AgriReviews: React.FC = () => {
   return (
     <div className="bg-white min-h-full pb-24">
       <header className="sticky top-0 z-20 bg-white border-b border-[#ECEEF0]">
-        <div className="flex items-center h-12 px-4">
-          <h1 className="flex-1 text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">실구매 후기</h1>
-          <span className="text-[12px] text-[#8A929A]">농수산물 후기 {reviews.length}개</span>
+        <div className="flex items-center h-12 pl-3 pr-4 gap-2">
+          <ExitHomeButton />
+          <h1 className="flex-1 min-w-0 truncate text-[17px] font-bold text-[#191C20] tracking-[-0.02em]">실구매 후기</h1>
+          <span className="shrink-0 text-[12px] text-[#8A929A]">후기 {reviews.length}개</span>
         </div>
         <div className="flex items-center gap-1.5 px-4 pb-2.5">
           {reviewItem && (

@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Star } from 'lucide-react';
 import type { PricePoint } from '../../pc/useMarketPrices';
+import { useAgri } from './AgriContext';
+
+/** 어느 화면에서든 한 번에 신상픽 첫 화면(홈)으로 나가는 버튼 */
+export const ExitHomeButton: React.FC<{ className?: string }> = ({ className = '' }) => {
+  const { exit } = useAgri();
+  return (
+    <button
+      onClick={exit}
+      aria-label="신상픽 홈으로 나가기"
+      className={`shrink-0 h-8 pl-2 pr-2.5 flex items-center gap-1 rounded-full bg-[#F3F4F6] text-[#191C20] active:bg-[#E5E7EB] ${className}`}
+    >
+      <Home className="w-4 h-4" strokeWidth={2} />
+      <span className="text-[12px] font-semibold whitespace-nowrap">신상픽 홈</span>
+    </button>
+  );
+};
 
 /**
  * 장보기 시세 디자인 토큰
@@ -79,6 +95,7 @@ export const TopBar: React.FC<{ title?: string; onBack?: () => void; right?: Rea
       ) : <span className="w-2.5" />}
       <h1 className="flex-1 min-w-0 truncate text-[17px] font-bold text-[#191C20]">{title}</h1>
       <div className="flex items-center">{right}</div>
+      <ExitHomeButton className="mr-1.5" />
     </div>
   </header>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Home, LineChart, MessageSquareText, User } from 'lucide-react';
+import { Heart, Home, LineChart, MessageSquareText, ShoppingBasket, User } from 'lucide-react';
 import { AgriProvider, AgriTab, useAgri } from './AgriContext';
 import { AgriHome } from './AgriHome';
 import { AgriPrices } from './AgriPrices';
@@ -8,7 +8,8 @@ import { AgriReviewDetail, AgriReviews } from './AgriReviews';
 import { AgriMy, AgriSaved } from './AgriMine';
 
 const NAV: { id: AgriTab; label: string; Icon: typeof Home }[] = [
-  { id: 'home', label: '홈', Icon: Home },
+  // 신상픽 홈과 헷갈리지 않도록 농수산물 첫 화면은 '장보기'로 부릅니다.
+  { id: 'home', label: '장보기', Icon: ShoppingBasket },
   { id: 'prices', label: '시세', Icon: LineChart },
   { id: 'reviews', label: '리뷰', Icon: MessageSquareText },
   { id: 'saved', label: '관심', Icon: Heart },

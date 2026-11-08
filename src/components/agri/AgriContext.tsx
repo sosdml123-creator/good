@@ -6,6 +6,7 @@ import {
   Group, Item, Watch, alertHit, buildItems, freshReviews, loadRecent, loadSavedReviews, loadWatches,
   photoFor, pushRecent, saveSavedReviews, saveWatches,
 } from './agriModel';
+import { agriBack } from './agriBack';
 
 export type AgriTab = 'home' | 'prices' | 'reviews' | 'saved' | 'my';
 export type Screen = { type: 'item'; id: string } | { type: 'review'; id: string };
@@ -75,6 +76,20 @@ export const AgriProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [reviewItem, setReviewItemState] = useState<string | null>(navMemo.reviewItem);
 
   useEffect(() => { Object.assign(navMemo, { tab, stack, preset, reviewItem }); }, [tab, stack, preset, reviewItem]);
+
+  // Android 뒤로가기: 상세 화면이 열려 있으면 한 단계 닫고, 아니면 신상픽 홈으로 나갑니다.
+  useEffect(() => {
+    agriBack.current = () => {
+      if (navMemo.stack.length === 0) {
+        navMemo.tab = 'home';
+        return false;
+      }
+      setStack(s => s.slice(0, -1));
+      scrollTop();
+      return true;
+    };
+    return () => { agriBack.current = null; };
+  }, []);
 
   const items = useMemo(() => buildItems(rows), [rows]);
   const itemById = useMemo(() => {

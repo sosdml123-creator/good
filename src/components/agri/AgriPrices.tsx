@@ -3,7 +3,7 @@ import { ChevronDown, Search, X } from 'lucide-react';
 import { useAgri } from './AgriContext';
 import { GROUPS, Group, SUB_FILTERS, fmtDate, groupOf, itemSpec } from './agriModel';
 import { ItemRow } from './AgriRows';
-import { Chip, Empty, SourceFooter, UnderlineTabs } from './AgriUi';
+import { Chip, Empty, ExitHomeButton, SourceFooter, UnderlineTabs } from './AgriUi';
 
 type Sort = 'down' | 'up' | 'low' | 'name';
 const SORTS: { id: Sort; label: string }[] = [
@@ -50,8 +50,9 @@ export const AgriPrices: React.FC = () => {
   return (
     <div className="bg-white min-h-full pb-24">
       <header className="sticky top-0 z-20 bg-white">
-        <div className="flex items-center h-12 px-4 gap-3">
-          <h1 className="text-[18px] font-bold text-[#191C20] tracking-[-0.02em]">시세</h1>
+        <div className="flex items-center h-12 px-3 gap-2">
+          <ExitHomeButton />
+          <h1 className="sr-only">시세</h1>
           <label className="flex-1 h-9 px-3 flex items-center gap-2 rounded-[8px] bg-[#F3F4F6]">
             <Search className="w-4 h-4 text-[#8A929A]" />
             <input
