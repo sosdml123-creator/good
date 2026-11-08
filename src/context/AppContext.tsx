@@ -709,6 +709,14 @@ export const getNextSequentialNickname = async (
   supabaseClient?: any,
   localProfiles?: UserProfile[]
 ): Promise<string> => {
+  // 로그인 상태면 DB 순번 함수로 받습니다 (가입 트리거와 같은 순번 → 번호 충돌 없음)
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient.rpc('next_profile_nickname');
+      if (!error && typeof data === 'string' && /^신상러버_\d+$/.test(data)) return data;
+    } catch {}
+  }
+
   const existingNumbers = new Set<number>();
 
   // 1. In-memory profile check
@@ -815,7 +823,8 @@ export const isInvalidOrSocialRealName = (displayName?: string | null, user?: an
     trimmed === '서현정' ||
     trimmed === '이예진' ||
     // 예전 임시 이름(신상러버_ + id 앞 4자리). 숫자만 있는 것은 정상 순번 닉네임(신상러버_1000 이상)
-    (/^신상러버_[a-z0-9]{4}$/i.test(trimmed) && !/^신상러버_\d+$/.test(trimmed))
+    // 예전 대체 이름(신상러버_ + id 앞 10자리 16진수)도 숫자 순번으로 교체
+    (/^신상러버_[a-z0-9]+$/i.test(trimmed) && !/^신상러버_\d+$/.test(trimmed))
   ) {
     return true;
   }
