@@ -386,6 +386,20 @@ export const AgriItem: React.FC<{ id: string }> = ({ id }) => {
             <li key={t} className="flex gap-2 text-[13.5px] leading-[1.55] text-[#3B4249]"><span className="mt-[9px] w-1 h-1 rounded-full bg-[#8A929A] shrink-0" />{t}</li>
           ))}
         </ul>
+        {(r.itemName.includes('수박') || r.itemName.includes('등심') || r.itemName.includes('한우')) && (
+          <figure className="mt-3 overflow-hidden rounded-[8px] border border-[#ECEEF0]">
+            <img
+              src={r.itemName.includes('수박')
+                ? 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=900&h=440&q=80'
+                : 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&h=440&q=80'}
+              alt={r.itemName.includes('수박') ? '수박 껍질과 꼭지를 살펴보는 참고 사진' : '소고기 등심 마블링 참고 사진'}
+              loading="lazy" className="w-full h-[150px] object-cover"
+            />
+            <figcaption className="px-3 py-2 text-[11.5px] text-[#737B84]">
+              {r.itemName.includes('수박') ? '수박 외관 참고 · 꼭지·무늬·무게를 함께 확인하세요.' : '소고기 단면 참고 · 등심은 새우살과 근내지방 분포를 살펴보세요.'} 사진은 설명을 위한 참고 이미지예요.
+            </figcaption>
+          </figure>
+        )}
         <p className="mt-2 text-[11.5px] text-[#8A929A]">일반적인 참고 정보예요.</p>
       </section>
 

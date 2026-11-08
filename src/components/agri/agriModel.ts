@@ -137,7 +137,25 @@ export const productForRow = (r: MarketPriceRow, products: Product[]): Product |
 };
 
 export const photoFor = (r: MarketPriceRow, products: Product[]): string | null =>
-  productForRow(r, products)?.image || null;
+  productForRow(r, products)?.image || fallbackProducePhoto(r.itemName, r.category);
+
+// KAMIS 조사 품목 대부분은 별도 상품 카탈로그가 없어도 사진을 보여 주도록 준비한 품목별 실사 사진.
+const PRODUCE_PHOTOS: Record<string, string> = {
+  사과:'photo-1560806887-1e4cd0b6cbd6', 배:'photo-1519996529931-28324d7a630e', 복숭아:'photo-1629828874514-c1e5103d4e70',
+  딸기:'photo-1464965911861-746a04b4bca6', 수박:'photo-1587049352851-8d4e89133924', 참외:'photo-1571575173700-afb9492e6a50',
+  감귤:'photo-1547514701-42782101795e', 포도:'photo-1537640538966-79f369143f8f', 바나나:'photo-1571771894821-ce9b6c11b08e',
+  감자:'photo-1518977676601-b53f82aba655', 고구마:'photo-1596097635121-14b63b7a0c19', 양파:'photo-1508747703725-719777637510',
+  배추:'photo-1594282486552-05b4d80fbb9f', 무:'photo-1598170845058-32b9d6a5da37', 토마토:'photo-1546094096-0df4bcaaa337',
+  오이:'photo-1604977042946-1eecc30f269e', 풋고추:'photo-1588252303782-cb80119abd6d', 브로콜리:'photo-1459411621453-7b03977f4bfc',
+  고등어:'photo-1510130387422-82bed34b37e9', 갈치:'photo-1510130387422-82bed34b37e9', 전복:'photo-1559737558-2f5a35f4523b',
+  굴:'photo-1565680018434-b513d5e5fd47', 꽃게:'photo-1559737558-2f5a35f4523b', 새우:'photo-1565680018434-b513d5e5fd47',
+  소:'photo-1607623814075-e51df1bdc82f', 돼지:'photo-1602470520998-f4a52199a3d6', 닭:'photo-1604503468506-a8da13d82791', 계란:'photo-1506976785307-8732e854ad03', 쌀:'photo-1586201375761-83865001e31c',
+};
+const fallbackProducePhoto = (name: string, category: MarketCategory) => {
+  const key = Object.keys(PRODUCE_PHOTOS).sort((a,b)=>b.length-a.length).find(k=>name.includes(k));
+  const id = key ? PRODUCE_PHOTOS[key] : category === '수산물' ? PRODUCE_PHOTOS['고등어'] : category === '축산물' ? PRODUCE_PHOTOS['소'] : PRODUCE_PHOTOS['토마토'];
+  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=240&h=240&q=75`;
+};
 
 /** 로컬 품목 사진은 실제 판매 상품 사진이 아닌 품목 참고 이미지입니다. */
 export const isGeneratedPhoto = (_src: string | null | undefined) => false;
@@ -256,6 +274,10 @@ export const seasonMonths = (itemName: string): number[] =>
 export const currentMonth = () => Number(new Intl.DateTimeFormat('en', { month: 'numeric', timeZone: 'Asia/Seoul' }).format(new Date()));
 
 const ITEM_TIPS: Record<string, string[]> = {
+  수박: ['꼭지 주변이 살짝 움푹하고 꼭지 자국이 작은 것을 고르세요. 꼭지가 마른 정도만으로 숙도를 단정하긴 어려워요.', '껍질 무늬가 선명하고 줄무늬가 이어지며, 같은 크기라면 들었을 때 묵직한 것을 고르세요.', '밑동의 배꼽은 작고 단단한 편이 좋습니다. 두드리는 소리는 품종·두께에 따라 달라 보조 기준으로만 보세요.'],
+  등심: ['등심 단면에 새우 모양으로 보이는 새우살이 또렷하고 넓게 붙은 부위는 풍미와 부드러움이 좋은 편입니다.', '근내지방은 고르게 퍼졌는지 확인하고, 지나치게 큰 지방 덩어리나 단단한 힘줄이 많은 단면은 용도에 맞춰 고르세요.', '포장 라벨의 한우·육우·젖소 구분, 등급, 도축·포장일과 100g당 가격을 함께 비교하세요.'],
+  한우: ['등급 숫자가 높다고 모든 요리에 더 좋은 것은 아니에요. 구이는 마블링, 국거리·불고기는 가격과 부위 용도를 우선 비교하세요.', '등심은 새우살의 모양과 크기, 고기색의 선명함, 지방의 분포를 함께 확인하세요.'],
+  수산물: ['생물은 눈이 맑고 살이 탄탄하며 비린내보다 바다 향이 약하게 나는지 확인하세요.', '얼음·손질 포함 무게인지, 원산지와 활어·선어·냉동 여부가 같은 조건인지 비교하세요.'],
   사과: ['꼭지가 마르지 않고 단단하며, 들었을 때 묵직한 것이 좋아요.', '다른 과일과 따로 비닐에 싸서 냉장 보관하세요.'],
   배: ['껍질이 매끄럽고 꼭지 반대쪽이 넓게 퍼진 것이 달아요.', '하나씩 신문지에 싸서 서늘한 곳에 두면 오래가요.'],
   감귤: ['껍질이 얇고 꼭지가 작은 것이 당도가 높아요.', '눌린 곳이 있으면 금방 무르니 따로 골라 두세요.'],
