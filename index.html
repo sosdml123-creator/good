@@ -65,6 +65,7 @@
       (function() {
         try {
           if (location.hostname !== 'pc.sinsangpick.kr') return;
+          document.documentElement.classList.add('pc-site');
           if (document.querySelector('script[src*="adsbygoogle.js"]')) return;
           var s = document.createElement('script');
           s.async = true;

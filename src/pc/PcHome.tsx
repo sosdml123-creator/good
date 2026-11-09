@@ -10,6 +10,7 @@ import { useHomeBanners } from '../hooks/useHomeBanners';
 import { getPopularProducts, getWeeklyNewProducts } from '../utils/ranking';
 import { SafeImage } from '../components/common/SafeImage';
 import { BrandLogo } from '../components/brand/BrandLogo';
+import { PcAdSlot } from './PcAdSlot';
 import { PcProductCard } from './PcProductCard';
 import { PcContainer, PcSectionHeader, PcTextTabs, PcEmpty } from './PcUi';
 import { PcMarketWidget } from './PcMarket';
@@ -212,6 +213,11 @@ export const PcHome: React.FC = () => {
         ) : (
           <PcEmpty message="이번 주에 등록된 신상이 아직 없어요." />
         )}
+      </PcContainer>
+
+      {/* 광고 */}
+      <PcContainer className="pt-16">
+        <PcAdSlot />
       </PcContainer>
 
       {/* 인기 랭킹 */}

@@ -9,6 +9,7 @@ import { isAlcoholProduct } from '../utils/alcohol';
 import { getProductShareUrl } from '../utils/productCode';
 import { COUPANG_AFFILIATE_URL, COUPANG_PARTNERS_NOTICE } from '../constants/affiliate';
 import { PcProductCard } from './PcProductCard';
+import { PcAdSlot } from './PcAdSlot';
 import { PcBreadcrumb, PcContainer } from './PcUi';
 
 const Stars: React.FC<{ value: number; size?: string }> = ({ value, size = 'w-4 h-4' }) => (
@@ -285,6 +286,9 @@ export const PcProductDetail: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* 광고 */}
+        <PcAdSlot key={`ad-${p.id}`} className="pt-12" />
 
         {/* 상품 정보 */}
         <div ref={infoRef} className="pt-16 scroll-mt-16">

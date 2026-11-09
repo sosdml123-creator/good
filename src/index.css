@@ -73,11 +73,11 @@
   aspect-ratio: 1 / 1;
 }
 
-/* Google AdSense / AdMob 자동 앵커 광고(하단 탭바 덮임) 완전 차단 */
-.google-auto-placed,
-ins.adsbygoogle[data-anchor-status],
-iframe[id^="aswift_"][id$="_anchor"],
-div[id^="aswift_"][id$="_anchor__container"] {
+/* Google AdSense / AdMob 자동 앵커 광고(하단 탭바 덮임) 차단 — 모바일 웹·앱에서만. PC 사이트(html.pc-site)는 자동 광고 허용 */
+html:not(.pc-site) .google-auto-placed,
+html:not(.pc-site) ins.adsbygoogle[data-anchor-status],
+html:not(.pc-site) iframe[id^="aswift_"][id$="_anchor"],
+html:not(.pc-site) div[id^="aswift_"][id$="_anchor__container"] {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;

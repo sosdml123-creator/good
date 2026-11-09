@@ -3,6 +3,7 @@ import { useApp } from '../context/AppContext';
 import { CATEGORIES, SUBCATEGORIES_MAP } from '../data/mockProducts';
 import { getCategoryReviewRankedProducts } from '../utils/ranking';
 import { PcProductCard } from './PcProductCard';
+import { PcAdSlot } from './PcAdSlot';
 import { PcBreadcrumb, PcContainer, PcEmpty } from './PcUi';
 
 type SortOption = 'review_rank' | 'rating' | 'review_count' | 'newest';
@@ -95,6 +96,8 @@ export const PcProductList: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            <PcAdSlot key={selectedCategory} className="mb-10" />
 
             {ranked.length > 0 ? (
               <>
