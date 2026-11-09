@@ -161,10 +161,24 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
     res.status(status).send(template);
   };
 
-  if (!id || id === SYSTEM_RECORD_ID || !supabaseUrl || !supabaseKey) return sendPlain();
+  // 없는 상품 주소: 홈 화면을 200으로 주면 구글이 'Soft 404'로 분류하므로 404 + noindex 로 응답합니다.
+  // 본문은 같은 앱 화면이라 사람이 열면 앱이 그대로 뜹니다.
+  const sendNotFound = () => {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
+    res.setHeader('X-Robots-Tag', 'noindex');
+    const html = template
+      .replace(/\s*<link rel="(?:canonical|alternate)"[^>]*>/g, '')
+      .replace('</head>', '    <meta name="robots" content="noindex" />\n  </head>');
+    res.status(404).send(html);
+  };
+
+  if (!id || id === SYSTEM_RECORD_ID) return sendNotFound();
+  if (!supabaseUrl || !supabaseKey) return sendPlain();
 
   const headers = { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` };
   let product = null;
+  let lookupOk = false;
   let reviews = [];
   let related = [];
   let sameBrand = [];
@@ -174,6 +188,7 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
       fetch(`${supabaseUrl}/rest/v1/reviews?select=id,rating,content,user_name,created_at&product_id=eq.${encodeURIComponent(id)}&order=created_at.desc&limit=50`, { headers }),
       fetch(`${supabaseUrl}/rest/v1/products?select=nutrition&id=eq.${encodeURIComponent(SYSTEM_RECORD_ID)}`, { headers }),
     ]);
+    lookupOk = prodRes.ok;
     const rows = prodRes.ok ? await prodRes.json() : [];
     product = rows?.[0] || null;
     if (sysRes.ok) {
@@ -201,8 +216,8 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
     console.error('[product-page] data error:', err);
   }
 
-  // DB에 없는 상품(삭제됨 등)은 앱이 직접 처리하도록 기본 화면을 내려줍니다.
-  if (!product) return sendPlain();
+  // DB에 없는 상품(삭제됨 등)은 404 로 응답합니다. DB 조회 자체가 실패했을 때만 일시 오류로 보고 기본 화면을 줍니다.
+  if (!product) return lookupOk ? sendNotFound() : sendPlain();
 
   const price = formatPrice(product.price);
   const avg = reviews.length > 0 ? reviews.reduce((s, r) => s + Number(r.rating || 0), 0) / reviews.length : 0;

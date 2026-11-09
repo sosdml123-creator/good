@@ -37,6 +37,21 @@
       {"@context":"https://schema.org","@type":"WebSite","name":"신상픽","alternateName":["SinSangPick","신상픽 앱"],"url":"https://pc.sinsangpick.kr/","description":"편의점·카페·마트 신제품 정보와 솔직 리뷰, 신상 랭킹"}
     </script>
     <script>
+      // 앱이 쓰지 않는 주소(/asdf 등)도 홈 화면이 200으로 떠서 구글이 'Soft 404'로 분류합니다.
+      // 알려진 주소가 아니면 색인하지 않도록 noindex 를 붙입니다. (/product/:id 는 서버가 따로 처리)
+      (function() {
+        try {
+          var p = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+          var known = ['', '/index.html', '/pc.html', '/privacy', '/terms', '/location', '/delete-account', '/beauty', '/auth-callback', '/auth-callback.html'];
+          if (known.indexOf(p) !== -1 || /^\/product\/[^/]+$/.test(p)) return;
+          var m = document.createElement('meta');
+          m.name = 'robots';
+          m.content = 'noindex';
+          document.head.appendChild(m);
+        } catch (e) {}
+      })();
+    </script>
+    <script>
       // PC(데스크톱)에서 www로 들어오면 같은 경로의 PC 버전(pc.sinsangpick.kr)으로 이동.
       // 모바일·앱·로그인 콜백은 그대로. ?mobile=1 로 들어오면 이 브라우저에서는 이동하지 않음 (?mobile=0 으로 해제).
       (function() {
