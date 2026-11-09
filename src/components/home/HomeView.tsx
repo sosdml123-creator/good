@@ -23,7 +23,7 @@ import {
   Beef,
   Beer,
   IceCream,
-  Plus,
+  PenLine,
   ShoppingBag
 } from 'lucide-react';
 import { ProductCategory, BannerItem, HomeSectionConfig } from '../../types';
@@ -1341,11 +1341,12 @@ export const HomeView: React.FC = () => {
       <button
         type="button"
         onClick={() => setActiveTab('write')}
-        className="fixed bottom-20 right-5 z-40 w-13 h-13 bg-gray-900 hover:bg-black text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-90 border-2 border-white/20 group"
+        className="fixed bottom-20 right-4 z-40 h-12 pl-4 pr-5 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full shadow-lg shadow-orange-500/40 ring-2 ring-white flex items-center gap-1.5 transition-all active:scale-95"
         title="신상 리뷰 바로 작성하기"
-        aria-label="리뷰 작성"
+        aria-label="리뷰쓰기"
       >
-        <Plus className="w-7 h-7 stroke-[2.8] text-white group-hover:rotate-90 transition-transform duration-300" />
+        <PenLine className="w-5 h-5 stroke-[2.6]" />
+        <span className="text-[15px] font-black tracking-tight">리뷰쓰기</span>
       </button>
 
       {(() => {
