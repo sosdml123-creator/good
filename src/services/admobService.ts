@@ -29,6 +29,8 @@ export const ADMOB_REWARD_UNIT_ID =
 export const ADMOB_SLOT_ID = '9433572199';
 export const ADMOB_HOME_SLOT_ID = '9433572199';
 export const ADMOB_SEARCH_SLOT_ID = '1040251860';
+/** PC 사이트(pc.sinsangpick.kr) 애드센스 웹 디스플레이 광고 단위 'PC 반응형' (AdMob 앱 ID와 별개) */
+export const ADSENSE_PC_SLOT_ID = '9867317852';
 
 // 고정 배너 사이즈 (320x50 표준 모바일 배너)
 export const BANNER_HEIGHT = 50;
