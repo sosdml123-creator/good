@@ -7,11 +7,12 @@ import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal
 import { DonkiShowCard, ShowCardContent } from '../components/donki/DonkiShowCard';
 import { DonkiItemDetail } from '../components/donki/DonkiItemDetail';
 import { DonkiTalk } from '../components/donki/DonkiTalk';
+import { DonkiThumb } from '../components/donki/DonkiThumb';
+import { DONKI_CATEGORIES, SUB_CATEGORIES, THEMES, SORTS, DonkiTheme, DonkiSort, detailOf, filterDonki } from '../data/donkiCatalog';
 import { PcBreadcrumb, PcContainer, PcEmpty, PcTextTabs } from './PcUi';
 
 const TABS = ['필수템 순위', '내 쇼핑리스트', '돈키 수다방', '쇼핑 일본어', '매장 찾기', '쇼핑 꿀팁'] as const;
 type Tab = typeof TABS[number];
-const CATEGORY_FILTERS: ('전체' | DonkiCategory)[] = ['전체', '의약품', '화장품', '과자·식품', '생활용품'];
 const WHERE_IS = { sub: 'これはどこにありますか？', subKo: '이거 어디에 있어요?' };
 
 /** PC 전용 돈키호테 쇼핑 가이드 (모바일은 components/donki/DonkiRankingView) */
@@ -19,7 +20,10 @@ export const PcDonki: React.FC = () => {
   const { setActiveTab, showToast } = useApp();
   const d = useDonki();
   const [tab, setTab] = useState<Tab>('필수템 순위');
-  const [category, setCategory] = useState<typeof CATEGORY_FILTERS[number]>('전체');
+  const [category, setCategory] = useState<'전체' | DonkiCategory>('전체');
+  const [sub, setSub] = useState<string | null>(null);
+  const [theme, setTheme] = useState<DonkiTheme | null>(null);
+  const [sort, setSort] = useState<DonkiSort>('popular');
   const [city, setCity] = useState('전체');
   const [showCard, setShowCard] = useState<ShowCardContent | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
@@ -57,7 +61,10 @@ export const PcDonki: React.FC = () => {
     );
   };
 
-  const filtered = d.ranked.filter(r => category === '전체' || r.item.category === category);
+  const filtered = filterDonki(d.ranked, { theme, category, sub, keyword: '', sort, rate: d.rate?.rate ?? null });
+  const showPodium = category === '전체' && !theme && sort === 'popular' && filtered.length >= 3;
+  const themeCount = (t: DonkiTheme) => d.ranked.filter(r => detailOf(r.item).tags.includes(t)).length;
+  const resetFilters = () => { setTheme(null); setCategory('전체'); setSub(null); setSort('popular'); };
   const stores = d.stores.filter(s => city === '전체' || s.city === city);
   const taxFreeLeft = Math.max(0, 5000 - d.myTotalYen);
   const couponLeft = d.myTotalYen < 10000 ? 10000 - d.myTotalYen : d.myTotalYen < 30000 ? 30000 - d.myTotalYen : 0;
@@ -121,23 +128,68 @@ export const PcDonki: React.FC = () => {
         {/* 필수템 순위 */}
         {d.status === 'ready' && tab === '필수템 순위' && (
           <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <PcTextTabs items={CATEGORY_FILTERS as unknown as string[]} value={category} onChange={(v) => setCategory(v as typeof category)} />
-              <p className="text-[13px] text-gray-500">회원이 '살 거예요'로 담은 수 순위 · 세전 참고가</p>
+            {/* 목적별 테마 */}
+            <div className="grid grid-cols-4 gap-4">
+              {THEMES.map(t => {
+                const on = theme === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => setTheme(on ? null : t.id)}
+                    className={`text-left rounded-2xl border px-5 py-4 flex items-center gap-4 cursor-pointer transition-colors ${on ? 'bg-black border-black text-white' : 'bg-white border-gray-200 hover:border-gray-900'}`}
+                  >
+                    <span className="text-[32px] leading-none">{t.emoji}</span>
+                    <span>
+                      <span className="block text-[16px] font-black">{t.title} <span className={on ? 'text-[#FFE600]' : 'text-gray-400'}>{themeCount(t.id)}</span></span>
+                      <span className={`block text-[13px] ${on ? 'text-white/60' : 'text-gray-500'}`}>{t.desc}</span>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
-            {category === '전체' && filtered.length >= 3 && (
+            <div className="mt-8 flex items-center justify-between">
+              <PcTextTabs
+                items={['전체', ...DONKI_CATEGORIES].map(c => `${c} ${c === '전체' ? d.ranked.length : d.ranked.filter(r => r.item.category === c).length}`)}
+                value={`${category} ${category === '전체' ? d.ranked.length : d.ranked.filter(r => r.item.category === category).length}`}
+                onChange={(v) => { setCategory(v.split(' ')[0] as typeof category); setSub(null); }}
+              />
+              <div className="flex items-center gap-1">
+                {SORTS.map(s => (
+                  <button key={s.id} onClick={() => setSort(s.id)} className={`h-9 px-3 rounded-lg text-[13px] cursor-pointer ${sort === s.id ? 'bg-gray-900 text-white font-bold' : 'text-gray-500 hover:text-gray-900'}`}>{s.label}</button>
+                ))}
+              </div>
+            </div>
+            {category !== '전체' && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {[null, ...SUB_CATEGORIES[category]].map(s => (
+                  <button
+                    key={s ?? 'all'}
+                    onClick={() => setSub(s)}
+                    className={`h-9 px-4 rounded-full text-[13px] font-semibold border cursor-pointer transition-colors ${sub === s ? 'border-black bg-[#FFF6A8] text-black' : 'border-gray-200 text-gray-600 hover:border-gray-400'}`}
+                  >
+                    {s ?? `${category} 전체`}
+                  </button>
+                ))}
+              </div>
+            )}
+            <p className="mt-4 text-[13px] text-gray-500">
+              <b className="text-gray-900">{filtered.length}</b>개 · 순위는 회원이 '살 거예요'로 담은 수 · 가격은 세전 참고가
+              {(theme || category !== '전체' || sort !== 'popular') && <button onClick={resetFilters} className="ml-3 underline underline-offset-2 cursor-pointer hover:text-gray-900">필터 초기화</button>}
+            </p>
+
+            {showPodium && (
               <div className="mt-8 grid grid-cols-3 gap-6">
                 {filtered.slice(0, 3).map(({ item, rank }) => (
                   <div key={item.id} onClick={() => setDetailId(item.id)} className="rounded-3xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="relative aspect-[4/3] bg-white">
-                      {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="absolute inset-0 w-full h-full object-contain p-6" />}
+                      <div className="absolute inset-0"><DonkiThumb item={item} pad="p-6" big /></div>
                       <span className="absolute top-4 left-4 h-11 min-w-11 px-3 rounded-full bg-black text-[#FFE600] text-[20px] font-black flex items-center justify-center gap-1">
                         {rank === 1 && <Crown className="w-5 h-5" />}{rank}
                       </span>
                     </div>
                     <div className="px-6 pb-6 pt-2">
-                      <p className="text-[13px] text-gray-400">{item.brand} · {item.category}</p>
+                      <p className="text-[13px] text-gray-400">{item.brand} · {detailOf(item).sub || item.category}{detailOf(item).volume ? ` · ${detailOf(item).volume}` : ''}</p>
                       <p className="mt-1 text-[20px] font-black text-gray-900">{item.name}</p>
                       <p className="text-[13px] text-gray-400">{item.nameJa}</p>
                       <p className="mt-3 text-[14px] text-gray-600 leading-relaxed line-clamp-2 min-h-[44px]">{item.description}</p>
@@ -156,13 +208,14 @@ export const PcDonki: React.FC = () => {
             )}
 
             <div className="mt-10 grid grid-cols-5 gap-x-5 gap-y-10">
-              {(category === '전체' ? filtered.slice(3) : filtered).map(({ item, rank }) => (
+              {(showPodium ? filtered.slice(3) : filtered).map(({ item, rank }) => (
                 <div key={item.id} onClick={() => setDetailId(item.id)} className="group min-w-0 cursor-pointer">
                   <div className="relative aspect-square rounded-xl border border-gray-100 bg-white overflow-hidden">
-                    {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" loading="lazy" />}
+                    <div className="w-full h-full group-hover:scale-105 transition-transform"><DonkiThumb item={item} pad="p-4" big /></div>
                     <span className="absolute top-2.5 left-2.5 h-8 min-w-8 px-2 rounded-full bg-black text-[#FFE600] text-[14px] font-black flex items-center justify-center">{rank}</span>
+                    {item.badge && <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white/95 text-rose-500 text-[11px] font-bold shadow-sm">{item.badge}</span>}
                   </div>
-                  <p className="mt-3 text-[12px] text-gray-400 truncate">{item.brand}</p>
+                  <p className="mt-3 text-[12px] text-gray-400 truncate">{item.brand}{detailOf(item).sub ? ` · ${detailOf(item).sub}` : ''}{detailOf(item).volume ? ` · ${detailOf(item).volume}` : ''}</p>
                   <p className="text-[15px] font-bold text-gray-900 truncate">{item.name}</p>
                   <p className="text-[12px] text-gray-400 truncate">{item.nameJa}</p>
                   <p className="mt-1.5 text-[13px] text-gray-600 leading-snug line-clamp-2 min-h-[36px]">{item.description}</p>
@@ -175,7 +228,7 @@ export const PcDonki: React.FC = () => {
                 </div>
               ))}
             </div>
-            {filtered.length === 0 && <PcEmpty message="표시할 상품이 없어요." />}
+            {filtered.length === 0 && <PcEmpty message="조건에 맞는 상품이 없어요." />}
           </div>
         )}
 
@@ -202,7 +255,7 @@ export const PcDonki: React.FC = () => {
                         {done && <Check className="w-4 h-4 text-[#FFE600]" />}
                       </button>
                       <div className="w-20 h-20 shrink-0 rounded-xl border border-gray-100 bg-white overflow-hidden">
-                        {item.imageUrl && <img src={item.imageUrl} alt="" className="w-full h-full object-contain p-1.5" />}
+                        <DonkiThumb item={item} pad="p-1.5" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[12px] text-gray-400">{item.brand} · {item.category}</p>

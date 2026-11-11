@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   ChevronLeft, Pill, Sparkles, Cookie, Package, Check, Plus, Loader2, RefreshCw,
-  Volume2, Maximize2, MapPin, ExternalLink, Crown, ShoppingBag, Search, X, Star, ShoppingCart,
+  Volume2, Maximize2, MapPin, ExternalLink, Crown, ShoppingBag, Search, X, Star,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { DonkiCategory, DonkiItem } from '../../services/donkiService';
@@ -10,34 +10,37 @@ import { DONKI_TIPS, PHRASE_GROUPS, PRICE_TAG_WORDS, googleMapsUrl, openExternal
 import { DonkiShowCard, ShowCardContent } from './DonkiShowCard';
 import { DonkiItemDetail } from './DonkiItemDetail';
 import { DonkiTalk } from './DonkiTalk';
+import { DonkiThumb } from './DonkiThumb';
+import { DONKI_CATEGORIES, SUB_CATEGORIES, THEMES, SORTS, DonkiTheme, DonkiSort, detailOf, filterDonki } from '../../data/donkiCatalog';
 
-type Tab = 'rank' | 'list' | 'talk' | 'phrase' | 'store' | 'tip';
-const CATEGORY_FILTERS: ('전체' | DonkiCategory)[] = ['전체', '의약품', '화장품', '과자·식품', '생활용품'];
+type Tab = 'rank' | 'list' | 'talk' | 'guide';
+type GuideTab = 'phrase' | 'store' | 'tip';
 
-const CATEGORY_STYLE: Record<DonkiCategory, { icon: React.ReactNode; color: string }> = {
-  '의약품': { icon: <Pill className="w-6 h-6" />, color: 'bg-sky-50 text-sky-600' },
-  '화장품': { icon: <Sparkles className="w-6 h-6" />, color: 'bg-pink-50 text-pink-500' },
-  '과자·식품': { icon: <Cookie className="w-6 h-6" />, color: 'bg-amber-50 text-amber-600' },
-  '생활용품': { icon: <Package className="w-6 h-6" />, color: 'bg-emerald-50 text-emerald-600' },
+const CATEGORY_ICON: Record<DonkiCategory, React.ReactNode> = {
+  '의약품': <Pill className="w-4 h-4" />,
+  '화장품': <Sparkles className="w-4 h-4" />,
+  '과자·식품': <Cookie className="w-4 h-4" />,
+  '생활용품': <Package className="w-4 h-4" />,
 };
 
 const WHERE_IS: Pick<ShowCardContent, 'sub' | 'subKo'> = { sub: 'これはどこにありますか？', subKo: '이거 어디에 있어요?' };
 
-const Thumb: React.FC<{ item: DonkiItem; className?: string }> = ({ item, className = 'w-14 h-14' }) => {
-  const style = CATEGORY_STYLE[item.category] || CATEGORY_STYLE['생활용품'];
-  return (
-    <div className={`${className} shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${item.imageUrl ? 'bg-white border border-gray-100' : style.color}`}>
-      {item.imageUrl ? <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain" loading="lazy" /> : style.icon}
-    </div>
-  );
-};
+const Thumb: React.FC<{ item: DonkiItem; className?: string }> = ({ item, className = 'w-14 h-14' }) => (
+  <div className={`${className} shrink-0 rounded-xl overflow-hidden border border-gray-100`}>
+    <DonkiThumb item={item} pad="p-1" />
+  </div>
+);
 
 /** 모바일 돈키호테 쇼핑 가이드 (PC 는 src/pc/PcDonki) */
 export const DonkiRankingView: React.FC = () => {
   const { setActiveTab, showToast } = useApp();
   const d = useDonki();
   const [tab, setTab] = useState<Tab>('rank');
-  const [category, setCategory] = useState<typeof CATEGORY_FILTERS[number]>('전체');
+  const [guideTab, setGuideTab] = useState<GuideTab>('phrase');
+  const [category, setCategory] = useState<'전체' | DonkiCategory>('전체');
+  const [sub, setSub] = useState<string | null>(null);
+  const [theme, setTheme] = useState<DonkiTheme | null>(null);
+  const [sort, setSort] = useState<DonkiSort>('popular');
   const [city, setCity] = useState('전체');
   const [showCard, setShowCard] = useState<ShowCardContent | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -52,10 +55,13 @@ export const DonkiRankingView: React.FC = () => {
   const TABS: { id: Tab; label: string }[] = [
     { id: 'rank', label: '필수템' },
     { id: 'list', label: `쇼핑리스트${d.myPicks.size ? ` ${d.myPicks.size}` : ''}` },
-    { id: 'talk', label: '수다' },
-    { id: 'phrase', label: '일본어' },
-    { id: 'store', label: '매장' },
-    { id: 'tip', label: '꿀팁' },
+    { id: 'talk', label: '수다방' },
+    { id: 'guide', label: '여행 가이드' },
+  ];
+  const GUIDE_TABS: { id: GuideTab; label: string }[] = [
+    { id: 'phrase', label: '쇼핑 일본어' },
+    { id: 'store', label: '매장 찾기' },
+    { id: 'tip', label: '면세·쿠폰 꿀팁' },
   ];
 
   const pickButton = (item: DonkiItem) => {
@@ -77,27 +83,22 @@ export const DonkiRankingView: React.FC = () => {
   // 카드 둘째 줄: 한국 가격 비교 (없으면 국내 판매 상황)
   const krwLine = (item: DonkiItem) => {
     const c = comparePrice(item.priceYen, item.priceKrw, d.rate?.rate ?? null);
-    if (c.pct != null && c.pct > 0) return `한국보다 ${c.pct}% 저렴`;
+    if (c.pct != null && c.pct > 0) return `한국 ${won(item.priceKrw!)}보다 저렴`;
     if (item.priceKrw) return `한국 ${won(item.priceKrw)}`;
     if (item.krwNote?.includes('해외직구')) return '한국 미판매템';
-    return item.pickCount > 0 ? `${item.pickCount}명 담음` : (item.nameJa || '');
+    return item.pickCount > 0 ? `${item.pickCount}명 담음` : '';
   };
 
   const keyword = query.trim().toLowerCase();
-  const filtered = d.ranked.filter(r =>
-    (category === '전체' || r.item.category === category) &&
-    (!keyword || [r.item.name, r.item.nameJa, r.item.brand].some(v => v?.toLowerCase().includes(keyword)))
-  );
+  const rateNum = d.rate?.rate ?? null;
+  const filtered = filterDonki(d.ranked, { theme, category, sub, keyword, sort, rate: rateNum });
+  const themeCount = (t: DonkiTheme) => d.ranked.filter(r => detailOf(r.item).tags.includes(t)).length;
+  const catCount = (c: DonkiCategory) => d.ranked.filter(r => r.item.category === c).length;
+  const resetFilters = () => { setTheme(null); setCategory('전체'); setSub(null); setSort('popular'); };
 
   const stores = d.stores.filter(s => city === '전체' || s.city === city);
   const taxFreeLeft = Math.max(0, 5000 - d.myTotalYen);
   const couponLeft = d.myTotalYen < 10000 ? 10000 - d.myTotalYen : d.myTotalYen < 30000 ? 30000 - d.myTotalYen : 0;
-
-  const STATS = [
-    { n: d.ranked.length, l: '필수템', icon: <Star className="w-4 h-4 text-amber-500 fill-amber-400" /> },
-    { n: d.stores.length, l: '추천 매장', icon: <ShoppingCart className="w-4 h-4 text-amber-600" /> },
-    { n: PHRASE_GROUPS.reduce((s, g) => s + g.phrases.length, 0), l: '쇼핑 일본어', icon: <MapPin className="w-4 h-4 text-amber-600" /> },
-  ];
 
   return (
     <div className="flex-1 flex flex-col bg-[#F7F7F5] pb-28">
@@ -146,33 +147,37 @@ export const DonkiRankingView: React.FC = () => {
 
       {/* 히어로 */}
       {tab === 'rank' && !keyword && (
-        <section className="mx-0 bg-[#FFE600] rounded-b-[28px] px-5 pt-5 pb-5 relative overflow-hidden">
+        <section className="bg-[#FFE600] rounded-b-[28px] px-5 pt-4 pb-5 relative overflow-hidden">
           <p className="text-[10.5px] font-black tracking-[0.18em] text-black/55">DON QUIJOTE MUST-BUY</p>
-          <h2 className="mt-1.5 text-[26px] leading-[1.18] font-black text-black tracking-tight">
-            돈키호테에서<br />이건 꼭 사야 해요
+          <h2 className="mt-1 text-[23px] leading-[1.2] font-black text-black tracking-tight">
+            돈키호테 필수템 {d.ranked.length}개,<br />목적별로 골라 담으세요
           </h2>
-          <p className="mt-2.5 text-[12.5px] leading-relaxed text-black/70">
-            스테디셀러부터 선물용까지<br />현지에서 꼭 담아야 할 필수템만 모았어요.
-          </p>
-          <ShoppingBag className="absolute right-4 top-6 w-24 h-24 text-black/10 -rotate-6" strokeWidth={1.5} />
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {STATS.map(s => (
-              <div key={s.l} className="rounded-2xl bg-white/75 px-2.5 py-2.5 flex items-center gap-2">
-                <span className="w-8 h-8 shrink-0 rounded-full bg-[#FFF3A0] flex items-center justify-center">{s.icon}</span>
-                <div className="min-w-0">
-                  <p className="text-[17px] font-black text-gray-900 leading-none">{s.n}</p>
-                  <p className="text-[10.5px] text-gray-600 mt-1 truncate">{s.l}</p>
-                </div>
-              </div>
-            ))}
+          <ShoppingBag className="absolute right-4 top-4 w-20 h-20 text-black/10 -rotate-6" strokeWidth={1.5} />
+          <div className="mt-3.5 grid grid-cols-2 gap-2">
+            {THEMES.map(t => {
+              const on = theme === t.id;
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setTheme(on ? null : t.id)}
+                  className={`text-left rounded-2xl px-3 py-2.5 flex items-center gap-2.5 transition-colors active:scale-[0.98] ${on ? 'bg-black text-white' : 'bg-white/80 text-gray-900'}`}
+                >
+                  <span className="text-[22px] leading-none">{t.emoji}</span>
+                  <span className="min-w-0">
+                    <span className="block text-[13px] font-black leading-tight">{t.title} <span className={on ? 'text-[#FFE600]' : 'text-gray-400'}>{themeCount(t.id)}</span></span>
+                    <span className={`block text-[10.5px] truncate ${on ? 'text-white/60' : 'text-gray-500'}`}>{t.desc}</span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </section>
       )}
 
-      {d.status === 'loading' && tab !== 'phrase' && tab !== 'tip' && (
+      {d.status === 'loading' && !(tab === 'guide' && guideTab !== 'store') && (
         <div className="py-24 flex justify-center text-gray-400"><Loader2 className="w-6 h-6 animate-spin" /></div>
       )}
-      {d.status === 'error' && tab !== 'phrase' && tab !== 'tip' && (
+      {d.status === 'error' && !(tab === 'guide' && guideTab !== 'store') && (
         <div className="py-20 text-center text-[12px] text-gray-400">
           정보를 불러오지 못했어요.
           <button onClick={d.load} className="mt-3 mx-auto flex items-center gap-1 px-3 py-1.5 rounded-full bg-black text-white text-[12px] font-semibold">
@@ -184,52 +189,107 @@ export const DonkiRankingView: React.FC = () => {
       {/* 1. 필수템 순위 */}
       {d.status === 'ready' && tab === 'rank' && (
         <div>
+          {/* 분류 */}
           <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 pt-4">
-            {CATEGORY_FILTERS.map(f => (
+            {(['전체', ...DONKI_CATEGORIES] as const).map(f => (
               <button
                 key={f}
-                onClick={() => setCategory(f)}
-                className={`shrink-0 h-9 px-4 rounded-full text-[13px] font-bold transition-colors ${
+                onClick={() => { setCategory(f); setSub(null); }}
+                className={`shrink-0 h-9 px-3.5 rounded-full text-[13px] font-bold flex items-center gap-1 transition-colors ${
                   category === f ? 'bg-black text-[#FFE600]' : 'bg-white text-gray-700 shadow-[0_1px_3px_rgba(0,0,0,0.06)]'
                 }`}
               >
+                {f !== '전체' && CATEGORY_ICON[f]}
                 {f}
+                <span className={`text-[11px] ${category === f ? 'text-[#FFE600]/70' : 'text-gray-400'}`}>{f === '전체' ? d.ranked.length : catCount(f)}</span>
               </button>
             ))}
           </div>
+          {category !== '전체' && (
+            <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4 pt-2.5">
+              {[null, ...SUB_CATEGORIES[category]].map(s => (
+                <button
+                  key={s ?? 'all'}
+                  onClick={() => setSub(s)}
+                  className={`shrink-0 h-8 px-3 rounded-full text-[12px] font-semibold border transition-colors ${
+                    sub === s ? 'border-black bg-[#FFF6A8] text-black' : 'border-gray-200 bg-white text-gray-600'
+                  }`}
+                >
+                  {s ?? `${category} 전체`}
+                </button>
+              ))}
+            </div>
+          )}
 
-          <div className="grid grid-cols-2 gap-3 px-4 mt-4">
-            {filtered.map(({ item, rank }) => (
-              <div key={item.id} onClick={() => setDetailId(item.id)} className="bg-white rounded-[22px] p-3 shadow-[0_1px_4px_rgba(0,0,0,0.05)] flex flex-col cursor-pointer active:scale-[0.99] transition-transform">
-                <div className="relative">
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center">
-                    {item.imageUrl
-                      ? <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain" loading="lazy" />
-                      : <Thumb item={item} className="w-full h-full" />}
-                  </div>
-                  <span className={`absolute -top-0.5 -left-0.5 h-8 min-w-8 px-2 rounded-full text-[14px] font-black flex items-center justify-center gap-0.5 ${
-                    rank === 1 ? 'bg-black text-[#FFE600] ring-2 ring-[#FFE600]' : 'bg-black text-white'
-                  }`}>
-                    {rank === 1 && <Crown className="w-3.5 h-3.5 fill-[#FFE600]" />}{rank}
-                  </span>
-                  {item.badge && (
-                    <span className="absolute top-0 right-0 px-2 py-0.5 rounded-md bg-rose-50 text-rose-500 text-[10.5px] font-bold">{item.badge}</span>
-                  )}
-                </div>
-                <p className="mt-2.5 text-[11px] text-gray-400 flex items-center gap-1">{item.category}{item.reviewCount > 0 && item.avgRating != null && <span className="flex items-center gap-0.5 text-gray-600 font-semibold"><Star className="w-3 h-3 fill-amber-400 text-amber-400" />{item.avgRating.toFixed(1)}<span className="text-gray-400 font-normal">({item.reviewCount})</span></span>}</p>
-                <h3 className="text-[14.5px] font-black text-gray-900 leading-snug line-clamp-1">{item.name}</h3>
-                <p className="mt-1 text-[11.5px] text-gray-500 leading-snug line-clamp-2 flex-1">{item.description}</p>
-                <div className="mt-2.5 flex items-end justify-between gap-1">
-                  <div className="min-w-0">
-                    <p className="text-[17px] font-black text-gray-900 leading-none">{item.priceYen ? `¥${item.priceYen.toLocaleString()}` : '-'}</p>
-                    <p className="mt-1 text-[11px] font-bold text-rose-500 truncate">{krwLine(item)}</p>
-                  </div>
-                  {pickButton(item)}
-                </div>
-              </div>
-            ))}
+          {/* 결과 수 + 정렬 */}
+          <div className="px-4 mt-3.5 flex items-center justify-between gap-2">
+            <p className="text-[12.5px] text-gray-600 shrink-0">
+              <b className="text-gray-900">{filtered.length}</b>개
+              {(theme || category !== '전체' || sort !== 'popular') && (
+                <button onClick={resetFilters} className="ml-2 text-[11.5px] text-gray-400 underline underline-offset-2">초기화</button>
+              )}
+            </p>
+            <div className="flex gap-1 overflow-x-auto no-scrollbar">
+              {SORTS.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => setSort(s.id)}
+                  className={`shrink-0 px-2 py-1 text-[12px] ${sort === s.id ? 'font-black text-gray-900' : 'font-medium text-gray-400'}`}
+                >
+                  {sort === s.id && '✓ '}{s.label}
+                </button>
+              ))}
+            </div>
           </div>
-          {filtered.length === 0 && <p className="py-16 text-center text-[12px] text-gray-400">{keyword ? `'${query}'에 맞는 상품이 없어요.` : '표시할 상품이 없어요.'}</p>}
+
+          <div className="grid grid-cols-2 gap-3 px-4 mt-2.5">
+            {filtered.map(({ item, rank }) => {
+              const info = detailOf(item);
+              const c = comparePrice(item.priceYen, item.priceKrw, rateNum);
+              return (
+                <div key={item.id} onClick={() => setDetailId(item.id)} className="bg-white rounded-[20px] overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.05)] flex flex-col cursor-pointer active:scale-[0.99] transition-transform">
+                  <div className="relative aspect-square border-b border-gray-50">
+                    <DonkiThumb item={item} pad="p-3" />
+                    <span className={`absolute top-2 left-2 h-7 min-w-7 px-1.5 rounded-full text-[12.5px] font-black flex items-center justify-center gap-0.5 ${
+                      rank === 1 ? 'bg-black text-[#FFE600] ring-2 ring-[#FFE600]' : 'bg-black/85 text-white'
+                    }`}>
+                      {rank === 1 && <Crown className="w-3 h-3 fill-[#FFE600]" />}{rank}
+                    </span>
+                    {item.badge && (
+                      <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-white/95 text-rose-500 text-[10px] font-bold shadow-sm">{item.badge}</span>
+                    )}
+                    {c.pct != null && c.pct > 0 && (
+                      <span className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded-md bg-rose-500 text-white text-[10.5px] font-black">한국보다 {c.pct}%↓</span>
+                    )}
+                  </div>
+                  <div className="p-3 pt-2.5 flex flex-col flex-1">
+                    <p className="text-[10.5px] text-gray-400 truncate">{item.brand}{info.sub ? ` · ${info.sub}` : ''}</p>
+                    <h3 className="mt-0.5 text-[13.5px] font-black text-gray-900 leading-snug line-clamp-2 min-h-[36px]">{item.name}</h3>
+                    <div className="mt-1 flex items-center gap-1 text-[10.5px] text-gray-500 min-h-[16px]">
+                      {info.volume && <span className="px-1.5 py-px rounded bg-gray-100">{info.volume}</span>}
+                      {item.reviewCount > 0 && item.avgRating != null && (
+                        <span className="flex items-center gap-0.5 font-semibold text-gray-700"><Star className="w-3 h-3 fill-amber-400 text-amber-400" />{item.avgRating.toFixed(1)}<span className="text-gray-400 font-normal">({item.reviewCount})</span></span>
+                      )}
+                    </div>
+                    <div className="mt-auto pt-2">
+                      <p className="text-[16px] font-black text-gray-900 leading-none">
+                        {item.priceYen ? `¥${item.priceYen.toLocaleString()}` : '-'}
+                        {c.donkiKrw && <span className="ml-1 text-[11px] font-semibold text-gray-400">≈{won(c.donkiKrw)}</span>}
+                      </p>
+                      <p className="mt-1 text-[10.5px] font-bold text-rose-500 truncate min-h-[14px]">{krwLine(item)}</p>
+                      <div className="mt-2 [&>button]:w-full">{pickButton(item)}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {filtered.length === 0 && (
+            <div className="py-16 text-center">
+              <p className="text-[12px] text-gray-400">{keyword ? `'${query}'에 맞는 상품이 없어요.` : '조건에 맞는 상품이 없어요.'}</p>
+              <button onClick={() => { resetFilters(); setQuery(''); }} className="mt-3 px-4 py-2 rounded-full bg-black text-[#FFE600] text-[12px] font-bold">전체 보기</button>
+            </div>
+          )}
           <p className="px-4 mt-4 text-[10px] text-gray-400 leading-relaxed">
             순위는 신상픽 회원이 '살게요'로 담은 수예요. 가격은 세전 참고가로 매장·시기마다 달라요. 신상픽이 만든 여행 가이드이며 돈키호테 공식 서비스가 아니에요.
           </p>
@@ -313,8 +373,21 @@ export const DonkiRankingView: React.FC = () => {
       {/* 2.5 돈키 수다방 */}
       {tab === 'talk' && <DonkiTalk variant="mobile" />}
 
-      {/* 3. 쇼핑 일본어 */}
-      {tab === 'phrase' && (
+      {/* 3. 여행 가이드 (일본어·매장·꿀팁) */}
+      {tab === 'guide' && (
+        <div className="flex gap-1.5 px-4 pt-4">
+          {GUIDE_TABS.map(g => (
+            <button
+              key={g.id}
+              onClick={() => setGuideTab(g.id)}
+              className={`flex-1 h-9 rounded-full text-[12.5px] font-bold transition-colors ${guideTab === g.id ? 'bg-black text-[#FFE600]' : 'bg-white text-gray-600 border border-gray-200'}`}
+            >
+              {g.label}
+            </button>
+          ))}
+        </div>
+      )}
+      {tab === 'guide' && guideTab === 'phrase' && (
         <div className="px-4 pt-4 space-y-5">
           <p className="text-[12px] text-gray-500">🔊 를 누르면 일본어로 읽어주고, 크게 보기로 점원에게 화면을 보여줄 수 있어요.</p>
           {PHRASE_GROUPS.map(g => (
@@ -355,7 +428,7 @@ export const DonkiRankingView: React.FC = () => {
       )}
 
       {/* 4. 매장 */}
-      {d.status === 'ready' && tab === 'store' && (
+      {d.status === 'ready' && tab === 'guide' && guideTab === 'store' && (
         <div className="pt-4">
           <div className="flex gap-1.5 overflow-x-auto no-scrollbar px-4">
             {['전체', ...d.cities].map(c => (
@@ -400,7 +473,7 @@ export const DonkiRankingView: React.FC = () => {
       )}
 
       {/* 5. 꿀팁 */}
-      {tab === 'tip' && (
+      {tab === 'guide' && guideTab === 'tip' && (
         <div className="px-4 pt-4 space-y-2.5">
           {DONKI_TIPS.map(t => (
             <div key={t.title} className="bg-white rounded-2xl border border-gray-100 p-4">

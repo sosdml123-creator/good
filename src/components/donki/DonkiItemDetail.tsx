@@ -6,6 +6,8 @@ import { comparePrice, won } from '../../data/donkiGuide';
 import { ReportModal, ReportTarget } from '../common/ReportModal';
 import { safeLocalStorageGet } from '../../utils/safeStorage';
 import { DEFAULT_AVATAR } from '../../utils/avatars';
+import { detailOf, THEMES } from '../../data/donkiCatalog';
+import { DonkiThumb } from './DonkiThumb';
 
 interface Props {
   item: DonkiItem;
@@ -222,22 +224,40 @@ export const DonkiItemDetail: React.FC<Props> = ({ item, rate, picked, busy, onT
     </div>
   );
 
+  const extra = detailOf(item);
+  const themeLabel = (t: string) => THEMES.find(x => x.id === t);
+
   const info = (
     <div>
-      <div className="flex items-center gap-1.5 text-[12px] text-gray-400">
-        <span>{item.brand}</span><span>·</span><span>{item.category}</span>
+      <div className="flex items-center gap-1.5 text-[12px] text-gray-400 flex-wrap">
+        <span>{item.brand}</span><span>·</span><span>{item.category}{extra.sub ? ` > ${extra.sub}` : ''}</span>
         {item.badge && <span className="ml-1 px-1.5 py-0.5 rounded-md bg-rose-50 text-rose-500 text-[10.5px] font-bold">{item.badge}</span>}
       </div>
       <h2 className={`${isPc ? 'text-[26px]' : 'text-[21px]'} font-black text-gray-900 leading-snug mt-1`}>{item.name}</h2>
       {item.nameJa && <p className="text-[13px] text-gray-500">{item.nameJa}</p>}
+      {(extra.volume || extra.tags.length > 0) && (
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          {extra.volume && <span className="px-2 py-1 rounded-lg bg-gray-100 text-[12px] font-semibold text-gray-700">용량 {extra.volume}</span>}
+          {extra.tags.map(t => {
+            const th = themeLabel(t);
+            return th ? <span key={t} className="px-2 py-1 rounded-lg bg-[#FFF6A8] text-[12px] font-semibold text-gray-800">{th.emoji} {th.title}</span> : null;
+          })}
+        </div>
+      )}
       <p className="mt-2.5 text-[14px] text-gray-600 leading-relaxed">{item.description}</p>
-      {item.pickCount > 0 && <p className="mt-1.5 text-[12px] font-bold text-rose-500">{item.pickCount}명이 쇼핑리스트에 담았어요</p>}
+      {extra.tip && (
+        <div className="mt-3 rounded-2xl bg-gray-50 border border-gray-100 px-3.5 py-3">
+          <p className="text-[12px] font-black text-gray-900">💡 살 때 알아두세요</p>
+          <p className="mt-1 text-[13px] text-gray-600 leading-relaxed">{extra.tip}</p>
+        </div>
+      )}
+      {item.pickCount > 0 && <p className="mt-2 text-[12px] font-bold text-rose-500">{item.pickCount}명이 쇼핑리스트에 담았어요</p>}
     </div>
   );
 
   const image = (
-    <div className={`bg-white flex items-center justify-center ${isPc ? 'aspect-square rounded-2xl border border-gray-100' : 'aspect-[4/3]'}`}>
-      {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain p-6" />}
+    <div className={`overflow-hidden ${isPc ? 'aspect-square rounded-2xl border border-gray-100' : 'aspect-[4/3]'}`}>
+      <DonkiThumb item={item} pad="p-6" big />
     </div>
   );
 
