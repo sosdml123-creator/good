@@ -422,7 +422,7 @@ export default async function handler(req, res) {
       }
 
       case 'upsert_donki': {
-        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'price_yen', 'description', 'image_url', 'badge', 'price_krw', 'krw_note', 'krw_checked_on', 'editor_rank', 'is_active'].map((c) => [c, c]));
+        const DONKI_COLUMNS = Object.fromEntries(['name', 'name_ja', 'brand', 'category', 'sub_category', 'volume', 'buy_tip', 'tags', 'price_yen', 'description', 'image_url', 'badge', 'price_krw', 'krw_note', 'krw_checked_on', 'editor_rank', 'is_active'].map((c) => [c, c]));
         const item = body.item || {};
         const id = String(item.id || '').trim();
         if (!id || !item.name || !item.brand || !item.category || !item.description) {
@@ -434,7 +434,10 @@ export default async function handler(req, res) {
           const n = Number(row[column]);
           row[column] = Number.isFinite(n) && String(row[column]).trim() !== '' ? Math.round(n) : (column === 'editor_rank' ? 999 : null);
         }
-        for (const column of ['name_ja', 'image_url', 'badge', 'krw_note', 'krw_checked_on']) if (row[column] === '') row[column] = null;
+        for (const column of ['name_ja', 'image_url', 'badge', 'krw_note', 'krw_checked_on', 'sub_category', 'volume', 'buy_tip']) if (row[column] === '') row[column] = null;
+        if (row.tags !== undefined) {
+          row.tags = Array.isArray(row.tags) ? [...new Set(row.tags.map((t) => String(t).trim()).filter(Boolean))].slice(0, 10) : [];
+        }
         await db('donki_items?on_conflict=id', {
           method: 'POST',
           headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },

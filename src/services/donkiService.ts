@@ -8,6 +8,10 @@ export interface DonkiItem {
   nameJa: string | null;
   brand: string;
   category: DonkiCategory;
+  subCategory: string | null;
+  volume: string | null;
+  buyTip: string | null;
+  tags: string[];
   priceYen: number | null;
   description: string;
   imageUrl: string | null;
@@ -31,6 +35,10 @@ export const fetchDonkiRanking = async (): Promise<DonkiItem[]> => {
     nameJa: r.name_ja,
     brand: r.brand,
     category: r.category,
+    subCategory: r.sub_category ?? null,
+    volume: r.volume ?? null,
+    buyTip: r.buy_tip ?? null,
+    tags: Array.isArray(r.tags) ? r.tags : [],
     priceYen: r.price_yen,
     description: r.description,
     imageUrl: r.image_url,

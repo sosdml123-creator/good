@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { adminApi } from '../../services/siteContentService';
 import { supabase, uploadImageDataUrl } from '../../services/supabase';
 import { DonkiCategory } from '../../services/donkiService';
+import { SUB_CATEGORIES, THEMES } from '../../data/donkiCatalog';
 import { DonkiStoresSection } from './DonkiStoresSection';
 import { DonkiReviewsSection } from './DonkiReviewsSection';
 
@@ -13,6 +14,10 @@ interface DonkiRow {
   name_ja: string | null;
   brand: string;
   category: DonkiCategory;
+  sub_category: string | null;
+  volume: string | null;
+  buy_tip: string | null;
+  tags: string[];
   price_yen: number | null;
   description: string;
   image_url: string | null;
@@ -28,7 +33,7 @@ interface DonkiRow {
 const CATEGORIES: DonkiCategory[] = ['의약품', '화장품', '과자·식품', '생활용품'];
 
 const emptyForm = (rank: number): DonkiRow => ({
-  id: '', name: '', name_ja: '', brand: '', category: '의약품', price_yen: null,
+  id: '', name: '', name_ja: '', brand: '', category: '의약품', sub_category: null, volume: '', buy_tip: '', tags: [], price_yen: null,
   description: '', image_url: '', badge: '', price_krw: null, krw_note: '', krw_checked_on: new Date().toISOString().slice(0, 10), editor_rank: rank, is_active: true, pick_count: 0,
 });
 
@@ -128,7 +133,7 @@ const DonkiItemsSection: React.FC = () => {
               <input className={inputCls} value={form.id} disabled={!isNew} onChange={e => setForm({ ...form, id: e.target.value })} placeholder="roihi-tsuboko" />
             </label>
             <label className="text-[12px] text-gray-600">분류
-              <select className={inputCls} value={form.category} onChange={e => setForm({ ...form, category: e.target.value as DonkiCategory })}>
+              <select className={inputCls} value={form.category} onChange={e => setForm({ ...form, category: e.target.value as DonkiCategory, sub_category: null })}>
                 {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </label>
@@ -161,6 +166,38 @@ const DonkiItemsSection: React.FC = () => {
               <input className={inputCls} type="date" value={form.krw_checked_on || ''} onChange={e => setForm({ ...form, krw_checked_on: e.target.value })} />
             </label>
           </div>
+          <div className="grid grid-cols-2 gap-3">
+            <label className="text-[12px] text-gray-600">세부 분류
+              <select className={inputCls} value={form.sub_category || ''} onChange={e => setForm({ ...form, sub_category: e.target.value || null })}>
+                <option value="">선택 안 함</option>
+                {SUB_CATEGORIES[form.category].map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </label>
+            <label className="text-[12px] text-gray-600">용량 (예: 20정, 70g, 12개입)
+              <input className={inputCls} value={form.volume || ''} onChange={e => setForm({ ...form, volume: e.target.value })} />
+            </label>
+          </div>
+          <div className="text-[12px] text-gray-600">
+            테마 (해당하는 것 모두 · '한국에 없는 템'은 한국 가격 기준에 '해외직구'가 있으면 자동 포함)
+            <div className="mt-1 flex flex-wrap gap-2">
+              {THEMES.map(t => {
+                const on = form.tags.includes(t.id);
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setForm({ ...form, tags: on ? form.tags.filter(x => x !== t.id) : [...form.tags, t.id] })}
+                    className={`px-3 py-1.5 rounded-full border text-[12px] ${on ? 'bg-indigo-600 border-indigo-600 text-white' : 'border-gray-200 text-gray-700 hover:bg-gray-50'}`}
+                  >
+                    {t.emoji} {t.title}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <label className="block text-[12px] text-gray-600">구매 팁 (상세 화면 '살 때 알아두세요' · 비우면 표시 안 함)
+            <input className={inputCls} value={form.buy_tip || ''} onChange={e => setForm({ ...form, buy_tip: e.target.value })} />
+          </label>
           <label className="block text-[12px] text-gray-600">카드 라벨 (예: 스테디셀러, 선물용 · 비우면 표시 안 함)
             <input className={inputCls} value={form.badge || ''} maxLength={8} onChange={e => setForm({ ...form, badge: e.target.value })} />
           </label>
