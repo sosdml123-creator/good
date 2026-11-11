@@ -194,9 +194,17 @@ jobs:
           IPA_PATH=$(find "$GITHUB_WORKSPACE/build/ipa" -name "*.ipa" | head -1)
           echo "Uploading: $IPA_PATH"
 
+          # altool은 업로드가 거부돼도 종료 코드 0을 낼 수 있어 출력으로 성공 여부를 판단한다
+          set -o pipefail
           xcrun altool --upload-app \
             --type ios \
             --file "$IPA_PATH" \
             --apiKey "$APP_STORE_CONNECT_KEY_ID" \
             --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" \
-            --verbose
+            --verbose 2>&1 | tee "$RUNNER_TEMP/altool.log"
+
+          if grep -qE "UPLOAD FAILED|ERROR: \[altool" "$RUNNER_TEMP/altool.log"; then
+            echo "::error::App Store Connect 업로드 실패"
+            grep -E "ERROR|UPLOAD FAILED" "$RUNNER_TEMP/altool.log" | head -20
+            exit 1
+          fi
