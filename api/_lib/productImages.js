@@ -29,17 +29,15 @@ function isUnusableImageUrl(url) {
 }
 
 /**
- * 네이버 검색 썸네일(search.pstatic.net ?type=b150, 150px)이 네이버 쇼핑 원본을 가리키면
- * 같은 사진의 1000px 주소(shop-phinf.pstatic.net ?type=m1000_pd)로 바꿉니다. 아니면 null.
+ * 네이버 검색 썸네일(search.pstatic.net ?type=b150, 150px)을 같은 프록시의 750px 주소(type=a750)로 바꿉니다.
+ * 프록시를 그대로 거치므로 원본 사이트가 외부 링크를 막아도 열립니다. 해당 없으면 null.
  */
 export function upgradeNaverThumbnail(url) {
   try {
     const u = new URL(url);
-    if (u.host !== 'search.pstatic.net') return null;
-    const src = new URL(u.searchParams.get('src') || '');
-    return /(^|\.)phinf\.naver\.net$|^shop-phinf\.pstatic\.net$/.test(src.host)
-      ? `https://shop-phinf.pstatic.net${src.pathname}?type=m1000_pd`
-      : null;
+    if (u.host !== 'search.pstatic.net' || !u.searchParams.get('src')) return null;
+    u.searchParams.set('type', 'a750');
+    return u.toString();
   } catch {
     return null;
   }
