@@ -1,6 +1,6 @@
 // 기프티쇼 비즈 상품 카탈로그의 단품 교환권 정가(realPrice)를 가격 출처로 추가
 // 네이버 플레이스에서 못 찾은 메뉴만 채웁니다 (prices/<key>.json 에 kind: 'coupon' 으로 병합).
-// 실행: node scripts/menu/prices-giftishow.cjs   (.env 의 GIFTISHOW_AUTH_CODE / GIFTISHOW_AUTH_TOKEN 사용)
+// 실행: node scripts/menu/prices-giftishow.cjs [key ...]   (ENV_FILE 또는 .env 의 GIFTISHOW_AUTH_CODE / GIFTISHOW_AUTH_TOKEN 사용)
 const fs = require('fs');
 const path = require('path');
 
@@ -19,11 +19,16 @@ const BRANDS = {
   baskinrobbins: '배스킨라빈스',
   pizzaschool: '피자스쿨',
   parisbaguette: '파리바게뜨',
+  megacoffee: '메가MGC커피',
+  composecoffee: '컴포즈커피',
+  twosome: '투썸플레이스',
+  hollys: '할리스',
+  coffeebean: '커피빈',
 };
 
 function readEnv() {
   const env = {};
-  for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n/)) {
+  for (const line of fs.readFileSync(process.env.ENV_FILE || path.join(ROOT, '.env'), 'utf8').split(/\r?\n/)) {
     const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
     if (m) env[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
   }
@@ -56,7 +61,9 @@ function readEnv() {
   }
   console.log(`카탈로그 ${goods.length}건`);
 
+  const only = process.argv.slice(2);
   for (const [key, brand] of Object.entries(BRANDS)) {
+    if (only.length && !only.includes(key)) continue;
     const file = path.join(PRICE_DIR, `${key}.json`);
     const table = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
     let added = 0;

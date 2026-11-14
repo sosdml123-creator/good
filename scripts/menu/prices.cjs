@@ -26,6 +26,11 @@ const BRANDS = {
   baskinrobbins: '배스킨라빈스',
   pizzaschool: '피자스쿨',
   parisbaguette: '파리바게뜨',
+  megacoffee: '메가MGC커피',
+  composecoffee: '컴포즈커피',
+  twosome: '투썸플레이스',
+  hollys: '할리스',
+  coffeebean: '커피빈',
 };
 
 function apolloState(html) {

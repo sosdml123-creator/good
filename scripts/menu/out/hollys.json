@@ -1,0 +1,1356 @@
+{
+ "key": "hollys",
+ "brand": "할리스",
+ "items": [
+  {
+   "name": "블랙 티라미수 라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040434286050.png",
+   "price": 0,
+   "desc": "부드러운 마스카포네 풍미와 진한 커피가 어우러진 티라미수 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1248"
+  },
+  {
+   "name": "할리스 데일리 커피 디카페인",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606170357350450.png",
+   "price": 0,
+   "desc": "기다림 없이 즐기세요! 카페인 부담 없이 즐기는 오늘의 데일리 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1211"
+  },
+  {
+   "name": "할리스 데일리 커피",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606170358087910.png",
+   "price": 0,
+   "desc": "기다림 없이 즐기세요! 바쁜 하루를 위한 오늘의 데일리 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1210"
+  },
+  {
+   "name": "카푸치노",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605180257216160.png",
+   "price": 0,
+   "desc": "에스프레소에 풍성한 우유 거품이 더해진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1199"
+  },
+  {
+   "name": "눈표범 아인슈페너",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605180257471360.png",
+   "price": 0,
+   "desc": "WWF와 함께하는 기부 메뉴 진하게 추출한 에스프레소 위에 부드럽고 풍성한 크림을 더한 아인슈페너",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1198"
+  },
+  {
+   "name": "저당 바닐라 딜라이트",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605131019547210.png",
+   "price": 0,
+   "desc": "할리스 시그니처 바닐라 딜라이트의 부드럽고 달콤한 맛을 그대로 살린 저당 바닐라 딜라이트",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1157"
+  },
+  {
+   "name": "바닐라 딜라이트 아인슈페너",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605131019034370.png",
+   "price": 0,
+   "desc": "진한 에스프레소에 바닐라딜라이트 크림을 올려 깊은 향과 부드러움을 모두 담은 바닐라 딜라이트 아인슈페너",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1158"
+  },
+  {
+   "name": "디카페인 콜드브루 아샷추",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202509230121351400.png",
+   "price": 0,
+   "desc": "복숭아 아이스티에 디카페인 콜드브루를 더해 달콤쌉싸름하게 즐기는 아샷추",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1092"
+  },
+  {
+   "name": "아샷추",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202507250814260600.png",
+   "price": 0,
+   "desc": "복숭아 아이스티에 에스프레소를 더해 달콤쌉싸름하게 즐기는 아샷추",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1053"
+  },
+  {
+   "name": "몬스터 아메리카노",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220339221050.png",
+   "price": 0,
+   "desc": "에너지 충전이 필요할 때! 청량감 가득 몬스터와 아메리카노가 만난 #에너지부스터",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#1040"
+  },
+  {
+   "name": "블랙아리아 아메리카노",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202308310540309360.png",
+   "price": 0,
+   "desc": "스페셜티 블렌드를 사용하여 과일과 베리향의 고급스러운 커피 풍미가 특징인 아메리카노 *'고카페인 함유' 제품으로 어린이, 임신부, 카페인 민감자는 섭취에 주의하여 주시기 바랍니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#877"
+  },
+  {
+   "name": "블랙아리아 딥라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202308310540430220.png",
+   "price": 0,
+   "desc": "스페셜티 블렌드를 사용하여 과일과 베리향의 고급스러운 커피 풍미가 특징인 부드러운 라떼*'고카페인 함유' 제품으로 어린이, 임신부, 카페인 민감자는 섭취에 주의하여 주시기 바랍니다.",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#876"
+  },
+  {
+   "name": "돌체 라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220340359170.png",
+   "price": 0,
+   "desc": "달콤한 연유와 고소한 원두, 크리미한 바디가 어우러진 스페셜 메뉴",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#932"
+  },
+  {
+   "name": "디카페인 콜드브루",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220340584680.png",
+   "price": 0,
+   "desc": "할리스만의 노하우로 블렌딩한 디카페인 원액을 더해, 깔끔한 후미와 은은한 단맛을 느낄 수 있는 디카페인 콜드브루",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#633"
+  },
+  {
+   "name": "디카페인 콜드브루 라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220341154100.png",
+   "price": 0,
+   "desc": "할리스만의 노하우로 블렌딩한 디카페인 원액을 더해, 부드러운 풍미와 균형 잡힌 바디감의 디카페인 콜드브루 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#632"
+  },
+  {
+   "name": "디카페인 콜드브루 바닐라 딜라이트",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220349010700.png",
+   "price": 0,
+   "desc": "디카페인 콜드브루 라떼에 바닐라 파우더를 더해 더욱 풍부하고 감미로운 할리스만의 바닐라 라떼 (*바닐라 파우더 내 카페인 일부 함유)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#631"
+  },
+  {
+   "name": "콜드브루 딜라이트",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220349272270.png",
+   "price": 0,
+   "desc": "실키한 연유베이스에 콜드브루를 넣어 부담없이 즐기는 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#549"
+  },
+  {
+   "name": "콜드브루 라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220351341860.png",
+   "price": 0,
+   "desc": "콜드브루 커피의 풍부한 풍미와 우유의 고소함이 더해진 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#209"
+  },
+  {
+   "name": "콜드브루",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220351480160.png",
+   "price": 0,
+   "desc": "콜드브루 전용 블렌드를 상온의 물로 오랜시간 추출해 달콤한 산미와 부드러운 바디감이 살아있는 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#208"
+  },
+  {
+   "name": "바닐라 딜라이트",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220352085560.png",
+   "price": 0,
+   "desc": "카페라떼에 바닐라빈으로 만든 바닐라 파우더를 더해 더욱 풍부하고 감미로운 할리스만의 바닐라라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#13"
+  },
+  {
+   "name": "카라멜 마키아또",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220352241540.png",
+   "price": 0,
+   "desc": "진한 에스프레소에 바닐라 시럽과 카라멜소스가 더해진 카라멜 커피음료의 대표",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#10"
+  },
+  {
+   "name": "카페 모카",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220352386460.png",
+   "price": 0,
+   "desc": "진한 에스프레소와 우유, 달콤 쌉싸름한 초콜릿이 어우러진 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#7"
+  },
+  {
+   "name": "카페 라떼",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220353010640.png",
+   "price": 0,
+   "desc": "진한 에스프레소에 우유를 넣어 풍부한 커피향을 부드럽게 즐길 수 있는 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#12"
+  },
+  {
+   "name": "아메리카노",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220353165110.png",
+   "price": 0,
+   "desc": "진한 에스프레소의 맛과 향을 부드럽게 즐길 수 있는 아메리칸 스타일의 커피",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#6"
+  },
+  {
+   "name": "아포가토",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220353281780.png",
+   "price": 0,
+   "desc": "바닐라 아이스크림과 리스트레또 더블샷이 어우러져 부드럽고 진한 맛의 아포가토",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#2"
+  },
+  {
+   "name": "에스프레소",
+   "sub": "커피",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220353379090.png",
+   "price": 0,
+   "desc": "강렬한 첫 맛, 풍부한 바디감, 깔끔한 뒷 맛이 특징인 커피의 심장",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/espresso.do#14"
+  },
+  {
+   "name": "저당 레드 시나몬 뱅쇼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040434448260.png",
+   "price": 0,
+   "desc": "시나몬과 과일 향이 은은하게 어우러진 깊고 부드러운 와인 풍미의 저당 무알콜 뱅쇼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1251"
+  },
+  {
+   "name": "레드 시나몬 뱅쇼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040434542430.png",
+   "price": 0,
+   "desc": "시나몬과 과일 향이 은은하게 어우러진 깊고 부드러운 와인 풍미의 무알콜 뱅쇼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1250"
+  },
+  {
+   "name": "군고구마 크림 라떼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040435021100.png",
+   "price": 0,
+   "desc": "고소한 군고구마에 부드러운 우유 크림이 조화로운 고구마 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1249"
+  },
+  {
+   "name": "누룽지팝 초코크림라떼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609290610595580.png",
+   "price": 0,
+   "desc": "고소한 누룽지라떼와 진한 초코크림 위 누룽지팝을 듬뿍 올려 완성한 초코크림라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1240"
+  },
+  {
+   "name": "모과배차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040341548540.png",
+   "price": 0,
+   "desc": "시원한 배와 향긋한 모과에 쌍화의 풍미를 더한 전통차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1229"
+  },
+  {
+   "name": "레드티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606170359104480.png",
+   "price": 0,
+   "desc": "기다림 없이 즐기세요! 상큼한 제주 레몬과 달달한 사과다이스가 어우러진 레드 티",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1212"
+  },
+  {
+   "name": "애사비",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605131121529740.png",
+   "price": 0,
+   "desc": "가볍게 즐기는 여름 한 잔 부담 없이 상큼하게 즐겨보세요",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1197"
+  },
+  {
+   "name": "아이스티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202506100244012880.png",
+   "price": 0,
+   "desc": "깔끔하고 시원한 복숭아 아이스티",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1054"
+  },
+  {
+   "name": "딸기 라떼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504071149563690.png",
+   "price": 0,
+   "desc": "상큼달콤한 풍미 가득한, 딸기가 씹히는 식감이 매력적인 딸기라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1042"
+  },
+  {
+   "name": "꿀모과차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220407272590.png",
+   "price": 0,
+   "desc": "향긋한 모과를 아낌없이 담아 진하게 즐기는 전통차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#1024"
+  },
+  {
+   "name": "레몬 생강차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202508220108377320.png",
+   "price": 0,
+   "desc": "알싸한 생강에 향긋한 레몬이 더해져 따뜻하고 개운하게 즐길 수 있는 전통차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#946"
+  },
+  {
+   "name": "대추 생강차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220407514940.png",
+   "price": 0,
+   "desc": "대추 과육과 생강이 진하게 어우러져 달콤하고 부드럽게 마실 수 있는 전통차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#945"
+  },
+  {
+   "name": "제주 레몬 애플티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220400587050.png",
+   "price": 0,
+   "desc": "상큼한 제주 레몬과 달달한 사과다이스가 어우러진 과일차 ★토핑은 시즌에 따라 상이할 수 있습니다★",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#921"
+  },
+  {
+   "name": "로얄 밀크 버블티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220401192660.png",
+   "price": 0,
+   "desc": "향긋한 홍차의 풍미와 부드러운 우유가 쫀득한 타피오카펄과 만나 고소하게 즐기는 버블티",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#897"
+  },
+  {
+   "name": "로얄 밀크티 라떼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220413052010.png",
+   "price": 0,
+   "desc": "스리랑카산 딤블라홍차 추출분말로 만들어 향긋한 풍미가 특징인 로얄 밀크티 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#931"
+  },
+  {
+   "name": "흑당 버블티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220408172900.png",
+   "price": 0,
+   "desc": "흑당의 진한 풍미에 쫀득한 타피오카펄을 더해 달달하게 즐기는 버블티",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#898"
+  },
+  {
+   "name": "핑크 파인 캐모마일티",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220408419080.png",
+   "price": 0,
+   "desc": "달콤한 파인애플 과육과 상큼한 시트러스청이 향긋한 캐모마일과 어우러진 핑크빛 티 베리에이션 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#890"
+  },
+  {
+   "name": "제주 말차 라떼",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220409129780.png",
+   "price": 0,
+   "desc": "제주산 말차 파우더로 만들어 깊고 진한 말차 본연의 풍미를 살린 라떼",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#776"
+  },
+  {
+   "name": "핫/아이스초코",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220409486140.png",
+   "price": 0,
+   "desc": "진한 초콜렛과 우유가 어우러져 달콤한 초콜릿 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#25"
+  },
+  {
+   "name": "화이트초코",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220410183490.png",
+   "price": 0,
+   "desc": "고소한 우유에 화이트 초콜릿 플레이버가 더해진 달콤한 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#26"
+  },
+  {
+   "name": "유자 캐모마일",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220410372840.png",
+   "price": 0,
+   "desc": "은은한 향의 캐모마일과 유자차를 같이 느낄 수 있는 티베리에이션 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#413"
+  },
+  {
+   "name": "복숭아 얼그레이",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220410490620.png",
+   "price": 0,
+   "desc": "달콤한 복숭아와 얼그레이의 베르가못 향의 조화, 깔끔하면서도 달콤한 티베리에이션 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#412"
+  },
+  {
+   "name": "홍자몽차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220411007720.png",
+   "price": 0,
+   "desc": "자몽과일 특유의 달콤 쌉싸름한 맛을 즐길 수 있는 과일차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#183"
+  },
+  {
+   "name": "제주 한라봉 감귤차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220411188850.png",
+   "price": 0,
+   "desc": "향긋한 한라봉과 감귤이 어우러져 상큼하면서도 달콤한 과일차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#59"
+  },
+  {
+   "name": "고흥 유자차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504230200563280.png",
+   "price": 0,
+   "desc": "고흥 유자의 풍미를 살린 할리스 유자차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#63"
+  },
+  {
+   "name": "해남 녹차",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220411569790.png",
+   "price": 0,
+   "desc": "고소한 감칠맛과 부드러운 목넘김이 좋은 땅끝 마음 해남에서 재배한 녹차(유기농 녹차잎 사용)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#64"
+  },
+  {
+   "name": "페퍼민트",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220412077090.png",
+   "price": 0,
+   "desc": "입안 가득 깔끔한 청량감으로 기분까지 상쾌한 허브차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#67"
+  },
+  {
+   "name": "캐모마일",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220412186660.png",
+   "price": 0,
+   "desc": "캐모마일 꽃잎을 그대로 말려 노란색의 향긋한 꽃향이 그대로 살아 있는 허브차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#66"
+  },
+  {
+   "name": "얼그레이",
+   "sub": "시그니처",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220412323420.png",
+   "price": 0,
+   "desc": "스리랑카 캔디 지방에서 재배된 홍차에 시칠리아의 감귤,베르가못향이 조화된 감미로운 홍차",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/signature.do#69"
+  },
+  {
+   "name": "누룽지팝 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609290611487320.png",
+   "price": 0,
+   "desc": "누룽지팝이 들어가 누룽지의 고소함과 바삭한 식감을 느낄 수 있는 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#1239"
+  },
+  {
+   "name": "애플망고 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605070241467450.png",
+   "price": 0,
+   "desc": "부드럽고 달콤한 우유와 망고 과육이 어우러져 시원하게 즐기는 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#1191"
+  },
+  {
+   "name": "블루베리 요거트 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605070242044180.png",
+   "price": 0,
+   "desc": "상큼한 요거트 베이스에 달콤한 블루베리를 더해 시원하게 즐기는 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#1190"
+  },
+  {
+   "name": "다크 포레스트 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202605070242142560.png",
+   "price": 0,
+   "desc": "아마레나 체리의 진한 상큼함과 초콜릿의 달콤함을 함께 느낄 수 있는 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#1189"
+  },
+  {
+   "name": "더블 초코칩 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202601051041181900.png",
+   "price": 0,
+   "desc": "초코칩이 콕콕 들어가 진하고 달콤한 초콜릿의 풍미가 가득한 초콜릿 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#1137"
+  },
+  {
+   "name": "제주 말차할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220415448230.png",
+   "price": 0,
+   "desc": "제주산 말차 파우더로 만들어 깊고 진한 말차 본연의 풍미를 살린 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#779"
+  },
+  {
+   "name": "콜드브루 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220418587630.png",
+   "price": 0,
+   "desc": "콜드브루와 우유, 얼음이 갈린 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#42"
+  },
+  {
+   "name": "딸기 치즈케익 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220417322650.png",
+   "price": 0,
+   "desc": "치즈케익맛 아이스블렌디드 음료에 상큼한 딸기를 토핑한 할리스 시그니처 메뉴",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#415"
+  },
+  {
+   "name": "플레인 요거트 할리치노",
+   "sub": "할리치노",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220418490810.png",
+   "price": 0,
+   "desc": "상큼한 요거트 맛을 그대로 느낄 수 있는 플레인 요거트 할리치노",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/hollyccino.do#52"
+  },
+  {
+   "name": "레드스파클링",
+   "sub": "티",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606170359522530.png",
+   "price": 0,
+   "desc": "기다림 없이 즐기세요! 청량함 가득한 탄산수와 딸기, 체리가 상큼하게 어우러진 스파클링",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/tea.do#1213"
+  },
+  {
+   "name": "레몬에이드",
+   "sub": "티",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202512011032211510.png",
+   "price": 0,
+   "desc": "레몬의 상큼이 톡톡! 시원하게 즐기는 레몬에이드",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/tea.do#1083"
+  },
+  {
+   "name": "유자몽 스파클링",
+   "sub": "티",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220422311190.png",
+   "price": 0,
+   "desc": "달콤한 고흥유자와 쌉싸름한 자몽이 들어간 시원한 스파클링 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/tea.do#867"
+  },
+  {
+   "name": "복숭아 자두 스파클링",
+   "sub": "티",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220422385570.png",
+   "price": 0,
+   "desc": "청량감 가득한 탄산수와 복숭아, 자두가 상큼달콤하게 어우러진 스파클링 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/tea.do#213"
+  },
+  {
+   "name": "청포도 스파클링",
+   "sub": "티",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220422528490.png",
+   "price": 0,
+   "desc": "청량감 가득한 탄산수와 탱글탱글한 청포도가 상큼달콤하게 어우러진 스파클링 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/tea.do#37"
+  },
+  {
+   "name": "오렌지 자몽 생과일 주스",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220419323000.png",
+   "price": 0,
+   "desc": "오렌지와 자몽을 그대로 갈아 만들어 상큼함 그 자체 생과일 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#893"
+  },
+  {
+   "name": "토마토 생과일 주스",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220419413280.png",
+   "price": 0,
+   "desc": "신선한 토마토를 그대로 갈아 만든 주스에 토마토를 듬뿍 토핑한 생과일 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#846"
+  },
+  {
+   "name": "피치 딸기 스무디",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220419569570.png",
+   "price": 0,
+   "desc": "과즙 가득한 복숭아 슬러쉬 안에 톡톡 씹히는 딸기 과육이 더해진 블렌디드 음료",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#638"
+  },
+  {
+   "name": "애플망고 스무디",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220421257420.png",
+   "price": 0,
+   "desc": "상큼 달콤한 애플망고 과육을 갈아 만든 과일 스무디",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#636"
+  },
+  {
+   "name": "딸기 스무디",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220420287180.png",
+   "price": 0,
+   "desc": "딸기 본연의 맛을 살려 갈아 만든 과일 스무디",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#286"
+  },
+  {
+   "name": "사과 비트착즙 주스",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220420403320.png",
+   "price": 0,
+   "desc": "사과, 비트, 파인애플이 어우러진 건강한 과채 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#635"
+  },
+  {
+   "name": "오렌지 당근착즙 주스",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220420543890.png",
+   "price": 0,
+   "desc": "오렌지, 당근, 사과가 어우러진 달콤한 과채 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#634"
+  },
+  {
+   "name": "청포도 케일 착즙 주스",
+   "sub": "주스·음료",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202504220421041790.png",
+   "price": 0,
+   "desc": "청포도, 케일, 밀싹이 어우러진 산뜻한 과채 주스",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/juice.do#264"
+  },
+  {
+   "name": "클래식 쇼콜라 타르트",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611100813222630.png",
+   "price": 0,
+   "desc": "쌉싸름한 초콜릿과 쫀득한 브라우니가 매력적인 타르트",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1253"
+  },
+  {
+   "name": "시그니처 당근 케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611100813397890.png",
+   "price": 0,
+   "desc": "촉촉한 당근 시트에 고소한 견과류와 진한 크림치즈가 조화롭게 어우러진 당근 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1252"
+  },
+  {
+   "name": "쫀득 쌀떡볶이",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609290612588070.png",
+   "price": 0,
+   "desc": "매콤 달콤한 맛이 조화로운 전통 스타일의 떡볶이",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1243"
+  },
+  {
+   "name": "누룽지팝 크로플",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609290612390240.png",
+   "price": 0,
+   "desc": "바삭한 크로플에 누룽지 크림, 바닐라 아이스크림과 누룽지팝까지 더해진 크로플",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1242"
+  },
+  {
+   "name": "누룽지팝 치즈 쌀떡볶이",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609290612215110.png",
+   "price": 0,
+   "desc": "쫀득한 쌀 떡볶이 위 모짜렐라 치즈를 듬뿍! 매콤한 떡볶이와 바삭한 누룽지팝을 더한 떡볶이",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1241"
+  },
+  {
+   "name": "치즈 베이글",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202610060142276880.png",
+   "price": 0,
+   "desc": "파마산 치즈를 더해 고소하고 짭짤한 치즈의 풍미가 느껴지는 베이글 파마산 치즈를 더해 고소하고 짭짤한 치즈의 풍미가 느껴지는 베이글",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1238"
+  },
+  {
+   "name": "바질 베이글",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202610060142375860.png",
+   "price": 0,
+   "desc": "촉촉하고 쫄깃한 식감과 은은한 바질향이 매력적인 바질 베이글",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1237"
+  },
+  {
+   "name": "통밀 베이글",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202610060142455000.png",
+   "price": 0,
+   "desc": "통밀의 고소함을 담아 건강하고 담백하게 즐길 수 있는 베이글",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1236"
+  },
+  {
+   "name": "바질 치킨 프렌치토스트",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609080536193000.png",
+   "price": 0,
+   "desc": "바질페스토와 치킨, 썬드라이 토마토가 들어간 따끈따끈 프렌치 토스트",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1233"
+  },
+  {
+   "name": "베이컨 콘치즈 프렌치토스트",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609080536296480.png",
+   "price": 0,
+   "desc": "달콤한 스위트콘, 베이컨, 체다치즈가 들어간 단짠단짠 프렌치 토스트",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1232"
+  },
+  {
+   "name": "연유브레드",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202609080536386780.png",
+   "price": 0,
+   "desc": "부드러운 우유빵에 연유크림을 뿌려 달달하고 촉촉한 연유브레드",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1231"
+  },
+  {
+   "name": "흑임자 초코 롤케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202611040340293110.png",
+   "price": 0,
+   "desc": "촉촉하고 진한 초코시트에 고소한 흑임자 크림을 더한 롤케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1230"
+  },
+  {
+   "name": "밀크 크레이프",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050437526870.png",
+   "price": 0,
+   "desc": "겹겹이 쌓인 부드러운 크레이프와 풍성한 생크림이 입안에서 사르르 녹는 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1179"
+  },
+  {
+   "name": "딸기 생크림 케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050428027460.png",
+   "price": 0,
+   "desc": "부드러운 생크림과 상큼한 딸기가 조화로운 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1173"
+  },
+  {
+   "name": "잉글리시 머핀 샌드위치",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050429014010.png",
+   "price": 0,
+   "desc": "아침에 간단하게 먹기 좋은 수제 잉글리시 머핀 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1172"
+  },
+  {
+   "name": "베이컨 크루아상 샌드위치",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050429105170.png",
+   "price": 0,
+   "desc": "AOP버터 크루아상에 베이컨과 치즈, 로메인을 넣어 풍미 있게 즐기는 수제 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1171"
+  },
+  {
+   "name": "B.E.L.T 샌드위치",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050429194980.png",
+   "price": 0,
+   "desc": "베이컨, 계란, 양상추, 토마토가 어우러져 맛있고 신선한 수제 B.E.L.T 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1170"
+  },
+  {
+   "name": "몽블랑",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050430199250.png",
+   "price": 0,
+   "desc": "겹겹이 말린 페스츄리 위에 달콤한 하겔슈가가 뿌려진 버터 풍미 가득 몽블랑",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1148"
+  },
+  {
+   "name": "초코 큐브 식빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050430400310.png",
+   "price": 0,
+   "desc": "초코칩이 쏙쏙 들어간 귀여운 큐브 식빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1147"
+  },
+  {
+   "name": "올리브 치즈 큐브 식빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050430579720.png",
+   "price": 0,
+   "desc": "블랙올리브와 체다치즈가 쏙쏙 들어간 귀여운 큐브 식빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1146"
+  },
+  {
+   "name": "통밤 큐브 식빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050431124570.png",
+   "price": 0,
+   "desc": "통통한 밤이 쏙쏙 들어간 귀여운 큐브 식빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1145"
+  },
+  {
+   "name": "소금빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050431229360.png",
+   "price": 0,
+   "desc": "고소한 버터와 짭짤한 소금이 어우려져 겉은 바삭하고 속은 촉촉한 소금빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1144"
+  },
+  {
+   "name": "레몬 마들렌",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050431546200.png",
+   "price": 0,
+   "desc": "레몬과 버터의 풍미가 조화롭게 어우러진 부드러운 마들렌",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1143"
+  },
+  {
+   "name": "초코 마들렌",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050432205250.png",
+   "price": 0,
+   "desc": "진한 다크초콜릿의 맛을 가득 즐길 수 있는 부드러운 마들렌",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1141"
+  },
+  {
+   "name": "플랜트 풀드포크 샌드위치",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050433437890.png",
+   "price": 0,
+   "desc": "올리브 치아바타 빵에 식물성 원료로 만든 풀드포크와 신선한 야채를 가득 담은 플랜트 베이스드 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1139"
+  },
+  {
+   "name": "플랜트 크랜베리 치킨 샌드위치",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050433215200.png",
+   "price": 0,
+   "desc": "올리브 치아바타 빵에 식물성 원료로 만든 치킨과 신선한 야채를 가득 담은 플랜트 베이스드 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1138"
+  },
+  {
+   "name": "딸기 그래놀라 요거트 한 컵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050434235980.png",
+   "price": 0,
+   "desc": "속이 편한 락토프리 요거트에 달콤한 딸기를 더해 수제 그래놀라와 함께 즐기는 디저트컵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1134"
+  },
+  {
+   "name": "그래놀라 요거트 한 컵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202606050434376050.png",
+   "price": 0,
+   "desc": "속이 편한 락토프리 요거트와 수제 그래놀라를 함께 즐기는 디저트컵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1133"
+  },
+  {
+   "name": "필리 치즈 스테이크 포카치아",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202601281158028490.png",
+   "price": 0,
+   "desc": "직화로 구운 스테이크에 진한 체다치즈 소스, 각종 채소를 곁들인 포카치아 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1102"
+  },
+  {
+   "name": "베이컨 트러플 머쉬룸 포카치아",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202601281158181950.png",
+   "price": 0,
+   "desc": "깊은 풍미의 트러플 크림소스와 고소한 베이컨, 4가지 버섯을 더한 포카치아 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1101"
+  },
+  {
+   "name": "초코 티라미수 롤",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202512011028361380.png",
+   "price": 0,
+   "desc": "에스프레소 풍미 가득한 진한 초코 시트에 마스카포네 크림이 어우러진 초코 티라미수 롤케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1091"
+  },
+  {
+   "name": "초코 생크림 가득 카스텔라",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202512011028493830.png",
+   "price": 0,
+   "desc": "달콤한 초코크림이 가득한 부드럽고 촉촉한 카스텔라",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1090"
+  },
+  {
+   "name": "순수 우유 롤케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202508040847326300.png",
+   "price": 0,
+   "desc": "촉촉 쫀쫀한 롤케이크에 순수 우유 생크림이 가득!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1077"
+  },
+  {
+   "name": "더블 치즈롤",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202508040848036090.png",
+   "price": 0,
+   "desc": "스트링치즈 페스츄리에 에멘탈 치즈까지 더해 맛있게 구운 더블 치즈롤",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#1074"
+  },
+  {
+   "name": "블루베리 베이글",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202410220232508460.png",
+   "price": 0,
+   "desc": "달콤한 블루베리가 더해진 탱글탱글 쫄깃 베이글 (크림치즈 미포함)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#996"
+  },
+  {
+   "name": "소금버터 베이글",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202410220232388270.png",
+   "price": 0,
+   "desc": "단짠의 정석! 버터 풍미 가득한 소금버터 베이글 (크림치즈 미포함)",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#995"
+  },
+  {
+   "name": "생크림 가득 카스텔라",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202410220236027760.png",
+   "price": 0,
+   "desc": "부드러운 생크림이 한가득, 커피와 함께하면 더욱 좋은 카스텔라",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#992"
+  },
+  {
+   "name": "달달 고구마빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202409200945402460.png",
+   "price": 0,
+   "desc": "달콤한 고구마의 맛과 향이 가득한 쫀득 촉촉 고구마빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#985"
+  },
+  {
+   "name": "통통 옥수수빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202409200945480490.png",
+   "price": 0,
+   "desc": "톡톡 터지는 식감이 매력적인 탱글 톡톡 옥수수빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#984"
+  },
+  {
+   "name": "찐찐 감자빵",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202409200945578720.png",
+   "price": 0,
+   "desc": "감자로 맛과 모양을 낸 쫄깃한 포슬포슬 감자빵",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#983"
+  },
+  {
+   "name": "딸기 치즈케익쏘스윗박스",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202408080647149310.png",
+   "price": 0,
+   "desc": "할리스 시그니처, 상큼 달달한 딸기 치즈케익 할리치노를 케이크로 즐겨요!",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#980"
+  },
+  {
+   "name": "티라미수쏘스윗박스",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202301090234078280.png",
+   "price": 0,
+   "desc": "마스카포네 치즈무스와 커피시럽의 촉촉한 시트, 진한 코코아 파우더가 조화로운 오리지널 티라미수 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#806"
+  },
+  {
+   "name": "쿠키앤크림쏘스윗박스",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202301090233596570.png",
+   "price": 0,
+   "desc": "진한 크림치즈와 블랙쿠키가 부드럽게 어우러진 쿠키앤크림 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#807"
+  },
+  {
+   "name": "트리플 초코케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202406240114546670.png",
+   "price": 0,
+   "desc": "밀크, 다크, 화이트 3가지 초콜릿 맛을 즐길 수 있는 달콤한 초코 무스 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#850"
+  },
+  {
+   "name": "뉴욕 치즈 케이크",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202406240114374570.png",
+   "price": 0,
+   "desc": "부드럽고 촉촉한 식감과 진한 크림 치즈 맛의 구움 치즈케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#679"
+  },
+  {
+   "name": "티아라 딸기생크림",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202203170810403940.png",
+   "price": 0,
+   "desc": "부드러운 생크림과 달콤한 딸기가 샌딩된 케이크에 반짝반짝 티아라가 더해진 특별한 케이크",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#706"
+  },
+  {
+   "name": "AOP 버터크루아상",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202311241027518400.png",
+   "price": 0,
+   "desc": "프랑스산 AOP 인증 버터의 풍미가 가득한 프리미엄 크루아상",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#896"
+  },
+  {
+   "name": "초콜릿 휘낭시에",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202209300241131390.png",
+   "price": 0,
+   "desc": "다크 청크 초콜릿이 토핑된 달콤한 초콜릿 휘낭시에",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#770"
+  },
+  {
+   "name": "클래식 휘낭시에",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202209300241303640.png",
+   "price": 0,
+   "desc": "진한 풍미의 버터가 가득한 클래식 휘낭시에",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#769"
+  },
+  {
+   "name": "더블 초코뚱카롱",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202303091121339230.png",
+   "price": 0,
+   "desc": "진한 초콜릿 가나슈를 토핑 후 초콜릿 버터크림에 초코진주 크런치를 토핑하여 더욱 진한 초콜릿 맛과 다양한 식감까지 느낄 수 있는 뚱카롱",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#682"
+  },
+  {
+   "name": "딸기 치즈케익뚱카롱",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202303091121506580.png",
+   "price": 0,
+   "desc": "시그니처 음료인 '딸기 치즈케익 할리치노' 를 뚱카롱으로 구현하여 진한 치즈케익과 딸기잼을 토핑 후 딸기치즈 버터크림을 샌드한 뚱카롱",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#681"
+  },
+  {
+   "name": "바닐라 딜라이트뚱카롱",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202303091122074470.png",
+   "price": 0,
+   "desc": "시그니처 음료인 '바닐라 딜라이트' 를 뚱카롱으로 구현하여 진한 바닐라 딜라이트 가나슈를 토핑 후 바닐라 딜라이트 버터크림을 샌드한 뚱카롱",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#680"
+  },
+  {
+   "name": "아이스크림 크로플",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202112140147579150.png",
+   "price": 0,
+   "desc": "겉바속촉, 펄슈가를 토핑한 크로플에 달달한 아이스크림을 곁들인 제품",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#687"
+  },
+  {
+   "name": "바삭 불고기 &트리플 치즈 치킨퀘사디아",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202009020930035780.png",
+   "price": 0,
+   "desc": "소고기로 만든 한국인의 대표음식 불고기 퀘사디아와 체다, 고다, 모짜렐라 세 가지 치즈에 달콤한 토마토 소스, 치킨이 들어간 퀘사디아",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#557"
+  },
+  {
+   "name": "에그 마요",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202003310318163450.png",
+   "price": 0,
+   "desc": "계란 2알을 그대로 으깨 푹신한 식빵에 담아낸 가성비 좋은 수제 콜드 샌드위치",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#543"
+  },
+  {
+   "name": "페스토 햄파니니",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_201907300932530560.png",
+   "price": 0,
+   "desc": "터키햄과 모짜렐라치즈를 두둑하게 채운 대중적인 파니니",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#426"
+  },
+  {
+   "name": "올리브 베이컨 파니니",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/menuEtc_201907300933050100.png",
+   "price": 0,
+   "desc": "쫄깃한 올리브 치아바타를 감자와 베이컨으로 채운 담백한 파니니",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#425"
+  },
+  {
+   "name": "크로크무슈",
+   "sub": "베이커리",
+   "image": "https://admin.hollys.co.kr/upload/menu/etc/cakeB_img21.png",
+   "price": 0,
+   "desc": "햄과 치즈를 차곡차곡 쌓아 올려 만든 프랑스식 샌드위치로 사르르 녹아내린 모짜렐라 치즈가 입안 가득 풍성한 맛",
+   "calories": 0,
+   "volume": "",
+   "url": "https://www.hollys.co.kr/menu/bakery.do#91"
+  }
+ ]
+}

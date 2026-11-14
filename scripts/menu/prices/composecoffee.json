@@ -1,0 +1,1117 @@
+{
+ "아메리카노": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 18
+ },
+ "[패스오더전용] 100원 아메리카노": {
+  "price": 100,
+  "kind": "store",
+  "stores": 5
+ },
+ "바닐라라떼": {
+  "price": 3300,
+  "kind": "store",
+  "stores": 4
+ },
+ "페퍼민트": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "캐모마일": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "로즈마리": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "홍차": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 2
+ },
+ "복숭아티": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "초코마카롱": {
+  "price": 1800,
+  "kind": "store",
+  "stores": 1
+ },
+ "블루베리 마카롱": {
+  "price": 1800,
+  "kind": "store",
+  "stores": 1
+ },
+ "뉴욕치즈케익": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "더치파우치": {
+  "price": 2000,
+  "kind": "store",
+  "stores": 1
+ },
+ "에스프레소": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 2
+ },
+ "카페라떼": {
+  "price": 2900,
+  "kind": "store",
+  "stores": 4
+ },
+ "카푸치노": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 2
+ },
+ "아메리카노 (TAKE_OUT)": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페모카": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "돌체라떼": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 3
+ },
+ "커피밀크쉐이크": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기스무디": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "리얼초코자바칩프라페": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "사과잼크림 와플": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "클래식딥라떼 414ml (14oz)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "클래식딥라떼 591ml (20oz)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "치즈딥라떼 414ml (14oz)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "치즈딥라떼 591ml (20oz)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "커피클라우드라떼 414ml (14oz)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "커피클라우드라떼 591ml (20oz)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "슈클라우드라떼 414ml (14oz)": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "슈클라우드라떼 591ml (20oz)": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "밤 티라미수": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "요거폼 포도자스민 티브리즈": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "비스코프 라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "초코 바게트": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "명란 소프트 바게트": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "스모크 바비큐 치아바타": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "꿀 토마토 주스": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그레인 바나나 주스": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "논산에서 온 수박 주스": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라 크림 라떼": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "올데이 오트": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "인절미 컵빙수": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "팥절미밀크쉐이크": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "아메리카노 6잔 세트": {
+  "price": 10000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "빅포즈 아메리카노": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "꿀 아메리카노": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "컴포즈 믹스커피": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 카페라떼": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 바닐라라떼": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "헤이즐넛라떼": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 헤이즐넛라떼": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카라멜마끼아또": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아샷추": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 아샷추": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 돌체라떼": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑당 카페라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑당 버블 카페라떼": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "달고나라떼": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "매샷추": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "에어리 아메리카노": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 디카페인 아메리카노": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 아메리카노": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 카페라떼": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 바닐라라떼": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 헤이즐넛라떼": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 돌체라떼": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "곡물라떼": {
+  "price": 3300,
+  "kind": "store",
+  "stores": 1
+ },
+ "고구마라떼": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그린티라떼": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "더블초코라떼": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쿠키초코라떼": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑당 라떼(논커피)": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑당 버블 라떼(논커피)": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "밀크티": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "딸기라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "망고라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루베리라떼": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생초콜릿라떼": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "플레인밀크쉐이크": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쿠키밀크쉐이크": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "망고스무디": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루베리스무디": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "딸기요거트스무디": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "망고요거트스무디": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루베리요거트스무디": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "플레인요거트스무디": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쿠키초코프라페": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그린티프라페": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "모카자바칩프라페": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽에이드": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬에이드": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "망고에이드": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자에이드": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루레몬에이드": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "청귤캐모마일티": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "히비스커스": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블랙퍼스트": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "얼그레이": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쌍화차": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "매실차": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아이스티": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "빅포즈 아이스티": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽허니과일티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬허니과일티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자허니과일티": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽허니블랙티": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아망추": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "빅포즈 아망추": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "PB&J 와플": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "슈 클라우드 와플": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "솔티크림 와플": {
+  "price": 4400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딸기잼크림 와플": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "쿠키앤크림 와플": {
+  "price": 4900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "쫄깃 분모자 떡볶이": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "초코칩 블랙&화이트 쿠키": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "너츠&브라우니 큐브 쿠키": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "화이트 초코칩&마카다미아 쿠키": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쫀득 쿠키": {
+  "price": 4600,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "메이플크룽지": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라마카롱": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "대파크림 햄샌드위치(조리)(조리)": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "대파크림 햄샌드위치(비조리)(비조리)": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "치폴레 햄샌드위치(조리)(조리)": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "치폴레 햄샌드위치(비조리)(비조리)": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "이즈니버터소금빵": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "감자빵": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "고구마빵": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "커피콩빵": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "슈크림 미니붕어빵": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "팥 미니붕어빵": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "에스프레소 샷 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 원두 변경": {
+  "price": 1000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 샷 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "휘핑크림 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라시럽 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "헤이즐넛시럽 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "펄 추가": {
+  "price": 700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "우유 100ml 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "오트음료 100ml 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아몬드브리즈 100ml 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "두유 100ml 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "사과생크림와플": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "오레오생크림와플": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "시나몬카라멜와플": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "크로와플": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 2
+ },
+ "크룽지(시나몬)": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 1
+ },
+ "크룽지(메이플)": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 1
+ },
+ "빅포즈아메리카노": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "허브티": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "과일티": {
+  "price": 3500,
+  "kind": "store",
+  "stores": 1
+ },
+ "아메리카노 TAKE OUT": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 1
+ },
+ "아이스 아메리카노": {
+  "price": 1500,
+  "kind": "store",
+  "stores": 2
+ },
+ "요거트스무디 3종": {
+  "price": 4000,
+  "kind": "store",
+  "stores": 1
+ },
+ "스무디 4종": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "쥬스4종": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "과일 후르츠 라떼": {
+  "price": 3800,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기자스민 밀크 티브리즈": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "너티 크림 라떼": {
+  "price": 3400,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "올데이 세트(대파크림/조리)": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "올데이 세트(대파크림/비조리)": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "올데이 세트(치폴레/조리)": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "올데이 세트(치폴레/비조리)": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "커피엔 역시 커피빵": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "디카페인 콜드브루": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "디카페인 콜드브루라떼": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "캔디소다밀크쉐이크": {
+  "price": 4700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "청포도에이드": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "키위주스": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "오렌지당근주스": {
+  "price": 4300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "청귤생강차": {
+  "price": 4000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "헨젤과 프레첼": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "티라미수": {
+  "price": 3500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "더블샷 캬라멜 팝콘": {
+  "price": 1800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "미니 프레첼": {
+  "price": 1800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "시나몬크룽지": {
+  "price": 2000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "산딸기마카롱": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "디카페인 아이스 아메리카노": {
+  "price": 2500,
+  "kind": "store",
+  "stores": 1
+ },
+ "아이스 카페라떼": {
+  "price": 2900,
+  "kind": "store",
+  "stores": 1
+ },
+ "사과생크림 와플": {
+  "price": 3000,
+  "kind": "store",
+  "stores": 1
+ },
+ "이상한 나라의 앨리스 드립백": {
+  "price": 9400,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "쫀득카노": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "딸기생초콜릿라떼": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "국내산 딸기주스": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "저지방 우유 100ml 추가": {
+  "price": 500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아메리카노(Hot)(TAKE-OUT)": {
+  "price": 1500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페라떼(Hot)(TAKE-OUT)": {
+  "price": 2900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페라떼(Ice)(TAKE-OUT)": {
+  "price": 2900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카푸치노(OnlyHot)(TAKE-OUT)": {
+  "price": 2900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라라떼(Hot)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라라떼(Ice)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "헤이즐넛라떼(Hot)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "헤이즐넛라떼(Ice)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카라멜마끼아또(Ice)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페모카(Hot)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페모카(Ice)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "돌체라떼(Hot)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "돌체라떼(Ice)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "흑당카페라떼(OnlyIce)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "콜드브루(Hot)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "콜드브루(Ice)(TAKE-OUT)": {
+  "price": 3300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "콜드브루라떼(Hot)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "콜드브루라떼(Ice)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "고구마라떼(Hot)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "고구마라떼(Ice)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "흑당 라떼(우유)(OnlyIce)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "딸기라떼(OnlyIce)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "요거트스무디(플레인)(OnlyIce)(TAKE-OUT)": {
+  "price": 4000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "요거트스무디(딸기)(OnlyIce)(TAKE-OUT)": {
+  "price": 4000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스페셜에이드(블루레몬)(OnlyIce)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스페셜에이드(청포도)(OnlyIce)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스티(Hot)(TAKE-OUT)": {
+  "price": 3000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스티(Ice)(TAKE-OUT)": {
+  "price": 3000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "자몽허니블랙티(Ice)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "모카자바칩프라페(OnlyIce)(TAKE-OUT)": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "히비스커스(ICE)(TAKE-OUT)": {
+  "price": 2500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아샷추(ICE)(TAKE-OUT)": {
+  "price": 3500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아망추(ICE)(TAKE-OUT)": {
+  "price": 3800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "빅포즈아샷추(ICE)(TAKE-OUT)": {
+  "price": 4400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "빅포즈아이스티(ICE)(TAKE-OUT)": {
+  "price": 3900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아메리카노(Ice)(TAKE-OUT)": {
+  "price": 1800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "히비스커스(HOT)(TAKE-OUT)": {
+  "price": 2500,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

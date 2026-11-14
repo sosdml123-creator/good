@@ -1,0 +1,357 @@
+{
+ "딸기 치즈케익 할리치노": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 24
+ },
+ "민트 초코칩 할리치노": {
+  "price": 6400,
+  "kind": "store",
+  "stores": 24
+ },
+ "바닐라 딜라이트": {
+  "price": 6200,
+  "kind": "store",
+  "stores": 24
+ },
+ "카라멜 마키아또": {
+  "price": 6200,
+  "kind": "store",
+  "stores": 23
+ },
+ "카페 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 23
+ },
+ "카페 아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 24
+ },
+ "카페라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "잉글리시 머핀 샌드위치": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "베이컨 크루아상 샌드위치": {
+  "price": 7200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "B.E.L.T 샌드위치": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초코 마들렌": {
+  "price": 3200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "레몬 마들렌": {
+  "price": 3200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "통밤 큐브 식빵": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "올리브 치즈 큐브 식빵": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초코 큐브 식빵": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "소금빵": {
+  "price": 3200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "몽블랑": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "더블 초코칩 할리치노": {
+  "price": 6400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "베이컨 트러플 머쉬룸 포카치아": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "필리 치즈 스테이크 포카치아": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 콜드브루 아샷추G": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초코 티라미수 롤": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초코 생크림 가득 카스텔라": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "레몬에이드 G": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "순수 우유 롤케이크": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "더블 치즈롤": {
+  "price": 4700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "V)아샷추": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "G)아샷추": {
+  "price": 5400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "V)아이스티": {
+  "price": 5400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "G)아이스티": {
+  "price": 4700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "블랙아리아 딥라떼": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "블랙아리아 아메리카노": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "딸기 라떼 G": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)화이트초코": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)핫초코": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 콜드브루": {
+  "price": 5100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)카페아메리카노": {
+  "price": 4700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)고흥 유자차": {
+  "price": 5300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)제주한라봉감귤차": {
+  "price": 5300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "G)유자몽 스파클링": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "G)복숭아자두 스파클링": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "G)청포도 스파클링": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)애플망고 스무디": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)딸기 스무디": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)콜드브루 라떼": {
+  "price": 5600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)콜드브루": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "꿀모과차": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "생크림 가득 카스텔라": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)콜드브루모카할리치노": {
+  "price": 6400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "딸기 치즈케익 쏘스윗박스": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)대추생강차": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "R)레몬생강차": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "기분 좋은 하루": {
+  "price": 12700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "ICED 로얄밀크티라떼": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "로얄밀크티라떼": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "뉴욕치즈케이크": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "ICED 초코": {
+  "price": 5700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "ICED 흑당버블티": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페모카": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카라멜마키아또": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 콜드브루 바닐라 딜라이트": {
+  "price": 6600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라딜라이트": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "ICED 제주 레몬 애플티": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주 레몬 애플티": {
+  "price": 5800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "로얄 밀크 버블티": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "AOP 버터 크루아상": {
+  "price": 4200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "디카페인 콜드브루 라떼": {
+  "price": 5600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "티라미수 쏘스윗박스": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "에그 마요": {
+  "price": 4900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "피치 딸기 스무디": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바삭 불고기 & 트리플 치즈 치킨 퀘사디아": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

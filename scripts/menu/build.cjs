@@ -30,8 +30,11 @@ const BRANDS = {
   ediya: { category: '음료', bySub: [[/베이커리|스낵/, '빵·디저트']] },
   theventi: { category: '음료', bySub: [[/사이드/, '빵·디저트']] },
   paulbassett: { category: '음료', bySub: [[/아이스크림/, '아이스크림'], [/푸드/, '빵·디저트']] },
-  twosome: { category: '음료', bySub: [[/케이크|디저트|델리|베이커리|아이스크림/, '빵·디저트']] },
-  composecoffee: { category: '음료', bySub: [[/디저트|베이커리|푸드/, '빵·디저트']] },
+  twosome: { category: '음료', bySub: [[/케이크|마카롱|디저트|샌드위치|샐러드|베이커리|스낵|빙수/, '빵·디저트']] },
+  composecoffee: { category: '음료', bySub: [[/디저트|베이커리|푸드/, '빵·디저트'], [/아이스크림/, '아이스크림']] },
+  megacoffee: { category: '음료', bySub: [[/디저트|샌드위치/, '빵·디저트']] },
+  hollys: { category: '음료', bySub: [[/베이커리/, '빵·디저트']] },
+  coffeebean: { category: '음료', bySub: [[/베이커리|케이크|샌드위치/, '빵·디저트']] },
   baskinrobbins: { category: '아이스크림', bySub: [[/음료|커피/, '음료']] },
   parisbaguette: { category: '빵·디저트', bySub: [[/음료/, '음료'], [/간편식/, '간편식']] },
 };

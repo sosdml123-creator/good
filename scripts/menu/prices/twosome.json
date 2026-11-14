@@ -1,0 +1,2562 @@
+{
+ "크초생": {
+  "price": 42000,
+  "kind": "store",
+  "stores": 1
+ },
+ "스초생": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 5
+ },
+ "패딩 베어": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 1
+ },
+ "윈터 딥 쇼콜라": {
+  "price": 42000,
+  "kind": "store",
+  "stores": 1
+ },
+ "스트로베리 요거트 트리": {
+  "price": 33000,
+  "kind": "store",
+  "stores": 1
+ },
+ "화이트 스노우 생크림": {
+  "price": 36000,
+  "kind": "store",
+  "stores": 1
+ },
+ "브라우니 루돌프": {
+  "price": 36000,
+  "kind": "store",
+  "stores": 1
+ },
+ "화이트스초생": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 2
+ },
+ "두초생": {
+  "price": 29000,
+  "kind": "store",
+  "stores": 1
+ },
+ "생딸기 생크림": {
+  "price": 35000,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라빈 크렘뷔릴레": {
+  "price": 38000,
+  "kind": "store",
+  "stores": 1
+ },
+ "마이투썸초코": {
+  "price": 40000,
+  "kind": "store",
+  "stores": 2
+ },
+ "투썸 오벌 티라미수": {
+  "price": 36000,
+  "kind": "store",
+  "stores": 1
+ },
+ "부드러운 고구마 생크림": {
+  "price": 34000,
+  "kind": "store",
+  "stores": 1
+ },
+ "마이 투썸하트 듀오": {
+  "price": 37000,
+  "kind": "store",
+  "stores": 2
+ },
+ "아박® 홀케이크": {
+  "price": 34000,
+  "kind": "store",
+  "stores": 2
+ },
+ "파티팩 스초생": {
+  "price": 43200,
+  "kind": "store",
+  "stores": 1
+ },
+ "파티팩 아박®": {
+  "price": 40800,
+  "kind": "store",
+  "stores": 1
+ },
+ "파티팩 두아박": {
+  "price": 52800,
+  "kind": "store",
+  "stores": 1
+ },
+ "파티팩 마스카포네 티라미수": {
+  "price": 40800,
+  "kind": "store",
+  "stores": 2
+ },
+ "윈터 뱅쇼": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "뱅쇼 로우 슈거": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "자바칩 프라페": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "솔티드 카라멜 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 11
+ },
+ "에스프레소 크림 탑": {
+  "price": 4200,
+  "kind": "store",
+  "stores": 2
+ },
+ "생크림 아메리카노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 4
+ },
+ "플랫 화이트": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "생크림 말차 카페라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 2
+ },
+ "카페라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 8
+ },
+ "생크림 카페라떼": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 3
+ },
+ "카라멜 마끼아또": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "아샷추(복숭아/레몬)": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페모카": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 5
+ },
+ "초코 요거트 아이스크림(컵/콘)": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "요거트 아이스크림(컵/콘)": {
+  "price": 4000,
+  "kind": "store",
+  "stores": 1
+ },
+ "아메리카노(R)": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "스페니쉬연유카페라떼(R)": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "허니레몬티(R)": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "스트로베리피치프라페(R)": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페 아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 4
+ },
+ "크림탑 스초생(크초생)": {
+  "price": 42000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "망고생": {
+  "price": 38000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "윈터 뱅쇼 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "솔티드 카라멜 라떼 R": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "솔티드 카라멜 라떼 L": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블랙 치즈폼 라떼 R": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블랙 치즈폼 라떼 L": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬 커피 R": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬 커피 L": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬 카페 라떼 R": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "레몬 카페 라떼 L": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "하프 카페인 콜드브루 R": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "하프 카페인 콜드브루 L": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "하프 카페인 콜드브루 라떼 R": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "하프 카페인 콜드브루 라떼 L": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 레몬 아샷추": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 피치 아샷추": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 아메리카노 (R)": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 아메리카노 (L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 카페 라떼 (R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 카페 라떼 (L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 말차 카페 라떼 (R)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 말차 카페 라떼 (L)": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 라떼 (R)": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 라떼(L)": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아메리카노(L)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페라떼(R)": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페라떼(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라라떼(R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라라떼(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카라멜마끼아또(R)": {
+  "price": 6100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카라멜마끼아또(L)": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페모카(R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카페모카(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 콜드브루 라떼 (R)": {
+  "price": 6100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 콜드브루 라떼 (L)": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루(R)": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루(L)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루라떼(R)": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루라떼(L)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "스페니쉬연유라떼(R)": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "스페니쉬연유라떼(L)": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 솔티드 카라멜 라떼 R": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 솔티드 카라멜 라떼 L": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 블랙 치즈폼 라떼 R": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 블랙 치즈폼 라떼 L": {
+  "price": 7400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 레몬 커피 R": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 레몬 커피 L": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 레몬 카페 라떼 R": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 레몬 카페 라떼 L": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 밀샷추 R": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 밀샷추 L": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 민트 밀샷추 R": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 민트 밀샷추 L": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 디카페인 레몬 아샷추": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 디카페인 피치 아샷추": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인오트화이트라떼(L)": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 아메리카노 디카 (R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 아메리카노 디카 (L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 카페 라떼 디카 (R)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 카페 라떼 디카 (L)": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 말차 카페 라떼 디카 (R)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "생크림 말차 카페 라떼 디카 (L)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 콜드브루 라떼 (R)": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 콜드브루 라떼 (L)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 바닐라빈 라떼 (R)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 바닐라빈 라떼 (L)": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 콜드브루(R)": {
+  "price": 5400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인 콜드브루(L)": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인아메리카노(R)": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인아메리카노(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카페라떼(R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카페라떼(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인바닐라라떼(R)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인바닐라라떼(L)": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카라멜마끼아또(R)": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카라멜마끼아또(L)": {
+  "price": 7200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카페모카(R)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인카페모카(L)": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인스페니쉬연유라떼(R)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인스페니쉬연유라떼(L)": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "디카페인오트화이트라떼(R)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "윈터 뱅쇼 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "뱅쇼 로우 슈거 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "뱅쇼 로우 슈거 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자바칩 프라페 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자바칩 프라페 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "딸기 요거트 프라페 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "딸기 요거트 프라페 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑임자 라떼 R": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "흑임자 라떼 L": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "율무 라떼 R": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "율무 라떼 L": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쑥 라떼 R": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쑥 라떼 L": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽톡 망고 프라페 R": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽톡 망고 프라페 L": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 레몬 아이스티": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[MAX SIZE] 피치 아이스티": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "피나콜라다 프라페 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "피나콜라다 프라페 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "골든 메달리스트 프라페 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "골든 메달리스트 프라페 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "샤인 청포도 주스 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "샤인 청포도 주스 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "민트 초코칩 쉐이크 R": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "민트 초코칩 쉐이크 L": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "현미 미숫가루 (R)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "현미 미숫가루 (L)": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라 밀크 쉐이크(R)": {
+  "price": 6000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라 밀크 쉐이크(L)": {
+  "price": 6600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쿠키 쉐이크(R)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "쿠키 쉐이크(L)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자 생강차(R)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자 생강차(L)": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "우리 쌀 식혜(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "우리 대추 수정과 (L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "애플망고 주스(R)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "애플망고 주스(L)": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "허니 레몬 에이드(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아이스버블그린티라떼(R)": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아이스버블그린티라떼(L)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "스트로베리피치프라페(L)": {
+  "price": 7100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "요거트프라페(R)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "요거트프라페(L)": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽에이드(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "오렌지에이드(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "오렌지자몽주스(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "키위바나나주스(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루베리요거트드링크(R)": {
+  "price": 5500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "블루베리요거트드링크(L)": {
+  "price": 6100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽톡 허니 블랙티 R": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "자몽톡 허니 블랙티 L": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아이스 말차 R": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "아이스 말차 L": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "말차(HOT) R": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "말차(HOT) L": {
+  "price": 5100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "말차 라떼 R": {
+  "price": 5000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "말차 라떼 L": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자 레몬 말차 토닉 R": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자 레몬 말차 토닉 L": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "애플망고 말차 라떼 R": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "애플망고 말차 라떼 L": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "초콜릿라떼(R)": {
+  "price": 5600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "초콜릿라떼(L)": {
+  "price": 6200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그린티라떼(R)": {
+  "price": 5200,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그린티라떼(L)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "로얄밀크티(R)": {
+  "price": 5700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "로얄밀크티(L)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "카모마일(L)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "크림카라멜(L)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "프렌치얼그레이(L)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "그나와민트티(L)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "애플민트티(R)": {
+  "price": 6300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자레몬티(R)": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "유자레몬티(L)": {
+  "price": 6400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "오렌지자몽티(R)": {
+  "price": 6100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "오렌지자몽티(L)": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "바닐라빈 크렘브륄레": {
+  "price": 38000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "마이 투썸 초코": {
+  "price": 40000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "부드러운 고구마 생크림 케이크": {
+  "price": 34000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "두초생 미니(샤인머스캣)": {
+  "price": 29000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "샤인머스캣 생크림 케이크": {
+  "price": 35000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "화이트 샤초생": {
+  "price": 39000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "바스크 치즈 케이크(고르곤졸라)": {
+  "price": 38000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "말차 아박 홀케이크": {
+  "price": 35000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아박(홀)": {
+  "price": 34000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "파베초콜릿케이크": {
+  "price": 38000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "클래식가토쇼콜라": {
+  "price": 40000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "마이투썸하트듀오": {
+  "price": 37000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "뉴욕치즈": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "파티팩 아박": {
+  "price": 40800,
+  "kind": "store",
+  "stores": 1
+ },
+ "[세트]바닐라빈 크렘브륄레": {
+  "price": 39800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]마이 투썸 초코": {
+  "price": 41800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[세트]부드러운 고구마 생크림 케이크": {
+  "price": 35800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[세트]망고생": {
+  "price": 39800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[세트] 파티팩 두아박": {
+  "price": 54600,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]두초생 미니(샤인머스캣)": {
+  "price": 30800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[세트]바스크 치즈 케이크(고르곤졸라)": {
+  "price": 39800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]말차 아박 홀케이크": {
+  "price": 36800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[세트]아박(홀)": {
+  "price": 35800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[세트]파베초콜릿케이크": {
+  "price": 39800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]클래식가토쇼콜라": {
+  "price": 41800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]투썸 오벌 티라미수": {
+  "price": 37800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[세트]마이투썸하트듀오": {
+  "price": 38800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]뉴욕치즈": {
+  "price": 38800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]파티팩 아박": {
+  "price": 42600,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트] 파티팩 마스카포네 티라미수": {
+  "price": 42600,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "부드러운 고구마 생크림 케이크(쁘띠)": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "떠먹는 말차 초코 크런치 아박": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "P.망고생": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "P.바스크 치즈 케이크(고르곤졸라)": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "P.샤인머스캣 생크림 케이크": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "P.투썸 레드 벨벳": {
+  "price": 6800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "파베초콜릿케이크(쁘띠)": {
+  "price": 8800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "떠먹는 아박": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "떠먹는 마스카포네 티라미수": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 2
+ },
+ "P.뉴욕치즈": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "P.클래식가토쇼콜라": {
+  "price": 7200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "애플 휘낭시에": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "피자빵(w/불닭 소스)": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "초코 마들렌": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "불닭 콘치즈 파니니": {
+  "price": 7900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "햄 치즈&쉬림프 미니 번 샌드위치": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "핫치킨 치즈 멜트 파니니": {
+  "price": 6700,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "버터 스콘": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "초코칩 스콘": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "블루베리잼 스콘": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "햄 치즈 에그 샌드위치": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "햄 에그 토스트": {
+  "price": 5800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "불고기 치즈 멜트 파니니": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "에그 함박 브리오슈 번": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "B.E.L.T 샌드위치": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "크랜베리 치킨 샌드위치": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "오븐에 구운 몬테크리스토": {
+  "price": 5900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "스크램블에그샌드위치": {
+  "price": 5500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "크로크무슈": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "바베큐치킨파니니": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "멕시칸파니니": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "페스토햄치즈파니니": {
+  "price": 6900,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "올리브 치즈 베이글": {
+  "price": 3800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "클래식 베이글": {
+  "price": 3300,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "플레인 크림치즈 스프레드": {
+  "price": 1700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "무화과 크림치즈 스프레드": {
+  "price": 1700,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "생미쉘시트러스마들렌": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "치킨 타코 포케 샐러드": {
+  "price": 8200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "멀티 그레인 치킨 샐러드": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아몬드 크랜베리 쿠키": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "글루텐 프리 아몬드 코코넛 튀일": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "초콜릿 피칸 사블레": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "촉촉한 우리 찐밤": {
+  "price": 3200,
+  "kind": "store",
+  "stores": 1
+ },
+ "그릭요거트그래놀라바": {
+  "price": 1800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "넛츠앤푸르츠": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "고구마바": {
+  "price": 1400,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "크리스피칩살구넛츠": {
+  "price": 2900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "투썸원두 블랙그라운드(200g)": {
+  "price": 17000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸원두 아로마노트(200g)": {
+  "price": 18000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸원두 디카페인(200g)": {
+  "price": 18000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트 스틱커피(디카페인)": {
+  "price": 5300,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트 초콜릿라떼": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "콜드브루원액(500ml)": {
+  "price": 14000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "투썸에이리스트_핸드드립커피(아로마노트)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트_핸드드립커피(디카페인)": {
+  "price": 7000,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트_캡슐커피(블랙그라운드)": {
+  "price": 7600,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트_캡슐커피(아로마노트)": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "투썸에이리스트_캡슐커피(디카페인)": {
+  "price": 8100,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[투썸]캡슐커피 블랙그라운드": {
+  "price": 7600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[투썸]핸드드립 블랙그라운드": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[투썸]스틱커피": {
+  "price": 4800,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "[투썸]바닐라 라떼(스틱라떼)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 3
+ },
+ "플랫화이트": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "롱블랙/아메리카노": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "숏라떼/카페라떼/카푸치노": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 라떼/카페 모카": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "에스프레소": {
+  "price": 3900,
+  "kind": "store",
+  "stores": 3
+ },
+ "콜드브루": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 6
+ },
+ "콜드브루 라떼": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 3
+ },
+ "스트로베리 피치 프라페": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 아포가토": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "크림카라멜/카모마일/프렌치 얼그레이": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "허니레몬티": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "로얄 밀크티": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 4
+ },
+ "그린티 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 2
+ },
+ "버블 그린티 라떼": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "키위 바나나 주스": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "오렌지 자몽 주스": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 2
+ },
+ "오렌지/자몽 에이드": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "유자 레몬티": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 2
+ },
+ "고구마 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "핫 초콜릿/아이스 초콜릿": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "티라미수라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "니트로콜드브루": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "니트로콜드브루 라떼": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "카페 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 4
+ },
+ "카페 모카": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 5
+ },
+ "카라멜 마키아또": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 5
+ },
+ "플로팅 라떼": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "요거트프라페": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 3
+ },
+ "그린티라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 5
+ },
+ "두초생 미니": {
+  "price": 29000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "파티팩 말차 초코 크런치 아박": {
+  "price": 46800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "생딸기 생크림 케이크": {
+  "price": 35000,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]파티팩 말차 초코 크런치 아박": {
+  "price": 48600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[세트] 두초생 미니": {
+  "price": 30800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "[세트]생딸기 생크림 케이크": {
+  "price": 36800,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "떠먹는 두아박": {
+  "price": 8800,
+  "kind": "store",
+  "stores": 1
+ },
+ "P. 생딸기 생크림 케이크": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "버터 휘낭시에": {
+  "price": 2500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "구운 야채 고로케": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "구운 핫치킨 고로케": {
+  "price": 3200,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "에그샐러드번": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "감자샐러드번": {
+  "price": 2800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "부드러운 에그 잉글리쉬 머핀": {
+  "price": 3900,
+  "kind": "delivery",
+  "stores": 2
+ },
+ "트러플머쉬룸오믈렛파니니": {
+  "price": 7300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "순 우유 크림빵": {
+  "price": 3700,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "소금 프레첼 베이글": {
+  "price": 3600,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "소금 버터빵": {
+  "price": 3000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "블루베리아몬드크루아상": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "코코넛카야크루아상": {
+  "price": 4500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "투썸에이리스트_핸드드립커피(블랙그라운드)": {
+  "price": 6500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[세트]스초생": {
+  "price": 40800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "바닐라빈 크렘브륄레 (쁘띠)": {
+  "price": 8900,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "떠먹는 초코 크런치 아박": {
+  "price": 7500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "투썸X가나디 치즈케이크 빵": {
+  "price": 2300,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "베이컨체다베이글": {
+  "price": 5500,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "투썸 브라우니": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "[투썸]캡슐커피 아로마노트": {
+  "price": 7800,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "[투썸]콜드브루 원액": {
+  "price": 14000,
+  "kind": "delivery",
+  "stores": 1
+ },
+ "아메리카노 R": {
+  "price": 4100,
+  "kind": "store",
+  "stores": 1
+ },
+ "스트로베리초콜릿생크림": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 2
+ },
+ "요거트 프라페": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 2
+ },
+ "바닐라라떼": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 2
+ },
+ "카라멜마키아또": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "카모마일": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 3
+ },
+ "얼그레이": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 3
+ },
+ "그나와민트": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "로얄밀크티": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 2
+ },
+ "오렌지자몽티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "스트로베리 피치프라페": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 2
+ },
+ "떠먹는아박": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "떠먹는스초생": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 1
+ },
+ "가토쇼콜라": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 1
+ },
+ "우베 카페 라떼": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "생크림 말차 카페 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "생크림 카페 라떼": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "피스타치오 초콜릿 모카": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 콜드브루 라떼": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라빈 라떼": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "카푸치노": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 2
+ },
+ "바닐라 라떼": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 2
+ },
+ "바닐라빈 콜드브루 라떼": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "디카페인 콜드브루": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 2
+ },
+ "애플 아샷추": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "민트 아샷추": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "피치 아샷추": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "바나나 샷 라떼": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "바나나 샷 아메리카노": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "롱 블랙": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "숏 라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "달고나 라떼": {
+  "price": 6200,
+  "kind": "store",
+  "stores": 1
+ },
+ "스페니쉬 연유 라떼": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "우베 쉐이크": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 우베 라떼": {
+  "price": 5700,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기초코 모나카 눈꽃컵": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "애플망고 눈꽃컵": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "로얄 밀크티 쉐이크": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "피스타치오 초콜릿 젤라또 쉐이크": {
+  "price": 7000,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기 바나나 쉐이크": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기 밀크 쉐이크": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "생딸기 듬뿍 주스": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기 듬뿍 라떼": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "스트로베리 초콜릿 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "현미 미숫가루": {
+  "price": 6200,
+  "kind": "store",
+  "stores": 1
+ },
+ "꿀 고구마 라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "홍시주스": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "제주 한라봉 주스": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "허니 레몬 에이드": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "플레인 요거트 드링크": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "블루베리 요거트 드링크": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "초콜릿 라떼": {
+  "price": 5600,
+  "kind": "store",
+  "stores": 1
+ },
+ "애플망고 주스": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "쿠키 쉐이크": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 밀크 쉐이크": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "민트 초코프라페": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "샤인머스캣 청포도에이드": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "복숭아에이드": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "오렌지에이드": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "자몽에이드": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "우리 대추 수정과": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 2
+ },
+ "우리 쌀 식혜(ICED ONLY)": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "피치 아이스티": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "애플 아이스티": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "민트 아이스티": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "유자 생강차": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "제주 유기농 녹차": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "그나와 민트": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "크림 카라멜": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 2
+ },
+ "오렌지 자몽티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 1
+ },
+ "허니 레몬티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 2
+ },
+ "애플 민트티": {
+  "price": 6100,
+  "kind": "store",
+  "stores": 2
+ },
+ "ice버블 그린티 라떼": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "컵)초코 요거트 아이스크림": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "컵)요거트 아이스크림": {
+  "price": 4000,
+  "kind": "store",
+  "stores": 1
+ },
+ "파베 초콜릿 케이크": {
+  "price": 38000,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 해피데이 베어": {
+  "price": 38000,
+  "kind": "store",
+  "stores": 1
+ },
+ "클래식 가토 쇼콜라": {
+  "price": 40000,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 얼그레이 밀크티 쉬폰": {
+  "price": 36000,
+  "kind": "store",
+  "stores": 1
+ },
+ "P.뉴욕 치즈": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 1
+ },
+ "P.클래식 가토 쇼콜라": {
+  "price": 7200,
+  "kind": "store",
+  "stores": 1
+ },
+ "P.TWG 얼그레이 밀크티 쉬폰": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "바닐라 크로캉 롱 슈": {
+  "price": 4700,
+  "kind": "store",
+  "stores": 1
+ },
+ "멕시칸 파니니": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 1
+ },
+ "페스토 햄 치즈 파니니": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 1
+ },
+ "바베큐 치킨 파니니": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 1
+ },
+ "크리스피 칩 살구&넛츠": {
+  "price": 2900,
+  "kind": "store",
+  "stores": 1
+ },
+ "그릭요거트 그래놀라 바": {
+  "price": 1800,
+  "kind": "store",
+  "stores": 1
+ },
+ "넛츠 앤 푸르츠": {
+  "price": 2800,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_캡슐 커피(아로마노트)": {
+  "price": 7800,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_캡슐 커피(블랙그라운드)": {
+  "price": 7600,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_핸드 드립(디카페인)": {
+  "price": 7000,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_핸드 드립(아로마노트)": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_핸드 드립(블랙그라운드)": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_스틱 커피": {
+  "price": 4800,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_스틱 커피(디카페인)": {
+  "price": 5300,
+  "kind": "store",
+  "stores": 1
+ },
+ "a-LIST_바닐라 라떼": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 잉글리쉬 브렉퍼스트 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 카모마일 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 크림 카라멜 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 프렌치얼그레이 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 그나와티 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "TWG 1837블랙티 MD": {
+  "price": 39500,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 핸들텀블러(스카이블루)": {
+  "price": 30000,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 핸들텀블러(아이보리)": {
+  "price": 30000,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 핸들텀블러(버터옐로우)": {
+  "price": 30000,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 MAX핸들텀블러(스카이블루)": {
+  "price": 35000,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 MAX 핸들텀블러(아이보리)": {
+  "price": 35000,
+  "kind": "store",
+  "stores": 1
+ },
+ "시그니처 MAX핸들텀블러(버터옐로우)": {
+  "price": 35000,
+  "kind": "store",
+  "stores": 1
+ },
+ "N_베이직 스테인리스 머그(그레이)": {
+  "price": 17000,
+  "kind": "store",
+  "stores": 1
+ },
+ "N_베이직 스테인리스 머그(화이트)": {
+  "price": 17000,
+  "kind": "store",
+  "stores": 1
+ },
+ "N_베이직 스테인리스 텀블러(그레이)": {
+  "price": 25000,
+  "kind": "store",
+  "stores": 1
+ },
+ "N_베이직 스테인리스 텀블러(화이트)": {
+  "price": 25000,
+  "kind": "store",
+  "stores": 1
+ },
+ "원터치 이지 텀블러_머드그레이": {
+  "price": 22000,
+  "kind": "store",
+  "stores": 1
+ },
+ "원터치 이지 텀블러_블루": {
+  "price": 22000,
+  "kind": "store",
+  "stores": 1
+ },
+ "핸들락 텀블러_네이비": {
+  "price": 26000,
+  "kind": "store",
+  "stores": 1
+ },
+ "핸들락 텀블러_퍼플": {
+  "price": 26000,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 워터 보틀(1L)": {
+  "price": 36000,
+  "kind": "store",
+  "stores": 1
+ },
+ "MAX 핸들 텀블러(900ml)": {
+  "price": 28000,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 슬림 텀블러_네이비": {
+  "price": 20000,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 슬림 텀블러_화이트": {
+  "price": 20000,
+  "kind": "store",
+  "stores": 1
+ },
+ "라떼": {
+  "price": 5200,
+  "kind": "store",
+  "stores": 1
+ },
+ "화이트플라워케이크": {
+  "price": 47000,
+  "kind": "store",
+  "stores": 1
+ },
+ "플라워복숭아생크림": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 1
+ },
+ "금귤생크림": {
+  "price": 38000,
+  "kind": "store",
+  "stores": 1
+ },
+ "화초생": {
+  "price": 39000,
+  "kind": "store",
+  "stores": 1
+ },
+ "우리쌀 식혜": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "우리대추 수정과": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "미숫가루 라떼 (Only Iced)": {
+  "price": 6000,
+  "kind": "store",
+  "stores": 1
+ },
+ "생딸기 주스 로우슈거": {
+  "price": 7300,
+  "kind": "store",
+  "stores": 1
+ },
+ "제철 맞은 딸기 요거트 라떼": {
+  "price": 6200,
+  "kind": "store",
+  "stores": 1
+ },
+ "제철 맞은 딸기 멜론 프라페": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "제철 맞은 딸기 라떼": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 1
+ },
+ "투썸 오벌 티라미수(쁘띠)": {
+  "price": 8000,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기요거트프라페": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 1
+ },
+ "블랙치즈폼라떼": {
+  "price": 6300,
+  "kind": "store",
+  "stores": 1
+ },
+ "우리 쌀 식혜": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "복숭아 아이스티": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "복숭아 아샷추": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "레몬 아이스티": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "레몬 아샷추": {
+  "price": 5500,
+  "kind": "store",
+  "stores": 1
+ },
+ "롱블랙": {
+  "price": 4500,
+  "kind": "store",
+  "stores": 1
+ },
+ "숏라떼": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 1
+ },
+ "스페니쉬 연유 카페라떼": {
+  "price": 5800,
+  "kind": "store",
+  "stores": 1
+ },
+ "민트": {
+  "price": 5100,
+  "kind": "store",
+  "stores": 1
+ },
+ "딸기 생크림": {
+  "price": 34000,
+  "kind": "store",
+  "stores": 1
+ },
+ "떠먹는 스트로베리 초콜릿 생크림": {
+  "price": 7200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "생블루베리 요거트 생크림": {
+  "price": 38000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아박(R) 홀케이크": {
+  "price": 34000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스초생(R) (스트로베리 초콜릿 생크림)": {
+  "price": 39000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "투썸 레드 벨벳 피스": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "클래식 가토 쇼콜라 피스": {
+  "price": 7200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 아메리카노 MAX": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아메리카노 L": {
+  "price": 5300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "생블루베리 요거트 생크림 (쁘띠)": {
+  "price": 8800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "말차 크림 라떼": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "떠먹는 화이트 스초생": {
+  "price": 7200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "떠먹는 티라미수": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "뉴욕 치즈 피스": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "TWG 얼그레이 밀크티 쉬폰 피스": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "HOT 카페라떼": {
+  "price": 5200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "HOT 아메리카노": {
+  "price": 4700,
+  "kind": "coupon",
+  "stores": 1
+ }
+}

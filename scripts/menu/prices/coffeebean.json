@@ -1,0 +1,267 @@
+{
+ "아메리카노(S)": {
+  "price": 5000,
+  "kind": "store",
+  "stores": 24
+ },
+ "카페라떼(S)": {
+  "price": 5900,
+  "kind": "store",
+  "stores": 24
+ },
+ "헤이즐넛라떼(S)": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 24
+ },
+ "후레쉬망고 아이스블렌디드(S)": {
+  "price": 6700,
+  "kind": "store",
+  "stores": 24
+ },
+ "퓨어더블초콜릿 아이스블렌디드(S)": {
+  "price": 6800,
+  "kind": "store",
+  "stores": 24
+ },
+ "블루베리베이글": {
+  "price": 4300,
+  "kind": "store",
+  "stores": 24
+ },
+ "크렌베리크림치즈스콘": {
+  "price": 4300,
+  "kind": "store",
+  "stores": 24
+ },
+ "루꼴라&햄페스토샌드위치": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 24
+ },
+ "이탈리안쿡살라미샌드위치": {
+  "price": 6900,
+  "kind": "store",
+  "stores": 24
+ },
+ "햄치즈프렌치토스트": {
+  "price": 6500,
+  "kind": "store",
+  "stores": 24
+ },
+ "마르코스 초콜릿 (밀크)": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "마르코스 초콜릿 (다크)": {
+  "price": 4500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "하동녹차 민트 초콜릿 라떼": {
+  "price": 7200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페모카": {
+  "price": 6600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페모카 IB": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "퓨어 더블 초콜릿 아이스 블렌디드": {
+  "price": 6800,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "더블 초코렛": {
+  "price": 6300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "초콜릿 무스 케익 (1조각)": {
+  "price": 6300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "시카고 치즈 케익 (1조각)": {
+  "price": 6300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "밀크레이프": {
+  "price": 6500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "까망베르 치즈 타르트 (1조각)": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라 라떼": {
+  "price": 6400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 캐러멜 마끼아또": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "캐러멜 마끼아또": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "헤이즐넛 라떼": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 바닐라 라떼": {
+  "price": 6400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주 첫물 말차 라떼": {
+  "price": 7000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 헤이즐넛 라떼": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "잉글리쉬 브렉퍼스트 라떼": {
+  "price": 7000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "헤이즐넛 아이스 블렌디드": {
+  "price": 7100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "카페라떼": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주 첫물 말차 아이스 블렌디드": {
+  "price": 7100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아이스 카페라떼": {
+  "price": 5900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라 아이스 블렌디드": {
+  "price": 6600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "캐러멜 아이스 블렌디드": {
+  "price": 7100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "브라운 마끼아토네": {
+  "price": 5600,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "마끼아토네": {
+  "price": 5400,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "에스프레소 달고나 크림라떼": {
+  "price": 6200,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "달고나 크림라떼": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라 빈 오트 라떼": {
+  "price": 6100,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "바닐라 빈 오트 콜드브루": {
+  "price": 6300,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "후레쉬 망고 아이스 블렌디드": {
+  "price": 6700,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "헤이즐넛 아메리카노": {
+  "price": 5500,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "아메리카노": {
+  "price": 5000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "망고 바나나 아이스 블렌디드": {
+  "price": 7000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스파클링 제주레몬 스웨디쉬 티": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스파클링 고흥유자 레몬 캐모마일 티": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "제주레몬 스웨디쉬 티": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "고흥유자 레몬 캐모마일 티": {
+  "price": 6900,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "스웨디쉬 베리즈 티": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "레몬 캐모마일 티": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "매화 자스민 티": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ },
+ "하동녹차 민트 티": {
+  "price": 6000,
+  "kind": "coupon",
+  "stores": 1
+ }
+}
