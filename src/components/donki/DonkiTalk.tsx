@@ -18,7 +18,7 @@ const timeAgo = (iso: string) => {
 
 /** 돈키호테 수다방: 커뮤니티 '돈키호테' 카테고리 글 (모바일·PC 공용, variant 로 배치만 다름) */
 export const DonkiTalk: React.FC<{ variant: 'mobile' | 'pc' }> = ({ variant }) => {
-  const { communityPosts, addCommunityPost, addPostComment, toggleLikePost, showToast, currentUser, openLoginModal, isGuestBrowse } = useApp();
+  const { communityPosts, addCommunityPost, addPostComment, toggleLikePost, showToast, currentUser, openLoginModal } = useApp();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [writing, setWriting] = useState(false);
   const [topic, setTopic] = useState<typeof TOPICS[number]>('쇼핑 후기');
@@ -40,7 +40,7 @@ export const DonkiTalk: React.FC<{ variant: 'mobile' | 'pc' }> = ({ variant }) =
 
   const selected = selectedId ? posts.find(p => p.id === selectedId) : undefined;
   const needLogin = () => {
-    if (isGuestBrowse || !currentUser?.uid) { openLoginModal(); return true; }
+    if (currentUser?.isAnonymous || !currentUser?.uid) { openLoginModal(); return true; }
     return false;
   };
 

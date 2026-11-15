@@ -4,7 +4,7 @@ import { useT } from '../../i18n';
 import { LanguageSwitcher } from '../common/LanguageSwitcher';
 
 export const AuthOnboardingView: React.FC = () => {
-  const { loginWithApple, loginWithKakao, setIsGuestBrowse } = useApp();
+  const { loginWithApple, loginWithKakao } = useApp();
   const t = useT();
 
   return (
@@ -61,14 +61,6 @@ export const AuthOnboardingView: React.FC = () => {
                 <path d="M12 3c-5.523 0-10 3.582-10 8 0 2.868 1.865 5.385 4.674 6.756l-.973 3.61c-.085.316.273.57.544.385l4.316-2.915c.471.054.951.084 1.439.084 5.523 0 10-3.582 10-8s-4.477-8-10-8z" />
               </svg>
               <span>{t('카카오로 시작하기')}</span>
-            </button>
-
-            {/* 계정 없이 둘러보기 (해외 방문객용) */}
-            <button
-              onClick={() => setIsGuestBrowse(true)}
-              className="w-full h-12 bg-white hover:bg-gray-50 active:scale-[0.99] text-gray-700 border border-gray-200 rounded-2xl flex items-center justify-center font-bold text-[14px] transition-all cursor-pointer"
-            >
-              {t('로그인 없이 둘러보기')}
             </button>
           </div>
         </div>

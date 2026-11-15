@@ -51,7 +51,7 @@ const TabFallback = () => (
 );
 
 export const App: React.FC = () => {
-  const { activeTab, setActiveTab, currentUser, isGuestBrowse } = useApp();
+  const { activeTab, setActiveTab, currentUser } = useApp();
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const mainRef = useRef<HTMLElement>(null);
 
@@ -143,7 +143,7 @@ export const App: React.FC = () => {
   const isWebProductLanding = !Capacitor.isNativePlatform() && activeTab === 'detail';
 
   // First-time Launch / Unauthenticated Onboarding Auth View
-  if (currentUser.isAnonymous && !isGuestBrowse && !isWebProductLanding) {
+  if (currentUser.isAnonymous && !isWebProductLanding) {
     return (
       <>
         <AuthCallbackBridge />
