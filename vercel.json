@@ -55,6 +55,10 @@
       "destination": "/about.html"
     },
     {
+      "source": "/download",
+      "destination": "/download.html"
+    },
+    {
       "source": "/product/:id",
       "destination": "/api/site-content?page=product&id=:id"
     },
