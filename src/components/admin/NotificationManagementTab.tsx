@@ -267,9 +267,7 @@ export const NotificationManagementTab: React.FC = () => {
           </div>
           <div className="mt-2 text-[11px] text-gray-500 flex gap-2 font-medium">
             <span>iOS: {fcmInfo?.tokensByPlatform.ios ?? 0}</span>
-            <span>Android: {fcmInfo?.tokensByPlatform.android ?? 0}</span>
-            <span>Web: {fcmInfo?.tokensByPlatform.web ?? 0}</span>
-          </div>
+            <span>Android: {fcmInfo?.tokensByPlatform.android ?? 0}</span>          </div>
         </div>
 
         {/* Current Device Permission */}

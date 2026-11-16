@@ -4311,31 +4311,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       safeSetItem('sinsangpick_notifications', JSON.stringify(next));
       return next;
     });
-    setIncomingPush(newNotif);
-
-    // Native Browser Notification Trigger if supported & granted
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'granted') {
-        try {
-          const sysNotif = new Notification(newNotif.title, {
-            body: newNotif.body,
-            icon: newNotif.imageUrl || 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=128&auto=format&fit=crop&q=80',
-          });
-          sysNotif.onclick = () => {
-            window.focus();
-            if (newNotif.type === 'event') {
-              openEventDetail(newNotif.targetId);
-            } else if (newNotif.type === 'product') {
-              openProductDetail(newNotif.targetId);
-            }
-          };
-        } catch (e) {
-          console.warn('[Push Notification] System dispatch warning:', e);
-        }
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission();
-      }
-    }
+    // 웹 브라우저 알림은 띄우지 않습니다 (푸시는 앱에서만). 앱에서 보낸 경우에만 인앱 배너로 미리 보여 줍니다.
+    if (Capacitor.isNativePlatform()) setIncomingPush(newNotif);
 
     // 🚀 인앱 알림함 저장 + 기기 푸시(iOS APNs · Android FCM) 발송. 같은 id 를 써서 두 경로가 한 번만 보이게 합니다.
     try {
@@ -4484,8 +4461,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (prev.some(n => n.id === newNotif.id)) return prev;
         return [newNotif, ...prev];
       });
+      // 푸시는 앱에서만 보냅니다. 웹은 알림함에만 넣고 배너·진동을 띄우지 않습니다.
+      if (!Capacitor.isNativePlatform()) return;
       // 기기 푸시를 받는 네이티브 앱은 같은 알림이 OS 상단 배너로 뜨므로 인앱 배너를 겹쳐 띄우지 않습니다
-      if (Capacitor.isNativePlatform() && pushPermissionRef.current === 'granted' && isPushEnabledInApp()) return;
+      if (pushPermissionRef.current === 'granted' && isPushEnabledInApp()) return;
       // 광고·혜택 알림은 마케팅 동의(밤이면 야간 혜택 동의)가 있는 기기에서만 배너·진동으로 알립니다
       if (!isMarketingNotification(newNotif) || canShowMarketingBannerNow()) {
         setIncomingPush(newNotif);
@@ -4526,9 +4505,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         });
       });
       userChannel = subscribeToUserNotifications(uid, (notif) => {
+        // 알림함에만 넣습니다 (앱은 OS 상단 배너가 뜨고, 웹은 푸시 대상이 아닙니다)
         setNotifications(prev => (prev.some(n => n.id === notif.id) ? prev : [notif, ...prev]));
-        // 네이티브 앱은 OS 상단 배너가 이미 뜨므로 인앱 배너는 웹에서만 띄웁니다
-        if (!Capacitor.isNativePlatform()) setIncomingPush(notif);
       });
       // 계정에 저장된 알림 설정을 이 기기에 적용합니다
       applyAccountNotificationSettings(uid).catch(() => {});

@@ -67,7 +67,7 @@ export interface FcmStatusInfo {
   hasApnsKey?: boolean;
   hasFcmKey: boolean;
   registeredTokens: number;
-  tokensByPlatform: { ios: number; android: number; web: number };
+  tokensByPlatform: { ios: number; android: number };
   consent?: { marketing: number; night: number };
 }
 
@@ -649,27 +649,16 @@ export const initPushNotifications = async (callbacks: {
       console.warn('[Push Notification] Native init error:', e);
     }
   } else {
-    // Web Browser environment
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (!isPushEnabledInApp()) {
-        await unregisterDevicePush();
-        return;
+    // 웹 브라우저: 푸시는 앱(iOS·Android)에서만 받습니다. 웹은 기기 토큰을 등록하지 않고,
+    // 예전에 등록해 둔 웹 토큰(web-…)이 남아 있으면 서버에서 지웁니다.
+    try {
+      const oldWebToken = localStorage.getItem('sinsangpick_device_token');
+      if (oldWebToken && oldWebToken.startsWith('web-')) {
+        await unregisterDevicePush(oldWebToken);
+        localStorage.removeItem('sinsangpick_device_token');
       }
-      // Create or load a unique web device token
-      let webToken = localStorage.getItem('sinsangpick_device_token');
-      if (!webToken) {
-        webToken = 'web-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
-        localStorage.setItem('sinsangpick_device_token', webToken);
-      }
-      currentDeviceToken = webToken;
-
-      // Register web token to Supabase
-      saveDeviceToken({
-        token: webToken,
-        platform: 'web',
-        userId: callbacks.userId,
-        userName: callbacks.userName
-      }).catch(() => {});
+    } catch {
+      // ignore
     }
   }
 };
@@ -1089,15 +1078,17 @@ export const getFcmStatus = async (): Promise<FcmStatusInfo> => {
 
   // Fallback: query supabase directly
   let count = 0;
-  let tokensByPlatform = { ios: 0, android: 0, web: 0 };
+  const tokensByPlatform = { ios: 0, android: 0 };
   if (supabase) {
     try {
       const { data } = await supabase.from('device_tokens').select('platform');
       if (data) {
-        count = data.length;
+        // 푸시는 앱(iOS·Android)만 받으므로 웹 행은 세지 않습니다
         data.forEach((row: any) => {
-          const p = (row.platform || 'web') as 'ios' | 'android' | 'web';
-          tokensByPlatform[p] = (tokensByPlatform[p] || 0) + 1;
+          if (row.platform === 'ios' || row.platform === 'android') {
+            tokensByPlatform[row.platform as 'ios' | 'android'] += 1;
+            count += 1;
+          }
         });
       }
     } catch (e) {

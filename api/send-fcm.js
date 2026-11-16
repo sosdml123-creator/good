@@ -73,7 +73,11 @@ async function registerDevice(req, res, supabaseUrl) {
   if (typeof token !== 'string' || !DEVICE_TOKEN_REGEX.test(token)) {
     return res.status(400).json({ error: 'invalid token' });
   }
-  const safePlatform = ['ios', 'android', 'web'].includes(platform) ? platform : 'web';
+  // 푸시는 앱(iOS·Android)에서만 받습니다. 웹 브라우저 토큰은 등록하지 않습니다.
+  if (!['ios', 'android'].includes(platform)) {
+    return res.status(400).json({ error: 'push is app-only (ios/android)' });
+  }
+  const safePlatform = platform;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!supabaseUrl || !serviceKey) {
     return res.status(503).json({ error: 'Supabase service key is not configured' });
@@ -150,17 +154,17 @@ export default async function handler(req, res) {
     }
 
     let registeredTokens = 0;
-    const tokensByPlatform = { ios: 0, android: 0, web: 0 };
-    // 광고·혜택 알림을 받을 수 있는 기기 수 (푸시를 허용한 iOS·Android 기준)
+    const tokensByPlatform = { ios: 0, android: 0 };
+    // 광고·혜택 알림을 받을 수 있는 기기 수 (푸시를 허용한 iOS·Android 기준, 웹은 푸시 대상 아님)
     const consent = { marketing: 0, night: 0 };
     if (supabaseUrl && supabaseKey) {
       try {
-        const { devices } = await loadDevices({ url: supabaseUrl, key: supabaseKey, platforms: null });
+        const { devices } = await loadDevices({ url: supabaseUrl, key: supabaseKey });
         registeredTokens = devices.length;
         for (const device of devices) {
           tokensByPlatform[device.platform] = (tokensByPlatform[device.platform] || 0) + 1;
-          if (device.platform !== 'web' && device.marketingAgreed) consent.marketing += 1;
-          if (device.platform !== 'web' && device.nightAgreed) consent.night += 1;
+          if (device.marketingAgreed) consent.marketing += 1;
+          if (device.nightAgreed) consent.night += 1;
         }
       } catch (e) {
         // Ignore Supabase query error
