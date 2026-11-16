@@ -242,6 +242,7 @@ const PcFooter: React.FC = () => {
           </div>
           <div className="space-y-2.5">
             <p className="font-semibold text-gray-900">약관 및 정책</p>
+            <a href="/about" target="_blank" rel="noreferrer" className="block text-gray-500 hover:text-gray-900">서비스 소개 · 운영 원칙</a>
             <a href="/terms" target="_blank" rel="noreferrer" className="block text-gray-500 hover:text-gray-900">이용약관</a>
             <a href="/privacy" target="_blank" rel="noreferrer" className="block font-semibold text-gray-700 hover:text-gray-900">개인정보처리방침</a>
             <a href="/location" target="_blank" rel="noreferrer" className="block text-gray-500 hover:text-gray-900">위치기반서비스 약관</a>

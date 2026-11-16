@@ -19,6 +19,17 @@ const MOBILE_UA = /iPhone|iPod|Android.*Mobile|Mobile.*Android|Windows Phone|Bla
 
 const templateCache = new Map();
 
+/**
+ * 검색엔진에 색인할 만한 고유 내용이 있는 상품인지.
+ * 실제 리뷰가 있거나 충분한 소개글이 있어야 합니다. 템플릿 문장뿐인 상품 페이지는
+ * '가치가 별로 없는 콘텐츠'(애드센스·구글 빈약한 콘텐츠 정책)로 보이므로 noindex 합니다.
+ */
+export const MIN_DESCRIPTION_LENGTH = 80;
+export function hasSubstantiveContent(product, reviewCount) {
+  if (reviewCount > 0) return true;
+  return String(product?.description || '').replace(/\s+/g, ' ').trim().length >= MIN_DESCRIPTION_LENGTH;
+}
+
 const escapeHtml = (value) =>
   String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -268,6 +279,11 @@ export async function sendProductPage(req, res, { supabaseUrl, supabaseKey }) {
     alternate: `${MOBILE_ORIGIN}${path}`,
     ld: hasProductSignal ? ld : null,
   });
+  if (!hasSubstantiveContent(product, reviews.length)) {
+    // 링크는 따라가되 이 페이지는 색인하지 않습니다 (리뷰·소개글이 생기면 자동으로 색인 대상이 됩니다).
+    html = html.replace('</head>', '    <meta name="robots" content="noindex, follow" />\n  </head>');
+    res.setHeader('X-Robots-Tag', 'noindex, follow');
+  }
   html = html.replace(/<div id="root"><\/div>/, `<div id="root">${buildBody(product, reviews, related, sameBrand, origin)}\n    </div>`);
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');

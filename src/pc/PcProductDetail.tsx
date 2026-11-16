@@ -287,8 +287,8 @@ export const PcProductDetail: React.FC = () => {
           )}
         </div>
 
-        {/* 광고 */}
-        <PcAdSlot key={`ad-${p.id}`} className="pt-12" />
+        {/* 광고: 리뷰가 있는 상품에만 (내용이 빈약한 화면에는 광고를 넣지 않음 - 애드센스 정책) */}
+        {count > 0 && <PcAdSlot key={`ad-${p.id}`} className="pt-12" />}
 
         {/* 상품 정보 */}
         <div ref={infoRef} className="pt-16 scroll-mt-16">

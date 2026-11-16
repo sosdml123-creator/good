@@ -42,7 +42,7 @@
       (function() {
         try {
           var p = window.location.pathname.replace(/\/+$/, '').toLowerCase();
-          var known = ['', '/index.html', '/pc.html', '/privacy', '/terms', '/location', '/delete-account', '/beauty', '/auth-callback', '/auth-callback.html'];
+          var known = ['', '/index.html', '/pc.html', '/about', '/privacy', '/terms', '/location', '/delete-account', '/beauty', '/auth-callback', '/auth-callback.html'];
           if (known.indexOf(p) !== -1 || /^\/product\/[^/]+$/.test(p)) return;
           var m = document.createElement('meta');
           m.name = 'robots';

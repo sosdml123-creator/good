@@ -6,6 +6,8 @@
  * 관리자가 삭제한 상품(시스템 레코드의 deletedProductIds)은 제외합니다.
  */
 
+import { hasSubstantiveContent } from './productPage.js';
+
 const DEFAULT_SITE_URL = 'https://www.sinsangpick.kr';
 // pc.sinsangpick.kr 로 요청하면 PC 주소 목록을 내보냅니다 (네이버·구글에 사이트별로 제출).
 const ALLOWED_HOSTS = new Set(['www.sinsangpick.kr', 'pc.sinsangpick.kr']);
@@ -18,6 +20,7 @@ const staticPages = (SITE_URL) => [
   { loc: `${SITE_URL}/?tab=ranking`, changefreq: 'daily', priority: '0.8' },
   { loc: `${SITE_URL}/?tab=sale`, changefreq: 'daily', priority: '0.7' },
   { loc: `${SITE_URL}/?tab=community`, changefreq: 'daily', priority: '0.6' },
+  { loc: `${SITE_URL}/about`, changefreq: 'monthly', priority: '0.5' },
 ];
 
 const escapeXml = (value) =>
@@ -41,17 +44,25 @@ export async function sendSitemap(req, res) {
 
   let products = [];
   let deletedIds = new Set();
+  const reviewCounts = new Map();
 
   if (supabaseUrl && supabaseKey) {
     const headers = { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` };
     try {
-      const [productRes, systemRes] = await Promise.all([
+      const [productRes, systemRes, reviewRes] = await Promise.all([
         fetch(
-          `${supabaseUrl}/rest/v1/products?select=id,created_at,updated_at&id=neq.${encodeURIComponent(SYSTEM_RECORD_ID)}&order=created_at.desc&limit=${MAX_PRODUCTS}`,
+          `${supabaseUrl}/rest/v1/products?select=id,description,created_at,updated_at&id=neq.${encodeURIComponent(SYSTEM_RECORD_ID)}&order=created_at.desc&limit=${MAX_PRODUCTS}`,
           { headers }
         ),
         fetch(`${supabaseUrl}/rest/v1/products?select=nutrition&id=eq.${encodeURIComponent(SYSTEM_RECORD_ID)}`, { headers }),
+        fetch(`${supabaseUrl}/rest/v1/reviews?select=product_id&limit=50000`, { headers }),
       ]);
+      if (reviewRes.ok) {
+        for (const r of await reviewRes.json()) {
+          const key = String(r?.product_id || '');
+          if (key) reviewCounts.set(key, (reviewCounts.get(key) || 0) + 1);
+        }
+      }
       if (productRes.ok) products = await productRes.json();
       if (systemRes.ok) {
         const rows = await systemRes.json();
@@ -70,6 +81,8 @@ export async function sendSitemap(req, res) {
 
   for (const p of products) {
     if (!p?.id || deletedIds.has(String(p.id))) continue;
+    // 리뷰·소개글 없는 빈약한 상품 페이지는 noindex 이므로 사이트맵에서도 뺍니다.
+    if (!hasSubstantiveContent(p, reviewCounts.get(String(p.id)) || 0)) continue;
     const lastmod = toDate(p.updated_at) || toDate(p.created_at) || today;
     urls.push(
       `  <url><loc>${escapeXml(`${SITE_URL}/product/${encodeURIComponent(p.id)}`)}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>`
