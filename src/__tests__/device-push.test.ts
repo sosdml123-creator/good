@@ -141,6 +141,21 @@ describe('출시 자동 알림 대상 (sendReleasePushes)', () => {
     expect(calls.flatMap(([, tokens]) => tokens)).toEqual([IOS_C]);
   });
 
+  it('출시 알림 기록에 이미 있는 상품은 다시 보내지 않는다', async () => {
+    vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
+      // 기록에 새로 들어간 건 음료 상품뿐 (과자는 이미 보냄)
+      if (url.includes('release_push_log')) return new Response(JSON.stringify([{ product_id: products[1].id }]), { status: 201 });
+      if (init?.method) return new Response('', { status: 204 });
+      return new Response(JSON.stringify(deviceRows), { status: 200 });
+    }));
+
+    await sendReleasePushes(products);
+
+    const calls = vi.mocked(apns.sendApnsNotifications).mock.calls;
+    expect(calls.every(([, , payload]) => !payload.body.includes('새 과자'))).toBe(true);
+    expect(calls.flatMap(([, tokens]) => tokens).sort()).toEqual([IOS_C, IOS_D].sort());
+  });
+
   it('기기 설정 컬럼이 아직 없으면 아무 출시 알림도 보내지 않는다', async () => {
     vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
       if (init?.method) return new Response('', { status: 204 });

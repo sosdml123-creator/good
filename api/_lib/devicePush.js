@@ -247,10 +247,26 @@ export async function dispatchDevicePush({ url, key, devices, message }) {
  * 같은 기기에는 승인 한 번당 한 통만 보냅니다. 설정 컬럼이 아직 없으면 아무것도 보내지 않습니다.
  * @param {Array<{ id: string, name: string, brand: string, category: string }>} products
  */
-export async function sendReleasePushes(products) {
+export async function sendReleasePushes(products, { alreadyClaimed = false } = {}) {
   const { url, key } = getSupabaseEnv();
   if (!url || !key || products.length === 0) {
     return { ...emptySummary(), groupCount: 0, skipped: 'not_configured' };
+  }
+
+  // 출시 알림 기록(release_push_log)에 처음 들어간 상품만 보냅니다. 자동 스캔과 승인 발송이 겹쳐도 한 번만 갑니다.
+  if (!alreadyClaimed) {
+    const logRes = await fetch(`${url}/rest/v1/release_push_log?on_conflict=product_id`, {
+      method: 'POST',
+      headers: { ...restHeaders(key), 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=representation' },
+      body: JSON.stringify(products.map((p) => ({ product_id: p.id, pushed: true }))),
+    }).catch(() => null);
+    // 기록 테이블이 없으면(마이그레이션 전) 예전처럼 그대로 보냅니다
+    const rows = logRes && logRes.ok ? await logRes.json().catch(() => null) : null;
+    if (Array.isArray(rows)) {
+      const inserted = new Set(rows.map((r) => r.product_id));
+      products = products.filter((p) => inserted.has(p.id));
+      if (products.length === 0) return { ...emptySummary(), groupCount: 0, skipped: 'already_sent' };
+    }
   }
 
   const { devices, prefsSupported } = await loadDevices({ url, key });
@@ -289,6 +305,83 @@ export async function sendReleasePushes(products) {
     mergeSummary(summary, part);
   }
   return summary;
+}
+
+const rpc = (url, key, name, args = {}) => fetch(`${url}/rest/v1/rpc/${name}`, {
+  method: 'POST',
+  headers: { ...restHeaders(key), 'Content-Type': 'application/json' },
+  body: JSON.stringify(args),
+});
+
+/**
+ * products 에 직접 등록된 신제품(크롤러·SQL 등록 포함)을 찾아 관심 카테고리 출시 알림을 보냅니다.
+ * 보낼 상품 고르기·중복 방지·시간대(오전 9시~오후 8시대)·1시간 간격은 DB 함수가 정합니다.
+ */
+export async function processReleaseScan() {
+  const { url } = getSupabaseEnv();
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) return { skipped: 'supabase_service_key_missing' };
+
+  const dueRes = await rpc(url, serviceKey, 'release_scan_due');
+  if (!dueRes.ok || (await dueRes.json().catch(() => false)) !== true) return { skipped: 'not_due' };
+
+  const claimRes = await rpc(url, serviceKey, 'claim_release_products', { p_limit: 200 });
+  if (!claimRes.ok) return { skipped: `claim_failed_${claimRes.status}` };
+  const products = await claimRes.json().catch(() => []);
+  if (!Array.isArray(products) || products.length === 0) return { skipped: 'no_products' };
+
+  const summary = await sendReleasePushes(products, { alreadyClaimed: true });
+  return { products: products.length, ...summary };
+}
+
+/** 예약 푸시(scheduled_pushes) 중 보낼 시각이 된 것을 보냅니다. 광고성은 마케팅 동의 기기만 받습니다. */
+export async function processScheduledPushes() {
+  const { url } = getSupabaseEnv();
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const stats = { claimed: 0, sent: 0, skipped: 0, failed: 0 };
+  if (!url || !serviceKey) return { ...stats, error: 'supabase_service_key_missing' };
+
+  const claimRes = await rpc(url, serviceKey, 'claim_scheduled_pushes', { p_limit: 10 });
+  if (!claimRes.ok) return { ...stats, error: `claim_failed_${claimRes.status}` };
+  const items = await claimRes.json().catch(() => []);
+  stats.claimed = Array.isArray(items) ? items.length : 0;
+  if (!stats.claimed) return stats;
+
+  const { devices } = await loadDevices({ url, key: serviceKey });
+  for (const item of items) {
+    let summary;
+    try {
+      const pushable = devices.filter((d) => PUSH_PLATFORMS.includes(d.platform));
+      const { devices: targets, audience } = selectMessageDevices(pushable, item.message_kind);
+      const data = item.data && typeof item.data === 'object' ? item.data : {};
+      summary = await dispatchDevicePush({
+        url,
+        key: serviceKey,
+        devices: targets,
+        message: {
+          title: item.title,
+          body: item.body,
+          data: {
+            type: String(data.type || 'notice'),
+            targetId: String(data.targetId || ''),
+            badge: String(data.badge || ''),
+            notifId: `sched-${item.id}`,
+          },
+        },
+      });
+      summary.audience = audience;
+    } catch (err) {
+      summary = { targetCount: 0, sentCount: 0, failedCount: 1, errors: { [err.message || 'dispatch_error']: 1 } };
+    }
+    const status = summary.sentCount > 0 ? 'sent' : summary.targetCount === 0 ? 'skipped' : 'failed';
+    stats[status] += 1;
+    await fetch(`${url}/rest/v1/scheduled_pushes?id=eq.${encodeURIComponent(item.id)}`, {
+      method: 'PATCH',
+      headers: { ...restHeaders(serviceKey), 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ status, locked_at: null, result: summary, ...(status === 'sent' ? { sent_at: new Date().toISOString() } : {}) }),
+    }).catch((err) => console.warn('[Scheduled push] status update failed:', err.message));
+  }
+  return stats;
 }
 
 /** APNs·FCM 인증 점검 (관리자 전용 화면에서 호출). 기기로는 아무것도 보내지 않습니다. */

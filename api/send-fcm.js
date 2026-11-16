@@ -29,6 +29,8 @@ import {
   isPushToken,
   loadDevices,
   processPushOutbox,
+  processReleaseScan,
+  processScheduledPushes,
   sanitizeAlertCategories,
   selectMessageDevices,
 } from './_lib/devicePush.js';
@@ -216,7 +218,10 @@ export default async function handler(req, res) {
   if (req.body?.action === 'dispatch') {
     try {
       const stats = await processPushOutbox({ limit: 50 });
-      return res.status(200).json({ success: !stats.error, ...stats });
+      // 예약 푸시 · 신제품 출시 알림도 같은 호출에서 처리합니다 (한쪽 실패가 다른 쪽을 막지 않음)
+      const scheduled = await processScheduledPushes().catch((err) => ({ error: err.message || 'scheduled_error' }));
+      const release = await processReleaseScan().catch((err) => ({ error: err.message || 'release_error' }));
+      return res.status(200).json({ success: !stats.error, ...stats, scheduled, release });
     } catch (err) {
       console.error('[Push outbox] dispatch error:', err);
       return res.status(500).json({ success: false, error: 'dispatch_failed' });
