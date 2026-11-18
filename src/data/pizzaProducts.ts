@@ -3340,7 +3340,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-01",
-    "name": "파파존스 불닭 까르보 치킨<span class=",
+    "name": "파파존스 불닭 까르보 치킨",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3401,7 +3401,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "매콤 고소한 까르보불닭 소스에 바삭한 치킨 스트립과 그릴드 치킨의 풍미가 더해진 중독적인 조합<p class=",
+    "description": "매콤 고소한 까르보불닭 소스에 바삭한 치킨 스트립과 그릴드 치킨의 풍미가 더해진 중독적인 조합",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3410,7 +3410,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-02",
-    "name": "파파존스 골든 체다 페퍼<span class=",
+    "name": "파파존스 골든 체다 페퍼",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3471,7 +3471,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "황금빛 체다치즈롤에 매콤한 레드 페퍼로 풍미를 살린 아메리칸 체다 치즈 피자<p class=",
+    "description": "황금빛 체다치즈롤에 매콤한 레드 페퍼로 풍미를 살린 아메리칸 체다 치즈 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3480,7 +3480,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-03",
-    "name": "파파존스 수퍼 파파스<p class=",
+    "name": "파파존스 수퍼 파파스",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3541,7 +3541,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "신선한 토마토 소스 위에 각종 고기와 채소가 듬뿍 토핑된 파파존스의 베스트 피자<p class=",
+    "description": "신선한 토마토 소스 위에 각종 고기와 채소가 듬뿍 토핑된 파파존스의 베스트 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3550,7 +3550,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-04",
-    "name": "파파존스 존스 페이버릿<p class=",
+    "name": "파파존스 존스 페이버릿",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3611,7 +3611,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "이탈리안 소시지, 페퍼로니와 6종의 치즈가 만들어 내는 진한 풍미의 파파존스 베스트 셀러 피자<p class=",
+    "description": "이탈리안 소시지, 페퍼로니와 6종의 치즈가 만들어 내는 진한 풍미의 파파존스 베스트 셀러 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3620,7 +3620,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-05",
-    "name": "파파존스 올미트<p class=",
+    "name": "파파존스 올미트",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3668,7 +3668,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "페퍼로니, 햄, 이탈리안 소시지, 비프토핑까지 파파존스의 엄선된 고기토핑으로 꽉 채운 환상의 미트 피자<p class=",
+    "description": "페퍼로니, 햄, 이탈리안 소시지, 비프토핑까지 파파존스의 엄선된 고기토핑으로 꽉 채운 환상의 미트 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3677,7 +3677,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-06",
-    "name": "파파존스 스파이시 치킨랜치<p class=",
+    "name": "파파존스 스파이시 치킨랜치",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3738,7 +3738,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "은은한 향과 맛의 랜치 소스, 그릴드 치킨, 상큼한 토마토와 할라페뇨가 토핑의 피자<p class=",
+    "description": "은은한 향과 맛의 랜치 소스, 그릴드 치킨, 상큼한 토마토와 할라페뇨가 토핑의 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3747,7 +3747,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-07",
-    "name": "파파존스 아이리쉬 포테이토<p class=",
+    "name": "파파존스 아이리쉬 포테이토",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3808,7 +3808,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "진한 갈릭 소스와 담백한 포테이토 청크의 조화로 누구에게나 사랑 받는 베스트 셀러 피자<p class=",
+    "description": "진한 갈릭 소스와 담백한 포테이토 청크의 조화로 누구에게나 사랑 받는 베스트 셀러 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3817,7 +3817,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-08",
-    "name": "파파존스 치킨 바베큐<p class=",
+    "name": "파파존스 치킨 바베큐",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3878,7 +3878,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "새콤달콤한 페퍼 BBQ 소스와 두툼한 그릴드 치킨이 어우러져 파파존스만의 특별한 맛을 내는 치킨 피자<p class=",
+    "description": "새콤달콤한 페퍼 BBQ 소스와 두툼한 그릴드 치킨이 어우러져 파파존스만의 특별한 맛을 내는 치킨 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3887,7 +3887,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-09",
-    "name": "파파존스 더블 핫 앤 스파이시 멕시칸<p class=",
+    "name": "파파존스 더블 핫 앤 스파이시 멕시칸",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -3948,7 +3948,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "새로운 맛의 스파이시 갈릭 치즈롤과 할라페뇨의 만남으로 강렬한 매콤함이 가득한 피자<p class=",
+    "description": "새로운 맛의 스파이시 갈릭 치즈롤과 할라페뇨의 만남으로 강렬한 매콤함이 가득한 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -3957,7 +3957,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-10",
-    "name": "파파존스 햄 머쉬룸 식스 치즈<p class=",
+    "name": "파파존스 햄 머쉬룸 식스 치즈",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4018,7 +4018,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "바삭한 식감의 투치즈 크러스트 엣지에 부드럽고 진한 맛을 느낄 수 있는 알프레도 소스, 양송이 버섯, 햄이 6가지 치즈와 조화를 이루는 피자<p class=",
+    "description": "바삭한 식감의 투치즈 크러스트 엣지에 부드럽고 진한 맛을 느낄 수 있는 알프레도 소스, 양송이 버섯, 햄이 6가지 치즈와 조화를 이루는 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4027,7 +4027,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-11",
-    "name": "파파존스 위스콘신 치즈 포테이토<p class=",
+    "name": "파파존스 위스콘신 치즈 포테이토",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4088,7 +4088,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "진한 맥앤치즈 베이스 소스에 6가지 치즈, 햄, 베이컨, 페퍼로니, 담백하고 두툼한 감자청크의 조화로 깊은 치즈맛과 풍부한 토핑을 맛볼 수 있는 피자<p class=",
+    "description": "진한 맥앤치즈 베이스 소스에 6가지 치즈, 햄, 베이컨, 페퍼로니, 담백하고 두툼한 감자청크의 조화로 깊은 치즈맛과 풍부한 토핑을 맛볼 수 있는 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4097,7 +4097,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-12",
-    "name": "파파존스 더블 치즈버거<p class=",
+    "name": "파파존스 더블 치즈버거",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4158,7 +4158,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "제스티 버거 소스위에 비프와 상큼한 토마토, 피클이 어우진 풍부한 맛을 즐길 수 있는 피자<p class=",
+    "description": "제스티 버거 소스위에 비프와 상큼한 토마토, 피클이 어우진 풍부한 맛을 즐길 수 있는 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4167,7 +4167,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-13",
-    "name": "파파존스 프리미엄 직화불고기<p class=",
+    "name": "파파존스 프리미엄 직화불고기",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4215,7 +4215,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "정통 직화 불고기, 신선한 채소 토핑으로 누구나 좋아할수 있는 파파존스의 스테디 셀러 피자<p class=",
+    "description": "정통 직화 불고기, 신선한 채소 토핑으로 누구나 좋아할수 있는 파파존스의 스테디 셀러 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4224,7 +4224,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-14",
-    "name": "파파존스 식스 치즈<p class=",
+    "name": "파파존스 식스 치즈",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4285,7 +4285,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "모짜렐라, 로마노, 파마산, 아시아고, 폰티나, 프로볼로네 6종의 치즈 맛을 풍부하게 느낄 수 있는 정통 치즈피자<p class=",
+    "description": "모짜렐라, 로마노, 파마산, 아시아고, 폰티나, 프로볼로네 6종의 치즈 맛을 풍부하게 느낄 수 있는 정통 치즈피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4294,7 +4294,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-15",
-    "name": "파파존스 스파이시 이탈리안<p class=",
+    "name": "파파존스 스파이시 이탈리안",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4355,7 +4355,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "듬뿍 들어간 이탈리안 소시지의 두툼한 식감과 크러쉬드 레드페퍼의 매운맛이 어우러진 뛰어난 맛과 향의 피자<p class=",
+    "description": "듬뿍 들어간 이탈리안 소시지의 두툼한 식감과 크러쉬드 레드페퍼의 매운맛이 어우러진 뛰어난 맛과 향의 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4364,7 +4364,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-16",
-    "name": "파파존스 크리스피 치즈 트리플 피자<span class=",
+    "name": "파파존스 크리스피 치즈 트리플 피자",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4425,7 +4425,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "새로운 타입의 크러스트로 얇은 씬도우 바닥에 파마산+로마노 치즈가 더해져 더욱 바삭함과 치즈의 고소한 풍미를 느낄 수 있고 토마토 소스와 쫄깃한 식감의 스트링 치즈, 파마산+로마노 치즈가 토핑된 피자<p class=",
+    "description": "새로운 타입의 크러스트로 얇은 씬도우 바닥에 파마산+로마노 치즈가 더해져 더욱 바삭함과 치즈의 고소한 풍미를 느낄 수 있고 토마토 소스와 쫄깃한 식감의 스트링 치즈, 파마산+로마노 치즈가 토핑된 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4434,7 +4434,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-17",
-    "name": "파파존스 크리스피 치즈 페퍼로니 피자<span class=",
+    "name": "파파존스 크리스피 치즈 페퍼로니 피자",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4495,7 +4495,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "새로운 타입의 크러스트로 얇은 씬도우 바닥에 파마산+로마노 치즈가 더해져 더욱 바삭하고 치즈의 고소한 풍미를 느낄 수 있고 짭짤한 풍미의 페퍼로니 가 토핑 된 피자<p class=",
+    "description": "새로운 타입의 크러스트로 얇은 씬도우 바닥에 파마산+로마노 치즈가 더해져 더욱 바삭하고 치즈의 고소한 풍미를 느낄 수 있고 짭짤한 풍미의 페퍼로니 가 토핑 된 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4504,7 +4504,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-18",
-    "name": "파파존스 슈림프 알프레도<span class=",
+    "name": "파파존스 슈림프 알프레도",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4565,7 +4565,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "얇고 바삭한 씬도우 위에 부드러운 알프레도 소스와  탱탱한 새우가 만들어내는 풍부한 맛이 특징인 피자<p class=",
+    "description": "얇고 바삭한 씬도우 위에 부드러운 알프레도 소스와  탱탱한 새우가 만들어내는 풍부한 맛이 특징인 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4574,7 +4574,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-19",
-    "name": "파파존스 마가리타<p class=",
+    "name": "파파존스 마가리타",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4622,7 +4622,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "파파존스 특유의 진한 토마토 소스와 최상급 모짜렐라 치즈가 토핑된 치즈피자<p class=",
+    "description": "파파존스 특유의 진한 토마토 소스와 최상급 모짜렐라 치즈가 토핑된 치즈피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4631,7 +4631,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-20",
-    "name": "파파존스 페퍼로니<p class=",
+    "name": "파파존스 페퍼로니",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4679,7 +4679,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "쫄깃쫄깃 짭조름한 페퍼로니와 고소한 치즈가 토핑된 피자<p class=",
+    "description": "쫄깃쫄깃 짭조름한 페퍼로니와 고소한 치즈가 토핑된 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4688,7 +4688,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-21",
-    "name": "파파존스 하와이안<p class=",
+    "name": "파파존스 하와이안",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4736,7 +4736,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "새콤달콤한 파인애플과 햄, 쫀득한 모짜렐라 치즈 토핑으로 상큼한 맛이 특징인 피자<p class=",
+    "description": "새콤달콤한 파인애플과 햄, 쫀득한 모짜렐라 치즈 토핑으로 상큼한 맛이 특징인 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4745,7 +4745,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-22",
-    "name": "파파존스 가든 스페셜<p class=",
+    "name": "파파존스 가든 스페셜",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4806,7 +4806,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "토마토 소스 위에 양송이, 청피망, 올리브, 양파, 토마토등의 신선한채소가 토핑된 피자<p class=",
+    "description": "토마토 소스 위에 양송이, 청피망, 올리브, 양파, 토마토등의 신선한채소가 토핑된 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4815,7 +4815,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-23",
-    "name": "파파존스 그린잇 식물성 마가리타<p class=",
+    "name": "파파존스 그린잇 식물성 마가리타",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4876,7 +4876,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "전통있는 SHEESE사의 비건치즈와 신선한 토마토 소스의 만남으로 깔끔한 풍미<p class=",
+    "description": "전통있는 SHEESE사의 비건치즈와 신선한 토마토 소스의 만남으로 깔끔한 풍미",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
@@ -4885,7 +4885,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
   },
   {
     "id": "pizza-papa-24",
-    "name": "파파존스 그린잇 식물성 가든스페셜<p class=",
+    "name": "파파존스 그린잇 식물성 가든스페셜",
     "brand": "파파존스",
     "category": "패스트푸드",
     "subCategory": "피자",
@@ -4946,7 +4946,7 @@ export const PIZZA_BRAND_PRODUCTS: Product[] = [
         "deliveryTime": "포장 15분 / 배달 30분"
       }
     ],
-    "description": "전통있는 SHEESE사의 비건치즈와 신선한 채소가 어우러진 처음 맛보는 웰빙 채식 피자<p class=",
+    "description": "전통있는 SHEESE사의 비건치즈와 신선한 채소가 어우러진 처음 맛보는 웰빙 채식 피자",
     "bestQuotes": [
       "미국 피자 고유의 짭짤하고 진한 치즈 풍미가 독보적",
       "갈릭 디핑소스 찍어먹는 크러스트 도우가 예술",
