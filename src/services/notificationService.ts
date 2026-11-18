@@ -355,9 +355,9 @@ export const saveDeviceToken = async (record: DeviceTokenRecord): Promise<boolea
     accessToken = await getSessionAccessToken();
   }
   if (validUserId && !accessToken) {
-    // 세션이 아직 준비되지 않았으면 계정 연결 없이 덮어쓰지 않습니다 (세션이 생기면 다시 등록)
-    console.warn('[Notification Service] Session not ready; skip device registration');
-    return false;
+    // 세션이 없어도(만료·복원 실패) 토큰은 등록해 공지·신제품 푸시는 받게 합니다.
+    // 서버는 세션 없는 등록에서 기존 계정 연결을 지우지 않으므로, 세션이 생기면 다시 등록될 때 연결됩니다.
+    console.warn('[Notification Service] Session not ready; register device without account link');
   }
   try {
     const res = await fetch(`${apiBase()}/api/send-fcm`, {
@@ -641,6 +641,18 @@ export const initPushNotifications = async (callbacks: {
       }
       const permStatus = await PushNotifications.checkPermissions();
       if (permStatus.receive === 'granted') {
+        // 로그인 상태가 바뀌어도 OS 가 'registration' 이벤트를 다시 주지 않는 경우가 있어,
+        // 저장된 토큰이 있으면 지금 계정으로 바로 다시 등록합니다 (계정 연결 보장). 새 토큰은 아래 register() 가 갱신합니다.
+        let storedToken: string | null = null;
+        try { storedToken = localStorage.getItem('sinsangpick_device_token'); } catch { /* ignore */ }
+        if (storedToken && !storedToken.startsWith('web-') && pushUserId) {
+          saveDeviceToken({
+            token: storedToken,
+            platform: platform === 'ios' ? 'ios' : 'android',
+            userId: pushUserId,
+            userName: callbacks.userName,
+          }).catch(() => {});
+        }
         await PushNotifications.register();
       } else {
         console.log('[Push Notification] Permission not granted yet:', permStatus.receive);
