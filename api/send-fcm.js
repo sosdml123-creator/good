@@ -92,8 +92,11 @@ async function registerDevice(req, res, supabaseUrl) {
     body: JSON.stringify({
       token,
       platform: safePlatform,
-      user_id: session.userId,
-      user_name: session.userId && userName ? String(userName).slice(0, 50) : null,
+      // 로그인 세션이 없는 등록(앱 시작 직후 세션 복원 전 등)은 기존 계정 연결을 지우지 않습니다.
+      // 연결 해제는 로그아웃(action=detach)만 합니다. 다른 계정으로 로그인하면 그 계정으로 덮어씁니다.
+      ...(session.userId
+        ? { user_id: session.userId, user_name: userName ? String(userName).slice(0, 50) : null }
+        : {}),
       device_info: {
         userAgent: String(req.headers['user-agent'] || '').slice(0, 300),
         platform: safePlatform,

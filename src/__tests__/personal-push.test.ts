@@ -149,7 +149,9 @@ describe('기기 토큰 등록 (action=register) · 계정 전환', () => {
     expect((await call('jwt-a')).body).toMatchObject({ success: true, linked: true });
     expect((await call('jwt-b')).body).toMatchObject({ success: true, linked: true });
     expect((await call()).body).toMatchObject({ success: true, linked: false });
-    expect(upserts.map(u => u.user_id)).toEqual([USER_A, USER_B, null]);
+    // 세션 없는 등록은 user_id 를 보내지 않아 기존 연결을 지우지 않습니다 (해제는 detach 만)
+    expect(upserts.map(u => u.user_id)).toEqual([USER_A, USER_B, undefined]);
+    expect('user_id' in upserts[2]).toBe(false);
     expect(upserts.every(u => u.token === TOKEN)).toBe(true);
   });
 
