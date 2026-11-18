@@ -68,6 +68,8 @@ import {
   deleteCurrentUserAccount,
   uploadImageDataUrl,
   handleAuthCallbackUrl,
+  isWebOAuthPending,
+  clearWebOAuthPending,
   DBProduct,
   DBReview,
   DBCommunityPost,
@@ -2726,9 +2728,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const cameFromOAuth = !Capacitor.isNativePlatform() && (currentUrl.includes('code=') || currentUrl.includes('access_token=') || currentUrl.includes('error='));
       if (cameFromOAuth) {
         try {
+          const startedOnWeb = isWebOAuthPending();
           await handleAuthCallbackUrl(currentUrl);
-          // On mobile, keep URL params for AuthCallbackBridge to hand off to native scheme, clean up on desktop
-          if (!isMobileDevice && (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error='))) {
+          if (startedOnWeb) clearWebOAuthPending();
+          // 앱이 띄운 로그인 창이면 AuthCallbackBridge가 앱으로 넘기도록 URL을 남기고, 웹에서 시작한 로그인은 정리합니다
+          if ((!isMobileDevice || startedOnWeb) && (window.location.search.includes('code=') || window.location.hash.includes('access_token=') || window.location.search.includes('error='))) {
             window.history.replaceState(null, '', window.location.pathname);
           }
         } catch (e) {

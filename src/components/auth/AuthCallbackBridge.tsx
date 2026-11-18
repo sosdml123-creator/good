@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Smartphone, CheckCircle2, ArrowRight } from 'lucide-react';
+import { isWebOAuthPending } from '../../services/supabase';
 
 export const AuthCallbackBridge: React.FC = () => {
   const [shouldShow, setShouldShow] = useState(false);
@@ -9,6 +10,12 @@ export const AuthCallbackBridge: React.FC = () => {
   useEffect(() => {
     // If running inside the native Capacitor app, native listener handles it.
     if (Capacitor.isNativePlatform()) {
+      return;
+    }
+
+    // 이 브라우저에서 직접 시작한 웹 로그인이면 앱으로 넘기지 않습니다 (모바일 웹 회원가입·로그인 유지).
+    if (isWebOAuthPending()) {
+      try { sessionStorage.removeItem('sinsangpick_auth_callback_url'); } catch (e) {}
       return;
     }
 

@@ -295,6 +295,26 @@ export const handleAuthCallbackUrl = async (url: string): Promise<boolean> => {
   return false;
 };
 
+const WEB_OAUTH_MARKER_KEY = 'sinsangpick_web_oauth_at';
+const WEB_OAUTH_MARKER_TTL_MS = 15 * 60 * 1000;
+
+/**
+ * 이 브라우저에서 방금(15분 안) 웹 로그인을 시작했는지 확인합니다.
+ * 앱이 띄운 로그인 창(SFSafariViewController 등)은 저장소가 달라 표시가 없으므로 앱으로 넘기는 흐름이 유지됩니다.
+ */
+export const isWebOAuthPending = (): boolean => {
+  try {
+    const at = parseInt(localStorage.getItem(WEB_OAUTH_MARKER_KEY) || '0', 10) || 0;
+    return at > 0 && Date.now() - at < WEB_OAUTH_MARKER_TTL_MS;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const clearWebOAuthPending = () => {
+  try { localStorage.removeItem(WEB_OAUTH_MARKER_KEY); } catch (e) {}
+};
+
 /**
  * Generic OAuth sign-in runner supporting both Capacitor Native & Web
  */
@@ -338,7 +358,8 @@ const startOAuth = async (provider: 'apple' | 'google' | 'kakao') => {
       });
     }
   } else {
-    // Web browser flow
+    // Web browser flow — 돌아왔을 때 앱(sinsangpick://)으로 넘기지 않도록 웹에서 시작한 로그인임을 표시합니다.
+    try { localStorage.setItem(WEB_OAUTH_MARKER_KEY, String(Date.now())); } catch (e) {}
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {

@@ -96,7 +96,14 @@
           var hash = window.location.hash || '';
           var search = window.location.search || '';
           var hasAuth = (hash.indexOf('access_token=') !== -1 || search.indexOf('code=') !== -1 || window.location.pathname.indexOf('auth-callback') !== -1);
-          if (hasAuth && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+          // 이 브라우저에서 직접 시작한 웹 로그인이면 앱으로 넘기지 않고 웹에서 로그인을 마칩니다.
+          var webOAuthAt = 0;
+          try { webOAuthAt = parseInt(localStorage.getItem('sinsangpick_web_oauth_at') || '0', 10) || 0; } catch(e) {}
+          var startedOnWeb = webOAuthAt > 0 && (Date.now() - webOAuthAt) < 15 * 60 * 1000;
+          if (startedOnWeb) {
+            try { sessionStorage.removeItem('sinsangpick_auth_callback_url'); } catch(e) {}
+          }
+          if (hasAuth && !startedOnWeb && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
             var fullUrl = 'sinsangpick://auth-callback' + search + hash;
             window.__SINSANGPICK_AUTH_URL__ = fullUrl;
             try { sessionStorage.setItem('sinsangpick_auth_callback_url', fullUrl); } catch(e) {}
