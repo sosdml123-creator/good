@@ -27,6 +27,7 @@ import { collectSearchProducts, searchConfigured } from './_lib/intakeSearch.js'
 import { collectOfficialProducts } from './_lib/officialIntake.js';
 import { INTAKE_CATALOG, canonicalIntakeBrand } from './_lib/intakeCatalog.js';
 import { sendReleasePushes } from './_lib/devicePush.js';
+import { splitAlreadyReleased } from './_lib/releaseCheck.js';
 
 export const config = { maxDuration: 300 };
 
@@ -124,8 +125,26 @@ export async function insertNewRows(db, rows, imageOptions) {
     fresh.push({ ...row, source_url: sourceUrl, status: 'pending', crawled_at: now });
   }
 
-  const { aiErrors } = await attachProductImages(fresh, imageOptions);
-  const ready = fresh.filter((row) => row.image);
+  // 예전에 이미 나온 제품(과거 기사·블로그 언급)은 신제품이 아니므로 걸러냅니다.
+  const checked = await splitAlreadyReleased(fresh, {
+    deadline: Math.min(imageOptions.deadline - 5000, Date.now() + 25000),
+  });
+  if (checked.old.length > 0) {
+    // 다음 수집 때 다시 검색하지 않도록 사유와 함께 반려 상태로 기록합니다.
+    await db('pending_products?on_conflict=id', {
+      method: 'POST',
+      headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
+      body: JSON.stringify(checked.old.map(({ first_mentioned: first, ...row }) => ({
+        ...row,
+        status: 'rejected',
+        source_name: `이미 출시된 제품 (첫 언급 ${first}) · ${row.source_name || ''}`.slice(0, 200),
+      }))),
+    });
+  }
+  const candidates = checked.fresh;
+
+  const { aiErrors } = await attachProductImages(candidates, imageOptions);
+  const ready = candidates.filter((row) => row.image);
 
   let saved = [];
   if (ready.length > 0) {
@@ -138,7 +157,8 @@ export async function insertNewRows(db, rows, imageOptions) {
   return {
     inserted: saved.length,
     duplicates: rows.length - fresh.length + ready.length - saved.length,
-    noImage: fresh.length - ready.length,
+    alreadyReleased: checked.old.length,
+    noImage: candidates.length - ready.length + checked.deferred.length,
     aiErrors,
   };
 }
@@ -185,8 +205,8 @@ async function runCollect(db, sourceKeys, query, deadline) {
     }
     // 소스 간 이름 중복이 있을 수 있으므로 순서대로 저장합니다.
     try {
-    const { inserted, duplicates, noImage, aiErrors } = await insertNewRows(db, result.value, {
-      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) && key !== 'official' ? 15000 : 45000)),
+    const { inserted, duplicates, alreadyReleased, noImage, aiErrors } = await insertNewRows(db, result.value, {
+      ...imageOptions, deadline: Math.min(deadline, Date.now() + (STORE_SOURCES.includes(key) && key !== 'official' ? 35000 : 65000)),
     });
     reports.push({
       source: key,
@@ -195,9 +215,10 @@ async function runCollect(db, sourceKeys, query, deadline) {
       found: result.value.length,
       inserted,
       duplicates,
+      alreadyReleased,
       noImage,
       details: result.value.details,
-      warning: [result.value.warning, !imageOptions.engine && !STORE_SOURCES.includes(key)
+      warning: [result.value.warning, alreadyReleased > 0 ? `이미 출시된 제품 ${alreadyReleased}건 제외` : '',!imageOptions.engine && !STORE_SOURCES.includes(key)
         ? 'AI 키가 없어 사진을 검수할 수 없습니다. 뉴스·블로그 사진은 검수 후에만 저장합니다.'
         : aiErrors > 0 ? `사진 검수 실패 ${aiErrors}회` : '', Date.now() >= deadline ? '시간 제한으로 남은 상품은 다음 수집 때 재시도합니다.' : ''].filter(Boolean).join(' · '),
     });

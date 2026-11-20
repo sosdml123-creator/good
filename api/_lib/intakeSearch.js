@@ -7,7 +7,7 @@ export function searchConfigured() {
     || (process.env.NAVER_OPENAPI_CLIENT_ID && process.env.NAVER_OPENAPI_CLIENT_SECRET));
 }
 
-export async function searchNaver(type, query, display = 30) {
+export async function searchNaver(type, query, display = 30, sort = type === 'image' ? 'sim' : 'date') {
   const providers = [
     [process.env.NAVER_CLIENT_ID, process.env.NAVER_CLIENT_SECRET, 'https://naverapihub.apigw.ntruss.com/search/v1/', 'X-NCP-APIGW-API-KEY-ID', 'X-NCP-APIGW-API-KEY'],
     [process.env.NAVER_OPENAPI_CLIENT_ID, process.env.NAVER_OPENAPI_CLIENT_SECRET, 'https://openapi.naver.com/v1/search/', 'X-Naver-Client-Id', 'X-Naver-Client-Secret'],
@@ -15,7 +15,7 @@ export async function searchNaver(type, query, display = 30) {
   let error = new Error('네이버 검색 API 키가 없습니다. 뉴스·블로그 수집용 키를 설정해주세요.');
   for (const [id, secret, base, idHeader, secretHeader] of providers) {
     try {
-      const data = JSON.parse(await fetchText(`${base}${type}?query=${encodeURIComponent(query)}&display=${display}&sort=${type === 'image' ? 'sim' : 'date'}`, {
+      const data = JSON.parse(await fetchText(`${base}${type}?query=${encodeURIComponent(query)}&display=${display}&sort=${sort}`, {
         headers: { [idHeader]: id, [secretHeader]: secret },
       }, 6000));
       if (!Array.isArray(data.items)) throw new Error('네이버 검색 응답에 items가 없습니다.');
@@ -56,7 +56,7 @@ export function normalizeArticle(article, type, now = Date.now()) {
   const title = decodeEntities(article.title);
   const summary = decodeEntities(article.description);
   const link = article.originallink || article.link;
-  if (!Number.isFinite(published) || published < now - 30 * 86400000 || published > now + 86400000
+  if (!Number.isFinite(published) || published < now - 14 * 86400000 || published > now + 86400000
     || !RELEASE.test(`${title} ${summary}`) || !FOOD_ARTICLE.test(`${title} ${summary}`) || !/^https?:\/\//.test(link || '')) return null;
   return { title, summary, link, published };
 }
