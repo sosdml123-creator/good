@@ -4424,7 +4424,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setIncomingPush(null);
   };
 
+  // 이 기기에서 지우거나 읽은 알림 id. 앱을 다시 켜면 서버 알림을 다시 불러오므로,
+  // 이 목록으로 걸러야 지운 알림이 되살아나거나 읽은 알림이 다시 안 읽음이 되지 않습니다.
+  const readNotifIdSet = (key: string): Set<string> => {
+    try {
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      return new Set(Array.isArray(arr) ? arr.map(String) : []);
+    } catch {
+      return new Set();
+    }
+  };
+  const addNotifIds = (key: string, ids: string[]) => {
+    if (ids.length === 0) return;
+    const set = readNotifIdSet(key);
+    ids.forEach(id => { set.delete(id); set.add(id); });
+    safeSetItem(key, JSON.stringify(Array.from(set).slice(-1000)));
+  };
+  const DISMISSED_NOTIFS_KEY = 'sinsangpick_notif_dismissed';
+  const READ_NOTIFS_KEY = 'sinsangpick_notif_read';
+  /** 서버·푸시에서 받은 알림에 이 기기의 삭제·읽음 기록을 적용합니다 */
+  const applyLocalNotifState = (list: AppNotification[]): AppNotification[] => {
+    const dismissed = readNotifIdSet(DISMISSED_NOTIFS_KEY);
+    const read = readNotifIdSet(READ_NOTIFS_KEY);
+    return list
+      .filter(n => !dismissed.has(n.id))
+      .map(n => (read.has(n.id) && !n.isRead ? { ...n, isRead: true } : n));
+  };
+
   const markNotificationAsRead = (id: string) => {
+    addNotifIds(READ_NOTIFS_KEY, [id]);
     setNotifications(prev => {
       const next = prev.map(n => n.id === id ? { ...n, isRead: true } : n);
       safeSetItem('sinsangpick_notifications', JSON.stringify(next));
@@ -4502,7 +4530,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const refreshNotifications = async () => {
     try {
-      const remote = await fetchNotificationsFromSupabase();
+      const remote = applyLocalNotifState(await fetchNotificationsFromSupabase());
       if (remote && remote.length > 0) {
         setNotifications(remote);
         localStorage.setItem('sinsangpick_notifications', JSON.stringify(remote));
@@ -4522,8 +4550,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     let channel: any = null;
 
     // 1. Supabase에서 최신 알림 내역 동기화
-    fetchNotificationsFromSupabase().then(remoteNotifs => {
-      if (remoteNotifs && remoteNotifs.length > 0) {
+    fetchNotificationsFromSupabase().then(fetched => {
+      const remoteNotifs = applyLocalNotifState(fetched || []);
+      if (remoteNotifs.length > 0) {
         setNotifications(prev => {
           const existingIds = new Set(prev.map(n => n.id));
           const newOnes = remoteNotifs.filter(n => !existingIds.has(n.id));
@@ -4569,7 +4598,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return next.length === prev.length ? prev : next;
     });
     if (uid && !currentUser?.isAnonymous) {
-      fetchUserNotifications(uid).then(rows => {
+      fetchUserNotifications(uid).then(fetchedRows => {
+        const rows = applyLocalNotifState(fetchedRows);
         if (rows.length === 0) return;
         setNotifications(prev => {
           const byId = new Map(rows.map(r => [r.id, r]));
@@ -4597,6 +4627,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       userId: currentUser?.isAnonymous ? undefined : currentUser?.uid,
       userName: currentUser?.displayName,
       onNotificationReceived: (notif) => {
+        if (applyLocalNotifState([notif]).length === 0) return;
         setNotifications(prev => {
           if (prev.some(n => n.id === notif.id)) return prev;
           return [notif, ...prev];
@@ -4639,6 +4670,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const clearAllNotifications = () => {
     // 개인 알림은 서버에서도 지워 다른 기기 알림함·개수와 맞춥니다
     deleteUserNotifications(notifications.filter(n => isPersonalNotificationId(n.id)).map(n => n.id));
+    // 공지·이벤트 알림은 서버에 남아 있으므로 이 기기에서 지운 것으로 기록해 다시 켜도 안 보이게 합니다
+    addNotifIds(DISMISSED_NOTIFS_KEY, notifications.map(n => n.id));
     setNotifications([]);
     safeSetItem('sinsangpick_notifications', '[]');
     showToast('알림 내역이 모두 삭제되었습니다.', 'info');
