@@ -22,11 +22,11 @@ function formatDate(date) {
 /**
  * Fetch one category from KAMIS API for a specific date
  */
-async function fetchCategory(categoryCode, dateStr, certKey, certId, productClsCode = '01') {
+async function fetchCategory(categoryCode, dateStr, certKey, certId, productClsCode = '01', timeoutMs = 12000) {
   const url = `https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList&p_product_cls_code=${productClsCode}&p_convert_kg_yn=N&p_item_category_code=${categoryCode}&p_regday=${dateStr}&p_cert_key=${certKey}&p_cert_id=${certId}&p_returntype=json`;
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
     const res = await fetch(url, { signal: controller.signal });
@@ -56,6 +56,17 @@ function memoGet(key) {
 }
 function memoSet(key, value) {
   memo.set(key, { at: Date.now(), value });
+}
+
+/**
+ * 카테고리별 마지막 정상 응답. KAMIS 가 잠깐 응답하지 않을 때 빈 목록 대신 내보냅니다.
+ * (빈 응답이 엣지에 캐시되면 앱이 며칠씩 옛 시세에 머물렀습니다.)
+ */
+const lastGood = new Map();
+
+/** 실패를 엣지에 캐시하지 않도록 합니다. */
+function noStore(res) {
+  res.setHeader('Cache-Control', 'no-store');
 }
 
 /**
@@ -97,7 +108,7 @@ async function sendPeriodPrices(req, res, certKey, certId, productClsCode) {
   const url = `https://www.kamis.or.kr/service/price/xml.do?action=periodProductList&p_productclscode=${productClsCode}&p_startday=${formatDate(start)}&p_endday=${formatDate(end)}&p_itemcategorycode=${category}&p_itemcode=${item}&p_kindcode=${kind}&p_productrankcode=${rank}&p_convert_kg_yn=N&p_cert_key=${certKey}&p_cert_id=${certId}&p_returntype=json`;
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 9000);
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
   try {
     const r = await fetch(url, { signal: controller.signal });
     clearTimeout(timeoutId);
@@ -123,9 +134,11 @@ async function sendPeriodPrices(req, res, certKey, certId, productClsCode) {
     // 지역·시장별 가격은 가장 최근 조사일 것만 돌려줍니다.
     const lastDay = marketRows.reduce((m, r) => (r.date > m ? r.date : m), '');
     const markets = marketRows.filter(r => r.date === lastDay).map(({ region, market, price }) => ({ region, market, price }));
+    if (points.length === 0) noStore(res);
     return res.status(200).json({ success: points.length > 0, points, normal, markets, marketDate: lastDay || null });
   } catch (err) {
     clearTimeout(timeoutId);
+    noStore(res);
     return res.status(200).json({ success: false, points: [], error: err.message || 'period fetch failed' });
   }
 }
@@ -168,7 +181,7 @@ export default async function handler(req, res) {
       ? MAJOR_CATEGORIES
       : (MAJOR_CATEGORIES.includes(category) ? [category] : ['400']);
 
-    const results = await Promise.all(categoriesToFetch.map(async cat => {
+    const loadCat = async cat => {
       if (cat === '400' && probe) return probe;
       const key = `cat:${productClsCode}:${cat}:${targetDate}`;
       const hit = memoGet(key);
@@ -176,14 +189,40 @@ export default async function handler(req, res) {
       const r = await fetchCategory(cat, targetDate, certKey, certId, productClsCode);
       if (r.ok) memoSet(key, r);
       return r;
+    };
+    const results = await Promise.all(categoriesToFetch.map(loadCat));
+    // KAMIS 가 간헐적으로 응답하지 않으므로 실패한 카테고리는 한 번 더 받아 봅니다.
+    await Promise.all(results.map(async (r, i) => {
+      if (!r.ok) results[i] = await loadCat(categoriesToFetch[i]);
     }));
+
     const allItems = [];
+    let complete = true;
     results.forEach((r, i) => {
-      if (r.ok && Array.isArray(r.items)) {
+      const cat = categoriesToFetch[i];
+      const goodKey = `${productClsCode}:${cat}`;
+      let src = r;
+      if (r.ok && Array.isArray(r.items) && r.items.length > 0) {
+        lastGood.set(goodKey, { date: targetDate, items: r.items });
+      } else {
+        complete = false;
+        // 같은 공시일의 마지막 정상 응답이 있으면 대신 씁니다.
+        const prev = lastGood.get(goodKey);
+        src = prev && prev.date === targetDate ? { ok: true, items: prev.items } : null;
+      }
+      if (src && Array.isArray(src.items)) {
         // 화면에서 카테고리별로 나눌 수 있도록 카테고리 코드를 붙입니다.
-        allItems.push(...r.items.map(item => ({ ...item, category_code: categoriesToFetch[i] })));
+        allItems.push(...src.items.map(item => ({ ...item, category_code: cat })));
       }
     });
+
+    if (allItems.length === 0) {
+      // 빈 목록을 성공으로 캐시하면 앱이 옛 시세에 머무르므로 실패로 돌려주고 캐시하지 않습니다.
+      noStore(res);
+      return res.status(503).json({ success: false, latestDate: targetDate, count: 0, items: [], error: 'KAMIS 응답 없음' });
+    }
+    // 일부 카테고리가 빠졌으면 짧게만 캐시해 곧 다시 받아 오게 합니다.
+    if (!complete) res.setHeader('Cache-Control', 's-maxage=120');
 
     return res.status(200).json({
       success: true,
@@ -195,6 +234,7 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('KAMIS API Proxy Error:', error);
+    noStore(res);
     return res.status(500).json({
       success: false,
       error: error.message || 'Internal Server Error while querying KAMIS API'

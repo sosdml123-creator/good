@@ -101,7 +101,12 @@ export const useMarketPrices = () => {
 
   useEffect(() => {
     let alive = true;
-    const load = async (force: boolean) => {
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    /** 응답이 비었거나 실패하면 저장된 시세를 유지한 채 15초 뒤 한 번 더 받아 봅니다. */
+    const retryOnce = (attempt: number) => {
+      if (attempt === 0 && alive) retry = setTimeout(() => load(true, 1), 15000);
+    };
+    const load = async (force: boolean, attempt = 0) => {
       if (!force && cache && Date.now() - cache.at < CACHE_MS) return;
       try {
         const r = await fetch(`${KAMIS_URL}?category=all`);
@@ -115,6 +120,7 @@ export const useMarketPrices = () => {
         if (!alive) return;
         if (all.length === 0) {
           if (!cache) setStatus('error');
+          retryOnce(attempt);
           return;
         }
         cache = { at: Date.now(), rows: all, date: latest };
@@ -125,11 +131,12 @@ export const useMarketPrices = () => {
         setStatus('ready');
       } catch {
         if (alive && !cache) setStatus('error');
+        retryOnce(attempt);
       }
     };
     load(false);
     const timer = setInterval(() => load(true), REFRESH_MS);
-    return () => { alive = false; clearInterval(timer); };
+    return () => { alive = false; clearInterval(timer); clearTimeout(retry); };
   }, []);
 
   return { rows, date, status, checkedAt };

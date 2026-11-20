@@ -35,6 +35,9 @@
     },
     "api/crawl-discounts.js": {
       "maxDuration": 60
+    },
+    "api/kamis.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [
