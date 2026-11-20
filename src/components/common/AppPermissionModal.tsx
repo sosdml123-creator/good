@@ -11,6 +11,7 @@ import {
   completePushPrompt,
   syncDeviceConsent
 } from '../../services/notificationService';
+import { isOnboardingDoneLocally } from '../../services/consentService';
 
 type DevicePermission = 'granted' | 'denied' | 'prompt';
 
@@ -20,7 +21,8 @@ export const AppPermissionModal: React.FC = () => {
     setIsPermissionModalOpen,
     setIsNicknameModalOpen,
     currentUser,
-    showToast
+    showToast,
+    isOnboardingOpen
   } = useApp();
 
   const [devicePermission, setDevicePermission] = useState<DevicePermission>('prompt');
@@ -28,7 +30,10 @@ export const AppPermissionModal: React.FC = () => {
 
   // 앱 진입 후(로그인 여부와 무관) 알림 동의 안내를 자동으로 띄웁니다.
   // 이미 허용했거나 기기에서 거부한 사용자는 건너뛰고, "나중에"를 누른 사용자는 며칠 뒤 다시 안내합니다.
+  // 가입 온보딩이 알림 설정까지 묻기 때문에, 온보딩이 떠 있거나 아직 마치지 않은 계정에는 띄우지 않습니다.
   useEffect(() => {
+    if (isOnboardingOpen) return;
+    if (currentUser.uid && !currentUser.isAnonymous && !isOnboardingDoneLocally(currentUser.uid)) return;
     const timer = setTimeout(async () => {
       if (!shouldShowPushPrompt()) return;
       const status = await checkPushPermissionStatus().catch(() => 'prompt' as DevicePermission);
@@ -44,7 +49,7 @@ export const AppPermissionModal: React.FC = () => {
       setIsPermissionModalOpen(true);
     }, 1500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isOnboardingOpen, currentUser.uid]);
 
   useEffect(() => {
     if (!isPermissionModalOpen) return;
@@ -56,7 +61,8 @@ export const AppPermissionModal: React.FC = () => {
   const finish = () => {
     setIsPermissionModalOpen(false);
     const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + currentUser.uid);
-    if (!hasSetNickname && !currentUser.isAnonymous) {
+    // 온보딩을 마친 계정은 닉네임 단계를 이미 거쳤습니다
+    if (!hasSetNickname && !currentUser.isAnonymous && !isOnboardingDoneLocally(currentUser.uid)) {
       setIsNicknameModalOpen(true);
     }
   };

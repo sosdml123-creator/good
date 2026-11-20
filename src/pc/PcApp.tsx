@@ -34,6 +34,7 @@ const RecipeDetailModal = lazy(() => import('../components/recipe/RecipeDetailMo
 const WriteRecipeModal = lazy(() => import('../components/recipe/WriteRecipeModal').then(m => ({ default: m.WriteRecipeModal })));
 const LoginModal = lazy(() => import('../components/common/LoginModal').then(m => ({ default: m.LoginModal })));
 const NicknameSetupModal = lazy(() => import('../components/auth/NicknameSetupModal').then(m => ({ default: m.NicknameSetupModal })));
+const SignupOnboarding = lazy(() => import('../components/auth/SignupOnboarding').then(m => ({ default: m.SignupOnboarding })));
 
 const Spinner = () => (
   <div className="py-40 flex items-center justify-center">
@@ -316,6 +317,7 @@ export const PcApp: React.FC = () => {
         <WriteRecipeModal />
         <LoginModal />
         <NicknameSetupModal />
+        <SignupOnboarding />
       </Suspense>
     </div>
   );

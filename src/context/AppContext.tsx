@@ -118,8 +118,18 @@ import {
   isMarketingNotification,
   isPushEnabledInApp,
   isNotificationVisible,
-  canShowMarketingBannerNow
+  canShowMarketingBannerNow,
+  setMarketingConsentStatus,
+  completePushPrompt,
+  syncDeviceConsent,
+  saveAccountNotificationSettings
 } from '../services/notificationService';
+import {
+  fetchOnboardingStatus,
+  isOnboardingDoneLocally,
+  markOnboardingDoneLocally,
+  saveOnboardingConsents
+} from '../services/consentService';
 
 import { getSearchInfluxCount } from '../utils/ranking';
 import { isAgriMarineProduct, getProductIllustration } from '../utils/productIllustrations';
@@ -213,6 +223,9 @@ interface AppContextType {
   openLoginModal: () => void;
   isGuestBrowse: boolean;
   setIsGuestBrowse: (val: boolean) => void;
+  isOnboardingOpen: boolean;
+  onboardingNeedsNickname: boolean;
+  completeOnboarding: (result: { nickname?: string; marketing: boolean; night: boolean; pushOn: boolean; categories: string[] }) => Promise<void>;
   isNicknameModalOpen: boolean;
   setIsNicknameModalOpen: (open: boolean) => void;
   completeNicknameSetup: (newNickname: string) => Promise<void>;
@@ -1347,12 +1360,67 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActiveTabState('alert_settings');
   };
 
-  const checkAndOpenPostLoginModals = (uid: string) => {
-    // 알림 동의 안내는 AppPermissionModal이 앱 진입 후 스스로 띄웁니다. (로그인 여부와 무관)
+  // 가입 온보딩 (약관 동의 → 닉네임 → 알림 설정). 약관 동의 기록이 없는 계정이면 한 번 띄웁니다.
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(false);
+  const [onboardingNeedsNickname, setOnboardingNeedsNickname] = useState<boolean>(false);
+
+  const checkAndOpenPostLoginModals = async (
+    uid: string,
+    info: { displayName?: string; createdAt?: string } = {}
+  ) => {
     const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
-    if (!hasSetNickname) {
-      setIsNicknameModalOpen(true);
+    if (isOnboardingDoneLocally(uid)) return;
+
+    const status = supabase && isSupabaseConfigured ? await fetchOnboardingStatus(uid) : 'pending';
+    if (status === 'done') {
+      markOnboardingDoneLocally(uid);
+      return;
     }
+    if (status === 'unknown') {
+      // 동의 기록을 확인할 수 없으면 화면을 막지 않고 예전처럼 닉네임만 묻습니다
+      if (!hasSetNickname) setIsNicknameModalOpen(true);
+      return;
+    }
+    // 닉네임 단계: 이 기기에서 설정한 적 없고, 기본 이름(신상러버_…)이거나 막 가입한 계정일 때만 (기존 회원 보너스 중복 방지)
+    const isDefaultName = !info.displayName || /^신상러버_/.test(info.displayName);
+    const isNewAccount = info.createdAt ? Date.now() - new Date(info.createdAt).getTime() < 60 * 60 * 1000 : false;
+    setOnboardingNeedsNickname(!hasSetNickname && (isDefaultName || isNewAccount));
+    setIsNicknameModalOpen(false);
+    setIsOnboardingOpen(true);
+  };
+
+  const completeOnboarding = async (result: {
+    nickname?: string;
+    marketing: boolean;
+    night: boolean;
+    pushOn: boolean;
+    categories: string[];
+  }) => {
+    const uid = currentUser.uid;
+    if (onboardingNeedsNickname && result.nickname) {
+      await completeNicknameSetup(result.nickname);
+    }
+    await saveOnboardingConsents(uid, { ageConfirmed: true, marketing: result.marketing, night: result.night });
+
+    // 광고·혜택(마케팅)·야간 동의는 이 기기 설정과 서버 기기 정보에 함께 반영합니다
+    setMarketingConsentStatus(result.marketing);
+    try {
+      localStorage.setItem('sinsangpick_night_push', String(result.marketing && result.night));
+    } catch { /* ignore */ }
+    setAlertCategories(result.categories);
+    saveAlertCategories(result.categories);
+    completePushPrompt();
+    setIsOnboardingOpen(false);
+
+    if (result.pushOn) {
+      localStorage.setItem('sinsangpick_push_enabled', 'true');
+      await requestPushPermission();
+    } else {
+      localStorage.setItem('sinsangpick_push_enabled', 'false');
+    }
+    syncDevicePushPrefs().catch(() => {});
+    syncDeviceConsent().catch(() => {});
+    saveAccountNotificationSettings(uid).catch(() => {});
   };
 
   // 현재 화면에 반영된 로그인 세션의 uid (같은 로그인 이벤트를 여러 경로에서 중복 처리하지 않기 위함)
@@ -1386,7 +1454,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (!user.is_anonymous) {
         setIsLoginModalOpen(false);
         setIsGuestBrowse(true);
-        if (options.announce) checkAndOpenPostLoginModals(user.id);
+        if (options.announce) {
+          checkAndOpenPostLoginModals(user.id, { displayName, createdAt: user.created_at }).catch(() => {});
+        }
       }
     } catch (err) {
       sessionUidRef.current = '';
@@ -6193,6 +6263,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsGuestBrowse,
         isNicknameModalOpen,
         setIsNicknameModalOpen,
+        isOnboardingOpen,
+        onboardingNeedsNickname,
+        completeOnboarding,
         completeNicknameSetup,
         isPermissionModalOpen,
         setIsPermissionModalOpen,

@@ -39,6 +39,7 @@ const AuthOnboardingView = lazy(() => import('./components/auth/AuthOnboardingVi
 const NicknameSetupModal = lazy(() => import('./components/auth/NicknameSetupModal').then(m => ({ default: m.NicknameSetupModal })));
 const PcApp = lazy(() => import('./pc/PcApp').then(m => ({ default: m.PcApp })));
 const AppPermissionModal = lazy(() => import('./components/common/AppPermissionModal').then(m => ({ default: m.AppPermissionModal })));
+const SignupOnboarding = lazy(() => import('./components/auth/SignupOnboarding').then(m => ({ default: m.SignupOnboarding })));
 
 import { hideBanner } from './services/admobService';
 import { Capacitor } from '@capacitor/core';
@@ -205,6 +206,7 @@ export const App: React.FC = () => {
           <LoginModal />
           <AppPermissionModal />
           <NicknameSetupModal />
+          <SignupOnboarding />
         </Suspense>
 
         {/* Fixed Bottom Navigation (Always pinned to bottom for mobile app screens) */}
