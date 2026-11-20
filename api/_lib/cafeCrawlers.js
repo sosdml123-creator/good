@@ -27,8 +27,17 @@ export async function crawlStarbucksNew() {
     const html = await fetchText(`https://www.starbucks.co.kr/menu/${page}`);
     const codes = [...new Set([...html.matchAll(/result\s*=\s*"(W\d{7})"/g)].map(m => m[1]))];
     if (!codes.length) throw new Error('스타벅스 메뉴 분류를 찾지 못했습니다.');
+    // /upload/json/menu/*.js 정적 파일은 2026-10-06 이후 갱신이 멈췄다. 메뉴 화면이 실제로 쓰는 Ajax API를 읽는다.
     return (await Promise.all(codes.map(async code => parseStarbucksProducts(
-      JSON.parse(await fetchText(`https://www.starbucks.co.kr/upload/json/menu/${code}.js`)), page,
+      JSON.parse(await fetchText('https://www.starbucks.co.kr/menu/productListAjax.do', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          Referer: `https://www.starbucks.co.kr/menu/${page}`,
+        },
+        body: `CATE_CD=${code}&SOLD_OUT=1`,
+      })), page,
     )))).flat();
   }));
   return [...new Map(pages.flat().map(p => [p.id, p])).values()];
