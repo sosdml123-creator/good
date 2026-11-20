@@ -1368,7 +1368,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     uid: string,
     info: { displayName?: string; createdAt?: string } = {}
   ) => {
-    const hasSetNickname = localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
+    // 서버 프로필에 이미 기본 이름이 아닌 닉네임이 있으면 설정을 마친 회원 (다른 기기·재설치·재로그인 대비)
+    const isFreshAccount = info.createdAt ? Date.now() - new Date(info.createdAt).getTime() < 60 * 60 * 1000 : false;
+    const hasRealNickname = !isFreshAccount && !!info.displayName && !/^신상러버_/.test(info.displayName) && !info.displayName.includes('사용자');
+    if (hasRealNickname) {
+      try { localStorage.setItem('sinsangpick_nickname_set_' + uid, 'true'); } catch { /* ignore */ }
+    }
+    const hasSetNickname = hasRealNickname || localStorage.getItem('sinsangpick_nickname_set_' + uid) === 'true';
     if (isOnboardingDoneLocally(uid)) return;
 
     const status = supabase && isSupabaseConfigured ? await fetchOnboardingStatus(uid) : 'pending';
