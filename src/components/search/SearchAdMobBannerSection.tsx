@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
+import { IS_TOSS } from '../../utils/toss';
 import {
   ADMOB_CLIENT_ID,
   ADMOB_SEARCH_BANNER_UNIT_ID,
@@ -20,6 +21,8 @@ import {
  * - 검색 결과 화면으로 이동하거나 모달 종료 시 즉시 안전 제거
  */
 export const SearchAdMobBannerSection: React.FC = () => {
+  // 토스 미니앱은 앱인토스 광고만 허용 (서비스 오픈 정책 2-3). IS_TOSS 는 빌드 시 고정이라 훅 순서가 바뀌지 않습니다.
+  if (IS_TOSS) return null;
   const isNative = Capacitor.isNativePlatform();
   const useInlineBanner = supportsInlineBanner();
   const slotRef = useRef<HTMLDivElement>(null);

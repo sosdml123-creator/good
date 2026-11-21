@@ -7,6 +7,7 @@ import { PointHistoryModal } from './PointHistoryModal';
 import { EditNicknameModal } from './EditNicknameModal';
 import { DEFAULT_AVATAR, compressImageFile } from '../../utils/avatars';
 import { useT } from '../../i18n';
+import { IS_TOSS } from '../../utils/toss';
 
 export const MyPageView: React.FC = () => {
   const { 
@@ -81,7 +82,7 @@ export const MyPageView: React.FC = () => {
     { label: '🔔 알림 설정', sub: t('푸시·댓글·좋아요·신제품'), action: () => openNotificationCenter('settings') },
     { label: '🛡️ 앱 알림 & 권한 안내', sub: t('마케팅·신제품·위치'), action: () => openPermissionModal() },
     { label: '포인트 적립 · 사용 내역', sub: `${userPoints.toLocaleString()}P`, hi: true, action: () => setIsPointHistoryOpen(true) },
-    { label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: purchasedCoupons.filter(c => !c.isUsed).length > 0 ? t('{n}개 보유', { n: purchasedCoupons.filter(c => !c.isUsed).length }) : t('포인트로 교환하기'), hi: true, action: () => setActiveTab('coupon') },
+    ...(IS_TOSS ? [] : [{ label: '🎁 e쿠폰 상점 · 내 쿠폰함', sub: purchasedCoupons.filter(c => !c.isUsed).length > 0 ? t('{n}개 보유', { n: purchasedCoupons.filter(c => !c.isUsed).length }) : t('포인트로 교환하기'), hi: true, action: () => setActiveTab('coupon') }]),
     { label: '✏️ 닉네임 수정', sub: currentUser.displayName, action: () => setIsEditNicknameOpen(true) },
     { label: '설정', sub: t('알림·약관·계정관리'), action: () => setActiveTab('settings') },
   ];

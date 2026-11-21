@@ -3,6 +3,7 @@ import { X, Coins, Sparkles, TrendingUp, TrendingDown, HelpCircle, ChevronRight,
 import { useApp } from '../../context/AppContext';
 import { POINT_POLICY } from '../../constants/pointPolicy';
 import { PointTransaction } from '../../types';
+import { IS_TOSS } from '../../utils/toss';
 
 interface PointHistoryModalProps {
   isOpen: boolean;
@@ -137,8 +138,9 @@ export const PointHistoryModal: React.FC<PointHistoryModalProps> = ({ isOpen, on
             )}
           </div>
 
-          {/* eCoupon Shop Shortcut Banner */}
-          <div 
+          {/* eCoupon Shop Shortcut Banner (토스 번들에서는 숨김) */}
+          <div
+            style={IS_TOSS ? { display: 'none' } : undefined}
             onClick={() => {
               onClose();
               setActiveTab('coupon');

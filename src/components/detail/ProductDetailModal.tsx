@@ -35,6 +35,7 @@ import { KamisPriceTrendChart } from './KamisPriceTrendChart';
 import { COUPANG_AFFILIATE_URL, COUPANG_PARTNERS_NOTICE } from '../../constants/affiliate';
 import { formatProductPrice } from '../../utils/formatters';
 import { t } from '../../i18n';
+import { IS_TOSS } from '../../utils/toss';
 
 export const ProductDetailModal: React.FC = () => {
   const {
@@ -732,7 +733,7 @@ export const ProductDetailModal: React.FC = () => {
                           {t(br.deliveryBadge || '산지직송 새벽배송 🚀')}
                         </span>
                         <button
-                          onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                          onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')} style={IS_TOSS ? { display: 'none' } : undefined}
                           className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 transition-all ${
                             br.rank === 1
                               ? 'bg-rose-600 text-white hover:bg-rose-700 shadow-xs'
@@ -1061,7 +1062,7 @@ export const ProductDetailModal: React.FC = () => {
                         <span>{(br.tasteScore || br.rating).toFixed(1)}</span>
                       </div>
                       <button
-                        onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                        onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')} style={IS_TOSS ? { display: 'none' } : undefined}
                         className="text-[10px] font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2 py-1 rounded-md ml-1 flex items-center gap-0.5"
                       >
                         <span>{t('쿠팡')}</span>
@@ -1119,7 +1120,7 @@ export const ProductDetailModal: React.FC = () => {
                             const url = `https://map.naver.com/v5/search/${encodeURIComponent(rr.restaurantName + ' ' + (rr.region || ''))}`;
                             window.open(url, '_blank');
                           }}
-                          className="mt-2 text-[11px] font-bold text-gray-800 flex items-center gap-1 hover:underline"
+                          className="mt-2 text-[11px] font-bold text-gray-800 flex items-center gap-1 hover:underline" style={IS_TOSS ? { display: 'none' } : undefined}
                         >
                           <MapPin className="w-3 h-3" />
                           <span>{t('네이버 지도 길찾기')}</span>
@@ -1182,7 +1183,7 @@ export const ProductDetailModal: React.FC = () => {
                   </div>
 
                   <button
-                    onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                    onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')} style={IS_TOSS ? { display: 'none' } : undefined}
                     className="w-full py-3 bg-gradient-to-r from-rose-500 via-rose-600 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
                   >
                     <span>{t('쿠팡에서 최저가 구매하기')}</span>
@@ -1234,7 +1235,7 @@ export const ProductDetailModal: React.FC = () => {
 
             {!isAlcohol && (
               <button
-                onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')}
+                onClick={() => window.open(COUPANG_AFFILIATE_URL, '_blank')} style={IS_TOSS ? { display: 'none' } : undefined}
                 className="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white rounded-xl text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-md transition-all active:scale-98 cursor-pointer"
               >
                 <span>{t('쿠팡 구매하기')}</span>

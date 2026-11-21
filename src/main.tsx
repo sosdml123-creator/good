@@ -8,8 +8,10 @@ const BeautyApp = React.lazy(() => import('./beauty/BeautyApp'));
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { initWebHorizontalScroll } from './utils/webScrollHelper';
 import { initWebAnalytics } from './utils/webAnalytics';
+import { initTossRuntime } from './utils/toss';
 
 // Enable mouse wheel to horizontal scroll across all desktop web horizontal scroll containers
+initTossRuntime();
 initWebHorizontalScroll();
 initWebAnalytics();
 

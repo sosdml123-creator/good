@@ -9,6 +9,7 @@
 import { verifyAdminRequest } from './_lib/adminAuth.js';
 import { sendSitemap } from './_lib/sitemap.js';
 import { sendProductPage } from './_lib/productPage.js';
+import handleToss from './_lib/tossLogin.js';
 
 const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
 
@@ -88,6 +89,11 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // 앱인토스 토스 로그인 (/api/site-content?fn=toss&action=login|disconnect|unlink)
+  if (req.query?.fn === 'toss') {
+    return handleToss(req, res);
   }
 
   // 검색엔진 사이트맵 (/sitemap.xml)

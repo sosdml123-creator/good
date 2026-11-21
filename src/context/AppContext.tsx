@@ -57,6 +57,7 @@ import {
   CollectReport
 } from '../services/pendingProductsService';
 import { fetchKamisDailyPrices, applyKamisPricesToProducts } from '../services/kamisApi';
+import { IS_TOSS, requestTossLogin, disconnectToss } from '../utils/toss';
 import {
   supabase,
   isSupabaseConfigured,
@@ -216,6 +217,7 @@ interface AppContextType {
   loginWithApple: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithKakao: () => Promise<void>;
+  loginWithToss: () => Promise<void>;
   logout: () => Promise<void>;
   deleteAccount: () => Promise<void>;
   isLoginModalOpen: boolean;
@@ -3666,6 +3668,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // 토스 미니앱 전용: 토스 로그인 → 서버가 만든 일회용 토큰으로 Supabase 세션을 엽니다.
+  const loginWithToss = async () => {
+    try {
+      if (!supabase || !isSupabaseConfigured) {
+        showToast('로그인 서버에 연결할 수 없어요.', 'error');
+        return;
+      }
+      const ticket = await requestTossLogin();
+      const { data, error } = await supabase.auth.verifyOtp({ token_hash: ticket.tokenHash, type: 'magiclink' });
+      if (error || !data?.user) throw error || new Error('세션을 만들지 못했어요.');
+      setIsLoginModalOpen(false);
+      await applySignedInUser(supabase, data.user, { announce: true });
+    } catch (err: any) {
+      const msg = String(err?.message || err || '');
+      if (/cancel|취소/i.test(msg)) return;
+      console.error('Toss login error:', err);
+      showToast('토스 로그인에 실패했어요. 잠시 후 다시 시도해 주세요.', 'error');
+    }
+  };
+
   const logout = async () => {
     try {
       if (supabase && isSupabaseConfigured) {
@@ -3702,6 +3724,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       // 1. 서버의 계정과 데이터를 영구 삭제합니다. 실패하면 여기서 중단되어 기기 데이터도 그대로 남습니다.
       if (supabase && isSupabaseConfigured && !currentUser.isAnonymous) {
+        if (IS_TOSS) {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) await disconnectToss(session.access_token);
+        }
         await deleteCurrentUserAccount();
       }
       sessionUidRef.current = '';
@@ -6293,6 +6319,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         loginWithApple,
         loginWithGoogle,
         loginWithKakao,
+        loginWithToss,
         logout,
         deleteAccount,
         isLoginModalOpen,

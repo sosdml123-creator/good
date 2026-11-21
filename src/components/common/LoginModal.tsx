@@ -1,9 +1,10 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { IS_TOSS } from '../../utils/toss';
 
 export const LoginModal: React.FC = () => {
-  const { isLoginModalOpen, setIsLoginModalOpen, loginWithApple, loginWithKakao } = useApp();
+  const { isLoginModalOpen, setIsLoginModalOpen, loginWithApple, loginWithKakao, loginWithToss } = useApp();
 
   if (!isLoginModalOpen) return null;
 
@@ -44,6 +45,17 @@ export const LoginModal: React.FC = () => {
 
         {/* Social Login Buttons (Apple, Kakao 2 buttons) */}
         <div className="space-y-2.5">
+          {IS_TOSS ? (
+            <button
+              onClick={() => {
+                setIsLoginModalOpen(false);
+                loginWithToss();
+              }}
+              className="w-full h-12 bg-[#3182F6] hover:bg-[#1B64DA] active:scale-[0.99] text-white rounded-2xl flex items-center justify-center font-bold text-[14px] shadow-sm transition-all cursor-pointer"
+            >
+              토스로 계속하기
+            </button>
+          ) : (<>
           {/* Apple Login */}
           <button
             onClick={() => {
@@ -71,14 +83,19 @@ export const LoginModal: React.FC = () => {
             </svg>
             <span>카카오로 계속하기</span>
           </button>
+          </>)}
         </div>
 
         {/* Legal Notice */}
         <div className="pt-2 border-t border-gray-100 text-center">
+          {IS_TOSS ? (
+            <p className="text-[10px] text-gray-400">로그인하면 신상픽 이용약관과 개인정보 처리에 동의한 것으로 봐요.</p>
+          ) : (
           <p className="text-[10px] text-gray-400">
             로그인 시 신상픽의 <a href="/terms" target="_blank" rel="noreferrer" className="underline hover:text-gray-600">이용약관</a> 및{' '}
             <a href="/privacy" target="_blank" rel="noreferrer" className="underline hover:text-gray-600">개인정보처리방침</a>에 동의합니다.
           </p>
+          )}
         </div>
       </div>
     </div>

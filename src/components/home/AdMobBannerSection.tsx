@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { IS_TOSS } from '../../utils/toss';
 import {
   ADMOB_BANNER_UNIT_ID,
   ADMOB_CLIENT_ID,
@@ -17,6 +18,8 @@ import {
  * - slot: 구좌 식별 키. 화면마다 다르게 줘서 같은 화면의 네이티브 배너끼리 덮어쓰지 않게 함 (기본값 'home')
  */
 export const AdMobBannerSection: React.FC<{ slot?: string }> = ({ slot = 'home' }) => {
+  // 토스 미니앱은 앱인토스 광고만 허용 (서비스 오픈 정책 2-3). IS_TOSS 는 빌드 시 고정이라 훅 순서가 바뀌지 않습니다.
+  if (IS_TOSS) return null;
   const useInlineBanner = supportsInlineBanner();
   const adSlotRef = useRef<HTMLDivElement>(null);
   const isPushedRef = useRef<boolean>(false);
