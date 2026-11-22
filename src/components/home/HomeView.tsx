@@ -151,7 +151,7 @@ export const HomeView: React.FC = () => {
 
   const newProductFilterCategories = ['전체', '과자·스낵', '음료', '빵·디저트', '간편식', '패스트푸드', '아이스크림', '기타'];
 
-  // 이번 주(출시 7일 이내) 신상만, 출시 최신순으로 고정 노출
+  // 등록 2주 이내 신상만, 등록 최신순으로 고정 노출 (2주 지나면 자동으로 빠짐)
   const displayedNewProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
     return getWeeklyNewProducts(products, newProductCategoryFilter);

@@ -338,8 +338,8 @@ export const calculateProductReviewScore = (
   };
 };
 
-/** 오늘신상 노출 기간: 출시(등록)일로부터 7일 */
-export const NEW_PRODUCT_WINDOW_DAYS = 7;
+/** 신제품 구좌 노출 기간: 등록일로부터 2주(14일) */
+export const NEW_PRODUCT_WINDOW_DAYS = 14;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 const startOfDay = (time: number): number => {
@@ -380,10 +380,21 @@ export const getProductLaunchTime = (p: Product): number | null => {
   return createdDay;
 };
 
+/** 출시일이 이보다 오래된 제품은 최근에 등록했어도 신제품으로 보지 않는다 */
+const NEW_PRODUCT_MAX_RELEASE_AGE_DAYS = 60;
+
+/** 등록일(createdAt) 자정 기준 timestamp. 등록일이 없으면 출시일로 대신한다. */
+export const getProductRegisteredTime = (p: Product): number | null => {
+  const created = p.createdAt ? Date.parse(p.createdAt) : NaN;
+  if (!isNaN(created)) return startOfDay(created);
+  return getProductLaunchTime(p);
+};
+
 /**
- * Determines if a product belongs to 오늘신상: launched within the last 7 days.
- * Older products stay in the app but drop out of 오늘신상 automatically.
- * Fresh raw produce and products the admin switched off (isToday === false) are excluded.
+ * Determines if a product belongs to 신제품 구좌 (PC·모바일 공통):
+ * registered within the last 14 days. After two weeks it drops out automatically.
+ * Products whose known release date is older than 60 days, fresh raw produce
+ * and products the admin switched off (isToday === false) are excluded.
  */
 export const isRealNewProduct = (p: Product, now: number = Date.now()): boolean => {
   if (!p) return false;
@@ -395,15 +406,22 @@ export const isRealNewProduct = (p: Product, now: number = Date.now()): boolean 
 
   if (p.isToday === false) return false;
 
-  const launch = getProductLaunchTime(p);
-  if (launch === null) return false;
+  const registered = getProductRegisteredTime(p);
+  if (registered === null) return false;
 
   const today = startOfDay(now);
-  return launch <= today && today - launch <= NEW_PRODUCT_WINDOW_DAYS * DAY_MS;
+  if (registered > today || today - registered >= NEW_PRODUCT_WINDOW_DAYS * DAY_MS) return false;
+
+  const launch = getProductLaunchTime(p);
+  if (launch !== null && today - launch > NEW_PRODUCT_MAX_RELEASE_AGE_DAYS * DAY_MS) return false;
+
+  return true;
 };
 
-/** Newest launch first; id as a tie-breaker so the order never changes between renders. */
+/** Newest registration first, then newest launch; id as a tie-breaker so the order never changes between renders. */
 const compareByLaunchDesc = (a: Product, b: Product): number => {
+  const reg = (getProductRegisteredTime(b) ?? 0) - (getProductRegisteredTime(a) ?? 0);
+  if (reg !== 0) return reg;
   const diff = (getProductLaunchTime(b) ?? 0) - (getProductLaunchTime(a) ?? 0);
   if (diff !== 0) return diff;
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;

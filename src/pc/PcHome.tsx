@@ -199,7 +199,7 @@ export const PcHome: React.FC = () => {
       <PcContainer className="pt-16">
         <PcSectionHeader
           title="이번 주 신상"
-          subtitle="출시 7일 이내 신제품을 최신순으로 모았어요"
+          subtitle="등록 2주 이내 신제품을 최신순으로 모았어요"
           actionLabel="전체보기"
           onAction={() => goCategory('신제품')}
         />
