@@ -1,56 +1,11 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/app-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>신상픽 (SinSangPick) - 식음료 신제품 발견 & 솔직 리뷰</title>
-    <!-- Pretendard Variable Font (최신 고품질 가변서체) -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-    <!-- Google Fonts: Gaegu & Nanum Pen Script for Instagram Cards -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
-    <meta name="theme-color" content="#7C3AED" />
-    <meta name="description" content="새로 나온 먹거리를 가장 먼저 발견하고, 먹어본 사람들의 솔직한 평가를 확인하는 신상 식음료 리뷰 플랫폼" />
-    <!-- 네이버 서치어드바이저 소유확인: www / pc -->
-    <meta name="naver-site-verification" content="cfe6f8ef094903c99d42e5914dbc0bc7d00e33f1" />
-    <meta name="naver-site-verification" content="fd36e84eae3b69aec5638b9b363863d12a26186e" />
-    <meta name="naver-site-verification" content="7b1d705aa684d6551d018782534c72cfdf041310" />
-    <meta name="naver-site-verification" content="b2fa8168c9ed05287c6cff9e5aa8fd5075da0e86" />
-    <meta name="keywords" content="신상픽, 편의점 신상, 신제품, 신상 리뷰, 편의점 신제품, 카페 신메뉴, 과자 신상, 신상 랭킹" />
-    <!-- 검색·공유 미리보기 (네이버·구글·카카오톡) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="신상픽" />
-    <meta property="og:title" content="신상픽 - 편의점·카페 신제품 발견 & 솔직 리뷰" />
-    <meta property="og:description" content="새로 나온 먹거리를 가장 먼저 발견하고, 먹어본 사람들의 솔직한 평가를 확인하세요." />
-    <meta property="og:url" content="https://pc.sinsangpick.kr/" />
-    <meta property="og:image" content="https://www.sinsangpick.kr/logo.png" />
-    <meta property="og:locale" content="ko_KR" />
-    <meta name="twitter:card" content="summary" />
-    <!-- 대표 주소는 PC(pc.sinsangpick.kr), 모바일(www)은 alternate. 네이버 PC 검색에 PC 주소가 노출되도록 연결 -->
-    <link rel="canonical" href="https://pc.sinsangpick.kr/" />
-    <link rel="alternate" media="only screen and (max-width: 640px)" href="https://www.sinsangpick.kr/" />
-    <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"WebSite","name":"신상픽","alternateName":["SinSangPick","신상픽 앱"],"url":"https://pc.sinsangpick.kr/","description":"편의점·카페·마트 신제품 정보와 솔직 리뷰, 신상 랭킹"}
-    </script>
+    <meta name="google-adsense-account" content="ca-pub-3878859120989916" />
     <script>
-      // 앱이 쓰지 않는 주소(/asdf 등)도 홈 화면이 200으로 떠서 구글이 'Soft 404'로 분류합니다.
-      // 알려진 주소가 아니면 색인하지 않도록 noindex 를 붙입니다. (/product/:id 는 서버가 따로 처리)
-      (function() {
-        try {
-          var p = window.location.pathname.replace(/\/+$/, '').toLowerCase();
-          var known = ['', '/index.html', '/pc.html', '/about', '/privacy', '/terms', '/location', '/delete-account', '/beauty', '/auth-callback', '/auth-callback.html'];
-          if (known.indexOf(p) !== -1 || /^\/product\/[^/]+$/.test(p)) return;
-          var m = document.createElement('meta');
-          m.name = 'robots';
-          m.content = 'noindex';
-          document.head.appendChild(m);
-        } catch (e) {}
-      })();
+      (function(){try{var n=/^(capacitor:|ionic:)$/.test(location.protocol)||((location.hostname==="localhost"||location.hostname==="127.0.0.1")&&!location.port)||(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());if(n)document.documentElement.classList.add("native-app");if(!["/","/index.html","/pc.html"].includes(location.pathname)||location.search||location.hash)document.documentElement.classList.add("app-route");}catch(e){}})();
     </script>
+    <style>html.native-app #web-editorial,html.toss-app #web-editorial,html.app-route #web-editorial{display:none!important}</style>
     <script>
       // PC(데스크톱)에서 www로 들어오면 같은 경로의 PC 버전(pc.sinsangpick.kr)으로 이동.
       // 모바일·앱·로그인 콜백은 그대로. ?mobile=1 로 들어오면 이 브라우저에서는 이동하지 않음 (?mobile=0 으로 해제).
@@ -59,6 +14,7 @@
           var loc = window.location;
           if (loc.hostname !== 'www.sinsangpick.kr' && loc.hostname !== 'sinsangpick.kr') return;
           if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) return;
+          if (/^\/(?:guide(?:\/|$)|about(?:\.html)?$|editorial-policy(?:\.html)?$|contact(?:\.html)?$|privacy(?:\.html)?$|terms(?:\.html)?$|location(?:-policy\.html)?$|delete-account(?:\.html)?$|download(?:\.html)?$|presentation(?:\.html)?$)/.test(loc.pathname)) return;
           var ua = navigator.userAgent || '';
           var isMobile = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(ua) || (navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua));
           if (isMobile) return;
@@ -75,18 +31,52 @@
         } catch (e) {}
       })();
     </script>
-    <!-- 애드센스: PC 사이트(pc.sinsangpick.kr)에서만 로드. pc.html에는 빌드 때 정적 태그가 들어가므로 중복 방지 -->
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>신상픽 - 식음료 가격·열량 가이드와 상품 정보</title>
+    <!-- Pretendard Variable Font (최신 고품질 가변서체) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <!-- Google Fonts: Gaegu & Nanum Pen Script for Instagram Cards -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#7C3AED" />
+    <meta name="description" content="공개 상품 수치로 계산한 가격·열량 가이드와 식음료 정보. 단품 예산, 판매 단위, 데이터의 한계를 확인하세요." />
+    <!-- 네이버 서치어드바이저 소유확인: www / pc -->
+    <meta name="naver-site-verification" content="cfe6f8ef094903c99d42e5914dbc0bc7d00e33f1" />
+    <meta name="naver-site-verification" content="fd36e84eae3b69aec5638b9b363863d12a26186e" />
+    <meta name="naver-site-verification" content="7b1d705aa684d6551d018782534c72cfdf041310" />
+    <meta name="naver-site-verification" content="b2fa8168c9ed05287c6cff9e5aa8fd5075da0e86" />
+    <meta name="keywords" content="신상픽, 편의점 신상, 신제품, 신상 리뷰, 편의점 신제품, 카페 신메뉴, 과자 신상, 신상 랭킹" />
+    <!-- 검색·공유 미리보기 (네이버·구글·카카오톡) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="신상픽" />
+    <meta property="og:title" content="신상픽 - 식음료 데이터 가이드와 상품 정보" />
+    <meta property="og:description" content="가격·열량·제공량을 직접 비교하고 공식 수집 출처와 한계를 확인하세요." />
+    <meta property="og:url" content="https://pc.sinsangpick.kr/" />
+    <meta property="og:image" content="https://www.sinsangpick.kr/logo.png" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="https://pc.sinsangpick.kr/" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="https://www.sinsangpick.kr/" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebSite","name":"신상픽","alternateName":["SinSangPick","신상픽 앱"],"url":"https://pc.sinsangpick.kr/","description":"편의점·카페·마트 신제품 정보와 솔직 리뷰, 신상 랭킹"}
+    </script>
     <script>
+      // 앱이 쓰지 않는 주소(/asdf 등)도 홈 화면이 200으로 떠서 구글이 'Soft 404'로 분류합니다.
+      // 알려진 주소가 아니면 색인하지 않도록 noindex 를 붙입니다. (/product/:id 와 정적 문서는 서버가 따로 처리)
       (function() {
         try {
-          if (location.hostname !== 'pc.sinsangpick.kr') return;
-          document.documentElement.classList.add('pc-site');
-          if (document.querySelector('script[src*="adsbygoogle.js"]')) return;
-          var s = document.createElement('script');
-          s.async = true;
-          s.crossOrigin = 'anonymous';
-          s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916';
-          document.head.appendChild(s);
+          var p = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+          var known = ['', '/index.html', '/pc.html', '/privacy', '/terms', '/location', '/delete-account'];
+          if (known.indexOf(p) !== -1 || /^\/product\/[^/]+$/.test(p)) return;
+          var m = document.createElement('meta');
+          m.name = 'robots';
+          m.content = 'noindex';
+          document.head.appendChild(m);
         } catch (e) {}
       })();
     </script>

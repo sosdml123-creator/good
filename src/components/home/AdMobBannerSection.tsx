@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import React, { useEffect, useRef } from 'react';
 import { IS_TOSS } from '../../utils/toss';
 import {
@@ -19,7 +20,7 @@ import {
  */
 export const AdMobBannerSection: React.FC<{ slot?: string }> = ({ slot = 'home' }) => {
   // 토스 미니앱은 앱인토스 광고만 허용 (서비스 오픈 정책 2-3). IS_TOSS 는 빌드 시 고정이라 훅 순서가 바뀌지 않습니다.
-  if (IS_TOSS) return null;
+  if (IS_TOSS || !Capacitor.isNativePlatform()) return null;
   const useInlineBanner = supportsInlineBanner();
   const adSlotRef = useRef<HTMLDivElement>(null);
   const isPushedRef = useRef<boolean>(false);

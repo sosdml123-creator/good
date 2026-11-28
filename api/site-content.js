@@ -9,6 +9,7 @@
 import { verifyAdminRequest } from './_lib/adminAuth.js';
 import { sendSitemap } from './_lib/sitemap.js';
 import { sendProductPage } from './_lib/productPage.js';
+import { documentPage, guides, renderGuide, renderGuideList } from './_lib/editorial.js';
 import handleToss from './_lib/tossLogin.js';
 
 const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
@@ -101,18 +102,31 @@ export default async function handler(req, res) {
     return sendSitemap(req, res);
   }
 
+  // 독립 문서는 DB 없이도 렌더되며 React 앱을 로드하지 않습니다.
+  if (req.method === 'GET' && ['guide', 'not-found'].includes(req.query?.page)) {
+    const g = guides.find(item => item.slug === req.query?.slug);
+    const listing = req.query?.page === 'guide' && !req.query?.slug;
+    const found = req.query?.page === 'guide' && (listing || g);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', found ? 'public, s-maxage=3600' : 'no-store');
+    if (!found) res.setHeader('X-Robots-Tag', 'noindex, follow');
+    return res.status(found ? 200 : 404).send(found ? (listing ? renderGuideList() : renderGuide(g)) : documentPage({ title: '페이지를 찾을 수 없습니다', description: '존재하지 않는 주소입니다.', pathname: '/404', noindex: true, body: '<main class="wrap"><h1>페이지를 찾을 수 없습니다</h1><p><a href="/guide">가이드 목록</a> 또는 <a href="/">홈</a>에서 다시 찾아보세요.</p></main>' }));
+  }
+
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const supabaseKey = serviceKey || process.env.VITE_SUPABASE_ANON_KEY;
+
+  if (req.method === 'GET' && req.query?.page === 'product') {
+    return sendProductPage(req, res, { supabaseUrl, supabaseKey });
+  }
 
   if (!supabaseUrl || !supabaseKey) {
     return res.status(500).json({ success: false, error: 'Database credentials not configured in environment.' });
   }
 
   // 상품 상세 HTML (/product/:id) — 검색엔진·링크 미리보기용
-  if (req.method === 'GET' && req.query?.page === 'product') {
-    return sendProductPage(req, res, { supabaseUrl, supabaseKey });
-  }
+
 
   const headers = {
     apikey: supabaseKey,

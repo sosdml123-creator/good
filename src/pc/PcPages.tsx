@@ -25,7 +25,7 @@ export const PcRanking: React.FC = () => {
       <PcContainer className="pt-6">
         <PcBreadcrumb items={[{ label: '홈', onClick: () => setActiveTab('home') }, { label: '랭킹' }]} />
         <h1 className="mt-4 text-[30px] font-bold text-gray-900 tracking-tight text-center">신상 랭킹</h1>
-        <p className="mt-2 text-[14px] text-gray-500 text-center">소비자 리뷰와 관심도를 실시간으로 집계한 순위예요</p>
+        <p className="mt-2 text-[14px] text-gray-500 text-center">등록 리뷰의 평균 별점과 리뷰 수로 계산한 순위입니다. 리뷰가 없는 상품은 제외합니다.</p>
         <div className="mt-8 mb-10 flex justify-center">
           <PcTextTabs items={RANKING_CATEGORIES} value={category} onChange={setCategory} />
         </div>

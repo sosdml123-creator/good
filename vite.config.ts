@@ -1,25 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import fs from 'node:fs';
-import path from 'node:path';
-
-// 애드센스 코드는 PC 사이트(pc.sinsangpick.kr)에만 넣습니다.
-// 빌드 후 dist/index.html에 코드를 넣은 dist/pc.html을 만들고, vercel.json이 pc 주소 요청을 pc.html로 보냅니다.
-const ADSENSE_TAG = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3878859120989916" crossorigin="anonymous"></script>';
-function pcAdsenseHtml() {
-  let outDir = 'dist';
-  return {
-    name: 'pc-adsense-html',
-    apply: 'build' as const,
-    configResolved(c: { root: string; build: { outDir: string } }) { outDir = path.resolve(c.root, c.build.outDir); },
-    closeBundle() {
-      const src = path.join(outDir, 'index.html');
-      if (!fs.existsSync(src)) return;
-      const html = fs.readFileSync(src, 'utf8').replace('<head>', '<head>\n    ' + ADSENSE_TAG);
-      fs.writeFileSync(path.join(outDir, 'pc.html'), html);
-    },
-  };
-}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -30,7 +10,12 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
-      pcAdsenseHtml(),
+      {
+        name: 'toss-html-shell',
+        transformIndexHtml(html) {
+          return mode === 'toss' ? html.replace('<html lang="ko">', '<html lang="ko" class="toss-app">') : html;
+        },
+      },
       {
         name: 'discount-crawler-middleware',
         configureServer(server) {

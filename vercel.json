@@ -62,16 +62,64 @@
       "destination": "/download.html"
     },
     {
+      "source": "/guide",
+      "destination": "/guide/index.html"
+    },
+    {
+      "source": "/guide/:slug",
+      "destination": "/guide/:slug/index.html"
+    },
+    {
+      "source": "/auth-callback",
+      "destination": "/auth-callback.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/delete-account",
+      "destination": "/delete-account.html"
+    },
+    {
+      "source": "/editorial-policy",
+      "destination": "/editorial-policy.html"
+    },
+    {
+      "source": "/google7c65654b946a2f3b",
+      "destination": "/google7c65654b946a2f3b.html"
+    },
+    {
+      "source": "/location-policy",
+      "destination": "/location-policy.html"
+    },
+    {
+      "source": "/presentation",
+      "destination": "/presentation.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/location",
+      "destination": "/location-policy.html"
+    },
+    {
       "source": "/product/:id",
       "destination": "/api/site-content?page=product&id=:id"
     },
     {
-      "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
+      "source": "/((?!api(?:/|$)|assets/|guide(?:/|$)|ads\\.txt|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
       "has": [{ "type": "host", "value": "pc.sinsangpick.kr" }],
       "destination": "/pc.html"
     },
     {
-      "source": "/((?!api/|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
+      "source": "/((?!api(?:/|$)|assets/|guide(?:/|$)|ads\\.txt|app-ads\\.txt|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
     }
   ],
@@ -107,6 +155,54 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "tab"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/beauty",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
         }
       ]
     }

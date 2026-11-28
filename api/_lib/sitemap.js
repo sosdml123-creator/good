@@ -1,97 +1,34 @@
-/**
- * 검색엔진용 사이트맵 (Hobby 요금제 함수 12개 한도 때문에 /api/site-content 안에서 처리)
- * Endpoint: /sitemap.xml (vercel.json rewrite → /api/site-content?sitemap=1)
- *
- * 주요 페이지와 실제 DB에 등록된 상품 상세 주소(/product/<id>)를 내보냅니다.
- * 관리자가 삭제한 상품(시스템 레코드의 deletedProductIds)은 제외합니다.
- */
-
 import { hasSubstantiveContent } from './productPage.js';
-
-const DEFAULT_SITE_URL = 'https://www.sinsangpick.kr';
-// pc.sinsangpick.kr 로 요청하면 PC 주소 목록을 내보냅니다 (네이버·구글에 사이트별로 제출).
-const ALLOWED_HOSTS = new Set(['www.sinsangpick.kr', 'pc.sinsangpick.kr']);
-const SYSTEM_RECORD_ID = '__sinsangpick_system_banners__';
-const MAX_PRODUCTS = 45000; // 사이트맵 한 파일 상한(5만 URL) 이내
-
-const staticPages = (SITE_URL) => [
-  { loc: `${SITE_URL}/`, changefreq: 'daily', priority: '1.0' },
-  { loc: `${SITE_URL}/?tab=category&cat=${encodeURIComponent('신제품')}`, changefreq: 'daily', priority: '0.9' },
-  { loc: `${SITE_URL}/?tab=ranking`, changefreq: 'daily', priority: '0.8' },
-  { loc: `${SITE_URL}/?tab=sale`, changefreq: 'daily', priority: '0.7' },
-  { loc: `${SITE_URL}/?tab=community`, changefreq: 'daily', priority: '0.6' },
-  { loc: `${SITE_URL}/about`, changefreq: 'monthly', priority: '0.5' },
-];
-
-const escapeXml = (value) =>
-  String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-
-const toDate = (value) => {
-  const d = new Date(value);
-  return Number.isNaN(d.getTime()) ? null : d.toISOString().slice(0, 10);
-};
-
-export async function sendSitemap(req, res) {
-  const host = String(req.headers?.['x-forwarded-host'] || req.headers?.host || '').toLowerCase();
-  const SITE_URL = ALLOWED_HOSTS.has(host) ? `https://${host}` : DEFAULT_SITE_URL;
-  const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-
-  let products = [];
-  let deletedIds = new Set();
-  const reviewCounts = new Map();
-
-  if (supabaseUrl && supabaseKey) {
-    const headers = { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` };
-    try {
-      const [productRes, systemRes, reviewRes] = await Promise.all([
-        fetch(
-          `${supabaseUrl}/rest/v1/products?select=id,description,created_at,updated_at&id=neq.${encodeURIComponent(SYSTEM_RECORD_ID)}&order=created_at.desc&limit=${MAX_PRODUCTS}`,
-          { headers }
-        ),
-        fetch(`${supabaseUrl}/rest/v1/products?select=nutrition&id=eq.${encodeURIComponent(SYSTEM_RECORD_ID)}`, { headers }),
-        fetch(`${supabaseUrl}/rest/v1/reviews?select=product_id&limit=50000`, { headers }),
-      ]);
-      if (reviewRes.ok) {
-        for (const r of await reviewRes.json()) {
-          const key = String(r?.product_id || '');
-          if (key) reviewCounts.set(key, (reviewCounts.get(key) || 0) + 1);
-        }
-      }
-      if (productRes.ok) products = await productRes.json();
-      if (systemRes.ok) {
-        const rows = await systemRes.json();
-        const ids = rows?.[0]?.nutrition?.deletedProductIds;
-        if (Array.isArray(ids)) deletedIds = new Set(ids.map(String));
-      }
-    } catch (err) {
-      console.error('[sitemap] product fetch failed:', err);
-    }
+import { guides, ORIGIN } from './editorial.js';
+const SYSTEM_RECORD_ID='__sinsangpick_system_banners__';
+const escapeXml=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+export async function sendSitemap(req,res){
+ const host=String(req.headers?.['x-forwarded-host']||req.headers?.host||'').toLowerCase();
+ if(host==='www.sinsangpick.kr'||host==='sinsangpick.kr')return res.redirect(308,ORIGIN+'/sitemap.xml');
+ const pages=[['/','2026-11-27'],['/guide','2026-11-27'],['/about','2026-11-27'],['/editorial-policy','2026-11-27'],['/contact','2026-11-27'],...guides.map(g=>['/guide/'+g.slug,g.updated])];
+ const supabaseUrl=process.env.VITE_SUPABASE_URL||process.env.SUPABASE_URL;
+ const supabaseKey=process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.VITE_SUPABASE_ANON_KEY;
+ if(supabaseUrl&&supabaseKey)try{
+  const headers={apikey:supabaseKey,Authorization:'Bearer '+supabaseKey};
+  const [pr,sr,rr]=await Promise.all([
+   fetch(supabaseUrl+'/rest/v1/products?select=id,updated_at&id=neq.'+SYSTEM_RECORD_ID+'&order=created_at.desc&limit=45000',{headers}),
+   fetch(supabaseUrl+'/rest/v1/products?select=nutrition&id=eq.'+SYSTEM_RECORD_ID,{headers}),
+   fetch(supabaseUrl+'/rest/v1/reviews?select=product_id,id,user_id,rating,content,user_name,created_at&order=created_at.desc&limit=50000',{headers})
+  ]);
+  // 삭제 목록 또는 리뷰를 확인 못 하면 상품을 색인 대상으로 추측하지 않습니다.
+  if(pr.ok&&sr.ok&&rr.ok){
+   const deleted=new Set(((await sr.json())?.[0]?.nutrition?.deletedProductIds||[]).map(String));
+   const byProduct=new Map();
+   for(const r of await rr.json()){const key=String(r.product_id);const group=byProduct.get(key)||[];if(group.length<50)group.push(r);byProduct.set(key,group);}
+   for(const p of await pr.json()){
+    if(!p?.id||deleted.has(String(p.id))||!hasSubstantiveContent(p,byProduct.get(String(p.id))))continue;
+    const date=/^\d{4}-\d{2}-\d{2}/.test(p.updated_at||'')?p.updated_at.slice(0,10):null;
+    pages.push(['/product/'+encodeURIComponent(p.id),date]);
+   }
   }
-
-  const today = new Date().toISOString().slice(0, 10);
-  const urls = staticPages(SITE_URL).map(p =>
-    `  <url><loc>${escapeXml(p.loc)}</loc><lastmod>${today}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>`
-  );
-
-  for (const p of products) {
-    if (!p?.id || deletedIds.has(String(p.id))) continue;
-    // 리뷰·소개글 없는 빈약한 상품 페이지는 noindex 이므로 사이트맵에서도 뺍니다.
-    if (!hasSubstantiveContent(p, reviewCounts.get(String(p.id)) || 0)) continue;
-    const lastmod = toDate(p.updated_at) || toDate(p.created_at) || today;
-    urls.push(
-      `  <url><loc>${escapeXml(`${SITE_URL}/product/${encodeURIComponent(p.id)}`)}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>`
-    );
-  }
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
-
-  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  res.status(200).send(xml);
+ }catch(error){console.error('[sitemap]',error.message);}
+ const urls=pages.map(([p,d])=>'<url><loc>'+escapeXml(ORIGIN+p)+'</loc>'+(d?'<lastmod>'+d+'</lastmod>':'')+'</url>').join('\n');
+ res.setHeader('Content-Type','application/xml; charset=utf-8');
+ res.setHeader('Cache-Control','public, s-maxage=3600, stale-while-revalidate=86400');
+ return res.status(200).send('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls+'\n</urlset>');
 }

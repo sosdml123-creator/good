@@ -1,3 +1,4 @@
+import { GuideEntry } from './GuideEntry';
 import { FlyerSection } from '../flyer/FlyerSection';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
@@ -1336,6 +1337,7 @@ export const HomeView: React.FC = () => {
   return (
     <div className="bg-[#F6F7F9] min-h-screen pb-20 select-none relative">
       {sortedHomeSections.map((section) => renderSection(section))}
+      <GuideEntry />
 
       {/* 6. Floating Action Button (+) for Instant Review Writing */}
       <button

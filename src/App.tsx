@@ -43,6 +43,7 @@ const SignupOnboarding = lazy(() => import('./components/auth/SignupOnboarding')
 
 import { hideBanner } from './services/admobService';
 import { Capacitor } from '@capacitor/core';
+import { IS_TOSS } from './utils/toss';
 
 // Minimal fallback spinner shown during lazy load
 const TabFallback = () => (
@@ -141,10 +142,10 @@ export const App: React.FC = () => {
   }
 
   // 검색·공유 링크로 들어온 웹 방문자는 로그인 없이 상품 상세를 볼 수 있습니다 (다른 화면은 로그인 후).
-  const isWebProductLanding = !Capacitor.isNativePlatform() && activeTab === 'detail';
+  const isWebPublicLanding = !Capacitor.isNativePlatform() && !IS_TOSS && (activeTab === 'home' || activeTab === 'detail');
 
   // First-time Launch / Unauthenticated Onboarding Auth View
-  if (currentUser.isAnonymous && !isWebProductLanding) {
+  if (currentUser.isAnonymous && !isWebPublicLanding) {
     return (
       <>
         <AuthCallbackBridge />

@@ -120,14 +120,8 @@ describe('User Flow: Community & Recipes (커뮤니티 글쓰기 → 댓글 → 
   });
 
   describe('3. 꿀조합 레시피 (Recipe Flow)', () => {
-    it('[정상] 기본 레시피 데이터 정합성 검증', () => {
-      expect(INITIAL_RECIPES.length).toBeGreaterThan(0);
-      INITIAL_RECIPES.forEach((recipe) => {
-        expect(recipe.id).toBeDefined();
-        expect(recipe.title).toBeDefined();
-        expect(Array.isArray(recipe.ingredients)).toBe(true);
-        expect(Array.isArray(recipe.steps)).toBe(true);
-      });
+    it('[정책] 공개 초기 목록에 가짜 필자·좋아요가 붙은 예시 레시피를 넣지 않는다', () => {
+      expect(INITIAL_RECIPES).toEqual([]);
     });
 
     it('[엣지] 재료 목록이 빈 레시피 생성 시 크래시 방어', () => {

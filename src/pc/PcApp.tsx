@@ -16,7 +16,6 @@ import { PcStores } from './PcExtras';
 import { PcDonki } from './PcDonki';
 import { PcTteok } from './PcTteok';
 import { PcContainer } from './PcUi';
-import { PcAppDownloadBanner } from './PcAppDownloadBanner';
 
 // 자주 열지 않는 PC 화면은 필요할 때 불러옵니다. (모바일 화면은 PC에서 쓰지 않습니다)
 const Views = {
@@ -199,6 +198,7 @@ const PcHeader: React.FC = () => {
           )}
         </div>
         <nav className="flex items-center h-full gap-1">
+          <a href="/guide" className="px-4 text-[16px] font-bold text-violet-700">가이드</a>
           {NAV_ITEMS.map(item => (
             <button
               key={item.label}
@@ -237,6 +237,9 @@ const PcFooter: React.FC = () => {
         <div className="flex gap-16 text-[13px]">
           <div className="space-y-2.5">
             <p className="font-semibold text-gray-900">서비스</p>
+            <a href="/guide" className="block text-gray-500 hover:text-gray-900">데이터 가이드</a>
+            <a href="/editorial-policy" className="block text-gray-500 hover:text-gray-900">편집 원칙</a>
+            <a href="/contact" className="block text-gray-500 hover:text-gray-900">문의</a>
             <button onClick={() => setActiveTab('ranking')} className="block text-gray-500 hover:text-gray-900 cursor-pointer">신상 랭킹</button>
             <button onClick={() => setActiveTab('community')} className="block text-gray-500 hover:text-gray-900 cursor-pointer">수다방</button>
             <button onClick={() => setActiveTab('coupon')} className="block text-gray-500 hover:text-gray-900 cursor-pointer">e쿠폰</button>
@@ -299,7 +302,6 @@ export const PcApp: React.FC = () => {
       <ToastContainer />
       <PushBanner />
       <PcHeader />
-      <PcAppDownloadBanner />
 
       <main ref={mainRef} className="flex-1 min-h-0 overflow-y-auto flex flex-col">
         <Suspense fallback={<Spinner />}>

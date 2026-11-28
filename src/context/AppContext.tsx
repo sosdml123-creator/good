@@ -2035,7 +2035,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const stored = localStorage.getItem('sinsangpick_recipes');
       if (stored !== null) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        // 이전 번들이 저장한 샘플 레시피만 제거하고 이용자 작성 데이터는 유지합니다.
+        return Array.isArray(parsed) ? parsed.filter((r: RecipePost) => !/^recipe-0[0-9]+$/.test(r.id)) : [];
       }
       return INITIAL_RECIPES;
     } catch {

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.sinsangpick.kr/sitemap.xml
+Sitemap: https://pc.sinsangpick.kr/sitemap.xml

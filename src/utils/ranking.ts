@@ -54,48 +54,15 @@ export const buildReviewsByProductId = (reviews: Review[]): Map<string, Review[]
   return map;
 };
 
-/**
- * Calculates a product's real-time popularity score based on:
- * - Overall Rating / Posted Reviews (weight 20)
- * - Rating Count / Posted Reviews (weight 5)
- * - Repurchase Percent (weight 0.3)
- * - Badges: isToday (+35), isHot (+25)
- */
+/** 등록 리뷰의 평균 별점과 리뷰 수만 사용합니다. 배지·DB 집계값으로 순위를 만들지 않습니다. */
 export const calculateProductPopularity = (
-  product: Product, 
-  reviewsOrProductReviews?: Review[] | Map<string, Review[]>
+  product: Product, reviewsOrProductReviews?: Review[] | Map<string, Review[]>
 ): number => {
-  let effectiveRating = product.overallRating || 0;
-  let postedBonus = 0;
-  let totalCount = product.ratingCount || 0;
-
-  if (reviewsOrProductReviews) {
-    let posted: Review[] = [];
-    if (reviewsOrProductReviews instanceof Map) {
-      posted = reviewsOrProductReviews.get(product.id) || [];
-    } else if (Array.isArray(reviewsOrProductReviews)) {
-      // If it's already filtered for this product or the whole list
-      if (reviewsOrProductReviews.length > 0 && reviewsOrProductReviews[0]?.productId === product.id) {
-        posted = reviewsOrProductReviews;
-      } else {
-        posted = reviewsOrProductReviews.filter((r) => r.productId === product.id);
-      }
-    }
-
-    if (posted.length > 0) {
-      const sumRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
-      effectiveRating = sumRating / posted.length;
-      postedBonus = posted.length * 8;
-      totalCount = posted.length;
-    }
-  }
-
-  const ratingScore = effectiveRating * 20;
-  const countScore = (totalCount || 0) * 5;
-  const repurchaseScore = (product.repurchasePercent || 0) * 0.3;
-  const hotBonus = (product.isHot ? 25 : 0) + (product.isToday ? 35 : 0);
-
-  return ratingScore + countScore + repurchaseScore + hotBonus + postedBonus;
+  const posted = reviewsOrProductReviews instanceof Map ? (reviewsOrProductReviews.get(product.id) || []) : (reviewsOrProductReviews || []).filter(r => r.productId === product.id);
+  const valid = posted.filter(r => Number(r.rating) >= 1 && Number(r.rating) <= 5 && r.content?.trim());
+  if (!valid.length) return 0;
+  const average = valid.reduce((sum, r) => sum + r.rating, 0) / valid.length;
+  return average * 20 + Math.log10(valid.length + 1) * 10;
 };
 
 /**
@@ -103,90 +70,14 @@ export const calculateProductPopularity = (
  */
 export const getPopularProducts = (products: Product[], limit?: number, reviews?: Review[]): Product[] => {
   const reviewsMap = reviews ? buildReviewsByProductId(reviews) : undefined;
-  const sorted = [...products].sort((a, b) => {
+  const sorted = products.filter(p => calculateProductPopularity(p, reviewsMap) > 0).sort((a, b) => {
     return calculateProductPopularity(b, reviewsMap) - calculateProductPopularity(a, reviewsMap);
   });
   return limit ? sorted.slice(0, limit) : sorted;
 };
 
-/**
- * NAVER Search Volume Benchmark Database for Food & Beverages.
- * Authentic monthly search query volumes derived from NAVER DataLab and NAVER Search Trends.
- */
-interface NaverSearchBenchmark {
-  keywords: string[];
-  volume: number;
-}
-
-const NAVER_FOOD_SEARCH_BENCHMARKS: NaverSearchBenchmark[] = [
-  { keywords: ['두바이', '피스타치오 초콜릿', '두바이 초콜릿', '두바이 찹쌀떡'], volume: 348000 },
-  { keywords: ['신라면 툼바', '신라면투움바', '툼바'], volume: 226000 },
-  { keywords: ['밤티라미수', '밤 티라미수', '맛폴리'], volume: 185000 },
-  { keywords: ['점보 도시락', '점보라면', '팔도 점보', '공간춘'], volume: 142000 },
-  { keywords: ['연세우유 밤티라미수', '연세우유 생크림빵', '연세우유'], volume: 138000 },
-  { keywords: ['먹태깡', '먹태깡 청양마요'], volume: 112000 },
-  { keywords: ['비쵸비 딸기', '비쵸비'], volume: 98000 },
-  { keywords: ['아사히 수퍼드라이', '아사히 생맥주', '아사히 생맥주캔'], volume: 89000 },
-  { keywords: ['마열라면', '열라면 마늘'], volume: 84000 },
-  { keywords: ['넷플릭스 팝콘', '트러플 팝콘'], volume: 78000 },
-  { keywords: ['꼬북칩 초코츄러스', '꼬북칩'], volume: 72000 },
-  { keywords: ['테라 라이트', '제로슈거 맥주'], volume: 65000 },
-  { keywords: ['빽다방 사라다빵', '빽다방 크룽지', '크룽지'], volume: 61000 },
-  { keywords: ['홈런볼 소금버터', '소금버터 홈런볼'], volume: 58000 },
-  { keywords: ['배홍동 쫄쫄면', '배홍동'], volume: 54000 },
-  { keywords: ['비비고 통새우', '비비고 왕교자'], volume: 51000 },
-  { keywords: ['스타벅스 바닐라', '자몽허니블랙티', '오트 라떼'], volume: 49000 },
-  { keywords: ['노브랜드 닭꼬치', '데리야끼 닭꼬치', '노브랜드 초코칩'], volume: 47000 },
-  { keywords: ['햇사레 복숭아', '딱딱이 복숭아', '백도 복숭아'], volume: 45000 },
-  { keywords: ['포켓몬빵', '로켓단초코롤', '돌아온 포켓몬'], volume: 43000 },
-  { keywords: ['고창 꿀수박', '고창 수박'], volume: 41000 },
-  { keywords: ['펩시 제로', '칠성사이다 제로', '제로사이다'], volume: 38000 },
-  { keywords: ['메로나', '붕어싸만코'], volume: 36000 },
-  { keywords: ['성심당 튀김소보로', '성심당 빵'], volume: 35000 },
-  { keywords: ['불닭볶음면', '로제불닭', '까르보불닭'], volume: 34000 },
-  { keywords: ['카스타드', '초코파이 정'], volume: 31000 },
-  { keywords: ['하겐다즈'], volume: 30000 },
-  { keywords: ['이웃집통통이', '약과쿠키'], volume: 29000 },
-  { keywords: ['혜자로운 집밥', '혜자도시락'], volume: 28000 },
-  { keywords: ['주현영 비빔밥', '세븐일레븐 도시락'], volume: 26000 },
-  { keywords: ['제주 감귤', '하우스 감귤', '한라봉'], volume: 25000 },
-  { keywords: ['샤인머스캣', '산지직송 샤인머스캣'], volume: 24000 },
-  { keywords: ['나주배', '신고배'], volume: 22000 },
-  { keywords: ['한우 꽃등심', '횡성 한우', '한우 안심'], volume: 21000 },
-];
-
-/**
- * Returns the authentic NAVER search volume for a product.
- * Prioritizes keyword matching with NAVER DataLab benchmarks, then product-specific IDs,
- * followed by a normalized consumer interest score.
- */
-export const getSearchInfluxCount = (product: Product): number => {
-  const targetText = `${product.name} ${product.brand || ''}`.toLowerCase();
-
-  // 1. Match with authentic NAVER search trend benchmarks
-  for (const item of NAVER_FOOD_SEARCH_BENCHMARKS) {
-    for (const kw of item.keywords) {
-      if (targetText.includes(kw.toLowerCase())) {
-        return item.volume;
-      }
-    }
-  }
-
-  // 2. Fallback to product explicit searchInfluxCount if within realistic bounds
-  if (typeof product.searchInfluxCount === 'number' && product.searchInfluxCount > 0) {
-    return Math.min(product.searchInfluxCount, 25000);
-  }
-
-  // 3. Deterministic calculation for other food products (scaled realistically between 1,200 ~ 19,800)
-  const base = Math.round(
-    (product.ratingCount || 0) * 12 +
-    (product.overallRating || 0) * 120 +
-    (product.isHot ? 3200 : 0) +
-    (product.isToday ? 2100 : 0) +
-    (product.repurchasePercent || 0) * 15
-  );
-  return Math.min(19800, Math.max(1200, base));
-};
+// 출처 없는 고정 검색량·휴리스틱 수치를 실제 검색량처럼 표시하지 않습니다.
+export const getSearchInfluxCount = (_product: Product): number => 0;
 
 /**
  * Formats a search count into a human-readable Korean string (e.g. 34.8만, 9,420회).
@@ -204,7 +95,7 @@ export const formatSearchCount = (count: number): string => {
  * Highest searched products appear first.
  */
 export const getSearchTrendingProducts = (products: Product[], limit?: number): Product[] => {
-  const sorted = [...products].sort((a, b) => {
+  const sorted = products.filter(p => getSearchInfluxCount(p) > 0).sort((a, b) => {
     return getSearchInfluxCount(b) - getSearchInfluxCount(a);
   });
   return limit ? sorted.slice(0, limit) : sorted;
@@ -268,15 +159,12 @@ export const calculateProductReviewScore = (
   if (reviewsOrProductReviews instanceof Map) {
     posted = reviewsOrProductReviews.get(product.id) || [];
   } else if (Array.isArray(reviewsOrProductReviews)) {
-    if (reviewsOrProductReviews.length > 0 && reviewsOrProductReviews[0]?.productId === product.id) {
-      posted = reviewsOrProductReviews;
-    } else {
-      posted = reviewsOrProductReviews.filter((r) => r.productId === product.id);
-    }
+    posted = reviewsOrProductReviews.filter((r) => r.productId === product.id);
   }
 
+  posted = posted.filter(r => Number(r.rating) >= 1 && Number(r.rating) <= 5 && r.content?.trim());
   const postedCount = posted.length;
-  const totalReviewCount = postedCount > 0 ? postedCount : (product.ratingCount || 0);
+  const totalReviewCount = postedCount;
 
   // If no reviews exist, scores and ratings are strictly 0
   if (totalReviewCount === 0 || (postedCount === 0 && (!product.overallRating || product.overallRating === 0))) {
@@ -295,12 +183,12 @@ export const calculateProductReviewScore = (
   let likesBonus = 0;
 
   if (postedCount > 0) {
-    const sumPostedRating = posted.reduce((acc, r) => acc + (r.rating || 5), 0);
+    const sumPostedRating = posted.reduce((acc, r) => acc + r.rating, 0);
     effectiveRating = Number((sumPostedRating / postedCount).toFixed(1));
 
     for (let i = 0; i < posted.length; i++) {
       const r = posted[i];
-      if ((r.rating || 5) >= 4) positiveCount++;
+      if (r.rating >= 4) positiveCount++;
       likesBonus += (r.likes || 0) * 0.5;
       if (r.images && r.images.length > 0) likesBonus += 2; // Photo review bonus
     }

@@ -1,3 +1,4 @@
+import { GuideEntry } from '../components/home/GuideEntry';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ChevronLeft, ChevronRight, Star, Cookie, Coffee, Croissant, IceCream,
@@ -302,6 +303,7 @@ export const PcHome: React.FC = () => {
         </PcContainer>
       )}
 
+      <PcContainer><GuideEntry /></PcContainer>
     </div>
   );
 };

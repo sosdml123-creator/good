@@ -104,7 +104,7 @@ describe('User Flow 2 & 3: Core Features (홈 탐색 → 상품 상세 → 검�
       };
 
       const scoreResult = calculateReviewScore(freshProd, []);
-      expect(scoreResult.reviewScore).toBeGreaterThan(0);
+      expect(scoreResult.reviewScore).toBe(0); // 리뷰 없는 상품에 DB 집계값만으로 평가 점수를 만들지 않음
       expect(Number.isNaN(scoreResult.reviewScore)).toBe(false);
     });
   });
